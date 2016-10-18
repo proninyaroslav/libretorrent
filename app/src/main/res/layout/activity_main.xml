@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <include
+        layout="@layout/statusbar_kitkat" />
+
+    <RelativeLayout
+        android:gravity="center"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            class="org.proninyaroslav.libretorrent.fragments.MainFragment"
+            android:id="@+id/main_fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:orientation="horizontal">
+        </fragment>
+    </RelativeLayout>
+</FrameLayout>

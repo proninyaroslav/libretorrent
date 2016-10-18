@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/pref_key_save_torrents_in"
+        android:title="@string/pref_save_torrents_in_title"
+        android:persistent="false" />
+
+    <PreferenceCategory
+        android:title="@string/pref_move_after_download_title">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_move_after_download"
+            android:title="@string/pref_move_after_download_title"
+            android:persistent="false" />
+
+        <Preference
+            android:key="@string/pref_key_move_after_download_in"
+            android:title="@string/pref_move_after_download_in_title"
+            android:dependency="@string/pref_key_move_after_download"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_delete_torrent_file"
+        android:title="@string/pref_delete_torrent_file_title"
+        android:summary="@string/pref_delete_torrent_file_summary"
+        android:persistent="false" />
+</PreferenceScreen>

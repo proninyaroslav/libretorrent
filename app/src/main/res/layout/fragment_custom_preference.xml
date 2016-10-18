@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/save_changes_button"
+            android:transitionName="fab"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="-16dp"
+            android:elevation="6dp"
+            android:padding="14dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/fab_ripple"
+            android:stateListAnimator="@anim/fab_anim"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            android:contentDescription="@string/save"
+            android:src="@drawable/ic_save_white_24dp" />
+
+        <FrameLayout
+            android:id="@android:id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

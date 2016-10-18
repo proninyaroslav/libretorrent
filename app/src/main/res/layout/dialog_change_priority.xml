@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/min_width_dialog">
+
+    <RadioGroup
+        android:id="@+id/dialog_priorities_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_padding">
+
+        <RadioButton
+            android:id="@+id/dialog_priority_low"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/change_priority_low" />
+
+        <RadioButton
+            android:id="@+id/dialog_priority_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/change_priority_normal" />
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/dialog_priority_high"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/change_priority_high" />
+    </RadioGroup>
+</LinearLayout>

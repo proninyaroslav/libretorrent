@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="@string/pref_key_proxy_type"
+        android:title="@string/pref_proxy_type_title"
+        android:entries="@array/pref_proxy_type_entries"
+        android:entryValues="@array/pref_proxy_type_entries_value"
+        android:persistent="false" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_proxy_address"
+        android:title="@string/pref_proxy_address_title"
+        android:inputType="text|textNoSuggestions"
+        android:persistent="false" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_proxy_port"
+        android:title="@string/pref_proxy_port_title"
+        android:inputType="numberDecimal"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_proxy_peers_too"
+        android:title="@string/pref_proxy_peers_too_title"
+        android:summary="@string/pref_proxy_peers_too_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_force_proxy"
+        android:title="@string/pref_force_proxy_title"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_proxy_requires_auth"
+        android:title="@string/pref_proxy_requires_auth_title"
+        android:summary="@string/pref_proxy_requires_auth_summary"
+        android:persistent="false" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_proxy_login"
+        android:title="@string/pref_proxy_login_title"
+        android:inputType="text|textNoSuggestions"
+        android:dependency="@string/pref_key_proxy_requires_auth"
+        android:persistent="false" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_proxy_password"
+        android:title="@string/pref_proxy_password_title"
+        android:inputType="textPassword"
+        android:dependency="@string/pref_key_proxy_requires_auth"
+        android:persistent="false" />
+</PreferenceScreen>

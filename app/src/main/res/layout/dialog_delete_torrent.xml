@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/min_width_dialog">
+
+    <CheckBox
+        android:id="@+id/dialog_delete_torrent_with_downloaded_files"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_padding"
+        android:text="@string/delete_torrent_with_downloaded_files" />
+</LinearLayout>

@@ -1,0 +1,73 @@
+<resources>
+    <style name="AppTheme" parent="BaseTheme">
+    </style>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorPrimaryInverse">@color/text_primary_inverse</item>
+        <item name="android:textColorSecondaryInverse">@color/text_secondary_inverse</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@color/action_mode</item>
+        <!-- For pre-Lollipop -->
+        <item name="actionModeBackground">@color/action_mode</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
+    </style>
+
+    <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="BaseTheme.HeaderText" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseTheme.TorrentInfoText" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">@null</item>
+        <item name="android:divider">@null</item>
+    </style>
+
+    <style name="BaseTheme.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="android:background">@color/action_mode</item>
+        <item name="android:titleTextStyle">@color/text_primary_inverse</item>
+    </style>
+
+    <style name="BaseTheme.EmptyView" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:gravity">center</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="Widget.MorphButton" parent="@android:style/Widget.Holo.Button.Small">
+        <item name="vc_startDrawable">@null</item>
+        <item name="vc_endDrawable">@null</item>
+        <item name="vc_autoStartAnimation">false</item>
+    </style>
+
+    <style name="BaseTheme.BaseThemeSettings" parent="@style/PreferenceFixTheme.Light.NoActionBar">
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="preferenceCategory_marginBottom">0dp</item>
+        <item name="android:layout">@layout/fragment_custom_preference</item>
+    </style>
+
+    <style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">
+    </style>
+</resources>

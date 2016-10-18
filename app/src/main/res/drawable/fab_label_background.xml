@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow Stack -->
+    <item>
+        <shape>
+            <padding
+                android:left="1px"
+                android:right="1px"
+                android:top="1px" />
+            <solid android:color="#e7e7e7" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:left="1px"
+                android:right="1px"
+                android:top="1px" />
+            <solid android:color="#d6d6d6" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="1px" />
+            <solid android:color="#ebebeb" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="1px" />
+            <solid android:color="#dddddd" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="1px" />
+            <solid android:color="#c8c8c8" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="1px" />
+            <solid android:color="#b9b9b9" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="1px" />
+            <solid android:color="#b0b0b0" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <!-- White Top color -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white" />
+            <padding
+                android:bottom="4dp"
+                android:left="16dp"
+                android:right="16dp"
+                android:top="4dp" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+</layer-list>

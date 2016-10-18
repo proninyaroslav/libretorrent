@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="enterAlways"
+                android:transitionName="actionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        </android.support.design.widget.AppBarLayout>
+
+        <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
+            android:id="@+id/torrent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <TextView
+            android:id="@+id/empty_view_torrent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/torrent_list_empty"
+            style="@style/BaseTheme.EmptyView" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/add_torrent_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="-10dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="right|bottom"
+            android:scaleType="fitCenter"
+            android:transitionName="fab"
+            android:contentDescription="@string/add"
+            app:layout_behavior="org.proninyaroslav.libretorrent.customviews.SnackBarBehavior"
+            fab:menu_fab_size="normal"
+            fab:menu_showShadow="true"
+            fab:menu_shadowColor="@color/fab_menu_shadow"
+            fab:menu_shadowRadius="2dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="1dp"
+            fab:menu_colorNormal="@color/accent"
+            fab:menu_colorPressed="@color/accent_dark"
+            fab:menu_colorRipple="@color/accent_light"
+            fab:menu_animationDelayPerItem="50"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_textColor="@color/text_primary_inverse"
+            fab:menu_labels_textSize="14sp"
+            fab:menu_labels_cornerRadius="3dp"
+            fab:menu_labels_colorNormal="@color/fab_menu_label_normal"
+            app:menu_labels_colorPressed="@color/fab_menu_label_normal"
+            app:menu_labels_colorRipple="@color/fab_menu_label_normal"
+            fab:menu_labels_showShadow="true"
+            fab:menu_labels_singleLine="false"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_position="left"
+            fab:menu_openDirection="up"
+            fab:menu_backgroundColor="@android:color/transparent">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/add_link_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_link_white_18dp"
+                app:fab_colorNormal="@color/accent"
+                app:fab_colorPressed="@color/accent_dark"
+                app:fab_colorRipple="@color/accent_light"
+                fab:fab_size="mini"
+                fab:fab_label="@string/add_link" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/open_file_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_file_white_18dp"
+                app:fab_colorNormal="@color/accent"
+                app:fab_colorPressed="@color/accent_dark"
+                app:fab_colorRipple="@color/accent_light"
+                fab:fab_size="mini"
+                fab:fab_label="@string/open_file" />
+        </com.github.clans.fab.FloatingActionMenu>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

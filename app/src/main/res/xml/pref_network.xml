@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/pref_key_proxy_settings"
+        android:title="@string/pref_proxy_settings_title"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_dht"
+        android:title="@string/pref_enable_dht_title"
+        android:summary="@string/pref_enable_dht_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_lsd"
+        android:title="@string/pref_enable_lsd_title"
+        android:summary="@string/pref_enable_lsd_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_utp"
+        android:title="@string/pref_enable_utp_title"
+        android:summary="@string/pref_enable_utp_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_upnp"
+        android:title="@string/pref_enable_upnp_title"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_natpmp"
+        android:title="@string/pref_enable_natpmp_title"
+        android:persistent="false" />
+
+    <PreferenceCategory
+        android:title="@string/pref_port_settings_category">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_use_random_port"
+            android:title="@string/pref_use_random_port_title"
+            android:persistent="false" />
+
+        <EditTextPreference
+            android:key="@string/pref_key_port"
+            android:title="@string/pref_port_title"
+            android:inputType="numberDecimal"
+            android:dependency="@string/pref_key_use_random_port"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_encryption_category">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_enc_in_connections"
+            android:title="@string/pref_enc_in_connections_title"
+            android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_enc_out_connections"
+            android:title="@string/pref_enc_out_connections_title"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_ip_filtering_category">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_enable_ip_filtering"
+            android:title="@string/pref_enable_ip_filtering_title"
+            android:summary="@string/pref_enable_ip_filtering_summary"
+            android:persistent="false" />
+
+        <Preference
+            android:key="@string/pref_key_ip_filtering_file"
+            android:title="@string/pref_ip_filtering_file_title"
+            android:dependency="@string/pref_key_enable_ip_filtering"
+            android:persistent="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

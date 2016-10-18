@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
+        android:id="@+id/peer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/empty_view_peer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/peer_list_empty"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/pause_resume_torrent_menu"
+        android:icon="@drawable/ic_pause_white_24dp"
+        app:showAsAction="always"
+        android:title="@string/pause_torrent" />
+
+    <item android:id="@+id/delete_torrent_menu"
+        android:icon="@drawable/ic_delete_white_24dp"
+        app:showAsAction="always"
+        android:title="@string/delete" />
+
+    <item android:id="@+id/force_recheck_torrent_menu"
+        android:icon="@drawable/ic_repeat_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/force_recheck_torrent" />
+
+    <item android:id="@+id/force_announce_torrent_menu"
+        android:icon="@drawable/ic_wifi_tethering_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/force_announce_torrent" />
+
+    <item android:id="@+id/share_magnet_menu"
+        android:icon="@drawable/ic_link_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/share_magnet" />
+
+    <item android:id="@+id/save_torrent_file_menu"
+        android:icon="@drawable/ic_save_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/save_torrent_file" />
+
+    <item android:id="@+id/add_trackers_menu"
+        android:icon="@drawable/ic_playlist_add_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/add_trackers" />
+
+    <item android:id="@+id/torrent_speed_limit"
+        android:icon="@drawable/ic_speedometer_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/torrent_speed_limit" />
+</menu>

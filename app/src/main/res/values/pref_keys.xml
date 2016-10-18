@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Filemanager -->
+    <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
+    <!-- Storage settings -->
+    <string name="pref_key_save_torrents_in" translatable="false">pref_key_save_torrents_in</string>
+    <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
+    <string name="pref_key_move_after_download_in" translatable="false">pref_key_move_after_download_in</string>
+    <string name="pref_key_delete_torrent_file" translatable="false">pref_key_delete_torrent_file</string>
+    <!-- Limitations settings -->
+    <string name="pref_key_max_download_speed" translatable="false">pref_key_max_download_speed</string>
+    <string name="pref_key_max_upload_speed" translatable="false">pref_key_max_upload_speed</string>
+    <string name="pref_key_max_connections" translatable="false">pref_key_max_connections</string>
+    <string name="pref_key_max_active_uploads" translatable="false">pref_key_max_active_uploads</string>
+    <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
+    <string name="pref_key_max_active_torrents" translatable="false">pref_key_max_active_torrents</string>
+    <!-- Behavior settings -->
+    <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
+    <string name="pref_key_torrent_finish_notify" translatable="false">pref_key_torrent_finish_notify</string>
+    <string name="pref_key_play_sound_notify" translatable="false">pref_key_play_sound_notify</string>
+    <string name="pref_key_notify_sound" translatable="false">pref_key_notify_sound</string>
+    <string name="pref_key_led_indicator_notify" translatable="false">pref_key_led_indicator_notify</string>
+    <string name="pref_key_led_indicator_color_notify" translatable="false">pref_key_led_indicator_color_notify</string>
+    <string name="pref_key_vibration_notify" translatable="false">pref_key_vibration_notify</string>
+    <string name="pref_key_shutdown_downloads_complete" translatable="false">pref_key_shutdown_downloads_complete</string>
+    <string name="pref_key_cpu_do_not_sleep" translatable="false">pref_key_cpu_do_not_sleep</string>
+    <string name="pref_key_download_and_upload_only_when_charging" translatable="false">pref_key_download_and_upload_only_when_charging</string>
+    <string name="pref_key_battery_control" translatable="false">pref_key_battery_control</string>
+    <!-- Network settings -->
+    <string name="pref_key_enable_dht" translatable="false">pref_key_enable_dht</string>
+    <string name="pref_key_enable_lsd" translatable="false">pref_key_enable_lsd</string>
+    <string name="pref_key_enable_utp" translatable="false">pref_key_enable_utp</string>
+    <string name="pref_key_enable_upnp" translatable="false">pref_key_enable_upnp</string>
+    <string name="pref_key_enable_natpmp" translatable="false">pref_key_enable_natpmp</string>
+    <string name="pref_key_use_random_port" translatable="false">pref_use_key_random_port</string>
+    <string name="pref_key_port" translatable="false">pref_key_port</string>
+    <string name="pref_key_enc_in_connections" translatable="false">pref_key_enc_in_connections</string>
+    <string name="pref_key_enc_out_connections" translatable="false">pref_key_enc_out_connections</string>
+    <string name="pref_key_enable_ip_filtering" translatable="false">pref_key_enable_ip_filtering</string>
+    <string name="pref_key_ip_filtering_file" translatable="false">pref_key_ip_filtering_file</string>
+    <string name="pref_key_proxy_settings" translatable="false">pref_key_proxy_settings</string>
+    <!-- Proxy settings -->
+    <string name="pref_key_proxy_type" translatable="false">pref_key_proxy_type</string>
+    <string name="pref_key_proxy_address" translatable="false">pref_key_proxy_address</string>
+    <string name="pref_key_proxy_port" translatable="false">pref_key_proxy_port</string>
+    <string name="pref_key_proxy_peers_too" translatable="false">pref_key_proxy_peers_too</string>
+    <string name="pref_key_force_proxy" translatable="false">pref_key_force_proxy</string>
+    <string name="pref_key_proxy_requires_auth" translatable="false">pref_key_proxy_requires_auth</string>
+    <string name="pref_key_proxy_login" translatable="false">pref_key_proxy_login</string>
+    <string name="pref_key_proxy_password" translatable="false">pref_key_proxy_password</string>
+    <string name="pref_key_proxy_changed" translatable="false">pref_key_proxy_changed</string>
+    <string name="pref_key_apply_proxy" translatable="false">pref_key_apply_proxy</string>
+</resources>

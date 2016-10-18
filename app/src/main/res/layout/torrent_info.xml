@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:showDividers="middle"
+    android:divider="@drawable/table_mode_divider">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_name"
+            style="@style/BaseTheme.HeaderText" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_torrent_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/torrent_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textNoSuggestions" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:layout_marginRight="48dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_torrent_into"
+                style="@style/BaseTheme.HeaderText" />
+
+            <TextView
+                android:id="@+id/upload_torrent_into"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/BaseTheme.TorrentInfoText" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/folder_chooser_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/default_round_ripple"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_folder_grey600_24dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sequential_download"
+            style="@style/BaseTheme.HeaderText" />
+
+        <CheckBox
+            android:id="@+id/sequential_download"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/enable_sequential_download" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        android:divider="@drawable/table_mode_divider">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/torrent_size"
+                style="@style/BaseTheme.HeaderText" />
+
+            <TextView
+                android:id="@+id/torrent_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                style="@style/BaseTheme.TorrentInfoText" />
+
+            <TextView
+                android:id="@+id/free_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/torrent_file_count"
+                style="@style/BaseTheme.HeaderText" />
+
+            <TextView
+                android:id="@+id/torrent_file_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/BaseTheme.TorrentInfoText" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_hash_sum"
+            style="@style/BaseTheme.HeaderText" />
+
+        <TextView
+            android:id="@+id/torrent_hash_sum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BaseTheme.TorrentInfoText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_create_date"
+            style="@style/BaseTheme.HeaderText" />
+
+        <TextView
+            android:id="@+id/torrent_create_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BaseTheme.TorrentInfoText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_torrent_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/header_torrent_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_comment"
+            style="@style/BaseTheme.HeaderText" />
+
+        <TextView
+            android:id="@+id/torrent_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
+            style="@style/BaseTheme.TorrentInfoText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_torrent_created_in_program"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/header_torrent_created_in_program"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_created_in_program"
+            style="@style/BaseTheme.HeaderText" />
+
+        <TextView
+            android:id="@+id/torrent_created_in_program"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BaseTheme.TorrentInfoText" />
+    </LinearLayout>
+</LinearLayout>

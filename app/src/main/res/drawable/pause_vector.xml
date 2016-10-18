@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36"
+
+    app:vc_viewportWidth="36"
+    app:vc_viewportHeight="36" >
+
+    <path
+        android:name="v"
+        android:fillColor="#FFFFFF"
+        android:pathData="@string/path_pause"
+
+        app:vc_fillColor="#FFFFFF"
+        app:vc_pathData="@string/path_pause"/>
+</vector>

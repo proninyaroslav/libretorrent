@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="@string/pref_key_max_connections"
+        android:title="@string/pref_max_connections_title"
+        android:inputType="numberDecimal"
+        android:persistent="false" />
+
+    <PreferenceCategory
+        android:title="@string/pref_speed_category">
+
+        <EditTextPreference
+            android:key="@string/pref_key_max_download_speed"
+            android:title="@string/pref_max_download_speed_title"
+            android:inputType="numberDecimal"
+            android:persistent="false" />
+
+        <EditTextPreference
+            android:key="@string/pref_key_max_upload_speed"
+            android:title="@string/pref_max_upload_speed_title"
+            android:inputType="numberDecimal"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_torrent_queueing_category">
+
+        <EditTextPreference
+            android:key="@string/pref_key_max_active_downloads"
+            android:title="@string/pref_max_active_downloads_title"
+            android:inputType="numberDecimal"
+            android:persistent="false" />
+
+        <EditTextPreference
+            android:key="@string/pref_key_max_active_uploads"
+            android:title="@string/pref_max_active_uploads_title"
+            android:inputType="numberDecimal"
+            android:persistent="false" />
+
+        <EditTextPreference
+            android:key="@string/pref_key_max_active_torrents"
+            android:title="@string/pref_max_active_torrents_title"
+            android:inputType="numberDecimal"
+            android:persistent="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/delete_torrent_menu"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/delete" />
+
+    <item android:id="@+id/force_recheck_torrent_menu"
+        android:icon="@drawable/ic_repeat_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/force_recheck_torrent" />
+
+    <item android:id="@+id/force_announce_torrent_menu"
+        android:icon="@drawable/ic_wifi_tethering_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/force_announce_torrent" />
+
+    <item android:id="@+id/select_all_torrent_menu"
+        android:icon="@drawable/ic_select_all_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/select_all" />
+</menu>
