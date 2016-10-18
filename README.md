@@ -26,6 +26,10 @@ Already implemented features (help is highly desired!):
 Installation
 ---
 
+Google Play: https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent
+
+---
+
 To build you will need Android Studio:
 
   https://developer.android.com/studio/index.html 
