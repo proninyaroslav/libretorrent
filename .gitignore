@@ -1,3 +1,32 @@
+.settings
+.project
+.directory
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must ends with two \r.
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
 # Built application files
 *.apk
 *.ap_
@@ -14,7 +43,11 @@ gen/
 out/
 
 # Gradle files
+gradle/
 .gradle/
+gradlew
+gradlew.bat
+gradle.properties
 build/
 
 # Local configuration file (sdk path, etc)
@@ -34,7 +67,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea/
 
 # Keystore files
 *.jks
