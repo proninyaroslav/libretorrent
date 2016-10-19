@@ -26,7 +26,9 @@ Already implemented features (help is highly desired!):
 Installation
 ---
 
-Google Play: https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent
+**Google Play:** https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent
+
+**Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
 
 ---
 
@@ -58,7 +60,7 @@ If you want to contribute code, start by looking at the open issues on github.co
 
   https://github.com/proninyaroslav/libretorrent/issues.
 
-Make sure to write your name and email id in format Name<e-mail> in the license declaration above every file you make change to.
+Make sure to write your name and email id in format Name \<e-mail\> in the license declaration above every file you make change to.
 
 Repeat and rinse, if you send enough patches to demonstrate you have a good coding skills, we'll just give you commit access on the real repo and you will be part of the development team.
 
