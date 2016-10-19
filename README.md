@@ -26,6 +26,8 @@ Already implemented features (help is highly desired!):
 Installation
 ---
 
+**F-Droid:** **coming soon**
+
 **Google Play:** https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
