@@ -473,7 +473,6 @@ public class MainFragment extends Fragment
                     state = b.getParcelable(TorrentTaskServiceIPC.TAG_STATE);
 
                     if (state != null) {
-                        // FIXME: fix
                         fragment.get().torrentStates.put(state.torrentId, state);
                         fragment.get().reloadAdapterItem(state);
                     }
