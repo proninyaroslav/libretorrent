@@ -440,6 +440,10 @@ public class MainFragment extends Fragment
 
         @Override
         public void handleMessage(Message msg) {
+            if (fragment.get() == null) {
+                return;
+            }
+
             Bundle b;
             TorrentStateParcel state;
 
@@ -469,6 +473,7 @@ public class MainFragment extends Fragment
                     state = b.getParcelable(TorrentTaskServiceIPC.TAG_STATE);
 
                     if (state != null) {
+                        // FIXME: fix
                         fragment.get().torrentStates.put(state.torrentId, state);
                         fragment.get().reloadAdapterItem(state);
                     }

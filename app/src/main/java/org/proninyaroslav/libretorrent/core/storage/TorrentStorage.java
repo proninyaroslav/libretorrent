@@ -212,10 +212,6 @@ public class TorrentStorage
         cursor.close();
         indexCache.clear();
 
-        if (torrent != null) {
-            Log.e(TAG, torrent.toString());
-        }
-
         return torrent;
     }
 
@@ -239,10 +235,6 @@ public class TorrentStorage
 
         cursor.close();
         indexCache.clear();
-
-        for (Torrent torrent : torrents) {
-            Log.e(TAG, torrent.getId());
-        }
 
         return torrents;
     }

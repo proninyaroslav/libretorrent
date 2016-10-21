@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +34,6 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -53,7 +51,6 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,42 +123,6 @@ public class Utils
         }
 
         return files;
-    }
-
-    public static List<String> getFilesName(Collection<BencodeFileItem> files)
-    {
-        if (files == null) {
-            return null;
-        }
-
-        List<String> names = new ArrayList<>();
-
-        for (BencodeFileItem file : files) {
-            String[] components = FileIOUtils.parsePath(file.getPath());
-            names.add(components[components.length - 1]);
-        }
-
-        return names;
-    }
-
-    public static String getFileName(BencodeFileItem file)
-    {
-        if (file == null) {
-            return null;
-        }
-
-        String[] components = FileIOUtils.parsePath(file.getPath());
-
-        return components[components.length - 1];
-    }
-
-    public static Notification buildNotification(NotificationCompat.Builder builder)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            return builder.getNotification();
-        }
-
-        return builder.build();
     }
 
     public static void setBackground(View v, Drawable d)

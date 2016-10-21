@@ -169,6 +169,8 @@ public class AddTorrentFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
         }
 
+        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+
         Utils.showColoredStatusBar_KitKat(activity);
 
         toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
@@ -351,7 +353,6 @@ public class AddTorrentFragment extends Fragment
         AddTorrentFilesFragment fragmentFile = AddTorrentFilesFragment.newInstance(info.getFiles());
 
         viewPager = (ViewPager) activity.findViewById(R.id.add_torrent_viewpager);
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
         adapter.addFragment(fragmentInfo, INFO_FRAG_POS, getString(R.string.torrent_info));
         adapter.addFragment(fragmentFile, FILE_FRAG_POS, getString(R.string.torrent_files));
         viewPager.setAdapter(adapter);

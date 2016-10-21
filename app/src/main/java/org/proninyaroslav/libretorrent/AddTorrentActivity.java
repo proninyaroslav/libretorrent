@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -112,48 +113,59 @@ public class AddTorrentActivity extends AppCompatActivity
         dismissProgress();
 
         if (e != null) {
-            sentError = e;
-            
             if (e instanceof DecodeException) {
                 if (getFragmentManager().findFragmentByTag(TAG_DECODE_EXCEPT_DIALOG) == null) {
-                    ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                            getApplicationContext(),
+                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                             getString(R.string.error),
                             getString(R.string.error_decode_torrent),
-                            Log.getStackTraceString(e),
+                            0,
+                            getString(R.string.ok),
+                            null,
+                            null,
                             R.style.BaseTheme_Dialog,
                             this);
 
-                    errDialog.show(getFragmentManager(), TAG_DECODE_EXCEPT_DIALOG);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(errDialog, TAG_DECODE_EXCEPT_DIALOG);
+                    ft.commitAllowingStateLoss();
                 }
 
             } else if (e instanceof FetchLinkException) {
                 if (getFragmentManager().findFragmentByTag(TAG_FETCH_EXCEPT_DIALOG) == null) {
-                    ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                            getApplicationContext(),
+                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                             getString(R.string.error),
                             getString(R.string.error_fetch_link),
-                            Log.getStackTraceString(e),
+                            0,
+                            getString(R.string.ok),
+                            null,
+                            null,
                             R.style.BaseTheme_Dialog,
                             this);
 
-                    errDialog.show(getFragmentManager(), TAG_FETCH_EXCEPT_DIALOG);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(errDialog, TAG_FETCH_EXCEPT_DIALOG);
+                    ft.commitAllowingStateLoss();
                 }
 
             } else if (e instanceof IllegalArgumentException) {
                 if (getFragmentManager().findFragmentByTag(TAG_ILLEGAL_ARGUMENT) == null) {
-                    ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                            getApplicationContext(),
+                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                             getString(R.string.error),
                             getString(R.string.error_invalid_link_or_path),
-                            Log.getStackTraceString(e),
+                            0,
+                            getString(R.string.ok),
+                            null,
+                            null,
                             R.style.BaseTheme_Dialog,
                             this);
 
-                    errDialog.show(getFragmentManager(), TAG_ILLEGAL_ARGUMENT);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(errDialog, TAG_ILLEGAL_ARGUMENT);
+                    ft.commitAllowingStateLoss();
                 }
 
             } else if (e instanceof IOException) {
+                sentError = e;
                 if (getFragmentManager().findFragmentByTag(TAG_IO_EXCEPT_DIALOG) == null) {
                     ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                             getApplicationContext(),
@@ -163,7 +175,9 @@ public class AddTorrentActivity extends AppCompatActivity
                             R.style.BaseTheme_Dialog,
                             this);
 
-                    errDialog.show(getFragmentManager(), TAG_IO_EXCEPT_DIALOG);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(errDialog, TAG_IO_EXCEPT_DIALOG);
+                    ft.commitAllowingStateLoss();
                 }
             }
         }

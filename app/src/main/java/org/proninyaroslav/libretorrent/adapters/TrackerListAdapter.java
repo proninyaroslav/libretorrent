@@ -133,7 +133,7 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         items.clear();
         items.addAll(states);
 
-        notifyItemRangeChanged(0, items.size());
+        notifyDataSetChanged();
     }
 
     public boolean isEmpty()
