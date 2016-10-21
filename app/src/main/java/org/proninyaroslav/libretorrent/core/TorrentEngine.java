@@ -194,7 +194,7 @@ public class TorrentEngine implements TorrentEngineInterface
                     case ADD_TORRENT:
                         TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
 
-                        Sha1Hash sha1hash = torrentAlert.handle().infoHash();
+                        Sha1Hash sha1hash = torrentAlert.handle().getInfoHash();
                         Torrent torrent = addTorrentsQueue.get(sha1hash.toString());
 
                         if (torrent != null) {
@@ -293,7 +293,7 @@ public class TorrentEngine implements TorrentEngineInterface
 
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            if (handle.torrentFile().numFiles() != priorities.length) {
+            if (handle.getTorrentInfo().numFiles() != priorities.length) {
                 return;
             }
 
@@ -302,7 +302,7 @@ public class TorrentEngine implements TorrentEngineInterface
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, handle.torrentFile().numFiles());
+                    Priority.array(Priority.NORMAL, handle.getTorrentInfo().numFiles());
 
             handle.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -416,19 +416,19 @@ public class TorrentEngine implements TorrentEngineInterface
         sp.broadcastLSD(true);
 
         int maxQueuedDiskBytes = sp.maxQueuedDiskBytes();
-        sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
+        sp.setMaxQueuedDiskBytes(maxQueuedDiskBytes / 2);
         int sendBufferWatermark = sp.sendBufferWatermark();
-        sp.sendBufferWatermark(sendBufferWatermark / 2);
-        sp.cacheSize(DEFAULT_CACHE_SIZE);
+        sp.setSendBufferWatermark(sendBufferWatermark / 2);
+        sp.setCacheSize(DEFAULT_CACHE_SIZE);
         sp.activeDownloads(DEFAULT_ACTIVE_DOWNLOADS);
         sp.activeSeeds(DEFAULT_ACTIVE_SEEDS);
         sp.activeLimit(DEFAULT_ACTIVE_LIMIT);
-        sp.maxPeerlistSize(DEFAULT_MAX_PEER_LIST_SIZE);
-        sp.guidedReadCache(true);
-        sp.tickInterval(DEFAULT_TICK_INTERVAL);
-        sp.inactivityTimeout(DEFAULT_INACTIVITY_TIMEOUT);
-        sp.seedingOutgoingConnections(false);
-        sp.connectionsLimit(DEFAULT_CONNECTIONS_LIMIT);
+        sp.setMaxPeerlistSize(DEFAULT_MAX_PEER_LIST_SIZE);
+        sp.setGuidedReadCache(true);
+        sp.setTickInterval(DEFAULT_TICK_INTERVAL);
+        sp.setInactivityTimeout(DEFAULT_INACTIVITY_TIMEOUT);
+        sp.setSeedingOutgoingConnections(false);
+        sp.setConnectionsLimit(DEFAULT_CONNECTIONS_LIMIT);
 
         setSettings(sp);
     }
@@ -462,7 +462,7 @@ public class TorrentEngine implements TorrentEngineInterface
         }
 
         SettingsPack settingsPack = session.getSettingsPack();
-        settingsPack.downloadRateLimit(limit);
+        settingsPack.setDownloadRateLimit(limit);
         setSettings(settingsPack);
     }
 
@@ -484,7 +484,7 @@ public class TorrentEngine implements TorrentEngineInterface
         }
 
         SettingsPack settingsPack = session.getSettingsPack();
-        settingsPack.uploadRateLimit(limit);
+        settingsPack.setUploadRateLimit(limit);
         session.applySettings(settingsPack);
         setSettings(settingsPack);
     }

@@ -86,7 +86,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
         this.th = handle;
         this.torrent = torrent;
         this.callback = callback;
-        TorrentInfo ti = th.torrentFile();
+        TorrentInfo ti = th.getTorrentInfo();
         this.parts = ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null;
 
         engine.getSession().addListener(this);
@@ -164,7 +164,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     public void saveResumeData(SaveResumeDataAlert alert)
     {
         long now = System.currentTimeMillis();
-        final TorrentStatus status = th.status();
+        final TorrentStatus status = th.getStatus();
 
         boolean forceSerialization = status.isFinished() || status.isPaused();
         if (forceSerialization || (now - lastSaveResumeTime) >= SAVE_RESUME_SYNC_TIME) {
@@ -242,13 +242,13 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public int getProgress()
     {
-        float fp = th.status().progress();
+        float fp = th.getStatus().getProgress();
 
         if (Float.compare(fp, 1f) == 0) {
             return 100;
         }
 
-        int p = (int) (th.status().progress() * 100);
+        int p = (int) (th.getStatus().getProgress() * 100);
 
         return Math.min(p, 100);
     }
@@ -262,7 +262,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
 
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            if (th.torrentFile().numFiles() != priorities.length) {
+            if (th.getTorrentInfo().numFiles() != priorities.length) {
                 return;
             }
 
@@ -271,7 +271,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, th.torrentFile().numFiles());
+                    Priority.array(Priority.NORMAL, th.getTorrentInfo().numFiles());
 
             th.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -280,7 +280,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public long getSize()
     {
-        TorrentInfo info = th.torrentFile();
+        TorrentInfo info = th.getTorrentInfo();
 
         return info != null ? info.totalSize() : 0;
     }
@@ -288,13 +288,13 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public long getDownloadSpeed()
     {
-        return (isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
+        return (isFinished() || isPaused() || isSeeding()) ? 0 : th.getStatus().getDownloadPayloadRate();
     }
 
     @Override
     public long getUploadSpeed()
     {
-        return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
+        return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.getStatus().getUploadPayloadRate();
     }
 
     @Override
@@ -344,7 +344,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
 
             long[] progress = th.getFileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
 
-            TorrentInfo ti = th.torrentFile();
+            TorrentInfo ti = th.getTorrentInfo();
             FileStorage fs = ti.files();
 
             String prefix = torrent.getDownloadPath();
@@ -386,61 +386,61 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public int getActiveTime()
     {
-        return th.status().activeTime();
+        return th.getStatus().getActiveTime();
     }
 
     @Override
     public int getSeedingTime()
     {
-        return th.status().seedingTime();
+        return th.getStatus().getSeedingTime();
     }
 
     @Override
     public long getReceivedBytes()
     {
-        return th.status().totalPayloadDownload();
+        return th.getStatus().totalPayloadDownload();
     }
 
     @Override
     public long getTotalReceivedBytes()
     {
-        return th.status().allTimeDownload();
+        return th.getStatus().getAllTimeDownload();
     }
 
     @Override
     public long getSentBytes()
     {
-        return th.status().totalPayloadUpload();
+        return th.getStatus().totalPayloadUpload();
     }
 
     @Override
     public long getTotalSentBytes()
     {
-        return th.status().allTimeUpload();
+        return th.getStatus().getAllTimeUpload();
     }
 
     @Override
     public int getConnectedPeers()
     {
-        return th.status().numPeers();
+        return th.getStatus().getNumPeers();
     }
 
     @Override
     public int getConnectedSeeds()
     {
-        return th.status().numSeeds();
+        return th.getStatus().getNumSeeds();
     }
 
     @Override
     public int getTotalPeers()
     {
-        return th.status().listPeers();
+        return th.getStatus().getListPeers();
     }
 
     @Override
     public int getTotalSeeds()
     {
-        return th.status().listSeeds();
+        return th.getStatus().getListSeeds();
     }
 
     @Override
@@ -483,13 +483,13 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public TorrentStatus getTorrentStatus()
     {
-        return th.status();
+        return th.getStatus();
     }
 
     @Override
     public long getTotalWanted()
     {
-        return th.status().totalWanted();
+        return th.getStatus().getTotalWanted();
     }
 
     @Override
@@ -518,7 +518,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public boolean[] pieces()
     {
-        bitfield bitfield = th.status().pieces().swig();
+        bitfield bitfield = th.getStatus().pieces().swig();
         boolean[] pieces = new boolean[bitfield.size()];
 
         for (int i =0; i < bitfield.size(); i++) {
@@ -546,14 +546,14 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
             return 0;
         }
 
-        TorrentInfo ti = th.torrentFile();
+        TorrentInfo ti = th.getTorrentInfo();
         if (ti == null) {
             return 0;
         }
 
-        TorrentStatus status = th.status();
-        long left = ti.totalSize() - status.totalDone();
-        long rate = status.downloadPayloadRate();
+        TorrentStatus status = th.getStatus();
+        long left = ti.totalSize() - status.getTotalDone();
+        long rate = status.getDownloadPayloadRate();
 
         if (left <= 0) {
             return 0;
@@ -569,7 +569,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public TorrentInfo getTorrentInfo()
     {
-        return th.torrentFile();
+        return th.getTorrentInfo();
     }
 
     @Override
@@ -605,7 +605,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public int getNumDownloadedPieces()
     {
-        return th.status().numPieces();
+        return th.getStatus().getNumPieces();
     }
 
     @Override
@@ -614,7 +614,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
         long uploaded = getTotalSentBytes();
 
         long allTimeReceived = getTotalReceivedBytes();
-        long totalDone = th.status().totalDone();
+        long totalDone = th.getStatus().getTotalDone();
 
         /*
          * Special case for a seeder who lost its stats,
@@ -678,7 +678,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
             return TorrentStateCode.ERROR;
         }
 
-        TorrentStatus status = th.status();
+        TorrentStatus status = th.getStatus();
 
         if (status.isPaused() && status.isFinished()) {
             return TorrentStateCode.FINISHED;
@@ -692,7 +692,7 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
             return TorrentStateCode.SEEDING;
         }
 
-        TorrentStatus.State stateCode = status.state();
+        TorrentStatus.State stateCode = status.getState();
 
         switch (stateCode) {
             case QUEUED_FOR_CHECKING:
@@ -721,19 +721,19 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public boolean isPaused()
     {
-        return th.status(true).isPaused() || engine.isPaused() || !engine.isStarted();
+        return th.getStatus(true).isPaused() || engine.isPaused() || !engine.isStarted();
     }
 
     @Override
     public boolean isSeeding()
     {
-        return th.status().isSeeding();
+        return th.getStatus().isSeeding();
     }
 
     @Override
     public boolean isFinished()
     {
-        return th.status().isFinished();
+        return th.getStatus().isFinished();
     }
 
     @Override
@@ -745,6 +745,6 @@ public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownl
     @Override
     public boolean isSequentialDownload()
     {
-        return th.status().isSequentialDownload();
+        return th.getStatus().isSequentialDownload();
     }
 }

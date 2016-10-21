@@ -525,7 +525,7 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_max_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        sp.connectionsLimit(pref.getInt(item.key(), TorrentEngine.DEFAULT_CONNECTIONS_LIMIT));
+                        sp.setConnectionsLimit(pref.getInt(item.key(), TorrentEngine.DEFAULT_CONNECTIONS_LIMIT));
                         engineTask.getEngine().setSettings(sp);
                     }
 
