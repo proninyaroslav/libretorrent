@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -20,7 +20,6 @@ android {
         }
     }
 }
-
 repositories {
     mavenCentral()
     maven {
@@ -28,7 +27,7 @@ repositories {
     }
 }
 
-def ANDROID_SUPPORT_VERSION='24.2.1'
+def ANDROID_SUPPORT_VERSION='25.0.0'
 def JLIBTORRENT_VERSION='1.1.1.37'
 
 dependencies {
