@@ -44,9 +44,6 @@ out/
 
 # Gradle files
 .gradle/
-gradlew
-gradlew.bat
-gradle.properties
 build/
 
 # Local configuration file (sdk path, etc)
