@@ -15,7 +15,6 @@ Already implemented features (help is highly desired!):
  - Ability to fine tune (network settings, power management, battery control, UI settings, etc.)
  - Supports torrents with large number of files and big files
  - HTTP\S and magnet links support
- - Tor support (using Orbot https://guardianproject.info/apps/orbot)
  - Support proxy for trackers and peers
  - Ability to move files while downloading
  - Ability to automatic movement of files to another directory or to an external drive at the end of download
