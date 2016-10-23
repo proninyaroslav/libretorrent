@@ -74,6 +74,7 @@ public class TorrentEngine implements TorrentEngineInterface
     public static final int DEFAULT_PORT = 6881;
     public static final int DEFAULT_PROXY_PORT = 8080;
     public static final int DEFAULT_TOR_PORT = 9050;
+    public static final int MAX_PORT_NUMBER = 65534;
     public static final boolean DEFAULT_DHT_ENABLED = true;
     public static final boolean DEFAULT_LSD_ENABLED = true;
     public static final boolean DEFAULT_UTP_ENABLED = true;

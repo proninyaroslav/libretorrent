@@ -123,7 +123,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(randomPort);
 
         InputFilter[] portFilter =
-                new InputFilter[]{ new InputFilterMinMax(0, 10000)};
+                new InputFilter[]{ new InputFilterMinMax(0, TorrentEngine.MAX_PORT_NUMBER)};
         String keyPort = getString(R.string.pref_key_port);
         EditTextPreference port = (EditTextPreference) findPreference(keyPort);
         int portNumber = pref.getInt(keyPort, -1);
