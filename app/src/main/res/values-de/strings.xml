@@ -257,7 +257,7 @@
     <string name="pref_battery_control_title">Kritischer Ladezustand</string>
     <string name="pref_battery_control_summary" formatted="false">Pausiere alle Torrents wenn der Akkustand unter %1$d%% fällt. Diese Einschränkung zählt nicht, wenn das Gerät geladen wird</string>
     <!-- Network settings -->
-    <string name="pref_proxy_settings_title">Proxy und Tor Einstellungen</string>
+    <string name="pref_proxy_settings_title">Proxy Einstellungen</string>
     <string name="pref_enable_dht_title">DHT einschalten</string>
     <string name="pref_enable_dht_summary">Erlaubt BitTorrent-Clients sich gegenseitig ohne Tracker zu finden</string>
     <string name="pref_enable_lsd_title">LSD einschalten</string>
@@ -280,7 +280,6 @@
     <string name="pref_proxy_type_title">Proxytyp</string>
     <string-array name="pref_proxy_type_entries">
         <item>(Keiner)</item>
-        <item>Tor</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
@@ -294,8 +293,6 @@
     <string name="pref_proxy_requires_auth_summary">Warnung: Passwort wird unverschlüsselt gespeichert</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Password</string>
-    <string name="dialog_install_orbot_title">Orbot ist nicht nicht installiert</string>
-    <string name="dialog_install_orbot_summary">Um Tor zu aktivieren musst du Orbot installiert haben.\n(Siehe https://guardianproject.info/apps/orbot/ )</string>
 
     <!-- About dialog -->
     <string name="about_title">Über LibreTorrent</string>

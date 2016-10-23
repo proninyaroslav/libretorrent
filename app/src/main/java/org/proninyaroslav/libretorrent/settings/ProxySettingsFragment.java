@@ -38,19 +38,13 @@ import com.takisoft.fix.support.v7.preference.SwitchPreferenceCompat;
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.dialogs.SupportBaseAlertDialog;
-
-import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 public class ProxySettingsFragment extends PreferenceFragmentCompat
         implements
-        Preference.OnPreferenceChangeListener,
-        SupportBaseAlertDialog.OnClickListener
+        Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = ProxySettingsFragment.class.getSimpleName();
-
-    private static final String TAG_INSTALL_ORBOT_DIALOG = "install_orbot_dialog";
 
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton saveChangesButton;
@@ -102,8 +96,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         proxyType.setValueIndex(type);
         String typesName[] = getResources().getStringArray(R.array.pref_proxy_type_entries);
         proxyType.setSummary(typesName[type]);
-        enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value)) &&
-                type != Integer.parseInt(getString(R.string.pref_proxy_type_tor_value));
+        enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value));
         bindOnPreferenceChangeListener(proxyType);
 
         String keyAddress = getString(R.string.pref_key_proxy_address);
@@ -221,19 +214,11 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         if (preference.getKey().equals(getString(R.string.pref_key_proxy_type))) {
             int type = Integer.parseInt((String) newValue);
 
-            if (type == Integer.parseInt(getString(R.string.pref_proxy_type_tor_value)) &&
-                    !OrbotHelper.isOrbotInstalled(getActivity().getApplicationContext())) {
-
-                showInstallOrbotDialog();
-
-                return false;
-            }
             pref.put(preference.getKey(), type);
             String typesName[] = getResources().getStringArray(R.array.pref_proxy_type_entries);
             preference.setSummary(typesName[type]);
 
-            boolean enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value)) &&
-                    type != Integer.parseInt(getString(R.string.pref_proxy_type_tor_value));
+            boolean enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value));
             enableOrDisablePreferences(enableAdvancedSettings);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_port))) {
@@ -267,40 +252,5 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         }
 
         return true;
-    }
-
-    private void showInstallOrbotDialog() {
-        if (getFragmentManager().findFragmentByTag(TAG_INSTALL_ORBOT_DIALOG) == null) {
-            SupportBaseAlertDialog permDialog = SupportBaseAlertDialog.newInstance(
-                    getString(R.string.dialog_install_orbot_title),
-                    null, /* Set in onShow() method, need for make clickable URL */
-                    R.layout.dialog_install_orbot,
-                    getString(R.string.install),
-                    getString(R.string.cancel),
-                    null,
-                    R.style.BaseTheme_Dialog,
-                    this);
-
-            permDialog.show(getFragmentManager(), TAG_INSTALL_ORBOT_DIALOG);
-        }
-    }
-
-    @Override
-    public void onPositiveClicked(@Nullable View v)
-    {
-        /* Open Orbot install page (Google Play or F-Droid) */
-        startActivity(OrbotHelper.getOrbotInstallIntent(getActivity().getApplicationContext()));
-    }
-
-    @Override
-    public void onNegativeClicked(@Nullable View v)
-    {
-        /* Nothing */
-    }
-
-    @Override
-    public void onNeutralClicked(@Nullable View v)
-    {
-        /* Nothing */
     }
 }

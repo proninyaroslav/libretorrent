@@ -51,8 +51,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
-import info.guardianproject.netcipher.proxy.OrbotHelper;
-
 /*
  * This class is designed for seeding, downloading and management of torrents.
  */
@@ -628,10 +626,6 @@ public class TorrentEngine implements TorrentEngineInterface
 
         settings_pack.proxy_type_t type = settings_pack.proxy_type_t.none;
         switch (proxy.getType()) {
-            case TOR:
-                enableTor(context, sp, proxy.isForceProxy());
-
-                return;
             case SOCKS4:
                 type = settings_pack.proxy_type_t.socks4;
                 break;
@@ -659,22 +653,6 @@ public class TorrentEngine implements TorrentEngineInterface
         } else {
             sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), false);
         }
-
-        setSettings(sp);
-    }
-
-    private void enableTor(Context context, SettingsPack sp, boolean forceProxy)
-    {
-        if (!OrbotHelper.isOrbotInstalled(context)) {
-            return;
-        }
-
-        OrbotHelper.requestStartTor(context);
-
-        sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), settings_pack.proxy_type_t.socks5.swigValue());
-        sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), DEFAULT_TOR_PORT);
-        sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), "localhost");
-        sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), forceProxy);
 
         setSettings(sp);
     }

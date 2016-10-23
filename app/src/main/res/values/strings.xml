@@ -258,7 +258,7 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary" formatted="false">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <!-- Network settings -->
-    <string name="pref_proxy_settings_title">Proxy and Tor settings</string>
+    <string name="pref_proxy_settings_title">Proxy settings</string>
     <string name="pref_enable_dht_title">Enable DHT</string>
     <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker</string>
     <string name="pref_enable_lsd_title">Enable LSD</string>
@@ -281,19 +281,16 @@
     <string name="pref_proxy_type_title">Proxy type</string>
     <string-array name="pref_proxy_type_entries">
         <item>(None)</item>
-        <item>Tor</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
     <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_tor_value" translatable="false">1</string>
     <string name="pref_proxy_type_socks4_value" translatable="false">2</string>
     <string name="pref_proxy_type_socks5_value" translatable="false">3</string>
     <string name="pref_proxy_type_http_value" translatable="false">4</string>
     <string-array name="pref_proxy_type_entries_value" translatable="false">
         <item>@string/pref_proxy_type_none_value</item>
-        <item>@string/pref_proxy_type_tor_value</item>
         <item>@string/pref_proxy_type_socks4_value</item>
         <item>@string/pref_proxy_type_socks5_value</item>
         <item>@string/pref_proxy_type_http_value</item>
@@ -307,8 +304,6 @@
     <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Password</string>
-    <string name="dialog_install_orbot_title">Orbot not installed</string>
-    <string name="dialog_install_orbot_summary">For enable Tor you must install Orbot \n(see https://guardianproject.info/apps/orbot/ )</string>
 
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>

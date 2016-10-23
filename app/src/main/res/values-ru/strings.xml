@@ -240,7 +240,7 @@
     <string name="pref_battery_control_title">Контроль заряда аккумулятора</string>
     <string name="pref_battery_control_summary" formatted="false">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. Ограничение не действует во время зарядки</string>
     <!-- Network settings -->
-    <string name="pref_proxy_settings_title">Настройки прокси и Tor</string>
+    <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
     <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера</string>
     <string name="pref_enable_lsd_title">Включить LSD</string>
@@ -263,7 +263,6 @@
     <string name="pref_proxy_type_title">Тип прокси</string>
     <string-array name="pref_proxy_type_entries">
         <item>(Нет)</item>
-        <item>Tor</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
@@ -277,8 +276,6 @@
     <string name="pref_proxy_requires_auth_summary">Внимание: пароль хранится в незашифрованном виде</string>
     <string name="pref_proxy_login_title">Логин</string>
     <string name="pref_proxy_password_title">Пароль</string>
-    <string name="dialog_install_orbot_title">Orbot не установлен</string>
-    <string name="dialog_install_orbot_summary">Для включения Tor необходимо установить Orbot \n(см. https://guardianproject.info/apps/orbot )</string>
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>
