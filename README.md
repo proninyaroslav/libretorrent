@@ -57,6 +57,7 @@ Current languages:
  - Russian
  - German (thanks vanitasvitae)
  - Lithuanian (thanks techwebpd)
+ - Polish (thanks Azaradel)
 
 Contributors
 ---
