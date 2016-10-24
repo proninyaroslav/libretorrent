@@ -263,7 +263,12 @@ public class Utils
             return null;
         }
 
-        return clipboard.getPrimaryClip().getItemAt(0).getText().toString();
+        CharSequence text = clipboard.getPrimaryClip().getItemAt(0).getText();
+        if (text == null) {
+            return null;
+        }
+
+        return text.toString();
     }
 
     public static void reportError(Throwable error, String comment)
