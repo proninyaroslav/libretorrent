@@ -118,7 +118,7 @@
     <string name="upload_torrent_into">Wyślij do</string>
     <string name="torrent_size">Wielkość</string>
     <string name="torrent_file_count">Liczba plików</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Hash</string>
     <string name="torrent_comment">Komentarz</string>
     <string name="torrent_create_date">Torrent utworzono</string>
     <string name="torrent_created_in_program">Torrent utworzono w programie</string>
@@ -158,9 +158,9 @@
     <string name="torrent_speed">Prędkość</string>
     <string name="torrent_downloaded">Pobrano</string>
     <string name="torrent_ETA">Czas do końca</string>
-    <string name="torrent_seeds">Seeds</string>
-    <string name="torrent_peers">Peers</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_seeds">Seedy</string>
+    <string name="torrent_peers">Peery</string>
+    <string name="torrent_leechers">Leechery</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Wysłano</string>
