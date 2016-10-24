@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name" translatable="false">LibreTorrent</string>
     <string name="ok">OK</string>
     <string name="cancel">Anuluj</string>
     <string name="yes">Tak</string>
@@ -285,16 +284,6 @@
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">2</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">3</string>
-    <string name="pref_proxy_type_http_value" translatable="false">4</string>
-    <string-array name="pref_proxy_type_entries_value" translatable="false">
-        <item>@string/pref_proxy_type_none_value</item>
-        <item>@string/pref_proxy_type_socks4_value</item>
-        <item>@string/pref_proxy_type_socks5_value</item>
-        <item>@string/pref_proxy_type_http_value</item>
-    </string-array>
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Użyj również do połączeń peer</string>
@@ -307,8 +296,6 @@
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>
-    <string name="about_website" translatable="false">https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent jest Wolnym klientem sieci torrent dla urządzeń z wersją Android 4+, opartym na libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent jest Wolnym Oprogramowaniem, opublikowanym na zasadach zawartych w licencji GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
-    <string name="about_changelog_link" translatable="false">https://github.com/proninyaroslav/libretorrent/NEWS</string>
 </resources>
