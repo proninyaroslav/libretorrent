@@ -275,8 +275,8 @@
     <string name="pref_enc_out_connections_title">Outgoing connections</string>
     <string name="pref_ip_filtering_category">IP filtering</string>
     <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
-    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the displayFilter may take some time to be applied at startup</string>
-    <string name="pref_ip_filtering_file_title">Path to displayFilter file (.dat, .p2p)</string>
+    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
+    <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
     <string-array name="pref_proxy_type_entries">
