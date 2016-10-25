@@ -26,13 +26,13 @@ import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.UUID;
 
 public class TorrentUtils
 {
@@ -187,15 +187,22 @@ public class TorrentUtils
 
     public static File createTempTorrentFile(byte[] data, File saveDir) throws Exception
     {
-        TorrentMetaInfo info = new TorrentMetaInfo(data);
+        return createTorrentFile(UUID.randomUUID().toString(), data, saveDir);
+    }
 
-        return createTorrentFile(info.getSha1Hash(), data, saveDir);
+    /*
+     * Returns empty torrent file as "random_number.torrent".
+     */
+
+    public static File createTempTorrentFile(File saveDir)
+    {
+        return new File(saveDir, UUID.randomUUID().toString() + ".torrent");
     }
 
 
     public static File createTorrentFile(String name, byte[] data, File saveDir) throws Exception
     {
-        if (name== null || data == null || saveDir == null) {
+        if (name == null || data == null || saveDir == null) {
             return null;
         }
 

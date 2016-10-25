@@ -8,7 +8,7 @@ import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpException;
-import cz.msebera.android.httpclient.HttpStatus;
 
 /*
  * A class for downloading metadata from magnet, http and https links and
@@ -35,7 +34,6 @@ public class TorrentFetcher
     private static final String TAG = TorrentFetcher.class.getSimpleName();
 
     private static final int FETCH_MAGNET_SECONDS = 30;
-    private static final String[] allowedContentTypes = new String[]{"application/x-bittorrent"};
 
     private Context context;
     private Uri uri;
@@ -63,20 +61,18 @@ public class TorrentFetcher
                 throw new FetchLinkException("No network connection");
             }
 
-            byte[] data;
             switch (uri.getScheme()) {
                 case Utils.MAGNET_PREFIX:
-                    data = fetchMagnet(uri);
+                    tempTorrent = TorrentUtils.createTempTorrentFile(fetchMagnet(uri), saveDir);
                     break;
                 case Utils.HTTP_PREFIX:
                 case Utils.HTTPS_PREFIX:
-                    data = fetchHTTP(uri);
+                    tempTorrent = TorrentUtils.createTempTorrentFile(saveDir);
+                    fetchHTTP(uri, tempTorrent);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown link type: " + uri.getScheme());
             }
-
-            tempTorrent = TorrentUtils.createTempTorrentFile(data, saveDir);
 
         } catch (Exception e) {
             throw new FetchLinkException(e);
@@ -142,37 +138,33 @@ public class TorrentFetcher
         return s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS);
     }
 
-    public byte[] fetchHTTP(Uri uri) throws FetchLinkException, HttpException
+    public void fetchHTTP(Uri uri, final File targetFile) throws FetchLinkException, HttpException
     {
         if (uri == null || uri.getScheme() == null) {
             throw new IllegalArgumentException("Can't decode link");
         }
 
-        final ArrayList<Throwable> errorArray = new ArrayList<Throwable>(1);
-        final ArrayList<Byte> data = new ArrayList<Byte>();
+        final ArrayList<Throwable> errorArray = new ArrayList<>(1);
 
         final CountDownLatch signal = new CountDownLatch(1);
 
         SyncHttpClient client = new SyncHttpClient();
 
-        client.get(uri.toString(), new BinaryHttpResponseHandler(allowedContentTypes) {
+        client.get(uri.toString(), new FileAsyncHttpResponseHandler(targetFile) {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] binaryData)
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file)
             {
-                if (statusCode == HttpStatus.SC_OK) {
-                    for (byte b : binaryData) {
-                        data.add(b);
-                    }
+                throwable.printStackTrace();
+                errorArray.add(throwable);
+                if (file.exists()) {
+                    file.delete();
                 }
                 signal.countDown();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] binaryData, Throwable error)
+            public void onSuccess(int statusCode, Header[] headers, File file)
             {
-                error.printStackTrace();
-                errorArray.add(error);
                 signal.countDown();
             }
         });
@@ -194,7 +186,5 @@ public class TorrentFetcher
 
             throw new HttpException(s.toString());
         }
-
-        return (data.isEmpty() ? null : Utils.toPrimitive(data));
     }
 }
