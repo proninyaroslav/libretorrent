@@ -55,10 +55,10 @@ Current languages:
 
  - English
  - Russian
- - German (thanks vanitasvitae)
- - Lithuanian (thanks techwebpd)
- - Polish (thanks Azaradel)
- - Spanish (thanks ed10vi)
+ - German *(thanks vanitasvitae)*
+ - Lithuanian *(thanks techwebpd)*
+ - Polish *(thanks Azaradel)*
+ - Spanish *(thanks ed10vi)*
 
 Contributors
 ---
