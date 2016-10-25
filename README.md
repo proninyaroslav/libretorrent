@@ -58,6 +58,7 @@ Current languages:
  - German (thanks vanitasvitae)
  - Lithuanian (thanks techwebpd)
  - Polish (thanks Azaradel)
+ - Spanish (thanks ed10vi)
 
 Contributors
 ---
