@@ -1166,7 +1166,9 @@ public class MainFragment extends Fragment
                     R.style.BaseTheme_Dialog,
                     this);
 
-            errDialog.show(getFragmentManager(), TAG_SAVE_ERROR_DIALOG);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
+            ft.commitAllowingStateLoss();
 
         } else if (e instanceof IOException) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
@@ -1177,7 +1179,9 @@ public class MainFragment extends Fragment
                     R.style.BaseTheme_Dialog,
                     this);
 
-            errDialog.show(getFragmentManager(), TAG_SAVE_ERROR_DIALOG);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
+            ft.commitAllowingStateLoss();
 
         } else if (e instanceof FileAlreadyExistsException) {
             Snackbar.make(coordinatorLayout,
@@ -1193,7 +1197,9 @@ public class MainFragment extends Fragment
                     R.style.BaseTheme_Dialog,
                     this);
 
-            errDialog.show(getFragmentManager(), TAG_SAVE_ERROR_DIALOG);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
+            ft.commitAllowingStateLoss();
         }
     }
 
@@ -1241,7 +1247,9 @@ public class MainFragment extends Fragment
                                         R.style.BaseTheme_Dialog,
                                         this);
 
-                                errDialog.show(getFragmentManager(), TAG_ERROR_OPEN_TORRENT_FILE_DIALOG);
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.add(errDialog, TAG_ERROR_OPEN_TORRENT_FILE_DIALOG);
+                                ft.commitAllowingStateLoss();
                             }
                         }
                     }
