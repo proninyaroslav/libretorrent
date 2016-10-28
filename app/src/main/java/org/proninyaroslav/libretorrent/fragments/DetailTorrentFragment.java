@@ -320,7 +320,9 @@ public class DetailTorrentFragment extends Fragment
             });
 
         } else {
-            toolbar.setTitle(torrent.getName());
+            if (torrent != null) {
+                toolbar.setTitle(torrent.getName());
+            }
 
             activity.setSupportActionBar(toolbar);
             setHasOptionsMenu(true);

@@ -497,8 +497,8 @@ public class MainFragment extends Fragment
 
                     Object o = b.getSerializable(TorrentTaskServiceIPC.TAG_EXCEPTIONS_LIST);
                     if (o != null) {
-                        ArrayList<Exception> exceptions = (ArrayList<Exception>) o;
-                        for (Exception e : exceptions) {
+                        ArrayList<Throwable> exceptions = (ArrayList<Throwable>) o;
+                        for (Throwable e : exceptions) {
                             fragment.get().saveTorrentError(e);
                         }
                     }
@@ -1149,13 +1149,13 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void saveTorrentError(Exception e)
+    private void saveTorrentError(Throwable e)
     {
         if (e == null) {
             return;
         }
 
-        sentError = e;
+        sentError = new Exception(e);
 
         if (e instanceof FileNotFoundException) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(

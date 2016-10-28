@@ -1263,7 +1263,7 @@ public class TorrentTaskService extends Service
         }
     }
 
-    private void sendOnAddTorrents(ArrayList<TorrentStateParcel> states, ArrayList<Exception> exceptions)
+    private void sendOnAddTorrents(ArrayList<TorrentStateParcel> states, ArrayList<Throwable> exceptions)
     {
         for (int i = clientCallbacks.size() - 1; i >= 0; i--) {
             try {
@@ -1752,15 +1752,15 @@ public class TorrentTaskService extends Service
 
                     ArrayList<Torrent> addedTorrentsList = new ArrayList<>();
                     ArrayList<TorrentStateParcel> states = new ArrayList<>();
-                    ArrayList<Exception> exceptions = new ArrayList<>();
+                    ArrayList<Throwable> exceptions = new ArrayList<>();
 
                     if (torrentsList != null) {
                         for (Torrent torrent : torrentsList) {
-                            try {
-                                SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
-                                boolean deleteTorrentFile = pref.getBoolean(service.get().
-                                        getString(R.string.pref_key_delete_torrent_file), false);
+                            SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
+                            boolean deleteTorrentFile = pref.getBoolean(service.get().
+                                    getString(R.string.pref_key_delete_torrent_file), false);
 
+                            try {
                                 if (service.get().repo.exists(torrent)) {
                                     service.get().repo.replace(torrent,
                                             torrent.getTorrentFilePath(),
@@ -1776,13 +1776,13 @@ public class TorrentTaskService extends Service
 
                                 torrent = service.get().repo.getTorrentByID(torrent.getId());
 
-                                if (torrent != null) {
-                                    addedTorrentsList.add(torrent);
-                                    states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
-                                }
-
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 exceptions.add(e);
+                            }
+
+                            if (torrent != null) {
+                                addedTorrentsList.add(torrent);
+                                states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
                             }
                         }
                     }

@@ -245,7 +245,7 @@ public class TorrentTaskServiceIPC
 
     public void sendTorrentsAdded(Messenger serviceCallback,
                                   ArrayList<TorrentStateParcel> states,
-                                  ArrayList<Exception> exceptions) throws RemoteException
+                                  ArrayList<Throwable> exceptions) throws RemoteException
     {
         if (serviceCallback == null) {
             return;

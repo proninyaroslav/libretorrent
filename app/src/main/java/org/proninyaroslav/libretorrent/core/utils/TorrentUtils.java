@@ -55,7 +55,7 @@ public class TorrentUtils
     @Nullable
     public static String copyTorrent(Context context,
                                      String dataDirId,
-                                     String pathToTorrent) throws Exception
+                                     String pathToTorrent) throws Throwable
     {
 
         if ((pathToTorrent == null ||
