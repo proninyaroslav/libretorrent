@@ -112,18 +112,26 @@
                 android:text="@string/torrent_size"
                 style="@style/BaseTheme.HeaderText" />
 
-            <TextView
-                android:id="@+id/torrent_size"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                style="@style/BaseTheme.TorrentInfoText" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/free_space"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                <TextView
+                    android:id="@+id/torrent_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="center_vertical"
+                    style="@style/BaseTheme.TorrentInfoText" />
+
+                <TextView
+                    android:id="@+id/free_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -139,11 +147,18 @@
                 android:text="@string/torrent_file_count"
                 style="@style/BaseTheme.HeaderText" />
 
-            <TextView
-                android:id="@+id/torrent_file_count"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/BaseTheme.TorrentInfoText" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/torrent_file_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    style="@style/BaseTheme.TorrentInfoText" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

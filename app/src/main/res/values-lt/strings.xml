@@ -109,6 +109,7 @@
     <string name="free_space" formatted="false">%1$s laisva</string>
     <string name="error_free_space">Pasirinktoje vietoje nėra pakankamai laisvos atminties, kad parsiųsti pasirinktus failus</string>
     <string name="files_size" formatted="false">Pasirinkti %1$s iš %2$s</string>
+    <string name="start_torrent">Pradėti torentą</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>

@@ -110,6 +110,7 @@
     <string name="free_space" formatted="false">%1$s free</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
     <string name="files_size" formatted="false">Selected %1$s out of %2$s</string>
+    <string name="start_torrent">Start torrent</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>

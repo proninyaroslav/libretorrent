@@ -98,6 +98,7 @@
     <string name="free_space" formatted="false">%1$s свободно</string>
     <string name="error_free_space">В указанном расположении не хватает свободного места, чтобы загрузить выбранные файлы</string>
     <string name="files_size" formatted="false">Выбрано %1$s из %2$s</string>
+    <string name="start_torrent">Запустить торрент</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Информация</string>

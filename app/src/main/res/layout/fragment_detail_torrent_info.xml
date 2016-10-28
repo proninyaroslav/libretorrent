@@ -5,5 +5,5 @@
     android:background="@color/background">
 
     <include
-        layout="@layout/torrent_info" />
+        layout="@layout/detail_torrent_info" />
 </android.support.v4.widget.NestedScrollView>

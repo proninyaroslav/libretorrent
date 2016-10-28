@@ -20,7 +20,7 @@
             card_view:cardElevation="2dp">
 
             <include
-                layout="@layout/torrent_info" />
+                layout="@layout/add_torrent_info" />
         </android.support.v7.widget.CardView>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
