@@ -271,6 +271,12 @@
     <string name="pref_use_random_port_title">Nutze zufälligen Port</string>
     <string name="pref_port_title">Port</string>
     <string name="pref_encryption_category">Verschlüsselung</string>
+    <string name="pref_enc_mode_title">Verschlüsselungsmodus</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Bevorzugte Verschlüsselung</item>
+        <item>Erforderlich Verschlüsselung</item>
+        <item>Deaktivieren Sie die Verschlüsselung</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Eingehende Verbindungen</string>
     <string name="pref_enc_out_connections_title">Ausgehende Verbindungen</string>
     <string name="pref_ip_filtering_category">IP Filterung</string>

@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -133,9 +134,21 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         port.setText(value);
         bindOnPreferenceChangeListener(port);
 
+        boolean enableAdvancedEncryptSettings;
+
+        String keyEncryptMode = getString(R.string.pref_key_enc_mode);
+        ListPreference encryptMode = (ListPreference) findPreference(keyEncryptMode);
+        int type = pref.getInt(keyEncryptMode, Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value)));
+        encryptMode.setValueIndex(type);
+        String typesName[] = getResources().getStringArray(R.array.pref_enc_mode_entries);
+        encryptMode.setSummary(typesName[type]);
+        enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
+        bindOnPreferenceChangeListener(encryptMode);
+
         String keyEncryptInConnections = getString(R.string.pref_key_enc_in_connections);
         SwitchPreferenceCompat encryptInConnections =
                 (SwitchPreferenceCompat) findPreference(keyEncryptInConnections);
+        encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptInConnections.setChecked(pref.getBoolean(keyEncryptInConnections,
                 TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS));
         bindOnPreferenceChangeListener(encryptInConnections);
@@ -143,6 +156,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
         SwitchPreferenceCompat encryptOutConnections =
                 (SwitchPreferenceCompat) findPreference(keyEncryptOutConnections);
+        encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptOutConnections.setChecked(pref.getBoolean(keyEncryptOutConnections,
                 TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS));
         bindOnPreferenceChangeListener(encryptOutConnections);
@@ -228,6 +242,26 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
+            int type = Integer.parseInt((String) newValue);
+
+            pref.put(preference.getKey(), type);
+            String typesName[] = getResources().getStringArray(R.array.pref_enc_mode_entries);
+            preference.setSummary(typesName[type]);
+
+            boolean enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
+
+            String keyEncryptInConnections = getString(R.string.pref_key_enc_in_connections);
+            SwitchPreferenceCompat encryptInConnections =
+                    (SwitchPreferenceCompat) findPreference(keyEncryptInConnections);
+            encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
+            encryptInConnections.setChecked(enableAdvancedEncryptSettings);
+
+            String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
+            SwitchPreferenceCompat encryptOutConnections =
+                    (SwitchPreferenceCompat) findPreference(keyEncryptOutConnections);
+            encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
+            encryptOutConnections.setChecked(enableAdvancedEncryptSettings);
         }
 
         return true;

@@ -271,6 +271,12 @@
     <string name="pref_use_random_port_title">Użyj losowego portu</string>
     <string name="pref_port_title">Port</string>
     <string name="pref_encryption_category">Szyfrowanie</string>
+    <string name="pref_enc_mode_title">Tryb szyfrowania</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Wolisz szyfrowanie</item>
+        <item>Wymagaj szyfrowanie</item>
+        <item>Wyłącz szyfrowanie</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Połączenia przychodzące</string>
     <string name="pref_enc_out_connections_title">Połączenia wychodzące</string>
     <string name="pref_ip_filtering_category">Filtrowanie IP</string>

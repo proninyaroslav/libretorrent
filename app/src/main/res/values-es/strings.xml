@@ -271,6 +271,12 @@
     <string name="pref_use_random_port_title">Usar puerto aleatorio</string>
     <string name="pref_port_title">Puerto</string>
     <string name="pref_encryption_category">Cifrado</string>
+    <string name="pref_enc_mode_title">Modo de cifrado</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Prefiero cifrado</item>
+        <item>Requerir cifrado</item>
+        <item>Desactivar el cifrado</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Conexiones entrantes</string>
     <string name="pref_enc_out_connections_title">Conexiones salientes</string>
     <string name="pref_ip_filtering_category">Filtrado IP</string>

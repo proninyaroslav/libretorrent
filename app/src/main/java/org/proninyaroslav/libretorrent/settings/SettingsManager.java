@@ -117,5 +117,10 @@ public class SettingsManager extends TrayPreferences
         if (pref.getInt(keyProxyPort, -1) == -1) {
             pref.put(keyProxyPort, TorrentEngine.DEFAULT_PROXY_PORT);
         }
+
+        String keyEncryptMode = context.getString(R.string.pref_key_enc_mode);
+        if (pref.getInt(keyEncryptMode, -1) == -1) {
+            pref.put(keyEncryptMode, Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)));
+        }
     }
 }

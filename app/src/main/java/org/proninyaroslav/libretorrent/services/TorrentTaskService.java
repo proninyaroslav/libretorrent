@@ -597,13 +597,26 @@ public class TorrentTaskService extends Service
                         engineTask.getEngine().setSettings(sp);
                     }
 
+                } else if (item.key().equals(getString(R.string.pref_key_enc_mode))) {
+                    SettingsPack sp = engineTask.getEngine().getSettings();
+                    if (sp != null) {
+                        int state = getEncryptMode();
+
+                        sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), state);
+                        sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), state);
+                        engineTask.getEngine().setSettings(sp);
+                    }
+
                 } else if (item.key().equals(getString(R.string.pref_key_enc_in_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        int state = (pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
-                                TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS) ?
-                                settings_pack.enc_policy.pe_enabled.swigValue() :
-                                settings_pack.enc_policy.pe_disabled.swigValue());
+                        int state = settings_pack.enc_policy.pe_disabled.swigValue();
+
+                        if (pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
+                                TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS)) {
+                            state = getEncryptMode();
+                        }
+
                         sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), state);
                         engineTask.getEngine().setSettings(sp);
                     }
@@ -611,10 +624,13 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_enc_out_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        int state = (pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
-                                TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS) ?
-                                settings_pack.enc_policy.pe_enabled.swigValue() :
-                                settings_pack.enc_policy.pe_disabled.swigValue());
+                        int state = settings_pack.enc_policy.pe_disabled.swigValue();
+
+                        if (pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
+                                TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS)) {
+                            state = getEncryptMode();
+                        }
+
                         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), state);
                         engineTask.getEngine().setSettings(sp);
                     }
@@ -643,6 +659,20 @@ public class TorrentTaskService extends Service
                             .show();
                 }
             }
+        }
+    }
+
+    private int getEncryptMode()
+    {
+        int mode = pref.getInt(getString(R.string.pref_key_enc_mode),
+                Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value)));
+
+        if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value))) {
+            return settings_pack.enc_policy.pe_enabled.swigValue();
+        } else if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_require_value))) {
+            return settings_pack.enc_policy.pe_forced.swigValue();
+        } else {
+            return settings_pack.enc_policy.pe_disabled.swigValue();
         }
     }
 

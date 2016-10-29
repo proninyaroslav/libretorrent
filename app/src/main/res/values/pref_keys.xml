@@ -34,6 +34,7 @@
     <string name="pref_key_enable_natpmp" translatable="false">pref_key_enable_natpmp</string>
     <string name="pref_key_use_random_port" translatable="false">pref_use_key_random_port</string>
     <string name="pref_key_port" translatable="false">pref_key_port</string>
+    <string name="pref_key_enc_mode" translatable="false">pref_key_enc_mode</string>
     <string name="pref_key_enc_in_connections" translatable="false">pref_key_enc_in_connections</string>
     <string name="pref_key_enc_out_connections" translatable="false">pref_key_enc_out_connections</string>
     <string name="pref_key_enable_ip_filtering" translatable="false">pref_key_enable_ip_filtering</string>

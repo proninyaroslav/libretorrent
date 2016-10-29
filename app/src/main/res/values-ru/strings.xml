@@ -254,6 +254,12 @@
     <string name="pref_use_random_port_title">Использовать случайный порт</string>
     <string name="pref_port_title">Порт</string>
     <string name="pref_encryption_category">Шифрование</string>
+    <string name="pref_enc_mode_title">Режим шифрования</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Предпочитать шифрование</item>
+        <item>Требовать шифрование</item>
+        <item>Отключить шифрование</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Исходящие соединения</string>
     <string name="pref_enc_out_connections_title">Входящие соединения</string>
     <string name="pref_ip_filtering_category">IP фильтр</string>
