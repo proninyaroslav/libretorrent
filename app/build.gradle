@@ -8,8 +8,8 @@ android {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.1.1"
         vectorDrawables.useSupportLibrary = true
         resValue "string", "tray__authority", "${applicationId}.tray"
     }
