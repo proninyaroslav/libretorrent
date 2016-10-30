@@ -301,9 +301,9 @@
         <item>HTTP</item>
     </string-array>
     <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">2</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">3</string>
-    <string name="pref_proxy_type_http_value" translatable="false">4</string>
+    <string name="pref_proxy_type_socks4_value" translatable="false">1</string>
+    <string name="pref_proxy_type_socks5_value" translatable="false">2</string>
+    <string name="pref_proxy_type_http_value" translatable="false">3</string>
     <string-array name="pref_proxy_type_entries_value" translatable="false">
         <item>@string/pref_proxy_type_none_value</item>
         <item>@string/pref_proxy_type_socks4_value</item>
