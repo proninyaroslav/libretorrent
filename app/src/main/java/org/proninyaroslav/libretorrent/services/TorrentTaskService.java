@@ -65,19 +65,19 @@ import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentEngineCallback;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.TorrentTaskServiceIPC;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
+import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.core.TorrentEngineCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
@@ -633,6 +633,15 @@ public class TorrentTaskService extends Service
 
                         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), state);
                         engineTask.getEngine().setSettings(sp);
+                    }
+
+                } else if (item.key().equals(getString(R.string.pref_key_use_random_port))) {
+                    if (pref.getBoolean(getString(R.string.pref_key_use_random_port), false)) {
+                        engineTask.getEngine().setRandomPort();
+
+                    } else {
+                        engineTask.getEngine().setPort(pref.getInt(getString(R.string.pref_key_port),
+                                TorrentEngine.DEFAULT_PORT));
                     }
 
                 } else if (item.key().equals(getString(R.string.pref_key_port))) {

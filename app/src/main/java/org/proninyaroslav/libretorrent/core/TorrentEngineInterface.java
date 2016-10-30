@@ -82,6 +82,8 @@ public interface TorrentEngineInterface
 
     void setPort(int port);
 
+    void setRandomPort();
+
     void enableIpFilter(String path);
 
     void disableIpFilter();
