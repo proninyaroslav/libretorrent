@@ -133,16 +133,22 @@ public class FileIOUtils
         long availableBytes = -1L;
 
         try {
-            StatFs stat = new StatFs(path);
+            File file = new File(path);
+            availableBytes = file.getUsableSpace();
+        } catch (Exception e) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                availableBytes = stat.getAvailableBytes();
-            } else {
-                availableBytes = stat.getAvailableBlocks() * stat.getBlockSize();
+            // this provides invalid space on some devices
+            try {
+                StatFs stat = new StatFs(path);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    availableBytes = stat.getAvailableBytes();
+                } else {
+                    availableBytes = stat.getAvailableBlocks() * stat.getBlockSize();
+                }
+            } catch (Exception ee) {
+                /* Ignore */
             }
-
-        } catch (IllegalArgumentException e) {
-            /* Ignore */
         }
 
         return availableBytes;

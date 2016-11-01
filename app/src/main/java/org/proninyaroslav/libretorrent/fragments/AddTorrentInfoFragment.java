@@ -74,7 +74,7 @@ public class AddTorrentInfoFragment extends Fragment
             torrentSizeView, creationDateView, fileCountView,
             pathToUploadView, freeSpace;
     private ImageButton folderChooserButton;
-    private CheckBox sequentialDownload;
+    private CheckBox sequentialDownload, startTorrent;
 
     public static AddTorrentInfoFragment newInstance(TorrentMetaInfo info) {
         AddTorrentInfoFragment fragment = new AddTorrentInfoFragment();
@@ -124,6 +124,7 @@ public class AddTorrentInfoFragment extends Fragment
         pathToUploadView = (TextView) v.findViewById(R.id.upload_torrent_into);
         folderChooserButton = (ImageButton) v.findViewById(R.id.folder_chooser_button);
         sequentialDownload = (CheckBox) v.findViewById(R.id.sequential_download);
+        startTorrent = (CheckBox) v.findViewById(R.id.start_torrent);
         freeSpace = (TextView) v.findViewById(R.id.free_space);
 
         TorrentMetaInfo info = getArguments().getParcelable(TAG_INFO);
@@ -167,6 +168,8 @@ public class AddTorrentInfoFragment extends Fragment
                             Formatter.formatFileSize(activity.getApplicationContext(),
                                     FileIOUtils.getFreeSpace(downloadDir))));
         }
+
+        startTorrent.setChecked(true);
 
         return v;
     }
@@ -273,5 +276,10 @@ public class AddTorrentInfoFragment extends Fragment
     public boolean isSequentialDownload()
     {
         return sequentialDownload.isChecked();
+    }
+
+    public boolean startTorrent()
+    {
+        return startTorrent.isChecked();
     }
 }

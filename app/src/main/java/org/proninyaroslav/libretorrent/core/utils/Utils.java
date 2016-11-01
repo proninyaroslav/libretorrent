@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -263,7 +264,13 @@ public class Utils
             return null;
         }
 
-        CharSequence text = clipboard.getPrimaryClip().getItemAt(0).getText();
+        ClipData clip = clipboard.getPrimaryClip();
+
+        if (clip == null || clip.getItemCount() == 0) {
+            return null;
+        }
+
+        CharSequence text = clip.getItemAt(0).getText();
         if (text == null) {
             return null;
         }

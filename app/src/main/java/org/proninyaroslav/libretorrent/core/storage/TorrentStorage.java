@@ -76,7 +76,7 @@ public class TorrentStorage
         this.context = context;
     }
 
-    public boolean add(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Exception
+    public boolean add(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Throwable
     {
         if (pathToTorrent == null) {
             return false;
@@ -121,7 +121,7 @@ public class TorrentStorage
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
 
-    public void replace(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Exception
+    public void replace(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Throwable
     {
         if (pathToTorrent == null) {
             return;

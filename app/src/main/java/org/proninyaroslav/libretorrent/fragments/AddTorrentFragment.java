@@ -392,6 +392,7 @@ public class AddTorrentFragment extends Fragment
             String downloadDir = infoFrag.getDownloadDir();
             String torrentName = infoFrag.getTorrentName();
             boolean sequentialDownload = infoFrag.isSequentialDownload();
+            boolean startTorrent = infoFrag.startTorrent();
 
             if (info != null) {
                 ArrayList<BencodeFileItem> files = info.getFiles();
@@ -414,6 +415,7 @@ public class AddTorrentFragment extends Fragment
                                         torrentName, priorities, downloadDir);
 
                         torrent.setSequentialDownload(sequentialDownload);
+                        torrent.setPaused(!startTorrent);
                         torrent.setTorrentFilePath(pathToTempTorrent);
 
                         intent.putExtra(AddTorrentActivity.TAG_RESULT_TORRENT, torrent);

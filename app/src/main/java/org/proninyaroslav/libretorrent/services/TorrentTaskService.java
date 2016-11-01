@@ -65,19 +65,19 @@ import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentEngineCallback;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.TorrentTaskServiceIPC;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
+import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.core.TorrentEngineCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
@@ -597,13 +597,26 @@ public class TorrentTaskService extends Service
                         engineTask.getEngine().setSettings(sp);
                     }
 
+                } else if (item.key().equals(getString(R.string.pref_key_enc_mode))) {
+                    SettingsPack sp = engineTask.getEngine().getSettings();
+                    if (sp != null) {
+                        int state = getEncryptMode();
+
+                        sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), state);
+                        sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), state);
+                        engineTask.getEngine().setSettings(sp);
+                    }
+
                 } else if (item.key().equals(getString(R.string.pref_key_enc_in_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        int state = (pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
-                                TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS) ?
-                                settings_pack.enc_policy.pe_enabled.swigValue() :
-                                settings_pack.enc_policy.pe_disabled.swigValue());
+                        int state = settings_pack.enc_policy.pe_disabled.swigValue();
+
+                        if (pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
+                                TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS)) {
+                            state = getEncryptMode();
+                        }
+
                         sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), state);
                         engineTask.getEngine().setSettings(sp);
                     }
@@ -611,12 +624,24 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_enc_out_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        int state = (pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
-                                TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS) ?
-                                settings_pack.enc_policy.pe_enabled.swigValue() :
-                                settings_pack.enc_policy.pe_disabled.swigValue());
+                        int state = settings_pack.enc_policy.pe_disabled.swigValue();
+
+                        if (pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
+                                TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS)) {
+                            state = getEncryptMode();
+                        }
+
                         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), state);
                         engineTask.getEngine().setSettings(sp);
+                    }
+
+                } else if (item.key().equals(getString(R.string.pref_key_use_random_port))) {
+                    if (pref.getBoolean(getString(R.string.pref_key_use_random_port), false)) {
+                        engineTask.getEngine().setRandomPort();
+
+                    } else {
+                        engineTask.getEngine().setPort(pref.getInt(getString(R.string.pref_key_port),
+                                TorrentEngine.DEFAULT_PORT));
                     }
 
                 } else if (item.key().equals(getString(R.string.pref_key_port))) {
@@ -643,6 +668,20 @@ public class TorrentTaskService extends Service
                             .show();
                 }
             }
+        }
+    }
+
+    private int getEncryptMode()
+    {
+        int mode = pref.getInt(getString(R.string.pref_key_enc_mode),
+                Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value)));
+
+        if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value))) {
+            return settings_pack.enc_policy.pe_enabled.swigValue();
+        } else if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_require_value))) {
+            return settings_pack.enc_policy.pe_forced.swigValue();
+        } else {
+            return settings_pack.enc_policy.pe_disabled.swigValue();
         }
     }
 
@@ -1263,7 +1302,7 @@ public class TorrentTaskService extends Service
         }
     }
 
-    private void sendOnAddTorrents(ArrayList<TorrentStateParcel> states, ArrayList<Exception> exceptions)
+    private void sendOnAddTorrents(ArrayList<TorrentStateParcel> states, ArrayList<Throwable> exceptions)
     {
         for (int i = clientCallbacks.size() - 1; i >= 0; i--) {
             try {
@@ -1752,15 +1791,15 @@ public class TorrentTaskService extends Service
 
                     ArrayList<Torrent> addedTorrentsList = new ArrayList<>();
                     ArrayList<TorrentStateParcel> states = new ArrayList<>();
-                    ArrayList<Exception> exceptions = new ArrayList<>();
+                    ArrayList<Throwable> exceptions = new ArrayList<>();
 
                     if (torrentsList != null) {
                         for (Torrent torrent : torrentsList) {
-                            try {
-                                SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
-                                boolean deleteTorrentFile = pref.getBoolean(service.get().
-                                        getString(R.string.pref_key_delete_torrent_file), false);
+                            SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
+                            boolean deleteTorrentFile = pref.getBoolean(service.get().
+                                    getString(R.string.pref_key_delete_torrent_file), false);
 
+                            try {
                                 if (service.get().repo.exists(torrent)) {
                                     service.get().repo.replace(torrent,
                                             torrent.getTorrentFilePath(),
@@ -1776,13 +1815,13 @@ public class TorrentTaskService extends Service
 
                                 torrent = service.get().repo.getTorrentByID(torrent.getId());
 
-                                if (torrent != null) {
-                                    addedTorrentsList.add(torrent);
-                                    states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
-                                }
-
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 exceptions.add(e);
+                            }
+
+                            if (torrent != null) {
+                                addedTorrentsList.add(torrent);
+                                states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
                             }
                         }
                     }

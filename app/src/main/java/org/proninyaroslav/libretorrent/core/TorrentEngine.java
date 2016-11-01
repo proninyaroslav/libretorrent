@@ -71,8 +71,8 @@ public class TorrentEngine implements TorrentEngineInterface
     public static final int DEFAULT_ACTIVE_LIMIT = 6;
     public static final int DEFAULT_PORT = 6881;
     public static final int DEFAULT_PROXY_PORT = 8080;
-    public static final int DEFAULT_TOR_PORT = 9050;
     public static final int MAX_PORT_NUMBER = 65534;
+    public static final int MIN_PORT_NUMBER = 49160;
     public static final boolean DEFAULT_DHT_ENABLED = true;
     public static final boolean DEFAULT_LSD_ENABLED = true;
     public static final boolean DEFAULT_UTP_ENABLED = true;
@@ -578,6 +578,14 @@ public class TorrentEngine implements TorrentEngineInterface
         SettingsPack sp = session.getSettingsPack();
         sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + port);
         setSettings(sp);
+    }
+
+    @Override
+    public void setRandomPort()
+    {
+        int randomPort = MIN_PORT_NUMBER + (int)(Math.random()
+                * ((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1));
+        setPort(randomPort);
     }
 
     @Override

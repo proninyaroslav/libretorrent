@@ -109,6 +109,7 @@
     <string name="free_space" formatted="false">%1$s laisva</string>
     <string name="error_free_space">Pasirinktoje vietoje nėra pakankamai laisvos atminties, kad parsiųsti pasirinktus failus</string>
     <string name="files_size" formatted="false">Pasirinkti %1$s iš %2$s</string>
+    <string name="start_torrent">Pradėti torentą</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>
@@ -270,6 +271,12 @@
     <string name="pref_use_random_port_title">Naudoti atsitiktinį prievadą</string>
     <string name="pref_port_title">Prievadas</string>
     <string name="pref_encryption_category">Šifravimas</string>
+    <string name="pref_enc_mode_title">Šifravimas režimas</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Pageidaujamas šifravimo</item>
+        <item>Reikalauti šifravimo</item>
+        <item>Išjungti šifravimo</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Įeinantys sujungimai</string>
     <string name="pref_enc_out_connections_title">Išeinantys sujungimai</string>
     <string name="pref_ip_filtering_category">IP filtravimas</string>

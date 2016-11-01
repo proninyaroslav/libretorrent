@@ -110,6 +110,7 @@
     <string name="free_space" formatted="false">%1$s free</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
     <string name="files_size" formatted="false">Selected %1$s out of %2$s</string>
+    <string name="start_torrent">Start torrent</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
@@ -271,6 +272,20 @@
     <string name="pref_use_random_port_title">Use random port</string>
     <string name="pref_port_title">Port</string>
     <string name="pref_encryption_category">Encryption</string>
+    <string name="pref_enc_mode_title">Encryption mode</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Prefer encryption</item>
+        <item>Require encryption</item>
+        <item>Disable encryption</item>
+    </string-array>
+    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
+    <string name="pref_enc_mode_require_value" translatable="false">1</string>
+    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
+    <string-array name="pref_enc_mode_entries_value" translatable="false">
+        <item>@string/pref_enc_mode_prefer_value</item>
+        <item>@string/pref_enc_mode_require_value</item>
+        <item>@string/pref_enc_mode_disable_value</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Incoming connections</string>
     <string name="pref_enc_out_connections_title">Outgoing connections</string>
     <string name="pref_ip_filtering_category">IP filtering</string>
@@ -286,9 +301,9 @@
         <item>HTTP</item>
     </string-array>
     <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">2</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">3</string>
-    <string name="pref_proxy_type_http_value" translatable="false">4</string>
+    <string name="pref_proxy_type_socks4_value" translatable="false">1</string>
+    <string name="pref_proxy_type_socks5_value" translatable="false">2</string>
+    <string name="pref_proxy_type_http_value" translatable="false">3</string>
     <string-array name="pref_proxy_type_entries_value" translatable="false">
         <item>@string/pref_proxy_type_none_value</item>
         <item>@string/pref_proxy_type_socks4_value</item>
