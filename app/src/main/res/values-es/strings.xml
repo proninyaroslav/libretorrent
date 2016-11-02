@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">OK</string>
+    <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
@@ -58,7 +58,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Descargando: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent ejecutandose en segundo plano</string>
+    <string name="app_running_in_the_background">LibreTorrent está ejecutandose en segundo plano</string>
     <string name="network_online">Estado de la red: Conectado</string>
     <string name="network_offline">Estado de la red: Desconectado</string>
 
@@ -88,7 +88,7 @@
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
-    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los ficheros torrent en la memoria. La aplicación no funcionará correctamente. ¿Estas seguro de que quieres denegar este permiso?</string>
+    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los ficheros torrent en la memoria. La aplicación no funcionará correctamente. ¿Estás seguro de que quieres denegar este permiso?</string>
 
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Añadir torrent</string>
@@ -211,7 +211,7 @@
     <string name="text_copied_to_clipboard">Texto copiado al portapapeles</string>
 
     <!-- Error report -->
-    <string name="app_error_occurred">La aplicación ha tenido un error. Puedes enviar un informe a los desarrolladores</string>
+    <string name="app_error_occurred">Ha habido un error. Puedes enviar un informe a los desarrolladores</string>
     <string name="error_comment_prompt">Puedes añadir información extra y comentarios aquí:</string>
 
     <!-- Settings -->
