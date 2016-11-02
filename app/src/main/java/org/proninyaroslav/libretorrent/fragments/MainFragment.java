@@ -1071,7 +1071,7 @@ public class MainFragment extends Fragment
             fm.beginTransaction()
                     .replace(R.id.detail_torrent_fragmentContainer, blank)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
