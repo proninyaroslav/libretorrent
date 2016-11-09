@@ -25,15 +25,22 @@ import android.util.Log;
 
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Priority;
-import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.SessionParams;
 import com.frostwire.jlibtorrent.SettingsPack;
 import com.frostwire.jlibtorrent.Sha1Hash;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
+import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.error_code;
 import com.frostwire.jlibtorrent.swig.ip_filter;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.session_params;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 
 import org.apache.commons.io.FileUtils;
@@ -55,7 +62,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * This class is designed for seeding, downloading and management of torrents.
  */
 
-public class TorrentEngine implements TorrentEngineInterface
+public class TorrentEngine extends SessionManager
+        implements TorrentEngineInterface
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
@@ -81,18 +89,21 @@ public class TorrentEngine implements TorrentEngineInterface
     public static final boolean DEFAULT_ENCRYPT_IN_CONNECTIONS = true;
     public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
 
+    private static final int[] INNER_LISTENER_TYPES = new int[] {
+            AlertType.ADD_TORRENT.swig()
+    };
+
     private Context context;
-    private Session session;
+    private InnerListener innerListener;
     private TorrentEngineCallback callback;
     private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     private Map<String, Torrent> addTorrentsQueue = new HashMap<>();
-    private ReentrantLock sync;
 
     public TorrentEngine(Context context, TorrentEngineCallback callback) throws Exception
     {
         this.context = context;
-        sync = new ReentrantLock();
+        innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
         this.callback = callback;
     }
@@ -100,124 +111,89 @@ public class TorrentEngine implements TorrentEngineInterface
     @Override
     public void start()
     {
-        sync.lock();
+        settings_pack sp = new settings_pack();
+        sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
 
-        try {
-            if (isStarted()) {
-                return;
-            }
+        super.start(loadSettings());
+    }
 
-            session = new Session();
-            loadSettings();
-            setListener();
+    private static String dhtBootstrapNodes()
+    {
+        StringBuilder sb = new StringBuilder();
 
-        } finally {
-            if (callback != null) {
-                callback.onEngineStarted();
-            }
-            sync.unlock();
+        sb.append("dht.libtorrent.org:25401").append(",");
+        sb.append("router.bittorrent.com:6881").append(",");
+        sb.append("dht.transmissionbt.com:6881").append(",");
+        /* For IPv6 DHT */
+        sb.append("outer.silotis.us:6881");
+
+        return sb.toString();
+    }
+
+    @Override
+    protected void onBeforeStart()
+    {
+        addListener(innerListener);
+    }
+
+    @Override
+    protected void onAfterStart()
+    {
+        if (callback != null) {
+            callback.onEngineStarted();
         }
     }
 
     @Override
-    public void stop()
+    protected void onBeforeStop()
     {
-        sync.lock();
-
-        try {
-            if (session == null) {
-                return;
-            }
-
-            saveSettings();
-            session.abort();
-            session = null;
-
-        } finally {
-            sync.unlock();
-        }
+        removeListener(innerListener);
+        saveSettings();
     }
 
     @Override
-    public void restart()
+    protected void onApplySettings(SettingsPack sp)
     {
-        sync.lock();
-
-        try {
-            stop();
-            /* Allow some time to release native resources */
-            Thread.sleep(1000);
-            start();
-
-        } catch (InterruptedException e) {
-            /* Ignore */
-        } finally {
-            sync.unlock();
-        }
+        saveSettings();
     }
 
-    @Override
-    public void pause()
-    {
-        if (session != null && !session.isPaused()) {
-            session.pause();
-        }
-    }
-
-    @Override
-    public void resume()
-    {
-        if (session != null) {
-            session.resume();
-        }
-    }
-
-    private void setListener()
-    {
-        if (session == null) {
-            return;
+    private final class InnerListener implements AlertListener {
+        @Override
+        public int[] types() {
+            return INNER_LISTENER_TYPES;
         }
 
-        session.addListener(new AlertListener()
+        @Override
+        public void alert(Alert<?> alert)
         {
-            @Override
-            public int[] types()
-            {
-                return new int[]{AlertType.ADD_TORRENT.swig()};
-            }
+            switch (alert.type()) {
+                case ADD_TORRENT:
+                    TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
 
-            @Override
-            public void alert(Alert<?> alert)
-            {
-                switch (alert.type()) {
-                    case ADD_TORRENT:
-                        TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
+                    Sha1Hash sha1hash = torrentAlert.handle().infoHash();
+                    Torrent torrent = addTorrentsQueue.get(sha1hash.toString());
 
-                        Sha1Hash sha1hash = torrentAlert.handle().getInfoHash();
-                        Torrent torrent = addTorrentsQueue.get(sha1hash.toString());
+                    if (torrent != null) {
+                        TorrentHandle handle = find(sha1hash);
+                        handle.setSequentialDownload(torrent.isSequentialDownload());
 
-                        if (torrent != null) {
-                            TorrentHandle handle = session.findTorrent(sha1hash);
-                            handle.setSequentialDownload(torrent.isSequentialDownload());
-
-                            if (torrent.isPaused()) {
-                                handle.pause();
-                            } else {
-                                handle.resume();
-                            }
-
-                            TorrentDownload task = new TorrentDownload(context,
-                                    TorrentEngine.this, handle, torrent, callback);
-
-                            if (callback != null) {
-                                callback.onTorrentAdded(torrent.getId(), task);
-                            }
+                        if (torrent.isPaused()) {
+                            handle.pause();
+                        } else {
+                            handle.resume();
                         }
-                        runNextLoadTorrentTask();
-                        break;
-                }
+
+                        TorrentDownload task = new TorrentDownload(context,
+                                TorrentEngine.this, handle, torrent, callback);
+
+                        if (callback != null) {
+                            callback.onTorrentAdded(torrent.getId(), task);
+                        }
+                    }
+                    runNextLoadTorrentTask();
+                    break;
             }
-        });
+        }
     }
 
     @Override
@@ -323,7 +299,7 @@ public class TorrentEngine implements TorrentEngineInterface
             priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
         }
 
-        TorrentHandle handle = session.findTorrent(ti.infoHash());
+        TorrentHandle handle = find(ti.infoHash());
 
         if (handle == null) {
             File saveDir = new File(torrent.getDownloadPath());
@@ -339,7 +315,7 @@ public class TorrentEngine implements TorrentEngineInterface
             }
 
             /* New download */
-            handle = session.addTorrent(ti, saveDir, priorities, resumeFile);
+            handle = download(ti, saveDir, priorities, resumeFile);
             handle.setSequentialDownload(torrent.isSequentialDownload());
 
             if (torrent.isPaused()) {
@@ -361,12 +337,12 @@ public class TorrentEngine implements TorrentEngineInterface
     @Override
     public void saveSettings()
     {
-        if (session == null) {
+        if (swig() == null) {
             return;
         }
 
         try {
-            TorrentUtils.saveSession(context, session.saveState());
+            TorrentUtils.saveSession(context, saveState());
 
         } catch (Exception e) {
             Log.e(TAG, "Error saving session state: ");
@@ -375,61 +351,68 @@ public class TorrentEngine implements TorrentEngineInterface
     }
 
     @Override
-    public void loadSettings()
+    public SessionParams loadSettings()
     {
-        if (session == null) {
-            return;
-        }
-
         try {
             String sessionPath = TorrentUtils.findSessionFile(context);
 
             if (sessionPath == null) {
-                return;
+                return new SessionParams(defaultSettings());
             }
 
             File sessionFile = new File(sessionPath);
 
             if (sessionFile.exists()) {
                 byte[] data = FileUtils.readFileToByteArray(sessionFile);
-                session.loadState(data);
+                byte_vector buffer = Vectors.bytes2byte_vector(data);
+                bdecode_node n = new bdecode_node();
+                error_code ec = new error_code();
+
+                int ret = bdecode_node.bdecode(buffer, n, ec);
+                if (ret == 0) {
+                    session_params params = libtorrent.read_session_params(n);
+                    /* Prevents GC */
+                    buffer.clear();
+
+                    return new SessionParams(params);
+                } else {
+                    throw new IllegalArgumentException("Can't decode data: " + ec.message());
+                }
+
             } else {
-                revertToDefaultConfiguration();
+                return new SessionParams(defaultSettings());
             }
 
         } catch (Exception e) {
             Log.e(TAG, "Error loading session state: ");
             Log.e(TAG, Log.getStackTraceString(e));
+
+            return new SessionParams(defaultSettings());
         }
     }
 
-    @Override
-    public void revertToDefaultConfiguration()
+    private static SettingsPack defaultSettings()
     {
-        if (session == null) {
-            return;
-        }
-
-        SettingsPack sp = session.getSettingsPack();
+        SettingsPack sp = new SettingsPack();
 
         sp.broadcastLSD(true);
 
         int maxQueuedDiskBytes = sp.maxQueuedDiskBytes();
-        sp.setMaxQueuedDiskBytes(maxQueuedDiskBytes / 2);
+        sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
         int sendBufferWatermark = sp.sendBufferWatermark();
-        sp.setSendBufferWatermark(sendBufferWatermark / 2);
-        sp.setCacheSize(DEFAULT_CACHE_SIZE);
+        sp.sendBufferWatermark(sendBufferWatermark / 2);
+        sp.cacheSize(DEFAULT_CACHE_SIZE);
         sp.activeDownloads(DEFAULT_ACTIVE_DOWNLOADS);
         sp.activeSeeds(DEFAULT_ACTIVE_SEEDS);
         sp.activeLimit(DEFAULT_ACTIVE_LIMIT);
-        sp.setMaxPeerlistSize(DEFAULT_MAX_PEER_LIST_SIZE);
-        sp.setGuidedReadCache(true);
-        sp.setTickInterval(DEFAULT_TICK_INTERVAL);
-        sp.setInactivityTimeout(DEFAULT_INACTIVITY_TIMEOUT);
-        sp.setSeedingOutgoingConnections(false);
-        sp.setConnectionsLimit(DEFAULT_CONNECTIONS_LIMIT);
+        sp.maxPeerlistSize(DEFAULT_MAX_PEER_LIST_SIZE);
+        // sp.setGuidedReadCache(true);
+        sp.tickInterval(DEFAULT_TICK_INTERVAL);
+        sp.inactivityTimeout(DEFAULT_INACTIVITY_TIMEOUT);
+        sp.seedingOutgoingConnections(false);
+        sp.connectionsLimit(DEFAULT_CONNECTIONS_LIMIT);
 
-        setSettings(sp);
+        return sp;
     }
 
     @Override

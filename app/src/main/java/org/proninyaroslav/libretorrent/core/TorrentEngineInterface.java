@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core;
 import android.content.Context;
 
 import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SessionParams;
 import com.frostwire.jlibtorrent.SettingsPack;
 
 import java.util.Collection;
@@ -32,16 +33,6 @@ import java.util.Collection;
 
 public interface TorrentEngineInterface
 {
-    void start();
-
-    void stop();
-
-    void restart();
-
-    void pause();
-
-    void resume();
-
     TorrentDownload download(Torrent torrent);
 
     void asyncDownload(Collection<Torrent> torrents);
@@ -62,13 +53,11 @@ public interface TorrentEngineInterface
 
     void saveSettings();
 
-    void loadSettings();
+    SessionParams loadSettings();
 
     void setSettings(SettingsPack sp);
 
     SettingsPack getSettings();
-
-    void revertToDefaultConfiguration();
 
     void setDownloadSpeedLimit(int limit);
 
