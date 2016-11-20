@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.Session;
+import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -87,7 +87,7 @@ public class TorrentFetcher
             throw new IllegalArgumentException("Can't decode link");
         }
 
-        final Session s = new Session();
+        final SessionManager s = new SessionManager();
         final CountDownLatch signal = new CountDownLatch(1);
 
         /* The session stats are posted about once per second */
@@ -102,11 +102,11 @@ public class TorrentFetcher
             @Override
             public void alert(Alert<?> alert) {
                 if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDHTStats();
+                    s.postDhtStats();
                 }
 
                 if (alert.type().equals(AlertType.DHT_STATS)) {
-                    long nodes = s.getStats().dhtNodes();
+                    long nodes = s.stats().dhtNodes();
                     /* Wait for at least 10 nodes in the DHT */
                     if (nodes >= 10) {
                         Log.i(TAG, "DHT contains " + nodes + " nodes");
@@ -117,7 +117,7 @@ public class TorrentFetcher
         };
 
         s.addListener(l);
-        s.postDHTStats();
+        s.postDhtStats();
 
         Log.i(TAG, "Waiting for nodes in DHT (10 seconds)...");
         try {

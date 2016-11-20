@@ -22,25 +22,19 @@ package org.proninyaroslav.libretorrent.core;
 import android.content.Context;
 import android.util.Log;
 
+import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.AnnounceEntry;
 import com.frostwire.jlibtorrent.FileStorage;
 import com.frostwire.jlibtorrent.PeerInfo;
 import com.frostwire.jlibtorrent.Priority;
-import com.frostwire.jlibtorrent.Session;
-import com.frostwire.jlibtorrent.TorrentAlertAdapter;
+import com.frostwire.jlibtorrent.SessionHandle;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.TorrentStatus;
-import com.frostwire.jlibtorrent.alerts.BlockFinishedAlert;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
-import com.frostwire.jlibtorrent.alerts.StateChangedAlert;
-import com.frostwire.jlibtorrent.alerts.StatsAlert;
-import com.frostwire.jlibtorrent.alerts.StorageMovedAlert;
-import com.frostwire.jlibtorrent.alerts.StorageMovedFailedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentFinishedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentPausedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentRemovedAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentResumedAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.bitfield;
 
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
@@ -64,11 +58,25 @@ public class TorrentDownload implements TorrentDownloadInterface
 
     public static final double MAX_RATIO = 9999.;
 
+    private static final int[] INNER_LISTENER_TYPES = new int[] {
+            AlertType.BLOCK_FINISHED.swig(),
+            AlertType.STATE_CHANGED.swig(),
+            AlertType.TORRENT_FINISHED.swig(),
+            AlertType.TORRENT_REMOVED.swig(),
+            AlertType.TORRENT_PAUSED.swig(),
+            AlertType.TORRENT_RESUMED.swig(),
+            AlertType.STATS.swig(),
+            AlertType.SAVE_RESUME_DATA.swig(),
+            AlertType.STORAGE_MOVED.swig(),
+            AlertType.STORAGE_MOVED_FAILED.swig()
+    };
+
     private Context context;
     private TorrentEngine engine;
     private TorrentHandle th;
     private Torrent torrent;
     private TorrentEngineCallback callback;
+    private InnerListener listener;
     private Set<File> incompleteFilesToRemove;
     private File parts;
     private long lastSaveResumeTime;
@@ -79,47 +87,80 @@ public class TorrentDownload implements TorrentDownloadInterface
                            Torrent torrent,
                            TorrentEngineCallback callback)
     {
-        super(handle);
-
         this.context = context;
         this.engine = engine;
         this.th = handle;
         this.torrent = torrent;
         this.callback = callback;
-        TorrentInfo ti = th.getTorrentInfo();
+        TorrentInfo ti = th.torrentFile();
         this.parts = ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null;
 
-        engine.getSession().addListener(this);
+        listener = new InnerListener();
+        engine.addListener(listener);
     }
 
-    @Override
-    public void blockFinished(BlockFinishedAlert alert)
+    private final class InnerListener implements AlertListener
     {
-        if (callback != null) {
-            callback.onTorrentStateChanged(torrent.getId());
+        @Override
+        public int[] types()
+        {
+            return INNER_LISTENER_TYPES;
+        }
+
+        @Override
+        public void alert(Alert<?> alert)
+        {
+            if (!(alert instanceof TorrentAlert<?>)) {
+                return;
+            }
+
+            if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig())) {
+                return;
+            }
+
+            AlertType type = alert.type();
+
+            if (callback == null) {
+                return;
+            }
+
+            switch (type) {
+                case BLOCK_FINISHED:
+                case STATE_CHANGED:
+                    callback.onTorrentStateChanged(torrent.getId());
+                    break;
+                case TORRENT_FINISHED:
+                    callback.onTorrentFinished(torrent.getId());
+                    saveResumeData(true);
+                    break;
+                case TORRENT_REMOVED:
+                    torrentRemoved();
+                    break;
+                case TORRENT_PAUSED:
+                    callback.onTorrentPaused(torrent.getId());
+                    break;
+                case TORRENT_RESUMED:
+                    callback.onTorrentResumed(torrent.getId());
+                    break;
+                case STATS:
+                    callback.onTorrentStateChanged(torrent.getId());
+                    break;
+                case SAVE_RESUME_DATA:
+                    serializeResumeData((SaveResumeDataAlert) alert);
+                    break;
+                case STORAGE_MOVED:
+                    callback.onTorrentMoved(torrent.getId(), true);
+                    saveResumeData(true);
+                    break;
+                case STORAGE_MOVED_FAILED:
+                    callback.onTorrentMoved(torrent.getId(), false);
+                    saveResumeData(true);
+                    break;
+            }
         }
     }
 
-    @Override
-    public void stateChanged(StateChangedAlert alert)
-    {
-        if (callback != null) {
-            callback.onTorrentStateChanged(torrent.getId());
-        }
-    }
-
-    @Override
-    public void torrentFinished(TorrentFinishedAlert alert)
-    {
-        if (callback != null) {
-            callback.onTorrentFinished(torrent.getId());
-        }
-
-        th.saveResumeData();
-    }
-
-    @Override
-    public void torrentRemoved(TorrentRemovedAlert alert)
+    private void torrentRemoved()
     {
         if (callback != null) {
             callback.onTorrentRemoved(torrent.getId());
@@ -132,42 +173,15 @@ public class TorrentDownload implements TorrentDownloadInterface
         finalCleanup(incompleteFilesToRemove);
     }
 
-    @Override
-    public void torrentPaused(TorrentPausedAlert alert)
-    {
-        if (callback != null) {
-            callback.onTorrentPaused(torrent.getId());
-        }
-    }
-
-    @Override
-    public void torrentResumed(TorrentResumedAlert alert)
-    {
-        if (callback != null) {
-            callback.onTorrentResumed(torrent.getId());
-        }
-    }
-
-    @Override
-    public void stats(StatsAlert alert)
-    {
-        if (callback != null) {
-            callback.onTorrentStateChanged(torrent.getId());
-        }
-    }
-
     /*
      * Generate fast-resume data for the torrent, see libtorrent documentation
      */
 
-    @Override
-    public void saveResumeData(SaveResumeDataAlert alert)
+    private void saveResumeData(boolean force)
     {
         long now = System.currentTimeMillis();
-        final TorrentStatus status = th.getStatus();
 
-        boolean forceSerialization = status.isFinished() || status.isPaused();
-        if (forceSerialization || (now - lastSaveResumeTime) >= SAVE_RESUME_SYNC_TIME) {
+        if (force || (now - lastSaveResumeTime) >= SAVE_RESUME_SYNC_TIME) {
             lastSaveResumeTime = now;
         } else {
             /* Skip, too fast, see SAVE_RESUME_SYNC_TIME */
@@ -175,31 +189,25 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
 
         try {
-            TorrentUtils.saveResumeData(context, torrent.getId(), alert.resumeData().bencode());
+            if (th != null && th.isValid()) {
+                th.saveResumeData();
+            }
 
         } catch (Exception e) {
+            Log.w(TAG, "Error triggering resume data of " + torrent + ":");
+            Log.w(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    private void serializeResumeData(SaveResumeDataAlert alert)
+    {
+        try {
+            if (th.isValid()) {
+                TorrentUtils.saveResumeData(context, torrent.getId(), alert.resumeData().bencode());
+            }
+        } catch (Throwable e) {
             Log.e(TAG, "Error saving resume data of " + torrent + ":");
             Log.e(TAG, Log.getStackTraceString(e));
-        }
-    }
-
-    @Override
-    public void storageMoved(StorageMovedAlert alert)
-    {
-        th.saveResumeData();
-
-        if (callback != null) {
-            callback.onTorrentMoved(torrent.getId(), true);
-        }
-    }
-
-    @Override
-    public void storageMovedFailed(StorageMovedFailedAlert alert)
-    {
-        th.saveResumeData();
-
-        if (callback != null) {
-            callback.onTorrentMoved(torrent.getId(), false);
         }
     }
 
@@ -212,7 +220,7 @@ public class TorrentDownload implements TorrentDownloadInterface
 
         th.setAutoManaged(false);
         th.pause();
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     @Override
@@ -224,7 +232,7 @@ public class TorrentDownload implements TorrentDownloadInterface
 
         th.setAutoManaged(true);
         th.resume();
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     @Override
@@ -242,15 +250,40 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public int getProgress()
     {
-        float fp = th.getStatus().getProgress();
+        if (th == null) {
+            return 0;
+        }
 
-        if (Float.compare(fp, 1f) == 0) {
+        if (th.torrentFile() == null) {
+            return 0;
+        }
+
+        if (th.status() == null) {
+            return 0;
+        }
+
+        float fp = th.status().progress();
+        TorrentStatus.State state = th.status().state();
+
+        if (Float.compare(fp, 1f) == 0 && state != TorrentStatus.State.CHECKING_FILES) {
             return 100;
         }
 
-        int p = (int) (th.getStatus().getProgress() * 100);
+        int p = (int) (th.status().progress() * 100);
+        if (p > 0 && state != TorrentStatus.State.CHECKING_FILES) {
+            return Math.min(p, 100);
+        }
+        final long received = getTotalReceivedBytes();
+        final long size = getSize();
+        if (size == received) {
+            return 100;
+        }
+        if (size > 0) {
+            p = (int) ((received * 100) / size);
+            return Math.min(p, 100);
+        }
 
-        return Math.min(p, 100);
+        return 0;
     }
 
     @Override
@@ -262,7 +295,7 @@ public class TorrentDownload implements TorrentDownloadInterface
 
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            if (th.getTorrentInfo().numFiles() != priorities.length) {
+            if (th.torrentFile().numFiles() != priorities.length) {
                 return;
             }
 
@@ -271,7 +304,7 @@ public class TorrentDownload implements TorrentDownloadInterface
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, th.getTorrentInfo().numFiles());
+                    Priority.array(Priority.NORMAL, th.torrentFile().numFiles());
 
             th.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -280,7 +313,7 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public long getSize()
     {
-        TorrentInfo info = th.getTorrentInfo();
+        TorrentInfo info = th.torrentFile();
 
         return info != null ? info.totalSize() : 0;
     }
@@ -288,27 +321,25 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public long getDownloadSpeed()
     {
-        return (isFinished() || isPaused() || isSeeding()) ? 0 : th.getStatus().getDownloadPayloadRate();
+        return (isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
     }
 
     @Override
     public long getUploadSpeed()
     {
-        return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.getStatus().getUploadPayloadRate();
+        return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
     }
 
     @Override
     public void remove(boolean withFiles)
     {
-        Session session = engine.getSession();
-
         incompleteFilesToRemove = getIncompleteFiles();
 
         if (th.isValid()) {
             if (withFiles) {
-                session.removeTorrent(th, Session.Options.DELETE_FILES);
+                engine.remove(th, SessionHandle.Options.DELETE_FILES);
             } else {
-                session.removeTorrent(th);
+                engine.remove(th);
             }
         }
     }
@@ -342,9 +373,9 @@ public class TorrentDownload implements TorrentDownloadInterface
                 return s;
             }
 
-            long[] progress = th.getFileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
+            long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
 
-            TorrentInfo ti = th.getTorrentInfo();
+            TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
 
             String prefix = torrent.getDownloadPath();
@@ -384,63 +415,63 @@ public class TorrentDownload implements TorrentDownloadInterface
     }
 
     @Override
-    public int getActiveTime()
+    public long getActiveTime()
     {
-        return th.getStatus().getActiveTime();
+        return th.status().activeDuration();
     }
 
     @Override
-    public int getSeedingTime()
+    public long getSeedingTime()
     {
-        return th.getStatus().getSeedingTime();
+        return th.status().seedingDuration();
     }
 
     @Override
     public long getReceivedBytes()
     {
-        return th.getStatus().totalPayloadDownload();
+        return th.status().totalPayloadDownload();
     }
 
     @Override
     public long getTotalReceivedBytes()
     {
-        return th.getStatus().getAllTimeDownload();
+        return th.status().allTimeDownload();
     }
 
     @Override
     public long getSentBytes()
     {
-        return th.getStatus().totalPayloadUpload();
+        return th.status().totalPayloadUpload();
     }
 
     @Override
     public long getTotalSentBytes()
     {
-        return th.getStatus().getAllTimeUpload();
+        return th.status().allTimeUpload();
     }
 
     @Override
     public int getConnectedPeers()
     {
-        return th.getStatus().getNumPeers();
+        return th.status().numPeers();
     }
 
     @Override
     public int getConnectedSeeds()
     {
-        return th.getStatus().getNumSeeds();
+        return th.status().numSeeds();
     }
 
     @Override
     public int getTotalPeers()
     {
-        return th.getStatus().getListPeers();
+        return th.status().listPeers();
     }
 
     @Override
     public int getTotalSeeds()
     {
-        return th.getStatus().getListSeeds();
+        return th.status().listSeeds();
     }
 
     @Override
@@ -483,13 +514,13 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public TorrentStatus getTorrentStatus()
     {
-        return th.getStatus();
+        return th.status();
     }
 
     @Override
     public long getTotalWanted()
     {
-        return th.getStatus().getTotalWanted();
+        return th.status().totalWanted();
     }
 
     @Override
@@ -518,7 +549,7 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public boolean[] pieces()
     {
-        bitfield bitfield = th.getStatus().pieces().swig();
+        bitfield bitfield = th.status().pieces().swig();
         boolean[] pieces = new boolean[bitfield.size()];
 
         for (int i =0; i < bitfield.size(); i++) {
@@ -546,14 +577,14 @@ public class TorrentDownload implements TorrentDownloadInterface
             return 0;
         }
 
-        TorrentInfo ti = th.getTorrentInfo();
+        TorrentInfo ti = th.torrentFile();
         if (ti == null) {
             return 0;
         }
 
-        TorrentStatus status = th.getStatus();
-        long left = ti.totalSize() - status.getTotalDone();
-        long rate = status.getDownloadPayloadRate();
+        TorrentStatus status = th.status();
+        long left = ti.totalSize() - status.totalDone();
+        long rate = status.downloadPayloadRate();
 
         if (left <= 0) {
             return 0;
@@ -569,7 +600,7 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public TorrentInfo getTorrentInfo()
     {
-        return th.getTorrentInfo();
+        return th.torrentFile();
     }
 
     @Override
@@ -593,7 +624,7 @@ public class TorrentDownload implements TorrentDownloadInterface
             return null;
         }
 
-        return th.getFileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
+        return th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
     }
 
     @Override
@@ -605,7 +636,7 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public int getNumDownloadedPieces()
     {
-        return th.getStatus().getNumPieces();
+        return th.status().numPieces();
     }
 
     @Override
@@ -614,7 +645,7 @@ public class TorrentDownload implements TorrentDownloadInterface
         long uploaded = getTotalSentBytes();
 
         long allTimeReceived = getTotalReceivedBytes();
-        long totalDone = th.getStatus().getTotalDone();
+        long totalDone = th.status().totalDone();
 
         /*
          * Special case for a seeder who lost its stats,
@@ -664,6 +695,12 @@ public class TorrentDownload implements TorrentDownloadInterface
     }
 
     @Override
+    public String getInfoHash()
+    {
+        return th.infoHash().toString();
+    }
+
+    @Override
     public TorrentStateCode getStateCode()
     {
         if (!engine.isStarted()) {
@@ -678,7 +715,7 @@ public class TorrentDownload implements TorrentDownloadInterface
             return TorrentStateCode.ERROR;
         }
 
-        TorrentStatus status = th.getStatus();
+        TorrentStatus status = th.status();
 
         if (status.isPaused() && status.isFinished()) {
             return TorrentStateCode.FINISHED;
@@ -692,11 +729,9 @@ public class TorrentDownload implements TorrentDownloadInterface
             return TorrentStateCode.SEEDING;
         }
 
-        TorrentStatus.State stateCode = status.getState();
+        TorrentStatus.State stateCode = status.state();
 
         switch (stateCode) {
-            case QUEUED_FOR_CHECKING:
-                return TorrentStateCode.QUEUED_FOR_CHECKING;
             case CHECKING_FILES:
                 return TorrentStateCode.CHECKING;
             case DOWNLOADING_METADATA:
@@ -721,19 +756,19 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public boolean isPaused()
     {
-        return th.getStatus(true).isPaused() || engine.isPaused() || !engine.isStarted();
+        return th.isValid() && th.status(true).isPaused() || engine.isPaused() || !engine.isStarted();
     }
 
     @Override
     public boolean isSeeding()
     {
-        return th.getStatus().isSeeding();
+        return th.isValid() && th.status().isSeeding();
     }
 
     @Override
     public boolean isFinished()
     {
-        return th.getStatus().isFinished();
+        return th.isValid() && th.status().isFinished();
     }
 
     @Override
@@ -745,6 +780,6 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public boolean isSequentialDownload()
     {
-        return th.getStatus().isSequentialDownload();
+        return th.isValid() && th.status().isSequentialDownload();
     }
 }

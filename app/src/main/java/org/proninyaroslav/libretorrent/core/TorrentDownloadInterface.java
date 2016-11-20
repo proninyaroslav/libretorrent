@@ -28,6 +28,7 @@ import com.frostwire.jlibtorrent.TorrentStatus;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface TorrentDownloadInterface
@@ -56,9 +57,9 @@ public interface TorrentDownloadInterface
 
     Set<File> getIncompleteFiles();
 
-    int getActiveTime();
+    long getActiveTime();
 
-    int getSeedingTime();
+    long getSeedingTime();
     /*
      * Counts the amount of bytes received this session, but only
      * the actual payload data (i.e the interesting data), these counters
@@ -134,6 +135,8 @@ public interface TorrentDownloadInterface
     void setUploadSpeedLimit(int limit);
 
     int getUploadSpeedLimit();
+
+    String getInfoHash();
 
     boolean isSequentialDownload();
 
