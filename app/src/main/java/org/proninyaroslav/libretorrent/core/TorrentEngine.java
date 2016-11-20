@@ -56,7 +56,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.ReentrantLock;
 
 /*
  * This class is designed for seeding, downloading and management of torrents.
@@ -90,7 +89,7 @@ public class TorrentEngine extends SessionManager
     public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
-            AlertType.ADD_TORRENT.swig()
+            AlertType.TORRENT_ADDED.swig()
     };
 
     private Context context;
@@ -167,7 +166,7 @@ public class TorrentEngine extends SessionManager
         public void alert(Alert<?> alert)
         {
             switch (alert.type()) {
-                case ADD_TORRENT:
+                case TORRENT_ADDED:
                     TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
 
                     Sha1Hash sha1hash = torrentAlert.handle().infoHash();
@@ -197,9 +196,9 @@ public class TorrentEngine extends SessionManager
     }
 
     @Override
-    public void asyncDownload(Collection<Torrent> torrents)
+    public void restoreDownloads(Collection<Torrent> torrents)
     {
-        if (session == null || torrents == null) {
+        if (swig() == null || torrents == null) {
             return;
         }
 
@@ -239,10 +238,12 @@ public class TorrentEngine extends SessionManager
     }
 
     private void runNextLoadTorrentTask() {
-        LoadTorrentTask task;
+        LoadTorrentTask task = null;
 
         try {
-            task = loadTorrentsQueue.poll();
+            if (!loadTorrentsQueue.isEmpty()) {
+                task = loadTorrentsQueue.poll();
+            }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
 
@@ -254,12 +255,6 @@ public class TorrentEngine extends SessionManager
         }
     }
 
-    @Override
-    public Session getSession()
-    {
-        return session;
-    }
-
     private void prioritizeFiles(TorrentHandle handle, Priority[] priorities)
     {
         if (handle == null) {
@@ -268,7 +263,7 @@ public class TorrentEngine extends SessionManager
 
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            if (handle.getTorrentInfo().numFiles() != priorities.length) {
+            if (handle.torrentFile().numFiles() != priorities.length) {
                 return;
             }
 
@@ -277,7 +272,7 @@ public class TorrentEngine extends SessionManager
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, handle.getTorrentInfo().numFiles());
+                    Priority.array(Priority.NORMAL, handle.torrentFile().numFiles());
 
             handle.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -315,16 +310,8 @@ public class TorrentEngine extends SessionManager
             }
 
             /* New download */
-            handle = download(ti, saveDir, priorities, resumeFile);
-            handle.setSequentialDownload(torrent.isSequentialDownload());
-
-            if (torrent.isPaused()) {
-                handle.pause();
-            } else {
-                handle.resume();
-            }
-
-            return new TorrentDownload(context, this, handle, torrent, callback);
+            addTorrentsQueue.put(ti.infoHash().toString(), torrent);
+            download(ti, saveDir, resumeFile, priorities, null);
 
         } else {
             /* Found a download with the same hash, just adjust the priorities if needed */
@@ -418,147 +405,147 @@ public class TorrentEngine extends SessionManager
     @Override
     public void setSettings(SettingsPack sp)
     {
-        if (sp == null || session == null) {
+        if (sp == null || swig() == null) {
             return;
         }
 
-        session.applySettings(sp);
+        applySettings(sp);
         saveSettings();
     }
 
     @Override
     public SettingsPack getSettings()
     {
-        if (session == null) {
+        if (swig() == null) {
             return null;
         }
 
-        return session.getSettingsPack();
+        return settings();
     }
 
     @Override
     public void setDownloadSpeedLimit(int limit)
     {
-        if (session == null) {
+        if (swig() == null) {
             return;
         }
 
-        SettingsPack settingsPack = session.getSettingsPack();
-        settingsPack.setDownloadRateLimit(limit);
+        SettingsPack settingsPack = settings();
+        settingsPack.downloadRateLimit(limit);
         setSettings(settingsPack);
     }
 
     @Override
     public int getDownloadSpeedLimit()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getSettingsPack().downloadRateLimit();
+        return settings().downloadRateLimit();
     }
 
     @Override
     public void setUploadSpeedLimit(int limit)
     {
-        if (session == null) {
+        if (swig() == null) {
             return;
         }
 
-        SettingsPack settingsPack = session.getSettingsPack();
-        settingsPack.setUploadRateLimit(limit);
-        session.applySettings(settingsPack);
+        SettingsPack settingsPack = settings();
+        settingsPack.uploadRateLimit(limit);
+        applySettings(settingsPack);
         setSettings(settingsPack);
     }
 
     @Override
     public int getUploadSpeedLimit()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getSettingsPack().uploadRateLimit();
+        return settings().uploadRateLimit();
     }
 
     @Override
     public long getDownloadRate()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getStats().downloadRate();
+        return stats().downloadRate();
     }
 
     @Override
     public long getUploadRate()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getStats().uploadRate();
+        return stats().uploadRate();
     }
 
     @Override
     public long getTotalDownload()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getStats().download();
+        return stats().totalDownload();
     }
 
     @Override
     public long getTotalUpload()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getStats().upload();
+        return stats().totalUpload();
     }
 
     @Override
     public int getDownloadRateLimit()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getSettingsPack().downloadRateLimit();
+        return settings().downloadRateLimit();
     }
 
     @Override
     public int getUploadRateLimit()
     {
-        if (session == null) {
+        if (swig() == null) {
             return 0;
         }
 
-        return session.getSettingsPack().uploadRateLimit();
+        return settings().uploadRateLimit();
     }
 
     @Override
     public int getPort()
     {
-        if (session == null) {
+        if (swig() == null) {
             return -1;
         }
 
-        return session.getListenPort();
+        return swig().listen_port();
     }
 
     @Override
     public void setPort(int port)
     {
-        if (session == null || port == -1) {
+        if (swig() == null || port == -1) {
             return;
         }
 
-        SettingsPack sp = session.getSettingsPack();
+        SettingsPack sp = settings();
         sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + port);
         setSettings(sp);
     }
@@ -584,8 +571,8 @@ public class TorrentEngine extends SessionManager
             @Override
             public void onParsed(ip_filter filter, boolean success)
             {
-                if (success && session != null) {
-                    session.swig().set_ip_filter(filter);
+                if (success && swig() != null) {
+                    swig().set_ip_filter(filter);
                 }
 
                 if (callback != null) {
@@ -599,21 +586,21 @@ public class TorrentEngine extends SessionManager
     @Override
     public void disableIpFilter()
     {
-        if (session == null) {
+        if (swig() == null) {
             return;
         }
 
-        session.swig().set_ip_filter(new ip_filter());
+        swig().set_ip_filter(new ip_filter());
     }
 
     @Override
     public void setProxy(Context context, ProxySettingsPack proxy)
     {
-        if (context == null || proxy == null || session == null) {
+        if (context == null || proxy == null || swig() == null) {
             return;
         }
 
-        SettingsPack sp = session.getSettingsPack();
+        SettingsPack sp = settings();
 
         settings_pack.proxy_type_t type = settings_pack.proxy_type_t.none;
         switch (proxy.getType()) {
@@ -652,7 +639,7 @@ public class TorrentEngine extends SessionManager
     public ProxySettingsPack getProxy()
     {
         ProxySettingsPack proxy = new ProxySettingsPack();
-        SettingsPack sp = session.getSettingsPack();
+        SettingsPack sp = settings();
 
         ProxySettingsPack.ProxyType type;
         String swigType = sp.getString(settings_pack.int_types.proxy_type.swigValue());
@@ -687,39 +674,40 @@ public class TorrentEngine extends SessionManager
     }
 
     @Override
-    public boolean isListening()
+    public boolean isStarted()
     {
-        return session != null && session.isListening();
+        return swig() != null;
     }
 
     @Override
-    public boolean isStarted()
-    {
-        return session != null;
-    }
-
     public boolean isPaused()
     {
-        return session != null && session.isPaused();
+        return swig() != null && super.isPaused();
+    }
+
+    @Override
+    public boolean isListening()
+    {
+        return swig() != null && swig().is_listening();
     }
 
     @Override
     public boolean isDHTEnabled()
     {
-        return session != null && session.getSettingsPack().enableDht();
+        return swig() != null && settings().enableDht();
     }
 
     @Override
     public boolean isPeXEnabled()
     {
         /* PeX enabled by default in session_handle.session_flags_t::add_default_plugins */
-        return session != null;
+        return swig() != null;
     }
 
     @Override
     public boolean isLSDEnabled()
     {
-        return session != null && session.getSettingsPack().broadcastLSD();
+        return swig() != null && settings().broadcastLSD();
     }
 
     private final class LoadTorrentTask implements Runnable
@@ -741,7 +729,7 @@ public class TorrentEngine extends SessionManager
         public void run()
         {
             try {
-                session.asyncAddTorrent(new TorrentInfo(torrent), saveDir, priorities, resume);
+                download(new TorrentInfo(torrent), saveDir, resume, priorities, null);
 
             } catch (Throwable e) {
                 Log.e(TAG, "Unable to restore torrent from previous session. (" + torrent.getAbsolutePath() + "): ", e);

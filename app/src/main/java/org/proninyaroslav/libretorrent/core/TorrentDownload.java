@@ -55,7 +55,7 @@ import java.util.Set;
  * This class encapsulate one stream with running torrent.
  */
 
-public class TorrentDownload extends TorrentAlertAdapter implements TorrentDownloadInterface
+public class TorrentDownload implements TorrentDownloadInterface
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentDownload.class.getSimpleName();

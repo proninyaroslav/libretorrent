@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
 
-import com.frostwire.jlibtorrent.Session;
 import com.frostwire.jlibtorrent.SessionParams;
 import com.frostwire.jlibtorrent.SettingsPack;
 
@@ -35,9 +34,7 @@ public interface TorrentEngineInterface
 {
     TorrentDownload download(Torrent torrent);
 
-    void asyncDownload(Collection<Torrent> torrents);
-
-    Session getSession();
+    void restoreDownloads(Collection<Torrent> torrents);
 
     long getDownloadRate();
 
