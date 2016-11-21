@@ -26,9 +26,9 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
-//@ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
-//        mode = ReportingInteractionMode.DIALOG,
-//        reportDialogClass = ErrorReportActivity.class)
+@ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
+        mode = ReportingInteractionMode.DIALOG,
+        reportDialogClass = ErrorReportActivity.class)
 
 public class MainApplication extends Application
 {
@@ -37,6 +37,6 @@ public class MainApplication extends Application
     {
         super.attachBaseContext(base);
 
-//        ACRA.init(this);
+        ACRA.init(this);
     }
 }
