@@ -417,13 +417,13 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public long getActiveTime()
     {
-        return th.status().activeDuration();
+        return th.status().activeDuration() / 1000L;
     }
 
     @Override
     public long getSeedingTime()
     {
-        return th.status().seedingDuration();
+        return th.status().seedingDuration() / 1000L;
     }
 
     @Override

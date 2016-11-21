@@ -747,11 +747,7 @@ public class TorrentTaskService extends Service
             torrentTasks.remove(torrent.getId());
         }
 
-        TorrentDownload task = engineTask.getEngine().download(torrent);
-        torrentTasks.put(torrent.getId(), task);
-        if (pauseTorrents.get()) {
-            task.pause();
-        }
+        engineTask.getEngine().download(torrent);
     }
 
     private void addTorrents(Collection<Torrent> torrents)
@@ -776,12 +772,7 @@ public class TorrentTaskService extends Service
                 torrentTasks.remove(torrent.getId());
             }
 
-            TorrentDownload task = engineTask.getEngine().download(torrent);
-
-            torrentTasks.put(torrent.getId(), task);
-            if (pauseTorrents.get()) {
-                task.pause();
-            }
+            engineTask.getEngine().download(torrent);
         }
     }
 
