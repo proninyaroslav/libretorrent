@@ -41,29 +41,28 @@ public enum TorrentStateCode
     DOWNLOADING(2),
     PAUSED(3),
     STOPPED(4),
-    QUEUED_FOR_CHECKING(5),
     /*
      * The torrent has not started its download yet, and is
      * currently checking existing files.
      */
-    CHECKING(6),
+    CHECKING(5),
     /*
      * The torrent is trying to download metadata from peers.
      * This assumes the metadata_transfer extension is in use.
      */
-    DOWNLOADING_METADATA(7),
+    DOWNLOADING_METADATA(6),
     /*
      * In this state the torrent has finished downloading but
      * still doesn't have the entire torrent. i.e. some pieces
      * are filtered and won't get downloaded.
      */
-    FINISHED(8),
+    FINISHED(7),
     /*
      * If the torrent was started in full allocation mode, this
      * indicates that the (disk) storage for the torrent is
      * allocated.
      */
-    ALLOCATING(9);
+    ALLOCATING(8);
 
     private final int value;
 

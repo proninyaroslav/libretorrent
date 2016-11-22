@@ -525,7 +525,7 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_max_connections))) {
                     SettingsPack sp = engineTask.getEngine().getSettings();
                     if (sp != null) {
-                        sp.setConnectionsLimit(pref.getInt(item.key(), TorrentEngine.DEFAULT_CONNECTIONS_LIMIT));
+                        sp.connectionsLimit(pref.getInt(item.key(), TorrentEngine.DEFAULT_CONNECTIONS_LIMIT));
                         engineTask.getEngine().setSettings(sp);
                     }
 
@@ -723,7 +723,7 @@ public class TorrentTaskService extends Service
             }
         }
 
-        engineTask.getEngine().asyncDownload(torrents);
+        engineTask.getEngine().restoreDownloads(torrents);
     }
 
     private void addTorrent(Torrent torrent)
@@ -747,11 +747,7 @@ public class TorrentTaskService extends Service
             torrentTasks.remove(torrent.getId());
         }
 
-        TorrentDownload task = engineTask.getEngine().download(torrent);
-        torrentTasks.put(torrent.getId(), task);
-        if (pauseTorrents.get()) {
-            task.pause();
-        }
+        engineTask.getEngine().download(torrent);
     }
 
     private void addTorrents(Collection<Torrent> torrents)
@@ -776,12 +772,7 @@ public class TorrentTaskService extends Service
                 torrentTasks.remove(torrent.getId());
             }
 
-            TorrentDownload task = engineTask.getEngine().download(torrent);
-
-            torrentTasks.put(torrent.getId(), task);
-            if (pauseTorrents.get()) {
-                task.pause();
-            }
+            engineTask.getEngine().download(torrent);
         }
     }
 
@@ -1141,7 +1132,7 @@ public class TorrentTaskService extends Service
         TorrentStatus status = task.getTorrentStatus();
 
         for (PeerInfo peer : peers) {
-            PeerStateParcel state = new PeerStateParcel(peer.getSwig(), status);
+            PeerStateParcel state = new PeerStateParcel(peer.swig(), status);
             states.add(state);
         }
 

@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.TorrentStatus;
 import com.frostwire.jlibtorrent.swig.bitfield;
 import com.frostwire.jlibtorrent.swig.peer_info;
@@ -53,9 +54,9 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
 
     public PeerStateParcel(peer_info peer, TorrentStatus torrentStatus)
     {
-        super(peer.getIp().address().to_string());
+        super(new Address(peer.getIp().address()).toString());
 
-        ip = peer.getIp().address().to_string();
+        ip = new Address(peer.getIp().address()).toString();
         client = peer.getClient();
         totalDownload = peer.getTotal_download();
         totalUpload = peer.getTotal_upload();

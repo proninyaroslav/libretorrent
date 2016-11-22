@@ -154,7 +154,7 @@ public class DetailTorrentFragment extends Fragment
      */
     private TorrentMetaInfo infoCache;
     private TorrentStateParcel stateCache;
-    private int activeTimeCache, seedingTimeCache;
+    private long activeTimeCache, seedingTimeCache;
     private StateParcelCache<TrackerStateParcel> trackersCache = new StateParcelCache<>();
     private StateParcelCache<PeerStateParcel> peersCache = new StateParcelCache<>();
     private boolean[] piecesCache;
@@ -1325,8 +1325,10 @@ public class DetailTorrentFragment extends Fragment
                         break;
                     }
                     case TorrentTaskServiceIPC.GET_ACTIVE_AND_SEEDING_TIME: {
-                        int activeTime = msg.arg1;
-                        int seedingTime = msg.arg2;
+                        b = msg.getData();
+                        long activeTime = b.getLong(TorrentTaskServiceIPC.TAG_ACTIVE_TIME);
+                        long seedingTime = b.getLong(TorrentTaskServiceIPC.TAG_SEEDING_TIME);
+
                         fragment.get().activeTimeCache = activeTime;
                         fragment.get().seedingTimeCache = seedingTime;
 

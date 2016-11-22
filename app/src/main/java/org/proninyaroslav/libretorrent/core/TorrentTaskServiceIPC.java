@@ -56,6 +56,8 @@ public class TorrentTaskServiceIPC
     public static final String TAG_PEERS_STATES_LIST = "peers_states_list";
     public static final String TAG_PIECE_LIST = "piece_list";
     public static final String TAG_MAGNET = "magnet";
+    public static final String TAG_ACTIVE_TIME = "active_time";
+    public static final String TAG_SEEDING_TIME = "seeding_time";
 
     /*
      * Send client: callback
@@ -457,16 +459,16 @@ public class TorrentTaskServiceIPC
     }
 
     public void sendGetActiveAndSeedingTime(Messenger clientCallback,
-                                            int activeTime,
-                                            int seedingTime) throws RemoteException
+                                            long activeTime,
+                                            long seedingTime) throws RemoteException
     {
         if (clientCallback == null) {
             return;
         }
 
         Message msg = Message.obtain(null, GET_ACTIVE_AND_SEEDING_TIME, null);
-        msg.arg1 = activeTime;
-        msg.arg2 = seedingTime;
+        msg.getData().putLong(TAG_ACTIVE_TIME, activeTime);
+        msg.getData().putLong(TAG_SEEDING_TIME, seedingTime);
 
         clientCallback.send(msg);
     }
