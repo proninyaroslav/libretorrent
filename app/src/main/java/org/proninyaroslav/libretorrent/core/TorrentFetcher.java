@@ -4,10 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.SessionManager;
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -17,6 +14,8 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -90,34 +89,24 @@ public class TorrentFetcher
         final SessionManager s = new SessionManager();
         final CountDownLatch signal = new CountDownLatch(1);
 
-        /* The session stats are posted about once per second */
-        AlertListener l = new AlertListener()
+        s.start();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask()
         {
             @Override
-            public int[] types()
+            public void run()
             {
-                return new int[]{AlertType.SESSION_STATS.swig(), AlertType.DHT_STATS.swig()};
-            }
+                long nodes = s.stats().dhtNodes();
+                /* Wait for at least 10 nodes in the DHT */
+                if (nodes >= 10) {
+                    Log.i(TAG, "DHT contains " + nodes + " nodes");
 
-            @Override
-            public void alert(Alert<?> alert) {
-                if (alert.type().equals(AlertType.SESSION_STATS)) {
-                    s.postDhtStats();
-                }
-
-                if (alert.type().equals(AlertType.DHT_STATS)) {
-                    long nodes = s.stats().dhtNodes();
-                    /* Wait for at least 10 nodes in the DHT */
-                    if (nodes >= 10) {
-                        Log.i(TAG, "DHT contains " + nodes + " nodes");
-                        signal.countDown();
-                    }
+                    signal.countDown();
+                    timer.cancel();
                 }
             }
-        };
-
-        s.addListener(l);
-        s.postDhtStats();
+        }, 0, 1000);
 
         Log.i(TAG, "Waiting for nodes in DHT (10 seconds)...");
         try {
@@ -131,11 +120,12 @@ public class TorrentFetcher
             /* Ignore */
         }
 
-        s.removeListener(l);
-
         Log.i(TAG, "Fetching the magnet link...");
+        byte[] data = s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS);
 
-        return s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS);
+        s.stop();
+
+        return data;
     }
 
     public void fetchHTTP(Uri uri, final File targetFile) throws FetchLinkException, HttpException
