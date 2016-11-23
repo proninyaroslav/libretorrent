@@ -928,10 +928,12 @@ public class DetailTorrentFragment extends Fragment
                 TextInputEditText upload = (TextInputEditText) v.findViewById(R.id.upload_limit);
                 TextInputEditText download = (TextInputEditText) v.findViewById(R.id.download_limit);
 
-                uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
-                downloadSpeedLimit = Integer.parseInt(download.getText().toString()) * 1024;
+                if (!TextUtils.isEmpty(upload.getText().toString()) && !TextUtils.isEmpty(download.getText().toString())) {
+                    uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
+                    downloadSpeedLimit = Integer.parseInt(download.getText().toString()) * 1024;
 
-                setSpeedLimitRequest(uploadSpeedLimit, downloadSpeedLimit);
+                    setSpeedLimitRequest(uploadSpeedLimit, downloadSpeedLimit);
+                }
 
             } else if (getFragmentManager().findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) != null) {
                 if (sentError != null) {

@@ -71,7 +71,7 @@ public class TorrentUtils
         String dataDir = makeTorrentDataDir(context, dataDirId);
 
         if (dataDir == null) {
-            throw new IOException();
+            throw new IOException("Unable to create dir");
         }
 
         File torrent = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
