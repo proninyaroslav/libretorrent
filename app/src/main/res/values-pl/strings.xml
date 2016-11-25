@@ -47,6 +47,7 @@
     <string name="ip_filter_add_error">Niepowodzenie w dodaniu IP displayFilter. Plik może być uszkodzony lub posiadać nieprawidłowy format</string>
     <string name="proxy_settings_applied">Ustawienia serwera proxy zakończono pomyślnie</string>
     <string name="proxy_settings_apply_after_reboot">Ustawienia serwera proxy zostaną użyte po ponownym uruchomieniu aplikacji</string>
+    <string name="theme_settings_apply_after_reboot">Ustawienia motywu zostaną użyte po ponownym uruchomieniu aplikacji</string>
     <string name="about">About</string>
 
     <!-- Foreground notification -->
@@ -240,6 +241,12 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Uruchom aplikację po starcie systemu</string>
+    <string name="pref_theme_category">Ustawienia motywu</string>
+    <string name="pref_theme_title">Motyw</string>
+    <string-array name="pref_theme_entries">
+        <item>Lekki</item>
+        <item>Ciemny</item>
+    </string-array>
     <string name="pref_notification_category">Ustawienia powiadomień</string>
     <string name="pref_torrent_finish_notify_title">Powiadomienie ukończenia torrenta</string>
     <string name="pref_torrent_finish_notify_summary">Pokaż powiadomienie po ukończeniu pobierania torrenta</string>

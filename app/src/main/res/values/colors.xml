@@ -11,6 +11,7 @@
     <color name="accent_light">#fCE4EC</color>
     <color name="background">#FFFFFF</color>
     <color name="background_gray">#EDEDED</color>
+    <color name="background_dark">#303030</color>
     <color name="file_manager_highlight">@color/accent</color>
     <color name="text_primary">#DE000000</color>
     <color name="text_secondary">#9E9E9E</color>

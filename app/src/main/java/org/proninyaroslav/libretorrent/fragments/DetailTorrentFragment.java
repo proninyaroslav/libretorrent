@@ -732,7 +732,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.ok),
                             getString(R.string.cancel),
                             null,
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     deleteTorrentDialog.show(getFragmentManager(), TAG_DELETE_TORRENT_DIALOG);
@@ -759,7 +758,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.add),
                             getString(R.string.replace),
                             getString(R.string.cancel),
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     addTrackersDialog.show(getFragmentManager(), TAG_ADD_TRACKERS_DIALOG);
@@ -774,7 +772,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.ok),
                             getString(R.string.cancel),
                             null,
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     speedLimitDialog.show(getFragmentManager(), TAG_SPEED_LIMIT_DIALOG);
@@ -1013,7 +1010,6 @@ public class DetailTorrentFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_save_torrent_file),
                     (e != null ? Log.getStackTraceString(e) : null),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             errDialog.show(getFragmentManager(), TAG_SAVE_ERR_TORRENT_FILE_DIALOG);

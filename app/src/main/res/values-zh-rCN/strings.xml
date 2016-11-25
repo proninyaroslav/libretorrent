@@ -47,6 +47,7 @@
     <string name="ip_filter_add_error">无法添加 IP 过滤器。可能文件已损坏或格式不正确。</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
+    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
     <string name="about">关于</string>
 
     <!-- Foreground notification -->
@@ -243,6 +244,12 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
+    <string name="pref_theme_category">Theme settings</string>
+    <string name="pref_theme_title">Theme</string>
+    <string-array name="pref_theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
     <string name="pref_notification_category">通知设置</string>
     <string name="pref_torrent_finish_notify_title">torrent 完成时通知</string>
     <string name="pref_torrent_finish_notify_summary">torrent 下载完成后显示通知</string>

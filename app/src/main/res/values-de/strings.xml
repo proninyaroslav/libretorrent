@@ -47,6 +47,7 @@
     <string name="ip_filter_add_error">Fehler beim setzen des IP Anzeigefilters. Unter Umständen ist die Datei beschädigt oder hat ein ungültiges Format</string>
     <string name="proxy_settings_applied">Proxy Server Einstellungen erfolgreich angewandt</string>
     <string name="proxy_settings_apply_after_reboot">Proxy Server Einstellungen werden nach einem Neustart der App angewendet</string>
+    <string name="theme_settings_apply_after_reboot">Themen Einstellungen werden nach einem Neustart der App angewendet</string>
     <string name="about">Über</string>
 
     <!-- Foreground notification -->
@@ -240,6 +241,12 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Starte die App bei Gerätestart</string>
+    <string name="pref_theme_category">Themen Einstellungen</string>
+    <string name="pref_theme_title">Thema</string>
+    <string-array name="pref_theme_entries">
+        <item>Licht</item>
+        <item>Dunkel</item>
+    </string-array>
     <string name="pref_notification_category">Benachrichtigungseinstellungen</string>
     <string name="pref_torrent_finish_notify_title">Torrent abgeschlossen Benachrichtigung</string>
     <string name="pref_torrent_finish_notify_summary">Benachrichtige bei abgeschlossenen Torrents</string>

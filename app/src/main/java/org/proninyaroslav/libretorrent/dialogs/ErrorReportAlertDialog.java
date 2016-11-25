@@ -49,8 +49,7 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
 
     public static ErrorReportAlertDialog newInstance(Context context,
                                                      String title, String message,
-                                                     String detailError,
-                                                     int style, Object callback)
+                                                     String detailError, Object callback)
     {
         ErrorReportAlertDialog frag = new ErrorReportAlertDialog();
 
@@ -60,7 +59,6 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         args.putString(TAG_MESSAGE, message);
         args.putString(TAG_POS_TEXT, context.getString(R.string.report));
         args.putString(TAG_NEG_TEXT, context.getString(R.string.cancel));
-        args.putInt(TAG_STYLE, style);
         args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_error);
         args.putString(TAG_DETAIL_ERROR, detailError);
 
@@ -83,7 +81,6 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         String negativeText = args.getString(TAG_NEG_TEXT);
         String positiveText = args.getString(TAG_POS_TEXT);
         String detailError = args.getString(TAG_DETAIL_ERROR);
-        int style = args.getInt(TAG_STYLE);
         int resIdView = args.getInt(TAG_RES_ID_VIEW);
 
         View v = null;
@@ -102,7 +99,7 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         }
 
         AlertDialog.Builder dialog = buildDialog(title, message, v,
-                positiveText, negativeText, null, style);
+                positiveText, negativeText, null);
 
         final AlertDialog alert = dialog.create();
 

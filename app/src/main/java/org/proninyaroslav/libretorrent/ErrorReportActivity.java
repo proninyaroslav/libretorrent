@@ -48,7 +48,6 @@ public class ErrorReportActivity extends BaseCrashReportDialog
                     getString(R.string.error),
                     getString(R.string.app_error_occurred),
                     Log.getStackTraceString(getException()),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             errDialog.show(getFragmentManager(), TAG_ERROR_DIALOG);

@@ -223,6 +223,12 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Автозапуск</string>
     <string name="pref_autostart_summary">Запускать приложение после включения устройства</string>
+    <string name="pref_theme_category">Настройки темы</string>
+    <string name="pref_theme_title">Тема</string>
+    <string-array name="pref_theme_entries">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+    </string-array>
     <string name="pref_notification_category">Настройки уведомлений</string>
     <string name="pref_torrent_finish_notify_title">Уведомление о завершении скачивания торрента</string>
     <string name="pref_torrent_finish_notify_summary">Показывать уведомление, когда скачивание торрента завершено</string>

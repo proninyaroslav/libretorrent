@@ -206,6 +206,12 @@ public class MainFragment extends Fragment
 
         if (toolbar != null) {
             toolbar.setTitle(R.string.app_name);
+
+            if (Utils.isDarkTheme(activity.getApplicationContext())) {
+                toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Dark);
+            } else {
+                toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
+            }
         }
 
         View spinnerContainer = LayoutInflater.from(activity).inflate(R.layout.toolbar_spinner,
@@ -545,7 +551,6 @@ public class MainFragment extends Fragment
                                 getString(R.string.ok),
                                 getString(R.string.cancel),
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 MainFragment.this);
 
                         deleteTorrentDialog.show(getFragmentManager(), TAG_DELETE_TORRENT_DIALOG);
@@ -671,7 +676,6 @@ public class MainFragment extends Fragment
                     getString(R.string.ok),
                     getString(R.string.about_changelog),
                     null,
-                    R.style.BaseTheme_Dialog,
                     this);
             aboutDialog.show(getFragmentManager(), TAG_ABOUT_DIALOG);
         }
@@ -687,7 +691,6 @@ public class MainFragment extends Fragment
                     getString(R.string.ok),
                     getString(R.string.cancel),
                     null,
-                    R.style.BaseTheme_Dialog,
                     this);
 
             addLinkDialog.show(getFragmentManager(), TAG_ADD_LINK_DIALOG);
@@ -1163,7 +1166,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_file_not_found_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1176,7 +1178,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_io_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1194,7 +1195,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1244,7 +1244,6 @@ public class MainFragment extends Fragment
                                         getString(R.string.error),
                                         getString(R.string.error_open_torrent_file),
                                         Log.getStackTraceString(e),
-                                        R.style.BaseTheme_Dialog,
                                         this);
 
                                 FragmentTransaction ft = getFragmentManager().beginTransaction();

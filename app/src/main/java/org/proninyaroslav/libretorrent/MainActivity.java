@@ -69,6 +69,12 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         if (getIntent().getAction() != null && getIntent().getAction().equals(TAG_ACTION_SHUTDOWN)) {
             finish();
 
@@ -209,7 +215,6 @@ public class MainActivity extends AppCompatActivity
                                 getString(R.string.yes),
                                 getString(R.string.no),
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 this);
 
                         permDialog.show(getFragmentManager(), TAG_PERM_DIALOG);
