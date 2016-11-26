@@ -206,12 +206,6 @@ public class MainFragment extends Fragment
 
         if (toolbar != null) {
             toolbar.setTitle(R.string.app_name);
-
-            if (Utils.isDarkTheme(activity.getApplicationContext())) {
-                toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Dark);
-            } else {
-                toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
-            }
         }
 
         View spinnerContainer = LayoutInflater.from(activity).inflate(R.layout.toolbar_spinner,
@@ -292,10 +286,16 @@ public class MainFragment extends Fragment
                 return true;
             }
         };
+
+        int resId = R.drawable.list_divider;
+        if (Utils.isDarkTheme(activity.getApplicationContext())) {
+            resId = R.drawable.list_divider_dark;
+        }
+
         torrentsList.setItemAnimator(animator);
         torrentsList.addItemDecoration(
                 new RecyclerViewDividerDecoration(
-                        activity.getApplicationContext(), R.drawable.torrent_list_divider));
+                        activity.getApplicationContext(), resId));
         torrentsList.setEmptyView(activity.findViewById(R.id.empty_view_torrent_list));
 
 

@@ -2,15 +2,14 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/test"
-    android:background="@color/background">
+    android:background="?attr/background">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:showDividers="middle"
-        android:divider="@drawable/table_mode_divider">
+        android:divider="?attr/divider">
 
         <LinearLayout
             android:layout_width="match_parent"

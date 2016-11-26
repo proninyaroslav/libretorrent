@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:background="@color/background" />
+            android:background="?attr/background" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_folder_button"

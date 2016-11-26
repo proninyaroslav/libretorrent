@@ -13,14 +13,18 @@
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary_inverse</item>
         <item name="android:textColorSecondaryInverse">@color/text_secondary_inverse</item>
+        <item name="torrentInfoText">@color/text_primary</item>
+        <item name="smallText">@style/TextAppearance.AppCompat.Small</item>
+        <item name="background">@color/background</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionModeBackground">@color/action_mode</item>
-        <!-- For pre-Lollipop -->
-        <item name="actionModeBackground">@color/action_mode</item>
+        <item name="actionModeBackground">@color/action_mode</item> <!-- For pre-Lollipop -->
         <item name="android:windowBackground">@color/background</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
-        <item name="alertDialogTheme">@style/BaseTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/BaseTheme.Dialog</item> <!-- For pre-Lollipop -->
+        <item name="divider">@drawable/table_mode_divider</item>
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
@@ -28,10 +32,15 @@
         <item name="android:textColorSecondary">@color/text_secondary_inverse</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary</item>
         <item name="android:textColorSecondaryInverse">@color/text_secondary</item>
+        <item name="torrentInfoText">@color/text_primary_inverse</item>
+        <item name="smallText">@style/TextAppearance.AppCompat.Small.Inverse</item>
+        <item name="background">@color/background_dark</item>
         <item name="android:windowBackground">@color/background_dark</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="android:alertDialogTheme">@style/BaseTheme.Dialog.Dark</item>
         <item name="alertDialogTheme">@style/BaseTheme.Dialog.Dark</item>
+        <item name="divider">@drawable/table_mode_divider_dark</item>
     </style>
 
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
@@ -56,6 +65,7 @@
 
     <style name="BaseTheme.TorrentInfoText" parent="android:TextAppearance.Widget.TextView">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">?attr/torrentInfoText</item>
         <item name="android:textIsSelectable">true</item>
     </style>
 

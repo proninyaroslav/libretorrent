@@ -6,6 +6,8 @@
     <color name="gray_dark">#727272</color>
     <color name="gray">#E0E0E0</color>
     <color name="gray_light">#EEEEEE</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="divider_dark">#424242</color>
     <color name="accent">#FF4081</color>
     <color name="accent_dark">#C2185B</color>
     <color name="accent_light">#fCE4EC</color>

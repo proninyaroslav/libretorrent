@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="dynamic_style_attrs">
+        <attr name="torrentInfoText" format="reference" />
+        <attr name="smallText" format="reference" />
+        <attr name="background" format="reference" />
+        <attr name="popupTheme" format="reference" />
+        <attr name="divider" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="LightColorView">
         <attr name="lightColor" format="color" />
     </declare-styleable>

@@ -47,6 +47,10 @@ public class DetailTorrentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         if (Utils.isTwoPane(getApplicationContext())) {
             finish();
 

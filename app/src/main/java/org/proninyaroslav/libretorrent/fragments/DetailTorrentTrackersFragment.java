@@ -154,10 +154,16 @@ public class DetailTorrentTrackersFragment extends Fragment
                     return true;
                 }
             };
+
+            int resId = R.drawable.list_divider;
+            if (Utils.isDarkTheme(activity.getApplicationContext())) {
+                resId = R.drawable.list_divider_dark;
+            }
+
             trackersList.setItemAnimator(animator);
             trackersList.addItemDecoration(
                     new RecyclerViewDividerDecoration(
-                            activity.getApplicationContext(), R.drawable.torrent_list_divider));
+                            activity.getApplicationContext(), resId));
 
             adapter = new TrackerListAdapter(trackers, activity, R.layout.item_trackers_list, this);
             trackersList.setAdapter(adapter);

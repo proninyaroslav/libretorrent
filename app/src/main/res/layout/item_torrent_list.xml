@@ -74,7 +74,7 @@
                         android:layout_marginRight="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textAppearance="?attr/smallText" />
                 </LinearLayout>
 
                 <TextView
@@ -85,7 +85,7 @@
                     android:gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_marginRight="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textAppearance="?attr/smallText" />
                 </LinearLayout>
 
                 <TextView
@@ -122,7 +122,7 @@
                     android:gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
