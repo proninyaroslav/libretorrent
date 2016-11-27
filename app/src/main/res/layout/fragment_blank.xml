@@ -7,14 +7,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_gray">
+        android:background="?attr/backgroundBlank">
 
         <View
             android:id="@+id/fake_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            android:background="@color/primary" />
+            android:background="?attr/colorPrimary" />
 
         <TextView
             android:id="@+id/blank_textview"

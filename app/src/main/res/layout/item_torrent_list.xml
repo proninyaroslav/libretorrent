@@ -3,7 +3,7 @@
     android:id="@+id/item_torrent_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/default_rect_ripple">
+    android:background="?attr/defaultRectRipple">
 
     <View
         android:id="@+id/indicator_cur_open_torrent"

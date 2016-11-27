@@ -27,7 +27,7 @@
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:transitionName="actionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:popupTheme="?attr/popupTheme"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
             <HorizontalScrollView
@@ -35,7 +35,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:background="@color/primary">
+                android:background="?attr/colorPrimary">
 
                 <TextView
                     android:id="@+id/title_cur_folder_path"

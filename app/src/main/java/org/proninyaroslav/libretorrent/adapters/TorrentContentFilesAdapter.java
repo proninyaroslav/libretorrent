@@ -20,9 +20,10 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,20 +70,27 @@ public class TorrentContentFilesAdapter
         return new ViewHolder(v, clickListener, files);
     }
 
+    @SuppressWarnings("ResourceType")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
         final TorrentContentFileTree file = files.get(position);
 
+        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
+                R.attr.defaultSelectRect,
+                R.attr.defaultRectRipple
+        });
+
         if (isSelected(position)) {
             Utils.setBackground(
                     holder.itemView,
-                    ContextCompat.getDrawable(context, R.drawable.default_gray_rect));
+                    a.getDrawable(0));
         } else {
             Utils.setBackground(
                     holder.itemFileList,
-                    ContextCompat.getDrawable(context, R.drawable.default_rect_ripple));
+                    a.getDrawable(1));
         }
+        a.recycle();
 
         holder.fileName.setText(file.getName());
 

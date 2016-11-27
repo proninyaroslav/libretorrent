@@ -16,7 +16,7 @@
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="enterAlways"
         android:transitionName="actionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="?attr/popupTheme"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <LinearLayout
@@ -25,7 +25,7 @@
         android:orientation="horizontal"
         android:layout_below="@id/toolbar"
         android:showDividers="middle"
-        android:divider="@drawable/table_mode_divider">
+        android:divider="?attr/divider">
 
         <FrameLayout
             android:id="@+id/fragment_container"

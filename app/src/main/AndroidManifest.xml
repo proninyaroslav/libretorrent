@@ -144,7 +144,7 @@
 
         <activity
             android:name="org.proninyaroslav.libretorrent.ErrorReportActivity"
-            android:theme="@style/BaseTheme.Dialog"
+            android:theme="@style/AppTheme"
             android:process=":error_report"
             android:launchMode="singleInstance"
             android:excludeFromRecents="true"

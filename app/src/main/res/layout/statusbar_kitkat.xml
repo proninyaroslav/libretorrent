@@ -5,4 +5,4 @@
     android:layout_height="@dimen/status_bar_height"
     android:layout_alignParentTop="true"
     android:visibility="gone"
-    android:background="@color/primary_dark" />
+    android:background="?attr/colorPrimaryDark" />

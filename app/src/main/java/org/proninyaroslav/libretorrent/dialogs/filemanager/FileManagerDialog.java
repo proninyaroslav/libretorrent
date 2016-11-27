@@ -96,6 +96,10 @@ public class FileManagerDialog extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         Intent intent = getIntent();
         if (!intent.hasExtra(TAG_CONFIG)) {
             Log.e(TAG, "To work need to set intent with FileManagerConfig in startActivity()");

@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -287,17 +289,14 @@ public class MainFragment extends Fragment
             }
         };
 
-        int resId = R.drawable.list_divider;
-        if (Utils.isDarkTheme(activity.getApplicationContext())) {
-            resId = R.drawable.list_divider_dark;
-        }
+        TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.divider });
 
         torrentsList.setItemAnimator(animator);
         torrentsList.addItemDecoration(
-                new RecyclerViewDividerDecoration(
-                        activity.getApplicationContext(), resId));
+                new RecyclerViewDividerDecoration(a.getDrawable(0)));
         torrentsList.setEmptyView(activity.findViewById(R.id.empty_view_torrent_list));
 
+        a.recycle();
 
         adapter = new TorrentListAdapter(
                 new ArrayList<TorrentStateParcel>(),

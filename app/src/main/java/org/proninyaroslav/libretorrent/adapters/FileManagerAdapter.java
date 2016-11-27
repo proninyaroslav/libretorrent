@@ -20,9 +20,10 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,9 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
         if (highlightFileTypes != null && highlightFileTypes.contains(FilenameUtils.getExtension(file.getName()))) {
             holder.fileName.setTextColor(ContextCompat.getColor(context, R.color.file_manager_highlight));
         } else {
-            holder.fileName.setTextColor(Color.BLACK);
+            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorPrimary });
+            holder.fileName.setTextColor(a.getColor(0, 0));
+            a.recycle();
         }
 
         holder.fileName.setText(file.getName());

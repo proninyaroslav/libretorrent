@@ -15,5 +15,5 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-        android:background="@drawable/default_rect_ripple" />
+        android:background="?attr/defaultRectRipple" />
 </LinearLayout>

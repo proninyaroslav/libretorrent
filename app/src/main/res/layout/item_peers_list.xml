@@ -9,7 +9,7 @@
     android:paddingRight="16dp"
     android:layout_weight="1"
     android:orientation="vertical"
-    android:background="@drawable/default_rect_ripple">
+    android:background="?attr/defaultRectRipple">
 
     <TextView
         android:id="@+id/peer_ip"

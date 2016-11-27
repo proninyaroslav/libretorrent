@@ -6,7 +6,7 @@
     android:minHeight="72dp"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/default_rect_ripple">
+    android:background="?attr/defaultRectRipple">
 
     <TextView
         android:id="@+id/tracker_url"

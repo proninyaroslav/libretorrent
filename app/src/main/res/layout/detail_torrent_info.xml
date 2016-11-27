@@ -67,7 +67,7 @@
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/default_round_ripple"
+            android:background="?attr/defaultRoundRipple"
             android:contentDescription="@null"
             android:src="@drawable/ic_folder_grey600_24dp" />
     </RelativeLayout>
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?attr/torrentInfoText"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="@string/enable_sequential_download" />
     </LinearLayout>
 

@@ -35,13 +35,13 @@
                         android:id="@+id/toolbar_divider"
                         android:layout_width="1dp"
                         android:layout_height="?attr/actionBarSize"
-                        android:background="@color/primary_dark" />
+                        android:background="?attr/colorPrimaryDark" />
 
                     <View
                         android:id="@+id/content_divider"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/table_mode_divider" />
+                        android:background="?attr/divider" />
                 </LinearLayout>
 
                 <FrameLayout

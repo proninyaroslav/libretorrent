@@ -25,4 +25,8 @@
     <style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
+    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
 </resources>

@@ -20,9 +20,11 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +65,7 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         return new ViewHolder(v, clickListener, items);
     }
 
+    @SuppressWarnings("ResourceType")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
@@ -70,15 +73,21 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
 
         holder.state = state;
 
+        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
+                R.attr.defaultSelectRect,
+                R.attr.defaultRectRipple
+        });
+
         if (isSelected(position)) {
             Utils.setBackground(
                     holder.itemTrackerList,
-                    ContextCompat.getDrawable(context, R.drawable.default_gray_rect));
+                    a.getDrawable(0));
         } else {
             Utils.setBackground(
                     holder.itemTrackerList,
-                    ContextCompat.getDrawable(context, R.drawable.default_rect_ripple));
+                    a.getDrawable(1));
         }
+        a.recycle();
 
         holder.url.setText(state.url);
 

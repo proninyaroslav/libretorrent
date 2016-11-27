@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:paddingLeft="@dimen/dialog_padding"
-        android:background="@drawable/default_rect_ripple">
+        android:background="?attr/defaultRectRipple">
 
         <RelativeLayout
             android:id="@+id/expand_button"
@@ -34,7 +34,7 @@
             android:gravity="center_vertical"
             android:layout_toLeftOf="@id/expand_button"
             android:text="@string/more_details"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:textAppearance="?attr/smallText" />
     </RelativeLayout>
 
     <com.github.aakira.expandablelayout.ExpandableLinearLayout
@@ -63,7 +63,7 @@
                     android:layout_height="match_parent"
                     android:paddingBottom="@dimen/dialog_padding"
                     android:textIsSelectable="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </ScrollView>
 
             <View

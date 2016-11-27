@@ -74,6 +74,10 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         setContentView(R.layout.activity_add_torrent);
 
         FragmentManager fm = getFragmentManager();

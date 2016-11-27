@@ -17,4 +17,10 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

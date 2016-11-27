@@ -22,9 +22,9 @@ package org.proninyaroslav.libretorrent.dialogs;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 /*
  * The simple spinner progress dialog.
@@ -72,6 +72,9 @@ public class SpinnerProgressDialog extends DialogFragment
         boolean isCancelable = args.getBoolean(TAG_IS_CANCELABLE);
 
         ProgressDialog dialog = new ProgressDialog(getActivity());
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle(title);
         dialog.setMessage(message);
