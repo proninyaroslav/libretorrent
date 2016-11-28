@@ -244,7 +244,7 @@
     <string name="pref_theme_category">Ajustes de tema</string>
     <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">
-        <item>Ligero</item>
+        <item>Claro</item>
         <item>Oscuro</item>
     </string-array>
     <string name="pref_notification_category">Ajustes de notificaciones</string>
