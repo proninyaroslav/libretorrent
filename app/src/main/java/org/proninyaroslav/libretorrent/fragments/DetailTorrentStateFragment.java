@@ -25,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,7 +213,7 @@ public class DetailTorrentStateFragment extends Fragment
         }
     }
 
-    public void setActiveAndSeedingTime(int activeTime, int seedingTime)
+    public void setActiveAndSeedingTime(long activeTime, long seedingTime)
     {
         TextView textViewActiveTime = (TextView) activity.findViewById(R.id.torrent_state_active_time);
 

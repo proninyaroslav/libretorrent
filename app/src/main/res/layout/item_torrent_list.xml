@@ -3,7 +3,7 @@
     android:id="@+id/item_torrent_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/default_rect_ripple">
+    android:background="?attr/defaultRectRipple">
 
     <View
         android:id="@+id/indicator_cur_open_torrent"
@@ -74,7 +74,7 @@
                         android:layout_marginRight="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textAppearance="?attr/smallText" />
                 </LinearLayout>
 
                 <TextView
@@ -85,7 +85,7 @@
                     android:gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_marginRight="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textAppearance="?attr/smallText" />
                 </LinearLayout>
 
                 <TextView
@@ -122,7 +122,7 @@
                     android:gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

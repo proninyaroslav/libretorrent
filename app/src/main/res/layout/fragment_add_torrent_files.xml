@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="?attr/background">
 
     <TextView
         android:id="@+id/files_size"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_alignParentTop="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        android:textAppearance="?attr/smallText" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/file_list"

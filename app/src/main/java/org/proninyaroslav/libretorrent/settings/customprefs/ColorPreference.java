@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.settings.notificationlight;
+package org.proninyaroslav.libretorrent.settings.customprefs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -33,14 +33,14 @@ import org.proninyaroslav.libretorrent.customviews.LightColorView;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /*
- * LED indicator settings.
+ * Color picker settings.
  */
 
-public class LightPreference extends Preference
+public class ColorPreference extends Preference
 {
     private int value;
 
-    public LightPreference(Context context, AttributeSet attrs)
+    public ColorPreference(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
@@ -52,9 +52,9 @@ public class LightPreference extends Preference
     {
         super.onBindViewHolder(holder);
 
-        LightColorView lightColor = (LightColorView) holder.findViewById(R.id.lightColor);
-        if (lightColor != null) {
-            lightColor.setColor(value);
+        LightColorView color = (LightColorView) holder.findViewById(R.id.lightColor);
+        if (color != null) {
+            color.setColor(value);
         }
     }
 

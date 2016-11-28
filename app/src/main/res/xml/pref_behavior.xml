@@ -8,6 +8,17 @@
         android:persistent="false" />
 
     <PreferenceCategory
+        android:title="@string/pref_theme_category">
+
+        <ListPreference
+            android:key="@string/pref_key_theme"
+            android:title="@string/pref_theme_title"
+            android:entries="@array/pref_theme_entries"
+            android:entryValues="@array/pref_theme_entries_value"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/pref_notification_category">
 
         <SwitchPreferenceCompat
@@ -34,7 +45,7 @@
             android:dependency="@string/pref_key_torrent_finish_notify"
             android:persistent="false" />
 
-        <org.proninyaroslav.libretorrent.settings.notificationlight.LightPreference
+        <org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference
             android:key="@string/pref_key_led_indicator_color_notify"
             android:title="@string/pref_led_indicator_color_notify_title"
             android:dependency="@string/pref_key_led_indicator_notify"

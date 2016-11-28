@@ -96,6 +96,10 @@ public class FileManagerDialog extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         Intent intent = getIntent();
         if (!intent.hasExtra(TAG_CONFIG)) {
             Log.e(TAG, "To work need to set intent with FileManagerConfig in startActivity()");
@@ -169,7 +173,6 @@ public class FileManagerDialog extends AppCompatActivity
                                 getString(R.string.ok),
                                 getString(R.string.cancel),
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 FileManagerDialog.this);
 
                         inputNameDialog.show(getFragmentManager(), TAG_NEW_FOLDER_DIALOG);
@@ -242,7 +245,6 @@ public class FileManagerDialog extends AppCompatActivity
                                 getString(R.string.ok),
                                 null,
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 this);
 
                         errDialog.show(getFragmentManager(), TAG_ERR_CREATE_DIR);
@@ -320,7 +322,6 @@ public class FileManagerDialog extends AppCompatActivity
                         getString(R.string.error),
                         getString(R.string.error_open_dir),
                         Log.getStackTraceString(e),
-                        R.style.BaseTheme_Dialog,
                         this);
 
                 errDialog.show(getFragmentManager(), TAG_ERROR_OPEN_DIR_DIALOG);
@@ -465,7 +466,6 @@ public class FileManagerDialog extends AppCompatActivity
                                 getString(R.string.ok),
                                 null,
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 this);
 
                         errDialog.show(getFragmentManager(), TAG_ERROR_OPEN_DIR_DIALOG);
@@ -482,7 +482,6 @@ public class FileManagerDialog extends AppCompatActivity
                                 getString(R.string.ok),
                                 null,
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 this);
 
                         permDialog.show(getFragmentManager(), TAG_ERR_WRITE_PERM);

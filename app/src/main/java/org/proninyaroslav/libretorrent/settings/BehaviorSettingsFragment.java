@@ -27,7 +27,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.widget.Toast;
 
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.takisoft.fix.support.v7.preference.SwitchPreferenceCompat;
@@ -35,7 +37,7 @@ import com.takisoft.fix.support.v7.preference.SwitchPreferenceCompat;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
-import org.proninyaroslav.libretorrent.settings.notificationlight.LightPreference;
+import org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference;
 
 public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         implements
@@ -61,6 +63,14 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         super.onCreate(savedInstanceState);
 
         final SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+
+        String keyTheme = getString(R.string.pref_key_theme);
+        ListPreference theme = (ListPreference) findPreference(keyTheme);
+        int type = pref.getInt(keyTheme, Integer.parseInt(getString(R.string.pref_theme_light_value)));
+        theme.setValueIndex(type);
+        String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);
+        theme.setSummary(typesName[type]);
+        bindOnPreferenceChangeListener(theme);
 
         String keyTorrentFinishNotify = getString(R.string.pref_key_torrent_finish_notify);
         SwitchPreferenceCompat torrentFinishNotify = (SwitchPreferenceCompat) findPreference(keyTorrentFinishNotify);
@@ -115,7 +125,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(ledIndicator);
 
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
-        LightPreference ledIndicatorColor = (LightPreference) findPreference(keyLedIndicatorColor);
+        ColorPreference ledIndicatorColor = (ColorPreference) findPreference(keyLedIndicatorColor);
         ledIndicatorColor.forceSetValue(pref.getInt(keyLedIndicatorColor,
                 ContextCompat.getColor(getActivity().getApplicationContext(), R.color.primary)));
         bindOnPreferenceChangeListener(ledIndicatorColor);
@@ -201,11 +211,22 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                         .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
             }
 
-        } else if (preference instanceof LightPreference) {
-            LightPreference ledIndicatorColor = (LightPreference) findPreference(preference.getKey());
+        } else if (preference instanceof ColorPreference) {
+            ColorPreference ledIndicatorColor = (ColorPreference) findPreference(preference.getKey());
             ledIndicatorColor.forceSetValue((int) newValue);
             pref.put(preference.getKey(), (int) newValue);
 
+        } else if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
+            int type = Integer.parseInt((String) newValue);
+
+            pref.put(preference.getKey(), type);
+            String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);
+            preference.setSummary(typesName[type]);
+
+            Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.theme_settings_apply_after_reboot,
+                    Toast.LENGTH_SHORT)
+                    .show();
         }
 
         return true;

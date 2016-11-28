@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
@@ -27,8 +27,8 @@ repositories {
     }
 }
 
-def ANDROID_SUPPORT_VERSION='25.0.0'
-def JLIBTORRENT_VERSION='1.1.1.37'
+def ANDROID_SUPPORT_VERSION='25.0.1'
+def JLIBTORRENT_VERSION='1.2.0.4'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,7 +45,7 @@ dependencies {
     compile 'net.grandcentrix.tray:tray:0.11.0'
     compile 'ch.acra:acra:4.9.1'
 
-    compile 'com.takisoft.fix:preference-v7:24.2.1.0'
+    compile 'com.takisoft.fix:preference-v7:25.0.1.0'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.github.yukuku:ambilwarna:2.0.1'

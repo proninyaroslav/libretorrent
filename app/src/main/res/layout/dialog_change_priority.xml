@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="@string/change_priority_low" />
 
         <RadioButton
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="@string/change_priority_normal" />
 
         <RadioButton
@@ -30,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="@string/change_priority_high" />
     </RadioGroup>
 </LinearLayout>

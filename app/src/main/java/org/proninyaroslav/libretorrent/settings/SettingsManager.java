@@ -45,6 +45,11 @@ public class SettingsManager extends TrayPreferences
     {
         SettingsManager pref = new SettingsManager(context);
 
+        String keyTheme = context.getString(R.string.pref_key_theme);
+        if (pref.getInt(keyTheme, -1) == -1) {
+            pref.put(keyTheme, Integer.parseInt(context.getString(R.string.pref_theme_light_value)));
+        }
+
         String keyAutostart = context.getString(R.string.pref_key_autostart);
         int flag = (pref.getBoolean(keyAutostart, false) ?
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED :

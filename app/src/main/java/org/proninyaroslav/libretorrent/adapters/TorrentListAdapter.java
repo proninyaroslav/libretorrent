@@ -20,10 +20,12 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +80,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         return new ViewHolder(v, clickListener, currentItems);
     }
 
+    @SuppressWarnings("ResourceType")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
@@ -86,15 +89,21 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         Utils.setBackground(holder.indicatorCurOpenTorrent,
                 ContextCompat.getDrawable(context, android.R.color.transparent));
 
+        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
+                R.attr.defaultSelectRect,
+                R.attr.defaultRectRipple
+        });
+
         if (isSelected(position)) {
             Utils.setBackground(
                     holder.itemTorrentList,
-                    ContextCompat.getDrawable(context, R.drawable.default_gray_rect));
+                    a.getDrawable(0));
         } else {
             Utils.setBackground(
                     holder.itemTorrentList,
-                    ContextCompat.getDrawable(context, R.drawable.default_rect_ripple));
+                    a.getDrawable(1));
         }
+        a.recycle();
 
         holder.name.setText(state.name);
 
@@ -163,9 +172,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         if (curOpenTorrent != null &&
                 getItemPosition(curOpenTorrent) == position && Utils.isTwoPane(context)) {
             if (!isSelected(position)) {
+                a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
                 Utils.setBackground(
-                        holder.itemTorrentList,
-                        ContextCompat.getDrawable(context, R.color.accent_light));
+                        holder.itemTorrentList, a.getDrawable(0));
+                a.recycle();
             }
 
             Utils.setBackground(holder.indicatorCurOpenTorrent,

@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -286,12 +288,15 @@ public class MainFragment extends Fragment
                 return true;
             }
         };
+
+        TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.divider });
+
         torrentsList.setItemAnimator(animator);
         torrentsList.addItemDecoration(
-                new RecyclerViewDividerDecoration(
-                        activity.getApplicationContext(), R.drawable.torrent_list_divider));
+                new RecyclerViewDividerDecoration(a.getDrawable(0)));
         torrentsList.setEmptyView(activity.findViewById(R.id.empty_view_torrent_list));
 
+        a.recycle();
 
         adapter = new TorrentListAdapter(
                 new ArrayList<TorrentStateParcel>(),
@@ -545,7 +550,6 @@ public class MainFragment extends Fragment
                                 getString(R.string.ok),
                                 getString(R.string.cancel),
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 MainFragment.this);
 
                         deleteTorrentDialog.show(getFragmentManager(), TAG_DELETE_TORRENT_DIALOG);
@@ -671,7 +675,6 @@ public class MainFragment extends Fragment
                     getString(R.string.ok),
                     getString(R.string.about_changelog),
                     null,
-                    R.style.BaseTheme_Dialog,
                     this);
             aboutDialog.show(getFragmentManager(), TAG_ABOUT_DIALOG);
         }
@@ -687,7 +690,6 @@ public class MainFragment extends Fragment
                     getString(R.string.ok),
                     getString(R.string.cancel),
                     null,
-                    R.style.BaseTheme_Dialog,
                     this);
 
             addLinkDialog.show(getFragmentManager(), TAG_ADD_LINK_DIALOG);
@@ -1071,7 +1073,7 @@ public class MainFragment extends Fragment
             fm.beginTransaction()
                     .replace(R.id.detail_torrent_fragmentContainer, blank)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -1163,7 +1165,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_file_not_found_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1176,7 +1177,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_io_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1194,7 +1194,6 @@ public class MainFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_add_torrent),
                     Log.getStackTraceString(e),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -1244,7 +1243,6 @@ public class MainFragment extends Fragment
                                         getString(R.string.error),
                                         getString(R.string.error_open_torrent_file),
                                         Log.getStackTraceString(e),
-                                        R.style.BaseTheme_Dialog,
                                         this);
 
                                 FragmentTransaction ft = getFragmentManager().beginTransaction();

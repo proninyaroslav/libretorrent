@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:showDividers="middle"
-    android:divider="@drawable/table_mode_divider">
+    android:divider="?attr/divider">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/default_round_ripple"
+            android:background="?attr/defaultRoundRipple"
             android:contentDescription="@null"
             android:src="@drawable/ic_folder_grey600_24dp" />
     </RelativeLayout>
@@ -88,7 +88,8 @@
             android:id="@+id/sequential_download"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="@string/enable_sequential_download" />
     </LinearLayout>
 
@@ -97,7 +98,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:showDividers="middle"
-        android:divider="@drawable/table_mode_divider">
+        android:divider="?attr/divider">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="?attr/smallText" />
             </LinearLayout>
         </LinearLayout>
 

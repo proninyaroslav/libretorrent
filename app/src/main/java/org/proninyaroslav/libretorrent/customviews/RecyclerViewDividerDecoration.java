@@ -34,6 +34,11 @@ public class RecyclerViewDividerDecoration extends RecyclerView.ItemDecoration
 {
     private Drawable divider;
 
+    public RecyclerViewDividerDecoration(Drawable divider)
+    {
+        this.divider = divider;
+    }
+
     public RecyclerViewDividerDecoration(Context context, int dividerLayout)
     {
         divider = ContextCompat.getDrawable(context, dividerLayout);

@@ -154,7 +154,7 @@ public class DetailTorrentFragment extends Fragment
      */
     private TorrentMetaInfo infoCache;
     private TorrentStateParcel stateCache;
-    private int activeTimeCache, seedingTimeCache;
+    private long activeTimeCache, seedingTimeCache;
     private StateParcelCache<TrackerStateParcel> trackersCache = new StateParcelCache<>();
     private StateParcelCache<PeerStateParcel> peersCache = new StateParcelCache<>();
     private boolean[] piecesCache;
@@ -732,7 +732,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.ok),
                             getString(R.string.cancel),
                             null,
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     deleteTorrentDialog.show(getFragmentManager(), TAG_DELETE_TORRENT_DIALOG);
@@ -759,7 +758,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.add),
                             getString(R.string.replace),
                             getString(R.string.cancel),
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     addTrackersDialog.show(getFragmentManager(), TAG_ADD_TRACKERS_DIALOG);
@@ -774,7 +772,6 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.ok),
                             getString(R.string.cancel),
                             null,
-                            R.style.BaseTheme_Dialog,
                             DetailTorrentFragment.this);
 
                     speedLimitDialog.show(getFragmentManager(), TAG_SPEED_LIMIT_DIALOG);
@@ -928,10 +925,12 @@ public class DetailTorrentFragment extends Fragment
                 TextInputEditText upload = (TextInputEditText) v.findViewById(R.id.upload_limit);
                 TextInputEditText download = (TextInputEditText) v.findViewById(R.id.download_limit);
 
-                uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
-                downloadSpeedLimit = Integer.parseInt(download.getText().toString()) * 1024;
+                if (!TextUtils.isEmpty(upload.getText().toString()) && !TextUtils.isEmpty(download.getText().toString())) {
+                    uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
+                    downloadSpeedLimit = Integer.parseInt(download.getText().toString()) * 1024;
 
-                setSpeedLimitRequest(uploadSpeedLimit, downloadSpeedLimit);
+                    setSpeedLimitRequest(uploadSpeedLimit, downloadSpeedLimit);
+                }
 
             } else if (getFragmentManager().findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) != null) {
                 if (sentError != null) {
@@ -1011,7 +1010,6 @@ public class DetailTorrentFragment extends Fragment
                     getString(R.string.error),
                     getString(R.string.error_save_torrent_file),
                     (e != null ? Log.getStackTraceString(e) : null),
-                    R.style.BaseTheme_Dialog,
                     this);
 
             errDialog.show(getFragmentManager(), TAG_SAVE_ERR_TORRENT_FILE_DIALOG);
@@ -1325,8 +1323,10 @@ public class DetailTorrentFragment extends Fragment
                         break;
                     }
                     case TorrentTaskServiceIPC.GET_ACTIVE_AND_SEEDING_TIME: {
-                        int activeTime = msg.arg1;
-                        int seedingTime = msg.arg2;
+                        b = msg.getData();
+                        long activeTime = b.getLong(TorrentTaskServiceIPC.TAG_ACTIVE_TIME);
+                        long seedingTime = b.getLong(TorrentTaskServiceIPC.TAG_SEEDING_TIME);
+
                         fragment.get().activeTimeCache = activeTime;
                         fragment.get().seedingTimeCache = seedingTime;
 

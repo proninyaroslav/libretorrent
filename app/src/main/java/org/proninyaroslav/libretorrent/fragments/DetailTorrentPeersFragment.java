@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.PeerListAdapter;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
 
@@ -126,10 +127,16 @@ public class DetailTorrentPeersFragment extends Fragment
                     return true;
                 }
             };
+
+            int resId = R.drawable.list_divider;
+            if (Utils.isDarkTheme(activity.getApplicationContext())) {
+                resId = R.drawable.list_divider_dark;
+            }
+
             peerList.setItemAnimator(animator);
             peerList.addItemDecoration(
                     new RecyclerViewDividerDecoration(
-                            activity.getApplicationContext(), R.drawable.torrent_list_divider));
+                            activity.getApplicationContext(), resId));
 
             adapter = new PeerListAdapter(peers, activity, R.layout.item_peers_list, this);
             peerList.setAdapter(adapter);

@@ -49,6 +49,7 @@ import org.acra.ACRA;
 import org.acra.ReportField;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -325,5 +326,16 @@ public class Utils
 
         return status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
+    }
+
+    public static boolean isDarkTheme(Context context)
+    {
+        SettingsManager pref = new SettingsManager(context);
+
+        int dark = Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
+        int theme = pref.getInt(context.getString(R.string.pref_key_theme),
+                Integer.parseInt(context.getString(R.string.pref_theme_light_value)));
+
+        return theme == dark;
     }
 }

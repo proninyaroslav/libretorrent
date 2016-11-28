@@ -44,7 +44,6 @@ public class BaseAlertDialog extends DialogFragment
     protected static final String TAG_POS_TEXT = "positive_test";
     protected static final String TAG_NEG_TEXT = "negative_text";
     protected static final String TAG_NEUTRAL_TEXT = "neutral_button";
-    protected static final String TAG_STYLE = "style";
     protected static final String TAG_RES_ID_VIEW = "res_id_view";
 
     public interface OnClickListener
@@ -65,7 +64,7 @@ public class BaseAlertDialog extends DialogFragment
 
     public static BaseAlertDialog newInstance(String title, String message, int resIdView,
                                               String positiveText, String negativeText,
-                                              String neutralText, int style, Object callback)
+                                              String neutralText, Object callback)
     {
         BaseAlertDialog frag = new BaseAlertDialog();
 
@@ -76,7 +75,6 @@ public class BaseAlertDialog extends DialogFragment
         args.putString(TAG_POS_TEXT, positiveText);
         args.putString(TAG_NEG_TEXT, negativeText);
         args.putString(TAG_NEUTRAL_TEXT, neutralText);
-        args.putInt(TAG_STYLE, style);
         args.putInt(TAG_RES_ID_VIEW, resIdView);
 
         if (callback instanceof Fragment) {
@@ -98,7 +96,6 @@ public class BaseAlertDialog extends DialogFragment
         String positiveText = args.getString(TAG_POS_TEXT);
         String negativeText = args.getString(TAG_NEG_TEXT);
         String neutralText = args.getString(TAG_NEUTRAL_TEXT);
-        int style = args.getInt(TAG_STYLE);
         int resIdView = args.getInt(TAG_RES_ID_VIEW);
 
         LayoutInflater i = LayoutInflater.from(getActivity());
@@ -108,8 +105,7 @@ public class BaseAlertDialog extends DialogFragment
         }
 
         AlertDialog.Builder dialog = buildDialog(title, message, v,
-                positiveText, negativeText,
-                neutralText, style);
+                positiveText, negativeText, neutralText);
 
         final AlertDialog alert = dialog.create();
 
@@ -136,16 +132,11 @@ public class BaseAlertDialog extends DialogFragment
 
     protected AlertDialog.Builder buildDialog(final String title, final String message,
                                               final View view, final String positiveText,
-                                              final String negativeText, String neutralText,
-                                              final int style)
+                                              final String negativeText, String neutralText)
     {
         AlertDialog.Builder dialog;
 
-        if (style != 0) {
-            dialog = new AlertDialog.Builder(getActivity(), style);
-        } else {
-            dialog = new AlertDialog.Builder(getActivity());
-        }
+        dialog = new AlertDialog.Builder(getActivity());
 
         if (title != null) {
             dialog.setTitle(title);

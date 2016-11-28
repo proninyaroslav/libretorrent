@@ -349,6 +349,10 @@ public class AddTorrentFragment extends Fragment
 
     private void initFragments()
     {
+        if (!isAdded()) {
+            return;
+        }
+
         AddTorrentInfoFragment fragmentInfo = AddTorrentInfoFragment.newInstance(info);
         AddTorrentFilesFragment fragmentFile = AddTorrentFilesFragment.newInstance(info.getFiles());
 

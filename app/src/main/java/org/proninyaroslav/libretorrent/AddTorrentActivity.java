@@ -74,6 +74,10 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         setContentView(R.layout.activity_add_torrent);
 
         FragmentManager fm = getFragmentManager();
@@ -122,7 +126,6 @@ public class AddTorrentActivity extends AppCompatActivity
                             getString(R.string.ok),
                             null,
                             null,
-                            R.style.BaseTheme_Dialog,
                             this);
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -139,7 +142,6 @@ public class AddTorrentActivity extends AppCompatActivity
                             getString(R.string.ok),
                             null,
                             null,
-                            R.style.BaseTheme_Dialog,
                             this);
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -156,7 +158,6 @@ public class AddTorrentActivity extends AppCompatActivity
                             getString(R.string.ok),
                             null,
                             null,
-                            R.style.BaseTheme_Dialog,
                             this);
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -172,7 +173,6 @@ public class AddTorrentActivity extends AppCompatActivity
                             getString(R.string.error),
                             getString(R.string.error_io_torrent),
                             Log.getStackTraceString(e),
-                            R.style.BaseTheme_Dialog,
                             this);
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -219,8 +219,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 progressDialogText,
                 0,
                 true,
-                true,
-                R.style.BaseTheme_Dialog);
+                true);
 
         progress.show(getFragmentManager(), TAG_SPINNER_PROGRESS);
     }

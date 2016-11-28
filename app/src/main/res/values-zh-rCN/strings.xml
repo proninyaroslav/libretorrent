@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="error">错误</string>
+    <string name="shutdown">退出</string>
+    <string name="replace">替换</string>
+    <string name="add">添加</string>
+    <string name="delete">删除</string>
+    <string name="deleting">删除</string>
+    <string name="select_all">全选</string>
+    <string name="apply">应用</string>
+    <string name="save">保存</string>
+    <string name="install">安装</string>
+    <string name="search">搜索</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 小时 %3$d 分钟</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d 小时 %2$d 分钟 %3$d 秒</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d 分钟 %2$d 秒</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d 秒</string>
+
+    <!-- Main window -->
+    <string name="main_empty_torrent_list">没有 torrent 任务</string>
+    <string name="spinner_all_torrents">全部</string>
+    <string name="spinner_downloading_torrents">正在下载</string>
+    <string name="spinner_downloaded_torrents">已下载</string>
+    <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
+    <string name="delete_selected_torrent">删除所选择的 torrent ？此操作无法撤销。</string>
+    <string name="delete_selected_torrents">删除所选择的所有 torrent ？此操作无法撤销。</string>
+    <string name="force_recheck_torrent">强制重新效验文件</string>
+    <string name="force_announce_torrent">强制发布</string>
+    <string name="add_link">添加链接</string>
+    <string name="dialog_add_link_title">输入磁力或 HTTP/HTTPS 链接</string>
+    <string name="torrent_list_empty">没有 torrent 任务</string>
+    <string name="select_or_add_torrent">选择或添加一个 torrent</string>
+    <string name="error_empty_link">请输入链接地址</string>
+    <string name="error_invalid_link">无效的链接地址</string>
+    <string name="error_open_torrent_file">无法打开目标种子文件</string>
+    <string name="open_file">打开文件</string>
+    <string name="settings">设置</string>
+    <string name="ip_filter_add_error">无法添加 IP 过滤器。可能文件已损坏或格式不正确。</string>
+    <string name="proxy_settings_applied">代理设置应用成功</string>
+    <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
+    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="about">关于</string>
+
+    <!-- Foreground notification -->
+
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template" formatted="false">正在下载: %1$d 总计: %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
+    <string name="network_online">网络状态：在线</string>
+    <string name="network_offline">网络状态：离线</string>
+
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">torrent 已完成</string>
+
+    <!-- Torrents move notification -->
+    <string name="torrents_move_notify_title" formatted="false">移动 torrent 下载文件 （%1$d/%2$d）</string>
+    <string name="torrents_move_content">请稍等&#8230;</string>
+    <string name="torrents_moved_title">torrent 下载文件已移动</string>
+    <string name="torrents_moved_content" formatted="false">成功: %1$d; 失败: %2$d</string>
+    <string name="torrents_move_inbox_successfully">成功:</string>
+    <string name="torrents_move_inbox_failed">失败:</string>
+
+    <!-- Torrent list item -->
+
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template" formatted="false">%1$s/%2$s （%3$d%%）</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="torrent_status_downloading">下载中</string>
+    <string name="torrent_status_seeding">做种中</string>
+    <string name="torrent_status_paused">已暂停</string>
+    <string name="torrent_status_stopped">已停止</string>
+    <string name="torrent_status_checking">检查中</string>
+    <string name="torrent_status_finished">已完成</string>
+
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">获取权限失败</string>
+    <string name="perm_denied_warning">应用程序没有这个权限将无法保存内存中的 torrent 文件。应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
+
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">添加 torrent</string>
+    <string name="error_decode_torrent">torrent 文件解码失败。可能文件已损坏或格式不正确。</string>
+    <string name="error_io_torrent">读取 torrent 文件时出错</string>
+    <string name="error_fetch_link">无法从链接中提取数据</string>
+    <string name="error_invalid_link_or_path">无效的链接或路径无效</string>
+    <string name="decode_torrent_progress_title">加载中</string>
+    <string name="decode_torrent_default_message">请稍等&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">正在从磁链中获取数据。请稍等&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">正在下载 torrent 文件。请稍等&#8230;</string>
+    <string name="error_add_torrent">添加 torrent 失败</string>
+    <string name="error_file_not_found_add_torrent">无法添加 torrent 。可能是 torrent 文件已被移动或删除。</string>
+    <string name="error_io_add_torrent">无法添加 torrent 。I/O 异常。</string>
+    <string name="torrent_exist">torrent 已经存在。torrent 将进行合并。</string>
+    <string name="error_field_required">必填</string>
+    <string name="error_no_files_selected">尚未选择文件</string>
+    <string name="free_space" formatted="false">剩余空间 %1$s</string>
+    <string name="error_free_space">所选目录没有足够的可用空间用以下载所选文件</string>
+    <string name="files_size" formatted="false">已选文件大小 %1$s ，torrent 文件总大小 %2$s</string>
+    <string name="start_torrent">开始 torrent</string>
+
+    <!-- torrent info -->
+    <string name="torrent_info">详情</string>
+    <string name="torrent_files">文件</string>
+    <string name="torrent_name">torrent 名称</string>
+    <string name="upload_torrent_into">下载至</string>
+    <string name="torrent_size">文件大小</string>
+    <string name="torrent_file_count">文件数量</string>
+    <string name="torrent_hash_sum">Hash 特征值</string>
+    <string name="torrent_comment">注释</string>
+    <string name="torrent_create_date">torrent 文件创建日期</string>
+    <string name="torrent_created_in_program">torrent 文件创建工具</string>
+    <string name="sequential_download">顺序下载</string>
+    <string name="enable_sequential_download">启用顺序下载</string>
+
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">选择文件夹</string>
+    <string name="file_chooser_title">选择文件</string>
+    <string name="torrent_file_chooser_title">选择 torrent 文件</string>
+    <string name="dialog_new_folder_title">创建文件夹</string>
+    <string name="error_dialog_new_folder">无法创建文件夹</string>
+    <string name="error_perm_write_in_folder">无法下载至所选文件夹。请选择其他文件夹。</string>
+    <string name="error_open_dir">无法打开文件夹</string>
+    <string name="home_directory">主页</string>
+
+    <!-- Error dialog -->
+    <string name="report">反馈</string>
+    <string name="more_details">更多细节</string>
+
+    <!-- Detail torrent dialog -->
+
+    <!-- priority • total -->
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total （percent） -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s （%4$d%%）</string>
+    <string name="file_priority_normal">正常</string>
+    <string name="file_priority_low">未下载</string>
+    <string name="file_priority_high">高</string>
+    <string name="file_priority_mixed">混合</string>
+    <string name="change_priority">修改优先等级</string>
+    <string name="dialog_change_priority_title">优先等级</string>
+    <string name="change_priority_low">未下载</string>
+    <string name="change_priority_normal">正常</string>
+    <string name="change_priority_high">高</string>
+    <string name="torrent_state">状态</string>
+    <string name="torrent_speed">速度</string>
+    <string name="torrent_downloaded">已下载</string>
+    <string name="torrent_ETA">剩余时间</string>
+    <!-- torrent 把提供完整文件档案的人称为种子(SEED)，正在下载的人称为客户(Client) -->
+    <!-- seeds 是已经下载完某个文件在做种上传的人 -->
+    <string name="torrent_seeds">种子</string>
+    <string name="torrent_peers">用户</string>
+    <!-- leechers 是正在下载某个文件并做种上传已经下载完成部分文件的人 -->
+    <string name="torrent_leechers">不完整种子</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template" formatted="false">%1$d （%2$d）</string>
+    <string name="torrent_uploaded">已上传</string>
+    <string name="torrent_share_ratio">分享率</string>
+    <string name="torrent_active_time">活动时间</string>
+    <string name="torrent_seeding_time">做种时间</string>
+    <string name="torrent_pieces">区块</string>
+    <!-- downloaded/total （piece length） -->
+    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d （%3$s）</string>
+    <string name="torrent_trackers">tracker</string>
+    <string name="tracker_state_working">工作</string>
+    <string name="tracker_state_not_working">未工作</string>
+    <string name="tracker_state_error" formatted="false">错误: %1$s</string>
+    <string name="tracker_state_updating">更新中&#8230;</string>
+    <string name="tracker_state_not_contacted">尚未连接</string>
+    <string name="share_tracker_url">分享链接</string>
+    <string name="delete_selected_tracker">删除所选 tracker ？</string>
+    <string name="delete_selected_trackers">删除所选的所有 tracker ？</string>
+    <string name="add_trackers">添加 tracker</string>
+    <string name="dialog_add_trackers">（每行一个）</string>
+    <string name="open_using">打开文件</string>
+    <string name="peer_port" formatted="false">端口: %1$d</string>
+    <string name="peer_relevance" formatted="false">关联度: %1$.1f</string>
+    <string name="peer_connection_type" formatted="false">协议: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client" formatted="false">客户端: %1$s</string>
+    <string name="peer_connection_type_bittorrent">BT</string>
+    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">当前 torrent 还没有连接到任何用户</string>
+    <string name="piece_map">区块图</string>
+    <string name="resume_torrent">继续</string>
+    <string name="pause_torrent">暂停</string>
+    <string name="share_magnet">分享磁力链接</string>
+    <string name="save_torrent_file">保存 torrent 文件</string>
+    <string name="torrent_speed_limit">速度限制</string>
+    <string name="share_via">分享</string>
+    <string name="save_torrent_file_successfully">torrent 文件保存成功</string>
+    <string name="error_save_torrent_file">torrent 文件保存失败</string>
+    <string name="speed_limit_title">速度限制</string>
+    <string name="upload_speed">上传速度</string>
+    <string name="download_speed">下载速度</string>
+    <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
+
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">复制</string>
+    <string name="text_copied_to_clipboard">文字已复制到黏贴板</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">应用程序发生错误。您可以将报告发送给开发人员。</string>
+    <string name="error_comment_prompt">您可以在这里添加额外的信息和评论：</string>
+
+    <!-- Settings -->
+
+    <!-- Headers -->
+    <string name="pref_header_behavior">行为</string>
+    <string name="pref_header_storage">存储</string>
+    <string name="pref_header_limitations">限制</string>
+    <string name="pref_header_network">网络</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">默认下载目录</string>
+    <string name="pref_move_after_download_title">下载完成后移动文件</string>
+    <string name="pref_move_after_download_in_title">下载完成后移动文件至</string>
+    <string name="pref_delete_torrent_file_title">删除 torrent 文件</string>
+    <string name="pref_delete_torrent_file_summary">下载开始时删除 torrent 文件</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">下载速度</string>
+    <string name="pref_max_download_speed_title">最大下载速度</string>
+    <string name="pref_max_upload_speed_title">最大上传速度</string>
+    <string name="pref_max_connections_title">最大链接数</string>
+    <string name="pref_max_connections_summary">最小连接数 - 2</string>
+    <string name="pref_torrent_queueing_category">torrent 队列</string>
+    <string name="pref_max_active_uploads_title">最大上传数</string>
+    <string name="pref_max_active_downloads_title">最大下载数</string>
+    <string name="pref_max_active_torrents_title">最大活动 torrent 数</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">开机启动</string>
+    <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
+    <string name="pref_theme_category">Theme settings</string>
+    <string name="pref_theme_title">Theme</string>
+    <string-array name="pref_theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string name="pref_notification_category">通知设置</string>
+    <string name="pref_torrent_finish_notify_title">torrent 完成时通知</string>
+    <string name="pref_torrent_finish_notify_summary">torrent 下载完成后显示通知</string>
+    <string name="pref_play_sound_notify_title">播放提示音</string>
+    <string name="pref_notify_sound_title">通知提示音</string>
+    <string name="pref_led_indicator_notify_title">LED 指示灯</string>
+    <string name="pref_led_indicator_color_notify_title">LED 指示灯颜色</string>
+    <string name="pref_vibration_notify_title">振动</string>
+    <string name="pref_power_management_category">电源管理</string>
+    <string name="pref_shutdown_downloads_complete_title">下载完成后退出</string>
+    <string name="pref_shutdown_downloads_complete_summary">如果启用，应用程序将在所有下载完成后退出。</string>
+    <string name="pref_cpu_do_not_sleep_title">保持 CPU 唤醒</string>
+    <string name="pref_cpu_do_not_sleep_summary">启用此选项将增加电池使用量。如果屏幕关闭时下载速度降低，请使用此选项。</string>
+    <string name="pref_download_and_upload_only_when_charging_title">仅在充电时下载和上传</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">如果启用，torrent 将仅在充电时下载/上传。当没有连接到充电器时，所有的 torrent 都将暂停。</string>
+    <string name="pref_battery_control_title">电池控制</string>
+    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有 torrent 都将暂停。此规则充电时无效。</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">代理设置</string>
+    <string name="pref_enable_dht_title">开启 DHT</string>
+    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用 tracker 便能找到彼此。</string>
+    <string name="pref_enable_lsd_title">开启 LSD</string>
+    <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度地减少流量。</string>
+    <string name="pref_enable_utp_title">开启 μTP</string>
+    <string name="pref_enable_utp_summary">旨在减轻传统 torrent 的 TCP 传输中潜在低延迟和其他拥塞控制问题，同时提供可靠的有序传输。</string>
+    <string name="pref_enable_upnp_title">开启 UPnP</string>
+    <string name="pref_enable_natpmp_title">开启 NAT-PMP</string>
+    <string name="pref_port_settings_category">端口设置</string>
+    <string name="pref_use_random_port_title">使用一个随机的端口号</string>
+    <string name="pref_port_title">端口</string>
+    <string name="pref_encryption_category">加密</string>
+    <string name="pref_enc_mode_title">加密模式</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>偏好加密</item>
+        <item>要求加密</item>
+        <item>禁用加密</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">入站连接</string>
+    <string name="pref_enc_out_connections_title">出站连接</string>
+    <string name="pref_ip_filtering_category">IP 过滤</string>
+    <string name="pref_enable_ip_filtering_title">开启 IP 过滤</string>
+    <string name="pref_enable_ip_filtering_summary">使用 IP 过滤会增加内存使用。根据文件大小，过滤器可能需要一些时间才能在启动时应用。</string>
+    <string name="pref_ip_filtering_file_title">过滤规则文件路径 （.dat ，.p2p ）</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">代理类型</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>（无）</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">主机</string>
+    <string name="pref_proxy_port_title">端口</string>
+    <string name="pref_proxy_peers_too_title">用于与用户的连接</string>
+    <string name="pref_proxy_peers_too_summary">代理服务器将用于与 tracker 、用户和网页种子的连接</string>
+    <string name="pref_force_proxy_title">禁用代理服务器不支持的连接</string>
+    <string name="pref_proxy_requires_auth_title">需要授权认证</string>
+    <string name="pref_proxy_requires_auth_summary">警告：密码将以不加密的方式保存</string>
+    <string name="pref_proxy_login_title">登录名</string>
+    <string name="pref_proxy_password_title">密码</string>
+
+    <!-- About dialog -->
+    <string name="about_title">关于 LibreTorrent</string>
+    <string name="about_description">LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ） 库。\n\nLibreTorrent 是自由软件，基于 GNU 通用公共许可证v3（GPLv3）条款发布\nhttp：//www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_changelog">更新日志</string>
+</resources>

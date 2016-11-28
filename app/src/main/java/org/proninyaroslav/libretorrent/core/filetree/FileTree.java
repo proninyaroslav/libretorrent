@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core.filetree;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -31,7 +32,7 @@ import java.util.Set;
  * The class represents a file tree model hierarchy. Based on trie.
  */
 
-public class FileTree<F extends FileTree> implements FileNode<FileTree>
+public class FileTree<F extends FileTree> implements FileNode<FileTree>, Serializable
 {
     public static final String ROOT = File.separator;
     /* The name for pointer to the parent node */
