@@ -12,6 +12,10 @@
         android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/settings" />
 
+    <item android:id="@+id/sort_torrent_menu"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/sorting" />
+
     <item android:id="@+id/about_menu"
         android:icon="@drawable/ic_info_white_24dp"
         android:title="@string/about" />

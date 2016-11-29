@@ -89,7 +89,7 @@ public class ToolbarSpinnerAdapter extends BaseAdapter
     {
         if (view == null || !view.getTag().toString().equals(DROPDOWN)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.toolbar_spinner_item_dropdown, parent, false);
+            view = inflater.inflate(R.layout.spinner_item_dropdown, parent, false);
             view.setTag(DROPDOWN);
         }
 
