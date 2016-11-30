@@ -24,9 +24,9 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">By ascending</string>
-    <string name="sort_by_descending">By descending</string>
-    <string name="sorting">Sorting</string>
+    <string name="sort_by_ascending">Przez rosnącej</string>
+    <string name="sort_by_descending">Przez malejąco</string>
+    <string name="sorting">Sortowanie</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Brak torrentów</string>
