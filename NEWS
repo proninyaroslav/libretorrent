@@ -1,3 +1,20 @@
+Version 1.2 (2016-11-30)
+========================
+
+ * Bugfixing
+ * Added: 
+    - Torrent sorting
+    - Dark theme
+    - Ability to use random port
+    - Forced encryption
+    - Ability to add a torrent without starting
+    - Redirect HTTP link support
+ * Added new translations:
+    - Chinese
+    - Spanish
+    - Polish
+ * Update to jlibtorrent 1.2.0.4
+
 Version 1.1 (2016-10-23)
 ========================
 
