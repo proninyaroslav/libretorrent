@@ -53,10 +53,10 @@
     <string name="theme_settings_apply_after_reboot">Themen Einstellungen werden nach einem Neustart der App angewendet</string>
     <string name="about">Über</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
+        <item>Ohne Sortierung</item>
         <item>Name</item>
-        <item>Size</item>
-        <item>Progress</item>
+        <item>Größe</item>
+        <item>Fortschritt</item>
         <item>ETA</item>
         <item>Peers</item>
         <item>Leechers</item>

@@ -38,6 +38,7 @@ import com.wnafee.vector.ui.MorphButton;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -55,21 +56,25 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
     private ViewHolder.ClickListener clickListener;
     private int rowLayout;
     /* Filtered items */
-    private List<StateItem> currentItems;
-    private List<StateItem> allItems;
-    private StateItem curOpenTorrent;
+    private List<TorrentStateParcel> currentItems;
+    private List<TorrentStateParcel> allItems;
+    private TorrentStateParcel curOpenTorrent;
     private DisplayFilter displayFilter = new DisplayFilter();
     private SearchFilter searchFilter = new SearchFilter();
+    private TorrentSortingComparator sorting;
 
     public TorrentListAdapter(List<TorrentStateParcel> states, Context context,
-                              int rowLayout, ViewHolder.ClickListener clickListener)
+                              int rowLayout, ViewHolder.ClickListener clickListener,
+                              TorrentSortingComparator sorting)
     {
         this.context = context;
         this.rowLayout = rowLayout;
         this.clickListener = clickListener;
-        allItems = toStateItemObject(states);
-        Collections.sort(allItems);
+        this.sorting = sorting;
+        allItems = states;
+        setEqualsMethod(allItems);
         currentItems = new ArrayList<>(allItems);
+        Collections.sort(currentItems, sorting);
     }
 
     @Override
@@ -84,7 +89,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
-        TorrentStateParcel state = currentItems.get(position).getState();
+        TorrentStateParcel state = currentItems.get(position);
 
         Utils.setBackground(holder.indicatorCurOpenTorrent,
                 ContextCompat.getDrawable(context, android.R.color.transparent));
@@ -183,27 +188,23 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         }
     }
 
-    private List<StateItem> toStateItemObject(Collection<TorrentStateParcel> states)
+    private void setEqualsMethod(Collection<TorrentStateParcel> states)
     {
-        List<StateItem> list = new ArrayList<>();
         for (TorrentStateParcel state : states) {
-            list.add(new StateItem(state));
+            state.setEqualsById(true);
         }
-
-        return list;
     }
 
     public synchronized void addItems(Collection<TorrentStateParcel> states)
     {
-        List<StateItem> items = toStateItemObject(states);
-        List<StateItem> statesList = displayFilter.filter(items);
+        setEqualsMethod(states);
+        List<TorrentStateParcel> statesList = displayFilter.filter(states);
         currentItems.addAll(statesList);
-        Collections.sort(currentItems);
+        Collections.sort(currentItems, sorting);
 
         notifyItemRangeInserted(0, statesList.size());
 
-        allItems.addAll(items);
-        Collections.sort(allItems);
+        allItems.addAll(states);
     }
 
     /*
@@ -212,32 +213,35 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public synchronized void markAsOpen(TorrentStateParcel state)
     {
-        curOpenTorrent = new StateItem(state);
+        state.setEqualsById(true);
+        curOpenTorrent = state;
         notifyDataSetChanged();
     }
 
     public synchronized void updateItem(TorrentStateParcel torrentState)
     {
-        StateItem item = new StateItem(torrentState);
-        if (!currentItems.contains(item)) {
-            StateItem state = displayFilter.filter(item);
+        torrentState.setEqualsById(true);
+
+        if (!currentItems.contains(torrentState)) {
+            TorrentStateParcel state = displayFilter.filter(torrentState);
 
             if (state != null) {
-                currentItems.add(item);
-                Collections.sort(currentItems);
+                currentItems.add(torrentState);
+                Collections.sort(currentItems, sorting);
 
                 notifyItemInserted(currentItems.indexOf(state));
             }
 
         } else {
-            int position = currentItems.indexOf(item);
+            int position = currentItems.indexOf(torrentState);
 
             if (position >= 0) {
                 currentItems.remove(position);
-                StateItem state = displayFilter.filter(item);
+                TorrentStateParcel state = displayFilter.filter(torrentState);
 
                 if (state != null) {
-                    currentItems.add(position, item);
+                    currentItems.add(position, torrentState);
+                    Collections.sort(currentItems, sorting);
                     notifyItemChanged(position);
                 } else {
                     notifyItemRemoved(position);
@@ -245,68 +249,20 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             }
         }
 
-        if (!allItems.contains(item)) {
-            allItems.add(item);
+        if (!allItems.contains(torrentState)) {
+            allItems.add(torrentState);
 
             return;
         }
 
-        int position = allItems.indexOf(item);
+        int position = allItems.indexOf(torrentState);
 
         if (position < 0) {
             return;
         }
 
         allItems.remove(position);
-        allItems.add(position, item);
-    }
-
-    public synchronized void updateItems(Collection<TorrentStateParcel> states)
-    {
-        List<StateItem> items = toStateItemObject(states);
-
-        for (StateItem item : items) {
-            if (!currentItems.contains(item)) {
-                StateItem state = displayFilter.filter(item);
-
-                if (state != null) {
-                    currentItems.add(state);
-                    Collections.sort(currentItems);
-
-                    notifyItemInserted(currentItems.indexOf(state));
-                }
-
-            } else {
-                int position = currentItems.indexOf(item);
-
-                if (position >= 0) {
-                    currentItems.remove(position);
-                    StateItem state = displayFilter.filter(item);
-
-                    if (state != null) {
-                        currentItems.add(position, item);
-                        notifyItemChanged(position);
-                    } else {
-                        notifyItemRemoved(position);
-                    }
-                }
-            }
-
-            if (!allItems.contains(item)) {
-                allItems.add(item);
-
-                return;
-            }
-
-            int position = allItems.indexOf(item);
-
-            if (position < 0) {
-                return;
-            }
-
-            allItems.remove(position);
-            allItems.add(position, item);
-        }
+        allItems.add(position, torrentState);
     }
 
     public void setDisplayFilter(DisplayFilter displayFilter)
@@ -319,6 +275,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
         currentItems.clear();
         currentItems.addAll(displayFilter.filter(allItems));
+        Collections.sort(currentItems, sorting);
 
         notifyDataSetChanged();
     }
@@ -342,14 +299,24 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public void deleteItems(Collection<TorrentStateParcel> states)
     {
-       List<StateItem> items = toStateItemObject(states);
+        setEqualsMethod(states);
 
-        for (StateItem item : items) {
-            currentItems.remove(item);
-            allItems.remove(item);
+        for (TorrentStateParcel state : states) {
+            currentItems.remove(state);
+            allItems.remove(state);
         }
 
         notifyDataSetChanged();
+    }
+
+
+
+    public void setSorting(TorrentSortingComparator sorting)
+    {
+        this.sorting = sorting;
+        Collections.sort(currentItems, sorting);
+
+        notifyItemRangeChanged(0, currentItems.size());
     }
 
     public TorrentStateParcel getItem(int position)
@@ -358,11 +325,13 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             return null;
         }
 
-        return currentItems.get(position).getState();
+        return currentItems.get(position);
     }
 
-    public int getItemPosition(StateItem state)
+    public int getItemPosition(TorrentStateParcel state)
     {
+        state.setEqualsById(true);
+
         return currentItems.indexOf(state);
     }
 
@@ -382,7 +351,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
     {
         private Context context;
         private ClickListener listener;
-        private List<StateItem> states;
+        private List<TorrentStateParcel> states;
         LinearLayout itemTorrentList;
         TextView name;
         MorphButton pauseButton;
@@ -393,7 +362,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         TextView ETA;
         View indicatorCurOpenTorrent;
 
-        public ViewHolder(View itemView, final ClickListener listener, final List<StateItem> states)
+        public ViewHolder(View itemView, final ClickListener listener, final List<TorrentStateParcel> states)
         {
             super(itemView);
 
@@ -413,7 +382,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                 {
                     int position = getAdapterPosition();
                     if (listener != null && position >= 0) {
-                        TorrentStateParcel state = states.get(position).getState();
+                        TorrentStateParcel state = states.get(position);
                         listener.onPauseButtonClicked(position, state);
                     }
                 }
@@ -433,7 +402,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             int position = getAdapterPosition();
 
             if (listener != null && position >= 0) {
-                TorrentStateParcel state = states.get(position).getState();
+                TorrentStateParcel state = states.get(position);
                 listener.onItemClicked(position, state);
             }
         }
@@ -444,7 +413,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             int position = getAdapterPosition();
 
             if (listener != null && position >= 0) {
-                TorrentStateParcel state = states.get(getAdapterPosition()).getState();
+                TorrentStateParcel state = states.get(getAdapterPosition());
                 listener.onItemLongClicked(position, state);
 
                 return true;
@@ -478,14 +447,14 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             constraintCode = constraint;
         }
 
-        public List<StateItem> filter(Collection<StateItem> states)
+        public List<TorrentStateParcel> filter(Collection<TorrentStateParcel> states)
         {
-            List<StateItem> filtered = new ArrayList<>();
+            List<TorrentStateParcel> filtered = new ArrayList<>();
 
             if (states != null) {
                 if (constraintCode != null) {
-                    for (StateItem state : states) {
-                        if (state.getState().stateCode == constraintCode) {
+                    for (TorrentStateParcel state : states) {
+                        if (state.stateCode == constraintCode) {
                             filtered.add(state);
                         }
                     }
@@ -498,14 +467,14 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             return filtered;
         }
 
-        public StateItem filter(StateItem state)
+        public TorrentStateParcel filter(TorrentStateParcel state)
         {
             if (state == null) {
                 return null;
             }
 
             if (constraintCode != null) {
-                if (state.getState().stateCode == constraintCode) {
+                if (state.stateCode == constraintCode) {
                     return state;
                 }
 
@@ -529,14 +498,14 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for (StateItem state : allItems) {
-                    if (state.getState().name.toLowerCase().contains(filterPattern)) {
+                for (TorrentStateParcel state : allItems) {
+                    if (state.name.toLowerCase().contains(filterPattern)) {
                         currentItems.add(state);
                     }
                 }
             }
 
-            Collections.sort(currentItems);
+            Collections.sort(currentItems, sorting);
 
             return new FilterResults();
         }
@@ -545,45 +514,6 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         protected void publishResults(CharSequence charSequence, FilterResults filterResults)
         {
             notifyDataSetChanged();
-        }
-    }
-
-    private class StateItem implements Comparable<StateItem>
-    {
-        public TorrentStateParcel state;
-        public StateItem(TorrentStateParcel state)
-        {
-            this.state = state;
-        }
-
-        public TorrentStateParcel getState()
-        {
-            return state;
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return state.torrentId.hashCode();
-        }
-
-        @Override
-        public int compareTo(StateItem another)
-        {
-            return state.name.compareTo(another.getState().name);
-        }
-
-        @Override
-        public boolean equals(Object o)
-        {
-            return state != null && (o instanceof StateItem &&
-                    (state.torrentId.equals(((StateItem) o).state.torrentId)));
-        }
-
-        @Override
-        public String toString()
-        {
-            return state.toString();
         }
     }
 }

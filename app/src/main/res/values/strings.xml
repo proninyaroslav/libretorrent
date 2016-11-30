@@ -28,6 +28,10 @@
     <string name="sort_by_ascending">By ascending</string>
     <string name="sort_by_descending">By descending</string>
     <string name="sorting">Sorting</string>
+    <string-array name="sort_direction_values" translatable="false">
+        <item>asc</item>
+        <item>desc</item>
+    </string-array>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -61,6 +65,15 @@
         <item>ETA</item>
         <item>Peers</item>
         <item>Leechers</item>
+    </string-array>
+    <string-array name="sort_torrent_values" translatable="false">
+        <item>none</item>
+        <item>name</item>
+        <item>size</item>
+        <item>progress</item>
+        <item>ETA</item>
+        <item>peers</item>
+        <item>leechers</item>
     </string-array>
 
     <!-- Foreground notification -->

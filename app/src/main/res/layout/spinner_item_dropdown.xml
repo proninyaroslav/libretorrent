@@ -9,5 +9,4 @@
     android:gravity="center_vertical|start"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-    android:background="?attr/defaultRectRipple" />
+    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />

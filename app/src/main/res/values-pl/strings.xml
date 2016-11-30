@@ -53,11 +53,11 @@
     <string name="theme_settings_apply_after_reboot">Ustawienia motywu zostaną użyte po ponownym uruchomieniu aplikacji</string>
     <string name="about">About</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
+        <item>Bez sortowania</item>
+        <item>Nazwa</item>
+        <item>Rozmiar</item>
+        <item>Postęp</item>
+        <item>Czas przybycia</item>
         <item>Peers</item>
         <item>Leechers</item>
     </string-array>

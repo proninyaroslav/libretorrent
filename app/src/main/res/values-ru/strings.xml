@@ -48,13 +48,13 @@
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
     <string name="about">О программе</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
-        <item>Peers</item>
-        <item>Leechers</item>
+        <item>Без сортировки</item>
+        <item>Имя</item>
+        <item>Размер</item>
+        <item>Прогресс</item>
+        <item>Расчётное время</item>
+        <item>Пиры</item>
+        <item>Личеры</item>
     </string-array>
 
     <!-- Foreground notification -->

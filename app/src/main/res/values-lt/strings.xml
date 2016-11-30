@@ -53,13 +53,13 @@
     <string name="theme_settings_apply_after_reboot">Temos nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="about">Apie</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
-        <item>Peers</item>
-        <item>Leechers</item>
+        <item>Be rūšiavimas</item>
+        <item>Vardas</item>
+        <item>Dydis</item>
+        <item>Progresas</item>
+        <item>Atvykimo laikas</item>
+        <item>Bendraamžiai</item>
+        <item>Besisiunčiantys</item>
     </string-array>
 
     <!-- Foreground notification -->

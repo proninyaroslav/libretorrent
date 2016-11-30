@@ -23,7 +23,18 @@ public class BaseSorting
 {
     public enum Direction
     {
-        ASC, DESC
+        ASC, DESC;
+
+        public static Direction fromValue(String value)
+        {
+            for (Direction direction : Direction.class.getEnumConstants()) {
+                if (direction.toString().equalsIgnoreCase(value)) {
+                    return direction;
+                }
+            }
+
+            return Direction.ASC;
+        }
     }
 
     public interface SortingColumnsInterface<F>

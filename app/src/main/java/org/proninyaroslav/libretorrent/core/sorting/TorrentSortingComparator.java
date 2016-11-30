@@ -17,26 +17,25 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent;
+package org.proninyaroslav.libretorrent.core.sorting;
 
-import android.app.Application;
-import android.content.Context;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 
-import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
+import java.util.Comparator;
 
-@ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
-        mode = ReportingInteractionMode.DIALOG,
-        reportDialogClass = ErrorReportActivity.class)
-
-public class MainApplication extends Application
+public class TorrentSortingComparator implements Comparator<TorrentStateParcel>
 {
-    @Override
-    protected void attachBaseContext(Context base)
-    {
-        super.attachBaseContext(base);
+    private TorrentSorting sorting;
 
-        ACRA.init(this);
+    public TorrentSortingComparator(TorrentSorting sorting)
+    {
+        this.sorting = sorting;
+    }
+
+    @Override
+    public int compare(TorrentStateParcel state1, TorrentStateParcel state2)
+    {
+        return TorrentSorting.SortingColumns.fromValue(sorting.getColumnName())
+                .compare(state1, state2, sorting.getDirection());
     }
 }

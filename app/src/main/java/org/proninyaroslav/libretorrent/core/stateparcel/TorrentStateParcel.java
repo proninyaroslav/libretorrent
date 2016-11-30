@@ -51,6 +51,8 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     public long[] filesReceivedBytes = new long[0];
     public double shareRatio = 0.;
 
+    boolean equalsById = false;
+
     public TorrentStateParcel()
     {
         super();
@@ -163,6 +165,16 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
                 }
             };
 
+    public boolean isEqualsById()
+    {
+        return equalsById;
+    }
+
+    public void setEqualsById(boolean equalsById)
+    {
+        this.equalsById = equalsById;
+    }
+
     @Override
     public int compareTo(TorrentStateParcel another)
     {
@@ -172,6 +184,10 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     @Override
     public int hashCode()
     {
+        if (equalsById) {
+            return torrentId.hashCode();
+        }
+
         int prime = 31, result = 1;
 
         result = prime * result + ((torrentId == null) ? 0 : torrentId.hashCode());
@@ -199,6 +215,11 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     @Override
     public boolean equals(Object o)
     {
+        if (equalsById) {
+            return (o instanceof TorrentStateParcel &&
+                    (torrentId.equals(((TorrentStateParcel) o).torrentId)));
+        }
+
         if (!(o instanceof TorrentStateParcel)) {
             return false;
         }

@@ -7,13 +7,14 @@
     android:padding="@dimen/dialog_padding">
 
     <Spinner
-        android:id="@+id/dialog_sort_torrent_by"
+        android:id="@+id/dialog_sort_by"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialog_padding"
         style="@style/Widget.AppCompat.Spinner" />
 
     <RadioGroup
-        android:id="@+id/dialog_sort_by"
+        android:id="@+id/dialog_sort_direction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,15 +22,16 @@
             android:id="@+id/dialog_sort_by_ascending"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?android:attr/textColorPrimary"
+            android:checked="true"
             android:text="@string/sort_by_ascending" />
 
         <RadioButton
             android:id="@+id/dialog_sort_by_descending"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?android:attr/textColorPrimary"
             android:text="@string/sort_by_descending" />
     </RadioGroup>
