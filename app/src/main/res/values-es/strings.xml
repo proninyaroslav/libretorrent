@@ -24,9 +24,9 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">By ascending</string>
-    <string name="sort_by_descending">By descending</string>
-    <string name="sorting">Sorting</string>
+    <string name="sort_by_ascending">Ascendente</string>
+    <string name="sort_by_descending">Descendente</string>
+    <string name="sorting">Ordenar</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No hay torrents</string>
@@ -53,13 +53,13 @@
     <string name="theme_settings_apply_after_reboot">Los ajustes del tema serán aplicados tras reiniciar la aplicación</string>
     <string name="about">Acerca de&#8230;</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
-        <item>Peers</item>
-        <item>Leechers</item>
+        <item>Sin ordenar</item>
+        <item>Nombre</item>
+        <item>Tamaño</item>
+        <item>Progreso</item>
+        <item>Tiempo restante</item>
+        <item>Pares</item>
+        <item>Sanguijuelas</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -283,7 +283,7 @@
     <string name="pref_enable_lsd_title">Habilitar LSD</string>
     <string name="pref_enable_lsd_summary">Está diseñado para permitir el descubrimiento de pares BitTorrent locales, con intención de minimizar el tráfico</string>
     <string name="pref_enable_utp_title">Habilitar μTP</string>
-    <string name="pref_enable_utp_summary">Pretende mitigar latencias pobres y otros problemas de control de congestión encontradeos en BitTorrent convencional sobre TCP, a la vez que proporciona un suministro confiable y ordenado</string>
+    <string name="pref_enable_utp_summary">Pretende mitigar latencias pobres y otros problemas de control de congestión encontrados en BitTorrent convencional sobre TCP, a la vez que proporciona un suministro confiable y ordenado</string>
     <string name="pref_enable_upnp_title">Habilitar UPnP</string>
     <string name="pref_enable_natpmp_title">Habilitar NAT-PMP</string>
     <string name="pref_port_settings_category">Ajustes del puerto</string>
