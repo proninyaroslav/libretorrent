@@ -20,6 +20,9 @@
     <string name="elapsed_time_format_h_mm_ss">%1$d ч. %2$d м. %3$d с</string>
     <string name="elapsed_time_format_mm_ss">%1$d м. %2$d с</string>
     <string name="elapsed_time_format_ss">%1$d с</string>
+    <string name="sort_by_ascending">По возрастанию</string>
+    <string name="sort_by_descending">По убыванию</string>
+    <string name="sorting">Сортировка</string>
     
     <!-- Main window -->
     <string name="main_empty_torrent_list">Нет торрентов</string>
@@ -43,7 +46,17 @@
     <string name="ip_filter_add_error">Не удалось добавить IP фильтр. Возможно файл повреждён или имеет неверный формат</string>
     <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
+    <string name="theme_settings_apply_after_reboot">Настройки темы будут применены после перезапуска приложения</string>
     <string name="about">О программе</string>
+    <string-array name="sort_torrent_by">
+        <item>Без сортировки</item>
+        <item>Имя</item>
+        <item>Размер</item>
+        <item>Прогресс</item>
+        <item>Расчётное время</item>
+        <item>Пиры</item>
+        <item>Личеры</item>
+    </string-array>
 
     <!-- Foreground notification -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/с \u2022 %4$s</string>

@@ -29,6 +29,8 @@ import net.grandcentrix.tray.TrayPreferences;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 
@@ -126,6 +128,16 @@ public class SettingsManager extends TrayPreferences
         String keyEncryptMode = context.getString(R.string.pref_key_enc_mode);
         if (pref.getInt(keyEncryptMode, -1) == -1) {
             pref.put(keyEncryptMode, Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)));
+        }
+
+        String keySortTorrentBy = context.getString(R.string.pref_key_sort_torrent_by);
+        if (pref.getString(keySortTorrentBy, null) == null) {
+            pref.put(keySortTorrentBy, TorrentSorting.SortingColumns.name.name());
+        }
+
+        String keySortTorrentDirection = context.getString(R.string.pref_key_sort_torrent_direction);
+        if (pref.getString(keySortTorrentDirection, null) == null) {
+            pref.put(keySortTorrentDirection, TorrentSorting.Direction.ASC.name());
         }
     }
 }

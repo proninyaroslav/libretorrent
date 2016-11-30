@@ -67,9 +67,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -81,6 +83,8 @@ import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 import org.proninyaroslav.libretorrent.core.TorrentTaskServiceIPC;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
@@ -94,12 +98,14 @@ import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsActivity;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -130,6 +136,7 @@ public class MainFragment extends Fragment
     private static final String TAG_SAVE_ERROR_DIALOG = "save_error_dialog";
     private static final String TAG_TORRENTS_LIST_STATE = "torrents_list_state";
     private static final String TAG_ABOUT_DIALOG = "about_dialog";
+    private static final String TAG_TORRENT_SORTING = "torrent_sorting";
 
     private static final int ADD_TORRENT_REQUEST = 1;
     private static final int TORRENT_FILE_CHOOSE_REQUEST = 2;
@@ -300,7 +307,8 @@ public class MainFragment extends Fragment
 
         adapter = new TorrentListAdapter(
                 new ArrayList<TorrentStateParcel>(),
-                activity, R.layout.item_torrent_list, this);
+                activity, R.layout.item_torrent_list, this,
+                new TorrentSortingComparator(Utils.getTorrentSorting(activity.getApplicationContext())));
 
         setTorrentListFilter((String) spinner.getSelectedItem());
 
@@ -652,6 +660,9 @@ public class MainFragment extends Fragment
             case R.id.settings_menu:
                 startActivity(new Intent(activity, SettingsActivity.class));
                 break;
+            case R.id.sort_torrent_menu:
+                torrentSortingDialog();
+                break;
             case R.id.about_menu:
                 aboutDialog();
                 break;
@@ -677,6 +688,21 @@ public class MainFragment extends Fragment
                     null,
                     this);
             aboutDialog.show(getFragmentManager(), TAG_ABOUT_DIALOG);
+        }
+    }
+
+    private void torrentSortingDialog()
+    {
+        if (getFragmentManager().findFragmentByTag(TAG_TORRENT_SORTING) == null) {
+            BaseAlertDialog sortingDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.sorting),
+                    null,
+                    R.layout.dialog_sorting,
+                    getString(R.string.ok),
+                    getString(R.string.cancel),
+                    null,
+                    this);
+            sortingDialog.show(getFragmentManager(), TAG_TORRENT_SORTING);
         }
     }
 
@@ -835,6 +861,9 @@ public class MainFragment extends Fragment
 
             } else if (getFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG) != null) {
                 initAboutDialog(dialog);
+
+            } else if (getFragmentManager().findFragmentByTag(TAG_TORRENT_SORTING) != null) {
+                initTorrentSortingDialog(dialog);
             }
         }
     }
@@ -936,6 +965,35 @@ public class MainFragment extends Fragment
         }
     }
 
+    private void initTorrentSortingDialog(final AlertDialog dialog)
+    {
+        Spinner sp = (Spinner) dialog.findViewById(R.id.dialog_sort_by);
+        RadioGroup group = (RadioGroup) dialog.findViewById(R.id.dialog_sort_direction);
+
+        if (sp != null && group != null) {
+            SettingsManager pref = new SettingsManager(activity);
+
+            String[] columns = activity.getResources().getStringArray(R.array.sort_torrent_values);
+
+            String column = pref.getString(activity.getString(R.string.pref_key_sort_torrent_by),
+                    TorrentSorting.SortingColumns.name.name());
+            String direction = pref.getString(activity.getString(R.string.pref_key_sort_torrent_direction),
+                    TorrentSorting.Direction.ASC.name());
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
+                    R.layout.spinner_item_dropdown,
+                    getResources().getStringArray(R.array.sort_torrent_by));
+            sp.setAdapter(adapter);
+            sp.setSelection(Arrays.asList(columns).indexOf(column));
+
+            if (TorrentSorting.Direction.fromValue(direction) == TorrentSorting.Direction.ASC) {
+                group.check(R.id.dialog_sort_by_ascending);
+            } else {
+                group.check(R.id.dialog_sort_by_descending);
+            }
+        }
+    }
+
     @Override
     public void onPositiveClicked(@Nullable View v)
     {
@@ -961,6 +1019,32 @@ public class MainFragment extends Fragment
                     String comment = editText.getText().toString();
 
                     Utils.reportError(sentError, comment);
+                }
+
+            } else if (getFragmentManager().findFragmentByTag(TAG_TORRENT_SORTING) != null) {
+                Spinner sp = (Spinner) v.findViewById(R.id.dialog_sort_by);
+                RadioGroup group = (RadioGroup) v.findViewById(R.id.dialog_sort_direction);
+                SettingsManager pref = new SettingsManager(activity);
+
+                String[] columns = activity.getResources().getStringArray(R.array.sort_torrent_values);
+                int position = sp.getSelectedItemPosition();
+
+                if (position != -1 && position < columns.length) {
+                    String column = columns[position];
+                    pref.put(activity.getString(R.string.pref_key_sort_torrent_by), column);
+                }
+
+                int radioButtonId = group.getCheckedRadioButtonId();
+                String direction = TorrentSorting.Direction.ASC.name();
+
+                if (radioButtonId == R.id.dialog_sort_by_descending) {
+                    direction = TorrentSorting.Direction.DESC.name();
+                }
+                pref.put(activity.getString(R.string.pref_key_sort_torrent_direction), direction);
+
+                if (adapter != null) {
+                    adapter.setSorting(new TorrentSortingComparator(
+                            Utils.getTorrentSorting(activity.getApplicationContext())));
                 }
             }
         }

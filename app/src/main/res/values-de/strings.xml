@@ -24,6 +24,9 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="sort_by_ascending">Durch Aufsteigend</string>
+    <string name="sort_by_descending">Durch Absteigend</string>
+    <string name="sorting">Sortierung</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Keine Torrents</string>
@@ -49,6 +52,15 @@
     <string name="proxy_settings_apply_after_reboot">Proxy Server Einstellungen werden nach einem Neustart der App angewendet</string>
     <string name="theme_settings_apply_after_reboot">Themen Einstellungen werden nach einem Neustart der App angewendet</string>
     <string name="about">Über</string>
+    <string-array name="sort_torrent_by">
+        <item>Ohne Sortierung</item>
+        <item>Name</item>
+        <item>Größe</item>
+        <item>Fortschritt</item>
+        <item>ETA</item>
+        <item>Peers</item>
+        <item>Leechers</item>
+    </string-array>
 
     <!-- Foreground notification -->
 

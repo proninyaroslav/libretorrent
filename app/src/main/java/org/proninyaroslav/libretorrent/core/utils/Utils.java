@@ -49,6 +49,7 @@ import org.acra.ACRA;
 import org.acra.ReportField;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
@@ -337,5 +338,18 @@ public class Utils
                 Integer.parseInt(context.getString(R.string.pref_theme_light_value)));
 
         return theme == dark;
+    }
+
+    public static TorrentSorting getTorrentSorting(Context context)
+    {
+        SettingsManager pref = new SettingsManager(context);
+
+        String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
+                TorrentSorting.SortingColumns.name.name());
+        String direction = pref.getString(context.getString(R.string.pref_key_sort_torrent_direction),
+                TorrentSorting.Direction.ASC.name());
+
+        return new TorrentSorting(TorrentSorting.SortingColumns.fromValue(column),
+                TorrentSorting.Direction.fromValue(direction));
     }
 }

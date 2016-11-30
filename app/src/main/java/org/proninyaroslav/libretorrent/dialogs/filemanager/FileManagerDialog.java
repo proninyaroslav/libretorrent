@@ -37,8 +37,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.acra.ACRA;
-import org.acra.ReportField;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.FileManagerAdapter;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
