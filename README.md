@@ -3,7 +3,7 @@ What is LibreTorrent?
 
 LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent) lib.
 
-![phone](/doc/screenshots/phone.png) ![tablet](/doc/screenshots/tablet.png)
+![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![tablet](/doc/screenshots/tablet.png)
 
 Overview
 ---
