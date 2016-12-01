@@ -1,9 +1,12 @@
-What is LibreTorrent?
+LibreTorrent
 =====================
 
-LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent) lib.
+[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
+[<img alt="Get it on F-Droid" height="80" src="https://f-droid.org/badge/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
 
-![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![tablet](/doc/screenshots/tablet.png)
+**Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
+
+LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper [frostwire-jlibtorrent](https://github.com/frostwire/frostwire-jlibtorrent)) lib.
 
 Overview
 ---
@@ -23,30 +26,6 @@ Already implemented features (help is highly desired!):
  - Ability to download sequentially
  - Material Design
  - Tablet optimized UI
-
-Installation
----
-
-**F-Droid:** https://f-droid.org/app/org.proninyaroslav.libretorrent
-
-**Google Play:** https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent
-
-**Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
-
----
-
-To build you will need Android Studio:
-
-  https://developer.android.com/studio/index.html 
-
-(or Java Developer Kit 8:
-
-  http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
-
-and Gradle:
-
-  https://gradle.org )
-
 
 Translations
 ---
@@ -84,9 +63,23 @@ Coding Guidelines
  - When you submit a pull request try to explain what issue you're fixing in detail and how you're fixing in detail it so it's easier for us to read your patches.
  - We prefer well named methods and code re-usability than a lot of comments.
 
+Screenshots
+---
+
+![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![tablet](/doc/screenshots/tablet.png)
+
 License
 ---
 
-LibreTorrent is free software, released under the terms of the GNU General Public License v3 (GPLv3).
-
-You can find a copy of the license in the file COPYING.
+    Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+    This file is part of LibreTorrent.
+    LibreTorrent is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
