@@ -38,6 +38,7 @@ Current languages:
  - Lithuanian *(thanks techwebpd)*
  - Polish *(thanks Azaradel)*
  - Spanish *(thanks ed10vi)*
+ - Brazilian Portuguese *(thanks Wolfterro)*
 
 Contributors
 ---
