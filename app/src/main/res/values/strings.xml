@@ -244,6 +244,7 @@
     <!-- Settings -->
     
     <!-- Headers -->
+    <string name="pref_header_appearance">Appearance</string>
     <string name="pref_header_behavior">Behavior</string>
     <string name="pref_header_storage">Storage</string>
     <string name="pref_header_limitations">Limitations</string>
