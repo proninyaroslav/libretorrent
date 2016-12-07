@@ -85,7 +85,7 @@
     <string name="torrents_moved_content" formatted="false">Pomyślnie: %1$d; Nie udało się: %2$d</string>
     <string name="torrents_move_inbox_successfully">Pomyślnie:</string>
     <string name="torrents_move_inbox_failed">Nie udało się:</string>
-    
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -228,8 +228,9 @@
     <string name="error_comment_prompt">Tutaj możesz dodać dodatkową indormację lub komentarz:</string>
 
     <!-- Settings -->
-    
+
     <!-- Headers -->
+    <string name="pref_header_appearance">Appearance</string>
     <string name="pref_header_behavior">Zachowanie</string>
     <string name="pref_header_storage">Przechowywanie</string>
     <string name="pref_header_limitations">Limity</string>

@@ -213,6 +213,7 @@
     <!-- Settings -->
 
     <!-- Headers -->
+    <string name="pref_header_appearance">Внешний вид</string>
     <string name="pref_header_behavior">Поведение</string>
     <string name="pref_header_storage">Хранилище</string>
     <string name="pref_header_limitations">Ограничения</string>

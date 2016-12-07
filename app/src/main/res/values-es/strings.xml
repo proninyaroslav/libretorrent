@@ -85,7 +85,7 @@
     <string name="torrents_moved_content" formatted="false">Correctos: %1$d; Fallidos: %2$d</string>
     <string name="torrents_move_inbox_successfully">Correctos:</string>
     <string name="torrents_move_inbox_failed">Fallidos:</string>
-    
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -228,8 +228,9 @@
     <string name="error_comment_prompt">Puedes añadir información extra y comentarios aquí:</string>
 
     <!-- Settings -->
-    
+
     <!-- Headers -->
+    <string name="pref_header_appearance">Apariencia</string>
     <string name="pref_header_behavior">Comportamiento</string>
     <string name="pref_header_storage">Almacenamiento</string>
     <string name="pref_header_limitations">Límites</string>
