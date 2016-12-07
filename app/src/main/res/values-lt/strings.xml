@@ -230,6 +230,7 @@
     <!-- Settings -->
 
     <!-- Headers -->
+    <string name="pref_header_appearance">Aspetto</string>
     <string name="pref_header_behavior">Elgsena</string>
     <string name="pref_header_storage">Vieta</string>
     <string name="pref_header_limitations">Apribojimai</string>

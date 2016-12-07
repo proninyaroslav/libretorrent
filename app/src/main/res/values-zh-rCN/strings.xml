@@ -233,6 +233,7 @@
     <!-- Settings -->
 
     <!-- Headers -->
+    <string name="pref_header_appearance">出現</string>
     <string name="pref_header_behavior">行为</string>
     <string name="pref_header_storage">存储</string>
     <string name="pref_header_limitations">限制</string>
