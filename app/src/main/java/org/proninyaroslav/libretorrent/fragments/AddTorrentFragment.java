@@ -298,7 +298,7 @@ public class AddTorrentFragment extends Fragment
                         TorrentFetcher fetcher =
                                 new TorrentFetcher(getActivity().getApplicationContext(), uri);
 
-                        File torrentFile = fetcher.fetch(getActivity().getCacheDir());
+                        File torrentFile = fetcher.fetch(FileIOUtils.getTempDir(activity.getApplicationContext()));
 
                         if (torrentFile != null && torrentFile.exists()) {
                             pathToTempTorrent = torrentFile.getAbsolutePath();
@@ -422,8 +422,9 @@ public class AddTorrentFragment extends Fragment
                         torrent.setPaused(!startTorrent);
                         torrent.setTorrentFilePath(pathToTempTorrent);
 
-                        intent.putExtra(AddTorrentActivity.TAG_RESULT_TORRENT, torrent);
+                        saveTorrentFile = true;
 
+                        intent.putExtra(AddTorrentActivity.TAG_RESULT_TORRENT, torrent);
                         finish(intent, FragmentCallback.ResultCode.OK);
 
                     } else {

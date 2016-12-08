@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /*
@@ -36,6 +37,8 @@ import java.io.IOException;
 
 public class FileIOUtils
 {
+    public static final String TEMP_DIR = "temp";
+
     /*
      * Return path to the standard Download directory.
      * If the directory doesn't exist, the function creates it automatically.
@@ -154,13 +157,26 @@ public class FileIOUtils
         return availableBytes;
     }
 
-    public static void cleanTempDirectory(Context context)
+    public static File getTempDir(Context context)
     {
-        try {
-            FileUtils.cleanDirectory(context.getCacheDir());
-
-        } catch (IOException e) {
-            /* Ignore */
+        File tmpDir = new File(context.getCacheDir(), TEMP_DIR);
+        if (!tmpDir.exists()) {
+            if (!tmpDir.mkdirs()) {
+                return null;
+            }
         }
+
+        return tmpDir;
+    }
+
+    public static void cleanTempDir(Context context) throws Exception
+    {
+        File tmpDir = getTempDir(context);
+
+        if (tmpDir == null) {
+            throw new FileNotFoundException("Temp dir not found");
+        }
+
+        FileUtils.cleanDirectory(tmpDir);
     }
 }
