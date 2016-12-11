@@ -92,7 +92,9 @@ public class BasePreferenceActivity extends AppCompatActivity
     private <F extends PreferenceFragmentCompat> F getFragment(String fragment)
     {
         if (fragment != null) {
-            if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName())) {
+            if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName())) {
+                return (F) AppearanceSettingsFragment.newInstance();
+            } else if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName())) {
                 return (F) BehaviorSettingsFragment.newInstance();
             } else if (fragment.equals(StorageSettingsFragment.class.getSimpleName())) {
                 return (F) StorageSettingsFragment.newInstance();

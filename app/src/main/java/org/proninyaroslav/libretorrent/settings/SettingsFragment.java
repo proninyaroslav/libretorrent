@@ -76,9 +76,27 @@ public class SettingsFragment extends PreferenceFragmentCompat
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            setFragment(BehaviorSettingsFragment.newInstance(),
-                    getString(R.string.pref_header_behavior));
+            setFragment(AppearanceSettingsFragment.newInstance(),
+                    getString(R.string.pref_header_appearance));
         }
+
+        Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
+        appearance.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                    setFragment(AppearanceSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_appearance));
+                } else {
+                    startActivity(AppearanceSettingsFragment.class,
+                            getString(R.string.pref_header_appearance));
+                }
+
+                return true;
+            }
+        });
 
         Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
         behavior.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
