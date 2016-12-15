@@ -39,6 +39,7 @@ Current languages:
  - Polish *(thanks Azaradel)*
  - Spanish *(thanks ed10vi)*
  - Brazilian Portuguese *(thanks Wolfterro)*
+ - French *(thanks Valentin Orient)*
 
 Contributors
 ---
