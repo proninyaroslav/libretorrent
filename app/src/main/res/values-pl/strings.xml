@@ -307,7 +307,7 @@
     <string name="pref_enable_utp_title">Włącz μTP</string>
     <string name="pref_enable_utp_summary">Łagodzi opóźnienia i eliminuje zatory sieci, występujące w tradycyjnych rozwiązaniach sieci BitTorrent przez TCP.  Został zaprojektowany tak, aby automatycznie zmniejszyć zużycie łącza, gdy potrzebuje tego inna aplikacja</string>
     <string name="pref_enable_upnp_title">Włącz UPnP</string>
-    <string name="pref_enable_natpmp_title">Włacz NAT-PMP</string>
+    <string name="pref_enable_natpmp_title">Włącz NAT-PMP</string>
     <string name="pref_port_settings_category">Ustawienia portu</string>
     <string name="pref_use_random_port_title">Użyj losowego portu</string>
     <string name="pref_port_title">Port</string>
