@@ -24,12 +24,15 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 /*
  * Main I/O operations on files.
@@ -37,6 +40,9 @@ import java.io.IOException;
 
 public class FileIOUtils
 {
+    @SuppressWarnings("unused")
+    private static final String TAG = FileIOUtils.class.getSimpleName();
+
     public static final String TEMP_DIR = "temp";
 
     /*
@@ -128,7 +134,7 @@ public class FileIOUtils
 
     /*
      * Returns free space for the specified path in bytes.
-     * If error return -1;
+     * If error return -1.
      */
 
     public static long getFreeSpace(String path)
@@ -178,5 +184,40 @@ public class FileIOUtils
         }
 
         FileUtils.cleanDirectory(tmpDir);
+    }
+
+    /*
+     * Returns all shared/external storage devices where the application can place files it owns.
+     * For Android below 4.4 returns only primary storage (standard download path).
+     */
+
+    public static ArrayList<String> getStorageList(Context context)
+    {
+        ArrayList<String> storages = new ArrayList<>();
+        storages.add(Environment.getExternalStorageDirectory().getAbsolutePath());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            /*
+             * First volume returned by getExternalFilesDirs is always primary storage,
+             * or emulated. Further entries, if they exist, will be secondary or external SD,
+             * see http://www.doubleencore.com/2014/03/android-external-storage/
+             */
+            File[] filesDirs = context.getExternalFilesDirs(null);
+
+            if (filesDirs != null) {
+                /* Skip primary storage */
+                for (int i = 1; i < filesDirs.length; i++) {
+                    if (filesDirs[i] != null ) {
+                        if (filesDirs[i].exists()) {
+                            storages.add(filesDirs[i].getAbsolutePath());
+                        } else {
+                            Log.w(TAG, "Unexpected external storage: " + filesDirs[i].getAbsolutePath());
+                        }
+                    }
+                }
+            }
+        }
+
+        return storages;
     }
 }
