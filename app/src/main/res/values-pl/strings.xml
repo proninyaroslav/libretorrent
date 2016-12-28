@@ -1,7 +1,6 @@
-<?xml version="0.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name" translatable="false">LibreTorrent</string>
     <string name="ok">OK</string>
     <string name="cancel">Anuluj</string>
     <string name="yes">Tak</string>
@@ -28,10 +27,6 @@
     <string name="sort_by_ascending">Rosnąco</string>
     <string name="sort_by_descending">Malejąco</string>
     <string name="sorting">Sortuj</string>
-    <string-array name="sort_direction_values" translatable="false">
-        <item>asc</item>
-        <item>desc</item>
-    </string-array>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Brak torrentów</string>
@@ -62,18 +57,9 @@
         <item>Nazwą</item>
         <item>Wielkością</item>
         <item>Postępem</item>
-        <item>Czasem do </item>
+        <item>Czasem do końca</item>
         <item>Ilością Peer'ów</item>
         <item>Ilością Leecher'ów</item>
-    </string-array>
-    <string-array name="sort_torrent_values" translatable="false">
-        <item>brak</item>
-        <item>nazwą</item>
-        <item>wielkością</item>
-        <item>postepem</item>
-        <item>czasem do końca</item>
-        <item>ilością peer'ów</item>
-        <item>ilością leecher'ów</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -115,7 +101,7 @@
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Odmowa dostępu</string>
-    <string name="perm_denied_warning">Bez dostępu do zapisu na pamięci telefonu aplikacja nie jest w stanie zapisywać torrentów, a aplikacja nie będzie działać prawidłowo. Czy jesteś pewien, że nie chcesz zezwolić aplikacji na wyżej wymieniony dostęp?</string>
+    <string name="perm_denied_warning">Bez dostępu do zapisu na pamięci telefonu aplikacja nie jest w stanie zapisywać torrentów, oraz nie będzie działać prawidłowo. Czy jesteś pewien, że nie chcesz zezwolić aplikacji na wyżej wymieniony dostęp?</string>
 
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Dodaj torrent</string>
@@ -272,12 +258,6 @@
         <item>Jasny</item>
         <item>Ciemny</item>
     </string-array>
-    <string name="pref_theme_light_value" translatable="false">0</string>
-    <string name="pref_theme_dark_value" translatable="false">1</string>
-    <string-array name="pref_theme_entries_value" translatable="false">
-        <item>@string/pref_theme_light_value</item>
-        <item>@string/pref_theme_dark_value</item>
-    </string-array>
     <string name="pref_notification_category">Ustawienia powiadomień</string>
     <string name="pref_torrent_finish_notify_title">Powiadomienia ukończenia torrenta</string>
     <string name="pref_torrent_finish_notify_summary">Powiadom mnie o ukończeniu pobierania torrenta</string>
@@ -307,7 +287,7 @@
     <string name="pref_enable_utp_title">Włącz μTP</string>
     <string name="pref_enable_utp_summary">Łagodzi opóźnienia i eliminuje zatory sieci, występujące w tradycyjnych rozwiązaniach sieci BitTorrent przez TCP.  Został zaprojektowany tak, aby automatycznie zmniejszyć zużycie łącza, gdy potrzebuje tego inna aplikacja</string>
     <string name="pref_enable_upnp_title">Włącz UPnP</string>
-    <string name="pref_enable_natpmp_title">Włącz NAT-PMP</string>
+    <string name="pref_enable_natpmp_title">Włacz NAT-PMP</string>
     <string name="pref_port_settings_category">Ustawienia portu</string>
     <string name="pref_use_random_port_title">Użyj losowego portu</string>
     <string name="pref_port_title">Port</string>
@@ -317,14 +297,6 @@
         <item>Preferuj szyfrowanie</item>
         <item>Wymagaj szyfrowania</item>
         <item>Wyłącz szyfrowanie</item>
-    </string-array>
-    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
-    <string name="pref_enc_mode_require_value" translatable="false">1</string>
-    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
-    <string-array name="pref_enc_mode_entries_value" translatable="false">
-        <item>@string/pref_enc_mode_prefer_value</item>
-        <item>@string/pref_enc_mode_require_value</item>
-        <item>@string/pref_enc_mode_disable_value</item>
     </string-array>
     <string name="pref_enc_in_connections_title">Połączenie przychodzące</string>
     <string name="pref_enc_out_connections_title">Połączenia wychodzące</string>
@@ -340,16 +312,6 @@
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">1</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">2</string>
-    <string name="pref_proxy_type_http_value" translatable="false">3</string>
-    <string-array name="pref_proxy_type_entries_value" translatable="false">
-        <item>@string/pref_proxy_type_none_value</item>
-        <item>@string/pref_proxy_type_socks4_value</item>
-        <item>@string/pref_proxy_type_socks5_value</item>
-        <item>@string/pref_proxy_type_http_value</item>
-    </string-array>
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Użyj również do połączenia z peer'ami</string>
@@ -362,8 +324,6 @@
 
     <!-- About dialog -->
     <string name="about_title">Informacje o LibreTorrent</string>
-    <string name="about_website" translatable="false">https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent jest Wolnym klientem sieci Torrent dla urządzeń z Android 4 i nowszymi, opartym na libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent jest Wolnym oprogramowaniem wydanym na zasadach wyrażonych w GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
-    <string name="about_changelog_link" translatable="false">https://github.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
 </resources>
