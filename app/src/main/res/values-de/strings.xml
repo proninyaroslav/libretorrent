@@ -85,7 +85,7 @@
     <string name="torrents_moved_content" formatted="false">Erfolgreich: %1$d; Fehlgeschlagen: %2$d</string>
     <string name="torrents_move_inbox_successfully">Erfolgreich:</string>
     <string name="torrents_move_inbox_failed">Fehlgeschlagen:</string>
-    
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -147,6 +147,11 @@
     <string name="error_perm_write_in_folder">Konnte nicht in ausgewählten Ordner herunterladen. Bitte wähle einen anderen Ordner</string>
     <string name="error_open_dir">Ordner konnte nicht geöffnet werden</string>
     <string name="home_directory">Home</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="permission_denied">Permission denied</string>
 
     <!-- Error dialog -->
     <string name="report">Fehlerbericht</string>
@@ -228,8 +233,9 @@
     <string name="error_comment_prompt">Hier kannst du weitere Informationen hinzufügen:</string>
 
     <!-- Settings -->
-    
+
     <!-- Headers -->
+    <string name="pref_header_appearance">Aussehen</string>
     <string name="pref_header_behavior">Verhalten</string>
     <string name="pref_header_storage">Speicher</string>
     <string name="pref_header_limitations">Beschränkungen</string>

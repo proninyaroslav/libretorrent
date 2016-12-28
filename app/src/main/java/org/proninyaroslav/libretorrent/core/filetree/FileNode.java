@@ -23,9 +23,11 @@ package org.proninyaroslav.libretorrent.core.filetree;
  * The interface with basic functions for a file object.
  */
 
+import java.io.Serializable;
+
 public interface FileNode<F> extends Comparable<F>
 {
-    class Type
+    class Type implements Serializable
     {
         public static int DIR = 0;
         public static int FILE = 1;

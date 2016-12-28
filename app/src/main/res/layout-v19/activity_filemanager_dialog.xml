@@ -30,25 +30,11 @@
                 app:popupTheme="?attr/popupTheme"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-            <HorizontalScrollView
+            <Spinner
+                android:id="@+id/storage_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="?attr/colorPrimary">
-
-                <TextView
-                    android:id="@+id/title_cur_folder_path"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="?attr/actionBarSize"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center|start"
-                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                    android:textColor="@android:color/white" />
-            </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                style="@style/BaseTheme.Toolbar.Spinner" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView

@@ -147,6 +147,11 @@
     <string name="error_perm_write_in_folder">Negalima naudoti pasirinkto aplanko atsisiuntimui. Prašome pasirinkti kitą aplanką</string>
     <string name="error_open_dir">Negalima atidaryti aplanko</string>
     <string name="home_directory">Namai</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="permission_denied">Permission denied</string>
 
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
@@ -230,6 +235,7 @@
     <!-- Settings -->
 
     <!-- Headers -->
+    <string name="pref_header_appearance">Aspetto</string>
     <string name="pref_header_behavior">Elgsena</string>
     <string name="pref_header_storage">Vieta</string>
     <string name="pref_header_limitations">Apribojimai</string>

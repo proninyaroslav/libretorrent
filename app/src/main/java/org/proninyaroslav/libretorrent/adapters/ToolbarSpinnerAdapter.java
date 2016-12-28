@@ -43,7 +43,7 @@ public class ToolbarSpinnerAdapter extends BaseAdapter
     private static final String DROPDOWN = "dropdown";
     private static final String NON_DROPDOWN = "non_dropdown";
 
-    private List<String> items = new ArrayList<String>();
+    private List<String> items = new ArrayList<>();
     private Context context;
 
     public ToolbarSpinnerAdapter(Context context)

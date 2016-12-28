@@ -136,6 +136,11 @@
     <string name="error_perm_write_in_folder">Невозможно использовать выбранную папку для загрузки. Пожалуйста, выберите другую папку</string>
     <string name="error_open_dir">Невозможно открыть папку</string>
     <string name="home_directory">Домой</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Внутреннее хранилище</string>
+    <string name="external_storage_name" formatted="false">Внешнее хранилище %1$d</string>
+    <string name="permission_denied">Доступ запрещён</string>
 
     <!-- Error dialog -->
     <string name="report">Сообщить</string>
@@ -213,6 +218,7 @@
     <!-- Settings -->
 
     <!-- Headers -->
+    <string name="pref_header_appearance">Внешний вид</string>
     <string name="pref_header_behavior">Поведение</string>
     <string name="pref_header_storage">Хранилище</string>
     <string name="pref_header_limitations">Ограничения</string>
@@ -233,9 +239,7 @@
     <string name="pref_max_active_uploads_title">Максимальное число активных раздач</string>
     <string name="pref_max_active_downloads_title">Максимальное число активных загрузок</string>
     <string name="pref_max_active_torrents_title">Максимальное число активных торрентов</string>
-    <!-- Behavior settings -->
-    <string name="pref_autostart_title">Автозапуск</string>
-    <string name="pref_autostart_summary">Запускать приложение после включения устройства</string>
+    <!-- Appearance settings -->
     <string name="pref_theme_category">Настройки темы</string>
     <string name="pref_theme_title">Тема</string>
     <string-array name="pref_theme_entries">
@@ -250,6 +254,9 @@
     <string name="pref_led_indicator_notify_title">LED индикатор</string>
     <string name="pref_led_indicator_color_notify_title">Цвет LED индикатора</string>
     <string name="pref_vibration_notify_title">Вибросигнал</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Автозапуск</string>
+    <string name="pref_autostart_summary">Запускать приложение после включения устройства</string>
     <string name="pref_power_management_category">Управление питанием</string>
     <string name="pref_shutdown_downloads_complete_title">Завершить после окончания загрузок</string>
     <string name="pref_shutdown_downloads_complete_summary">Если включено, то приложение завершит свою работу после окончания всех загрузок</string>

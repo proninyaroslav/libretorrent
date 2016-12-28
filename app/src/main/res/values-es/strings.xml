@@ -85,7 +85,7 @@
     <string name="torrents_moved_content" formatted="false">Correctos: %1$d; Fallidos: %2$d</string>
     <string name="torrents_move_inbox_successfully">Correctos:</string>
     <string name="torrents_move_inbox_failed">Fallidos:</string>
-    
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -147,6 +147,11 @@
     <string name="error_perm_write_in_folder">No se puede usar la carpeta seleccionada para descargar. Por favor, selecciona otra carpeta</string>
     <string name="error_open_dir">No se puede abrir la carpeta</string>
     <string name="home_directory">Inicio</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="permission_denied">Permission denied</string>
 
     <!-- Error dialog -->
     <string name="report">Reportar</string>
@@ -228,8 +233,9 @@
     <string name="error_comment_prompt">Puedes añadir información extra y comentarios aquí:</string>
 
     <!-- Settings -->
-    
+
     <!-- Headers -->
+    <string name="pref_header_appearance">Apariencia</string>
     <string name="pref_header_behavior">Comportamiento</string>
     <string name="pref_header_storage">Almacenamiento</string>
     <string name="pref_header_limitations">Límites</string>

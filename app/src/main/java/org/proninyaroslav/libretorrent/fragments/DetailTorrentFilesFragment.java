@@ -467,21 +467,22 @@ public class DetailTorrentFilesFragment extends Fragment
              * Else, set isMixedPriority as false and clear check in RadioGroup
              */
 
-            Priority randomPriority = priorities.get(new Random().nextInt(priorities.size()));
+            int size = priorities.size();
+            Priority randomPriority = priorities.get(new Random().nextInt((size == 0 ? 1 : size) - 1));
             boolean isMixedPriority = false;
 
-            if (randomPriority == Priority.UNKNOWN) {
+            if (randomPriority != null && randomPriority == Priority.UNKNOWN) {
                 isMixedPriority = true;
             } else {
                 for (Priority priority : priorities) {
-                    if (randomPriority != priority) {
+                    if (randomPriority != null && randomPriority != priority) {
                         isMixedPriority = true;
                         break;
                     }
                 }
             }
 
-            if (!isMixedPriority) {
+            if (randomPriority != null && !isMixedPriority) {
                 int resId;
                 switch (randomPriority) {
                     case IGNORE:

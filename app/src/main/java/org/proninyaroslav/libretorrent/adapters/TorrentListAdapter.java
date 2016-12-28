@@ -174,29 +174,38 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                         MorphButton.MorphState.END :
                         MorphButton.MorphState.START));
 
-        if (curOpenTorrent != null &&
-                getItemPosition(curOpenTorrent) == position && Utils.isTwoPane(context)) {
-            if (!isSelected(position)) {
-                a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
-                Utils.setBackground(
-                        holder.itemTorrentList, a.getDrawable(0));
-                a.recycle();
-            }
+        if (curOpenTorrent != null) {
+            curOpenTorrent.setEqualsById(true);
+            if (getItemPosition(curOpenTorrent) == position && Utils.isTwoPane(context)) {
+                if (!isSelected(position)) {
+                    a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
+                    Utils.setBackground(
+                            holder.itemTorrentList, a.getDrawable(0));
+                    a.recycle();
+                }
 
-            Utils.setBackground(holder.indicatorCurOpenTorrent,
-                    ContextCompat.getDrawable(context, R.color.accent));
+                Utils.setBackground(holder.indicatorCurOpenTorrent,
+                        ContextCompat.getDrawable(context, R.color.accent));
+            }
         }
     }
 
     private void setEqualsMethod(Collection<TorrentStateParcel> states)
     {
         for (TorrentStateParcel state : states) {
+            if (state == null) {
+                continue;
+            }
             state.setEqualsById(true);
         }
     }
 
     public synchronized void addItems(Collection<TorrentStateParcel> states)
     {
+        if (states == null) {
+            return;
+        }
+
         setEqualsMethod(states);
         List<TorrentStateParcel> statesList = displayFilter.filter(states);
         currentItems.addAll(statesList);
@@ -213,13 +222,16 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public synchronized void markAsOpen(TorrentStateParcel state)
     {
-        state.setEqualsById(true);
         curOpenTorrent = state;
         notifyDataSetChanged();
     }
 
     public synchronized void updateItem(TorrentStateParcel torrentState)
     {
+        if (torrentState == null) {
+            return;
+        }
+
         torrentState.setEqualsById(true);
 
         if (!currentItems.contains(torrentState)) {
@@ -282,6 +294,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public void search(String searchPattern)
     {
+        if (searchPattern == null) {
+            return;
+        }
+
         searchFilter.filter(searchPattern);
     }
 
@@ -299,9 +315,17 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public void deleteItems(Collection<TorrentStateParcel> states)
     {
+        if (states == null) {
+            return;
+        }
+
         setEqualsMethod(states);
 
         for (TorrentStateParcel state : states) {
+            if (state == null) {
+                continue;
+            }
+
             currentItems.remove(state);
             allItems.remove(state);
         }
@@ -313,6 +337,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public void setSorting(TorrentSortingComparator sorting)
     {
+        if (sorting == null) {
+            return;
+        }
+
         this.sorting = sorting;
         Collections.sort(currentItems, sorting);
 
@@ -330,6 +358,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public int getItemPosition(TorrentStateParcel state)
     {
+        if (state == null) {
+            return -1;
+        }
+
         state.setEqualsById(true);
 
         return currentItems.indexOf(state);

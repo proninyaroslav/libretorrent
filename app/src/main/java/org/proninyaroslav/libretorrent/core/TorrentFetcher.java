@@ -51,6 +51,10 @@ public class TorrentFetcher
     {
         File tempTorrent;
 
+        if (saveDir == null) {
+            throw new FetchLinkException("Temp dir not found");
+        }
+
         try {
             if (uri == null || uri.getScheme() == null) {
                 throw new IllegalArgumentException("Can't decode link");

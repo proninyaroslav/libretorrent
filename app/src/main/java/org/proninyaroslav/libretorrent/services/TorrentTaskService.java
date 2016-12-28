@@ -82,6 +82,8 @@ import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1785,34 +1787,39 @@ public class TorrentTaskService extends Service
                     ArrayList<Throwable> exceptions = new ArrayList<>();
 
                     if (torrentsList != null) {
+                        SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
+                        boolean deleteTorrentFile = pref.getBoolean(service.get().
+                                getString(R.string.pref_key_delete_torrent_file), false);
+
                         for (Torrent torrent : torrentsList) {
-                            SettingsManager pref = new SettingsManager(service.get().getApplicationContext());
-                            boolean deleteTorrentFile = pref.getBoolean(service.get().
-                                    getString(R.string.pref_key_delete_torrent_file), false);
+                            if (!new File(torrent.getTorrentFilePath()).exists()) {
+                                exceptions.add(new FileNotFoundException());
 
-                            try {
-                                if (service.get().repo.exists(torrent)) {
-                                    service.get().repo.replace(torrent,
-                                            torrent.getTorrentFilePath(),
-                                            deleteTorrentFile);
+                            } else {
+                                try {
+                                    if (service.get().repo.exists(torrent)) {
+                                        service.get().repo.replace(torrent,
+                                                torrent.getTorrentFilePath(),
+                                                deleteTorrentFile);
 
-                                    exceptions.add(new FileAlreadyExistsException());
+                                        exceptions.add(new FileAlreadyExistsException());
 
-                                } else {
-                                    service.get().repo.add(torrent,
-                                            torrent.getTorrentFilePath(),
-                                            deleteTorrentFile);
+                                    } else {
+                                        service.get().repo.add(torrent,
+                                                torrent.getTorrentFilePath(),
+                                                deleteTorrentFile);
+                                    }
+
+                                    torrent = service.get().repo.getTorrentByID(torrent.getId());
+
+                                } catch (Throwable e) {
+                                    exceptions.add(e);
                                 }
 
-                                torrent = service.get().repo.getTorrentByID(torrent.getId());
-
-                            } catch (Throwable e) {
-                                exceptions.add(e);
-                            }
-
-                            if (torrent != null) {
-                                addedTorrentsList.add(torrent);
-                                states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
+                                if (torrent != null) {
+                                    addedTorrentsList.add(torrent);
+                                    states.add(new TorrentStateParcel(torrent.getId(), torrent.getName()));
+                                }
                             }
                         }
                     }
