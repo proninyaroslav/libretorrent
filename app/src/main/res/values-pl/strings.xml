@@ -58,8 +58,8 @@
         <item>Wielkością</item>
         <item>Postępem</item>
         <item>Czasem do końca</item>
-        <item>Ilością Peer'ów</item>
-        <item>Ilością Leecher'ów</item>
+        <item>Ilością Peer\'ów</item>
+        <item>Ilością Leecher\'ów</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -79,7 +79,7 @@
     <string name="torrent_finished_notify">Torrent ukończony</string>
 
     <!-- Torrents move notification -->
-    <string name="torrents_move_notify_title" formatted="false">Przenoszenie torrent'ów (%1$d/%2$d)</string>
+    <string name="torrents_move_notify_title" formatted="false">Przenoszenie torrent\'ów (%1$d/%2$d)</string>
     <string name="torrents_move_content">Proszę czekać&#8230;</string>
     <string name="torrents_moved_title">Torrent przeniesiony</string>
     <string name="torrents_moved_content" formatted="false">Pomyślnie: %1$d; Niepomyślnie: %2$d</string>
@@ -93,7 +93,7 @@
     <!-- ↓ download speed | ↑ upload speed -->
     <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <string name="torrent_status_downloading">Pobieranie</string>
-    <string name="torrent_status_seeding">Seed'owanie</string>
+    <string name="torrent_status_seeding">Seed\'owanie</string>
     <string name="torrent_status_paused">Pauza</string>
     <string name="torrent_status_stopped">Wstrzymany</string>
     <string name="torrent_status_checking">Sprawdzanie</string>
@@ -176,19 +176,19 @@
     <string name="torrent_speed">Prędkość</string>
     <string name="torrent_downloaded">Pobrano</string>
     <string name="torrent_ETA">Czas do końca</string>
-    <string name="torrent_seeds">Seed'ów</string>
-    <string name="torrent_peers">Peer'ów</string>
-    <string name="torrent_leechers">Leecher'ów</string>
+    <string name="torrent_seeds">Seed\'ów</string>
+    <string name="torrent_peers">Peer\'ów</string>
+    <string name="torrent_leechers">Leecher\'ów</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Wysłano</string>
     <string name="torrent_share_ratio">Współczynnik udostępniania</string>
     <string name="torrent_active_time">Czas aktywności</string>
-    <string name="torrent_seeding_time">Czas seed'owania</string>
+    <string name="torrent_seeding_time">Czas seed\'owania</string>
     <string name="torrent_pieces">Fragmentów</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
-    <string name="torrent_trackers">Tracker'ów</string>
+    <string name="torrent_trackers">Tracker\'ów</string>
     <string name="tracker_state_working">Aktywne</string>
     <string name="tracker_state_not_working">Nieaktywne</string>
     <string name="tracker_state_error" formatted="false">Błąd: %1$s</string>
@@ -196,7 +196,7 @@
     <string name="tracker_state_not_contacted">Nie skomunikowany</string>
     <string name="share_tracker_url">Udostępnij URL</string>
     <string name="delete_selected_tracker">Usunąć wybrany tracker?</string>
-    <string name="delete_selected_trackers">Usunąć wybrane tracker'y?</string>
+    <string name="delete_selected_trackers">Usunąć wybrane tracker\'y?</string>
     <string name="add_trackers">Dodaj tracker</string>
     <string name="dialog_add_trackers">(jeden na wiersz)</string>
     <string name="open_using">Otwórz za pomocą</string>
@@ -209,7 +209,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">Ten torrent nie miał połączenia z peer'ami</string>
+    <string name="peer_list_empty">Ten torrent nie miał połączenia z peer\'ami</string>
     <string name="piece_map">Mapa fragmentów</string>
     <string name="resume_torrent">Wznów</string>
     <string name="pause_torrent">Pauza</string>
@@ -286,9 +286,9 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ustawienia Proxy</string>
     <string name="pref_enable_dht_title">Włącz DHT</string>
-    <string name="pref_enable_dht_summary">Zezwala klientom BitTorrent na znajdywanie się nawzajem bez użycia tracker'a</string>
+    <string name="pref_enable_dht_summary">Zezwala klientom BitTorrent na znajdywanie się nawzajem bez użycia tracker\'a</string>
     <string name="pref_enable_lsd_title">Włącz LSD</string>
-    <string name="pref_enable_lsd_summary">LSD zezwala na odnajdywanie lokalnych peer'ow sieci BitTorrent obniżająć tym samym ruch w siec</string>
+    <string name="pref_enable_lsd_summary">LSD zezwala na odnajdywanie lokalnych peer\'ow sieci BitTorrent obniżająć tym samym ruch w siec</string>
     <string name="pref_enable_utp_title">Włącz μTP</string>
     <string name="pref_enable_utp_summary">Łagodzi opóźnienia i eliminuje zatory sieci, występujące w tradycyjnych rozwiązaniach sieci BitTorrent przez TCP.  Został zaprojektowany tak, aby automatycznie zmniejszyć zużycie łącza, gdy potrzebuje tego inna aplikacja</string>
     <string name="pref_enable_upnp_title">Włącz UPnP</string>
@@ -319,8 +319,8 @@
     </string-array>
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_title">Użyj również do połączenia z peer'ami</string>
-    <string name="pref_proxy_peers_too_summary">Proxy zostanie użyte do połączeń z tracker'ami, peer'ami oraz seed'ami</string>
+    <string name="pref_proxy_peers_too_title">Użyj również do połączenia z peer\'ami</string>
+    <string name="pref_proxy_peers_too_summary">Proxy zostanie użyte do połączeń z tracker\'ami, peer\'ami oraz seed\'ami</string>
     <string name="pref_force_proxy_title">Odrzucaj połączenia niewspierane przez serwer Proxy</string>
     <string name="pref_proxy_requires_auth_title">Używaj autoryzacji</string>
     <string name="pref_proxy_requires_auth_summary">Uwaga! Hasło jest zapisywane w niezaszyfrowanym pliku! </string>
