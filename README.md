@@ -40,6 +40,7 @@ Current languages:
  - Spanish *(thanks ed10vi)*
  - Brazilian Portuguese *(thanks Wolfterro)*
  - French *(thanks Valentin Orient)*
+ - Greek *(thanks Spyros3000)*
 
 Contributors
 ---
