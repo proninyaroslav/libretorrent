@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">OK</string>
+    <string name="cancel">Άκυρο</string>
+    <string name="yes">Ναι</string>
+    <string name="no">Όχι</string>
+    <string name="error">Σφάλμα</string>
+    <string name="shutdown">Τερματισμός</string>
+    <string name="replace">Αντικατάσταση</string>
+    <string name="add">Προσθήκη</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="deleting">Γίνεται διαγραφή</string>
+    <string name="select_all">Επιλογή όλων</string>
+    <string name="apply">Εφαρμογή</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="install">Εγκατάσταση</string>
+    <string name="search">Αναζήτηση</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d μ. %2$d ώρ. %3$d λ.</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d ώρ. %2$d λ. %3$d δ.</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d λ. %2$d δ.</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d δ.</string>
+    <string name="sort_by_ascending">Σε αύξουσα σειρά</string>
+    <string name="sort_by_descending">Σε φθίνουσα σειρά</string>
+    <string name="sorting">Ταξινόμηση</string>
+
+    <!-- Main window -->
+    <string name="main_empty_torrent_list">Κανένα torrent</string>
+    <string name="spinner_all_torrents">Όλα</string>
+    <string name="spinner_downloading_torrents">Γίνεται λήψη</string>
+    <string name="spinner_downloaded_torrents">Ληφθέντα</string>
+    <string name="delete_torrent_with_downloaded_files">Διαγραφή και των ληφθέντων αρχείων</string>
+    <string name="delete_selected_torrent">Να γίνει διαγραφή του επιλεγμένου torrent; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>
+    <string name="delete_selected_torrents">Να γίνει διαγραφή των επιλεγμένων torrents; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>
+    <string name="force_recheck_torrent">Εξαναγκασμένος επανέλεγχος</string>
+    <string name="force_announce_torrent">Εξαναγκασμένη αίτηση</string>
+    <string name="add_link">Προσθήκη συνδέσμου</string>
+    <string name="dialog_add_link_title">Εισάγετε τον σύνδεσμο magnet ή HTTP/HTTPS</string>
+    <string name="torrent_list_empty">Δεν υπάρχουν torrents</string>
+    <string name="select_or_add_torrent">Επιλογή ή προσθήκη ενός torrent</string>
+    <string name="error_empty_link">Παρακαλώ εισάγετε σύνδεσμο</string>
+    <string name="error_invalid_link">Μη έγκυρος σύνδεσμος</string>
+    <string name="error_open_torrent_file">Το άνοιγμα του αρχείου torrent είναι αδύνατο</string>
+    <string name="open_file">Άνοιγμα αρχείου</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="ip_filter_add_error">Η προσθήκη του φίλτρου IP απέτυχε. Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή.</string>
+    <string name="proxy_settings_applied">Οι ρυθμίσεις του διακομιστή μεσολάβησης εφαρμόστηκαν επιτυχώς</string>
+    <string name="proxy_settings_apply_after_reboot">Οι ρυθμίσεις των διακομιστών μεσολάβησης θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
+    <string name="theme_settings_apply_after_reboot">Οι ρυθμίσεις των θεμάτων θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
+    <string name="about">Σχετικά</string>
+    <string-array name="sort_torrent_by">
+        <item>Χωρίς ταξινόμηση</item>
+        <item>Όνομα</item>
+        <item>Μέγεθος</item>
+        <item>Πρόοδος</item>
+        <item>Χρόνος που απομένει</item>
+        <item>Ομότιμοι χρήστες</item>
+        <item>Αποδέκτες</item>
+    </string-array>
+
+    <!-- Foreground notification -->
+
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template" formatted="false">Γίνεται λήψη: %1$d Συνολικά: %2$d</string>
+    <string name="app_running_in_the_background">Το LibreTorrent τρέχει στο παρασκήνιο</string>
+    <string name="network_online">Κατάσταση δικτύου: Σε σύνδεση</string>
+    <string name="network_offline">Κατάσταση δικτύου: Εκτός σύνδεσης</string>
+
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">Το torrent κατέβηκε</string>
+
+    <!-- Torrents move notification -->
+    <string name="torrents_move_notify_title" formatted="false">Γίνεται μετακίνηση torrents (%1$d/%2$d)</string>
+    <string name="torrents_move_content">Παρακαλώ περιμένετε...</string>
+    <string name="torrents_moved_title">Τα torrents μετακινήθηκαν</string>
+    <string name="torrents_moved_content" formatted="false">Επιτυχώς: %1$d; Απέτυχε: %2$d</string>
+    <string name="torrents_move_inbox_successfully">Επιτυχώς:</string>
+    <string name="torrents_move_inbox_failed">Απέτυχε:</string>
+    
+    <!-- Torrent list item -->
+
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="torrent_status_downloading">Γίνεται λήψη</string>
+    <string name="torrent_status_seeding">Γίνεται διαμοιρασμός</string>
+    <string name="torrent_status_paused">Παύση</string>
+    <string name="torrent_status_stopped">Σταματημένο</string>
+    <string name="torrent_status_checking">Γίνεται έλεγχος</string>
+    <string name="torrent_status_finished">Κατέβηκε</string>
+
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Άρνηση δικαιώματος</string>
+    <string name="perm_denied_warning">Χωρίς αυτό το δικαίωμα η εφαρμογή δεν μπορεί να αποθηκεύσει αρχεία torrent στην μνήμη. Η εφαρμογή δεν θα λειτουργεί σωστά. Θέλετε σίγουρα να γίνει άρνηση του δικαιώματος;</string>
+
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">Προσθήκη torrent</string>
+    <string name="error_decode_torrent">Η αποκωδικοποίηση του αρχείου torrent απέτυχε. Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή.</string>
+    <string name="error_io_torrent">Σφάλμα ανάγνωσης του αρχείου torrent</string>
+    <string name="error_fetch_link">Η ανάκτηση δεδομένων από τον σύνδεσμο απέτυχε</string>
+    <string name="error_invalid_link_or_path">Μη έγκυρος σύνδεσμος ή διαδρομή προς το torrent</string>
+    <string name="decode_torrent_progress_title">Γίνεται φόρτωση</string>
+    <string name="decode_torrent_default_message">Παρακαλώ περιμένετε...</string>
+    <string name="decode_torrent_fetch_magnet_message">Γίνεται ανάκτηση δεδομένων από τον σύνδεσμο magnet. Παρακαλώ περιμένετε...</string>
+    <string name="decode_torrent_downloading_torrent_message">Το αρχείο torrent κατεβαίνει. Παρακαλώ περιμένετε...</string>
+    <string name="error_add_torrent">Η προσθήκη του torrent απέτυχε</string>
+    <string name="error_file_not_found_add_torrent">Η προσθήκη του torrent απέτυχε. Ίσως το αρχείο torrent έχει μετακινηθεί ή διαγραφεί.</string>
+    <string name="error_io_add_torrent">Η προσθήκη του torrent είναι αδύνατη. Σφάλμα I/O.</string>
+    <string name="torrent_exist">Το torrent υπάρχει ήδη. Τα torrents συμπτύχθηκαν.</string>
+    <string name="error_field_required">Το πεδίο είναι απαραίτητο</string>
+    <string name="error_no_files_selected">Δεν επιλέχθηκαν αρχεία</string>
+    <string name="free_space" formatted="false">%1$s ελεύθερα</string>
+    <string name="error_free_space">Δεν υπάρχει αρκετός ελεύθερος χώρος στην επιλεγμένη διαδρομή για να γίνει λήψη των επιλεγμένων αρχείων</string>
+    <string name="files_size" formatted="false">Επιλέχθηκαν %1$s από %2$s</string>
+    <string name="start_torrent">Εκκίνηση torrent</string>
+
+    <!-- Torrent info -->
+    <string name="torrent_info">Πληροφορίες</string>
+    <string name="torrent_files">Αρχεία</string>
+    <string name="torrent_name">Όνομα του torrent</string>
+    <string name="upload_torrent_into">Μεταφόρτωση στο</string>
+    <string name="torrent_size">Μέγεθος</string>
+    <string name="torrent_file_count">Αριθμός αρχείων</string>
+    <string name="torrent_hash_sum">Hash</string>
+    <string name="torrent_comment">Σχόλιο</string>
+    <string name="torrent_create_date">Ημερομηνία δημιουργίας του torrent</string>
+    <string name="torrent_created_in_program">Δημιουργία του torrent από το πρόγραμμα</string>
+    <string name="sequential_download">Διαδοχική λήψη</string>
+    <string name="enable_sequential_download">Ενεργοποίηση διαδοχικής λήψης</string>
+
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Επιλογή φακέλου</string>
+    <string name="file_chooser_title">Επιλογή αρχείου</string>
+    <string name="torrent_file_chooser_title">Επιλογή torrent</string>
+    <string name="dialog_new_folder_title">Νέος φάκελος</string>
+    <string name="error_dialog_new_folder">Η δημιουργία νέου φακέλου είναι αδύνατη</string>
+    <string name="error_perm_write_in_folder">Η χρήση του επιλεγμένου φακέλου για λήψεις είναι αδύνατη. Παρακαλώ επιλέξτε άλλο φάκελο.</string>
+    <string name="error_open_dir">Το άνοιγμα του φακέλου είναι αδύνατο</string>
+    <string name="home_directory">Αρχή</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Εσωτερικός αποθηκευτικός χώρος</string>
+    <string name="external_storage_name" formatted="false">Εξωτερικός αποθηκευτικός χώρος</string>
+    <string name="permission_denied">Άρνηση δικαιώματος</string>
+
+    <!-- Error dialog -->
+    <string name="report">Αναφορά</string>
+    <string name="more_details">Περισσότερες λεπτομέρειες</string>
+
+    <!-- Detail torrent dialog -->
+
+    <!-- priority • total -->
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total (percent) -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s (%4$d%%)</string>
+    <string name="file_priority_normal">Κανονική</string>
+    <string name="file_priority_low">Αγνόηση</string>
+    <string name="file_priority_high">Υψηλή</string>
+    <string name="file_priority_mixed">Μεικτή</string>
+    <string name="change_priority">Προτεραιότητα</string>
+    <string name="dialog_change_priority_title">Αλλαγή προτεραιότητας</string>
+    <string name="change_priority_low">Χαμηλή (αγνόηση αρχείου)</string>
+    <string name="change_priority_normal">Κανονική</string>
+    <string name="change_priority_high">Υψηλή</string>
+    <string name="torrent_state">Κατάσταση</string>
+    <string name="torrent_speed">Ταχύτητα</string>
+    <string name="torrent_downloaded">Ληφθέντα</string>
+    <string name="torrent_ETA">Απομένουν</string>
+    <string name="torrent_seeds">Διαμοιραστές</string>
+    <string name="torrent_peers">Ομότιμοι χρήστες</string>
+    <string name="torrent_leechers">Αποδέκτες</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_uploaded">Ανεβασμένα</string>
+    <string name="torrent_share_ratio">Αναλογία</string>
+    <string name="torrent_active_time">Ενεργός χρόνος</string>
+    <string name="torrent_seeding_time">Χρόνος διαμοιρασμού</string>
+    <string name="torrent_pieces">Κομμάτια</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">Ιχνηλάτες</string>
+    <string name="tracker_state_working">Λειτουργεί</string>
+    <string name="tracker_state_not_working">Δεν λειτουργεί</string>
+    <string name="tracker_state_error" formatted="false">Σφάλμα: %1$s</string>
+    <string name="tracker_state_updating">Γίνεται ενημέρωση...</string>
+    <string name="tracker_state_not_contacted">Δεν έχει γίνει ακόμα επαφή</string>
+    <string name="share_tracker_url">Διαμοιρασμός URL</string>
+    <string name="delete_selected_tracker">Να γίνει διαγραφή του επιλεγμένου ιχνηλάτη;</string>
+    <string name="delete_selected_trackers">Να γίνει διαγραφή των επιλεγμένων ιχνηλατών;</string>
+    <string name="add_trackers">Προσθήκη ιχνηλατών</string>
+    <string name="dialog_add_trackers">(Ένα ανά γραμμή)</string>
+    <string name="open_using">Άνοιγμα με χρήση</string>
+    <string name="peer_port" formatted="false">Θύρα: %1$d</string>
+    <string name="peer_relevance" formatted="false">Συνάφεια: %1$.1f</string>
+    <string name="peer_connection_type" formatted="false">Σύνδεση: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client" formatted="false">Πελάτης: %1$s</string>
+    <string name="peer_connection_type_bittorrent">BT</string>
+    <string name="peer_connection_type_web">Διαδίκτυο</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">Το torrent δεν έχει συνδεθεί με άλλους ομότιμους χρήστες ακόμα</string>
+    <string name="piece_map">Χάρτης κομματιών</string>
+    <string name="resume_torrent">Συνέχιση</string>
+    <string name="pause_torrent">Παύση</string>
+    <string name="share_magnet">Διαμοιρασμός συνδέσμου magnet</string>
+    <string name="save_torrent_file">Αποθήκευση αρχείου torrent</string>
+    <string name="torrent_speed_limit">Όριο ταχύτητας</string>
+    <string name="share_via">Διαμοιρασμός μέσω</string>
+    <string name="save_torrent_file_successfully">Το αρχείο torrent αποθηκεύτηκε επιτυχώς</string>
+    <string name="error_save_torrent_file">Η αποθήκευση ενός αρχείου torrent απέτυχε</string>
+    <string name="speed_limit_title">Μέγιστη ταχύτητα</string>
+    <string name="upload_speed">Μεταφόρτωση</string>
+    <string name="download_speed">Λήψη</string>
+    <string name="speed_limit_dialog">Ορισμός ταχύτητας σε KiB/s (0 - χωρίς όριο)</string>
+
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Αντιγραφή</string>
+    <string name="text_copied_to_clipboard">Το κείμενο αντιγράφτηκε στο πρόχειρο</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">Συνέβη σφάλμα εφαρμογής. Μπορείτε να στείλετε αναφορά στους προγραμματιστές.</string>
+    <string name="error_comment_prompt">Μπορείτε να προσθέσετε επιπλέον πληροφορίες και σχόλια εδώ:</string>
+
+    <!-- Settings -->
+    
+    <!-- Headers -->
+    <string name="pref_header_appearance">Εμφάνιση</string>
+    <string name="pref_header_behavior">Συμπεριφορά</string>
+    <string name="pref_header_storage">Αποθηκευτικός χώρος</string>
+    <string name="pref_header_limitations">Περιορισμοί</string>
+    <string name="pref_header_network">Δίκτυο</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">Αποθήκευση των torrents στο</string>
+    <string name="pref_move_after_download_title">Μετακίνηση μετά την λήψη</string>
+    <string name="pref_move_after_download_in_title">Μετακίνηση μετά την λήψη στο</string>
+    <string name="pref_delete_torrent_file_title">Διαγραφή των αρχείων .torrent</string>
+    <string name="pref_delete_torrent_file_summary">Διαγραφή των αρχείων .torrent μετά την έναρξη της λήψης</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">Ταχύτητα</string>
+    <string name="pref_max_download_speed_title">Μέγιστη ταχύτητα λήψεων</string>
+    <string name="pref_max_upload_speed_title">Μέγιστη ταχύτητα μεταφορτώσεων</string>
+    <string name="pref_max_connections_title">Μέγιστος αριθμός συνδέσεων</string>
+    <string name="pref_max_connections_summary">Ελάχιστος αριθμός συνδέσεων - 2</string>
+    <string name="pref_torrent_queueing_category">Ουρά torrent</string>
+    <string name="pref_max_active_uploads_title">Μέγιστες ενεργές μεταφορτώσεις</string>
+    <string name="pref_max_active_downloads_title">Μέγιστες ενεργές λήψεις</string>
+    <string name="pref_max_active_torrents_title">Μέγιστα ενεργά torrents</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
+    <string name="pref_theme_title">Θέμα</string>
+    <string-array name="pref_theme_entries">
+        <item>Φωτεινό</item>
+        <item>Σκοτεινό</item>    
+    </string-array>
+    <string name="pref_notification_category">Ρυθμίσεις ειδοποίησης</string>
+    <string name="pref_torrent_finish_notify_title">Ειδοποίηση τερματισμού torrent</string>
+    <string name="pref_torrent_finish_notify_summary">Εμφάνιση ειδοποίησης όταν μια λήψη torrent τελειώνει</string>
+    <string name="pref_play_sound_notify_title">Αναπαραγωγή ήχου</string>
+    <string name="pref_notify_sound_title">Ήχος ειδοποίησης</string>
+    <string name="pref_led_indicator_notify_title">Ένδειξη LED</string>
+    <string name="pref_led_indicator_color_notify_title">Χρώμα ένδειξης LED</string>
+    <string name="pref_vibration_notify_title">Δόνηση</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Αυτόματη εκκίνηση</string>
+    <string name="pref_autostart_summary">Εκτέλεση της εφαρμογής μετά την εκκίνηση της συσκευής</string>
+    <string name="pref_power_management_category">Διαχείριση ενέργειας</string>
+    <string name="pref_shutdown_downloads_complete_title">Τερματισμός όταν ολοκληρωθούν οι λήψεις</string>
+    <string name="pref_shutdown_downloads_complete_summary">Αν ενεργοποιηθεί, η εφαρμογή θα τερματιστεί όταν όλες οι λήψεις θα έχουν ολοκληρωθεί</string>
+    <string name="pref_cpu_do_not_sleep_title">Επεξεργαστής πάντα σε λειτουργία</string>
+    <string name="pref_cpu_do_not_sleep_summary">Αν ενεργοποιηθεί θα αυξηθεί η χρήση της μπαταρίας. Να χρησιμοποιείται μόνο αν υπάρχει μείωση της ταχύτητας λήψης όταν κλείνει η οθόνη.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Λήψη και μεταφόρτωση μόνο σε κατάσταση φόρτισης</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Αν ενεργοποιηθεί, θα γίνεται λήψη/μεταφόρτωση των torrents μόνο σε κατάσταση φόρτισης. Όλα τα torrents θα σταματούν όταν δεν είναι συνδεδεμένος ο φορτιστής.</string>
+    <string name="pref_battery_control_title">Έλεγχος μπαταρίας</string>
+    <string name="pref_battery_control_summary" formatted="false">Όλα τα torrents θα σταματήσουν αν το επίπεδο της μπαταρίας κατέβει κάτω από %1$d%%. Το όριο δεν εφαρμόζεται την ώρα της φόρτισης.</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">Ρυθμίσεις μεσολαβητή</string>
+    <string name="pref_enable_dht_title">Ενεργοποίηση DHT</string>
+    <string name="pref_enable_dht_summary">Επιτρέπει στους πελάτες BitTorrent να συνδέονται μεταξύ τους χωρίς την χρήση ιχνηλάτη</string>
+    <string name="pref_enable_lsd_title">Ενεργοποίηση LSD</string>
+    <string name="pref_enable_lsd_summary">Υποστηρίζει την ανακάλυψη τοπικών ομότιμων χρηστών, προκειμένου να μειωθεί η κίνηση δεδομένων</string>
+    <string name="pref_enable_utp_title">Ενεργοποίηση μTP</string>
+    <string name="pref_enable_utp_summary">Περιορίζει την αδύναμη ταχύτητα απόκρισης και άλλα προβλήματα συμφόρησης που εμφανίζονται στο τυπικό BitTorrent μέσω TCP, ενώ προσφέρει αξιόπιστη και καθορισμένη παραλαβή πακέτων</string>
+    <string name="pref_enable_upnp_title">Ενεργοποίηση UPnP</string>
+    <string name="pref_enable_natpmp_title">Ενεργοποίηση NAT-PMP</string>
+    <string name="pref_port_settings_category">Ρυθμίσεις θύρας</string>
+    <string name="pref_use_random_port_title">Χρήση τυχαίας θύρας</string>
+    <string name="pref_port_title">Θύρα</string>
+    <string name="pref_encryption_category">Κρυπτογράφηση</string>
+    <string name="pref_enc_mode_title">Λειτουργία κρυπτογράφησης</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Προτίμηση κρυπτογράφησης</item>
+        <item>Απαίτηση κρυπτογράφησης</item>
+        <item>Απενεργοποίηση κρυπτογράφησης</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">Εισερχόμενες συνδέσεις</string>
+    <string name="pref_enc_out_connections_title">Εξερχόμενες συνδέσεις</string>
+    <string name="pref_ip_filtering_category">Φίλτρο IP</string>
+    <string name="pref_enable_ip_filtering_title">Ενεργοποίηση φίλτρου IP</string>
+    <string name="pref_enable_ip_filtering_summary">Η χρήση φίλτρου IP αυξάνει την απαιτούμενη μνήμη. Ανάλογα με το μέγεθος του αρχείου, το φίλτρο μπορεί να πάρει λίγη ώρα για να εφαρμοστεί κατά την εκκίνηση.</string>
+    <string name="pref_ip_filtering_file_title">Διαδρομή σε αρχείο φίλτρου (.dat, .p2p)</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(Κανένας)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">Διεύθυνση</string>
+    <string name="pref_proxy_port_title">Θύρα</string>
+    <string name="pref_proxy_peers_too_title">Χρησιμοποίηση και για συνδέσεις με ομότιμους χρήστες</string>
+    <string name="pref_proxy_peers_too_summary">Ο μεσολαβητής θα χρησιμοποιηθεί για σύνδεση με ιχνηλάτες, ομότιμους χρήστες και διαμοιραστές δικτύου</string>
+    <string name="pref_force_proxy_title">Απενεργοποίηση συνδέσεων που δεν υποστηρίζονται από μεσολαβητές</string>
+    <string name="pref_proxy_requires_auth_title">Απαιτεί εξουσιοδότηση</string>
+    <string name="pref_proxy_requires_auth_summary">Προσοχή: ο κωδικός αποθηκεύεται χωρίς κρυπτογράφηση</string>
+    <string name="pref_proxy_login_title">Σύνδεση χρήστη</string>
+    <string name="pref_proxy_password_title">Κωδικός</string>
+
+    <!-- About dialog -->
+    <string name="about_title">Σχετικά με το LibreTorrent</string>
+    <string name="about_description">Το LibreTorrent είναι ένας ελεύθερος πελάτης torrent για Android 4+, βασισμένο στο libtorrent (πακέτο για Java: frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ). \n\nΤο LibreTorrent είναι ελεύθερο λογισμικό και διατίθεται υπό τους όρους της Γενικής Άδειας Δημόσιας Χρήσης GNU, έκδοση 3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_changelog">Αρχείο αλλαγών</string>
+</resources>
