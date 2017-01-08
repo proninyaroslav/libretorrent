@@ -27,7 +27,6 @@
     <string name="sort_by_ascending">Σε αύξουσα σειρά</string>
     <string name="sort_by_descending">Σε φθίνουσα σειρά</string>
     <string name="sorting">Ταξινόμηση</string>
-    <string-array name="sort_direction_values" translatable="false"></string-array>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Κανένα torrent</string>
@@ -53,8 +52,15 @@
     <string name="proxy_settings_apply_after_reboot">Οι ρυθμίσεις των διακομιστών μεσολάβησης θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="theme_settings_apply_after_reboot">Οι ρυθμίσεις των θεμάτων θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="about">Σχετικά</string>
-    <string-array name="sort_torrent_by"></string-array>
-    <string-array name="sort_torrent_values" translatable="false"></string-array>
+    <string-array name="sort_torrent_by">
+        <item>Χωρίς ταξινόμηση</item>
+        <item>Όνομα</item>
+        <item>Μέγεθος</item>
+        <item>Πρόοδος</item>
+        <item>Χρόνος που απομένει</item>
+        <item>Ομότιμοι χρήστες</item>
+        <item>Αποδέκτες</item>
+    </string-array>
 
     <!-- Foreground notification -->
 
@@ -253,8 +259,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
     <string name="pref_theme_title">Θέμα</string>
-    <string-array name="pref_theme_entries"></string-array>
-    <string-array name="pref_theme_entries_value" translatable="false"></string-array>
+    <string-array name="pref_theme_entries">
+        <item>Φωτεινό</item>
+        <item>Σκοτεινό</item>    
+    </string-array>
     <string name="pref_notification_category">Ρυθμίσεις ειδοποίησης</string>
     <string name="pref_torrent_finish_notify_title">Ειδοποίηση τερματισμού torrent</string>
     <string name="pref_torrent_finish_notify_summary">Εμφάνιση ειδοποίησης όταν μια λήψη torrent τελειώνει</string>
@@ -290,8 +298,11 @@
     <string name="pref_port_title">Θύρα</string>
     <string name="pref_encryption_category">Κρυπτογράφηση</string>
     <string name="pref_enc_mode_title">Λειτουργία κρυπτογράφησης</string>
-    <string-array name="pref_enc_mode_entries"></string-array>
-    <string-array name="pref_enc_mode_entries_value" translatable="false"></string-array>
+    <string-array name="pref_enc_mode_entries">
+        <item>Προτίμηση κρυπτογράφησης</item>
+        <item>Απαίτηση κρυπτογράφησης</item>
+        <item>Απενεργοποίηση κρυπτογράφησης</item>
+    </string-array>
     <string name="pref_enc_in_connections_title">Εισερχόμενες συνδέσεις</string>
     <string name="pref_enc_out_connections_title">Εξερχόμενες συνδέσεις</string>
     <string name="pref_ip_filtering_category">Φίλτρο IP</string>
@@ -300,8 +311,12 @@
     <string name="pref_ip_filtering_file_title">Διαδρομή σε αρχείο φίλτρου (.dat, .p2p)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
-    <string-array name="pref_proxy_type_entries"></string-array>
-    <string-array name="pref_proxy_type_entries_value" translatable="false"></string-array>
+    <string-array name="pref_proxy_type_entries">
+        <item>(Κανένας)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
     <string name="pref_proxy_address_title">Διεύθυνση</string>
     <string name="pref_proxy_port_title">Θύρα</string>
     <string name="pref_proxy_peers_too_title">Χρησιμοποίηση και για συνδέσεις με ομότιμους χρήστες</string>
