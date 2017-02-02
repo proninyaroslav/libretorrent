@@ -157,7 +157,6 @@
 
         <service
             android:name=".services.TorrentTaskService"
-            android:process=":TorrentTaskService"
             android:stopWithTask="false" />
 
         <receiver

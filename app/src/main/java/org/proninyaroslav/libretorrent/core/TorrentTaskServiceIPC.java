@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcelable;
 import android.os.RemoteException;
 
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
@@ -240,7 +241,7 @@ public class TorrentTaskServiceIPC
         }
 
         Message msg = Message.obtain(null, ADD_TORRENTS, null);
-        msg.getData().putParcelableArrayList(TAG_TORRENTS_LIST, torrents);
+        msg.getData().putParcelableArrayList(TAG_TORRENTS_LIST, new ArrayList<>(torrents));
 
         serviceCallback.send(msg);
     }
@@ -254,8 +255,8 @@ public class TorrentTaskServiceIPC
         }
 
         Message msg = Message.obtain(null, TORRENTS_ADDED, null);
-        msg.getData().putSerializable(TAG_EXCEPTIONS_LIST, exceptions);
-        msg.getData().putParcelableArrayList(TAG_STATES_LIST, states);
+        msg.getData().putSerializable(TAG_EXCEPTIONS_LIST, new ArrayList<>(exceptions));
+        msg.getData().putParcelableArrayList(TAG_STATES_LIST, new ArrayList<>(states));
 
         serviceCallback.send(msg);
     }
@@ -304,14 +305,14 @@ public class TorrentTaskServiceIPC
     }
 
     public void sendPauseResumeTorrents(Messenger serviceCallback,
-                                ArrayList<String> torrentIds) throws RemoteException
+                                        ArrayList<String> torrentIds) throws RemoteException
     {
         if (serviceCallback == null) {
             return;
         }
 
         Message msg = Message.obtain(null, PAUSE_RESUME_TORRENTS, null);
-        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, torrentIds);
+        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, new ArrayList<>(torrentIds));
 
         serviceCallback.send(msg);
     }
@@ -327,7 +328,7 @@ public class TorrentTaskServiceIPC
         int signal = (withFiles ? DELETE_TORRENTS_WITH_FILES : DELETE_TORRENTS);
 
         Message msg = Message.obtain(null, signal, null);
-        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, torrentIds);
+        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, new ArrayList<>(torrentIds));
 
         serviceCallback.send(msg);
     }
@@ -340,20 +341,20 @@ public class TorrentTaskServiceIPC
         }
 
         Message msg = Message.obtain(null, FORCE_RECHECK_TORRENTS, null);
-        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, torrentIds);
+        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, new ArrayList<>(torrentIds));
 
         serviceCallback.send(msg);
     }
 
     public void sendForceAnnounce(Messenger serviceCallback,
-                                 ArrayList<String> torrentIds) throws RemoteException
+                                  ArrayList<String> torrentIds) throws RemoteException
     {
         if (serviceCallback == null) {
             return;
         }
 
         Message msg = Message.obtain(null, FORCE_ANNOUNCE_TORRENTS, null);
-        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, torrentIds);
+        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, new ArrayList<>(torrentIds));
 
         serviceCallback.send(msg);
     }
@@ -408,7 +409,7 @@ public class TorrentTaskServiceIPC
         }
 
         Message msg = Message.obtain(null, SET_DOWNLOAD_PATH, null);
-        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, torrentIds);
+        msg.getData().putStringArrayList(TAG_TORRENT_IDS_LIST, new ArrayList<>(torrentIds));
         msg.getData().putString(TAG_DOWNLOAD_PATH, path);
 
         serviceCallback.send(msg);
@@ -438,7 +439,7 @@ public class TorrentTaskServiceIPC
 
         Message msg = Message.obtain(null, CHANGE_FILES_PRIORITY, null);
         msg.getData().putString(TAG_TORRENT_ID, torrentId);
-        msg.getData().putIntegerArrayList(TAG_FILE_PRIORITIES, priorities);
+        msg.getData().putIntegerArrayList(TAG_FILE_PRIORITIES, new ArrayList<>(priorities));
 
         serviceCallback.send(msg);
     }
@@ -511,7 +512,7 @@ public class TorrentTaskServiceIPC
 
         Message msg = Message.obtain(null, REPLACE_TRACKERS, null);
         msg.getData().putString(TAG_TORRENT_ID, torrentId);
-        msg.getData().putStringArrayList(TAG_TRACKERS_URL_LIST, urls);
+        msg.getData().putStringArrayList(TAG_TRACKERS_URL_LIST, new ArrayList<>(urls));
 
         serviceCallback.send(msg);
     }
@@ -526,7 +527,7 @@ public class TorrentTaskServiceIPC
 
         Message msg = Message.obtain(null, ADD_TRACKERS, null);
         msg.getData().putString(TAG_TORRENT_ID, torrentId);
-        msg.getData().putStringArrayList(TAG_TRACKERS_URL_LIST, urls);
+        msg.getData().putStringArrayList(TAG_TRACKERS_URL_LIST, new ArrayList<>(urls));
 
         serviceCallback.send(msg);
     }
