@@ -222,8 +222,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     public synchronized void markAsOpen(TorrentStateParcel state)
     {
-        curOpenTorrent = state;
-        notifyDataSetChanged();
+        if (state != null) {
+            curOpenTorrent = state;
+            notifyDataSetChanged();
+        }
     }
 
     public synchronized void updateItem(TorrentStateParcel torrentState)
