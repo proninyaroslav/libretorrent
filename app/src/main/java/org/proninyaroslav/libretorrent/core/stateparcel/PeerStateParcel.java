@@ -19,13 +19,20 @@
 
 package org.proninyaroslav.libretorrent.core.stateparcel;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.frostwire.jlibtorrent.Address;
 import com.frostwire.jlibtorrent.TorrentStatus;
-import com.frostwire.jlibtorrent.swig.bitfield;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.peer_info;
+import com.frostwire.jlibtorrent.swig.piece_index_bitfield;
+
+import org.acra.util.IOUtils;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /*
  * The class provides a package model with information
@@ -57,7 +64,12 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
         super(new Address(peer.getIp().address()).toString());
 
         ip = new Address(peer.getIp().address()).toString();
-        client = peer.getClient();
+        byte[] clientBytes = Vectors.byte_vector2bytes(peer.get_client());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            client = new String(clientBytes, Charset.forName("UTF-8"));
+        } else {
+            client = new String(clientBytes, StandardCharsets.UTF_8);
+        }
         totalDownload = peer.getTotal_download();
         totalUpload = peer.getTotal_upload();
         relevance = calcRelevance(peer, torrentStatus);
@@ -124,8 +136,8 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
 
     private double calcRelevance(peer_info peer, TorrentStatus torrentStatus)
     {
-        bitfield allPieces = torrentStatus.pieces().swig();
-        bitfield peerPieces = peer.getPieces();
+        piece_index_bitfield allPieces = torrentStatus.pieces().swig();
+        piece_index_bitfield peerPieces = peer.getPieces();
 
         int remoteHaves = 0;
         int localMissing = 0;

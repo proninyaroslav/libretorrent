@@ -26,6 +26,7 @@ import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.AnnounceEntry;
 import com.frostwire.jlibtorrent.FileStorage;
 import com.frostwire.jlibtorrent.PeerInfo;
+import com.frostwire.jlibtorrent.PieceIndexBitfield;
 import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.SessionHandle;
 import com.frostwire.jlibtorrent.TorrentHandle;
@@ -35,7 +36,6 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
-import com.frostwire.jlibtorrent.swig.bitfield;
 
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
@@ -549,11 +549,11 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public boolean[] pieces()
     {
-        bitfield bitfield = th.status().pieces().swig();
+        PieceIndexBitfield bitfield = th.status().pieces();
         boolean[] pieces = new boolean[bitfield.size()];
 
         for (int i =0; i < bitfield.size(); i++) {
-            pieces[i] = bitfield.get_bit(i);
+            pieces[i] = bitfield.getBit(i);
         }
 
         return pieces;
