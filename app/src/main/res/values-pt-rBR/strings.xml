@@ -149,9 +149,9 @@
     <string name="home_directory">Início</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
-    <string name="permission_denied">Permission denied</string>
+    <string name="internal_storage_name">Armazenamento interno</string>
+    <string name="external_storage_name" formatted="false">Armazenamento externo %1$d</string>
+    <string name="permission_denied">Permissão negada</string>
 
     <!-- Error dialog -->
     <string name="report">Reportar</string>
