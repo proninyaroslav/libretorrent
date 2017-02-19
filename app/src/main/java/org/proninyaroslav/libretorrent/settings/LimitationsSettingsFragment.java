@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.takisoft.fix.support.v7.preference.EditTextPreference;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
@@ -37,6 +38,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 {
     @SuppressWarnings("unused")
     private static final String TAG = LimitationsSettingsFragment.class.getSimpleName();
+    private boolean settingsChanged = false;
 
     public static LimitationsSettingsFragment newInstance()
     {
@@ -45,6 +47,19 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         fragment.setArguments(new Bundle());
 
         return fragment;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        if (settingsChanged) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.settings_apply_after_reboot,
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Override
@@ -165,6 +180,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));
         }
+        settingsChanged = true;
 
         return true;
     }

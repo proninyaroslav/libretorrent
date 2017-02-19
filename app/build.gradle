@@ -28,7 +28,7 @@ repositories {
 }
 
 def ANDROID_SUPPORT_VERSION='25.1.1'
-def JLIBTORRENT_VERSION='1.2.0.6-RC1'
+def JLIBTORRENT_VERSION='1.2.0.6-RC4'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

@@ -177,7 +177,7 @@ public class MainFragment extends Fragment
      */
     private HashSet<Torrent> torrentsQueue = new HashSet<>();
 
-    private Exception sentError;
+    private Throwable sentError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -1237,11 +1237,11 @@ public class MainFragment extends Fragment
 
     private void saveTorrentError(Throwable e)
     {
-        if (e == null) {
+        if (e == null || !isAdded()) {
             return;
         }
 
-        sentError = new Exception(e);
+        sentError = e;
 
         if (e instanceof FileNotFoundException) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(

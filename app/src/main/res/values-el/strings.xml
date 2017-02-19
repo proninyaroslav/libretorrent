@@ -51,6 +51,7 @@
     <string name="proxy_settings_applied">Οι ρυθμίσεις του διακομιστή μεσολάβησης εφαρμόστηκαν επιτυχώς</string>
     <string name="proxy_settings_apply_after_reboot">Οι ρυθμίσεις των διακομιστών μεσολάβησης θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="theme_settings_apply_after_reboot">Οι ρυθμίσεις των θεμάτων θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
+    <string name="settings_apply_after_reboot">Οι ρυθμίσεις θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="about">Σχετικά</string>
     <string-array name="sort_torrent_by">
         <item>Χωρίς ταξινόμηση</item>

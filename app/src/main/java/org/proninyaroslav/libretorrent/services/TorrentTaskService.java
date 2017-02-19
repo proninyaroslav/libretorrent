@@ -497,6 +497,10 @@ public class TorrentTaskService extends Service
     @Override
     public void onTrayPreferenceChanged(Collection<TrayItem> items)
     {
+        if (engineTask.getEngine() == null || pref == null) {
+            return;
+        }
+
         for (TrayItem item : items) {
             if (item.module().equals(SettingsManager.MODULE_NAME)) {
                 if (item.key().equals(getString(R.string.pref_key_battery_control))) {

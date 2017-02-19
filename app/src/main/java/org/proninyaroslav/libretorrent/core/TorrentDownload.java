@@ -502,6 +502,10 @@ public class TorrentDownload implements TorrentDownloadInterface
     @Override
     public List<AnnounceEntry> getTrackers()
     {
+        if (!th.isValid()) {
+            return new ArrayList<>();
+        }
+
         return th.trackers();
     }
 

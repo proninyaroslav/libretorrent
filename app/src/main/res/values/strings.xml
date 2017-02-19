@@ -56,6 +56,7 @@
     <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="settings_apply_after_reboot">Settings will be applied after restarting the app</string>
     <string name="about">About</string>
     <string-array name="sort_torrent_by">
         <item>Without sorting</item>

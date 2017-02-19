@@ -51,6 +51,7 @@
     <string name="proxy_settings_applied">Įgaliotojo serverio nustatymai pritaikyti sėkmingai </string>
     <string name="proxy_settings_apply_after_reboot">Įgaliotojo serverio nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="theme_settings_apply_after_reboot">Temos nustatymai bus pritaikty paleidus programėlę iš naujo</string>
+    <string name="settings_apply_after_reboot">Nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="about">Apie</string>
     <string-array name="sort_torrent_by">
         <item>Be rūšiavimas</item>

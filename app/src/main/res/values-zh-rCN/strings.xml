@@ -51,6 +51,7 @@
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="settings_apply_after_reboot">Settings will be applied after restarting the app</string>
     <string name="about">关于</string>
     <string-array name="sort_torrent_by">
         <item>Without sorting</item>

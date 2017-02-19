@@ -51,6 +51,7 @@
     <string name="proxy_settings_applied">Ustawienia serwera proxy wykonano pomyślnie</string>
     <string name="proxy_settings_apply_after_reboot">Ustawienia serwera proxy zostaną zaaplikowane po restarcie aplikacji</string>
     <string name="theme_settings_apply_after_reboot">Ustawienia tematu kolorystycznego aplikacji zostaną zaaplikowane po restarcie aplikacji</string>
+    <string name="settings_apply_after_reboot">Ustawienia zostaną zaaplikowane po restarcie aplikacji</string>
     <string name="about">O aplikacji</string>
     <string-array name="sort_torrent_by">
         <item>Bez sortowania</item>

@@ -460,6 +460,10 @@ public class DetailTorrentFilesFragment extends Fragment
                 }
             }
 
+            if (priorities.size() == 0) {
+                return;
+            }
+
             /*
              * We compare the array with randomly selected priority.
              * If all elements equals with this priority, set isMixedPriority as true and based on
@@ -467,8 +471,7 @@ public class DetailTorrentFilesFragment extends Fragment
              * Else, set isMixedPriority as false and clear check in RadioGroup
              */
 
-            int size = priorities.size();
-            Priority randomPriority = priorities.get(new Random().nextInt((size == 0 ? 1 : size) - 1));
+            Priority randomPriority = priorities.get(new Random().nextInt(priorities.size()));
             boolean isMixedPriority = false;
 
             if (randomPriority != null && randomPriority == Priority.UNKNOWN) {
@@ -563,7 +566,9 @@ public class DetailTorrentFilesFragment extends Fragment
         }
 
         for (TorrentContentFileTree file : files) {
-            file.setPriority(priority);
+            if (file != null) {
+                file.setPriority(priority);
+            }
         }
 
         if (callback != null) {

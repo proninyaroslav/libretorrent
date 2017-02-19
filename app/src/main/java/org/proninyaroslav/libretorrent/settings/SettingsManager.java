@@ -60,6 +60,11 @@ public class SettingsManager extends TrayPreferences
         context.getPackageManager()
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
 
+        String keyPort = context.getString(R.string.pref_key_port);
+        if (pref.getInt(keyPort, -1) == -1) {
+            pref.put(keyPort, TorrentEngine.DEFAULT_PORT);
+        }
+
         String keySaveTorrentIn = context.getString(R.string.pref_key_save_torrents_in);
         if (pref.getString(keySaveTorrentIn, null) == null) {
             pref.put(keySaveTorrentIn, FileIOUtils.getDefaultDownloadPath());

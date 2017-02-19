@@ -47,6 +47,7 @@
     <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
     <string name="theme_settings_apply_after_reboot">Настройки темы будут применены после перезапуска приложения</string>
+    <string name="settings_apply_after_reboot">Настройки будут применены после перезапуска приложения</string>
     <string name="about">О программе</string>
     <string-array name="sort_torrent_by">
         <item>Без сортировки</item>
