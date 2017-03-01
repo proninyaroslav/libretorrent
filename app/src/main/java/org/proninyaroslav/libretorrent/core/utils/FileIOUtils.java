@@ -165,7 +165,7 @@ public class FileIOUtils
 
     public static File getTempDir(Context context)
     {
-        File tmpDir = new File(context.getCacheDir(), TEMP_DIR);
+        File tmpDir = new File(context.getExternalFilesDir(null), TEMP_DIR);
         if (!tmpDir.exists()) {
             if (!tmpDir.mkdirs()) {
                 return null;
