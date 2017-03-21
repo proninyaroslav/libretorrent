@@ -1,4 +1,3 @@
-- save to external storage (SD cards, USB etc.)
 - web interface
 - RSS
 - add a magnet links instantly
@@ -8,6 +7,5 @@
 - I2P torrents support
 - notificate if the file does not download in x seconds
 - maximum peers per torrent and maximum upload slots per torrent to limitations
-- ability to pause torrent after downloading
 - automatically shutdown if no torrents are active
 - watch directory
