@@ -41,6 +41,7 @@ Current languages:
  - Brazilian Portuguese *(thanks Wolfterro)*
  - French *(thanks Valentin Orient)*
  - Greek *(thanks Spyros3000)*
+ - Czech *(thanks HarryPhoon)*
 
 Contributors
 ---
