@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušit</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="error">Chyba</string>
+    <string name="shutdown">Vypnout</string>
+    <string name="replace">Nahradit</string>
+    <string name="add">Přidat</string>
+    <string name="delete">Smazat</string>
+    <string name="deleting">Mazání</string>
+    <string name="select_all">Vybrat vše</string>
+    <string name="apply">Potvrdit</string>
+    <string name="save">Uložit</string>
+    <string name="install">Nainstalovat</string>
+    <string name="search">Hledat</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="sort_by_ascending">Vzestupně</string>
+    <string name="sort_by_descending">Sestupně</string>
+    <string name="sorting">Řazení</string>
+
+    <!-- Main window -->
+    <string name="main_empty_torrent_list">Žádný torrent</string>
+    <string name="spinner_all_torrents">Všechny</string>
+    <string name="spinner_downloading_torrents">Stahované</string>
+    <string name="spinner_downloaded_torrents">Stažené</string>
+    <string name="delete_torrent_with_downloaded_files">Smazat torrent + data</string>
+    <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operae nemůže být vrácena</string>
+    <string name="delete_selected_torrents">Smazat vybrané torrenty? Tato operace nemůže být vrácena</string>
+    <string name="force_recheck_torrent">Vynutit kontrolu</string>
+    <string name="force_announce_torrent">Vynutit ohlášení</string>
+    <string name="add_link">Přidat odkaz</string>
+    <string name="dialog_add_link_title">Vložit magnet nebo HTTP/HTTPS odkaz</string>
+    <string name="torrent_list_empty">Žádné torrenty</string>
+    <string name="select_or_add_torrent">Vybrat nebo přidat torrent</string>
+    <string name="error_empty_link">Prosím vložte odkaz</string>
+    <string name="error_invalid_link">Neplatný odkaz</string>
+    <string name="error_open_torrent_file">Nemožné otevřít soubor torrentu</string>
+    <string name="open_file">Otevřít soubor</string>
+    <string name="settings">Nastavení</string>
+    <string name="ip_filter_add_error">Nepodařilo se přidat IP displayFiltr. Možná je soubor porušen nebo má nesprávný formát</string>
+    <string name="proxy_settings_applied">Nastavení proxy serveru bylo úspěsně uloženo</string>
+    <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>
+    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="settings_apply_after_reboot">Nastavení bude použito po restartování aplikace</string>
+    <string name="about">O aplikaci</string>
+    <string-array name="sort_torrent_by">
+        <item>Bez řazení</item>
+        <item>Jméno</item>
+        <item>Velikost</item>
+        <item>Pokrok</item>
+        <item>ETA</item>
+        <item>Peery</item>
+        <item>Leecheři</item>
+    </string-array>
+
+    <!-- Foreground notification -->
+
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template" formatted="false">Stahování: %1$d Celkem: %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
+    <string name="network_online">Stav sítě: Online</string>
+    <string name="network_offline">Stav sítě: Offline</string>
+
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">Torrent dokončen</string>
+
+    <!-- Torrents move notification -->
+    <string name="torrents_move_notify_title" formatted="false">Přesouvám torrenty (%1$d/%2$d)</string>
+    <string name="torrents_move_content">Prosím čekejte&#8230;</string>
+    <string name="torrents_moved_title">Torrenty přesunuty</string>
+    <string name="torrents_moved_content" formatted="false">Úspěšně: %1$d; Neúspěšně: %2$d</string>
+    <string name="torrents_move_inbox_successfully">Úspěšně:</string>
+    <string name="torrents_move_inbox_failed">Neúspěšně:</string>
+
+    <!-- Torrent list item -->
+
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="torrent_status_downloading">Stahování</string>
+    <string name="torrent_status_seeding">Seedování</string>
+    <string name="torrent_status_paused">Pozastaveno</string>
+    <string name="torrent_status_stopped">Zastaveno</string>
+    <string name="torrent_status_checking">Kontrolování</string>
+    <string name="torrent_status_finished">Dokončeno</string>
+
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Povolení odmítnuto</string>
+    <string name="perm_denied_warning">Bez tohoto povolení aplikace nemůže uložit soubory torrentu do paměti. Aplikace nebude pracovat správně. Opravdu chcete zamítnout toto povolení?</string>
+
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">Přidat torrent</string>
+    <string name="error_decode_torrent">Chyba při dekódování torrent souboru. Možná je soubor porušen nebo má nesprávný formát.</string>
+    <string name="error_io_torrent">Chyba čtení torrent souboru</string>
+    <string name="error_fetch_link">Selhalo získání dat z odkazu</string>
+    <string name="error_invalid_link_or_path">Nesprávný odkaz nebo cesta k torrentu</string>
+    <string name="decode_torrent_progress_title">Načítání</string>
+    <string name="decode_torrent_default_message">Prosím čekejte&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">Získávám data z magnet odkazu. Prosím čekejte&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">Stahuji data torrentu. prosím čekejte&#8230;</string>
+    <string name="error_add_torrent">Selhalo přidání torrentu</string>
+    <string name="error_file_not_found_add_torrent">Selhalo přidání torrentu. Možnná je soubor torrentu přesunut nebo smazán</string>
+    <string name="error_io_add_torrent">Nemožné přidat torrent. I/O chyba</string>
+    <string name="torrent_exist">Torrent už existuje. Torrenty byly sloučeny</string>
+    <string name="error_field_required">Toto pole je požadováno</string>
+    <string name="error_no_files_selected">Žádné soubory vybrány</string>
+    <string name="free_space" formatted="false">%1$s volné</string>
+    <string name="error_free_space">Nedostatek volného místa ve vyznačené cestě ke stažení vybraných souborů</string>
+    <string name="files_size" formatted="false">Vybráno %1$s z %2$s</string>
+    <string name="start_torrent">Spustit torrent</string>
+
+    <!-- Torrent info -->
+    <string name="torrent_info">Info</string>
+    <string name="torrent_files">Soubory</string>
+    <string name="torrent_name">Jméno torrentu</string>
+    <string name="upload_torrent_into">Nahrát do</string>
+    <string name="torrent_size">Velikost</string>
+    <string name="torrent_file_count">Počet souborů</string>
+    <string name="torrent_hash_sum">Hash souhrn</string>
+    <string name="torrent_comment">Komentář</string>
+    <string name="torrent_create_date">Torrent vytvořen</string>
+    <string name="torrent_created_in_program">Torrent vytvořen v progrmu</string>
+    <string name="sequential_download">Sekvenční stahování</string>
+    <string name="enable_sequential_download">Povolit sekvenční stahování</string>
+
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Volba složky</string>
+    <string name="file_chooser_title">Volba souborů</string>
+    <string name="torrent_file_chooser_title">Volba torrentu</string>
+    <string name="dialog_new_folder_title">Nová složka</string>
+    <string name="error_dialog_new_folder">Nemožné vytvořit novou složku</string>
+    <string name="error_perm_write_in_folder">Nemožné použít vybranou složku. Vyberte prosím jinou složku.</string>
+    <string name="error_open_dir">Nemožné otevřít složku</string>
+    <string name="home_directory">Home</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Interní uložiště</string>
+    <string name="external_storage_name" formatted="false">Externí uložiště %1$d</string>
+    <string name="permission_denied">Přístup odepřen</string>
+
+    <!-- Error dialog -->
+    <string name="report">Nahlásit</string>
+    <string name="more_details">Více informací</string>
+
+    <!-- Detail torrent dialog -->
+
+    <!-- priority • total -->
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total (percent) -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s (%4$d%%)</string>
+    <string name="file_priority_normal">Normální</string>
+    <string name="file_priority_low">Ignorovat</string>
+    <string name="file_priority_high">Vysoká</string>
+    <string name="file_priority_mixed">Smíšené</string>
+    <string name="change_priority">Priorita</string>
+    <string name="dialog_change_priority_title">Změnit prioritu</string>
+    <string name="change_priority_low">Nízká (ignorovat soubor)</string>
+    <string name="change_priority_normal">Normální</string>
+    <string name="change_priority_high">Vysoká</string>
+    <string name="torrent_state">Stav</string>
+    <string name="torrent_speed">Rychlost</string>
+    <string name="torrent_downloaded">Staženo</string>
+    <string name="torrent_ETA">ETA</string>
+    <string name="torrent_seeds">Seedy</string>
+    <string name="torrent_peers">Peery</string>
+    <string name="torrent_leechers">Leecheři</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_uploaded">Nahráno</string>
+    <string name="torrent_share_ratio">Ratio</string>
+    <string name="torrent_active_time">Aktivní čas</string>
+    <string name="torrent_seeding_time">Seedovací čqs</string>
+    <string name="torrent_pieces">Části</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">Trackeři</string>
+    <string name="tracker_state_working">Pracující</string>
+    <string name="tracker_state_not_working">Nepracující</string>
+    <string name="tracker_state_error" formatted="false">Chyba: %1$s</string>
+    <string name="tracker_state_updating">Aktualizování&#8230;</string>
+    <string name="tracker_state_not_contacted">Ještě nekontaktováno</string>
+    <string name="share_tracker_url">Sdílet URL</string>
+    <string name="delete_selected_tracker">Smazat zvolený tracker?</string>
+    <string name="delete_selected_trackers">Smazat zvolené trackery?</string>
+    <string name="add_trackers">Přidat trackery</string>
+    <string name="dialog_add_trackers">(Jeden na řádek)</string>
+    <string name="open_using">Otevřít pomocí</string>
+    <string name="peer_port" formatted="false">Port: %1$d</string>
+    <string name="peer_relevance" formatted="false">Relevance: %1$.1f</string>
+    <string name="peer_connection_type" formatted="false">Připojení: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client" formatted="false">Klient: %1$s</string>
+    <string name="peer_connection_type_bittorrent">BT</string>
+    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">Tento torrent se ještě nepřipojil k žádnému peeru</string>
+    <string name="piece_map">Mapa částí</string>
+    <string name="resume_torrent">Pokrařovat</string>
+    <string name="pause_torrent">Pozastavit</string>
+    <string name="share_magnet">Sdílet magnet</string>
+    <string name="save_torrent_file">Uložit torrent</string>
+    <string name="torrent_speed_limit">Rychlostní limit</string>
+    <string name="share_via">Sdílet přes</string>
+    <string name="save_torrent_file_successfully">Torrent úspěšně uložen</string>
+    <string name="error_save_torrent_file">Nepodařilo se uložit torrent</string>
+    <string name="speed_limit_title">Maximální rychlost</string>
+    <string name="upload_speed">Nahrávání</string>
+    <string name="download_speed">Stahování</string>
+    <string name="speed_limit_dialog">Nastavit rychlost v KiB/s (0 - bez limitu)</string>
+
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Kopírovat</string>
+    <string name="text_copied_to_clipboard">Text zkopírován do schránky</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">Chyba aplikace. Můžete poslat hlášení vývojářům.</string>
+    <string name="error_comment_prompt">Můžete přidat extra informace a komentáře zde:</string>
+
+    <!-- Settings -->
+
+    <!-- Headers -->
+    <string name="pref_header_appearance">Vzhled</string>
+    <string name="pref_header_behavior">Chování</string>
+    <string name="pref_header_storage">Uložiště</string>
+    <string name="pref_header_limitations">Limitace</string>
+    <string name="pref_header_network">Síť</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">Uložit torrent do</string>
+    <string name="pref_move_after_download_title">Přesunout po stažení</string>
+    <string name="pref_move_after_download_in_title">Přesunout po stažení do</string>
+    <string name="pref_delete_torrent_file_title">Smazat .torrent soubory</string>
+    <string name="pref_delete_torrent_file_summary">Smazat .torrent soubory po začátku stahování</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">Rychlost</string>
+    <string name="pref_max_download_speed_title">Maximální rychlost stahování</string>
+    <string name="pref_max_upload_speed_title">Maximální rychlost nahrávání</string>
+    <string name="pref_max_connections_title">Maximální počet připojení</string>
+    <string name="pref_max_connections_summary">Minimální počet připojení - 2</string>
+    <string name="pref_torrent_queueing_category">Fronta torrentu</string>
+    <string name="pref_max_active_uploads_title">Maximální počet nahrávání</string>
+    <string name="pref_max_active_downloads_title">Maximální počet stahování</string>
+    <string name="pref_max_active_torrents_title">Maximální počert aktivních torrentů</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Nastavení tématu</string>
+    <string name="pref_theme_title">Téma</string>
+    <string-array name="pref_theme_entries">
+        <item>Světlé</item>
+        <item>Tmavé</item>
+    </string-array>
+    <string name="pref_notification_category">Nastavení notifikací</string>
+    <string name="pref_torrent_finish_notify_title">Notifikace o dokončení torrentu</string>
+    <string name="pref_torrent_finish_notify_summary">Zobrazit notifikaci po skončení stahování torretnu</string>
+    <string name="pref_play_sound_notify_title">Přehrát zvukk</string>
+    <string name="pref_notify_sound_title">Zvuk notifikace</string>
+    <string name="pref_led_indicator_notify_title">LED indikátor</string>
+    <string name="pref_led_indicator_color_notify_title">Barva indikátoru LED</string>
+    <string name="pref_vibration_notify_title">Vibrace</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_summary">Spustit aplikaci po spuštění systému</string>
+    <string name="pref_power_management_category">Správa napájení</string>
+    <string name="pref_shutdown_downloads_complete_title">Vypnout po dokončení stahování</string>
+    <string name="pref_shutdown_downloads_complete_summary">Pokud zapnuto, aplikace se vypne po dokončení všech stahování</string>
+    <string name="pref_cpu_do_not_sleep_title">Udržet CPU vzhůru</string>
+    <string name="pref_cpu_do_not_sleep_summary">Použitím této možnosti se zvýší spotřeba energie. Použijte tuto možnost, pokud se rychlost stahování snižuje, když se obrazovka vypne.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Stahovat a nahrávat pouze při nabíjení</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Pokud zapnuti, torrenty se budou stahovat/nahrávat pouze při nabíjení. Všechny torrenty budou pozastavenym, pokud se zařízení nenabíjí.</string>
+    <string name="pref_battery_control_title">Kontrola baterie</string>
+    <string name="pref_battery_control_summary" formatted="false">Všechny torretny budou pozastaveny pokud úroveň baterie bude pod %1$d%%. Nefunguje při nabíjení.</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">Nastavení Proxy</string>
+    <string name="pref_enable_dht_title">Povolit DHT</string>
+    <string name="pref_enable_dht_summary">Povoluje BitTorrent klientům se navzájem kontaktovat bez použití trackeru.</string>
+    <string name="pref_enable_lsd_title">Povolit LSD</string>
+    <string name="pref_enable_lsd_summary">Určeno k podpoře hledání lokálních BitTorrent peerů, čímž se sníží vytížení sítě</string>
+    <string name="pref_enable_utp_title">Povolit μTP</string>
+    <string name="pref_enable_utp_summary">Určeno k zmírnění latence a jiných přetížení nalezených v BitTorrentu přes TCP, při spolehlivém přenosu</string>
+    <string name="pref_enable_upnp_title">Povolit UPnP</string>
+    <string name="pref_enable_natpmp_title">Povolit NAT-PMP</string>
+    <string name="pref_port_settings_category">Nastavení portu</string>
+    <string name="pref_use_random_port_title">Použít náhodný port</string>
+    <string name="pref_port_title">Port</string>
+    <string name="pref_encryption_category">Šifrování</string>
+    <string name="pref_enc_mode_title">Mód šifrování</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Preferovat šifrování</item>
+        <item>Vyžadovat šifrování</item>
+        <item>Zrušit šifrování</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">Příchozí připojení</string>
+    <string name="pref_enc_out_connections_title">Odchozí připojení</string>
+    <string name="pref_ip_filtering_category">Filtrování IP</string>
+    <string name="pref_enable_ip_filtering_title">Povolit filtrování IP</string>
+    <string name="pref_enable_ip_filtering_summary">Použitím IP filtrování je zvýšeno využití paměti. V závislosti na velikosti souboru může dojít k zpoždění spuštění aplikace</string>
+    <string name="pref_ip_filtering_file_title">Cesta k souboru filtru (.dat, .p2p)</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">Typ proxy</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(None)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">Adresa</string>
+    <string name="pref_proxy_port_title">Port</string>
+    <string name="pref_proxy_peers_too_title">Použít také pro připojování peerů</string>
+    <string name="pref_proxy_peers_too_summary">Proxy bude použita k propojení s trackerem, peery a web seedy.</string>
+    <string name="pref_force_proxy_title">Zrušit připojení nepodporovaná proxy</string>
+    <string name="pref_proxy_requires_auth_title">Požaduje autorizaci</string>
+    <string name="pref_proxy_requires_auth_summary">Varování: heslo není šifrované</string>
+    <string name="pref_proxy_login_title">Přihlášení</string>
+    <string name="pref_proxy_password_title">Heslo</string>
+
+    <!-- About dialog -->
+    <string name="about_title">O LibreTorrent</string>
+    <string name="about_description">LibreTorrent je volně dostupný torrent klient pro Android 4+, založený na libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent je volně dostupný software, vydaný podle podmínek GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_changelog">Seznam změn</string>
