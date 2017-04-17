@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name" translatable="false">LibreTorrent</string>
     <string name="ok">OK</string>
     <string name="cancel">Zrušit</string>
     <string name="yes">Ano</string>
@@ -28,10 +27,6 @@
     <string name="sort_by_ascending">Vzestupně</string>
     <string name="sort_by_descending">Sestupně</string>
     <string name="sorting">Řazení</string>
-    <string-array name="sort_direction_values" translatable="false">
-        <item>asc</item>
-        <item>desc</item>
-    </string-array>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Žádný torrent</string>
@@ -66,15 +61,6 @@
         <item>ETA</item>
         <item>Peery</item>
         <item>Leecheři</item>
-    </string-array>
-    <string-array name="sort_torrent_values" translatable="false">
-        <item>žádné</item>
-        <item>jméno</item>
-        <item>velikost</item>
-        <item>pokrok</item>
-        <item>ETA</item>
-        <item>peery</item>
-        <item>leecheři</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -278,12 +264,6 @@
         <item>Světlé</item>
         <item>Tmavé</item>
     </string-array>
-    <string name="pref_theme_light_value" translatable="false">0</string>
-    <string name="pref_theme_dark_value" translatable="false">1</string>
-    <string-array name="pref_theme_entries_value" translatable="false">
-        <item>@string/pref_theme_light_value</item>
-        <item>@string/pref_theme_dark_value</item>
-    </string-array>
     <string name="pref_notification_category">Nastavení notifikací</string>
     <string name="pref_torrent_finish_notify_title">Notifikace o dokončení torrentu</string>
     <string name="pref_torrent_finish_notify_summary">Zobrazit notifikaci po skončení stahování torretnu</string>
@@ -324,14 +304,6 @@
         <item>Vyžadovat šifrování</item>
         <item>Zrušit šifrování</item>
     </string-array>
-    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
-    <string name="pref_enc_mode_require_value" translatable="false">1</string>
-    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
-    <string-array name="pref_enc_mode_entries_value" translatable="false">
-        <item>@string/pref_enc_mode_prefer_value</item>
-        <item>@string/pref_enc_mode_require_value</item>
-        <item>@string/pref_enc_mode_disable_value</item>
-    </string-array>
     <string name="pref_enc_in_connections_title">Příchozí připojení</string>
     <string name="pref_enc_out_connections_title">Odchozí připojení</string>
     <string name="pref_ip_filtering_category">Filtrování IP</string>
@@ -346,16 +318,6 @@
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">1</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">2</string>
-    <string name="pref_proxy_type_http_value" translatable="false">3</string>
-    <string-array name="pref_proxy_type_entries_value" translatable="false">
-        <item>@string/pref_proxy_type_none_value</item>
-        <item>@string/pref_proxy_type_socks4_value</item>
-        <item>@string/pref_proxy_type_socks5_value</item>
-        <item>@string/pref_proxy_type_http_value</item>
-    </string-array>
     <string name="pref_proxy_address_title">Adresa</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Použít také pro připojování peerů</string>
@@ -368,8 +330,5 @@
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>
-    <string name="about_website" translatable="false">https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent je volně dostupný torrent klient pro Android 4+, založený na libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent je volně dostupný software, vydaný podle podmínek GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Seznam změn</string>
-    <string name="about_changelog_link" translatable="false">https://github.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
-</resources>
