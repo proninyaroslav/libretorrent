@@ -42,6 +42,7 @@ Current languages:
  - French *(thanks Valentin Orient)*
  - Greek *(thanks Spyros3000)*
  - Czech *(thanks HarryPhoon)*
+ - Norwegian Bokmål *(thanks comradekingu)*
 
 Contributors
 ---
