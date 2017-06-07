@@ -89,7 +89,7 @@ public class TorrentEngine extends SessionManager
     public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
-            AlertType.TORRENT_ADDED.swig()
+            AlertType.ADD_TORRENT.swig()
     };
 
     private Context context;
@@ -166,7 +166,7 @@ public class TorrentEngine extends SessionManager
         public void alert(Alert<?> alert)
         {
             switch (alert.type()) {
-                case TORRENT_ADDED:
+                case ADD_TORRENT:
                     TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
 
                     Sha1Hash sha1hash = torrentAlert.handle().infoHash();

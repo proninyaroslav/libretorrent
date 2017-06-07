@@ -32,10 +32,13 @@ import com.frostwire.jlibtorrent.SessionHandle;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.TorrentStatus;
+import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.swig.add_torrent_params;
+import com.frostwire.jlibtorrent.swig.byte_vector;
 
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
@@ -203,7 +206,8 @@ public class TorrentDownload implements TorrentDownloadInterface
     {
         try {
             if (th.isValid()) {
-                TorrentUtils.saveResumeData(context, torrent.getId(), alert.resumeData().bencode());
+                byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
+                TorrentUtils.saveResumeData(context, torrent.getId(), Vectors.byte_vector2bytes(data));
             }
         } catch (Throwable e) {
             Log.e(TAG, "Error saving resume data of " + torrent + ":");
