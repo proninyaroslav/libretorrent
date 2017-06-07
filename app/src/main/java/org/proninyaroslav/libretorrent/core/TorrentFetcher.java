@@ -125,7 +125,7 @@ public class TorrentFetcher
         }
 
         Log.i(TAG, "Fetching the magnet link...");
-        byte[] data = s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS);
+        byte[] data = s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS, true);
 
         s.stop();
 
