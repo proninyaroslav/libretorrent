@@ -29,9 +29,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -71,11 +68,11 @@ import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
+import org.proninyaroslav.libretorrent.core.TorrentServiceCallback;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
-import org.proninyaroslav.libretorrent.core.TorrentTaskServiceIPC;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
@@ -89,7 +86,6 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -97,7 +93,8 @@ import java.util.List;
 public class DetailTorrentFragment extends Fragment
         implements
         BaseAlertDialog.OnClickListener,
-        BaseAlertDialog.OnDialogShowListener
+        BaseAlertDialog.OnDialogShowListener,
+        TorrentServiceCallback
 {
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentFragment.class.getSimpleName();
@@ -133,9 +130,7 @@ public class DetailTorrentFragment extends Fragment
     private Torrent torrent;
     private TorrentStorage repo;
     private Intent torrentServiceIntent;
-    private Messenger serviceCallback = null;
-    private Messenger clientCallback = new Messenger(new CallbackHandler(this));
-    private TorrentTaskServiceIPC ipc = new TorrentTaskServiceIPC();
+    private TorrentTaskService service;
     /* Flag indicating whether we have called bind on the service. */
     private boolean bound;
     /* Update the torrent status params, which aren't included in TorrentStateParcel */
@@ -212,11 +207,8 @@ public class DetailTorrentFragment extends Fragment
         super.onDestroy();
 
         if (bound) {
-            try {
-                ipc.sendClientDisconnect(serviceCallback, clientCallback);
-
-            } catch (RemoteException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+            if (service != null) {
+                service.removeListener(DetailTorrentFragment.this);
             }
             getActivity().unbindService(connection);
 
@@ -347,20 +339,17 @@ public class DetailTorrentFragment extends Fragment
     private ServiceConnection connection = new ServiceConnection()
     {
         public void onServiceConnected(ComponentName className, IBinder service) {
-            serviceCallback = new Messenger(service);
+            TorrentTaskService.LocalBinder binder = (TorrentTaskService.LocalBinder) service;
+            DetailTorrentFragment.this.service = binder.getService();
+            DetailTorrentFragment.this.service.addListener(DetailTorrentFragment.this);
             bound = true;
-            try {
-                ipc.sendClientConnect(serviceCallback, clientCallback);
-
-            } catch (RemoteException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
             initRequest();
+            initFragments();
             startUpdateTorrentState();
         }
 
         public void onServiceDisconnected(ComponentName className) {
-            serviceCallback = null;
+            DetailTorrentFragment.this.service.removeListener(DetailTorrentFragment.this);
             bound = false;
         }
     };
@@ -506,15 +495,6 @@ public class DetailTorrentFragment extends Fragment
         setTabLayoutColor(colorId);
 
         tabLayout.setupWithViewPager(viewPager);
-
-        if (bound && serviceCallback != null) {
-            try {
-                ipc.sendTorrentStateOneShot(serviceCallback, clientCallback);
-
-            } catch (RemoteException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
-        }
     }
 
     public void onTorrentInfoChanged()
@@ -560,39 +540,26 @@ public class DetailTorrentFragment extends Fragment
             return;
         }
 
-        if (!name.equals(torrent.getName())) {
-            try {
-                ipc.sendSetTorrentName(serviceCallback, torrentId, name);
+        if (service != null) {
+            if (!name.equals(torrent.getName())) {
+                service.setTorrentName(torrentId, name);
                 torrent.setName(name);
                 infoFrag.setTorrentName(name);
-
-            } catch (RemoteException e) {
-                /* Ignore */
             }
-        }
 
-        if (!path.equals(torrent.getDownloadPath())) {
-            try {
+            if (!path.equals(torrent.getDownloadPath())) {
                 ArrayList<String> list = new ArrayList<>();
                 list.add(torrentId);
 
-                ipc.sendSetDownloadPath(serviceCallback, list, path);
+                service.setTorrentDownloadPath(list, path);
                 torrent.setDownloadPath(path);
                 infoFrag.setDownloadPath(path);
-
-            } catch (RemoteException e) {
-                /* Ignore */
             }
-        }
 
-        if (sequential != torrent.isSequentialDownload()) {
-            try {
-                ipc.sendSetSequentialDownload(serviceCallback, torrentId, sequential);
+            if (sequential != torrent.isSequentialDownload()) {
+                service.setSequentialDownload(torrentId, sequential);
                 torrent.setSequentialDownload(sequential);
                 infoFrag.setSequentialDownload(sequential);
-
-            } catch (RemoteException e) {
-                /* Ignore */
             }
         }
     }
@@ -1018,146 +985,108 @@ public class DetailTorrentFragment extends Fragment
 
     private void initRequest()
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
-        try {
-            ipc.sendGetTorrentInfo(serviceCallback, clientCallback, torrentId);
-            ipc.sendGetSpeedLimit(serviceCallback, clientCallback, torrentId);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        infoCache = service.getTorrentInfo(torrentId);
+        uploadSpeedLimit = service.getUploadSpeedLimit(torrentId);
+        downloadSpeedLimit = service.getDownloadSpeedLimit(torrentId);
     }
 
     private void changeFilesPriorityRequest(ArrayList<Integer> priorities)
     {
-        if (!bound || serviceCallback == null || priorities == null || torrentId == null) {
+        if (!bound || service == null || priorities == null || torrentId == null) {
             return;
         }
 
-        try {
-            ipc.sendChangeFilesPriority(serviceCallback, torrentId, priorities);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.changeFilesPriority(torrentId, priorities);
     }
 
     private void addTrackersRequest(ArrayList<String> trackers, boolean replace)
     {
-        if (!bound || serviceCallback == null || trackers == null || torrentId == null) {
+        if (!bound || service == null || trackers == null || torrentId == null) {
             return;
         }
 
-        try {
-            if (replace) {
-                ipc.sendReplaceTrackers(serviceCallback, torrentId, trackers);
-            } else {
-                ipc.sendAddTrackers(serviceCallback, torrentId, trackers);
-            }
+        if (replace) {
+            service.replaceTrackers(torrentId, trackers);
 
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } else {
+            service.addTrackers(torrentId, trackers);
         }
     }
 
     private void deleteTorrentRequest(boolean withFiles)
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        try {
-            ipc.sendDeleteTorrents(serviceCallback, list, withFiles);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.deleteTorrents(list, withFiles);
     }
 
     private void forceRecheckRequest()
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        try {
-            ipc.sendForceRecheck(serviceCallback, list);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.forceRecheckTorrents(list);
     }
 
     private void forceAnnounceRequest()
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        try {
-            ipc.sendForceAnnounce(serviceCallback, list);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.forceAnnounceTorrents(list);
     }
 
     private void pauseResumeTorrentRequest()
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add(torrentId);
-
-        try {
-            ipc.sendPauseResumeTorrents(serviceCallback, list);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.pauseResumeTorrent(torrentId);
     }
 
     private void getMagnetRequest()
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
-        try {
-            ipc.sendGetMagnet(serviceCallback, clientCallback, torrentId);
+        String magnet = service.getMagnet(torrentId);
 
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        if (magnet != null) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "magnet");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, magnet);
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
         }
     }
 
     private void setSpeedLimitRequest(int uploadSpeedLimit, int downloadSpeedLimit)
     {
-        if (!bound || serviceCallback == null) {
+        if (!bound || service == null) {
             return;
         }
 
-        try {
-            ipc.sendSetUploadSpeedLimit(serviceCallback, torrentId, uploadSpeedLimit);
-            ipc.sendSetDownloadSpeedLimit(serviceCallback, torrentId, downloadSpeedLimit);
-
-        } catch (RemoteException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        service.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
+        service.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
     }
 
     private void startUpdateTorrentState()
@@ -1172,16 +1101,11 @@ public class DetailTorrentFragment extends Fragment
             @Override
             public void run()
             {
-                if (bound && serviceCallback != null && torrentId != null) {
-                    try {
-                        ipc.sendGetActiveAndSeedingTime(serviceCallback, clientCallback, torrentId);
-                        ipc.sendGetTrackersStates(serviceCallback, clientCallback, torrentId);
-                        ipc.sendGetPeersStates(serviceCallback, clientCallback, torrentId);
-                        ipc.sendGetPieces(serviceCallback, clientCallback, torrentId);
-
-                    } catch (RemoteException e) {
-                        /* Ignore */
-                    }
+                if (bound && service != null && torrentId != null) {
+                    getActiveAndSeedingTimeRequest();
+                    getTrackersStatesRequest();
+                    getPeerStatesRequest();
+                    getPiecesRequest();
                 }
                 updateTorrentState.postDelayed(this, SYNC_TIME);
             }
@@ -1189,244 +1113,177 @@ public class DetailTorrentFragment extends Fragment
         updateTorrentState.postDelayed(r, SYNC_TIME);
     }
 
-    static class CallbackHandler extends Handler
+    private void getActiveAndSeedingTimeRequest()
     {
-        WeakReference<DetailTorrentFragment> fragment;
+        long activeTime = service.getActiveTime(torrentId);
+        long seedingTime = service.getSeedingTime(torrentId);
 
-        public CallbackHandler(DetailTorrentFragment fragment) {
-            this.fragment = new WeakReference<>(fragment);
-        }
+        activeTimeCache = activeTime;
+        seedingTimeCache = seedingTime;
 
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle b;
+        if (viewPager.getCurrentItem() == STATE_FRAG_POS) {
+            DetailTorrentStateFragment stateFrag =
+                    (DetailTorrentStateFragment) adapter.getItem(STATE_FRAG_POS);
 
-            try {
-                switch (msg.what) {
-                    case TorrentTaskServiceIPC.UPDATE_STATES_ONESHOT: {
-                        b = msg.getData();
-                        b.setClassLoader(TorrentStateParcel.class.getClassLoader());
-
-                        Bundle states = b.getParcelable(TorrentTaskServiceIPC.TAG_STATES_LIST);
-                        if (states != null) {
-                            TorrentStateParcel state = states.getParcelable(fragment.get().torrentId);
-
-                            if (state != null) {
-                                fragment.get().stateCache = state;
-
-                                if (fragment.get().torrent != null) {
-                                    if (state.stateCode == TorrentStateCode.PAUSED ||
-                                            fragment.get().torrent.isPaused()) {
-
-                                        fragment.get()
-                                                .torrent
-                                                .setPaused(state.stateCode == TorrentStateCode.PAUSED);
-
-                                        /* Redraw pause/resume menu */
-                                        if (Utils.isTwoPane(fragment.get().activity.getApplicationContext())) {
-                                            fragment.get().prepareOptionsMenu(fragment.get().toolbar.getMenu());
-                                        } else {
-                                            fragment.get().activity.invalidateOptionsMenu();
-                                        }
-                                    }
-                                }
-
-                                switch (fragment.get().viewPager.getCurrentItem()) {
-                                    case STATE_FRAG_POS:
-                                        DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)
-                                                fragment.get().adapter.getItem(STATE_FRAG_POS);
-
-                                        if (stateFrag != null) {
-                                            stateFrag.setState(state);
-                                        }
-                                        break;
-                                    case FILE_FRAG_POS:
-                                        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)
-                                                fragment.get().adapter.getItem(FILE_FRAG_POS);
-
-                                        if (fileFrag != null) {
-                                            fileFrag.setFilesReceivedBytes(state.filesReceivedBytes);
-                                        }
-                                        break;
-                                    case PIECES_FRAG_POS:
-                                        DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)
-                                                fragment.get().adapter.getItem(PIECES_FRAG_POS);
-
-                                        if (piecesFrag != null) {
-                                            piecesFrag.setDownloadedPiecesCount(state.downloadedPieces);
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.UPDATE_STATE: {
-                        b = msg.getData();
-                        b.setClassLoader(TorrentStateParcel.class.getClassLoader());
-                        TorrentStateParcel state = b.getParcelable(TorrentTaskServiceIPC.TAG_STATE);
-
-                        if (state != null) {
-                            fragment.get().stateCache = state;
-
-                            if (fragment.get().torrent != null) {
-                                if (state.stateCode == TorrentStateCode.PAUSED ||
-                                        fragment.get().torrent.isPaused()) {
-
-                                    fragment.get()
-                                            .torrent
-                                            .setPaused(state.stateCode == TorrentStateCode.PAUSED);
-
-                                    /* Redraw pause/resume menu */
-                                    if (Utils.isTwoPane(fragment.get().activity.getApplicationContext())) {
-                                        fragment.get().prepareOptionsMenu(fragment.get().toolbar.getMenu());
-                                    } else {
-                                        fragment.get().activity.invalidateOptionsMenu();
-                                    }
-                                }
-                            }
-
-                            switch (fragment.get().viewPager.getCurrentItem()) {
-                                case STATE_FRAG_POS:
-                                    DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)
-                                            fragment.get().adapter.getItem(STATE_FRAG_POS);
-
-                                    if (stateFrag != null) {
-                                        stateFrag.setState(state);
-                                    }
-                                    break;
-                                case FILE_FRAG_POS:
-                                    DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)
-                                            fragment.get().adapter.getItem(FILE_FRAG_POS);
-
-                                    if (fileFrag != null) {
-                                        fileFrag.setFilesReceivedBytes(state.filesReceivedBytes);
-                                    }
-                                    break;
-                                case PIECES_FRAG_POS:
-                                    DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)
-                                            fragment.get().adapter.getItem(PIECES_FRAG_POS);
-
-                                    if (piecesFrag != null) {
-                                        piecesFrag.setDownloadedPiecesCount(state.downloadedPieces);
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_TORRENT_INFO: {
-                        b = msg.getData();
-                        b.setClassLoader(TorrentMetaInfo.class.getClassLoader());
-                        fragment.get().infoCache = b.getParcelable(TorrentTaskServiceIPC.TAG_TORRENT_INFO);
-                        fragment.get().initFragments();
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_ACTIVE_AND_SEEDING_TIME: {
-                        b = msg.getData();
-                        long activeTime = b.getLong(TorrentTaskServiceIPC.TAG_ACTIVE_TIME);
-                        long seedingTime = b.getLong(TorrentTaskServiceIPC.TAG_SEEDING_TIME);
-
-                        fragment.get().activeTimeCache = activeTime;
-                        fragment.get().seedingTimeCache = seedingTime;
-
-                        if (fragment.get().viewPager.getCurrentItem() == STATE_FRAG_POS) {
-                            DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)
-                                    fragment.get().adapter.getItem(STATE_FRAG_POS);
-
-                            if (stateFrag != null) {
-                                stateFrag.setActiveAndSeedingTime(activeTime, seedingTime);
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_TRACKERS_STATES: {
-                        b = msg.getData();
-                        b.setClassLoader(TrackerStateParcel.class.getClassLoader());
-                        ArrayList<TrackerStateParcel> states =
-                                b.getParcelableArrayList(TorrentTaskServiceIPC.TAG_TRACKERS_STATES_LIST);
-
-                        if (!fragment.get().trackersCache.containsAll(states)) {
-                            fragment.get().trackersCache.clear();
-                            fragment.get().trackersCache.putAll(states);
-
-                            if (fragment.get().viewPager.getCurrentItem() == TRACKERS_FRAG_POS) {
-                                DetailTorrentTrackersFragment trackersFrag = (DetailTorrentTrackersFragment)
-                                        fragment.get().adapter.getItem(TRACKERS_FRAG_POS);
-
-                                if (trackersFrag != null) {
-                                    trackersFrag.setTrackersList(states);
-                                }
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_PEERS_STATES: {
-                        b = msg.getData();
-                        b.setClassLoader(PeerStateParcel.class.getClassLoader());
-                        ArrayList<PeerStateParcel> states =
-                                b.getParcelableArrayList(TorrentTaskServiceIPC.TAG_PEERS_STATES_LIST);
-
-                        if (!fragment.get().peersCache.containsAll(states) || states.isEmpty()) {
-                            fragment.get().peersCache.clear();
-                            fragment.get().peersCache.putAll(states);
-
-                            if (fragment.get().viewPager.getCurrentItem() == PEERS_FRAG_POS) {
-                                DetailTorrentPeersFragment peersFrag = (DetailTorrentPeersFragment)
-                                        fragment.get().adapter.getItem(PEERS_FRAG_POS);
-
-                                if (peersFrag != null) {
-                                    peersFrag.setPeerList(states);
-                                }
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_PIECES: {
-                        b = msg.getData();
-                        boolean[] pieces = b.getBooleanArray(TorrentTaskServiceIPC.TAG_PIECE_LIST);
-
-                        if (!Arrays.equals(fragment.get().piecesCache, pieces)) {
-                            fragment.get().piecesCache = pieces;
-
-                            if (fragment.get().viewPager.getCurrentItem() == PIECES_FRAG_POS) {
-                                DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)
-                                        fragment.get().adapter.getItem(PIECES_FRAG_POS);
-
-                                if (piecesFrag != null) {
-                                    piecesFrag.setPieces(pieces);
-                                }
-                            }
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_MAGNET: {
-                        String magnet = msg.getData().getString(TorrentTaskServiceIPC.TAG_MAGNET);
-
-                        if (magnet != null) {
-                            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                            sharingIntent.setType("text/plain");
-                            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "magnet");
-                            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, magnet);
-                            fragment.get().startActivity(
-                                    Intent.createChooser(sharingIntent,
-                                            fragment.get().getString(R.string.share_via)));
-                        }
-                        break;
-                    }
-                    case TorrentTaskServiceIPC.GET_SPEED_LIMIT: {
-                        fragment.get().uploadSpeedLimit = msg.arg1;
-                        fragment.get().downloadSpeedLimit = msg.arg2;
-                        break;
-                    }
-                    default:
-                        super.handleMessage(msg);
-                }
-
-            } catch (Exception e) {
-                /* Ignore */
+            if (stateFrag != null) {
+                stateFrag.setActiveAndSeedingTime(activeTime, seedingTime);
             }
         }
+    }
+
+    private void getTrackersStatesRequest()
+    {
+        ArrayList<TrackerStateParcel> states = service.getTrackerStatesList(torrentId);
+
+        if (states == null) {
+            return;
+        }
+
+        if (!trackersCache.containsAll(states)) {
+            trackersCache.clear();
+            trackersCache.putAll(states);
+
+            if (viewPager.getCurrentItem() == TRACKERS_FRAG_POS) {
+                DetailTorrentTrackersFragment trackersFrag =
+                        (DetailTorrentTrackersFragment) adapter.getItem(TRACKERS_FRAG_POS);
+
+                if (trackersFrag != null) {
+                    trackersFrag.setTrackersList(states);
+                }
+            }
+        }
+    }
+
+    private void getPeerStatesRequest()
+    {
+        ArrayList<PeerStateParcel> states = service.getPeerStatesList(torrentId);
+
+        if (states == null) {
+            return;
+        }
+
+        if (!peersCache.containsAll(states) || states.isEmpty()) {
+            peersCache.clear();
+            peersCache.putAll(states);
+
+            if (viewPager.getCurrentItem() == PEERS_FRAG_POS) {
+                DetailTorrentPeersFragment peersFrag =
+                        (DetailTorrentPeersFragment) adapter.getItem(PEERS_FRAG_POS);
+
+                if (peersFrag != null) {
+                    peersFrag.setPeerList(states);
+                }
+            }
+        }
+    }
+
+    private void getPiecesRequest()
+    {
+        boolean[] pieces = service.getPieces(torrentId);
+
+        if (pieces == null) {
+            return;
+        }
+
+        if (!Arrays.equals(piecesCache, pieces)) {
+            piecesCache = pieces;
+
+            if (viewPager.getCurrentItem() == PIECES_FRAG_POS) {
+                DetailTorrentPiecesFragment piecesFrag =
+                        (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
+
+                if (piecesFrag != null) {
+                    piecesFrag.setPieces(pieces);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onTorrentStateChanged(TorrentStateParcel state)
+    {
+        if (state != null && state.torrentId.equals(torrentId)) {
+            handleTorrentState(state);
+        }
+    }
+
+    @Override
+    public void onTorrentAdded(TorrentStateParcel states, Throwable exception)
+    {
+        /* Nothing */
+    }
+
+    @Override
+    public void onTorrentsStateChanged(Bundle states)
+    {
+        if (states == null || !states.containsKey(torrentId)) {
+            return;
+        }
+
+        handleTorrentState((TorrentStateParcel) states.getParcelable(torrentId));
+    }
+
+    private void handleTorrentState(final TorrentStateParcel state)
+    {
+        if (state == null) {
+            return;
+        }
+
+        activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                stateCache = state;
+
+                if (torrent != null) {
+                    if (state.stateCode == TorrentStateCode.PAUSED || torrent.isPaused()) {
+                        torrent.setPaused(state.stateCode == TorrentStateCode.PAUSED);
+
+                        /* Redraw pause/resume menu */
+                        if (Utils.isTwoPane(activity.getApplicationContext())) {
+                            prepareOptionsMenu(toolbar.getMenu());
+                        } else {
+                            activity.invalidateOptionsMenu();
+                        }
+                    }
+                }
+
+                if (viewPager == null) {
+                    return;
+                }
+
+                switch (viewPager.getCurrentItem()) {
+                    case STATE_FRAG_POS:
+                        DetailTorrentStateFragment stateFrag =
+                                (DetailTorrentStateFragment) adapter.getItem(STATE_FRAG_POS);
+
+                        if (stateFrag != null) {
+                            stateFrag.setState(state);
+                        }
+
+                        break;
+                    case FILE_FRAG_POS:
+                        DetailTorrentFilesFragment fileFrag =
+                                (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
+
+                        if (fileFrag != null) {
+                            fileFrag.setFilesReceivedBytes(state.filesReceivedBytes);
+                        }
+
+                        break;
+                    case PIECES_FRAG_POS:
+                        DetailTorrentPiecesFragment piecesFrag =
+                                (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
+
+                        if (piecesFrag != null) {
+                            piecesFrag.setDownloadedPiecesCount(state.downloadedPieces);
+                        }
+
+                        break;
+                }
+            }
+        });
     }
 
     @Override

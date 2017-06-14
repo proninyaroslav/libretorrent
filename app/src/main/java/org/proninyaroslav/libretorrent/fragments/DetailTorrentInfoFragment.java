@@ -200,19 +200,16 @@ public class DetailTorrentInfoFragment extends Fragment
 
             @Override
             public void onClick(View v) {
-                Torrent torrent = getArguments().getParcelable(TAG_TORRENT);
-                if (torrent != null) {
-                    Intent i = new Intent(activity, FileManagerDialog.class);
+                Intent i = new Intent(activity, FileManagerDialog.class);
 
-                    FileManagerConfig config = new FileManagerConfig(torrent.getDownloadPath(),
-                            null,
-                            null,
-                            FileManagerConfig.DIR_CHOOSER_MODE);
+                FileManagerConfig config = new FileManagerConfig(pathToUploadView.getText().toString(),
+                        null,
+                        null,
+                        FileManagerConfig.DIR_CHOOSER_MODE);
 
-                    i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
 
-                    startActivityForResult(i, DIR_CHOOSER_REQUEST);
-                }
+                startActivityForResult(i, DIR_CHOOSER_REQUEST);
             }
         });
 

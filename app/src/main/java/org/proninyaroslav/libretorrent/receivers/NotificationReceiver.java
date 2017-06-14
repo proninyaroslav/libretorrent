@@ -38,16 +38,21 @@ public class NotificationReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        Intent mainIntent;
         switch (intent.getAction()) {
             /* Send action to the already running service */
             case NOTIFY_ACTION_SHUTDOWN_APP:
+                mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mainIntent.setAction(NOTIFY_ACTION_SHUTDOWN_APP);
+                context.startActivity(mainIntent);
+
                 Intent serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_SHUTDOWN_APP);
-
                 context.startService(serviceIntent);
                 break;
             case NOTIFY_ACTION_ADD_TORRENT:
-                Intent mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
+                mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 mainIntent.setAction(NOTIFY_ACTION_ADD_TORRENT);
 

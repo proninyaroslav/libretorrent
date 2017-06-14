@@ -31,7 +31,7 @@ public interface FragmentCallback
     String TAG = FragmentCallback.class.getSimpleName();
 
     enum ResultCode {
-        OK, CANCEL, BACK, SHUTDOWN
+        OK, CANCEL, BACK
     }
 
     void fragmentFinished(Intent intent, ResultCode code);

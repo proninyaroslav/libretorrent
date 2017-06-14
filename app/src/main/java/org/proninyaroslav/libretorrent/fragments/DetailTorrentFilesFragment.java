@@ -168,7 +168,7 @@ public class DetailTorrentFilesFragment extends Fragment
             fileTree = TorrentContentFileTreeUtils.buildFileTree(files);
 
             FileTreeDepthFirstSearch<TorrentContentFileTree> search =
-                    new FileTreeDepthFirstSearch<TorrentContentFileTree>();
+                    new FileTreeDepthFirstSearch<>();
 
             /* Set priority for selected files */
             for (int i = 0; i < files.size(); i++) {

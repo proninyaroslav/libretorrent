@@ -90,10 +90,7 @@ public class TorrentFetcher
             throw new IllegalArgumentException("Can't decode link");
         }
 
-        final SessionManager s = new SessionManager();
         final CountDownLatch signal = new CountDownLatch(1);
-
-        s.start();
 
         final Timer timer = new Timer();
         timer.schedule(new TimerTask()
@@ -101,7 +98,7 @@ public class TorrentFetcher
             @Override
             public void run()
             {
-                long nodes = s.stats().dhtNodes();
+                long nodes = TorrentEngine.getInstance().stats().dhtNodes();
                 /* Wait for at least 10 nodes in the DHT */
                 if (nodes >= 10) {
                     Log.i(TAG, "DHT contains " + nodes + " nodes");
@@ -125,11 +122,8 @@ public class TorrentFetcher
         }
 
         Log.i(TAG, "Fetching the magnet link...");
-        byte[] data = s.fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS, true);
 
-        s.stop();
-
-        return data;
+        return TorrentEngine.getInstance().fetchMagnet(uri.toString(), FETCH_MAGNET_SECONDS, true);
     }
 
     public void fetchHTTP(Uri uri, final File targetFile) throws FetchLinkException, HttpException

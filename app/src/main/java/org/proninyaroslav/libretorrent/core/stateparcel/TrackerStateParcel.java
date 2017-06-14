@@ -22,7 +22,9 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.frostwire.jlibtorrent.AnnounceEntry;
+import com.frostwire.jlibtorrent.swig.announce_endpoint;
+import com.frostwire.jlibtorrent.swig.announce_endpoint_vector;
+import com.frostwire.jlibtorrent.swig.announce_entry;
 
 /*
  * The class provides a package model with information
@@ -43,20 +45,29 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
     public class Status
     {
         public static final int UNKNOWN = -1;
-        public static final int NOT_CONTACTED = 0;
-        public static final int WORKING = 1;
-        public static final int UPDATING = 2;
+        public static final int WORKING = 0;
+        public static final int UPDATING = 1;
+        public static final int NOT_CONTACTED = 2;
         public static final int NOT_WORKING = 3;
     }
 
-    public TrackerStateParcel(AnnounceEntry entry)
+    public TrackerStateParcel(announce_entry entry)
     {
-        super(entry.url());
+        super(entry.getUrl());
 
-        url = entry.url();
-        message = entry.message();
-        tier = entry.tier();
-        status = makeStatus(entry);
+        url = entry.getUrl();
+        tier = entry.getTier();
+
+        if (entry.getEndpoints().size() == 0) {
+            status = Status.NOT_WORKING;
+            message = "";
+
+        } else {
+            announce_endpoint bestEndpoint = getBestEndpoint(entry.getEndpoints());
+
+            message = bestEndpoint.getMessage();
+            status = makeStatus(entry, bestEndpoint);
+        }
     }
 
     public TrackerStateParcel(String url, String message, int tier, int status)
@@ -69,21 +80,37 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
         this.status = status;
     }
 
-    private int makeStatus(AnnounceEntry entry)
+    private int makeStatus(announce_entry entry, announce_endpoint endpoint)
     {
         if (entry == null) {
             return Status.UNKNOWN;
         }
 
-        if (entry.swig().getVerified() && entry.swig().is_working()) {
+        if (entry.getVerified() && endpoint.is_working()) {
             return Status.WORKING;
-        } else if ((entry.swig().getFails() == 0) && entry.swig().getUpdating()) {
+        } else if ((endpoint.getFails() == 0) && endpoint.getUpdating()) {
             return Status.UPDATING;
-        } else if (entry.swig().getFails() == 0) {
+        } else if (endpoint.getFails() == 0) {
             return Status.NOT_CONTACTED;
         } else {
             return Status.NOT_WORKING;
         }
+    }
+
+    private announce_endpoint getBestEndpoint(announce_endpoint_vector endpoints)
+    {
+        if (endpoints.size() == 1) {
+            return endpoints.get(0);
+        }
+
+        announce_endpoint bestEndpoint = endpoints.get(0);
+        for (int i = 0; i < endpoints.size(); i++) {
+            if (endpoints.get(i).getFails() < bestEndpoint.getFails()) {
+                bestEndpoint = endpoints.get(i);
+            }
+        }
+
+        return bestEndpoint;
     }
 
     public TrackerStateParcel(Parcel source)

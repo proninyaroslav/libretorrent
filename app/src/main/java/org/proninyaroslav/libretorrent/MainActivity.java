@@ -36,6 +36,7 @@ import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
+import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity
             setTheme(R.style.AppTheme_Dark);
         }
 
-        if (getIntent().getAction() != null && getIntent().getAction().equals(TAG_ACTION_SHUTDOWN)) {
+        if (getIntent().getAction() != null &&
+                getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();
 
             return;
@@ -186,11 +188,6 @@ public class MainActivity extends AppCompatActivity
                     mainFragment.resetCurOpenTorrent();
                 }
                 break;
-            case SHUTDOWN:
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.setAction(TAG_ACTION_SHUTDOWN);
-                startActivity(i);
         }
     }
 

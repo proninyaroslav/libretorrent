@@ -99,11 +99,29 @@ public class TorrentEngine extends SessionManager
     private ExecutorService loadTorrentsExec;
     private Map<String, Torrent> addTorrentsQueue = new HashMap<>();
 
-    public TorrentEngine(Context context, TorrentEngineCallback callback) throws Exception
+    private TorrentEngine() /*throws Exception*/
     {
-        this.context = context;
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
+    }
+
+    public static TorrentEngine getInstance()
+    {
+        return Loader.INSTANCE;
+    }
+
+    private static class Loader
+    {
+        static final TorrentEngine INSTANCE = new TorrentEngine();
+    }
+
+    public void setContext(Context context)
+    {
+        this.context = context;
+    }
+
+    public void setCallback(TorrentEngineCallback callback)
+    {
         this.callback = callback;
     }
 
