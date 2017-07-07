@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Toate</string>
     <string name="spinner_downloading_torrents">Se descarcă</string>
     <string name="spinner_downloaded_torrents">Descărcate</string>
+    <string name="spinner_downloading_metadata_torrents">Se descarcă metadate</string>
     <string name="delete_torrent_with_downloaded_files">Ștergeți împreună cu fișierele descărcate</string>
     <string name="delete_selected_torrent">Stergeți torrentul selectat? Această operație nu poate fi anulată</string>
     <string name="delete_selected_torrents">Stergeți fișierele torrent selectate? Această operație nu poate fi anulată</string>
@@ -61,6 +62,7 @@
         <item>Timp rămas estimat</item>
         <item>Parteneri</item>
         <item>Leecheri</item>
+        <item>Leecheri</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Eroare torrent</string>
+    <string name="torrent_error_notify_template">Eroare: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrentul nu există</string>
+    <string name="restore_torrent_error">nu se poate restaura torrentul din sesiunea anterioară</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finalizat</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Oprit</string>
     <string name="torrent_status_checking">Verificare</string>
     <string name="torrent_status_finished">Finalizat</string>
+    <string name="torrent_status_downloading_metadata">Se descarcă metadate</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permisiune refuzată</string>
@@ -224,6 +233,7 @@
     <string name="upload_speed">Încărcare</string>
     <string name="download_speed">Descărcare</string>
     <string name="speed_limit_dialog">Setează viteza în KO/s (0 - nelimitată)</string>
+    <string name="torrent_added_date">Adăugat</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiază</string>
@@ -331,8 +341,8 @@
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>
     <string name="about_description">LibreTorrent este un client gratuit (liber, deschis) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ).\n
-           \n
-           LibreTorrent este software gratuit, lansat sub termenii licenței GNU General Public License v3 (GPLv3)\n
-           http://www.gnu.org/copyleft/gpl.html</string>
+             \n
+             LibreTorrent este software gratuit, lansat sub termenii licenței GNU General Public License v3 (GPLv3)\n
+             http://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
 </resources>
