@@ -64,7 +64,7 @@ public class SupportBaseAlertDialog extends DialogFragment
 
     public static SupportBaseAlertDialog newInstance(String title, String message, int resIdView,
                                               String positiveText, String negativeText,
-                                              String neutralText, int style, Object callback)
+                                              String neutralText, Object callback)
     {
         SupportBaseAlertDialog frag = new SupportBaseAlertDialog();
 

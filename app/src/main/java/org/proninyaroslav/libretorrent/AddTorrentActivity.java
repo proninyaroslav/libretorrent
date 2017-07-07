@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,26 +20,16 @@
 package org.proninyaroslav.libretorrent;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 
-import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
-import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.dialogs.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.SpinnerProgressDialog;
 import org.proninyaroslav.libretorrent.fragments.AddTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
-
-import java.io.IOException;
+import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 /*
  * The dialog for adding torrent. The parent window.
@@ -48,8 +38,7 @@ import java.io.IOException;
 public class AddTorrentActivity extends AppCompatActivity
         implements
         FragmentCallback,
-        AddTorrentFragment.Callback,
-        BaseAlertDialog.OnClickListener
+        AddTorrentFragment.Callback
 {
 
     @SuppressWarnings("unused")
@@ -57,17 +46,12 @@ public class AddTorrentActivity extends AppCompatActivity
 
     private static final String TAG_FRAGMENT = "fragment";
     private static final String TAG_SPINNER_PROGRESS = "spinner_progress";
-    private static final String TAG_IO_EXCEPT_DIALOG = "io_except_dialog";
-    private static final String TAG_DECODE_EXCEPT_DIALOG = "decode_except_dialog";
-    private static final String TAG_FETCH_EXCEPT_DIALOG = "fetch_except_dialog";
-    private static final String TAG_ILLEGAL_ARGUMENT = "illegal_argument";
 
     public static final String TAG_URI = "uri";
     public static final String TAG_RESULT_TORRENT = "result_bundle";
 
     private AddTorrentFragment addTorrentFragment;
     private SpinnerProgressDialog progress;
-    private Exception sentError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,6 +63,8 @@ public class AddTorrentActivity extends AppCompatActivity
         }
 
         setContentView(R.layout.activity_add_torrent);
+
+        startService(new Intent(getApplicationContext(), TorrentTaskService.class));
 
         FragmentManager fm = getFragmentManager();
         addTorrentFragment = (AddTorrentFragment) fm.findFragmentByTag(TAG_FRAGMENT);
@@ -112,104 +98,9 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPostExecute(Exception e)
+    public void onPostExecute()
     {
         dismissProgress();
-
-        if (e != null) {
-            if (e instanceof DecodeException) {
-                if (getFragmentManager().findFragmentByTag(TAG_DECODE_EXCEPT_DIALOG) == null) {
-                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
-                            getString(R.string.error),
-                            getString(R.string.error_decode_torrent),
-                            0,
-                            getString(R.string.ok),
-                            null,
-                            null,
-                            this);
-
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(errDialog, TAG_DECODE_EXCEPT_DIALOG);
-                    ft.commitAllowingStateLoss();
-                }
-
-            } else if (e instanceof FetchLinkException) {
-                if (getFragmentManager().findFragmentByTag(TAG_FETCH_EXCEPT_DIALOG) == null) {
-                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
-                            getString(R.string.error),
-                            getString(R.string.error_fetch_link),
-                            0,
-                            getString(R.string.ok),
-                            null,
-                            null,
-                            this);
-
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(errDialog, TAG_FETCH_EXCEPT_DIALOG);
-                    ft.commitAllowingStateLoss();
-                }
-
-            } else if (e instanceof IllegalArgumentException) {
-                if (getFragmentManager().findFragmentByTag(TAG_ILLEGAL_ARGUMENT) == null) {
-                    BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
-                            getString(R.string.error),
-                            getString(R.string.error_invalid_link_or_path),
-                            0,
-                            getString(R.string.ok),
-                            null,
-                            null,
-                            this);
-
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(errDialog, TAG_ILLEGAL_ARGUMENT);
-                    ft.commitAllowingStateLoss();
-                }
-
-            } else if (e instanceof IOException) {
-                sentError = e;
-                if (getFragmentManager().findFragmentByTag(TAG_IO_EXCEPT_DIALOG) == null) {
-                    ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                            getApplicationContext(),
-                            getString(R.string.error),
-                            getString(R.string.error_io_torrent),
-                            Log.getStackTraceString(e),
-                            this);
-
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(errDialog, TAG_IO_EXCEPT_DIALOG);
-                    ft.commitAllowingStateLoss();
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onPositiveClicked(@Nullable View v)
-    {
-        if (sentError != null) {
-            String comment = null;
-
-            if (v != null) {
-                EditText editText = (EditText) v.findViewById(R.id.comment);
-                comment = editText.getText().toString();
-            }
-
-            Utils.reportError(sentError, comment);
-        }
-
-        finish();
-    }
-
-    @Override
-    public void onNegativeClicked(@Nullable View v)
-    {
-        finish();
-    }
-
-    @Override
-    public void onNeutralClicked(@Nullable View v)
-    {
-        /* Nothing */
     }
 
     private void showProgress(String progressDialogText)

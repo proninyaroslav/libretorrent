@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -104,6 +104,18 @@ public class TorrentSorting extends BaseSorting
                 } else {
                     return Integer.valueOf(item1.totalPeers - item1.totalSeeds)
                             .compareTo(item2.totalPeers - item2.totalSeeds);
+                }
+            }
+        },
+        dateAdded {
+            @Override
+            public int compare(TorrentStateParcel item1,
+                               TorrentStateParcel item2, Direction direction)
+            {
+                if (direction == Direction.ASC) {
+                    return Long.valueOf(item2.dateAdded).compareTo(item1.dateAdded);
+                } else {
+                    return Long.valueOf(item1.dateAdded).compareTo(item2.dateAdded);
                 }
             }
         };

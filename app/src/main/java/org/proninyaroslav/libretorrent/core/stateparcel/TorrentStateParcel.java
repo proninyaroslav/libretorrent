@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -49,9 +49,9 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     public long uploadSpeed = 0L;
     public long ETA = -1L;
     public long[] filesReceivedBytes = new long[0];
+    public long dateAdded = 0L;
     public double shareRatio = 0.;
-
-    boolean equalsById = false;
+    public boolean equalsById = false;
 
     public TorrentStateParcel()
     {
@@ -73,7 +73,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
                               long totalBytes, long downloadSpeed, long uploadSpeed,
                               long ETA, long[] filesReceivedBytes, int totalSeeds,
                               int seeds, int totalPeers, int peers, int downloadedPieces,
-                              double shareRatio)
+                              double shareRatio, long dateAdded)
     {
         super(torrentId);
 
@@ -94,6 +94,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         this.totalPeers = totalPeers;
         this.downloadedPieces = downloadedPieces;
         this.shareRatio = shareRatio;
+        this.dateAdded = dateAdded;
     }
 
     public TorrentStateParcel(Parcel source)
@@ -117,6 +118,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         totalPeers = source.readInt();
         downloadedPieces = source.readInt();
         shareRatio = source.readDouble();
+        dateAdded = source.readLong();
     }
 
     @Override
@@ -147,6 +149,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         dest.writeInt(totalPeers);
         dest.writeInt(downloadedPieces);
         dest.writeDouble(shareRatio);
+        dest.writeLong(dateAdded);
     }
 
     public static final Parcelable.Creator<TorrentStateParcel> CREATOR =
@@ -208,6 +211,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         result = prime * result + downloadedPieces;
         long shareRationBits = Double.doubleToLongBits(shareRatio);
         result = prime * result + (int) (shareRationBits ^ (shareRationBits >>> 32));
+        result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
 
         return result;
     }
@@ -246,7 +250,8 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
                 uploadSpeed == state.uploadSpeed &&
                 ETA == state.ETA &&
                 Arrays.equals(filesReceivedBytes, state.filesReceivedBytes) &&
-                shareRatio == state.shareRatio;
+                shareRatio == state.shareRatio &&
+                dateAdded == state.dateAdded;
     }
 
     @Override
@@ -270,6 +275,7 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
                 ", ETA=" + ETA +
                 ", filesReceivedBytes=" + Arrays.toString(filesReceivedBytes) +
                 ", shareRatio=" + shareRatio +
+                ", dateAdded=" + dateAdded +
                 '}';
     }
 }

@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Visi</string>
     <string name="spinner_downloading_torrents">Parsiunčiami</string>
     <string name="spinner_downloaded_torrents">Parsiųsti</string>
+    <string name="spinner_downloading_metadata_torrents">Metaduomenų parsiunčiami</string>
     <string name="delete_torrent_with_downloaded_files">Ištrinti su parsiųstais failais</string>
     <string name="delete_selected_torrent">Ištrinti pasirinktą torentą? Ši operacija negali būti atšaukta</string>
     <string name="delete_selected_torrents">Ištrinti pasirinktus torentus? Ši operacija negali būti atšaukta</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Be rūšiavimas</item>
         <item>Vardas</item>
+        <item>Data pridėta</item>
         <item>Dydis</item>
         <item>Progresas</item>
         <item>Atvykimo laikas</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent veikia foniniame rėžime</string>
     <string name="network_online">Tinklo būklė: Prisijungęs</string>
     <string name="network_offline">Tinklo būklė: Atsijungęs</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Torrento klaida</string>
+    <string name="torrent_error_notify_template">Klaida: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent neegzistuoja</string>
+    <string name="restore_torrent_error">nepavyko atkurti torrent iš ankstesnio seanso</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torentas baigtas siųsti</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Sustabdyta</string>
     <string name="torrent_status_checking">Tikrina</string>
     <string name="torrent_status_finished">Pabaigta</string>
+    <string name="torrent_status_downloading_metadata">Metaduomenų parsiunčiami</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Leidimas uždraustas</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>
     <string name="torrent_files">Failai</string>
-    <string name="torrent_name">Torrento pavadinimas</string>
+    <string name="torrent_name">Pavadinimas</string>
     <string name="upload_torrent_into">Išsiųsti į</string>
     <string name="torrent_size">Dydis</string>
     <string name="torrent_file_count">Failų kiekis</string>
     <string name="torrent_hash_sum">Hash suma</string>
     <string name="torrent_comment">Komentaras</string>
-    <string name="torrent_create_date">Torrentas sukurtas</string>
-    <string name="torrent_created_in_program">Torrentas sukurtas programoje</string>
+    <string name="torrent_create_date">Sukurtas</string>
+    <string name="torrent_created_in_program">Sukurtas programoje</string>
     <string name="sequential_download">Nuoseklus atsisiuntimas</string>
     <string name="enable_sequential_download">Įgalinti nuoseklųjį atsisiuntimą</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">Išsiuntimas</string>
     <string name="download_speed">Parsisiuntimas</string>
     <string name="speed_limit_dialog">Nustatyti greitį KiB/s (0 - be ribų)</string>
+    <string name="torrent_added_date">Pridėta</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>

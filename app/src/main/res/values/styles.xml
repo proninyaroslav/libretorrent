@@ -145,4 +145,12 @@
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
     </style>
+
+    <style name="Theme.AppCompat.Translucent" parent="BaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>

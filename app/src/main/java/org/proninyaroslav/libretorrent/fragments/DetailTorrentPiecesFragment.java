@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -140,6 +140,14 @@ public class DetailTorrentPiecesFragment extends Fragment
         }
     }
 
+    public void setPiecesCountAndSize(int allPiecesCount, int pieceSize)
+    {
+        this.allPiecesCount = allPiecesCount;
+        this.pieceSize = pieceSize;
+
+        updatePieceCounter();
+    }
+
     public void setDownloadedPiecesCount(int downloadedPieces)
     {
         this.downloadedPieces = downloadedPieces;
@@ -150,13 +158,13 @@ public class DetailTorrentPiecesFragment extends Fragment
     private void updatePieceCounter()
     {
         String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
-        String pieceLehgtn = Formatter.formatFileSize(activity, pieceSize);
+        String pieceLength = Formatter.formatFileSize(activity, pieceSize);
         if (piecesCounter != null) {
             piecesCounter.setText(
                     String.format(piecesTemplate,
                             downloadedPieces,
                             allPiecesCount,
-                            pieceLehgtn));
+                            pieceLength));
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -94,6 +94,8 @@ public class DetailTorrentFilesFragment extends Fragment
     private ArrayList<String> selectedFiles = new ArrayList<>();
     private DetailTorrentFragment.Callback callback;
 
+    ArrayList<BencodeFileItem> files;
+    ArrayList<Priority> priorities;
     private TorrentContentFileTree fileTree;
     /* Current directory */
     private TorrentContentFileTree curDir;
@@ -102,11 +104,10 @@ public class DetailTorrentFilesFragment extends Fragment
                                                          ArrayList<Priority> priorities)
     {
         DetailTorrentFilesFragment fragment = new DetailTorrentFilesFragment();
+        fragment.files = files;
+        fragment.priorities = priorities;
 
         Bundle args = new Bundle();
-        args.putParcelableArrayList(TAG_FILES, files);
-        args.putSerializable(TAG_PRIORITIES, priorities);
-
         fragment.setArguments(args);
 
         return fragment;
@@ -124,7 +125,12 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_detail_torrent_files, container, false);
+        View v = inflater.inflate(R.layout.fragment_detail_torrent_files, container, false);
+
+        filesSize = (TextView) v.findViewById(R.id.files_size);
+        fileList = (RecyclerView) v.findViewById(R.id.file_list);
+
+        return v;
     }
 
     /* For API < 23 */
@@ -153,78 +159,37 @@ public class DetailTorrentFilesFragment extends Fragment
         }
 
         if (savedInstanceState != null) {
+            files = (ArrayList<BencodeFileItem>) savedInstanceState.getSerializable(TAG_FILES);
+            priorities = (ArrayList<Priority>) savedInstanceState.getSerializable(TAG_PRIORITIES);
             fileTree = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_FILE_TREE);
             curDir = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_CUR_DIR);
 
         } else {
-            ArrayList<BencodeFileItem> files = getArguments().getParcelableArrayList(TAG_FILES);
-            ArrayList<Priority> priorities =
-                    (ArrayList<Priority>) getArguments().getSerializable(TAG_PRIORITIES);
-
-            if ((files == null || priorities == null) || files.size() != priorities.size()) {
-                return;
-            }
-
-            fileTree = TorrentContentFileTreeUtils.buildFileTree(files);
-
-            FileTreeDepthFirstSearch<TorrentContentFileTree> search =
-                    new FileTreeDepthFirstSearch<>();
-
-            /* Set priority for selected files */
-            for (int i = 0; i < files.size(); i++) {
-                if (priorities.get(i) != Priority.IGNORE) {
-                    BencodeFileItem f = files.get(i);
-
-                    TorrentContentFileTree file = search.find(fileTree, f.getIndex());
-                    if (file != null) {
-                        file.setPriority(priorities.get(i));
-                        /*
-                         * Disable the ability to select the file
-                         * because it's being downloaded/download
-                         */
-                        file.select(TorrentContentFileTree.SelectState.DISABLED);
-                    }
-                }
-            }
-
-            /* Is assigned the root dir of the file tree */
-            curDir = fileTree;
+            makeFileTree();
         }
 
-        filesSize = (TextView) activity.findViewById(R.id.files_size);
-        if (filesSize != null) {
-            filesSize.setText(
-                    String.format(getString(R.string.files_size),
-                            Formatter.formatFileSize(activity.getApplicationContext(),
-                                    fileTree.selectedFileSize()),
-                            Formatter.formatFileSize(activity.getApplicationContext(),
-                                    fileTree.size())));
-        }
+        updateFileSize();
 
-        fileList = (RecyclerView) activity.findViewById(R.id.file_list);
-
-        if (fileList != null) {
-            layoutManager = new LinearLayoutManager(activity);
-            fileList.setLayoutManager(layoutManager);
-            /*
-             * A RecyclerView by default creates another copy of the ViewHolder in order to
-             * fade the views into each other. This causes the problem because the old ViewHolder gets
-             * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
-             */
-            DefaultItemAnimator animator = new DefaultItemAnimator()
+        layoutManager = new LinearLayoutManager(activity);
+        fileList.setLayoutManager(layoutManager);
+        /*
+         * A RecyclerView by default creates another copy of the ViewHolder in order to
+         * fade the views into each other. This causes the problem because the old ViewHolder gets
+         * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
+         */
+        DefaultItemAnimator animator = new DefaultItemAnimator()
+        {
+            @Override
+            public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder)
             {
-                @Override
-                public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder)
-                {
-                    return true;
-                }
-            };
-            fileList.setItemAnimator(animator);
-            adapter = new TorrentContentFilesAdapter(getChildren(curDir), activity,
-                    R.layout.item_torrent_content_file, this);
+                return true;
+            }
+        };
+        fileList.setItemAnimator(animator);
+        adapter = new TorrentContentFilesAdapter(getChildren(curDir), activity,
+                R.layout.item_torrent_content_file, this);
 
-            fileList.setAdapter(adapter);
-        }
+        fileList.setAdapter(adapter);
 
         if (savedInstanceState != null) {
             selectedFiles = savedInstanceState.getStringArrayList(TAG_SELECTED_FILES);
@@ -239,6 +204,8 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
+        outState.putSerializable(TAG_FILES, files);
+        outState.putSerializable(TAG_PRIORITIES, priorities);
         outState.putSerializable(TAG_FILE_TREE, fileTree);
         outState.putSerializable(TAG_CUR_DIR, curDir);
         if (layoutManager != null) {
@@ -272,6 +239,56 @@ public class DetailTorrentFilesFragment extends Fragment
         if (listFileState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(listFileState);
         }
+    }
+
+    private void makeFileTree()
+    {
+        if ((files == null || priorities == null) || files.size() != priorities.size()) {
+            return;
+        }
+
+        fileTree = TorrentContentFileTreeUtils.buildFileTree(files);
+
+        FileTreeDepthFirstSearch<TorrentContentFileTree> search = new FileTreeDepthFirstSearch<>();
+
+        /* Set priority for selected files */
+        for (int i = 0; i < files.size(); i++) {
+            if (priorities.get(i) != Priority.IGNORE) {
+                BencodeFileItem f = files.get(i);
+
+                TorrentContentFileTree file = search.find(fileTree, f.getIndex());
+                if (file != null) {
+                    file.setPriority(priorities.get(i));
+                    /*
+                     * Disable the ability to select the file
+                     * because it's being downloaded/download
+                     */
+                    file.select(TorrentContentFileTree.SelectState.DISABLED);
+                }
+            }
+        }
+
+        /* Is assigned the root dir of the file tree */
+        curDir = fileTree;
+    }
+
+    private void updateFileSize()
+    {
+        filesSize.setText(
+                String.format(getString(R.string.files_size),
+                        Formatter.formatFileSize(activity.getApplicationContext(),
+                                fileTree.selectedFileSize()),
+                        Formatter.formatFileSize(activity.getApplicationContext(),
+                                fileTree.size())));
+    }
+
+    public void setFilesAndPriorities(ArrayList<BencodeFileItem> files, ArrayList<Priority> priorities)
+    {
+        this.files = files;
+        this.priorities = priorities;
+
+        makeFileTree();
+        reloadData();
     }
 
     public void setFilesReceivedBytes(long[] bytes)
@@ -375,12 +392,7 @@ public class DetailTorrentFilesFragment extends Fragment
             callback.onTorrentFilesChanged();
         }
 
-        filesSize.setText(
-                String.format(getString(R.string.files_size),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.selectedFileSize()),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.size())));
+        updateFileSize();
     }
 
     private class ActionModeCallback implements ActionMode.Callback
@@ -435,7 +447,6 @@ public class DetailTorrentFilesFragment extends Fragment
                     getString(R.string.ok),
                     getString(R.string.cancel),
                     null,
-                    R.style.BaseTheme_Dialog,
                     this);
 
             priorityDialog.show(getFragmentManager(), TAG_PRIORITY_DIALOG);
@@ -527,13 +538,13 @@ public class DetailTorrentFilesFragment extends Fragment
 
                 switch (radioButtonId) {
                     case R.id.dialog_priority_low:
-                        setPriority(files, Priority.IGNORE);
+                        applyPriority(files, Priority.IGNORE);
                         break;
                     case R.id.dialog_priority_normal:
-                        setPriority(files, Priority.NORMAL);
+                        applyPriority(files, Priority.NORMAL);
                         break;
                     case R.id.dialog_priority_high:
-                        setPriority(files, Priority.SEVEN);
+                        applyPriority(files, Priority.SEVEN);
                         break;
                     default:
                         /* No selected */
@@ -559,7 +570,7 @@ public class DetailTorrentFilesFragment extends Fragment
         /* Nothing */
     }
 
-    private void setPriority(List<TorrentContentFileTree> files, Priority priority)
+    private void applyPriority(List<TorrentContentFileTree> files, Priority priority)
     {
         if (files == null || priority == null) {
             return;
@@ -643,7 +654,7 @@ public class DetailTorrentFilesFragment extends Fragment
         return children;
     }
 
-    public long getSeletedFileSize()
+    public long getSelectedFileSize()
     {
         return fileTree.selectedFileSize();
     }

@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Όλα</string>
     <string name="spinner_downloading_torrents">Γίνεται λήψη</string>
     <string name="spinner_downloaded_torrents">Ληφθέντα</string>
+    <string name="spinner_downloading_metadata_torrents">Λήψη μεταδεδομένων</string>
     <string name="delete_torrent_with_downloaded_files">Διαγραφή και των ληφθέντων αρχείων</string>
     <string name="delete_selected_torrent">Να γίνει διαγραφή του επιλεγμένου torrent; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>
     <string name="delete_selected_torrents">Να γίνει διαγραφή των επιλεγμένων torrents; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Χωρίς ταξινόμηση</item>
         <item>Όνομα</item>
+        <item>Ημερομηνία Προστέθηκε</item>
         <item>Μέγεθος</item>
         <item>Πρόοδος</item>
         <item>Χρόνος που απομένει</item>
@@ -76,12 +78,18 @@
     <string name="network_online">Κατάσταση δικτύου: Σε σύνδεση</string>
     <string name="network_offline">Κατάσταση δικτύου: Εκτός σύνδεσης</string>
 
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Σφάλμα torrent</string>
+    <string name="torrent_error_notify_template">Σφάλμα: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent δεν υπάρχει</string>
+    <string name="restore_torrent_error">δεν είναι δυνατή η επαναφορά torrent από προηγούμενη περίοδο λειτουργίας</string>
+
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Το torrent κατέβηκε</string>
 
     <!-- Torrents move notification -->
     <string name="torrents_move_notify_title" formatted="false">Γίνεται μετακίνηση torrents (%1$d/%2$d)</string>
-    <string name="torrents_move_content">Παρακαλώ περιμένετε...</string>
+    <string name="torrents_move_content">Παρακαλώ περιμένετε&#8230;</string>
     <string name="torrents_moved_title">Τα torrents μετακινήθηκαν</string>
     <string name="torrents_moved_content" formatted="false">Επιτυχώς: %1$d; Απέτυχε: %2$d</string>
     <string name="torrents_move_inbox_successfully">Επιτυχώς:</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Σταματημένο</string>
     <string name="torrent_status_checking">Γίνεται έλεγχος</string>
     <string name="torrent_status_finished">Κατέβηκε</string>
+    <string name="torrent_status_downloading_metadata">Λήψη μεταδεδομένων</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Άρνηση δικαιώματος</string>
@@ -111,9 +120,9 @@
     <string name="error_fetch_link">Η ανάκτηση δεδομένων από τον σύνδεσμο απέτυχε</string>
     <string name="error_invalid_link_or_path">Μη έγκυρος σύνδεσμος ή διαδρομή προς το torrent</string>
     <string name="decode_torrent_progress_title">Γίνεται φόρτωση</string>
-    <string name="decode_torrent_default_message">Παρακαλώ περιμένετε...</string>
-    <string name="decode_torrent_fetch_magnet_message">Γίνεται ανάκτηση δεδομένων από τον σύνδεσμο magnet. Παρακαλώ περιμένετε...</string>
-    <string name="decode_torrent_downloading_torrent_message">Το αρχείο torrent κατεβαίνει. Παρακαλώ περιμένετε...</string>
+    <string name="decode_torrent_default_message">Παρακαλώ περιμένετε&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">Γίνεται ανάκτηση δεδομένων από τον σύνδεσμο magnet. Παρακαλώ περιμένετε&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">Το αρχείο torrent κατεβαίνει. Παρακαλώ περιμένετε&#8230;</string>
     <string name="error_add_torrent">Η προσθήκη του torrent απέτυχε</string>
     <string name="error_file_not_found_add_torrent">Η προσθήκη του torrent απέτυχε. Ίσως το αρχείο torrent έχει μετακινηθεί ή διαγραφεί.</string>
     <string name="error_io_add_torrent">Η προσθήκη του torrent είναι αδύνατη. Σφάλμα I/O.</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Πληροφορίες</string>
     <string name="torrent_files">Αρχεία</string>
-    <string name="torrent_name">Όνομα του torrent</string>
+    <string name="torrent_name">Ονομα</string>
     <string name="upload_torrent_into">Μεταφόρτωση στο</string>
     <string name="torrent_size">Μέγεθος</string>
     <string name="torrent_file_count">Αριθμός αρχείων</string>
     <string name="torrent_hash_sum">Hash</string>
     <string name="torrent_comment">Σχόλιο</string>
-    <string name="torrent_create_date">Ημερομηνία δημιουργίας του torrent</string>
-    <string name="torrent_created_in_program">Δημιουργία του torrent από το πρόγραμμα</string>
+    <string name="torrent_create_date">Δημιουργήθηκε</string>
+    <string name="torrent_created_in_program">Δημιουργήθηκε σε πρόγραμμα</string>
     <string name="sequential_download">Διαδοχική λήψη</string>
     <string name="enable_sequential_download">Ενεργοποίηση διαδοχικής λήψης</string>
 
@@ -193,7 +202,7 @@
     <string name="tracker_state_working">Λειτουργεί</string>
     <string name="tracker_state_not_working">Δεν λειτουργεί</string>
     <string name="tracker_state_error" formatted="false">Σφάλμα: %1$s</string>
-    <string name="tracker_state_updating">Γίνεται ενημέρωση...</string>
+    <string name="tracker_state_updating">Γίνεται ενημέρωση&#8230;</string>
     <string name="tracker_state_not_contacted">Δεν έχει γίνει ακόμα επαφή</string>
     <string name="share_tracker_url">Διαμοιρασμός URL</string>
     <string name="delete_selected_tracker">Να γίνει διαγραφή του επιλεγμένου ιχνηλάτη;</string>
@@ -224,6 +233,7 @@
     <string name="upload_speed">Μεταφόρτωση</string>
     <string name="download_speed">Λήψη</string>
     <string name="speed_limit_dialog">Ορισμός ταχύτητας σε KiB/s (0 - χωρίς όριο)</string>
+    <string name="torrent_added_date">Προστέθηκε</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>

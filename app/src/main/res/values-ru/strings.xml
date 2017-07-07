@@ -29,6 +29,7 @@
     <string name="spinner_all_torrents">Все</string>
     <string name="spinner_downloading_torrents">Загружаются</string>
     <string name="spinner_downloaded_torrents">Загруженные</string>
+    <string name="spinner_downloading_metadata_torrents">Загрузка метаданных</string>
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
     <string name="delete_selected_torrent">Удалить выбранный торрент? Данная операция не может быть отменена</string>
     <string name="delete_selected_torrents">Удалить выбранные торренты? Данная операция не может быть отменена</string>
@@ -52,6 +53,7 @@
     <string-array name="sort_torrent_by">
         <item>Без сортировки</item>
         <item>Имя</item>
+        <item>Дата добавления</item>
         <item>Размер</item>
         <item>Прогресс</item>
         <item>Расчётное время</item>
@@ -67,6 +69,12 @@
     <string name="app_running_in_the_background">LibreTorrent запущен в фоне</string>
     <string name="network_online">Статус сети: Онлайн</string>
     <string name="network_offline">Статус сети: Оффлайн</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Ошибка торрента</string>
+    <string name="torrent_error_notify_template">Ошибка: %1$s</string>
+    <string name="torrent_does_not_exists_error">торрент не существует</string>
+    <string name="restore_torrent_error">не удалось восстановить торрент из предыдущей сессии</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Торрент загружен</string>
@@ -88,6 +96,7 @@
     <string name="torrent_status_stopped">Остановлен</string>
     <string name="torrent_status_checking">Проверка</string>
     <string name="torrent_status_finished">Загружен</string>
+    <string name="torrent_status_downloading_metadata">Загрузка метаданных</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
@@ -117,14 +126,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Информация</string>
     <string name="torrent_files">Файлы</string>
-    <string name="torrent_name">Имя торрента</string>
+    <string name="torrent_name">Имя</string>
     <string name="upload_torrent_into">Загрузить в</string>
     <string name="torrent_size">Размер</string>
     <string name="torrent_file_count">Количество файлов</string>
     <string name="torrent_hash_sum">Хеш сумма</string>
     <string name="torrent_comment">Комментарий</string>
-    <string name="torrent_create_date">Торрент создан</string>
-    <string name="torrent_created_in_program">Торрент создан в программе</string>
+    <string name="torrent_create_date">Создан</string>
+    <string name="torrent_created_in_program">Создан в программе</string>
     <string name="sequential_download">Последовательная загрузка</string>
     <string name="enable_sequential_download">Включить последовательную загрузку</string>
 
@@ -207,6 +216,7 @@
     <string name="upload_speed">Отдача</string>
     <string name="download_speed">Загрузка</string>
     <string name="speed_limit_dialog">Установите скорость в КБ/с (0 - без ограничений)</string>
+    <string name="torrent_added_date">Добавлен</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>

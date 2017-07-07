@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Alle</string>
     <string name="spinner_downloading_torrents">Laster ned</string>
     <string name="spinner_downloaded_torrents">Nedlastet</string>
+    <string name="spinner_downloading_metadata_torrents">Laster ned metadata</string>
     <string name="delete_torrent_with_downloaded_files">Slett sammen med nedlastede filer</string>
     <string name="delete_selected_torrent">Slett valgt torrent? Dette kan ikke angres</string>
     <string name="delete_selected_torrents">Slett valgte torrenter. Dette kan ikke angres</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Uten sortering</item>
         <item>Navn</item>
+        <item>Dato lagt til</item>
         <item>Størrelse</item>
         <item>Framdrift</item>
         <item>Gjenstående tid</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent kjører i bakgrunnen</string>
     <string name="network_online">Nettverksstatus: Tilkoblet</string>
     <string name="network_offline">Nettverksstatus: Frakoblet</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Torrent feil</string>
+    <string name="torrent_error_notify_template">Feil: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent eksisterer ikke</string>
+    <string name="restore_torrent_error">kan ikke gjenopprette torrent fra forrige økt</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent fullført</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Stoppet</string>
     <string name="torrent_status_checking">Sjekker</string>
     <string name="torrent_status_finished">Fullført</string>
+    <string name="torrent_status_downloading_metadata">Laster ned metadata</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Filer</string>
-    <string name="torrent_name">Name på torrent</string>
+    <string name="torrent_name">Navn</string>
     <string name="upload_torrent_into">Last opp til</string>
     <string name="torrent_size">Størrelse</string>
     <string name="torrent_file_count">Filantall</string>
     <string name="torrent_hash_sum">Sjekksum</string>
     <string name="torrent_comment">Kommentar</string>
-    <string name="torrent_create_date">Torrent opprettet</string>
-    <string name="torrent_created_in_program">Torrent opprettet i program</string>
+    <string name="torrent_create_date">Opprettet</string>
+    <string name="torrent_created_in_program">Opprettet i program</string>
     <string name="sequential_download">Sekvensiell nedlasting</string>
     <string name="enable_sequential_download">Skru på sekvensiell nedlasting</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">↑</string>
     <string name="download_speed">↓</string>
     <string name="speed_limit_dialog">Sett hastighet i KiB/s (0 - grenseløs)</string>
+    <string name="torrent_added_date">La til</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopier</string>

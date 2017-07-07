@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -56,9 +56,9 @@ public class StateParcelCache<T extends AbstractStateParcel>
         }
     }
 
-    public void remove(T state)
+    public void remove(String parcelId)
     {
-        cache.remove(state.parcelId);
+        cache.remove(parcelId);
     }
 
     public void removeAll(Collection<T> states)
@@ -80,6 +80,11 @@ public class StateParcelCache<T extends AbstractStateParcel>
     public List<T> getAll()
     {
         return new ArrayList<>(cache.values());
+    }
+
+    public boolean contains(String parcelId)
+    {
+        return cache.containsKey(parcelId);
     }
 
     public boolean contains(T state)

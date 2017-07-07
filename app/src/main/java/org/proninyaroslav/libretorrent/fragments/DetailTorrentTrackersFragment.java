@@ -378,7 +378,6 @@ public class DetailTorrentTrackersFragment extends Fragment
                                  getString(R.string.ok),
                                  getString(R.string.cancel),
                                 null,
-                                R.style.BaseTheme_Dialog,
                                 DetailTorrentTrackersFragment.this);
 
                         deleteTrackersDialog.show(getFragmentManager(), TAG_DELETE_TRACKERS_DIALOG);

@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">全部</string>
     <string name="spinner_downloading_torrents">正在下载</string>
     <string name="spinner_downloaded_torrents">已下载</string>
+    <string name="spinner_downloading_metadata_torrents">Downloading metadata</string>
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选择的 torrent ？此操作无法撤销。</string>
     <string name="delete_selected_torrents">删除所选择的所有 torrent ？此操作无法撤销。</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Without sorting</item>
         <item>Name</item>
+        <item>Date added</item>
         <item>Size</item>
         <item>Progress</item>
         <item>ETA</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
     <string name="network_online">网络状态：在线</string>
     <string name="network_offline">网络状态：离线</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Torrent error</string>
+    <string name="torrent_error_notify_template">Error: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent doesn\'t exists</string>
+    <string name="restore_torrent_error">unable to restore torrent from previous session</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">torrent 已完成</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">已停止</string>
     <string name="torrent_status_checking">检查中</string>
     <string name="torrent_status_finished">已完成</string>
+    <string name="torrent_status_downloading_metadata">Downloading metadata</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">获取权限失败</string>
@@ -128,14 +137,14 @@
     <!-- torrent info -->
     <string name="torrent_info">详情</string>
     <string name="torrent_files">文件</string>
-    <string name="torrent_name">torrent 名称</string>
+    <string name="torrent_name">名称</string>
     <string name="upload_torrent_into">下载至</string>
     <string name="torrent_size">文件大小</string>
     <string name="torrent_file_count">文件数量</string>
     <string name="torrent_hash_sum">Hash 特征值</string>
     <string name="torrent_comment">注释</string>
-    <string name="torrent_create_date">torrent 文件创建日期</string>
-    <string name="torrent_created_in_program">torrent 文件创建工具</string>
+    <string name="torrent_create_date">文件创建日期</string>
+    <string name="torrent_created_in_program">文件创建工具</string>
     <string name="sequential_download">顺序下载</string>
     <string name="enable_sequential_download">启用顺序下载</string>
 
@@ -227,6 +236,7 @@
     <string name="upload_speed">上传速度</string>
     <string name="download_speed">下载速度</string>
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
+    <string name="torrent_added_date">Added</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>

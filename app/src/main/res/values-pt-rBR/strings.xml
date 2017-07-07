@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Todos</string>
     <string name="spinner_downloading_torrents">Baixando</string>
     <string name="spinner_downloaded_torrents">Baixado</string>
+    <string name="spinner_downloading_metadata_torrents">Metadados baixando</string>
     <string name="delete_torrent_with_downloaded_files">Deletar com arquivos baixados</string>
     <string name="delete_selected_torrent">Deletar o torrent selecionado? Esta operação não pode ser desfeita</string>
     <string name="delete_selected_torrents">Deletar os torrents selecionados? Esta operação não pode ser desfeita</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Sem ordenar</item>
         <item>Nome</item>
+        <item>Data adicionada</item>
         <item>Tamanho</item>
         <item>Progresso</item>
         <item>TED</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent está rodando em segundo plano</string>
     <string name="network_online">Status da rede: Online</string>
     <string name="network_offline">Status da rede: Offline</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Erro de torrent</string>
+    <string name="torrent_error_notify_template">Erro: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrente não existe</string>
+    <string name="restore_torrent_error">incapaz de restaurar o torrent da sessão anterior</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent terminado</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Parado</string>
     <string name="torrent_status_checking">Verificando</string>
     <string name="torrent_status_finished">Terminado</string>
+    <string name="torrent_status_downloading_metadata">Metadados baixando</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Informação</string>
     <string name="torrent_files">Arquivos</string>
-    <string name="torrent_name">Nome do torrent</string>
+    <string name="torrent_name">Nome</string>
     <string name="upload_torrent_into">Enviar para</string>
     <string name="torrent_size">Tamanho</string>
     <string name="torrent_file_count">Contagem de arquivos</string>
     <string name="torrent_hash_sum">Soma de hash</string>
     <string name="torrent_comment">Comentário</string>
-    <string name="torrent_create_date">Torrent criado</string>
-    <string name="torrent_created_in_program">Torrent criado no programa</string>
+    <string name="torrent_create_date">Criado</string>
+    <string name="torrent_created_in_program">Criado no programa</string>
     <string name="sequential_download">Download sequencial</string>
     <string name="enable_sequential_download">Habilitar download sequencial</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">Enviar</string>
     <string name="download_speed">Baixar</string>
     <string name="speed_limit_dialog">Colocando velocidade em KiB/s (0 - sem limites)</string>
+    <string name="torrent_added_date">Adicionado</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>

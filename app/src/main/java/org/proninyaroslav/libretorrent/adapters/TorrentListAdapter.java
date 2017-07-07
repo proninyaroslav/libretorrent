@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -134,6 +134,8 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             case CHECKING:
                 stateString = context.getString(R.string.torrent_status_checking);
                 break;
+            case DOWNLOADING_METADATA:
+                stateString = context.getString(R.string.torrent_status_downloading_metadata);
         }
         holder.state.setText(stateString);
 
@@ -315,27 +317,18 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         }
     }
 
-    public void deleteItems(Collection<TorrentStateParcel> states)
+    public void deleteItem(TorrentStateParcel state)
     {
-        if (states == null) {
+        if (state == null) {
             return;
         }
 
-        setEqualsMethod(states);
-
-        for (TorrentStateParcel state : states) {
-            if (state == null) {
-                continue;
-            }
-
-            currentItems.remove(state);
-            allItems.remove(state);
-        }
+        state.setEqualsById(true);
+        currentItems.remove(state);
+        allItems.remove(state);
 
         notifyDataSetChanged();
     }
-
-
 
     public void setSorting(TorrentSortingComparator sorting)
     {

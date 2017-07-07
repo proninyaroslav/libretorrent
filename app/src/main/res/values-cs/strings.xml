@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Všechny</string>
     <string name="spinner_downloading_torrents">Stahované</string>
     <string name="spinner_downloaded_torrents">Stažené</string>
+    <string name="spinner_downloading_metadata_torrents">Stažení metadat</string>
     <string name="delete_torrent_with_downloaded_files">Smazat torrent + data</string>
     <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operae nemůže být vrácena</string>
     <string name="delete_selected_torrents">Smazat vybrané torrenty? Tato operace nemůže být vrácena</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Bez řazení</item>
         <item>Jméno</item>
+        <item>Datum přidáno</item>
         <item>Velikost</item>
         <item>Pokrok</item>
         <item>ETA</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
     <string name="network_offline">Stav sítě: Offline</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Chyba torrentu</string>
+    <string name="torrent_error_notify_template">Chyba: %1$s</string>
+    <string name="torrent_does_not_exists_error">Torrent neexistuje</string>
+    <string name="restore_torrent_error">nelze obnovit torrent z předchozí relace</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent dokončen</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Zastaveno</string>
     <string name="torrent_status_checking">Kontrolování</string>
     <string name="torrent_status_finished">Dokončeno</string>
+    <string name="torrent_status_downloading_metadata">Stažení metadat</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Povolení odmítnuto</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Soubory</string>
-    <string name="torrent_name">Jméno torrentu</string>
+    <string name="torrent_name">Jméno</string>
     <string name="upload_torrent_into">Nahrát do</string>
     <string name="torrent_size">Velikost</string>
     <string name="torrent_file_count">Počet souborů</string>
     <string name="torrent_hash_sum">Hash souhrn</string>
     <string name="torrent_comment">Komentář</string>
-    <string name="torrent_create_date">Torrent vytvořen</string>
-    <string name="torrent_created_in_program">Torrent vytvořen v progrmu</string>
+    <string name="torrent_create_date">Vytvořen</string>
+    <string name="torrent_created_in_program">Vytvořen v progrmu</string>
     <string name="sequential_download">Sekvenční stahování</string>
     <string name="enable_sequential_download">Povolit sekvenční stahování</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">Nahrávání</string>
     <string name="download_speed">Stahování</string>
     <string name="speed_limit_dialog">Nastavit rychlost v KiB/s (0 - bez limitu)</string>
+    <string name="torrent_added_date">Přidal</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,15 +24,24 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.loopj.android.http.SyncHttpClient;
+
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+
+import cz.msebera.android.httpclient.Header;
 
 public class TorrentUtils
 {
@@ -65,7 +74,15 @@ public class TorrentUtils
         }
 
         if (torrentDataExists(context, dataDirId)) {
-            removeTorrentDataDir(context, dataDirId);
+            String dataDir = findTorrentDataDir(context, dataDirId);
+            /* The same file */
+            String pathToDataTorrent = (dataDir + File.separator + TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
+            if (dataDir != null && pathToDataTorrent.equals(pathToTorrent)) {
+                throw new FileAlreadyExistsException();
+
+            } else {
+                removeTorrentDataDir(context, dataDirId);
+            }
         }
 
         String dataDir = makeTorrentDataDir(context, dataDirId);
@@ -106,15 +123,17 @@ public class TorrentUtils
 
     public static boolean torrentDataExists(Context context, String id)
     {
+        return FileIOUtils.isStorageReadable() &&
+                new File(context.getExternalFilesDir(null), id).exists();
+    }
+
+    public static boolean torrentFileExists(Context context, String id)
+    {
         if (FileIOUtils.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null),  id);
 
             if (dataDir.exists()) {
-                File torrentFile = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
-
-                if (torrentFile.exists()) {
-                    return true;
-                }
+                return new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME).exists();
             }
         }
 
@@ -181,36 +200,14 @@ public class TorrentUtils
                 data);
     }
 
-    /*
-     * Returns a torrent file as "sha1-random_number.torrent".
-     */
-
-    public static File createTempTorrentFile(byte[] data, File saveDir) throws Exception
-    {
-        return createTorrentFile(UUID.randomUUID().toString(), data, saveDir);
-    }
-
-    /*
-     * Returns empty torrent file as "random_number.torrent".
-     */
-
-    public static File createTempTorrentFile(File saveDir)
-    {
-        return new File(saveDir, UUID.randomUUID().toString() + ".torrent");
-    }
-
-
     public static File createTorrentFile(String name, byte[] data, File saveDir) throws Exception
     {
         if (name == null || data == null || saveDir == null) {
             return null;
         }
 
-        File torrent = FileIOUtils.createTempFile(name, ".torrent", saveDir);
-
-        if (torrent != null) {
-            FileUtils.writeByteArrayToFile(torrent, data);
-        }
+        File torrent = new File(saveDir, name);
+        FileUtils.writeByteArrayToFile(torrent, data);
 
         return torrent;
     }
@@ -288,5 +285,60 @@ public class TorrentUtils
         }
 
         return FileIOUtils.getDefaultDownloadPath();
+    }
+
+    public static File fetchByHTTP(Context context, String url, final File saveDir) throws FetchLinkException
+    {
+        if (saveDir == null) {
+            throw new FetchLinkException("Temp dir not found");
+        }
+
+        if (!Utils.checkNetworkConnection(context)) {
+            throw new FetchLinkException("No network connection");
+        }
+
+        final ArrayList<Throwable> errorArray = new ArrayList<>(1);
+        final CountDownLatch signal = new CountDownLatch(1);
+        SyncHttpClient client = new SyncHttpClient();
+        File tempTorrent = new File(saveDir, UUID.randomUUID().toString() + ".torrent");
+
+        client.get(url, new FileAsyncHttpResponseHandler(tempTorrent) {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file)
+            {
+                throwable.printStackTrace();
+                errorArray.add(throwable);
+                if (file.exists()) {
+                    file.delete();
+                }
+                signal.countDown();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File file)
+            {
+                signal.countDown();
+            }
+        });
+
+        try {
+            Log.i(TAG, "Fetching link...");
+            signal.await();
+
+        } catch (InterruptedException e) {
+            /* Ignore */
+        }
+
+        if (!errorArray.isEmpty()) {
+            StringBuilder s = new StringBuilder();
+
+            for (Throwable e : errorArray) {
+                s.append(e.toString().concat("\n"));
+            }
+
+            throw new FetchLinkException(s.toString());
+        }
+
+        return tempTorrent;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -25,7 +25,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Formatter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +51,14 @@ public class DetailTorrentStateFragment extends Fragment
     private AppCompatActivity activity;
     private TorrentStateParcel state;
     private TorrentMetaInfo info;
+    TextView downloadUploadSpeed, downloadCounter, textViewETA,
+            textViewSeeds, textViewLeechers, textViewPieces,
+            textViewUploaded, shareRatio;
 
     public static DetailTorrentStateFragment newInstance(TorrentMetaInfo info) {
         DetailTorrentStateFragment fragment = new DetailTorrentStateFragment();
 
-        fragment.setInfo(info);
+        fragment.info = info;
 
         Bundle b = new Bundle();
         fragment.setArguments(b);
@@ -88,7 +90,18 @@ public class DetailTorrentStateFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_detail_torrent_state, container, false);
+        View v = inflater.inflate(R.layout.fragment_detail_torrent_state, container, false);
+
+        downloadUploadSpeed = (TextView) v.findViewById(R.id.torrent_state_speed);
+        downloadCounter = (TextView) v.findViewById(R.id.torrent_state_downloading);
+        textViewETA = (TextView) v.findViewById(R.id.torrent_state_ETA);
+        textViewSeeds = (TextView) v.findViewById(R.id.torrent_state_seeds);
+        textViewLeechers = (TextView) v.findViewById(R.id.torrent_state_leechers);
+        textViewPieces = (TextView) v.findViewById(R.id.torrent_state_pieces);
+        textViewUploaded = (TextView) v.findViewById(R.id.torrent_state_uploaded);
+        shareRatio = (TextView) v.findViewById(R.id.torrent_state_share_ratio);
+
+        return v;
     }
 
     @Override
@@ -125,91 +138,61 @@ public class DetailTorrentStateFragment extends Fragment
 
     public void reloadInfoView()
     {
-        if (activity == null || state == null || info == null) {
+        if (activity == null || state == null) {
             return;
         }
 
-        TextView downloadUploadSpeed = (TextView) activity.findViewById(R.id.torrent_state_speed);
+        String speedTemplate = activity.getString(R.string.download_upload_speed_template);
+        String downloadSpeed = Formatter.formatFileSize(activity, state.downloadSpeed);
+        String uploadSpeed = Formatter.formatFileSize(activity, state.uploadSpeed);
+        downloadUploadSpeed.setText(
+                String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
-        if (downloadUploadSpeed != null) {
-            String speedTemplate = activity.getString(R.string.download_upload_speed_template);
-            String downloadSpeed = Formatter.formatFileSize(activity, state.downloadSpeed);
-            String uploadSpeed = Formatter.formatFileSize(activity, state.uploadSpeed);
-            downloadUploadSpeed.setText(
-                    String.format(speedTemplate, downloadSpeed, uploadSpeed));
+        String counterTemplate = activity.getString(R.string.download_counter_template);
+        String totalBytes = Formatter.formatFileSize(activity, state.totalBytes);
+        String receivedBytes;
+        if (state.progress == 100) {
+            receivedBytes = totalBytes;
+        } else {
+            receivedBytes = Formatter.formatFileSize(activity, state.receivedBytes);
         }
+        downloadCounter.setText(
+                String.format(
+                        counterTemplate, receivedBytes,
+                        totalBytes, state.progress));
 
-        TextView downloadCounter = (TextView) activity.findViewById(R.id.torrent_state_downloading);
-
-        if (downloadCounter != null) {
-            String counterTemplate = activity.getString(R.string.download_counter_template);
-            String totalBytes = Formatter.formatFileSize(activity, state.totalBytes);
-            String receivedBytes;
-            if (state.progress == 100) {
-                receivedBytes = totalBytes;
-            } else {
-                receivedBytes = Formatter.formatFileSize(activity, state.receivedBytes);
-            }
-            downloadCounter.setText(
-                    String.format(
-                            counterTemplate, receivedBytes,
-                            totalBytes, state.progress));
+        String ETA;
+        if (state.ETA == -1 || state.ETA == 0) {
+            ETA = Utils.INFINITY_SYMBOL;
+        } else {
+            ETA = DateFormatUtils.formatElapsedTime(
+                    activity.getApplicationContext(), state.ETA);
         }
+        textViewETA.setText(ETA);
 
-        TextView textViewETA = (TextView) activity.findViewById(R.id.torrent_state_ETA);
+        String seedsTemplate = activity.getString(R.string.torrent_peers_template);
+        textViewSeeds.setText(
+                String.format(seedsTemplate, state.seeds, state.totalSeeds));
 
-        if (textViewETA != null) {
-            String ETA;
-            if (state.ETA == -1 || state.ETA == 0) {
-                ETA = Utils.INFINITY_SYMBOL;
-            } else {
-                ETA = DateFormatUtils.formatElapsedTime(
-                        activity.getApplicationContext(), state.ETA);
-            }
-            textViewETA.setText(ETA);
-        }
+        String peersTemplate = activity.getString(R.string.torrent_peers_template);
+        int leechers = state.peers - state.seeds;
+        int totalLeechers = state.totalPeers - state.totalSeeds;
+        textViewLeechers.setText(
+                String.format(peersTemplate, leechers, totalLeechers));
 
-        TextView textViewSeeds = (TextView) activity.findViewById(R.id.torrent_state_seeds);
+        String uploaded = Formatter.formatFileSize(activity, state.uploadedBytes);
+        textViewUploaded.setText(uploaded);
 
-        if (textViewSeeds != null) {
-            String seedsTemplate = activity.getString(R.string.torrent_peers_template);
-            textViewSeeds.setText(
-                    String.format(seedsTemplate, state.seeds, state.totalSeeds));
-        }
+        shareRatio.setText(String.valueOf(state.shareRatio));
 
-        TextView textViewLeechers = (TextView) activity.findViewById(R.id.torrent_state_leechers);
-
-        if (textViewLeechers != null) {
-            String peersTemplate = activity.getString(R.string.torrent_peers_template);
-            int leechers = state.peers - state.seeds;
-            int totalLeechers = state.totalPeers - state.totalSeeds;
-            textViewLeechers.setText(
-                    String.format(peersTemplate, leechers, totalLeechers));
-        }
-
-        TextView textViewPieces = (TextView) activity.findViewById(R.id.torrent_state_pieces);
-
-        if (textViewPieces != null) {
+        if (info != null) {
             String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
-            String pieceLehgtn = Formatter.formatFileSize(activity, info.getPieceLength());
+            String pieceLength = Formatter.formatFileSize(activity, info.pieceLength);
             textViewPieces.setText(
                     String.format(piecesTemplate,
                             state.downloadedPieces,
-                            info.getNumPieces(),
-                            pieceLehgtn));
-        }
-
-        TextView textViewUploaded = (TextView) activity.findViewById(R.id.torrent_state_uploaded);
-
-        if (textViewUploaded != null) {
-            String uploaded = Formatter.formatFileSize(activity, state.uploadedBytes);
-            textViewUploaded.setText(uploaded);
-        }
-
-        TextView shareRatio = (TextView) activity.findViewById(R.id.torrent_state_share_ratio);
-
-        if (shareRatio != null) {
-            shareRatio.setText(String.valueOf(state.shareRatio));
+                            info.numPieces,
+                            pieceLength));
         }
     }
 

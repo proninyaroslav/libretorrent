@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,8 +22,10 @@ package org.proninyaroslav.libretorrent.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -34,7 +36,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
 {
     /* Usually torrent SHA-1 hash */
     private String id;
-    /* Path to the torrent file */
+    /* Path to the torrent file (or magnet URI if downloadingMetadata = true)*/
     private String torrentFile;
     private String downloadPath;
     /*
@@ -46,24 +48,27 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     private boolean sequentialDownload = false;
     private boolean finished = false;
     private boolean paused = false;
+    private boolean downloadingMetadata = false;
+    private long dateAdded;
 
     public Torrent(String id, String torrentName,
                    Collection<Integer> filePriorities,
-                   String downloadPath)
+                   String downloadPath, long dateAdded)
     {
-        this(id, null, torrentName, filePriorities, downloadPath);
+        this(id, null, torrentName, filePriorities, downloadPath, dateAdded);
     }
 
     public Torrent(String id, String torrentFile,
                    String torrentName,
                    Collection<Integer> filePriorities,
-                   String downloadPath)
+                   String downloadPath, long dateAdded)
     {
         this.id = id;
         this.torrentFile = torrentFile;
         this.torrentName = torrentName;
         this.filePriorities = new ArrayList<>(filePriorities);
         this.downloadPath = downloadPath;
+        this.dateAdded = dateAdded;
     }
 
     public Torrent(Parcel source)
@@ -76,6 +81,8 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         sequentialDownload = source.readByte() != 0;
         finished = source.readByte() != 0;
         paused = source.readByte() != 0;
+        downloadingMetadata = source.readByte() != 0;
+        dateAdded = source.readLong();
     }
 
     public String getId()
@@ -158,6 +165,26 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         this.paused = paused;
     }
 
+    public boolean isDownloadingMetadata()
+    {
+        return downloadingMetadata;
+    }
+
+    public void setDownloadingMetadata(boolean downloadingMetadata)
+    {
+        this.downloadingMetadata = downloadingMetadata;
+    }
+
+    public long getDateAdded()
+    {
+        return dateAdded;
+    }
+
+    public void setDateAdded(long datetime)
+    {
+        this.dateAdded = datetime;
+    }
+
     @Override
     public int describeContents()
     {
@@ -175,6 +202,8 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         dest.writeByte((byte) (sequentialDownload ? 1 : 0));
         dest.writeByte((byte) (finished ? 1 : 0));
         dest.writeByte((byte) (paused ? 1 : 0));
+        dest.writeByte((byte) (downloadingMetadata ? 1 : 0));
+        dest.writeLong(dateAdded);
     }
 
     public static final Parcelable.Creator<Torrent> CREATOR =
@@ -212,8 +241,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Torrent{" +
                 "id='" + id + '\'' +
                 ", torrentFile='" + torrentFile + '\'' +
@@ -223,6 +251,8 @@ public class Torrent implements Parcelable, Comparable<Torrent>
                 ", sequentialDownload=" + sequentialDownload +
                 ", finished=" + finished +
                 ", paused=" + paused +
+                ", downloadingMetadata=" + downloadingMetadata +
+                ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
                 '}';
     }
 }

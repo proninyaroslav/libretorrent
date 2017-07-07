@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Alle</string>
     <string name="spinner_downloading_torrents">Herunterladend</string>
     <string name="spinner_downloaded_torrents">Heruntergeladen</string>
+    <string name="spinner_downloading_metadata_torrents">Metadaten herunterladen</string>
     <string name="delete_torrent_with_downloaded_files">Mit heruntergeladenen Dateien löschen</string>
     <string name="delete_selected_torrent">Gewählten Torrent löschen? Dies kann nicht rückgängig gemacht werden</string>
     <string name="delete_selected_torrents">Gewählte Torrents löschen? Dies kann nicht rückgängig gemacht werden</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Ohne Sortierung</item>
         <item>Name</item>
+        <item>Datum hinzugefügt</item>
         <item>Größe</item>
         <item>Fortschritt</item>
         <item>ETA</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent läuft im Hintergrund</string>
     <string name="network_online">Netzwerkstatus: Online</string>
     <string name="network_offline">Netzwerkstatus: Offline</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Torrent Fehler</string>
+    <string name="torrent_error_notify_template">Fehler: %1$s</string>
+    <string name="torrent_does_not_exists_error">Torrent existiert nicht</string>
+    <string name="restore_torrent_error">nicht in der Lage, torrent aus der vorherigen Sitzung wiederherzustellen</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent abgeschlossen</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Angehalten</string>
     <string name="torrent_status_checking">Checking</string>
     <string name="torrent_status_finished">Abgeschlossen</string>
+    <string name="torrent_status_downloading_metadata">Metadaten herunterladen</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Berechtigung verweigert</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Dateien</string>
-    <string name="torrent_name">Name des Torrents</string>
+    <string name="torrent_name">Name</string>
     <string name="upload_torrent_into">Upload into</string>
     <string name="torrent_size">Größe</string>
     <string name="torrent_file_count">Anzahl Dateien</string>
     <string name="torrent_hash_sum">Prüfsumme</string>
     <string name="torrent_comment">Kommentar</string>
-    <string name="torrent_create_date">Torrent erstellt</string>
-    <string name="torrent_created_in_program">Torrent erstellt in Programm</string>
+    <string name="torrent_create_date">Erstellt</string>
+    <string name="torrent_created_in_program">Erstellt in Programm</string>
     <string name="sequential_download">Sequenzieller Download</string>
     <string name="enable_sequential_download">Sequenziellen Download aktivieren</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">Hochladen</string>
     <string name="download_speed">Herunterladen</string>
     <string name="speed_limit_dialog">Setze Geschwindigkeit in KiB/s (0 - unbeschränkt)</string>
+    <string name="torrent_added_date">Hinzugefügt</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopieren</string>
@@ -317,7 +327,7 @@
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_address_title">Addresse</string>
+    <string name="pref_proxy_address_title">Adresse</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Auch für Peer Verbindungen</string>
     <string name="pref_proxy_peers_too_summary">Der Proxy Server wird auch für Verbindungen mit Trackern, Peers und Seeds genutzt</string>

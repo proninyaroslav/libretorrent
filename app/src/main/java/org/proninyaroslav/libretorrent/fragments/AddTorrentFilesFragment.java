@@ -68,9 +68,9 @@ public class AddTorrentFilesFragment extends Fragment
     private Parcelable listFilesState;
     private TextView filesSize;
 
-    BencodeFileTree fileTree;
+    private BencodeFileTree fileTree;
     /* Current directory */
-    BencodeFileTree curDir;
+    private BencodeFileTree curDir;
 
     public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files) {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
@@ -131,8 +131,7 @@ public class AddTorrentFilesFragment extends Fragment
         fileList.setLayoutManager(layoutManager);
         fileList.setItemAnimator(new DefaultItemAnimator());
         adapter = new DownloadableFilesAdapter(getChildren(curDir), activity,
-                                                R.layout.item_torrent_downloadable_file, this);
-
+                R.layout.item_torrent_downloadable_file, this);
         fileList.setAdapter(adapter);
     }
 

@@ -56,5 +56,6 @@ public class SendTextToClipboard extends Activity
         }
 
         finish();
+        overridePendingTransition(0, 0);
     }
 }

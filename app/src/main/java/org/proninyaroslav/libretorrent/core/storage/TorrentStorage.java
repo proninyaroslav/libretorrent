@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -58,7 +58,9 @@ public class TorrentStorage
             DatabaseHelper.COLUMN_FILE_PRIORITIES,
             DatabaseHelper.COLUMN_IS_SEQUENTIAL,
             DatabaseHelper.COLUMN_IS_FINISHED,
-            DatabaseHelper.COLUMN_IS_PAUSED
+            DatabaseHelper.COLUMN_IS_PAUSED,
+            DatabaseHelper.COLUMN_DOWNLOADING_METADATA,
+            DatabaseHelper.COLUMN_DATETIME
     };
 
     private Context context;
@@ -78,20 +80,25 @@ public class TorrentStorage
 
     public boolean add(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Throwable
     {
-        if (pathToTorrent == null) {
-            return false;
+        String newPath = null;
+        if (!torrent.isDownloadingMetadata()) {
+            newPath = TorrentUtils.copyTorrent(context, torrent.getId(), pathToTorrent);
+
+            if (newPath == null) {
+                return false;
+            }
+
+        } else {
+            if (TorrentUtils.torrentDataExists(context, torrent.getId())) {
+                TorrentUtils.removeTorrentDataDir(context, torrent.getId());
+            }
+
+            if (TorrentUtils.makeTorrentDataDir(context, torrent.getId()) == null) {
+                throw new IOException("Unable to create dir");
+            }
         }
 
-        String newPath = TorrentUtils.copyTorrent(
-                context,
-                torrent.getId(),
-                pathToTorrent);
-
-        if (newPath == null) {
-            return false;
-        }
-
-        if (deleteTorrentFile) {
+        if (deleteTorrentFile && !torrent.isDownloadingMetadata()) {
             try {
                 FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
 
@@ -100,7 +107,9 @@ public class TorrentStorage
             }
         }
 
-        torrent.setTorrentFilePath(newPath);
+        if (newPath != null) {
+            torrent.setTorrentFilePath(newPath);
+        }
 
         return insert(torrent) >= 0;
     }
@@ -117,6 +126,8 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
+        values.put(DatabaseHelper.COLUMN_DOWNLOADING_METADATA, (torrent.isDownloadingMetadata() ? 1 : 0));
+        values.put(DatabaseHelper.COLUMN_DATETIME, torrent.getDateAdded());
 
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
@@ -162,6 +173,8 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
+        values.put(DatabaseHelper.COLUMN_DOWNLOADING_METADATA, (torrent.isDownloadingMetadata() ? 1 : 0));
+        values.put(DatabaseHelper.COLUMN_DATETIME, torrent.getDateAdded());
 
         ConnectionManager.getDatabase(context).update(DatabaseHelper.TORRENTS_TABLE,
                 values,
@@ -337,15 +350,21 @@ public class TorrentStorage
         boolean isPaused = cursor.getInt(
                 indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_IS_PAUSED)) > 0;
 
+        boolean downloadingMetadata = cursor.getInt(
+                indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_DOWNLOADING_METADATA)) > 0;
+
+        long datetime = cursor.getLong(indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_DATETIME));
+
         Torrent torrent =
                 new Torrent(
                         id, pathToTorrent,
                         name, filePriorities,
-                        pathToDownload);
+                        pathToDownload, datetime);
 
         torrent.setSequentialDownload(isSequentialDownload);
         torrent.setFinished(isFinished);
         torrent.setPaused(isPaused);
+        torrent.setDownloadingMetadata(downloadingMetadata);
 
         return torrent;
     }
@@ -363,6 +382,10 @@ public class TorrentStorage
         Collection<Integer> list = new ArrayList<>();
 
         for (String number : numbers) {
+            if (TextUtils.isEmpty(number)) {
+                continue;
+            }
+
             list.add(Integer.valueOf(number));
         }
 

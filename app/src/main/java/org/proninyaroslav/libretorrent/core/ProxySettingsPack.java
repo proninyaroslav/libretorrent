@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,10 +36,9 @@ public class ProxySettingsPack
     public enum ProxyType
     {
         NONE(0),
-        TOR(1),
-        SOCKS4(2),
-        SOCKS5(3),
-        HTTP(4);
+        SOCKS4(1),
+        SOCKS5(2),
+        HTTP(3);
 
         private final int value;
 

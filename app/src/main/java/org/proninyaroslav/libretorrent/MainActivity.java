@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,20 +19,12 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
@@ -44,25 +36,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements
-        BaseAlertDialog.OnClickListener,
         FragmentCallback,
         DetailTorrentFragment.Callback
 {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String TAG_PERM_DIALOG = "perm_dialog";
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
-    private static final String TAG_ACTION_SHUTDOWN = "action_shutdown";
 
-    public static boolean permIsGranted = false;
     private boolean permDialogIsShow = false;
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-
     MainFragment mainFragment;
 
     @Override
@@ -85,13 +67,15 @@ public class MainActivity extends AppCompatActivity
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
         }
 
-        verifyStoragePermissions(this);
+        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
+            permDialogIsShow = true;
+            startActivity(new Intent(this, RequestPermissions.class));
+        }
 
         SettingsManager.initPreferences(getApplicationContext());
         startService(new Intent(this, TorrentTaskService.class));
 
         setContentView(R.layout.activity_main);
-
         Utils.showColoredStatusBar_KitKat(this);
 
         FragmentManager fm = getFragmentManager();
@@ -188,75 +172,6 @@ public class MainActivity extends AppCompatActivity
                     mainFragment.resetCurOpenTorrent();
                 }
                 break;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
-                                           @NonNull int[] grantResults)
-    {
-        switch (requestCode) {
-            case REQUEST_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    permIsGranted = true;
-                } else {
-                    permIsGranted = false;
-
-                    if (getFragmentManager().findFragmentByTag(TAG_PERM_DIALOG) == null) {
-                        BaseAlertDialog permDialog = BaseAlertDialog.newInstance(
-                                getString(R.string.perm_denied_title),
-                                getString(R.string.perm_denied_warning),
-                                0,
-                                getString(R.string.yes),
-                                getString(R.string.no),
-                                null,
-                                this);
-
-                        permDialog.show(getFragmentManager(), TAG_PERM_DIALOG);
-                    }
-                }
-
-                break;
-            }
-        }
-    }
-
-    /*
-     * Permission dialog.
-     */
-
-    @Override
-    public void onPositiveClicked(@Nullable View v)
-    {
-        /* Nothing */
-    }
-
-    @Override
-    public void onNegativeClicked(@Nullable View v)
-    {
-        ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public void onNeutralClicked(@Nullable View v)
-    {
-        /* Nothing */
-    }
-
-    public void verifyStoragePermissions(Activity activity)
-    {
-        /* Prevents duplication permission dialog */
-        if (permDialogIsShow) {
-            return;
-        }
-
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            permDialogIsShow = true;
-            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-        } else {
-            permIsGranted = true;
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core.storage;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /*
  * A database model for store torrents.
@@ -33,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "libretorrent.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TORRENTS_TABLE = "torrents";
     public static final String COLUMN_ID = "_id";
@@ -45,6 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final String COLUMN_IS_SEQUENTIAL = "is_sequential";
     public static final String COLUMN_IS_FINISHED = "is_finished";
     public static final String COLUMN_IS_PAUSED = "is_paused";
+    public static final String COLUMN_DOWNLOADING_METADATA = "downloading_metadata";
+    public static final String COLUMN_DATETIME = "datetime";
 
     private static final String CREATE_TORRENTS_TABLE = "create table "
             + TORRENTS_TABLE +
@@ -56,7 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
             + COLUMN_FILE_PRIORITIES + " text not null, "
             + COLUMN_IS_SEQUENTIAL + " integer, "
             + COLUMN_IS_FINISHED + " integer, "
-            + COLUMN_IS_PAUSED + " integer );";
+            + COLUMN_IS_PAUSED + " integer, "
+            + COLUMN_DOWNLOADING_METADATA + " integer, "
+            + COLUMN_DATETIME + " integer );";
 
     public DatabaseHelper(Context context)
     {
@@ -70,8 +75,23 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1)
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion)
     {
-        /* Nothing */
+        Log.w(TAG, "Upgrading database from version " + oldVersion + " to version "+ newVersion);
+
+        if (oldVersion == 1 && newVersion == 2) {
+            sqLiteDatabase.beginTransaction();
+            try {
+                sqLiteDatabase.execSQL("ALTER TABLE " + TORRENTS_TABLE + " ADD COLUMN "
+                        + COLUMN_DOWNLOADING_METADATA + " integer ");
+                sqLiteDatabase.execSQL("ALTER TABLE " + TORRENTS_TABLE + " ADD COLUMN "
+                        + COLUMN_DATETIME + " integer ");
+
+                sqLiteDatabase.setTransactionSuccessful();
+
+            } finally {
+                sqLiteDatabase.endTransaction();
+            }
+        }
     }
 }

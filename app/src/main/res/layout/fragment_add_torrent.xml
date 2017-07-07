@@ -30,6 +30,14 @@
                 app:popupTheme="?attr/popupTheme"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+            <ProgressBar
+                android:id="@+id/fetch_magnet_progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone" />
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/add_torrent_tabs"
                 android:layout_width="match_parent"

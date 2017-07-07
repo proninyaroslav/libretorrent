@@ -19,14 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import android.os.Bundle;
-
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
-
-public interface TorrentServiceCallback
+public interface FetchMagnetCallback
 {
-    void onTorrentStateChanged(TorrentStateParcel state);
-    void onTorrentsStateChanged(Bundle states);
-    void onTorrentAdded(TorrentStateParcel state, Throwable exception);
-    void onTorrentRemoved(TorrentStateParcel state);
+    void onMagnetFetched(String hash, String pathToTorrent, Exception e);
 }

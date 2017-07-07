@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -34,7 +34,9 @@ import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 import com.frostwire.jlibtorrent.swig.error_code;
@@ -42,12 +44,15 @@ import com.frostwire.jlibtorrent.swig.ip_filter;
 import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.session_params;
 import com.frostwire.jlibtorrent.swig.settings_pack;
+import com.frostwire.jlibtorrent.swig.sha1_hash;
+import com.frostwire.jlibtorrent.swig.torrent_handle;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -56,13 +61,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
  * This class is designed for seeding, downloading and management of torrents.
  */
 
 public class TorrentEngine extends SessionManager
-        implements TorrentEngineInterface
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
@@ -89,7 +94,8 @@ public class TorrentEngine extends SessionManager
     public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
-            AlertType.ADD_TORRENT.swig()
+            AlertType.ADD_TORRENT.swig(),
+            AlertType.METADATA_RECEIVED.swig(),
     };
 
     private Context context;
@@ -98,8 +104,9 @@ public class TorrentEngine extends SessionManager
     private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     private Map<String, Torrent> addTorrentsQueue = new HashMap<>();
+    private ReentrantLock syncMagnet = new ReentrantLock();
 
-    private TorrentEngine() /*throws Exception*/
+    private TorrentEngine()
     {
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
@@ -209,47 +216,76 @@ public class TorrentEngine extends SessionManager
                     }
                     runNextLoadTorrentTask();
                     break;
+                case METADATA_RECEIVED:
+                    MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
+                    int size = a.metadataSize();
+                    int maxSize = 2 * 1024 * 1024;
+                    byte[] data = null;
+
+                    if (callback != null && 0 < size && size <= maxSize) {
+                        data = a.torrentData(true);
+                    }
+
+                    if (callback != null) {
+                        callback.onMetadataReceived(a.handle().infoHash().toHex(), data);
+                    }
+                    break;
             }
         }
     }
 
-    @Override
     public void restoreDownloads(Collection<Torrent> torrents)
     {
-        if (swig() == null || torrents == null) {
+        if (torrents == null) {
             return;
         }
 
         for (Torrent torrent : torrents) {
-            TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
-
-            Priority[] priorities = new Priority[ti.numFiles()];
-            List<Integer> torrentPriorities = torrent.getFilePriorities();
-
-            if (torrentPriorities.size() != ti.numFiles()) {
+            if (torrent == null) {
                 continue;
             }
 
-            for (int i = 0; i < torrentPriorities.size(); i++) {
-                priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
-            }
+            LoadTorrentTask loadTask = new LoadTorrentTask(torrent.getId());
 
-            File saveDir = new File(torrent.getDownloadPath());
+            if (torrent.isDownloadingMetadata()) {
+                loadTask.putMagnet(torrent.getTorrentFilePath(), new File(torrent.getTorrentFilePath()));
 
-            String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
-            File resumeFile = null;
+            } else {
+                TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
 
-            if (dataDir != null) {
-                File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
-                if (file.exists()) {
-                    resumeFile = file;
+                Priority[] priorities = new Priority[ti.numFiles()];
+                List<Integer> torrentPriorities = torrent.getFilePriorities();
+
+                if (torrentPriorities.size() != ti.numFiles()) {
+                    if (callback != null) {
+                        callback.onRestoreSessionError(torrent.getId());
+                    }
+
+                    continue;
                 }
+
+                for (int i = 0; i < torrentPriorities.size(); i++) {
+                    priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
+                }
+
+                File saveDir = new File(torrent.getDownloadPath());
+
+                String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
+                File resumeFile = null;
+
+                if (dataDir != null) {
+                    File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
+                    if (file.exists()) {
+                        resumeFile = file;
+                    }
+                }
+
+                loadTask.putTorrentFile(new File(torrent.getTorrentFilePath()),
+                        saveDir, resumeFile, priorities);
             }
 
-            addTorrentsQueue.put(ti.infoHash().toString(), torrent);
-            loadTorrentsQueue.add(
-                    new LoadTorrentTask(new File(torrent.getTorrentFilePath()),
-                            saveDir, resumeFile, priorities));
+            addTorrentsQueue.put(torrent.getId(), torrent);
+            loadTorrentsQueue.add(loadTask);
         }
 
         runNextLoadTorrentTask();
@@ -296,8 +332,7 @@ public class TorrentEngine extends SessionManager
         }
     }
 
-    @Override
-    public TorrentDownload download(Torrent torrent)
+    public void download(Torrent torrent)
     {
         TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
 
@@ -305,7 +340,9 @@ public class TorrentEngine extends SessionManager
         List<Integer> torrentPriorities = torrent.getFilePriorities();
 
         if (torrentPriorities.size() != ti.numFiles()) {
-            return null;
+            Log.e(TAG, "File count doesn't match: " + torrent.getName());
+
+            return;
         }
 
         for (int i = 0; i < torrentPriorities.size(); i++) {
@@ -335,11 +372,8 @@ public class TorrentEngine extends SessionManager
             /* Found a download with the same hash, just adjust the priorities if needed */
             prioritizeFiles(handle, priorities);
         }
-
-        return null;
     }
 
-    @Override
     public void saveSettings()
     {
         if (swig() == null) {
@@ -355,7 +389,6 @@ public class TorrentEngine extends SessionManager
         }
     }
 
-    @Override
     public SessionParams loadSettings()
     {
         try {
@@ -420,7 +453,6 @@ public class TorrentEngine extends SessionManager
         return sp;
     }
 
-    @Override
     public void setSettings(SettingsPack sp)
     {
         if (sp == null || swig() == null) {
@@ -431,7 +463,6 @@ public class TorrentEngine extends SessionManager
         saveSettings();
     }
 
-    @Override
     public SettingsPack getSettings()
     {
         if (swig() == null) {
@@ -441,7 +472,6 @@ public class TorrentEngine extends SessionManager
         return settings();
     }
 
-    @Override
     public void setDownloadSpeedLimit(int limit)
     {
         if (swig() == null) {
@@ -453,7 +483,6 @@ public class TorrentEngine extends SessionManager
         setSettings(settingsPack);
     }
 
-    @Override
     public int getDownloadSpeedLimit()
     {
         if (swig() == null) {
@@ -463,7 +492,6 @@ public class TorrentEngine extends SessionManager
         return settings().downloadRateLimit();
     }
 
-    @Override
     public void setUploadSpeedLimit(int limit)
     {
         if (swig() == null) {
@@ -476,7 +504,6 @@ public class TorrentEngine extends SessionManager
         setSettings(settingsPack);
     }
 
-    @Override
     public int getUploadSpeedLimit()
     {
         if (swig() == null) {
@@ -486,7 +513,6 @@ public class TorrentEngine extends SessionManager
         return settings().uploadRateLimit();
     }
 
-    @Override
     public long getDownloadRate()
     {
         if (swig() == null) {
@@ -496,7 +522,6 @@ public class TorrentEngine extends SessionManager
         return stats().downloadRate();
     }
 
-    @Override
     public long getUploadRate()
     {
         if (swig() == null) {
@@ -506,7 +531,6 @@ public class TorrentEngine extends SessionManager
         return stats().uploadRate();
     }
 
-    @Override
     public long getTotalDownload()
     {
         if (swig() == null) {
@@ -516,7 +540,6 @@ public class TorrentEngine extends SessionManager
         return stats().totalDownload();
     }
 
-    @Override
     public long getTotalUpload()
     {
         if (swig() == null) {
@@ -526,7 +549,6 @@ public class TorrentEngine extends SessionManager
         return stats().totalUpload();
     }
 
-    @Override
     public int getDownloadRateLimit()
     {
         if (swig() == null) {
@@ -536,7 +558,6 @@ public class TorrentEngine extends SessionManager
         return settings().downloadRateLimit();
     }
 
-    @Override
     public int getUploadRateLimit()
     {
         if (swig() == null) {
@@ -546,7 +567,6 @@ public class TorrentEngine extends SessionManager
         return settings().uploadRateLimit();
     }
 
-    @Override
     public int getPort()
     {
         if (swig() == null) {
@@ -556,7 +576,6 @@ public class TorrentEngine extends SessionManager
         return swig().listen_port();
     }
 
-    @Override
     public void setPort(int port)
     {
         if (swig() == null || port == -1) {
@@ -568,7 +587,6 @@ public class TorrentEngine extends SessionManager
         setSettings(sp);
     }
 
-    @Override
     public void setRandomPort()
     {
         int randomPort = MIN_PORT_NUMBER + (int)(Math.random()
@@ -576,7 +594,6 @@ public class TorrentEngine extends SessionManager
         setPort(randomPort);
     }
 
-    @Override
     public void enableIpFilter(String path)
     {
         if (path == null) {
@@ -601,7 +618,6 @@ public class TorrentEngine extends SessionManager
         parser.parse();
     }
 
-    @Override
     public void disableIpFilter()
     {
         if (swig() == null) {
@@ -611,7 +627,6 @@ public class TorrentEngine extends SessionManager
         swig().set_ip_filter(new ip_filter());
     }
 
-    @Override
     public void setProxy(Context context, ProxySettingsPack proxy)
     {
         if (context == null || proxy == null || swig() == null) {
@@ -653,7 +668,6 @@ public class TorrentEngine extends SessionManager
         setSettings(sp);
     }
 
-    @Override
     public ProxySettingsPack getProxy()
     {
         ProxySettingsPack proxy = new ProxySettingsPack();
@@ -662,16 +676,14 @@ public class TorrentEngine extends SessionManager
         ProxySettingsPack.ProxyType type;
         String swigType = sp.getString(settings_pack.int_types.proxy_type.swigValue());
 
-        if (swigType.equals(settings_pack.proxy_type_t.none.toString())) {
-            type = ProxySettingsPack.ProxyType.NONE;
-        } else if (swigType.equals(settings_pack.proxy_type_t.socks4.toString())) {
+        type = ProxySettingsPack.ProxyType.NONE;
+
+        if (swigType.equals(settings_pack.proxy_type_t.socks4.toString())) {
             type = ProxySettingsPack.ProxyType.SOCKS4;
         } else if (swigType.equals(settings_pack.proxy_type_t.socks5.toString())) {
             type = ProxySettingsPack.ProxyType.SOCKS5;
         } else if (swigType.equals(settings_pack.proxy_type_t.http.toString())) {
             type = ProxySettingsPack.ProxyType.HTTP;
-        } else {
-            type = ProxySettingsPack.ProxyType.TOR;
         }
 
         proxy.setType(type);
@@ -685,13 +697,11 @@ public class TorrentEngine extends SessionManager
         return proxy;
     }
 
-    @Override
     public void disableProxy(Context context)
     {
         setProxy(context, new ProxySettingsPack());
     }
 
-    @Override
     public boolean isStarted()
     {
         return swig() != null;
@@ -703,26 +713,149 @@ public class TorrentEngine extends SessionManager
         return swig() != null && super.isPaused();
     }
 
-    @Override
     public boolean isListening()
     {
         return swig() != null && swig().is_listening();
     }
 
-    @Override
     public boolean isDHTEnabled()
     {
         return swig() != null && settings().enableDht();
     }
 
-    @Override
     public boolean isPeXEnabled()
     {
         /* PeX enabled by default in session_handle.session_flags_t::add_default_plugins */
-        return swig() != null;
+        return true;
     }
 
-    @Override
+    public TorrentDownload fetchMagnet(String uri) throws Exception
+    {
+        if (uri == null) {
+            throw new IllegalArgumentException("Magnet link is null");
+        }
+
+        add_torrent_params p = add_torrent_params.create_instance();
+        error_code ec = new error_code();
+        add_torrent_params.parse_magnet_uri(uri, p, ec);
+
+        if (ec.value() != 0) {
+            throw new IllegalArgumentException(ec.message());
+        }
+
+        sha1_hash hash = p.getInfo_hash();
+        torrent_handle th = null;
+        boolean add = false;
+
+        try {
+            syncMagnet.lock();
+
+            try {
+                th = swig().find_torrent(hash);
+                if (th != null && th.is_valid()) {
+                    add = false;
+                    if (callback != null) {
+                        callback.onMetadataExist(hash.to_hex());
+                    }
+
+                } else {
+                    add = true;
+                }
+
+                if (add) {
+                    p.setName(uri);
+                    p.setSave_path(uri);
+
+                    long flags = p.getFlags();
+                    flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+                    flags |= add_torrent_params.flags_t.flag_upload_mode.swigValue();
+                    flags |= add_torrent_params.flags_t.flag_stop_when_ready.swigValue();
+                    p.setFlags(flags);
+
+                    ec.clear();
+                    th = swig().add_torrent(p, ec);
+                    th.resume();
+                }
+
+            } finally {
+                syncMagnet.unlock();
+            }
+
+        } catch (Exception e) {
+            if (add && th != null && th.is_valid()) {
+                swig().remove_torrent(th);
+            }
+
+            throw new Exception(e);
+        }
+
+        if (th.is_valid() && add) {
+            String info_hash = th.info_hash().to_hex();
+            Torrent torrent = new Torrent(
+                    info_hash,
+                    uri,
+                    info_hash,
+                    new ArrayList<Integer>(),
+                    TorrentUtils.getTorrentDownloadPath(context),
+                    System.currentTimeMillis());
+            torrent.setDownloadingMetadata(true);
+
+            return new TorrentDownload(
+                    context,
+                    this,
+                    new TorrentHandle(th),
+                    torrent,
+                    callback);
+        }
+
+        return null;
+    }
+
+    private void restoreMagnet(String uri, String downloadPath)
+    {
+        if (uri == null) {
+            return;
+        }
+
+        add_torrent_params p = add_torrent_params.create_instance();
+        error_code ec = new error_code();
+        add_torrent_params.parse_magnet_uri(uri, p, ec);
+
+        if (ec.value() != 0) {
+            return;
+        }
+
+        syncMagnet.lock();
+
+        try {
+            p.setName(uri);
+            p.setSave_path(downloadPath != null ? downloadPath : uri);
+
+            long flags = p.getFlags();
+            flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
+            flags |= add_torrent_params.flags_t.flag_upload_mode.swigValue();
+            flags |= add_torrent_params.flags_t.flag_stop_when_ready.swigValue();
+            p.setFlags(flags);
+
+            swig().async_add_torrent(p);
+
+        } finally {
+            syncMagnet.unlock();
+        }
+    }
+
+    public void removeMagnet(String infoHash)
+    {
+        if (infoHash == null) {
+            return;
+        }
+
+        TorrentHandle th = find(new Sha1Hash(infoHash));
+        if (th != null && th.isValid()) {
+            remove(th);
+        }
+    }
+
     public boolean isLSDEnabled()
     {
         return swig() != null && settings().broadcastLSD();
@@ -730,27 +863,51 @@ public class TorrentEngine extends SessionManager
 
     private final class LoadTorrentTask implements Runnable
     {
-        private final File torrent;
-        private final File saveDir;
-        private final File resume;
-        private final Priority[] priorities;
+        private String torrentId;
+        private File torrentFile = null;
+        private File saveDir = null;
+        private File resume = null;
+        private Priority[] priorities = null;
+        private String uri = null;
+        private boolean isMagnet;
 
-        LoadTorrentTask(File torrent, File saveDir, File resume, Priority[] priorities)
+        LoadTorrentTask(String torrentId)
         {
-            this.torrent = torrent;
+            this.torrentId = torrentId;
+        }
+
+        public void putTorrentFile(File torrentFile, File saveDir, File resume, Priority[] priorities)
+        {
+            this.torrentFile = torrentFile;
             this.saveDir = saveDir;
             this.resume = resume;
             this.priorities = priorities;
+            isMagnet = false;
+        }
+
+        public void putMagnet(String uri, File saveDir)
+        {
+            this.uri = uri;
+            this.saveDir = saveDir;
+            isMagnet = true;
         }
 
         @Override
         public void run()
         {
             try {
-                download(new TorrentInfo(torrent), saveDir, resume, priorities, null);
+                if (isMagnet) {
+                    restoreMagnet(uri, saveDir.getAbsolutePath());
 
-            } catch (Throwable e) {
-                Log.e(TAG, "Unable to restore torrent from previous session. (" + torrent.getAbsolutePath() + "): ", e);
+                } else {
+                    download(new TorrentInfo(torrentFile), saveDir, resume, priorities, null);
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
+                if (callback != null) {
+                    callback.onRestoreSessionError(torrentId);
+                }
             }
         }
     }

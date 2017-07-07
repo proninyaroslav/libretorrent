@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -53,7 +53,7 @@ import java.util.Set;
  * This class encapsulate one stream with running torrent.
  */
 
-public class TorrentDownload implements TorrentDownloadInterface
+public class TorrentDownload
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentDownload.class.getSimpleName();
@@ -97,7 +97,7 @@ public class TorrentDownload implements TorrentDownloadInterface
         this.torrent = torrent;
         this.callback = callback;
         TorrentInfo ti = th.torrentFile();
-        this.parts = ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null;
+        this.parts = (ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null);
 
         listener = new InnerListener();
         engine.addListener(listener);
@@ -216,7 +216,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
     }
 
-    @Override
     public void pause()
     {
         if (!th.isValid()) {
@@ -228,31 +227,28 @@ public class TorrentDownload implements TorrentDownloadInterface
         saveResumeData(true);
     }
 
-    @Override
-    public void resume()
+    public void resume(boolean forced)
     {
         if (!th.isValid()) {
             return;
         }
 
-        th.setAutoManaged(true);
+        th.setAutoManaged(!forced);
+        th.setUploadMode(false);
         th.resume();
         saveResumeData(true);
     }
 
-    @Override
     public void setTorrent(Torrent torrent)
     {
         this.torrent = torrent;
     }
 
-    @Override
     public Torrent getTorrent()
     {
         return torrent;
     }
 
-    @Override
     public int getProgress()
     {
         if (th == null || !th.isValid()) {
@@ -291,7 +287,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         return 0;
     }
 
-    @Override
     public void prioritizeFiles(Priority[] priorities)
     {
         if (th == null || !th.isValid()) {
@@ -315,7 +310,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
     }
 
-    @Override
     public long getSize()
     {
         TorrentInfo info = th.torrentFile();
@@ -323,19 +317,16 @@ public class TorrentDownload implements TorrentDownloadInterface
         return info != null ? info.totalSize() : 0;
     }
 
-    @Override
     public long getDownloadSpeed()
     {
         return (isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
     }
 
-    @Override
     public long getUploadSpeed()
     {
         return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
     }
 
-    @Override
     public void remove(boolean withFiles)
     {
         incompleteFilesToRemove = getIncompleteFiles();
@@ -368,10 +359,13 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
     }
 
-    @Override
     public Set<File> getIncompleteFiles()
     {
         Set<File> s = new HashSet<>();
+
+        if (torrent.isDownloadingMetadata()) {
+            return s;
+        }
 
         try {
             if (!th.isValid()) {
@@ -419,79 +413,78 @@ public class TorrentDownload implements TorrentDownloadInterface
         return s;
     }
 
-    @Override
     public long getActiveTime()
     {
         return th.status().activeDuration() / 1000L;
     }
 
-    @Override
     public long getSeedingTime()
     {
         return th.status().seedingDuration() / 1000L;
     }
 
-    @Override
+    /*
+     * Counts the amount of bytes received this session, but only
+     * the actual payload data (i.e the interesting data), these counters
+     * ignore any protocol overhead.
+     */
+
     public long getReceivedBytes()
     {
         return th.status().totalPayloadDownload();
     }
 
-    @Override
     public long getTotalReceivedBytes()
     {
         return th.status().allTimeDownload();
     }
 
-    @Override
+    /*
+     * Counts the amount of bytes send this session, but only
+     * the actual payload data (i.e the interesting data), these counters
+     * ignore any protocol overhead.
+     */
+
     public long getSentBytes()
     {
         return th.status().totalPayloadUpload();
     }
 
-    @Override
     public long getTotalSentBytes()
     {
         return th.status().allTimeUpload();
     }
 
-    @Override
     public int getConnectedPeers()
     {
         return th.status().numPeers();
     }
 
-    @Override
     public int getConnectedSeeds()
     {
         return th.status().numSeeds();
     }
 
-    @Override
     public int getTotalPeers()
     {
         return th.status().listPeers();
     }
 
-    @Override
     public int getTotalSeeds()
     {
         return th.status().listSeeds();
     }
 
-    @Override
     public void requestTrackerAnnounce()
     {
         th.forceReannounce();
     }
 
-    @Override
     public void requestTrackerScrape()
     {
         th.scrapeTracker();
     }
 
-    @Override
     public Set<String> getTrackersUrl()
     {
         List<AnnounceEntry> trackers = th.trackers();
@@ -504,7 +497,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         return urls;
     }
 
-    @Override
     public List<AnnounceEntry> getTrackers()
     {
         if (!th.isValid()) {
@@ -514,25 +506,26 @@ public class TorrentDownload implements TorrentDownloadInterface
         return th.trackers();
     }
 
-    @Override
     public ArrayList<PeerInfo> getPeers()
     {
         return th.peerInfo();
     }
 
-    @Override
     public TorrentStatus getTorrentStatus()
     {
         return th.status();
     }
 
-    @Override
+    /*
+     * The total number of bytes we want to download. This may be smaller than the total
+     * torrent size in case any pieces are prioritized to 0, i.e. not wanted.
+     */
+
     public long getTotalWanted()
     {
         return th.status().totalWanted();
     }
 
-    @Override
     public void replaceTrackers(Set<String> trackers)
     {
         List<AnnounceEntry> urls = new ArrayList<>(trackers.size());
@@ -545,7 +538,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         th.saveResumeData();
     }
 
-    @Override
     public void addTrackers(Set<String> trackers)
     {
         for (String url : trackers) {
@@ -555,7 +547,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         th.saveResumeData();
     }
 
-    @Override
     public boolean[] pieces()
     {
         PieceIndexBitfield bitfield = th.status(TorrentHandle.StatusFlags.QUERY_PIECES.swig()).pieces();
@@ -568,19 +559,16 @@ public class TorrentDownload implements TorrentDownloadInterface
         return pieces;
     }
 
-    @Override
     public String makeMagnet()
     {
         return th.makeMagnetUri();
     }
 
-    @Override
     public void setSequentialDownload(boolean sequential)
     {
         th.setSequentialDownload(sequential);
     }
 
-    @Override
     public long getETA() {
         if (getStateCode() != TorrentStateCode.DOWNLOADING) {
             return 0;
@@ -606,13 +594,11 @@ public class TorrentDownload implements TorrentDownloadInterface
         return left / rate;
     }
 
-    @Override
     public TorrentInfo getTorrentInfo()
     {
         return th.torrentFile();
     }
 
-    @Override
     public void setDownloadPath(String path)
     {
         try {
@@ -624,7 +610,6 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
     }
 
-    @Override
     public long[] getFilesReceivedBytes()
     {
         if (!th.isValid()) {
@@ -634,19 +619,16 @@ public class TorrentDownload implements TorrentDownloadInterface
         return th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
     }
 
-    @Override
     public void forceRecheck()
     {
         th.forceRecheck();
     }
 
-    @Override
     public int getNumDownloadedPieces()
     {
         return th.status().numPieces();
     }
 
-    @Override
     public double getShareRatio()
     {
         long uploaded = getTotalSentBytes();
@@ -669,45 +651,38 @@ public class TorrentDownload implements TorrentDownloadInterface
         return (ratio > MAX_RATIO ? MAX_RATIO : ratio);
     }
 
-    @Override
     public File getPartsFile()
     {
         return parts;
     }
 
-    @Override
     public void setDownloadSpeedLimit(int limit)
     {
         th.setDownloadLimit(limit);
         th.saveResumeData();
     }
 
-    @Override
     public int getDownloadSpeedLimit()
     {
         return th.getDownloadLimit();
     }
 
-    @Override
     public void setUploadSpeedLimit(int limit)
     {
         th.setUploadLimit(limit);
         th.saveResumeData();
     }
 
-    @Override
     public int getUploadSpeedLimit()
     {
         return th.getUploadLimit();
     }
 
-    @Override
     public String getInfoHash()
     {
         return th.infoHash().toString();
     }
 
-    @Override
     public TorrentStateCode getStateCode()
     {
         if (!engine.isStarted()) {
@@ -760,31 +735,26 @@ public class TorrentDownload implements TorrentDownloadInterface
         }
     }
 
-    @Override
     public boolean isPaused()
     {
         return th.isValid() && th.status(true).isPaused() || engine.isPaused() || !engine.isStarted();
     }
 
-    @Override
     public boolean isSeeding()
     {
         return th.isValid() && th.status().isSeeding();
     }
 
-    @Override
     public boolean isFinished()
     {
         return th.isValid() && th.status().isFinished();
     }
 
-    @Override
     public boolean isDownloading()
     {
         return getDownloadSpeed() > 0;
     }
 
-    @Override
     public boolean isSequentialDownload()
     {
         return th.isValid() && th.status().isSequentialDownload();

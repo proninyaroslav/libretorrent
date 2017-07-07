@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,9 +30,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /*
  * Main I/O operations on files.
@@ -80,15 +78,6 @@ public class FileIOUtils
         } else {
             return dir.mkdirs() ? path : "";
         }
-    }
-
-    public static File createTempFile(String prefix, String suffix, File saveDir) throws IOException
-    {
-        if (saveDir == null || !saveDir.exists() || saveDir.isFile()) {
-            return null;
-        }
-
-        return File.createTempFile(prefix, suffix, saveDir);
     }
 
     /*

@@ -33,6 +33,7 @@
     <string name="spinner_all_torrents">Wszystko</string>
     <string name="spinner_downloading_torrents">Pobierane</string>
     <string name="spinner_downloaded_torrents">Pobrane</string>
+    <string name="spinner_downloading_metadata_torrents">Pobieranie metadanych</string>
     <string name="delete_torrent_with_downloaded_files">Usuń razem z pobranymi plikami</string>
     <string name="delete_selected_torrent">Usunąć wybrany torrent? Ta operacja nie może zostać odzczyniona</string>
     <string name="delete_selected_torrents">Usunąć wybrane torrenty? Ta operacja nie może zostać odczyniona</string>
@@ -56,6 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Bez sortowania</item>
         <item>Nazwą</item>
+        <item>Data dodania</item>
         <item>Wielkością</item>
         <item>Postępem</item>
         <item>Czasem do końca</item>
@@ -75,6 +77,12 @@
     <string name="app_running_in_the_background">LibreTorrent działa w tle</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Błąd torrenta</string>
+    <string name="torrent_error_notify_template">Błąd: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent nie istnieje</string>
+    <string name="restore_torrent_error">niezdolny przywrócić torrent z poprzedniej sesji</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent ukończony</string>
@@ -99,6 +107,7 @@
     <string name="torrent_status_stopped">Wstrzymany</string>
     <string name="torrent_status_checking">Sprawdzanie</string>
     <string name="torrent_status_finished">Ukończony</string>
+    <string name="torrent_status_downloading_metadata">Pobieranie metadanych</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Odmowa dostępu</string>
@@ -128,14 +137,14 @@
     <!-- Torrent info -->
     <string name="torrent_info">Informacje</string>
     <string name="torrent_files">Pliki</string>
-    <string name="torrent_name">Nazwa torrenta</string>
+    <string name="torrent_name">Nazwa</string>
     <string name="upload_torrent_into">Wyślij do</string>
     <string name="torrent_size">Wielkość</string>
     <string name="torrent_file_count">Liczba plików</string>
     <string name="torrent_hash_sum">Hash sum</string>
     <string name="torrent_comment">Komentarze</string>
-    <string name="torrent_create_date">Torrent utworzono</string>
-    <string name="torrent_created_in_program">Torrent utworzony w programie</string>
+    <string name="torrent_create_date">Utworzono</string>
+    <string name="torrent_created_in_program">Utworzony w programie</string>
     <string name="sequential_download">Pobieranie sekwencyjne</string>
     <string name="enable_sequential_download">Uruchom pobieranie sekwencyjne</string>
 
@@ -224,6 +233,7 @@
     <string name="upload_speed">Wysyłanie</string>
     <string name="download_speed">Pobieranie</string>
     <string name="speed_limit_dialog">Ustaw prędkość w KiB/s (0 - bez limitu)</string>
+    <string name="torrent_added_date">Dodano</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopiuj</string>

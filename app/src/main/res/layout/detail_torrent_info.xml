@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:showDividers="middle"
-    android:divider="?attr/divider">
+    android:divider="?attr/divider"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,6 +95,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_torrent_size_and_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -183,6 +185,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_torrent_added"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/torrent_added_date"
+            style="@style/BaseTheme.HeaderText" />
+
+        <TextView
+            android:id="@+id/torrent_added"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BaseTheme.TorrentInfoText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_torrent_create_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
