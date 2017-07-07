@@ -33,7 +33,7 @@
     <string name="spinner_all_torrents">Todos</string>
     <string name="spinner_downloading_torrents">Baixando</string>
     <string name="spinner_downloaded_torrents">Baixado</string>
-    <string name="spinner_downloading_metadata_torrents">Metadados baixando</string>
+    <string name="spinner_downloading_metadata_torrents">Baixando metadados</string>
     <string name="delete_torrent_with_downloaded_files">Deletar com arquivos baixados</string>
     <string name="delete_selected_torrent">Deletar o torrent selecionado? Esta operação não pode ser desfeita</string>
     <string name="delete_selected_torrents">Deletar os torrents selecionados? Esta operação não pode ser desfeita</string>
@@ -81,7 +81,7 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Erro de torrent</string>
     <string name="torrent_error_notify_template">Erro: %1$s</string>
-    <string name="torrent_does_not_exists_error">torrente não existe</string>
+    <string name="torrent_does_not_exists_error">torrent não existe</string>
     <string name="restore_torrent_error">incapaz de restaurar o torrent da sessão anterior</string>
 
     <!-- Finish notification -->
@@ -107,7 +107,7 @@
     <string name="torrent_status_stopped">Parado</string>
     <string name="torrent_status_checking">Verificando</string>
     <string name="torrent_status_finished">Terminado</string>
-    <string name="torrent_status_downloading_metadata">Metadados baixando</string>
+    <string name="torrent_status_downloading_metadata">Baixando metadados</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
