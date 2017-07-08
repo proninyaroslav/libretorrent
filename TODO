@@ -8,3 +8,7 @@
 - maximum peers per torrent and maximum upload slots per torrent to limitations
 - automatically shutdown if no torrents are active
 - watch directory
+- Android TV support
+- QR and barcode support
+- ability to pause torrent after downloading
+- possible to select between add and pause button in notification drawer
