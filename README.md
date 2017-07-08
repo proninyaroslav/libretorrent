@@ -43,6 +43,7 @@ Current languages:
  - Greek *(thanks Spyros3000)*
  - Czech *(thanks HarryPhoon)*
  - Norwegian Bokmål *(thanks comradekingu)*
+ - Romanian *(thanks georgenetu)*
 
 Contributors
 ---
