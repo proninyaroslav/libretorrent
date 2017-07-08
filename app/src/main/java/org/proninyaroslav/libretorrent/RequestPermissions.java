@@ -29,6 +29,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 
 public class RequestPermissions extends AppCompatActivity
@@ -54,6 +55,10 @@ public class RequestPermissions extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.Theme_AppCompat_Translucent_Dark);
+        }
 
         if (savedInstanceState != null) {
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
