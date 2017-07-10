@@ -324,6 +324,7 @@ public class MainFragment extends Fragment
 
         } else if (i != null && i.getAction() != null) {
             switch (i.getAction()) {
+                case MainActivity.ACTION_ADD_SHORTCUT:
                 case NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT:
                     addTorrentMenu = true;
                     /* Prevents re-reading action after device configuration changes */

@@ -11,12 +11,8 @@
         android:shortcutLongLabel="@string/add_torrent_title"
         android:shortcutShortLabel="@string/add_torrent_title">
         <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="org.proninyaroslav.libretorrent.AddTorrentActivity"
-            android:targetPackage="org.proninyaroslav.libretorrent" />
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="org.proninyaroslav.libretorrent.AddTorrentActivity"
+            android:action="org.proninyaroslav.libretorrent.ADD_SHORTCUT"
+            android:targetClass="org.proninyaroslav.libretorrent.MainActivity"
             android:targetPackage="org.proninyaroslav.libretorrent" />
     </shortcut>
 </shortcuts>

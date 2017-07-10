@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
+    public static final String ACTION_ADD_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_SHORTCUT";
 
     private boolean permDialogIsShow = false;
     MainFragment mainFragment;
