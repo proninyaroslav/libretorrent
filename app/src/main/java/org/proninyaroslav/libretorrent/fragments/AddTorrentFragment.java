@@ -217,10 +217,6 @@ public class AddTorrentFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
         }
 
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
         Utils.showColoredStatusBar_KitKat(activity);
 
         toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
@@ -234,6 +230,10 @@ public class AddTorrentFragment extends Fragment
         if (activity.getSupportActionBar() != null) {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
         if (savedInstanceState != null) {
             pathToTempTorrent = savedInstanceState.getString(TAG_PATH_TO_TEMP_TORRENT);

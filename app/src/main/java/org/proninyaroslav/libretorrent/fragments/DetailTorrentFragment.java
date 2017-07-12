@@ -132,7 +132,21 @@ public class DetailTorrentFragment extends Fragment
     /* Flag indicating whether we have called bind on the service. */
     private boolean bound;
     /* Update the torrent status params, which aren't included in TorrentStateParcel */
-    private Handler updateTorrentState;
+    private Handler updateTorrentStateHandler = new Handler();
+    Runnable updateTorrentState = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            if (bound && service != null && torrentId != null) {
+                getActiveAndSeedingTimeRequest();
+                getTrackersStatesRequest();
+                getPeerStatesRequest();
+                getPiecesRequest();
+            }
+            updateTorrentStateHandler.postDelayed(this, SYNC_TIME);
+        }
+    };
 
     private boolean isTorrentInfoChanged = false;
     private boolean isTorrentFilesChanged = false;
@@ -218,6 +232,22 @@ public class DetailTorrentFragment extends Fragment
     }
 
     @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        stopUpdateTorrentState();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        startUpdateTorrentState();
+    }
+
+    @Override
     public void onDestroyView()
     {
         super.onDestroyView();
@@ -240,6 +270,14 @@ public class DetailTorrentFragment extends Fragment
         }
 
         Utils.showColoredStatusBar_KitKat(activity);
+
+        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(6);
+        viewPager.addOnPageChangeListener(viewPagerListener);
+        int colorId = (childInActionMode ? R.color.action_mode : R.color.primary);
+        setTabLayoutColor(colorId);
+        tabLayout.setupWithViewPager(viewPager);
 
         if (savedInstanceState != null) {
             torrentId = savedInstanceState.getString(TAG_TORRENT_ID);
@@ -392,79 +430,75 @@ public class DetailTorrentFragment extends Fragment
             }
         }
 
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
         adapter.addFragment(fragmentInfo, INFO_FRAG_POS, getString(R.string.torrent_info));
         adapter.addFragment(fragmentState, STATE_FRAG_POS, getString(R.string.torrent_state));
         adapter.addFragment(fragmentFiles, FILE_FRAG_POS, getString(R.string.torrent_files));
         adapter.addFragment(fragmentTrackers, TRACKERS_FRAG_POS, getString(R.string.torrent_trackers));
         adapter.addFragment(fragmentPeers, PEERS_FRAG_POS, getString(R.string.torrent_peers));
         adapter.addFragment(fragmentPieces, PIECES_FRAG_POS, getString(R.string.torrent_pieces));
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(6);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
-                /* Nothing */
-            }
 
-            @Override
-            public void onPageSelected(int position)
-            {
-                switch (position) {
-                    case STATE_FRAG_POS:
-                        DetailTorrentStateFragment stateFrag =
-                                (DetailTorrentStateFragment) adapter.getItem(STATE_FRAG_POS);
-                        if (stateFrag != null) {
-                            stateFrag.setState(stateCache);
-                            stateFrag.setActiveAndSeedingTime(activeTimeCache, seedingTimeCache);
-                        }
-                        break;
-                    case FILE_FRAG_POS:
-                        DetailTorrentFilesFragment fileFrag =
-                                (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
-                        if (fileFrag != null) {
-                            fileFrag.setFilesReceivedBytes(stateCache.filesReceivedBytes);
-                        }
-                        break;
-                    case TRACKERS_FRAG_POS:
-                        DetailTorrentTrackersFragment trackersFrag =
-                                (DetailTorrentTrackersFragment) adapter.getItem(TRACKERS_FRAG_POS);
-                        if (trackersFrag != null) {
-                            trackersFrag.setTrackersList(new ArrayList<>(trackersCache.getAll()));
-                        }
-                        break;
-                    case PEERS_FRAG_POS:
-                        DetailTorrentPeersFragment peersFrag =
-                                (DetailTorrentPeersFragment) adapter.getItem(PEERS_FRAG_POS);
-                        if (peersFrag != null) {
-                            peersFrag.setPeerList(new ArrayList<>(peersCache.getAll()));
-                        }
-                        break;
-                    case PIECES_FRAG_POS:
-                        DetailTorrentPiecesFragment piecesFrag =
-                                (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
-
-                        if (piecesFrag != null) {
-                            piecesFrag.setPieces(piecesCache);
-                            piecesFrag.setDownloadedPiecesCount(stateCache.downloadedPieces);
-                        }
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state)
-            {
-                /* Nothing */
-            }
-        });
-
-        int colorId = (childInActionMode ? R.color.action_mode : R.color.primary);
-        setTabLayoutColor(colorId);
-        tabLayout.setupWithViewPager(viewPager);
+        adapter.notifyDataSetChanged();
     }
+
+    ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
+    {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+        {
+            /* Nothing */
+        }
+
+        @Override
+        public void onPageSelected(int position)
+        {
+            switch (position) {
+                case STATE_FRAG_POS:
+                    DetailTorrentStateFragment stateFrag =
+                            (DetailTorrentStateFragment) adapter.getItem(STATE_FRAG_POS);
+                    if (stateFrag != null) {
+                        stateFrag.setState(stateCache);
+                        stateFrag.setActiveAndSeedingTime(activeTimeCache, seedingTimeCache);
+                    }
+                    break;
+                case FILE_FRAG_POS:
+                    DetailTorrentFilesFragment fileFrag =
+                            (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
+                    if (fileFrag != null) {
+                        fileFrag.setFilesReceivedBytes(stateCache.filesReceivedBytes);
+                    }
+                    break;
+                case TRACKERS_FRAG_POS:
+                    DetailTorrentTrackersFragment trackersFrag =
+                            (DetailTorrentTrackersFragment) adapter.getItem(TRACKERS_FRAG_POS);
+                    if (trackersFrag != null) {
+                        trackersFrag.setTrackersList(new ArrayList<>(trackersCache.getAll()));
+                    }
+                    break;
+                case PEERS_FRAG_POS:
+                    DetailTorrentPeersFragment peersFrag =
+                            (DetailTorrentPeersFragment) adapter.getItem(PEERS_FRAG_POS);
+                    if (peersFrag != null) {
+                        peersFrag.setPeerList(new ArrayList<>(peersCache.getAll()));
+                    }
+                    break;
+                case PIECES_FRAG_POS:
+                    DetailTorrentPiecesFragment piecesFrag =
+                            (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
+
+                    if (piecesFrag != null) {
+                        piecesFrag.setPieces(piecesCache);
+                        piecesFrag.setDownloadedPiecesCount(stateCache.downloadedPieces);
+                    }
+                    break;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state)
+        {
+            /* Nothing */
+        }
+    };
 
     private ArrayList<BencodeFileItem> getFileList()
     {
@@ -1083,36 +1117,16 @@ public class DetailTorrentFragment extends Fragment
 
     private void startUpdateTorrentState()
     {
-        if (updateTorrentState != null) {
+        if (!bound) {
             return;
         }
 
-        updateTorrentState = new Handler();
-        Runnable r = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (bound && service != null && torrentId != null) {
-                    getActiveAndSeedingTimeRequest();
-                    getTrackersStatesRequest();
-                    getPeerStatesRequest();
-                    getPiecesRequest();
-                }
-                updateTorrentState.postDelayed(this, SYNC_TIME);
-            }
-        };
-        updateTorrentState.postDelayed(r, SYNC_TIME);
+        updateTorrentStateHandler.post(updateTorrentState);
     }
 
-    /* TODO: apply */
     private void stopUpdateTorrentState()
     {
-        if (updateTorrentState != null) {
-            return;
-        }
-
-        updateTorrentState.removeCallbacksAndMessages(null);
+        updateTorrentStateHandler.removeCallbacks(updateTorrentState);
     }
 
     private void getActiveAndSeedingTimeRequest()
