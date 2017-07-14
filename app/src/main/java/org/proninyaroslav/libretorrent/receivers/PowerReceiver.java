@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
@@ -45,5 +46,18 @@ public class PowerReceiver extends BroadcastReceiver
                 context.startService(serviceIntent);
                 break;
         }
+    }
+
+    public static IntentFilter getFilter()
+    {
+        IntentFilter filter = new IntentFilter();
+
+        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        /*  About BATTERY_LOW and BATTERY_OKAY see https://code.google.com/p/android/issues/detail?id=36712 */
+        filter.addAction(Intent.ACTION_BATTERY_LOW);
+        filter.addAction(Intent.ACTION_BATTERY_OKAY);
+
+        return filter;
     }
 }

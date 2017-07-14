@@ -24,10 +24,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
@@ -119,6 +117,7 @@ public class TorrentTaskService extends Service
     private TorrentStorage repo;
     private SettingsManager pref;
     private PowerManager.WakeLock wakeLock;
+    private PowerReceiver powerReceiver = new PowerReceiver();
     /* Pause torrents (including new added) when in power settings are set power save flags */
     private AtomicBoolean pauseTorrents = new AtomicBoolean(false);
     /* Reduces sending packets due skip cache duplicates */
@@ -161,9 +160,7 @@ public class TorrentTaskService extends Service
         pref = new SettingsManager(getApplicationContext());
         pref.registerOnTrayPreferenceChangeListener(this);
 
-        ComponentName powerReceiver = new ComponentName(getApplicationContext(), PowerReceiver.class);
-        getPackageManager().setComponentEnabledSetting(powerReceiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        registerReceiver(powerReceiver, PowerReceiver.getFilter());
 
         if (pref.getBoolean(getString(R.string.pref_key_battery_control), false) &&
                 (Utils.getBatteryLevel(getApplicationContext()) <= Utils.getDefaultBatteryLowLevel())) {
@@ -196,9 +193,7 @@ public class TorrentTaskService extends Service
         torrentTasks.clear();
         TorrentEngine.getInstance().stop();
 
-        ComponentName powerReceiver = new ComponentName(getApplicationContext(), PowerReceiver.class);
-        getPackageManager().setComponentEnabledSetting(powerReceiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        unregisterReceiver(powerReceiver);
 
         isAlreadyRunning = false;
         repo = null;
