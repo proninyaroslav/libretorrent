@@ -1015,7 +1015,7 @@ public class DetailTorrentFragment extends Fragment
             return;
         }
 
-        infoCache = service.getTorrentInfo(torrentId);
+        infoCache = service.getTorrentMetaInfo(torrentId);
         uploadSpeedLimit = service.getUploadSpeedLimit(torrentId);
         downloadSpeedLimit = service.getDownloadSpeedLimit(torrentId);
     }
@@ -1268,7 +1268,7 @@ public class DetailTorrentFragment extends Fragment
                         torrent = repo.getTorrentByID(torrentId);
                     }
 
-                    TorrentMetaInfo info = service.getTorrentInfo(torrentId);
+                    TorrentMetaInfo info = service.getTorrentMetaInfo(torrentId);
                     if (info != null && (infoCache == null || !infoCache.equals(info))) {
                         infoCache = info;
 

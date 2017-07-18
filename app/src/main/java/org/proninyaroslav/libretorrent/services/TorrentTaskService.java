@@ -1457,7 +1457,7 @@ public class TorrentTaskService extends Service
         }
     }
 
-    public TorrentMetaInfo getTorrentInfo(String id)
+    public TorrentMetaInfo getTorrentMetaInfo(String id)
     {
         if (id == null) {
             return null;
