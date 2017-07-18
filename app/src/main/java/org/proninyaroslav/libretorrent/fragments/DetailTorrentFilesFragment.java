@@ -151,7 +151,6 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
-
         super.onActivityCreated(savedInstanceState);
 
         if (activity == null) {
@@ -274,6 +273,10 @@ public class DetailTorrentFilesFragment extends Fragment
 
     private void updateFileSize()
     {
+        if (fileTree == null) {
+            return;
+        }
+
         filesSize.setText(
                 String.format(getString(R.string.files_size),
                         Formatter.formatFileSize(activity.getApplicationContext(),

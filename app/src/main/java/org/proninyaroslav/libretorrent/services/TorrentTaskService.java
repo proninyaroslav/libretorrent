@@ -322,6 +322,10 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentStateChanged(String id)
     {
+        if (magnetList.containsKey(id)) {
+            return;
+        }
+
         sendTorrentState(torrentTasks.get(id));
     }
 
@@ -345,10 +349,13 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentPaused(String id)
     {
+        if (magnetList.containsKey(id)) {
+            return;
+        }
+
         sendTorrentState(torrentTasks.get(id));
 
         Torrent torrent = repo.getTorrentByID(id);
-
         if (torrent == null) {
             return;
         }
@@ -368,6 +375,10 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentResumed(String id)
     {
+        if (magnetList.containsKey(id)) {
+            return;
+        }
+
         TorrentDownload task = torrentTasks.get(id);
         if (task != null && !task.getTorrent().isPaused()) {
             return;
