@@ -691,7 +691,6 @@ public class DetailTorrentFragment extends Fragment
     private void prepareOptionsMenu(Menu menu)
     {
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
-
         if (torrent == null || !torrent.isPaused()) {
             pauseResume.setTitle(R.string.pause_torrent);
             if (!Utils.isTwoPane(activity.getApplicationContext())) {
@@ -703,6 +702,14 @@ public class DetailTorrentFragment extends Fragment
             if (!Utils.isTwoPane(activity.getApplicationContext())) {
                 pauseResume.setIcon(R.drawable.ic_play_arrow_white_24dp);
             }
+        }
+
+        MenuItem saveTorrentFile = menu.findItem(R.id.save_torrent_file_menu);
+        if (downloadingMetadata) {
+            saveTorrentFile.setVisible(false);
+
+        } else {
+            saveTorrentFile.setVisible(true);
         }
     }
 
@@ -1297,6 +1304,8 @@ public class DetailTorrentFragment extends Fragment
                             piecesFrag.setPiecesCountAndSize(infoCache.numPieces, infoCache.pieceLength);
                         }
                     }
+
+                    activity.invalidateOptionsMenu();
                 }
 
                 if (torrent != null) {
@@ -1310,10 +1319,6 @@ public class DetailTorrentFragment extends Fragment
                             activity.invalidateOptionsMenu();
                         }
                     }
-                }
-
-                if (viewPager == null) {
-                    return;
                 }
 
                 switch (viewPager.getCurrentItem()) {
