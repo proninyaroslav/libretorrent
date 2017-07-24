@@ -6,7 +6,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="error">Erreur</string>
-    <string name="shutdown">Èteindre</string>
+    <string name="shutdown">Éteindre</string>
     <string name="replace">Remplacer</string>
     <string name="add">Ajouter</string>
     <string name="delete">Supprimer</string>
@@ -39,7 +39,7 @@
     <string name="delete_selected_torrents">Supprimer ces Torrents? Cette action ne pourra pas être annulée</string>
     <string name="force_recheck_torrent">Forcer la revérification</string>
     <string name="force_announce_torrent">Force announce</string>
-    <string name="add_link">Ajouté un lien</string>
+    <string name="add_link">Ajouter un lien</string>
     <string name="dialog_add_link_title">Entrez le lien "magnet" ou le lien HTTP / HTTPS</string>
     <string name="torrent_list_empty">Aucun torrent</string>
     <string name="select_or_add_torrent">Sélectionner ou ajouter un torrent</string>
@@ -48,7 +48,7 @@
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
-    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP. Peut-être le fichier est corrompu ou a un format incorrect</string>
+    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP. Peut-être que le fichier est corrompu ou a un format incorrect</string>
     <string name="proxy_settings_applied">Paramètres du serveur proxy appliqués avec succès</string>
     <string name="proxy_settings_apply_after_reboot">Les paramètres du serveur proxy seront appliqués après le redémarrage de l\'application</string>
     <string name="theme_settings_apply_after_reboot">Les paramètres de thème seront appliqués après le redémarrage de l\'application.</string>
@@ -57,7 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Sans tri</item>
         <item>Nom</item>
-        <item>Date ajoutée</item>
+        <item>Date d\'ajout</item>
         <item>Taille</item>
         <item>Progression</item>
         <item>HPA</item>
