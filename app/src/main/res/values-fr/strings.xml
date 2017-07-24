@@ -57,7 +57,7 @@
     <string-array name="sort_torrent_by">
         <item>Sans tri</item>
         <item>Nom</item>
-        <item>Date d'ajout</item>
+        <item>Date d\'ajout</item>
         <item>Taille</item>
         <item>Progression</item>
         <item>HPA</item>
