@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Uložit torrent do</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>
     <string name="pref_move_after_download_in_title">Přesunout po stažení do</string>
-    <string name="pref_delete_torrent_file_title">Smazat .torrent soubory</string>
-    <string name="pref_delete_torrent_file_summary">Smazat .torrent soubory po začátku stahování</string>
+    <string name="pref_save_torrent_files_title">Uložit .torrent soubory</string>
+    <string name="pref_save_torrent_files_summary">Uložit .torrent soubory po začátku stahování</string>
+    <string name="pref_save_torrent_files_in_title">Uložit .torrent soubory do</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Rychlost</string>
     <string name="pref_max_download_speed_title">Maximální rychlost stahování</string>

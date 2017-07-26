@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Scieżka zapisu torrentów</string>
     <string name="pref_move_after_download_title">Przenieś po pobraniu jako</string>
     <string name="pref_move_after_download_in_title">Przeniś po pobraniu do</string>
-    <string name="pref_delete_torrent_file_title">Usuń pliki .torrent </string>
-    <string name="pref_delete_torrent_file_summary">Usuń pliki.torrent po rozpoczęciu pobierania</string>
+    <string name="pref_save_torrent_files_title">Zapisz pliki .torrent</string>
+    <string name="pref_save_torrent_files_summary">Zapisz pliki .torrent po rozpoczęciu pobierania</string>
+    <string name="pref_save_torrent_files_in_title">Zapisz pliki .torrent do</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Prędkość</string>
     <string name="pref_max_download_speed_title">Maksymalna prędkość pobierania</string>

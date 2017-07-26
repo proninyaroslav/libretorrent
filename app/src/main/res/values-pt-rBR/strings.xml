@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Salvar torrents em</string>
     <string name="pref_move_after_download_title">Mover depois de baixar</string>
     <string name="pref_move_after_download_in_title">Mover depois de baixar em</string>
-    <string name="pref_delete_torrent_file_title">Deletar arquivos .torrent</string>
-    <string name="pref_delete_torrent_file_summary">Deletar arquivos .torrent depois de começar a baixar</string>
+    <string name="pref_save_torrent_files_title">Salvar arquivos .torrent</string>
+    <string name="pref_save_torrent_files_summary">Salvar arquivos .torrent depois de começar a baixar</string>
+    <string name="pref_save_torrent_files_in_title">Salvar arquivos .torrent em</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Velocidade</string>
     <string name="pref_max_download_speed_title">Velocidade máxima ao baixar</string>

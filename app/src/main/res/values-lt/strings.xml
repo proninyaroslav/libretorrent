@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Išsaugoiti torentus į</string>
     <string name="pref_move_after_download_title">Perkelti po parsiuntimo</string>
     <string name="pref_move_after_download_in_title">Po parsiuntimo perkelti į</string>
-    <string name="pref_delete_torrent_file_title">Ištrinti .torrent failus</string>
-    <string name="pref_delete_torrent_file_summary">Ištrinti .torrent failus pradėjus siųsti</string>
+    <string name="pref_save_torrent_files_title">Išsaugoiti .torrent failus</string>
+    <string name="pref_save_torrent_files_summary">Išsaugoiti .torrent failus pradėjus siųsti</string>
+    <string name="pref_save_torrent_files_in_title">Išsaugoiti .torrent failus į</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Greitis</string>
     <string name="pref_max_download_speed_title">Maksimalus atsisiuntimo greitis</string>

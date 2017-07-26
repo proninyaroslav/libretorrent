@@ -22,8 +22,14 @@
     </PreferenceCategory>
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_delete_torrent_file"
-        android:title="@string/pref_delete_torrent_file_title"
-        android:summary="@string/pref_delete_torrent_file_summary"
+        android:key="@string/pref_key_save_torrent_files"
+        android:title="@string/pref_save_torrent_files_title"
+        android:summary="@string/pref_save_torrent_files_summary"
+        android:persistent="false" />
+
+    <Preference
+        android:key="@string/pref_key_save_torrent_files_in"
+        android:title="@string/pref_save_torrent_files_in_title"
+        android:dependency="@string/pref_key_save_torrent_files"
         android:persistent="false" />
 </PreferenceScreen>

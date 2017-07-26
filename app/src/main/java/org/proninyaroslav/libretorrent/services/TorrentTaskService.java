@@ -576,6 +576,10 @@ public class TorrentTaskService extends Service
                         task.setDownloadPath(task.getTorrent().getDownloadPath());
                     }
                 }
+
+                if (!nonAddedMagnet && pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false)) {
+                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
+                }
             }
 
         } catch (Exception e) {
@@ -893,7 +897,6 @@ public class TorrentTaskService extends Service
             }
 
         } else if (new File(torrent.getTorrentFilePath()).exists()) {
-            String oldTorrentPath = torrent.getTorrentFilePath();
             try {
                 if (repo.exists(torrent)) {
                     repo.replace(torrent);
@@ -903,8 +906,9 @@ public class TorrentTaskService extends Service
                     repo.add(torrent);
                 }
 
-                deleteTorrentFile(oldTorrentPath,
-                        pref.getBoolean(getString(R.string.pref_key_delete_torrent_file), false));
+                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false)) {
+                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
+                }
 
             }  catch (Throwable e) {
                 exception = e;
@@ -960,17 +964,20 @@ public class TorrentTaskService extends Service
         }
     }
 
-    private void deleteTorrentFile(String path, boolean deleteTorrentFile)
+    private void saveTorrentFileIn(Torrent torrent, String saveDirPath)
     {
-        if (!deleteTorrentFile) {
-            return;
-        }
-
+        String torrentFileName = torrent.getName() + ".torrent";
         try {
-            FileUtils.forceDelete(new File(path));
+            if (!TorrentUtils.copyTorrentFile(getApplicationContext(),
+                    torrent.getId(),
+                    saveDirPath,
+                    torrentFileName))
+            {
+                Log.w(TAG, "Could not save torrent file + " + torrentFileName);
+            }
 
-        } catch (IOException e) {
-            Log.w(TAG, "Could not delete torrent file: ", e);
+        } catch (Exception e) {
+            Log.w(TAG, "Could not save torrent file + " + torrentFileName + ": ", e);
         }
     }
 

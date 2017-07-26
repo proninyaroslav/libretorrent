@@ -171,31 +171,6 @@ public class Utils
     }
 
     /*
-     * Returns the real path from uri, if this contains "content://" scheme.
-     * NOTE: It doesn't work for all URI (e.g. FileProvider). In this case, use FileIOUtils.copyContentURIToFile.
-     */
-
-    public static String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            cursor = context.getContentResolver()
-                    .query(contentUri,
-                            new String[] { MediaStore.Files.FileColumns.DATA },
-                            null, null, null);
-
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
-            cursor.moveToFirst();
-
-            return cursor.getString(columnIndex);
-
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
-    /*
      * Returns the link as "http[s]://[www.]name.domain/...".
      *
      * Returns null if the link is not valid.

@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
     <string name="pref_move_after_download_in_title">Déplacer vers</string>
-    <string name="pref_delete_torrent_file_title">Supprimer les fichiers .torrent</string>
-    <string name="pref_delete_torrent_file_summary">Supprime les fichiers .torrent après le démarrage du téléchargement</string>
+    <string name="pref_save_torrent_files_title">Sauvegarder les fichiers .torrent</string>
+    <string name="pref_save_torrent_files_summary">Sauvegarder les fichiers .torrent après le démarrage du téléchargement</string>
+    <string name="pref_save_torrent_files_in_title">Sauvegarder les fichiers .torrent vers</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Vitesse</string>
     <string name="pref_max_download_speed_title">Vitesse de téléchargement maximale</string>

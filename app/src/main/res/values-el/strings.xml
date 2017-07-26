@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Αποθήκευση των torrents στο</string>
     <string name="pref_move_after_download_title">Μετακίνηση μετά την λήψη</string>
     <string name="pref_move_after_download_in_title">Μετακίνηση μετά την λήψη στο</string>
-    <string name="pref_delete_torrent_file_title">Διαγραφή των αρχείων .torrent</string>
-    <string name="pref_delete_torrent_file_summary">Διαγραφή των αρχείων .torrent μετά την έναρξη της λήψης</string>
+    <string name="pref_save_torrent_files_title">Αποθήκευση των αρχείων .torrent</string>
+    <string name="pref_save_torrent_files_summary">Αποθήκευση των αρχείων .torrent μετά την έναρξη της λήψης</string>
+    <string name="pref_save_torrent_files_in_title">Αποθήκευση των αρχείων .torrent στο</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Ταχύτητα</string>
     <string name="pref_max_download_speed_title">Μέγιστη ταχύτητα λήψεων</string>

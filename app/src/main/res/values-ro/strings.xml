@@ -255,8 +255,9 @@
     <string name="pref_save_torrents_in_title">Salvează torrentele în</string>
     <string name="pref_move_after_download_title">Mută după download</string>
     <string name="pref_move_after_download_in_title">Mută după descărcare în</string>
-    <string name="pref_delete_torrent_file_title">Șterge fișierele .torrent</string>
-    <string name="pref_delete_torrent_file_summary">Șterge fișierele .torrent după începerea descărcării</string>
+    <string name="pref_save_torrent_files_title">Salvează fișierele .torrent</string>
+    <string name="pref_save_torrent_files_summary">Salvează fișierele .torrent după începerea descărcării</string>
+    <string name="pref_save_torrent_files_in_title">Salvează fișierele .torrent în</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Viteză</string>
     <string name="pref_max_download_speed_title">Viteza maximă la descărcare</string>

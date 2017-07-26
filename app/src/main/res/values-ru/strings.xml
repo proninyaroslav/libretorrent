@@ -238,8 +238,9 @@
     <string name="pref_save_torrents_in_title">Сохранять торренты в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
     <string name="pref_move_after_download_in_title">Перемещать после загрузки в</string>
-    <string name="pref_delete_torrent_file_title">Удалять .torrent файлы</string>
-    <string name="pref_delete_torrent_file_summary">Удалять .torrent файлы после начала загрузки</string>
+    <string name="pref_save_torrent_files_title">Сохранять .torrent файлы</string>
+    <string name="pref_save_torrent_files_summary">Сохранять .torrent файлы после начала загрузки</string>
+    <string name="pref_save_torrent_files_in_title">Сохранять .torrent файлы в</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Скорость</string>
     <string name="pref_max_download_speed_title">Максимальная скорость загрузки</string>

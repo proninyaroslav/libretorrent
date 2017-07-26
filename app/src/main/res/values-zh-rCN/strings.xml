@@ -258,8 +258,9 @@
     <string name="pref_save_torrents_in_title">默认下载目录</string>
     <string name="pref_move_after_download_title">下载完成后移动文件</string>
     <string name="pref_move_after_download_in_title">下载完成后移动文件至</string>
-    <string name="pref_delete_torrent_file_title">删除 torrent 文件</string>
-    <string name="pref_delete_torrent_file_summary">下载开始时删除 torrent 文件</string>
+    <string name="pref_save_torrent_files_title">保存 torrent 文件</string>
+    <string name="pref_save_torrent_files_summary">下载开始时保存 torrent 文件</string>
+    <string name="pref_save_torrent_files_in_title">保存 torrent 文件件至</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">下载速度</string>
     <string name="pref_max_download_speed_title">最大下载速度</string>

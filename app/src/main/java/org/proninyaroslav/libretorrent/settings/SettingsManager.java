@@ -144,5 +144,10 @@ public class SettingsManager extends TrayPreferences
         if (pref.getString(keySortTorrentDirection, null) == null) {
             pref.put(keySortTorrentDirection, TorrentSorting.Direction.ASC.name());
         }
+
+        String keySaveTorrentFilesIn = context.getString(R.string.pref_key_save_torrent_files_in);
+        if (pref.getString(keySaveTorrentFilesIn, null) == null) {
+            pref.put(keySaveTorrentFilesIn, FileIOUtils.getDefaultDownloadPath());
+        }
     }
 }

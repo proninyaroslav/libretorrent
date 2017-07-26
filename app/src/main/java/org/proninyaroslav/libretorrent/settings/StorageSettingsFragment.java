@@ -107,11 +107,27 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             }
         });
 
-        String keyDeleteTorrentFile = getString(R.string.pref_key_delete_torrent_file);
-        SwitchPreferenceCompat deleteTorrentFile =
-                (SwitchPreferenceCompat) findPreference(keyDeleteTorrentFile);
-        deleteTorrentFile.setChecked(pref.getBoolean(keyDeleteTorrentFile, false));
-        bindOnPreferenceChangeListener(deleteTorrentFile);
+        String keySaveTorrentFiles = getString(R.string.pref_key_save_torrent_files);
+        SwitchPreferenceCompat saveTorrentFiles =
+                (SwitchPreferenceCompat) findPreference(keySaveTorrentFiles);
+        saveTorrentFiles.setChecked(pref.getBoolean(keySaveTorrentFiles, false));
+        bindOnPreferenceChangeListener(saveTorrentFiles);
+
+        String keySaveTorrentFilesIn = getString(R.string.pref_key_save_torrent_files_in);
+        Preference saveTorrentFilesIn = findPreference(keySaveTorrentFilesIn);
+        saveTorrentFilesIn.setSummary(pref.getString(keySaveTorrentFilesIn, ""));
+        saveTorrentFilesIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+                dirChooserBindPref = getString(R.string.pref_key_save_torrent_files_in);
+                dirChooseDialog(pref.getString(dirChooserBindPref, ""));
+
+                return true;
+            }
+        });
     }
 
     @Override
