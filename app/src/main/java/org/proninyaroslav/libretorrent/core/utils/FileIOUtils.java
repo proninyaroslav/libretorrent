@@ -19,7 +19,9 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
+import android.content.ContentProvider;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -30,7 +32,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /*
  * Main I/O operations on files.
@@ -196,7 +200,7 @@ public class FileIOUtils
             if (filesDirs != null) {
                 /* Skip primary storage */
                 for (int i = 1; i < filesDirs.length; i++) {
-                    if (filesDirs[i] != null ) {
+                    if (filesDirs[i] != null) {
                         if (filesDirs[i].exists()) {
                             storages.add(filesDirs[i].getAbsolutePath());
                         } else {
@@ -208,5 +212,15 @@ public class FileIOUtils
         }
 
         return storages;
+    }
+
+    public static File makeTempFile(Context context, String postfix) throws Exception
+    {
+        return new File(getTempDir(context), UUID.randomUUID().toString() + postfix);
+    }
+
+    public static void copyContentURIToFile(Context context, Uri uri, File file) throws Exception
+    {
+        FileUtils.copyInputStreamToFile(context.getContentResolver().openInputStream(uri), file);
     }
 }

@@ -287,10 +287,10 @@ public class TorrentUtils
         return FileIOUtils.getDefaultDownloadPath();
     }
 
-    public static File fetchByHTTP(Context context, String url, final File saveDir) throws FetchLinkException
+    public static void fetchByHTTP(Context context, String url, final File saveTo) throws FetchLinkException
     {
-        if (saveDir == null) {
-            throw new FetchLinkException("Temp dir not found");
+        if (saveTo == null) {
+            throw new FetchLinkException("File is null");
         }
 
         if (!Utils.checkNetworkConnection(context)) {
@@ -300,9 +300,8 @@ public class TorrentUtils
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);
         final CountDownLatch signal = new CountDownLatch(1);
         SyncHttpClient client = new SyncHttpClient();
-        File tempTorrent = new File(saveDir, UUID.randomUUID().toString() + ".torrent");
 
-        client.get(url, new FileAsyncHttpResponseHandler(tempTorrent) {
+        client.get(url, new FileAsyncHttpResponseHandler(saveTo) {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file)
             {
@@ -338,7 +337,5 @@ public class TorrentUtils
 
             throw new FetchLinkException(s.toString());
         }
-
-        return tempTorrent;
     }
 }

@@ -26,8 +26,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,6 +69,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -513,8 +516,15 @@ public class AddTorrentFragment extends Fragment
                         pathToTempTorrent = uri.getPath();
                         break;
                     case Utils.CONTENT_PREFIX:
-                        pathToTempTorrent =
-                                Utils.getRealPathFromURI(getActivity().getApplicationContext(), uri);
+                        File contentTmp = FileIOUtils.makeTempFile(activity.getApplicationContext(), ".torrent");
+                        FileIOUtils.copyContentURIToFile(activity.getApplicationContext(), uri, contentTmp);
+
+                        if (contentTmp.exists()) {
+                            pathToTempTorrent = contentTmp.getAbsolutePath();
+                            saveTorrentFile = false;
+                        } else {
+                            return new IllegalArgumentException("Unknown path to the torrent file");
+                        }
                         break;
                     case Utils.MAGNET_PREFIX:
                         saveTorrentFile = false;
@@ -535,14 +545,14 @@ public class AddTorrentFragment extends Fragment
                         break;
                     case Utils.HTTP_PREFIX:
                     case Utils.HTTPS_PREFIX:
-                        File torrentFile = TorrentUtils.fetchByHTTP(activity.getApplicationContext(),
-                                uri.toString(), FileIOUtils.getTempDir(activity.getApplicationContext()));
+                        File httpTmp = FileIOUtils.makeTempFile(activity.getApplicationContext(), ".torrent");
+                        TorrentUtils.fetchByHTTP(activity.getApplicationContext(), uri.toString(), httpTmp);
 
-                        if (torrentFile != null && torrentFile.exists()) {
-                            pathToTempTorrent = torrentFile.getAbsolutePath();
+                        if (httpTmp.exists()) {
+                            pathToTempTorrent = httpTmp.getAbsolutePath();
                             saveTorrentFile = false;
                         } else {
-                            return new IllegalArgumentException("Unknown path to torrent file");
+                            return new IllegalArgumentException("Unknown path to the torrent file");
                         }
 
                         break;

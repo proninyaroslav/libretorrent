@@ -54,6 +54,7 @@ import com.frostwire.jlibtorrent.swig.settings_pack;
 import net.grandcentrix.tray.core.OnTrayPreferenceChangeListener;
 import net.grandcentrix.tray.core.TrayItem;
 
+import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FetchMagnetCallback;
@@ -81,6 +82,7 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -879,14 +881,11 @@ public class TorrentTaskService extends Service
         }
 
         Throwable exception = null;
-        boolean deleteTorrentFile = pref.getBoolean(getString(R.string.pref_key_delete_torrent_file), false);
 
         if (torrent.isDownloadingMetadata()) {
             if (!repo.exists(torrent)) {
                 try {
-                    repo.add(torrent,
-                            torrent.getTorrentFilePath(),
-                            false);
+                    repo.add(torrent);
 
                 } catch (Throwable e) {
                     exception = e;
@@ -894,21 +893,20 @@ public class TorrentTaskService extends Service
             }
 
         } else if (new File(torrent.getTorrentFilePath()).exists()) {
+            String oldTorrentPath = torrent.getTorrentFilePath();
             try {
                 if (repo.exists(torrent)) {
-                    repo.replace(torrent,
-                            torrent.getTorrentFilePath(),
-                            deleteTorrentFile);
-
+                    repo.replace(torrent);
                     exception = new FileAlreadyExistsException();
 
                 } else {
-                    repo.add(torrent,
-                            torrent.getTorrentFilePath(),
-                            deleteTorrentFile);
+                    repo.add(torrent);
                 }
 
-            } catch (Throwable e) {
+                deleteTorrentFile(oldTorrentPath,
+                        pref.getBoolean(getString(R.string.pref_key_delete_torrent_file), false));
+
+            }  catch (Throwable e) {
                 exception = e;
             }
 
@@ -959,6 +957,20 @@ public class TorrentTaskService extends Service
             }
 
             TorrentEngine.getInstance().download(torrent);
+        }
+    }
+
+    private void deleteTorrentFile(String path, boolean deleteTorrentFile)
+    {
+        if (!deleteTorrentFile) {
+            return;
+        }
+
+        try {
+            FileUtils.forceDelete(new File(path));
+
+        } catch (IOException e) {
+            Log.w(TAG, "Could not delete torrent file: ", e);
         }
     }
 

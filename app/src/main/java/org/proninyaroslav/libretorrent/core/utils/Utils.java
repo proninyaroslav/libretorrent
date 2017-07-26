@@ -172,6 +172,7 @@ public class Utils
 
     /*
      * Returns the real path from uri, if this contains "content://" scheme.
+     * NOTE: It doesn't work for all URI (e.g. FileProvider). In this case, use FileIOUtils.copyContentURIToFile.
      */
 
     public static String getRealPathFromURI(Context context, Uri contentUri) {

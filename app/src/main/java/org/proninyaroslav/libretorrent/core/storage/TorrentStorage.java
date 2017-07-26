@@ -78,11 +78,11 @@ public class TorrentStorage
         this.context = context;
     }
 
-    public boolean add(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Throwable
+    public boolean add(Torrent torrent) throws Throwable
     {
         String newPath = null;
         if (!torrent.isDownloadingMetadata()) {
-            newPath = TorrentUtils.copyTorrent(context, torrent.getId(), pathToTorrent);
+            newPath = TorrentUtils.copyTorrent(context, torrent.getId(), torrent.getTorrentFilePath());
 
             if (newPath == null) {
                 return false;
@@ -95,15 +95,6 @@ public class TorrentStorage
 
             if (TorrentUtils.makeTorrentDataDir(context, torrent.getId()) == null) {
                 throw new IOException("Unable to create dir");
-            }
-        }
-
-        if (deleteTorrentFile && !torrent.isDownloadingMetadata()) {
-            try {
-                FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
-
-            } catch (IOException e) {
-                Log.w(TAG, "Could not delete torrent file: ", e);
             }
         }
 
@@ -132,28 +123,19 @@ public class TorrentStorage
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
 
-    public void replace(Torrent torrent, String pathToTorrent, boolean deleteTorrentFile) throws Throwable
+    public void replace(Torrent torrent) throws Throwable
     {
-        if (pathToTorrent == null) {
+        if (torrent == null || torrent.getTorrentFilePath() == null) {
             return;
         }
 
         String newPath = TorrentUtils.copyTorrent(
                 context,
                 torrent.getId(),
-                pathToTorrent);
+                torrent.getTorrentFilePath());
 
         if (newPath == null) {
             return;
-        }
-
-        if (deleteTorrentFile) {
-            try {
-                FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
-
-            } catch (IOException e) {
-                Log.w(TAG, "Could not delete torrent file: ", e);
-            }
         }
 
         torrent.setTorrentFilePath(newPath);
