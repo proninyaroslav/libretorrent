@@ -106,6 +106,7 @@ public class DetailTorrentFragment extends Fragment
     private static final String TAG_DELETE_TORRENT_DIALOG = "delete_torrent_dialog";
     private static final String TAG_SAVE_ERR_TORRENT_FILE_DIALOG = "save_err_torrent_file_dialog";
     private static final String TAG_SPEED_LIMIT_DIALOG = "speed_limit_dialog";
+    private static final String TAG_CURRENT_FRAG_POS = "current_frag_pos";
 
     private static final int SAVE_TORRENT_FILE_CHOOSE_REQUEST = 1;
 
@@ -152,6 +153,7 @@ public class DetailTorrentFragment extends Fragment
     private boolean isTorrentFilesChanged = false;
     /* One of the fragments in ViewPagerAdapter is in ActionMode */
     private boolean childInActionMode = false;
+    private int currentFragPos = INFO_FRAG_POS;
 
     private Exception sentError;
 
@@ -284,6 +286,7 @@ public class DetailTorrentFragment extends Fragment
             isTorrentInfoChanged = savedInstanceState.getBoolean(TAG_TORRENT_INFO_CHANGED);
             isTorrentFilesChanged = savedInstanceState.getBoolean(TAG_TORRENT_FILES_CHANGED);
             childInActionMode = savedInstanceState.getBoolean(TAG_CHILD_IN_ACTION_MODE);
+            currentFragPos = savedInstanceState.getInt(TAG_CURRENT_FRAG_POS);
         }
 
         if (isTorrentFilesChanged || isTorrentInfoChanged) {
@@ -370,6 +373,7 @@ public class DetailTorrentFragment extends Fragment
         outState.putBoolean(TAG_TORRENT_FILES_CHANGED, isTorrentFilesChanged);
         outState.putString(TAG_TORRENT_ID, torrentId);
         outState.putBoolean(TAG_CHILD_IN_ACTION_MODE, childInActionMode);
+        outState.putInt(TAG_CURRENT_FRAG_POS, currentFragPos);
 
         super.onSaveInstanceState(outState);
     }
@@ -438,6 +442,7 @@ public class DetailTorrentFragment extends Fragment
         adapter.addFragment(fragmentPieces, PIECES_FRAG_POS, getString(R.string.torrent_pieces));
 
         adapter.notifyDataSetChanged();
+        viewPager.setCurrentItem(currentFragPos);
     }
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
@@ -451,6 +456,8 @@ public class DetailTorrentFragment extends Fragment
         @Override
         public void onPageSelected(int position)
         {
+            currentFragPos = position;
+
             switch (position) {
                 case STATE_FRAG_POS:
                     DetailTorrentStateFragment stateFrag =

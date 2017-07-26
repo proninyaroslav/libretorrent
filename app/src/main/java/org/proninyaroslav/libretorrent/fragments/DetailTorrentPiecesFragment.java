@@ -23,6 +23,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -46,15 +47,18 @@ public class DetailTorrentPiecesFragment extends Fragment
     private static final String TAG_ALL_PIECES_COUNT = "all_pieces_count";
     private static final String TAG_PIECE_SIZE = "piece_size";
     private static final String TAG_DOWNLOADED_PIECES = "downloaded_pieces";
+    private static final String TAG_SCROLL_POSITION = "scroll_position";
 
     private AppCompatActivity activity;
     private PiecesView pieceMap;
     private TextView piecesCounter;
+    private NestedScrollView pieceMapScrollView;
 
     private boolean[] pieces;
     private int allPiecesCount;
     private int pieceSize;
     private int downloadedPieces;
+    private int[] scrollPosition = new int[]{0, 0};
 
     public static DetailTorrentPiecesFragment newInstance(int allPiecesCount, int pieceSize) {
         DetailTorrentPiecesFragment fragment = new DetailTorrentPiecesFragment();
@@ -93,7 +97,13 @@ public class DetailTorrentPiecesFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_detail_torrent_pieces, container, false);
+        View v = inflater.inflate(R.layout.fragment_detail_torrent_pieces, container, false);
+
+        pieceMap = (PiecesView) v.findViewById(R.id.piece_map);
+        piecesCounter = (TextView) v.findViewById(R.id.pieces_count);
+        pieceMapScrollView = (NestedScrollView) v.findViewById(R.id.piece_map_scroll_view);
+
+        return v;
     }
 
     @Override
@@ -105,15 +115,8 @@ public class DetailTorrentPiecesFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
         }
 
-        pieceMap = (PiecesView) activity.findViewById(R.id.piece_map);
-        if (pieceMap != null) {
-            pieceMap.setPieces(pieces);
-        }
-
-        piecesCounter = (TextView) activity.findViewById(R.id.pieces_count);
-        if (pieceMap != null) {
-            updatePieceCounter();
-        }
+        pieceMap.setPieces(pieces);
+        updatePieceCounter();
     }
 
     @Override
@@ -123,8 +126,24 @@ public class DetailTorrentPiecesFragment extends Fragment
         outState.putInt(TAG_ALL_PIECES_COUNT, allPiecesCount);
         outState.putInt(TAG_PIECE_SIZE, pieceSize);
         outState.putInt(TAG_DOWNLOADED_PIECES, downloadedPieces);
+        scrollPosition[0] = pieceMapScrollView.getScrollX();
+        scrollPosition[1] = pieceMapScrollView.getScrollY();
+        outState.putIntArray(TAG_SCROLL_POSITION, scrollPosition);
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState)
+    {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            scrollPosition = savedInstanceState.getIntArray(TAG_SCROLL_POSITION);
+            if (scrollPosition != null && scrollPosition.length == 2) {
+                pieceMapScrollView.scrollTo(scrollPosition[0], scrollPosition[1]);
+            }
+        }
     }
 
     public void setPieces(boolean[] pieces)
@@ -134,10 +153,7 @@ public class DetailTorrentPiecesFragment extends Fragment
         }
 
         this.pieces = pieces;
-
-        if (pieceMap != null) {
-            pieceMap.setPieces(pieces);
-        }
+        pieceMap.setPieces(pieces);
     }
 
     public void setPiecesCountAndSize(int allPiecesCount, int pieceSize)
@@ -159,12 +175,10 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
         String pieceLength = Formatter.formatFileSize(activity, pieceSize);
-        if (piecesCounter != null) {
-            piecesCounter.setText(
-                    String.format(piecesTemplate,
-                            downloadedPieces,
-                            allPiecesCount,
-                            pieceLength));
-        }
+        piecesCounter.setText(
+                String.format(piecesTemplate,
+                        downloadedPieces,
+                        allPiecesCount,
+                        pieceLength));
     }
 }

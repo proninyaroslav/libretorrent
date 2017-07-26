@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/piece_map_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/background">
@@ -9,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:showDividers="middle"
-        android:divider="?attr/divider">
+        android:divider="?attr/divider"
+        android:descendantFocusability="blocksDescendants">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -36,6 +36,8 @@ import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
 import org.proninyaroslav.libretorrent.core.utils.DateFormatUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
+import java.util.Locale;
+
 /*
  * The fragment for displaying state of torrent. Part of DetailTorrentFragment.
  */
@@ -183,7 +185,7 @@ public class DetailTorrentStateFragment extends Fragment
         String uploaded = Formatter.formatFileSize(activity, state.uploadedBytes);
         textViewUploaded.setText(uploaded);
 
-        shareRatio.setText(String.valueOf(state.shareRatio));
+        shareRatio.setText(String.format(Locale.getDefault(), "%,.3f", state.shareRatio));
 
         if (info != null) {
             String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
