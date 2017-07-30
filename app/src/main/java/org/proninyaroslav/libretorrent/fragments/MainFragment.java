@@ -621,6 +621,10 @@ public class MainFragment extends Fragment
     {
         super.onCreateOptionsMenu(menu, inflater);
 
+        if (!isAdded()) {
+            return;
+        }
+
         inflater.inflate(R.menu.main, menu);
 
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));

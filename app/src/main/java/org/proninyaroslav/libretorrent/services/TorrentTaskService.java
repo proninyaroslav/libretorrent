@@ -915,7 +915,7 @@ public class TorrentTaskService extends Service
             }
 
         } else {
-            exception = new FileNotFoundException();
+            exception = new FileNotFoundException(torrent.getTorrentFilePath());
         }
 
         torrent = repo.getTorrentByID(torrent.getId());
