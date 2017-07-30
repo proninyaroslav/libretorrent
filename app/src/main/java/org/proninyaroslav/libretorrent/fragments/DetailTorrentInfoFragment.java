@@ -179,6 +179,8 @@ public class DetailTorrentInfoFragment extends Fragment
             @Override
             public void onClick(View view)
             {
+                isSequentialDownload = sequentialDownload.isChecked();
+
                 if (callback != null) {
                     callback.onTorrentInfoChanged();
                 }
