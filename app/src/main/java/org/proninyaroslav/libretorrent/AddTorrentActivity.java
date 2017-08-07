@@ -44,7 +44,6 @@ public class AddTorrentActivity extends AppCompatActivity
     @SuppressWarnings("unused")
     private static final String TAG = AddTorrentActivity.class.getSimpleName();
 
-    private static final String TAG_FRAGMENT = "fragment";
     private static final String TAG_SPINNER_PROGRESS = "spinner_progress";
 
     public static final String TAG_URI = "uri";
@@ -64,10 +63,10 @@ public class AddTorrentActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_add_torrent);
 
-        startService(new Intent(getApplicationContext(), TorrentTaskService.class));
+        addTorrentFragment = (AddTorrentFragment) getFragmentManager()
+                .findFragmentById(R.id.add_torrent_fragmentContainer);
 
-        FragmentManager fm = getFragmentManager();
-        addTorrentFragment = (AddTorrentFragment) fm.findFragmentByTag(TAG_FRAGMENT);
+        startService(new Intent(getApplicationContext(), TorrentTaskService.class));
 
         Intent intent = getIntent();
         Uri uri;
@@ -79,8 +78,6 @@ public class AddTorrentActivity extends AppCompatActivity
         }
 
         if (uri != null) {
-            addTorrentFragment =
-                    (AddTorrentFragment) fm.findFragmentById(R.id.add_torrent_fragmentContainer);
             addTorrentFragment.setUri(uri);
         }
     }
