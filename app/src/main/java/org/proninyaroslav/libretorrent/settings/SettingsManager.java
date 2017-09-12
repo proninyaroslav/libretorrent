@@ -29,7 +29,6 @@ import net.grandcentrix.tray.TrayPreferences;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;

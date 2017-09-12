@@ -118,7 +118,7 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
 
     private int getConnectionType(peer_info peer)
     {
-        if ((peer.getFlags() & peer_info.peer_flags_t.utp_socket.swigValue()) > 0) {
+        if (peer.getFlags().and_(peer_info.utp_socket).nonZero()) {
             return ConnectionType.UTP;
         }
 

@@ -29,6 +29,7 @@ import com.frostwire.jlibtorrent.SessionManager;
 import com.frostwire.jlibtorrent.SessionParams;
 import com.frostwire.jlibtorrent.SettingsPack;
 import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TorrentFlags;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.Vectors;
@@ -45,6 +46,7 @@ import com.frostwire.jlibtorrent.swig.libtorrent;
 import com.frostwire.jlibtorrent.swig.session_params;
 import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_handle;
 
 import org.apache.commons.io.FileUtils;
@@ -199,7 +201,10 @@ public class TorrentEngine extends SessionManager
 
                     if (torrent != null) {
                         TorrentHandle handle = find(sha1hash);
-                        handle.setSequentialDownload(torrent.isSequentialDownload());
+                        if (torrent.isSequentialDownload())
+                            handle.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+                        else
+                            handle.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
 
                         if (torrent.isPaused()) {
                             handle.pause();
@@ -766,10 +771,10 @@ public class TorrentEngine extends SessionManager
                     p.setName(uri);
                     p.setSave_path(uri);
 
-                    long flags = p.getFlags();
-                    flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-                    flags |= add_torrent_params.flags_t.flag_upload_mode.swigValue();
-                    flags |= add_torrent_params.flags_t.flag_stop_when_ready.swigValue();
+                    torrent_flags_t flags = p.getFlags();
+                    flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+                    flags = flags.or_(TorrentFlags.UPLOAD_MODE);
+                    flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
                     ec.clear();
@@ -831,10 +836,10 @@ public class TorrentEngine extends SessionManager
             p.setName(uri);
             p.setSave_path(downloadPath != null ? downloadPath : uri);
 
-            long flags = p.getFlags();
-            flags &= ~add_torrent_params.flags_t.flag_auto_managed.swigValue();
-            flags |= add_torrent_params.flags_t.flag_upload_mode.swigValue();
-            flags |= add_torrent_params.flags_t.flag_stop_when_ready.swigValue();
+            torrent_flags_t flags = p.getFlags();
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+            flags = flags.or_(TorrentFlags.UPLOAD_MODE);
+            flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
             p.setFlags(flags);
 
             swig().async_add_torrent(p);

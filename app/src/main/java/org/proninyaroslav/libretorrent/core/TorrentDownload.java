@@ -30,6 +30,7 @@ import com.frostwire.jlibtorrent.PeerInfo;
 import com.frostwire.jlibtorrent.PieceIndexBitfield;
 import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.SessionHandle;
+import com.frostwire.jlibtorrent.TorrentFlags;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.TorrentStatus;
@@ -40,6 +41,7 @@ import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
@@ -222,7 +224,7 @@ public class TorrentDownload
             return;
         }
 
-        th.setAutoManaged(false);
+        th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.pause();
         saveResumeData(true);
     }
@@ -233,8 +235,11 @@ public class TorrentDownload
             return;
         }
 
-        th.setAutoManaged(!forced);
-        th.setUploadMode(false);
+        if (forced)
+            th.unsetFlags(TorrentFlags.AUTO_MANAGED);
+        else
+            th.setFlags(TorrentFlags.AUTO_MANAGED);
+        th.unsetFlags(TorrentFlags.UPLOAD_MODE);
         th.resume();
         saveResumeData(true);
     }
@@ -333,7 +338,7 @@ public class TorrentDownload
 
         if (th.isValid()) {
             if (withFiles) {
-                engine.remove(th, SessionHandle.Options.DELETE_FILES);
+                engine.remove(th, SessionHandle.DELETE_FILES);
             } else {
                 engine.remove(th);
             }
@@ -549,7 +554,7 @@ public class TorrentDownload
 
     public boolean[] pieces()
     {
-        PieceIndexBitfield bitfield = th.status(TorrentHandle.StatusFlags.QUERY_PIECES.swig()).pieces();
+        PieceIndexBitfield bitfield = th.status(TorrentHandle.QUERY_PIECES).pieces();
         boolean[] pieces = new boolean[bitfield.size()];
 
         for (int i = 0; i < bitfield.size(); i++) {
@@ -566,7 +571,10 @@ public class TorrentDownload
 
     public void setSequentialDownload(boolean sequential)
     {
-        th.setSequentialDownload(sequential);
+        if (sequential)
+            th.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+        else
+            th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
     }
 
     public long getETA() {
@@ -698,16 +706,17 @@ public class TorrentDownload
         }
 
         TorrentStatus status = th.status();
+        boolean isPaused = isPaused(status);
 
-        if (status.isPaused() && status.isFinished()) {
+        if (isPaused && status.isFinished()) {
             return TorrentStateCode.FINISHED;
         }
 
-        if (status.isPaused() && !status.isFinished()) {
+        if (isPaused && !status.isFinished()) {
             return TorrentStateCode.PAUSED;
         }
 
-        if (!status.isPaused() && status.isFinished()) {
+        if (!isPaused && status.isFinished()) {
             return TorrentStateCode.SEEDING;
         }
 
@@ -737,7 +746,12 @@ public class TorrentDownload
 
     public boolean isPaused()
     {
-        return th.isValid() && th.status(true).isPaused() || engine.isPaused() || !engine.isStarted();
+        return th.isValid() && (isPaused(th.status(true)) || engine.isPaused() || !engine.isStarted());
+    }
+
+    private static boolean isPaused(TorrentStatus s)
+    {
+        return s.flags().and_(TorrentFlags.PAUSED).nonZero();
     }
 
     public boolean isSeeding()
@@ -757,6 +771,11 @@ public class TorrentDownload
 
     public boolean isSequentialDownload()
     {
-        return th.isValid() && th.status().isSequentialDownload();
+        if (!th.isValid()) {
+            return false;
+        }
+
+        torrent_flags_t flags = th.status().flags();
+        return flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
     }
 }
