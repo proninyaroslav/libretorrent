@@ -37,6 +37,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
@@ -68,6 +69,7 @@ import org.proninyaroslav.libretorrent.core.TorrentServiceCallback;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
@@ -108,10 +110,6 @@ public class TorrentTaskService extends Service
     /* For the pause action button of foreground notify */
     private Handler updateForegroundNotifyHandler;
     private NotificationCompat.Builder foregroundNotify;
-    /* Tasks list */
-    private ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
-    /* Fetch magnet (non added magnets) */
-    private ConcurrentHashMap<String, TorrentDownload> magnetList = new ConcurrentHashMap<>();
     /* List of connected clients */
     private ArrayList<TorrentServiceCallback> clientCallbacks = new ArrayList<>();
     private ArrayList<FetchMagnetCallback> magnetCallbacks = new ArrayList<>();
@@ -191,8 +189,6 @@ public class TorrentTaskService extends Service
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
 
-        /* Handles must be destructed before the session is destructed */
-        torrentTasks.clear();
         TorrentEngine.getInstance().stop();
 
         unregisterReceiver(powerReceiver);
@@ -219,26 +215,26 @@ public class TorrentTaskService extends Service
                     case Intent.ACTION_BATTERY_LOW:
                         if (pref.getBoolean(getString(R.string.pref_key_battery_control), false)) {
                             pauseTorrents.set(true);
-                            pauseAll();
+                            TorrentEngine.getInstance().pauseAll();
                         }
                         break;
                     case Intent.ACTION_BATTERY_OKAY:
                         if (pref.getBoolean(getString(R.string.pref_key_battery_control), false) &&
                                 !pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging), false)) {
                             pauseTorrents.set(false);
-                            resumeAll();
+                            TorrentEngine.getInstance().resumeAll();
                         }
                         break;
                     case Intent.ACTION_POWER_CONNECTED:
                         if (pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging), false)) {
                             pauseTorrents.set(false);
-                            resumeAll();
+                            TorrentEngine.getInstance().resumeAll();
                         }
                         break;
                     case Intent.ACTION_POWER_DISCONNECTED:
                         if (pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging), false)) {
                             pauseTorrents.set(true);
-                            pauseAll();
+                            TorrentEngine.getInstance().pauseAll();
                         }
                         break;
                 }
@@ -291,21 +287,9 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onTorrentAdded(String id, TorrentDownload task)
-    {
-        if (pauseTorrents.get()) {
-            task.pause();
-        }
-        torrentTasks.put(id, task);
-    }
-
-    @Override
     public void onEngineStarted()
     {
-        if (torrentTasks.isEmpty()) {
-            List<Torrent> torrents = repo.getAll();
-            loadTorrents(torrents);
-        }
+        loadTorrents(repo.getAll());
 
         /* Set current port */
         pref.put(getString(R.string.pref_key_port), TorrentEngine.getInstance().getPort());
@@ -322,92 +306,84 @@ public class TorrentTaskService extends Service
     }
 
     @Override
+    public void onTorrentAdded(String id)
+    {
+        if (pauseTorrents.get()) {
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+            if (task != null)
+                task.pause();
+        }
+    }
+
+    @Override
     public void onTorrentStateChanged(String id)
     {
-        if (magnetList.containsKey(id)) {
+        if (TorrentEngine.getInstance().isMagnet(id))
             return;
-        }
 
-        sendTorrentState(torrentTasks.get(id));
+        sendTorrentState(TorrentEngine.getInstance().getTask(id));
     }
 
     @Override
     public void onTorrentRemoved(String id)
     {
-        torrentTasks.remove(id);
-        if (stateCache.contains(id)) {
+        if (stateCache.contains(id))
             stateCache.remove(id);
-        }
 
         for (TorrentServiceCallback callback : clientCallbacks) {
             TorrentStateParcel state = new TorrentStateParcel();
             state.torrentId = id;
-            if (callback != null) {
+            if (callback != null)
                 callback.onTorrentRemoved(state);
-            }
         }
     }
 
     @Override
     public void onTorrentPaused(String id)
     {
-        if (magnetList.containsKey(id)) {
+        if (TorrentEngine.getInstance().isMagnet(id))
             return;
-        }
 
-        sendTorrentState(torrentTasks.get(id));
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        sendTorrentState(task);
 
         Torrent torrent = repo.getTorrentByID(id);
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         if (!torrent.isPaused()) {
             torrent.setPaused(true);
             repo.update(torrent);
 
-            TorrentDownload task = torrentTasks.get(id);
-
-            if (task != null) {
+            if (task != null)
                 task.setTorrent(torrent);
-            }
         }
     }
 
     @Override
     public void onTorrentResumed(String id)
     {
-        if (magnetList.containsKey(id)) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null && (TorrentEngine.getInstance().isMagnet(id) || !task.getTorrent().isPaused()))
             return;
-        }
-
-        TorrentDownload task = torrentTasks.get(id);
-        if (task != null && !task.getTorrent().isPaused()) {
-            return;
-        }
 
         Torrent torrent = repo.getTorrentByID(id);
-
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         torrent.setPaused(false);
         repo.update(torrent);
 
-        if (task != null) {
+        if (task != null)
             task.setTorrent(torrent);
-        }
     }
 
     @Override
     public void onTorrentFinished(String id)
     {
         Torrent torrent = repo.getTorrentByID(id);
-
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         if (!torrent.isFinished()) {
             torrent.setFinished(true);
@@ -415,19 +391,16 @@ public class TorrentTaskService extends Service
 
             repo.update(torrent);
 
-            TorrentDownload task = torrentTasks.get(id);
-
-            if (task != null) {
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+            if (task != null)
                 task.setTorrent(torrent);
-            }
 
             if (pref.getBoolean(getString(R.string.pref_key_move_after_download), false)) {
                 String path = pref.getString(
                         getString(R.string.pref_key_move_after_download_in), torrent.getDownloadPath());
 
-                if (!torrent.getDownloadPath().equals(path)) {
+                if (!torrent.getDownloadPath().equals(path))
                     torrent.setDownloadPath(path);
-                }
 
                 moveTorrent(torrent);
             }
@@ -448,30 +421,26 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentMoved(String id, boolean success)
     {
-        TorrentDownload task = torrentTasks.get(id);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         String name = null;
 
-        if (task != null) {
+        if (task != null)
             name = task.getTorrent().getName();
-        }
 
         if (success) {
-            if (torrentsMoveSuccess != null && name != null) {
+            if (torrentsMoveSuccess != null && name != null)
                 torrentsMoveSuccess.add(name);
-            }
 
         } else {
-            if (torrentsMoveFailed != null && name != null) {
+            if (torrentsMoveFailed != null && name != null)
                 torrentsMoveFailed.add(name);
-            }
         }
 
         if (torrentsMoveSuccess != null && torrentsMoveFailed != null) {
             if ((torrentsMoveSuccess.size() + torrentsMoveFailed.size()) == torrentsMoveTotal) {
                 makeTorrentsMoveNotify();
                 if (shutdownAfterMove) {
-                    Intent shutdownIntent =
-                            new Intent(getApplicationContext(), NotificationReceiver.class);
+                    Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
                     shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
                     sendBroadcast(shutdownIntent);
                 }
@@ -491,104 +460,34 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onMetadataReceived(String hash, byte[] data)
+    public void onMetadataReceived(String hash, String pathToTorrent, Exception err)
     {
-        File torrentFile;
-        String pathToTorrent = null;
-        Torrent torrent = null;
-        Exception err = null;
-        boolean nonAddedMagnet = true;
+        boolean nonAddedMagnet = TorrentEngine.getInstance().isMagnet(hash);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
 
-        if (!magnetList.containsKey(hash)) {
-            nonAddedMagnet = false;
+        if (err != null) {
+            Log.e(TAG, "Fetch metadata error: ");
+            Log.e(TAG, Log.getStackTraceString(err));
 
-            torrent = repo.getTorrentByID(hash);
-            if (torrent == null) {
-                return;
-            }
-        }
-
-        try {
-            File dir;
-            String name;
-
-            if (nonAddedMagnet) {
-                dir = FileIOUtils.getTempDir(getApplicationContext());
-                name = hash;
-
-            } else {
-                String pathToDir = TorrentUtils.findTorrentDataDir(getApplicationContext(), hash);
-                if (pathToDir == null) {
-                    throw new FileNotFoundException("Data dir not found");
+            if (!nonAddedMagnet) {
+                if (err instanceof FreeSpaceException) {
+                    makeTorrentErrorNotify(repo.getTorrentByID(hash), getString(R.string.error_free_space));
+                    needsUpdateNotify.set(true);
+                    sendTorrentsStateOneShot();
                 }
-                dir = new File(pathToDir);
-                name = TorrentStorage.Model.DATA_TORRENT_FILE_NAME;
+                repo.delete(hash);
             }
-
-            torrentFile = TorrentUtils.createTorrentFile(name, data, dir);
-            if (torrentFile != null && torrentFile.exists()) {
-                pathToTorrent = torrentFile.getAbsolutePath();
-            }
-
-            if (pathToTorrent != null) {
-                TorrentDownload task;
-                TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
-                ArrayList<Integer> priorities =
-                        new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.NORMAL.swig()));
-
-                if (nonAddedMagnet) {
-                    task = magnetList.get(hash);
-
-                } else {
-                    task = torrentTasks.get(hash);
-
-                    if (FileIOUtils.getFreeSpace(torrent.getDownloadPath()) < info.torrentSize) {
-                        if (task != null) {
-                            task.remove(true);
-                        }
-                        repo.delete(hash);
-
-                        makeTorrentErrorNotify(torrent, getString(R.string.error_free_space));
-                        needsUpdateNotify.set(true);
-                        sendTorrentsStateOneShot();
-
-                        return;
-                    }
-
-                    torrent.setTorrentFilePath(pathToTorrent);
-                    torrent.setFilePriorities(priorities);
-                    torrent.setDownloadingMetadata(false);
-                    repo.update(torrent);
-                }
-
-                if (task != null) {
-                    task.getTorrent().setTorrentFilePath(pathToTorrent);
-                    task.getTorrent().setFilePriorities(priorities);
-                    task.getTorrent().setDownloadingMetadata(false);
-
-                    if (!nonAddedMagnet) {
-                        task.setSequentialDownload(task.getTorrent().isSequentialDownload());
-                        if (task.getTorrent().isPaused()) {
-                            task.pause();
-                        } else {
-                            task.resume(true);
-                        }
-                        task.setDownloadPath(task.getTorrent().getDownloadPath());
-                    }
-                }
-
-                if (!nonAddedMagnet && pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false)) {
+        } else {
+            if (!nonAddedMagnet && task != null) {
+                Torrent torrent = task.getTorrent();
+                repo.update(torrent);
+                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
                     saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
-                }
             }
-
-        } catch (Exception e) {
-            err = e;
         }
 
-        for (FetchMagnetCallback callback : magnetCallbacks) {
+        for (FetchMagnetCallback callback : magnetCallbacks)
             callback.onMagnetFetched(hash, pathToTorrent, err);
-        }
     }
 
     @Override
@@ -648,19 +547,19 @@ public class TorrentTaskService extends Service
                     if (pref.getBoolean(item.key(), false) &&
                             (Utils.getBatteryLevel(getApplicationContext()) <= Utils.getDefaultBatteryLowLevel())) {
                         pauseTorrents.set(true);
-                        pauseAll();
+                        TorrentEngine.getInstance().pauseAll();
                     } else if (!pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging), false)) {
                         pauseTorrents.set(false);
-                        resumeAll();
+                        TorrentEngine.getInstance().resumeAll();
                     }
 
                 } else if (item.key().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
                     if (pref.getBoolean(item.key(), false) && !Utils.isBatteryCharging(getApplicationContext())) {
                         pauseTorrents.set(true);
-                        pauseAll();
+                        TorrentEngine.getInstance().pauseAll();
                     } else {
                         pauseTorrents.set(false);
-                        resumeAll();
+                        TorrentEngine.getInstance().resumeAll();
                     }
 
                 } else if (item.key().equals(getString(R.string.pref_key_max_download_speed))) {
@@ -859,9 +758,8 @@ public class TorrentTaskService extends Service
 
     private void loadTorrents(Collection<Torrent> torrents)
     {
-        if (torrents == null) {
+        if (torrents == null)
             return;
-        }
 
         for (Torrent torrent : torrents) {
             if (!torrent.isDownloadingMetadata() &&
@@ -877,12 +775,10 @@ public class TorrentTaskService extends Service
         TorrentEngine.getInstance().restoreDownloads(torrents);
     }
 
-
     public synchronized void addTorrent(Torrent torrent)
     {
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         Throwable exception = null;
 
@@ -906,9 +802,8 @@ public class TorrentTaskService extends Service
                     repo.add(torrent);
                 }
 
-                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false)) {
+                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
                     saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
-                }
 
             }  catch (Throwable e) {
                 exception = e;
@@ -924,44 +819,16 @@ public class TorrentTaskService extends Service
 
         } else {
             sendOnAddTorrent(null, exception);
-
             return;
         }
 
-        if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentDataExists(getApplicationContext(), torrent.getId()))
-        {
+        if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentDataExists(getApplicationContext(), torrent.getId())) {
             Log.e(TAG, "Torrent doesn't exists: " + torrent.getName());
             repo.delete(torrent);
-
             return;
         }
 
-        if (magnetList.containsKey(torrent.getId())) {
-            TorrentDownload task = magnetList.remove(torrent.getId());
-            task.setTorrent(torrent);
-            torrentTasks.put(torrent.getId(), task);
-
-            if (!torrent.isDownloadingMetadata()) {
-                task.setSequentialDownload(torrent.isSequentialDownload());
-                if (torrent.isPaused()) {
-                    task.pause();
-                } else {
-                    task.resume(true);
-                }
-                task.setDownloadPath(torrent.getDownloadPath());
-            }
-
-        } else {
-            if (torrentTasks.containsKey(torrent.getId())) {
-                TorrentDownload task = torrentTasks.get(torrent.getId());
-                if (task != null) {
-                    task.remove(false);
-                }
-                torrentTasks.remove(torrent.getId());
-            }
-
-            TorrentEngine.getInstance().download(torrent);
-        }
+        TorrentEngine.getInstance().download(torrent);
     }
 
     private void saveTorrentFileIn(Torrent torrent, String saveDirPath)
@@ -984,9 +851,8 @@ public class TorrentTaskService extends Service
     public synchronized void pauseResumeTorrents(List<String> ids)
     {
         for (String id : ids) {
-            if (id == null) {
+            if (id == null)
                 continue;
-            }
 
             pauseResumeTorrent(id);
         }
@@ -994,17 +860,15 @@ public class TorrentTaskService extends Service
 
     public synchronized void pauseResumeTorrent(String id)
     {
-        if (id == null) {
+        if (id == null)
             return;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         try {
-            if (task.isPaused()) {
+            if (task.isPaused())
                 task.resume(false);
-            } else {
+            else
                 task.pause();
-            }
 
         } catch (Exception e) {
             /* Ignore */
@@ -1022,22 +886,24 @@ public class TorrentTaskService extends Service
                 continue;
             }
 
-            torrentTasks.get(id).forceRecheck();
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+            if (task != null)
+                task.forceRecheck();
         }
     }
 
     public synchronized void forceAnnounceTorrents(List<String> ids)
     {
-        if (ids == null) {
+        if (ids == null)
             return;
-        }
 
         for (String id : ids) {
-            if (id == null) {
+            if (id == null)
                 continue;
-            }
 
-            torrentTasks.get(id).requestTrackerAnnounce();
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+            if (task != null)
+                task.requestTrackerAnnounce();
         }
     }
 
@@ -1045,10 +911,9 @@ public class TorrentTaskService extends Service
     {
         if (ids != null) {
             for (String id : ids) {
-                TorrentDownload task = torrentTasks.get(id);
-                if (task != null) {
+                TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+                if (task != null)
                     task.remove(withFiles);
-                }
                 repo.delete(id);
             }
         }
@@ -1059,20 +924,18 @@ public class TorrentTaskService extends Service
 
     public synchronized void setTorrentName(String id, String name)
     {
-        if (id == null || name == null) {
+        if (id == null || name == null)
             return;
-        }
 
         Torrent torrent = repo.getTorrentByID(id);
 
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         torrent.setName(name);
         repo.update(torrent);
 
-        TorrentDownload task = torrentTasks.get(id);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
 
@@ -1083,25 +946,21 @@ public class TorrentTaskService extends Service
 
     private void moveTorrent(Torrent torrent)
     {
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         repo.update(torrent);
 
-        TorrentDownload task = torrentTasks.get(torrent.getId());
+        TorrentDownload task = TorrentEngine.getInstance().getTask(torrent.getId());
         if (task != null) {
-            if (torrentsMoveSuccess == null) {
+            if (torrentsMoveSuccess == null)
                 torrentsMoveSuccess = new ArrayList<>();
-            }
 
-            if (torrentsMoveFailed == null) {
+            if (torrentsMoveFailed == null)
                 torrentsMoveFailed = new ArrayList<>();
-            }
 
-            if (torrentsMoveTotal == null) {
+            if (torrentsMoveTotal == null)
                 torrentsMoveTotal = 0;
-            }
 
             ++torrentsMoveTotal;
 
@@ -1112,33 +971,28 @@ public class TorrentTaskService extends Service
 
     public synchronized void setTorrentDownloadPath(ArrayList<String> ids, String path)
     {
-        if (ids == null || path == null || TextUtils.isEmpty(path)) {
+        if (ids == null || path == null || TextUtils.isEmpty(path))
             return;
-        }
 
         for (String id : ids) {
             Torrent torrent = repo.getTorrentByID(id);
 
-            if (torrent == null) {
+            if (torrent == null)
                 return;
-            }
 
             torrent.setDownloadPath(path);
             repo.update(torrent);
 
-            TorrentDownload task = torrentTasks.get(id);
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
             if (task != null) {
-                if (torrentsMoveSuccess == null) {
+                if (torrentsMoveSuccess == null)
                     torrentsMoveSuccess = new ArrayList<>();
-                }
 
-                if (torrentsMoveFailed == null) {
+                if (torrentsMoveFailed == null)
                     torrentsMoveFailed = new ArrayList<>();
-                }
 
-                if (torrentsMoveTotal == null) {
+                if (torrentsMoveTotal == null)
                     torrentsMoveTotal = 0;
-                }
 
                 ++torrentsMoveTotal;
 
@@ -1150,20 +1004,18 @@ public class TorrentTaskService extends Service
 
     public synchronized void setSequentialDownload(String id, boolean sequential)
     {
-        if (id == null) {
+        if (id == null)
             return;
-        }
 
         Torrent torrent = repo.getTorrentByID(id);
 
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         torrent.setSequentialDownload(sequential);
         repo.update(torrent);
 
-        TorrentDownload task = torrentTasks.get(id);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
             task.setSequentialDownload(sequential);
@@ -1172,28 +1024,25 @@ public class TorrentTaskService extends Service
 
     public synchronized void changeFilesPriority(String id, ArrayList<Integer> priorities)
     {
-        if (id == null || (priorities == null || priorities.size() == 0)) {
+        if (id == null || (priorities == null || priorities.size() == 0))
             return;
-        }
 
         Torrent torrent = repo.getTorrentByID(id);
 
-        if (torrent == null) {
+        if (torrent == null)
             return;
-        }
 
         torrent.setFilePriorities(priorities);
         repo.update(torrent);
 
-        TorrentDownload task = torrentTasks.get(id);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
 
             Priority[] list = new Priority[priorities.size()];
 
-            for (int i = 0; i < priorities.size(); i++) {
+            for (int i = 0; i < priorities.size(); i++)
                 list[i] = Priority.fromSwig(priorities.get(i));
-            }
 
             task.prioritizeFiles(list);
         }
@@ -1201,65 +1050,54 @@ public class TorrentTaskService extends Service
 
     public synchronized void replaceTrackers(String id, ArrayList<String> urls)
     {
-        if (id == null || urls == null) {
+        if (id == null || urls == null)
             return;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-        if (task != null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null)
             task.replaceTrackers(new HashSet<>(urls));
-        }
     }
 
     public synchronized void addTrackers(String id, ArrayList<String> urls)
     {
-        if (id == null || urls == null) {
+        if (id == null || urls == null)
             return;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-        if (task != null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null)
             task.addTrackers(new HashSet<>(urls));
-        }
     }
 
     public String getMagnet(String id)
     {
-        if (id == null) {
+        if (id == null)
             return null;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return null;
-        }
 
         return task.makeMagnet();
     }
 
     public void setUploadSpeedLimit(String id, int limit)
     {
-        if (id == null) {
+        if (id == null)
             return;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-        if (task != null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null)
             task.setUploadSpeedLimit(limit);
-        }
     }
 
     public void setDownloadSpeedLimit(String id, int limit)
     {
-        if (id == null) {
+        if (id == null)
             return;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-        if (task != null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null)
             task.setDownloadSpeedLimit(limit);
-        }
     }
 
     public void setGlobalUploadSpeedLimit(int limit)
@@ -1270,28 +1108,6 @@ public class TorrentTaskService extends Service
     public void setGlobalDownloadSpeedLimit(int limit)
     {
         TorrentEngine.getInstance().setDownloadSpeedLimit(limit);
-    }
-
-    private void pauseAll()
-    {
-        for (TorrentDownload task : torrentTasks.values()) {
-            if (task == null) {
-                continue;
-            }
-
-            task.pause();
-        }
-    }
-
-    private void resumeAll()
-    {
-        for (TorrentDownload task : torrentTasks.values()) {
-            if (task == null) {
-                continue;
-            }
-
-            task.resume(false);
-        }
     }
 
     private void setKeepCpuAwake(boolean enable)
@@ -1412,13 +1228,12 @@ public class TorrentTaskService extends Service
     public Bundle makeTorrentsStateList()
     {
         Bundle states = new Bundle();
-        for (TorrentDownload task : torrentTasks.values()) {
+        for (TorrentDownload task : TorrentEngine.getInstance().getTasks()) {
             if (task != null) {
                 TorrentStateParcel state = makeTorrentStateParcel(task);
 
-                if (!stateCache.contains(state)) {
+                if (!stateCache.contains(state))
                     stateCache.put(state);
-                }
 
                 states.putParcelable(state.torrentId, state);
             }
@@ -1478,27 +1293,20 @@ public class TorrentTaskService extends Service
 
     public TorrentMetaInfo getTorrentMetaInfo(String id)
     {
-        if (id == null) {
+        if (id == null)
             return null;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return null;
-        }
 
         TorrentInfo ti = task.getTorrentInfo();
-
         TorrentMetaInfo info = null;
-
         try {
-            if (ti != null) {
+            if (ti != null)
                 info = new TorrentMetaInfo(ti);
-
-            } else {
+            else
                 info = new TorrentMetaInfo(task.getTorrent().getName(), task.getInfoHash());
-            }
 
         } catch (DecodeException e) {
             Log.e(TAG, "Can't decode torrent info: ");
@@ -1510,75 +1318,60 @@ public class TorrentTaskService extends Service
 
     public long getActiveTime(String id)
     {
-        if (id == null) {
+        if (id == null)
             return -1;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return -1;
-        }
 
         return task.getActiveTime();
     }
 
     public long getSeedingTime(String id)
     {
-        if (id == null) {
+        if (id == null)
             return -1;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return -1;
-        }
 
         return task.getSeedingTime();
     }
 
     public ArrayList<TrackerStateParcel> getTrackerStatesList(String id)
     {
-        if (id == null) {
+        if (id == null)
             return null;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return null;
-        }
 
         return makeTrackerStateParcelList(task);
     }
 
     public ArrayList<PeerStateParcel> getPeerStatesList(String id)
     {
-        if (id == null) {
+        if (id == null)
             return null;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return null;
-        }
 
         return makePeerStateParcelList(task);
     }
 
     public boolean[] getPieces(String id)
     {
-        if (id == null) {
+        if (id == null)
             return null;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return null;
-        }
 
         return task.pieces();
     }
@@ -1592,30 +1385,24 @@ public class TorrentTaskService extends Service
 
     public int getUploadSpeedLimit(String id)
     {
-        if (id == null) {
+        if (id == null)
             return -1;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return -1;
-        }
 
         return task.getUploadSpeedLimit();
     }
 
     public int getDownloadSpeedLimit(String id)
     {
-        if (id == null) {
+        if (id == null)
             return -1;
-        }
 
-        TorrentDownload task = torrentTasks.get(id);
-
-        if (task == null) {
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
             return -1;
-        }
 
         return task.getDownloadSpeedLimit();
     }
@@ -1632,19 +1419,10 @@ public class TorrentTaskService extends Service
 
     public String fetchMagnet(String uri, FetchMagnetCallback callback) throws Exception
     {
-        if (callback != null && !magnetCallbacks.contains(callback)) {
+        if (callback != null && !magnetCallbacks.contains(callback))
             magnetCallbacks.add(callback);
-        }
 
-        TorrentDownload task = TorrentEngine.getInstance().fetchMagnet(uri);
-        if (task != null) {
-            String hash = task.getInfoHash();
-            magnetList.put(hash, task);
-
-            return hash;
-        }
-
-        return null;
+        return TorrentEngine.getInstance().fetchMagnet(uri);
     }
 
     /*
@@ -1653,26 +1431,22 @@ public class TorrentTaskService extends Service
 
     public void removeMagnet(String infoHash)
     {
-        if (infoHash == null || torrentTasks.containsKey(infoHash)) {
+        if (infoHash == null)
             return;
-        }
 
-        magnetList.remove(infoHash);
         TorrentEngine.getInstance().removeMagnet(infoHash);
     }
 
     public void addFetchMagnetCallback(FetchMagnetCallback callback)
     {
-        if (callback != null) {
+        if (callback != null)
             magnetCallbacks.add(callback);
-        }
     }
 
     public void removeFetchMagnetCallback(FetchMagnetCallback callback)
     {
-        if (callback != null && magnetCallbacks.contains(callback)) {
+        if (callback != null && magnetCallbacks.contains(callback))
             magnetCallbacks.remove(callback);
-        }
     }
 
     private Runnable updateForegroundNotify = new Runnable()
@@ -1695,11 +1469,10 @@ public class TorrentTaskService extends Service
                                     getString(R.string.network_online) :
                                     getString(R.string.network_offline)));
 
-                            if (!torrentTasks.isEmpty()) {
+                            if (!TorrentEngine.getInstance().hasTasks())
                                 foregroundNotify.setStyle(makeDetailNotifyInboxStyle());
-                            } else {
+                            else
                                 foregroundNotify.setStyle(null);
-                            }
 
                                 /* Disallow killing the service process by system */
                             startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
@@ -1816,7 +1589,7 @@ public class TorrentTaskService extends Service
 
         int downloadingCount = 0;
 
-        for (TorrentDownload task : torrentTasks.values()) {
+        for (TorrentDownload task : TorrentEngine.getInstance().getTasks()) {
             if (task == null) {
                 continue;
             }
@@ -1873,7 +1646,7 @@ public class TorrentTaskService extends Service
         inboxStyle.setBigContentTitle(String.format(
                 titleTemplate,
                 downloadingCount,
-                torrentTasks.size()));
+                TorrentEngine.getInstance().tasksCount()));
 
         inboxStyle.setSummaryText((isNetworkOnline ?
             getString(R.string.network_online) :

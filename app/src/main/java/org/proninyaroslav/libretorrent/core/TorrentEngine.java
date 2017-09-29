@@ -37,6 +37,7 @@ import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
 import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentRemovedAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.bdecode_node;
 import com.frostwire.jlibtorrent.swig.byte_vector;
@@ -50,17 +51,24 @@ import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_handle;
 
 import org.apache.commons.io.FileUtils;
+import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
+import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -98,6 +106,7 @@ public class TorrentEngine extends SessionManager
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.ADD_TORRENT.swig(),
             AlertType.METADATA_RECEIVED.swig(),
+            AlertType.TORRENT_REMOVED.swig()
     };
 
     private Context context;
@@ -105,6 +114,10 @@ public class TorrentEngine extends SessionManager
     private TorrentEngineCallback callback;
     private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
+    /* Tasks list */
+    private ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
+    /* Fetch magnets (non added magnets) */
+    private CopyOnWriteArrayList<String> magnetList = new CopyOnWriteArrayList<>();
     private Map<String, Torrent> addTorrentsQueue = new HashMap<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
 
@@ -134,6 +147,31 @@ public class TorrentEngine extends SessionManager
         this.callback = callback;
     }
 
+    public TorrentDownload getTask(String id)
+    {
+        return torrentTasks.get(id);
+    }
+
+    public Collection<TorrentDownload> getTasks()
+    {
+        return torrentTasks.values();
+    }
+
+    public boolean hasTasks()
+    {
+        return torrentTasks.isEmpty();
+    }
+
+    public int tasksCount()
+    {
+        return torrentTasks.size();
+    }
+
+    public boolean isMagnet(String id)
+    {
+        return magnetList.contains(id);
+    }
+
     @Override
     public void start()
     {
@@ -141,6 +179,16 @@ public class TorrentEngine extends SessionManager
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
 
         super.start(loadSettings());
+    }
+
+    @Override
+    public void stop()
+    {
+        /* Handles must be destructed before the session is destructed */
+        torrentTasks.clear();
+        magnetList.clear();
+
+        super.stop();
     }
 
     private static String dhtBootstrapNodes()
@@ -183,9 +231,11 @@ public class TorrentEngine extends SessionManager
         saveSettings();
     }
 
-    private final class InnerListener implements AlertListener {
+    private final class InnerListener implements AlertListener
+    {
         @Override
-        public int[] types() {
+        public int[] types()
+        {
             return INNER_LISTENER_TYPES;
         }
 
@@ -195,10 +245,8 @@ public class TorrentEngine extends SessionManager
             switch (alert.type()) {
                 case ADD_TORRENT:
                     TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
-
                     Sha1Hash sha1hash = torrentAlert.handle().infoHash();
                     Torrent torrent = addTorrentsQueue.get(sha1hash.toString());
-
                     if (torrent != null) {
                         TorrentHandle handle = find(sha1hash);
                         if (torrent.isSequentialDownload())
@@ -206,38 +254,113 @@ public class TorrentEngine extends SessionManager
                         else
                             handle.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
 
-                        if (torrent.isPaused()) {
+                        if (torrent.isPaused())
                             handle.pause();
-                        } else {
+                        else
                             handle.resume();
-                        }
+                        torrentTasks.put(torrent.getId(), new TorrentDownload(context, handle, torrent, callback));
 
-                        TorrentDownload task = new TorrentDownload(context,
-                                TorrentEngine.this, handle, torrent, callback);
-
-                        if (callback != null) {
-                            callback.onTorrentAdded(torrent.getId(), task);
-                        }
+                        if (callback != null)
+                            callback.onTorrentAdded(torrent.getId());
                     }
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
-                    MetadataReceivedAlert a = ((MetadataReceivedAlert) alert);
-                    int size = a.metadataSize();
+                    MetadataReceivedAlert metadataAlert = ((MetadataReceivedAlert) alert);
+                    int size = metadataAlert.metadataSize();
                     int maxSize = 2 * 1024 * 1024;
                     byte[] data = null;
+                    String hash = metadataAlert.handle().infoHash().toHex();
+                    Exception err = null;
 
-                    if (callback != null && 0 < size && size <= maxSize) {
-                        data = a.torrentData(true);
+                    if (0 < size && size <= maxSize)
+                        data = metadataAlert.torrentData(true);
+
+                    String pathToTorrent = null;
+                    try {
+                        pathToTorrent = handleMetadata(data, hash);
+
+                    } catch (Exception e) {
+                        err = e;
+                        TorrentDownload task = torrentTasks.get(hash);
+                        if (task != null) {
+                            task.remove(false);
+                        }
+                        magnetList.remove(hash);
                     }
 
-                    if (callback != null) {
-                        callback.onMetadataReceived(a.handle().infoHash().toHex(), data);
-                    }
+                    if (callback != null)
+                        callback.onMetadataReceived(hash, pathToTorrent, err);
+                    break;
+                case TORRENT_REMOVED:
+                    torrentTasks.remove(((TorrentRemovedAlert) alert).infoHash().toHex());
                     break;
             }
         }
     }
+
+    private String handleMetadata(byte[] data, String hash) throws Exception
+    {
+        File torrentFile;
+        String pathToTorrent;
+        File dir;
+        String name;
+        boolean nonAddedMagnet = isMagnet(hash);
+
+        if (nonAddedMagnet) {
+            dir = FileIOUtils.getTempDir(context);
+            name = hash;
+        } else {
+            String pathToDir = TorrentUtils.findTorrentDataDir(context, hash);
+            if (pathToDir == null)
+                throw new FileNotFoundException("Data dir not found");
+            dir = new File(pathToDir);
+            name = TorrentStorage.Model.DATA_TORRENT_FILE_NAME;
+        }
+
+        torrentFile = TorrentUtils.createTorrentFile(name, data, dir);
+        if (torrentFile != null && torrentFile.exists())
+            pathToTorrent = torrentFile.getAbsolutePath();
+        else
+            throw new FetchLinkException("Metadata is null");
+
+        TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
+        TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
+        ArrayList<Integer> priorities = new ArrayList<>(
+                Collections.nCopies(info.fileList.size(), Priority.NORMAL.swig()));
+
+        if (task != null) {
+            Torrent torrent = task.getTorrent();
+            if (!nonAddedMagnet) {
+                long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
+                if (freeSpace < info.torrentSize)
+                    throw new FreeSpaceException("Not enough free space: "
+                            + freeSpace + " free, but torrent size is " + info.torrentSize);
+
+                torrent.setTorrentFilePath(pathToTorrent);
+                torrent.setFilePriorities(priorities);
+                torrent.setDownloadingMetadata(false);
+                task.setSequentialDownload(torrent.isSequentialDownload());
+                if (torrent.isPaused())
+                    task.pause();
+                else
+                    task.resume(true);
+                task.setDownloadPath(torrent.getDownloadPath());
+            }
+        }
+
+        return pathToTorrent;
+    }
+
+//    MetadataReceivedAlert metadataAlert = ((MetadataReceivedAlert) alert);
+//    int size = metadataAlert.metadataSize();
+//    int maxSize = 2 * 1024 * 1024;
+//    byte[] data = null;
+//
+//                    if (callback != null && 0 < size && size <= maxSize)
+//    data = metadataAlert.torrentData(true);
+//                    if (callback != null)
+//        callback.onMetadataReceived(metadataAlert.handle().infoHash().toHex(), data);
 
     public void restoreDownloads(Collection<Torrent> torrents)
     {
@@ -339,8 +462,31 @@ public class TorrentEngine extends SessionManager
 
     public void download(Torrent torrent)
     {
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
+        if (magnetList.contains(torrent.getId())) {
+            TorrentDownload task = torrentTasks.get(torrent.getId());
+            magnetList.remove(torrent.getId());
+            task.setTorrent(torrent);
 
+            if (!torrent.isDownloadingMetadata()) {
+                task.setSequentialDownload(torrent.isSequentialDownload());
+                if (torrent.isPaused())
+                    task.pause();
+                else
+                    task.resume(true);
+                task.setDownloadPath(torrent.getDownloadPath());
+            }
+
+            return;
+        }
+
+        if (torrentTasks.containsKey(torrent.getId())) {
+            TorrentDownload task = torrentTasks.get(torrent.getId());
+            if (task != null)
+                task.remove(false);
+            torrentTasks.remove(torrent.getId());
+        }
+
+        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
         Priority[] priorities = new Priority[ti.numFiles()];
         List<Integer> torrentPriorities = torrent.getFilePriorities();
 
@@ -350,23 +496,19 @@ public class TorrentEngine extends SessionManager
             return;
         }
 
-        for (int i = 0; i < torrentPriorities.size(); i++) {
+        for (int i = 0; i < torrentPriorities.size(); i++)
             priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
-        }
 
         TorrentHandle handle = find(ti.infoHash());
-
         if (handle == null) {
             File saveDir = new File(torrent.getDownloadPath());
-
             String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
             File resumeFile = null;
 
             if (dataDir != null) {
                 File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
-                if (file.exists()) {
+                if (file.exists())
                     resumeFile = file;
-                }
             }
 
             /* New download */
@@ -734,19 +876,21 @@ public class TorrentEngine extends SessionManager
         return true;
     }
 
-    public TorrentDownload fetchMagnet(String uri) throws Exception
+    /*
+     * Returns sha1hash.
+     */
+
+    public String fetchMagnet(String uri) throws Exception
     {
-        if (uri == null) {
+        if (uri == null)
             throw new IllegalArgumentException("Magnet link is null");
-        }
 
         add_torrent_params p = add_torrent_params.create_instance();
         error_code ec = new error_code();
         add_torrent_params.parse_magnet_uri(uri, p, ec);
 
-        if (ec.value() != 0) {
+        if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
-        }
 
         sha1_hash hash = p.getInfo_hash();
         torrent_handle th = null;
@@ -759,9 +903,8 @@ public class TorrentEngine extends SessionManager
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
                     add = false;
-                    if (callback != null) {
+                    if (callback != null)
                         callback.onMetadataExist(hash.to_hex());
-                    }
 
                 } else {
                     add = true;
@@ -787,30 +930,27 @@ public class TorrentEngine extends SessionManager
             }
 
         } catch (Exception e) {
-            if (add && th != null && th.is_valid()) {
+            if (add && th != null && th.is_valid())
                 swig().remove_torrent(th);
-            }
 
             throw new Exception(e);
         }
 
         if (th.is_valid() && add) {
-            String info_hash = th.info_hash().to_hex();
+            String infoHash = th.info_hash().to_hex();
             Torrent torrent = new Torrent(
-                    info_hash,
+                    infoHash,
                     uri,
-                    info_hash,
+                    infoHash,
                     new ArrayList<Integer>(),
                     TorrentUtils.getTorrentDownloadPath(context),
                     System.currentTimeMillis());
             torrent.setDownloadingMetadata(true);
 
-            return new TorrentDownload(
-                    context,
-                    this,
-                    new TorrentHandle(th),
-                    torrent,
-                    callback);
+            magnetList.add(infoHash);
+            torrentTasks.put(infoHash, new TorrentDownload(context, new TorrentHandle(th), torrent, callback));
+
+            return infoHash;
         }
 
         return null;
@@ -818,17 +958,15 @@ public class TorrentEngine extends SessionManager
 
     private void restoreMagnet(String uri, String downloadPath)
     {
-        if (uri == null) {
+        if (uri == null)
             return;
-        }
 
         add_torrent_params p = add_torrent_params.create_instance();
         error_code ec = new error_code();
         add_torrent_params.parse_magnet_uri(uri, p, ec);
 
-        if (ec.value() != 0) {
+        if (ec.value() != 0)
             return;
-        }
 
         syncMagnet.lock();
 
@@ -851,19 +989,38 @@ public class TorrentEngine extends SessionManager
 
     public void removeMagnet(String infoHash)
     {
-        if (infoHash == null) {
+        if (infoHash == null || !magnetList.contains(infoHash))
             return;
-        }
+
+        magnetList.remove(infoHash);
+        torrentTasks.remove(infoHash);
 
         TorrentHandle th = find(new Sha1Hash(infoHash));
-        if (th != null && th.isValid()) {
+        if (th != null && th.isValid())
             remove(th);
-        }
     }
 
     public boolean isLSDEnabled()
     {
         return swig() != null && settings().broadcastLSD();
+    }
+
+    public void pauseAll()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.pause();
+        }
+    }
+
+    public void resumeAll()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.resume(false);
+        }
     }
 
     private final class LoadTorrentTask implements Runnable

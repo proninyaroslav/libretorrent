@@ -29,8 +29,6 @@ import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.swig.peer_info;
 import com.frostwire.jlibtorrent.swig.piece_index_bitfield;
 
-import org.acra.util.IOUtils;
-
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 

@@ -78,7 +78,6 @@ public class TorrentDownload
     };
 
     private Context context;
-    private TorrentEngine engine;
     private TorrentHandle th;
     private Torrent torrent;
     private TorrentEngineCallback callback;
@@ -88,13 +87,11 @@ public class TorrentDownload
     private long lastSaveResumeTime;
 
     public TorrentDownload(Context context,
-                           TorrentEngine engine,
                            TorrentHandle handle,
                            Torrent torrent,
                            TorrentEngineCallback callback)
     {
         this.context = context;
-        this.engine = engine;
         this.th = handle;
         this.torrent = torrent;
         this.callback = callback;
@@ -102,7 +99,7 @@ public class TorrentDownload
         this.parts = (ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null);
 
         listener = new InnerListener();
-        engine.addListener(listener);
+        TorrentEngine.getInstance().addListener(listener);
     }
 
     private final class InnerListener implements AlertListener
@@ -338,9 +335,9 @@ public class TorrentDownload
 
         if (th.isValid()) {
             if (withFiles) {
-                engine.remove(th, SessionHandle.DELETE_FILES);
+                TorrentEngine.getInstance().remove(th, SessionHandle.DELETE_FILES);
             } else {
-                engine.remove(th);
+                TorrentEngine.getInstance().remove(th);
             }
         }
     }
@@ -693,7 +690,7 @@ public class TorrentDownload
 
     public TorrentStateCode getStateCode()
     {
-        if (!engine.isStarted()) {
+        if (!TorrentEngine.getInstance().isStarted()) {
             return TorrentStateCode.STOPPED;
         }
 
@@ -746,7 +743,8 @@ public class TorrentDownload
 
     public boolean isPaused()
     {
-        return th.isValid() && (isPaused(th.status(true)) || engine.isPaused() || !engine.isStarted());
+        return th.isValid() && (isPaused(th.status(true)) ||
+                TorrentEngine.getInstance().isPaused() || !TorrentEngine.getInstance().isStarted());
     }
 
     private static boolean isPaused(TorrentStatus s)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,31 +17,27 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.exceptions;
 
-public interface TorrentEngineCallback
+/*
+ * Not enough free space exception.
+ */
+
+public class FreeSpaceException extends Exception
 {
-    void onTorrentAdded(String id);
+    public FreeSpaceException()
+    {
 
-    void onTorrentStateChanged(String id);
+    }
 
-    void onTorrentFinished(String id);
+    public FreeSpaceException(String message)
+    {
+        super(message);
+    }
 
-    void onTorrentRemoved(String id);
-
-    void onTorrentPaused(String id);
-
-    void onTorrentResumed(String id);
-
-    void onEngineStarted();
-
-    void onTorrentMoved(String id, boolean success);
-
-    void onIpFilterParsed(boolean success);
-
-    void onMetadataReceived(String hash, String pathToTorrent, Exception err);
-
-    void onMetadataExist(String hash);
-
-    void onRestoreSessionError(String id);
+    public FreeSpaceException(Exception e)
+    {
+        super(e.getMessage());
+        super.setStackTrace(e.getStackTrace());
+    }
 }
