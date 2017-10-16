@@ -20,21 +20,19 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.os.Handler;
-import android.os.Looper;
+import android.os.HandlerThread;
 import android.util.Log;
 
 import com.frostwire.jlibtorrent.swig.address;
 import com.frostwire.jlibtorrent.swig.error_code;
 import com.frostwire.jlibtorrent.swig.ip_filter;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.List;
 
 /*
  * Parser of blacklist IP addresses in DAT and P2P formats.
@@ -44,6 +42,7 @@ public class IPFilterParser
 {
     @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
+    private static final String THREAD_NAME = IPFilterParser.class.getSimpleName();
 
     private String path;
     private Handler handler;
@@ -67,11 +66,14 @@ public class IPFilterParser
 
         final ip_filter filter = new ip_filter();
 
-        handler = new Handler(Looper.getMainLooper());
+        HandlerThread handlerThread = new HandlerThread(THREAD_NAME);
+        handlerThread.start();
+        handler = new Handler(handlerThread.getLooper());
         Runnable r = new Runnable()
         {
             @Override
             public void run() {
+                Log.d(TAG, "start parsing IP filter file");
                 boolean success = false;
                 if (path.contains(".dat")) {
                     success = parseDATFilterFile(path, filter);
@@ -79,6 +81,7 @@ public class IPFilterParser
                     success = parseP2PFilterFile(path, filter);
                 }
 
+                Log.d(TAG, "completed parsing IP filter file, is success = " + success);
                 if (listener != null) {
                     listener.onParsed(filter, success);
                 }
