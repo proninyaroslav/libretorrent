@@ -28,18 +28,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -54,6 +50,8 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Matcher;
@@ -178,7 +176,7 @@ public class Utils
 
     public static String normalizeURL(String url)
     {
-        if (!Patterns.WEB_URL.matcher(url).matches()) {
+        if (!isValidUrl(url)) {
             return null;
         }
 
@@ -215,6 +213,24 @@ public class Utils
         Matcher matcher = pattern.matcher(url.trim());
 
         return matcher.matches();
+    }
+
+    /**
+     * Check whether given URL is valid.
+     * @param url URL to be checked.
+     * @return true if the URL is valid, return false otherwise.
+     */
+    public static boolean isValidUrl (String url) {
+        if (url == null || TextUtils.isEmpty(url)) {
+            return false;
+        }
+
+        try {
+            URL parsedUrl = new URL(url);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
     }
 
     /*
