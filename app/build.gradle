@@ -39,7 +39,6 @@ dependencies {
     compile 'com.android.support:design:' + ANDROID_SUPPORT_VERSION
     compile 'com.android.support:cardview-v7:' + ANDROID_SUPPORT_VERSION
 
-    compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'commons-io:commons-io:2.5'
     compile 'net.grandcentrix.tray:tray:0.12.0'
     compile 'ch.acra:acra:4.9.2'
