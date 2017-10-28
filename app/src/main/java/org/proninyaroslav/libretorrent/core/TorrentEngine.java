@@ -352,16 +352,6 @@ public class TorrentEngine extends SessionManager
         return pathToTorrent;
     }
 
-//    MetadataReceivedAlert metadataAlert = ((MetadataReceivedAlert) alert);
-//    int size = metadataAlert.metadataSize();
-//    int maxSize = 2 * 1024 * 1024;
-//    byte[] data = null;
-//
-//                    if (callback != null && 0 < size && size <= maxSize)
-//    data = metadataAlert.torrentData(true);
-//                    if (callback != null)
-//        callback.onMetadataReceived(metadataAlert.handle().infoHash().toHex(), data);
-
     public void restoreDownloads(Collection<Torrent> torrents)
     {
         if (torrents == null) {
@@ -885,9 +875,8 @@ public class TorrentEngine extends SessionManager
         if (uri == null)
             throw new IllegalArgumentException("Magnet link is null");
 
-        add_torrent_params p = add_torrent_params.create_instance();
         error_code ec = new error_code();
-        add_torrent_params.parse_magnet_uri(uri, p, ec);
+        add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
 
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
@@ -961,9 +950,8 @@ public class TorrentEngine extends SessionManager
         if (uri == null)
             return;
 
-        add_torrent_params p = add_torrent_params.create_instance();
         error_code ec = new error_code();
-        add_torrent_params.parse_magnet_uri(uri, p, ec);
+        add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
 
         if (ec.value() != 0)
             return;
