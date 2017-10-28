@@ -24,8 +24,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import com.loopj.android.http.SyncHttpClient;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
@@ -36,12 +34,13 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
-
-import cz.msebera.android.httpclient.Header;
 
 public class TorrentUtils
 {
@@ -298,34 +297,21 @@ public class TorrentUtils
         }
 
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-        final CountDownLatch signal = new CountDownLatch(1);
-        SyncHttpClient client = new SyncHttpClient();
-
-        client.get(url, new FileAsyncHttpResponseHandler(saveTo) {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file)
-            {
-                throwable.printStackTrace();
-                errorArray.add(throwable);
-                if (file.exists()) {
-                    file.delete();
-                }
-                signal.countDown();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, File file)
-            {
-                signal.countDown();
-            }
-        });
 
         try {
-            Log.i(TAG, "Fetching link...");
-            signal.await();
+            URL torrentFileURL = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) torrentFileURL.openConnection();
+            int responseCode = connection.getResponseCode();
 
-        } catch (InterruptedException e) {
-            /* Ignore */
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                writeUrlConnectionToFile(connection, saveTo);
+            } else {
+                throw new FetchLinkException("Failed to download torrent file, response code: " + responseCode);
+            }
+        } catch (MalformedURLException e) {
+            errorArray.add(e);
+        } catch (IOException e) {
+            errorArray.add(e);
         }
 
         if (!errorArray.isEmpty()) {
@@ -336,6 +322,25 @@ public class TorrentUtils
             }
 
             throw new FetchLinkException(s.toString());
+        }
+    }
+
+    private static void writeUrlConnectionToFile(HttpURLConnection connection, File file) throws IOException
+    {
+        InputStream inputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            inputStream = connection.getInputStream();
+            fileOutputStream = new FileOutputStream(file);
+
+            int bytesRead = -1;
+            byte[] buffer = new byte[2048];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        } finally {
+            inputStream.close();
+            fileOutputStream.close();
         }
     }
 }

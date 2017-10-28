@@ -99,6 +99,8 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -741,7 +743,7 @@ public class MainFragment extends Fragment
             return true;
         }
 
-        if (!Patterns.WEB_URL.matcher(s).matches()) {
+        if (!Utils.isValidUrl(s)) {
             layout.setErrorEnabled(true);
             layout.setError(getString(R.string.error_invalid_link));
             layout.requestFocus();
