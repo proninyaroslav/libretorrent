@@ -199,11 +199,11 @@ public class DetailTorrentFragment extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_detail_torrent, container, false);
 
-        toolbar = (Toolbar) v.findViewById(R.id.detail_toolbar);
-        coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordinator_layout);
-        saveChangesButton = (FloatingActionButton) v.findViewById(R.id.save_changes_button);
-        viewPager = (ViewPager) v.findViewById(R.id.detail_torrent_viewpager);
-        tabLayout = (TabLayout) v.findViewById(R.id.detail_torrent_tabs);
+        toolbar = v.findViewById(R.id.detail_toolbar);
+        coordinatorLayout = v.findViewById(R.id.coordinator_layout);
+        saveChangesButton = v.findViewById(R.id.save_changes_button);
+        viewPager = v.findViewById(R.id.detail_torrent_viewpager);
+        tabLayout = v.findViewById(R.id.detail_torrent_tabs);
 
         return v;
     }
@@ -512,22 +512,13 @@ public class DetailTorrentFragment extends Fragment
         return (infoCache != null ? infoCache.fileList : new ArrayList<BencodeFileItem>());
     }
 
-    private ArrayList<Priority> getPrioritiesList()
+    private List<Priority>  getPrioritiesList()
     {
-        ArrayList<Priority> priorities = new ArrayList<>();
         if (torrent == null) {
-            return priorities;
-        }
-        /*
-         * The index position in array must be
-         * equal to the priority position in array
-         */
-        List<Integer> torrentPriorities = torrent.getFilePriorities();
-        for (int i = 0; i < torrentPriorities.size(); i++) {
-            priorities.add(Priority.fromSwig(torrentPriorities.get(i)));
+            return null;
         }
 
-        return priorities;
+        return torrent.getFilePriorities();
     }
 
     public void onTorrentInfoChanged()
@@ -601,24 +592,13 @@ public class DetailTorrentFragment extends Fragment
     {
         DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
 
-        if (fileFrag == null) {
+        if (fileFrag == null)
             return;
-        }
 
-        Priority[] priorities = fileFrag.getPriorities();
-
+        List<Priority> priorities = fileFrag.getPriorities();
         if (priorities != null) {
-            ArrayList<Integer> list = new ArrayList<>();
-
-            for (Priority priority : priorities) {
-                if (priority != null) {
-                    list.add(priority.swig());
-                }
-            }
-
             fileFrag.disableSelectedFiles();
-
-            changeFilesPriorityRequest(list);
+            changeFilesPriorityRequest(priorities);
         }
     }
 
@@ -798,9 +778,9 @@ public class DetailTorrentFragment extends Fragment
 
         if (getFragmentManager().findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) != null) {
             final TextInputEditText field =
-                    (TextInputEditText) dialog.findViewById(R.id.multiline_text_input_dialog);
+                    dialog.findViewById(R.id.multiline_text_input_dialog);
             final TextInputLayout fieldLayout =
-                    (TextInputLayout) dialog.findViewById(R.id.layout_multiline_text_input_dialog);
+                    dialog.findViewById(R.id.layout_multiline_text_input_dialog);
 
             /* Dismiss error label if user has changed the text */
             if (field != null && fieldLayout != null) {
@@ -895,8 +875,8 @@ public class DetailTorrentFragment extends Fragment
             }
 
         } else if (getFragmentManager().findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
-            TextInputEditText upload = (TextInputEditText) dialog.findViewById(R.id.upload_limit);
-            TextInputEditText download = (TextInputEditText) dialog.findViewById(R.id.download_limit);
+            TextInputEditText upload = dialog.findViewById(R.id.upload_limit);
+            TextInputEditText download = dialog.findViewById(R.id.download_limit);
 
             if (upload != null && download != null) {
                 int minSpeedLimit = 0;
@@ -923,14 +903,14 @@ public class DetailTorrentFragment extends Fragment
     {
         if (v != null) {
             if (getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) != null) {
-                CheckBox withFiles = (CheckBox) v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
+                CheckBox withFiles = v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
                 deleteTorrentRequest(withFiles.isChecked());
 
                 finish(new Intent(), FragmentCallback.ResultCode.CANCEL);
 
             } else if (getFragmentManager().findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
-                TextInputEditText upload = (TextInputEditText) v.findViewById(R.id.upload_limit);
-                TextInputEditText download = (TextInputEditText) v.findViewById(R.id.download_limit);
+                TextInputEditText upload = v.findViewById(R.id.upload_limit);
+                TextInputEditText download = v.findViewById(R.id.download_limit);
 
                 if (!TextUtils.isEmpty(upload.getText().toString()) && !TextUtils.isEmpty(download.getText().toString())) {
                     uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
@@ -941,7 +921,7 @@ public class DetailTorrentFragment extends Fragment
 
             } else if (getFragmentManager().findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) != null) {
                 if (sentError != null) {
-                    EditText editText = (EditText) v.findViewById(R.id.comment);
+                    EditText editText = v.findViewById(R.id.comment);
                     String comment = editText.getText().toString();
 
                     Utils.reportError(sentError, comment);
@@ -1034,7 +1014,7 @@ public class DetailTorrentFragment extends Fragment
         downloadSpeedLimit = service.getDownloadSpeedLimit(torrentId);
     }
 
-    private void changeFilesPriorityRequest(ArrayList<Integer> priorities)
+    private void changeFilesPriorityRequest(List<Priority> priorities)
     {
         if (!bound || service == null || priorities == null || torrentId == null) {
             return;

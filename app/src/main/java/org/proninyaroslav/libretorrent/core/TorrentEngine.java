@@ -326,9 +326,6 @@ public class TorrentEngine extends SessionManager
 
         TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
         TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
-        ArrayList<Integer> priorities = new ArrayList<>(
-                Collections.nCopies(info.fileList.size(), Priority.NORMAL.swig()));
-
         if (task != null) {
             Torrent torrent = task.getTorrent();
             if (!nonAddedMagnet) {
@@ -338,7 +335,7 @@ public class TorrentEngine extends SessionManager
                             + freeSpace + " free, but torrent size is " + info.torrentSize);
 
                 torrent.setTorrentFilePath(pathToTorrent);
-                torrent.setFilePriorities(priorities);
+                torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
                 torrent.setDownloadingMetadata(false);
                 task.setSequentialDownload(torrent.isSequentialDownload());
                 if (torrent.isPaused())
@@ -354,58 +351,39 @@ public class TorrentEngine extends SessionManager
 
     public void restoreDownloads(Collection<Torrent> torrents)
     {
-        if (torrents == null) {
+        if (torrents == null)
             return;
-        }
 
         for (Torrent torrent : torrents) {
-            if (torrent == null) {
+            if (torrent == null)
                 continue;
-            }
 
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.getId());
-
             if (torrent.isDownloadingMetadata()) {
                 loadTask.putMagnet(torrent.getTorrentFilePath(), new File(torrent.getTorrentFilePath()));
-
             } else {
                 TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
-
-                Priority[] priorities = new Priority[ti.numFiles()];
-                List<Integer> torrentPriorities = torrent.getFilePriorities();
-
-                if (torrentPriorities.size() != ti.numFiles()) {
-                    if (callback != null) {
+                List<Priority>  priorities = torrent.getFilePriorities();
+                if (priorities.size() != ti.numFiles()) {
+                    if (callback != null)
                         callback.onRestoreSessionError(torrent.getId());
-                    }
-
                     continue;
                 }
 
-                for (int i = 0; i < torrentPriorities.size(); i++) {
-                    priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
-                }
-
                 File saveDir = new File(torrent.getDownloadPath());
-
                 String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
                 File resumeFile = null;
-
                 if (dataDir != null) {
                     File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
-                    if (file.exists()) {
+                    if (file.exists())
                         resumeFile = file;
-                    }
                 }
-
-                loadTask.putTorrentFile(new File(torrent.getTorrentFilePath()),
-                        saveDir, resumeFile, priorities);
+                loadTask.putTorrentFile(new File(torrent.getTorrentFilePath()), saveDir,
+                                        resumeFile, priorities.toArray(new Priority[priorities.size()]));
             }
-
             addTorrentsQueue.put(torrent.getId(), torrent);
             loadTorrentsQueue.add(loadTask);
         }
-
         runNextLoadTorrentTask();
     }
 
@@ -452,6 +430,15 @@ public class TorrentEngine extends SessionManager
 
     public void download(Torrent torrent)
     {
+        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
+        List<Priority> priorities = torrent.getFilePriorities();
+
+        if (priorities.size() != ti.numFiles()) {
+            Log.e(TAG, "File count doesn't match: " + torrent.getName());
+
+            return;
+        }
+
         if (magnetList.contains(torrent.getId())) {
             TorrentDownload task = torrentTasks.get(torrent.getId());
             magnetList.remove(torrent.getId());
@@ -464,6 +451,7 @@ public class TorrentEngine extends SessionManager
                 else
                     task.resume(true);
                 task.setDownloadPath(torrent.getDownloadPath());
+                task.prioritizeFiles(priorities.toArray(new Priority[priorities.size()]));
             }
 
             return;
@@ -475,19 +463,6 @@ public class TorrentEngine extends SessionManager
                 task.remove(false);
             torrentTasks.remove(torrent.getId());
         }
-
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
-        Priority[] priorities = new Priority[ti.numFiles()];
-        List<Integer> torrentPriorities = torrent.getFilePriorities();
-
-        if (torrentPriorities.size() != ti.numFiles()) {
-            Log.e(TAG, "File count doesn't match: " + torrent.getName());
-
-            return;
-        }
-
-        for (int i = 0; i < torrentPriorities.size(); i++)
-            priorities[i] = Priority.fromSwig(torrentPriorities.get(i));
 
         TorrentHandle handle = find(ti.infoHash());
         if (handle == null) {
@@ -503,11 +478,11 @@ public class TorrentEngine extends SessionManager
 
             /* New download */
             addTorrentsQueue.put(ti.infoHash().toString(), torrent);
-            download(ti, saveDir, resumeFile, priorities, null);
+            download(ti, saveDir, resumeFile, priorities.toArray(new Priority[priorities.size()]), null);
 
         } else {
             /* Found a download with the same hash, just adjust the priorities if needed */
-            prioritizeFiles(handle, priorities);
+            prioritizeFiles(handle, priorities.toArray(new Priority[priorities.size()]));
         }
     }
 
@@ -931,7 +906,7 @@ public class TorrentEngine extends SessionManager
                     infoHash,
                     uri,
                     infoHash,
-                    new ArrayList<Integer>(),
+                    new ArrayList<Priority>(),
                     TorrentUtils.getTorrentDownloadPath(context),
                     System.currentTimeMillis());
             torrent.setDownloadingMetadata(true);

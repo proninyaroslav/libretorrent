@@ -37,7 +37,6 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
@@ -55,7 +54,6 @@ import com.frostwire.jlibtorrent.swig.settings_pack;
 import net.grandcentrix.tray.core.OnTrayPreferenceChangeListener;
 import net.grandcentrix.tray.core.TrayItem;
 
-import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FetchMagnetCallback;
@@ -84,13 +82,10 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TorrentTaskService extends Service
@@ -1022,7 +1017,7 @@ public class TorrentTaskService extends Service
         }
     }
 
-    public synchronized void changeFilesPriority(String id, ArrayList<Integer> priorities)
+    public synchronized void changeFilesPriority(String id, List<Priority> priorities)
     {
         if (id == null || (priorities == null || priorities.size() == 0))
             return;
@@ -1038,13 +1033,7 @@ public class TorrentTaskService extends Service
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
-
-            Priority[] list = new Priority[priorities.size()];
-
-            for (int i = 0; i < priorities.size(); i++)
-                list[i] = Priority.fromSwig(priorities.get(i));
-
-            task.prioritizeFiles(list);
+            task.prioritizeFiles(priorities.toArray(new Priority[priorities.size()]));
         }
     }
 

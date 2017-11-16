@@ -30,8 +30,8 @@ import org.acra.annotation.ReportsCrashes;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
-        mode = ReportingInteractionMode.DIALOG,
-        reportDialogClass = ErrorReportActivity.class)
+                mode = ReportingInteractionMode.DIALOG,
+                reportDialogClass = ErrorReportActivity.class)
 
 public class MainApplication extends Application
 {
@@ -44,7 +44,6 @@ public class MainApplication extends Application
         super.attachBaseContext(base);
 
         ACRA.init(this);
-
         cleanTemp();
     }
 

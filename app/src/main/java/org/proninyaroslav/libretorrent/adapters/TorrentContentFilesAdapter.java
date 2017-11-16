@@ -115,17 +115,17 @@ public class TorrentContentFilesAdapter
 
             String priority = "";
 
-            switch (file.getPriority()) {
+            switch (file.getFilePriority().getType()) {
                 case NORMAL:
                     priority = context.getString(R.string.file_priority_normal);
                     break;
                 case IGNORE:
                     priority = context.getString(R.string.file_priority_low);
                     break;
-                case UNKNOWN:
+                case MIXED:
                     priority = context.getString(R.string.file_priority_mixed);
                     break;
-                case SEVEN:
+                case HIGH:
                     priority = context.getString(R.string.file_priority_high);
                     break;
             }
@@ -190,11 +190,11 @@ public class TorrentContentFilesAdapter
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            itemFileList = (RelativeLayout) itemView.findViewById(R.id.item_file_list);
-            fileName = (TextView) itemView.findViewById(R.id.file_name);
-            fileStatus = (TextView) itemView.findViewById(R.id.file_status);
-            fileIcon = (ImageView) itemView.findViewById(R.id.file_icon);
-            fileSelected = (CheckBox) itemView.findViewById(R.id.file_selected);
+            itemFileList = itemView.findViewById(R.id.item_file_list);
+            fileName = itemView.findViewById(R.id.file_name);
+            fileStatus = itemView.findViewById(R.id.file_status);
+            fileIcon = itemView.findViewById(R.id.file_icon);
+            fileSelected = itemView.findViewById(R.id.file_selected);
             fileSelected.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -206,7 +206,7 @@ public class TorrentContentFilesAdapter
                     }
                 }
             });
-            fileProgress = (ProgressBar) itemView.findViewById(R.id.file_progress);
+            fileProgress = itemView.findViewById(R.id.file_progress);
             Utils.colorizeProgressBar(context, fileProgress);
         }
 

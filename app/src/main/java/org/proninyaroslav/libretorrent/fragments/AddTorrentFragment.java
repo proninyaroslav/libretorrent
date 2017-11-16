@@ -764,25 +764,19 @@ public class AddTorrentFragment extends Fragment
 
         Intent intent = new Intent();
 
-        ArrayList<Integer> priorities =
-                new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE.swig()));
+        ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE));
+        if (selectedIndexes != null)
+            for (int index : selectedIndexes)
+                priorities.set(index, Priority.NORMAL);
 
-        if (selectedIndexes != null) {
-            for (int index : selectedIndexes) {
-                priorities.set(index, Priority.NORMAL.swig());
-            }
-        }
-
-        Torrent torrent = new Torrent(info.sha1Hash,
-                torrentName, priorities,
-                downloadDir, System.currentTimeMillis());
+        Torrent torrent = new Torrent(info.sha1Hash, torrentName, priorities,
+                                      downloadDir, System.currentTimeMillis());
         torrent.setSequentialDownload(sequentialDownload);
         torrent.setPaused(!startTorrent);
         boolean downloadingMetadata = decodeState.get() == State.FETCHING_MAGNET;
         torrent.setTorrentFilePath(
                 (pathToTempTorrent == null && downloadingMetadata ? uri.toString() : pathToTempTorrent));
         torrent.setDownloadingMetadata(downloadingMetadata);
-
         saveTorrentFile = true;
 
         intent.putExtra(AddTorrentActivity.TAG_RESULT_TORRENT, torrent);

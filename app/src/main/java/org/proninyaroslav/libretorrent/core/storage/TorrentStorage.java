@@ -27,15 +27,14 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.apache.commons.io.FileUtils;
+import com.frostwire.jlibtorrent.Priority;
+
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,7 +112,7 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_NAME, torrent.getName());
         values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getTorrentFilePath());
         values.put(DatabaseHelper.COLUMN_PATH_TO_DOWNLOAD, torrent.getDownloadPath());
-        values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, integerListToString(torrent.getFilePriorities()));
+        values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, prioritiesToString(torrent.getFilePriorities()));
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
@@ -151,7 +150,7 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_NAME, torrent.getName());
         values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getTorrentFilePath());
         values.put(DatabaseHelper.COLUMN_PATH_TO_DOWNLOAD, torrent.getDownloadPath());
-        values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, integerListToString(torrent.getFilePriorities()));
+        values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, prioritiesToString(torrent.getFilePriorities()));
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
@@ -212,7 +211,7 @@ public class TorrentStorage
 
     public List<Torrent> getAll()
     {
-        List<Torrent> torrents = new ArrayList<Torrent>();
+        List<Torrent> torrents = new ArrayList<>();
 
                 Cursor cursor = ConnectionManager.getDatabase(context).query(DatabaseHelper.TORRENTS_TABLE,
                 allColumns,
@@ -240,7 +239,7 @@ public class TorrentStorage
 
     public Map<String, Torrent> getAllAsMap()
     {
-        Map<String, Torrent> torrents = new HashMap<String, Torrent>();
+        Map<String, Torrent> torrents = new HashMap<>();
 
         Cursor cursor = ConnectionManager.getDatabase(context).query(DatabaseHelper.TORRENTS_TABLE,
                 allColumns,
@@ -321,7 +320,7 @@ public class TorrentStorage
 
         String priorities = cursor.getString(
                 indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_FILE_PRIORITIES));
-        Collection<Integer> filePriorities = integerListFromString(priorities);
+        List<Priority> filePriorities = prioritiesFromString(priorities);
 
         boolean isSequentialDownload = cursor.getInt(
                 indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_IS_SEQUENTIAL)) > 0;
@@ -352,26 +351,28 @@ public class TorrentStorage
     }
 
     @NonNull
-    private String integerListToString(Collection<Integer> indexes)
+    private String prioritiesToString(List<Priority> priorities)
     {
-        return TextUtils.join(Model.FILE_LIST_SEPARATOR, indexes);
+        List<Integer> val = new ArrayList<>(priorities.size());
+        for (int i = 0; i < priorities.size(); i++)
+            val.add(priorities.get(i).swig());
+
+        return TextUtils.join(Model.FILE_LIST_SEPARATOR, val);
     }
 
-    private Collection<Integer> integerListFromString(String s)
+    private List<Priority> prioritiesFromString(String s)
     {
         List<String> numbers = Arrays.asList(s.split(Model.FILE_LIST_SEPARATOR));
+        int length = numbers.size();
+        List<Priority> priorities = new ArrayList<>(length);
 
-        Collection<Integer> list = new ArrayList<>();
-
-        for (String number : numbers) {
-            if (TextUtils.isEmpty(number)) {
+        for (int i = 0; i < length; i++) {
+            if (TextUtils.isEmpty(numbers.get(i)))
                 continue;
-            }
-
-            list.add(Integer.valueOf(number));
+           priorities.add(Priority.fromSwig(Integer.valueOf(numbers.get(i))));
         }
 
-        return list;
+        return priorities;
     }
 
     /*

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,14 +19,12 @@
 
 package org.proninyaroslav.libretorrent.core.filetree;
 
-import com.frostwire.jlibtorrent.Priority;
-
 import java.io.Serializable;
 
 public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> implements Serializable
 {
     private SelectState selected = SelectState.UNSELECTED;
-    private Priority priority = Priority.IGNORE;
+    private FilePriority priority = new FilePriority(FilePriority.Type.IGNORE);
     private long receivedBytes = 0L;
 
     public enum SelectState
@@ -52,51 +50,51 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         super(name, size, type, parent);
     }
 
-    public Priority getPriority()
+    public FilePriority getFilePriority()
     {
         return priority;
     }
 
-    public void setPriority(Priority priority)
+    public void setPriority(FilePriority priority)
     {
         this.priority = priority;
 
-        if (priority == Priority.IGNORE && selected == SelectState.SELECTED) {
+        if (priority.getType() == FilePriority.Type.IGNORE && selected == SelectState.SELECTED) {
             select(SelectState.UNSELECTED);
-        } else if (priority != Priority.IGNORE && selected == SelectState.UNSELECTED) {
+        } else if (priority.getType() != FilePriority.Type.IGNORE && selected == SelectState.UNSELECTED) {
             select(SelectState.SELECTED);
         }
 
         /* Sending priority change event up the tree */
-        if (parent != null && parent.priority != priority) {
+        if (parent != null && parent.priority.getType() != priority.getType()) {
             parent.onChildPriorityChanged(priority);
         }
 
         /* Sending priority change event down the tree */
         if (children.size() != 0) {
             for (TorrentContentFileTree node : children.values()) {
-                if (node.priority != priority) {
+                if (node.priority.getType() != priority.getType()) {
                     node.setPriority(priority);
                 }
             }
         }
     }
 
-    private synchronized void onChildPriorityChanged(Priority priority)
+    private synchronized void onChildPriorityChanged(FilePriority priority)
     {
         if (children.size() != 0) {
             boolean isMixedPriority = false;
             for (TorrentContentFileTree child : children.values()) {
-                if (child.priority != priority) {
+                if (child.priority.getType() != priority.getType()) {
                     isMixedPriority = true;
                 }
             }
 
-            this.priority = (isMixedPriority ? Priority.UNKNOWN : priority);
+            this.priority = (isMixedPriority ? new FilePriority(FilePriority.Type.MIXED) : priority);
         }
 
         /* Sending priority change event up the parent */
-        if (parent != null && parent.priority != priority) {
+        if (parent != null && parent.priority.getType() != priority.getType()) {
             parent.onChildPriorityChanged(priority);
         }
     }
@@ -127,10 +125,10 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     {
         selected = select;
 
-        if (selected == SelectState.SELECTED && priority == Priority.IGNORE) {
-            setPriority(Priority.NORMAL);
-        } else if (selected == SelectState.UNSELECTED && priority != Priority.IGNORE) {
-            setPriority(Priority.IGNORE);
+        if (selected == SelectState.SELECTED && priority.getType() == FilePriority.Type.IGNORE) {
+            setPriority(new FilePriority(FilePriority.Type.NORMAL));
+        } else if (selected == SelectState.UNSELECTED && priority.getType() != FilePriority.Type.IGNORE) {
+            setPriority(new FilePriority(FilePriority.Type.IGNORE));
         }
 
         /* Sending select change event up the parent */

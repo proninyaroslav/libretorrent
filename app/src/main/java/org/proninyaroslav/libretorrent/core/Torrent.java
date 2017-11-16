@@ -22,9 +22,9 @@ package org.proninyaroslav.libretorrent.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.frostwire.jlibtorrent.Priority;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
      * The index position in array must be
      * equal to the priority position in array
      */
-    private List<Integer> filePriorities;
+    private List<Priority> filePriorities;
     private String torrentName;
     private boolean sequentialDownload = false;
     private boolean finished = false;
@@ -52,7 +52,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     private long dateAdded;
 
     public Torrent(String id, String torrentName,
-                   Collection<Integer> filePriorities,
+                   List<Priority> filePriorities,
                    String downloadPath, long dateAdded)
     {
         this(id, null, torrentName, filePriorities, downloadPath, dateAdded);
@@ -60,13 +60,13 @@ public class Torrent implements Parcelable, Comparable<Torrent>
 
     public Torrent(String id, String torrentFile,
                    String torrentName,
-                   Collection<Integer> filePriorities,
+                   List<Priority> filePriorities,
                    String downloadPath, long dateAdded)
     {
         this.id = id;
         this.torrentFile = torrentFile;
         this.torrentName = torrentName;
-        this.filePriorities = new ArrayList<>(filePriorities);
+        this.filePriorities = filePriorities;
         this.downloadPath = downloadPath;
         this.dateAdded = dateAdded;
     }
@@ -76,7 +76,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         id = source.readString();
         torrentFile = source.readString();
         downloadPath = source.readString();
-        filePriorities = source.readArrayList(Integer.class.getClassLoader());
+        filePriorities = source.readArrayList(Priority.class.getClassLoader());
         torrentName = source.readString();
         sequentialDownload = source.readByte() != 0;
         finished = source.readByte() != 0;
@@ -115,14 +115,14 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         torrentFile = path;
     }
 
-    public List<Integer> getFilePriorities()
+    public List<Priority> getFilePriorities()
     {
         return filePriorities;
     }
 
-    public void setFilePriorities(Collection<Integer> priorities)
+    public void setFilePriorities(List<Priority> priorities)
     {
-        filePriorities = new ArrayList<>(priorities);
+        filePriorities = priorities;
     }
 
     public String getDownloadPath()
