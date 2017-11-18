@@ -595,7 +595,7 @@ public class DetailTorrentFragment extends Fragment
         if (fileFrag == null)
             return;
 
-        List<Priority> priorities = fileFrag.getPriorities();
+        Priority[] priorities = fileFrag.getPriorities();
         if (priorities != null) {
             fileFrag.disableSelectedFiles();
             changeFilesPriorityRequest(priorities);
@@ -1014,7 +1014,7 @@ public class DetailTorrentFragment extends Fragment
         downloadSpeedLimit = service.getDownloadSpeedLimit(torrentId);
     }
 
-    private void changeFilesPriorityRequest(List<Priority> priorities)
+    private void changeFilesPriorityRequest(Priority[] priorities)
     {
         if (!bound || service == null || priorities == null || torrentId == null) {
             return;

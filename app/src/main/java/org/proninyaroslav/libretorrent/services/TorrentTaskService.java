@@ -83,6 +83,7 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -1010,9 +1011,9 @@ public class TorrentTaskService extends Service
         }
     }
 
-    public synchronized void changeFilesPriority(String id, List<Priority> priorities)
+    public synchronized void changeFilesPriority(String id, Priority[] priorities)
     {
-        if (id == null || (priorities == null || priorities.size() == 0))
+        if (id == null || (priorities == null || priorities.length == 0))
             return;
 
         Torrent torrent = repo.getTorrentByID(id);
@@ -1020,13 +1021,13 @@ public class TorrentTaskService extends Service
         if (torrent == null)
             return;
 
-        torrent.setFilePriorities(priorities);
+        torrent.setFilePriorities(Arrays.asList(priorities));
         repo.update(torrent);
 
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
-            task.prioritizeFiles(priorities.toArray(new Priority[priorities.size()]));
+            task.prioritizeFiles(priorities);
         }
     }
 

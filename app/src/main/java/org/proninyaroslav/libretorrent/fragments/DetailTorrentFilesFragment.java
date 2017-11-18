@@ -591,7 +591,7 @@ public class DetailTorrentFilesFragment extends Fragment
         adapter.notifyDataSetChanged();
     }
 
-    public List<Priority> getPriorities()
+    public Priority[] getPriorities()
     {
         if (fileTree == null)
             return null;
@@ -600,10 +600,10 @@ public class DetailTorrentFilesFragment extends Fragment
         if (files == null)
             return null;
 
-        List<Priority> priorities = new ArrayList<>(files.size());
+        Priority[] priorities = new Priority[files.size()];
         for (TorrentContentFileTree file : files)
             if (file != null && (file.getIndex() >= 0 && file.getIndex() < files.size()))
-                priorities.add(file.getFilePriority().getPriority());
+                priorities[file.getIndex()] =  file.getFilePriority().getPriority();
 
         return priorities;
     }
