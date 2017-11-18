@@ -301,11 +301,17 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onTorrentAdded(String id)
+    public void onTorrentAdded(String id, boolean fromMetadata)
     {
-        if (pauseTorrents.get()) {
-            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-            if (task != null)
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task != null) {
+            if (fromMetadata) {
+                Torrent torrent = task.getTorrent();
+                repo.update(torrent);
+                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
+                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
+            }
+            if (pauseTorrents.get())
                 task.pause();
         }
     }
@@ -457,27 +463,14 @@ public class TorrentTaskService extends Service
     @Override
     public void onMetadataReceived(String hash, String pathToTorrent, Exception err)
     {
-        boolean nonAddedMagnet = TorrentEngine.getInstance().isMagnet(hash);
-        TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
-
         if (err != null) {
             Log.e(TAG, "Fetch metadata error: ");
             Log.e(TAG, Log.getStackTraceString(err));
-
-            if (!nonAddedMagnet) {
-                if (err instanceof FreeSpaceException) {
-                    makeTorrentErrorNotify(repo.getTorrentByID(hash), getString(R.string.error_free_space));
-                    needsUpdateNotify.set(true);
-                    sendTorrentsStateOneShot();
-                }
+            if (err instanceof FreeSpaceException) {
+                makeTorrentErrorNotify(repo.getTorrentByID(hash), getString(R.string.error_free_space));
+                needsUpdateNotify.set(true);
+                sendTorrentsStateOneShot();
                 repo.delete(hash);
-            }
-        } else {
-            if (!nonAddedMagnet && task != null) {
-                Torrent torrent = task.getTorrent();
-                repo.update(torrent);
-                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
-                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
             }
         }
 

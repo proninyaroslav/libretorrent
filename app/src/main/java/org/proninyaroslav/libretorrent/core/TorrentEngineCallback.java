@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 public interface TorrentEngineCallback
 {
-    void onTorrentAdded(String id);
+    void onTorrentAdded(String id, boolean fromMetadata);
 
     void onTorrentStateChanged(String id);
 
