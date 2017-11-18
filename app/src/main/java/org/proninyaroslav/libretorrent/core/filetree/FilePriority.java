@@ -21,7 +21,9 @@ package org.proninyaroslav.libretorrent.core.filetree;
 
 import com.frostwire.jlibtorrent.Priority;
 
-public class FilePriority
+import java.io.Serializable;
+
+public class FilePriority implements Serializable
 {
     private int priority;
     private Type type;
