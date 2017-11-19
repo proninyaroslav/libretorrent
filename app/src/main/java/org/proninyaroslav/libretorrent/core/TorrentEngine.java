@@ -94,7 +94,7 @@ public class TorrentEngine extends SessionManager
     public static final int DEFAULT_ACTIVE_LIMIT = 6;
     public static final int DEFAULT_PORT = 6881;
     public static final int DEFAULT_PROXY_PORT = 8080;
-    public static final int MAX_PORT_NUMBER = 65534;
+    public static final int MAX_PORT_NUMBER = 65535;
     public static final int MIN_PORT_NUMBER = 49160;
     public static final boolean DEFAULT_DHT_ENABLED = true;
     public static final boolean DEFAULT_LSD_ENABLED = true;
