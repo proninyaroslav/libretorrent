@@ -45,6 +45,7 @@
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
     <string name="ip_filter_add_error">Не удалось добавить IP фильтр. Возможно файл повреждён или имеет неверный формат</string>
+    <string name="ip_filter_add_success">IP фильтр успешно добавлен</string>
     <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
     <string name="theme_settings_apply_after_reboot">Настройки темы будут применены после перезапуска приложения</string>

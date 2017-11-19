@@ -48,7 +48,8 @@
     <string name="error_open_torrent_file">Kunne ikke åpne torrent-fil</string>
     <string name="open_file">Åpne fil</string>
     <string name="settings">Innstillinger</string>
-    <string name="ip_filter_add_error">Klarte ikke å legge til IP-visningsfilter. Kanskje fila er skadet eller har feil format</string>
+    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter. Kanskje fila er skadet eller har feil format</string>
+    <string name="ip_filter_add_success">IP-filteret ble lagt til</string>
     <string name="proxy_settings_applied">Mellomtjenerinnstillinger lagt til</string>
     <string name="proxy_settings_apply_after_reboot">Nye mellomtjenerinnstillinger vil trå i kraft ved neste oppstart av programmet</string>
     <string name="theme_settings_apply_after_reboot">Nye draktinnstillinger vil komme til syne ved neste oppstart av programmet</string>

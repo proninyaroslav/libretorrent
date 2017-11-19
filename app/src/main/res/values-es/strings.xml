@@ -49,6 +49,7 @@
     <string name="open_file">Abrir archivo</string>
     <string name="settings">Ajustes</string>
     <string name="ip_filter_add_error">Error al añadir el filtro de IP. Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
+    <string name="ip_filter_add_success">Filtro de IP agregado exitosamente</string>
     <string name="proxy_settings_applied">Ajustes del servidor proxy aplicados correctamente</string>
     <string name="proxy_settings_apply_after_reboot">Los ajustes del servidor proxy serán aplicados tras reiniciar la aplicación</string>
     <string name="theme_settings_apply_after_reboot">Los ajustes del tema serán aplicados tras reiniciar la aplicación</string>

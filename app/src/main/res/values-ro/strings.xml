@@ -48,7 +48,8 @@
     <string name="error_open_torrent_file">Nu s-a putut deschide fișierul torrent</string>
     <string name="open_file">Deschide fișier</string>
     <string name="settings">Setări</string>
-    <string name="ip_filter_add_error">Nu s-a putut adăuga IP displayFilter. Este posibil ca fișierul să fie corupt sau să aibă un format incorect</string>
+    <string name="ip_filter_add_error">Nu s-a putut adăuga IP filtru. Este posibil ca fișierul să fie corupt sau să aibă un format incorect</string>
+    <string name="ip_filter_add_success">Filtrul IP a fost adăugat cu succes</string>
     <string name="proxy_settings_applied">Setări server proxy aplicate cu succes</string>
     <string name="proxy_settings_apply_after_reboot">Setările serverului proxy vor fi aplicate după repornirea aplicației</string>
     <string name="theme_settings_apply_after_reboot">Setările temei vor fi aplicate după repornirea aplicației</string>

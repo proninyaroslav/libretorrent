@@ -48,7 +48,8 @@
     <string name="error_open_torrent_file">Błąd przy otwieraniu pliku</string>
     <string name="open_file">Otwórz plik</string>
     <string name="settings">Ustawienia</string>
-    <string name="ip_filter_add_error">Błąd przy dodawaniu IP displayFilter. Plik może być uszkodzony lub posiada nieprawidłowy format</string>
+    <string name="ip_filter_add_error">Błąd przy dodawaniu IP filter. Plik może być uszkodzony lub posiada nieprawidłowy format</string>
+    <string name="ip_filter_add_success">Filtr IP został pomyślnie dodany</string>
     <string name="proxy_settings_applied">Ustawienia serwera proxy wykonano pomyślnie</string>
     <string name="proxy_settings_apply_after_reboot">Ustawienia serwera proxy zostaną zaaplikowane po restarcie aplikacji</string>
     <string name="theme_settings_apply_after_reboot">Ustawienia tematu kolorystycznego aplikacji zostaną zaaplikowane po restarcie aplikacji</string>

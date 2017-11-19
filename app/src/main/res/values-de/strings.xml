@@ -48,7 +48,8 @@
     <string name="error_open_torrent_file">Torrent Datei kann nicht geöffnet werden</string>
     <string name="open_file">Datei öffnen</string>
     <string name="settings">Einstellungen</string>
-    <string name="ip_filter_add_error">Fehler beim setzen des IP Anzeigefilters. Unter Umständen ist die Datei beschädigt oder hat ein ungültiges Format</string>
+    <string name="ip_filter_add_error">Fehler beim setzen des IP filters. Unter Umständen ist die Datei beschädigt oder hat ein ungültiges Format</string>
+    <string name="ip_filter_add_success">IP filter erfolgreich hinzugefügt</string>
     <string name="proxy_settings_applied">Proxy Server Einstellungen erfolgreich angewandt</string>
     <string name="proxy_settings_apply_after_reboot">Proxy Server Einstellungen werden nach einem Neustart der App angewendet</string>
     <string name="theme_settings_apply_after_reboot">Themen Einstellungen werden nach einem Neustart der App angewendet</string>

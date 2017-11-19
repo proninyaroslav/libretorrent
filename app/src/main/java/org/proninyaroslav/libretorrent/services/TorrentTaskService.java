@@ -453,12 +453,11 @@ public class TorrentTaskService extends Service
     @Override
     public void onIpFilterParsed(boolean success)
     {
-        if (!success) {
-            Toast.makeText(getApplicationContext(),
-                    getString(R.string.ip_filter_add_error),
-                    Toast.LENGTH_LONG)
-                    .show();
-        }
+        Toast.makeText(getApplicationContext(),
+                (success ? getString(R.string.ip_filter_add_success) :
+                           getString(R.string.ip_filter_add_error)),
+                Toast.LENGTH_LONG)
+                .show();
     }
 
     @Override

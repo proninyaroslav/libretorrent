@@ -48,7 +48,8 @@
     <string name="error_open_torrent_file">Nemožné otevřít soubor torrentu</string>
     <string name="open_file">Otevřít soubor</string>
     <string name="settings">Nastavení</string>
-    <string name="ip_filter_add_error">Nepodařilo se přidat IP displayFiltr. Možná je soubor porušen nebo má nesprávný formát</string>
+    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr. Možná je soubor porušen nebo má nesprávný formát</string>
+    <string name="ip_filter_add_success">IP filtr byl úspěšně přidán</string>
     <string name="proxy_settings_applied">Nastavení proxy serveru bylo úspěsně uloženo</string>
     <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
