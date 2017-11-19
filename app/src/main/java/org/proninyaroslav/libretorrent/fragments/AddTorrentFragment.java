@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
@@ -342,9 +343,12 @@ public class AddTorrentFragment extends Fragment
         showFetchMagnetProgress(false);
 
         Log.e(TAG, Log.getStackTraceString(e));
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
 
         if (e instanceof DecodeException) {
-            if (getFragmentManager().findFragmentByTag(TAG_DECODE_EXCEPT_DIALOG) == null) {
+            if (fm.findFragmentByTag(TAG_DECODE_EXCEPT_DIALOG) == null) {
                 BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                         getString(R.string.error),
                         getString(R.string.error_decode_torrent),
@@ -354,13 +358,13 @@ public class AddTorrentFragment extends Fragment
                         null,
                         this);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = fm.beginTransaction();
                 ft.add(errDialog, TAG_DECODE_EXCEPT_DIALOG);
                 ft.commitAllowingStateLoss();
             }
 
         } else if (e instanceof FetchLinkException) {
-            if (getFragmentManager().findFragmentByTag(TAG_FETCH_EXCEPT_DIALOG) == null) {
+            if (fm.findFragmentByTag(TAG_FETCH_EXCEPT_DIALOG) == null) {
                 BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                         getString(R.string.error),
                         getString(R.string.error_fetch_link),
@@ -370,13 +374,13 @@ public class AddTorrentFragment extends Fragment
                         null,
                         this);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = fm.beginTransaction();
                 ft.add(errDialog, TAG_FETCH_EXCEPT_DIALOG);
                 ft.commitAllowingStateLoss();
             }
 
         } else if (e instanceof IllegalArgumentException) {
-            if (getFragmentManager().findFragmentByTag(TAG_ILLEGAL_ARGUMENT) == null) {
+            if (fm.findFragmentByTag(TAG_ILLEGAL_ARGUMENT) == null) {
                 BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                         getString(R.string.error),
                         getString(R.string.error_invalid_link_or_path),
@@ -386,14 +390,14 @@ public class AddTorrentFragment extends Fragment
                         null,
                         this);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = fm.beginTransaction();
                 ft.add(errDialog, TAG_ILLEGAL_ARGUMENT);
                 ft.commitAllowingStateLoss();
             }
 
         } else if (e instanceof IOException) {
             sentError = e;
-            if (getFragmentManager().findFragmentByTag(TAG_IO_EXCEPT_DIALOG) == null) {
+            if (fm.findFragmentByTag(TAG_IO_EXCEPT_DIALOG) == null) {
                 ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                         activity.getApplicationContext(),
                         getString(R.string.error),
@@ -401,7 +405,7 @@ public class AddTorrentFragment extends Fragment
                         Log.getStackTraceString(e),
                         this);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = fm.beginTransaction();
                 ft.add(errDialog, TAG_IO_EXCEPT_DIALOG);
                 ft.commitAllowingStateLoss();
             }

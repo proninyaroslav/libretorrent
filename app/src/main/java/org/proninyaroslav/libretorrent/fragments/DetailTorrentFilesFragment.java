@@ -652,7 +652,7 @@ public class DetailTorrentFilesFragment extends Fragment
 
     public long getSelectedFileSize()
     {
-        return fileTree.selectedFileSize();
+        return fileTree != null ? fileTree.selectedFileSize() : 0;
     }
 
     private void chooseDirectory(TorrentContentFileTree node)

@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -108,7 +109,9 @@ public class AddTorrentActivity extends AppCompatActivity
                 true,
                 true);
 
-        progress.show(getFragmentManager(), TAG_SPINNER_PROGRESS);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.add(progress, TAG_SPINNER_PROGRESS);
+        ft.commitAllowingStateLoss();
     }
 
     private void dismissProgress()

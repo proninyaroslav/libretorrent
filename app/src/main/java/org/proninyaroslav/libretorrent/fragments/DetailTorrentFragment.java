@@ -408,6 +408,9 @@ public class DetailTorrentFragment extends Fragment
 
     private void initFragments()
     {
+        if (!isAdded())
+            return;
+
         DetailTorrentInfoFragment fragmentInfo = DetailTorrentInfoFragment.newInstance(torrent, infoCache);
         DetailTorrentStateFragment fragmentState = DetailTorrentStateFragment.newInstance(infoCache);
         DetailTorrentFilesFragment fragmentFiles =

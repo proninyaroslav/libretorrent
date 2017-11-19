@@ -314,6 +314,9 @@ public class TorrentDownload
 
     public long getSize()
     {
+        if (!th.isValid())
+            return 0;
+
         TorrentInfo info = th.torrentFile();
 
         return info != null ? info.totalSize() : 0;
@@ -321,12 +324,12 @@ public class TorrentDownload
 
     public long getDownloadSpeed()
     {
-        return (isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
+        return (!th.isValid() || isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
     }
 
     public long getUploadSpeed()
     {
-        return ((isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
+        return (!th.isValid() || (isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
     }
 
     public void remove(boolean withFiles)
@@ -417,12 +420,12 @@ public class TorrentDownload
 
     public long getActiveTime()
     {
-        return th.status().activeDuration() / 1000L;
+        return th.isValid() ? th.status().activeDuration() / 1000L : 0;
     }
 
     public long getSeedingTime()
     {
-        return th.status().seedingDuration() / 1000L;
+        return th.isValid() ? th.status().seedingDuration() / 1000L : 0;
     }
 
     /*
@@ -433,12 +436,12 @@ public class TorrentDownload
 
     public long getReceivedBytes()
     {
-        return th.status().totalPayloadDownload();
+        return th.isValid() ? th.status().totalPayloadDownload() : 0;
     }
 
     public long getTotalReceivedBytes()
     {
-        return th.status().allTimeDownload();
+        return th.isValid() ? th.status().allTimeDownload() : 0;
     }
 
     /*
@@ -449,32 +452,32 @@ public class TorrentDownload
 
     public long getSentBytes()
     {
-        return th.status().totalPayloadUpload();
+        return th.isValid() ? th.status().totalPayloadUpload() : 0;
     }
 
     public long getTotalSentBytes()
     {
-        return th.status().allTimeUpload();
+        return th.isValid() ? th.status().allTimeUpload() : 0;
     }
 
     public int getConnectedPeers()
     {
-        return th.status().numPeers();
+        return th.isValid() ? th.status().numPeers() : 0;
     }
 
     public int getConnectedSeeds()
     {
-        return th.status().numSeeds();
+        return th.isValid() ? th.status().numSeeds() : 0;
     }
 
     public int getTotalPeers()
     {
-        return th.status().listPeers();
+        return th.isValid() ? th.status().listPeers() : 0;
     }
 
     public int getTotalSeeds()
     {
-        return th.status().listSeeds();
+        return th.isValid() ? th.status().listSeeds() : 0;
     }
 
     public void requestTrackerAnnounce()
@@ -489,6 +492,9 @@ public class TorrentDownload
 
     public Set<String> getTrackersUrl()
     {
+        if (!th.isValid())
+            return new HashSet<>();
+
         List<AnnounceEntry> trackers = th.trackers();
         Set<String> urls = new HashSet<>(trackers.size());
 
@@ -510,6 +516,9 @@ public class TorrentDownload
 
     public ArrayList<PeerInfo> getPeers()
     {
+        if (!th.isValid())
+            return new ArrayList<>();
+
         return th.peerInfo();
     }
 
@@ -525,7 +534,7 @@ public class TorrentDownload
 
     public long getTotalWanted()
     {
-        return th.status().totalWanted();
+        return th.isValid() ? th.status().totalWanted() : 0;
     }
 
     public void replaceTrackers(Set<String> trackers)
@@ -575,26 +584,21 @@ public class TorrentDownload
     }
 
     public long getETA() {
-        if (getStateCode() != TorrentStateCode.DOWNLOADING) {
+        if (!th.isValid())
             return 0;
-        }
+        if (getStateCode() != TorrentStateCode.DOWNLOADING)
+            return 0;
 
         TorrentInfo ti = th.torrentFile();
-        if (ti == null) {
+        if (ti == null)
             return 0;
-        }
-
         TorrentStatus status = th.status();
         long left = ti.totalSize() - status.totalDone();
         long rate = status.downloadPayloadRate();
-
-        if (left <= 0) {
+        if (left <= 0)
             return 0;
-        }
-
-        if (rate <= 0) {
+        if (rate <= 0)
             return -1;
-        }
 
         return left / rate;
     }
@@ -631,26 +635,24 @@ public class TorrentDownload
 
     public int getNumDownloadedPieces()
     {
-        return th.status().numPieces();
+        return th.isValid() ? th.status().numPieces() : 0;
     }
 
     public double getShareRatio()
     {
-        long uploaded = getTotalSentBytes();
+        if (!th.isValid())
+            return 0;
 
+        long uploaded = getTotalSentBytes();
         long allTimeReceived = getTotalReceivedBytes();
         long totalDone = th.status().totalDone();
-
         /*
          * Special case for a seeder who lost its stats,
          * also assume nobody will import a 99% done torrent
          */
         long downloaded = (allTimeReceived < totalDone * 0.01 ? totalDone : allTimeReceived);
-
-        if (downloaded == 0) {
+        if (downloaded == 0)
             return (uploaded == 0 ? 0.0 : MAX_RATIO);
-        }
-
         double ratio = (double) uploaded / (double) downloaded;
 
         return (ratio > MAX_RATIO ? MAX_RATIO : ratio);
@@ -669,7 +671,7 @@ public class TorrentDownload
 
     public int getDownloadSpeedLimit()
     {
-        return th.getDownloadLimit();
+        return th.isValid() ? th.getDownloadLimit() : 0;
     }
 
     public void setUploadSpeedLimit(int limit)
@@ -680,7 +682,7 @@ public class TorrentDownload
 
     public int getUploadSpeedLimit()
     {
-        return th.getUploadLimit();
+        return th.isValid() ? th.getUploadLimit() : 0;
     }
 
     public String getInfoHash()
