@@ -770,36 +770,39 @@ public class TorrentTaskService extends Service
             return;
 
         Throwable exception = null;
+        try {
+            if (torrent.isDownloadingMetadata()) {
+                if (!repo.exists(torrent)) {
+                    try {
+                        repo.add(torrent);
 
-        if (torrent.isDownloadingMetadata()) {
-            if (!repo.exists(torrent)) {
+                    } catch (Throwable e) {
+                        exception = e;
+                    }
+                }
+
+            } else if (new File(torrent.getTorrentFilePath()).exists()) {
                 try {
-                    repo.add(torrent);
+                    if (repo.exists(torrent)) {
+                        repo.replace(torrent);
+                        throw new FileAlreadyExistsException();
 
-                } catch (Throwable e) {
+                    } else {
+                        repo.add(torrent);
+                    }
+
+                    if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
+                        saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
+
+                }  catch (Throwable e) {
                     exception = e;
                 }
+
+            } else {
+                throw new FileNotFoundException(torrent.getTorrentFilePath());
             }
-
-        } else if (new File(torrent.getTorrentFilePath()).exists()) {
-            try {
-                if (repo.exists(torrent)) {
-                    repo.replace(torrent);
-                    exception = new FileAlreadyExistsException();
-
-                } else {
-                    repo.add(torrent);
-                }
-
-                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files), false))
-                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in), torrent.getDownloadPath()));
-
-            }  catch (Throwable e) {
-                exception = e;
-            }
-
-        } else {
-            exception = new FileNotFoundException(torrent.getTorrentFilePath());
+        } catch (Exception e) {
+            exception = e;
         }
 
         torrent = repo.getTorrentByID(torrent.getId());
