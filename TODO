@@ -3,7 +3,6 @@
 - streaming support
 - download torrents by schedule
 - I2P torrents support
-- maximum peers per torrent and maximum upload slots per torrent to limitations
 - watch directory
 - Android TV support
 - QR and barcode support
