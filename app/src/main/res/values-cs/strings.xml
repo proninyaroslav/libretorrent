@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Maximální počet nahrávání</string>
     <string name="pref_max_active_downloads_title">Maximální počet stahování</string>
     <string name="pref_max_active_torrents_title">Maximální počert aktivních torrentů</string>
+    <string name="pref_max_connections_per_torrent_title">Maximální počet připojení na torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimální počet připojení - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximální počet odběrných míst pro torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Minimální počet slotů - 2</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavení tématu</string>
     <string name="pref_theme_title">Téma</string>

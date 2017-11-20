@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Maximul de încărcări active</string>
     <string name="pref_max_active_downloads_title">Maximul de descărcări active</string>
     <string name="pref_max_active_torrents_title">Maximul de torrente active</string>
+    <string name="pref_max_connections_per_torrent_title">Număr maxim de conexiuni pe torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Număr minim de conexiuni - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Număr maxim de sloturi de încărcare pe torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Număr minim de sloturi - 2</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Setări temă</string>
     <string name="pref_theme_title">Temă</string>

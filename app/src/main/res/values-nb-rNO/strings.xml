@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Maksimalt antall aktive opplastinger</string>
     <string name="pref_max_active_downloads_title">Maksimalt antall aktive nedlastinger</string>
     <string name="pref_max_active_torrents_title">Maksimalt antall aktive torrenter</string>
+    <string name="pref_max_connections_per_torrent_title">Maksimalt antall tilkoblinger per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimum antall tilkoblinger - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maksimum antall laste opp slot per torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Minimum antall slot - 2</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Draktvalg</string>
     <string name="pref_theme_title">Drakt</string>

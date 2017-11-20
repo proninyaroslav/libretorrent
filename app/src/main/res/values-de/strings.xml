@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Maximale gleichzeitige Uploads</string>
     <string name="pref_max_active_downloads_title">Maximale gleichzeitige Downloads</string>
     <string name="pref_max_active_torrents_title">Maximale gleichzeitige Torrents</string>
+    <string name="pref_max_connections_per_torrent_title">Maximale Anzahl an Verbindungen pro Torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimale Anzahl an Verbindungen - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximale Anzahl von Upload-Slots pro Torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Mindestanzahl von Slots - 2</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Starte die App bei Gerätestart</string>

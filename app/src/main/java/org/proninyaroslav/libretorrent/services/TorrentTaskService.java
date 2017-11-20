@@ -656,6 +656,14 @@ public class TorrentTaskService extends Service
                         TorrentEngine.getInstance().setSettings(sp);
                     }
 
+                } else if (item.key().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
+                    TorrentEngine.getInstance().setMaxConnectionsPerTorrent(
+                            pref.getInt(item.key(), TorrentEngine.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT));
+
+                } else if (item.key().equals(getString(R.string.pref_key_max_uploads_per_torrent))) {
+                    TorrentEngine.getInstance().setMaxUploadsPerTorrent(
+                            pref.getInt(item.key(), TorrentEngine.DEFAULT_UPLOADS_LIMIT_PER_TORRENT));
+
                 } else if (item.key().equals(getString(R.string.pref_key_max_active_downloads))) {
                     SettingsPack sp = TorrentEngine.getInstance().getSettings();
                     if (sp != null) {

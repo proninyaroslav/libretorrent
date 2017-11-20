@@ -778,4 +778,34 @@ public class TorrentDownload
         torrent_flags_t flags = th.status().flags();
         return flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
     }
+
+    public void setMaxConnections(int connections)
+    {
+        if (!th.isValid())
+            return;
+        th.swig().set_max_connections(connections);
+    }
+
+    public int getMaxConnections()
+    {
+        if (!th.isValid())
+            return -1;
+
+        return th.swig().max_connections();
+    }
+
+    public void setMaxUploads(int uploads)
+    {
+        if (!th.isValid())
+            return;
+        th.swig().set_max_uploads(uploads);
+    }
+
+    public int getMaxUploads()
+    {
+        if (!th.isValid())
+            return -1;
+
+        return th.swig().max_uploads();
+    }
 }

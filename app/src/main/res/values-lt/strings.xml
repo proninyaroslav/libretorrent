@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Maksimalus aktyvių išsiuntimų skaičius</string>
     <string name="pref_max_active_downloads_title">Maksimalus aktyvių parsisiuntimų skaičius</string>
     <string name="pref_max_active_torrents_title">Maksimalus aktyvių torrentų skaičius</string>
+    <string name="pref_max_connections_per_torrent_title">Maksimalus prisijungimų skaičius vienam torrentui</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimalus prisijungimų skaičius - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maksimalus įkėlimo laiko tarpsnių skaičius vienam torrentui</string>
+    <string name="pref_max_uploads_per_torrent_summary">Minimalus laiko tarpsnių skaičius - 2</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Automatinis paleidimas</string>
     <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>

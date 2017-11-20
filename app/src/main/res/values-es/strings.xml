@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Máximo número de subidas activas</string>
     <string name="pref_max_active_downloads_title">Máximo número de bajadas activas</string>
     <string name="pref_max_active_torrents_title">Máximo número de torrents activos</string>
+    <string name="pref_max_connections_per_torrent_title">Máximo número de conexiones por torrente</string>
+    <string name="pref_max_connections_per_torrent_summary">Mínimo número de conexiones - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Máximo número de ranuras de carga por torrente</string>
+    <string name="pref_max_uploads_per_torrent_summary">Mínimo número de ranuras - 2</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autoiniciar</string>
     <string name="pref_autostart_summary">Ejecutar la aplicación al iniciar el dispositivo</string>

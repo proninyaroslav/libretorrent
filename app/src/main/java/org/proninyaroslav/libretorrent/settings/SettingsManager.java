@@ -94,6 +94,16 @@ public class SettingsManager extends TrayPreferences
             pref.put(keyMaxConnections, TorrentEngine.DEFAULT_CONNECTIONS_LIMIT);
         }
 
+        String keyMaxConnectionsPerTorrent = context.getString(R.string.pref_key_max_connections_per_torrent);
+        if (pref.getInt(keyMaxConnectionsPerTorrent, 0) == 0) {
+            pref.put(keyMaxConnectionsPerTorrent, TorrentEngine.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT);
+        }
+
+        String keyMaxUploadsPerTorrent = context.getString(R.string.pref_key_max_uploads_per_torrent);
+        if (pref.getInt(keyMaxUploadsPerTorrent, 0) == 0) {
+            pref.put(keyMaxUploadsPerTorrent, TorrentEngine.DEFAULT_UPLOADS_LIMIT_PER_TORRENT);
+        }
+
         String keyMaxActiveUploads = context.getString(R.string.pref_key_max_active_uploads);
         if (pref.getInt(keyMaxActiveUploads, -1) == -1) {
             pref.put(keyMaxActiveUploads, TorrentEngine.DEFAULT_ACTIVE_SEEDS);

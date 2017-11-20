@@ -284,6 +284,10 @@
     <string name="pref_max_active_uploads_title">Maximum active uploads</string>
     <string name="pref_max_active_downloads_title">Maximum active downloads</string>
     <string name="pref_max_active_torrents_title">Maximum active torrents</string>
+    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>

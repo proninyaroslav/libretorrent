@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
-import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -69,7 +68,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -90,7 +88,10 @@ public class TorrentEngine extends SessionManager
     public static final int DEFAULT_TICK_INTERVAL = 1000;
     public static final int DEFAULT_INACTIVITY_TIMEOUT = 60;
     public static final int MIN_CONNECTIONS_LIMIT = 2;
+    public static final int MIN_UPLOADS_LIMIT = 2;
     public static final int DEFAULT_CONNECTIONS_LIMIT = 200;
+    public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
+    public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;
     public static final int DEFAULT_ACTIVE_LIMIT = 6;
     public static final int DEFAULT_PORT = 6881;
     public static final int DEFAULT_PROXY_PORT = 8080;
@@ -263,7 +264,10 @@ public class TorrentEngine extends SessionManager
                             torrent.setDownloadingMetadata(false);
                             fromMetadata = true;
                         }
-                        torrentTasks.put(torrent.getId(), new TorrentDownload(context, handle, torrent, callback));
+                        TorrentDownload task = new TorrentDownload(context, handle, torrent, callback);
+                        task.setMaxConnections(DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT);
+                        task.setMaxUploads(DEFAULT_UPLOADS_LIMIT_PER_TORRENT);
+                        torrentTasks.put(torrent.getId(), task);
 
                         if (callback != null)
                             callback.onTorrentAdded(torrent.getId(), fromMetadata);
@@ -942,6 +946,24 @@ public class TorrentEngine extends SessionManager
             if (task == null)
                 continue;
             task.resume(false);
+        }
+    }
+
+    public void setMaxConnectionsPerTorrent(int connections)
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.setMaxConnections(connections);
+        }
+    }
+
+    public void setMaxUploadsPerTorrent(int uploads)
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.setMaxUploads(uploads);
         }
     }
 

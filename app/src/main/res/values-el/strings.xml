@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Μέγιστες ενεργές μεταφορτώσεις</string>
     <string name="pref_max_active_downloads_title">Μέγιστες ενεργές λήψεις</string>
     <string name="pref_max_active_torrents_title">Μέγιστα ενεργά torrents</string>
+    <string name="pref_max_connections_per_torrent_title">Μέγιστος αριθμός συνδέσεων ανά torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Ελάχιστος αριθμός συνδέσεων - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Μέγιστος αριθμός χρονοθυρίδων ανά torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Ελάχιστος αριθμός slots - 2</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
     <string name="pref_theme_title">Θέμα</string>

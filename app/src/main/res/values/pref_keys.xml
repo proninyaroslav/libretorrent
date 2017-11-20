@@ -18,6 +18,8 @@
     <string name="pref_key_max_active_uploads" translatable="false">pref_key_max_active_uploads</string>
     <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
     <string name="pref_key_max_active_torrents" translatable="false">pref_key_max_active_torrents</string>
+    <string name="pref_key_max_connections_per_torrent" translatable="false">pref_key_max_connections_per_torrent</string>
+    <string name="pref_key_max_uploads_per_torrent" translatable="false">pref_key_max_uploads_per_torrent</string>
     <!-- Behavior settings -->
     <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>

@@ -269,6 +269,10 @@
     <string name="pref_max_active_uploads_title">Nombre maximale de téléversements actifs</string>
     <string name="pref_max_active_downloads_title">Nombre maximale de téléchargements actifs</string>
     <string name="pref_max_active_torrents_title">Nombre maximale de torrents actifs</string>
+    <string name="pref_max_connections_per_torrent_title">Nombre maximum de connections par torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Nombre minimum de connections - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Nombre maximum d\'emplacements de téléversé par torrent</string>
+    <string name="pref_max_uploads_per_torrent_summary">Nombre minimum de slots - 2</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Démarrage auto</string>
     <string name="pref_autostart_summary">Exécuter l\'application après le démarrage du périphérique</string>
