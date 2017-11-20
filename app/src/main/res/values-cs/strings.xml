@@ -287,6 +287,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Spustit aplikaci po spuštění systému</string>
+    <string name="pref_wifi_only_title">Pouze Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Stažení a nahrávání pouze v případě připojení Wi-Fi</string>
     <string name="pref_power_management_category">Správa napájení</string>
     <string name="pref_shutdown_downloads_complete_title">Vypnout po dokončení stahování</string>
     <string name="pref_shutdown_downloads_complete_summary">Pokud zapnuto, aplikace se vypne po dokončení všech stahování</string>

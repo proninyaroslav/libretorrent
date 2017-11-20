@@ -287,6 +287,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten</string>
+    <string name="pref_wifi_only_title">Bare Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Last ned og last opp bare hvis Wi-Fi er tilkoblet</string>
     <string name="pref_power_management_category">Strømstyring</string>
     <string name="pref_shutdown_downloads_complete_title">Slå av etter at nedlastinger fullføres</string>
     <string name="pref_shutdown_downloads_complete_summary">Hvis påskrudd vil programmet bli lukket etter at alt på nedlasting har blitt overført</string>

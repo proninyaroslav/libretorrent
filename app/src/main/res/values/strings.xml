@@ -308,6 +308,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_wifi_only_title">Wi-Fi only</string>
+    <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
     <string name="pref_power_management_category">Power management</string>
     <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
     <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>

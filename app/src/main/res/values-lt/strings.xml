@@ -272,6 +272,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Automatinis paleidimas</string>
     <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>
+    <string name="pref_wifi_only_title">Tik Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Atsisiųskite ir įkelkite tik tada, kai prijungtas Wi-Fi</string>
     <string name="pref_theme_category">Temos nustatymai</string>
     <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">

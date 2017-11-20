@@ -272,6 +272,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Auto Iniciar</string>
     <string name="pref_autostart_summary">Rodar o aplicativo depois de iniciar o dispositivo</string>
+    <string name="pref_wifi_only_title">Wi-Fi apenas</string>
+    <string name="pref_wifi_only_summary">Faça o download e faça o upload apenas se o Wi-Fi estiver conectado</string>
     <string name="pref_theme_category">Configurações de tema</string>
     <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">

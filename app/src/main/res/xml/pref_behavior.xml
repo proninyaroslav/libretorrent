@@ -7,6 +7,12 @@
         android:summary="@string/pref_autostart_summary"
         android:persistent="false" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_wifi_only"
+        android:title="@string/pref_wifi_only_title"
+        android:summary="@string/pref_wifi_only_summary"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
 

@@ -287,6 +287,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Αυτόματη εκκίνηση</string>
     <string name="pref_autostart_summary">Εκτέλεση της εφαρμογής μετά την εκκίνηση της συσκευής</string>
+    <string name="pref_wifi_only_title">Μόνο Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Λήψη και μεταφόρτωση μόνο εάν έχει συνδεθεί Wi-Fi</string>
     <string name="pref_power_management_category">Διαχείριση ενέργειας</string>
     <string name="pref_shutdown_downloads_complete_title">Τερματισμός όταν ολοκληρωθούν οι λήψεις</string>
     <string name="pref_shutdown_downloads_complete_summary">Αν ενεργοποιηθεί, η εφαρμογή θα τερματιστεί όταν όλες οι λήψεις θα έχουν ολοκληρωθεί</string>

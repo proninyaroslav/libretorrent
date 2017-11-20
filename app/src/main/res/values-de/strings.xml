@@ -272,6 +272,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Starte die App bei Gerätestart</string>
+    <string name="pref_wifi_only_title">Nur Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Nur herunterladen und hochladen, wenn Wi-Fi verbunden ist</string>
     <string name="pref_theme_category">Themen Einstellungen</string>
     <string name="pref_theme_title">Thema</string>
     <string-array name="pref_theme_entries">

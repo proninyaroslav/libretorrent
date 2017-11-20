@@ -287,6 +287,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Rulează aplicația după pornirea dispozitivului</string>
+    <string name="pref_wifi_only_title">Wi-Fi doar</string>
+    <string name="pref_wifi_only_summary">Descarcă și încarcă doar dacă este conectat Wi-Fi</string>
     <string name="pref_power_management_category">Management de consum</string>
     <string name="pref_shutdown_downloads_complete_title">Închidere când descărcările sunt gata</string>
     <string name="pref_shutdown_downloads_complete_summary">Dacă este activat, aplicația se va închide când toate descărcările sunt gata</string>

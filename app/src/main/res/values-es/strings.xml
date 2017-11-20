@@ -272,6 +272,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autoiniciar</string>
     <string name="pref_autostart_summary">Ejecutar la aplicación al iniciar el dispositivo</string>
+    <string name="pref_wifi_only_title">Solo Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Bajar y subir solo si el Wi-Fi está conectado</string>
     <string name="pref_theme_category">Ajustes de tema</string>
     <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">

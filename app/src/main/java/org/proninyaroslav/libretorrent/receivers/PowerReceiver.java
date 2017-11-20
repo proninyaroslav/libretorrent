@@ -35,14 +35,16 @@ public class PowerReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        switch (intent.getAction()) {
+        String action = intent.getAction();
+        if (action == null)
+            return;
+        switch (action) {
             case Intent.ACTION_BATTERY_LOW:
             case Intent.ACTION_BATTERY_OKAY:
             case Intent.ACTION_POWER_CONNECTED:
             case Intent.ACTION_POWER_DISCONNECTED:
                 Intent serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
                 serviceIntent.setAction(intent.getAction());
-
                 context.startService(serviceIntent);
                 break;
         }

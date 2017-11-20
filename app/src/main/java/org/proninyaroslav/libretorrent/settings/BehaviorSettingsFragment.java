@@ -80,6 +80,11 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                 Utils.getDefaultBatteryLowLevel()));
         batteryControl.setChecked(pref.getBoolean(keyBatteryControl, false));
         bindOnPreferenceChangeListener(batteryControl);
+
+        String keyWifiOnly = getString(R.string.pref_key_wifi_only);
+        SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat) findPreference(keyWifiOnly);
+        wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, false));
+        bindOnPreferenceChangeListener(wifiOnly);
     }
 
     @Override

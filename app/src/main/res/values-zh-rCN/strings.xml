@@ -275,6 +275,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
+    <string name="pref_wifi_only_title">Wi-Fi only</string>
+    <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>
     <string-array name="pref_theme_entries">

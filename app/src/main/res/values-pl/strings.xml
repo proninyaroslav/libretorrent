@@ -287,6 +287,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Uruchom aplikację po starcie urządzenia</string>
+    <string name="pref_wifi_only_title">Tylko Wi-Fi</string>
+    <string name="pref_wifi_only_summary">Pobieraj i wysyłaj tylko wtedy, gdy masz połączenie Wi-Fi</string>
     <string name="pref_power_management_category">Zarządzanie poborem energii</string>
     <string name="pref_shutdown_downloads_complete_title">Wułącz po ukończeniu pobierań</string>
     <string name="pref_shutdown_downloads_complete_summary">Wybierz czy aplikacja ma zostać wyłączona po ukończeniu wszystkich pobierań</string>

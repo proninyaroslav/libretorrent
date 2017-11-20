@@ -272,6 +272,8 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Démarrage auto</string>
     <string name="pref_autostart_summary">Exécuter l\'application après le démarrage du périphérique</string>
+    <string name="pref_wifi_only_title">Wi-Fi uniquement</string>
+    <string name="pref_wifi_only_summary">Télécharger et téléversé uniquement si le Wi-Fi est connecté</string>
     <string name="pref_theme_category">Paramètres du thème</string>
     <string name="pref_theme_title">Thème</string>
     <string-array name="pref_theme_entries">

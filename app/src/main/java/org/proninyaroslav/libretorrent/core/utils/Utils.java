@@ -31,6 +31,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -323,6 +324,11 @@ public class Utils
                 status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
+    public static boolean isBatteryLow(Context context)
+    {
+        return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
+    }
+
     public static boolean isDarkTheme(Context context)
     {
         SettingsManager pref = new SettingsManager(context);
@@ -351,5 +357,12 @@ public class Utils
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean isWifiEnabled(Context context)
+    {
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        return manager != null && manager.isWifiEnabled();
     }
 }
