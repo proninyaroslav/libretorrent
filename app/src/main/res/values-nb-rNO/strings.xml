@@ -273,6 +273,8 @@
     <string name="pref_max_connections_per_torrent_summary">Minimum antall tilkoblinger - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maksimum antall laste opp slot per torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Minimum antall slot - 2</string>
+    <string name="pref_auto_manage_title">Automatisk administrasjon</string>
+    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Draktvalg</string>
     <string name="pref_theme_title">Drakt</string>

@@ -273,6 +273,8 @@
     <string name="pref_max_connections_per_torrent_summary">Mínimo número de conexiones - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Máximo número de ranuras de carga por torrente</string>
     <string name="pref_max_uploads_per_torrent_summary">Mínimo número de ranuras - 2</string>
+    <string name="pref_auto_manage_title">Administrar automáticamente</string>
+    <string name="pref_auto_manage_summary">El torrente puede reanudarse o pausarse automáticamente en cualquier punto. Habilitar esta opción puede ralentizar la pausa/reanudar</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autoiniciar</string>
     <string name="pref_autostart_summary">Ejecutar la aplicación al iniciar el dispositivo</string>

@@ -276,6 +276,8 @@
     <string name="pref_max_connections_per_torrent_summary">最小连接数 - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
+    <string name="pref_auto_manage_title">Auto manage</string>
+    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>

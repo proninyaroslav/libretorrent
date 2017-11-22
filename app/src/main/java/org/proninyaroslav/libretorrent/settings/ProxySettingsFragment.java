@@ -37,6 +37,7 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 public class ProxySettingsFragment extends PreferenceFragmentCompat
@@ -64,8 +65,8 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     {
         super.onViewCreated(view, savedInstanceState);
 
-        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinator_layout);
-        saveChangesButton = (FloatingActionButton) view.findViewById(R.id.save_changes_button);
+        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
+        saveChangesButton = view.findViewById(R.id.save_changes_button);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         port.setEnabled(enableAdvancedSettings);
         InputFilter[] portFilter =
                 new InputFilter[]{new InputFilterMinMax(0, 10000)};
-        int portNumber = pref.getInt(keyPort, -TorrentEngine.DEFAULT_PROXY_PORT);
+        int portNumber = pref.getInt(keyPort, ProxySettingsPack.DEFAULT_PROXY_PORT);
         String portValue = Integer.toString(portNumber);
         port.getEditText().setFilters(portFilter);
         port.setSummary(portValue);
@@ -222,7 +223,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             enableOrDisablePreferences(enableAdvancedSettings);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_port))) {
-            int value = TorrentEngine.DEFAULT_PROXY_PORT;
+            int value = ProxySettingsPack.DEFAULT_PROXY_PORT;
 
             if (!TextUtils.isEmpty((String) newValue)) {
                 value = Integer.parseInt((String) newValue);

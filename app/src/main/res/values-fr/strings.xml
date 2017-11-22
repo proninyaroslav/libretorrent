@@ -273,6 +273,8 @@
     <string name="pref_max_connections_per_torrent_summary">Nombre minimum de connections - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Nombre maximum d\'emplacements de téléversé par torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Nombre minimum de slots - 2</string>
+    <string name="pref_auto_manage_title">Gérer automatiquement</string>
+    <string name="pref_auto_manage_summary">Le torrent peut être repris ou mis en pause automatiquement à tout moment. Activer cette option peut ralentir la pause/reprendre</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Démarrage auto</string>
     <string name="pref_autostart_summary">Exécuter l\'application après le démarrage du périphérique</string>

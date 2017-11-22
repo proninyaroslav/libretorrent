@@ -38,22 +38,31 @@
     <PreferenceCategory
         android:title="@string/pref_torrent_queueing_category">
 
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_auto_manage"
+            android:title="@string/pref_auto_manage_title"
+            android:summary="@string/pref_auto_manage_summary"
+            android:persistent="false" />
+
         <EditTextPreference
             android:key="@string/pref_key_max_active_downloads"
             android:title="@string/pref_max_active_downloads_title"
             android:inputType="numberDecimal"
+            android:dependency="@string/pref_key_auto_manage"
             android:persistent="false" />
 
         <EditTextPreference
             android:key="@string/pref_key_max_active_uploads"
             android:title="@string/pref_max_active_uploads_title"
             android:inputType="numberDecimal"
+            android:dependency="@string/pref_key_auto_manage"
             android:persistent="false" />
 
         <EditTextPreference
             android:key="@string/pref_key_max_active_torrents"
             android:title="@string/pref_max_active_torrents_title"
             android:inputType="numberDecimal"
+            android:dependency="@string/pref_key_auto_manage"
             android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

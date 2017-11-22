@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,9 +21,9 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.takisoft.fix.support.v7.preference.EditTextPreference;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
@@ -38,7 +38,6 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 {
     @SuppressWarnings("unused")
     private static final String TAG = LimitationsSettingsFragment.class.getSimpleName();
-    private boolean settingsChanged = false;
 
     public static LimitationsSettingsFragment newInstance()
     {
@@ -49,19 +48,6 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-        if (settingsChanged) {
-            Toast.makeText(getActivity().getApplicationContext(),
-                    R.string.settings_apply_after_reboot,
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -69,10 +55,10 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
         InputFilter[] speedFilter = new InputFilter[]{ new InputFilterMinMax(0, Integer.MAX_VALUE) };
         InputFilter[] connectionsFilter = new InputFilter[] {
-                new InputFilterMinMax(TorrentEngine.MIN_CONNECTIONS_LIMIT, Integer.MAX_VALUE)
+                new InputFilterMinMax(TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT, Integer.MAX_VALUE)
         };
         InputFilter[] uploadsFilter = new InputFilter[] {
-                new InputFilterMinMax(TorrentEngine.MIN_UPLOADS_LIMIT, Integer.MAX_VALUE)
+                new InputFilterMinMax(TorrentEngine.Settings.MIN_UPLOADS_LIMIT, Integer.MAX_VALUE)
         };
         InputFilter[] queueingFilter = new InputFilter[]{ new InputFilterMinMax(1, 1000) };
 
@@ -97,11 +83,16 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxConnections = getString(R.string.pref_key_max_connections);
         EditTextPreference maxConnections = (EditTextPreference) findPreference(keyMaxConnections);
         maxConnections.setDialogMessage(R.string.pref_max_connections_summary);
-        value = Integer.toString(pref.getInt(keyMaxConnections, TorrentEngine.MIN_CONNECTIONS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxConnections, TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT));
         maxConnections.getEditText().setFilters(connectionsFilter);
         maxConnections.setSummary(value);
         maxConnections.setText(value);
         bindOnPreferenceChangeListener(maxConnections);
+
+        String keyAutoManage = getString(R.string.pref_key_auto_manage);
+        SwitchPreferenceCompat autoManage = (SwitchPreferenceCompat) findPreference(keyAutoManage);
+        autoManage.setChecked(pref.getBoolean(keyAutoManage, TorrentEngine.Settings.DEFAULT_AUTO_MANAGED));
+        bindOnPreferenceChangeListener(autoManage);
 
         String keyMaxActiveUploads = getString(R.string.pref_key_max_active_uploads);
         EditTextPreference maxActiveUploads  = (EditTextPreference) findPreference(keyMaxActiveUploads);
@@ -130,7 +121,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxConnectionsPerTorrent = getString(R.string.pref_key_max_connections_per_torrent);
         EditTextPreference maxConnectionsPerTorrent = (EditTextPreference) findPreference(keyMaxConnectionsPerTorrent);
         maxConnectionsPerTorrent.setDialogMessage(R.string.pref_max_connections_per_torrent_summary);
-        value = Integer.toString(pref.getInt(keyMaxConnectionsPerTorrent, TorrentEngine.MIN_CONNECTIONS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxConnectionsPerTorrent,
+                                             TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT));
         maxConnectionsPerTorrent.getEditText().setFilters(connectionsFilter);
         maxConnectionsPerTorrent.setSummary(value);
         maxConnectionsPerTorrent.setText(value);
@@ -139,7 +131,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxUploadsPerTorrent = getString(R.string.pref_key_max_uploads_per_torrent);
         EditTextPreference maxUploadsPerTorrent = (EditTextPreference) findPreference(keyMaxUploadsPerTorrent);
         maxUploadsPerTorrent.setDialogMessage(R.string.pref_max_uploads_per_torrent_summary);
-        value = Integer.toString(pref.getInt(keyMaxUploadsPerTorrent, TorrentEngine.MIN_UPLOADS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxUploadsPerTorrent,
+                                             TorrentEngine.Settings.MIN_UPLOADS_LIMIT));
         maxUploadsPerTorrent.getEditText().setFilters(uploadsFilter);
         maxUploadsPerTorrent.setSummary(value);
         maxUploadsPerTorrent.setText(value);
@@ -164,13 +157,13 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         if (preference.getKey().equals(getString(R.string.pref_key_max_connections)) ||
             preference.getKey().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
-            int value = TorrentEngine.MIN_CONNECTIONS_LIMIT;
+            int value = TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT;
             if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_uploads_per_torrent))) {
-            int value = TorrentEngine.MIN_UPLOADS_LIMIT;
+            int value = TorrentEngine.Settings.MIN_UPLOADS_LIMIT;
             if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
             pref.put(preference.getKey(), value);
@@ -193,8 +186,9 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
                 value = Integer.parseInt((String) newValue);
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));
+        } else if (preference.getKey().equals(getString(R.string.pref_key_auto_manage))) {
+            pref.put(preference.getKey(), (boolean) newValue);
         }
-        settingsChanged = true;
 
         return true;
     }

@@ -94,27 +94,27 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         String keyEnableDht = getString(R.string.pref_key_enable_dht);
         SwitchPreferenceCompat enableDht = (SwitchPreferenceCompat) findPreference(keyEnableDht);
-        enableDht.setChecked(pref.getBoolean(keyEnableDht, TorrentEngine.DEFAULT_DHT_ENABLED));
+        enableDht.setChecked(pref.getBoolean(keyEnableDht, TorrentEngine.Settings.DEFAULT_DHT_ENABLED));
         bindOnPreferenceChangeListener(enableDht);
 
         String keyEnableLsd = getString(R.string.pref_key_enable_lsd);
         SwitchPreferenceCompat enableLsd = (SwitchPreferenceCompat) findPreference(keyEnableLsd);
-        enableLsd.setChecked(pref.getBoolean(keyEnableLsd, TorrentEngine.DEFAULT_LSD_ENABLED));
+        enableLsd.setChecked(pref.getBoolean(keyEnableLsd, TorrentEngine.Settings.DEFAULT_LSD_ENABLED));
         bindOnPreferenceChangeListener(enableLsd);
 
         String keyEnableUtp = getString(R.string.pref_key_enable_utp);
         SwitchPreferenceCompat enableUtp = (SwitchPreferenceCompat) findPreference(keyEnableUtp);
-        enableUtp.setChecked(pref.getBoolean(keyEnableUtp, TorrentEngine.DEFAULT_UTP_ENABLED));
+        enableUtp.setChecked(pref.getBoolean(keyEnableUtp, TorrentEngine.Settings.DEFAULT_UTP_ENABLED));
         bindOnPreferenceChangeListener(enableUtp);
 
         String keyEnableUpnp = getString(R.string.pref_key_enable_upnp);
         SwitchPreferenceCompat enableUpnp = (SwitchPreferenceCompat) findPreference(keyEnableUpnp);
-        enableUpnp.setChecked(pref.getBoolean(keyEnableUpnp, TorrentEngine.DEFAULT_UPNP_ENABLED));
+        enableUpnp.setChecked(pref.getBoolean(keyEnableUpnp, TorrentEngine.Settings.DEFAULT_UPNP_ENABLED));
         bindOnPreferenceChangeListener(enableUpnp);
 
         String keyEnableNatpmp = getString(R.string.pref_key_enable_natpmp);
         SwitchPreferenceCompat enableNatpmp = (SwitchPreferenceCompat) findPreference(keyEnableNatpmp);
-        enableNatpmp.setChecked(pref.getBoolean(keyEnableNatpmp, TorrentEngine.DEFAULT_NATPMP_ENABLED));
+        enableNatpmp.setChecked(pref.getBoolean(keyEnableNatpmp, TorrentEngine.Settings.DEFAULT_NATPMP_ENABLED));
         bindOnPreferenceChangeListener(enableNatpmp);
 
         String keyRandomPort = getString(R.string.pref_key_use_random_port);
@@ -124,7 +124,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(randomPort);
 
         InputFilter[] portFilter =
-                new InputFilter[]{ new InputFilterMinMax(1, TorrentEngine.MAX_PORT_NUMBER)};
+                new InputFilter[]{ new InputFilterMinMax(1, TorrentEngine.Settings.MAX_PORT_NUMBER)};
         String keyPort = getString(R.string.pref_key_port);
         EditTextPreference port = (EditTextPreference) findPreference(keyPort);
         int portNumber = pref.getInt(keyPort, -1);
@@ -150,7 +150,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 (SwitchPreferenceCompat) findPreference(keyEncryptInConnections);
         encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptInConnections.setChecked(pref.getBoolean(keyEncryptInConnections,
-                TorrentEngine.DEFAULT_ENCRYPT_IN_CONNECTIONS));
+                                        TorrentEngine.Settings.DEFAULT_ENCRYPT_IN_CONNECTIONS));
         bindOnPreferenceChangeListener(encryptInConnections);
 
         String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
@@ -158,7 +158,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 (SwitchPreferenceCompat) findPreference(keyEncryptOutConnections);
         encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptOutConnections.setChecked(pref.getBoolean(keyEncryptOutConnections,
-                TorrentEngine.DEFAULT_ENCRYPT_OUT_CONNECTIONS));
+                                         TorrentEngine.Settings.DEFAULT_ENCRYPT_OUT_CONNECTIONS));
         bindOnPreferenceChangeListener(encryptOutConnections);
 
         String keyIpFilter = getString(R.string.pref_key_enable_ip_filtering);
@@ -234,7 +234,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_port))) {
 
-            int value = TorrentEngine.DEFAULT_PORT;
+            int value = TorrentEngine.Settings.DEFAULT_PORT;
 
             if (!TextUtils.isEmpty((String) newValue)) {
                 value = Integer.parseInt((String) newValue);

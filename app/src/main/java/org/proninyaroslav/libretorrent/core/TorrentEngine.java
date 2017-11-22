@@ -81,30 +81,6 @@ public class TorrentEngine extends SessionManager
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
-    public static final int DEFAULT_CACHE_SIZE = 256;
-    public static final int DEFAULT_ACTIVE_DOWNLOADS = 4;
-    public static final int DEFAULT_ACTIVE_SEEDS = 4;
-    public static final int DEFAULT_MAX_PEER_LIST_SIZE = 200;
-    public static final int DEFAULT_TICK_INTERVAL = 1000;
-    public static final int DEFAULT_INACTIVITY_TIMEOUT = 60;
-    public static final int MIN_CONNECTIONS_LIMIT = 2;
-    public static final int MIN_UPLOADS_LIMIT = 2;
-    public static final int DEFAULT_CONNECTIONS_LIMIT = 200;
-    public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
-    public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;
-    public static final int DEFAULT_ACTIVE_LIMIT = 6;
-    public static final int DEFAULT_PORT = 6881;
-    public static final int DEFAULT_PROXY_PORT = 8080;
-    public static final int MAX_PORT_NUMBER = 65535;
-    public static final int MIN_PORT_NUMBER = 49160;
-    public static final boolean DEFAULT_DHT_ENABLED = true;
-    public static final boolean DEFAULT_LSD_ENABLED = true;
-    public static final boolean DEFAULT_UTP_ENABLED = true;
-    public static final boolean DEFAULT_UPNP_ENABLED = true;
-    public static final boolean DEFAULT_NATPMP_ENABLED = true;
-    public static final boolean DEFAULT_ENCRYPT_IN_CONNECTIONS = true;
-    public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
-
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.ADD_TORRENT.swig(),
             AlertType.METADATA_RECEIVED.swig(),
@@ -122,6 +98,60 @@ public class TorrentEngine extends SessionManager
     private ArrayList<String> magnetList = new ArrayList<>();
     private Map<String, Torrent> addTorrentsQueue = new HashMap<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
+    private Settings settings = new Settings();
+
+    public static class Settings
+    {
+        public static final int DEFAULT_CACHE_SIZE = 256;
+        public static final int DEFAULT_ACTIVE_DOWNLOADS = 4;
+        public static final int DEFAULT_ACTIVE_SEEDS = 4;
+        public static final int DEFAULT_MAX_PEER_LIST_SIZE = 200;
+        public static final int DEFAULT_TICK_INTERVAL = 1000;
+        public static final int DEFAULT_INACTIVITY_TIMEOUT = 60;
+        public static final int MIN_CONNECTIONS_LIMIT = 2;
+        public static final int MIN_UPLOADS_LIMIT = 2;
+        public static final int DEFAULT_CONNECTIONS_LIMIT = 200;
+        public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
+        public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;
+        public static final int DEFAULT_ACTIVE_LIMIT = 6;
+        public static final int DEFAULT_PORT = 6881;
+        public static final int MAX_PORT_NUMBER = 65535;
+        public static final int MIN_PORT_NUMBER = 49160;
+        public static final int DEFAULT_DOWNLOAD_RATE_LIMIT = 0;
+        public static final int DEFAULT_UPLOAD_RATE_LIMIT = 0;
+        public static final boolean DEFAULT_DHT_ENABLED = true;
+        public static final boolean DEFAULT_LSD_ENABLED = true;
+        public static final boolean DEFAULT_UTP_ENABLED = true;
+        public static final boolean DEFAULT_UPNP_ENABLED = true;
+        public static final boolean DEFAULT_NATPMP_ENABLED = true;
+        public static final boolean DEFAULT_ENCRYPT_IN_CONNECTIONS = true;
+        public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
+        public static final int DEFAULT_ENCRYPT_MODE = settings_pack.enc_policy.pe_enabled.swigValue();
+        public static final boolean DEFAULT_AUTO_MANAGED = false;
+
+        public int cacheSize = DEFAULT_CACHE_SIZE;
+        public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
+        public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
+        public int maxPeerListSize = DEFAULT_MAX_PEER_LIST_SIZE;
+        public int tickInterval = DEFAULT_TICK_INTERVAL;
+        public int inactivityTimeout = DEFAULT_INACTIVITY_TIMEOUT;
+        public int connectionsLimit = DEFAULT_CONNECTIONS_LIMIT;
+        public int connectionsLimitPerTorrent = DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
+        public int uploadsLimitPerTorrent = DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
+        public int activeLimit = DEFAULT_ACTIVE_LIMIT;
+        public int port = DEFAULT_PORT;
+        public int downloadRateLimit = DEFAULT_DOWNLOAD_RATE_LIMIT;
+        public int uploadRateLimit = DEFAULT_UPLOAD_RATE_LIMIT;
+        public boolean dhtEnabled = DEFAULT_DHT_ENABLED;
+        public boolean lsdEnabled = DEFAULT_LSD_ENABLED;
+        public boolean utpEnabled = DEFAULT_UTP_ENABLED;
+        public boolean upnpEnabled = DEFAULT_UPNP_ENABLED;
+        public boolean natPmpEnabled = DEFAULT_NATPMP_ENABLED;
+        public boolean encryptInConnections = DEFAULT_ENCRYPT_IN_CONNECTIONS;
+        public boolean encryptOutConnections = DEFAULT_ENCRYPT_OUT_CONNECTIONS;
+        public int encryptMode = DEFAULT_ENCRYPT_MODE;
+        public boolean autoManaged = DEFAULT_AUTO_MANAGED;
+    }
 
     private TorrentEngine()
     {
@@ -177,10 +207,11 @@ public class TorrentEngine extends SessionManager
     @Override
     public void start()
     {
-        settings_pack sp = new settings_pack();
+        SessionParams params = loadSettings();
+        settings_pack sp = params.settings().swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
 
-        super.start(loadSettings());
+        super.start(params);
     }
 
     @Override
@@ -256,17 +287,23 @@ public class TorrentEngine extends SessionManager
                             handle.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
                         else
                             handle.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
-                        if (torrent.isPaused())
-                            handle.pause();
-                        else
-                            handle.resume();
                         if (torrent.isDownloadingMetadata()) {
                             torrent.setDownloadingMetadata(false);
                             fromMetadata = true;
                         }
                         TorrentDownload task = new TorrentDownload(context, handle, torrent, callback);
-                        task.setMaxConnections(DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT);
-                        task.setMaxUploads(DEFAULT_UPLOADS_LIMIT_PER_TORRENT);
+                        task.setMaxConnections(settings.connectionsLimitPerTorrent);
+                        task.setMaxUploads(settings.uploadsLimitPerTorrent);
+                        if (settings.autoManaged)
+                            handle.setFlags(TorrentFlags.AUTO_MANAGED);
+                        else
+                            handle.unsetFlags(TorrentFlags.AUTO_MANAGED);
+                        if (torrent.isPaused()) {
+                            handle.unsetFlags(TorrentFlags.AUTO_MANAGED);
+                            handle.pause();
+                        } else {
+                            handle.resume();
+                        }
                         torrentTasks.put(torrent.getId(), task);
 
                         if (callback != null)
@@ -468,19 +505,15 @@ public class TorrentEngine extends SessionManager
     {
         try {
             String sessionPath = TorrentUtils.findSessionFile(context);
-
-            if (sessionPath == null) {
-                return new SessionParams(defaultSettings());
-            }
+            if (sessionPath == null)
+                return new SessionParams(defaultSettingsPack());
 
             File sessionFile = new File(sessionPath);
-
             if (sessionFile.exists()) {
                 byte[] data = FileUtils.readFileToByteArray(sessionFile);
                 byte_vector buffer = Vectors.bytes2byte_vector(data);
                 bdecode_node n = new bdecode_node();
                 error_code ec = new error_code();
-
                 int ret = bdecode_node.bdecode(buffer, n, ec);
                 if (ret == 0) {
                     session_params params = libtorrent.read_session_params(n);
@@ -493,187 +526,139 @@ public class TorrentEngine extends SessionManager
                 }
 
             } else {
-                return new SessionParams(defaultSettings());
+                return new SessionParams(defaultSettingsPack());
             }
 
         } catch (Exception e) {
             Log.e(TAG, "Error loading session state: ");
             Log.e(TAG, Log.getStackTraceString(e));
 
-            return new SessionParams(defaultSettings());
+            return new SessionParams(defaultSettingsPack());
         }
     }
 
-    private static SettingsPack defaultSettings()
+    private SettingsPack defaultSettingsPack()
     {
         SettingsPack sp = new SettingsPack();
-
-        sp.broadcastLSD(true);
 
         int maxQueuedDiskBytes = sp.maxQueuedDiskBytes();
         sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
         int sendBufferWatermark = sp.sendBufferWatermark();
         sp.sendBufferWatermark(sendBufferWatermark / 2);
-        sp.cacheSize(DEFAULT_CACHE_SIZE);
-        sp.activeDownloads(DEFAULT_ACTIVE_DOWNLOADS);
-        sp.activeSeeds(DEFAULT_ACTIVE_SEEDS);
-        sp.activeLimit(DEFAULT_ACTIVE_LIMIT);
-        sp.maxPeerlistSize(DEFAULT_MAX_PEER_LIST_SIZE);
-        // sp.setGuidedReadCache(true);
-        sp.tickInterval(DEFAULT_TICK_INTERVAL);
-        sp.inactivityTimeout(DEFAULT_INACTIVITY_TIMEOUT);
         sp.seedingOutgoingConnections(false);
-        sp.connectionsLimit(DEFAULT_CONNECTIONS_LIMIT);
+        // sp.setGuidedReadCache(true);
+        settingsToSettingsPack(settings, sp);
 
         return sp;
     }
 
-    public void setSettings(SettingsPack sp)
+    private void settingsToSettingsPack(Settings settings, SettingsPack sp)
     {
-        if (sp == null || swig() == null) {
+        sp.cacheSize(settings.cacheSize);
+        sp.activeDownloads(settings.activeDownloads);
+        sp.activeSeeds(settings.activeSeeds);
+        sp.activeLimit(settings.activeLimit);
+        sp.maxPeerlistSize(settings.maxPeerListSize);
+        sp.tickInterval(settings.tickInterval);
+        sp.inactivityTimeout(settings.inactivityTimeout);
+        sp.connectionsLimit(settings.connectionsLimit);
+        sp.setString(settings_pack.string_types.listen_interfaces.swigValue(),
+                "0.0.0.0:" + settings.port);
+        sp.enableDht(settings.dhtEnabled);
+        sp.broadcastLSD(settings.lsdEnabled);
+        sp.setBoolean(settings_pack.bool_types.enable_incoming_utp.swigValue(), settings.utpEnabled);
+        sp.setBoolean(settings_pack.bool_types.enable_outgoing_utp.swigValue(), settings.utpEnabled);
+        sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled);
+        sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled);
+        sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), settings.encryptMode);
+        sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), settings.encryptMode);
+    }
+
+    private void applySettingsPack(SettingsPack sp)
+    {
+        if (sp == null)
             return;
-        }
 
         applySettings(sp);
         saveSettings();
     }
 
-    public SettingsPack getSettings()
+    public void setSettings(Settings settings)
     {
-        if (swig() == null) {
-            return null;
-        }
-
-        return settings();
+        this.settings = settings;
+        applySettings(settings);
     }
 
-    public void setDownloadSpeedLimit(int limit)
+    public Settings getSettings()
     {
-        if (swig() == null) {
+        return settings;
+    }
+
+    private void applySettings(Settings settings)
+    {
+        if (settings == null || !isRunning())
             return;
-        }
 
-        SettingsPack settingsPack = settings();
-        settingsPack.downloadRateLimit(limit);
-        setSettings(settingsPack);
-    }
-
-    public int getDownloadSpeedLimit()
-    {
-        if (swig() == null) {
-            return 0;
-        }
-
-        return settings().downloadRateLimit();
-    }
-
-    public void setUploadSpeedLimit(int limit)
-    {
-        if (swig() == null) {
-            return;
-        }
-
-        SettingsPack settingsPack = settings();
-        settingsPack.uploadRateLimit(limit);
-        applySettings(settingsPack);
-        setSettings(settingsPack);
-    }
-
-    public int getUploadSpeedLimit()
-    {
-        if (swig() == null) {
-            return 0;
-        }
-
-        return settings().uploadRateLimit();
+        SettingsPack sp = settings();
+        settingsToSettingsPack(settings, sp);
+        applySettingsPack(sp);
     }
 
     public long getDownloadRate()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return stats().downloadRate();
     }
 
     public long getUploadRate()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return stats().uploadRate();
     }
 
     public long getTotalDownload()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return stats().totalDownload();
     }
 
     public long getTotalUpload()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return stats().totalUpload();
     }
 
     public int getDownloadRateLimit()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return settings().downloadRateLimit();
     }
 
     public int getUploadRateLimit()
     {
-        if (swig() == null) {
-            return 0;
-        }
-
         return settings().uploadRateLimit();
     }
 
     public int getPort()
     {
-        if (swig() == null) {
-            return -1;
-        }
-
         return swig().listen_port();
     }
 
     public void setPort(int port)
     {
-        if (swig() == null || port == -1) {
+        if (port == -1)
             return;
-        }
 
-        SettingsPack sp = settings();
-        sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + port);
-        setSettings(sp);
+        settings.port = port;
+        applySettings(settings);
     }
 
     public void setRandomPort()
     {
-        int randomPort = MIN_PORT_NUMBER + (int)(Math.random()
-                * ((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1));
+        int randomPort = Settings.MIN_PORT_NUMBER + (int)(Math.random()
+                * ((Settings.MAX_PORT_NUMBER - Settings.MIN_PORT_NUMBER) + 1));
         setPort(randomPort);
     }
 
     public void enableIpFilter(String path)
     {
-        if (path == null) {
+        if (path == null)
             return;
-        }
 
         IPFilterParser parser = new IPFilterParser(path);
         parser.setOnParsedListener(new IPFilterParser.OnParsedListener()
@@ -681,13 +666,10 @@ public class TorrentEngine extends SessionManager
             @Override
             public void onParsed(ip_filter filter, boolean success)
             {
-                if (success && swig() != null) {
+                if (success && swig() != null)
                     swig().set_ip_filter(filter);
-                }
-
-                if (callback != null) {
+                if (callback != null)
                     callback.onIpFilterParsed(success);
-                }
             }
         });
         parser.parse();
@@ -695,21 +677,15 @@ public class TorrentEngine extends SessionManager
 
     public void disableIpFilter()
     {
-        if (swig() == null) {
-            return;
-        }
-
         swig().set_ip_filter(new ip_filter());
     }
 
     public void setProxy(Context context, ProxySettingsPack proxy)
     {
-        if (context == null || proxy == null || swig() == null) {
+        if (context == null || proxy == null)
             return;
-        }
 
         SettingsPack sp = settings();
-
         settings_pack.proxy_type_t type = settings_pack.proxy_type_t.none;
         switch (proxy.getType()) {
             case SOCKS4:
@@ -727,20 +703,17 @@ public class TorrentEngine extends SessionManager
 
         sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), type.swigValue());
         sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), proxy.getPort());
-
         sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), proxy.getAddress());
         sp.setString(settings_pack.string_types.proxy_username.swigValue(), proxy.getLogin());
         sp.setString(settings_pack.string_types.proxy_password.swigValue(), proxy.getPassword());
-
         sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), proxy.isProxyPeersToo());
 
-        if (proxy.getType() != ProxySettingsPack.ProxyType.NONE) {
+        if (proxy.getType() != ProxySettingsPack.ProxyType.NONE)
             sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), proxy.isForceProxy());
-        } else {
+        else
             sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), false);
-        }
 
-        setSettings(sp);
+        applySettingsPack(sp);
     }
 
     public ProxySettingsPack getProxy()
@@ -777,25 +750,20 @@ public class TorrentEngine extends SessionManager
         setProxy(context, new ProxySettingsPack());
     }
 
-    public boolean isStarted()
-    {
-        return swig() != null;
-    }
-
     @Override
     public boolean isPaused()
     {
-        return swig() != null && super.isPaused();
+        return super.isPaused();
     }
 
     public boolean isListening()
     {
-        return swig() != null && swig().is_listening();
+        return swig().is_listening();
     }
 
     public boolean isDHTEnabled()
     {
-        return swig() != null && settings().enableDht();
+        return settings().enableDht();
     }
 
     public boolean isPeXEnabled()
@@ -945,12 +913,13 @@ public class TorrentEngine extends SessionManager
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
-            task.resume(false);
+            task.resume();
         }
     }
 
     public void setMaxConnectionsPerTorrent(int connections)
     {
+        settings.connectionsLimitPerTorrent = connections;
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
@@ -960,11 +929,19 @@ public class TorrentEngine extends SessionManager
 
     public void setMaxUploadsPerTorrent(int uploads)
     {
+        settings.uploadsLimitPerTorrent = uploads;
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
             task.setMaxUploads(uploads);
         }
+    }
+
+    public void setAutoManaged(boolean autoManaged)
+    {
+        settings.autoManaged = autoManaged;
+        for (TorrentDownload task : torrentTasks.values())
+                task.setAutoManaged(autoManaged);
     }
 
     private final class LoadTorrentTask implements Runnable

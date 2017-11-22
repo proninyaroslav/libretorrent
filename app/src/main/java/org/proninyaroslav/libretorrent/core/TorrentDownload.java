@@ -41,7 +41,6 @@ import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.byte_vector;
-import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
@@ -217,28 +216,41 @@ public class TorrentDownload
 
     public void pause()
     {
-        if (!th.isValid()) {
+        if (!th.isValid())
             return;
-        }
 
         th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.pause();
         saveResumeData(true);
     }
 
-    public void resume(boolean forced)
+    public void resume()
     {
-        if (!th.isValid()) {
+        if (!th.isValid())
             return;
-        }
 
-        if (forced)
-            th.unsetFlags(TorrentFlags.AUTO_MANAGED);
-        else
+        if (TorrentEngine.getInstance().getSettings().autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
-        th.unsetFlags(TorrentFlags.UPLOAD_MODE);
+        else
+            th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.resume();
         saveResumeData(true);
+    }
+
+    public void setAutoManaged(boolean autoManaged)
+    {
+        if (isPaused())
+            return;
+
+        if (autoManaged)
+            th.setFlags(TorrentFlags.AUTO_MANAGED);
+        else
+            th.unsetFlags(TorrentFlags.AUTO_MANAGED);
+    }
+
+    public boolean isAutoManaged()
+    {
+        return th.isValid() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).nonZero();
     }
 
     public void setTorrent(Torrent torrent)
@@ -692,7 +704,7 @@ public class TorrentDownload
 
     public TorrentStateCode getStateCode()
     {
-        if (!TorrentEngine.getInstance().isStarted()) {
+        if (!TorrentEngine.getInstance().isRunning()) {
             return TorrentStateCode.STOPPED;
         }
 
@@ -746,7 +758,7 @@ public class TorrentDownload
     public boolean isPaused()
     {
         return th.isValid() && (isPaused(th.status(true)) ||
-                TorrentEngine.getInstance().isPaused() || !TorrentEngine.getInstance().isStarted());
+                TorrentEngine.getInstance().isPaused() || !TorrentEngine.getInstance().isRunning());
     }
 
     private static boolean isPaused(TorrentStatus s)
@@ -771,12 +783,7 @@ public class TorrentDownload
 
     public boolean isSequentialDownload()
     {
-        if (!th.isValid()) {
-            return false;
-        }
-
-        torrent_flags_t flags = th.status().flags();
-        return flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
+        return th.isValid() && th.status().flags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
     }
 
     public void setMaxConnections(int connections)

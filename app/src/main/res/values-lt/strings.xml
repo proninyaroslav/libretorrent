@@ -273,6 +273,8 @@
     <string name="pref_max_connections_per_torrent_summary">Minimalus prisijungimų skaičius - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maksimalus įkėlimo laiko tarpsnių skaičius vienam torrentui</string>
     <string name="pref_max_uploads_per_torrent_summary">Minimalus laiko tarpsnių skaičius - 2</string>
+    <string name="pref_auto_manage_title">Automatinis valdymas</string>
+    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Automatinis paleidimas</string>
     <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>
