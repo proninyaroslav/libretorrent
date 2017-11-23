@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -130,6 +130,14 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         SwitchPreferenceCompat vibration = (SwitchPreferenceCompat) findPreference(keyVibration);
         vibration.setChecked(pref.getBoolean(keyVibration, true));
         bindOnPreferenceChangeListener(vibration);
+
+        String keyFuncButton = getString(R.string.pref_key_foreground_notify_func_button);
+        ListPreference funcButton = (ListPreference) findPreference(keyFuncButton);
+        int buttonType = pref.getInt(keyFuncButton, Integer.parseInt(getString(R.string.pref_function_button_pause_value)));
+        funcButton.setValueIndex(buttonType);
+        String buttonTypesName[] = getResources().getStringArray(R.array.pref_function_button_entries);
+        funcButton.setSummary(buttonTypesName[buttonType]);
+        bindOnPreferenceChangeListener(funcButton);
     }
 
     @Override
@@ -187,6 +195,11 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
                     R.string.theme_settings_apply_after_reboot,
                     Toast.LENGTH_SHORT)
                     .show();
+        } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_func_button))) {
+            int type = Integer.parseInt((String) newValue);
+            pref.put(preference.getKey(), type);
+            String typesName[] = getResources().getStringArray(R.array.pref_function_button_entries);
+            preference.setSummary(typesName[type]);
         }
 
         return true;

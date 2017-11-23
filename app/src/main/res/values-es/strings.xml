@@ -303,6 +303,12 @@
     <string name="pref_download_and_upload_only_when_charging_summary">Si está activado, los torrents solo bajarán/subirán cuando se esté cargando. Todos los torrents serán pausados cuando no se esté conectado a un cargador</string>
     <string name="pref_battery_control_title">Control de batería</string>
     <string name="pref_battery_control_summary" formatted="false">Todos los torrents serán pausados si en nivel de batería baja del %1$d%%. El límite no se aplica cuando se está cargando</string>
+    <string name="pref_foreground_notification_category">Notificación de primer plano</string>
+    <string name="pref_function_button_title">Botón de función</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pausar/continuar torrents</item>
+        <item>Añadir torrent</item>
+    </string-array>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ajustes del proxy</string>
     <string name="pref_enable_dht_title">Habilitar DHT</string>

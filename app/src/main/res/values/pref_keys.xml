@@ -21,7 +21,7 @@
     <string name="pref_key_max_connections_per_torrent" translatable="false">pref_key_max_connections_per_torrent</string>
     <string name="pref_key_max_uploads_per_torrent" translatable="false">pref_key_max_uploads_per_torrent</string>
     <string name="pref_key_auto_manage" translatable="false">pref_key_auto_manage</string>
-    <!-- Behavior settings -->
+    <!-- Behavior and appearance settings -->
     <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
     <string name="pref_key_torrent_finish_notify" translatable="false">pref_key_torrent_finish_notify</string>
@@ -35,6 +35,7 @@
     <string name="pref_key_download_and_upload_only_when_charging" translatable="false">pref_key_download_and_upload_only_when_charging</string>
     <string name="pref_key_battery_control" translatable="false">pref_key_battery_control</string>
     <string name="pref_key_wifi_only" translatable="false">pref_key_wifi_only</string>
+    <string name="pref_key_foreground_notify_func_button" translatable="false">pref_key_foreground_notify_func_button</string>
     <!-- Network settings -->
     <string name="pref_key_enable_dht" translatable="false">pref_key_enable_dht</string>
     <string name="pref_key_enable_lsd" translatable="false">pref_key_enable_lsd</string>

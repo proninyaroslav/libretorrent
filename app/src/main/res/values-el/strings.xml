@@ -290,6 +290,12 @@
     <string name="pref_led_indicator_notify_title">Ένδειξη LED</string>
     <string name="pref_led_indicator_color_notify_title">Χρώμα ένδειξης LED</string>
     <string name="pref_vibration_notify_title">Δόνηση</string>
+    <string name="pref_foreground_notification_category">Κοινοποίηση νέων στοιχείων</string>
+    <string name="pref_function_button_title">Κουμπί λειτουργίας</string>
+    <string-array name="pref_function_button_entries">
+        <item>Παύση/ευνέχιση torrents</item>
+        <item>Προσθήκη torrent</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Αυτόματη εκκίνηση</string>
     <string name="pref_autostart_summary">Εκτέλεση της εφαρμογής μετά την εκκίνηση της συσκευής</string>

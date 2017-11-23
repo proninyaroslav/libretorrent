@@ -122,17 +122,13 @@ public class TorrentTaskService extends Service
     private AtomicBoolean pauseTorrents = new AtomicBoolean(false);
     /* Reduces sending packets due skip cache duplicates */
     private StateParcelCache<TorrentStateParcel> stateCache = new StateParcelCache<>();
-    private AtomicBoolean needsUpdateNotify;
+    private AtomicBoolean needsUpdateNotify = new AtomicBoolean(false);
     private Integer torrentsMoveTotal;
     private List<String> torrentsMoveSuccess;
     private List<String> torrentsMoveFailed;
     private boolean shutdownAfterMove = false;
     private boolean isNetworkOnline = false;
-
-    public TorrentTaskService()
-    {
-        needsUpdateNotify = new AtomicBoolean(false);
-    }
+    private AtomicBoolean isPauseButton = new AtomicBoolean(true);
 
     public class LocalBinder extends Binder
     {
@@ -309,6 +305,14 @@ public class TorrentTaskService extends Service
                                 TorrentEngine.getInstance().pauseAll();
                             }
                         }
+                        break;
+                    case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
+                        boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
+                        updateForegroundNotifyActions();
+                        if (pause)
+                            TorrentEngine.getInstance().pauseAll();
+                        else
+                            TorrentEngine.getInstance().resumeAll();
                         break;
                 }
             }
@@ -760,6 +764,8 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_auto_manage))) {
                     TorrentEngine.getInstance().setAutoManaged(pref.getBoolean(item.key(),
                             TorrentEngine.Settings.DEFAULT_AUTO_MANAGED));
+                } else if (item.key().equals(getString(R.string.pref_key_foreground_notify_func_button))) {
+                    updateForegroundNotifyActions();
                 }
             }
         }
@@ -1517,13 +1523,11 @@ public class TorrentTaskService extends Service
                             foregroundNotify.setContentText((isNetworkOnline ?
                                     getString(R.string.network_online) :
                                     getString(R.string.network_offline)));
-
                             if (!TorrentEngine.getInstance().hasTasks())
                                 foregroundNotify.setStyle(makeDetailNotifyInboxStyle());
                             else
                                 foregroundNotify.setStyle(null);
-
-                                /* Disallow killing the service process by system */
+                            /* Disallow killing the service process by system */
                             startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
                         }
 
@@ -1556,6 +1560,17 @@ public class TorrentTaskService extends Service
         updateForegroundNotifyHandler.removeCallbacks(updateForegroundNotify);
     }
 
+    private void updateForegroundNotifyActions()
+    {
+        if (foregroundNotify == null)
+            return;
+
+        foregroundNotify.mActions.clear();
+        foregroundNotify.addAction(makeFuncButtonAction());
+        foregroundNotify.addAction(makeShutdownAction());
+        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+    }
+
     private void makeForegroundNotify() {
         /* For starting main activity */
         Intent startupIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -1580,32 +1595,52 @@ public class TorrentTaskService extends Service
                         getString(R.string.network_offline)))
                 .setWhen(System.currentTimeMillis());
 
-        /* For calling add torrent dialog */
-        Intent addTorrentIntent =
-                new Intent(getApplicationContext(), NotificationReceiver.class);
-        addTorrentIntent.setAction(NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT);
+        foregroundNotify.addAction(makeFuncButtonAction());
+        foregroundNotify.addAction(makeShutdownAction());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            foregroundNotify.setCategory(Notification.CATEGORY_SERVICE);
 
-        PendingIntent addTorrentPendingIntent =
+        /* Disallow killing the service process by system */
+        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+    }
+
+    /*
+     * For calling add torrent dialog or pause/resume torrents
+     */
+    private NotificationCompat.Action makeFuncButtonAction()
+    {
+        Intent funcButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        String type = pref.getString(getString(R.string.pref_key_foreground_notify_func_button),
+                getString(R.string.pref_function_button_pause_value));
+        int icon = 0;
+        String text = null;
+        if (type.equals(getString(R.string.pref_function_button_pause_value))) {
+            funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
+            boolean isPause = isPauseButton.get();
+            icon = (isPause ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp);
+            text = (isPause ? getString(R.string.pause_torrent) : getString(R.string.resume_torrent));
+        } else if (type.equals(getString(R.string.pref_function_button_add_value))) {
+            funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT);
+            icon = R.drawable.ic_add_white_36dp;
+            text = getString(R.string.add);
+        }
+        PendingIntent funcButtonPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
-                        addTorrentIntent,
+                        funcButtonIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Action addTorrentAction =
-                new NotificationCompat.Action.Builder(
-                        R.drawable.ic_add_white_36dp,
-                        getString(R.string.add),
-                        addTorrentPendingIntent)
-                        .build();
+        return new NotificationCompat.Action.Builder(icon, text, funcButtonPendingIntent).build();
+    }
 
-        foregroundNotify.addAction(addTorrentAction);
-
-        /* For shutdown activity and service */
-        Intent shutdownIntent =
-                new Intent(getApplicationContext(), NotificationReceiver.class);
+    /*
+     * For shutdown activity and service
+     */
+    private NotificationCompat.Action makeShutdownAction()
+    {
+        Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
-
         PendingIntent shutdownPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
@@ -1613,21 +1648,11 @@ public class TorrentTaskService extends Service
                         shutdownIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Action shutdownAction =
-                new NotificationCompat.Action.Builder(
-                        R.drawable.ic_power_settings_new_white_24dp,
-                        getString(R.string.shutdown),
-                        shutdownPendingIntent)
-                        .build();
-
-        foregroundNotify.addAction(shutdownAction);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            foregroundNotify.setCategory(Notification.CATEGORY_SERVICE);
-        }
-
-        /* Disallow killing the service process by system */
-        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+        return new NotificationCompat.Action.Builder(
+                R.drawable.ic_power_settings_new_white_24dp,
+                getString(R.string.shutdown),
+                shutdownPendingIntent)
+                .build();
     }
 
     private NotificationCompat.InboxStyle makeDetailNotifyInboxStyle()

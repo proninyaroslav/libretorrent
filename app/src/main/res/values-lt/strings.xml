@@ -303,6 +303,12 @@
     <string name="pref_download_and_upload_only_when_charging_summary">Jei įgalinta, torrentai atsisiųs/išsisiųs tik kai baterija įkraunama. Visi torentai bus pristabdyti kai baterija nekraunama</string>
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary" formatted="false">Visi torrentai bus pristabdyti, jei baterijos lygis nukris žemiau %1$d%%. Apribojimas netaikomas, kai baterija įkraunama</string>
+    <string name="pref_foreground_notification_category">Priekinio plano pranešimas</string>
+    <string name="pref_function_button_title">Funkcijos mygtukas</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pauzė/tęsti torentus</item>
+        <item>Pridėti torentą</item>
+    </string-array>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Įgaliotojo serverio nustatymai</string>
     <string name="pref_enable_dht_title">Įgalinti DHT</string>

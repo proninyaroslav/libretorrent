@@ -303,6 +303,12 @@
     <string name="pref_download_and_upload_only_when_charging_summary">Si activé, le téléchargement/téléversement des torrents n\'a lieu que lors de la charge de l\'appareil. Tous les torrents seront mis en pause si l\'appareil n\'est pas branché</string>
     <string name="pref_battery_control_title">Activer le seuil de batterie</string>
     <string name="pref_battery_control_summary" formatted="false">Tous les torrents seront mis en pause si le niveau de la batterie descend en dessous du seuil spécifié. Lors de la charge, les torrents sont distribués sans tenir compte de ce seuil</string>
+    <string name="pref_foreground_notification_category">Notification de premier plan</string>
+    <string name="pref_function_button_title">Bouton de fonction</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pause/reprendre les torrents</item>
+        <item>Ajouter un torrent</item>
+    </string-array>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Paramètres de proxy</string>
     <string name="pref_enable_dht_title">Activer DHT</string>

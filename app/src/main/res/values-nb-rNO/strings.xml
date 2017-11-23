@@ -290,6 +290,12 @@
     <string name="pref_led_indicator_notify_title">LED-indikator</string>
     <string name="pref_led_indicator_color_notify_title">Farge på LED-indikator</string>
     <string name="pref_vibration_notify_title">Vibrasjon</string>
+    <string name="pref_foreground_notification_category">Forgrunnsmelding</string>
+    <string name="pref_function_button_title">Funksjonsknapp</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pause/gjenoppta torrents</item>
+        <item>Legg til torrent</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten</string>

@@ -116,6 +116,9 @@ public class SettingsManager extends TrayPreferences
         String keySaveTorrentFilesIn = context.getString(R.string.pref_key_save_torrent_files_in);
         if (pref.getString(keySaveTorrentFilesIn, null) == null)
             pref.put(keySaveTorrentFilesIn, FileIOUtils.getDefaultDownloadPath());
+        String keyFuncButton = context.getString(R.string.pref_key_foreground_notify_func_button);
+        if (pref.getInt(keyFuncButton, -1) == -1)
+            pref.put(keyFuncButton, Integer.parseInt(context.getString(R.string.pref_function_button_pause_value)));
     }
 
     public static TorrentEngine.Settings readEngineSettings(Context context)

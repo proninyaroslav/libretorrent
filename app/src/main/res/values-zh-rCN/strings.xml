@@ -306,6 +306,12 @@
     <string name="pref_download_and_upload_only_when_charging_summary">如果启用，torrent 将仅在充电时下载/上传。当没有连接到充电器时，所有的 torrent 都将暂停。</string>
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有 torrent 都将暂停。此规则充电时无效。</string>
+    <string name="pref_foreground_notification_category">Foreground notification</string>
+    <string name="pref_function_button_title">Function button</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pause/resume torrents</item>
+        <item>添加 torrent</item>
+    </string-array>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>

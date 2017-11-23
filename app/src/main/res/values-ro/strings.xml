@@ -290,6 +290,12 @@
     <string name="pref_led_indicator_notify_title">Indicator LED</string>
     <string name="pref_led_indicator_color_notify_title">Culoare indicator LED</string>
     <string name="pref_vibration_notify_title">Vibrare</string>
+    <string name="pref_foreground_notification_category">Notificare prim plan</string>
+    <string name="pref_function_button_title">Buton funcțional</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pauză/redă torrentele</item>
+        <item>Adaugă torrent</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Rulează aplicația după pornirea dispozitivului</string>

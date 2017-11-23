@@ -311,6 +311,18 @@
     <string name="pref_led_indicator_notify_title">LED indicator</string>
     <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
     <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="pref_foreground_notification_category">Foreground notification</string>
+    <string name="pref_function_button_title">Function button</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pause/resume torrents</item>
+        <item>Add torrent</item>
+    </string-array>
+    <string name="pref_function_button_pause_value" translatable="false">0</string>
+    <string name="pref_function_button_add_value" translatable="false">1</string>
+    <string-array name="pref_function_button_entries_value" translatable="false">
+        <item>@string/pref_function_button_pause_value</item>
+        <item>@string/pref_function_button_add_value</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Run the app after start device</string>

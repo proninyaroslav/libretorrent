@@ -290,6 +290,12 @@
     <string name="pref_led_indicator_notify_title">Wskaźnik LED</string>
     <string name="pref_led_indicator_color_notify_title">Kolor wskaźnika LED</string>
     <string name="pref_vibration_notify_title">Wibracje</string>
+    <string name="pref_foreground_notification_category">Powiadomienie o pierwszym planie</string>
+    <string name="pref_function_button_title">Przycisk funkcyjny</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pauza/wznów torrenty</item>
+        <item>Dodaj torrent</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Uruchom aplikację po starcie urządzenia</string>

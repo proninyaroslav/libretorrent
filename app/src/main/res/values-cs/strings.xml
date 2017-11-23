@@ -222,7 +222,7 @@
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">Tento torrent se ještě nepřipojil k žádnému peeru</string>
     <string name="piece_map">Mapa částí</string>
-    <string name="resume_torrent">Pokrařovat</string>
+    <string name="resume_torrent">Pokračovat</string>
     <string name="pause_torrent">Pozastavit</string>
     <string name="share_magnet">Sdílet magnet</string>
     <string name="save_torrent_file">Uložit torrent</string>
@@ -290,6 +290,12 @@
     <string name="pref_led_indicator_notify_title">LED indikátor</string>
     <string name="pref_led_indicator_color_notify_title">Barva indikátoru LED</string>
     <string name="pref_vibration_notify_title">Vibrace</string>
+    <string name="pref_foreground_notification_category">Popředí notifikací</string>
+    <string name="pref_function_button_title">Funkční tlačítko</string>
+    <string-array name="pref_function_button_entries">
+        <item>Pozastavit/pokrařovat torrenty</item>
+        <item>Přidat torrent</item>
+    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Spustit aplikaci po spuštění systému</string>

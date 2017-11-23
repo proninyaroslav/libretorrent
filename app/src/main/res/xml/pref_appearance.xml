@@ -13,6 +13,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/pref_foreground_notification_category">
+
+        <ListPreference
+            android:key="@string/pref_key_foreground_notify_func_button"
+            android:title="@string/pref_function_button_title"
+            android:entries="@array/pref_function_button_entries"
+            android:entryValues="@array/pref_function_button_entries_value"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/pref_notification_category">
 
         <SwitchPreferenceCompat
