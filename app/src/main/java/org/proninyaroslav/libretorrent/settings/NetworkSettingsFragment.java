@@ -94,41 +94,40 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         String keyEnableDht = getString(R.string.pref_key_enable_dht);
         SwitchPreferenceCompat enableDht = (SwitchPreferenceCompat) findPreference(keyEnableDht);
-        enableDht.setChecked(pref.getBoolean(keyEnableDht, TorrentEngine.Settings.DEFAULT_DHT_ENABLED));
+        enableDht.setChecked(pref.getBoolean(keyEnableDht, SettingsManager.Default.enableDht));
         bindOnPreferenceChangeListener(enableDht);
 
         String keyEnableLsd = getString(R.string.pref_key_enable_lsd);
         SwitchPreferenceCompat enableLsd = (SwitchPreferenceCompat) findPreference(keyEnableLsd);
-        enableLsd.setChecked(pref.getBoolean(keyEnableLsd, TorrentEngine.Settings.DEFAULT_LSD_ENABLED));
+        enableLsd.setChecked(pref.getBoolean(keyEnableLsd, SettingsManager.Default.enableLsd));
         bindOnPreferenceChangeListener(enableLsd);
 
         String keyEnableUtp = getString(R.string.pref_key_enable_utp);
         SwitchPreferenceCompat enableUtp = (SwitchPreferenceCompat) findPreference(keyEnableUtp);
-        enableUtp.setChecked(pref.getBoolean(keyEnableUtp, TorrentEngine.Settings.DEFAULT_UTP_ENABLED));
+        enableUtp.setChecked(pref.getBoolean(keyEnableUtp, SettingsManager.Default.enableUtp));
         bindOnPreferenceChangeListener(enableUtp);
 
         String keyEnableUpnp = getString(R.string.pref_key_enable_upnp);
         SwitchPreferenceCompat enableUpnp = (SwitchPreferenceCompat) findPreference(keyEnableUpnp);
-        enableUpnp.setChecked(pref.getBoolean(keyEnableUpnp, TorrentEngine.Settings.DEFAULT_UPNP_ENABLED));
+        enableUpnp.setChecked(pref.getBoolean(keyEnableUpnp, SettingsManager.Default.enableUpnp));
         bindOnPreferenceChangeListener(enableUpnp);
 
         String keyEnableNatpmp = getString(R.string.pref_key_enable_natpmp);
         SwitchPreferenceCompat enableNatpmp = (SwitchPreferenceCompat) findPreference(keyEnableNatpmp);
-        enableNatpmp.setChecked(pref.getBoolean(keyEnableNatpmp, TorrentEngine.Settings.DEFAULT_NATPMP_ENABLED));
+        enableNatpmp.setChecked(pref.getBoolean(keyEnableNatpmp, SettingsManager.Default.enableNatPmp));
         bindOnPreferenceChangeListener(enableNatpmp);
 
         String keyRandomPort = getString(R.string.pref_key_use_random_port);
         SwitchPreferenceCompat randomPort = (SwitchPreferenceCompat) findPreference(keyRandomPort);
         randomPort.setDisableDependentsState(true);
-        randomPort.setChecked(pref.getBoolean(keyRandomPort, true));
+        randomPort.setChecked(pref.getBoolean(keyRandomPort, SettingsManager.Default.useRandomPort));
         bindOnPreferenceChangeListener(randomPort);
 
         InputFilter[] portFilter =
                 new InputFilter[]{ new InputFilterMinMax(1, TorrentEngine.Settings.MAX_PORT_NUMBER)};
         String keyPort = getString(R.string.pref_key_port);
         EditTextPreference port = (EditTextPreference) findPreference(keyPort);
-        int portNumber = pref.getInt(keyPort, -1);
-        String value = (portNumber == -1 ? "" : Integer.toString(portNumber));
+        String value = Integer.toString(pref.getInt(keyPort, SettingsManager.Default.port));
         port.getEditText().setFilters(portFilter);
         port.setSummary(value);
         port.setText(value);
@@ -138,7 +137,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         String keyEncryptMode = getString(R.string.pref_key_enc_mode);
         ListPreference encryptMode = (ListPreference) findPreference(keyEncryptMode);
-        int type = pref.getInt(keyEncryptMode, Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value)));
+        int type = pref.getInt(keyEncryptMode, SettingsManager.Default.encryptMode(getContext()));
         encryptMode.setValueIndex(type);
         String typesName[] = getResources().getStringArray(R.array.pref_enc_mode_entries);
         encryptMode.setSummary(typesName[type]);
@@ -150,7 +149,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 (SwitchPreferenceCompat) findPreference(keyEncryptInConnections);
         encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptInConnections.setChecked(pref.getBoolean(keyEncryptInConnections,
-                                        TorrentEngine.Settings.DEFAULT_ENCRYPT_IN_CONNECTIONS));
+                                                        SettingsManager.Default.encryptInConnections));
         bindOnPreferenceChangeListener(encryptInConnections);
 
         String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
@@ -158,12 +157,12 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 (SwitchPreferenceCompat) findPreference(keyEncryptOutConnections);
         encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
         encryptOutConnections.setChecked(pref.getBoolean(keyEncryptOutConnections,
-                                         TorrentEngine.Settings.DEFAULT_ENCRYPT_OUT_CONNECTIONS));
+                                                         SettingsManager.Default.encryptOutConnections));
         bindOnPreferenceChangeListener(encryptOutConnections);
 
         String keyIpFilter = getString(R.string.pref_key_enable_ip_filtering);
         SwitchPreferenceCompat ipFilter = (SwitchPreferenceCompat) findPreference(keyIpFilter);
-        ipFilter.setChecked(pref.getBoolean(keyIpFilter, false));
+        ipFilter.setChecked(pref.getBoolean(keyIpFilter, SettingsManager.Default.enableIpFiltering));
         bindOnPreferenceChangeListener(ipFilter);
 
         String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
@@ -231,20 +230,15 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         if (preference instanceof SwitchPreferenceCompat) {
             pref.put(preference.getKey(), (boolean) newValue);
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_port))) {
-
             int value = TorrentEngine.Settings.DEFAULT_PORT;
-
             if (!TextUtils.isEmpty((String) newValue)) {
                 value = Integer.parseInt((String) newValue);
             }
-
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));
         } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
             int type = Integer.parseInt((String) newValue);
-
             pref.put(preference.getKey(), type);
             String typesName[] = getResources().getStringArray(R.array.pref_enc_mode_entries);
             preference.setSummary(typesName[type]);

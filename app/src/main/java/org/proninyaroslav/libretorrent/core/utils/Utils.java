@@ -335,7 +335,7 @@ public class Utils
 
         int dark = Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
         int theme = pref.getInt(context.getString(R.string.pref_key_theme),
-                Integer.parseInt(context.getString(R.string.pref_theme_light_value)));
+                                SettingsManager.Default.theme(context));
 
         return theme == dark;
     }
@@ -345,9 +345,9 @@ public class Utils
         SettingsManager pref = new SettingsManager(context);
 
         String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
-                TorrentSorting.SortingColumns.name.name());
+                                       SettingsManager.Default.sortTorrentBy);
         String direction = pref.getString(context.getString(R.string.pref_key_sort_torrent_direction),
-                TorrentSorting.Direction.ASC.name());
+                                          SettingsManager.Default.sortTorrentDirection);
 
         return new TorrentSorting(TorrentSorting.SortingColumns.fromValue(column),
                 TorrentSorting.Direction.fromValue(direction));

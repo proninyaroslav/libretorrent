@@ -41,7 +41,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     public static BehaviorSettingsFragment newInstance()
     {
         BehaviorSettingsFragment fragment = new BehaviorSettingsFragment();
-
         fragment.setArguments(new Bundle());
 
         return fragment;
@@ -56,34 +55,34 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
         String keyAutostart = getString(R.string.pref_key_autostart);
         SwitchPreferenceCompat autostart = (SwitchPreferenceCompat) findPreference(keyAutostart);
-        autostart.setChecked(pref.getBoolean(keyAutostart, false));
+        autostart.setChecked(pref.getBoolean(keyAutostart, SettingsManager.Default.autostart));
         bindOnPreferenceChangeListener(autostart);
 
         String keyShutdownComplete = getString(R.string.pref_key_shutdown_downloads_complete);
         SwitchPreferenceCompat shutdownComplete = (SwitchPreferenceCompat) findPreference(keyShutdownComplete);
-        shutdownComplete.setChecked(pref.getBoolean(keyShutdownComplete, false));
+        shutdownComplete.setChecked(pref.getBoolean(keyShutdownComplete, SettingsManager.Default.shutdownDownloadsComplete));
         bindOnPreferenceChangeListener(shutdownComplete);
 
         String keyCpuSleep = getString(R.string.pref_key_cpu_do_not_sleep);
         SwitchPreferenceCompat cpuSleep = (SwitchPreferenceCompat) findPreference(keyCpuSleep);
-        cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, false));
+        cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, SettingsManager.Default.cpuDoNotSleep));
         bindOnPreferenceChangeListener(cpuSleep);
 
         String keyOnlyCharging = getString(R.string.pref_key_download_and_upload_only_when_charging);
         SwitchPreferenceCompat onlyCharging = (SwitchPreferenceCompat) findPreference(keyOnlyCharging);
-        onlyCharging.setChecked(pref.getBoolean(keyOnlyCharging, false));
+        onlyCharging.setChecked(pref.getBoolean(keyOnlyCharging, SettingsManager.Default.onlyCharging));
         bindOnPreferenceChangeListener(onlyCharging);
 
         String keyBatteryControl = getString(R.string.pref_key_battery_control);
         SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyBatteryControl);
         batteryControl.setSummary(String.format(getString(R.string.pref_battery_control_summary),
-                Utils.getDefaultBatteryLowLevel()));
-        batteryControl.setChecked(pref.getBoolean(keyBatteryControl, false));
+                                  Utils.getDefaultBatteryLowLevel()));
+        batteryControl.setChecked(pref.getBoolean(keyBatteryControl, SettingsManager.Default.batteryControl));
         bindOnPreferenceChangeListener(batteryControl);
 
         String keyWifiOnly = getString(R.string.pref_key_wifi_only);
         SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat) findPreference(keyWifiOnly);
-        wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, false));
+        wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, SettingsManager.Default.wifiOnly));
         bindOnPreferenceChangeListener(wifiOnly);
     }
 

@@ -47,7 +47,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     public static AppearanceSettingsFragment newInstance()
     {
         AppearanceSettingsFragment fragment = new AppearanceSettingsFragment();
-
         fragment.setArguments(new Bundle());
 
         return fragment;
@@ -62,7 +61,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         String keyTheme = getString(R.string.pref_key_theme);
         ListPreference theme = (ListPreference) findPreference(keyTheme);
-        int type = pref.getInt(keyTheme, Integer.parseInt(getString(R.string.pref_theme_light_value)));
+        int type = pref.getInt(keyTheme, SettingsManager.Default.theme(getContext()));
         theme.setValueIndex(type);
         String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);
         theme.setSummary(typesName[type]);
@@ -70,18 +69,17 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         String keyTorrentFinishNotify = getString(R.string.pref_key_torrent_finish_notify);
         SwitchPreferenceCompat torrentFinishNotify = (SwitchPreferenceCompat) findPreference(keyTorrentFinishNotify);
-        torrentFinishNotify.setChecked(pref.getBoolean(keyTorrentFinishNotify, true));
+        torrentFinishNotify.setChecked(pref.getBoolean(keyTorrentFinishNotify, SettingsManager.Default.torrentFinishNotify));
         bindOnPreferenceChangeListener(torrentFinishNotify);
 
         String keyPlaySound = getString(R.string.pref_key_play_sound_notify);
         SwitchPreferenceCompat playSound = (SwitchPreferenceCompat) findPreference(keyPlaySound);
-        playSound.setChecked(pref.getBoolean(keyPlaySound, true));
+        playSound.setChecked(pref.getBoolean(keyPlaySound, SettingsManager.Default.playSoundNotify));
         bindOnPreferenceChangeListener(playSound);
 
         final String keyNotifySound = getString(R.string.pref_key_notify_sound);
         Preference notifySound = findPreference(keyNotifySound);
-        String ringtone = pref.getString(keyNotifySound,
-                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString());
+        String ringtone = pref.getString(keyNotifySound, SettingsManager.Default.notifySound);
         notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), Uri.parse(ringtone))
                 .getTitle(getActivity().getApplicationContext()));
         /* See https://code.google.com/p/android/issues/detail?id=183255 */
@@ -99,7 +97,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
                 String curRingtone = pref.getString(keyNotifySound, null);
                 if (curRingtone != null) {
                     if (curRingtone.length() == 0) {
-                        // Select "Silent"
+                        /* Select "Silent" */
                         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
                     } else {
                         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(curRingtone));
@@ -117,23 +115,22 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         String keyLedIndicator = getString(R.string.pref_key_led_indicator_notify);
         SwitchPreferenceCompat ledIndicator = (SwitchPreferenceCompat) findPreference(keyLedIndicator);
-        ledIndicator.setChecked(pref.getBoolean(keyLedIndicator, true));
+        ledIndicator.setChecked(pref.getBoolean(keyLedIndicator, SettingsManager.Default.ledIndicatorNotify));
         bindOnPreferenceChangeListener(ledIndicator);
 
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
         ColorPreference ledIndicatorColor = (ColorPreference) findPreference(keyLedIndicatorColor);
-        ledIndicatorColor.forceSetValue(pref.getInt(keyLedIndicatorColor,
-                ContextCompat.getColor(getActivity().getApplicationContext(), R.color.primary)));
+        ledIndicatorColor.forceSetValue(pref.getInt(keyLedIndicatorColor, SettingsManager.Default.ledIndicatorColorNotify(getContext())));
         bindOnPreferenceChangeListener(ledIndicatorColor);
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
         SwitchPreferenceCompat vibration = (SwitchPreferenceCompat) findPreference(keyVibration);
-        vibration.setChecked(pref.getBoolean(keyVibration, true));
+        vibration.setChecked(pref.getBoolean(keyVibration, SettingsManager.Default.vibrationNotify));
         bindOnPreferenceChangeListener(vibration);
 
         String keyFuncButton = getString(R.string.pref_key_foreground_notify_func_button);
         ListPreference funcButton = (ListPreference) findPreference(keyFuncButton);
-        int buttonType = pref.getInt(keyFuncButton, Integer.parseInt(getString(R.string.pref_function_button_pause_value)));
+        int buttonType = pref.getInt(keyFuncButton, SettingsManager.Default.funcButton(getContext()));
         funcButton.setValueIndex(buttonType);
         String buttonTypesName[] = getResources().getStringArray(R.array.pref_function_button_entries);
         funcButton.setSummary(buttonTypesName[buttonType]);

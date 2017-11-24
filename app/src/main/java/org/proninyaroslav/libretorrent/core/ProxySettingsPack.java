@@ -30,7 +30,7 @@ public class ProxySettingsPack
     private String address = "";
     private String login = "";
     private String  password = "";
-    private int port = 0;
+    private int port = DEFAULT_PROXY_PORT;
     private boolean proxyPeersToo = true;
     private boolean forceProxy = true;
 

@@ -93,7 +93,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         String keyProxyType = getString(R.string.pref_key_proxy_type);
         ListPreference proxyType = (ListPreference) findPreference(keyProxyType);
-        int type = pref.getInt(keyProxyType, Integer.parseInt(getString(R.string.pref_proxy_type_none_value)));
+        int type = pref.getInt(keyProxyType, SettingsManager.Default.proxyType);
         proxyType.setValueIndex(type);
         String typesName[] = getResources().getStringArray(R.array.pref_proxy_type_entries);
         proxyType.setSummary(typesName[type]);
@@ -103,7 +103,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         String keyAddress = getString(R.string.pref_key_proxy_address);
         EditTextPreference address = (EditTextPreference) findPreference(keyAddress);
         address.setEnabled(enableAdvancedSettings);
-        String addressValue = pref.getString(keyAddress, "");
+        String addressValue = pref.getString(keyAddress, SettingsManager.Default.proxyAddress);
         address.setText(addressValue);
         address.setSummary(addressValue);
         bindOnPreferenceChangeListener(address);
@@ -113,7 +113,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         port.setEnabled(enableAdvancedSettings);
         InputFilter[] portFilter =
                 new InputFilter[]{new InputFilterMinMax(0, 10000)};
-        int portNumber = pref.getInt(keyPort, ProxySettingsPack.DEFAULT_PROXY_PORT);
+        int portNumber = pref.getInt(keyPort, SettingsManager.Default.proxyPort);
         String portValue = Integer.toString(portNumber);
         port.getEditText().setFilters(portFilter);
         port.setSummary(portValue);
@@ -123,31 +123,31 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         String keyProxyPeersToo = getString(R.string.pref_key_proxy_peers_too);
         SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat) findPreference(keyProxyPeersToo);
         proxyPeersToo.setEnabled(enableAdvancedSettings);
-        proxyPeersToo.setChecked(pref.getBoolean(keyProxyPeersToo, true));
+        proxyPeersToo.setChecked(pref.getBoolean(keyProxyPeersToo, SettingsManager.Default.proxyPeersToo));
         bindOnPreferenceChangeListener(proxyPeersToo);
 
         String keyForceProxy = getString(R.string.pref_key_force_proxy);
         SwitchPreferenceCompat forceProxy = (SwitchPreferenceCompat) findPreference(keyForceProxy);
         forceProxy.setEnabled(enableAdvancedSettings);
-        forceProxy.setChecked(pref.getBoolean(keyForceProxy, true));
+        forceProxy.setChecked(pref.getBoolean(keyForceProxy, SettingsManager.Default.forceProxy));
         bindOnPreferenceChangeListener(forceProxy);
 
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
         SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat) findPreference(keyRequiresAuth);
         requiresAuth.setEnabled(enableAdvancedSettings);
-        requiresAuth.setChecked(pref.getBoolean(keyRequiresAuth, false));
+        requiresAuth.setChecked(pref.getBoolean(keyRequiresAuth, SettingsManager.Default.proxyRequiresAuth));
         bindOnPreferenceChangeListener(requiresAuth);
 
         String keyLogin = getString(R.string.pref_key_proxy_login);
         EditTextPreference login = (EditTextPreference) findPreference(keyLogin);
-        String loginValue = pref.getString(keyLogin, "");
+        String loginValue = pref.getString(keyLogin, SettingsManager.Default.proxyLogin);
         login.setText(loginValue);
         login.setSummary(loginValue);
         bindOnPreferenceChangeListener(login);
 
         String keyPassword = getString(R.string.pref_key_proxy_password);
         EditTextPreference password = (EditTextPreference) findPreference(keyPassword);
-        String passwordValue = pref.getString(keyPassword, "");
+        String passwordValue = pref.getString(keyPassword, SettingsManager.Default.proxyPassword);
         password.setText(passwordValue);
         EditText edit = password.getEditText();
         password.setSummary(edit.getTransformationMethod().getTransformation(passwordValue, edit).toString());
@@ -214,7 +214,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         if (preference.getKey().equals(getString(R.string.pref_key_proxy_type))) {
             int type = Integer.parseInt((String) newValue);
-
             pref.put(preference.getKey(), type);
             String typesName[] = getResources().getStringArray(R.array.pref_proxy_type_entries);
             preference.setSummary(typesName[type]);
@@ -223,11 +222,9 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             enableOrDisablePreferences(enableAdvancedSettings);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_port))) {
-            int value = ProxySettingsPack.DEFAULT_PROXY_PORT;
-
-            if (!TextUtils.isEmpty((String) newValue)) {
+            int value = SettingsManager.Default.proxyPort;
+            if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
-            }
 
             pref.put(preference.getKey(), value);
             preference.setSummary(Integer.toString(value));

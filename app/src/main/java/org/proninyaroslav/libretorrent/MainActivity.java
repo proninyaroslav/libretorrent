@@ -30,7 +30,6 @@ import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
 
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, RequestPermissions.class));
         }
 
-        SettingsManager.initPreferences(getApplicationContext());
         startService(new Intent(this, TorrentTaskService.class));
 
         setContentView(R.layout.activity_main);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,13 +37,9 @@ public class BootReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SettingsManager.initPreferences(context.getApplicationContext());
-
             SettingsManager pref = new SettingsManager(context.getApplicationContext());
-
-            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), false)) {
+            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart))
                 context.startService(new Intent(context, TorrentTaskService.class));
-            }
         }
     }
 }

@@ -65,7 +65,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxDownloadSpeedLimit = getString(R.string.pref_key_max_download_speed);
         EditTextPreference maxDownloadSpeedLimit = (EditTextPreference) findPreference(keyMaxDownloadSpeedLimit);
         maxDownloadSpeedLimit.setDialogMessage(R.string.speed_limit_dialog);
-        String value = Integer.toString(pref.getInt(keyMaxDownloadSpeedLimit, 0) / 1024);
+        String value = Integer.toString(pref.getInt(keyMaxDownloadSpeedLimit,
+                                                    SettingsManager.Default.maxDownloadSpeedLimit) / 1024);
         maxDownloadSpeedLimit.getEditText().setFilters(speedFilter);
         maxDownloadSpeedLimit.setSummary(value);
         maxDownloadSpeedLimit.setText(value);
@@ -74,7 +75,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxUploadSpeedLimit = getString(R.string.pref_key_max_upload_speed);
         EditTextPreference maxUploadSpeedLimit = (EditTextPreference) findPreference(keyMaxUploadSpeedLimit);
         maxUploadSpeedLimit.setDialogMessage(R.string.speed_limit_dialog);
-        value = Integer.toString(pref.getInt(keyMaxUploadSpeedLimit, 0) / 1024);
+        value = Integer.toString(pref.getInt(keyMaxUploadSpeedLimit,
+                                             SettingsManager.Default.maxUploadSpeedLimit) / 1024);
         maxUploadSpeedLimit.getEditText().setFilters(speedFilter);
         maxUploadSpeedLimit.setSummary(value);
         maxUploadSpeedLimit.setText(value);
@@ -83,7 +85,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxConnections = getString(R.string.pref_key_max_connections);
         EditTextPreference maxConnections = (EditTextPreference) findPreference(keyMaxConnections);
         maxConnections.setDialogMessage(R.string.pref_max_connections_summary);
-        value = Integer.toString(pref.getInt(keyMaxConnections, TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxConnections, SettingsManager.Default.maxConnections));
         maxConnections.getEditText().setFilters(connectionsFilter);
         maxConnections.setSummary(value);
         maxConnections.setText(value);
@@ -91,12 +93,12 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         String keyAutoManage = getString(R.string.pref_key_auto_manage);
         SwitchPreferenceCompat autoManage = (SwitchPreferenceCompat) findPreference(keyAutoManage);
-        autoManage.setChecked(pref.getBoolean(keyAutoManage, TorrentEngine.Settings.DEFAULT_AUTO_MANAGED));
+        autoManage.setChecked(pref.getBoolean(keyAutoManage, SettingsManager.Default.autoManage));
         bindOnPreferenceChangeListener(autoManage);
 
         String keyMaxActiveUploads = getString(R.string.pref_key_max_active_uploads);
         EditTextPreference maxActiveUploads  = (EditTextPreference) findPreference(keyMaxActiveUploads);
-        value = Integer.toString(pref.getInt(keyMaxActiveUploads, 1));
+        value = Integer.toString(pref.getInt(keyMaxActiveUploads, SettingsManager.Default.maxActiveUploads));
         maxActiveUploads.getEditText().setFilters(queueingFilter);
         maxActiveUploads.setSummary(value);
         maxActiveUploads.setText(value);
@@ -104,7 +106,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         String keyMaxActiveDownloads = getString(R.string.pref_key_max_active_downloads);
         EditTextPreference maxActiveDownloads  = (EditTextPreference) findPreference(keyMaxActiveDownloads);
-        value = Integer.toString(pref.getInt(keyMaxActiveDownloads, 1));
+        value = Integer.toString(pref.getInt(keyMaxActiveDownloads, SettingsManager.Default.maxActiveDownloads));
         maxActiveDownloads.getEditText().setFilters(queueingFilter);
         maxActiveDownloads.setSummary(value);
         maxActiveDownloads.setText(value);
@@ -112,7 +114,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         String keyMaxActiveTorrents = getString(R.string.pref_key_max_active_torrents);
         EditTextPreference maxActiveTorrents  = (EditTextPreference) findPreference(keyMaxActiveTorrents);
-        value = Integer.toString(pref.getInt(keyMaxActiveTorrents, 1));
+        value = Integer.toString(pref.getInt(keyMaxActiveTorrents, SettingsManager.Default.maxActiveTorrents));
         maxActiveTorrents.getEditText().setFilters(queueingFilter);
         maxActiveTorrents.setSummary(value);
         maxActiveTorrents.setText(value);
@@ -121,8 +123,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxConnectionsPerTorrent = getString(R.string.pref_key_max_connections_per_torrent);
         EditTextPreference maxConnectionsPerTorrent = (EditTextPreference) findPreference(keyMaxConnectionsPerTorrent);
         maxConnectionsPerTorrent.setDialogMessage(R.string.pref_max_connections_per_torrent_summary);
-        value = Integer.toString(pref.getInt(keyMaxConnectionsPerTorrent,
-                                             TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxConnectionsPerTorrent, SettingsManager.Default.maxConnectionsPerTorrent));
         maxConnectionsPerTorrent.getEditText().setFilters(connectionsFilter);
         maxConnectionsPerTorrent.setSummary(value);
         maxConnectionsPerTorrent.setText(value);
@@ -131,8 +132,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         String keyMaxUploadsPerTorrent = getString(R.string.pref_key_max_uploads_per_torrent);
         EditTextPreference maxUploadsPerTorrent = (EditTextPreference) findPreference(keyMaxUploadsPerTorrent);
         maxUploadsPerTorrent.setDialogMessage(R.string.pref_max_uploads_per_torrent_summary);
-        value = Integer.toString(pref.getInt(keyMaxUploadsPerTorrent,
-                                             TorrentEngine.Settings.MIN_UPLOADS_LIMIT));
+        value = Integer.toString(pref.getInt(keyMaxUploadsPerTorrent, SettingsManager.Default.maxUploadsPerTorrent));
         maxUploadsPerTorrent.getEditText().setFilters(uploadsFilter);
         maxUploadsPerTorrent.setSummary(value);
         maxUploadsPerTorrent.setText(value);

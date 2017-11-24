@@ -277,11 +277,10 @@ public class TorrentUtils
     public static String getTorrentDownloadPath(Context context)
     {
         SettingsManager pref = new SettingsManager(context);
-        String path = pref.getString(context.getString(R.string.pref_key_save_torrents_in), "");
-
-        if (!TextUtils.isEmpty(path)) {
+        String path = pref.getString(context.getString(R.string.pref_key_save_torrents_in),
+                                     SettingsManager.Default.saveTorrentsIn);
+        if (!TextUtils.isEmpty(path))
             return path;
-        }
 
         return FileIOUtils.getDefaultDownloadPath();
     }

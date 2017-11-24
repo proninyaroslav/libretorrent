@@ -978,18 +978,18 @@ public class MainFragment extends Fragment
 
     private void initTorrentSortingDialog(final AlertDialog dialog)
     {
-        Spinner sp = (Spinner) dialog.findViewById(R.id.dialog_sort_by);
-        RadioGroup group = (RadioGroup) dialog.findViewById(R.id.dialog_sort_direction);
+        Spinner sp = dialog.findViewById(R.id.dialog_sort_by);
+        RadioGroup group = dialog.findViewById(R.id.dialog_sort_direction);
 
         if (sp != null && group != null) {
             SettingsManager pref = new SettingsManager(activity);
 
             String[] columns = activity.getResources().getStringArray(R.array.sort_torrent_values);
 
-            String column = pref.getString(activity.getString(R.string.pref_key_sort_torrent_by),
-                    TorrentSorting.SortingColumns.name.name());
-            String direction = pref.getString(activity.getString(R.string.pref_key_sort_torrent_direction),
-                    TorrentSorting.Direction.ASC.name());
+            String column = pref.getString(getString(R.string.pref_key_sort_torrent_by),
+                                           SettingsManager.Default.sortTorrentBy);
+            String direction = pref.getString(getString(R.string.pref_key_sort_torrent_direction),
+                                              SettingsManager.Default.sortTorrentDirection);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
                     R.layout.spinner_item_dropdown,
@@ -997,11 +997,10 @@ public class MainFragment extends Fragment
             sp.setAdapter(adapter);
             sp.setSelection(Arrays.asList(columns).indexOf(column));
 
-            if (TorrentSorting.Direction.fromValue(direction) == TorrentSorting.Direction.ASC) {
+            if (TorrentSorting.Direction.fromValue(direction) == TorrentSorting.Direction.ASC)
                 group.check(R.id.dialog_sort_by_ascending);
-            } else {
+            else
                 group.check(R.id.dialog_sort_by_descending);
-            }
         }
     }
 

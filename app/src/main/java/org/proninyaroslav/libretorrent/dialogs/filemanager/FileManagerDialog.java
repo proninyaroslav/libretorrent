@@ -180,7 +180,7 @@ public class FileManagerDialog extends AppCompatActivity
         if (path == null || TextUtils.isEmpty(path)) {
             SettingsManager pref = new SettingsManager(this.getApplicationContext());
             startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir),
-                    FileIOUtils.getDefaultDownloadPath());
+                                      SettingsManager.Default.fileManagerLastDir);
 
             if (startDir != null) {
                 File dir = new File(startDir);
