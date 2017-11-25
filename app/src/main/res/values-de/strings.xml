@@ -96,6 +96,9 @@
     <string name="torrents_move_inbox_successfully">Erfolgreich:</string>
     <string name="torrents_move_inbox_failed">Fehlgeschlagen:</string>
 
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent hinzugefügt</string>
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Speichern .torrent Dateien</string>
     <string name="pref_save_torrent_files_summary">Speichern .torrent Dateien nach Beginn des Downloads</string>
     <string name="pref_save_torrent_files_in_title">Speichern .torrent Dateien nach</string>
+    <string name="pref_watch_dir_title">Verzeichnis ansehen</string>
+    <string name="pref_watch_dir_summary">Die Torrent-Dateien (mit der Erweiterung .torrent) werden im angegebenen Verzeichnis überwacht und automatisch hinzugefügt. Die Torrent-Dateien werden nach dem Hinzufügen gelöscht</string>
+    <string name="pref_dir_to_watch_title">Verzeichnis zum Ansehen</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Geschwindigkeit</string>
     <string name="pref_max_download_speed_title">Maximale Downloadrate</string>

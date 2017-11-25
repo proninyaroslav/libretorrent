@@ -7,6 +7,22 @@
         android:persistent="false" />
 
     <PreferenceCategory
+        android:title="@string/pref_watch_dir_title">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_watch_dir"
+            android:title="@string/pref_watch_dir_title"
+            android:summary="@string/pref_watch_dir_summary"
+            android:persistent="false" />
+
+        <Preference
+            android:key="@string/pref_key_dir_to_watch"
+            android:title="@string/pref_dir_to_watch_title"
+            android:dependency="@string/pref_key_watch_dir"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/pref_move_after_download_title">
 
         <SwitchPreferenceCompat
@@ -21,15 +37,19 @@
             android:persistent="false" />
     </PreferenceCategory>
 
-    <SwitchPreferenceCompat
-        android:key="@string/pref_key_save_torrent_files"
-        android:title="@string/pref_save_torrent_files_title"
-        android:summary="@string/pref_save_torrent_files_summary"
-        android:persistent="false" />
+    <PreferenceCategory
+        android:title="@string/pref_save_torrent_files_title">
 
-    <Preference
-        android:key="@string/pref_key_save_torrent_files_in"
-        android:title="@string/pref_save_torrent_files_in_title"
-        android:dependency="@string/pref_key_save_torrent_files"
-        android:persistent="false" />
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_save_torrent_files"
+            android:title="@string/pref_save_torrent_files_title"
+            android:summary="@string/pref_save_torrent_files_summary"
+            android:persistent="false" />
+
+        <Preference
+            android:key="@string/pref_key_save_torrent_files_in"
+            android:title="@string/pref_save_torrent_files_in_title"
+            android:dependency="@string/pref_key_save_torrent_files"
+            android:persistent="false" />
+    </PreferenceCategory>
 </PreferenceScreen>

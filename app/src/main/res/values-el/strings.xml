@@ -95,6 +95,9 @@
     <string name="torrents_moved_content" formatted="false">Επιτυχώς: %1$d; Απέτυχε: %2$d</string>
     <string name="torrents_move_inbox_successfully">Επιτυχώς:</string>
     <string name="torrents_move_inbox_failed">Απέτυχε:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent пροστέθηκε</string>
     
     <!-- Torrent list item -->
 
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Αποθήκευση των αρχείων .torrent</string>
     <string name="pref_save_torrent_files_summary">Αποθήκευση των αρχείων .torrent μετά την έναρξη της λήψης</string>
     <string name="pref_save_torrent_files_in_title">Αποθήκευση των αρχείων .torrent στο</string>
+    <string name="pref_watch_dir_title">Παρακολουθήστε κατάλογο</string>
+    <string name="pref_watch_dir_summary">Τα αρχεία torrent (με επέκταση .torrent) παρακολουθούνται στον καθορισμένο κατάλογο και προστίθενται αυτόματα. Τα αρχεία torrent διαγράφονται μετά την προσθήκη</string>
+    <string name="pref_dir_to_watch_title">Κατάλογος για να παρακολουθήσετε</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Ταχύτητα</string>
     <string name="pref_max_download_speed_title">Μέγιστη ταχύτητα λήψεων</string>

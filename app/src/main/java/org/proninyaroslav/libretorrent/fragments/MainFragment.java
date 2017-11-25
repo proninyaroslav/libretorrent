@@ -314,12 +314,16 @@ public class MainFragment extends Fragment
             if (prevImplIntent == null || !prevImplIntent.equals(i)) {
                 prevImplIntent = i;
                 Torrent torrent = i.getParcelableExtra(AddTorrentActivity.TAG_RESULT_TORRENT);
-
                 if (torrent != null) {
                     if (!bound || service == null) {
                         addTorrentsQueue.add(torrent);
                     } else {
-                        service.addTorrent(torrent);
+                        try {
+                            service.addTorrent(torrent, false);
+                        } catch (Throwable e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                            addTorrentError(e);
+                        }
                     }
                 }
             }
@@ -422,7 +426,12 @@ public class MainFragment extends Fragment
 
             if (!addTorrentsQueue.isEmpty()) {
                 for (Torrent torrent : addTorrentsQueue) {
-                    MainFragment.this.service.addTorrent(torrent);
+                    try {
+                        MainFragment.this.service.addTorrent(torrent, false);
+                    } catch (Throwable e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                        addTorrentError(e);
+                    }
                 }
                 addTorrentsQueue.clear();
             }
@@ -479,20 +488,14 @@ public class MainFragment extends Fragment
         }
 
         @Override
-        public void onTorrentAdded(TorrentStateParcel state, Throwable exception)
+        public void onTorrentAdded(TorrentStateParcel state)
         {
             callbackSync.lock();
-
             try {
                 if (state != null) {
                     torrentStates.put(state.torrentId, state);
                     reloadAdapter();
                 }
-
-                if (exception != null) {
-                    saveTorrentError(exception);
-                }
-
             } finally {
                 callbackSync.unlock();
             }
@@ -1218,14 +1221,12 @@ public class MainFragment extends Fragment
         return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment) fragment : null);
     }
 
-    private void saveTorrentError(Throwable e)
+    private void addTorrentError(Throwable e)
     {
-        if (e == null || !isAdded()) {
+        if (e == null || !isAdded())
             return;
-        }
 
         sentError = e;
-
         if (e instanceof FileNotFoundException) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                     activity.getApplicationContext(),
@@ -1237,7 +1238,6 @@ public class MainFragment extends Fragment
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
             ft.commitAllowingStateLoss();
-
         } else if (e instanceof IOException) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                     activity.getApplicationContext(),
@@ -1249,7 +1249,6 @@ public class MainFragment extends Fragment
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
             ft.commitAllowingStateLoss();
-
         } else if (e instanceof FileAlreadyExistsException) {
             Snackbar.make(coordinatorLayout,
                     R.string.torrent_exist,
@@ -1311,7 +1310,12 @@ public class MainFragment extends Fragment
                             if (!bound || service == null) {
                                 addTorrentsQueue.add(torrent);
                             } else {
-                                service.addTorrent(torrent);
+                                try {
+                                    service.addTorrent(torrent, false);
+                                } catch (Throwable e) {
+                                    Log.e(TAG, Log.getStackTraceString(e));
+                                    addTorrentError(e);
+                                }
                             }
                         }
                     }

@@ -95,6 +95,9 @@
     <string name="torrents_moved_content" formatted="false">Pomyślnie: %1$d; Niepomyślnie: %2$d</string>
     <string name="torrents_move_inbox_successfully">Pomyślnie:</string>
     <string name="torrents_move_inbox_failed">Niepomyślnie:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent dodano</string>
     
     <!-- Torrent list item -->
 
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Zapisz pliki .torrent</string>
     <string name="pref_save_torrent_files_summary">Zapisz pliki .torrent po rozpoczęciu pobierania</string>
     <string name="pref_save_torrent_files_in_title">Zapisz pliki .torrent do</string>
+    <string name="pref_watch_dir_title">Oglądaj katalog</string>
+    <string name="pref_watch_dir_summary">Pliki torrenta (z rozszerzeniem .torrent) są obserwowane w określonym katalogu i automatycznie dodawane. Pliki torrenta są usuwane po dodaniu</string>
+    <string name="pref_dir_to_watch_title">Katalog do obejrzenia</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Prędkość</string>
     <string name="pref_max_download_speed_title">Maksymalna prędkość pobierania</string>

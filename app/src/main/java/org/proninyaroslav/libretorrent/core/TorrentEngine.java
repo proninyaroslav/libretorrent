@@ -470,10 +470,9 @@ public class TorrentEngine extends SessionManager
 
         TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
         List<Priority> priorities = torrent.getFilePriorities();
-        if (priorities.size() != ti.numFiles()) {
-            Log.e(TAG, "File count doesn't match: " + torrent.getName());
-            return;
-        }
+        if (priorities.size() != ti.numFiles())
+            throw new IllegalArgumentException("File count doesn't match: " + torrent.getName());
+
         File saveDir = new File(torrent.getDownloadPath());
         String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
         File resumeFile = null;
@@ -482,6 +481,7 @@ public class TorrentEngine extends SessionManager
             if (file.exists())
                 resumeFile = file;
         }
+
         addTorrentsQueue.put(ti.infoHash().toString(), torrent);
         download(ti, saveDir, resumeFile, priorities.toArray(new Priority[priorities.size()]), null);
     }

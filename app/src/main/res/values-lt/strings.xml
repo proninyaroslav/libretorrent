@@ -96,6 +96,9 @@
     <string name="torrents_move_inbox_successfully">Sėkmingai:</string>
     <string name="torrents_move_inbox_failed">Nepavyko:</string>
 
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent pridėta</string>
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Išsaugoiti .torrent failus</string>
     <string name="pref_save_torrent_files_summary">Išsaugoiti .torrent failus pradėjus siųsti</string>
     <string name="pref_save_torrent_files_in_title">Išsaugoiti .torrent failus į</string>
+    <string name="pref_watch_dir_title">Žiūrėti katalogą</string>
+    <string name="pref_watch_dir_summary">Torrent failai (su .torrent plėtiniu) yra stebimi nurodytame kataloge ir automatiškai pridedami. Torrent failai ištrinami pridedant</string>
+    <string name="pref_dir_to_watch_title">Katalogas žiūrėti</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Greitis</string>
     <string name="pref_max_download_speed_title">Maksimalus atsisiuntimo greitis</string>

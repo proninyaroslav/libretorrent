@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,10 +31,6 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 
-/*
- * TODO: add folder scanner
- */
-
 public class StorageSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
@@ -62,17 +58,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
-        }
-
         SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
-
         String keySaveTorrentsIn = getString(R.string.pref_key_save_torrents_in);
         Preference saveTorrentsIn = findPreference(keySaveTorrentsIn);
         saveTorrentsIn.setSummary(pref.getString(keySaveTorrentsIn, SettingsManager.Default.saveTorrentsIn));
-        saveTorrentsIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
+        saveTorrentsIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -95,8 +87,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         Preference moveAfterDownloadIn = findPreference(keyMoveAfterDownloadIn);
         moveAfterDownloadIn.setSummary(pref.getString(keyMoveAfterDownloadIn,
                                                       SettingsManager.Default.moveAfterDownloadIn));
-        moveAfterDownloadIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
+        moveAfterDownloadIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -110,8 +101,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         });
 
         String keySaveTorrentFiles = getString(R.string.pref_key_save_torrent_files);
-        SwitchPreferenceCompat saveTorrentFiles =
-                (SwitchPreferenceCompat) findPreference(keySaveTorrentFiles);
+        SwitchPreferenceCompat saveTorrentFiles = (SwitchPreferenceCompat) findPreference(keySaveTorrentFiles);
         saveTorrentFiles.setChecked(pref.getBoolean(keySaveTorrentFiles,
                                                     SettingsManager.Default.saveTorrentFiles));
         bindOnPreferenceChangeListener(saveTorrentFiles);
@@ -120,8 +110,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         Preference saveTorrentFilesIn = findPreference(keySaveTorrentFilesIn);
         saveTorrentFilesIn.setSummary(pref.getString(keySaveTorrentFilesIn,
                                                      SettingsManager.Default.saveTorrentFilesIn));
-        saveTorrentFilesIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
+        saveTorrentFilesIn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -132,6 +121,27 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
                 return true;
             }
         });
+
+        String keyWatchDir = getString(R.string.pref_key_watch_dir);
+        SwitchPreferenceCompat watchDir = (SwitchPreferenceCompat) findPreference(keyWatchDir);
+        watchDir.setChecked(pref.getBoolean(keyWatchDir, SettingsManager.Default.watchDir));
+        bindOnPreferenceChangeListener(watchDir);
+
+        String keyDirToWatch = getString(R.string.pref_key_dir_to_watch);
+        Preference dirToWatch = findPreference(keyDirToWatch);
+        dirToWatch.setSummary(pref.getString(keyDirToWatch, SettingsManager.Default.dirToWatch));
+        dirToWatch.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+                dirChooserBindPref = getString(R.string.pref_key_dir_to_watch);
+                dirChooseDialog(pref.getString(dirChooserBindPref, SettingsManager.Default.dirToWatch));
+
+                return true;
+            }
+        });
+        bindOnPreferenceChangeListener(dirToWatch);
     }
 
     @Override

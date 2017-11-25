@@ -29,9 +29,11 @@ import android.util.Log;
 
 import com.frostwire.jlibtorrent.Priority;
 
+import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,29 +79,28 @@ public class TorrentStorage
         this.context = context;
     }
 
-    public boolean add(Torrent torrent) throws Throwable
+    public boolean add(Torrent torrent, boolean deleteFile) throws Throwable
     {
         String newPath = null;
         if (!torrent.isDownloadingMetadata()) {
             newPath = TorrentUtils.copyTorrent(context, torrent.getId(), torrent.getTorrentFilePath());
-
-            if (newPath == null) {
+            if (deleteFile) {
+                try {
+                    FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
+                } catch (Exception e) {
+                    Log.w(TAG, "Could not delete torrent file: ", e);
+                }
+            }
+            if (newPath == null)
                 return false;
-            }
-
         } else {
-            if (TorrentUtils.torrentDataExists(context, torrent.getId())) {
+            if (TorrentUtils.torrentDataExists(context, torrent.getId()))
                 TorrentUtils.removeTorrentDataDir(context, torrent.getId());
-            }
-
-            if (TorrentUtils.makeTorrentDataDir(context, torrent.getId()) == null) {
+            if (TorrentUtils.makeTorrentDataDir(context, torrent.getId()) == null)
                 throw new IOException("Unable to create dir");
-            }
         }
-
-        if (newPath != null) {
+        if (newPath != null)
             torrent.setTorrentFilePath(newPath);
-        }
 
         return insert(torrent) >= 0;
     }
@@ -122,23 +123,25 @@ public class TorrentStorage
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
 
-    public void replace(Torrent torrent) throws Throwable
+    public void replace(Torrent torrent, boolean deleteFile) throws Throwable
     {
-        if (torrent == null || torrent.getTorrentFilePath() == null) {
+        if (torrent == null || torrent.getTorrentFilePath() == null)
             return;
-        }
 
         String newPath = TorrentUtils.copyTorrent(
                 context,
                 torrent.getId(),
                 torrent.getTorrentFilePath());
-
-        if (newPath == null) {
-            return;
+        if (deleteFile) {
+            try {
+                FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
+            } catch (Exception e) {
+                Log.w(TAG, "Could not delete torrent file: ", e);
+            }
         }
-
+        if (newPath == null)
+            return;
         torrent.setTorrentFilePath(newPath);
-
         update(torrent);
     }
 

@@ -11,6 +11,8 @@
     <string name="pref_key_move_after_download_in" translatable="false">pref_key_move_after_download_in</string>
     <string name="pref_key_save_torrent_files" translatable="false">pref_key_save_torrent_files</string>
     <string name="pref_key_save_torrent_files_in" translatable="false">pref_key_save_torrent_files_in</string>
+    <string name="pref_key_watch_dir" translatable="false">pref_key_watch_dir</string>
+    <string name="pref_key_dir_to_watch" translatable="false">pref_key_dir_to_watch</string>
     <!-- Limitations settings -->
     <string name="pref_key_max_download_speed" translatable="false">pref_key_max_download_speed</string>
     <string name="pref_key_max_upload_speed" translatable="false">pref_key_max_upload_speed</string>

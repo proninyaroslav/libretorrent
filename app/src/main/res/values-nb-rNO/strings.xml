@@ -95,6 +95,9 @@
     <string name="torrents_moved_content" formatted="false">Vellykket: %1$d; Mislykket: %2$d</string>
     <string name="torrents_move_inbox_successfully">Vellykket:</string>
     <string name="torrents_move_inbox_failed">Mislykket:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent lagt til</string>
     
     <!-- Torrent list item -->
 
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Lagre .torrent-filer</string>
     <string name="pref_save_torrent_files_summary">Lagre .torrent-filer etter at nedlasting igangsettes</string>
     <string name="pref_save_torrent_files_in_title">Lagre .torrent-filer i</string>
+    <string name="pref_watch_dir_title">Se katalog</string>
+    <string name="pref_watch_dir_summary">Torrent-filene (med .torrent-utvidelse) blir sett i den angitte katalogen og automatisk lagt til. Torrent-filene slettes etter at du har lagt til</string>
+    <string name="pref_dir_to_watch_title">Katalog å se</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Hastighet</string>
     <string name="pref_max_download_speed_title">Maksimal nedlastingshastighet</string>

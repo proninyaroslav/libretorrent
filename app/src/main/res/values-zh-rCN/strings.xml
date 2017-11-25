@@ -96,6 +96,9 @@
     <string name="torrents_move_inbox_successfully">成功:</string>
     <string name="torrents_move_inbox_failed">失败:</string>
 
+    <!-- Added notification -->
+    <string name="torrent_added_notify">torrent 添加</string>
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -262,6 +265,9 @@
     <string name="pref_save_torrent_files_title">保存 torrent 文件</string>
     <string name="pref_save_torrent_files_summary">下载开始时保存 torrent 文件</string>
     <string name="pref_save_torrent_files_in_title">保存 torrent 文件件至</string>
+    <string name="pref_watch_dir_title">Watch directory</string>
+    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
+    <string name="pref_dir_to_watch_title">Directory to watch</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">下载速度</string>
     <string name="pref_max_download_speed_title">最大下载速度</string>

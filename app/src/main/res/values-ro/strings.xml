@@ -95,6 +95,9 @@
     <string name="torrents_moved_content" formatted="false">Cu succes: %1$d; Eșuate: %2$d</string>
     <string name="torrents_move_inbox_successfully">Cu succes:</string>
     <string name="torrents_move_inbox_failed">Eșuate:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Torrent adăugat</string>
     
     <!-- Torrent list item -->
 
@@ -259,6 +262,9 @@
     <string name="pref_save_torrent_files_title">Salvează fișierele .torrent</string>
     <string name="pref_save_torrent_files_summary">Salvează fișierele .torrent după începerea descărcării</string>
     <string name="pref_save_torrent_files_in_title">Salvează fișierele .torrent în</string>
+    <string name="pref_watch_dir_title">Urmăriți directorul</string>
+    <string name="pref_watch_dir_summary">Fișierele torrent (cu extensia .torrent) sunt vizionate în directorul specificat și adăugate automat. Fișierele torrent sunt șterse după adăugare</string>
+    <string name="pref_dir_to_watch_title">Director de urmărit</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Viteză</string>
     <string name="pref_max_download_speed_title">Viteza maximă la descărcare</string>

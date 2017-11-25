@@ -88,6 +88,9 @@
     <string name="torrents_move_inbox_successfully">Удачно:</string>
     <string name="torrents_move_inbox_failed">Не удалось:</string>
 
+    <!-- Added notification -->
+    <string name="torrent_added_notify">Торрент добавлен</string>
+
     <!-- Torrent list item -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/с | \u2191 %2$s/с</string>
@@ -242,6 +245,9 @@
     <string name="pref_save_torrent_files_title">Сохранять .torrent файлы</string>
     <string name="pref_save_torrent_files_summary">Сохранять .torrent файлы после начала загрузки</string>
     <string name="pref_save_torrent_files_in_title">Сохранять .torrent файлы в</string>
+    <string name="pref_watch_dir_title">Отслеживать директорию</string>
+    <string name="pref_watch_dir_summary">Торрент файлы (с расширением .torrent) отслеживаются в указанном каталоге и автоматически добавляются. Торрент файлы удаляются после добавления</string>
+    <string name="pref_dir_to_watch_title">Директория для отслеживания</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Скорость</string>
     <string name="pref_max_download_speed_title">Максимальная скорость загрузки</string>

@@ -19,14 +19,25 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import android.os.Bundle;
+import android.os.FileObserver;
+import android.support.annotation.Nullable;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
+/*
+ * Watch torrent files in the specified directory and download them.
+ */
 
-public interface TorrentServiceCallback
+public abstract class TorrentFileObserver extends FileObserver
 {
-    void onTorrentStateChanged(TorrentStateParcel state);
-    void onTorrentsStateChanged(Bundle states);
-    void onTorrentAdded(TorrentStateParcel state);
-    void onTorrentRemoved(TorrentStateParcel state);
+    private String pathToDir;
+    private static final int mask = FileObserver.CREATE | FileObserver.MOVED_TO |
+                                    FileObserver.MODIFY | FileObserver.ATTRIB;
+
+    public TorrentFileObserver(String pathToDir)
+    {
+        super(pathToDir, mask);
+
+        this.pathToDir = pathToDir;
+    }
+
+    public abstract void onEvent(int event, @Nullable String name);
 }

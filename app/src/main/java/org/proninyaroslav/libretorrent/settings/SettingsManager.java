@@ -72,6 +72,8 @@ public class SettingsManager extends TrayPreferences
         public static final String moveAfterDownloadIn = FileIOUtils.getDefaultDownloadPath();
         public static final boolean saveTorrentFiles = false;
         public static final String saveTorrentFilesIn = FileIOUtils.getDefaultDownloadPath();
+        public static final boolean watchDir = false;
+        public static final String dirToWatch = FileIOUtils.getDefaultDownloadPath();
         /* Limitations settings */
         public static final int maxDownloadSpeedLimit = TorrentEngine.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
         public static final int maxUploadSpeedLimit = TorrentEngine.Settings.DEFAULT_UPLOAD_RATE_LIMIT;

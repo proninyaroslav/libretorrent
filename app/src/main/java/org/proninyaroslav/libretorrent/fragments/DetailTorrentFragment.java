@@ -1223,7 +1223,7 @@ public class DetailTorrentFragment extends Fragment
         }
 
         @Override
-        public void onTorrentAdded(TorrentStateParcel state, Throwable exception)
+        public void onTorrentAdded(TorrentStateParcel state)
         {
             /* Nothing */
         }
