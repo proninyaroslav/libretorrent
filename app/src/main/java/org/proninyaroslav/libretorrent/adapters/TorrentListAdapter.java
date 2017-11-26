@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -30,11 +31,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.wnafee.vector.ui.MorphButton;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
@@ -162,19 +162,13 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         String ETA;
         if (state.ETA == -1) {
             ETA = Utils.INFINITY_SYMBOL;
-        } else if (state.ETA == 0) {
+                        } else if (state.ETA == 0) {
             ETA = " ";
         } else {
             ETA = DateUtils.formatElapsedTime(state.ETA);
         }
         holder.ETA.setText(ETA);
-
-        holder.pauseButton.setStartDrawable(R.drawable.pause_to_play);
-        holder.pauseButton.setEndDrawable(R.drawable.play_to_pause);
-        holder.pauseButton.setState(
-                (state.stateCode == TorrentStateCode.PAUSED ?
-                        MorphButton.MorphState.END :
-                        MorphButton.MorphState.START));
+        holder.setPauseButtonState(state.stateCode == TorrentStateCode.PAUSED);
 
         if (curOpenTorrent != null) {
             curOpenTorrent.setEqualsById(true);
@@ -381,13 +375,16 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         private List<TorrentStateParcel> states;
         LinearLayout itemTorrentList;
         TextView name;
-        MorphButton pauseButton;
+        ImageButton pauseButton;
         ProgressBar progress;
         TextView state;
         TextView downloadCounter;
         TextView downloadUploadSpeed;
         TextView ETA;
         View indicatorCurOpenTorrent;
+        private AnimatedVectorDrawableCompat playToPauseAnim;
+        private AnimatedVectorDrawableCompat pauseToPlayAnim;
+        private AnimatedVectorDrawableCompat currAnim;
 
         public ViewHolder(View itemView, final ClickListener listener, final List<TorrentStateParcel> states)
         {
@@ -399,9 +396,11 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            itemTorrentList = (LinearLayout) itemView.findViewById(R.id.item_torrent_list);
-            name = (TextView) itemView.findViewById(R.id.torrent_name);
-            pauseButton = (MorphButton) itemView.findViewById(R.id.pause_torrent);
+            playToPauseAnim = AnimatedVectorDrawableCompat.create(context, R.drawable.play_to_pause);
+            pauseToPlayAnim = AnimatedVectorDrawableCompat.create(context, R.drawable.pause_to_play);
+            itemTorrentList = itemView.findViewById(R.id.item_torrent_list);
+            name = itemView.findViewById(R.id.torrent_name);
+            pauseButton = itemView.findViewById(R.id.pause_torrent);
             pauseButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -414,12 +413,12 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                     }
                 }
             });
-            progress = (ProgressBar) itemView.findViewById(R.id.torrent_progress);
+            progress = itemView.findViewById(R.id.torrent_progress);
             Utils.colorizeProgressBar(context, progress);
-            state = (TextView) itemView.findViewById(R.id.torrent_status);
-            downloadCounter = (TextView) itemView.findViewById(R.id.torrent_download_counter);
-            downloadUploadSpeed = (TextView) itemView.findViewById(R.id.torrent_download_upload_speed);
-            ETA = (TextView) itemView.findViewById(R.id.torrent_ETA);
+            state = itemView.findViewById(R.id.torrent_status);
+            downloadCounter = itemView.findViewById(R.id.torrent_download_counter);
+            downloadUploadSpeed = itemView.findViewById(R.id.torrent_download_upload_speed);
+            ETA = itemView.findViewById(R.id.torrent_ETA);
             indicatorCurOpenTorrent = itemView.findViewById(R.id.indicator_cur_open_torrent);
         }
 
@@ -447,6 +446,15 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             }
 
             return false;
+        }
+
+        void setPauseButtonState(boolean isPause)
+        {
+            AnimatedVectorDrawableCompat prevAnim = currAnim;
+            currAnim = (isPause ? pauseToPlayAnim : playToPauseAnim);
+            pauseButton.setImageDrawable(currAnim);
+            if (currAnim != prevAnim)
+                currAnim.start();
         }
 
         public interface ClickListener

@@ -20,10 +20,11 @@
         android:layout_marginRight="16dp"
         android:gravity="center">
 
-        <com.wnafee.vector.ui.MorphButton
+        <ImageButton
             android:id="@+id/pause_torrent"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:scaleType="fitXY"
             android:padding="6dp"
             android:background="@drawable/fab_ripple" />
 
