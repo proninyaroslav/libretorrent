@@ -1622,8 +1622,7 @@ public class TorrentTaskService extends Service
                 .setContentText((isNetworkOnline ?
                         getString(R.string.network_online) :
                         getString(R.string.network_offline)))
-                .setWhen(System.currentTimeMillis())
-                .setChannelId(getString(R.string.app_name));
+                .setWhen(System.currentTimeMillis());
 
         foregroundNotify.addAction(makeFuncButtonAction());
         foregroundNotify.addAction(makeShutdownAction());
