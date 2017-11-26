@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in jlibtorrent */
+        targetSdkVersion 27
         versionCode 5
         versionName "1.4"
         vectorDrawables.useSupportLibrary = true
@@ -26,8 +26,8 @@ repositories {
     }
 }
 
-def ANDROID_SUPPORT_VERSION='27.0.0'
-def JLIBTORRENT_VERSION='1.2.0.14'
+def ANDROID_SUPPORT_VERSION='27.0.1'
+def JLIBTORRENT_VERSION='1.2.0.15-RC2'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -41,9 +41,9 @@ dependencies {
 
     compile 'commons-io:commons-io:2.5'
     compile 'net.grandcentrix.tray:tray:0.12.0'
-    compile 'ch.acra:acra:4.9.2'
+    compile 'com.faendir:acra:4.10.0'
 
-    compile 'com.takisoft.fix:preference-v7:27.0.0.0'
+    compile 'com.takisoft.fix:preference-v7:27.0.1.0'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.github.yukuku:ambilwarna:2.0.1'
