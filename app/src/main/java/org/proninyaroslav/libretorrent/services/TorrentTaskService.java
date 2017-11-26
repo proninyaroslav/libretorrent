@@ -58,7 +58,6 @@ import net.grandcentrix.tray.core.TrayItem;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FetchMagnetCallback;
@@ -161,6 +160,7 @@ public class TorrentTaskService extends Service
 
         Log.i(TAG, "Start " + TorrentTaskService.class.getSimpleName());
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Utils.createDefaultNotifyChannel(getApplicationContext(), notifyManager);
         Context context = getApplicationContext();
         repo = new TorrentStorage(context);
         pref = new SettingsManager(context);
@@ -1613,7 +1613,8 @@ public class TorrentTaskService extends Service
                         startupIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        foregroundNotify = new NotificationCompat.Builder(getApplicationContext())
+        foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
+                                                          Utils.getDefaultNotifyChannelId(getApplicationContext()))
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
@@ -1621,7 +1622,8 @@ public class TorrentTaskService extends Service
                 .setContentText((isNetworkOnline ?
                         getString(R.string.network_online) :
                         getString(R.string.network_offline)))
-                .setWhen(System.currentTimeMillis());
+                .setWhen(System.currentTimeMillis())
+                .setChannelId(getString(R.string.app_name));
 
         foregroundNotify.addAction(makeFuncButtonAction());
         foregroundNotify.addAction(makeShutdownAction());
@@ -1764,7 +1766,8 @@ public class TorrentTaskService extends Service
                              SettingsManager.Default.torrentFinishNotify))
             return;
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
                 .setSmallIcon(R.drawable.ic_done_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(getString(R.string.torrent_finished_notify))
@@ -1802,7 +1805,8 @@ public class TorrentTaskService extends Service
         if (name == null || message == null)
             return;
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
                 .setSmallIcon(R.drawable.ic_error_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(name)
@@ -1822,7 +1826,8 @@ public class TorrentTaskService extends Service
         if (name == null || message == null)
             return;
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
                 .setSmallIcon(R.drawable.ic_info_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(name)
@@ -1843,7 +1848,8 @@ public class TorrentTaskService extends Service
             return;
 
         String title = getString(R.string.torrent_added_notify);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
                 .setSmallIcon(R.drawable.ic_done_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(title)
@@ -1867,7 +1873,8 @@ public class TorrentTaskService extends Service
             return;
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()));
 
         String resultTemplate = getString(R.string.torrents_moved_content);
         int successfully = torrentsMoveSuccess.size();
