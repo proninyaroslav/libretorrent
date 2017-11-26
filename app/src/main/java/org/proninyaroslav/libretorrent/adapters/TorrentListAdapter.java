@@ -162,7 +162,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         String ETA;
         if (state.ETA == -1) {
             ETA = Utils.INFINITY_SYMBOL;
-                        } else if (state.ETA == 0) {
+        } else if (state.ETA == 0) {
             ETA = " ";
         } else {
             ETA = DateUtils.formatElapsedTime(state.ETA);

@@ -157,6 +157,8 @@ public class TorrentDownload
                 case STORAGE_MOVED_FAILED:
                     callback.onTorrentMoved(torrent.getId(), false);
                     saveResumeData(true);
+                case PIECE_FINISHED:
+                    saveResumeData(false);
                     break;
             }
         }
@@ -192,7 +194,7 @@ public class TorrentDownload
 
         try {
             if (th != null && th.isValid()) {
-                th.saveResumeData();
+                th.saveResumeData(TorrentHandle.SAVE_INFO_DICT);
             }
 
         } catch (Exception e) {
@@ -552,22 +554,17 @@ public class TorrentDownload
     public void replaceTrackers(Set<String> trackers)
     {
         List<AnnounceEntry> urls = new ArrayList<>(trackers.size());
-
-        for (String url : trackers) {
+        for (String url : trackers)
             urls.add(new AnnounceEntry(url));
-        }
-
         th.replaceTrackers(urls);
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     public void addTrackers(Set<String> trackers)
     {
-        for (String url : trackers) {
+        for (String url : trackers)
             th.addTracker(new AnnounceEntry(url));
-        }
-
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     public boolean[] pieces()
@@ -678,7 +675,7 @@ public class TorrentDownload
     public void setDownloadSpeedLimit(int limit)
     {
         th.setDownloadLimit(limit);
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     public int getDownloadSpeedLimit()
@@ -689,7 +686,7 @@ public class TorrentDownload
     public void setUploadSpeedLimit(int limit)
     {
         th.setUploadLimit(limit);
-        th.saveResumeData();
+        saveResumeData(true);
     }
 
     public int getUploadSpeedLimit()
