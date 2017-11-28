@@ -21,8 +21,6 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -366,21 +364,5 @@ public class Utils
         WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         return manager != null && manager.isWifiEnabled();
-    }
-
-    public static void createDefaultNotifyChannel(Context context, NotificationManager notifyManager)
-    {
-        if (context == null || notifyManager == null)
-            return;
-
-        String name = context.getString(R.string.app_name);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            notifyManager.createNotificationChannel(new NotificationChannel(getDefaultNotifyChannelId(context),
-                                                                            name, NotificationManager.IMPORTANCE_DEFAULT));
-    }
-
-    public static String getDefaultNotifyChannelId(Context context)
-    {
-        return "chan_" + context.getString(R.string.app_name) + "_default";
     }
 }

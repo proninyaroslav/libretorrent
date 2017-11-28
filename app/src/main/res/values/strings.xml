@@ -32,6 +32,8 @@
         <item>asc</item>
         <item>desc</item>
     </string-array>
+    <string name="def">Default</string>
+    <string name="foreground_notification">Foreground notification</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>

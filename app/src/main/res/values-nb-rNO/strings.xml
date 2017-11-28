@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Stigende</string>
     <string name="sort_by_descending">Synkende</string>
     <string name="sorting">Sortering</string>
+    <string name="def">Misligholde</string>
+    <string name="foreground_notification">Forgrunnsmelding</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Ingen torrenter</string>

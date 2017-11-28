@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Durch Aufsteigend</string>
     <string name="sort_by_descending">Durch Absteigend</string>
     <string name="sorting">Sortierung</string>
+    <string name="def">Standard</string>
+    <string name="foreground_notification">Vordergrund Benachrichtigung</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Keine Torrents</string>

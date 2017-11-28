@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Vzestupně</string>
     <string name="sort_by_descending">Sestupně</string>
     <string name="sorting">Řazení</string>
+    <string name="def">Standardní</string>
+    <string name="foreground_notification">Popředí notifikací</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Žádný torrent</string>

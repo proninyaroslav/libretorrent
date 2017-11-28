@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Rosnąco</string>
     <string name="sort_by_descending">Malejąco</string>
     <string name="sorting">Sortuj</string>
+    <string name="def">Domyślna</string>
+    <string name="foreground_notification">Powiadomienie o pierwszym planie</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Brak torrentów</string>

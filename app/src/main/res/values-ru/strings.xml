@@ -23,6 +23,8 @@
     <string name="sort_by_ascending">По возрастанию</string>
     <string name="sort_by_descending">По убыванию</string>
     <string name="sorting">Сортировка</string>
+    <string name="def">По умолчанию</string>
+    <string name="foreground_notification">Уведомление переднего плана</string>
     
     <!-- Main window -->
     <string name="main_empty_torrent_list">Нет торрентов</string>

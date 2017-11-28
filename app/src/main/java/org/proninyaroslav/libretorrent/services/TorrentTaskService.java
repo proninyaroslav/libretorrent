@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.services;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -28,6 +29,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
@@ -108,6 +110,8 @@ public class TorrentTaskService extends Service
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = 1;
     private static final int TORRENTS_MOVED_NOTIFICATION_ID = 2;
+    public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
+    public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
     private static final int SYNC_TIME = 1000; /* ms */
 
     private boolean isAlreadyRunning;
@@ -160,12 +164,12 @@ public class TorrentTaskService extends Service
 
         Log.i(TAG, "Start " + TorrentTaskService.class.getSimpleName());
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Utils.createDefaultNotifyChannel(getApplicationContext(), notifyManager);
         Context context = getApplicationContext();
         repo = new TorrentStorage(context);
         pref = new SettingsManager(context);
         pref.registerOnTrayPreferenceChangeListener(this);
 
+        makeNotifyChans(notifyManager);
         int autostartState = (pref.getBoolean(getString(R.string.pref_key_autostart),
                                               SettingsManager.Default.autostart) ?
                               PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
@@ -1614,7 +1618,7 @@ public class TorrentTaskService extends Service
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
-                                                          Utils.getDefaultNotifyChannelId(getApplicationContext()))
+                                                          FOREGROUND_NOTIFY_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
@@ -1760,13 +1764,12 @@ public class TorrentTaskService extends Service
 
     private void makeFinishNotify(Torrent torrent)
     {
-        if (torrent == null || notifyManager == null ||
-            !pref.getBoolean(getString(R.string.pref_key_torrent_finish_notify),
-                             SettingsManager.Default.torrentFinishNotify))
+        if (torrent == null || !pref.getBoolean(getString(R.string.pref_key_torrent_finish_notify),
+                                                SettingsManager.Default.torrentFinishNotify))
             return;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
+                DEFAULT_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_done_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(getString(R.string.torrent_finished_notify))
@@ -1805,7 +1808,7 @@ public class TorrentTaskService extends Service
             return;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
+                DEFAULT_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_error_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(name)
@@ -1826,7 +1829,7 @@ public class TorrentTaskService extends Service
             return;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
+                DEFAULT_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_info_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(name)
@@ -1848,7 +1851,7 @@ public class TorrentTaskService extends Service
 
         String title = getString(R.string.torrent_added_notify);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()))
+                DEFAULT_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_done_white_24dp)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(title)
@@ -1867,13 +1870,12 @@ public class TorrentTaskService extends Service
     {
         if (torrentsMoveTotal == null ||
                 torrentsMoveSuccess == null ||
-                torrentsMoveFailed == null ||
-                notifyManager == null) {
+                torrentsMoveFailed == null) {
             return;
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                                                            Utils.getDefaultNotifyChannelId(getApplicationContext()));
+                DEFAULT_CHAN_ID);
 
         String resultTemplate = getString(R.string.torrents_moved_content);
         int successfully = torrentsMoveSuccess.size();
@@ -2039,5 +2041,52 @@ public class TorrentTaskService extends Service
     private boolean isAllFilesTooBig(Torrent torrent, TorrentInfo ti)
     {
         return FileIOUtils.getFreeSpace(torrent.getDownloadPath()) < ti.totalSize();
+    }
+
+    private void makeNotifyChans(NotificationManager notifyManager)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+
+        ArrayList<NotificationChannel> chans = new ArrayList<>();
+        NotificationChannel defaultChan = new NotificationChannel(DEFAULT_CHAN_ID, getString(R.string.def),
+                                                           NotificationManager.IMPORTANCE_DEFAULT);
+        Uri sound = Uri.parse(pref.getString(getString(R.string.pref_key_notify_sound),
+                                             SettingsManager.Default.notifySound));
+        defaultChan.setSound(sound, getNotifyAudioAttributes());
+
+        if (pref.getBoolean(getString(R.string.pref_key_vibration_notify),
+                            SettingsManager.Default.vibrationNotify)) {
+            defaultChan.enableVibration(true);
+            /* TODO: Make the ability to customize vibration */
+            defaultChan.setVibrationPattern(new long[]{1000}); /* ms */
+        } else {
+            defaultChan.enableVibration(false);
+        }
+
+        if (pref.getBoolean(getString(R.string.pref_key_led_indicator_notify),
+                            SettingsManager.Default.ledIndicatorNotify)) {
+            int color = pref.getInt(getString(R.string.pref_key_led_indicator_color_notify),
+                                    SettingsManager.Default.ledIndicatorColorNotify(getApplicationContext()));
+            defaultChan.enableLights(true);
+            defaultChan.setLightColor(color);
+        } else {
+            defaultChan.enableLights(false);
+        }
+        chans.add(defaultChan);
+        chans.add(new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID, getString(R.string.foreground_notification),
+                                          NotificationManager.IMPORTANCE_LOW));
+        notifyManager.createNotificationChannels(chans);
+    }
+
+    private AudioAttributes getNotifyAudioAttributes()
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return null;
+
+        return new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
     }
 }

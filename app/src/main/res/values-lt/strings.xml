@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Pagal didėjančia</string>
     <string name="sort_by_descending">Pagal mažėjančia</string>
     <string name="sorting">Rūšiavimas</string>
+    <string name="def">Numatytas</string>
+    <string name="foreground_notification">Priekinio plano pranešimas</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Nėra torentų</string>

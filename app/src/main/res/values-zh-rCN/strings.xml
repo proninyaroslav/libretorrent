@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">By ascending</string>
     <string name="sort_by_descending">By descending</string>
     <string name="sorting">Sorting</string>
+    <string name="def">Default</string>
+    <string name="foreground_notification">Foreground notification</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">没有 torrent 任务</string>

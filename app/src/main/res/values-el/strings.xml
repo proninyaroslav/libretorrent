@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Σε αύξουσα σειρά</string>
     <string name="sort_by_descending">Σε φθίνουσα σειρά</string>
     <string name="sorting">Ταξινόμηση</string>
+    <string name="def">Προκαθορισμένο</string>
+    <string name="foreground_notification">Κοινοποίηση νέων στοιχείων</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Κανένα torrent</string>

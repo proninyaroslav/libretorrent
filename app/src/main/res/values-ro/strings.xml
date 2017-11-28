@@ -27,6 +27,8 @@
     <string name="sort_by_ascending">Crescător</string>
     <string name="sort_by_descending">Descrescător</string>
     <string name="sorting">Sortare</string>
+    <string name="def">Mod implicit</string>
+    <string name="foreground_notification">Notificare prim plan</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Niciun torrent</string>
