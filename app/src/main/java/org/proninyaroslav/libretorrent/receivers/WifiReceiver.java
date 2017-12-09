@@ -23,6 +23,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
@@ -42,18 +44,12 @@ public class WifiReceiver extends BroadcastReceiver
         String action = intent.getAction();
         if (action != null && action.equals((WifiManager.WIFI_STATE_CHANGED_ACTION))) {
             Context appContext = context.getApplicationContext();
-            WifiManager manager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+            ConnectivityManager manager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (manager != null) {
-                int state = manager.getWifiState();
-                switch (state) {
-                    case WifiManager.WIFI_STATE_ENABLED:
-                    case WifiManager.WIFI_STATE_DISABLED:
-                        Intent serviceIntent = new Intent(appContext, TorrentTaskService.class);
-                        serviceIntent.setAction(state == WifiManager.WIFI_STATE_ENABLED ?
-                                                ACTION_WIFI_ENABLED : ACTION_WIFI_DISABLED);
-                        context.startService(serviceIntent);
-                        break;
-                }
+                NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                Intent serviceIntent = new Intent(appContext, TorrentTaskService.class);
+                serviceIntent.setAction(wifi.isConnected() ? ACTION_WIFI_ENABLED : ACTION_WIFI_DISABLED);
+                context.startService(serviceIntent);
             }
         }
     }
