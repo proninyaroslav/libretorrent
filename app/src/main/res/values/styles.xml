@@ -151,7 +151,6 @@
     </style>
 
     <style name="BaseTheme.BaseThemeSettings.Black" parent="BaseTheme.BaseThemeSettings.Dark">
-        <item name="colorPrimaryDark">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
     </style>
 
