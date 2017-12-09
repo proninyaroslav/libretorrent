@@ -47,6 +47,9 @@ public class BasePreferenceActivity extends AppCompatActivity
         if (Utils.isDarkTheme(getApplicationContext())) {
             setTheme(R.style.BaseTheme_Settings_Dark);
         }
+        else if (Utils.isBlackTheme(getApplicationContext())) {
+            setTheme(R.style.BaseTheme_Settings_Black);
+        }
 
         setContentView(R.layout.activity_settings);
 

@@ -5,6 +5,9 @@
     <style name="AppTheme.Dark" parent="BaseTheme.Dark">
     </style>
 
+    <style name="AppTheme.Black" parent="BaseTheme.Black">
+    </style>
+
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -53,6 +56,21 @@
         <item name="curOpenTorrentIndicator">@color/cur_open_torrent_indicator_dark</item>
     </style>
 
+    <style name="BaseTheme.Black" parent="BaseTheme.Dark">
+        <item name="background">@color/black</item>
+        <item name="backgroundBlank">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="actionBarPopupTheme">@color/black</item>
+        <item name="popupTheme">@color/black</item>
+        <item name="android:alertDialogTheme">@color/black</item>
+        <item name="alertDialogTheme">@color/black</item>
+        <item name="divider">@color/black</item>
+        <item name="defaultRectRipple">@color/black</item>
+        <item name="defaultRoundRipple">@color/black</item>
+        <item name="defaultSelectRect">@color/black</item>
+        <item name="curOpenTorrentIndicator">@color/black</item>
+    </style>
+
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -83,6 +101,19 @@
         <item name="android:fullDark">@color/background_dialog_dark</item>
         <item name="android:topBright">@color/background_dialog_dark</item>
         <item name="android:topDark">@color/background_dialog_dark</item>
+    </style>
+
+    <style name="BaseTheme.Dialog.Black" parent="BaseTheme.Dialog.Dark">
+        <item name="android:bottomBright">@color/black</item>
+        <item name="android:bottomDark">@color/black</item>
+        <item name="android:bottomMedium">@color/black</item>
+        <item name="android:centerBright">@color/black</item>
+        <item name="android:centerDark">@color/black</item>
+        <item name="android:centerMedium">@color/black</item>
+        <item name="android:fullBright">@color/black</item>
+        <item name="android:fullDark">@color/black</item>
+        <item name="android:topBright">@color/black</item>
+        <item name="android:topDark">@color/black</item>
     </style>
 
     <style name="BaseTheme.HeaderText" parent="android:TextAppearance.Widget.TextView">
@@ -140,10 +171,18 @@
         <item name="divider">@drawable/table_mode_divider_dark</item>
     </style>
 
+    <style name="BaseTheme.BaseThemeSettings.Black" parent="BaseTheme.BaseThemeSettings.Dark">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
     <style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">
     </style>
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
+    </style>
+
+    <style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">
     </style>
 
     <style name="Theme.AppCompat.Translucent" parent="BaseTheme">
@@ -160,5 +199,8 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="Theme.AppCompat.Translucent.Black" parent="Theme.AppCompat.Translucent.Dark">
     </style>
 </resources>

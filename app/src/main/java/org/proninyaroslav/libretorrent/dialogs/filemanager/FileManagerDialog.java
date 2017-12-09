@@ -139,6 +139,9 @@ public class FileManagerDialog extends AppCompatActivity
         if (Utils.isDarkTheme(getApplicationContext())) {
             setTheme(R.style.AppTheme_Dark);
         }
+        else if (Utils.isDarkTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Black);
+        }
 
         Intent intent = getIntent();
         if (!intent.hasExtra(TAG_CONFIG)) {

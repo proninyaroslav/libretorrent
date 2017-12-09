@@ -129,7 +129,7 @@ public class DetailTorrentPeersFragment extends Fragment
             };
 
             int resId = R.drawable.list_divider;
-            if (Utils.isDarkTheme(activity.getApplicationContext())) {
+            if (Utils.isDarkTheme(activity.getApplicationContext()) || Utils.isBlackTheme(activity.getApplicationContext())) {
                 resId = R.drawable.list_divider_dark;
             }
 

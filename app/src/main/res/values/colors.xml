@@ -33,4 +33,5 @@
     <color name="pieces_cell">#BDBDBD</color>
     <color name="fab_menu_shadow">#66000000</color>
     <color name="fab_menu_label_normal">#333333</color>
+    <color name="black">#000000</color>
 </resources>

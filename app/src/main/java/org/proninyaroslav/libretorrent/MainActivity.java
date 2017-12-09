@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity
         if (Utils.isDarkTheme(getApplicationContext())) {
             setTheme(R.style.AppTheme_Dark);
         }
+        else if (Utils.isBlackTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Black);
+        }
 
         if (getIntent().getAction() != null &&
                 getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {

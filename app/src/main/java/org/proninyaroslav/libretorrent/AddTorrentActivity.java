@@ -60,6 +60,9 @@ public class AddTorrentActivity extends AppCompatActivity
         if (Utils.isDarkTheme(getApplicationContext())) {
             setTheme(R.style.AppTheme_Dark);
         }
+        else if(Utils.isBlackTheme(getApplicationContext())) {
+            setTheme(R.style.AppTheme_Black);
+        }
 
         setContentView(R.layout.activity_add_torrent);
 
