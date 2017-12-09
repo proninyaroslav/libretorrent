@@ -12,6 +12,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Black" parent="BaseTheme.Black">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
@@ -19,6 +25,12 @@
     </style>
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowNoTitle">true</item>

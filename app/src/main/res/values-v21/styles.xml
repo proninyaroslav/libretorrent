@@ -10,6 +10,11 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
+    <style name="AppTheme.Black" parent="BaseTheme.Black">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+    </style>
+
     <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
         <item name="android:background">@null</item>
         <item name="android:divider">@null</item>
@@ -27,6 +32,10 @@
     </style>
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 </resources>
