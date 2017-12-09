@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -758,7 +759,9 @@ public class TorrentEngine extends SessionManager
 
     public boolean isListening()
     {
-        return swig().is_listening();
+        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected() || manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                .isConnected();
     }
 
     public boolean isDHTEnabled()
