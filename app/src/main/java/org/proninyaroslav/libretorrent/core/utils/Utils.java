@@ -329,15 +329,24 @@ public class Utils
         return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
     }
 
-    public static boolean isDarkTheme(Context context)
+    public static int getTheme(Context context)
     {
         SettingsManager pref = new SettingsManager(context);
-
-        int dark = Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
+        
         int theme = pref.getInt(context.getString(R.string.pref_key_theme),
                                 SettingsManager.Default.theme(context));
 
-        return theme == dark;
+        return theme;
+    }
+    
+    public static boolean isDarkTheme(Context context)
+    {
+        return getTheme(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
+    }
+    
+    public static boolean isBlackTheme(Context context)
+    {
+        return getTheme(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
     }
 
     public static TorrentSorting getTorrentSorting(Context context)

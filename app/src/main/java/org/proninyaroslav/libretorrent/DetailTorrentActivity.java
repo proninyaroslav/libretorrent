@@ -50,6 +50,10 @@ public class DetailTorrentActivity extends AppCompatActivity
         if (Utils.isDarkTheme(getApplicationContext())) {
             setTheme(R.style.AppTheme_Dark);
         }
+        else if (Utils.isBlackTheme(getApplicationContext()))
+        {
+            setTheme(R.style.AppTheme_Black);
+        }
 
         if (Utils.isTwoPane(getApplicationContext())) {
             finish();
