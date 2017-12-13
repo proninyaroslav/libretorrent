@@ -124,7 +124,7 @@
     <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <string name="torrent_status_downloading">Downloading</string>
     <string name="torrent_status_seeding">Seeding</string>
-    <string name="torrent_status_paused">Pause</string>
+    <string name="torrent_status_paused">Paused</string>
     <string name="torrent_status_stopped">Stopped</string>
     <string name="torrent_status_checking">Checking</string>
     <string name="torrent_status_finished">Finished</string>
