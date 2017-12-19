@@ -198,9 +198,9 @@ public class TorrentTaskService extends Service
         if (wifiOnly)
             pause = !Utils.isWifiEnabled(context);
         if (onlyCharging)
-            pause &= !Utils.isBatteryCharging(context);
+            pause |= !Utils.isBatteryCharging(context);
         if (batteryControl)
-            pause &= Utils.isBatteryLow(context);
+            pause |= Utils.isBatteryLow(context);
         pauseTorrents.set(pause);
 
         if (pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
