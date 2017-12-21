@@ -47,7 +47,7 @@
     <string name="force_recheck_torrent">Force recheck</string>
     <string name="force_announce_torrent">Force announce</string>
     <string name="add_link">Add link</string>
-    <string name="dialog_add_link_title">Enter the magnet, infohash, or HTTP/HTTPS link</string>
+    <string name="dialog_add_link_title">Enter the infohash value, magnet link, or HTTP/HTTPS link</string>
     <string name="torrent_list_empty">No torrents</string>
     <string name="select_or_add_torrent">Select or add a torrent</string>
     <string name="error_empty_link">Please enter link</string>
