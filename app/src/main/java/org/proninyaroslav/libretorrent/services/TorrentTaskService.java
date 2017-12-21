@@ -247,6 +247,8 @@ public class TorrentTaskService extends Service
                 Context context = getApplicationContext();
                 boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
                                                          SettingsManager.Default.batteryControl);
+                boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
+                                                         SettingsManager.Default.customBatteryControl);
                 boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
                                                        SettingsManager.Default.onlyCharging);
                 boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
@@ -259,7 +261,7 @@ public class TorrentTaskService extends Service
                         stopSelf(startId);
                         break;
                     case Intent.ACTION_BATTERY_LOW:
-                        if (batteryControl) {
+                        if (batteryControl && !customBatteryControl) {
                             boolean pause = true;
                             if (onlyCharging)
                                 pause &= !Utils.isBatteryCharging(context);
@@ -272,7 +274,7 @@ public class TorrentTaskService extends Service
                         }
                         break;
                     case Intent.ACTION_BATTERY_OKAY:
-                        if (batteryControl) {
+                        if (batteryControl && !customBatteryControl) {
                             boolean resume = true;
                             if (onlyCharging)
                                 resume &= Utils.isBatteryCharging(context);
@@ -656,11 +658,13 @@ public class TorrentTaskService extends Service
             if (item.module().equals(SettingsManager.MODULE_NAME)) {
                 Context context = getApplicationContext();
                 if (item.key().equals(getString(R.string.pref_key_battery_control)) ||
-                    item.key().equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
-                    item.key().equals(getString(R.string.pref_key_wifi_only))) {
+                        item.key().equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
+                        item.key().equals(getString(R.string.pref_key_wifi_only))) {
 
                     boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
                                                              SettingsManager.Default.batteryControl);
+                    boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
+                                                             SettingsManager.Default.customBatteryControl);
                     boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
                                                            SettingsManager.Default.onlyCharging);
                     boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
@@ -686,7 +690,7 @@ public class TorrentTaskService extends Service
                         pause = !Utils.isWifiEnabled(context);
                     if (onlyCharging)
                         pause &= !Utils.isBatteryCharging(context);
-                    if (batteryControl)
+                    if (batteryControl && !customBatteryControl)
                         pause &= Utils.isBatteryLow(context);
                     if (pause) {
                         pauseTorrents.set(true);
