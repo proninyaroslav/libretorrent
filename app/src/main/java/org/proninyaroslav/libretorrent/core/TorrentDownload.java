@@ -91,7 +91,7 @@ public class TorrentDownload
     private File parts;
     private long lastSaveResumeTime;
 
-    private Intent batteryStatus;
+    private IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     private SettingsManager pref;
     private boolean manualResume = false;
     private boolean belowThreshold = false;
@@ -195,8 +195,7 @@ public class TorrentDownload
 
     private boolean shouldPauseDownloads()
     {
-        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        batteryStatus = context.registerReceiver(null, intentFilter);
+        Intent batteryStatus = context.registerReceiver(null, intentFilter);
 
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
