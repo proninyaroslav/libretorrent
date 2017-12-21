@@ -530,18 +530,28 @@ public class TorrentTaskService extends Service
                 moveTorrent(torrent);
             }
 
-            if (pref.getBoolean(getString(R.string.pref_key_shutdown_downloads_complete),
-                                SettingsManager.Default.shutdownDownloadsComplete)) {
+            if (torrentsFinished()
+                    && pref.getBoolean(
+                            getString(R.string.pref_key_shutdown_downloads_complete),
+                            SettingsManager.Default.shutdownDownloadsComplete)) {
                 if (torrentsMoveTotal != null) {
                     shutdownAfterMove = true;
                 } else {
-                    Intent shutdownIntent =
-                            new Intent(getApplicationContext(), NotificationReceiver.class);
+                    Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
                     shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
                     sendBroadcast(shutdownIntent);
                 }
             }
         }
+    }
+
+    private boolean torrentsFinished() {
+        for (TorrentDownload torrentDownload : TorrentEngine.getInstance().getTasks()) {
+            if (torrentDownload.getStateCode().equals(TorrentStateCode.DOWNLOADING)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
