@@ -56,8 +56,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.frostwire.jlibtorrent.alerts.AlertType.TORRENT_PAUSED;
-
 /*
  * This class encapsulate one stream with running torrent.
  */
@@ -76,7 +74,7 @@ public class TorrentDownload
             AlertType.STATE_CHANGED.swig(),
             AlertType.TORRENT_FINISHED.swig(),
             AlertType.TORRENT_REMOVED.swig(),
-            TORRENT_PAUSED.swig(),
+            AlertType.TORRENT_PAUSED.swig(),
             AlertType.TORRENT_RESUMED.swig(),
             AlertType.STATS.swig(),
             AlertType.SAVE_RESUME_DATA.swig(),
