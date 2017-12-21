@@ -68,6 +68,7 @@ public class Utils
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
     public static final String HTTPS_PREFIX = "https";
+    public static final String INFOHASH_PREFIX = "magnet:?xt=urn:btih:";
     public static final String FILE_PREFIX = "file";
     public static final String CONTENT_PREFIX = "content";
     public static final String TRACKER_URL_PATTERN =
