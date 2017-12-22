@@ -746,12 +746,14 @@ public class MainFragment extends Fragment
             return true;
         }
 
-        if (!Utils.isValidUrl(s)) {
-            layout.setErrorEnabled(true);
-            layout.setError(getString(R.string.error_invalid_link));
-            layout.requestFocus();
+        if (s.startsWith(Utils.HTTP_PREFIX) || s.startsWith(Utils.HTTPS_PREFIX)) {
+            if (!Utils.isValidUrl(s)) {
+                layout.setErrorEnabled(true);
+                layout.setError(getString(R.string.error_invalid_link));
+                layout.requestFocus();
 
-            return false;
+                return false;
+            }
         }
 
         layout.setErrorEnabled(false);
@@ -933,8 +935,11 @@ public class MainFragment extends Fragment
 
                         if (link.startsWith(Utils.MAGNET_PREFIX)) {
                             url = link;
-                        } else {
+                        } else if (link.startsWith(Utils.HTTP_PREFIX)
+                                || link.startsWith(Utils.HTTPS_PREFIX)) {
                             url = Utils.normalizeURL(link);
+                        } else {
+                            url = Utils.INFOHASH_PREFIX + link;
                         }
 
                         if (url != null) {
