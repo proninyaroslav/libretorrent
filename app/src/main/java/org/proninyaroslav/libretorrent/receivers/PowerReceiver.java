@@ -43,6 +43,7 @@ public class PowerReceiver extends BroadcastReceiver
             case Intent.ACTION_BATTERY_OKAY:
             case Intent.ACTION_POWER_CONNECTED:
             case Intent.ACTION_POWER_DISCONNECTED:
+            case Intent.ACTION_BATTERY_CHANGED:
                 Intent serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
                 serviceIntent.setAction(intent.getAction());
                 context.startService(serviceIntent);
@@ -59,6 +60,17 @@ public class PowerReceiver extends BroadcastReceiver
         /* About BATTERY_LOW and BATTERY_OKAY see https://code.google.com/p/android/issues/detail?id=36712 */
         filter.addAction(Intent.ACTION_BATTERY_LOW);
         filter.addAction(Intent.ACTION_BATTERY_OKAY);
+
+        return filter;
+    }
+
+    public static IntentFilter getCustomFilter()
+    {
+        IntentFilter filter = new IntentFilter();
+
+        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
         return filter;
     }

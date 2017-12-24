@@ -19,10 +19,13 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.SeekBarPreference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
@@ -80,6 +83,20 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         batteryControl.setChecked(pref.getBoolean(keyBatteryControl, SettingsManager.Default.batteryControl));
         bindOnPreferenceChangeListener(batteryControl);
 
+        String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
+        SwitchPreferenceCompat customBatteryControl = (SwitchPreferenceCompat) findPreference(keyCustomBatteryControl);
+        customBatteryControl.setSummary(String.format(getString(R.string.pref_custom_battery_control_summary),
+                Utils.getDefaultBatteryLowLevel()));
+        customBatteryControl.setChecked(pref.getBoolean(keyCustomBatteryControl, SettingsManager.Default.customBatteryControl));
+        bindOnPreferenceChangeListener(customBatteryControl);
+
+        String keyCustomBatteryControlValue = getString(R.string.pref_key_custom_battery_control_value);
+        SeekBarPreference customBatteryControlValue = (SeekBarPreference) findPreference(keyCustomBatteryControlValue);
+        customBatteryControlValue.setValue(pref.getInt(keyCustomBatteryControlValue, Utils.getDefaultBatteryLowLevel()));
+        customBatteryControlValue.setMin(10);
+        customBatteryControlValue.setMax(90);
+        bindOnPreferenceChangeListener(customBatteryControlValue);
+
         String keyWifiOnly = getString(R.string.pref_key_wifi_only);
         SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat) findPreference(keyWifiOnly);
         wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, SettingsManager.Default.wifiOnly));
@@ -98,9 +115,9 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
+    public boolean onPreferenceChange(final Preference preference, Object newValue)
     {
-        SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        final SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
 
         if (preference instanceof SwitchPreferenceCompat) {
             pref.put(preference.getKey(), (boolean) newValue);
@@ -114,8 +131,55 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                 getActivity().getPackageManager()
                         .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
             }
+            if(preference.getKey().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
+                if(!((SwitchPreferenceCompat) preference).isChecked())
+                    disableBatteryControl(pref);
+            }
+            if(preference.getKey().equals(getString(R.string.pref_key_battery_control))) {
+                if(((SwitchPreferenceCompat) preference).isChecked())
+                    disableCustomBatteryControl(pref);
+            }
+            if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
+                if (!((SwitchPreferenceCompat) preference).isChecked()) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(getString(R.string.warning))
+                            .setMessage(getString(R.string.pref_custom_battery_control_dialog_summary))
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    disableCustomBatteryControl(pref);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+            }
+        } else if (preference instanceof SeekBarPreference) {
+            pref.put(preference.getKey(), (int) newValue);
         }
 
         return true;
+    }
+
+    private void disableBatteryControl(SettingsManager pref)
+    {
+        String keyBatteryControl = getString(R.string.pref_key_battery_control);
+        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyBatteryControl);
+        batteryControl.setChecked(false);
+        pref.put(batteryControl.getKey(), false);
+        disableCustomBatteryControl(pref);
+    }
+
+    private void disableCustomBatteryControl(SettingsManager pref)
+    {
+        String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
+        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyCustomBatteryControl);
+        batteryControl.setChecked(false);
+        pref.put(batteryControl.getKey(), false);
     }
 }

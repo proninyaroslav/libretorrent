@@ -52,6 +52,7 @@ public class SettingsManager extends TrayPreferences
         public static final boolean cpuDoNotSleep = false;
         public static final boolean onlyCharging = false;
         public static final boolean batteryControl = false;
+        public static final boolean customBatteryControl = false;
         public static final boolean wifiOnly = false;
         /* Network settings */
         public static final int port = TorrentEngine.Settings.DEFAULT_PORT;
