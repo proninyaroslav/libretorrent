@@ -48,6 +48,7 @@ public class SettingsManager extends TrayPreferences
         public static int funcButton(Context context) { return Integer.parseInt(context.getString(R.string.pref_function_button_pause_value)); }
         /* Behavior settings */
         public static final boolean autostart = false;
+        public static final boolean keepAlive = true;
         public static final boolean shutdownDownloadsComplete = false;
         public static final boolean cpuDoNotSleep = false;
         public static final boolean onlyCharging = false;

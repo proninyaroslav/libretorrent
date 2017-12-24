@@ -32,6 +32,7 @@
     <string name="pref_key_led_indicator_notify" translatable="false">pref_key_led_indicator_notify</string>
     <string name="pref_key_led_indicator_color_notify" translatable="false">pref_key_led_indicator_color_notify</string>
     <string name="pref_key_vibration_notify" translatable="false">pref_key_vibration_notify</string>
+    <string name="pref_key_keep_alive" translatable="false">pref_key_keep_alive</string>
     <string name="pref_key_shutdown_downloads_complete" translatable="false">pref_key_shutdown_downloads_complete</string>
     <string name="pref_key_cpu_do_not_sleep" translatable="false">pref_key_cpu_do_not_sleep</string>
     <string name="pref_key_download_and_upload_only_when_charging" translatable="false">pref_key_download_and_upload_only_when_charging</string>
