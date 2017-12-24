@@ -131,7 +131,14 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                 getActivity().getPackageManager()
                         .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
             }
-
+            if(preference.getKey().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
+                if(!((SwitchPreferenceCompat) preference).isChecked())
+                    disableBatteryControl(pref);
+            }
+            if(preference.getKey().equals(getString(R.string.pref_key_battery_control))) {
+                if(!((SwitchPreferenceCompat) preference).isChecked())
+                    disableCustomBatteryControl(pref);
+            }
             if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
                 if (!((SwitchPreferenceCompat) preference).isChecked()) {
                     new AlertDialog.Builder(getContext())
@@ -157,5 +164,22 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         }
 
         return true;
+    }
+
+    private void disableBatteryControl(SettingsManager pref)
+    {
+        String keyBatteryControl = getString(R.string.pref_key_battery_control);
+        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyBatteryControl);
+        batteryControl.setChecked(false);
+        pref.put(batteryControl.getKey(), false);
+        disableCustomBatteryControl(pref);
+    }
+
+    private void disableCustomBatteryControl(SettingsManager pref)
+    {
+        String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
+        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyCustomBatteryControl);
+        batteryControl.setChecked(false);
+        pref.put(batteryControl.getKey(), false);
     }
 }

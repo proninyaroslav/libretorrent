@@ -32,13 +32,15 @@
             android:key="@string/pref_key_download_and_upload_only_when_charging"
             android:title="@string/pref_download_and_upload_only_when_charging_title"
             android:summary="@string/pref_download_and_upload_only_when_charging_summary"
-            android:persistent="false" />
+            android:persistent="false"
+            android:disableDependentsState="true"/>
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_battery_control"
             android:title="@string/pref_battery_control_title"
             android:summary="@string/pref_battery_control_summary"
-            android:persistent="false" />
+            android:persistent="false"
+            android:dependency="@string/pref_key_download_and_upload_only_when_charging" />
         <SwitchPreferenceCompat
             android:key="@string/pref_key_custom_battery_control"
             android:title="@string/pref_custom_battery_control_title"

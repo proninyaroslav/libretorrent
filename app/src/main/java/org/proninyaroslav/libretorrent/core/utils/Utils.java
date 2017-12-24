@@ -329,6 +329,11 @@ public class Utils
         return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
     }
 
+    public static boolean isBatteryBelowThreshold(Context context, int threshold)
+    {
+        return Utils.getBatteryLevel(context) <= threshold;
+    }
+
     public static int getTheme(Context context)
     {
         SettingsManager pref = new SettingsManager(context);

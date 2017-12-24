@@ -20,9 +20,6 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.util.Log;
 
 import com.frostwire.jlibtorrent.AlertListener;
@@ -45,10 +42,7 @@ import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,11 +85,6 @@ public class TorrentDownload
     private File parts;
     private long lastSaveResumeTime;
 
-    private IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-    private SettingsManager pref;
-    private boolean manualResume = false;
-    private boolean belowThreshold = false;
-
     public TorrentDownload(Context context,
                            TorrentHandle handle,
                            Torrent torrent,
@@ -110,8 +99,6 @@ public class TorrentDownload
 
         listener = new InnerListener();
         TorrentEngine.getInstance().addListener(listener);
-
-        pref = new SettingsManager(context.getApplicationContext());
     }
 
     private final class InnerListener implements AlertListener
@@ -155,7 +142,6 @@ public class TorrentDownload
                     callback.onTorrentPaused(torrent.getId());
                     break;
                 case TORRENT_RESUMED:
-                    manualResume = true;
                     callback.onTorrentResumed(torrent.getId());
                     break;
                 case STATS:
@@ -175,35 +161,8 @@ public class TorrentDownload
                     saveResumeData(false);
                     break;
             }
-
-            if(!torrent.isPaused()
-                    && pref.getBoolean(context.getString(R.string.pref_key_custom_battery_control),
-                    SettingsManager.Default.customBatteryControl)) {
-                boolean pauseDownloads = shouldPauseDownloads();
-                if(!belowThreshold && pauseDownloads) {
-                    belowThreshold = true;
-                    pause();
-                    callback.onTorrentPaused(torrent.getId());
-                }
-                if(!pauseDownloads && belowThreshold && manualResume) {
-                    manualResume = false;
-                    belowThreshold = false;
-                }
-            }
         }
     }
-
-    private boolean shouldPauseDownloads()
-    {
-        Intent batteryStatus = context.registerReceiver(null, intentFilter);
-
-        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-
-        return ((level / (float) scale) * 100) <= pref.getInt(context.getString(
-                            R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
-    }
-
     private void torrentRemoved()
     {
         if (callback != null) {
