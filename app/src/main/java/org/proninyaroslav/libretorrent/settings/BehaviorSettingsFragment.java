@@ -61,6 +61,11 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         autostart.setChecked(pref.getBoolean(keyAutostart, SettingsManager.Default.autostart));
         bindOnPreferenceChangeListener(autostart);
 
+        String keyKeepAlive = getString(R.string.pref_key_keep_alive);
+        SwitchPreferenceCompat keepAlive = (SwitchPreferenceCompat) findPreference(keyKeepAlive);
+        keepAlive.setChecked(pref.getBoolean(keyKeepAlive, SettingsManager.Default.keepAlive));
+        bindOnPreferenceChangeListener(keepAlive);
+
         String keyShutdownComplete = getString(R.string.pref_key_shutdown_downloads_complete);
         SwitchPreferenceCompat shutdownComplete = (SwitchPreferenceCompat) findPreference(keyShutdownComplete);
         shutdownComplete.setChecked(pref.getBoolean(keyShutdownComplete, SettingsManager.Default.shutdownDownloadsComplete));

@@ -17,6 +17,12 @@
         android:title="@string/pref_power_management_category">
 
         <SwitchPreferenceCompat
+            android:key="@string/pref_key_keep_alive"
+            android:title="@string/pref_keep_alive_title"
+            android:summary="@string/pref_keep_alive_summary"
+            android:persistent="false" />
+
+        <SwitchPreferenceCompat
             android:key="@string/pref_key_shutdown_downloads_complete"
             android:title="@string/pref_shutdown_downloads_complete_title"
             android:summary="@string/pref_shutdown_downloads_complete_summary"
