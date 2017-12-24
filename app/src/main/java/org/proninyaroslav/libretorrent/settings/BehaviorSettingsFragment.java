@@ -117,7 +117,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(final Preference preference, Object newValue)
     {
-        SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        final SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
 
         if (preference instanceof SwitchPreferenceCompat) {
             pref.put(preference.getKey(), (boolean) newValue);
@@ -136,7 +136,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                     disableBatteryControl(pref);
             }
             if(preference.getKey().equals(getString(R.string.pref_key_battery_control))) {
-                if(!((SwitchPreferenceCompat) preference).isChecked())
+                if(((SwitchPreferenceCompat) preference).isChecked())
                     disableCustomBatteryControl(pref);
             }
             if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
@@ -152,7 +152,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                             })
                             .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    ((SwitchPreferenceCompat) preference).setChecked(false);
+                                    disableCustomBatteryControl(pref);
                                 }
                             })
                             .create()

@@ -163,6 +163,7 @@ public class TorrentDownload
             }
         }
     }
+
     private void torrentRemoved()
     {
         if (callback != null) {
