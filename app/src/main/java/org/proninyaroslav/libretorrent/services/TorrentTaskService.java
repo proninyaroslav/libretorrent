@@ -353,7 +353,8 @@ public class TorrentTaskService extends Service
         /* The first start */
         isAlreadyRunning = true;
 
-        if(pref.getBoolean(getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive)) {
+        if(pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                SettingsManager.Default.keepAlive)) {
             makeForegroundNotify();
             startUpdateForegroundNotify();
         }
@@ -439,6 +440,12 @@ public class TorrentTaskService extends Service
             if (pauseTorrents.get())
                 task.pause();
         }
+
+        if(!pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                SettingsManager.Default.keepAlive)) {
+            makeForegroundNotify();
+            startUpdateForegroundNotify();
+        }
     }
 
     @Override
@@ -461,6 +468,12 @@ public class TorrentTaskService extends Service
             state.torrentId = id;
             if (callback != null)
                 callback.onTorrentRemoved(state);
+        }
+
+        if(!pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                SettingsManager.Default.keepAlive) && torrentsFinished()) {
+            stopForegroundNotify();
+            stopUpdateForegroundNotify();
         }
     }
 
@@ -532,24 +545,35 @@ public class TorrentTaskService extends Service
                 moveTorrent(torrent);
             }
 
-            if (torrentsFinished()
-                    && pref.getBoolean(
-                            getString(R.string.pref_key_shutdown_downloads_complete),
-                            SettingsManager.Default.shutdownDownloadsComplete)) {
-                if (torrentsMoveTotal != null) {
-                    shutdownAfterMove = true;
-                } else {
-                    Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
-                    shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
-                    sendBroadcast(shutdownIntent);
+            if (torrentsFinished()) {
+                if (pref.getBoolean(
+                        getString(R.string.pref_key_shutdown_downloads_complete),
+                        SettingsManager.Default.shutdownDownloadsComplete)) {
+                    if (torrentsMoveTotal != null) {
+                        shutdownAfterMove = true;
+                    } else {
+                        Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+                        shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
+                        sendBroadcast(shutdownIntent);
+                    }
+                }
+                else if (!pref.getBoolean(
+                        getString(R.string.pref_key_keep_alive),
+                        SettingsManager.Default.keepAlive)) {
+                    stopForegroundNotify();
+                    stopUpdateForegroundNotify();
                 }
             }
         }
     }
 
     private boolean torrentsFinished() {
+        List<TorrentStateCode> inProgressStates = Arrays.asList(
+                TorrentStateCode.DOWNLOADING, TorrentStateCode.PAUSED, TorrentStateCode.CHECKING,
+                TorrentStateCode.DOWNLOADING_METADATA, TorrentStateCode.ALLOCATING);
+
         for (TorrentDownload torrentDownload : TorrentEngine.getInstance().getTasks()) {
-            if (torrentDownload.getStateCode().equals(TorrentStateCode.DOWNLOADING)) {
+            if (inProgressStates.contains(torrentDownload.getStateCode())) {
                 return false;
             }
         }
@@ -737,13 +761,13 @@ public class TorrentTaskService extends Service
                     s.activeLimit = pref.getInt(item.key(), SettingsManager.Default.maxActiveTorrents);
                     TorrentEngine.getInstance().setSettings(s);
                 } else if (item.key().equals(getString(R.string.pref_key_keep_alive))) {
-                    if(pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                            SettingsManager.Default.keepAlive)) {
-                        makeForegroundNotify();
-                        startUpdateForegroundNotify();
-                    } else {
+                    if(!pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                            SettingsManager.Default.keepAlive) && torrentsFinished()) {
                         stopForegroundNotify();
                         stopUpdateForegroundNotify();
+                    } else {
+                        makeForegroundNotify();
+                        startUpdateForegroundNotify();
                     }
                 } else if (item.key().equals(getString(R.string.pref_key_cpu_do_not_sleep))) {
                     setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
