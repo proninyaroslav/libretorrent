@@ -14,15 +14,10 @@ android {
     }
     buildTypes {
         release {
-            resValue "string", "label", "@string/app_name"
-            resValue "string", "icon", "@mipmap/ic_launcher"
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            resValue "string", "label", "@string/app_name_debug"
-            resValue "string", "icon", "@mipmap/ic_launcher_debug"
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
 
