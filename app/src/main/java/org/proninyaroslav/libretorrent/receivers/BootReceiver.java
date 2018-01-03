@@ -38,7 +38,8 @@ public class BootReceiver extends BroadcastReceiver
     {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SettingsManager pref = new SettingsManager(context.getApplicationContext());
-            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart))
+            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
+                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
                 context.startService(new Intent(context, TorrentTaskService.class));
         }
     }
