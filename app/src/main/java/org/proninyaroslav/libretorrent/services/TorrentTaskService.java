@@ -459,24 +459,13 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onTorrentAdded(String id, boolean fromMetadata)
+    public void onTorrentAdded(String id)
     {
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-        if (task != null) {
-            if (fromMetadata) {
-                Torrent torrent = task.getTorrent();
-                repo.update(torrent);
-                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files),
-                                    SettingsManager.Default.saveTorrentFiles))
-                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in),
-                                                              torrent.getDownloadPath()));
-            }
-            if (pauseTorrents.get())
-                task.pause();
-        }
-
+        if (task != null && pauseTorrents.get())
+            task.pause();
         if(!pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                SettingsManager.Default.keepAlive)) {
+                            SettingsManager.Default.keepAlive)) {
             makeForegroundNotify();
             startUpdateForegroundNotify();
         }
@@ -485,9 +474,6 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentStateChanged(String id)
     {
-        if (TorrentEngine.getInstance().isMagnet(id))
-            return;
-
         sendTorrentState(TorrentEngine.getInstance().getTask(id));
     }
 
@@ -514,9 +500,6 @@ public class TorrentTaskService extends Service
     @Override
     public void onTorrentPaused(String id)
     {
-        if (TorrentEngine.getInstance().isMagnet(id))
-            return;
-
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         sendTorrentState(task);
 
@@ -537,7 +520,7 @@ public class TorrentTaskService extends Service
     public void onTorrentResumed(String id)
     {
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-        if (task != null && (TorrentEngine.getInstance().isMagnet(id) || !task.getTorrent().isPaused()))
+        if (task != null && !task.getTorrent().isPaused())
             return;
 
         Torrent torrent = repo.getTorrentByID(id);
@@ -655,45 +638,41 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onMetadataReceived(String hash, String pathToTorrent, Exception err)
+    public void onTorrentMetadataLoaded(String id, Exception err)
     {
         if (err != null) {
-            Log.e(TAG, "Fetch metadata error: ");
+            Log.e(TAG, "Load metadata error: ");
             Log.e(TAG, Log.getStackTraceString(err));
             if (err instanceof FreeSpaceException) {
-                makeTorrentErrorNotify(repo.getTorrentByID(hash).getName(), getString(R.string.error_free_space));
+                makeTorrentErrorNotify(repo.getTorrentByID(id).getName(), getString(R.string.error_free_space));
                 needsUpdateNotify.set(true);
                 sendTorrentsStateOneShot();
-                repo.delete(hash);
+            }
+            repo.delete(id);
+        } else {
+            TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+            if (task != null) {
+                Torrent torrent = task.getTorrent();
+                repo.update(torrent);
+                if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files),
+                                    SettingsManager.Default.saveTorrentFiles))
+                    saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in),
+                                                              torrent.getDownloadPath()));
             }
         }
-
-        for (FetchMagnetCallback callback : magnetCallbacks)
-            callback.onMagnetFetched(hash, pathToTorrent, err);
     }
 
     @Override
-    public void onMetadataExist(String hash)
+    public void onMagnetLoaded(String hash, byte[] bencode)
     {
-        File torrent = null;
-        Exception err = null;
-
+        TorrentMetaInfo info = null;
         try {
-            torrent = new File(FileIOUtils.getTempDir(getApplicationContext()), hash);
-            /* Torrent already added */
-            if (!torrent.exists()) {
-                torrent = new File(TorrentUtils.findTorrentDataDir(getApplicationContext(), hash),
-                        TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
-            }
-
-        } catch (Exception e) {
-            err = e;
+            info = new TorrentMetaInfo(bencode);
+        } catch (DecodeException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
-
-        for (FetchMagnetCallback callback : magnetCallbacks) {
-            String pathToTorrent = (torrent != null && torrent.exists() ? torrent.getAbsolutePath() : null);
-            callback.onMagnetFetched(hash, pathToTorrent, err);
-        }
+        for (FetchMagnetCallback callback : magnetCallbacks)
+            callback.onMagnetFetched(hash, info);
     }
 
     @Override
@@ -980,32 +959,42 @@ public class TorrentTaskService extends Service
             return;
 
         if (torrent.isDownloadingMetadata()) {
-            if (!repo.exists(torrent))
-                repo.add(torrent, removeFile);
+            byte[] bencode = TorrentEngine.getInstance().getLoadedMagnet(torrent.getId());
+            TorrentEngine.getInstance().removeLoadedMagnet(torrent.getId());
+            if (!repo.exists(torrent)) {
+                if (bencode == null) {
+                    repo.add(torrent);
+                } else {
+                    torrent.setDownloadingMetadata(false);
+                    repo.add(torrent, bencode);
+                }
+            }
         } else if (new File(torrent.getTorrentFilePath()).exists()) {
             if (repo.exists(torrent)) {
                 repo.replace(torrent, removeFile);
                 throw new FileAlreadyExistsException();
             } else {
-                repo.add(torrent, removeFile);
+                repo.add(torrent, torrent.getTorrentFilePath(), removeFile);
             }
+        } else {
+            throw new FileNotFoundException(torrent.getTorrentFilePath());
+        }
+        if (!torrent.isDownloadingMetadata()) {
+            torrent = repo.getTorrentByID(torrent.getId());
+            if (torrent == null)
+                return;
             if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files),
                                 SettingsManager.Default.saveTorrentFiles))
                 saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in),
                                                           torrent.getDownloadPath()));
-        } else {
-            throw new FileNotFoundException(torrent.getTorrentFilePath());
         }
-        torrent = repo.getTorrentByID(torrent.getId());
-        if (torrent == null)
-            return;
-        sendOnAddTorrent(new TorrentStateParcel(torrent.getId(), torrent.getName()));
         if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentDataExists(getApplicationContext(), torrent.getId())) {
             Log.e(TAG, "Torrent doesn't exists: " + torrent.getName());
             repo.delete(torrent);
             return;
         }
 
+        sendOnAddTorrent(new TorrentStateParcel(torrent.getId(), torrent.getName()));
         TorrentEngine.getInstance().download(torrent);
     }
 
@@ -1608,12 +1597,12 @@ public class TorrentTaskService extends Service
      * Used only for magnets from the magnetList (non added magnets)
      */
 
-    public void removeMagnet(String infoHash)
+    public synchronized void cancelFetchMagnet(String infoHash)
     {
         if (infoHash == null)
             return;
 
-        TorrentEngine.getInstance().removeMagnet(infoHash);
+        TorrentEngine.getInstance().cancelFetchMagnet(infoHash);
     }
 
     public void addFetchMagnetCallback(FetchMagnetCallback callback)

@@ -79,28 +79,38 @@ public class TorrentStorage
         this.context = context;
     }
 
-    public boolean add(Torrent torrent, boolean deleteFile) throws Throwable
+    public boolean add(Torrent torrent, String pathToTorrent, boolean deleteFile) throws Throwable
     {
-        String newPath = null;
-        if (!torrent.isDownloadingMetadata()) {
-            newPath = TorrentUtils.copyTorrent(context, torrent.getId(), torrent.getTorrentFilePath());
-            if (deleteFile) {
-                try {
-                    FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
-                } catch (Exception e) {
-                    Log.w(TAG, "Could not delete torrent file: ", e);
-                }
+        String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), pathToTorrent);
+        if (deleteFile) {
+            try {
+                FileUtils.forceDelete(new File(pathToTorrent));
+            } catch (Exception e) {
+                Log.w(TAG, "Could not delete torrent file: ", e);
             }
-            if (newPath == null)
-                return false;
-        } else {
-            if (TorrentUtils.torrentDataExists(context, torrent.getId()))
-                TorrentUtils.removeTorrentDataDir(context, torrent.getId());
+        }
+        if (newPath == null || newPath.isEmpty())
+            return false;
+        torrent.setTorrentFilePath(newPath);
+
+        return insert(torrent) >= 0;
+    }
+
+    public boolean add(Torrent torrent, byte[] bencode) throws Throwable
+    {
+        String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), bencode);
+        if (newPath == null || newPath.isEmpty())
+            return false;
+        torrent.setTorrentFilePath(newPath);
+
+        return insert(torrent) >= 0;
+    }
+
+    public boolean add(Torrent torrent) throws Throwable
+    {
+        if (!TorrentUtils.torrentDataExists(context, torrent.getId()))
             if (TorrentUtils.makeTorrentDataDir(context, torrent.getId()) == null)
                 throw new IOException("Unable to create dir");
-        }
-        if (newPath != null)
-            torrent.setTorrentFilePath(newPath);
 
         return insert(torrent) >= 0;
     }
@@ -128,7 +138,7 @@ public class TorrentStorage
         if (torrent == null || torrent.getTorrentFilePath() == null)
             return;
 
-        String newPath = TorrentUtils.copyTorrent(
+        String newPath = TorrentUtils.torrentToDataDir(
                 context,
                 torrent.getId(),
                 torrent.getTorrentFilePath());

@@ -37,15 +37,21 @@ import com.frostwire.jlibtorrent.TorrentStatus;
 import com.frostwire.jlibtorrent.Vectors;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
 import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.byte_vector;
 
+import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
+import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -73,7 +79,8 @@ public class TorrentDownload
             AlertType.STATS.swig(),
             AlertType.SAVE_RESUME_DATA.swig(),
             AlertType.STORAGE_MOVED.swig(),
-            AlertType.STORAGE_MOVED_FAILED.swig()
+            AlertType.STORAGE_MOVED_FAILED.swig(),
+            AlertType.METADATA_RECEIVED.swig(),
     };
 
     private Context context;
@@ -160,8 +167,57 @@ public class TorrentDownload
                 case PIECE_FINISHED:
                     saveResumeData(false);
                     break;
+                case METADATA_RECEIVED:
+                    MetadataReceivedAlert metadataAlert = ((MetadataReceivedAlert) alert);
+                    String hash = metadataAlert.handle().infoHash().toHex();
+                    int size = metadataAlert.metadataSize();
+                    int maxSize = 2 * 1024 * 1024;
+                    byte[] data = null;
+                    if (0 < size && size <= maxSize)
+                        data = metadataAlert.torrentData(true);
+                    handleMetadata(data, hash);
+                    break;
             }
         }
+    }
+
+    private void handleMetadata(byte[] data, String hash)
+    {
+        Exception err = null;
+        try {
+            String pathToDir = TorrentUtils.findTorrentDataDir(context, hash);
+            if (pathToDir == null)
+                throw new FileNotFoundException("Data dir not found");
+
+            File torrentFile = TorrentUtils.createTorrentFile(TorrentStorage.Model.DATA_TORRENT_FILE_NAME, data, new File(pathToDir));
+            String pathToTorrent = null;
+            if (torrentFile != null && torrentFile.exists())
+                pathToTorrent = torrentFile.getAbsolutePath();
+            TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
+            TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
+            if (task != null) {
+                Torrent torrent = task.getTorrent();
+                long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
+                if (freeSpace < info.torrentSize)
+                    throw new FreeSpaceException("Not enough free space: "
+                            + freeSpace + " free, but torrent size is " + info.torrentSize);
+
+                torrent.setTorrentFilePath(pathToTorrent);
+                torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+                torrent.setDownloadingMetadata(false);
+                task.setSequentialDownload(torrent.isSequentialDownload());
+                if (torrent.isPaused())
+                    task.pause();
+                else
+                    task.resume();
+                task.setDownloadPath(torrent.getDownloadPath());
+            }
+        } catch (Exception e) {
+            err = e;
+            remove(true);
+        }
+        if (callback != null)
+            callback.onTorrentMetadataLoaded(hash, err);
     }
 
     private void torrentRemoved()

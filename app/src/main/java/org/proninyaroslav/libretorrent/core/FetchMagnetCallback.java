@@ -21,5 +21,5 @@ package org.proninyaroslav.libretorrent.core;
 
 public interface FetchMagnetCallback
 {
-    void onMagnetFetched(String hash, String pathToTorrent, Exception e);
+    void onMagnetFetched(String hash, TorrentMetaInfo info);
 }

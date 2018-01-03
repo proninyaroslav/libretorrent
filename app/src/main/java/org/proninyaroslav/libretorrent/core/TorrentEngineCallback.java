@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 public interface TorrentEngineCallback
 {
-    void onTorrentAdded(String id, boolean fromMetadata);
+    void onTorrentAdded(String id);
 
     void onTorrentStateChanged(String id);
 
@@ -39,9 +39,9 @@ public interface TorrentEngineCallback
 
     void onIpFilterParsed(boolean success);
 
-    void onMetadataReceived(String hash, String pathToTorrent, Exception err);
+    void onMagnetLoaded(String hash, byte[] bencode);
 
-    void onMetadataExist(String hash);
+    void onTorrentMetadataLoaded(String id, Exception err);
 
     void onRestoreSessionError(String id);
 }
