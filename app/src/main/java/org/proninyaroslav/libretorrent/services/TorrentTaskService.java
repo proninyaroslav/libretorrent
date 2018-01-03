@@ -245,7 +245,18 @@ public class TorrentTaskService extends Service
         pref.unregisterOnTrayPreferenceChangeListener(this);
         pref = null;
 
+        cleanTemp();
+
         Log.i(TAG, "Stop " + TorrentTaskService.class.getSimpleName());
+    }
+
+    private void cleanTemp()
+    {
+        try {
+            FileIOUtils.cleanTempDir(getBaseContext());
+        } catch (Exception e) {
+            Log.e(TAG, "Error during setup of temp directory: ", e);
+        }
     }
 
     private void shutdown()

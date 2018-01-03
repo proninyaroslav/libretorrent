@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,13 +21,10 @@ package org.proninyaroslav.libretorrent;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.util.Log;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
                 mode = ReportingInteractionMode.DIALOG,
@@ -44,25 +41,5 @@ public class MainApplication extends Application
         super.attachBaseContext(base);
 
         ACRA.init(this);
-        cleanTemp();
-    }
-
-    private void cleanTemp()
-    {
-        Handler handler = new Handler(getMainLooper());
-        Runnable r = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try {
-                    FileIOUtils.cleanTempDir(getBaseContext());
-
-                } catch (Exception e) {
-                    Log.e(TAG, "Error during setup of temp directory: ", e);
-                }
-            }
-        };
-        handler.post(r);
     }
 }
