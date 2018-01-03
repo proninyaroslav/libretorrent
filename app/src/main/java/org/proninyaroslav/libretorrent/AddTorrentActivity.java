@@ -69,8 +69,6 @@ public class AddTorrentActivity extends AppCompatActivity
         addTorrentFragment = (AddTorrentFragment) getFragmentManager()
                 .findFragmentById(R.id.add_torrent_fragmentContainer);
 
-        startService(new Intent(getApplicationContext(), TorrentTaskService.class));
-
         Intent intent = getIntent();
         Uri uri;
         if (intent.getData() != null) {

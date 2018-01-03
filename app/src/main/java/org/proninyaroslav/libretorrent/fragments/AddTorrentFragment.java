@@ -261,9 +261,11 @@ public class AddTorrentFragment extends Fragment
                 startActivityForResult(new Intent(activity, RequestPermissions.class), PERMISSION_REQUEST);
         }
 
-        if (uri.getScheme().equals(Utils.MAGNET_PREFIX))
+        if (uri.getScheme().equals(Utils.MAGNET_PREFIX)) {
+            activity.startService(new Intent(activity.getApplicationContext(), TorrentTaskService.class));
             activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
                     connection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     private void initDecode()

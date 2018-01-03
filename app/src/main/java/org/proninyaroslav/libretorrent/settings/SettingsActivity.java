@@ -19,12 +19,10 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 public class SettingsActivity extends BasePreferenceActivity implements SettingsFragment.Callback
 {
@@ -41,12 +39,9 @@ public class SettingsActivity extends BasePreferenceActivity implements Settings
     {
         super.onCreate(savedInstanceState);
 
-        /* For Android 7 if preferences have been called from Settings app */
-        startService(new Intent(this, TorrentTaskService.class));
-
         setTitle(getString(R.string.settings));
 
-        detailTitle = (TextView) findViewById(R.id.detail_title);
+        detailTitle = findViewById(R.id.detail_title);
 
         if (savedInstanceState == null) {
             setFragment(SettingsFragment.newInstance());
