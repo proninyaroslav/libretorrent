@@ -629,7 +629,8 @@ public class MainFragment extends Fragment
 
         inflater.inflate(R.menu.main, menu);
 
-        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
+        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {
             @Override
