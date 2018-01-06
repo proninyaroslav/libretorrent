@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.ViewHolder>
 {
@@ -58,7 +59,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
     /* Filtered items */
     private List<TorrentStateParcel> currentItems;
     private List<TorrentStateParcel> allItems;
-    private TorrentStateParcel curOpenTorrent;
+    private AtomicReference<TorrentStateParcel> curOpenTorrent = new AtomicReference<>();
     private DisplayFilter displayFilter = new DisplayFilter();
     private SearchFilter searchFilter = new SearchFilter();
     private TorrentSortingComparator sorting;
@@ -170,9 +171,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         holder.ETA.setText(ETA);
         holder.setPauseButtonState(state.stateCode == TorrentStateCode.PAUSED);
 
-        if (curOpenTorrent != null) {
-            curOpenTorrent.setEqualsById(true);
-            if (getItemPosition(curOpenTorrent) == position && Utils.isTwoPane(context)) {
+        TorrentStateParcel curTorrent = curOpenTorrent.get();
+        if (curTorrent != null) {
+            curTorrent.setEqualsById(true);
+            if (getItemPosition(curTorrent) == position && Utils.isTwoPane(context)) {
                 if (!isSelected(position)) {
                     a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
                     Utils.setBackground(
@@ -216,12 +218,10 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
      * Mark the torrent as currently open.
      */
 
-    public synchronized void markAsOpen(TorrentStateParcel state)
+    public void markAsOpen(TorrentStateParcel state)
     {
-        if (state != null) {
-            curOpenTorrent = state;
-            notifyDataSetChanged();
-        }
+        curOpenTorrent.set(state);
+        notifyDataSetChanged();
     }
 
     public synchronized void updateItem(TorrentStateParcel torrentState)
