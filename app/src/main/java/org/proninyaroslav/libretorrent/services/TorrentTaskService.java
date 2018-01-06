@@ -227,6 +227,8 @@ public class TorrentTaskService extends Service
     {
         super.onDestroy();
 
+        clientCallbacks.clear();
+        magnetCallbacks.clear();
         stopWatchDir();
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
@@ -268,8 +270,6 @@ public class TorrentTaskService extends Service
 
     private void stopService()
     {
-        clientCallbacks.clear();
-        magnetCallbacks.clear();
         stopForeground(true);
         stopSelf();
     }
@@ -293,10 +293,13 @@ public class TorrentTaskService extends Service
 
                 switch (intent.getAction()) {
                     case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-                        clientCallbacks.clear();
-                        magnetCallbacks.clear();
-                        stopForeground(true);
-                        stopSelf(startId);
+                        new Thread() {
+                            @Override
+                            public void run()
+                            {
+                                stopService();
+                            }
+                        }.start();
                         break;
                     case Intent.ACTION_BATTERY_LOW:
                         if (batteryControl) {
@@ -422,7 +425,8 @@ public class TorrentTaskService extends Service
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT && pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                                                                                   SettingsManager.Default.keepAlive)) {
             Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
             restartServiceIntent.setPackage(getPackageName());
 
@@ -454,7 +458,13 @@ public class TorrentTaskService extends Service
         clientCallbacks.remove(callback);
         if (!pref.getBoolean(getString(R.string.pref_key_keep_alive),
                              SettingsManager.Default.keepAlive) && noClients())
-            stopService();
+            new Thread() {
+                @Override
+                public void run()
+                {
+                    stopService();
+                }
+            }.start();
     }
 
     private boolean noClients()
@@ -1618,7 +1628,13 @@ public class TorrentTaskService extends Service
         magnetCallbacks.remove(callback);
         if (!pref.getBoolean(getString(R.string.pref_key_keep_alive),
                              SettingsManager.Default.keepAlive) && noClients())
-            stopService();
+            new Thread() {
+                @Override
+                public void run()
+                {
+                    stopService();
+                }
+            }.start();
     }
 
     private Runnable updateForegroundNotify = new Runnable()
