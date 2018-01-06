@@ -134,27 +134,23 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
 
     private double calcRelevance(peer_info peer, TorrentStatus torrentStatus)
     {
+        double relevance = 0.0;
         piece_index_bitfield allPieces = torrentStatus.pieces().swig();
         piece_index_bitfield peerPieces = peer.getPieces();
+        if (peerPieces == null)
+            return relevance;
 
         int remoteHaves = 0;
         int localMissing = 0;
-
         for (int i = 0; i < allPieces.size(); i++) {
             if (!allPieces.get_bit(i)) {
                 ++localMissing;
-
-                if (peerPieces.get_bit(i)) {
+                if (peerPieces.get_bit(i))
                     ++remoteHaves;
-                }
             }
         }
-
-        double relevance = 0.0;
-
-        if (localMissing != 0) {
+        if (localMissing != 0)
             relevance = (double) remoteHaves / (double) localMissing;
-        }
 
         return relevance;
     }

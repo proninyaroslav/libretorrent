@@ -297,59 +297,33 @@ public class TorrentUtils
 
     public static void fetchByHTTP(Context context, String url, final File saveTo) throws FetchLinkException
     {
-        if (saveTo == null) {
+        if (saveTo == null)
             throw new FetchLinkException("File is null");
-        }
-
-        if (!Utils.checkNetworkConnection(context)) {
+        if (!Utils.checkNetworkConnection(context))
             throw new FetchLinkException("No network connection");
-        }
 
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-
+        HttpURLConnection connection = null;
         try {
-            URL torrentFileURL = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) torrentFileURL.openConnection();
+            connection = (HttpURLConnection) new URL(url).openConnection();
             int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                writeUrlConnectionToFile(connection, saveTo);
-            } else {
+            if (responseCode == HttpURLConnection.HTTP_OK)
+                FileUtils.copyInputStreamToFile(connection.getInputStream(), saveTo);
+            else
                 throw new FetchLinkException("Failed to download torrent file, response code: " + responseCode);
-            }
-        } catch (MalformedURLException e) {
+        } catch (Throwable e) {
             errorArray.add(e);
-        } catch (IOException e) {
-            errorArray.add(e);
+        } finally {
+            if (connection != null)
+                connection.disconnect();
         }
 
         if (!errorArray.isEmpty()) {
             StringBuilder s = new StringBuilder();
-
-            for (Throwable e : errorArray) {
+            for (Throwable e : errorArray)
                 s.append(e.toString().concat("\n"));
-            }
 
             throw new FetchLinkException(s.toString());
-        }
-    }
-
-    private static void writeUrlConnectionToFile(HttpURLConnection connection, File file) throws IOException
-    {
-        InputStream inputStream = null;
-        FileOutputStream fileOutputStream = null;
-        try {
-            inputStream = connection.getInputStream();
-            fileOutputStream = new FileOutputStream(file);
-
-            int bytesRead = -1;
-            byte[] buffer = new byte[2048];
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                fileOutputStream.write(buffer, 0, bytesRead);
-            }
-        } finally {
-            inputStream.close();
-            fileOutputStream.close();
         }
     }
 }

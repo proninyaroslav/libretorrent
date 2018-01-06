@@ -164,6 +164,7 @@ public class TorrentDownload
                 case STORAGE_MOVED_FAILED:
                     callback.onTorrentMoved(torrent.getId(), false);
                     saveResumeData(true);
+                    break;
                 case PIECE_FINISHED:
                     saveResumeData(false);
                     break;
@@ -361,15 +362,16 @@ public class TorrentDownload
 
     public void prioritizeFiles(Priority[] priorities)
     {
-        if (th == null || !th.isValid()) {
+        if (th == null || !th.isValid())
             return;
-        }
 
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            if (th.torrentFile().numFiles() != priorities.length) {
+            TorrentInfo ti = th.torrentFile();
+            if (ti == null)
                 return;
-            }
+            if (th.torrentFile().numFiles() != priorities.length)
+                return;
 
             th.prioritizeFiles(priorities);
 

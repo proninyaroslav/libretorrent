@@ -51,6 +51,7 @@ import com.frostwire.jlibtorrent.swig.settings_pack;
 import com.frostwire.jlibtorrent.swig.sha1_hash;
 import com.frostwire.jlibtorrent.swig.torrent_flags_t;
 import com.frostwire.jlibtorrent.swig.torrent_handle;
+import com.frostwire.jlibtorrent.swig.torrent_info;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
@@ -273,6 +274,8 @@ public class TorrentEngine extends SessionManager
                 case ADD_TORRENT:
                     TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
                     TorrentHandle th = find(torrentAlert.handle().infoHash());
+                    if (th == null)
+                        break;
                     String hash = th.infoHash().toHex();
                     if (magnets.contains(hash))
                         break;
@@ -724,8 +727,10 @@ public class TorrentEngine extends SessionManager
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
                     add = false;
-                    if (callback != null)
-                        callback.onMagnetLoaded(strHash, new TorrentInfo(th.torrent_file_ptr()).bencode());
+                    if (callback != null) {
+                        torrent_info ti = th.torrent_file_ptr();
+                        callback.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null);
+                    }
                 } else {
                     add = true;
                 }
