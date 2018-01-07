@@ -1276,20 +1276,6 @@ public class TorrentTaskService extends Service
             task.setDownloadSpeedLimit(limit);
     }
 
-    public void setGlobalUploadSpeedLimit(int limit)
-    {
-        TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-        s.uploadRateLimit = limit;
-        TorrentEngine.getInstance().setSettings(s);
-    }
-
-    public void setGlobalDownloadSpeedLimit(int limit)
-    {
-        TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-        s.downloadRateLimit = limit;
-        TorrentEngine.getInstance().setSettings(s);
-    }
-
     private void setKeepCpuAwake(boolean enable)
     {
         if (enable) {

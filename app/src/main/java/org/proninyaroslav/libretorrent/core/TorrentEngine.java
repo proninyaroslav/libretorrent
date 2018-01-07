@@ -497,6 +497,8 @@ public class TorrentEngine extends SessionManager
         sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled);
         sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), settings.encryptMode);
         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), settings.encryptMode);
+        sp.uploadRateLimit(settings.uploadRateLimit);
+        sp.downloadRateLimit(settings.downloadRateLimit);
     }
 
     private void applySettingsPack(SettingsPack sp)
