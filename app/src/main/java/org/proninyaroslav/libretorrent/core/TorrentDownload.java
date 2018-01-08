@@ -173,16 +173,16 @@ public class TorrentDownload
                     String hash = metadataAlert.handle().infoHash().toHex();
                     int size = metadataAlert.metadataSize();
                     int maxSize = 2 * 1024 * 1024;
-                    byte[] data = null;
+                    byte[] bencode = null;
                     if (0 < size && size <= maxSize)
-                        data = metadataAlert.torrentData(true);
-                    handleMetadata(data, hash);
+                        bencode = metadataAlert.torrentData(true);
+                    handleMetadata(bencode, hash);
                     break;
             }
         }
     }
 
-    private void handleMetadata(byte[] data, String hash)
+    private void handleMetadata(byte[] bencode, String hash)
     {
         Exception err = null;
         try {
@@ -190,7 +190,7 @@ public class TorrentDownload
             if (pathToDir == null)
                 throw new FileNotFoundException("Data dir not found");
 
-            File torrentFile = TorrentUtils.createTorrentFile(TorrentStorage.Model.DATA_TORRENT_FILE_NAME, data, new File(pathToDir));
+            File torrentFile = TorrentUtils.createTorrentFile(TorrentStorage.Model.DATA_TORRENT_FILE_NAME, bencode, new File(pathToDir));
             String pathToTorrent = null;
             if (torrentFile != null && torrentFile.exists())
                 pathToTorrent = torrentFile.getAbsolutePath();

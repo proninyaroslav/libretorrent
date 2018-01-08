@@ -1573,16 +1573,6 @@ public class TorrentTaskService extends Service
         return task.getDownloadSpeedLimit();
     }
 
-    public int getGlobalUploadSpeedLimit()
-    {
-        return TorrentEngine.getInstance().getSettings().uploadRateLimit;
-    }
-
-    public int getGlobalDownloadSpeedLimit()
-    {
-        return TorrentEngine.getInstance().getSettings().downloadRateLimit;
-    }
-
     public String fetchMagnet(String uri, FetchMagnetCallback callback) throws Exception
     {
         if (callback != null && !magnetCallbacks.contains(callback))
@@ -1672,9 +1662,8 @@ public class TorrentTaskService extends Service
 
     private void stopUpdateForegroundNotify()
     {
-        if (updateForegroundNotifyHandler != null) {
+        if (updateForegroundNotifyHandler == null)
             return;
-        }
 
         updateForegroundNotifyHandler.removeCallbacks(updateForegroundNotify);
     }

@@ -304,8 +304,13 @@ public class TorrentEngine extends SessionManager
         if (!magnets.contains(hash))
             return;
 
-        byte[] bencode = th.torrentFile().bencode();
-        loadedMagnets.put(hash, bencode);
+        int size = metadataAlert.metadataSize();
+        int maxSize = 2 * 1024 * 1024;
+        byte[] bencode = null;
+        if (0 < size && size <= maxSize)
+            bencode = metadataAlert.torrentData(true);
+        if (bencode != null)
+            loadedMagnets.put(hash, bencode);
         remove(th, SessionHandle.DELETE_FILES);
 
         if (callback != null)
