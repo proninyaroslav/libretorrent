@@ -238,7 +238,7 @@ public class TorrentDownload
      * Generate fast-resume data for the torrent, see libtorrent documentation
      */
 
-    private void saveResumeData(boolean force)
+    void saveResumeData(boolean force)
     {
         long now = System.currentTimeMillis();
 

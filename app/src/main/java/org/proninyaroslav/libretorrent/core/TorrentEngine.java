@@ -208,17 +208,6 @@ public class TorrentEngine extends SessionManager
         super.start(params);
     }
 
-    @Override
-    public void stop()
-    {
-        /* Handles must be destructed before the session is destructed */
-        torrentTasks.clear();
-        magnets.clear();
-        loadedMagnets.clear();
-
-        super.stop();
-    }
-
     private static String dhtBootstrapNodes()
     {
         StringBuilder sb = new StringBuilder();
@@ -241,16 +230,21 @@ public class TorrentEngine extends SessionManager
     @Override
     protected void onAfterStart()
     {
-        if (callback != null) {
+        if (callback != null)
             callback.onEngineStarted();
-        }
     }
 
     @Override
     protected void onBeforeStop()
     {
+        saveAllResumeData();
+        /* Handles must be destructed before the session is destructed */
+        torrentTasks.clear();
+        magnets.clear();
+        loadedMagnets.clear();
         removeListener(innerListener);
         saveSettings();
+        stop();
     }
 
     @Override
@@ -851,6 +845,15 @@ public class TorrentEngine extends SessionManager
             task.resume();
 
         return task;
+    }
+
+    public void saveAllResumeData()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.saveResumeData(true);
+        }
     }
 
     private final class LoadTorrentTask implements Runnable
