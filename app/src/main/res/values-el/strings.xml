@@ -65,7 +65,6 @@
         <item>Πρόοδος</item>
         <item>Χρόνος που απομένει</item>
         <item>Ομότιμοι χρήστες</item>
-        <item>Αποδέκτες</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -179,6 +178,10 @@
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total (percent) -->
     <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s (%4$d%%)</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="file_priority_normal">Κανονική</string>
     <string name="file_priority_low">Αγνόηση</string>
     <string name="file_priority_high">Υψηλή</string>

@@ -43,7 +43,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
     public long ETA = -1L;
     public long dateAdded = 0L;
     public int totalPeers = 0;
-    public int totalSeeds = 0;
+    public int peers = 0;
 
     public BasicStateParcel()
     {
@@ -65,7 +65,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                             long receivedBytes, long uploadedBytes,
                             long totalBytes, long downloadSpeed,
                             long uploadSpeed, long ETA, long dateAdded,
-                            int totalPeers, int totalSeeds)
+                            int totalPeers, int peers)
     {
         super(torrentId);
 
@@ -81,7 +81,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         this.ETA = ETA;
         this.dateAdded = dateAdded;
         this.totalPeers = totalPeers;
-        this.totalSeeds = totalSeeds;
+        this.peers = peers;
     }
 
     public BasicStateParcel(Parcel source)
@@ -100,7 +100,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         ETA = source.readLong();
         dateAdded = source.readLong();
         totalPeers = source.readInt();
-        totalSeeds = source.readInt();
+        peers = source.readInt();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         dest.writeLong(ETA);
         dest.writeLong(dateAdded);
         dest.writeInt(totalPeers);
-        dest.writeInt(totalSeeds);
+        dest.writeInt(peers);
     }
 
     public static final Parcelable.Creator<BasicStateParcel> CREATOR =
@@ -168,7 +168,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         result = prime * result + (int) (ETA ^ (ETA >>> 32));
         result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
         result = prime * result + totalPeers;
-        result = prime * result + totalSeeds;
+        result = prime * result + peers;
 
         return result;
     }
@@ -196,7 +196,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                 ETA == state.ETA &&
                 dateAdded == state.dateAdded &&
                 totalPeers == state.totalPeers &&
-                totalSeeds == state.totalSeeds;
+                peers == state.peers;
     }
 
     @Override
@@ -215,7 +215,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                 ", ETA=" + ETA +
                 ", dateAdded=" + dateAdded +
                 ", totalPeers=" + totalPeers +
-                ", totalSeeds=" + totalSeeds +
+                ", peers=" + peers +
                 '}';
     }
 }

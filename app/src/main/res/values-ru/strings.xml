@@ -61,7 +61,6 @@
         <item>Прогресс</item>
         <item>Расчётное время</item>
         <item>Пиры</item>
-        <item>Личеры</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -96,6 +95,8 @@
     <!-- Torrent list item -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/с | \u2191 %2$s/с</string>
+    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Загружается</string>
     <string name="torrent_status_seeding">Раздаётся</string>
     <string name="torrent_status_paused">Пауза</string>

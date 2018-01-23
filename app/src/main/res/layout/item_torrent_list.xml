@@ -111,12 +111,12 @@
                         android:gravity="center_vertical"
                         android:layout_marginRight="8dp"
                         android:ellipsize="end"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:textAppearance="?attr/smallText" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/torrent_ETA"
+                    android:id="@+id/torrent_peers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

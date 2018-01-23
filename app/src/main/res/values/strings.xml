@@ -70,7 +70,6 @@
         <item>Progress</item>
         <item>ETA</item>
         <item>Peers</item>
-        <item>Leechers</item>
     </string-array>
     <string-array name="sort_torrent_values" translatable="false">
         <item>none</item>
@@ -80,7 +79,6 @@
         <item>progress</item>
         <item>ETA</item>
         <item>peers</item>
-        <item>leechers</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -122,6 +120,10 @@
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
     <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Downloading</string>
     <string name="torrent_status_seeding">Seeding</string>
     <string name="torrent_status_paused">Paused</string>

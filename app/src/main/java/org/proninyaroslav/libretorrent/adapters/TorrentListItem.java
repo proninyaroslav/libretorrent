@@ -21,7 +21,7 @@ public class TorrentListItem implements Comparable<TorrentListItem>
     public long ETA = 0L;
     public long dateAdded = 0L;
     public int totalPeers = 0;
-    public int totalSeeds = 0;
+    public int peers = 0;
 
     public TorrentListItem() { }
 
@@ -47,7 +47,7 @@ public class TorrentListItem implements Comparable<TorrentListItem>
         this.ETA = state.ETA;
         this.dateAdded = state.dateAdded;
         this.totalPeers = state.totalPeers;
-        this.totalSeeds = state.totalSeeds;
+        this.peers = state.peers;
     }
 
     @Override

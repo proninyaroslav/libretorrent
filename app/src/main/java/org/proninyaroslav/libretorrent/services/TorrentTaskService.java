@@ -1278,7 +1278,7 @@ public class TorrentTaskService extends Service
                 task.getETA(),
                 torrent.getDateAdded(),
                 task.getTotalPeers(),
-                task.getTotalSeeds());
+                task.getConnectedPeers());
     }
 
     public BasicStateParcel makeBasicStateParcel(String id)
@@ -1394,13 +1394,12 @@ public class TorrentTaskService extends Service
         return new AdvanceStateParcel(
                 torrent.getId(),
                 task.getFilesReceivedBytes(),
+                task.getTotalSeeds(),
                 task.getConnectedSeeds(),
-                task.getConnectedPeers(),
                 task.getNumDownloadedPieces(),
                 task.getShareRatio(),
                 task.getActiveTime(),
-                task.getSeedingTime()
-        );
+                task.getSeedingTime());
     }
 
     public TorrentMetaInfo getTorrentMetaInfo(String id)

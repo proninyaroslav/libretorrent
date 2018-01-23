@@ -83,22 +83,9 @@ public class TorrentSorting extends BaseSorting
                                TorrentListItem item2, Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Integer.valueOf(item2.totalPeers).compareTo(item1.totalPeers);
+                    return Integer.valueOf(item2.peers).compareTo(item1.peers);
                 else
-                    return Integer.valueOf(item1.totalPeers).compareTo(item2.totalPeers);
-            }
-        },
-        leechers {
-            @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
-            {
-                if (direction == Direction.ASC)
-                    return Integer.valueOf(item2.totalPeers - item2.totalSeeds)
-                            .compareTo(item1.totalPeers - item1.totalSeeds);
-                else
-                    return Integer.valueOf(item1.totalPeers - item1.totalSeeds)
-                            .compareTo(item2.totalPeers - item2.totalSeeds);
+                    return Integer.valueOf(item1.peers).compareTo(item2.peers);
             }
         },
         dateAdded {

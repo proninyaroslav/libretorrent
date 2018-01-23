@@ -32,8 +32,8 @@ import java.util.Arrays;
 public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
 {
     public String torrentId = "";
+    public int totalSeeds = 0;
     public int seeds = 0;
-    public int peers = 0;
     public int downloadedPieces = 0;
     public long[] filesReceivedBytes = new long[0];
     public double shareRatio = 0.;
@@ -46,15 +46,15 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
     }
 
     public AdvanceStateParcel(String torrentId, long[] filesReceivedBytes,
-                              int seeds, int peers, int downloadedPieces,
+                              int totalSeeds, int seeds, int downloadedPieces,
                               double shareRatio, long activeTime, long seedingTime)
     {
         super(torrentId);
 
         this.torrentId = torrentId;
         this.filesReceivedBytes = filesReceivedBytes;
+        this.totalSeeds = totalSeeds;
         this.seeds = seeds;
-        this.peers = peers;
         this.downloadedPieces = downloadedPieces;
         this.shareRatio = shareRatio;
         this.activeTime = activeTime;
@@ -67,8 +67,8 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
 
         torrentId = source.readString();
         filesReceivedBytes = source.createLongArray();
+        totalSeeds = source.readInt();
         seeds = source.readInt();
-        peers = source.readInt();
         downloadedPieces = source.readInt();
         shareRatio = source.readDouble();
         activeTime = source.readLong();
@@ -88,8 +88,8 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
 
         dest.writeString(torrentId);
         dest.writeLongArray(filesReceivedBytes);
+        dest.writeInt(totalSeeds);
         dest.writeInt(seeds);
-        dest.writeInt(peers);
         dest.writeInt(downloadedPieces);
         dest.writeDouble(shareRatio);
         dest.writeLong(activeTime);
@@ -125,9 +125,8 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
 
         result = prime * result + ((torrentId == null) ? 0 : torrentId.hashCode());
         result += Arrays.hashCode(filesReceivedBytes);
+        result = prime * result + totalSeeds;
         result = prime * result + seeds;
-
-        result = prime * result + peers;
         result = prime * result + downloadedPieces;
         long shareRationBits = Double.doubleToLongBits(shareRatio);
         result = prime * result + (int) (shareRationBits ^ (shareRationBits >>> 32));
@@ -149,8 +148,8 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
         AdvanceStateParcel state = (AdvanceStateParcel) o;
 
         return (torrentId == null || torrentId.equals(state.torrentId)) &&
+                totalSeeds == state.totalSeeds &&
                 seeds == state.seeds &&
-                peers == state.peers &&
                 downloadedPieces == state.downloadedPieces &&
                 Arrays.equals(filesReceivedBytes, state.filesReceivedBytes) &&
                 shareRatio == state.shareRatio &&
@@ -163,13 +162,13 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
     {
         return "AdvanceStateParcel{" +
                 "torrentId='" + torrentId + '\'' +
+                ", totalSeeds=" + totalSeeds +
                 ", seeds=" + seeds +
-                ", peers=" + peers +
                 ", downloadedPieces=" + downloadedPieces +
                 ", filesReceivedBytes=" + Arrays.toString(filesReceivedBytes) +
+                ", shareRatio=" + shareRatio +
                 ", activeTime=" + activeTime +
                 ", seedingTime=" + seedingTime +
-                ", shareRatio=" + shareRatio +
                 '}';
     }
 }

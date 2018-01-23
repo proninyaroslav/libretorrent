@@ -140,19 +140,26 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         }
         holder.item.setText(stateString);
 
-        String counterTemplate = context.getString(R.string.download_counter_template);
+        String counterTemplate = context.getString(R.string.download_counter_ETA_template);
         String totalBytes = Formatter.formatFileSize(context, item.totalBytes);
         String receivedBytes;
-        if (item.progress == 100) {
+        String ETA;
+        if (item.ETA == -1)
+            ETA = "\u2022 " + Utils.INFINITY_SYMBOL;
+        else if (item.ETA == 0)
+            ETA = "";
+        else
+            ETA = "\u2022 " + DateUtils.formatElapsedTime(item.ETA);
+
+        if (item.progress == 100)
             receivedBytes = totalBytes;
-        } else {
+        else
             receivedBytes = Formatter.formatFileSize(context, item.receivedBytes);
-        }
 
         holder.downloadCounter.setText(
                 String.format(
                         counterTemplate, receivedBytes,
-                        totalBytes, item.progress));
+                        totalBytes, item.progress, ETA));
 
         String speedTemplate = context.getString(R.string.download_upload_speed_template);
         String downloadSpeed = Formatter.formatFileSize(context, item.downloadSpeed);
@@ -160,15 +167,8 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         holder.downloadUploadSpeed.setText(
                 String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
-        String ETA;
-        if (item.ETA == -1) {
-            ETA = Utils.INFINITY_SYMBOL;
-        } else if (item.ETA == 0) {
-            ETA = " ";
-        } else {
-            ETA = DateUtils.formatElapsedTime(item.ETA);
-        }
-        holder.ETA.setText(ETA);
+        String peersTemplate = context.getString(R.string.peers_template);
+        holder.peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
         holder.setPauseButtonState(item.stateCode == TorrentStateCode.PAUSED);
 
         TorrentListItem curTorrent = curOpenTorrent.get();
@@ -371,7 +371,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         TextView item;
         TextView downloadCounter;
         TextView downloadUploadSpeed;
-        TextView ETA;
+        TextView peers;
         View indicatorCurOpenTorrent;
         private AnimatedVectorDrawableCompat playToPauseAnim;
         private AnimatedVectorDrawableCompat pauseToPlayAnim;
@@ -409,7 +409,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             item = itemView.findViewById(R.id.torrent_status);
             downloadCounter = itemView.findViewById(R.id.torrent_download_counter);
             downloadUploadSpeed = itemView.findViewById(R.id.torrent_download_upload_speed);
-            ETA = itemView.findViewById(R.id.torrent_ETA);
+            peers = itemView.findViewById(R.id.torrent_peers);
             indicatorCurOpenTorrent = itemView.findViewById(R.id.indicator_cur_open_torrent);
         }
 
