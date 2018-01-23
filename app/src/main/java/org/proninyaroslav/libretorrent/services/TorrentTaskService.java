@@ -473,11 +473,8 @@ public class TorrentTaskService extends Service
     public void onTorrentAdded(String id)
     {
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-        if (task != null) {
-            if (pauseTorrents.get())
-                task.pause();
-            LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentAddedIntent(task.getTorrent()));
-        }
+        if (task != null && pauseTorrents.get())
+            task.pause();
     }
 
     @Override
@@ -967,6 +964,7 @@ public class TorrentTaskService extends Service
         }
 
         TorrentEngine.getInstance().download(torrent);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentAddedIntent(torrent));
     }
 
     private void saveTorrentFileIn(Torrent torrent, String saveDirPath)
