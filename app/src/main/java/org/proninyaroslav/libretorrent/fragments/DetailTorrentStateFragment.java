@@ -32,14 +32,15 @@ import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.utils.DateFormatUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.Locale;
 
 /*
- * The fragment for displaying state of torrent. Part of DetailTorrentFragment.
+ * The fragment for displaying basicState of torrent. Part of DetailTorrentFragment.
  */
 
 public class DetailTorrentStateFragment extends Fragment
@@ -47,11 +48,13 @@ public class DetailTorrentStateFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentStateFragment.class.getSimpleName();
 
-    private static final String TAG_STATE = "state";
+    private static final String TAG_BASIC_STATE = "basic_state";
+    private static final String TAG_ADVANCE_STATE = "advance_state";
     private static final String TAG_INFO = "info";
 
     private AppCompatActivity activity;
-    private TorrentStateParcel state;
+    private BasicStateParcel basicState;
+    private AdvanceStateParcel advanceState;
     private TorrentMetaInfo info;
     TextView downloadUploadSpeed, downloadCounter, textViewETA,
             textViewSeeds, textViewLeechers, textViewPieces,
@@ -73,9 +76,8 @@ public class DetailTorrentStateFragment extends Fragment
     {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
+        if (context instanceof AppCompatActivity)
             activity = (AppCompatActivity) context;
-        }
     }
 
     @Override
@@ -84,7 +86,8 @@ public class DetailTorrentStateFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            state = savedInstanceState.getParcelable(TAG_STATE);
+            basicState = savedInstanceState.getParcelable(TAG_BASIC_STATE);
+            advanceState = savedInstanceState.getParcelable(TAG_ADVANCE_STATE);
             info = savedInstanceState.getParcelable(TAG_INFO);
         }
     }
@@ -94,14 +97,14 @@ public class DetailTorrentStateFragment extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_detail_torrent_state, container, false);
 
-        downloadUploadSpeed = (TextView) v.findViewById(R.id.torrent_state_speed);
-        downloadCounter = (TextView) v.findViewById(R.id.torrent_state_downloading);
-        textViewETA = (TextView) v.findViewById(R.id.torrent_state_ETA);
-        textViewSeeds = (TextView) v.findViewById(R.id.torrent_state_seeds);
-        textViewLeechers = (TextView) v.findViewById(R.id.torrent_state_leechers);
-        textViewPieces = (TextView) v.findViewById(R.id.torrent_state_pieces);
-        textViewUploaded = (TextView) v.findViewById(R.id.torrent_state_uploaded);
-        shareRatio = (TextView) v.findViewById(R.id.torrent_state_share_ratio);
+        downloadUploadSpeed = v.findViewById(R.id.torrent_state_speed);
+        downloadCounter = v.findViewById(R.id.torrent_state_downloading);
+        textViewETA = v.findViewById(R.id.torrent_state_ETA);
+        textViewSeeds = v.findViewById(R.id.torrent_state_seeds);
+        textViewLeechers = v.findViewById(R.id.torrent_state_leechers);
+        textViewPieces = v.findViewById(R.id.torrent_state_pieces);
+        textViewUploaded = v.findViewById(R.id.torrent_state_uploaded);
+        shareRatio = v.findViewById(R.id.torrent_state_share_ratio);
 
         return v;
     }
@@ -123,13 +126,27 @@ public class DetailTorrentStateFragment extends Fragment
     {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(TAG_STATE, state);
+        outState.putParcelable(TAG_BASIC_STATE, basicState);
+        outState.putParcelable(TAG_ADVANCE_STATE, advanceState);
         outState.putParcelable(TAG_INFO, info);
     }
 
-    public void setState(TorrentStateParcel state)
+    public void setBasicState(BasicStateParcel basicState)
     {
-        this.state = state;
+        this.basicState = basicState;
+        reloadInfoView();
+    }
+
+    public void setAdvanceState(AdvanceStateParcel advanceState)
+    {
+        this.advanceState = advanceState;
+        reloadInfoView();
+    }
+
+    public void setStates(BasicStateParcel basicState, AdvanceStateParcel advanceState)
+    {
+        this.basicState = basicState;
+        this.advanceState = advanceState;
         reloadInfoView();
     }
 
@@ -140,80 +157,70 @@ public class DetailTorrentStateFragment extends Fragment
 
     public void reloadInfoView()
     {
-        if (activity == null || state == null) {
+        if (activity == null || basicState == null || advanceState == null) {
             return;
         }
 
         String speedTemplate = activity.getString(R.string.download_upload_speed_template);
-        String downloadSpeed = Formatter.formatFileSize(activity, state.downloadSpeed);
-        String uploadSpeed = Formatter.formatFileSize(activity, state.uploadSpeed);
+        String downloadSpeed = Formatter.formatFileSize(activity, basicState.downloadSpeed);
+        String uploadSpeed = Formatter.formatFileSize(activity, basicState.uploadSpeed);
         downloadUploadSpeed.setText(
                 String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
         String counterTemplate = activity.getString(R.string.download_counter_template);
-        String totalBytes = Formatter.formatFileSize(activity, state.totalBytes);
+        String totalBytes = Formatter.formatFileSize(activity, basicState.totalBytes);
         String receivedBytes;
-        if (state.progress == 100) {
+        if (basicState.progress == 100) {
             receivedBytes = totalBytes;
         } else {
-            receivedBytes = Formatter.formatFileSize(activity, state.receivedBytes);
+            receivedBytes = Formatter.formatFileSize(activity, basicState.receivedBytes);
         }
         downloadCounter.setText(
                 String.format(
                         counterTemplate, receivedBytes,
-                        totalBytes, state.progress));
+                        totalBytes, basicState.progress));
 
         String ETA;
-        if (state.ETA == -1 || state.ETA == 0) {
+        if (basicState.ETA == -1 || basicState.ETA == 0)
             ETA = Utils.INFINITY_SYMBOL;
-        } else {
-            ETA = DateFormatUtils.formatElapsedTime(
-                    activity.getApplicationContext(), state.ETA);
-        }
+        else
+            ETA = DateFormatUtils.formatElapsedTime(activity.getApplicationContext(), basicState.ETA);
         textViewETA.setText(ETA);
 
         String seedsTemplate = activity.getString(R.string.torrent_peers_template);
-        textViewSeeds.setText(
-                String.format(seedsTemplate, state.seeds, state.totalSeeds));
+        textViewSeeds.setText(String.format(seedsTemplate, advanceState.seeds, basicState.totalSeeds));
 
         String peersTemplate = activity.getString(R.string.torrent_peers_template);
-        int leechers = state.peers - state.seeds;
-        int totalLeechers = state.totalPeers - state.totalSeeds;
+        int leechers = advanceState.peers - advanceState.seeds;
+        int totalLeechers = basicState.totalPeers - basicState.totalSeeds;
         textViewLeechers.setText(
                 String.format(peersTemplate, leechers, totalLeechers));
 
-        String uploaded = Formatter.formatFileSize(activity, state.uploadedBytes);
+        String uploaded = Formatter.formatFileSize(activity, basicState.uploadedBytes);
         textViewUploaded.setText(uploaded);
 
-        shareRatio.setText(String.format(Locale.getDefault(), "%,.3f", state.shareRatio));
+        shareRatio.setText(String.format(Locale.getDefault(), "%,.3f", advanceState.shareRatio));
 
         if (info != null) {
             String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
             String pieceLength = Formatter.formatFileSize(activity, info.pieceLength);
             textViewPieces.setText(
                     String.format(piecesTemplate,
-                            state.downloadedPieces,
+                            advanceState.downloadedPieces,
                             info.numPieces,
                             pieceLength));
         }
-    }
 
-    public void setActiveAndSeedingTime(long activeTime, long seedingTime)
-    {
-        TextView textViewActiveTime = (TextView) activity.findViewById(R.id.torrent_state_active_time);
-
+        TextView textViewActiveTime = activity.findViewById(R.id.torrent_state_active_time);
         if (textViewActiveTime != null) {
-            textViewActiveTime.setText(
-                    DateFormatUtils.formatElapsedTime(
-                            activity.getApplicationContext(), activeTime));
+            textViewActiveTime.setText(DateFormatUtils.formatElapsedTime(
+                    activity.getApplicationContext(), advanceState.activeTime));
         }
 
-        TextView textViewSeedingTime = (TextView) activity.findViewById(R.id.torrent_state_seeding_time);
-
+        TextView textViewSeedingTime = activity.findViewById(R.id.torrent_state_seeding_time);
         if (textViewSeedingTime != null) {
-            textViewSeedingTime.setText(
-                    DateFormatUtils.formatElapsedTime(
-                            activity.getApplicationContext(), seedingTime));
+            textViewSeedingTime.setText(DateFormatUtils.formatElapsedTime(
+                    activity.getApplicationContext(), advanceState.seedingTime));
         }
     }
 }

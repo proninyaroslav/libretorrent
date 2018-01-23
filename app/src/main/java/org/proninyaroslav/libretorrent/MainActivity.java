@@ -23,6 +23,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
@@ -30,6 +31,7 @@ import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
 
@@ -90,6 +92,16 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
 
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        if (isFinishing() && !new SettingsManager(this).getBoolean(getString(R.string.pref_key_keep_alive),
+                                                                   SettingsManager.Default.keepAlive))
+            stopService(new Intent(getApplicationContext(), TorrentTaskService.class));
     }
 
     /*
@@ -166,13 +178,13 @@ public class MainActivity extends AppCompatActivity
     {
         switch (code) {
             case OK:
+                stopService(new Intent(getApplicationContext(), TorrentTaskService.class));
                 finish();
                 break;
             case CANCEL:
             case BACK:
-                if (mainFragment != null) {
+                if (mainFragment != null)
                     mainFragment.resetCurOpenTorrent();
-                }
                 break;
         }
     }

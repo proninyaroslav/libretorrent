@@ -23,9 +23,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -37,6 +39,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -57,11 +60,11 @@ import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
-import org.proninyaroslav.libretorrent.core.FetchMagnetCallback;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -200,9 +203,7 @@ public class AddTorrentFragment extends Fragment
     {
         super.onDestroy();
 
-        if (bound && service != null)
-            service.removeFetchMagnetCallback(magnetCallback);
-
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(serviceReceiver);
         if (!saveTorrentFile)
             if (bound && service != null && info != null)
                 service.cancelFetchMagnet(info.sha1Hash);
@@ -262,9 +263,10 @@ public class AddTorrentFragment extends Fragment
         }
 
         if (uri.getScheme().equals(Utils.MAGNET_PREFIX)) {
-            activity.startService(new Intent(activity.getApplicationContext(), TorrentTaskService.class));
             activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
                     connection, Context.BIND_AUTO_CREATE);
+            LocalBroadcastManager.getInstance(activity)
+                    .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
         }
     }
 
@@ -441,31 +443,31 @@ public class AddTorrentFragment extends Fragment
         this.uri = uri;
     }
 
-    FetchMagnetCallback magnetCallback = new FetchMagnetCallback()
+    BroadcastReceiver serviceReceiver = new BroadcastReceiver()
     {
         @Override
-        public void onMagnetFetched(String hash, TorrentMetaInfo ti)
+        public void onReceive(Context context, Intent i)
         {
-            if (!hash.equals(info.sha1Hash))
-                return;
-
-            if (service != null)
-                service.removeFetchMagnetCallback(this);
-            decodeState.set(State.FETCHING_MAGNET_COMPLETED);
-            showFetchMagnetProgress(false);
-            if (ti == null) {
-                try {
-                    throw new FetchLinkException("info is null");
-                } catch (FetchLinkException e) {
-                    handlingException(e);
+            if (i != null && i.getSerializableExtra(TorrentStateMsg.TYPE) == TorrentStateMsg.Type.MAGNET_FETCHED) {
+                TorrentMetaInfo ti = i.getParcelableExtra(TorrentStateMsg.META_INFO);
+                decodeState.set(State.FETCHING_MAGNET_COMPLETED);
+                showFetchMagnetProgress(false);
+                if (info != null) {
+                    if (ti.sha1Hash.equals(info.sha1Hash)) {
+                        info = ti;
+                        /* Prevent race condition */
+                        if (decodeTask == null || decodeTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+                            updateInfoFragment();
+                            showFragments(false, true);
+                        }
+                    }
+                } else {
+                    try {
+                        throw new FetchLinkException("info is null");
+                    } catch (FetchLinkException e) {
+                        handlingException(e);
+                    }
                 }
-                return;
-            }
-            info = ti;
-            /* Prevent race condition */
-            if (decodeTask == null || decodeTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
-                updateInfoFragment();
-                showFragments(false, true);
             }
         }
     };
@@ -517,11 +519,9 @@ public class AddTorrentFragment extends Fragment
                                     .show();
                             showFetchMagnetProgress(true);
 
-                            String hash = service.fetchMagnet(uri.toString(), magnetCallback);
-
-                            if (hash != null) {
+                            String hash = service.fetchMagnet(uri.toString());
+                            if (hash != null)
                                 info = new TorrentMetaInfo(hash, hash);
-                            }
                         }
                         break;
                     case Utils.HTTP_PREFIX:
@@ -606,36 +606,23 @@ public class AddTorrentFragment extends Fragment
 
     private synchronized void updateInfoFragment()
     {
-        if (!isAdded() || adapter == null) {
+        if (!isAdded() || adapter == null)
             return;
-        }
 
-        final AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment) adapter.getItem(INFO_FRAG_POS);
-        if (infoFrag == null) {
+        final AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
+        if (infoFrag == null)
             return;
-        }
-
-        activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                infoFrag.setInfo(info);
-            }
-        });
+        infoFrag.setInfo(info);
     }
 
     private synchronized void showFragments(final boolean showInfo, final boolean showFile)
     {
-        if (!isAdded() || adapter == null) {
+        if (!isAdded() || adapter == null)
             return;
-        }
 
         if ((showInfo && adapter.getItem(INFO_FRAG_POS) != null) ||
                 (showFile && adapter.getItem(FILE_FRAG_POS) != null))
-        {
             return;
-        }
 
         activity.runOnUiThread(new Runnable()
         {

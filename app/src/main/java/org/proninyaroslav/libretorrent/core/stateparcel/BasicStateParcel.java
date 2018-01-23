@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,56 +24,48 @@ import android.os.Parcelable;
 
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 
-import java.util.Arrays;
-
 /*
- * The class provides a package model with information
+ * The class provides a package model with dynamically changing information
  * about state of the torrent, sent from the service.
  */
 
-public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
+public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
 {
     public String torrentId = "";
     public String name = "";
     public TorrentStateCode stateCode = TorrentStateCode.UNKNOWN;
     public int progress = 0;
-    public int seeds = 0;
-    public int totalSeeds = 0;
-    public int peers = 0;
-    public int totalPeers = 0;
-    public int downloadedPieces = 0;
     public long receivedBytes = 0L;
     public long uploadedBytes = 0L;
     public long totalBytes = 0L;
     public long downloadSpeed = 0L;
     public long uploadSpeed = 0L;
     public long ETA = -1L;
-    public long[] filesReceivedBytes = new long[0];
     public long dateAdded = 0L;
-    public double shareRatio = 0.;
-    public boolean equalsById = false;
+    public int totalPeers = 0;
+    public int totalSeeds = 0;
 
-    public TorrentStateParcel()
+    public BasicStateParcel()
     {
         super();
     }
 
-    public TorrentStateParcel(String torrentId, String name)
+    public BasicStateParcel(String torrentId, String name, long dateAdded)
     {
         super(torrentId);
 
         this.torrentId = torrentId;
         this.name = name;
-        stateCode = TorrentStateCode.STOPPED;
+        this.stateCode = TorrentStateCode.STOPPED;
+        this.dateAdded = dateAdded;
     }
 
-    public TorrentStateParcel(String torrentId, String name,
-                              TorrentStateCode stateCode, int progress,
-                              long receivedBytes, long uploadedBytes,
-                              long totalBytes, long downloadSpeed, long uploadSpeed,
-                              long ETA, long[] filesReceivedBytes, int totalSeeds,
-                              int seeds, int totalPeers, int peers, int downloadedPieces,
-                              double shareRatio, long dateAdded)
+    public BasicStateParcel(String torrentId, String name,
+                            TorrentStateCode stateCode, int progress,
+                            long receivedBytes, long uploadedBytes,
+                            long totalBytes, long downloadSpeed,
+                            long uploadSpeed, long ETA, long dateAdded,
+                            int totalPeers, int totalSeeds)
     {
         super(torrentId);
 
@@ -87,17 +79,12 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         this.downloadSpeed = downloadSpeed;
         this.uploadSpeed = uploadSpeed;
         this.ETA = ETA;
-        this.filesReceivedBytes = filesReceivedBytes;
-        this.seeds = seeds;
-        this.totalSeeds = totalSeeds;
-        this.peers = peers;
-        this.totalPeers = totalPeers;
-        this.downloadedPieces = downloadedPieces;
-        this.shareRatio = shareRatio;
         this.dateAdded = dateAdded;
+        this.totalPeers = totalPeers;
+        this.totalSeeds = totalSeeds;
     }
 
-    public TorrentStateParcel(Parcel source)
+    public BasicStateParcel(Parcel source)
     {
         super(source);
 
@@ -111,14 +98,9 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         downloadSpeed = source.readLong();
         uploadSpeed = source.readLong();
         ETA = source.readLong();
-        filesReceivedBytes = source.createLongArray();
-        seeds = source.readInt();
-        totalSeeds = source.readInt();
-        peers = source.readInt();
-        totalPeers = source.readInt();
-        downloadedPieces = source.readInt();
-        shareRatio = source.readDouble();
         dateAdded = source.readLong();
+        totalPeers = source.readInt();
+        totalSeeds = source.readInt();
     }
 
     @Override
@@ -142,44 +124,29 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         dest.writeLong(downloadSpeed);
         dest.writeLong(uploadSpeed);
         dest.writeLong(ETA);
-        dest.writeLongArray(filesReceivedBytes);
-        dest.writeInt(seeds);
-        dest.writeInt(totalSeeds);
-        dest.writeInt(peers);
-        dest.writeInt(totalPeers);
-        dest.writeInt(downloadedPieces);
-        dest.writeDouble(shareRatio);
         dest.writeLong(dateAdded);
+        dest.writeInt(totalPeers);
+        dest.writeInt(totalSeeds);
     }
 
-    public static final Parcelable.Creator<TorrentStateParcel> CREATOR =
-            new Parcelable.Creator<TorrentStateParcel>()
+    public static final Parcelable.Creator<BasicStateParcel> CREATOR =
+            new Parcelable.Creator<BasicStateParcel>()
             {
                 @Override
-                public TorrentStateParcel createFromParcel(Parcel source)
+                public BasicStateParcel createFromParcel(Parcel source)
                 {
-                    return new TorrentStateParcel(source);
+                    return new BasicStateParcel(source);
                 }
 
                 @Override
-                public TorrentStateParcel[] newArray(int size)
+                public BasicStateParcel[] newArray(int size)
                 {
-                    return new TorrentStateParcel[size];
+                    return new BasicStateParcel[size];
                 }
             };
 
-    public boolean isEqualsById()
-    {
-        return equalsById;
-    }
-
-    public void setEqualsById(boolean equalsById)
-    {
-        this.equalsById = equalsById;
-    }
-
     @Override
-    public int compareTo(TorrentStateParcel another)
+    public int compareTo(BasicStateParcel another)
     {
         return name.compareTo(another.name);
     }
@@ -187,10 +154,6 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     @Override
     public int hashCode()
     {
-        if (equalsById) {
-            return torrentId.hashCode();
-        }
-
         int prime = 31, result = 1;
 
         result = prime * result + ((torrentId == null) ? 0 : torrentId.hashCode());
@@ -203,15 +166,9 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
         result = prime * result + (int) (downloadSpeed ^ (downloadSpeed >>> 32));
         result = prime * result + (int) (uploadSpeed ^ (uploadSpeed >>> 32));
         result = prime * result + (int) (ETA ^ (ETA >>> 32));
-        result += Arrays.hashCode(filesReceivedBytes);
-        result = prime * result + seeds;
-        result = prime * result + totalSeeds;
-        result = prime * result + peers;
-        result = prime * result + totalPeers;
-        result = prime * result + downloadedPieces;
-        long shareRationBits = Double.doubleToLongBits(shareRatio);
-        result = prime * result + (int) (shareRationBits ^ (shareRationBits >>> 32));
         result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
+        result = prime * result + totalPeers;
+        result = prime * result + totalSeeds;
 
         return result;
     }
@@ -219,63 +176,46 @@ public class TorrentStateParcel extends AbstractStateParcel<TorrentStateParcel>
     @Override
     public boolean equals(Object o)
     {
-        if (equalsById) {
-            return (o instanceof TorrentStateParcel &&
-                    (torrentId.equals(((TorrentStateParcel) o).torrentId)));
-        }
-
-        if (!(o instanceof TorrentStateParcel)) {
+        if (!(o instanceof BasicStateParcel))
             return false;
-        }
 
-        if (o == this) {
+        if (o == this)
             return true;
-        }
 
-        TorrentStateParcel state = (TorrentStateParcel) o;
+        BasicStateParcel state = (BasicStateParcel) o;
 
         return (torrentId == null || torrentId.equals(state.torrentId)) &&
                 (name == null || name.equals(state.name)) &&
                 (stateCode == null || stateCode.equals(state.stateCode)) &&
                 progress == state.progress &&
-                seeds == state.seeds &&
-                totalSeeds == state.totalSeeds &&
-                peers == state.peers &&
-                totalPeers == state.totalPeers &&
-                downloadedPieces == state.downloadedPieces &&
                 receivedBytes == state.receivedBytes &&
                 uploadedBytes == state.uploadedBytes &&
                 totalBytes == state.totalBytes &&
                 downloadSpeed == state.downloadSpeed &&
                 uploadSpeed == state.uploadSpeed &&
                 ETA == state.ETA &&
-                Arrays.equals(filesReceivedBytes, state.filesReceivedBytes) &&
-                shareRatio == state.shareRatio &&
-                dateAdded == state.dateAdded;
+                dateAdded == state.dateAdded &&
+                totalPeers == state.totalPeers &&
+                totalSeeds == state.totalSeeds;
     }
 
     @Override
     public String toString()
     {
-        return "TorrentStateParcel{" +
+        return "BasicStateParcel{" +
                 "torrentId='" + torrentId + '\'' +
                 ", name='" + name + '\'' +
                 ", stateCode=" + stateCode +
                 ", progress=" + progress +
-                ", seeds=" + seeds +
-                ", totalSeeds=" + totalSeeds +
-                ", peers=" + peers +
-                ", totalPeers=" + totalPeers +
-                ", downloadedPieces=" + downloadedPieces +
                 ", receivedBytes=" + receivedBytes +
                 ", uploadedBytes=" + uploadedBytes +
                 ", totalBytes=" + totalBytes +
                 ", downloadSpeed=" + downloadSpeed +
                 ", uploadSpeed=" + uploadSpeed +
                 ", ETA=" + ETA +
-                ", filesReceivedBytes=" + Arrays.toString(filesReceivedBytes) +
-                ", shareRatio=" + shareRatio +
                 ", dateAdded=" + dateAdded +
+                ", totalPeers=" + totalPeers +
+                ", totalSeeds=" + totalSeeds +
                 '}';
     }
 }

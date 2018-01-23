@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -41,6 +41,7 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
@@ -62,7 +63,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FetchMagnetCallback;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
@@ -70,14 +70,15 @@ import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentEngineCallback;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.TorrentServiceCallback;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
@@ -119,9 +120,6 @@ public class TorrentTaskService extends Service
     /* For the pause action button of foreground notify */
     private Handler updateForegroundNotifyHandler;
     private NotificationCompat.Builder foregroundNotify;
-    /* List of connected clients */
-    private ArrayList<TorrentServiceCallback> clientCallbacks = new ArrayList<>();
-    private ArrayList<FetchMagnetCallback> magnetCallbacks = new ArrayList<>();
     private final IBinder binder = new LocalBinder();
     private TorrentStorage repo;
     private SettingsManager pref;
@@ -133,7 +131,7 @@ public class TorrentTaskService extends Service
     /* Pause torrents (including new added) when in power settings are set power save flags */
     private AtomicBoolean pauseTorrents = new AtomicBoolean(false);
     /* Reduces sending packets due skip cache duplicates */
-    private StateParcelCache<TorrentStateParcel> stateCache = new StateParcelCache<>();
+    private StateParcelCache<BasicStateParcel> basicStateCache = new StateParcelCache<>();
     private AtomicBoolean needsUpdateNotify = new AtomicBoolean(false);
     private Integer torrentsMoveTotal;
     private List<String> torrentsMoveSuccess;
@@ -227,8 +225,6 @@ public class TorrentTaskService extends Service
     {
         super.onDestroy();
 
-        clientCallbacks.clear();
-        magnetCallbacks.clear();
         stopWatchDir();
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
@@ -445,33 +441,6 @@ public class TorrentTaskService extends Service
         }
     }
 
-    public synchronized void addListener(TorrentServiceCallback callback)
-    {
-        if (callback != null && !clientCallbacks.contains(callback)) {
-            clientCallbacks.add(callback);
-            sendTorrentsStateOneShot(callback);
-        }
-    }
-
-    public synchronized void removeListener(TorrentServiceCallback callback)
-    {
-        clientCallbacks.remove(callback);
-        if (!pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                             SettingsManager.Default.keepAlive) && noClients())
-            new Thread() {
-                @Override
-                public void run()
-                {
-                    stopService();
-                }
-            }.start();
-    }
-
-    private boolean noClients()
-    {
-        return clientCallbacks.isEmpty() && magnetCallbacks.isEmpty();
-    }
-
     @Override
     public void onEngineStarted()
     {
@@ -504,40 +473,32 @@ public class TorrentTaskService extends Service
     public void onTorrentAdded(String id)
     {
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-        if (task != null && pauseTorrents.get())
-            task.pause();
-        if(!pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                            SettingsManager.Default.keepAlive)) {
-            makeForegroundNotify();
-            startUpdateForegroundNotify();
+        if (task != null) {
+            if (pauseTorrents.get())
+                task.pause();
+            LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentAddedIntent(task.getTorrent()));
         }
     }
 
     @Override
     public void onTorrentStateChanged(String id)
     {
-        sendTorrentState(TorrentEngine.getInstance().getTask(id));
+        sendBasicState(TorrentEngine.getInstance().getTask(id));
     }
 
     @Override
     public void onTorrentRemoved(String id)
     {
-        if (stateCache.contains(id))
-            stateCache.remove(id);
-
-        for (TorrentServiceCallback callback : clientCallbacks) {
-            TorrentStateParcel state = new TorrentStateParcel();
-            state.torrentId = id;
-            if (callback != null)
-                callback.onTorrentRemoved(state);
-        }
+        if (basicStateCache.contains(id))
+            basicStateCache.remove(id);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentRemovedIntent(id));
     }
 
     @Override
     public void onTorrentPaused(String id)
     {
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
-        sendTorrentState(task);
+        sendBasicState(task);
 
         Torrent torrent = repo.getTorrentByID(id);
         if (torrent == null)
@@ -598,8 +559,8 @@ public class TorrentTaskService extends Service
                 moveTorrent(torrent);
             }
 
-            if (torrentsFinished() && pref.getBoolean(getString(R.string.pref_key_shutdown_downloads_complete),
-                                                      SettingsManager.Default.shutdownDownloadsComplete)) {
+            if (pref.getBoolean(getString(R.string.pref_key_shutdown_downloads_complete),
+                                SettingsManager.Default.shutdownDownloadsComplete) && torrentsFinished()) {
                 if (torrentsMoveTotal != null)
                     shutdownAfterMove = true;
                 else
@@ -667,7 +628,7 @@ public class TorrentTaskService extends Service
             if (err instanceof FreeSpaceException) {
                 makeTorrentErrorNotify(repo.getTorrentByID(id).getName(), getString(R.string.error_free_space));
                 needsUpdateNotify.set(true);
-                sendTorrentsStateOneShot();
+                LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentRemovedIntent(id));
             }
             repo.delete(id);
         } else {
@@ -692,8 +653,7 @@ public class TorrentTaskService extends Service
         } catch (DecodeException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-        for (FetchMagnetCallback callback : magnetCallbacks)
-            callback.onMagnetFetched(hash, info);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeMagnetFetchedIntent(info));
     }
 
     @Override
@@ -1006,7 +966,6 @@ public class TorrentTaskService extends Service
             return;
         }
 
-        sendOnAddTorrent(new TorrentStateParcel(torrent.getId(), torrent.getName()));
         TorrentEngine.getInstance().download(torrent);
     }
 
@@ -1098,7 +1057,6 @@ public class TorrentTaskService extends Service
         }
 
         needsUpdateNotify.set(true);
-        sendTorrentsStateOneShot();
     }
 
     public synchronized void setTorrentName(String id, String name)
@@ -1119,7 +1077,8 @@ public class TorrentTaskService extends Service
             task.setTorrent(torrent);
 
             needsUpdateNotify.set(true);
-            sendTorrentsStateOneShot();
+            LocalBroadcastManager.getInstance(this)
+                    .sendBroadcast(TorrentStateMsg.makeUpdateTorrentsIntent(makeBasicStatesList()));
         }
     }
 
@@ -1299,15 +1258,14 @@ public class TorrentTaskService extends Service
         }
     }
 
-    public TorrentStateParcel makeTorrentStateParcel(TorrentDownload task)
+    private BasicStateParcel makeBasicStateParcel(TorrentDownload task)
     {
-        if (task == null) {
+        if (task == null)
             return null;
-        }
 
         Torrent torrent = task.getTorrent();
 
-        return new TorrentStateParcel(
+        return new BasicStateParcel(
                 torrent.getId(),
                 torrent.getName(),
                 task.getStateCode(),
@@ -1318,40 +1276,38 @@ public class TorrentTaskService extends Service
                 task.getDownloadSpeed(),
                 task.getUploadSpeed(),
                 task.getETA(),
-                task.getFilesReceivedBytes(),
-                task.getTotalSeeds(),
-                task.getConnectedSeeds(),
+                torrent.getDateAdded(),
                 task.getTotalPeers(),
-                task.getConnectedPeers(),
-                task.getNumDownloadedPieces(),
-                task.getShareRatio(),
-                torrent.getDateAdded());
+                task.getTotalSeeds());
+    }
+
+    public BasicStateParcel makeBasicStateParcel(String id)
+    {
+        if (id == null)
+            return null;
+
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+
+        return makeBasicStateParcel(task);
     }
 
     private ArrayList<TrackerStateParcel> makeTrackerStateParcelList(TorrentDownload task)
     {
-        if (task == null) {
+        if (task == null)
             return null;
-        }
 
         List<AnnounceEntry> trackers = task.getTrackers();
         ArrayList<TrackerStateParcel> states = new ArrayList<>();
 
-        int statusDHT = TrackerStateParcel.Status.NOT_WORKING;
-        int statusLSD = TrackerStateParcel.Status.NOT_WORKING;
-        int statusPeX = TrackerStateParcel.Status.NOT_WORKING;
-
-        if (TorrentEngine.getInstance().isDHTEnabled()) {
-            statusDHT = TrackerStateParcel.Status.WORKING;
-        }
-
-        if (TorrentEngine.getInstance().isLSDEnabled()) {
-            statusLSD = TrackerStateParcel.Status.WORKING;
-        }
-
-        if (TorrentEngine.getInstance().isPeXEnabled()) {
-            statusPeX = TrackerStateParcel.Status.WORKING;
-        }
+        int statusDHT = TorrentEngine.getInstance().isDHTEnabled() ?
+                TrackerStateParcel.Status.WORKING :
+                TrackerStateParcel.Status.NOT_WORKING;
+        int statusLSD = TorrentEngine.getInstance().isLSDEnabled() ?
+                TrackerStateParcel.Status.WORKING :
+                TrackerStateParcel.Status.NOT_WORKING;
+        int statusPeX = TorrentEngine.getInstance().isPeXEnabled() ?
+                TrackerStateParcel.Status.WORKING :
+                TrackerStateParcel.Status.NOT_WORKING;
 
         states.add(new TrackerStateParcel(TrackerStateParcel.DHT_ENTRY_NAME, "", -1, statusDHT));
         states.add(new TrackerStateParcel(TrackerStateParcel.LSD_ENTRY_NAME, "", -1, statusLSD));
@@ -1391,16 +1347,14 @@ public class TorrentTaskService extends Service
         return states;
     }
 
-    public Bundle makeTorrentsStateList()
+    public Bundle makeBasicStatesList()
     {
         Bundle states = new Bundle();
         for (TorrentDownload task : TorrentEngine.getInstance().getTasks()) {
             if (task != null) {
-                TorrentStateParcel state = makeTorrentStateParcel(task);
-
-                if (!stateCache.contains(state))
-                    stateCache.put(state);
-
+                BasicStateParcel state = makeBasicStateParcel(task);
+                if (!basicStateCache.contains(state))
+                    basicStateCache.put(state);
                 states.putParcelable(state.torrentId, state);
             }
         }
@@ -1408,53 +1362,45 @@ public class TorrentTaskService extends Service
         return states;
     }
 
-    public void sendTorrentsStateOneShot(TorrentServiceCallback callback)
+    private void sendBasicState(TorrentDownload task)
     {
-        if (callback == null) {
+        if (task == null)
             return;
-        }
-
-        callback.onTorrentsStateChanged(makeTorrentsStateList());
-    }
-
-    private void sendTorrentsStateOneShot()
-    {
-        Bundle states = makeTorrentsStateList();
-
-        for (TorrentServiceCallback callback : clientCallbacks) {
-            if (callback != null) {
-                callback.onTorrentsStateChanged(states);
-            }
-        }
-    }
-
-    private void sendTorrentState(TorrentDownload task)
-    {
-        if (task == null) {
-            return;
-        }
-
         Torrent torrent = task.getTorrent();
-        if (torrent == null) {
-            return;
-        }
-
-        TorrentStateParcel state = makeTorrentStateParcel(task);
-
-        if (stateCache.contains(state)) {
+        if (torrent == null)
             return;
 
+        BasicStateParcel state = makeBasicStateParcel(task);
+        if (basicStateCache.contains(state)) {
+            return;
         } else {
-            stateCache.put(state);
+            basicStateCache.put(state);
             /* Update foreground notification only if added a new package to the cache */
             needsUpdateNotify.set(true);
         }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeUpdateTorrentIntent(state));
+    }
 
-        for (TorrentServiceCallback callback : clientCallbacks) {
-            if (callback != null) {
-                callback.onTorrentStateChanged(state);
-            }
-        }
+    public AdvanceStateParcel makeAdvancedState(String id)
+    {
+        if (id == null)
+            return null;
+
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        if (task == null)
+            return null;
+
+        Torrent torrent = task.getTorrent();
+        return new AdvanceStateParcel(
+                torrent.getId(),
+                task.getFilesReceivedBytes(),
+                task.getConnectedSeeds(),
+                task.getConnectedPeers(),
+                task.getNumDownloadedPieces(),
+                task.getShareRatio(),
+                task.getActiveTime(),
+                task.getSeedingTime()
+        );
     }
 
     public TorrentMetaInfo getTorrentMetaInfo(String id)
@@ -1542,13 +1488,6 @@ public class TorrentTaskService extends Service
         return task.pieces();
     }
 
-    private void sendOnAddTorrent(TorrentStateParcel state)
-    {
-        for (TorrentServiceCallback callback : clientCallbacks) {
-            callback.onTorrentAdded(state);
-        }
-    }
-
     public int getUploadSpeedLimit(String id)
     {
         if (id == null)
@@ -1573,11 +1512,8 @@ public class TorrentTaskService extends Service
         return task.getDownloadSpeedLimit();
     }
 
-    public String fetchMagnet(String uri, FetchMagnetCallback callback) throws Exception
+    public String fetchMagnet(String uri) throws Exception
     {
-        if (callback != null && !magnetCallbacks.contains(callback))
-            magnetCallbacks.add(callback);
-
         return TorrentEngine.getInstance().fetchMagnet(uri);
     }
 
@@ -1591,26 +1527,6 @@ public class TorrentTaskService extends Service
             return;
 
         TorrentEngine.getInstance().cancelFetchMagnet(infoHash);
-    }
-
-    public synchronized void addFetchMagnetCallback(FetchMagnetCallback callback)
-    {
-        if (callback != null && !magnetCallbacks.contains(callback))
-            magnetCallbacks.add(callback);
-    }
-
-    public synchronized void removeFetchMagnetCallback(FetchMagnetCallback callback)
-    {
-        magnetCallbacks.remove(callback);
-        if (!pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                             SettingsManager.Default.keepAlive) && noClients())
-            new Thread() {
-                @Override
-                public void run()
-                {
-                    stopService();
-                }
-            }.start();
     }
 
     private Runnable updateForegroundNotify = new Runnable()

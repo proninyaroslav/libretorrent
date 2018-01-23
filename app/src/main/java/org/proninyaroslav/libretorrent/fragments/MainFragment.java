@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,9 +23,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -39,7 +41,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -76,12 +78,13 @@ import com.github.clans.fab.FloatingActionMenu;
 import org.proninyaroslav.libretorrent.*;
 import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
+import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
 import org.proninyaroslav.libretorrent.core.Torrent;
-import org.proninyaroslav.libretorrent.core.TorrentServiceCallback;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
@@ -103,8 +106,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 
 /*
  * The list of torrents.
@@ -144,7 +145,6 @@ public class MainFragment extends Fragment
     private EmptyRecyclerView torrentsList;
     /* Save state scrolling */
     private Parcelable torrentsListState;
-    private Map<String, TorrentStateParcel> torrentStates = new HashMap<>();
     private TorrentListAdapter adapter;
     private ActionMode actionMode;
     private ActionModeCallback actionModeCallback = new ActionModeCallback();
@@ -159,21 +159,19 @@ public class MainFragment extends Fragment
     private TorrentTaskService service;
     /* Flag indicating whether we have called bind on the service. */
     private boolean bound;
-    private ReentrantLock callbackSync;
-    private ReentrantLock adapterSync;
     /*
      * Torrents are added to the queue, if the client is not bounded to service.
      * Trying to add torrents will be made at the first connect.
      */
     private HashSet<Torrent> addTorrentsQueue = new HashSet<>();
-
+    SettingsManager pref;
     private Throwable sentError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.main_coordinator_layout);
+        coordinatorLayout = v.findViewById(R.id.main_coordinator_layout);
 
         return v;
     }
@@ -193,20 +191,14 @@ public class MainFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
+        if (activity == null)
             activity = (AppCompatActivity) getActivity();
-        }
 
+        pref = new SettingsManager(activity);
         showBlankFragment();
-
-        callbackSync = new ReentrantLock();
-        adapterSync = new ReentrantLock();
-
-        toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-
-        if (toolbar != null) {
+        toolbar = activity.findViewById(R.id.toolbar);
+        if (toolbar != null)
             toolbar.setTitle(R.string.app_name);
-        }
 
         View spinnerContainer = LayoutInflater.from(activity).inflate(R.layout.toolbar_spinner,
                 toolbar, false);
@@ -217,7 +209,7 @@ public class MainFragment extends Fragment
         spinnerAdapter = new ToolbarSpinnerAdapter(activity);
         spinnerAdapter.addItems(getSpinnerList());
 
-        spinner = (Spinner) spinnerContainer.findViewById(R.id.toolbar_spinner);
+        spinner = spinnerContainer.findViewById(R.id.toolbar_spinner);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -237,10 +229,10 @@ public class MainFragment extends Fragment
         activity.setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        addTorrentButton = (FloatingActionMenu) activity.findViewById(R.id.add_torrent_button);
+        addTorrentButton = activity.findViewById(R.id.add_torrent_button);
         addTorrentButton.setClosedOnTouchOutside(true);
 
-        openFileButton = (FloatingActionButton) activity.findViewById(R.id.open_file_button);
+        openFileButton = activity.findViewById(R.id.open_file_button);
         openFileButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -251,7 +243,7 @@ public class MainFragment extends Fragment
             }
         });
 
-        addLinkButton = (FloatingActionButton) activity.findViewById(R.id.add_link_button);
+        addLinkButton = activity.findViewById(R.id.add_link_button);
         addLinkButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -262,14 +254,10 @@ public class MainFragment extends Fragment
             }
         });
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             prevImplIntent = savedInstanceState.getParcelable(TAG_PREV_IMPL_INTENT);
-        }
 
-        activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
-                connection, Context.BIND_AUTO_CREATE);
-
-        torrentsList = (EmptyRecyclerView) activity.findViewById(R.id.torrent_list);
+        torrentsList = activity.findViewById(R.id.torrent_list);
         layoutManager = new LinearLayoutManager(activity);
         torrentsList.setLayoutManager(layoutManager);
 
@@ -297,7 +285,7 @@ public class MainFragment extends Fragment
         a.recycle();
 
         adapter = new TorrentListAdapter(
-                new ArrayList<TorrentStateParcel>(),
+                new HashMap<String, TorrentListItem>(),
                 activity, R.layout.item_torrent_list, torrentListListener,
                 new TorrentSortingComparator(Utils.getTorrentSorting(activity.getApplicationContext())));
 
@@ -366,28 +354,43 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onDestroy()
+    public void onResume()
     {
-        super.onDestroy();
+        super.onResume();
 
+        if (torrentsListState != null)
+            layoutManager.onRestoreInstanceState(torrentsListState);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
+                connection, Context.BIND_AUTO_CREATE);
+        LocalBroadcastManager.getInstance(activity)
+                .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(serviceReceiver);
         if (bound) {
-            if (service != null) {
-                service.removeListener(serviceCallback);
-            }
-
             getActivity().unbindService(connection);
             bound = false;
         }
     }
 
     @Override
-    public void onResume()
+    public void onDestroy()
     {
-        super.onResume();
+        super.onDestroy();
 
-        if (torrentsListState != null) {
-            layoutManager.onRestoreInstanceState(torrentsListState);
-        }
+
     }
 
     @Override
@@ -415,12 +418,13 @@ public class MainFragment extends Fragment
 
     private ServiceConnection connection = new ServiceConnection()
     {
-        public void onServiceConnected(ComponentName className, IBinder service) {
+        public void onServiceConnected(ComponentName className, IBinder service)
+        {
             TorrentTaskService.LocalBinder binder = (TorrentTaskService.LocalBinder) service;
             MainFragment.this.service = binder.getService();
-            MainFragment.this.service.addListener(serviceCallback);
             bound = true;
 
+            handleBasicStates(MainFragment.this.service.makeBasicStatesList());
             if (!addTorrentsQueue.isEmpty()) {
                 for (Torrent torrent : addTorrentsQueue) {
                     try {
@@ -434,81 +438,47 @@ public class MainFragment extends Fragment
             }
         }
 
-        public void onServiceDisconnected(ComponentName className) {
-            MainFragment.this.service.removeListener(serviceCallback);
+        public void onServiceDisconnected(ComponentName className)
+        {
             bound = false;
         }
     };
 
-    TorrentServiceCallback serviceCallback = new TorrentServiceCallback()
+    BroadcastReceiver serviceReceiver = new BroadcastReceiver()
     {
         @Override
-        public void onTorrentStateChanged(TorrentStateParcel state)
+        public void onReceive(Context context, Intent i)
         {
-            callbackSync.lock();
-
-            try {
-                if (state != null) {
-                    torrentStates.put(state.torrentId, state);
-                    reloadAdapterItem(state);
-                }
-
-            } finally {
-                callbackSync.unlock();
-            }
-        }
-
-        @Override
-        public void onTorrentsStateChanged(Bundle states)
-        {
-            if (states == null) {
-                return;
-            }
-
-            callbackSync.lock();
-
-            try {
-                torrentStates.clear();
-
-                for (String key : states.keySet()) {
-                    TorrentStateParcel state = states.getParcelable(key);
-                    if (state != null) {
-                        torrentStates.put(state.torrentId, state);
+            if (i != null) {
+                switch ((TorrentStateMsg.Type)i.getSerializableExtra(TorrentStateMsg.TYPE)) {
+                    case TORRENT_ADDED: {
+                        Torrent torrent = i.getParcelableExtra(TorrentStateMsg.TORRENT);
+                        if (torrent != null) {
+                            TorrentListItem item = new TorrentListItem();
+                            item.torrentId = torrent.getId();
+                            item.name = torrent.getName();
+                            item.dateAdded = torrent.getDateAdded();
+                            adapter.addItem(item);
+                        }
+                        break;
+                    }
+                    case UPDATE_TORRENT: {
+                        BasicStateParcel state = i.getParcelableExtra(TorrentStateMsg.STATE);
+                        if (state != null)
+                            adapter.updateItem(state);
+                        break;
+                    }
+                    case UPDATE_TORRENTS: {
+                        handleBasicStates((Bundle)i.getParcelableExtra(TorrentStateMsg.STATES));
+                        break;
+                    }
+                    case TORRENT_REMOVED: {
+                        String id = i.getStringExtra(TorrentStateMsg.TORRENT_ID);
+                        if (id != null)
+                            adapter.deleteItem(id);
+                        break;
                     }
                 }
-
-                reloadAdapter();
-
-            } finally {
-                callbackSync.unlock();
-            }
-        }
-
-        @Override
-        public void onTorrentAdded(TorrentStateParcel state)
-        {
-            callbackSync.lock();
-            try {
-                if (state != null) {
-                    torrentStates.put(state.torrentId, state);
-                    reloadAdapter();
-                }
-            } finally {
-                callbackSync.unlock();
-            }
-        }
-
-        @Override
-        public void onTorrentRemoved(TorrentStateParcel state)
-        {
-            callbackSync.lock();
-
-            try {
-                torrentStates.remove(state.torrentId);
-                deleteAdapterItem(state);
-
-            } finally {
-                callbackSync.unlock();
             }
         }
     };
@@ -668,8 +638,6 @@ public class MainFragment extends Fragment
                 aboutDialog();
                 break;
             case R.id.shutdown_app_menu:
-                activity.stopService(new Intent(activity.getApplicationContext(), TorrentTaskService.class));
-                /* FIXME: Fix leaking popup menu after close app */
                 activity.closeOptionsMenu();
                 finish(new Intent(), FragmentCallback.ResultCode.OK);
                 break;
@@ -798,38 +766,34 @@ public class MainFragment extends Fragment
     TorrentListAdapter.ViewHolder.ClickListener torrentListListener = new TorrentListAdapter.ViewHolder.ClickListener()
     {
         @Override
-        public void onItemClicked(int position, TorrentStateParcel torrentState)
+        public void onItemClicked(int position, TorrentListItem item)
         {
             if (actionMode == null) {
-            /* Mark this torrent as open in the list */
-                adapter.markAsOpen(torrentState);
-
-                showDetailTorrent(torrentState.torrentId);
+                /* Mark this torrent as open in the list */
+                adapter.markAsOpen(item);
+                showDetailTorrent(item.torrentId);
             } else {
-                onItemSelected(torrentState.torrentId, position);
+                onItemSelected(item.torrentId, position);
             }
         }
 
         @Override
-        public boolean onItemLongClicked(int position, TorrentStateParcel torrentState)
+        public boolean onItemLongClicked(int position, TorrentListItem item)
         {
-            if (actionMode == null) {
+            if (actionMode == null)
                 actionMode = activity.startActionMode(actionModeCallback);
-            }
-
-            onItemSelected(torrentState.torrentId, position);
+            onItemSelected(item.torrentId, position);
 
             return true;
         }
 
         @Override
-        public void onPauseButtonClicked(int position, TorrentStateParcel torrentState)
+        public void onPauseButtonClicked(int position, TorrentListItem item)
         {
-            if (!bound || service == null) {
+            if (!bound || service == null)
                 return;
-            }
 
-            service.pauseResumeTorrent(torrentState.torrentId);
+            service.pauseResumeTorrent(item.torrentId);
         }
     };
 
@@ -988,10 +952,7 @@ public class MainFragment extends Fragment
         RadioGroup group = dialog.findViewById(R.id.dialog_sort_direction);
 
         if (sp != null && group != null) {
-            SettingsManager pref = new SettingsManager(activity);
-
             String[] columns = activity.getResources().getStringArray(R.array.sort_torrent_values);
-
             String column = pref.getString(getString(R.string.pref_key_sort_torrent_by),
                                            SettingsManager.Default.sortTorrentBy);
             String direction = pref.getString(getString(R.string.pref_key_sort_torrent_direction),
@@ -1015,7 +976,7 @@ public class MainFragment extends Fragment
     {
         if (v != null) {
             if (getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) != null) {
-                CheckBox withFiles = (CheckBox) v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
+                CheckBox withFiles = v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
 
                 DetailTorrentFragment f = getCurrentDetailFragment();
                 if (f != null) {
@@ -1033,16 +994,15 @@ public class MainFragment extends Fragment
             } else if (getFragmentManager().findFragmentByTag(TAG_ERROR_OPEN_TORRENT_FILE_DIALOG) != null ||
                     getFragmentManager().findFragmentByTag(TAG_SAVE_ERROR_DIALOG) != null) {
                 if (sentError != null) {
-                    EditText editText = (EditText) v.findViewById(R.id.comment);
+                    EditText editText = v.findViewById(R.id.comment);
                     String comment = editText.getText().toString();
 
                     Utils.reportError(sentError, comment);
                 }
 
             } else if (getFragmentManager().findFragmentByTag(TAG_TORRENT_SORTING) != null) {
-                Spinner sp = (Spinner) v.findViewById(R.id.dialog_sort_by);
-                RadioGroup group = (RadioGroup) v.findViewById(R.id.dialog_sort_direction);
-                SettingsManager pref = new SettingsManager(activity);
+                Spinner sp = v.findViewById(R.id.dialog_sort_by);
+                RadioGroup group = v.findViewById(R.id.dialog_sort_direction);
 
                 String[] columns = activity.getResources().getStringArray(R.array.sort_torrent_values);
                 int position = sp.getSelectedItemPosition();
@@ -1087,60 +1047,27 @@ public class MainFragment extends Fragment
         /* Nothing */
     }
 
-    private void deleteAdapterItem(final TorrentStateParcel state)
+    private void handleBasicStates(Bundle states)
     {
-        adapterSync.lock();
+        if (states == null)
+            return;
 
-        try {
-            activity.runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    adapter.deleteItem(state);
-                }
-            });
-
-        } finally {
-            adapterSync.unlock();
+        ArrayList<TorrentListItem> items = new ArrayList<>();
+        for (String key : states.keySet()) {
+            BasicStateParcel state = states.getParcelable(key);
+            if (state != null)
+                items.add(new TorrentListItem(state));
         }
+        reloadAdapter(items);
     }
 
-    private void reloadAdapterItem(final TorrentStateParcel state)
+    final synchronized void reloadAdapter(final List<TorrentListItem> items)
     {
-        adapterSync.lock();
-
-        try {
-            activity.runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    adapter.updateItem(state);
-                }
-            });
-
-        } finally {
-            adapterSync.unlock();
-        }
-    }
-
-    final synchronized void reloadAdapter()
-    {
-        activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                adapter.clearAll();
-
-                if (torrentStates == null || torrentStates.size() == 0) {
-                    adapter.notifyDataSetChanged();
-                } else {
-                    adapter.addItems(torrentStates.values());
-                }
-            }
-        });
+        adapter.clearAll();
+        if (items == null || items.size() == 0)
+            adapter.notifyDataSetChanged();
+        else
+            adapter.addItems(items);
     }
 
     private void torrentFileChooserDialog()

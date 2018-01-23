@@ -19,11 +19,11 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateParcel;
+import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
 
 import java.util.Comparator;
 
-public class TorrentSortingComparator implements Comparator<TorrentStateParcel>
+public class TorrentSortingComparator implements Comparator<TorrentListItem>
 {
     private TorrentSorting sorting;
 
@@ -33,7 +33,7 @@ public class TorrentSortingComparator implements Comparator<TorrentStateParcel>
     }
 
     @Override
-    public int compare(TorrentStateParcel state1, TorrentStateParcel state2)
+    public int compare(TorrentListItem state1, TorrentListItem state2)
     {
         return TorrentSorting.SortingColumns.fromValue(sorting.getColumnName())
                 .compare(state1, state2, sorting.getDirection());
