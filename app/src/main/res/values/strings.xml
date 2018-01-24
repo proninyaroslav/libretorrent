@@ -257,6 +257,7 @@
     <string name="download_speed">Download</string>
     <string name="speed_limit_dialog">Set speed in KiB/s (0 - without limit)</string>
     <string name="torrent_added_date">Added</string>
+    <string name="torrent_availability">Availability</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copy</string>

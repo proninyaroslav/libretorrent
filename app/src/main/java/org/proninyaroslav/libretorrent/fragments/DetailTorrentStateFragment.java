@@ -58,7 +58,8 @@ public class DetailTorrentStateFragment extends Fragment
     private TorrentMetaInfo info;
     TextView downloadUploadSpeed, downloadCounter, textViewETA,
             textViewSeeds, textViewLeechers, textViewPieces,
-            textViewUploaded, shareRatio;
+            textViewUploaded, shareRatio, availability,
+            textViewActiveTime, textViewSeedingTime;
 
     public static DetailTorrentStateFragment newInstance(TorrentMetaInfo info) {
         DetailTorrentStateFragment fragment = new DetailTorrentStateFragment();
@@ -105,6 +106,9 @@ public class DetailTorrentStateFragment extends Fragment
         textViewPieces = v.findViewById(R.id.torrent_state_pieces);
         textViewUploaded = v.findViewById(R.id.torrent_state_uploaded);
         shareRatio = v.findViewById(R.id.torrent_state_share_ratio);
+        availability = v.findViewById(R.id.torrent_state_availability);
+        textViewSeedingTime = v.findViewById(R.id.torrent_state_seeding_time);
+        textViewActiveTime = v.findViewById(R.id.torrent_state_active_time);
 
         return v;
     }
@@ -200,6 +204,7 @@ public class DetailTorrentStateFragment extends Fragment
         textViewUploaded.setText(uploaded);
 
         shareRatio.setText(String.format(Locale.getDefault(), "%,.3f", advanceState.shareRatio));
+        availability.setText(String.format(Locale.getDefault(), "%,.3f", advanceState.availability));
 
         if (info != null) {
             String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
@@ -210,17 +215,9 @@ public class DetailTorrentStateFragment extends Fragment
                             info.numPieces,
                             pieceLength));
         }
-
-        TextView textViewActiveTime = activity.findViewById(R.id.torrent_state_active_time);
-        if (textViewActiveTime != null) {
-            textViewActiveTime.setText(DateFormatUtils.formatElapsedTime(
-                    activity.getApplicationContext(), advanceState.activeTime));
-        }
-
-        TextView textViewSeedingTime = activity.findViewById(R.id.torrent_state_seeding_time);
-        if (textViewSeedingTime != null) {
-            textViewSeedingTime.setText(DateFormatUtils.formatElapsedTime(
-                    activity.getApplicationContext(), advanceState.seedingTime));
-        }
+        textViewActiveTime.setText(DateFormatUtils.formatElapsedTime(
+                activity.getApplicationContext(), advanceState.activeTime));
+        textViewSeedingTime.setText(DateFormatUtils.formatElapsedTime(
+                activity.getApplicationContext(), advanceState.seedingTime));
     }
 }

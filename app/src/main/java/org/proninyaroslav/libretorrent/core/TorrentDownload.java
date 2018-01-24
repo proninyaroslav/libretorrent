@@ -870,4 +870,51 @@ public class TorrentDownload
 
         return th.swig().max_uploads();
     }
+
+    public double getAvailability()
+    {
+        if (!th.isValid())
+            return 0;
+
+        int[] availability = calcAvailability();
+        if (availability == null)
+            return 0;
+
+        int min = Integer.MAX_VALUE;
+        for (int avail : availability)
+            if (avail < min)
+                min = avail;
+
+        int total = 0;
+        for (int avail : availability)
+            if (avail > 0 && avail > min)
+                ++total;
+
+        return (total / (double)availability.length) + min;
+    }
+
+    /*
+     * Calc availability for each piece
+     */
+
+    private int[] calcAvailability()
+    {
+        if (!th.isValid())
+            return null;
+
+        boolean[] pieces = pieces();
+        ArrayList<PeerInfo> peers = getPeers();
+        int[] avail = new int[pieces.length];
+        for (int i = 0; i < pieces.length; i++)
+            avail[i] = (pieces[i] ? 1 : 0);
+
+        for (PeerInfo peer : peers) {
+            PieceIndexBitfield peerPieces = peer.pieces();
+            for (int i = 0; i < pieces.length; i++)
+                if (peerPieces.getBit(i))
+                    ++avail[i];
+        }
+
+        return avail;
+    }
 }

@@ -1397,7 +1397,8 @@ public class TorrentTaskService extends Service
                 task.getNumDownloadedPieces(),
                 task.getShareRatio(),
                 task.getActiveTime(),
-                task.getSeedingTime());
+                task.getSeedingTime(),
+                task.getAvailability());
     }
 
     public TorrentMetaInfo getTorrentMetaInfo(String id)
