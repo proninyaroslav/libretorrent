@@ -195,7 +195,7 @@ public class DetailTorrentStateFragment extends Fragment
         textViewSeeds.setText(String.format(seedsTemplate, advanceState.seeds, advanceState.totalSeeds));
 
         String peersTemplate = activity.getString(R.string.torrent_peers_template);
-        int leechers = basicState.peers - advanceState.seeds;
+        int leechers = Math.abs(basicState.peers - advanceState.seeds);
         int totalLeechers = basicState.totalPeers - advanceState.totalSeeds;
         textViewLeechers.setText(
                 String.format(peersTemplate, leechers, totalLeechers));
