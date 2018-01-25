@@ -6,6 +6,7 @@
     <string name="yes">Taip</string>
     <string name="no">Ne</string>
     <string name="error">Klaida</string>
+    <string name="warning">Įspėjimas</string>
     <string name="shutdown">Išjungti</string>
     <string name="replace">Pakeisti</string>
     <string name="add">Pridėti</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">Parsisiuntimas</string>
     <string name="speed_limit_dialog">Nustatyti greitį KiB/s (0 - be ribų)</string>
     <string name="torrent_added_date">Pridėta</string>
+    <string name="torrent_availability">Prieinamumas</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>
@@ -287,6 +289,12 @@
     <string name="pref_auto_manage_title">Automatinis valdymas</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Pasirinktinis akumuliatoriaus procentas</string>
+    <string name="pref_custom_battery_control_value_title">Akumuliatoriaus valdymo procentas</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Nustatykite pasirinktinį procentą, norėdami pristabdyti atsisiuntimą, jei baterija nukrenta žemiau nurodytos ribos. Įjungus tai bus ignoruojama numatytoji %1$d%% riba</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Nustatyti pasirinktinį baterijos procentą paraiškoje turės neigiamos įtakos baterija, o parsisiųsti įvyksta. Ar tikrai norite tai padaryti?</string>
+    <string name="pref_keep_alive_title">Darbas fone</string>
+    <string name="pref_keep_alive_summary">Jei įjungta, programa bus paleista fone. Išjungimas, kai atsisiuntimai užpildyti, vis tiek laikomasi</string>
     <string name="pref_autostart_title">Automatinis paleidimas</string>
     <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>
     <string name="pref_wifi_only_title">Tik Wi-Fi</string>

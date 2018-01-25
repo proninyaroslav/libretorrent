@@ -344,7 +344,7 @@
     <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
     <string name="pref_power_management_category">Power management</string>
     <string name="pref_keep_alive_title">Keep alive</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected.</string>
+    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
     <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
     <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
     <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
@@ -352,10 +352,10 @@
     <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
     <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
     <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_custom_battery_control_title">Unlock battery control</string>
+    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
     <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
     <string name="pref_battery_control_summary" formatted="false">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold.</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy settings</string>

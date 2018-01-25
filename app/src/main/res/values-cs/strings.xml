@@ -7,6 +7,7 @@
     <string name="no">Ne</string>
     <string name="error">Chyba</string>
     <string name="shutdown">Vypnout</string>
+    <string name="warning">Varování</string>
     <string name="replace">Nahradit</string>
     <string name="add">Přidat</string>
     <string name="delete">Smazat</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">Stahování</string>
     <string name="speed_limit_dialog">Nastavit rychlost v KiB/s (0 - bez limitu)</string>
     <string name="torrent_added_date">Přidal</string>
+    <string name="torrent_availability">Dostupnost</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>
@@ -308,6 +310,12 @@
         <item>Přidat torrent</item>
     </string-array>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Vlastní procento baterie</string>
+    <string name="pref_custom_battery_control_value_title">Procento kontroly baterie</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Nastavte vlastní procentuální poměr pro pozastavení stahování, pokud baterie klesne pod danou hranici. Povolením tohoto nastavení bude ignorována výchozí mezní hodnota %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Nastavení procentního podílu vlastní baterie pro aplikaci bude mít negativní dopad na životnost baterie při stahování. Opravdu chcete tuto možnost povolit?</string>
+    <string name="pref_keep_alive_title">Pracovat na pozadí</string>
+    <string name="pref_keep_alive_summary">Je-li tato funkce povolena, aplikace zůstane na pozadí spuštěna. Vypnutí při dokončení stahování je stále respektováno</string>
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Spustit aplikaci po spuštění systému</string>
     <string name="pref_wifi_only_title">Pouze Wi-Fi</string>

@@ -6,6 +6,7 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="error">错误</string>
+    <string name="warning">Warning</string>
     <string name="shutdown">退出</string>
     <string name="replace">替换</string>
     <string name="add">添加</string>
@@ -246,6 +247,7 @@
     <string name="download_speed">下载速度</string>
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
     <string name="torrent_added_date">Added</string>
+    <string name="torrent_availability">Availability</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
@@ -290,6 +292,12 @@
     <string name="pref_auto_manage_title">Auto manage</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
+    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_keep_alive_title">Keep alive</string>
+    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
     <string name="pref_wifi_only_title">Wi-Fi only</string>

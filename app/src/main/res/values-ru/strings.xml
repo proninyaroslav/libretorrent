@@ -5,6 +5,7 @@
     <string name="cancel">Отменить</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="warning">Предупреждение</string>
     <string name="error">Ошибка</string>
     <string name="shutdown">Выход</string>
     <string name="replace">Заменить</string>
@@ -224,6 +225,7 @@
     <string name="download_speed">Загрузка</string>
     <string name="speed_limit_dialog">Установите скорость в КБ/с (0 - без ограничений)</string>
     <string name="torrent_added_date">Добавлен</string>
+    <string name="torrent_availability">Доступность</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
@@ -289,6 +291,8 @@
         <item>Добавить торрент</item>
     </string-array>
     <!-- Behavior settings -->
+    <string name="pref_keep_alive_title">Работать в фоне</string>
+    <string name="pref_keep_alive_summary">Если включено, приложение остаётся работать в фоновом режиме. Завершение после окончания загрузок по-прежнему выполняется</string>
     <string name="pref_autostart_title">Автозапуск</string>
     <string name="pref_autostart_summary">Запускать приложение после включения устройства</string>
     <string name="pref_wifi_only_title">Только Wi-Fi</string>
@@ -301,6 +305,10 @@
     <string name="pref_download_and_upload_only_when_charging_title">Загрузка и раздача только во время зарядки</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Если включено, торренты будут загружаться/раздаваться только во время зарядки. Все торренты будут приостановлены, если устройство не заряжается</string>
     <string name="pref_battery_control_title">Контроль заряда аккумулятора</string>
+    <string name="pref_custom_battery_control_title">Заданный процент аккумулятора</string>
+    <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. Включение этого параметра будет игнорировать порог по умолчанию %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Установка нестандартного уровня заряда аккумулятора для приложения будет отрицательно сказываться на времени автономной работы во время загрузки. Вы действительно хотите включить это?</string>
     <string name="pref_battery_control_summary" formatted="false">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. Ограничение не действует во время зарядки</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>

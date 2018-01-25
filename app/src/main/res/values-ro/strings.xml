@@ -5,6 +5,7 @@
     <string name="cancel">Anulare</string>
     <string name="yes">Da</string>
     <string name="no">Nu</string>
+    <string name="warning">Avertizare</string>
     <string name="error">Eroare</string>
     <string name="shutdown">Oprire</string>
     <string name="replace">Înlocuiește</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">Descărcare</string>
     <string name="speed_limit_dialog">Setează viteza în KO/s (0 - nelimitată)</string>
     <string name="torrent_added_date">Adăugat</string>
+    <string name="torrent_availability">Disponibilitate</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiază</string>
@@ -308,6 +310,12 @@
         <item>Adaugă torrent</item>
     </string-array>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Personalizate procentual al bateriei</string>
+    <string name="pref_custom_battery_control_value_title">Procentul de control al bateriei</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Stabiliți un procent personalizat pentru a întrerupe descărcările dacă bateria scade sub pragul dat. Activarea acestui lucru va ignora pragul implicit de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setarea unui procent de baterie personalizat pentru aplicație va avea un impact negativ asupra duratei de viață a bateriei în timp ce descărcările apar. Sigur doriți să activați acest lucru?</string>
+    <string name="pref_keep_alive_title">Lucrați în fundal</string>
+    <string name="pref_keep_alive_summary">Dacă este activată, aplicația va rămâne difuzată în fundal. Oprirea când descărcarea este completă este încă respectată</string>
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Rulează aplicația după pornirea dispozitivului</string>
     <string name="pref_wifi_only_title">Wi-Fi doar</string>

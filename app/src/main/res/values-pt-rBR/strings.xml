@@ -6,6 +6,7 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="error">Erro</string>
+    <string name="warning">Atenção</string>
     <string name="shutdown">Desligar</string>
     <string name="replace">Substituir</string>
     <string name="add">Adicionar</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">Baixar</string>
     <string name="speed_limit_dialog">Colocando velocidade em KiB/s (0 - sem limites)</string>
     <string name="torrent_added_date">Adicionado</string>
+    <string name="torrent_availability">Disponibilidade</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
@@ -287,6 +289,12 @@
     <string name="pref_auto_manage_title">Gerenciamento automático</string>
     <string name="pref_auto_manage_summary">O torrent pode ser retomado ou pausado automaticamente em qualquer ponto. A ativação desta opção pode diminuir a velocidade da pausa/resumo</string>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Percentagem de bateria personalizada</string>
+    <string name="pref_custom_battery_control_value_title">Percentagem de controle de bateria</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Defina uma porcentagem personalizada para fazer uma pausa em downloads se a bateria cair abaixo do limite especificado. Habilitando isso ignorará o limite padrão de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Definir uma porcentagem de bateria personalizada para o aplicativo terá um impacto negativo na vida da bateria enquanto os downloads estão ocorrendo. Tem certeza de que deseja ativar isso?</string>
+    <string name="pref_keep_alive_title">Trabalhar em segundo plano</string>
+    <string name="pref_keep_alive_summary">Se ativado, o aplicativo permanecerá em execução em segundo plano. Desligamento quando os downloads concluídos ainda são respeitados</string>
     <string name="pref_autostart_title">Auto Iniciar</string>
     <string name="pref_autostart_summary">Rodar o aplicativo depois de iniciar o dispositivo</string>
     <string name="pref_wifi_only_title">Wi-Fi apenas</string>

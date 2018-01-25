@@ -6,6 +6,7 @@
     <string name="yes">Ναι</string>
     <string name="no">Όχι</string>
     <string name="error">Σφάλμα</string>
+    <string name="warning">Προειδοποίηση</string>
     <string name="shutdown">Τερματισμός</string>
     <string name="replace">Αντικατάσταση</string>
     <string name="add">Προσθήκη</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">Λήψη</string>
     <string name="speed_limit_dialog">Ορισμός ταχύτητας σε KiB/s (0 - χωρίς όριο)</string>
     <string name="torrent_added_date">Προστέθηκε</string>
+    <string name="torrent_availability">Διαθεσιμότητα</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>
@@ -308,6 +310,12 @@
         <item>Προσθήκη torrent</item>
     </string-array>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Προσαρμοσμένο ποσοστό μπαταρίας</string>
+    <string name="pref_custom_battery_control_value_title">Ποσοστό ελέγχου μπαταρίας</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Ορίστε ένα προσαρμοσμένο ποσοστό για να κάνετε παύση λήψεων σε αν η μπαταρία πέσει κάτω από το συγκεκριμένο όριο. Με την ενεργοποίηση αυτής θα αγνοηθεί το προεπιλεγμένο όριο %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Ρύθμιση ένα ποσοστό προσαρμοσμένο μπαταρία για την αίτηση θα έχει αρνητικό αντίκτυπο στην διάρκεια ζωής της μπαταρίας, ενώ οι λήψεις που συμβαίνουν. Είστε βέβαιοι ότι θέλετε να το ενεργοποιήσετε;</string>
+    <string name="pref_keep_alive_title">Εργαστείτε στο παρασκήνιο</string>
+    <string name="pref_keep_alive_summary">Εάν είναι ενεργοποιημένη, η εφαρμογή θα παραμείνει ενεργή στο παρασκήνιο. Ο τερματισμός λειτουργίας όταν ολοκληρώνονται οι λήψεις εξακολουθεί να τηρείται</string>
     <string name="pref_autostart_title">Αυτόματη εκκίνηση</string>
     <string name="pref_autostart_summary">Εκτέλεση της εφαρμογής μετά την εκκίνηση της συσκευής</string>
     <string name="pref_wifi_only_title">Μόνο Wi-Fi</string>

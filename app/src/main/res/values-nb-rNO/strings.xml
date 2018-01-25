@@ -6,6 +6,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="error">Feil</string>
+    <string name="warning">Advarsel</string>
     <string name="shutdown">Slå av</string>
     <string name="replace">Erstatt</string>
     <string name="add">Legg til</string>
@@ -243,6 +244,7 @@
     <string name="download_speed">↓</string>
     <string name="speed_limit_dialog">Sett hastighet i KiB/s (0 - grenseløs)</string>
     <string name="torrent_added_date">La til</string>
+    <string name="torrent_availability">Tilgjengelighet</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopier</string>
@@ -308,6 +310,12 @@
         <item>Legg til torrent</item>
     </string-array>
     <!-- Behavior settings -->
+    <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
+    <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Aktivering av dette vil ignorere standard %1$d%% grensen</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Hvis du angir et tilpasset batteriprosent for søknaden, vil det ha en negativ innvirkning på batteriets levetid mens nedlastinger oppstår. Er du sikker på at du vil aktivere dette?</string>
+    <string name="pref_keep_alive_title">Arbeid i bakgrunnen</string>
+    <string name="pref_keep_alive_summary">Hvis aktivert, fortsetter programmet å kjøre i bakgrunnen. Nedleggelse når nedlastinger er fullført, respekteres fortsatt</string>
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten</string>
     <string name="pref_wifi_only_title">Bare Wi-Fi</string>
