@@ -287,13 +287,15 @@
     <string name="pref_max_uploads_per_torrent_title">Număr maxim de sloturi de încărcare pe torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Număr minim de sloturi - 2</string>
     <string name="pref_auto_manage_title">Administrare automată</string>
-    <string name="pref_auto_manage_summary">Torrentul poate fi reluat sau pauza automat în orice moment. Activarea acestei opțiuni poate încetini pauza / reluarea</string>
+    <string name="pref_auto_manage_summary">Torrentul poate fi reluat sau pauza automat în orice moment. Activarea acestei opțiuni poate încetini pauza/reluarea</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 nelimitată</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Setări temă</string>
     <string name="pref_theme_title">Temă</string>
     <string-array name="pref_theme_entries">
         <item>Luminos</item>
         <item>Întunecat</item>
+        <item>Negru</item>
     </string-array>
     <string name="pref_notification_category">Setări de notificare</string>
     <string name="pref_torrent_finish_notify_title">Notificare finalizare torrent</string>

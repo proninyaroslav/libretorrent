@@ -291,6 +291,7 @@
     <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
     <string name="pref_auto_manage_title">Auto manage</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 无限大</string>
     <!-- Behavior settings -->
     <string name="pref_custom_battery_control_title">Custom battery percentage</string>
     <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
@@ -307,6 +308,7 @@
     <string-array name="pref_theme_entries">
         <item>Light</item>
         <item>Dark</item>
+        <item>Black</item>
     </string-array>
     <string name="pref_notification_category">通知设置</string>
     <string name="pref_torrent_finish_notify_title">torrent 完成时通知</string>

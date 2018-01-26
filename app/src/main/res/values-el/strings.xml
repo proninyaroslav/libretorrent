@@ -288,12 +288,14 @@
     <string name="pref_max_uploads_per_torrent_summary">Ελάχιστος αριθμός slots - 2</string>
     <string name="pref_auto_manage_title">Αυτόματη διαχείριση</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 χωρίς όριο</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
     <string name="pref_theme_title">Θέμα</string>
     <string-array name="pref_theme_entries">
         <item>Φωτεινό</item>
-        <item>Σκοτεινό</item>    
+        <item>Σκοτεινό</item>
+        <item>Μαύρος</item>
     </string-array>
     <string name="pref_notification_category">Ρυθμίσεις ειδοποίησης</string>
     <string name="pref_torrent_finish_notify_title">Ειδοποίηση τερματισμού torrent</string>

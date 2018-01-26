@@ -288,12 +288,14 @@
     <string name="pref_max_uploads_per_torrent_summary">Minimum antall slot - 2</string>
     <string name="pref_auto_manage_title">Automatisk administrasjon</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 grenseløs</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Draktvalg</string>
     <string name="pref_theme_title">Drakt</string>
     <string-array name="pref_theme_entries">
         <item>Lys</item>
         <item>Mørk</item>
+        <item>Svart</item>
     </string-array>
     <string name="pref_notification_category">Merknadsinnstillinger</string>
     <string name="pref_torrent_finish_notify_title">Merknad ved fullføring av torrent</string>

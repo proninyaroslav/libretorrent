@@ -301,6 +301,7 @@
     <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
     <string name="pref_auto_manage_title">Auto manage</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 without limit</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>

@@ -288,6 +288,7 @@
     <string name="pref_max_uploads_per_torrent_summary">Mindestanzahl von Slots - 2</string>
     <string name="pref_auto_manage_title">Automatisch verwalten</string>
     <string name="pref_auto_manage_summary">Der Torrent kann an jedem Punkt automatisch fortgesetzt oder Pause werden. Die Aktivierung dieser Option kann die Pause/den Lebenslauf verlangsamen</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 unbeschränkt</string>
     <!-- Behavior settings -->
     <string name="pref_custom_battery_control_title">Kundenspezifische Batterie Prozentsatz</string>
     <string name="pref_custom_battery_control_value_title">Prozentsatz der Batteriesteuerung</string>
@@ -304,6 +305,7 @@
     <string-array name="pref_theme_entries">
         <item>Licht</item>
         <item>Dunkel</item>
+        <item>Schwarz</item>
     </string-array>
     <string name="pref_notification_category">Benachrichtigungseinstellungen</string>
     <string name="pref_torrent_finish_notify_title">Torrent abgeschlossen Benachrichtigung</string>

@@ -108,7 +108,6 @@ public class TorrentEngine extends SessionManager
         public static final int DEFAULT_TICK_INTERVAL = 1000;
         public static final int DEFAULT_INACTIVITY_TIMEOUT = 60;
         public static final int MIN_CONNECTIONS_LIMIT = 2;
-        public static final int MIN_UPLOADS_LIMIT = 2;
         public static final int DEFAULT_CONNECTIONS_LIMIT = 200;
         public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
         public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;

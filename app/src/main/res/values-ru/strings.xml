@@ -269,12 +269,14 @@
     <string name="pref_max_uploads_per_torrent_summary">Минимальное количество слотов - 2</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
     <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. Включение этой опции может замедлить паузу/возобновление</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 без ограничений</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Настройки темы</string>
     <string name="pref_theme_title">Тема</string>
     <string-array name="pref_theme_entries">
         <item>Светлая</item>
         <item>Тёмная</item>
+        <item>Чёрная</item>
     </string-array>
     <string name="pref_notification_category">Настройки уведомлений</string>
     <string name="pref_torrent_finish_notify_title">Уведомление о завершении скачивания торрента</string>

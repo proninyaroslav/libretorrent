@@ -287,13 +287,15 @@
     <string name="pref_max_uploads_per_torrent_title">Maximální počet odběrných míst pro torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Minimální počet slotů - 2</string>
     <string name="pref_auto_manage_title">Automaticky spravovat</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_auto_manage_summary">Torrent může být v každém okamžiku obnoven nebo automaticky pokračovat. Povolení této možnosti může zpomalit pozastavení/pokračovat</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 bez limitu</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavení tématu</string>
     <string name="pref_theme_title">Téma</string>
     <string-array name="pref_theme_entries">
         <item>Světlé</item>
         <item>Tmavé</item>
+        <item>Černá</item>
     </string-array>
     <string name="pref_notification_category">Nastavení notifikací</string>
     <string name="pref_torrent_finish_notify_title">Notifikace o dokončení torrentu</string>
