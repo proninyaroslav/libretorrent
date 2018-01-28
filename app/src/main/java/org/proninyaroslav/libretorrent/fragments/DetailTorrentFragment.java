@@ -40,6 +40,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -612,16 +613,16 @@ public class DetailTorrentFragment extends Fragment
 
     public void openFile(String relativePath)
     {
-        if (relativePath == null) {
+        if (relativePath == null)
             return;
-        }
 
         String path = torrent.getDownloadPath() + File.separator + relativePath;
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         /* Give user a choice than to open file (without determining MIME type) */
-        intent.setDataAndType(Uri.fromFile(new File(path)), "*/*");
+        intent.setDataAndType(FileProvider.getUriForFile(activity,
+                activity.getApplicationContext().getPackageName() + ".provider", new File(path)), "*/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(intent, getString(R.string.open_using)));
     }
 
