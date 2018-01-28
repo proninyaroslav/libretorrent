@@ -654,7 +654,7 @@ public class MainFragment extends Fragment
                     R.layout.dialog_about,
                     getString(R.string.ok),
                     getString(R.string.about_changelog),
-                    null,
+                    getString(R.string.about_donate),
                     this);
             aboutDialog.show(getFragmentManager(), TAG_ABOUT_DIALOG);
         }
@@ -1044,7 +1044,11 @@ public class MainFragment extends Fragment
     @Override
     public void onNeutralClicked(@Nullable View v)
     {
-        /* Nothing */
+        if (getFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG) != null) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(getString(R.string.about_donation_page)));
+            startActivity(i);
+        }
     }
 
     private void handleBasicStates(Bundle states)

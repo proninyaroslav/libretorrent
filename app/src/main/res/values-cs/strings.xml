@@ -380,4 +380,5 @@
     <string name="about_title">O LibreTorrent</string>
     <string name="about_description">LibreTorrent je volně dostupný torrent klient pro Android 4+, založený na libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent je volně dostupný software, vydaný podle podmínek GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Seznam změn</string>
+    <string name="about_donate">Darovat</string>
 </resources>

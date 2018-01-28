@@ -380,4 +380,5 @@
     <string name="about_title">Despre LibreTorrent</string>
     <string name="about_description">LibreTorrent este un client gratuit (liber, deschis) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ).\n\nLibreTorrent este software gratuit, lansat sub termenii licenței GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
+    <string name="about_donate">Dona</string>
 </resources>

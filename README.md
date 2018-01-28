@@ -27,6 +27,11 @@ Already implemented features (help is highly desired!):
  - Ability to download sequentially
  - Material Design
  - Tablet optimized UI
+ 
+Donation
+---
+
+See [DONATION.md](DONATION.md)
 
 Translations
 ---

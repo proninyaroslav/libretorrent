@@ -382,4 +382,5 @@
 https://github.com/frostwire/frostwire-jlibtorrent ) 
 lib.\n\nLibreTorrent er fri programvare. gitt ut med GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html </string>
     <string name="about_changelog">Endringslogg</string>
+    <string name="about_donate">Donere</string>
 </resources>
