@@ -243,7 +243,6 @@ public class TorrentEngine extends SessionManager
         loadedMagnets.clear();
         removeListener(innerListener);
         saveSettings();
-        stop();
     }
 
     @Override
