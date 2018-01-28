@@ -17,6 +17,7 @@
     <string name="save">Сохранить</string>
     <string name="install">Установить</string>
     <string name="search">Поиск</string>
+    <string name="not_available">Н/Д</string>
     <string name="elapsed_time_format_d_h_mm">%1$d д. %2$d ч. %3$d м</string>
     <string name="elapsed_time_format_h_mm_ss">%1$d ч. %2$d м. %3$d с</string>
     <string name="elapsed_time_format_mm_ss">%1$d м. %2$d с</string>
@@ -166,7 +167,7 @@
 
     <!-- Detail torrent dialog -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s (%4$d%%)</string>
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступность: %5$s</string>
     <string name="file_priority_normal">Нормальный</string>
     <string name="file_priority_low">Игнорируется</string>
     <string name="file_priority_high">Высокий</string>

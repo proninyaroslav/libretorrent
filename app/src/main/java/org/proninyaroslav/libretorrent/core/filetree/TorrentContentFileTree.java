@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,6 +26,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     private SelectState selected = SelectState.UNSELECTED;
     private FilePriority priority = new FilePriority(FilePriority.Type.IGNORE);
     private long receivedBytes = 0L;
+    private double availability = -1;
 
     public enum SelectState
     {
@@ -195,6 +196,34 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         return size;
     }
 
+    public synchronized void setAvailability(double availability)
+    {
+        this.availability = availability;
+    }
+
+    public double getAvailability()
+    {
+        if (children.size() != 0) {
+            double avail = 0;
+            long size = 0;
+            for (TorrentContentFileTree node : children.values()) {
+                if (node.getFilePriority().getType() == FilePriority.Type.IGNORE)
+                    continue;
+                double childAvail = node.getAvailability();
+                long childSize = node.size();
+                if (childAvail >= 0)
+                    avail += childAvail * childSize;
+                size += childSize;
+            }
+            if (size > 0)
+                availability = avail / size;
+            else
+                availability = -1;
+        }
+
+        return availability;
+    }
+
     @Override
     public String toString()
     {
@@ -203,6 +232,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
                 ", selected=" + selected +
                 ", priority=" + priority +
                 ", receivedBytes=" + receivedBytes +
+                ", availability=" + availability +
                 '}';
     }
 }

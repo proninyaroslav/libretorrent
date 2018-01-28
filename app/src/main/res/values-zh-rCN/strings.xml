@@ -17,6 +17,7 @@
     <string name="save">保存</string>
     <string name="install">安装</string>
     <string name="search">搜索</string>
+    <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 小时 %3$d 分钟</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -181,8 +182,8 @@
 
     <!-- priority • total -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
-    <!-- priority • downloaded/total （percent） -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s （%4$d%%）</string>
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
     <string name="file_priority_normal">正常</string>
     <string name="file_priority_low">未下载</string>
     <string name="file_priority_high">高</string>

@@ -1389,6 +1389,8 @@ public class TorrentTaskService extends Service
             return null;
 
         Torrent torrent = task.getTorrent();
+        int[] piecesAvail = task.getPiecesAvailability();
+
         return new AdvanceStateParcel(
                 torrent.getId(),
                 task.getFilesReceivedBytes(),
@@ -1398,7 +1400,8 @@ public class TorrentTaskService extends Service
                 task.getShareRatio(),
                 task.getActiveTime(),
                 task.getSeedingTime(),
-                task.getAvailability());
+                task.getAvailability(piecesAvail),
+                task.getFilesAvailability(piecesAvail));
     }
 
     public TorrentMetaInfo getTorrentMetaInfo(String id)

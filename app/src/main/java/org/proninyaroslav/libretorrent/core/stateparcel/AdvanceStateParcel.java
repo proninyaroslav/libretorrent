@@ -36,10 +36,11 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
     public int seeds = 0;
     public int downloadedPieces = 0;
     public long[] filesReceivedBytes = new long[0];
-    public double shareRatio = 0.;
+    public double shareRatio = 0.0;
     public long activeTime = 0L;
     public long seedingTime = 0L;
     public double availability = 0.0;
+    public double[] filesAvailability = new double[0];
 
     public AdvanceStateParcel()
     {
@@ -49,7 +50,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
     public AdvanceStateParcel(String torrentId, long[] filesReceivedBytes,
                               int totalSeeds, int seeds, int downloadedPieces,
                               double shareRatio, long activeTime, long seedingTime,
-                              double availability)
+                              double availability, double[] filesAvailability)
     {
         super(torrentId);
 
@@ -62,6 +63,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
         this.activeTime = activeTime;
         this.seedingTime = seedingTime;
         this.availability = availability;
+        this.filesAvailability = filesAvailability;
     }
 
     public AdvanceStateParcel(Parcel source)
@@ -77,6 +79,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
         activeTime = source.readLong();
         seedingTime = source.readLong();
         availability = source.readDouble();
+        filesAvailability = source.createDoubleArray();
     }
 
     @Override
@@ -99,6 +102,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
         dest.writeLong(activeTime);
         dest.writeLong(seedingTime);
         dest.writeDouble(availability);
+        dest.writeDoubleArray(filesAvailability);
     }
 
     public static final Parcelable.Creator<AdvanceStateParcel> CREATOR =
@@ -139,6 +143,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
         result = prime * result + (int) (seedingTime ^ (seedingTime >>> 32));
         long availabilityBits = Double.doubleToLongBits(availability);
         result = prime * result + (int) (availabilityBits ^ (availabilityBits >>> 32));
+        result += Arrays.hashCode(filesAvailability);
 
         return result;
     }
@@ -162,7 +167,8 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
                 shareRatio == state.shareRatio &&
                 activeTime == state.activeTime &&
                 seedingTime == state.seedingTime &&
-                availability == state.availability;
+                availability == state.availability &&
+                Arrays.equals(filesAvailability, state.filesAvailability);
     }
 
     @Override
@@ -178,6 +184,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
                 ", activeTime=" + activeTime +
                 ", seedingTime=" + seedingTime +
                 ", availability=" + availability +
+                ", filesAvailability=" + Arrays.toString(filesAvailability) +
                 '}';
     }
 }

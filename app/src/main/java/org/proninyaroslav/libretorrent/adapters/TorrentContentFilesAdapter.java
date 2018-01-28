@@ -41,6 +41,7 @@ import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class TorrentContentFilesAdapter
         extends BaseFileListAdapter<TorrentContentFilesAdapter.ViewHolder, TorrentContentFileTree>
@@ -114,7 +115,6 @@ public class TorrentContentFilesAdapter
             String received = Formatter.formatFileSize(context, file.getReceivedBytes());
 
             String priority = "";
-
             switch (file.getFilePriority().getType()) {
                 case NORMAL:
                     priority = context.getString(R.string.file_priority_normal);
@@ -129,6 +129,12 @@ public class TorrentContentFilesAdapter
                     priority = context.getString(R.string.file_priority_high);
                     break;
             }
+            double avail = file.getAvailability();
+            String availability;
+            if (avail < 0)
+                availability = context.getString(R.string.not_available);
+            else
+                availability =  String.format(Locale.getDefault(), "%.1f%%", (avail >= 1 ? 100 : avail * 100));
 
             if (file.getSelectState() == TorrentContentFileTree.SelectState.DISABLED) {
                 holder.fileSelected.setVisibility(View.GONE);
@@ -136,9 +142,8 @@ public class TorrentContentFilesAdapter
 
                 String statusTemplate = context.getString(R.string.file_downloading_status_template);
                 holder.fileStatus.setText(
-                        String.format(
-                                statusTemplate, priority,
-                                received, total, progress));
+                        String.format(statusTemplate, priority,
+                                      received, total, progress, availability));
                 holder.fileProgress.setProgress(progress);
             } else {
                 holder.fileSelected.setVisibility(View.VISIBLE);

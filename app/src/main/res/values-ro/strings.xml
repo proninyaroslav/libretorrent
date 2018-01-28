@@ -17,6 +17,7 @@
     <string name="save">Salvează</string>
     <string name="install">Instalează</string>
     <string name="search">Căutare</string>
+    <string name="not_available">Indisponibil</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -180,9 +181,9 @@
     <!-- Detail torrent dialog -->
 
     <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \\u2022 %2$s</string>
-    <!-- priority • downloaded/total (percent) -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \\u2022 %2$s/%3$s (%4$d%%)</string>
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilitate: %5$s</string>
     <string name="file_priority_normal">Normală</string>
     <string name="file_priority_low">Ignoră</string>
     <string name="file_priority_high">Înaltă</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.AnnounceEntry;
@@ -51,6 +52,7 @@ import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -871,36 +873,61 @@ public class TorrentDownload
         return th.swig().max_uploads();
     }
 
-    public double getAvailability()
+    public double getAvailability(int[] piecesAvailability)
     {
-        if (!th.isValid())
-            return 0;
-
-        int[] availability = calcAvailability();
-        if (availability == null)
+        if (piecesAvailability == null || piecesAvailability.length == 0)
             return 0;
 
         int min = Integer.MAX_VALUE;
-        for (int avail : availability)
+        for (int avail : piecesAvailability)
             if (avail < min)
                 min = avail;
 
         int total = 0;
-        for (int avail : availability)
+        for (int avail : piecesAvailability)
             if (avail > 0 && avail > min)
                 ++total;
 
-        return (total / (double)availability.length) + min;
+        return (total / (double)piecesAvailability.length) + min;
     }
 
-    /*
-     * Calc availability for each piece
-     */
-
-    private int[] calcAvailability()
+    public double[] getFilesAvailability(int[] piecesAvailability)
     {
         if (!th.isValid())
-            return null;
+            return new double[0];
+
+        TorrentInfo ti = th.torrentFile();
+        if (ti == null)
+            return new double[0];
+        int numFiles = ti.numFiles();
+        if (numFiles < 0)
+            return new double[0];
+
+        double[] filesAvail = new double[numFiles];
+        if (piecesAvailability == null || piecesAvailability.length == 0) {
+            Arrays.fill(filesAvail, -1);
+
+            return filesAvail;
+        }
+        for (int i = 0; i < numFiles; i++) {
+            Pair<Integer, Integer> filePieces = getFilePieces(i);
+            if (filePieces == null) {
+                filesAvail[i] = -1;
+                continue;
+            }
+            int availablePieces = 0;
+            for (int p = filePieces.first; p <= filePieces.second; p++)
+                availablePieces += (piecesAvailability[p] > 0 ? 1 : 0);
+            filesAvail[i] = (double)availablePieces / (filePieces.second - filePieces.first + 1);
+        }
+
+        return filesAvail;
+    }
+
+    public int[] getPiecesAvailability()
+    {
+        if (!th.isValid())
+            return new int[0];
 
         boolean[] pieces = pieces();
         ArrayList<PeerInfo> peers = getPeers();
@@ -916,5 +943,23 @@ public class TorrentDownload
         }
 
         return avail;
+    }
+
+    public Pair<Integer, Integer> getFilePieces(int fileIndex)
+    {
+        if (!th.isValid())
+            return null;
+
+        TorrentInfo ti = th.torrentFile();
+        if (ti == null)
+            return null;
+        if (fileIndex < 0 || fileIndex >= ti.numFiles())
+            return null;
+        FileStorage fs = ti.files();
+        long fileSize = fs.fileSize(fileIndex);
+        long firstOffset = fs.fileOffset(fileIndex);
+
+        return new Pair<>((int)(firstOffset / ti.pieceLength()),
+                          (int)((firstOffset + fileSize - 1) / ti.pieceLength()));
     }
 }

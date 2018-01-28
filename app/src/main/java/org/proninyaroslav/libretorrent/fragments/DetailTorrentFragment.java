@@ -457,7 +457,8 @@ public class DetailTorrentFragment extends Fragment
                 case FILE_FRAG_POS:
                     DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
                     if (fileFrag != null && advanceStateCache != null)
-                        fileFrag.setFilesReceivedBytes(advanceStateCache.filesReceivedBytes);
+                        fileFrag.updateFiles(advanceStateCache.filesReceivedBytes,
+                                             advanceStateCache.filesAvailability);
                     break;
                 case TRACKERS_FRAG_POS:
                     DetailTorrentTrackersFragment trackersFrag = (DetailTorrentTrackersFragment)adapter.getItem(TRACKERS_FRAG_POS);
@@ -1119,7 +1120,8 @@ public class DetailTorrentFragment extends Fragment
             case FILE_FRAG_POS:
                 DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
                 if (fileFrag != null)
-                    fileFrag.setFilesReceivedBytes(advanceStateCache.filesReceivedBytes);
+                    fileFrag.updateFiles(advanceStateCache.filesReceivedBytes,
+                                         advanceStateCache.filesAvailability);
                 break;
             case PIECES_FRAG_POS:
                 DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);

@@ -298,18 +298,24 @@ public class DetailTorrentFilesFragment extends Fragment
         reloadData();
     }
 
-    public void setFilesReceivedBytes(long[] bytes)
+    public void updateFiles(long[] receivedBytes, double[] availability)
     {
-        if (fileTree == null || bytes == null) {
+        if (fileTree == null)
             return;
-        }
 
         Map<Integer, TorrentContentFileTree> files = TorrentContentFileTreeUtils.getFilesAsMap(fileTree);
-
-        for (int i = 0; i < bytes.length; i++) {
-            TorrentContentFileTree file = files.get(i);
-            if (file != null) {
-                file.setReceivedBytes(bytes[i]);
+        if (receivedBytes != null) {
+            for (int i = 0; i < receivedBytes.length; i++) {
+                TorrentContentFileTree file = files.get(i);
+                if (file != null)
+                    file.setReceivedBytes(receivedBytes[i]);
+            }
+        }
+        if (availability != null) {
+            for (int i = 0; i < availability.length; i++) {
+                TorrentContentFileTree file = files.get(i);
+                if (file != null)
+                    file.setAvailability(availability[i]);
             }
         }
 
