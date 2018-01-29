@@ -229,7 +229,6 @@ public class DetailTorrentFragment extends Fragment
                 connection, Context.BIND_AUTO_CREATE);
         LocalBroadcastManager.getInstance(activity)
                 .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
-        startUpdateTorrentState();
     }
 
     @Override
@@ -397,7 +396,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void initFragments()
     {
-        if (!isAdded())
+        if (!isAdded() || adapter.getCount() > 0)
             return;
 
         DetailTorrentInfoFragment fragmentInfo = DetailTorrentInfoFragment.newInstance(torrent, infoCache);
