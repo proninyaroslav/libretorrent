@@ -359,7 +359,7 @@
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>
+    <string name="about_website">Больше информации, а также помочь проекту: https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent - свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ).\n\nLibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Изменения</string>
-    <string name="about_donate">Пожертвовать</string>
 </resources>

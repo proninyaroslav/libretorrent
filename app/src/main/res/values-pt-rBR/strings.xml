@@ -379,7 +379,7 @@
 
     <!-- About dialog -->
     <string name="about_title">Sobre o LibreTorrent</string>
+    <string name="about_website">Mais Informações e também para ajudar o projeto: https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent é um cliente torrent Free as in Freedom para Android 4+, baseado na biblioteca libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ).\n\nLibreTorrent é software livre, lançado sob os termos da GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
-    <string name="about_donate">Doar</string>
 </resources>

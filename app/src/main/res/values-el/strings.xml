@@ -378,7 +378,7 @@
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>
+    <string name="about_website">Περισσότερες πληροφορίες και επίσης να βοηθήσει το έργο: https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">Το LibreTorrent είναι ένας ελεύθερος πελάτης torrent για Android 4+, βασισμένο στο libtorrent (πακέτο για Java: frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ). \n\nΤο LibreTorrent είναι ελεύθερο λογισμικό και διατίθεται υπό τους όρους της Γενικής Άδειας Δημόσιας Χρήσης GNU, έκδοση 3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Αρχείο αλλαγών</string>
-    <string name="about_donate">Δωρίζω</string>
 </resources>

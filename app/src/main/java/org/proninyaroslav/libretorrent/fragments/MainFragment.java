@@ -386,14 +386,6 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState)
     {
         outState.putParcelable(TAG_PREV_IMPL_INTENT, prevImplIntent);
@@ -654,7 +646,7 @@ public class MainFragment extends Fragment
                     R.layout.dialog_about,
                     getString(R.string.ok),
                     getString(R.string.about_changelog),
-                    getString(R.string.about_donate),
+                    null,
                     this);
             aboutDialog.show(getFragmentManager(), TAG_ABOUT_DIALOG);
         }
@@ -1044,11 +1036,7 @@ public class MainFragment extends Fragment
     @Override
     public void onNeutralClicked(@Nullable View v)
     {
-        if (getFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG) != null) {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(getString(R.string.about_donation_page)));
-            startActivity(i);
-        }
+        /* Nothing */
     }
 
     private void handleBasicStates(Bundle states)

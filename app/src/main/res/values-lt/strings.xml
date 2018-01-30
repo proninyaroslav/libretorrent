@@ -377,7 +377,7 @@
 
     <!-- About dialog -->
     <string name="about_title">Apie LibreTorrent</string>
+    <string name="about_website">Daugiau informacijos ir taip pat padėti projektą: https://github.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent yra laisvas kaip pati laisvė torrentų klientas Android 4+, paremtas libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent yra nemokama programa, išleista pagal GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Pakeitimų žurnalas</string>
-    <string name="about_donate">Aukoti</string>
 </resources>

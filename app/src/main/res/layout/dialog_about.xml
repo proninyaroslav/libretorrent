@@ -37,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
             android:autoLink="web"
             android:text="@string/about_website"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
