@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- NOTE: this file has sadly to be duplicated across application IDs,
+     as using a resource for targetPackage does not work -->
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_add"
+        android:shortcutDisabledMessage="@string/error_io_torrent"
+        android:shortcutId="addTorrent"
+        android:shortcutLongLabel="@string/add_torrent_title"
+        android:shortcutShortLabel="@string/add_torrent_title">
+        <intent
+            android:action="org.proninyaroslav.libretorrent.ADD_SHORTCUT"
+            android:targetClass="org.proninyaroslav.libretorrent.MainActivity"
+            android:targetPackage="org.proninyaroslav.libretorrent.debug" />
+    </shortcut>
+</shortcuts>
