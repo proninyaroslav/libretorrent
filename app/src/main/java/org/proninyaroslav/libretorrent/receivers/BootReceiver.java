@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
@@ -39,8 +40,18 @@ public class BootReceiver extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SettingsManager pref = new SettingsManager(context.getApplicationContext());
             if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
-                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
-                context.startService(new Intent(context, TorrentTaskService.class));
+                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive)) {
+                /*
+                 * Workaround for start service in Android 8+ after BOOT_COMPLETED.
+                 * We have a window of time to get around to calling startForeground() before we get ANR,
+                 * if work is longer than a millisecond but less than a few seconds.
+                 */
+                Intent i = new Intent(context, TorrentTaskService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    context.startForegroundService(i);
+                else
+                    context.startService(i);
+            }
         }
     }
 }
