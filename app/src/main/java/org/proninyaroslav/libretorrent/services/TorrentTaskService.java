@@ -909,17 +909,19 @@ public class TorrentTaskService extends Service
         if (torrents == null)
             return;
 
+        ArrayList<Torrent> loadList = new ArrayList<>();
         for (Torrent torrent : torrents) {
             if (!torrent.isDownloadingMetadata() &&
                     !TorrentUtils.torrentFileExists(getApplicationContext(), torrent.getId())) {
                 Log.e(TAG, "Torrent doesn't exists: " + torrent);
                 makeTorrentErrorNotify(torrent.getName(), getString(R.string.torrent_does_not_exists_error));
                 repo.delete(torrent);
-                torrents.remove(torrent);
+            } else {
+                loadList.add(torrent);
             }
         }
 
-        TorrentEngine.getInstance().restoreDownloads(torrents);
+        TorrentEngine.getInstance().restoreDownloads(loadList);
     }
 
     public synchronized void addTorrent(Torrent torrent, boolean removeFile) throws Throwable
