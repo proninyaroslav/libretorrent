@@ -280,7 +280,7 @@ public class DetailTorrentInfoFragment extends Fragment
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                name = s.toString();
+                /* Nothing */
             }
 
             @Override
@@ -331,6 +331,7 @@ public class DetailTorrentInfoFragment extends Fragment
         } else {
             layoutTorrentName.setErrorEnabled(false);
             layoutTorrentName.setError(null);
+            name = s.toString();
         }
     }
 
