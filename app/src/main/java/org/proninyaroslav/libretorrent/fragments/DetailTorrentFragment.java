@@ -548,7 +548,6 @@ public class DetailTorrentFragment extends Fragment
             if (!name.equals(torrent.getName())) {
                 service.setTorrentName(torrentId, name);
                 torrent.setName(name);
-                infoFrag.setTorrentName(name);
             }
 
             if (!path.equals(torrent.getDownloadPath())) {
