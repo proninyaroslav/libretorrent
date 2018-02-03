@@ -226,26 +226,7 @@ public class TorrentTaskService extends Service
     {
         super.onDestroy();
 
-        stopWatchDir();
-        setKeepCpuAwake(false);
-        stopUpdateForegroundNotify();
-        TorrentEngine.getInstance().stop();
-
-        if (powerReceiverRegistered) {
-            powerReceiverRegistered = false;
-            unregisterReceiver(powerReceiver);
-        }
-        if (wifiReceiverRegistered) {
-            wifiReceiverRegistered = false;
-            unregisterReceiver(wifiReceiver);
-        }
-        isAlreadyRunning = false;
-        repo = null;
-        pref.unregisterOnTrayPreferenceChangeListener(this);
-        pref = null;
-
         cleanTemp();
-
         Log.i(TAG, "Stop " + TorrentTaskService.class.getSimpleName());
     }
 
@@ -267,6 +248,23 @@ public class TorrentTaskService extends Service
 
     private void stopService()
     {
+        stopWatchDir();
+        setKeepCpuAwake(false);
+        stopUpdateForegroundNotify();
+        TorrentEngine.getInstance().stop();
+        if (powerReceiverRegistered) {
+            powerReceiverRegistered = false;
+            unregisterReceiver(powerReceiver);
+        }
+        if (wifiReceiverRegistered) {
+            wifiReceiverRegistered = false;
+            unregisterReceiver(wifiReceiver);
+        }
+        isAlreadyRunning = false;
+        pref.unregisterOnTrayPreferenceChangeListener(this);
+        repo = null;
+        pref = null;
+
         stopForeground(true);
         stopSelf();
     }
