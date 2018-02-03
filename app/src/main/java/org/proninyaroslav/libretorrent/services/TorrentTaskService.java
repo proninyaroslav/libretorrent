@@ -1545,7 +1545,7 @@ public class TorrentTaskService extends Service
         public void run()
         {
             if (isAlreadyRunning) {
-                boolean online = TorrentEngine.getInstance().isListening();
+                boolean online = TorrentEngine.getInstance().isConnected();
                 if (isNetworkOnline != online) {
                     isNetworkOnline = online;
                     needsUpdateNotify.set(true);
