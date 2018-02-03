@@ -333,8 +333,8 @@ public class TorrentEngine extends SessionManager
                 loadTask.putMagnet(torrent.getTorrentFilePath(), new File(torrent.getTorrentFilePath()));
             } else {
                 TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
-                List<Priority>  priorities = torrent.getFilePriorities();
-                if (priorities.size() != ti.numFiles()) {
+                List<Priority> priorities = torrent.getFilePriorities();
+                if (priorities == null || priorities.size() != ti.numFiles()) {
                     if (callback != null)
                         callback.onRestoreSessionError(torrent.getId());
                     continue;
@@ -389,7 +389,7 @@ public class TorrentEngine extends SessionManager
 
         TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
         List<Priority> priorities = torrent.getFilePriorities();
-        if (priorities.size() != ti.numFiles())
+        if (priorities == null || priorities.size() != ti.numFiles())
             throw new IllegalArgumentException("File count doesn't match: " + torrent.getName());
 
         TorrentDownload task = torrentTasks.get(torrent.getId());

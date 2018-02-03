@@ -100,7 +100,7 @@ public class TorrentStorage
     {
         String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), bencode);
         if (newPath == null || newPath.isEmpty())
-            return false;
+            throw new IOException("Unable to create file");
         torrent.setTorrentFilePath(newPath);
 
         return insert(torrent) >= 0;
@@ -366,6 +366,9 @@ public class TorrentStorage
     @NonNull
     private String prioritiesToString(List<Priority> priorities)
     {
+        if (priorities == null || priorities.size() == 0)
+            return "";
+
         List<Integer> val = new ArrayList<>(priorities.size());
         for (int i = 0; i < priorities.size(); i++)
             val.add(priorities.get(i).swig());

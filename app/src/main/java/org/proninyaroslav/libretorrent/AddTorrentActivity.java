@@ -47,7 +47,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private static final String TAG_SPINNER_PROGRESS = "spinner_progress";
 
     public static final String TAG_URI = "uri";
-    public static final String TAG_RESULT_TORRENT = "result_bundle";
+    public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
 
     private AddTorrentFragment addTorrentFragment;
     private SpinnerProgressDialog progress;
@@ -133,10 +133,10 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         if (code == ResultCode.OK) {
             /* If add torrent dialog has been called by an implicit intent */
-            if (getIntent().getData() != null && intent.hasExtra(TAG_RESULT_TORRENT)) {
+            if (getIntent().getData() != null && intent.hasExtra(TAG_ADD_TORRENT_PARAMS)) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra(TAG_RESULT_TORRENT, intent.getParcelableExtra(TAG_RESULT_TORRENT));
+                i.putExtra(TAG_ADD_TORRENT_PARAMS, intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
                 startActivity(i);
             } else {
                 setResult(RESULT_OK, intent);

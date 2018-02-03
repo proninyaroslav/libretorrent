@@ -63,6 +63,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
@@ -924,16 +925,23 @@ public class TorrentTaskService extends Service
         TorrentEngine.getInstance().restoreDownloads(loadList);
     }
 
-    public synchronized void addTorrent(Torrent torrent, boolean removeFile) throws Throwable
+    public synchronized void addTorrent(AddTorrentParams params, boolean removeFile) throws Throwable
     {
-        if (torrent == null)
+        if (params == null)
             return;
 
-        if (torrent.isDownloadingMetadata()) {
+        Torrent torrent = new Torrent(params.getSha1hash(), params.getName(), params.getFilePriorities(),
+                                      params.getPathToDownload(), System.currentTimeMillis());
+        torrent.setTorrentFilePath(params.getSource());
+        torrent.setSequentialDownload(params.isSequentialDownload());
+        torrent.setPaused(params.addPaused());
+
+        if (params.fromMagnet()) {
             byte[] bencode = TorrentEngine.getInstance().getLoadedMagnet(torrent.getId());
             TorrentEngine.getInstance().removeLoadedMagnet(torrent.getId());
             if (!repo.exists(torrent)) {
                 if (bencode == null) {
+                    torrent.setDownloadingMetadata(true);
                     repo.add(torrent);
                 } else {
                     torrent.setDownloadingMetadata(false);
@@ -950,19 +958,18 @@ public class TorrentTaskService extends Service
         } else {
             throw new FileNotFoundException(torrent.getTorrentFilePath());
         }
+        torrent = repo.getTorrentByID(torrent.getId());
+        if (torrent == null)
+            throw new IOException("torrent is null");
         if (!torrent.isDownloadingMetadata()) {
-            torrent = repo.getTorrentByID(torrent.getId());
-            if (torrent == null)
-                return;
             if (pref.getBoolean(getString(R.string.pref_key_save_torrent_files),
                                 SettingsManager.Default.saveTorrentFiles))
                 saveTorrentFileIn(torrent, pref.getString(getString(R.string.pref_key_save_torrent_files_in),
                                                           torrent.getDownloadPath()));
         }
         if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentDataExists(getApplicationContext(), torrent.getId())) {
-            Log.e(TAG, "Torrent doesn't exists: " + torrent.getName());
             repo.delete(torrent);
-            return;
+            throw new FileNotFoundException("Torrent doesn't exists: " + torrent.getName());
         }
 
         TorrentEngine.getInstance().download(torrent);
@@ -1959,17 +1966,17 @@ public class TorrentTaskService extends Service
         ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(ti.files().numFiles(),Priority.NORMAL));
         String downloadPath = pref.getString(getString(R.string.pref_key_save_torrents_in),
                                              SettingsManager.Default.saveTorrentsIn);
-        Torrent torrent = new Torrent(ti.infoHash().toHex(), file.getAbsolutePath(), ti.name(),
-                                      priorities, downloadPath, System.currentTimeMillis());
-        if (isAllFilesTooBig(torrent, ti)) {
+        AddTorrentParams params = new AddTorrentParams(file.getAbsolutePath(), false, ti.infoHash().toHex(),
+                                                       ti.name(), priorities, downloadPath, false, false);
+        if (isAllFilesTooBig(downloadPath, ti)) {
             makeTorrentErrorNotify(file.getName(), getString(R.string.error_free_space));
             return;
         }
         try {
-            addTorrent(torrent, true);
+            addTorrent(params, true);
         } catch (Throwable e) {
             if (e instanceof FileAlreadyExistsException) {
-                makeTorrentInfoNotify(torrent.getName(), getString(R.string.torrent_exist));
+                makeTorrentInfoNotify(params.getName(), getString(R.string.torrent_exist));
                 return;
             }
             Log.e(TAG, Log.getStackTraceString(e));
@@ -1980,12 +1987,12 @@ public class TorrentTaskService extends Service
                 message = getString(R.string.error_io_add_torrent);
             else
                 message = getString(R.string.error_add_torrent);
-            makeTorrentErrorNotify(torrent.getName(), message);
+            makeTorrentErrorNotify(params.getName(), message);
 
             return;
         }
 
-        makeTorrentAddedNotify(torrent.getName());
+        makeTorrentAddedNotify(params.getName());
     }
 
     private void startWatchDir()
@@ -2025,17 +2032,19 @@ public class TorrentTaskService extends Service
         long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
         long filesSize = 0;
         List<Priority> priorities = torrent.getFilePriorities();
-        FileStorage files = ti.files();
-        for (int i = 0; i < priorities.size(); i++)
-            if (priorities.get(i) != Priority.IGNORE)
-                filesSize += files.fileSize(i);
+        if (priorities != null) {
+            FileStorage files = ti.files();
+            for (int i = 0; i < priorities.size(); i++)
+                if (priorities.get(i) != Priority.IGNORE)
+                    filesSize += files.fileSize(i);
+        }
 
         return freeSpace < filesSize;
     }
 
-    private boolean isAllFilesTooBig(Torrent torrent, TorrentInfo ti)
+    private boolean isAllFilesTooBig(String downloadPath, TorrentInfo ti)
     {
-        return FileIOUtils.getFreeSpace(torrent.getDownloadPath()) < ti.totalSize();
+        return FileIOUtils.getFreeSpace(downloadPath) < ti.totalSize();
     }
 
     private void makeNotifyChans(NotificationManager notifyManager)

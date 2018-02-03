@@ -193,28 +193,27 @@ public class TorrentDownload
                 throw new FileNotFoundException("Data dir not found");
 
             File torrentFile = TorrentUtils.createTorrentFile(TorrentStorage.Model.DATA_TORRENT_FILE_NAME, bencode, new File(pathToDir));
-            String pathToTorrent = null;
+            String pathToTorrent;
             if (torrentFile != null && torrentFile.exists())
                 pathToTorrent = torrentFile.getAbsolutePath();
-            TorrentDownload task = TorrentEngine.getInstance().getTask(hash);
-            TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
-            if (task != null) {
-                Torrent torrent = task.getTorrent();
-                long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
-                if (freeSpace < info.torrentSize)
-                    throw new FreeSpaceException("Not enough free space: "
-                            + freeSpace + " free, but torrent size is " + info.torrentSize);
+            else
+                throw new FileNotFoundException("Torrent file not found");
 
-                torrent.setTorrentFilePath(pathToTorrent);
-                torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
-                torrent.setDownloadingMetadata(false);
-                task.setSequentialDownload(torrent.isSequentialDownload());
-                if (torrent.isPaused())
-                    task.pause();
-                else
-                    task.resume();
-                task.setDownloadPath(torrent.getDownloadPath());
-            }
+            TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
+            long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
+            if (freeSpace < info.torrentSize)
+                throw new FreeSpaceException("Not enough free space: "
+                        + freeSpace + " free, but torrent size is " + info.torrentSize);
+
+            torrent.setTorrentFilePath(pathToTorrent);
+            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+            torrent.setDownloadingMetadata(false);
+            setSequentialDownload(torrent.isSequentialDownload());
+            if (torrent.isPaused())
+                pause();
+            else
+                resume();
+            setDownloadPath(torrent.getDownloadPath());
         } catch (Exception e) {
             err = e;
             remove(true);

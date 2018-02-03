@@ -60,7 +60,7 @@ import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
-import org.proninyaroslav.libretorrent.core.Torrent;
+import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
@@ -74,6 +74,7 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
@@ -246,7 +247,7 @@ public class AddTorrentFragment extends Fragment
                     decodeState.get() != State.UNKNOWN &&
                     decodeState.get() != State.ERROR)
             {
-                showFragments(true, true);
+                showFragments(true, decodeState.get() != State.FETCHING_MAGNET);
             }
 
         } else {
@@ -309,7 +310,7 @@ public class AddTorrentFragment extends Fragment
          * http://developer.android.com/intl/ru/reference/android/os/AsyncTask.html
          */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            decodeTask = new TorrentDecodeTask(progressDialogText);
+            decodeTask = new TorrentDecodeTask(this, progressDialogText);
             decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
         } else {
             Handler handler = new Handler(activity.getMainLooper());
@@ -318,7 +319,7 @@ public class AddTorrentFragment extends Fragment
                 @Override
                 public void run()
                 {
-                    decodeTask = new TorrentDecodeTask(progressDialogText);
+                    decodeTask = new TorrentDecodeTask(AddTorrentFragment.this, progressDialogText);
                     decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
                 }
             };
@@ -472,66 +473,68 @@ public class AddTorrentFragment extends Fragment
         }
     };
 
-    private class TorrentDecodeTask extends AsyncTask<Uri, Void, Exception> {
-        String progressDialogText;
+    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Exception> {
+        private final WeakReference<AddTorrentFragment> fragment;
+        private String progressDialogText;
 
-        private TorrentDecodeTask(String progressDialogText)
+        private TorrentDecodeTask(AddTorrentFragment fragment, String progressDialogText)
         {
+            this.fragment = new WeakReference<>(fragment);
             this.progressDialogText = progressDialogText;
         }
 
         @Override
         protected void onPreExecute()
         {
-            if (callback != null) {
-                callback.onPreExecute(progressDialogText);
-            }
+            if (fragment.get() != null && fragment.get().callback != null)
+                fragment.get().callback.onPreExecute(progressDialogText);
         }
 
         @Override
         protected Exception doInBackground(Uri... params)
         {
-            Uri uri = params[0];
+            if (fragment.get() == null)
+                return null;
 
+            Uri uri = params[0];
             try {
                 switch (uri.getScheme()) {
                     case Utils.FILE_PREFIX:
-                        pathToTempTorrent = uri.getPath();
+                        fragment.get().pathToTempTorrent = uri.getPath();
                         break;
                     case Utils.CONTENT_PREFIX:
-                        File contentTmp = FileIOUtils.makeTempFile(activity.getApplicationContext(), ".torrent");
-                        FileIOUtils.copyContentURIToFile(activity.getApplicationContext(), uri, contentTmp);
+                        File contentTmp = FileIOUtils.makeTempFile(fragment.get().activity.getApplicationContext(), ".torrent");
+                        FileIOUtils.copyContentURIToFile(fragment.get().activity.getApplicationContext(), uri, contentTmp);
 
                         if (contentTmp.exists()) {
-                            pathToTempTorrent = contentTmp.getAbsolutePath();
-                            saveTorrentFile = false;
+                            fragment.get().pathToTempTorrent = contentTmp.getAbsolutePath();
+                            fragment.get().saveTorrentFile = false;
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
                         }
                         break;
                     case Utils.MAGNET_PREFIX:
-                        saveTorrentFile = false;
-
-                        if (service != null) {
-                            Snackbar.make(coordinatorLayout,
+                        fragment.get().saveTorrentFile = false;
+                        if (fragment.get().service != null) {
+                            Snackbar.make(fragment.get().coordinatorLayout,
                                     R.string.decode_torrent_fetch_magnet_message,
                                     Snackbar.LENGTH_LONG)
                                     .show();
-                            showFetchMagnetProgress(true);
+                            fragment.get().showFetchMagnetProgress(true);
 
-                            String hash = service.fetchMagnet(uri.toString());
+                            String hash = fragment.get().service.fetchMagnet(uri.toString());
                             if (hash != null)
-                                info = new TorrentMetaInfo(hash, hash);
+                                fragment.get().info = new TorrentMetaInfo(hash, hash);
                         }
                         break;
                     case Utils.HTTP_PREFIX:
                     case Utils.HTTPS_PREFIX:
-                        File httpTmp = FileIOUtils.makeTempFile(activity.getApplicationContext(), ".torrent");
-                        TorrentUtils.fetchByHTTP(activity.getApplicationContext(), uri.toString(), httpTmp);
+                        File httpTmp = FileIOUtils.makeTempFile(fragment.get().activity.getApplicationContext(), ".torrent");
+                        TorrentUtils.fetchByHTTP(fragment.get().activity.getApplicationContext(), uri.toString(), httpTmp);
 
                         if (httpTmp.exists()) {
-                            pathToTempTorrent = httpTmp.getAbsolutePath();
-                            saveTorrentFile = false;
+                            fragment.get().pathToTempTorrent = httpTmp.getAbsolutePath();
+                            fragment.get().saveTorrentFile = false;
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
                         }
@@ -539,10 +542,8 @@ public class AddTorrentFragment extends Fragment
                         break;
                 }
 
-                if (pathToTempTorrent != null) {
-                    info = new TorrentMetaInfo(pathToTempTorrent);
-                }
-
+                if (fragment.get().pathToTempTorrent != null)
+                    fragment.get().info = new TorrentMetaInfo(fragment.get().pathToTempTorrent);
             } catch (Exception e) {
                 return e;
             }
@@ -553,17 +554,19 @@ public class AddTorrentFragment extends Fragment
         @Override
         protected void onPostExecute(Exception e)
         {
-            if (callback != null) {
-                callback.onPostExecute();
-            }
-            handlingException(e);
+            if (fragment.get() == null)
+                return;
 
-            switch (decodeState.get()) {
+            if (fragment.get().callback != null)
+                fragment.get().callback.onPostExecute();
+            fragment.get().handlingException(e);
+
+            switch (fragment.get().decodeState.get()) {
                 case DECODE_TORRENT_FILE:
-                    decodeState.set(State.DECODE_TORRENT_COMPLETED);
+                    fragment.get().decodeState.set(State.DECODE_TORRENT_COMPLETED);
                     break;
                 case FETCHING_HTTP:
-                    decodeState.set(State.FETCHING_HTTP_COMPLETED);
+                    fragment.get().decodeState.set(State.FETCHING_HTTP_COMPLETED);
                     break;
             }
 
@@ -571,7 +574,7 @@ public class AddTorrentFragment extends Fragment
                 return;
             }
 
-            showFragments(true, decodeState.get() != State.FETCHING_MAGNET);
+            fragment.get().showFragments(true, fragment.get().decodeState.get() != State.FETCHING_MAGNET);
         }
     }
 
@@ -690,28 +693,18 @@ public class AddTorrentFragment extends Fragment
     {
         AddTorrentFilesFragment fileFrag = (AddTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
         AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment) adapter.getItem(INFO_FRAG_POS);
-
-        if (infoFrag == null || info == null) {
+        if (infoFrag == null || info == null)
             return;
-        }
 
         String downloadDir = infoFrag.getDownloadDir();
         String torrentName = infoFrag.getTorrentName();
+        if (TextUtils.isEmpty(torrentName))
+            return;
         boolean sequentialDownload = infoFrag.isSequentialDownload();
         boolean startTorrent = infoFrag.startTorrent();
         ArrayList<Integer> selectedIndexes = null;
-
-        if (TextUtils.isEmpty(torrentName)) {
-            return;
-        }
-
-        if (info.fileList.size() == 0 && decodeState.get() != State.FETCHING_MAGNET) {
-            return;
-        }
-
-        if (fileFrag != null) {
+        if (fileFrag != null)
             selectedIndexes = fileFrag.getSelectedFileIndexes();
-        }
 
         if ((selectedIndexes == null || selectedIndexes.size() == 0) &&
                 decodeState.get() != State.FETCHING_MAGNET)
@@ -733,22 +726,21 @@ public class AddTorrentFragment extends Fragment
             return;
         }
 
-        Intent intent = new Intent();
-
-        ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE));
-        if (selectedIndexes != null)
-            for (int index : selectedIndexes)
-                priorities.set(index, Priority.NORMAL);
-
-        Torrent torrent = new Torrent(info.sha1Hash, torrentName, priorities,
-                                      downloadDir, System.currentTimeMillis());
-        torrent.setSequentialDownload(sequentialDownload);
-        torrent.setPaused(!startTorrent);
-        torrent.setTorrentFilePath(pathToTempTorrent == null && fromMagnet ? uri.toString() : pathToTempTorrent);
-        torrent.setDownloadingMetadata(fromMagnet);
+        ArrayList<Priority> priorities = null;
+        if (info.fileList.size() != 0) {
+            priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE));
+            if (selectedIndexes != null)
+                for (int index : selectedIndexes)
+                    priorities.set(index, Priority.NORMAL);
+        }
+        String source = (pathToTempTorrent == null && fromMagnet ? uri.toString() : pathToTempTorrent);
+        AddTorrentParams params = new AddTorrentParams(source, fromMagnet, info.sha1Hash,
+                                                       torrentName, priorities, downloadDir,
+                                                       sequentialDownload, !startTorrent);
         saveTorrentFile = true;
 
-        intent.putExtra(AddTorrentActivity.TAG_RESULT_TORRENT, torrent);
+        Intent intent = new Intent();
+        intent.putExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS, params);
         finish(intent, FragmentCallback.ResultCode.OK);
     }
 

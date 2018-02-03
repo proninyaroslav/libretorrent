@@ -79,6 +79,7 @@ import org.proninyaroslav.libretorrent.*;
 import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
+import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
@@ -163,7 +164,7 @@ public class MainFragment extends Fragment
      * Torrents are added to the queue, if the client is not bounded to service.
      * Trying to add torrents will be made at the first connect.
      */
-    private HashSet<Torrent> addTorrentsQueue = new HashSet<>();
+    private HashSet<AddTorrentParams> addTorrentsQueue = new HashSet<>();
     SettingsManager pref;
     private Throwable sentError;
 
@@ -295,16 +296,16 @@ public class MainFragment extends Fragment
 
         Intent i = activity.getIntent();
         /* If add torrent dialog has been called by an implicit intent */
-        if (i != null && i.hasExtra(AddTorrentActivity.TAG_RESULT_TORRENT)) {
+        if (i != null && i.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS)) {
             if (prevImplIntent == null || !prevImplIntent.equals(i)) {
                 prevImplIntent = i;
-                Torrent torrent = i.getParcelableExtra(AddTorrentActivity.TAG_RESULT_TORRENT);
-                if (torrent != null) {
+                AddTorrentParams params = i.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
+                if (params != null) {
                     if (!bound || service == null) {
-                        addTorrentsQueue.add(torrent);
+                        addTorrentsQueue.add(params);
                     } else {
                         try {
-                            service.addTorrent(torrent, false);
+                            service.addTorrent(params, false);
                         } catch (Throwable e) {
                             Log.e(TAG, Log.getStackTraceString(e));
                             addTorrentError(e);
@@ -418,9 +419,9 @@ public class MainFragment extends Fragment
 
             handleBasicStates(MainFragment.this.service.makeBasicStatesList());
             if (!addTorrentsQueue.isEmpty()) {
-                for (Torrent torrent : addTorrentsQueue) {
+                for (AddTorrentParams params : addTorrentsQueue) {
                     try {
-                        MainFragment.this.service.addTorrent(torrent, false);
+                        MainFragment.this.service.addTorrent(params, false);
                     } catch (Throwable e) {
                         Log.e(TAG, Log.getStackTraceString(e));
                         addTorrentError(e);
@@ -1226,14 +1227,14 @@ public class MainFragment extends Fragment
                 break;
             case ADD_TORRENT_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.hasExtra(AddTorrentActivity.TAG_RESULT_TORRENT)) {
-                        Torrent torrent = data.getParcelableExtra(AddTorrentActivity.TAG_RESULT_TORRENT);
-                        if (torrent != null) {
+                    if (data.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS)) {
+                        AddTorrentParams params = data.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
+                        if (params != null) {
                             if (!bound || service == null) {
-                                addTorrentsQueue.add(torrent);
+                                addTorrentsQueue.add(params);
                             } else {
                                 try {
-                                    service.addTorrent(torrent, false);
+                                    service.addTorrent(params, false);
                                 } catch (Throwable e) {
                                     Log.e(TAG, Log.getStackTraceString(e));
                                     addTorrentError(e);
