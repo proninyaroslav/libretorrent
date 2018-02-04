@@ -722,11 +722,11 @@ public class TorrentTaskService extends Service
                     if (wifiOnly)
                         pause = !Utils.isWifiEnabled(context);
                     if (onlyCharging)
-                        pause &= !Utils.isBatteryCharging(context);
+                        pause |= !Utils.isBatteryCharging(context);
                     if (customBatteryControl)
-                        pause &= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+                        pause |= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
                     else if (batteryControl)
-                        pause &= Utils.isBatteryLow(context);
+                        pause |= Utils.isBatteryLow(context);
                     if (pause) {
                         pauseTorrents.set(true);
                         TorrentEngine.getInstance().pauseAll();
