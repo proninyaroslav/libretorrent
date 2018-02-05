@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
@@ -42,13 +42,11 @@ public class WifiReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         String action = intent.getAction();
-        if (action != null && action.equals((WifiManager.WIFI_STATE_CHANGED_ACTION))) {
-            Context appContext = context.getApplicationContext();
-            ConnectivityManager manager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (manager != null) {
-                NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                Intent serviceIntent = new Intent(appContext, TorrentTaskService.class);
-                serviceIntent.setAction(wifi.isConnected() ? ACTION_WIFI_ENABLED : ACTION_WIFI_DISABLED);
+        if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+            if (info != null && info.getType() == ConnectivityManager.TYPE_WIFI) {
+                Intent serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
+                serviceIntent.setAction(info.isConnected() ? ACTION_WIFI_ENABLED : ACTION_WIFI_DISABLED);
                 context.startService(serviceIntent);
             }
         }
@@ -56,6 +54,6 @@ public class WifiReceiver extends BroadcastReceiver
 
     public static IntentFilter getFilter()
     {
-        return new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        return new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
     }
 }
