@@ -620,7 +620,7 @@ public class AddTorrentFragment extends Fragment
 
     private synchronized void showFragments(final boolean showInfo, final boolean showFile)
     {
-        if (!isAdded() || adapter == null)
+        if (!isAdded() || adapter == null || info == null)
             return;
 
         if ((showInfo && adapter.getItem(INFO_FRAG_POS) != null) ||
