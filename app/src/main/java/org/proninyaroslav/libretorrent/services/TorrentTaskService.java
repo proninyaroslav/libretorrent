@@ -114,6 +114,7 @@ public class TorrentTaskService extends Service
     private static final int TORRENTS_MOVED_NOTIFICATION_ID = 2;
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
+    public static final String SHUTDOWN_ACTION = "org.proninyaroslav.libretorrent.SHUTDOWN_ACTION";
     private static final int SYNC_TIME = 1000; /* ms */
 
     private boolean isAlreadyRunning;
@@ -177,39 +178,7 @@ public class TorrentTaskService extends Service
         getPackageManager().setComponentEnabledSetting(bootReceiver, autostartState,
                                                        PackageManager.DONT_KILL_APP);
 
-        boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
-                                                 SettingsManager.Default.batteryControl);
-        boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
-                                                 SettingsManager.Default.customBatteryControl);
-        int customBatteryControlValue = pref.getInt(getString(
-                R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
-        boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
-                                               SettingsManager.Default.onlyCharging);
-        boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
-                                           SettingsManager.Default.wifiOnly);
-
-        if(customBatteryControl) {
-            registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
-            powerReceiverRegistered = true;
-        } else if (batteryControl || onlyCharging) {
-            registerReceiver(powerReceiver, PowerReceiver.getFilter());
-            powerReceiverRegistered = true;
-        }
-        if (wifiOnly) {
-            registerReceiver(wifiReceiver, WifiReceiver.getFilter());
-            wifiReceiverRegistered = true;
-        }
-
-        boolean pause = false;
-        if (wifiOnly)
-            pause = !Utils.isWifiEnabled(context);
-        if (onlyCharging)
-            pause |= !Utils.isBatteryCharging(context);
-        if (customBatteryControl)
-            pause |= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-        else if (batteryControl)
-            pause |= Utils.isBatteryLow(context);
-        pauseTorrents.set(pause);
+        checkPauseControl();
 
         if (pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
                             SettingsManager.Default.cpuDoNotSleep))
@@ -248,10 +217,7 @@ public class TorrentTaskService extends Service
 
     private void stopService()
     {
-        stopWatchDir();
-        setKeepCpuAwake(false);
-        stopUpdateForegroundNotify();
-        TorrentEngine.getInstance().stop();
+        pref.unregisterOnTrayPreferenceChangeListener(this);
         if (powerReceiverRegistered) {
             powerReceiverRegistered = false;
             unregisterReceiver(powerReceiver);
@@ -260,8 +226,11 @@ public class TorrentTaskService extends Service
             wifiReceiverRegistered = false;
             unregisterReceiver(wifiReceiver);
         }
+        stopWatchDir();
+        setKeepCpuAwake(false);
+        stopUpdateForegroundNotify();
+        TorrentEngine.getInstance().stop();
         isAlreadyRunning = false;
-        pref.unregisterOnTrayPreferenceChangeListener(this);
         repo = null;
         pref = null;
 
@@ -272,8 +241,19 @@ public class TorrentTaskService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        if (intent == null)
+            return START_NOT_STICKY;
+
+        try {
+            NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            if (manager != null)
+                manager.cancelAll();
+        } catch (SecurityException e) {
+            /* Ignore */
+        }
+
         if (isAlreadyRunning) {
-            if (intent != null && intent.getAction() != null) {
+            if (intent.getAction() != null) {
                 Context context = getApplicationContext();
                 boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
                                                          SettingsManager.Default.batteryControl);
@@ -288,6 +268,7 @@ public class TorrentTaskService extends Service
 
                 switch (intent.getAction()) {
                     case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
+                    case SHUTDOWN_ACTION:
                         new Thread() {
                             @Override
                             public void run()
@@ -295,7 +276,7 @@ public class TorrentTaskService extends Service
                                 stopService();
                             }
                         }.start();
-                        break;
+                        return START_NOT_STICKY;
                     case Intent.ACTION_BATTERY_LOW:
                         if (batteryControl) {
                             boolean pause = true;
@@ -680,59 +661,15 @@ public class TorrentTaskService extends Service
 
         for (TrayItem item : items) {
             if (item.module().equals(SettingsManager.MODULE_NAME)) {
-                Context context = getApplicationContext();
                 if (item.key().equals(getString(R.string.pref_key_battery_control)) ||
                         item.key().equals(getString(R.string.pref_key_custom_battery_control)) ||
                         item.key().equals(getString(R.string.pref_key_custom_battery_control_value)) ||
                         item.key().equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
                         item.key().equals(getString(R.string.pref_key_wifi_only))) {
-
-                    boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
-                                                             SettingsManager.Default.batteryControl);
-                    boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
-                                                             SettingsManager.Default.customBatteryControl);
-                    int customBatteryControlValue = pref.getInt(getString(
-                            R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
-                    boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
-                                                           SettingsManager.Default.onlyCharging);
-                    boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
-                                                       SettingsManager.Default.wifiOnly);
-
-                    boolean registerWifiReceiver = wifiOnly;
-                    boolean registerPowerReceiver = false;
-                    if(powerReceiverRegistered)
-                        unregisterReceiver(powerReceiver);
-                    if(customBatteryControl) {
-                        registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
-                        registerPowerReceiver = true;
-                    } else if(batteryControl || onlyCharging) {
-                        registerReceiver(powerReceiver, PowerReceiver.getFilter());
-                        registerPowerReceiver = true;
-                    }
-
-                    if (registerWifiReceiver && !wifiReceiverRegistered)
-                        registerReceiver(wifiReceiver, WifiReceiver.getFilter());
-                    else if (!registerWifiReceiver && wifiReceiverRegistered)
-                        unregisterReceiver(wifiReceiver);
-
-                    powerReceiverRegistered = registerPowerReceiver;
-                    wifiReceiverRegistered = registerWifiReceiver;
-
-                    boolean pause = false;
-                    if (wifiOnly)
-                        pause = !Utils.isWifiEnabled(context);
-                    if (onlyCharging)
-                        pause |= !Utils.isBatteryCharging(context);
-                    if (customBatteryControl)
-                        pause |= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-                    else if (batteryControl)
-                        pause |= Utils.isBatteryLow(context);
-                    if (pause) {
-                        pauseTorrents.set(true);
+                    if (checkPauseControl())
                         TorrentEngine.getInstance().pauseAll();
-                    } else {
-                        pauseTorrents.set(false);
-                    }
+                    else
+                        TorrentEngine.getInstance().resumeAll();
                 } else if (item.key().equals(getString(R.string.pref_key_max_download_speed))) {
                     TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
                     s.downloadRateLimit = pref.getInt(item.key(), SettingsManager.Default.maxDownloadSpeedLimit);
@@ -860,6 +797,57 @@ public class TorrentTaskService extends Service
                 }
             }
         }
+    }
+
+    /*
+     * Return pause state
+     */
+    private boolean checkPauseControl()
+    {
+        Context context = getApplicationContext();
+        boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
+                SettingsManager.Default.batteryControl);
+        boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
+                SettingsManager.Default.customBatteryControl);
+        int customBatteryControlValue = pref.getInt(getString(
+                R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
+        boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
+                SettingsManager.Default.onlyCharging);
+        boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
+                SettingsManager.Default.wifiOnly);
+
+        boolean registerWifiReceiver = wifiOnly;
+        boolean registerPowerReceiver = false;
+        if (powerReceiverRegistered)
+            unregisterReceiver(powerReceiver);
+        if (customBatteryControl) {
+            registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
+            registerPowerReceiver = true;
+        } else if (batteryControl || onlyCharging) {
+            registerReceiver(powerReceiver, PowerReceiver.getFilter());
+            registerPowerReceiver = true;
+        }
+
+        if (registerWifiReceiver && !wifiReceiverRegistered)
+            registerReceiver(wifiReceiver, WifiReceiver.getFilter());
+        else if (!registerWifiReceiver && wifiReceiverRegistered)
+            unregisterReceiver(wifiReceiver);
+
+        powerReceiverRegistered = registerPowerReceiver;
+        wifiReceiverRegistered = registerWifiReceiver;
+
+        boolean pause = false;
+        if (wifiOnly)
+            pause = !Utils.isWifiEnabled(context);
+        if (onlyCharging)
+            pause |= !Utils.isBatteryCharging(context);
+        if (customBatteryControl)
+            pause |= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+        else if (batteryControl)
+            pause |= Utils.isBatteryLow(context);
+        pauseTorrents.set(pause);
+
+        return pause;
     }
 
     private int getEncryptMode()
@@ -1008,7 +996,7 @@ public class TorrentTaskService extends Service
 
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         try {
-            if (task.isPaused())
+            if (task.isPaused() && !pauseTorrents.get())
                 task.resume();
             else
                 task.pause();

@@ -100,8 +100,11 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
 
         if (isFinishing() && !new SettingsManager(this).getBoolean(getString(R.string.pref_key_keep_alive),
-                                                                   SettingsManager.Default.keepAlive))
-            stopService(new Intent(getApplicationContext(), TorrentTaskService.class));
+                                                                   SettingsManager.Default.keepAlive)) {
+            Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
+            i.setAction(TorrentTaskService.SHUTDOWN_ACTION);
+            startService(i);
+        }
     }
 
     /*
@@ -178,7 +181,9 @@ public class MainActivity extends AppCompatActivity
     {
         switch (code) {
             case OK:
-                stopService(new Intent(getApplicationContext(), TorrentTaskService.class));
+                Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
+                i.setAction(TorrentTaskService.SHUTDOWN_ACTION);
+                startService(i);
                 finish();
                 break;
             case CANCEL:
