@@ -8,8 +8,8 @@ android {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in jlibtorrent */
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
