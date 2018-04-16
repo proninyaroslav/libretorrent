@@ -224,14 +224,12 @@ public class TorrentDownload
 
     private void torrentRemoved()
     {
-        if (callback != null) {
+        if (callback != null)
             callback.onTorrentRemoved(torrent.getId());
-        }
 
-        if (parts != null) {
+        TorrentEngine.getInstance().removeListener(listener);
+        if (parts != null)
             parts.delete();
-        }
-
         finalCleanup(incompleteFilesToRemove);
     }
 
