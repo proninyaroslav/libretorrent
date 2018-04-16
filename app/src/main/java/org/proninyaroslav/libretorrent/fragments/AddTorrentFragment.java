@@ -493,7 +493,7 @@ public class AddTorrentFragment extends Fragment
         @Override
         protected Exception doInBackground(Uri... params)
         {
-            if (fragment.get() == null)
+            if (fragment.get() == null || isCancelled())
                 return null;
 
             Uri uri = params[0];
@@ -506,7 +506,7 @@ public class AddTorrentFragment extends Fragment
                         File contentTmp = FileIOUtils.makeTempFile(fragment.get().activity.getApplicationContext(), ".torrent");
                         FileIOUtils.copyContentURIToFile(fragment.get().activity.getApplicationContext(), uri, contentTmp);
 
-                        if (contentTmp.exists()) {
+                        if (contentTmp.exists() && !isCancelled()) {
                             fragment.get().pathToTempTorrent = contentTmp.getAbsolutePath();
                             fragment.get().saveTorrentFile = false;
                         } else {
@@ -523,7 +523,7 @@ public class AddTorrentFragment extends Fragment
                             fragment.get().showFetchMagnetProgress(true);
 
                             String hash = fragment.get().service.fetchMagnet(uri.toString());
-                            if (hash != null)
+                            if (hash != null && !isCancelled())
                                 fragment.get().info = new TorrentMetaInfo(hash, hash);
                         }
                         break;
@@ -532,7 +532,7 @@ public class AddTorrentFragment extends Fragment
                         File httpTmp = FileIOUtils.makeTempFile(fragment.get().activity.getApplicationContext(), ".torrent");
                         TorrentUtils.fetchByHTTP(fragment.get().activity.getApplicationContext(), uri.toString(), httpTmp);
 
-                        if (httpTmp.exists()) {
+                        if (httpTmp.exists() && !isCancelled()) {
                             fragment.get().pathToTempTorrent = httpTmp.getAbsolutePath();
                             fragment.get().saveTorrentFile = false;
                         } else {
@@ -542,7 +542,7 @@ public class AddTorrentFragment extends Fragment
                         break;
                 }
 
-                if (fragment.get().pathToTempTorrent != null)
+                if (fragment.get().pathToTempTorrent != null && !isCancelled())
                     fragment.get().info = new TorrentMetaInfo(fragment.get().pathToTempTorrent);
             } catch (Exception e) {
                 return e;
@@ -751,6 +751,8 @@ public class AddTorrentFragment extends Fragment
 
     private void finish(Intent intent, FragmentCallback.ResultCode code)
     {
+        if (decodeTask != null)
+            decodeTask.cancel(true);
         ((FragmentCallback) activity).fragmentFinished(intent, code);
     }
 }
