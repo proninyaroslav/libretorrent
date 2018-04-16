@@ -19,13 +19,12 @@
 
 package org.proninyaroslav.libretorrent.core.stateparcel;
 
-import android.support.v4.util.ArrayMap;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
  * Caching packages, based on AbstractStateParcel,
@@ -34,7 +33,7 @@ import java.util.Set;
 
 public class StateParcelCache<T extends AbstractStateParcel>
 {
-    private ArrayMap<String, T> cache = new ArrayMap<>();
+    private ConcurrentHashMap<String, T> cache = new ConcurrentHashMap<>();
 
     public void put(T state)
     {
@@ -72,9 +71,9 @@ public class StateParcelCache<T extends AbstractStateParcel>
         cache.keySet().removeAll(keys);
     }
 
-    public T get(int index)
+    public T get(String key)
     {
-        return cache.valueAt(index);
+        return cache.get(key);
     }
 
     public List<T> getAll()
