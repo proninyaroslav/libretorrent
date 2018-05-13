@@ -681,6 +681,7 @@ public class TorrentTaskService extends Service
                 } else if (item.key().equals(getString(R.string.pref_key_max_connections))) {
                     TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
                     s.connectionsLimit = pref.getInt(item.key(), SettingsManager.Default.maxConnections);
+                    s.maxPeerListSize = s.connectionsLimit;
                     TorrentEngine.getInstance().setSettings(s);
                 } else if (item.key().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
                     TorrentEngine.getInstance().setMaxConnectionsPerTorrent(pref.getInt(item.key(),

@@ -543,7 +543,13 @@ public class TorrentDownload
 
     public int getTotalPeers()
     {
-        return th.isValid() ? th.status().listPeers() : 0;
+        if (!th.isValid())
+            return 0;
+
+        TorrentStatus ts = th.status();
+        int peers = ts.numComplete() + ts.numIncomplete();
+
+        return (peers > 0 ? peers : th.status().listPeers());
     }
 
     public int getTotalSeeds()
