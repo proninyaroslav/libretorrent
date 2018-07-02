@@ -93,6 +93,7 @@ public class TorrentDownload
     private Set<File> incompleteFilesToRemove;
     private File parts;
     private long lastSaveResumeTime;
+    private String name;
 
     public TorrentDownload(Context context,
                            TorrentHandle handle,
@@ -101,6 +102,7 @@ public class TorrentDownload
     {
         this.context = context;
         this.th = handle;
+        this.name = handle.name();
         this.torrent = torrent;
         this.callback = callback;
         TorrentInfo ti = th.torrentFile();
@@ -206,8 +208,10 @@ public class TorrentDownload
                         + freeSpace + " free, but torrent size is " + info.torrentSize);
 
             /* Skip if default name is changed */
-            if (torrent.getName().equals(torrent.getId()))
+            if (torrent.getName().equals(name)) {
+                name = newName;
                 torrent.setName(newName);
+            }
             torrent.setTorrentFilePath(pathToTorrent);
             torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
             torrent.setDownloadingMetadata(false);

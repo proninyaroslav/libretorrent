@@ -25,6 +25,7 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.frostwire.jlibtorrent.AddTorrentParams;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.SessionHandle;
@@ -706,7 +707,7 @@ public class TorrentEngine extends SessionManager
      * Returns sha1hash.
      */
 
-    public String fetchMagnet(String uri) throws Exception
+    public AddTorrentParams fetchMagnet(String uri) throws Exception
     {
         if (uri == null)
             throw new IllegalArgumentException("Magnet link is null");
@@ -739,9 +740,8 @@ public class TorrentEngine extends SessionManager
                 }
 
                 if (add) {
-                    p.setName(uri);
-                    p.setSave_path(uri);
-
+                    if (p.getName().isEmpty())
+                        p.setName(strHash);
                     torrent_flags_t flags = p.getFlags();
                     flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
                     flags = flags.or_(TorrentFlags.UPLOAD_MODE);
@@ -764,13 +764,10 @@ public class TorrentEngine extends SessionManager
             throw new Exception(e);
         }
 
-        if (th.is_valid() && add) {
+        if (th.is_valid() && add)
             magnets.add(strHash);
 
-            return strHash;
-        }
-
-        return null;
+        return new AddTorrentParams(p);
     }
 
     public void cancelFetchMagnet(String infoHash)

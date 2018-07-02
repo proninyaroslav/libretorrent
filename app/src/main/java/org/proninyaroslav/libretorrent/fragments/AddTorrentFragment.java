@@ -522,9 +522,9 @@ public class AddTorrentFragment extends Fragment
                                     .show();
                             fragment.get().showFetchMagnetProgress(true);
 
-                            String hash = fragment.get().service.fetchMagnet(uri.toString());
-                            if (hash != null && !isCancelled())
-                                fragment.get().info = new TorrentMetaInfo(hash, hash);
+                            TorrentMetaInfo info = fragment.get().service.fetchMagnet(uri.toString());
+                            if (info != null && !isCancelled())
+                                fragment.get().info = info;
                         }
                         break;
                     case Utils.HTTP_PREFIX:

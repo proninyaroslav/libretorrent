@@ -1512,9 +1512,14 @@ public class TorrentTaskService extends Service
         return task.getDownloadSpeedLimit();
     }
 
-    public String fetchMagnet(String uri) throws Exception
+    public TorrentMetaInfo fetchMagnet(String uri) throws Exception
     {
-        return TorrentEngine.getInstance().fetchMagnet(uri);
+        com.frostwire.jlibtorrent.AddTorrentParams p = TorrentEngine.getInstance().fetchMagnet(uri);
+        TorrentMetaInfo info = null;
+        if (p != null)
+            info = new TorrentMetaInfo(p.name(), p.infoHash().toHex());
+
+        return info;
     }
 
     /*
