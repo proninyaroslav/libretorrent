@@ -423,8 +423,8 @@
 
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>
-    <string name="about_website">More information and also to help the project: https://github.com/proninyaroslav/libretorrent</string>
+    <string name="about_website">More information and also to help the project: https://gitlab.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
-    <string name="about_changelog_link" translatable="false">https://github.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
+    <string name="about_changelog_link" translatable="false">https://gitlab.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
 </resources>
