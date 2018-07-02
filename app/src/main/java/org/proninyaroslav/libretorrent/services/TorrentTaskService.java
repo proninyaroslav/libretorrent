@@ -142,6 +142,13 @@ public class TorrentTaskService extends Service
     private boolean isNetworkOnline = false;
     private AtomicBoolean isPauseButton = new AtomicBoolean(true);
     private TorrentFileObserver fileObserver;
+    private Thread shutdownThread = new Thread() {
+        @Override
+        public void run()
+        {
+            stopService();
+        }
+    };
 
     public class LocalBinder extends Binder
     {
@@ -269,13 +276,9 @@ public class TorrentTaskService extends Service
                 switch (intent.getAction()) {
                     case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
                     case SHUTDOWN_ACTION:
-                        new Thread() {
-                            @Override
-                            public void run()
-                            {
-                                stopService();
-                            }
-                        }.start();
+                        if (!shutdownThread.isAlive())
+                            shutdownThread.start();
+
                         return START_NOT_STICKY;
                     case Intent.ACTION_BATTERY_LOW:
                         if (batteryControl) {
