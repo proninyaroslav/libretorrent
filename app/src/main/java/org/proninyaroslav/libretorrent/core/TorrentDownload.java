@@ -178,13 +178,13 @@ public class TorrentDownload
                     byte[] bencode = null;
                     if (0 < size && size <= maxSize)
                         bencode = metadataAlert.torrentData(true);
-                    handleMetadata(bencode, hash);
+                    handleMetadata(bencode, hash, metadataAlert.torrentName());
                     break;
             }
         }
     }
 
-    private void handleMetadata(byte[] bencode, String hash)
+    private void handleMetadata(byte[] bencode, String hash, String newName)
     {
         Exception err = null;
         try {
@@ -205,6 +205,9 @@ public class TorrentDownload
                 throw new FreeSpaceException("Not enough free space: "
                         + freeSpace + " free, but torrent size is " + info.torrentSize);
 
+            /* Skip if default name is changed */
+            if (torrent.getName().equals(torrent.getId()))
+                torrent.setName(newName);
             torrent.setTorrentFilePath(pathToTorrent);
             torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
             torrent.setDownloadingMetadata(false);
