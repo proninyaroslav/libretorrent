@@ -112,7 +112,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         EditTextPreference port = (EditTextPreference) findPreference(keyPort);
         port.setEnabled(enableAdvancedSettings);
         InputFilter[] portFilter =
-                new InputFilter[]{new InputFilterMinMax(0, 10000)};
+                new InputFilter[]{new InputFilterMinMax(0, 65535)};
         int portNumber = pref.getInt(keyPort, SettingsManager.Default.proxyPort);
         String portValue = Integer.toString(portNumber);
         port.getEditText().setFilters(portFilter);
