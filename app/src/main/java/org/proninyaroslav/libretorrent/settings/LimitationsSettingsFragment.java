@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
@@ -52,7 +53,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
         InputFilter[] speedFilter = new InputFilter[]{ new InputFilterMinMax(0, Integer.MAX_VALUE) };
         InputFilter[] connectionsFilter = new InputFilter[] {
                 new InputFilterMinMax(TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT, Integer.MAX_VALUE)
@@ -153,14 +154,14 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
 
         if (preference.getKey().equals(getString(R.string.pref_key_max_connections)) ||
             preference.getKey().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
             int value = TorrentEngine.Settings.MIN_CONNECTIONS_LIMIT;
             if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
-            pref.put(preference.getKey(), value);
+            pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(value));
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_upload_speed)) ||
                    preference.getKey().equals(getString(R.string.pref_key_max_download_speed))) {
@@ -170,7 +171,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
                 summary = Integer.parseInt((String) newValue);
                 value = summary * 1024;
             }
-            pref.put(preference.getKey(), value);
+            pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(summary));
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads)) ||
                    preference.getKey().equals(getString(R.string.pref_key_max_active_uploads)) ||
@@ -179,10 +180,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
             int value = 1;
             if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
-            pref.put(preference.getKey(), value);
+            pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(value));
-        } else if (preference.getKey().equals(getString(R.string.pref_key_auto_manage))) {
-            pref.put(preference.getKey(), (boolean) newValue);
         }
 
         return true;

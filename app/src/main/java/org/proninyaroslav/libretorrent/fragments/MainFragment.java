@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
@@ -165,7 +166,7 @@ public class MainFragment extends Fragment
      * Trying to add torrents will be made at the first connect.
      */
     private HashSet<AddTorrentParams> addTorrentsQueue = new HashSet<>();
-    SettingsManager pref;
+    SharedPreferences pref;
     private Throwable sentError;
 
     @Override
@@ -195,7 +196,7 @@ public class MainFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        pref = new SettingsManager(activity);
+        pref = SettingsManager.getPreferences(activity);
         showBlankFragment();
         toolbar = activity.findViewById(R.id.toolbar);
         if (toolbar != null)
@@ -1002,7 +1003,7 @@ public class MainFragment extends Fragment
 
                 if (position != -1 && position < columns.length) {
                     String column = columns[position];
-                    pref.put(activity.getString(R.string.pref_key_sort_torrent_by), column);
+                    pref.edit().putString(activity.getString(R.string.pref_key_sort_torrent_by), column).apply();
                 }
 
                 int radioButtonId = group.getCheckedRadioButtonId();
@@ -1011,7 +1012,7 @@ public class MainFragment extends Fragment
                 if (radioButtonId == R.id.dialog_sort_by_descending) {
                     direction = TorrentSorting.Direction.DESC.name();
                 }
-                pref.put(activity.getString(R.string.pref_key_sort_torrent_direction), direction);
+                pref.edit().putString(activity.getString(R.string.pref_key_sort_torrent_direction), direction).apply();
 
                 if (adapter != null) {
                     adapter.setSorting(new TorrentSortingComparator(

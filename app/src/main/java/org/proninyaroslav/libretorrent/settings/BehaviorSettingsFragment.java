@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.settings;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
@@ -54,7 +55,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        final SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        final SharedPreferences pref = SettingsManager.getPreferences(getActivity());
 
         String keyAutostart = getString(R.string.pref_key_autostart);
         SwitchPreferenceCompat autostart = (SwitchPreferenceCompat) findPreference(keyAutostart);
@@ -100,7 +101,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         customBatteryControlValue.setValue(pref.getInt(keyCustomBatteryControlValue, Utils.getDefaultBatteryLowLevel()));
         customBatteryControlValue.setMin(10);
         customBatteryControlValue.setMax(90);
-        bindOnPreferenceChangeListener(customBatteryControlValue);
 
         String keyWifiOnly = getString(R.string.pref_key_wifi_only);
         SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat) findPreference(keyWifiOnly);
@@ -122,11 +122,9 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(final Preference preference, Object newValue)
     {
-        final SettingsManager pref = new SettingsManager(getActivity().getApplicationContext());
+        final SharedPreferences pref = SettingsManager.getPreferences(getActivity());
 
         if (preference instanceof SwitchPreferenceCompat) {
-            pref.put(preference.getKey(), (boolean) newValue);
-
             if (preference.getKey().equals(getString(R.string.pref_key_autostart))) {
                 int flag = ((boolean) newValue ?
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
@@ -164,27 +162,25 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                             .show();
                 }
             }
-        } else if (preference instanceof SeekBarPreference) {
-            pref.put(preference.getKey(), (int) newValue);
         }
 
         return true;
     }
 
-    private void disableBatteryControl(SettingsManager pref)
+    private void disableBatteryControl(SharedPreferences pref)
     {
         String keyBatteryControl = getString(R.string.pref_key_battery_control);
         SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyBatteryControl);
         batteryControl.setChecked(false);
-        pref.put(batteryControl.getKey(), false);
+        pref.edit().putBoolean(batteryControl.getKey(), false).apply();
         disableCustomBatteryControl(pref);
     }
 
-    private void disableCustomBatteryControl(SettingsManager pref)
+    private void disableCustomBatteryControl(SharedPreferences pref)
     {
         String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
         SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat) findPreference(keyCustomBatteryControl);
         batteryControl.setChecked(false);
-        pref.put(batteryControl.getKey(), false);
+        pref.edit().putBoolean(batteryControl.getKey(), false).apply();
     }
 }

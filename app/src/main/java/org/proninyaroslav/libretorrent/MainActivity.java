@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -99,8 +100,9 @@ public class MainActivity extends AppCompatActivity
     {
         super.onDestroy();
 
-        if (isFinishing() && !new SettingsManager(this).getBoolean(getString(R.string.pref_key_keep_alive),
-                                                                   SettingsManager.Default.keepAlive)) {
+        SharedPreferences pref = SettingsManager.getPreferences(this);
+        if (isFinishing() && !pref.getBoolean(getString(R.string.pref_key_keep_alive),
+                                              SettingsManager.Default.keepAlive)) {
             Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
             i.setAction(TorrentTaskService.SHUTDOWN_ACTION);
             startService(i);

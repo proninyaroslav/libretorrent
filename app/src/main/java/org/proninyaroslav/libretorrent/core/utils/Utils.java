@@ -26,8 +26,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,6 +41,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -51,6 +56,7 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -337,10 +343,9 @@ public class Utils
 
     public static int getTheme(Context context)
     {
-        SettingsManager pref = new SettingsManager(context);
-        
-        int theme = pref.getInt(context.getString(R.string.pref_key_theme),
-                                SettingsManager.Default.theme(context));
+        int theme = SettingsManager.getPreferences(context)
+                .getInt(context.getString(R.string.pref_key_theme),
+                        SettingsManager.Default.theme(context));
 
         return theme;
     }
@@ -357,7 +362,7 @@ public class Utils
 
     public static TorrentSorting getTorrentSorting(Context context)
     {
-        SettingsManager pref = new SettingsManager(context);
+        SharedPreferences pref = SettingsManager.getPreferences(context);
 
         String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
                                        SettingsManager.Default.sortTorrentBy);
@@ -379,5 +384,76 @@ public class Utils
         WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         return manager != null && manager.isWifiEnabled();
+    }
+
+    /*
+     * Migrate from Tray settings database to shared preferences.
+     * TODO: delete after some releases
+     */
+    public static void migrateTray2SharedPreferences(Context context)
+    {
+        final String TAG = "tray2shared";
+        final String migrate_key = "tray2shared_migrated";
+        SharedPreferences pref = SettingsManager.getPreferences(context);
+
+        if (pref.getBoolean(migrate_key, false))
+            return;
+
+        File dbFile = context.getDatabasePath("tray.db");
+        if (dbFile == null || !dbFile.exists()) {
+            Log.w(TAG, "Database not found");
+            pref.edit().putBoolean(migrate_key, true).apply();
+
+            return;
+        }
+        SQLiteDatabase db;
+        try {
+            db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
+        } catch (Exception e) {
+            Log.e(TAG, "Couldn't open database: " + Log.getStackTraceString(e));
+            context.deleteDatabase("tray");
+            pref.edit().putBoolean(migrate_key, true).apply();
+
+            return;
+        }
+        Cursor c = db.query("TrayPreferences",
+                            new String[]{"KEY", "VALUE"},
+                            null,
+                            null,
+                            null,
+                            null,
+                            null);
+        SharedPreferences.Editor edit = pref.edit();
+        Log.i(TAG, "Start migrate");
+        try {
+            int key_i = c.getColumnIndex("KEY");
+            int value_i = c.getColumnIndex("VALUE");
+            while (c.moveToNext()) {
+                String key = c.getString(key_i);
+                String value = c.getString(value_i);
+
+                if (value.equalsIgnoreCase("true")) {
+                    edit.putBoolean(key, true);
+                } else if (value.equalsIgnoreCase("false")) {
+                    edit.putBoolean(key, false);
+                } else {
+                    try {
+                        int number = Integer.parseInt(value);
+                        edit.putInt(key, number);
+                    } catch (NumberFormatException e) {
+                        edit.putString(key, value);
+                    }
+                }
+            }
+            Log.i(TAG, "Migrate completed");
+
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        } finally {
+            c.close();
+            context.deleteDatabase("tray.db");
+            edit.putBoolean(migrate_key, true);
+            edit.apply();
+        }
     }
 }

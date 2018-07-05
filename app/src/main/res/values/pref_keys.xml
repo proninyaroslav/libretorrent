@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="pref_name" translatable="false">org.proninyaroslav.libretorrent.SETTINGS</string>
+
     <!-- Filemanager -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
     <!-- Sorting -->

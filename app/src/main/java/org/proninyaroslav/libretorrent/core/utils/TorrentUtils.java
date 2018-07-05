@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -286,7 +287,7 @@ public class TorrentUtils
 
     public static String getTorrentDownloadPath(Context context)
     {
-        SettingsManager pref = new SettingsManager(context);
+        SharedPreferences pref = SettingsManager.getPreferences(context);
         String path = pref.getString(context.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentsIn);
         if (!TextUtils.isEmpty(path))

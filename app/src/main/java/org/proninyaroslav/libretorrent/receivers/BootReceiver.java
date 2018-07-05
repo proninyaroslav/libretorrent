@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import org.proninyaroslav.libretorrent.R;
@@ -38,7 +39,7 @@ public class BootReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SettingsManager pref = new SettingsManager(context.getApplicationContext());
+            SharedPreferences pref = SettingsManager.getPreferences(context.getApplicationContext());
             if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
                 pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive)) {
                 /*

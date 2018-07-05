@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,6 +28,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.net.Uri;
@@ -55,9 +56,6 @@ import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.TorrentStatus;
 import com.frostwire.jlibtorrent.swig.settings_pack;
-
-import net.grandcentrix.tray.core.OnTrayPreferenceChangeListener;
-import net.grandcentrix.tray.core.TrayItem;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
@@ -105,7 +103,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TorrentTaskService extends Service
         implements
         TorrentEngineCallback,
-        OnTrayPreferenceChangeListener
+        SharedPreferences.OnSharedPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentTaskService.class.getSimpleName();
@@ -124,7 +122,7 @@ public class TorrentTaskService extends Service
     private NotificationCompat.Builder foregroundNotify;
     private final IBinder binder = new LocalBinder();
     private TorrentStorage repo;
-    private SettingsManager pref;
+    private SharedPreferences pref;
     private PowerManager.WakeLock wakeLock;
     private PowerReceiver powerReceiver = new PowerReceiver();
     private WifiReceiver wifiReceiver = new WifiReceiver();
@@ -173,8 +171,8 @@ public class TorrentTaskService extends Service
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Context context = getApplicationContext();
         repo = new TorrentStorage(context);
-        pref = new SettingsManager(context);
-        pref.registerOnTrayPreferenceChangeListener(this);
+        pref = SettingsManager.getPreferences(context);
+        pref.registerOnSharedPreferenceChangeListener(this);
 
         makeNotifyChans(notifyManager);
         int autostartState = (pref.getBoolean(getString(R.string.pref_key_autostart),
@@ -224,7 +222,7 @@ public class TorrentTaskService extends Service
 
     private void stopService()
     {
-        pref.unregisterOnTrayPreferenceChangeListener(this);
+        pref.unregisterOnSharedPreferenceChangeListener(this);
         if (powerReceiverRegistered) {
             powerReceiverRegistered = false;
             unregisterReceiver(powerReceiver);
@@ -433,12 +431,12 @@ public class TorrentTaskService extends Service
                             SettingsManager.Default.useRandomPort)) {
             TorrentEngine.getInstance().setRandomPort();
             /* Update port */
-            pref.put(getString(R.string.pref_key_port), TorrentEngine.getInstance().getPort());
+            pref.edit().putInt(getString(R.string.pref_key_port), TorrentEngine.getInstance().getPort()).apply();
         }
 
         if (pref.getBoolean(getString(R.string.pref_key_proxy_changed),
                             SettingsManager.Default.proxyChanged)) {
-            pref.put(getString(R.string.pref_key_proxy_changed), false);
+            pref.edit().putBoolean(getString(R.string.pref_key_proxy_changed), false).apply();
             setProxy();
         }
 
@@ -657,149 +655,145 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onTrayPreferenceChanged(Collection<TrayItem> items)
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
         if (pref == null)
-            return;
+            pref = sharedPreferences;
 
-        for (TrayItem item : items) {
-            if (item.module().equals(SettingsManager.MODULE_NAME)) {
-                if (item.key().equals(getString(R.string.pref_key_battery_control)) ||
-                        item.key().equals(getString(R.string.pref_key_custom_battery_control)) ||
-                        item.key().equals(getString(R.string.pref_key_custom_battery_control_value)) ||
-                        item.key().equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
-                        item.key().equals(getString(R.string.pref_key_wifi_only))) {
-                    if (checkPauseControl())
-                        TorrentEngine.getInstance().pauseAll();
-                    else
-                        TorrentEngine.getInstance().resumeAll();
-                } else if (item.key().equals(getString(R.string.pref_key_max_download_speed))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.downloadRateLimit = pref.getInt(item.key(), SettingsManager.Default.maxDownloadSpeedLimit);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_max_upload_speed))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.uploadRateLimit = pref.getInt(item.key(), SettingsManager.Default.maxUploadSpeedLimit);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_max_connections))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.connectionsLimit = pref.getInt(item.key(), SettingsManager.Default.maxConnections);
-                    s.maxPeerListSize = s.connectionsLimit;
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
-                    TorrentEngine.getInstance().setMaxConnectionsPerTorrent(pref.getInt(item.key(),
-                            SettingsManager.Default.maxConnectionsPerTorrent));
-                } else if (item.key().equals(getString(R.string.pref_key_max_uploads_per_torrent))) {
-                    TorrentEngine.getInstance().setMaxUploadsPerTorrent(pref.getInt(item.key(),
-                            SettingsManager.Default.maxUploadsPerTorrent));
-                } else if (item.key().equals(getString(R.string.pref_key_max_active_downloads))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.activeDownloads = pref.getInt(item.key(), SettingsManager.Default.maxActiveDownloads);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_max_active_uploads))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.activeSeeds = pref.getInt(item.key(), SettingsManager.Default.maxActiveUploads);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_max_active_torrents))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.activeLimit = pref.getInt(item.key(), SettingsManager.Default.maxActiveTorrents);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_cpu_do_not_sleep))) {
-                    setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
-                                    SettingsManager.Default.cpuDoNotSleep));
-                } else if (item.key().equals(getString(R.string.pref_key_enable_dht))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.dhtEnabled = pref.getBoolean(getString(R.string.pref_key_enable_dht),
-                                                   SettingsManager.Default.enableDht);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enable_lsd))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.lsdEnabled = pref.getBoolean(getString(R.string.pref_key_enable_lsd),
-                                                   SettingsManager.Default.enableLsd);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enable_utp))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.utpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_utp),
-                                                   SettingsManager.Default.enableUtp);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enable_upnp))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.upnpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_upnp),
-                                                    SettingsManager.Default.enableUpnp);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enable_natpmp))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.natPmpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_natpmp),
-                                                      SettingsManager.Default.enableNatPmp);
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enc_mode))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    s.encryptMode = getEncryptMode();
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enc_in_connections))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    int state = settings_pack.enc_policy.pe_disabled.swigValue();
-                    s.encryptInConnections = pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
-                                                             SettingsManager.Default.encryptInConnections);
-                    if (s.encryptInConnections) {
-                        state = getEncryptMode();
-                    }
-                    s.encryptMode = state;
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_enc_out_connections))) {
-                    TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
-                    int state = settings_pack.enc_policy.pe_disabled.swigValue();
-                    s.encryptOutConnections = pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
-                                                              SettingsManager.Default.encryptOutConnections);
-                    if (s.encryptOutConnections) {
-                        state = getEncryptMode();
-                    }
-                    s.encryptMode = state;
-                    TorrentEngine.getInstance().setSettings(s);
-                } else if (item.key().equals(getString(R.string.pref_key_use_random_port))) {
-                    if (pref.getBoolean(getString(R.string.pref_key_use_random_port),
-                                        SettingsManager.Default.useRandomPort))
-                        TorrentEngine.getInstance().setRandomPort();
-                    else
-                        TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
-                                                            SettingsManager.Default.port));
-                } else if (item.key().equals(getString(R.string.pref_key_port))) {
-                    TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
-                                                                    SettingsManager.Default.port));
-                } else if (item.key().equals(getString(R.string.pref_key_enable_ip_filtering))) {
-                    if (pref.getBoolean(getString(R.string.pref_key_enable_ip_filtering),
-                                        SettingsManager.Default.enableIpFiltering))
-                        TorrentEngine.getInstance().enableIpFilter(
-                                pref.getString(getString(R.string.pref_key_ip_filtering_file),
-                                               SettingsManager.Default.ipFilteringFile));
-                    else
-                        TorrentEngine.getInstance().disableIpFilter();
-                } else if (item.key().equals(getString(R.string.pref_key_ip_filtering_file))) {
-                    TorrentEngine.getInstance().enableIpFilter(
-                            pref.getString(getString(R.string.pref_key_ip_filtering_file),
-                                           SettingsManager.Default.ipFilteringFile));
-                } else if (item.key().equals(getString(R.string.pref_key_apply_proxy))) {
-                    pref.put(getString(R.string.pref_key_proxy_changed), false);
-                    setProxy();
-                    Toast.makeText(getApplicationContext(),
-                            R.string.proxy_settings_applied,
-                            Toast.LENGTH_SHORT)
-                            .show();
-                } else if (item.key().equals(getString(R.string.pref_key_auto_manage))) {
-                    TorrentEngine.getInstance().setAutoManaged(pref.getBoolean(item.key(),
-                            SettingsManager.Default.autoManage));
-                } else if (item.key().equals(getString(R.string.pref_key_foreground_notify_func_button))) {
-                    updateForegroundNotifyActions();
-                } else if (item.key().equals(getString(R.string.pref_key_watch_dir))) {
-                    if (pref.getBoolean(getString(R.string.pref_key_watch_dir), SettingsManager.Default.watchDir))
-                        startWatchDir();
-                    else
-                        stopWatchDir();
-                } else if (item.key().equals(getString(R.string.pref_key_dir_to_watch))) {
-                    stopWatchDir();
-                    startWatchDir();
-                }
+        if (key.equals(getString(R.string.pref_key_battery_control)) ||
+                key.equals(getString(R.string.pref_key_custom_battery_control)) ||
+                key.equals(getString(R.string.pref_key_custom_battery_control_value)) ||
+                key.equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
+                key.equals(getString(R.string.pref_key_wifi_only))) {
+            if (checkPauseControl())
+                TorrentEngine.getInstance().pauseAll();
+            else
+                TorrentEngine.getInstance().resumeAll();
+        } else if (key.equals(getString(R.string.pref_key_max_download_speed))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.downloadRateLimit = pref.getInt(key, SettingsManager.Default.maxDownloadSpeedLimit);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_max_upload_speed))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.uploadRateLimit = pref.getInt(key, SettingsManager.Default.maxUploadSpeedLimit);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_max_connections))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.connectionsLimit = pref.getInt(key, SettingsManager.Default.maxConnections);
+            s.maxPeerListSize = s.connectionsLimit;
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_max_connections_per_torrent))) {
+            TorrentEngine.getInstance().setMaxConnectionsPerTorrent(pref.getInt(key,
+                    SettingsManager.Default.maxConnectionsPerTorrent));
+        } else if (key.equals(getString(R.string.pref_key_max_uploads_per_torrent))) {
+            TorrentEngine.getInstance().setMaxUploadsPerTorrent(pref.getInt(key,
+                    SettingsManager.Default.maxUploadsPerTorrent));
+        } else if (key.equals(getString(R.string.pref_key_max_active_downloads))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.activeDownloads = pref.getInt(key, SettingsManager.Default.maxActiveDownloads);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_max_active_uploads))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.activeSeeds = pref.getInt(key, SettingsManager.Default.maxActiveUploads);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_max_active_torrents))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.activeLimit = pref.getInt(key, SettingsManager.Default.maxActiveTorrents);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep))) {
+            setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
+                    SettingsManager.Default.cpuDoNotSleep));
+        } else if (key.equals(getString(R.string.pref_key_enable_dht))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.dhtEnabled = pref.getBoolean(getString(R.string.pref_key_enable_dht),
+                    SettingsManager.Default.enableDht);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enable_lsd))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.lsdEnabled = pref.getBoolean(getString(R.string.pref_key_enable_lsd),
+                    SettingsManager.Default.enableLsd);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enable_utp))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.utpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_utp),
+                    SettingsManager.Default.enableUtp);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enable_upnp))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.upnpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_upnp),
+                    SettingsManager.Default.enableUpnp);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enable_natpmp))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.natPmpEnabled = pref.getBoolean(getString(R.string.pref_key_enable_natpmp),
+                    SettingsManager.Default.enableNatPmp);
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enc_mode))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            s.encryptMode = getEncryptMode();
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enc_in_connections))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            int state = settings_pack.enc_policy.pe_disabled.swigValue();
+            s.encryptInConnections = pref.getBoolean(getString(R.string.pref_key_enc_in_connections),
+                    SettingsManager.Default.encryptInConnections);
+            if (s.encryptInConnections) {
+                state = getEncryptMode();
             }
+            s.encryptMode = state;
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_enc_out_connections))) {
+            TorrentEngine.Settings s = TorrentEngine.getInstance().getSettings();
+            int state = settings_pack.enc_policy.pe_disabled.swigValue();
+            s.encryptOutConnections = pref.getBoolean(getString(R.string.pref_key_enc_out_connections),
+                    SettingsManager.Default.encryptOutConnections);
+            if (s.encryptOutConnections) {
+                state = getEncryptMode();
+            }
+            s.encryptMode = state;
+            TorrentEngine.getInstance().setSettings(s);
+        } else if (key.equals(getString(R.string.pref_key_use_random_port))) {
+            if (pref.getBoolean(getString(R.string.pref_key_use_random_port),
+                    SettingsManager.Default.useRandomPort))
+                TorrentEngine.getInstance().setRandomPort();
+            else
+                TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
+                        SettingsManager.Default.port));
+        } else if (key.equals(getString(R.string.pref_key_port))) {
+            TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
+                    SettingsManager.Default.port));
+        } else if (key.equals(getString(R.string.pref_key_enable_ip_filtering))) {
+            if (pref.getBoolean(getString(R.string.pref_key_enable_ip_filtering),
+                    SettingsManager.Default.enableIpFiltering))
+                TorrentEngine.getInstance().enableIpFilter(
+                        pref.getString(getString(R.string.pref_key_ip_filtering_file),
+                                SettingsManager.Default.ipFilteringFile));
+            else
+                TorrentEngine.getInstance().disableIpFilter();
+        } else if (key.equals(getString(R.string.pref_key_ip_filtering_file))) {
+            TorrentEngine.getInstance().enableIpFilter(
+                    pref.getString(getString(R.string.pref_key_ip_filtering_file),
+                            SettingsManager.Default.ipFilteringFile));
+        } else if (key.equals(getString(R.string.pref_key_apply_proxy))) {
+            pref.edit().putBoolean(getString(R.string.pref_key_proxy_changed), false).apply();
+            setProxy();
+            Toast.makeText(getApplicationContext(),
+                    R.string.proxy_settings_applied,
+                    Toast.LENGTH_SHORT)
+                    .show();
+        } else if (key.equals(getString(R.string.pref_key_auto_manage))) {
+            TorrentEngine.getInstance().setAutoManaged(pref.getBoolean(key,
+                    SettingsManager.Default.autoManage));
+        } else if (key.equals(getString(R.string.pref_key_foreground_notify_func_button))) {
+            updateForegroundNotifyActions();
+        } else if (key.equals(getString(R.string.pref_key_watch_dir))) {
+            if (pref.getBoolean(getString(R.string.pref_key_watch_dir), SettingsManager.Default.watchDir))
+                startWatchDir();
+            else
+                stopWatchDir();
+        } else if (key.equals(getString(R.string.pref_key_dir_to_watch))) {
+            stopWatchDir();
+            startWatchDir();
         }
     }
 

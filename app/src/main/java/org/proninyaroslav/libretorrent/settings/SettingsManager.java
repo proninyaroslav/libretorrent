@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,10 +20,10 @@
 package org.proninyaroslav.libretorrent.settings;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
-
-import net.grandcentrix.tray.TrayPreferences;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
@@ -31,10 +31,8 @@ import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 
-public class SettingsManager extends TrayPreferences
+public class SettingsManager
 {
-    public static final String MODULE_NAME = "settings";
-
     public static class Default
     {
         /* Appearance settings */
@@ -103,14 +101,14 @@ public class SettingsManager extends TrayPreferences
         public static final String fileManagerLastDir = FileIOUtils.getDefaultDownloadPath();
     }
 
-    public SettingsManager(Context context)
+    public static SharedPreferences getPreferences(Context context)
     {
-        super(context, MODULE_NAME, 1);
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static TorrentEngine.Settings readEngineSettings(Context context)
     {
-        SettingsManager pref = new SettingsManager(context);
+        SharedPreferences pref = getPreferences(context);
         TorrentEngine.Settings settings = new TorrentEngine.Settings();
         settings.downloadRateLimit = pref.getInt(context.getString(R.string.pref_key_max_download_speed),
                                                  Default.maxDownloadSpeedLimit);

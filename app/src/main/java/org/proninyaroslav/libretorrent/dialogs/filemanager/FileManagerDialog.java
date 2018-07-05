@@ -23,6 +23,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -181,7 +182,7 @@ public class FileManagerDialog extends AppCompatActivity
 
         String path = config.path;
         if (path == null || TextUtils.isEmpty(path)) {
-            SettingsManager pref = new SettingsManager(this.getApplicationContext());
+            SharedPreferences pref = SettingsManager.getPreferences(this.getApplicationContext());
             startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir),
                                       SettingsManager.Default.fileManagerLastDir);
 
@@ -619,12 +620,11 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void saveLastDirPath()
     {
-        SettingsManager pref = new SettingsManager(this.getApplicationContext());
+        SharedPreferences pref = SettingsManager.getPreferences(this.getApplicationContext());
 
         String keyFileManagerLastDir = getString(R.string.pref_key_filemanager_last_dir);
-        if (curDir != null && !pref.getString(keyFileManagerLastDir, "").equals(curDir)) {
-            pref.put(keyFileManagerLastDir, curDir);
-        }
+        if (curDir != null && !pref.getString(keyFileManagerLastDir, "").equals(curDir))
+            pref.edit().putString(keyFileManagerLastDir, curDir).apply();
     }
 
     @Override

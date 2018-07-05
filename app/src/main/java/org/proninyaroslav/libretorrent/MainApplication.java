@@ -25,6 +25,7 @@ import android.content.Context;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
                 mode = ReportingInteractionMode.DIALOG,
@@ -40,6 +41,7 @@ public class MainApplication extends Application
     {
         super.attachBaseContext(base);
 
+        Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
     }
 }
