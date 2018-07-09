@@ -3,8 +3,8 @@ Contributors
 
 If you want to contribute code, start by looking at the open issues on github.com:
 
-  https://github.com/proninyaroslav/libretorrent/issues.
-
+  https://gitlab.com/proninyaroslav/libretorrent/issues
+  
 Make sure to write your name and email id in format Name \<e-mail\> in the license declaration above every file you make change to.
 
 Repeat and rinse, if you send enough patches to demonstrate you have a good coding skills, we'll just give you commit access on the real repo and you will be part of the development team.
