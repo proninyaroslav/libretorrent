@@ -28,6 +28,8 @@ Already implemented features (help is highly desired!):
  - Ability to download sequentially
  - Material Design
  - Tablet optimized UI
+ - Scheduling
+ - And more
  
 Donation
 ---
