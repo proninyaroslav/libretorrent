@@ -23,10 +23,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 /*
@@ -39,20 +38,29 @@ public class BootReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            initScheduling(context);
+
             SharedPreferences pref = SettingsManager.getPreferences(context.getApplicationContext());
             if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
-                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive)) {
-                /*
-                 * Workaround for start service in Android 8+ after BOOT_COMPLETED.
-                 * We have a window of time to get around to calling startForeground() before we get ANR,
-                 * if work is longer than a millisecond but less than a few seconds.
-                 */
-                Intent i = new Intent(context, TorrentTaskService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    context.startForegroundService(i);
-                else
-                    context.startService(i);
-            }
+                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
+                Utils.startServiceAfterBoot(context);
+        }
+    }
+
+    private void initScheduling(Context context)
+    {
+        SharedPreferences pref = SettingsManager.getPreferences(context);
+        if (pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
+                SettingsManager.Default.enableSchedulingStart)) {
+            int time = pref.getInt(context.getString(R.string.pref_key_scheduling_start_time),
+                    SettingsManager.Default.schedulingStartTime);
+            Utils.addScheduledTime(context, SchedulerReceiver.ACTION_START_APP, time);
+        }
+        if (pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
+                SettingsManager.Default.enableSchedulingShutdown)) {
+            int time = pref.getInt(context.getString(R.string.pref_key_scheduling_shutdown_time),
+                    SettingsManager.Default.schedulingShutdownTime);
+            Utils.addScheduledTime(context, SchedulerReceiver.ACTION_STOP_APP, time);
         }
     }
 }

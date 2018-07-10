@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Lagring</string>
     <string name="pref_header_limitations">Begrensninger</string>
     <string name="pref_header_network">Nettverk</string>
+    <string name="pref_header_scheduling">Planlegging</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Lagre torrenter i</string>
     <string name="pref_move_after_download_title">Flytt etter nedlasting</string>
@@ -375,6 +376,14 @@
     <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret ukryptert</string>
     <string name="pref_proxy_login_title">Innlogging</string>
     <string name="pref_proxy_password_title">Passord</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Starttid</string>
+    <string name="pref_enable_scheduling_start_summary">Start appen på den angitte tiden. Torrenter vil kjøre i henhold til deres tilstand før den siste nedleggelsen</string>
+    <string name="pref_enable_scheduling_shutdown_title">Stengetid</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Avslutt app på den angitte tiden</string>
+    <string name="pref_scheduling_run_only_once_title">Kjør kun én gang</string>
+    <string name="pref_scheduling_switch_wifi_title">Aktiver/deaktiver Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi aktiveres automatisk når appen lanseres på den planlagte tiden, og er deaktivert etter at appen er fullført på den planlagte tiden</string>
 
     <!-- About dialog -->
     <string name="about_title">Om LibreTorrent</string>

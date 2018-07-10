@@ -169,6 +169,24 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 return true;
             }
         });
+
+        Preference scheduling = findPreference(SchedulingSettingsFragment.class.getSimpleName());
+        scheduling.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                    setFragment(SchedulingSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_scheduling));
+                } else {
+                    startActivity(SchedulingSettingsFragment.class,
+                            getString(R.string.pref_header_scheduling));
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override

@@ -107,6 +107,8 @@ public class BasePreferenceActivity extends AppCompatActivity
                 return (F) NetworkSettingsFragment.newInstance();
             } else if (fragment.equals(ProxySettingsFragment.class.getSimpleName())) {
                 return (F) ProxySettingsFragment.newInstance();
+            } else if (fragment.equals(SchedulingSettingsFragment.class.getSimpleName())) {
+                return (F) SchedulingSettingsFragment.newInstance();
             } else {
                 return null;
             }

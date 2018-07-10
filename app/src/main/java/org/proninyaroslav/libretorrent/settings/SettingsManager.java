@@ -99,6 +99,13 @@ public class SettingsManager
         public static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
         /* Filemanager settings */
         public static final String fileManagerLastDir = FileIOUtils.getDefaultDownloadPath();
+        /* Scheduling settings */
+        public static final boolean enableSchedulingStart = false;
+        public static final boolean enableSchedulingShutdown = false;
+        public static final int schedulingStartTime = 540; /* 9:00 am in minutes*/
+        public static final int schedulingShutdownTime = 1260; /* 9:00 pm in minutes */
+        public static final boolean schedulingRunOnlyOnce = false;
+        public static final boolean schedulingSwitchWiFi = false;
     }
 
     public static SharedPreferences getPreferences(Context context)

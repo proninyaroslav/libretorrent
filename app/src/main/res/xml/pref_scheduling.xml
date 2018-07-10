@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_scheduling_start"
+        android:title="@string/pref_enable_scheduling_start_title"
+        android:summary="@string/pref_enable_scheduling_start_summary" />
+
+    <org.proninyaroslav.libretorrent.settings.customprefs.TimePreference
+        android:key="@string/pref_key_scheduling_start_time"
+        android:positiveButtonText="@string/ok"
+        android:negativeButtonText="@string/cancel"
+        android:dependency="@string/pref_key_enable_scheduling_start" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_scheduling_shutdown"
+        android:title="@string/pref_enable_scheduling_shutdown_title"
+        android:summary="@string/pref_enable_scheduling_shutdown_summary" />
+
+    <org.proninyaroslav.libretorrent.settings.customprefs.TimePreference
+        android:key="@string/pref_key_scheduling_shutdown_time"
+        android:positiveButtonText="@string/ok"
+        android:negativeButtonText="@string/cancel"
+        android:dependency="@string/pref_key_enable_scheduling_shutdown" />
+
+    <CheckBoxPreference
+        android:textColorHint="@color/accent"
+        android:key="@string/pref_key_scheduling_switch_wifi"
+        android:title="@string/pref_scheduling_switch_wifi_title"
+        android:summary="@string/pref_scheduling_switch_wifi_summary" />
+
+    <CheckBoxPreference
+        android:key="@string/pref_key_scheduling_run_only_once"
+        android:title="@string/pref_scheduling_run_only_once_title" />
+</PreferenceScreen>

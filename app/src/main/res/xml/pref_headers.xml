@@ -25,4 +25,9 @@
         android:key="LimitationsSettingsFragment"
         android:title="@string/pref_header_limitations"
         android:persistent="false" />
+
+    <Preference
+        android:key="SchedulingSettingsFragment"
+        android:title="@string/pref_header_scheduling"
+        android:persistent="false" />
 </PreferenceScreen>

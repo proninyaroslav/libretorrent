@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,8 +21,11 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,13 +34,13 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -54,12 +57,16 @@ import org.acra.ReportField;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
+import org.proninyaroslav.libretorrent.receivers.BootReceiver;
+import org.proninyaroslav.libretorrent.receivers.SchedulerReceiver;
+import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -390,6 +397,7 @@ public class Utils
      * Migrate from Tray settings database to shared preferences.
      * TODO: delete after some releases
      */
+    @Deprecated
     public static void migrateTray2SharedPreferences(Context context)
     {
         final String TAG = "tray2shared";
@@ -455,5 +463,77 @@ public class Utils
             edit.putBoolean(migrate_key, true);
             edit.apply();
         }
+    }
+
+    /*
+     * Workaround for start service in Android 8+ after BOOT_COMPLETED.
+     * We have a window of time to get around to calling startForeground() before we get ANR,
+     * if work is longer than a millisecond but less than a few seconds.
+     */
+
+    public static void startServiceAfterBoot(Context context)
+    {
+        Intent i = new Intent(context, TorrentTaskService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            context.startForegroundService(i);
+        else
+            context.startService(i);
+    }
+
+    /*
+     * Time in minutes after 00:00
+     */
+    public static void addScheduledTime(Context context, String action, int time)
+    {
+        Calendar calendar = Calendar.getInstance();
+        long timeInMillis = System.currentTimeMillis();
+        calendar.setTimeInMillis(timeInMillis);
+        calendar.set(Calendar.HOUR_OF_DAY, time / 60);
+        calendar.set(Calendar.MINUTE, time % 60);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        if (calendar.getTimeInMillis() < timeInMillis + 2000L)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        addScheduledAlarm(context, action, calendar);
+    }
+
+    public static void addScheduledAlarm(Context context, @NonNull String action, Calendar calendar)
+    {
+        Intent intent = new Intent(context, SchedulerReceiver.class);
+        intent.setAction(action);
+        PendingIntent pi = PendingIntent.getBroadcast(context, action.hashCode(), intent, 0);
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+        else
+            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+    }
+
+    public static void cancelScheduledAlarm(Context context, @NonNull String action)
+    {
+        Intent intent = new Intent(context, SchedulerReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, action.hashCode(), intent, 0);
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(pi);
+    }
+
+    public static void enableBootReceiverIfNeeded(Context context)
+    {
+        SharedPreferences pref = SettingsManager.getPreferences(context);
+        int flag = (
+                !(pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
+                        SettingsManager.Default.enableSchedulingStart) ||
+                pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
+                        SettingsManager.Default.enableSchedulingShutdown) ||
+                pref.getBoolean(context.getString(R.string.pref_key_autostart),
+                        SettingsManager.Default.autostart)) ?
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
+        context.getPackageManager()
+                .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 }

@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Αποθηκευτικός χώρος</string>
     <string name="pref_header_limitations">Περιορισμοί</string>
     <string name="pref_header_network">Δίκτυο</string>
+    <string name="pref_header_scheduling">Χρονοδρομολόγηση</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Αποθήκευση των torrents στο</string>
     <string name="pref_move_after_download_title">Μετακίνηση μετά την λήψη</string>
@@ -375,6 +376,14 @@
     <string name="pref_proxy_requires_auth_summary">Προσοχή: ο κωδικός αποθηκεύεται χωρίς κρυπτογράφηση</string>
     <string name="pref_proxy_login_title">Σύνδεση χρήστη</string>
     <string name="pref_proxy_password_title">Κωδικός</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Ωρα έναρξης</string>
+    <string name="pref_enable_scheduling_start_summary">Εκκινήστε την εφαρμογή την καθορισμένη ώρα. Τα Torrents θα λειτουργούν σύμφωνα με την κατάσταση τους πριν από τον τελευταίο τερματισμό</string>
+    <string name="pref_enable_scheduling_shutdown_title">Χρόνος τερματισμού λειτουργίας</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Εφαρμογή τερματισμού κατά την καθορισμένη ώρα</string>
+    <string name="pref_scheduling_run_only_once_title">Εκτελέστε μόνο μία φορά</string>
+    <string name="pref_scheduling_switch_wifi_title">Ενεργοποίηση/απενεργοποίηση Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Το Wi-Fi ενεργοποιείται αυτόματα όταν η εφαρμογή ξεκινά την προγραμματισμένη ώρα και απενεργοποιείται αφού ολοκληρωθεί η εφαρμογή την προγραμματισμένη ώρα</string>
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>

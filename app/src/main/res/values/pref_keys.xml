@@ -66,4 +66,11 @@
     <string name="pref_key_proxy_password" translatable="false">pref_key_proxy_password</string>
     <string name="pref_key_proxy_changed" translatable="false">pref_key_proxy_changed</string>
     <string name="pref_key_apply_proxy" translatable="false">pref_key_apply_proxy</string>
+    <!-- Scheduling settings -->
+    <string name="pref_key_enable_scheduling_start" translatable="false">pref_key_enable_scheduling_start</string>
+    <string name="pref_key_enable_scheduling_shutdown" translatable="false">pref_key_enable_scheduling_stop</string>
+    <string name="pref_key_scheduling_start_time" translatable="false">pref_key_scheduling_start_time</string>
+    <string name="pref_key_scheduling_shutdown_time" translatable="false">pref_key_scheduling_shutdown_time</string>
+    <string name="pref_key_scheduling_run_only_once" translatable="false">pref_key_scheduling_run_only_once</string>
+    <string name="pref_key_scheduling_switch_wifi" translatable="false">pref_key_scheduling_switch_wifi</string>
 </resources>

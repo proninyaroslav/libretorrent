@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Armazenamento</string>
     <string name="pref_header_limitations">Limitações</string>
     <string name="pref_header_network">Rede</string>
+    <string name="pref_header_scheduling">Agendamento</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salvar torrents em</string>
     <string name="pref_move_after_download_title">Mover depois de baixar</string>
@@ -376,6 +377,14 @@
     <string name="pref_proxy_requires_auth_summary">Aviso: a senha é salva sem encriptação</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Senha</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Horário de início</string>
+    <string name="pref_enable_scheduling_start_summary">Inicie o aplicativo no horário especificado. Os torrents serão executados de acordo com seu estado anterior ao ultimo encerramento</string>
+    <string name="pref_enable_scheduling_shutdown_title">Horário de encerramento</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Encerrar aplicativo no horário especificado</string>
+    <string name="pref_scheduling_run_only_once_title">Executar somente uma vez</string>
+    <string name="pref_scheduling_switch_wifi_title">Ligar/desligar Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">O Wi-Fi é ativado automaticamente quando o aplicativo é iniciado no horário agendado e é desativado depois que o aplicativo é concluído no horário agendado</string>
 
     <!-- About dialog -->
     <string name="about_title">Sobre o LibreTorrent</string>

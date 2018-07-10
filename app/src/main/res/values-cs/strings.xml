@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Uložiště</string>
     <string name="pref_header_limitations">Limitace</string>
     <string name="pref_header_network">Síť</string>
+    <string name="pref_header_scheduling">Plánování</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Uložit torrent do</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>
@@ -375,6 +376,14 @@
     <string name="pref_proxy_requires_auth_summary">Varování: heslo není šifrované</string>
     <string name="pref_proxy_login_title">Přihlášení</string>
     <string name="pref_proxy_password_title">Heslo</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Doba spuštění</string>
+    <string name="pref_enable_scheduling_start_summary">Spusťte aplikaci v určený čas. Torrenty budou probíhat podle jejich stavu před posledním vypnutím</string>
+    <string name="pref_enable_scheduling_shutdown_title">Doba vypnutí</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Vypnutí aplikace v zadaném čase</string>
+    <string name="pref_scheduling_run_only_once_title">Spustit pouze jednou</string>
+    <string name="pref_scheduling_switch_wifi_title">Povolení/zakázání Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Po spuštění aplikace v naplánovaném čase se služba Wi-Fi automaticky aktivuje a po dokončení aplikace v plánovaném čase je zakázána</string>
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>

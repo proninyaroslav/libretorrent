@@ -175,14 +175,7 @@ public class TorrentTaskService extends Service
         pref.registerOnSharedPreferenceChangeListener(this);
 
         makeNotifyChans(notifyManager);
-        int autostartState = (pref.getBoolean(getString(R.string.pref_key_autostart),
-                                              SettingsManager.Default.autostart) ?
-                              PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
-                              PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
-        ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
-        getPackageManager().setComponentEnabledSetting(bootReceiver, autostartState,
-                                                       PackageManager.DONT_KILL_APP);
-
+        Utils.enableBootReceiverIfNeeded(getApplicationContext());
         checkPauseControl();
 
         if (pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),

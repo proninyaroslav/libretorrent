@@ -244,6 +244,7 @@
     <string name="pref_header_storage">Хранилище</string>
     <string name="pref_header_limitations">Ограничения</string>
     <string name="pref_header_network">Сеть</string>
+    <string name="pref_header_scheduling">Планировщик</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Сохранять торренты в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
@@ -356,6 +357,14 @@
     <string name="pref_proxy_requires_auth_summary">Внимание: пароль хранится в незашифрованном виде</string>
     <string name="pref_proxy_login_title">Логин</string>
     <string name="pref_proxy_password_title">Пароль</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Время запуска</string>
+    <string name="pref_enable_scheduling_start_summary">Запуск приложения в заданное время. Загрузки и раздачи будут продолжены с состояния на момент последнего выключения</string>
+    <string name="pref_enable_scheduling_shutdown_title">Время остановки</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Остановка приложения в заданное время</string>
+    <string name="pref_scheduling_run_only_once_title">Запустить только один раз</string>
+    <string name="pref_scheduling_switch_wifi_title">Включить/выключить Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi автоматически включается когда приложение запущено в запланированное время и выключается когда приложение остановлено в запланированное время</string>
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>

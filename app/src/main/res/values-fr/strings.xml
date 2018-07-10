@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Stockage</string>
     <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_network">Réseau</string>
+    <string name="pref_header_scheduling">Planification</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
@@ -374,6 +375,14 @@
     <string name="pref_proxy_requires_auth_summary">Avertissement: le mot de passe est enregistré non chiffré</string>
     <string name="pref_proxy_login_title">Identifiant</string>
     <string name="pref_proxy_password_title">Mot de passe</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Heure de démarrage</string>
+    <string name="pref_enable_scheduling_start_summary">Démarrer l\'application à l\'heure indiquée. Les torrents fonctionneront alors selon leur état avant le dernier arrêt</string>
+    <string name="pref_enable_scheduling_shutdown_title">Heure d\'arrêt planifiée</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Arrêter l\'application à l\'heure spécifiée</string>
+    <string name="pref_scheduling_run_only_once_title">Exécuter une seule fois</string>
+    <string name="pref_scheduling_switch_wifi_title">Allumer/éteindre le Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Le Wi-Fi est automatiquement activé lorsque l\'application est lancée à l\'heure planifiée et est désactivé une fois l\'application terminée à l\'heure prévue</string>
 
     <!-- About dialog -->
     <string name="about_title">À propos de LibreTorrent</string>

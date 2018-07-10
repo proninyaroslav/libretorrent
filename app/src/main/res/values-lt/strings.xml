@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Vieta</string>
     <string name="pref_header_limitations">Apribojimai</string>
     <string name="pref_header_network">Tinklas</string>
+    <string name="pref_header_scheduling">Planavimas</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Išsaugoiti torentus į</string>
     <string name="pref_move_after_download_title">Perkelti po parsiuntimo</string>
@@ -374,6 +375,14 @@
     <string name="pref_proxy_requires_auth_summary">Įspėjimas: slaptažodis išsaugotas bet neužšifruotas</string>
     <string name="pref_proxy_login_title">Prisijungimas</string>
     <string name="pref_proxy_password_title">Slaptažodis</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Pradžios laikas</string>
+    <string name="pref_enable_scheduling_start_summary">Pradėkite programą nurodytu laiku. Torentai veiks pagal jų būseną iki paskutinio išjungimo</string>
+    <string name="pref_enable_scheduling_shutdown_title">Išjungimo laikas</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Uždarymo programa nurodytu laiku</string>
+    <string name="pref_scheduling_run_only_once_title">Vykdyti tik vieną kartą</string>
+    <string name="pref_scheduling_switch_wifi_title">Įjunkite/išjunkite Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi automatiškai įjungiamas, kai programa paleidžiama numatytu laiku ir yra išjungta, kai programa užbaigiama numatytu laiku</string>
 
     <!-- About dialog -->
     <string name="about_title">Apie LibreTorrent</string>

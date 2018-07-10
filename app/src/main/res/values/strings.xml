@@ -276,6 +276,7 @@
     <string name="pref_header_storage">Storage</string>
     <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_network">Network</string>
+    <string name="pref_header_scheduling">Scheduling</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Save torrents in</string>
     <string name="pref_move_after_download_title">Move after download</string>
@@ -420,6 +421,14 @@
     <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Password</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Start time</string>
+    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
+    <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
+    <string name="pref_scheduling_run_only_once_title">Run only once</string>
+    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
 
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>

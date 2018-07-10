@@ -263,6 +263,7 @@
     <string name="pref_header_storage">Stocare</string>
     <string name="pref_header_limitations">Limitări</string>
     <string name="pref_header_network">Rețea</string>
+    <string name="pref_header_scheduling">Programare</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salvează torrentele în</string>
     <string name="pref_move_after_download_title">Mută după download</string>
@@ -375,6 +376,14 @@
     <string name="pref_proxy_requires_auth_summary">Atenție: parola este salvată necriptat</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Parolă</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Timp pornire</string>
+    <string name="pref_enable_scheduling_start_summary">Porniți aplicația la ora specificată. Torrentele vor rula in functie de starea lor inainte de ultima oprire</string>
+    <string name="pref_enable_scheduling_shutdown_title">Timp oprire</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Aplicația de închidere la ora specificată</string>
+    <string name="pref_scheduling_run_only_once_title">Ruleaza numai o data</string>
+    <string name="pref_scheduling_switch_wifi_title">Schimba Wi-Fi pornit/oprit</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi este activat automat când aplicația este lansată la ora programată și este dezactivată după terminarea aplicației la ora programată</string>
 
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>
