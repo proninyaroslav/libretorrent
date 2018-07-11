@@ -1,7 +1,7 @@
 Contributors
 ---
 
-If you want to contribute code, start by looking at the open issues on github.com:
+If you want to contribute code, start by looking at the open issues on gitlab.com:
 
   https://gitlab.com/proninyaroslav/libretorrent/issues
   
