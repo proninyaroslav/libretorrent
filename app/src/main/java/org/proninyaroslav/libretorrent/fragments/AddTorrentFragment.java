@@ -722,6 +722,7 @@ public class AddTorrentFragment extends Fragment
                     R.string.error_free_space,
                     Snackbar.LENGTH_LONG)
                     .show();
+            updateInfoFragment();
 
             return;
         }
