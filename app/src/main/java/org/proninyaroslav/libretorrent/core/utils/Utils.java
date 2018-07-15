@@ -86,6 +86,7 @@ public class Utils
     public static final String CONTENT_PREFIX = "content";
     public static final String TRACKER_URL_PATTERN =
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    public static final String SHA1_HASH_PATTERN = "\\b[0-9a-f]{5,40}\\b";
 
     /*
      * Colored status bar in KitKat.
@@ -185,16 +186,10 @@ public class Utils
 
     /*
      * Returns the link as "http[s]://[www.]name.domain/...".
-     *
-     * Returns null if the link is not valid.
      */
 
     public static String normalizeURL(String url)
     {
-        if (!isValidUrl(url)) {
-            return null;
-        }
-
         if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX)) {
             return HTTP_PREFIX + "://" + url;
         } else {
@@ -230,22 +225,14 @@ public class Utils
         return matcher.matches();
     }
 
-    /**
-     * Check whether given URL is valid.
-     * @param url URL to be checked.
-     * @return true if the URL is valid, return false otherwise.
-     */
-    public static boolean isValidUrl (String url) {
-        if (url == null || TextUtils.isEmpty(url)) {
+    public static boolean isSha1Hash (String hash) {
+        if (hash == null || TextUtils.isEmpty(hash))
             return false;
-        }
 
-        try {
-            URL parsedUrl = new URL(url);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
-        }
+        Pattern pattern = Pattern.compile(SHA1_HASH_PATTERN);
+        Matcher matcher = pattern.matcher(hash.trim());
+
+        return matcher.matches();
     }
 
     /*

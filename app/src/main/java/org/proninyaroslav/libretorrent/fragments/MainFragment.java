@@ -699,23 +699,6 @@ public class MainFragment extends Fragment
             return false;
         }
 
-        if (s.startsWith(Utils.MAGNET_PREFIX)) {
-            layout.setErrorEnabled(false);
-            layout.setError(null);
-
-            return true;
-        }
-
-        if (s.startsWith(Utils.HTTP_PREFIX) || s.startsWith(Utils.HTTPS_PREFIX)) {
-            if (!Utils.isValidUrl(s)) {
-                layout.setErrorEnabled(true);
-                layout.setError(getString(R.string.error_invalid_link));
-                layout.requestFocus();
-
-                return false;
-            }
-        }
-
         layout.setErrorEnabled(false);
         layout.setError(null);
 
@@ -891,11 +874,10 @@ public class MainFragment extends Fragment
 
                         if (link.startsWith(Utils.MAGNET_PREFIX)) {
                             url = link;
-                        } else if (link.startsWith(Utils.HTTP_PREFIX)
-                                || link.startsWith(Utils.HTTPS_PREFIX)) {
-                            url = Utils.normalizeURL(link);
-                        } else {
+                        } else if (Utils.isSha1Hash(link)) {
                             url = Utils.INFOHASH_PREFIX + link;
+                        } else {
+                            url = Utils.normalizeURL(link);
                         }
 
                         if (url != null) {
@@ -910,18 +892,18 @@ public class MainFragment extends Fragment
 
         /* Inserting a link from the clipboard */
         String clipboard = Utils.getClipboard(activity.getApplicationContext());
-        String url;
+        String url = null;
 
         if (clipboard != null) {
-            if (!clipboard.startsWith(Utils.MAGNET_PREFIX)) {
-                url = Utils.normalizeURL(clipboard);
-            } else {
+            if (clipboard.startsWith(Utils.MAGNET_PREFIX) ||
+                clipboard.startsWith(Utils.HTTP_PREFIX) ||
+                clipboard.startsWith(Utils.HTTPS_PREFIX) ||
+                Utils.isSha1Hash(clipboard)) {
                 url = clipboard;
             }
 
-            if (field != null && url != null) {
+            if (field != null && url != null)
                 field.setText(url);
-            }
         }
     }
 
