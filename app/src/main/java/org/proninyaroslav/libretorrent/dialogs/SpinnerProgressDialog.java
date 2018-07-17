@@ -24,6 +24,7 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 /*
@@ -72,7 +73,7 @@ public class SpinnerProgressDialog extends DialogFragment
         boolean isCancelable = args.getBoolean(TAG_IS_CANCELABLE);
 
         ProgressDialog dialog = new ProgressDialog(getActivity());
-        if (dialog.getWindow() != null) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
