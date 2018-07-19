@@ -56,6 +56,7 @@ import android.widget.ProgressBar;
 
 import com.frostwire.jlibtorrent.Priority;
 
+import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
@@ -66,7 +67,6 @@ import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.ErrorReportAlertDialog;
@@ -530,7 +530,8 @@ public class AddTorrentFragment extends Fragment
                     case Utils.HTTP_PREFIX:
                     case Utils.HTTPS_PREFIX:
                         File httpTmp = FileIOUtils.makeTempFile(fragment.get().activity.getApplicationContext(), ".torrent");
-                        TorrentUtils.fetchByHTTP(fragment.get().activity.getApplicationContext(), uri.toString(), httpTmp);
+                        byte[] response = Utils.fetchHttpUrl(fragment.get().activity.getApplicationContext(), uri.toString());
+                        FileUtils.writeByteArrayToFile(httpTmp, response);
 
                         if (httpTmp.exists() && !isCancelled()) {
                             fragment.get().pathToTempTorrent = httpTmp.getAbsolutePath();

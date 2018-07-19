@@ -28,20 +28,13 @@ import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 public class TorrentUtils
 {
@@ -294,37 +287,5 @@ public class TorrentUtils
             return path;
 
         return FileIOUtils.getDefaultDownloadPath();
-    }
-
-    public static void fetchByHTTP(Context context, String url, final File saveTo) throws FetchLinkException
-    {
-        if (saveTo == null)
-            throw new FetchLinkException("File is null");
-        if (!Utils.checkNetworkConnection(context))
-            throw new FetchLinkException("No network connection");
-
-        final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-        HttpURLConnection connection = null;
-        try {
-            connection = (HttpURLConnection) new URL(url).openConnection();
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK)
-                FileUtils.copyInputStreamToFile(connection.getInputStream(), saveTo);
-            else
-                throw new FetchLinkException("Failed to download torrent file, response code: " + responseCode);
-        } catch (Throwable e) {
-            errorArray.add(e);
-        } finally {
-            if (connection != null)
-                connection.disconnect();
-        }
-
-        if (!errorArray.isEmpty()) {
-            StringBuilder s = new StringBuilder();
-            for (Throwable e : errorArray)
-                s.append(e.toString().concat("\n"));
-
-            throw new FetchLinkException(s.toString());
-        }
     }
 }

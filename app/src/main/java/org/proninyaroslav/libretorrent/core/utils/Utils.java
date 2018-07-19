@@ -54,8 +54,10 @@ import com.frostwire.jlibtorrent.FileStorage;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
+import org.apache.commons.io.IOUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.receivers.SchedulerReceiver;
@@ -63,7 +65,7 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,6 +89,7 @@ public class Utils
     public static final String TRACKER_URL_PATTERN =
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String SHA1_HASH_PATTERN = "\\b[0-9a-f]{5,40}\\b";
+    public static final int MAX_HTTP_REDIRECTION = 10;
 
     /*
      * Colored status bar in KitKat.
@@ -522,5 +525,54 @@ public class Utils
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
         context.getPackageManager()
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
+    }
+
+    public static byte[] fetchHttpUrl(Context context, String url) throws FetchLinkException
+    {
+        byte[] response = null;
+
+        if (!Utils.checkNetworkConnection(context))
+            throw new FetchLinkException("No network connection");
+
+        final ArrayList<Throwable> errorArray = new ArrayList<>(1);
+        for (int i = 0; i < MAX_HTTP_REDIRECTION; i++) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection)new URL(url).openConnection();
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    response = IOUtils.toByteArray(connection.getInputStream());
+
+                } else if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP ||
+                           responseCode == HttpURLConnection.HTTP_MOVED_PERM ||
+                           responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    url = connection.getHeaderField("Location");
+                    Log.i("fetchHttpUrl", "Redirect to the new URL: " + url);
+                    connection.disconnect();
+
+                    continue;
+                } else {
+                    throw new FetchLinkException("Failed to fetch link, response code: " + responseCode);
+                }
+            } catch (Throwable e) {
+                errorArray.add(e);
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
+            }
+            if (response == null && i + 1 == MAX_HTTP_REDIRECTION)
+                throw new FetchLinkException("Failed to fetch link, cyclic redirection");
+            break;
+        }
+
+        if (!errorArray.isEmpty()) {
+            StringBuilder s = new StringBuilder();
+            for (Throwable e : errorArray)
+                s.append(e.getMessage().concat("\n"));
+
+            throw new FetchLinkException(s.toString());
+        }
+
+        return response;
     }
 }
