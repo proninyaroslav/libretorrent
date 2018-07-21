@@ -63,7 +63,6 @@
         <item name="defaultRectRipple">@drawable/default_rect_ripple_black</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_black</item>
         <item name="defaultSelectRect">@drawable/default_select_rect_black</item>
-        <item name="curOpenTorrentIndicator">@color/black</item>
     </style>
 
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
