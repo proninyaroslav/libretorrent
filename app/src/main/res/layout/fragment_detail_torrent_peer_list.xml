@@ -7,7 +7,8 @@
     <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
         android:id="@+id/peer_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@+id/empty_view_peer_list"
