@@ -987,7 +987,7 @@ public class TorrentTaskService extends Service
 
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         try {
-            if (task.isPaused() && !pauseTorrents.get())
+            if (task.isPaused())
                 task.resume();
             else
                 task.pause();
