@@ -250,7 +250,11 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                 if (filtered != null) {
                     currentItems.add(position, item);
                     Collections.sort(currentItems, sorting);
-                    notifyItemChanged(position);
+                    int newPosition = currentItems.indexOf(item);
+                    if (newPosition == position)
+                        notifyItemChanged(position);
+                    else
+                        notifyDataSetChanged();
                 } else {
                     notifyItemRemoved(position);
                 }
