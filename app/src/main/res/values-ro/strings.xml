@@ -31,6 +31,10 @@
     <string name="sorting">Sortare</string>
     <string name="def">Mod implicit</string>
     <string name="foreground_notification">Notificare prim plan</string>
+    <string name="link">Link</string>
+    <string name="filter">Filtru</string>
+    <string name="refresh">Reîmprospăta</string>
+    <string name="edit">Editați</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Niciun torrent</string>
@@ -131,9 +135,9 @@
     <string name="error_fetch_link">Nu s-a putut accesa date de la link</string>
     <string name="error_invalid_link_or_path">Link sau cale către torrent invalidă</string>
     <string name="decode_torrent_progress_title">Încărcare</string>
-    <string name="decode_torrent_default_message">Vă rugăm așteptați...</string>
-    <string name="decode_torrent_fetch_magnet_message">Se primesc date de la link-ul magnet. Vă rugăm așteptați...</string>
-    <string name="decode_torrent_downloading_torrent_message">Se descarcă fișierul torrent.Vă rugăm așteptați...</string>
+    <string name="decode_torrent_default_message">Vă rugăm așteptați&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">Se primesc date de la link-ul magnet. Vă rugăm așteptați&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">Se descarcă fișierul torrent.Vă rugăm așteptați&#8230;</string>
     <string name="error_add_torrent">Torrentul nu a putut fi adăugat</string>
     <string name="error_file_not_found_add_torrent">Nu s-a putut adăuga torrentul. Este posibil ca fișierul torrent să fi fost mutat sau șters</string>
     <string name="error_io_add_torrent">Nu s-a putut adăuga torrentul. Eroare I/O</string>
@@ -255,6 +259,35 @@
     <string name="app_error_occurred">A apărut o eroare în aplicație. Puteți trimite raportul către dezvoltatori</string>
     <string name="error_comment_prompt">Puteți adăuga informații extra și comentarii aici:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Niciun canale</string>
+    <string name="select_or_add_feed_channel">Selectați sau adăugați un RSS/Atom canal</string>
+    <string name="add_feed_channel">Adăugați un canal</string>
+    <string name="feed_name">Nume (opțional)</string>
+    <string name="feed_filter_prompt">Introduceți cuvintele (separate prin virgule), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
+    <string name="feed_auto_download">Descarca torentele noi în mod automat</string>
+    <string name="feed_use_regex">Utilizați expresii regulate</string>
+    <string name="import_feed_channels">Importă canale</string>
+    <string name="export_feed_channels">Exportați canalele</string>
+    <string name="feed_last_update_template" formatted="false">Actualizat: %1$s</string>
+    <string name="feed_last_update_never">niciodată</string>
+    <string name="error_cannot_add_channel">Canalul nu poate fi adăugat</string>
+    <string name="copy_link">Copiază legătură</string>
+    <string name="delete_selected_channel">Ștergeți canalul selectat?</string>
+    <string name="delete_selected_channels">Ștergeți canalele selectate?</string>
+    <string name="edit_feed_channel">Editați canalul</string>
+    <string name="link_copied_to_clipboard">Linkul a fost copiat în clipboard</string>
+    <string name="mark_as_read">Marcheaza ca citit</string>
+    <string name="feed_item_list_empty">Niciun articol</string>
+    <string name="feed_items">Articole</string>
+    <string name="export_feeds_successfully" formatted="false">Canalele au fost salvate cu succes: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Canalele importate cu succes</string>
+    <string name="error_import_feeds">Importul canalelor a eșuat</string>
+    <string name="error_export_feeds">Exportul canalelor a eșuat</string>
+    <string name="feed_item_open_article_url">Deschideți articolul</string>
+    <string name="feeds_file_selection_dialog_title">Selectați un fișier cu canale</string>
+
     <!-- Settings -->
     
     <!-- Headers -->
@@ -264,6 +297,7 @@
     <string name="pref_header_limitations">Limitări</string>
     <string name="pref_header_network">Rețea</string>
     <string name="pref_header_scheduling">Programare</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salvează torrentele în</string>
     <string name="pref_move_after_download_title">Mută după download</string>
@@ -384,6 +418,33 @@
     <string name="pref_scheduling_run_only_once_title">Ruleaza numai o data</string>
     <string name="pref_scheduling_switch_wifi_title">Schimba Wi-Fi pornit/oprit</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi este activat automat când aplicația este lansată la ora programată și este dezactivată după terminarea aplicației la ora programată</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Actualizați automat canalele</string>
+    <string name="pref_feed_auto_refresh_summary">Actualizați periodic canalele în fundal</string>
+    <string name="pref_feed_refresh_interval_title">Interval de reîmprospătare</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 minute</item>
+        <item>15 minute</item>
+        <item>30 minute</item>
+        <item>1 oră</item>
+        <item>2 ore</item>
+        <item>6 ore</item>
+        <item>12 ore</item>
+        <item>1 zi</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi doar</string>
+    <string name="pref_feed_keep_items_time_title">Păstrați articole</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 zi</item>
+        <item>2 zile</item>
+        <item>4 zile</item>
+        <item>1 săptămână</item>
+        <item>2 saptamani</item>
+        <item>1 lună</item>
+        <item>2 luni</item>
+        <item>3 luni</item>
+        <item>Mereu</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>

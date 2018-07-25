@@ -31,6 +31,10 @@
     <string name="sorting">Řazení</string>
     <string name="def">Standardní</string>
     <string name="foreground_notification">Popředí notifikací</string>
+    <string name="link">Odkaz</string>
+    <string name="filter">Filtr</string>
+    <string name="refresh">Obnovit</string>
+    <string name="edit">Upravit</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Žádný torrent</string>
@@ -255,6 +259,35 @@
     <string name="app_error_occurred">Chyba aplikace. Můžete poslat hlášení vývojářům.</string>
     <string name="error_comment_prompt">Můžete přidat extra informace a komentáře zde:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Žádné kanály</string>
+    <string name="select_or_add_feed_channel">Vyberte nebo přidat RSS/Atom kanál</string>
+    <string name="add_feed_channel">Přidat kanál</string>
+    <string name="feed_name">Jméno (volitelné)</string>
+    <string name="feed_filter_prompt">Zadejte slova (oddělená čárkami), z nichž jedna musí být v názvu nebo zadejte regulární výraz. Torrenty budou přidány, pouze pokud tento filtr odpovídá názvu torrentu</string>
+    <string name="feed_auto_download">Stáhnout nové torrenty automaticky</string>
+    <string name="feed_use_regex">Používejte regulární výraz</string>
+    <string name="import_feed_channels">Importovat kanály</string>
+    <string name="export_feed_channels">Exportovat kanály</string>
+    <string name="feed_last_update_template" formatted="false">Aktualizováno: %1$s</string>
+    <string name="feed_last_update_never">nikdy</string>
+    <string name="error_cannot_add_channel">Kanál nelze přidat</string>
+    <string name="copy_link">Kopírovat odkaz</string>
+    <string name="delete_selected_channel">Smazat vybraný kanál?</string>
+    <string name="delete_selected_channels">Smazat vybrané kanály?</string>
+    <string name="edit_feed_channel">Upravit kanál</string>
+    <string name="link_copied_to_clipboard">Odkaz zkopírován do schránky</string>
+    <string name="mark_as_read">Označit jako přečtené</string>
+    <string name="feed_item_list_empty">Žádné články</string>
+    <string name="feed_items">Články</string>
+    <string name="export_feeds_successfully" formatted="false">Kanály byly úspěšně uloženy: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Kanály byly úspěšně importovány</string>
+    <string name="error_import_feeds">Nepodařilo se importovat kanály</string>
+    <string name="error_export_feeds">Nepodařilo se exportovat kanály</string>
+    <string name="feed_item_open_article_url">Otevřený článek</string>
+    <string name="feeds_file_selection_dialog_title">Vyberte soubor s kanály</string>
+
     <!-- Settings -->
 
     <!-- Headers -->
@@ -264,6 +297,7 @@
     <string name="pref_header_limitations">Limitace</string>
     <string name="pref_header_network">Síť</string>
     <string name="pref_header_scheduling">Plánování</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Uložit torrent do</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>
@@ -384,6 +418,33 @@
     <string name="pref_scheduling_run_only_once_title">Spustit pouze jednou</string>
     <string name="pref_scheduling_switch_wifi_title">Povolení/zakázání Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Po spuštění aplikace v naplánovaném čase se služba Wi-Fi automaticky aktivuje a po dokončení aplikace v plánovaném čase je zakázána</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Automatické obnovení kanálů</string>
+    <string name="pref_feed_auto_refresh_summary">Pravidelně obnovení kanály na pozadí</string>
+    <string name="pref_feed_refresh_interval_title">Interval obnovení</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 minut</item>
+        <item>15 minut</item>
+        <item>30 minut</item>
+        <item>1 hodina</item>
+        <item>2 hodiny</item>
+        <item>6 hodin</item>
+        <item>12 hodin</item>
+        <item>1 den</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Pouze Wi-Fi</string>
+    <string name="pref_feed_keep_items_time_title">Uchovávejte články</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 den</item>
+        <item>2 dny</item>
+        <item>4 dny</item>
+        <item>1 týden</item>
+        <item>2 týdny</item>
+        <item>1 měsíc</item>
+        <item>2 měsíce</item>
+        <item>3 měsíce</item>
+        <item>Vždy</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>

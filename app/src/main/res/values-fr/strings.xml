@@ -31,6 +31,10 @@
     <string name="sorting">Trier</string>
     <string name="def">Défaut</string>
     <string name="foreground_notification">Notification de premier plan</string>
+    <string name="link">Lien</string>
+    <string name="filter">Filtre</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="edit">Modifier</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Aucun torrent</string>
@@ -255,6 +259,35 @@
     <string name="app_error_occurred">Une erreur s\'est produite dans l\'application. Vous pouvez envoyer le rapport aux développeurs</string>
     <string name="error_comment_prompt">Vous pouvez ajouter des informations supplémentaires et des commentaires ici:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Aucune chaîne</string>
+    <string name="select_or_add_feed_channel">Sélectionnez ou ajoutez un RSS/Atom canal</string>
+    <string name="add_feed_channel">Ajouter une chaîne</string>
+    <string name="feed_name">Nom (optionnel)</string>
+    <string name="feed_filter_prompt">Entrez les mots (séparés par des virgules), dont l\'un doit figurer dans le nom ou entrer une expression régulière. Les torrents ne seront ajoutés que si ce filtre correspond au nom du torrent</string>
+    <string name="feed_auto_download">Télécharger de nouveaux torrents automatiquement</string>
+    <string name="feed_use_regex">Utiliser une expression régulière</string>
+    <string name="import_feed_channels">Importer des chaînes</string>
+    <string name="export_feed_channels">Canaux d\'exportation</string>
+    <string name="feed_last_update_template" formatted="false">Actualisé: %1$s</string>
+    <string name="feed_last_update_never">jamais</string>
+    <string name="error_cannot_add_channel">Impossible d\'ajouter une chaîne</string>
+    <string name="copy_link">Copier le lien</string>
+    <string name="delete_selected_channel">Supprimer la chaîne sélectionnée?</string>
+    <string name="delete_selected_channels">Supprimer les chaînes sélectionnées?</string>
+    <string name="edit_feed_channel">Modifier la chaîne</string>
+    <string name="link_copied_to_clipboard">Lien copié dans le presse-papier</string>
+    <string name="mark_as_read">Marquer comme lu</string>
+    <string name="feed_item_list_empty">Pas d\'articles</string>
+    <string name="feed_items">Des articles</string>
+    <string name="export_feeds_successfully" formatted="false">Chaînes enregistrées avec succès: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Canaux importés avec succès</string>
+    <string name="error_import_feeds">Impossible d\'importer les chaînes</string>
+    <string name="error_export_feeds">Impossible d\'exporter les chaînes</string>
+    <string name="feed_item_open_article_url">Ouvrir l\'article</string>
+    <string name="feeds_file_selection_dialog_title">Sélectionnez un fichier avec des canaux</string>
+
     <!-- Settings -->
 
     <!-- Headers -->
@@ -264,6 +297,7 @@
     <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_network">Réseau</string>
     <string name="pref_header_scheduling">Planification</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
@@ -383,6 +417,33 @@
     <string name="pref_scheduling_run_only_once_title">Exécuter une seule fois</string>
     <string name="pref_scheduling_switch_wifi_title">Allumer/éteindre le Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Le Wi-Fi est automatiquement activé lorsque l\'application est lancée à l\'heure planifiée et est désactivé une fois l\'application terminée à l\'heure prévue</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Canaux de rafraîchissement automatique</string>
+    <string name="pref_feed_auto_refresh_summary">Rafraîchir périodiquement les canaux en arrière-plan</string>
+    <string name="pref_feed_refresh_interval_title">Intervalle de rafraîchissement</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+        <item>2 heures</item>
+        <item>6 heures</item>
+        <item>12 heures</item>
+        <item>1 jour</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi uniquement</string>
+    <string name="pref_feed_keep_items_time_title">Gardez les articles</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 jour</item>
+        <item>2 jours</item>
+        <item>4 jours</item>
+        <item>1 semaine</item>
+        <item>2 semaines</item>
+        <item>1 mois</item>
+        <item>2 mois</item>
+        <item>3 mois</item>
+        <item>Toujours</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">À propos de LibreTorrent</string>

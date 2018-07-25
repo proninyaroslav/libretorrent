@@ -159,9 +159,67 @@
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true" />
 
+        <activity
+            android:label="@string/app_name"
+            android:name=".FeedActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"  android:host="*" android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.xml" />
+                <data android:pathPattern=".*\\.rss" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="*" />
+                <data android:mimeType="text/xml" />
+                <data android:mimeType="application/rss+xml" />
+                <data android:mimeType="application/atom+xml" />
+                <data android:mimeType="application/xml" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="*" android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.xml" />
+                <data android:pathPattern=".*\\.rss" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="*" />
+                <data android:mimeType="text/xml" />
+                <data android:mimeType="application/rss+xml" />
+                <data android:mimeType="application/atom+xml" />
+                <data android:mimeType="application/xml" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".FeedItemsActivity" />
+
         <service
             android:name=".services.TorrentTaskService"
             android:stopWithTask="false" />
+
+        <service
+            android:name=".services.FeedFetcherService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".services.FeedDownloaderService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
             android:name=".receivers.NotificationReceiver"

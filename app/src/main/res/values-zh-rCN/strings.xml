@@ -31,6 +31,10 @@
     <string name="sorting">Sorting</string>
     <string name="def">Default</string>
     <string name="foreground_notification">Foreground notification</string>
+    <string name="link">Link</string>
+    <string name="filter">Filter</string>
+    <string name="refresh">Refresh</string>
+    <string name="edit">Edit</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">没有 torrent 任务</string>
@@ -258,6 +262,35 @@
     <string name="app_error_occurred">应用程序发生错误。您可以将报告发送给开发人员。</string>
     <string name="error_comment_prompt">您可以在这里添加额外的信息和评论：</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">No channels</string>
+    <string name="select_or_add_feed_channel">Select or add an RSS/Atom channel</string>
+    <string name="add_feed_channel">Add channel</string>
+    <string name="feed_name">Name (optional)</string>
+    <string name="feed_filter_prompt">Enter the words (separated by commas), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
+    <string name="feed_auto_download">Download new torrents automatically</string>
+    <string name="feed_use_regex">Use regular expression</string>
+    <string name="import_feed_channels">Import channels</string>
+    <string name="export_feed_channels">Export channels</string>
+    <string name="feed_last_update_template" formatted="false">Updated: %1$s</string>
+    <string name="feed_last_update_never">never</string>
+    <string name="error_cannot_add_channel">Cannot add channel</string>
+    <string name="copy_link">Copy link</string>
+    <string name="delete_selected_channel">Delete the selected channel?</string>
+    <string name="delete_selected_channels">Delete the selected channels?</string>
+    <string name="edit_feed_channel">Edit channel</string>
+    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
+    <string name="mark_as_read">Mark as read</string>
+    <string name="feed_item_list_empty">No articles</string>
+    <string name="feed_items">Articles</string>
+    <string name="export_feeds_successfully" formatted="false">Channels saved successfully: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Channels imported successfully</string>
+    <string name="error_import_feeds">Failed to import channels</string>
+    <string name="error_export_feeds">Failed to export channels</string>
+    <string name="feed_item_open_article_url">Open article</string>
+    <string name="feeds_file_selection_dialog_title">Select a file with channels</string>
+
     <!-- Settings -->
 
     <!-- Headers -->
@@ -267,6 +300,7 @@
     <string name="pref_header_limitations">限制</string>
     <string name="pref_header_network">网络</string>
     <string name="pref_header_scheduling">Scheduling</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">默认下载目录</string>
     <string name="pref_move_after_download_title">下载完成后移动文件</string>
@@ -386,6 +420,33 @@
     <string name="pref_scheduling_run_only_once_title">Run only once</string>
     <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
+    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
+    <string name="pref_feed_refresh_interval_title">Refresh interval</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi only</string>
+    <string name="pref_feed_keep_items_time_title">Keep articles</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>4 days</item>
+        <item>1 week</item>
+        <item>2 weeks</item>
+        <item>1 month</item>
+        <item>2 months</item>
+        <item>3 months</item>
+        <item>Always</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>

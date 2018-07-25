@@ -187,6 +187,24 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 return true;
             }
         });
+
+        Preference feed = findPreference(FeedSettingsFragment.class.getSimpleName());
+        feed.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                    setFragment(FeedSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_feed));
+                } else {
+                    startActivity(FeedSettingsFragment.class,
+                            getString(R.string.pref_header_feed));
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override

@@ -37,13 +37,16 @@ public class BootReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        if (intent.getAction() == null)
+            return;
+
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             initScheduling(context);
 
             SharedPreferences pref = SettingsManager.getPreferences(context.getApplicationContext());
             if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
                 pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
-                Utils.startServiceAfterBoot(context);
+                Utils.startTorrentServiceBackground(context, null);
         }
     }
 
@@ -54,13 +57,19 @@ public class BootReceiver extends BroadcastReceiver
                 SettingsManager.Default.enableSchedulingStart)) {
             int time = pref.getInt(context.getString(R.string.pref_key_scheduling_start_time),
                     SettingsManager.Default.schedulingStartTime);
-            Utils.addScheduledTime(context, SchedulerReceiver.ACTION_START_APP, time);
+            SchedulerReceiver.setStartStopAppAlarm(context, SchedulerReceiver.ACTION_START_APP, time);
         }
         if (pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
                 SettingsManager.Default.enableSchedulingShutdown)) {
             int time = pref.getInt(context.getString(R.string.pref_key_scheduling_shutdown_time),
                     SettingsManager.Default.schedulingShutdownTime);
-            Utils.addScheduledTime(context, SchedulerReceiver.ACTION_STOP_APP, time);
+            SchedulerReceiver.setStartStopAppAlarm(context, SchedulerReceiver.ACTION_STOP_APP, time);
+        }
+        if (pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
+                SettingsManager.Default.autoRefreshFeeds)) {
+            long interval = pref.getLong(context.getString(R.string.pref_key_feed_refresh_interval),
+                    SettingsManager.Default.refreshFeedsInterval);
+            SchedulerReceiver.setRefreshFeedsAlarm(context, interval);
         }
     }
 }

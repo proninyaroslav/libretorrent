@@ -123,45 +123,27 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
             if ((boolean)newValue) {
                 int time = pref.getInt(getString(R.string.pref_key_scheduling_start_time),
                         SettingsManager.Default.schedulingStartTime);
-                Utils.addScheduledTime(getActivity(), SchedulerReceiver.ACTION_START_APP, time);
+                SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_START_APP, time);
             } else {
-                Utils.cancelScheduledAlarm(getActivity(), SchedulerReceiver.ACTION_START_APP);
+                SchedulerReceiver.cancelScheduling(getActivity(), SchedulerReceiver.ACTION_START_APP);
             }
-            int flag = (!((boolean)newValue ||
-                    pref.getBoolean(getString(R.string.pref_key_autostart),
-                            SettingsManager.Default.autostart) ||
-                    pref.getBoolean(getString(R.string.pref_key_enable_scheduling_shutdown),
-                            SettingsManager.Default.enableSchedulingShutdown)) ?
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
-            ComponentName bootReceiver = new ComponentName(getActivity(), BootReceiver.class);
-            getActivity().getPackageManager()
-                    .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
+            Utils.enableBootReceiver(getActivity(), (boolean)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_scheduling_shutdown))) {
             if ((boolean)newValue) {
                 int time = pref.getInt(getString(R.string.pref_key_scheduling_shutdown_time),
                         SettingsManager.Default.schedulingStartTime);
-                Utils.addScheduledTime(getActivity(), SchedulerReceiver.ACTION_STOP_APP, time);
+                SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_STOP_APP, time);
             } else {
-                Utils.cancelScheduledAlarm(getActivity(), SchedulerReceiver.ACTION_STOP_APP);
+                SchedulerReceiver.cancelScheduling(getActivity(), SchedulerReceiver.ACTION_STOP_APP);
             }
-            int flag = (!((boolean)newValue ||
-                    pref.getBoolean(getString(R.string.pref_key_autostart),
-                            SettingsManager.Default.autostart) ||
-                    pref.getBoolean(getString(R.string.pref_key_enable_scheduling_start),
-                            SettingsManager.Default.enableSchedulingStart)) ?
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
-            ComponentName bootReceiver = new ComponentName(getActivity(), BootReceiver.class);
-            getActivity().getPackageManager()
-                    .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
+            Utils.enableBootReceiver(getActivity(), (boolean)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_start_time))) {
-            Utils.addScheduledTime(getActivity(), SchedulerReceiver.ACTION_START_APP, (int)newValue);
+            SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_START_APP, (int)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_shutdown_time))) {
-            Utils.addScheduledTime(getActivity(), SchedulerReceiver.ACTION_STOP_APP, (int)newValue);
+            SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_STOP_APP, (int)newValue);
         }
 
         return true;

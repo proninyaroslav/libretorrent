@@ -25,11 +25,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Binder;
@@ -83,7 +81,6 @@ import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
 import org.proninyaroslav.libretorrent.receivers.WifiReceiver;
@@ -112,7 +109,11 @@ public class TorrentTaskService extends Service
     private static final int TORRENTS_MOVED_NOTIFICATION_ID = 2;
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
-    public static final String SHUTDOWN_ACTION = "org.proninyaroslav.libretorrent.SHUTDOWN_ACTION";
+    public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_SHUTDOWN";
+    public static final String ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_ADD_TORRENT";
+    public static final String ACTION_ADD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_ADD_TORRENT_LIST";
+    public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
+    public static final String TAG_ADD_TORRENT_PARAMS_LIST = "add_torrent_params_list";
     private static final int SYNC_TIME = 1000; /* ms */
 
     private boolean isAlreadyRunning;
@@ -266,7 +267,7 @@ public class TorrentTaskService extends Service
 
                 switch (intent.getAction()) {
                     case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-                    case SHUTDOWN_ACTION:
+                    case ACTION_SHUTDOWN:
                         if (!shutdownThread.isAlive())
                             shutdownThread.start();
 
@@ -378,6 +379,28 @@ public class TorrentTaskService extends Service
                         else
                             TorrentEngine.getInstance().resumeAll();
                         break;
+                    case ACTION_ADD_TORRENT: {
+                        AddTorrentParams params = intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS);
+                        try {
+                            addTorrent(params, true);
+                        } catch (Throwable e) {
+                            handleAddTorrentError(params, e);
+                        }
+                        break;
+                    } case ACTION_ADD_TORRENT_LIST: {
+                        ArrayList<AddTorrentParams> paramsList =
+                                intent.getParcelableArrayListExtra(TAG_ADD_TORRENT_PARAMS_LIST);
+                        if (paramsList != null) {
+                            for (AddTorrentParams params : paramsList) {
+                                try {
+                                    addTorrent(params, true);
+                                } catch (Throwable e) {
+                                    handleAddTorrentError(params, e);
+                                }
+                            }
+                        }
+                        break;
+                    }
                 }
             }
 
@@ -1957,24 +1980,27 @@ public class TorrentTaskService extends Service
         try {
             addTorrent(params, true);
         } catch (Throwable e) {
-            if (e instanceof FileAlreadyExistsException) {
-                makeTorrentInfoNotify(params.getName(), getString(R.string.torrent_exist));
-                return;
-            }
-            Log.e(TAG, Log.getStackTraceString(e));
-            String message;
-            if (e instanceof FileNotFoundException)
-                message = getString(R.string.error_file_not_found_add_torrent);
-            else if (e instanceof IOException)
-                message = getString(R.string.error_io_add_torrent);
-            else
-                message = getString(R.string.error_add_torrent);
-            makeTorrentErrorNotify(params.getName(), message);
-
-            return;
+            handleAddTorrentError(params, e);
         }
 
         makeTorrentAddedNotify(params.getName());
+    }
+
+    private void handleAddTorrentError(AddTorrentParams params, Throwable e)
+    {
+        if (e instanceof FileAlreadyExistsException) {
+            makeTorrentInfoNotify(params.getName(), getString(R.string.torrent_exist));
+            return;
+        }
+        Log.e(TAG, Log.getStackTraceString(e));
+        String message;
+        if (e instanceof FileNotFoundException)
+            message = getString(R.string.error_file_not_found_add_torrent);
+        else if (e instanceof IOException)
+            message = getString(R.string.error_io_add_torrent);
+        else
+            message = getString(R.string.error_add_torrent);
+        makeTorrentErrorNotify(params.getName(), message);
     }
 
     private void startWatchDir()

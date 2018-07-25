@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/refresh_feed_channel_menu"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/refresh" />
+
+    <item android:id="@+id/edit_feed_channel_menu"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/edit" />
+
+    <item android:id="@+id/copy_feed_channel_url_menu"
+        android:icon="@drawable/ic_content_copy_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/copy_link" />
+
+    <item android:id="@+id/delete_feed_channel_menu"
+        android:icon="@drawable/ic_delete_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/delete" />
+
+    <item android:id="@+id/select_all_channels_menu"
+        android:icon="@drawable/ic_select_all_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/select_all" />
+
+    <item android:id="@+id/mark_as_read_menu"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/mark_as_read" />
+</menu>

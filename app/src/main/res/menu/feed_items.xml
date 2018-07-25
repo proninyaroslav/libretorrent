@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/refresh_feed_channel_menu"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/refresh" />
+
+    <item android:id="@+id/mark_as_read_menu"
+        app:showAsAction="never"
+        android:title="@string/mark_as_read" />
+</menu>

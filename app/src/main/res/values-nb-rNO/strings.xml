@@ -31,6 +31,10 @@
     <string name="sorting">Sortering</string>
     <string name="def">Misligholde</string>
     <string name="foreground_notification">Forgrunnsmelding</string>
+    <string name="link">Lenke</string>
+    <string name="filter">Filter</string>
+    <string name="refresh">Forfriske</string>
+    <string name="edit">Redigere</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Ingen torrenter</string>
@@ -255,6 +259,35 @@
     <string name="app_error_occurred">En feil inntraff. Du kan sende feilrapporten til utviklerne</string>
     <string name="error_comment_prompt">Legg til evt. ekstra informasjon og kommentarer her:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Ingen kanaler</string>
+    <string name="select_or_add_feed_channel">Velg eller legg til en RSS/Atom-kanal</string>
+    <string name="add_feed_channel">Legg til kanal</string>
+    <string name="feed_name">Navn (valgfritt)</string>
+    <string name="feed_filter_prompt">Skriv inn ordene (adskilt av komma), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
+    <string name="feed_auto_download">Last ned nye torrenter automatisk</string>
+    <string name="feed_use_regex">Bruk vanlig uttrykk</string>
+    <string name="import_feed_channels">Importer kanaler</string>
+    <string name="export_feed_channels">Eksporter kanaler</string>
+    <string name="feed_last_update_template" formatted="false">Oppdatert: %1$s</string>
+    <string name="feed_last_update_never">aldri</string>
+    <string name="error_cannot_add_channel">Kan ikke legge til kanal</string>
+    <string name="copy_link">Kopier lenke</string>
+    <string name="delete_selected_channel">Slett den valgte kanalen?</string>
+    <string name="delete_selected_channels">Slett de valgte kanalene?</string>
+    <string name="edit_feed_channel">Rediger kanal</string>
+    <string name="link_copied_to_clipboard">Lenke kopiert til utklippstavlen</string>
+    <string name="mark_as_read">Merk som lest</string>
+    <string name="feed_item_list_empty">Ingen artikler</string>
+    <string name="feed_items">Artikler</string>
+    <string name="export_feeds_successfully" formatted="false">Kanaler lagret vellykket: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Kanaler importeres med hell</string>
+    <string name="error_import_feeds">Kunne ikke importere kanaler</string>
+    <string name="error_export_feeds">Kunne ikke eksportere kanaler</string>
+    <string name="feed_item_open_article_url">Åpne artikkelen</string>
+    <string name="feeds_file_selection_dialog_title">Velg en fil med kanaler</string>
+
     <!-- Settings -->
     
     <!-- Headers -->
@@ -264,6 +297,7 @@
     <string name="pref_header_limitations">Begrensninger</string>
     <string name="pref_header_network">Nettverk</string>
     <string name="pref_header_scheduling">Planlegging</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Lagre torrenter i</string>
     <string name="pref_move_after_download_title">Flytt etter nedlasting</string>
@@ -384,6 +418,33 @@
     <string name="pref_scheduling_run_only_once_title">Kjør kun én gang</string>
     <string name="pref_scheduling_switch_wifi_title">Aktiver/deaktiver Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi aktiveres automatisk når appen lanseres på den planlagte tiden, og er deaktivert etter at appen er fullført på den planlagte tiden</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Automatisk oppdatering kanaler</string>
+    <string name="pref_feed_auto_refresh_summary">Med jevne mellomrom oppdatere kanaler i bakgrunnen</string>
+    <string name="pref_feed_refresh_interval_title">Oppdaterings intervall</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 minutter</item>
+        <item>15 minutter</item>
+        <item>30 minutter</item>
+        <item>1 time</item>
+        <item>2 timer</item>
+        <item>6 timer</item>
+        <item>12 timer</item>
+        <item>1 dag</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Bare Wi-Fi</string>
+    <string name="pref_feed_keep_items_time_title">Hold artikler</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 dag</item>
+        <item>2 dager</item>
+        <item>4 dager</item>
+        <item>1 uke</item>
+        <item>2 uker</item>
+        <item>1 måned</item>
+        <item>2 måneder</item>
+        <item>3 måneder</item>
+        <item>Alltid</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">Om LibreTorrent</string>

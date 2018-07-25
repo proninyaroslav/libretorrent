@@ -317,7 +317,7 @@ public class MainFragment extends Fragment
 
         } else if (i != null && i.getAction() != null) {
             switch (i.getAction()) {
-                case MainActivity.ACTION_ADD_SHORTCUT:
+                case MainActivity.ACTION_ADD_TORRENT_SHORTCUT:
                 case NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT:
                     addTorrentMenu = true;
                     /* Prevents re-reading action after device configuration changes */
@@ -634,6 +634,9 @@ public class MainFragment extends Fragment
             case R.id.shutdown_app_menu:
                 activity.closeOptionsMenu();
                 finish(new Intent(), FragmentCallback.ResultCode.OK);
+                break;
+            case R.id.feed_menu:
+                startActivity(new Intent(activity, FeedActivity.class));
                 break;
         }
         return true;
@@ -1106,7 +1109,7 @@ public class MainFragment extends Fragment
         if (Utils.isTablet(activity.getApplicationContext())) {
             FragmentManager fm = getFragmentManager();
 
-            BlankFragment blank = BlankFragment.newInstance();
+            BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_torrent));
 
             fm.beginTransaction()
                     .replace(R.id.detail_torrent_fragmentContainer, blank)

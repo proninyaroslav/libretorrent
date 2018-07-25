@@ -10,6 +10,7 @@
         <attr name="defaultRoundRipple" format="reference" />
         <attr name="defaultSelectRect" format="reference" />
         <attr name="curOpenTorrentIndicator" format="reference" />
+        <attr name="transparentRoundRipple" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="LightColorView">

@@ -38,4 +38,20 @@
     <style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
+    <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:background">@color/background_dialog</item>
+        <item name="background">@color/background</item>
+    </style>
+
+    <style name="BaseTheme.Dialog.Dark" parent="Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:background">@color/background_dialog_dark</item>
+        <item name="background">@color/background_dark</item>
+    </style>
 </resources>

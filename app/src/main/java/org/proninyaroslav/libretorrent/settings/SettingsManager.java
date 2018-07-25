@@ -106,6 +106,11 @@ public class SettingsManager
         public static final int schedulingShutdownTime = 1260; /* 9:00 pm in minutes */
         public static final boolean schedulingRunOnlyOnce = false;
         public static final boolean schedulingSwitchWiFi = false;
+        /* Feed settings */
+        public static final long feedItemKeepTime = 4 * 86400000L; /* 4 days */
+        public static final boolean autoRefreshFeeds = false;
+        public static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
+        public static final boolean autoRefreshWiFiOnly = false;
     }
 
     public static SharedPreferences getPreferences(Context context)

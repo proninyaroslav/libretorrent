@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/dialog_padding"
+    android:scrollbars="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="@dimen/min_width_dialog"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_feed_channel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/feed_channel_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/feed_name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_feed_channel_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/feed_channel_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/link" />
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/feed_auto_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/feed_auto_download" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_feed_channel_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/feed_channel_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_help_grey600_24dp"
+                android:enabled="false"
+                android:hint="@string/filter" />
+        </android.support.design.widget.TextInputLayout>
+
+        <com.github.aakira.expandablelayout.ExpandableLinearLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:ael_duration="5"
+            app:ael_expanded="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:text="@string/feed_filter_prompt"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray" />
+            </RelativeLayout>
+        </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+        <CheckBox
+            android:id="@+id/feed_use_regex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:enabled="false"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/feed_use_regex" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

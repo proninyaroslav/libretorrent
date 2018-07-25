@@ -21,8 +21,6 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -40,7 +38,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -49,6 +46,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.frostwire.jlibtorrent.FileStorage;
 
@@ -60,7 +58,6 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
-import org.proninyaroslav.libretorrent.receivers.SchedulerReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -68,7 +65,6 @@ import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -90,6 +86,7 @@ public class Utils
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String SHA1_HASH_PATTERN = "\\b[0-9a-f]{5,40}\\b";
     public static final int MAX_HTTP_REDIRECTION = 10;
+    public static final String MIME_TORRENT = "application/x-bittorrent";
 
     /*
      * Colored status bar in KitKat.
@@ -456,72 +453,55 @@ public class Utils
     }
 
     /*
-     * Workaround for start service in Android 8+ after BOOT_COMPLETED.
+     * Workaround for start service in Android 8+ if app no started.
      * We have a window of time to get around to calling startForeground() before we get ANR,
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startServiceAfterBoot(Context context)
+    public static void startTorrentServiceBackground(Context context, String action)
     {
         Intent i = new Intent(context, TorrentTaskService.class);
+        if (action != null)
+            i.setAction(action);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(i);
         else
             context.startService(i);
     }
 
-    /*
-     * Time in minutes after 00:00
-     */
-    public static void addScheduledTime(Context context, String action, int time)
+    public static void enableBootReceiver(Context context, boolean enable)
     {
-        Calendar calendar = Calendar.getInstance();
-        long timeInMillis = System.currentTimeMillis();
-        calendar.setTimeInMillis(timeInMillis);
-        calendar.set(Calendar.HOUR_OF_DAY, time / 60);
-        calendar.set(Calendar.MINUTE, time % 60);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        if (calendar.getTimeInMillis() < timeInMillis + 2000L)
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-
-        addScheduledAlarm(context, action, calendar);
-    }
-
-    public static void addScheduledAlarm(Context context, @NonNull String action, Calendar calendar)
-    {
-        Intent intent = new Intent(context, SchedulerReceiver.class);
-        intent.setAction(action);
-        PendingIntent pi = PendingIntent.getBroadcast(context, action.hashCode(), intent, 0);
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-        else
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-    }
-
-    public static void cancelScheduledAlarm(Context context, @NonNull String action)
-    {
-        Intent intent = new Intent(context, SchedulerReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, action.hashCode(), intent, 0);
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        am.cancel(pi);
+        SharedPreferences pref = SettingsManager.getPreferences(context);
+        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
+                                                  SettingsManager.Default.enableSchedulingStart);
+        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
+                                                 SettingsManager.Default.enableSchedulingShutdown);
+        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
+                                            SettingsManager.Default.autostart);
+        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
+                                                   SettingsManager.Default.autoRefreshFeeds);
+        int flag = (!(enable || schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
+        context.getPackageManager()
+                .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
     public static void enableBootReceiverIfNeeded(Context context)
     {
         SharedPreferences pref = SettingsManager.getPreferences(context);
-        int flag = (
-                !(pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                        SettingsManager.Default.enableSchedulingStart) ||
-                pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                        SettingsManager.Default.enableSchedulingShutdown) ||
-                pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                        SettingsManager.Default.autostart)) ?
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
+                SettingsManager.Default.enableSchedulingStart);
+        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
+                SettingsManager.Default.enableSchedulingShutdown);
+        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
+                SettingsManager.Default.autostart);
+        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
+                                                   SettingsManager.Default.autoRefreshFeeds);
+        int flag = (!(schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
         context.getPackageManager()
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
@@ -574,5 +554,13 @@ public class Utils
         }
 
         return response;
+    }
+
+    public static void setTextViewStyle(Context context, TextView textView, int resId)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            textView.setTextAppearance(context, resId);
+        else
+            textView.setTextAppearance(resId);
     }
 }

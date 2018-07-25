@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,14 +24,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
 
 public class BlankFragment extends Fragment
 {
-    public static BlankFragment newInstance()
+    private String text;
+    public static BlankFragment newInstance(String text)
     {
         BlankFragment fragment = new BlankFragment();
+        fragment.text = text;
 
         fragment.setArguments(new Bundle());
 
@@ -41,6 +44,10 @@ public class BlankFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        View v = inflater.inflate(R.layout.fragment_blank, container, false);
+        TextView textView = v.findViewById(R.id.blank_textview);
+        textView.setText(text);
+
+        return v;
     }
 }

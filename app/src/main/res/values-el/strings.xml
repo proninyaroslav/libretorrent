@@ -31,6 +31,10 @@
     <string name="sorting">Ταξινόμηση</string>
     <string name="def">Προκαθορισμένο</string>
     <string name="foreground_notification">Κοινοποίηση νέων στοιχείων</string>
+    <string name="link">Σύνδεσμος</string>
+    <string name="filter">Φίλτρο</string>
+    <string name="refresh">Φρεσκάρω</string>
+    <string name="edit">Επεξεργασία</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Κανένα torrent</string>
@@ -255,6 +259,35 @@
     <string name="app_error_occurred">Συνέβη σφάλμα εφαρμογής. Μπορείτε να στείλετε αναφορά στους προγραμματιστές.</string>
     <string name="error_comment_prompt">Μπορείτε να προσθέσετε επιπλέον πληροφορίες και σχόλια εδώ:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Δεν κανάλια</string>
+    <string name="select_or_add_feed_channel">Επιλέξτε ή προσθέστε ένα κανάλι RSS/Atom</string>
+    <string name="add_feed_channel">Προσθήκη καναλιού</string>
+    <string name="feed_name">Ονομα (προαιρετικό)</string>
+    <string name="feed_filter_prompt">Καταχωρίστε τις λέξεις (διαχωρισμένες με κόμματα), μία από τις οποίες πρέπει να είναι στο όνομα ή να εισάγετε κανονική έκφραση. Τα torrents θα προστεθούν μόνο αν αυτό το φίλτρο ταιριάζει με το όνομα torrent</string>
+    <string name="feed_auto_download">Κατεβάστε τα νέα torrents αυτόματα</string>
+    <string name="feed_use_regex">Χρησιμοποιήστε κανονική έκφραση</string>
+    <string name="import_feed_channels">Εισαγωγή καναλιών</string>
+    <string name="export_feed_channels">Εξαγωγή καναλιών</string>
+    <string name="feed_last_update_template" formatted="false">Ενημερώθηκε: %1$s</string>
+    <string name="feed_last_update_never">ποτέ</string>
+    <string name="error_cannot_add_channel">Δεν είναι δυνατή η προσθήκη καναλιού</string>
+    <string name="copy_link">Αντιγραφή συνδέσμου</string>
+    <string name="delete_selected_channel">Διαγραφή του επιλεγμένου καναλιού;</string>
+    <string name="delete_selected_channels">Διαγραφή των επιλεγμένων καναλιών;</string>
+    <string name="edit_feed_channel">Επεξεργασία κανάλι</string>
+    <string name="link_copied_to_clipboard">Η σύνδεση αντιγράφηκε στο πρόχειρο</string>
+    <string name="mark_as_read">Σημείωσε ως διαβασμένο</string>
+    <string name="feed_item_list_empty">Δεν άρθρα</string>
+    <string name="feed_items">Άρθρα</string>
+    <string name="export_feeds_successfully" formatted="false">Τα κανάλια αποθηκεύτηκαν με επιτυχία: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Τα κανάλια που εισάγονται με επιτυχία</string>
+    <string name="error_import_feeds">Αποτυχία εισαγωγής καναλιών</string>
+    <string name="error_export_feeds">Αποτυχία εξαγωγής καναλιών</string>
+    <string name="feed_item_open_article_url">Άνοιγμα άρθρου</string>
+    <string name="feeds_file_selection_dialog_title">Επιλέξτε ένα αρχείο με κανάλια</string>
+
     <!-- Settings -->
     
     <!-- Headers -->
@@ -264,6 +297,7 @@
     <string name="pref_header_limitations">Περιορισμοί</string>
     <string name="pref_header_network">Δίκτυο</string>
     <string name="pref_header_scheduling">Χρονοδρομολόγηση</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Αποθήκευση των torrents στο</string>
     <string name="pref_move_after_download_title">Μετακίνηση μετά την λήψη</string>
@@ -384,6 +418,33 @@
     <string name="pref_scheduling_run_only_once_title">Εκτελέστε μόνο μία φορά</string>
     <string name="pref_scheduling_switch_wifi_title">Ενεργοποίηση/απενεργοποίηση Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Το Wi-Fi ενεργοποιείται αυτόματα όταν η εφαρμογή ξεκινά την προγραμματισμένη ώρα και απενεργοποιείται αφού ολοκληρωθεί η εφαρμογή την προγραμματισμένη ώρα</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Αυτόματη ανανέωση καναλιών</string>
+    <string name="pref_feed_auto_refresh_summary">Περιοδικά ανανεώνετε κανάλια στο παρασκήνιο</string>
+    <string name="pref_feed_refresh_interval_title">Διάστημα ανανέωσης</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>2 ώρες</item>
+        <item>6 ώρες</item>
+        <item>12 ώρες</item>
+        <item>1 ημέρα</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Μόνο Wi-Fi</string>
+    <string name="pref_feed_keep_items_time_title">Κρατήστε άρθρα</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 ημέρα</item>
+        <item>2 ημέρες</item>
+        <item>4 μέρες</item>
+        <item>1 εβδομάδα</item>
+        <item>2 εβδομάδες</item>
+        <item>1 μήνα</item>
+        <item>2 μήνες</item>
+        <item>3 μήνες</item>
+        <item>Πάντα</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>

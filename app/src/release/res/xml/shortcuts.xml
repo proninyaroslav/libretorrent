@@ -11,8 +11,21 @@
         android:shortcutLongLabel="@string/add_torrent_title"
         android:shortcutShortLabel="@string/add_torrent_title">
         <intent
-            android:action="org.proninyaroslav.libretorrent.ADD_SHORTCUT"
+            android:action="org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT"
             android:targetClass="org.proninyaroslav.libretorrent.MainActivity"
+            android:targetPackage="org.proninyaroslav.libretorrent" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_rss_feed"
+        android:shortcutDisabledMessage="@string/error_cannot_add_channel"
+        android:shortcutId="addShortcut"
+        android:shortcutLongLabel="@string/add_feed_channel"
+        android:shortcutShortLabel="@string/add_feed_channel">
+        <intent
+            android:action="org.proninyaroslav.libretorrent.ADD_CHANNEL_SHORTCUT"
+            android:targetClass="org.proninyaroslav.libretorrent.FeedActivity"
             android:targetPackage="org.proninyaroslav.libretorrent" />
     </shortcut>
 </shortcuts>

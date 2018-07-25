@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
-    public static final String ACTION_ADD_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_SHORTCUT";
+    public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
 
     private boolean permDialogIsShow = false;
     MainFragment mainFragment;
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         if (isFinishing() && !pref.getBoolean(getString(R.string.pref_key_keep_alive),
                                               SettingsManager.Default.keepAlive)) {
             Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
-            i.setAction(TorrentTaskService.SHUTDOWN_ACTION);
+            i.setAction(TorrentTaskService.ACTION_SHUTDOWN);
             startService(i);
         }
     }
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         switch (code) {
             case OK:
                 Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
-                i.setAction(TorrentTaskService.SHUTDOWN_ACTION);
+                i.setAction(TorrentTaskService.ACTION_SHUTDOWN);
                 startService(i);
                 finish();
                 break;

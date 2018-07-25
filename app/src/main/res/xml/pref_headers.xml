@@ -30,4 +30,9 @@
         android:key="SchedulingSettingsFragment"
         android:title="@string/pref_header_scheduling"
         android:persistent="false" />
+
+    <Preference
+        android:key="FeedSettingsFragment"
+        android:title="@string/pref_header_feed"
+        android:persistent="false" />
 </PreferenceScreen>

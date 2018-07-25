@@ -126,17 +126,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
         if (preference instanceof SwitchPreferenceCompat) {
             if (preference.getKey().equals(getString(R.string.pref_key_autostart))) {
-                int flag = (
-                        !((boolean)newValue ||
-                                pref.getBoolean(getString(R.string.pref_key_enable_scheduling_start),
-                                        SettingsManager.Default.enableSchedulingStart) ||
-                                pref.getBoolean(getString(R.string.pref_key_enable_scheduling_shutdown),
-                                        SettingsManager.Default.enableSchedulingShutdown)) ?
-                                PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
-                                PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
-                ComponentName bootReceiver = new ComponentName(getActivity(), BootReceiver.class);
-                getActivity().getPackageManager()
-                        .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
+                Utils.enableBootReceiver(getActivity(), (boolean)newValue);
             }
             if(preference.getKey().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
                 if(!((SwitchPreferenceCompat) preference).isChecked())

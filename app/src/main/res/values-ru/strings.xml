@@ -27,6 +27,10 @@
     <string name="sorting">Сортировка</string>
     <string name="def">По умолчанию</string>
     <string name="foreground_notification">Уведомление переднего плана</string>
+    <string name="link">Ссылка</string>
+    <string name="filter">Фильтр</string>
+    <string name="refresh">Обновить</string>
+    <string name="edit">Редактировать</string>
     
     <!-- Main window -->
     <string name="main_empty_torrent_list">Нет торрентов</string>
@@ -236,6 +240,35 @@
     <string name="app_error_occurred">В приложении произошла ошибка. Вы можете отправить отчёт разработчикам</string>
     <string name="error_comment_prompt">Вы можете добавить дополнительную информацию и комментарии:</string>
 
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Нет каналов</string>
+    <string name="select_or_add_feed_channel">Выберите или добавьте RSS/Atom канал</string>
+    <string name="add_feed_channel">Добавить канал</string>
+    <string name="feed_name">Имя (необязательно)</string>
+    <string name="feed_filter_prompt">Введите слова (разделённые запятой), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
+    <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
+    <string name="feed_use_regex">Использовать регулярное выражение</string>
+    <string name="import_feed_channels">Импорт каналов</string>
+    <string name="export_feed_channels">Экспорт каналов</string>
+    <string name="feed_last_update_template" formatted="false">Обновлено: %1$s</string>
+    <string name="feed_last_update_never">никогда</string>
+    <string name="error_cannot_add_channel">Невозможно добавить канал</string>
+    <string name="copy_link">Скопировать ссылку</string>
+    <string name="delete_selected_channel">Удалить выбранный канал?</string>
+    <string name="delete_selected_channels">Удалить выбранные каналы?</string>
+    <string name="edit_feed_channel">Редактировать канал</string>
+    <string name="link_copied_to_clipboard">Ссылка скопирована в буфер обмена</string>
+    <string name="mark_as_read">Отметить как прочитанное</string>
+    <string name="feed_item_list_empty">Нет статей</string>
+    <string name="feed_items">Статьи</string>
+    <string name="export_feeds_successfully" formatted="false">Каналы успешно сохранены: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">Каналы успешно импортированы</string>
+    <string name="error_import_feeds">Не удалось импортировать каналы</string>
+    <string name="error_export_feeds">Не удалось экспортировать каналы</string>
+    <string name="feed_item_open_article_url">Открыть статью</string>
+    <string name="feeds_file_selection_dialog_title">Выбрать файл с каналами</string>
+
     <!-- Settings -->
 
     <!-- Headers -->
@@ -245,6 +278,7 @@
     <string name="pref_header_limitations">Ограничения</string>
     <string name="pref_header_network">Сеть</string>
     <string name="pref_header_scheduling">Планировщик</string>
+    <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Сохранять торренты в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
@@ -365,6 +399,33 @@
     <string name="pref_scheduling_run_only_once_title">Запустить только один раз</string>
     <string name="pref_scheduling_switch_wifi_title">Включить/выключить Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi автоматически включается когда приложение запущено в запланированное время и выключается когда приложение остановлено в запланированное время</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Автообновление каналов</string>
+    <string name="pref_feed_auto_refresh_summary">Периодически оббновлять каналы в фоне</string>
+    <string name="pref_feed_refresh_interval_title">Интервал обновления</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 минут</item>
+        <item>15 минут</item>
+        <item>30 минут</item>
+        <item>1 час</item>
+        <item>2 часа</item>
+        <item>6 часов</item>
+        <item>12 часов</item>
+        <item>1 день</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Только Wi-Fi</string>
+    <string name="pref_feed_keep_items_time_title">Хранить статьи</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 день</item>
+        <item>2 дня</item>
+        <item>4 дня</item>
+        <item>1 неделю</item>
+        <item>2 недели</item>
+        <item>1 месяц</item>
+        <item>2 месяца</item>
+        <item>3 месяца</item>
+        <item>Всегда</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>
