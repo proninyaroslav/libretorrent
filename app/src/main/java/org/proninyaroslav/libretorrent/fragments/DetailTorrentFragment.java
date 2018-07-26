@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -252,7 +251,7 @@ public class DetailTorrentFragment extends Fragment
         Fragment fragment = getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
 
         /* Prevents leak the dialog in portrait mode */
-        if (Utils.isTablet(activity.getApplicationContext()) && fragment != null) {
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null) {
             ((BaseAlertDialog) fragment).dismiss();
         }
     }
@@ -409,7 +408,7 @@ public class DetailTorrentFragment extends Fragment
                 DetailTorrentPiecesFragment.newInstance(infoCache.numPieces, infoCache.pieceLength);
 
         /* Removing previous ViewPagerAdapter fragments, if any */
-        if (Utils.isTablet(activity.getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
             android.support.v4.app.FragmentManager fm = activity.getSupportFragmentManager();
             List<android.support.v4.app.Fragment> fragments = fm.getFragments();
 

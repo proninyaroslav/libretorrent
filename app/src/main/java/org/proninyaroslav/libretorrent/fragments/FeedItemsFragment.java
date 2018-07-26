@@ -224,7 +224,7 @@ public class FeedItemsFragment extends Fragment
         Fragment fragment = getFragmentManager().findFragmentByTag(TAG_FETCH_ERROR_DIALOG);
 
         /* Prevents leak the dialog in portrait mode */
-        if (Utils.isTablet(activity.getApplicationContext()) && fragment != null)
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null)
             ((BaseAlertDialog)fragment).dismiss();
     }
 

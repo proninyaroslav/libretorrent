@@ -26,7 +26,8 @@
             android:layout_marginBottom="16dp"
             android:visibility="gone"
             android:contentDescription="@string/save"
-            android:src="@drawable/ic_save_white_24dp" />
+            android:src="@drawable/ic_save_white_24dp"
+            android:focusable="true" />
 
         <FrameLayout
             android:id="@android:id/list_container"

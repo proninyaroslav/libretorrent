@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <include
+        layout="@layout/statusbar_kitkat" />
+
+    <RelativeLayout
+        android:gravity="center"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="?attr/background">
+
+                <fragment
+                    class="org.proninyaroslav.libretorrent.fragments.MainFragment"
+                    android:id="@+id/main_fragmentContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+                </fragment>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View
+                        android:id="@+id/toolbar_divider"
+                        android:layout_width="1dp"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/colorPrimaryDark" />
+
+                    <View
+                        android:id="@+id/content_divider"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/divider" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/detail_torrent_fragmentContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4">
+                </FrameLayout>
+            </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

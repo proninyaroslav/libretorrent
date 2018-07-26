@@ -86,7 +86,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(AppearanceSettingsFragment.newInstance(),
                             getString(R.string.pref_header_appearance));
                 } else {
@@ -104,7 +104,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(BehaviorSettingsFragment.newInstance(),
                             getString(R.string.pref_header_behavior));
                 } else {
@@ -122,7 +122,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(StorageSettingsFragment.newInstance(),
                             getString(R.string.pref_header_storage));
                 } else {
@@ -140,7 +140,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(LimitationsSettingsFragment.newInstance(),
                             getString(R.string.pref_header_limitations));
                 } else {
@@ -158,7 +158,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(NetworkSettingsFragment.newInstance(),
                             getString(R.string.pref_header_network));
                 } else {
@@ -176,7 +176,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(SchedulingSettingsFragment.newInstance(),
                             getString(R.string.pref_header_scheduling));
                 } else {
@@ -194,7 +194,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if (Utils.isTablet(getActivity().getApplicationContext())) {
+                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
                     setFragment(FeedSettingsFragment.newInstance(),
                             getString(R.string.pref_header_feed));
                 } else {
@@ -215,7 +215,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
     {
-        if (Utils.isTablet(getActivity().getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
             if (callback != null) {
                 callback.onDetailTitleChanged(title);
             }

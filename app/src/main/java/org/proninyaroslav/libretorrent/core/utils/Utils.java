@@ -211,9 +211,12 @@ public class Utils
         return context.getResources().getBoolean(R.bool.isTwoPane);
     }
 
-    public static boolean isTablet(Context context)
+    /*
+     * Tablets (from 7"), notebooks, TVs
+     */
+    public static boolean isLargeScreenDevice(Context context)
     {
-        return context.getResources().getBoolean(R.bool.isTablet);
+        return context.getResources().getBoolean(R.bool.isLargeScreenDevice);
     }
 
     /*

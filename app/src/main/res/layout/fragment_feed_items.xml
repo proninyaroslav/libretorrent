@@ -28,7 +28,8 @@
                 app:layout_scrollFlags="enterAlways"
                 android:transitionName="actionBar"
                 app:popupTheme="?attr/popupTheme"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:focusable="true" />
         </android.support.design.widget.AppBarLayout>
 
         <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView

@@ -665,7 +665,7 @@ public class FeedFragment extends Fragment
 
     private void showBlankFragment()
     {
-        if (Utils.isTablet(activity.getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
             FragmentManager fm = getFragmentManager();
             BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_feed_channel));
 
