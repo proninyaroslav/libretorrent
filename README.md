@@ -30,6 +30,7 @@ Already implemented features (help is highly desired!):
  - Tablet optimized UI
  - Scheduling
  - RSS manager
+ - Android TV support
  - And more
 
 Donation
