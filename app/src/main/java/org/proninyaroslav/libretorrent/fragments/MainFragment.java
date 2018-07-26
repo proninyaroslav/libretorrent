@@ -875,17 +875,15 @@ public class MainFragment extends Fragment
                     if (checkEditTextField(link, fieldLayout)) {
                         String url;
 
-                        if (link.startsWith(Utils.MAGNET_PREFIX)) {
+                        if (link.startsWith(Utils.MAGNET_PREFIX))
                             url = link;
-                        } else if (Utils.isSha1Hash(link)) {
-                            url = Utils.INFOHASH_PREFIX + link;
-                        } else {
+                        else if (Utils.isHash(link))
+                            url = Utils.normalizeMagnetHash(link);
+                        else
                             url = Utils.normalizeURL(link);
-                        }
 
-                        if (url != null) {
+                        if (url != null)
                             addTorrentDialog(Uri.parse(url));
-                        }
 
                         dialog.dismiss();
                     }
@@ -901,7 +899,7 @@ public class MainFragment extends Fragment
             if (clipboard.startsWith(Utils.MAGNET_PREFIX) ||
                 clipboard.startsWith(Utils.HTTP_PREFIX) ||
                 clipboard.startsWith(Utils.HTTPS_PREFIX) ||
-                Utils.isSha1Hash(clipboard)) {
+                Utils.isHash(clipboard)) {
                 url = clipboard;
             }
 

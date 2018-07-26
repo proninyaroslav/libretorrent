@@ -84,7 +84,7 @@ public class Utils
     public static final String CONTENT_PREFIX = "content";
     public static final String TRACKER_URL_PATTERN =
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-    public static final String SHA1_HASH_PATTERN = "\\b[0-9a-f]{5,40}\\b";
+    public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final int MAX_HTTP_REDIRECTION = 10;
     public static final String MIME_TORRENT = "application/x-bittorrent";
 
@@ -197,6 +197,15 @@ public class Utils
         }
     }
 
+    /*
+     * Returns the link as "magnet:?xt=urn:btih:hash".
+     */
+
+    public static String normalizeMagnetHash(String hash)
+    {
+        return INFOHASH_PREFIX + hash;
+    }
+
     public static boolean isTwoPane(Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
@@ -225,11 +234,11 @@ public class Utils
         return matcher.matches();
     }
 
-    public static boolean isSha1Hash (String hash) {
+    public static boolean isHash(String hash) {
         if (hash == null || TextUtils.isEmpty(hash))
             return false;
 
-        Pattern pattern = Pattern.compile(SHA1_HASH_PATTERN);
+        Pattern pattern = Pattern.compile(HASH_PATTERN);
         Matcher matcher = pattern.matcher(hash.trim());
 
         return matcher.matches();
