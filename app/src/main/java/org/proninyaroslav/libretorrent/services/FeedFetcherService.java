@@ -28,21 +28,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ernieyu.feedparser.Enclosure;
-import com.ernieyu.feedparser.Feed;
-import com.ernieyu.feedparser.FeedParserFactory;
-import com.ernieyu.feedparser.Item;
-
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FeedChannel;
 import org.proninyaroslav.libretorrent.core.FeedItem;
+import org.proninyaroslav.libretorrent.core.FeedParser;
 import org.proninyaroslav.libretorrent.core.storage.FeedStorage;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -133,15 +126,9 @@ public class FeedFetcherService extends JobIntentService
         if (url == null || !storage.channelExists(url))
             return;
 
-        Feed feed;
-        ByteArrayInputStream bsStream = null;
+        FeedParser parser;
         try {
-            byte[] response = Utils.fetchHttpUrl(getApplicationContext(), url);
-            if (response == null)
-                return;
-            bsStream = new ByteArrayInputStream(response);
-            feed = FeedParserFactory.newParser().parse(bsStream);
-
+            parser = new FeedParser(getApplicationContext(), url);
         } catch (Exception e) {
             FeedChannel channel = storage.getChannelByUrl(url);
             if (channel != null) {
@@ -153,24 +140,16 @@ public class FeedFetcherService extends JobIntentService
             LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
             return;
-        } finally {
-            if (bsStream != null) {
-                try {
-                    bsStream.close();
-                } catch (Exception e) {
-                    /* Ignore */
-                }
-            }
         }
 
-        List<FeedItem> items = parseItems(url, feed);
+        List<FeedItem> items = parser.getItems();
         items = storage.addItems(items); /* Added items */
 
         FeedChannel channel = storage.getChannelByUrl(url);
         if (channel != null) {
             channel.setFetchError(null);
             if (channel.getName() == null || TextUtils.isEmpty(channel.getName()))
-                channel.setName(feed.getTitle());
+                channel.setName(parser.getTitle());
             channel.setLastUpdate(System.currentTimeMillis());
             storage.updateChannel(channel);
         }
@@ -181,42 +160,6 @@ public class FeedFetcherService extends JobIntentService
 
         if (channel != null && channel.isAutoDownload())
             sendUrls(channel, items);
-    }
-
-    private List<FeedItem> parseItems(String feedUrl, Feed feed)
-    {
-        List<FeedItem> items = new ArrayList<>();
-        for (Item item : feed.getItemList()) {
-            String articleUrl = item.getLink();
-            String downloadUrl = articleUrl;
-            Enclosure enclosure = item.getEnclosure();
-            String enclosureUrl = null;
-            if (enclosure != null)
-                enclosureUrl = enclosure.getUrl();
-
-            /* Watch enclosure for links*/
-            if (downloadUrl != null && enclosureUrl != null) {
-                String type = enclosure.getType();
-                if (enclosureUrl.endsWith(".torrent") ||
-                    enclosureUrl.startsWith(Utils.MAGNET_PREFIX) ||
-                    (type != null && type.equals(Utils.MIME_TORRENT)))
-                {
-                    downloadUrl = enclosureUrl;
-                }
-            } else if (downloadUrl == null)
-                downloadUrl = enclosureUrl;
-
-            Date pubDate = item.getPubDate();
-            long pubDateTime = 0;
-            if (pubDate != null)
-                pubDateTime = pubDate.getTime();
-
-            FeedItem feedItem = new FeedItem(feedUrl, downloadUrl, articleUrl, item.getTitle(), pubDateTime);
-            feedItem.setFetchDate(System.currentTimeMillis());
-            items.add(feedItem);
-        }
-
-        return items;
     }
 
     private void deleteOldItems()
@@ -276,47 +219,4 @@ public class FeedFetcherService extends JobIntentService
 
         return false;
     }
-
-//    private void fetchChannel(RssChannel channel)
-//    {
-//        SyndFeed feed;
-//        try {
-//            feed = new SyndFeedInput().build(new XmlReader(new URL(channel.getUrl())));
-//        } catch (Exception e) {
-//            Intent i = new Intent(ACTION_CHANNEL_RESULT);
-//            i.putExtra(TAG_CHANNEL_RESULT, e);
-//            i.putExtra(TAG_ERROR_RESULT, e);
-//            LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-//
-//            return;
-//        }
-//
-//        if (channel.getName() == null || TextUtils.isEmpty(channel.getName()))
-//            channel.setName(feed.getTitle());
-//
-//        ArrayList<RssChannel.Item> items = parseItems(feed);
-//        Collections.sort(items, RssChannel.itemComparator);
-//    }
-//
-//    private ArrayList<RssChannel.Item> parseItems(SyndFeed feed)
-//    {
-//        ArrayList<RssChannel.Item> items = new ArrayList<>();
-//        for (SyndEntry item : feed.getEntries()) {
-//            String url = item.getLink();
-//            if (url == null) {
-//                /* Watch enclosures for links*/
-//                List<SyndEnclosure> enclosures = item.getEnclosures();
-//                if (enclosures != null)
-//                    for (SyndEnclosure enclosure : enclosures)
-//                        url = enclosure.getUrl();
-//            }
-//            Date pubDate = item.getPublishedDate();
-//            if (pubDate == null)
-//                pubDate = item.getUpdatedDate();
-//
-//            items.add(new RssChannel.Item(url, item.getTitle(), pubDate.getTime()));
-//        }
-//
-//        return items;
-//    }
 }
