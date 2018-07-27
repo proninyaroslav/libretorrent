@@ -1175,13 +1175,12 @@ public class TorrentTaskService extends Service
         Torrent torrent = repo.getTorrentByID(id);
         if (torrent == null)
             return;
-
+        torrent.setFilePriorities(Arrays.asList(priorities));
         TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
         if (isSelectedFilesTooBig(torrent, ti)) {
             makeTorrentErrorNotify(torrent.getName(), getString(R.string.error_free_space));
             return;
         }
-        torrent.setFilePriorities(Arrays.asList(priorities));
         repo.update(torrent);
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
