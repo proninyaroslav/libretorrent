@@ -971,6 +971,16 @@ public class TorrentTaskService extends Service
             repo.delete(torrent);
             throw new FileNotFoundException("Torrent doesn't exists: " + torrent.getName());
         }
+        /*
+         * This is possible if the magnet data came after AddTorrentParams object
+         * has already been created and nothing is known about the received data
+         */
+        List<Priority> priorities = torrent.getFilePriorities();
+        if (!torrent.isDownloadingMetadata() && (priorities == null || priorities.isEmpty())) {
+            TorrentMetaInfo info = new TorrentMetaInfo(torrent.getTorrentFilePath());
+            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+            repo.update(torrent);
+        }
 
         TorrentEngine.getInstance().download(torrent);
         LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentAddedIntent(torrent));
