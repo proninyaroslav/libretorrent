@@ -141,13 +141,7 @@ public class TorrentTaskService extends Service
     private boolean isNetworkOnline = false;
     private AtomicBoolean isPauseButton = new AtomicBoolean(true);
     private TorrentFileObserver fileObserver;
-    private Thread shutdownThread = new Thread() {
-        @Override
-        public void run()
-        {
-            stopService();
-        }
-    };
+    private Thread shutdownThread;
 
     public class LocalBinder extends Binder
     {
@@ -163,12 +157,16 @@ public class TorrentTaskService extends Service
         return binder;
     }
 
-    @Override
-    public void onCreate()
+    private void init()
     {
-        super.onCreate();
-
         Log.i(TAG, "Start " + TorrentTaskService.class.getSimpleName());
+        shutdownThread = new Thread() {
+            @Override
+            public void run()
+            {
+                stopService();
+            }
+        };
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Context context = getApplicationContext();
         repo = new TorrentStorage(context);
@@ -268,7 +266,7 @@ public class TorrentTaskService extends Service
                 switch (intent.getAction()) {
                     case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
                     case ACTION_SHUTDOWN:
-                        if (!shutdownThread.isAlive())
+                        if (shutdownThread != null && !shutdownThread.isAlive())
                             shutdownThread.start();
 
                         return START_NOT_STICKY;
@@ -409,6 +407,7 @@ public class TorrentTaskService extends Service
 
         /* The first start */
         isAlreadyRunning = true;
+        init();
 
         makeForegroundNotify();
         startUpdateForegroundNotify();
