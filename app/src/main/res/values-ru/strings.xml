@@ -401,7 +401,7 @@
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi автоматически включается когда приложение запущено в запланированное время и выключается когда приложение остановлено в запланированное время</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Автообновление каналов</string>
-    <string name="pref_feed_auto_refresh_summary">Периодически оббновлять каналы в фоне</string>
+    <string name="pref_feed_auto_refresh_summary">Периодически обновлять каналы в фоне</string>
     <string name="pref_feed_refresh_interval_title">Интервал обновления</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>5 минут</item>
