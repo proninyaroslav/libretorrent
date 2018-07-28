@@ -347,7 +347,7 @@ public class Utils
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static int getTheme(Context context)
+    public static int getThemePreference(Context context)
     {
         int theme = SettingsManager.getPreferences(context)
                 .getInt(context.getString(R.string.pref_key_theme),
@@ -358,12 +358,26 @@ public class Utils
     
     public static boolean isDarkTheme(Context context)
     {
-        return getTheme(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
+        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
     }
     
     public static boolean isBlackTheme(Context context)
     {
-        return getTheme(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
+        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
+    }
+
+    public static int getAppTheme(Context context)
+    {
+        int theme = getThemePreference(context);
+
+        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+            return R.style.AppTheme;
+        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+            return R.style.AppTheme_Dark;
+        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+            return R.style.AppTheme_Black;
+
+        return R.style.AppTheme;
     }
 
     public static TorrentSorting getTorrentSorting(Context context)

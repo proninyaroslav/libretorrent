@@ -44,13 +44,7 @@ public class BasePreferenceActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        if (Utils.isDarkTheme(getApplicationContext())) {
-            setTheme(R.style.BaseTheme_Settings_Dark);
-        }
-        else if (Utils.isBlackTheme(getApplicationContext())) {
-            setTheme(R.style.BaseTheme_Settings_Black);
-        }
-
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         setContentView(R.layout.activity_settings);
 
         Utils.showColoredStatusBar_KitKat(this);

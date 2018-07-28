@@ -54,13 +54,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        if (Utils.isDarkTheme(getApplicationContext())) {
-            setTheme(R.style.AppTheme_Dark);
-        }
-        else if (Utils.isBlackTheme(getApplicationContext())) {
-            setTheme(R.style.AppTheme_Black);
-        }
-
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         if (getIntent().getAction() != null &&
                 getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();

@@ -23,11 +23,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     {
         super.onCreate(savedInstanceState);
 
-        if (Utils.isDarkTheme(getApplicationContext()))
-            setTheme(R.style.AppTheme_Dark);
-        else if (Utils.isBlackTheme(getApplicationContext()))
-            setTheme(R.style.AppTheme_Black);
-
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         setContentView(R.layout.activity_feed);
         Utils.showColoredStatusBar_KitKat(this);
 
