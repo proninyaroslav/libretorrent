@@ -41,6 +41,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -121,6 +122,7 @@ public class FeedFragment extends Fragment
     private FeedChannelListAdapter adapter;
     private LinearLayoutManager layoutManager;
     private EmptyRecyclerView channelList;
+    private SwipeRefreshLayout swipeRefreshLayout;
     /* Save state scrolling */
     private Parcelable channelListState;
     private ArrayList<FeedChannel> selectedChannels = new ArrayList<>();
@@ -142,6 +144,7 @@ public class FeedFragment extends Fragment
         coordinatorLayout = v.findViewById(R.id.feed_coordinator_layout);
         toolbar = v.findViewById(R.id.toolbar);
         addChannelButton = v.findViewById(R.id.add_channel_button);
+        swipeRefreshLayout = v.findViewById(R.id.swipe_container);
 
         return v;
     }
@@ -228,6 +231,16 @@ public class FeedFragment extends Fragment
         adapter = new FeedChannelListAdapter(new ArrayList<>(channels), activity,
                 R.layout.item_feed_channel_list, torrentListListener);
         channelList.setAdapter(adapter);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh()
+            {
+                swipeRefreshLayout.setRefreshing(true);
+                refreshChannels(channels);
+            }
+        });
 
         Intent i = activity.getIntent();
         /* If add channel dialog has been called by an implicit intent */
@@ -568,6 +581,7 @@ public class FeedFragment extends Fragment
                 if (channel == null)
                     return;
                 updateChannelUi(channel);
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     };
