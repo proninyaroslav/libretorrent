@@ -78,16 +78,23 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
 
         holder.file = file;
 
-        if (highlightFileTypes != null && highlightFileTypes.contains(FilenameUtils.getExtension(file.getName()))) {
-            holder.fileName.setTextColor(ContextCompat.getColor(context, R.color.file_manager_highlight));
+        holder.itemView.setEnabled(file.isEnabled());
+        if (file.isEnabled()) {
+            if (highlightFileTypes != null && highlightFileTypes.contains(FilenameUtils.getExtension(file.getName()))) {
+                holder.fileName.setTextColor(ContextCompat.getColor(context, R.color.file_manager_highlight));
+            } else {
+                TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorPrimary });
+                holder.fileName.setTextColor(a.getColor(0, 0));
+                a.recycle();
+            }
+
         } else {
-            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorPrimary });
+            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorSecondary });
             holder.fileName.setTextColor(a.getColor(0, 0));
             a.recycle();
         }
 
         holder.fileName.setText(file.getName());
-
         if (file.getType() == FileNode.Type.DIR) {
             holder.fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
 

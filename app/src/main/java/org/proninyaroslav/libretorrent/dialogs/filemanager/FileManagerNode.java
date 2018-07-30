@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,11 +32,13 @@ public class FileManagerNode implements FileNode<FileManagerNode>
 
     private String node;
     private int nodeType;
+    private boolean enabled;
 
-    public FileManagerNode(String item, int itemType)
+    public FileManagerNode(String item, int itemType, boolean enabled)
     {
         node = item;
         nodeType = itemType;
+        this.enabled = enabled;
     }
 
     @Override
@@ -63,6 +65,16 @@ public class FileManagerNode implements FileNode<FileManagerNode>
         nodeType = type;
     }
 
+    public boolean isEnabled()
+    {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled)
+    {
+        this.enabled = enabled;
+    }
+
     @Override
     public int compareTo(FileManagerNode another)
     {
@@ -75,6 +87,7 @@ public class FileManagerNode implements FileNode<FileManagerNode>
         return "FileManagerNode{" +
                 "node='" + node + '\'' +
                 ", nodeType=" + nodeType +
+                ", enabled=" + enabled +
                 '}';
     }
 }

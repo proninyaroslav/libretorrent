@@ -498,22 +498,17 @@ public class FileManagerDialog extends AppCompatActivity
 
             /* Adding parent dir for navigation */
             if (!curDir.equals(FileManagerNode.ROOT_DIR))
-                items.add(0, new FileManagerNode(FileManagerNode.PARENT_DIR, FileNode.Type.DIR));
+                items.add(0, new FileManagerNode(FileManagerNode.PARENT_DIR, FileNode.Type.DIR, true));
 
             File[] files = dirFile.listFiles();
             if (files == null)
                 return items;
             for (File file : files) {
-                if (showMode == FileManagerConfig.DIR_CHOOSER_MODE ||
-                    showMode == FileManagerConfig.SAVE_FILE_MODE) {
-                    if (file.isDirectory())
-                        items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR));
-                } else if (showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
-                    if (file.isDirectory())
-                        items.add(new FileManagerNode(file.getName(), FileManagerNode.Type.DIR));
-                    else
-                        items.add(new FileManagerNode(file.getName(), FileManagerNode.Type.FILE));
-                }
+                if (file.isDirectory())
+                    items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR, true));
+                else
+                    items.add(new FileManagerNode(file.getName(), FileManagerNode.Type.FILE,
+                            showMode == FileManagerConfig.FILE_CHOOSER_MODE));
             }
 
         } catch (Exception e) {
