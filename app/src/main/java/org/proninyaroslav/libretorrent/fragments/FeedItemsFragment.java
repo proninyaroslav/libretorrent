@@ -32,6 +32,7 @@ import android.os.Parcelable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,6 +79,7 @@ public class FeedItemsFragment extends Fragment
     private FeedItemsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private EmptyRecyclerView itemList;
+    private SwipeRefreshLayout swipeRefreshLayout;
     /* Save state scrolling */
     private Parcelable itemsListState;
     private ArrayList<FeedItem> items = new ArrayList<>();
@@ -101,6 +103,7 @@ public class FeedItemsFragment extends Fragment
 
         toolbar = v.findViewById(R.id.toolbar);
         coordinatorLayout = v.findViewById(R.id.coordinator_layout);
+        swipeRefreshLayout = v.findViewById(R.id.swipe_container);
 
         return v;
     }
@@ -188,6 +191,15 @@ public class FeedItemsFragment extends Fragment
         adapter = new FeedItemsAdapter(new ArrayList<>(items), activity,
                 R.layout.item_feed_items_list, feedItemsListener);
         itemList.setAdapter(adapter);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh()
+            {
+                refreshChannel();
+            }
+        });
     }
 
     @Override
@@ -271,6 +283,7 @@ public class FeedItemsFragment extends Fragment
                 if (!url.equals(feedUrl))
                     return;
                 replaceItems();
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     };
@@ -353,6 +366,16 @@ public class FeedItemsFragment extends Fragment
         startActivityForResult(i, ADD_TORRENT_REQUEST);
     }
 
+    private void refreshChannel()
+    {
+        swipeRefreshLayout.setRefreshing(true);
+
+        Intent i = new Intent(activity, FeedFetcherService.class);
+        i.setAction(FeedFetcherService.ACTION_FETCH_CHANNEL);
+        i.putExtra(FeedFetcherService.TAG_CHANNEL_URL_ARG, feedUrl);
+        FeedFetcherService.enqueueWork(activity, i);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
@@ -369,10 +392,7 @@ public class FeedItemsFragment extends Fragment
                 onBackPressed();
                 break;
             case R.id.refresh_feed_channel_menu:
-                Intent i = new Intent(activity, FeedFetcherService.class);
-                i.setAction(FeedFetcherService.ACTION_FETCH_CHANNEL);
-                i.putExtra(FeedFetcherService.TAG_CHANNEL_URL_ARG, feedUrl);
-                FeedFetcherService.enqueueWork(activity, i);
+                refreshChannel();
                 break;
             case R.id.mark_as_read_menu:
                 markAllAsRead();

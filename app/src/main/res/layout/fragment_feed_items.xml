@@ -32,13 +32,19 @@
                 android:focusable="true" />
         </android.support.design.widget.AppBarLayout>
 
-        <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
-            android:id="@+id/feed_items_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/app_bar"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
+                android:id="@+id/feed_items_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/app_bar"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <TextView
             android:id="@+id/empty_view_feed_items"

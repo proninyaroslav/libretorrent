@@ -237,7 +237,6 @@ public class FeedFragment extends Fragment
             @Override
             public void onRefresh()
             {
-                swipeRefreshLayout.setRefreshing(true);
                 refreshChannels(channels);
             }
         });
@@ -356,6 +355,8 @@ public class FeedFragment extends Fragment
 
     private void refreshChannels(List<FeedChannel> channels)
     {
+        swipeRefreshLayout.setRefreshing(true);
+
         ArrayList<String> urls = new ArrayList<>();
         for (FeedChannel channel : channels)
             urls.add(channel.getUrl());
