@@ -122,7 +122,7 @@ public class FeedChannelListAdapter extends SelectableAdapter<FeedChannelListAda
             holder.error.setVisibility(View.VISIBLE);
             holder.error.setText(item.getFetchError());
         } else {
-            holder.error.setVisibility(View.INVISIBLE);
+            holder.error.setVisibility(View.GONE);
         }
 
         FeedChannel curChannel = curOpenChannel.get();
