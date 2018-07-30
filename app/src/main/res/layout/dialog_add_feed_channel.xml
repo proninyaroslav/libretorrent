@@ -35,6 +35,7 @@
                 android:id="@+id/feed_channel_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text|textNoSuggestions"
                 android:hint="@string/link" />
         </android.support.design.widget.TextInputLayout>
 
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_help_grey600_24dp"
+                android:inputType="text|textNoSuggestions"
                 android:enabled="false"
                 android:hint="@string/filter" />
         </android.support.design.widget.TextInputLayout>
