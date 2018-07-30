@@ -755,7 +755,7 @@ public class FileManagerDialog extends AppCompatActivity
 
         if (TextUtils.isEmpty(fileNameEditText.getText())) {
             fileNameLayout.setErrorEnabled(true);
-            fileNameLayout.setError(getString(R.string.error_field_required));
+            fileNameLayout.setError(getString(R.string.file_name_is_empty));
             fileNameLayout.requestFocus();
 
             return false;
