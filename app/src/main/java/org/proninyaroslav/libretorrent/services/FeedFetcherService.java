@@ -66,6 +66,7 @@ public class FeedFetcherService extends JobIntentService
         if (intent == null || intent.getAction() == null)
             return;
 
+        deleteOldItems();
         switch (intent.getAction()) {
             case ACTION_FETCH_CHANNEL:
                 fetchChannel(intent.getStringExtra(TAG_CHANNEL_URL_ARG));
@@ -99,7 +100,6 @@ public class FeedFetcherService extends JobIntentService
 
     private void fetchChannelsByUrl(List<String> urls)
     {
-        deleteOldItems();
         if (urls == null)
             return;
         for (String url : urls) {
@@ -111,7 +111,6 @@ public class FeedFetcherService extends JobIntentService
 
     private void fetchChannels(List<FeedChannel> channels)
     {
-        deleteOldItems();
         if (channels == null)
             return;
         for (FeedChannel channel : channels) {
