@@ -20,8 +20,10 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,11 +85,17 @@ public class FeedItemsAdapter extends RecyclerView.Adapter<FeedItemsAdapter.View
     {
         FeedItem item = items.get(position);
 
-        holder.title.setText(item.getTitle());
+        int styleAttr;
         if (item.isRead())
-            Utils.setTextViewStyle(context, holder.title, R.style.normalText);
+            styleAttr = android.R.attr.textColorSecondary;
         else
-            Utils.setTextViewStyle(context, holder.title, R.style.boldText);
+            styleAttr = android.R.attr.textColorPrimary;
+        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ styleAttr });
+        holder.title.setTextColor(a.getColor(0, 0));
+        a.recycle();
+        Utils.setTextViewStyle(context, holder.title, (item.isRead() ? R.style.normalText : R.style.boldText));
+        holder.title.setText(item.getTitle());
+
         holder.pubDate.setText(SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
                 .format(new Date(item.getPubDate())));
     }
