@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -33,11 +33,13 @@ public class FileManagerConfig implements Parcelable
 {
     public static final int FILE_CHOOSER_MODE = 0;
     public static final int DIR_CHOOSER_MODE = 1;
+    public static final int SAVE_FILE_MODE = 2;
 
     public String path;
     public String title;
     /* File extension, e.g 'torrent' */
     public List<String> highlightFileTypes;
+    public String fileName;
     public int showMode;
 
     public FileManagerConfig(String path, String title, List<String> highlightFileType, int mode)
@@ -55,6 +57,14 @@ public class FileManagerConfig implements Parcelable
         highlightFileTypes = new ArrayList<>();
         source.readStringList(highlightFileTypes);
         showMode = source.readInt();
+        fileName = source.readString();
+    }
+
+    public FileManagerConfig setFileName(String name)
+    {
+        fileName = name;
+
+        return this;
     }
 
     @Override
@@ -70,6 +80,7 @@ public class FileManagerConfig implements Parcelable
         dest.writeString(title);
         dest.writeStringList(highlightFileTypes);
         dest.writeInt(showMode);
+        dest.writeString(fileName);
     }
 
     public static final Parcelable.Creator<FileManagerConfig> CREATOR =

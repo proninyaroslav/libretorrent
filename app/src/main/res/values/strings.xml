@@ -190,6 +190,11 @@
     <string name="internal_storage_name">Internal storage</string>
     <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="save_file">Save file</string>
+    <string name="file_name">File name</string>
+    <string name="error_file_exists">File already exists</string>
+    <string name="file_name_is_empty">File name cannot be empty</string>
+
 
     <!-- Error dialog -->
     <string name="report">Report</string>
