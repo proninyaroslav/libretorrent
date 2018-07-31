@@ -135,12 +135,14 @@ public class MainFragment extends Fragment
 
     private static final int ADD_TORRENT_REQUEST = 1;
     private static final int TORRENT_FILE_CHOOSE_REQUEST = 2;
+    private static final int CREATE_TORRENT_REQUEST = 3;
 
     private AppCompatActivity activity;
     private Toolbar toolbar;
     private FloatingActionMenu addTorrentButton;
     private FloatingActionButton openFileButton;
     private FloatingActionButton addLinkButton;
+    private FloatingActionButton createTorrentButton;
     private SearchView searchView;
     private CoordinatorLayout coordinatorLayout;
     private LinearLayoutManager layoutManager;
@@ -253,6 +255,17 @@ public class MainFragment extends Fragment
             {
                 addTorrentButton.close(true);
                 addLinkDialog();
+            }
+        });
+
+        createTorrentButton = activity.findViewById(R.id.create_torrent_button);
+        createTorrentButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                addTorrentButton.close(true);
+                createTorrentDialog();
             }
         });
 
@@ -1074,6 +1087,11 @@ public class MainFragment extends Fragment
         startActivityForResult(i, ADD_TORRENT_REQUEST);
     }
 
+    private void createTorrentDialog()
+    {
+        startActivityForResult(new Intent(activity, CreateTorrentActivity.class), CREATE_TORRENT_REQUEST);
+    }
+
     private void showDetailTorrent(String id)
     {
         if (Utils.isTwoPane(activity.getApplicationContext())) {
@@ -1210,19 +1228,22 @@ public class MainFragment extends Fragment
                 }
                 break;
             case ADD_TORRENT_REQUEST:
+            case CREATE_TORRENT_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS)) {
-                        AddTorrentParams params = data.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
-                        if (params != null) {
-                            if (!bound || service == null) {
-                                addTorrentsQueue.add(params);
-                            } else {
-                                try {
-                                    service.addTorrent(params, false);
-                                } catch (Throwable e) {
-                                    Log.e(TAG, Log.getStackTraceString(e));
-                                    addTorrentError(e);
-                                }
+                    AddTorrentParams params = null;
+                    if (data.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS))
+                        params = data.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
+                    else if (data.hasExtra(CreateTorrentActivity.TAG_CREATED_TORRENT))
+                        params = data.getParcelableExtra(CreateTorrentActivity.TAG_CREATED_TORRENT);
+                    if (params != null) {
+                        if (!bound || service == null) {
+                            addTorrentsQueue.add(params);
+                        } else {
+                            try {
+                                service.addTorrent(params, false);
+                            } catch (Throwable e) {
+                                Log.e(TAG, Log.getStackTraceString(e));
+                                addTorrentError(e);
                             }
                         }
                     }

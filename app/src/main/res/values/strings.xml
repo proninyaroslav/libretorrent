@@ -306,6 +306,43 @@
     <string name="feed_item_open_article_url">Open article</string>
     <string name="feeds_file_selection_dialog_title">Select a file with channels</string>
 
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Create torrent</string>
+    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
+    <string name="tracker_urls">Tracker URLs</string>
+    <string name="web_seed_urls">Web seed URLs</string>
+    <string name="comments">Comments</string>
+    <string name="optional_hint">(optional)</string>
+    <string name="piece_size">Piece size</string>
+    <string name="create_torrent_options">Options</string>
+    <string name="option_start_seeding">Start seeding</string>
+    <string name="option_private_torrent">Private torrent</string>
+    <string name="option_optimize_alignment">Optimize alignment</string>
+    <string-array name="piece_size_entries">
+        <item>Auto</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Invalid URL: %1$s</string>
+    <string name="file_or_folder_not_found">Selected file or folder not found</string>
+    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
+    <string name="error_create_torrent">Unable to create torrent</string>
+    <string name="skip_files">Skip files</string>
+    <string name="skip_files_hint">Enter file names separated by "|"</string>
+    <string name="select_folder_to_save">Select the folder to save</string>
+    <string name="folder_to_save_not_found">Selected folder to save not found</string>
+    <string name="torrent_saved_to" formatted="false">Torrent saved to %1$s</string>
+
     <!-- Settings -->
     
     <!-- Headers -->

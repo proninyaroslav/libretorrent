@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center">
+
+    <include
+        layout="@layout/statusbar_kitkat"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/statusBarKitKat">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:transitionName="actionBar"
+                app:popupTheme="?attr/popupTheme"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:focusable="true" />
+
+            <ProgressBar
+                android:id="@+id/build_progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundBlank"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include
+                layout="@layout/create_torrent" />
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

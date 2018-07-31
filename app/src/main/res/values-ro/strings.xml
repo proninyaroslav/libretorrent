@@ -177,6 +177,10 @@
     <string name="internal_storage_name">Stocare internă</string>
     <string name="external_storage_name" formatted="false">Stocare externă %1$d</string>
     <string name="permission_denied">Permisiune refuzată</string>
+    <string name="save_file">Salveaza fisierul</string>
+    <string name="file_name">Nume de fișier</string>
+    <string name="error_file_exists">Fisierul există deja</string>
+    <string name="file_name_is_empty">Numele fișierului nu poate fi gol</string>
 
     <!-- Error dialog -->
     <string name="report">Raportează</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Exportul canalelor a eșuat</string>
     <string name="feed_item_open_article_url">Deschideți articolul</string>
     <string name="feeds_file_selection_dialog_title">Selectați un fișier cu canale</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Creați torrent</string>
+    <string name="file_or_folder_for_seeding">Fișier sau dosar pentru seeding</string>
+    <string name="tracker_urls">URL-uri de urmărire</string>
+    <string name="web_seed_urls">URL-uri de semințe Web</string>
+    <string name="comments">Comentarii</string>
+    <string name="optional_hint">(opțional)</string>
+    <string name="piece_size">Dimensiune bucată</string>
+    <string name="create_torrent_options">Opțiuni</string>
+    <string name="option_start_seeding">Începeți seeding</string>
+    <string name="option_private_torrent">Torrent privat</string>
+    <string name="option_optimize_alignment">Optimizați alinierea</string>
+    <string-array name="piece_size_entries">
+        <item>Automat</item>
+        <item>16 KiO</item>
+        <item>32 KiO</item>
+        <item>64 KiO</item>
+        <item>128 KiO</item>
+        <item>256 KiO</item>
+        <item>512 KiO</item>
+        <item>1 MiO</item>
+        <item>2 MiO</item>
+        <item>4 MiO</item>
+        <item>8 MiO</item>
+        <item>16 MiO</item>
+        <item>32 MiO</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">URL invalid: %1$s</string>
+    <string name="file_or_folder_not_found">Fișierul sau directorul selectat nu au fost găsite</string>
+    <string name="folder_is_empty">Dosarul selectat este gol sau toate fișierele sunt excluse prin filtru</string>
+    <string name="error_create_torrent">Imposibil de creat torrent</string>
+    <string name="skip_files">Ignorați fișierele</string>
+    <string name="skip_files_hint">Introduceți nume de fișiere separate prin "|"</string>
+    <string name="select_folder_to_save">Selectați dosarul pentru a salva</string>
+    <string name="folder_to_save_not_found">Dosarul selectat pentru salva nu a fost găsit</string>
+    <string name="torrent_saved_to" formatted="false">Torrent salvat la %1$s</string>
 
     <!-- Settings -->
     

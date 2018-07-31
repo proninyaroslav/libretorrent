@@ -177,6 +177,10 @@
     <string name="internal_storage_name">Internal storage</string>
     <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="save_file">Enregistrer le fichier</string>
+    <string name="file_name">Nom de fichier</string>
+    <string name="error_file_exists">Le fichier existe déjà</string>
+    <string name="file_name_is_empty">Le nom du fichier ne peut pas être vide</string>
 
     <!-- Error dialog -->
     <string name="report">Rapport</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Impossible d\'exporter les chaînes</string>
     <string name="feed_item_open_article_url">Ouvrir l\'article</string>
     <string name="feeds_file_selection_dialog_title">Sélectionnez un fichier avec des canaux</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Créer un torrent</string>
+    <string name="file_or_folder_for_seeding">Fichier ou dossier pour l\'ensemencement</string>
+    <string name="tracker_urls">URLs des trackers</string>
+    <string name="web_seed_urls">URLs de graine Web</string>
+    <string name="comments">Commentaires</string>
+    <string name="optional_hint">(optionnel)</string>
+    <string name="piece_size">Taille de la pièce</string>
+    <string name="create_torrent_options">Options</string>
+    <string name="option_start_seeding">Commencez de partage</string>
+    <string name="option_private_torrent">Torrent privé</string>
+    <string name="option_optimize_alignment">Optimiser l\'alignement</string>
+    <string-array name="piece_size_entries">
+        <item>Auto</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">URL invalide: %1$s</string>
+    <string name="file_or_folder_not_found">Fichier ou dossier sélectionné introuvable</string>
+    <string name="folder_is_empty">Le dossier sélectionné est vide ou tous les fichiers sont exclus par le filtre</string>
+    <string name="error_create_torrent">Impossible de créer le torrent</string>
+    <string name="skip_files">Ignorer les fichiers</string>
+    <string name="skip_files_hint">Entrez les noms de fichiers séparés par "|"</string>
+    <string name="select_folder_to_save">Sélectionnez le dossier à enregistrer</string>
+    <string name="folder_to_save_not_found">Dossier sélectionné pour enregistrer introuvable</string>
+    <string name="torrent_saved_to" formatted="false">Torrent enregistré dans %1$s</string>
 
     <!-- Settings -->
 

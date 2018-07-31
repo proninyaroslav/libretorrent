@@ -101,6 +101,10 @@ public class TorrentEngine extends SessionManager
     private ReentrantLock syncMagnet = new ReentrantLock();
     private Settings settings = new Settings();
 
+    /* Base unit in KiB. Used for create torrent */
+    public static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512,
+            1024, 2048, 4096, 8192, 16384, 32768};
+
     public static class Settings
     {
         public static final int DEFAULT_CACHE_SIZE = 256;

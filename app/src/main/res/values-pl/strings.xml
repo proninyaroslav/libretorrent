@@ -117,7 +117,7 @@
     <!-- connected/total -->
     <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Pobieranie</string>
-    <string name="torrent_status_seeding">Seed\'owanie</string>
+    <string name="torrent_status_seeding">Seedowanie</string>
     <string name="torrent_status_paused">Pauza</string>
     <string name="torrent_status_stopped">Wstrzymany</string>
     <string name="torrent_status_checking">Sprawdzanie</string>
@@ -174,9 +174,13 @@
     <string name="home_directory">Katalog główny</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
-    <string name="permission_denied">Permission denied</string>
+    <string name="internal_storage_name">Przechowywanie wewnętrzna</string>
+    <string name="external_storage_name" formatted="false">Przechowywanie zewnętrzny %1$d</string>
+    <string name="permission_denied">Odmowa uprawnień</string>
+    <string name="save_file">Zapisz plik</string>
+    <string name="file_name">Nazwa pliku</string>
+    <string name="error_file_exists">Plik już istnieje</string>
+    <string name="file_name_is_empty">Nazwa pliku nie może być pusta</string>
 
     <!-- Error dialog -->
     <string name="report">Raportuj</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Nie udało się wyeksportować kanałów</string>
     <string name="feed_item_open_article_url">Otwórz artykuł</string>
     <string name="feeds_file_selection_dialog_title">Wybierz plik z kanałami</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Utwórz torrent</string>
+    <string name="file_or_folder_for_seeding">Plik lub folder do seedowanie</string>
+    <string name="tracker_urls">Adresy trackerów</string>
+    <string name="web_seed_urls">Adresy źródła sieciowego</string>
+    <string name="comments">Komentarze</string>
+    <string name="optional_hint">(opcjonalnie)</string>
+    <string name="piece_size">Rozmiar części</string>
+    <string name="create_torrent_options">Opcje</string>
+    <string name="option_start_seeding">Rozpocznij seedowanie</string>
+    <string name="option_private_torrent">Prywatny torrent</string>
+    <string name="option_optimize_alignment">Zoptymalizuj wyrównanie</string>
+    <string-array name="piece_size_entries">
+        <item>Automatyczny</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Nieprawidłowy URL: %1$s</string>
+    <string name="file_or_folder_not_found">Nie znaleziono wybranego pliku lub folderu</string>
+    <string name="folder_is_empty">Wybrany folder jest pusty lub wszystkie pliki są wykluczone przez filtr</string>
+    <string name="error_create_torrent">Nie można utworzyć torrenta</string>
+    <string name="skip_files">Pomiń pliki</string>
+    <string name="skip_files_hint">Wprowadź nazwy plików oddzielone "|"</string>
+    <string name="select_folder_to_save">Wybierz folder do zapisania</string>
+    <string name="folder_to_save_not_found">Wybrany folder do zapisania nie został znaleziony</string>
+    <string name="torrent_saved_to" formatted="false">Torrent zapisany w %1$s</string>
 
     <!-- Settings -->
     

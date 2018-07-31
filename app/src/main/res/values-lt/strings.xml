@@ -177,6 +177,10 @@
     <string name="internal_storage_name">Internal storage</string>
     <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="save_file">Išsaugoti failą</string>
+    <string name="file_name">Failo pavadinimas</string>
+    <string name="error_file_exists">Failas jau egzistuoja</string>
+    <string name="file_name_is_empty">Failo vardas negali būti tuščias</string>
 
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Nepavyko eksportuoti kanalus</string>
     <string name="feed_item_open_article_url">Atviras straipsnis</string>
     <string name="feeds_file_selection_dialog_title">Pasirinkite failą su kanalais</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Sukurti torentą</string>
+    <string name="file_or_folder_for_seeding">Failas ar aplankas skleisti</string>
+    <string name="tracker_urls">Seklių URL adresai</string>
+    <string name="web_seed_urls">Saityno skleidimo URL adresai</string>
+    <string name="comments">Komentarai</string>
+    <string name="optional_hint">(oneprivaloma)</string>
+    <string name="piece_size">Dalies dydis</string>
+    <string name="create_torrent_options">Variantai</string>
+    <string name="option_start_seeding">Pradėti skleidimo</string>
+    <string name="option_private_torrent">Privatus torentas</string>
+    <string name="option_optimize_alignment">Optimizuokite derinimą</string>
+    <string-array name="piece_size_entries">
+        <item>Nustatyti automatiškai</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Neteisingas URL: %1$s</string>
+    <string name="file_or_folder_not_found">Pasirinktas failas ar aplankas nerastas</string>
+    <string name="folder_is_empty">Pasirinktas aplankas yra tuščias arba visi failai yra neįtraukiamos filtru</string>
+    <string name="error_create_torrent">Nepavyko sukurti torrento</string>
+    <string name="skip_files">Praleisti failus</string>
+    <string name="skip_files_hint">Įveskite failų pavadinimus, atskirtus "|"</string>
+    <string name="select_folder_to_save">Pasirinkite aplanką sutaupyti</string>
+    <string name="folder_to_save_not_found">Pasirinktas aplankas sutaupyti nerastas</string>
+    <string name="torrent_saved_to" formatted="false">Torrent išsaugotas %1$s</string>
 
     <!-- Settings -->
 

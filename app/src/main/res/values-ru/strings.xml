@@ -164,6 +164,10 @@
     <string name="internal_storage_name">Внутреннее хранилище</string>
     <string name="external_storage_name" formatted="false">Внешнее хранилище %1$d</string>
     <string name="permission_denied">Доступ запрещён</string>
+    <string name="save_file">Сохранить файл</string>
+    <string name="file_name">Имя файла</string>
+    <string name="error_file_exists">Файл уже существует</string>
+    <string name="file_name_is_empty">Имя файла не может быть пустым</string>
 
     <!-- Error dialog -->
     <string name="report">Сообщить</string>
@@ -268,6 +272,43 @@
     <string name="error_export_feeds">Не удалось экспортировать каналы</string>
     <string name="feed_item_open_article_url">Открыть статью</string>
     <string name="feeds_file_selection_dialog_title">Выбрать файл с каналами</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Создать торрент</string>
+    <string name="file_or_folder_for_seeding">Файл или папка для раздачи</string>
+    <string name="tracker_urls">Адреса трекеров</string>
+    <string name="web_seed_urls">Адреса веб-сидов</string>
+    <string name="comments">Комментарии</string>
+    <string name="optional_hint">(опционально)</string>
+    <string name="piece_size">Размер части</string>
+    <string name="create_torrent_options">Опции</string>
+    <string name="option_start_seeding">Начать раздачу</string>
+    <string name="option_private_torrent">Приватный торрент</string>
+    <string name="option_optimize_alignment">Оптимизировать выравнивание</string>
+    <string-array name="piece_size_entries">
+        <item>Авто</item>
+        <item>16 Кб</item>
+        <item>32 Кб</item>
+        <item>64 Кб</item>
+        <item>128 Кб</item>
+        <item>256 Кб</item>
+        <item>512 Кб</item>
+        <item>1 Мб</item>
+        <item>2 Мб</item>
+        <item>4 Мб</item>
+        <item>8 Мб</item>
+        <item>16 Мб</item>
+        <item>32 Мб</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Неверный URL: %1$s</string>
+    <string name="file_or_folder_not_found">Выбранный файл или папка не существует</string>
+    <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром</string>
+    <string name="error_create_torrent">Невозможно создать торрент</string>
+    <string name="skip_files">Пропустить файлы</string>
+    <string name="skip_files_hint">Введите имена файлов, разделённые символов "|"</string>
+    <string name="select_folder_to_save">Выберите папку для сохранения</string>
+    <string name="folder_to_save_not_found">Выбранная папка для сохранения не существует</string>
+    <string name="torrent_saved_to" formatted="false">Торрент сохранён в %1$s</string>
 
     <!-- Settings -->
 

@@ -213,6 +213,10 @@
             android:label="@string/app_name"
             android:name=".FeedItemsActivity" />
 
+        <activity
+            android:label="@string/app_name"
+            android:name=".CreateTorrentActivity" />
+
         <service
             android:name=".services.TorrentTaskService"
             android:stopWithTask="false" />

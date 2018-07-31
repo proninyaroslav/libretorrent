@@ -173,6 +173,10 @@
     <string name="internal_storage_name">Εσωτερικός αποθηκευτικός χώρος</string>
     <string name="external_storage_name" formatted="false">Εξωτερικός αποθηκευτικός χώρος</string>
     <string name="permission_denied">Άρνηση δικαιώματος</string>
+    <string name="save_file">Αποθηκεύσετε το αρχείο</string>
+    <string name="file_name">Ονομα αρχείου</string>
+    <string name="error_file_exists">Ο φάκελος υπάρχει ήδη</string>
+    <string name="file_name_is_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
 
     <!-- Error dialog -->
     <string name="report">Αναφορά</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Αποτυχία εξαγωγής καναλιών</string>
     <string name="feed_item_open_article_url">Άνοιγμα άρθρου</string>
     <string name="feeds_file_selection_dialog_title">Επιλέξτε ένα αρχείο με κανάλια</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Δημιουργία torrent</string>
+    <string name="file_or_folder_for_seeding">Αρχείο ή φάκελο για γίνεται διαμοιρασμός</string>
+    <string name="tracker_urls">URLs ιχνηλάτη</string>
+    <string name="web_seed_urls">URLs διαμοιραστή ιστού</string>
+    <string name="comments">Παρατηρήσεις</string>
+    <string name="optional_hint">(προαιρετικό)</string>
+    <string name="piece_size">Μέγεθος κομματιού</string>
+    <string name="create_torrent_options">Επιλογές</string>
+    <string name="option_start_seeding">Ξεκινήστε γίνεται διαμοιρασμός</string>
+    <string name="option_private_torrent">Ιδιωτικό torrent</string>
+    <string name="option_optimize_alignment">Βελτιστοποιήστε την ευθυγράμμιση</string>
+    <string-array name="piece_size_entries">
+        <item>Αυτόματο</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Μη έγκυρη διεύθυνση URL: %1$s</string>
+    <string name="file_or_folder_not_found">Επιλεγμένο αρχείο ή φάκελο δεν βρέθηκε</string>
+    <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο</string>
+    <string name="error_create_torrent">Δεν είναι δυνατή η δημιουργία torrent</string>
+    <string name="skip_files">Παράλειψη αρχείων</string>
+    <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων που χωρίζονται από "|"</string>
+    <string name="select_folder_to_save">Επιλέξτε το φάκελο για να αποθηκεύσετε</string>
+    <string name="folder_to_save_not_found">Επιλεγμένα φάκελο για να αποθηκεύσετε δεν βρέθηκε</string>
+    <string name="torrent_saved_to" formatted="false">Torrent αποθηκεύονται σε %1$s</string>
 
     <!-- Settings -->
     

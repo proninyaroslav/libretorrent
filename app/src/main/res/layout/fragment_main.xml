@@ -104,6 +104,17 @@
                 app:fab_colorRipple="@color/accent_light"
                 fab:fab_size="mini"
                 fab:fab_label="@string/open_file" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/create_torrent_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mode_edit_white_18dp"
+                app:fab_colorNormal="@color/accent"
+                app:fab_colorPressed="@color/accent_dark"
+                app:fab_colorRipple="@color/accent_light"
+                fab:fab_size="mini"
+                fab:fab_label="@string/create_torrent" />
         </com.github.clans.fab.FloatingActionMenu>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

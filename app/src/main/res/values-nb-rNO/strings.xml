@@ -177,6 +177,10 @@
     <string name="internal_storage_name">Internt lagringsmedium</string>
     <string name="external_storage_name" formatted="false">Eksternt lagringsmedium %1$d</string>
     <string name="permission_denied">Tilgang nektet</string>
+    <string name="save_file">Lagre filen</string>
+    <string name="file_name">Filnavn</string>
+    <string name="error_file_exists">Filen finnes allerede</string>
+    <string name="file_name_is_empty">Filnavnet kan ikke være tomt</string>
 
     <!-- Error dialog -->
     <string name="report">Innrapporter</string>
@@ -287,6 +291,43 @@
     <string name="error_export_feeds">Kunne ikke eksportere kanaler</string>
     <string name="feed_item_open_article_url">Åpne artikkelen</string>
     <string name="feeds_file_selection_dialog_title">Velg en fil med kanaler</string>
+
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Lag torrent</string>
+    <string name="file_or_folder_for_seeding">Fil eller mappe for deling</string>
+    <string name="tracker_urls">Sporer-nettadresser</string>
+    <string name="web_seed_urls">Nettdeleradresse</string>
+    <string name="comments">Kommentarer</string>
+    <string name="optional_hint">(valgfritt)</string>
+    <string name="piece_size">Delstørrelse</string>
+    <string name="create_torrent_options">Alternativer</string>
+    <string name="option_start_seeding">Start deling</string>
+    <string name="option_private_torrent">Privat torrent</string>
+    <string name="option_optimize_alignment">Optimaliser tilpasning</string>
+    <string-array name="piece_size_entries">
+        <item>Auto</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url" formatted="false">Ugyldig URL: %1$s</string>
+    <string name="file_or_folder_not_found">Utvalgt fil eller mappe ikke funnet</string>
+    <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter</string>
+    <string name="error_create_torrent">Kan ikke lage torrent</string>
+    <string name="skip_files">Hopp over filer</string>
+    <string name="skip_files_hint">Skriv inn filnavn skilt med "|"</string>
+    <string name="select_folder_to_save">Velg mappen til lagre</string>
+    <string name="folder_to_save_not_found">Utvalgt mappe for å lagre ikke funnet</string>
+    <string name="torrent_saved_to" formatted="false">Torrent lagret til %1$s</string>
 
     <!-- Settings -->
     

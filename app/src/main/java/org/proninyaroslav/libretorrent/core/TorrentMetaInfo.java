@@ -28,7 +28,6 @@ import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /*
@@ -48,7 +47,7 @@ public class TorrentMetaInfo implements Parcelable
     public int numPieces = 0;
     public ArrayList<BencodeFileItem> fileList = new ArrayList<>();
 
-    public TorrentMetaInfo(String pathToTorrent) throws IOException, DecodeException
+    public TorrentMetaInfo(String pathToTorrent) throws DecodeException
     {
         File torrentFile = new File(pathToTorrent);
         try {

@@ -79,6 +79,7 @@ public class Utils
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
     public static final String HTTPS_PREFIX = "https";
+    public static final String UDP_PREFIX = "udp";
     public static final String INFOHASH_PREFIX = "magnet:?xt=urn:btih:";
     public static final String FILE_PREFIX = "file";
     public static final String CONTENT_PREFIX = "content";
@@ -185,16 +186,15 @@ public class Utils
     }
 
     /*
-     * Returns the link as "http[s]://[www.]name.domain/...".
+     * Returns the link as "(http[s]|udp)://[www.]name.domain/...".
      */
 
     public static String normalizeURL(String url)
     {
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX)) {
+        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(UDP_PREFIX))
             return HTTP_PREFIX + "://" + url;
-        } else {
+        else
             return url;
-        }
     }
 
     /*
