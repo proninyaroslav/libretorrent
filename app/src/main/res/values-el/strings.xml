@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο</string>
     <string name="error_create_torrent">Δεν είναι δυνατή η δημιουργία torrent</string>
     <string name="skip_files">Παράλειψη αρχείων</string>
-    <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων που χωρίζονται από "|"</string>
+    <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων που χωρίζονται από \"|\"</string>
     <string name="select_folder_to_save">Επιλέξτε το φάκελο για να αποθηκεύσετε</string>
     <string name="folder_to_save_not_found">Επιλεγμένα φάκελο για να αποθηκεύσετε δεν βρέθηκε</string>
     <string name="torrent_saved_to" formatted="false">Torrent αποθηκεύονται σε %1$s</string>

@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny soubory jsou vyloučeny filtrem</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
     <string name="skip_files">Přeskočit soubory</string>
-    <string name="skip_files_hint">Zadejte názvy souborů oddělené "|" </string>
+    <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\" </string>
     <string name="select_folder_to_save">Vyberte složku pro uložení</string>
     <string name="folder_to_save_not_found">Vybrán složku pro uložení nebyl nalezen</string>
     <string name="torrent_saved_to" formatted="false">Torrent uložen do %1$s</string>

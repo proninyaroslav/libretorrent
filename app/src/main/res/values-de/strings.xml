@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Ausgewählte Ordner leer ist oder alle Dateien werden durch Filter ausgeschlossen</string>
     <string name="error_create_torrent">Unfähig torrent zu erstellen</string>
     <string name="skip_files">Dateien überspringen</string>
-    <string name="skip_files_hint">Geben Sie Dateinamen getrennt durch "|"</string>
+    <string name="skip_files_hint">Geben Sie Dateinamen getrennt durch \"|\"</string>
     <string name="select_folder_to_save">Wählen Sie den zu speichernden Ordner</string>
     <string name="folder_to_save_not_found">Gewählter Ordner zum Speichern nicht gefunden</string>
     <string name="torrent_saved_to" formatted="false">Torrent gespeichert in %1$s</string>

@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Dosarul selectat este gol sau toate fișierele sunt excluse prin filtru</string>
     <string name="error_create_torrent">Imposibil de creat torrent</string>
     <string name="skip_files">Ignorați fișierele</string>
-    <string name="skip_files_hint">Introduceți nume de fișiere separate prin "|"</string>
+    <string name="skip_files_hint">Introduceți nume de fișiere separate prin \"|\"</string>
     <string name="select_folder_to_save">Selectați dosarul pentru a salva</string>
     <string name="folder_to_save_not_found">Dosarul selectat pentru salva nu a fost găsit</string>
     <string name="torrent_saved_to" formatted="false">Torrent salvat la %1$s</string>

@@ -324,7 +324,7 @@
     <string name="folder_is_empty">A pasta selecionada está vazia ou todos os arquivos são excluídos pelo filtro</string>
     <string name="error_create_torrent">Não é possível criar torrent</string>
     <string name="skip_files">Ignorar arquivos</string>
-    <string name="skip_files_hint">Digite os nomes dos arquivos separados por "|"</string>
+    <string name="skip_files_hint">Digite os nomes dos arquivos separados por \"|\"</string>
     <string name="select_folder_to_save">Selecione a pasta para salvar</string>
     <string name="folder_to_save_not_found">Pasta selecionada para salvar não encontrada</string>
     <string name="torrent_saved_to" formatted="false">Torrent salvo em %1$s</string>

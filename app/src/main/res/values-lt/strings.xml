@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Pasirinktas aplankas yra tuščias arba visi failai yra neįtraukiamos filtru</string>
     <string name="error_create_torrent">Nepavyko sukurti torrento</string>
     <string name="skip_files">Praleisti failus</string>
-    <string name="skip_files_hint">Įveskite failų pavadinimus, atskirtus "|"</string>
+    <string name="skip_files_hint">Įveskite failų pavadinimus, atskirtus \"|\"</string>
     <string name="select_folder_to_save">Pasirinkite aplanką sutaupyti</string>
     <string name="folder_to_save_not_found">Pasirinktas aplankas sutaupyti nerastas</string>
     <string name="torrent_saved_to" formatted="false">Torrent išsaugotas %1$s</string>

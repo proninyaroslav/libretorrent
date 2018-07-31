@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter</string>
     <string name="error_create_torrent">Kan ikke lage torrent</string>
     <string name="skip_files">Hopp over filer</string>
-    <string name="skip_files_hint">Skriv inn filnavn skilt med "|"</string>
+    <string name="skip_files_hint">Skriv inn filnavn skilt med \"|\"</string>
     <string name="select_folder_to_save">Velg mappen til lagre</string>
     <string name="folder_to_save_not_found">Utvalgt mappe for å lagre ikke funnet</string>
     <string name="torrent_saved_to" formatted="false">Torrent lagret til %1$s</string>

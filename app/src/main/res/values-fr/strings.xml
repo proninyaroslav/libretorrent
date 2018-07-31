@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Le dossier sélectionné est vide ou tous les fichiers sont exclus par le filtre</string>
     <string name="error_create_torrent">Impossible de créer le torrent</string>
     <string name="skip_files">Ignorer les fichiers</string>
-    <string name="skip_files_hint">Entrez les noms de fichiers séparés par "|"</string>
+    <string name="skip_files_hint">Entrez les noms de fichiers séparés par \"|\"</string>
     <string name="select_folder_to_save">Sélectionnez le dossier à enregistrer</string>
     <string name="folder_to_save_not_found">Dossier sélectionné pour enregistrer introuvable</string>
     <string name="torrent_saved_to" formatted="false">Torrent enregistré dans %1$s</string>
