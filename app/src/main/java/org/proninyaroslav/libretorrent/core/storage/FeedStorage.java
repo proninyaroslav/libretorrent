@@ -69,7 +69,7 @@ public class FeedStorage
     };
 
     public static final String SERIALIZE_FILE_FORMAT = "json";
-    public static final String FILTER_SEPARATOR = ",";
+    public static final String FILTER_SEPARATOR = "\\|";
 
     private Context context;
 

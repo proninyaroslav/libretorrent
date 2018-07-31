@@ -269,7 +269,7 @@
     <string name="select_or_add_feed_channel">Selectați sau adăugați un RSS/Atom canal</string>
     <string name="add_feed_channel">Adăugați un canal</string>
     <string name="feed_name">Nume (opțional)</string>
-    <string name="feed_filter_prompt">Introduceți cuvintele (separate prin virgule), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
+    <string name="feed_filter_prompt">Introduceți cuvintele (separate prin simbolul \"|\"), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
     <string name="feed_auto_download">Descarca torentele noi în mod automat</string>
     <string name="feed_use_regex">Utilizați expresii regulate</string>
     <string name="import_feed_channels">Importă canale</string>
@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Dosarul selectat este gol sau toate fișierele sunt excluse prin filtru</string>
     <string name="error_create_torrent">Imposibil de creat torrent</string>
     <string name="skip_files">Ignorați fișierele</string>
-    <string name="skip_files_hint">Introduceți nume de fișiere separate prin \"|\"</string>
+    <string name="skip_files_hint">Introduceți nume de fișiere separate prin simbolul \"|\"</string>
     <string name="select_folder_to_save">Selectați dosarul pentru a salva</string>
     <string name="folder_to_save_not_found">Dosarul selectat pentru salva nu a fost găsit</string>
     <string name="torrent_saved_to" formatted="false">Torrent salvat la %1$s</string>

@@ -269,7 +269,7 @@
     <string name="select_or_add_feed_channel">Wybierz lub dodaj RSS/Atom kanał</string>
     <string name="add_feed_channel">Dodaj kanał</string>
     <string name="feed_name">Nazwa (opcjonalnie)</string>
-    <string name="feed_filter_prompt">Wprowadź słowa (oddzielone przecinkami), z których jeden musi znajdować się w nazwie lub wpisać wyrażenie regularne. Torrenty zostaną dodane tylko wtedy, gdy ten filtr pasuje do nazwy torrenta</string>
+    <string name="feed_filter_prompt">Wprowadź słowa (oddzielone symbolem \"|\"), z których jeden musi znajdować się w nazwie lub wpisać wyrażenie regularne. Torrenty zostaną dodane tylko wtedy, gdy ten filtr pasuje do nazwy torrenta</string>
     <string name="feed_auto_download">Pobierz nowe torrenty automatycznie</string>
     <string name="feed_use_regex">Użyj wyrażenia regularnego</string>
     <string name="import_feed_channels">Importuj kanały</string>
@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Wybrany folder jest pusty lub wszystkie pliki są wykluczone przez filtr</string>
     <string name="error_create_torrent">Nie można utworzyć torrenta</string>
     <string name="skip_files">Pomiń pliki</string>
-    <string name="skip_files_hint">Wprowadź nazwy plików oddzielone \"|\"</string>
+    <string name="skip_files_hint">Wprowadź nazwy plików oddzielone symbolem \"|\"</string>
     <string name="select_folder_to_save">Wybierz folder do zapisania</string>
     <string name="folder_to_save_not_found">Wybrany folder do zapisania nie został znaleziony</string>
     <string name="torrent_saved_to" formatted="false">Torrent zapisany w %1$s</string>

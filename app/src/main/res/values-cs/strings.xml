@@ -269,7 +269,7 @@
     <string name="select_or_add_feed_channel">Vyberte nebo přidat RSS/Atom kanál</string>
     <string name="add_feed_channel">Přidat kanál</string>
     <string name="feed_name">Jméno (volitelné)</string>
-    <string name="feed_filter_prompt">Zadejte slova (oddělená čárkami), z nichž jedna musí být v názvu nebo zadejte regulární výraz. Torrenty budou přidány, pouze pokud tento filtr odpovídá názvu torrentu</string>
+    <string name="feed_filter_prompt">Zadejte slova (oddělené znakem \"|\"), z nichž jedna musí být v názvu nebo zadejte regulární výraz. Torrenty budou přidány, pouze pokud tento filtr odpovídá názvu torrentu</string>
     <string name="feed_auto_download">Stáhnout nové torrenty automaticky</string>
     <string name="feed_use_regex">Používejte regulární výraz</string>
     <string name="import_feed_channels">Importovat kanály</string>

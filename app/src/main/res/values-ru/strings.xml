@@ -250,7 +250,7 @@
     <string name="select_or_add_feed_channel">Выберите или добавьте RSS/Atom канал</string>
     <string name="add_feed_channel">Добавить канал</string>
     <string name="feed_name">Имя (необязательно)</string>
-    <string name="feed_filter_prompt">Введите слова (разделённые запятой), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
+    <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
     <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
     <string name="import_feed_channels">Импорт каналов</string>

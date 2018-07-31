@@ -269,7 +269,7 @@
     <string name="select_or_add_feed_channel">Velg eller legg til en RSS/Atom-kanal</string>
     <string name="add_feed_channel">Legg til kanal</string>
     <string name="feed_name">Navn (valgfritt)</string>
-    <string name="feed_filter_prompt">Skriv inn ordene (adskilt av komma), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
+    <string name="feed_filter_prompt">Skriv inn ordene (skilt med \"|\" symbol), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
     <string name="feed_auto_download">Last ned nye torrenter automatisk</string>
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
     <string name="import_feed_channels">Importer kanaler</string>
@@ -324,7 +324,7 @@
     <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter</string>
     <string name="error_create_torrent">Kan ikke lage torrent</string>
     <string name="skip_files">Hopp over filer</string>
-    <string name="skip_files_hint">Skriv inn filnavn skilt med \"|\"</string>
+    <string name="skip_files_hint">Skriv inn filnavn skilt med \"|\" symbol</string>
     <string name="select_folder_to_save">Velg mappen til lagre</string>
     <string name="folder_to_save_not_found">Utvalgt mappe for å lagre ikke funnet</string>
     <string name="torrent_saved_to" formatted="false">Torrent lagret til %1$s</string>

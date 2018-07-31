@@ -272,7 +272,7 @@
     <string name="select_or_add_feed_channel">Select or add an RSS/Atom channel</string>
     <string name="add_feed_channel">Add channel</string>
     <string name="feed_name">Name (optional)</string>
-    <string name="feed_filter_prompt">Enter the words (separated by commas), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
+    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
     <string name="feed_use_regex">Use regular expression</string>
     <string name="import_feed_channels">Import channels</string>
