@@ -31,6 +31,7 @@ Already implemented features (help is highly desired!):
  - Scheduling
  - RSS manager
  - Android TV support
+ - Ability to create torrent
  - And more
 
 Donation
@@ -69,7 +70,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 Screenshots
 ---
 
-![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![rss](/doc/screenshots/rss.png) ![tablet](/doc/screenshots/tablet.png)
+![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![rss](/doc/screenshots/rss.png) ![create torrent](/doc/screenshots/create_torrent.png) ![tablet](/doc/screenshots/tablet.png)
 
 License
 ---
