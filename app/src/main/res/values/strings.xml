@@ -29,10 +29,6 @@
     <string name="sort_by_ascending">By ascending</string>
     <string name="sort_by_descending">By descending</string>
     <string name="sorting">Sorting</string>
-    <string-array name="sort_direction_values" translatable="false">
-        <item>asc</item>
-        <item>desc</item>
-    </string-array>
     <string name="def">Default</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="link">Link</string>
@@ -75,15 +71,6 @@
         <item>Progress</item>
         <item>ETA</item>
         <item>Peers</item>
-    </string-array>
-    <string-array name="sort_torrent_values" translatable="false">
-        <item>none</item>
-        <item>name</item>
-        <item>dateAdded</item>
-        <item>size</item>
-        <item>progress</item>
-        <item>ETA</item>
-        <item>peers</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -388,14 +375,6 @@
         <item>Dark</item>
         <item>Black</item>
     </string-array>
-    <string name="pref_theme_light_value" translatable="false">0</string>
-    <string name="pref_theme_dark_value" translatable="false">1</string>
-    <string name="pref_theme_black_value" translatable="false">2</string>
-    <string-array name="pref_theme_entries_value" translatable="false">
-        <item>@string/pref_theme_light_value</item>
-        <item>@string/pref_theme_dark_value</item>
-        <item>@string/pref_theme_black_value</item>
-    </string-array>
     <string name="pref_notification_category">Notification settings</string>
     <string name="pref_torrent_finish_notify_title">Torrent finish notification</string>
     <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
@@ -409,12 +388,6 @@
     <string-array name="pref_function_button_entries">
         <item>Pause/resume torrents</item>
         <item>Add torrent</item>
-    </string-array>
-    <string name="pref_function_button_pause_value" translatable="false">0</string>
-    <string name="pref_function_button_add_value" translatable="false">1</string>
-    <string-array name="pref_function_button_entries_value" translatable="false">
-        <item>@string/pref_function_button_pause_value</item>
-        <item>@string/pref_function_button_add_value</item>
     </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
@@ -456,14 +429,6 @@
         <item>Require encryption</item>
         <item>Disable encryption</item>
     </string-array>
-    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
-    <string name="pref_enc_mode_require_value" translatable="false">1</string>
-    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
-    <string-array name="pref_enc_mode_entries_value" translatable="false">
-        <item>@string/pref_enc_mode_prefer_value</item>
-        <item>@string/pref_enc_mode_require_value</item>
-        <item>@string/pref_enc_mode_disable_value</item>
-    </string-array>
     <string name="pref_enc_in_connections_title">Incoming connections</string>
     <string name="pref_enc_out_connections_title">Outgoing connections</string>
     <string name="pref_ip_filtering_category">IP filtering</string>
@@ -477,16 +442,6 @@
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
-    </string-array>
-    <string name="pref_proxy_type_none_value" translatable="false">0</string>
-    <string name="pref_proxy_type_socks4_value" translatable="false">1</string>
-    <string name="pref_proxy_type_socks5_value" translatable="false">2</string>
-    <string name="pref_proxy_type_http_value" translatable="false">3</string>
-    <string-array name="pref_proxy_type_entries_value" translatable="false">
-        <item>@string/pref_proxy_type_none_value</item>
-        <item>@string/pref_proxy_type_socks4_value</item>
-        <item>@string/pref_proxy_type_socks5_value</item>
-        <item>@string/pref_proxy_type_http_value</item>
     </string-array>
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
@@ -519,16 +474,6 @@
         <item>12 hours</item>
         <item>1 day</item>
     </string-array>
-    <string-array name="pref_feed_refresh_intervals_values" translatable="false">
-        <item>300000</item>
-        <item>900000</item>
-        <item>1800000</item>
-        <item>3600000</item>
-        <item>7200000</item>
-        <item>21600000</item>
-        <item>43200000</item>
-        <item>86400000</item>
-    </string-array>
     <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi only</string>
     <string name="pref_feed_keep_items_time_title">Keep articles</string>
     <string-array name="pref_feed_keep_items_time_entries">
@@ -542,22 +487,10 @@
         <item>3 months</item>
         <item>Always</item>
     </string-array>
-    <string-array name="pref_feed_keep_items_time_entry_values" translatable="false">
-        <item>86400000</item>
-        <item>172800000</item>
-        <item>345600000</item>
-        <item>604800000</item>
-        <item>1209600000</item>
-        <item>2592000000</item>
-        <item>5270400000</item>
-        <item>7862400000</item>
-        <item>0</item>
-    </string-array>
 
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>
     <string name="about_website">More information and also to help the project: https://gitlab.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ) lib.\n\nLibreTorrent is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
-    <string name="about_changelog_link" translatable="false">https://gitlab.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
 </resources>
