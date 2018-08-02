@@ -488,6 +488,8 @@
         <item>3 months</item>
         <item>Always</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Run torrents</string>
+    <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
 
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>

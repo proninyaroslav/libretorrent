@@ -486,6 +486,8 @@
         <item>3 μήνες</item>
         <item>Πάντα</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Εκτελέστε torrents</string>
+    <string name="pref_feed_start_torrents_summary">Εκτελέστε torrents μετά την προσθήκη</string>
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>

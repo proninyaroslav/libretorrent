@@ -81,6 +81,10 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
             keepTime.setSummary(keepTime.getEntries()[timeIndex]);
         }
         bindOnPreferenceChangeListener(keepTime);
+
+        String keyStartTorrents = getString(R.string.pref_key_feed_start_torrents);
+        SwitchPreferenceCompat startTorrents = (SwitchPreferenceCompat)findPreference(keyStartTorrents);
+        startTorrents.setChecked(pref.getBoolean(keyStartTorrents, SettingsManager.Default.feedStartTorrents));
     }
 
     @Override

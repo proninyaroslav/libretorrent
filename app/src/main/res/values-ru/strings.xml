@@ -467,6 +467,8 @@
         <item>3 месяца</item>
         <item>Всегда</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Запускать торренты</string>
+    <string name="pref_feed_start_torrents_summary">Запускать торренты после добавления</string>
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>

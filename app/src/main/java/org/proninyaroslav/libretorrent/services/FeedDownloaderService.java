@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
 import android.util.Log;
@@ -30,6 +31,7 @@ import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.error_code;
 
 import org.apache.commons.io.FileUtils;
+import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
@@ -37,6 +39,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +54,8 @@ public class FeedDownloaderService extends JobIntentService
     public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.FeedDownloaderService.ACTION_DOWNLOAD_TORRENT_LIST";
     public static final String TAG_URL_ARG = "url_arg";
     public static final String TAG_URL_LIST_ARG = "url_list_arg";
+
+    private SharedPreferences pref;
 
     public static void enqueueWork(Context context, Intent i)
     {
@@ -79,6 +84,8 @@ public class FeedDownloaderService extends JobIntentService
         super.onCreate();
 
         Log.i(TAG, "Start " + FeedDownloaderService.class.getSimpleName());
+
+        pref = SettingsManager.getPreferences(this);
     }
 
     @Override
@@ -162,7 +169,9 @@ public class FeedDownloaderService extends JobIntentService
         }
 
         return new AddTorrentParams(source, isMagnet, sha1hash, name,
-                                    priorities, downloadPath, false, false);
+                                    priorities, downloadPath, false,
+                                    !pref.getBoolean(getString(R.string.pref_key_feed_start_torrents),
+                                                     SettingsManager.Default.feedStartTorrents));
     }
 
     private void sendAddTorrentParams(AddTorrentParams params)

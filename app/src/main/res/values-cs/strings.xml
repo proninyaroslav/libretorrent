@@ -486,6 +486,8 @@
         <item>3 měsíce</item>
         <item>Vždy</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Spusťte torrenty</string>
+    <string name="pref_feed_start_torrents_summary">Spusťte torrenty po přidání</string>
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>

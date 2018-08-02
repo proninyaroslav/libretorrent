@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme"
         android:supportsRtl="true"
         android:allowBackup="true"
-        android:fullBackupContent="true">
+        android:fullBackupContent="true"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".MainActivity">
             <intent-filter>

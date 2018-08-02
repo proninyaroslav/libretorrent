@@ -486,6 +486,8 @@
         <item>3 luni</item>
         <item>Mereu</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Rulați torrentele</string>
+    <string name="pref_feed_start_torrents_summary">Rulați torrentele după adăugare</string>
 
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>

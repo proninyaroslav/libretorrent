@@ -485,6 +485,8 @@
         <item>3 mois</item>
         <item>Toujours</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Exécuter des torrents</string>
+    <string name="pref_feed_start_torrents_summary">Exécuter des torrents après l\'ajout</string>
 
     <!-- About dialog -->
     <string name="about_title">À propos de LibreTorrent</string>

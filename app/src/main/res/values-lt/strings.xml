@@ -485,6 +485,8 @@
         <item>3 mėnesiai</item>
         <item>Visada</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Paleisti torentus</string>
+    <string name="pref_feed_start_torrents_summary">Paleiskite torentus po pridėjimo</string>
 
     <!-- About dialog -->
     <string name="about_title">Apie LibreTorrent</string>

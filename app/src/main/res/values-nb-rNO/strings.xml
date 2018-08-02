@@ -486,6 +486,8 @@
         <item>3 måneder</item>
         <item>Alltid</item>
     </string-array>
+    <string name="pref_feed_start_torrents_title">Kjør torrenter</string>
+    <string name="pref_feed_start_torrents_summary">Kjør torrenter etter å ha lagt til</string>
 
     <!-- About dialog -->
     <string name="about_title">Om LibreTorrent</string>
