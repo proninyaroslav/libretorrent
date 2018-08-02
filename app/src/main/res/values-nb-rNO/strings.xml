@@ -238,6 +238,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Vev</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">Denne torrenten har ikke koblet til noen delere enda</string>
     <string name="piece_map">Kart over deler</string>
     <string name="resume_torrent">Gjenoppta</string>

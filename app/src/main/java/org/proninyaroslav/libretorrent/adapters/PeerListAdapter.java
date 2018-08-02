@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -92,13 +92,16 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
             case PeerStateParcel.ConnectionType.UTP:
                 connectionType = context.getString(R.string.peer_connection_type_utp);
                 break;
+            case PeerStateParcel.ConnectionType.HTTP:
+                connectionType = context.getString(R.string.peer_connection_type_http);
+                break;
         }
         holder.connection.setText(
                 String.format(connectionTemplate, connectionType));
 
         String speedTemplate = context.getString(R.string.download_upload_speed_template);
-        String downSpeed = Formatter.formatFileSize(context, state.payloadDownSpeed);
-        String upSpeed = Formatter.formatFileSize(context, state.payloadUpSpeed);
+        String downSpeed = Formatter.formatFileSize(context, state.downSpeed);
+        String upSpeed = Formatter.formatFileSize(context, state.upSpeed);
         holder.upDownSpeed.setText(
                 String.format(speedTemplate, downSpeed, upSpeed));
 

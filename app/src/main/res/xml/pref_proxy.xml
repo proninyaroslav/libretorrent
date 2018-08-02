@@ -26,10 +26,6 @@
         android:summary="@string/pref_proxy_peers_too_summary" />
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_force_proxy"
-        android:title="@string/pref_force_proxy_title" />
-
-    <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_requires_auth"
         android:title="@string/pref_proxy_requires_auth_title"
         android:summary="@string/pref_proxy_requires_auth_summary" />

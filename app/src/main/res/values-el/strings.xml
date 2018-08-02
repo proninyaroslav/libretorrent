@@ -238,6 +238,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Διαδίκτυο</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">Το torrent δεν έχει συνδεθεί με άλλους ομότιμους χρήστες ακόμα</string>
     <string name="piece_map">Χάρτης κομματιών</string>
     <string name="resume_torrent">Συνέχιση</string>

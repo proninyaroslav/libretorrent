@@ -241,6 +241,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">当前 torrent 还没有连接到任何用户</string>
     <string name="piece_map">区块图</string>
     <string name="resume_torrent">继续</string>

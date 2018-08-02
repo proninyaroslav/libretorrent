@@ -89,7 +89,6 @@ public class SettingsManager
         public static final String proxyAddress = "";
         public static final int proxyPort = ProxySettingsPack.DEFAULT_PROXY_PORT;
         public static final boolean proxyPeersToo = true;
-        public static final boolean forceProxy = true;
         public static final boolean proxyRequiresAuth = false;
         public static final String proxyLogin = "";
         public static final String proxyPassword = "";

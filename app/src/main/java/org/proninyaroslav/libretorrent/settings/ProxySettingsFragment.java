@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -126,11 +126,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         proxyPeersToo.setEnabled(enableAdvancedSettings);
         proxyPeersToo.setChecked(pref.getBoolean(keyProxyPeersToo, SettingsManager.Default.proxyPeersToo));
 
-        String keyForceProxy = getString(R.string.pref_key_force_proxy);
-        SwitchPreferenceCompat forceProxy = (SwitchPreferenceCompat) findPreference(keyForceProxy);
-        forceProxy.setEnabled(enableAdvancedSettings);
-        forceProxy.setChecked(pref.getBoolean(keyForceProxy, SettingsManager.Default.forceProxy));
-
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
         SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat) findPreference(keyRequiresAuth);
         requiresAuth.setEnabled(enableAdvancedSettings);
@@ -195,10 +190,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         String keyProxyPeersToo = getString(R.string.pref_key_proxy_peers_too);
         SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat) findPreference(keyProxyPeersToo);
         proxyPeersToo.setEnabled(enable);
-
-        String keyForceProxy = getString(R.string.pref_key_force_proxy);
-        SwitchPreferenceCompat forceProxy = (SwitchPreferenceCompat) findPreference(keyForceProxy);
-        forceProxy.setEnabled(enable);
 
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
         SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat) findPreference(keyRequiresAuth);

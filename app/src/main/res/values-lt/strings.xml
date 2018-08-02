@@ -238,6 +238,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Žiniatinklis</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">Šis torrentas dar nesujungtas su kitais lygiagrečiais</string>
     <string name="piece_map">Dalių žemėlapis</string>
     <string name="resume_torrent">Tęsti</string>

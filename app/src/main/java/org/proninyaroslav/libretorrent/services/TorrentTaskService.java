@@ -60,6 +60,7 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
@@ -892,8 +893,6 @@ public class TorrentTaskService extends Service
                                   SettingsManager.Default.proxyPort));
         proxy.setProxyPeersToo(pref.getBoolean(getString(R.string.pref_key_proxy_peers_too),
                                                SettingsManager.Default.proxyPeersToo));
-        proxy.setForceProxy(pref.getBoolean(getString(R.string.pref_key_force_proxy),
-                                            SettingsManager.Default.forceProxy));
         if (pref.getBoolean(getString(R.string.pref_key_proxy_requires_auth),
                             SettingsManager.Default.proxyRequiresAuth)) {
             proxy.setLogin(pref.getString(getString(R.string.pref_key_proxy_login),
@@ -1337,7 +1336,7 @@ public class TorrentTaskService extends Service
                 continue;
             }
 
-            states.add(new TrackerStateParcel(entry.swig()));
+            states.add(new TrackerStateParcel(entry));
         }
 
         return states;
@@ -1350,12 +1349,12 @@ public class TorrentTaskService extends Service
         }
 
         ArrayList<PeerStateParcel> states = new ArrayList<>();
-        ArrayList<PeerInfo> peers = task.getPeers();
+        List<AdvancedPeerInfo> peers = task.advancedPeerInfo();
 
         TorrentStatus status = task.getTorrentStatus();
 
-        for (PeerInfo peer : peers) {
-            PeerStateParcel state = new PeerStateParcel(peer.swig(), status);
+        for (AdvancedPeerInfo peer : peers) {
+            PeerStateParcel state = new PeerStateParcel(peer, status);
             states.add(state);
         }
 

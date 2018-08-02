@@ -27,7 +27,6 @@ import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.AnnounceEntry;
 import com.frostwire.jlibtorrent.FileStorage;
 import com.frostwire.jlibtorrent.MoveFlags;
-import com.frostwire.jlibtorrent.PeerInfo;
 import com.frostwire.jlibtorrent.PieceIndexBitfield;
 import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.SessionHandle;
@@ -43,6 +42,8 @@ import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
 import com.frostwire.jlibtorrent.alerts.TorrentAlert;
 import com.frostwire.jlibtorrent.swig.add_torrent_params;
 import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.peer_info_vector;
+import com.frostwire.jlibtorrent.swig.torrent_handle;
 
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
@@ -598,12 +599,25 @@ public class TorrentDownload
         return th.trackers();
     }
 
-    public ArrayList<PeerInfo> getPeers()
+    /*
+     * This function is similar as TorrentHandle::peerInfo()
+     */
+
+    public List<AdvancedPeerInfo> advancedPeerInfo()
     {
         if (!th.isValid())
             return new ArrayList<>();
 
-        return th.peerInfo();
+        torrent_handle th_swig = th.swig();
+        peer_info_vector v = new peer_info_vector();
+        th_swig.get_peer_info(v);
+
+        int size = (int)v.size();
+        ArrayList<AdvancedPeerInfo> l = new ArrayList<>(size);
+        for (int i = 0; i < size; i++)
+            l.add(new AdvancedPeerInfo(v.get(i)));
+
+        return l;
     }
 
     public TorrentStatus getTorrentStatus()
@@ -940,12 +954,12 @@ public class TorrentDownload
             return new int[0];
 
         boolean[] pieces = pieces();
-        ArrayList<PeerInfo> peers = getPeers();
+        List<AdvancedPeerInfo> peers = advancedPeerInfo();
         int[] avail = new int[pieces.length];
         for (int i = 0; i < pieces.length; i++)
             avail[i] = (pieces[i] ? 1 : 0);
 
-        for (PeerInfo peer : peers) {
+        for (AdvancedPeerInfo peer : peers) {
             PieceIndexBitfield peerPieces = peer.pieces();
             for (int i = 0; i < pieces.length; i++)
                 if (peerPieces.getBit(i))

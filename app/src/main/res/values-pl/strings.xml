@@ -238,6 +238,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">Ten torrent nie miał połączenia z peer\'ami</string>
     <string name="piece_map">Mapa fragmentów</string>
     <string name="resume_torrent">Wznów</string>

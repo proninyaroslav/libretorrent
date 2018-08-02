@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,7 +32,6 @@ public class ProxySettingsPack
     private String  password = "";
     private int port = DEFAULT_PROXY_PORT;
     private boolean proxyPeersToo = true;
-    private boolean forceProxy = true;
 
     public enum ProxyType
     {
@@ -85,7 +84,6 @@ public class ProxySettingsPack
         this.password = password;
         this.port = port;
         this.proxyPeersToo = proxyPeersToo;
-        this.forceProxy = forceProxy;
     }
 
     public ProxyType getType()
@@ -146,15 +144,5 @@ public class ProxySettingsPack
     public void setProxyPeersToo(boolean proxyPeersToo)
     {
         this.proxyPeersToo = proxyPeersToo;
-    }
-
-    public boolean isForceProxy()
-    {
-        return forceProxy;
-    }
-
-    public void setForceProxy(boolean forceProxy)
-    {
-        this.forceProxy = forceProxy;
     }
 }

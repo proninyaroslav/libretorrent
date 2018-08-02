@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,9 +22,10 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.frostwire.jlibtorrent.swig.announce_endpoint;
-import com.frostwire.jlibtorrent.swig.announce_endpoint_vector;
-import com.frostwire.jlibtorrent.swig.announce_entry;
+import com.frostwire.jlibtorrent.AnnounceEndpoint;
+import com.frostwire.jlibtorrent.AnnounceEntry;
+
+import java.util.List;
 
 /*
  * The class provides a package model with information
@@ -51,21 +52,21 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
         public static final int NOT_WORKING = 3;
     }
 
-    public TrackerStateParcel(announce_entry entry)
+    public TrackerStateParcel(AnnounceEntry entry)
     {
-        super(entry.getUrl());
+        super(entry.url());
 
-        url = entry.getUrl();
-        tier = entry.getTier();
+        url = entry.url();
+        tier = entry.tier();
 
-        if (entry.getEndpoints().size() == 0) {
+        if (entry.endpoints().size() == 0) {
             status = Status.NOT_WORKING;
             message = "";
 
         } else {
-            announce_endpoint bestEndpoint = getBestEndpoint(entry.getEndpoints());
+            AnnounceEndpoint bestEndpoint = getBestEndpoint(entry.endpoints());
 
-            message = bestEndpoint.getMessage();
+            message = bestEndpoint.message();
             status = makeStatus(entry, bestEndpoint);
         }
     }
@@ -80,35 +81,30 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
         this.status = status;
     }
 
-    private int makeStatus(announce_entry entry, announce_endpoint endpoint)
+    private int makeStatus(AnnounceEntry entry, AnnounceEndpoint endpoint)
     {
-        if (entry == null) {
+        if (entry == null)
             return Status.UNKNOWN;
-        }
 
-        if (entry.getVerified() && endpoint.is_working()) {
+        if (entry.isVerified() && endpoint.isWorking())
             return Status.WORKING;
-        } else if ((endpoint.getFails() == 0) && endpoint.getUpdating()) {
+        else if ((endpoint.fails() == 0) && endpoint.updating())
             return Status.UPDATING;
-        } else if (endpoint.getFails() == 0) {
+        else if (endpoint.fails() == 0)
             return Status.NOT_CONTACTED;
-        } else {
+        else
             return Status.NOT_WORKING;
-        }
     }
 
-    private announce_endpoint getBestEndpoint(announce_endpoint_vector endpoints)
+    private AnnounceEndpoint getBestEndpoint(List<AnnounceEndpoint> endpoints)
     {
-        if (endpoints.size() == 1) {
+        if (endpoints.size() == 1)
             return endpoints.get(0);
-        }
 
-        announce_endpoint bestEndpoint = endpoints.get(0);
-        for (int i = 0; i < endpoints.size(); i++) {
-            if (endpoints.get(i).getFails() < bestEndpoint.getFails()) {
+        AnnounceEndpoint bestEndpoint = endpoints.get(0);
+        for (int i = 0; i < endpoints.size(); i++)
+            if (endpoints.get(i).fails() < bestEndpoint.fails())
                 bestEndpoint = endpoints.get(i);
-            }
-        }
 
         return bestEndpoint;
     }

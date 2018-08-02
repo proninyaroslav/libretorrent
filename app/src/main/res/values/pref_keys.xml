@@ -60,7 +60,6 @@
     <string name="pref_key_proxy_address" translatable="false">pref_key_proxy_address</string>
     <string name="pref_key_proxy_port" translatable="false">pref_key_proxy_port</string>
     <string name="pref_key_proxy_peers_too" translatable="false">pref_key_proxy_peers_too</string>
-    <string name="pref_key_force_proxy" translatable="false">pref_key_force_proxy</string>
     <string name="pref_key_proxy_requires_auth" translatable="false">pref_key_proxy_requires_auth</string>
     <string name="pref_key_proxy_login" translatable="false">pref_key_proxy_login</string>
     <string name="pref_key_proxy_password" translatable="false">pref_key_proxy_password</string>

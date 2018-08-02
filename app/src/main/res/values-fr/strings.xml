@@ -238,6 +238,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_connection_type_http">HTTP</string>
     <string name="peer_list_empty">Ce torrent n\'est pas encore connecté à des pairs</string>
     <string name="piece_map">Carte des Piéces</string>
     <string name="resume_torrent">Reprendre</string>

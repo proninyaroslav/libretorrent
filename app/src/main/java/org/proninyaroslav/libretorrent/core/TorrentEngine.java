@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -612,7 +612,7 @@ public class TorrentEngine extends SessionManager
 
     public void setProxy(Context context, ProxySettingsPack proxy)
     {
-        if (context == null || proxy == null)
+        if (context == null || proxy == null || proxy.getType() == ProxySettingsPack.ProxyType.NONE)
             return;
 
         SettingsPack sp = settings();
@@ -637,11 +637,6 @@ public class TorrentEngine extends SessionManager
         sp.setString(settings_pack.string_types.proxy_username.swigValue(), proxy.getLogin());
         sp.setString(settings_pack.string_types.proxy_password.swigValue(), proxy.getPassword());
         sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), proxy.isProxyPeersToo());
-
-        if (proxy.getType() != ProxySettingsPack.ProxyType.NONE)
-            sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), proxy.isForceProxy());
-        else
-            sp.setBoolean(settings_pack.bool_types.force_proxy.swigValue(), false);
 
         applySettingsPack(sp);
     }
@@ -670,7 +665,6 @@ public class TorrentEngine extends SessionManager
         proxy.setLogin(sp.getString(settings_pack.string_types.proxy_username.swigValue()));
         proxy.setPassword(sp.getString(settings_pack.string_types.proxy_password.swigValue()));
         proxy.setProxyPeersToo(sp.getBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue()));
-        proxy.setForceProxy(sp.getBoolean(settings_pack.bool_types.force_proxy.swigValue()));
 
         return proxy;
     }
