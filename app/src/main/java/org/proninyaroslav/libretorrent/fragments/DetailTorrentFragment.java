@@ -404,8 +404,9 @@ public class DetailTorrentFragment extends Fragment
                 DetailTorrentFilesFragment.newInstance(getFileList(), getPrioritiesList());
         DetailTorrentTrackersFragment fragmentTrackers = DetailTorrentTrackersFragment.newInstance();
         DetailTorrentPeersFragment fragmentPeers = DetailTorrentPeersFragment.newInstance();
-        DetailTorrentPiecesFragment fragmentPieces =
-                DetailTorrentPiecesFragment.newInstance(infoCache.numPieces, infoCache.pieceLength);
+        DetailTorrentPiecesFragment fragmentPieces = (infoCache != null ?
+                DetailTorrentPiecesFragment.newInstance(infoCache.numPieces, infoCache.pieceLength) :
+                DetailTorrentPiecesFragment.newInstance(0, 0));
 
         /* Removing previous ViewPagerAdapter fragments, if any */
         if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
