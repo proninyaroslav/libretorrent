@@ -18,12 +18,6 @@ public class AdvancedPeerInfo extends PeerInfo
     {
         super(p);
 
-        init(p);
-    }
-
-    @Override
-    protected void init(peer_info p)
-    {
         port = p.getIp().port();
         pieces = new PieceIndexBitfield(p.getPieces());
         isUtp = p.getFlags().and_(peer_info.utp_socket).nonZero();
