@@ -31,7 +31,7 @@ Already implemented features (help is highly desired!):
  - Scheduling
  - RSS manager
  - Android TV support
- - Ability to create torrent
+ - Ability to create torrents
  - And more
 
 Donation
