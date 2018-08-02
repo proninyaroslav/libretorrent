@@ -1,3 +1,6 @@
 - web interface
 - streaming support
 - I2P torrents support
+- write unit test
+- peer block subscriptions
+- BiglyBT's Swarm Discovery feature
