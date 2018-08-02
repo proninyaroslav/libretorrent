@@ -92,9 +92,6 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
             case PeerStateParcel.ConnectionType.UTP:
                 connectionType = context.getString(R.string.peer_connection_type_utp);
                 break;
-            case PeerStateParcel.ConnectionType.HTTP:
-                connectionType = context.getString(R.string.peer_connection_type_http);
-                break;
         }
         holder.connection.setText(
                 String.format(connectionTemplate, connectionType));

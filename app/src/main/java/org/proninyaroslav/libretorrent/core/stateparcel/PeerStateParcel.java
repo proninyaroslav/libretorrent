@@ -47,11 +47,9 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
 
     public class ConnectionType
     {
-        public static final int UNKNOWN = -1;
         public static final int BITTORRENT = 0;
         public static final int WEB = 1;
         public static final int UTP = 2;
-        public static final int HTTP = 3;
     }
 
     public PeerStateParcel(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
@@ -112,15 +110,12 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
             return ConnectionType.UTP;
 
         switch (peer.connectionType()) {
-            case STANDARD_BITTORRENT:
-                return ConnectionType.BITTORRENT;
             case WEB_SEED:
-                return ConnectionType.WEB;
             case HTTP_SEED:
-                return ConnectionType.HTTP;
+                return ConnectionType.WEB;
+            default:
+                return ConnectionType.BITTORRENT;
         }
-
-        return ConnectionType.UNKNOWN;
     }
 
     private double calcRelevance(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
