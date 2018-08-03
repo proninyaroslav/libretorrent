@@ -41,10 +41,6 @@ android {
         variant.outputs.all { output ->
             output.versionCodeOverride =
                     project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + android.defaultConfig.versionCode
-            /* For F-Droid */
-            def apk = output.outputFile
-            if (apk.name.contains("-universal"))
-                outputFileName = apk.name.replace("-universal", "")
         }
     }
 }
