@@ -622,7 +622,7 @@ public class TorrentDownload
 
     public TorrentStatus getTorrentStatus()
     {
-        return th.status();
+        return th.isValid() ? th.status() : null;
     }
 
     /*

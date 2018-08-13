@@ -1344,14 +1344,15 @@ public class TorrentTaskService extends Service
 
     private ArrayList<PeerStateParcel> makePeerStateParcelList(TorrentDownload task)
     {
-        if (task == null) {
+        if (task == null)
             return null;
-        }
 
         ArrayList<PeerStateParcel> states = new ArrayList<>();
         List<AdvancedPeerInfo> peers = task.advancedPeerInfo();
 
         TorrentStatus status = task.getTorrentStatus();
+        if (status == null)
+            return null;
 
         for (AdvancedPeerInfo peer : peers) {
             PeerStateParcel state = new PeerStateParcel(peer, status);
