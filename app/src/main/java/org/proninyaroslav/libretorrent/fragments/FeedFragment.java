@@ -361,8 +361,10 @@ public class FeedFragment extends Fragment
         for (FeedChannel channel : channels)
             urls.add(channel.getUrl());
 
-        if (urls.isEmpty())
+        if (urls.isEmpty()) {
+            swipeRefreshLayout.setRefreshing(false);
             return;
+        }
 
         Intent i = new Intent(activity, FeedFetcherService.class);
         i.setAction(FeedFetcherService.ACTION_FETCH_CHANNEL_LIST);
