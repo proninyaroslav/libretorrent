@@ -291,6 +291,7 @@
     <string name="error_export_feeds">Kunne ikke eksportere kanaler</string>
     <string name="feed_item_open_article_url">Åpne artikkelen</string>
     <string name="feeds_file_selection_dialog_title">Velg en fil med kanaler</string>
+    <string name="error_import_invalid_format">Ugyldig format</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Lag torrent</string>

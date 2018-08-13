@@ -291,6 +291,7 @@
     <string name="error_export_feeds">Falha ao exportar canals</string>
     <string name="feed_item_open_article_url">Artigo aberto</string>
     <string name="feeds_file_selection_dialog_title">Selecione um arquivo com canals</string>
+    <string name="error_import_invalid_format">Formato Inválido</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>

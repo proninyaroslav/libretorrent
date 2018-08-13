@@ -291,6 +291,7 @@
     <string name="error_export_feeds">Nie udało się wyeksportować kanałów</string>
     <string name="feed_item_open_article_url">Otwórz artykuł</string>
     <string name="feeds_file_selection_dialog_title">Wybierz plik z kanałami</string>
+    <string name="error_import_invalid_format">Niepoprawny format</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Utwórz torrent</string>

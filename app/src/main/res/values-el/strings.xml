@@ -291,6 +291,7 @@
     <string name="error_export_feeds">Αποτυχία εξαγωγής καναλιών</string>
     <string name="feed_item_open_article_url">Άνοιγμα άρθρου</string>
     <string name="feeds_file_selection_dialog_title">Επιλέξτε ένα αρχείο με κανάλια</string>
+    <string name="error_import_invalid_format">Ακυρη μορφή</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Δημιουργία torrent</string>

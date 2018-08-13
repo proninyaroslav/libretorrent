@@ -272,6 +272,7 @@
     <string name="error_export_feeds">Не удалось экспортировать каналы</string>
     <string name="feed_item_open_article_url">Открыть статью</string>
     <string name="feeds_file_selection_dialog_title">Выбрать файл с каналами</string>
+    <string name="error_import_invalid_format">Неверный формат</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Создать торрент</string>

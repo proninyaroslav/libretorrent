@@ -66,6 +66,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
+import com.google.gson.JsonSyntaxException;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.FeedActivity;
@@ -746,7 +747,7 @@ public class FeedFragment extends Fragment
     private void addChannelErrorDialog()
     {
         if (getFragmentManager().findFragmentByTag(TAG_ERROR_ADD_CHANNEL_DIALOG) == null) {
-            BaseAlertDialog addDialog = BaseAlertDialog.newInstance(
+            BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.error_cannot_add_channel),
                     0,
@@ -754,7 +755,7 @@ public class FeedFragment extends Fragment
                     null,
                     null,
                     this);
-            addDialog.show(getFragmentManager(), TAG_ERROR_ADD_CHANNEL_DIALOG);
+            errDialog.show(getFragmentManager(), TAG_ERROR_ADD_CHANNEL_DIALOG);
         }
     }
 
@@ -793,14 +794,26 @@ public class FeedFragment extends Fragment
         sentError = e;
 
         if (getFragmentManager().findFragmentByTag(TAG_IMPORT_ERROR_DIALOG) == null) {
-            ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                    activity.getApplicationContext(),
-                    getString(R.string.error),
-                    getString(R.string.error_import_feeds),
-                    (e != null ? Log.getStackTraceString(e) : null),
-                    this);
+            if (e instanceof JsonSyntaxException) {
+                BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
+                        getString(R.string.error),
+                        getString(R.string.error_import_invalid_format),
+                        0,
+                        getString(R.string.ok),
+                        null,
+                        null,
+                        this);
+                errDialog.show(getFragmentManager(), TAG_IMPORT_ERROR_DIALOG);
+            } else {
+                ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
+                        activity.getApplicationContext(),
+                        getString(R.string.error),
+                        getString(R.string.error_import_feeds),
+                        (e != null ? Log.getStackTraceString(e) : null),
+                        this);
 
-            errDialog.show(getFragmentManager(), TAG_IMPORT_ERROR_DIALOG);
+                errDialog.show(getFragmentManager(), TAG_IMPORT_ERROR_DIALOG);
+            }
         }
     }
 
