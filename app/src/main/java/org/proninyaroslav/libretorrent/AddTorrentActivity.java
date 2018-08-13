@@ -72,6 +72,8 @@ public class AddTorrentActivity extends AppCompatActivity
             uri = intent.getParcelableExtra(TAG_URI);
         }
 
+        startService(new Intent(this, TorrentTaskService.class));
+
         if (uri != null) {
             addTorrentFragment.setUri(uri);
         }
