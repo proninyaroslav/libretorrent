@@ -23,11 +23,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -42,7 +40,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +73,8 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.*;
 import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
@@ -83,10 +82,11 @@ import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
@@ -168,7 +168,7 @@ public class MainFragment extends Fragment
      * Trying to add torrents will be made at the first connect.
      */
     private HashSet<AddTorrentParams> addTorrentsQueue = new HashSet<>();
-    SharedPreferences pref;
+    private SharedPreferences pref;
     private Throwable sentError;
 
     @Override
@@ -384,8 +384,8 @@ public class MainFragment extends Fragment
 
         activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
                 connection, Context.BIND_AUTO_CREATE);
-        LocalBroadcastManager.getInstance(activity)
-                .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
+        if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
+            TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
 
     @Override
@@ -393,7 +393,7 @@ public class MainFragment extends Fragment
     {
         super.onStop();
 
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(serviceReceiver);
+        TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         if (bound) {
             getActivity().unbindService(connection);
             bound = false;
@@ -451,15 +451,15 @@ public class MainFragment extends Fragment
         }
     };
 
-    BroadcastReceiver serviceReceiver = new BroadcastReceiver()
+    TorrentTaskServiceReceiver.Callback serviceReceiver = new TorrentTaskServiceReceiver.Callback()
     {
-        @Override
-        public void onReceive(Context context, Intent i)
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onReceive(Bundle b)
         {
-            if (i != null) {
-                switch ((TorrentStateMsg.Type)i.getSerializableExtra(TorrentStateMsg.TYPE)) {
+            if (b != null) {
+                switch ((TorrentStateMsg.Type)b.getSerializable(TorrentStateMsg.TYPE)) {
                     case TORRENT_ADDED: {
-                        Torrent torrent = i.getParcelableExtra(TorrentStateMsg.TORRENT);
+                        Torrent torrent = b.getParcelable(TorrentStateMsg.TORRENT);
                         if (torrent != null) {
                             TorrentListItem item = new TorrentListItem();
                             item.torrentId = torrent.getId();
@@ -470,17 +470,17 @@ public class MainFragment extends Fragment
                         break;
                     }
                     case UPDATE_TORRENT: {
-                        BasicStateParcel state = i.getParcelableExtra(TorrentStateMsg.STATE);
+                        BasicStateParcel state = b.getParcelable(TorrentStateMsg.STATE);
                         if (state != null)
                             adapter.updateItem(state);
                         break;
                     }
                     case UPDATE_TORRENTS: {
-                        handleBasicStates((Bundle)i.getParcelableExtra(TorrentStateMsg.STATES));
+                        handleBasicStates(b.getBundle(TorrentStateMsg.STATES));
                         break;
                     }
                     case TORRENT_REMOVED: {
-                        String id = i.getStringExtra(TorrentStateMsg.TORRENT_ID);
+                        String id = b.getString(TorrentStateMsg.TORRENT_ID);
                         if (id != null)
                             adapter.deleteItem(id);
                         break;
@@ -1230,11 +1230,9 @@ public class MainFragment extends Fragment
             case ADD_TORRENT_REQUEST:
             case CREATE_TORRENT_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    AddTorrentParams params = null;
-                    if (data.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS))
-                        params = data.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
-                    else if (data.hasExtra(CreateTorrentActivity.TAG_CREATED_TORRENT))
-                        params = data.getParcelableExtra(CreateTorrentActivity.TAG_CREATED_TORRENT);
+                    AddTorrentParams params;
+                    params = (requestCode == ADD_TORRENT_REQUEST ? AddTorrentActivity.getResult() :
+                                                                   CreateTorrentActivity.getResult());
                     if (params != null) {
                         if (!bound || service == null) {
                             addTorrentsQueue.add(params);

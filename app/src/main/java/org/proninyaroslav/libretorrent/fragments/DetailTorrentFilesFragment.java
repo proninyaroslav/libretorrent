@@ -72,6 +72,7 @@ public class DetailTorrentFilesFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentFilesFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_FILES = "files";
     private static final String TAG_PRIORITIES = "priorities";
     private static final String TAG_LIST_FILE_STATE = "list_file_state";
@@ -159,14 +160,17 @@ public class DetailTorrentFilesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        if (savedInstanceState != null) {
-            files = (ArrayList<BencodeFileItem>) savedInstanceState.getSerializable(TAG_FILES);
-            priorities = (ArrayList<FilePriority>) savedInstanceState.getSerializable(TAG_PRIORITIES);
-            fileTree = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_FILE_TREE);
-            curDir = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_CUR_DIR);
-
-        } else {
-            makeFileTree();
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null) {
+                files = (ArrayList<BencodeFileItem>)heavyInstance.getSerializable(TAG_FILES);
+                priorities = (ArrayList<FilePriority>)heavyInstance.getSerializable(TAG_PRIORITIES);
+                fileTree = (TorrentContentFileTree)heavyInstance.getSerializable(TAG_FILE_TREE);
+                curDir = (TorrentContentFileTree)heavyInstance.getSerializable(TAG_CUR_DIR);
+            } else {
+                makeFileTree();
+            }
         }
 
         updateFileSize();
@@ -205,10 +209,8 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
-        outState.putSerializable(TAG_FILES, files);
-        outState.putSerializable(TAG_PRIORITIES, priorities);
-        outState.putSerializable(TAG_FILE_TREE, fileTree);
-        outState.putSerializable(TAG_CUR_DIR, curDir);
+        super.onSaveInstanceState(outState);
+
         if (layoutManager != null) {
             listFileState = layoutManager.onSaveInstanceState();
         }
@@ -219,7 +221,14 @@ public class DetailTorrentFilesFragment extends Fragment
         outState.putBoolean(TAG_IN_ACTION_MODE, inActionMode);
         outState.putStringArrayList(TAG_SELECTED_FILES, selectedFiles);
 
-        super.onSaveInstanceState(outState);
+        Bundle b = new Bundle();
+        b.putSerializable(TAG_FILES, files);
+        b.putSerializable(TAG_PRIORITIES, priorities);
+        b.putSerializable(TAG_FILE_TREE, fileTree);
+        b.putSerializable(TAG_CUR_DIR, curDir);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override

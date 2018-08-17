@@ -40,7 +40,6 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
@@ -49,7 +48,6 @@ import android.widget.Toast;
 
 import com.frostwire.jlibtorrent.AnnounceEntry;
 import com.frostwire.jlibtorrent.FileStorage;
-import com.frostwire.jlibtorrent.PeerInfo;
 import com.frostwire.jlibtorrent.Priority;
 import com.frostwire.jlibtorrent.TorrentInfo;
 import com.frostwire.jlibtorrent.TorrentStatus;
@@ -76,7 +74,8 @@ import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
@@ -186,6 +185,9 @@ public class TorrentTaskService extends Service
         TorrentEngine.getInstance().setCallback(this);
         TorrentEngine.getInstance().setSettings(SettingsManager.readEngineSettings(context));
         TorrentEngine.getInstance().start();
+
+        makeForegroundNotify();
+        startUpdateForegroundNotify();
     }
 
     @Override
@@ -239,9 +241,7 @@ public class TorrentTaskService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        if (intent == null)
-            return START_NOT_STICKY;
-
+        /* Clear old notifications */
         try {
             NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
             if (manager != null)
@@ -250,168 +250,163 @@ public class TorrentTaskService extends Service
             /* Ignore */
         }
 
-        if (isAlreadyRunning) {
-            if (intent.getAction() != null) {
-                Context context = getApplicationContext();
-                boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
-                                                         SettingsManager.Default.batteryControl);
-                boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
-                                                         SettingsManager.Default.customBatteryControl);
-                int customBatteryControlValue = pref.getInt(getString(
-                        R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
-                boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
-                                                       SettingsManager.Default.onlyCharging);
-                boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
-                                                   SettingsManager.Default.wifiOnly);
-
-                switch (intent.getAction()) {
-                    case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-                    case ACTION_SHUTDOWN:
-                        if (shutdownThread != null && !shutdownThread.isAlive())
-                            shutdownThread.start();
-
-                        return START_NOT_STICKY;
-                    case Intent.ACTION_BATTERY_LOW:
-                        if (batteryControl) {
-                            boolean pause = true;
-                            if (onlyCharging)
-                                pause &= !Utils.isBatteryCharging(context);
-                            if (wifiOnly)
-                                pause &= !Utils.isWifiEnabled(context);
-                            if (pause) {
-                                pauseTorrents.set(true);
-                                TorrentEngine.getInstance().pauseAll();
-                            }
-                        }
-                        break;
-                    case Intent.ACTION_BATTERY_OKAY:
-                        if (batteryControl) {
-                            boolean resume = true;
-                            if (onlyCharging)
-                                resume &= Utils.isBatteryCharging(context);
-                            if (wifiOnly)
-                               resume &= Utils.isWifiEnabled(context);
-                            if (resume) {
-                                pauseTorrents.set(false);
-                                TorrentEngine.getInstance().resumeAll();
-                            }
-                        }
-                        break;
-                    case Intent.ACTION_BATTERY_CHANGED:
-                        if (customBatteryControl) {
-                            boolean pause = Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-                            if(onlyCharging)
-                                pause &= !Utils.isBatteryCharging(context);
-                            if (wifiOnly)
-                                pause &= !Utils.isWifiEnabled(context);
-                            if (pause) {
-                                pauseTorrents.set(true);
-                                TorrentEngine.getInstance().pauseAll();
-                            } else {
-                                pauseTorrents.set(false);
-                                TorrentEngine.getInstance().resumeAll();
-                            }
-                        }
-                    case Intent.ACTION_POWER_CONNECTED:
-                        if (onlyCharging) {
-                            boolean resume = true;
-                            if (wifiOnly)
-                                resume &= Utils.isWifiEnabled(context);
-                            if (customBatteryControl)
-                                resume &= !Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-                            else if (batteryControl)
-                                resume &= !Utils.isBatteryLow(context);
-                            if (resume) {
-                                pauseTorrents.set(false);
-                                TorrentEngine.getInstance().resumeAll();
-                            }
-                        }
-                        break;
-                    case Intent.ACTION_POWER_DISCONNECTED:
-                        if (onlyCharging) {
-                            boolean pause = true;
-                            if (wifiOnly)
-                                pause &= !Utils.isWifiEnabled(context);
-                            if (customBatteryControl)
-                                pause &= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-                            else if (batteryControl)
-                                pause &= Utils.isBatteryLow(context);
-                            if (pause) {
-                                pauseTorrents.set(true);
-                                TorrentEngine.getInstance().pauseAll();
-                            }
-                        }
-                        break;
-                    case WifiReceiver.ACTION_WIFI_ENABLED:
-                        if (wifiOnly) {
-                            boolean resume = true;
-                            if (onlyCharging)
-                                resume &= Utils.isBatteryCharging(context);
-                            if (customBatteryControl)
-                                resume &= !Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
-                            else if (batteryControl)
-                                resume &= !Utils.isBatteryLow(context);
-                            if (resume) {
-                                pauseTorrents.set(false);
-                                TorrentEngine.getInstance().resumeAll();
-                            }
-                        }
-                        break;
-                    case WifiReceiver.ACTION_WIFI_DISABLED:
-                        if (wifiOnly) {
-                            boolean pause = true;
-                            if (onlyCharging)
-                                pause &= !Utils.isBatteryCharging(context);
-                            if (batteryControl)
-                                pause &= Utils.isBatteryLow(context);
-                            if (pause) {
-                                pauseTorrents.set(true);
-                                TorrentEngine.getInstance().pauseAll();
-                            }
-                        }
-                        break;
-                    case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
-                        boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
-                        updateForegroundNotifyActions();
-                        if (pause)
-                            TorrentEngine.getInstance().pauseAll();
-                        else
-                            TorrentEngine.getInstance().resumeAll();
-                        break;
-                    case ACTION_ADD_TORRENT: {
-                        AddTorrentParams params = intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS);
-                        try {
-                            addTorrent(params, true);
-                        } catch (Throwable e) {
-                            handleAddTorrentError(params, e);
-                        }
-                        break;
-                    } case ACTION_ADD_TORRENT_LIST: {
-                        ArrayList<AddTorrentParams> paramsList =
-                                intent.getParcelableArrayListExtra(TAG_ADD_TORRENT_PARAMS_LIST);
-                        if (paramsList != null) {
-                            for (AddTorrentParams params : paramsList) {
-                                try {
-                                    addTorrent(params, true);
-                                } catch (Throwable e) {
-                                    handleAddTorrentError(params, e);
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-
-            return START_STICKY;
+        /* The first start */
+        if (!isAlreadyRunning) {
+            isAlreadyRunning = true;
+            init();
         }
 
-        /* The first start */
-        isAlreadyRunning = true;
-        init();
+        if (intent != null && intent.getAction() != null) {
+            Context context = getApplicationContext();
+            boolean batteryControl = pref.getBoolean(getString(R.string.pref_key_battery_control),
+                                                     SettingsManager.Default.batteryControl);
+            boolean customBatteryControl = pref.getBoolean(getString(R.string.pref_key_custom_battery_control),
+                                                           SettingsManager.Default.customBatteryControl);
+            int customBatteryControlValue = pref.getInt(getString(R.string.pref_key_custom_battery_control_value),
+                                                        Utils.getDefaultBatteryLowLevel());
+            boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
+                                                   SettingsManager.Default.onlyCharging);
+            boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
+                                               SettingsManager.Default.wifiOnly);
 
-        makeForegroundNotify();
-        startUpdateForegroundNotify();
+            switch (intent.getAction()) {
+                case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
+                case ACTION_SHUTDOWN:
+                    if (shutdownThread != null && !shutdownThread.isAlive())
+                        shutdownThread.start();
+
+                    return START_NOT_STICKY;
+                case Intent.ACTION_BATTERY_LOW:
+                    if (batteryControl) {
+                        boolean pause = true;
+                        if (onlyCharging)
+                            pause &= !Utils.isBatteryCharging(context);
+                        if (wifiOnly)
+                            pause &= !Utils.isWifiEnabled(context);
+                        if (pause) {
+                            pauseTorrents.set(true);
+                            TorrentEngine.getInstance().pauseAll();
+                        }
+                    }
+                    break;
+                case Intent.ACTION_BATTERY_OKAY:
+                    if (batteryControl) {
+                        boolean resume = true;
+                        if (onlyCharging)
+                            resume &= Utils.isBatteryCharging(context);
+                        if (wifiOnly)
+                            resume &= Utils.isWifiEnabled(context);
+                        if (resume) {
+                            pauseTorrents.set(false);
+                            TorrentEngine.getInstance().resumeAll();
+                        }
+                    }
+                    break;
+                case Intent.ACTION_BATTERY_CHANGED:
+                    if (customBatteryControl) {
+                        boolean pause = Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+                        if(onlyCharging)
+                            pause &= !Utils.isBatteryCharging(context);
+                        if (wifiOnly)
+                            pause &= !Utils.isWifiEnabled(context);
+                        if (pause) {
+                            pauseTorrents.set(true);
+                            TorrentEngine.getInstance().pauseAll();
+                        } else {
+                            pauseTorrents.set(false);
+                            TorrentEngine.getInstance().resumeAll();
+                        }
+                    }
+                case Intent.ACTION_POWER_CONNECTED:
+                    if (onlyCharging) {
+                        boolean resume = true;
+                        if (wifiOnly)
+                            resume &= Utils.isWifiEnabled(context);
+                        if (customBatteryControl)
+                            resume &= !Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+                        else if (batteryControl)
+                            resume &= !Utils.isBatteryLow(context);
+                        if (resume) {
+                            pauseTorrents.set(false);
+                            TorrentEngine.getInstance().resumeAll();
+                        }
+                    }
+                    break;
+                case Intent.ACTION_POWER_DISCONNECTED:
+                    if (onlyCharging) {
+                        boolean pause = true;
+                        if (wifiOnly)
+                            pause &= !Utils.isWifiEnabled(context);
+                        if (customBatteryControl)
+                            pause &= Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+                        else if (batteryControl)
+                            pause &= Utils.isBatteryLow(context);
+                        if (pause) {
+                            pauseTorrents.set(true);
+                            TorrentEngine.getInstance().pauseAll();
+                        }
+                    }
+                    break;
+                case WifiReceiver.ACTION_WIFI_ENABLED:
+                    if (wifiOnly) {
+                        boolean resume = true;
+                        if (onlyCharging)
+                            resume &= Utils.isBatteryCharging(context);
+                        if (customBatteryControl)
+                            resume &= !Utils.isBatteryBelowThreshold(context, customBatteryControlValue);
+                        else if (batteryControl)
+                            resume &= !Utils.isBatteryLow(context);
+                        if (resume) {
+                            pauseTorrents.set(false);
+                            TorrentEngine.getInstance().resumeAll();
+                        }
+                    }
+                    break;
+                case WifiReceiver.ACTION_WIFI_DISABLED:
+                    if (wifiOnly) {
+                        boolean pause = true;
+                        if (onlyCharging)
+                            pause &= !Utils.isBatteryCharging(context);
+                        if (batteryControl)
+                            pause &= Utils.isBatteryLow(context);
+                        if (pause) {
+                            pauseTorrents.set(true);
+                            TorrentEngine.getInstance().pauseAll();
+                        }
+                    }
+                    break;
+                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
+                    boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
+                    updateForegroundNotifyActions();
+                    if (pause)
+                        TorrentEngine.getInstance().pauseAll();
+                    else
+                        TorrentEngine.getInstance().resumeAll();
+                    break;
+                case ACTION_ADD_TORRENT: {
+                    AddTorrentParams params = intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS);
+                    try {
+                        addTorrent(params, true);
+                    } catch (Throwable e) {
+                        handleAddTorrentError(params, e);
+                    }
+                    break;
+                } case ACTION_ADD_TORRENT_LIST: {
+                    ArrayList<AddTorrentParams> paramsList =
+                            intent.getParcelableArrayListExtra(TAG_ADD_TORRENT_PARAMS_LIST);
+                    if (paramsList != null) {
+                        for (AddTorrentParams params : paramsList) {
+                            try {
+                                addTorrent(params, true);
+                            } catch (Throwable e) {
+                                handleAddTorrentError(params, e);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
 
         return START_STICKY;
     }
@@ -485,7 +480,7 @@ public class TorrentTaskService extends Service
     {
         if (basicStateCache.contains(id))
             basicStateCache.remove(id);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentRemovedIntent(id));
+        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentRemovedBundle(id));
     }
 
     @Override
@@ -622,7 +617,7 @@ public class TorrentTaskService extends Service
             if (err instanceof FreeSpaceException) {
                 makeTorrentErrorNotify(repo.getTorrentByID(id).getName(), getString(R.string.error_free_space));
                 needsUpdateNotify.set(true);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentRemovedIntent(id));
+                TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentRemovedBundle(id));
             }
             repo.delete(id);
         } else {
@@ -647,7 +642,7 @@ public class TorrentTaskService extends Service
         } catch (DecodeException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeMagnetFetchedIntent(info));
+        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeMagnetFetchedBundle(info));
     }
 
     @Override
@@ -981,7 +976,7 @@ public class TorrentTaskService extends Service
         }
 
         TorrentEngine.getInstance().download(torrent);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeTorrentAddedIntent(torrent));
+        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentAddedBundle(torrent));
     }
 
     private void saveTorrentFileIn(Torrent torrent, String saveDirPath)
@@ -1092,8 +1087,8 @@ public class TorrentTaskService extends Service
             task.setTorrent(torrent);
 
             needsUpdateNotify.set(true);
-            LocalBroadcastManager.getInstance(this)
-                    .sendBroadcast(TorrentStateMsg.makeUpdateTorrentsIntent(makeBasicStatesList()));
+            TorrentTaskServiceReceiver.getInstance()
+                    .post(TorrentStateMsg.makeUpdateTorrentsBundle(makeBasicStatesList()));
         }
     }
 
@@ -1393,7 +1388,7 @@ public class TorrentTaskService extends Service
             /* Update foreground notification only if added a new package to the cache */
             needsUpdateNotify.set(true);
         }
-        LocalBroadcastManager.getInstance(this).sendBroadcast(TorrentStateMsg.makeUpdateTorrentIntent(state));
+        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeUpdateTorrentBundle(state));
     }
 
     public AdvanceStateParcel makeAdvancedState(String id)

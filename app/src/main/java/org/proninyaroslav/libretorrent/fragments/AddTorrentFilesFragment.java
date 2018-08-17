@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -55,7 +55,7 @@ public class AddTorrentFilesFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = AddTorrentFilesFragment.class.getSimpleName();
 
-    private static final String TAG_FILES = "files";
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
     private static final String TAG_FILE_TREE = "file_tree";
     private static final String TAG_CUR_DIR = "cur_dir";
@@ -68,15 +68,18 @@ public class AddTorrentFilesFragment extends Fragment
     private Parcelable listFilesState;
     private TextView filesSize;
 
+    private ArrayList<BencodeFileItem> files;
     private BencodeFileTree fileTree;
     /* Current directory */
     private BencodeFileTree curDir;
 
-    public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files) {
+    public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files)
+    {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
 
+        fragment.files = files;
+
         Bundle args = new Bundle();
-        args.putParcelableArrayList(TAG_FILES, files);
         fragment.setArguments(args);
 
         return fragment;
@@ -107,15 +110,18 @@ public class AddTorrentFilesFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
         }
 
-        if (savedInstanceState != null) {
-            fileTree = (BencodeFileTree) savedInstanceState.getSerializable(TAG_FILE_TREE);
-            curDir = (BencodeFileTree) savedInstanceState.getSerializable(TAG_CUR_DIR);
-        } else {
-            ArrayList<BencodeFileItem> files = getArguments().getParcelableArrayList(TAG_FILES);
-            fileTree = BencodeFileTreeUtils.buildFileTree(files);
-            fileTree.select(true);
-            /* Is assigned the root dir of the file tree */
-            curDir = fileTree;
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null) {
+                fileTree = (BencodeFileTree)heavyInstance.getSerializable(TAG_FILE_TREE);
+                curDir = (BencodeFileTree)heavyInstance.getSerializable(TAG_CUR_DIR);
+            } else {
+                fileTree = BencodeFileTreeUtils.buildFileTree(files);
+                fileTree.select(true);
+                /* Is assigned the root dir of the file tree */
+                curDir = fileTree;
+            }
         }
 
         filesSize = (TextView) activity.findViewById(R.id.files_size);
@@ -138,12 +144,17 @@ public class AddTorrentFilesFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
-        outState.putSerializable(TAG_FILE_TREE, fileTree);
-        outState.putSerializable(TAG_CUR_DIR, curDir);
+        super.onSaveInstanceState(outState);
+
         listFilesState = layoutManager.onSaveInstanceState();
         outState.putParcelable(TAG_LIST_FILES_STATE, listFilesState);
 
-        super.onSaveInstanceState(outState);
+        Bundle b = new Bundle();
+        b.putSerializable(TAG_FILE_TREE, fileTree);
+        b.putSerializable(TAG_CUR_DIR, curDir);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override

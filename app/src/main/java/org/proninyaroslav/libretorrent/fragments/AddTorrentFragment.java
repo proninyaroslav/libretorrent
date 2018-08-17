@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,11 +23,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -39,7 +37,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -57,15 +54,18 @@ import android.widget.ProgressBar;
 import com.frostwire.jlibtorrent.Priority;
 
 import org.apache.commons.io.FileUtils;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
+import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
@@ -85,6 +85,7 @@ public class AddTorrentFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = AddTorrentFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_URI = "uri";
     private static final int INFO_FRAG_POS = 0;
     private static final int FILE_FRAG_POS = 1;
@@ -204,7 +205,7 @@ public class AddTorrentFragment extends Fragment
     {
         super.onDestroy();
 
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(serviceReceiver);
+        TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         if (!saveTorrentFile)
             if (bound && service != null && info != null)
                 service.cancelFetchMagnet(info.sha1Hash);
@@ -229,11 +230,16 @@ public class AddTorrentFragment extends Fragment
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null)
+                info = heavyInstance.getParcelable(TAG_INFO);
+        }
         if (savedInstanceState != null) {
             pathToTempTorrent = savedInstanceState.getString(TAG_PATH_TO_TEMP_TORRENT);
             saveTorrentFile = savedInstanceState.getBoolean(TAG_SAVE_TORRENT_FILE);
             decodeState = (AtomicReference<State>) savedInstanceState.getSerializable(TAG_FETCHING_STATE);
-            info = savedInstanceState.getParcelable(TAG_INFO);
             fromMagnet = savedInstanceState.getBoolean(TAG_FROM_MAGNET);
 
             showFetchMagnetProgress(decodeState.get() == State.FETCHING_MAGNET);
@@ -266,8 +272,8 @@ public class AddTorrentFragment extends Fragment
         if (uri.getScheme().equals(Utils.MAGNET_PREFIX)) {
             activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
                     connection, Context.BIND_AUTO_CREATE);
-            LocalBroadcastManager.getInstance(activity)
-                    .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
+            if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
+                TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
         }
     }
 
@@ -409,14 +415,19 @@ public class AddTorrentFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
+        super.onSaveInstanceState(outState);
+
         outState.putParcelable(TAG_URI, uri);
         outState.putString(TAG_PATH_TO_TEMP_TORRENT, pathToTempTorrent);
         outState.putBoolean(TAG_SAVE_TORRENT_FILE, saveTorrentFile);
         outState.putSerializable(TAG_FETCHING_STATE, decodeState);
-        outState.putParcelable(TAG_INFO, info);
         outState.putBoolean(TAG_FROM_MAGNET, fromMagnet);
 
-        super.onSaveInstanceState(outState);
+        Bundle b = new Bundle();
+        b.putParcelable(TAG_INFO, info);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -444,13 +455,13 @@ public class AddTorrentFragment extends Fragment
         this.uri = uri;
     }
 
-    BroadcastReceiver serviceReceiver = new BroadcastReceiver()
+    TorrentTaskServiceReceiver.Callback serviceReceiver = new TorrentTaskServiceReceiver.Callback()
     {
-        @Override
-        public void onReceive(Context context, Intent i)
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onReceive(Bundle b)
         {
-            if (i != null && i.getSerializableExtra(TorrentStateMsg.TYPE) == TorrentStateMsg.Type.MAGNET_FETCHED) {
-                TorrentMetaInfo ti = i.getParcelableExtra(TorrentStateMsg.META_INFO);
+            if (b != null && b.getSerializable(TorrentStateMsg.TYPE) == TorrentStateMsg.Type.MAGNET_FETCHED) {
+                TorrentMetaInfo ti = b.getParcelable(TorrentStateMsg.META_INFO);
                 decodeState.set(State.FETCHING_MAGNET_COMPLETED);
                 showFetchMagnetProgress(false);
                 if (info != null) {
@@ -685,9 +696,8 @@ public class AddTorrentFragment extends Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == PERMISSION_REQUEST) {
+        if (requestCode == PERMISSION_REQUEST && resultCode == Activity.RESULT_OK)
             initDecode();
-        }
     }
 
     private void buildTorrent()

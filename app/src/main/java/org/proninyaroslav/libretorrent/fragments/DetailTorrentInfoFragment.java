@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -59,6 +59,7 @@ public class DetailTorrentInfoFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentInfoFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_INFO = "info";
     private static final String TAG_TORRENT= "torrent";
     private static final String TAG_DOWNLOAD_DIR = "download_dir";
@@ -125,13 +126,18 @@ public class DetailTorrentInfoFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null) {
+                info = heavyInstance.getParcelable(TAG_INFO);
+                torrent = heavyInstance.getParcelable(TAG_TORRENT);
+            }
+        }
         if (savedInstanceState != null) {
-            info = savedInstanceState.getParcelable(TAG_INFO);
-            torrent = savedInstanceState.getParcelable(TAG_TORRENT);
             downloadDir = savedInstanceState.getString(TAG_DOWNLOAD_DIR);
             name = savedInstanceState.getString(TAG_NAME);
             isSequentialDownload = savedInstanceState.getBoolean(TAG_IS_SEQUENTIAL);
-
         } else if (torrent != null) {
             downloadDir = torrent.getDownloadPath();
             name = torrent.getName();
@@ -235,11 +241,16 @@ public class DetailTorrentInfoFragment extends Fragment
     {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(TAG_INFO, info);
-        outState.putParcelable(TAG_TORRENT, torrent);
         outState.putString(TAG_DOWNLOAD_DIR, downloadDir);
         outState.putString(TAG_NAME, name);
         outState.putBoolean(TAG_IS_SEQUENTIAL, isSequentialDownload);
+
+        Bundle b = new Bundle();
+        b.putParcelable(TAG_INFO, info);
+        b.putParcelable(TAG_TORRENT, torrent);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override

@@ -25,6 +25,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.SpinnerProgressDialog;
 import org.proninyaroslav.libretorrent.fragments.AddTorrentFragment;
@@ -72,6 +74,7 @@ public class AddTorrentActivity extends AppCompatActivity
             uri = intent.getParcelableExtra(TAG_URI);
         }
 
+        resetResult();
         startService(new Intent(this, TorrentTaskService.class));
 
         if (uri != null) {
@@ -82,6 +85,8 @@ public class AddTorrentActivity extends AppCompatActivity
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
+        super.onRestoreInstanceState(savedInstanceState);
+
         progress = (SpinnerProgressDialog) getFragmentManager().findFragmentByTag(TAG_SPINNER_PROGRESS);
     }
 
@@ -124,18 +129,40 @@ public class AddTorrentActivity extends AppCompatActivity
         progress = null;
     }
 
+    public static void setResult(AddTorrentParams params)
+    {
+        if (params == null)
+            return;
+        EventBus.getDefault().postSticky(params);
+    }
+
+    public static AddTorrentParams getResult()
+    {
+        return EventBus.getDefault().removeStickyEvent(AddTorrentParams.class);
+    }
+
+    public static void resetResult()
+    {
+        getResult();
+    }
+
     @Override
     public void fragmentFinished(Intent intent, ResultCode code)
     {
+        /*
+         * Transfer of result will be done only across EventBus sticky event, not intent.
+         * This is necessary to add large torrents.
+         */
+        resetResult();
         if (code == ResultCode.OK) {
             /* If add torrent dialog has been called by an implicit intent */
+            setResult((AddTorrentParams)intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
             if (getIntent().getData() != null && intent.hasExtra(TAG_ADD_TORRENT_PARAMS)) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra(TAG_ADD_TORRENT_PARAMS, intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
                 startActivity(i);
             } else {
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_OK, new Intent());
             }
 
         } else if (code == ResultCode.BACK) {

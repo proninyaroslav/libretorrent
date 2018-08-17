@@ -48,6 +48,7 @@ public class DetailTorrentStateFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentStateFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_BASIC_STATE = "basic_state";
     private static final String TAG_ADVANCE_STATE = "advance_state";
     private static final String TAG_INFO = "info";
@@ -86,11 +87,16 @@ public class DetailTorrentStateFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            basicState = savedInstanceState.getParcelable(TAG_BASIC_STATE);
-            advanceState = savedInstanceState.getParcelable(TAG_ADVANCE_STATE);
-            info = savedInstanceState.getParcelable(TAG_INFO);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null) {
+                advanceState = heavyInstance.getParcelable(TAG_ADVANCE_STATE);
+                info = heavyInstance.getParcelable(TAG_INFO);
+            }
         }
+        if (savedInstanceState != null)
+            basicState = savedInstanceState.getParcelable(TAG_BASIC_STATE);
     }
 
     @Override
@@ -131,8 +137,13 @@ public class DetailTorrentStateFragment extends Fragment
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(TAG_BASIC_STATE, basicState);
-        outState.putParcelable(TAG_ADVANCE_STATE, advanceState);
-        outState.putParcelable(TAG_INFO, info);
+
+        Bundle b = new Bundle();
+        b.putParcelable(TAG_ADVANCE_STATE, advanceState);
+        b.putParcelable(TAG_INFO, info);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     public void setBasicState(BasicStateParcel basicState)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,11 +21,9 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +38,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +62,8 @@ import android.widget.EditText;
 
 import com.frostwire.jlibtorrent.Priority;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
@@ -72,11 +71,12 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
@@ -226,8 +226,8 @@ public class DetailTorrentFragment extends Fragment
 
         activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
                 connection, Context.BIND_AUTO_CREATE);
-        LocalBroadcastManager.getInstance(activity)
-                .registerReceiver(serviceReceiver, new IntentFilter(TorrentStateMsg.ACTION));
+        if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
+            TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
 
     @Override
@@ -235,7 +235,7 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onStop();
 
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(serviceReceiver);
+        TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         stopUpdateTorrentState();
         if (bound) {
             getActivity().unbindService(connection);
@@ -1198,21 +1198,21 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    BroadcastReceiver serviceReceiver = new BroadcastReceiver()
+    TorrentTaskServiceReceiver.Callback serviceReceiver = new TorrentTaskServiceReceiver.Callback()
     {
-        @Override
-        public void onReceive(Context context, Intent i)
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onReceive(Bundle b)
         {
-            if (i != null) {
-                switch ((TorrentStateMsg.Type)i.getSerializableExtra(TorrentStateMsg.TYPE)) {
+            if (b != null) {
+                switch ((TorrentStateMsg.Type)b.getSerializable(TorrentStateMsg.TYPE)) {
                     case UPDATE_TORRENT: {
-                        BasicStateParcel state = i.getParcelableExtra(TorrentStateMsg.STATE);
+                        BasicStateParcel state = b.getParcelable(TorrentStateMsg.STATE);
                         if (state != null && state.torrentId.equals(torrentId))
                             handleTorrentState(state);
                         break;
                     }
                     case UPDATE_TORRENTS: {
-                        Bundle states = i.getParcelableExtra(TorrentStateMsg.STATES);
+                        Bundle states = b.getParcelable(TorrentStateMsg.STATES);
                         if (states != null && states.containsKey(torrentId))
                             handleTorrentState((BasicStateParcel)states.getParcelable(torrentId));
                         break;

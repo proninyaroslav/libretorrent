@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -60,6 +60,7 @@ public class AddTorrentInfoFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = AddTorrentInfoFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_INFO = "info";
     private static final String TAG_DOWNLOAD_DIR = "download_dir";
 
@@ -95,13 +96,16 @@ public class AddTorrentInfoFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            info = savedInstanceState.getParcelable(TAG_INFO);
-            downloadDir = savedInstanceState.getString(TAG_DOWNLOAD_DIR);
-
-        } else {
-            downloadDir = TorrentUtils.getTorrentDownloadPath(activity.getApplicationContext());
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null)
+                info = heavyInstance.getParcelable(TAG_INFO);
         }
+        if (savedInstanceState != null)
+            downloadDir = savedInstanceState.getString(TAG_DOWNLOAD_DIR);
+        else
+            downloadDir = TorrentUtils.getTorrentDownloadPath(activity.getApplicationContext());
     }
 
     @Override
@@ -194,8 +198,13 @@ public class AddTorrentInfoFragment extends Fragment
     {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(TAG_INFO, info);
         outState.putString(TAG_DOWNLOAD_DIR, downloadDir);
+
+        Bundle b = new Bundle();
+        b.putParcelable(TAG_INFO, info);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override

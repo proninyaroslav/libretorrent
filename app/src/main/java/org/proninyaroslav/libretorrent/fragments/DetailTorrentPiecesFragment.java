@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -43,6 +43,7 @@ public class DetailTorrentPiecesFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentPiecesFragment.class.getSimpleName();
 
+    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_PIECES = "pieces";
     private static final String TAG_ALL_PIECES_COUNT = "all_pieces_count";
     private static final String TAG_PIECE_SIZE = "piece_size";
@@ -86,8 +87,13 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null)
+                pieces = heavyInstance.getBooleanArray(TAG_PIECES);
+        }
         if (savedInstanceState != null) {
-            pieces = savedInstanceState.getBooleanArray(TAG_PIECES);
             allPiecesCount = savedInstanceState.getInt(TAG_ALL_PIECES_COUNT);
             pieceSize = savedInstanceState.getInt(TAG_PIECE_SIZE);
             downloadedPieces = savedInstanceState.getInt(TAG_DOWNLOADED_PIECES);
@@ -122,7 +128,8 @@ public class DetailTorrentPiecesFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
-        outState.putBooleanArray(TAG_PIECES, pieces);
+        super.onSaveInstanceState(outState);
+
         outState.putInt(TAG_ALL_PIECES_COUNT, allPiecesCount);
         outState.putInt(TAG_PIECE_SIZE, pieceSize);
         outState.putInt(TAG_DOWNLOADED_PIECES, downloadedPieces);
@@ -130,7 +137,11 @@ public class DetailTorrentPiecesFragment extends Fragment
         scrollPosition[1] = pieceMapScrollView.getScrollY();
         outState.putIntArray(TAG_SCROLL_POSITION, scrollPosition);
 
-        super.onSaveInstanceState(outState);
+        Bundle b = new Bundle();
+        b.putBooleanArray(TAG_PIECES, pieces);
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null)
+            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override

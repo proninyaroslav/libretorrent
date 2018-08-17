@@ -71,6 +71,7 @@ dependencies {
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     /* libtorrent wrapper */
     implementation 'com.frostwire:jlibtorrent:' + JLIBTORRENT_VERSION
