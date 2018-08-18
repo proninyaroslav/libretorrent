@@ -75,9 +75,8 @@ public class BasePreferenceActivity extends AppCompatActivity
 
     public <F extends PreferenceFragmentCompat> void setFragment(F fragment)
     {
-        if (fragment == null) {
+        if (fragment == null)
             return;
-        }
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment).commit();
@@ -86,25 +85,24 @@ public class BasePreferenceActivity extends AppCompatActivity
     private <F extends PreferenceFragmentCompat> F getFragment(String fragment)
     {
         if (fragment != null) {
-            if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName())) {
+            if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName()))
                 return (F) AppearanceSettingsFragment.newInstance();
-            } else if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName()))
                 return (F) BehaviorSettingsFragment.newInstance();
-            } else if (fragment.equals(StorageSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(StorageSettingsFragment.class.getSimpleName()))
                 return (F) StorageSettingsFragment.newInstance();
-            } else if (fragment.equals(LimitationsSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(LimitationsSettingsFragment.class.getSimpleName()))
                 return (F) LimitationsSettingsFragment.newInstance();
-            } else if (fragment.equals(NetworkSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(NetworkSettingsFragment.class.getSimpleName()))
                 return (F) NetworkSettingsFragment.newInstance();
-            } else if (fragment.equals(ProxySettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(ProxySettingsFragment.class.getSimpleName()))
                 return (F) ProxySettingsFragment.newInstance();
-            } else if (fragment.equals(SchedulingSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(SchedulingSettingsFragment.class.getSimpleName()))
                 return (F) SchedulingSettingsFragment.newInstance();
-            } else if (fragment.equals(FeedSettingsFragment.class.getSimpleName())) {
+            else if (fragment.equals(FeedSettingsFragment.class.getSimpleName()))
                 return (F) FeedSettingsFragment.newInstance();
-            } else {
+            else
                 return null;
-            }
         }
 
         return null;
@@ -112,9 +110,8 @@ public class BasePreferenceActivity extends AppCompatActivity
 
     public void setTitle(String title)
     {
-        if (toolbar != null) {
+        if (toolbar != null)
             toolbar.setTitle(title);
-        }
     }
 
     public String getToolbarTitle()

@@ -88,12 +88,14 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
     {
         long size = 0;
 
-        if (children.size() != 0)
+        if (children.size() != 0) {
             for (BencodeFileTree child : children.values())
                 if (child.selected)
                     size += child.selectedFileSize();
-        else if (selected)
+
+        } else if (selected) {
             size = this.size();
+        }
 
         return size;
     }

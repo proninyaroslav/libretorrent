@@ -67,19 +67,17 @@ public class AddTorrentActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         Uri uri;
-        if (intent.getData() != null) {
+        if (intent.getData() != null)
             /* Implicit intent with path to torrent file, http or magnet link */
             uri = intent.getData();
-        } else {
+        else
             uri = intent.getParcelableExtra(TAG_URI);
-        }
 
         resetResult();
         startService(new Intent(this, TorrentTaskService.class));
 
-        if (uri != null) {
+        if (uri != null)
             addTorrentFragment.setUri(uri);
-        }
     }
 
     @Override

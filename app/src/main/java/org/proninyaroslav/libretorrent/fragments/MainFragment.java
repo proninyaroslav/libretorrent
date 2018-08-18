@@ -775,11 +775,12 @@ public class MainFragment extends Fragment
         adapter.toggleSelection(position);
         int count = adapter.getSelectedItemCount();
 
-        if (count == 0)
+        if (count == 0) {
             actionMode.finish();
-        else
+        } else {
             actionMode.setTitle(String.valueOf(count));
             actionMode.invalidate();
+        }
     }
 
     /*

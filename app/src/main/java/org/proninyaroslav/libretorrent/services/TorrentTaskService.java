@@ -862,13 +862,12 @@ public class TorrentTaskService extends Service
         int mode = pref.getInt(getString(R.string.pref_key_enc_mode),
                                SettingsManager.Default.encryptMode(getApplicationContext()));
 
-        if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value))) {
+        if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_prefer_value)))
             return settings_pack.enc_policy.pe_enabled.swigValue();
-        } else if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_require_value))) {
+        else if (mode == Integer.parseInt(getString(R.string.pref_enc_mode_require_value)))
             return settings_pack.enc_policy.pe_forced.swigValue();
-        } else {
+        else
             return settings_pack.enc_policy.pe_disabled.swigValue();
-        }
     }
 
     private void setProxy()

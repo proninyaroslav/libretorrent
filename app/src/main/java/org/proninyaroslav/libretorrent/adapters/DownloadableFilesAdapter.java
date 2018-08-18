@@ -73,12 +73,10 @@ public class DownloadableFilesAdapter
 
         holder.fileName.setText(file.getName());
 
-        if (file.getType() == FileNode.Type.DIR) {
+        if (file.getType() == FileNode.Type.DIR)
             holder.fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-
-        } else if (file.getType() == FileNode.Type.FILE) {
+        else if (file.getType() == FileNode.Type.FILE)
             holder.fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
-        }
 
         if (file.getName().equals(BencodeFileTree.PARENT_DIR)) {
             holder.fileSelected.setVisibility(View.GONE);

@@ -285,11 +285,10 @@ public class DetailTorrentFragment extends Fragment
             currentFragPos = savedInstanceState.getInt(TAG_CURRENT_FRAG_POS);
         }
 
-        if (isTorrentFilesChanged || isTorrentInfoChanged) {
+        if (isTorrentFilesChanged || isTorrentInfoChanged)
             saveChangesButton.show();
-        } else {
+        else
             saveChangesButton.hide();
-        }
 
         saveChangesButton.setOnClickListener((View view) -> {
             saveChangesButton.hide();

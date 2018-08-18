@@ -165,12 +165,13 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     {
         long size = 0;
 
-        if (children.size() != 0)
+        if (children.size() != 0) {
             for (TorrentContentFileTree child : children.values())
                 if (child.selected != SelectState.UNSELECTED)
                     size += child.selectedFileSize();
-        else if (selected != SelectState.UNSELECTED)
+        } else if (selected != SelectState.UNSELECTED) {
             size = this.size();
+        }
 
         return size;
     }

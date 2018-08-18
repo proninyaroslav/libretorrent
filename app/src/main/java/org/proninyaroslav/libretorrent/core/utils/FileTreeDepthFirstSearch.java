@@ -53,7 +53,7 @@ public class FileTreeDepthFirstSearch<F extends FileTree<F>>
             if (node.getIndex() == index)
                 findResult = node;
             else
-                for (String n : startNode.getChildrenName())
+                for (String n : node.getChildrenName())
                     if (!node.isFile())
                         stack.push(node.getChild(n));
         }
@@ -80,8 +80,8 @@ public class FileTreeDepthFirstSearch<F extends FileTree<F>>
             if (node.isFile())
                 leaves.add(node);
 
-            for (F n : startNode.getChildren())
-                if (!n.isFile())
+            for (F n : node.getChildren())
+                if (!node.isFile())
                     stack.push(n);
         }
 
@@ -103,8 +103,8 @@ public class FileTreeDepthFirstSearch<F extends FileTree<F>>
             if (node.isFile())
                 leavesAsMap.put(node.getIndex(), node);
 
-            for (F n : startNode.getChildren())
-                if (!n.isFile())
+            for (F n : node.getChildren())
+                if (!node.isFile())
                     stack.push(n);
         }
 
