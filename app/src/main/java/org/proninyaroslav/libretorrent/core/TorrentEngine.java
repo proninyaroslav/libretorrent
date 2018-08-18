@@ -103,7 +103,7 @@ public class TorrentEngine extends SessionManager
 
     /* Base unit in KiB. Used for create torrent */
     public static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512,
-            1024, 2048, 4096, 8192, 16384, 32768};
+                                           1024, 2048, 4096, 8192, 16384, 32768};
 
     public static class Settings
     {
@@ -365,20 +365,17 @@ public class TorrentEngine extends SessionManager
 
     private void runNextLoadTorrentTask() {
         LoadTorrentTask task = null;
-
         try {
-            if (!loadTorrentsQueue.isEmpty()) {
+            if (!loadTorrentsQueue.isEmpty())
                 task = loadTorrentsQueue.poll();
-            }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
 
             return;
         }
 
-        if (task != null) {
+        if (task != null)
             loadTorrentsExec.execute(task);
-        }
     }
 
     public void download(Torrent torrent)
@@ -416,9 +413,8 @@ public class TorrentEngine extends SessionManager
 
     public void saveSettings()
     {
-        if (swig() == null) {
+        if (swig() == null)
             return;
-        }
 
         try {
             TorrentUtils.saveSession(context, saveState());
@@ -474,7 +470,6 @@ public class TorrentEngine extends SessionManager
         int sendBufferWatermark = sp.sendBufferWatermark();
         sp.sendBufferWatermark(sendBufferWatermark / 2);
         sp.seedingOutgoingConnections(false);
-        // sp.setGuidedReadCache(true);
         settingsToSettingsPack(settings, sp);
 
         return sp;
@@ -591,16 +586,11 @@ public class TorrentEngine extends SessionManager
             return;
 
         IPFilterParser parser = new IPFilterParser(path);
-        parser.setOnParsedListener(new IPFilterParser.OnParsedListener()
-        {
-            @Override
-            public void onParsed(ip_filter filter, boolean success)
-            {
-                if (success && swig() != null)
-                    swig().set_ip_filter(filter);
-                if (callback != null)
-                    callback.onIpFilterParsed(success);
-            }
+        parser.setOnParsedListener((ip_filter filter, boolean success) -> {
+            if (success && swig() != null)
+                swig().set_ip_filter(filter);
+            if (callback != null)
+                callback.onIpFilterParsed(success);
         });
         parser.parse();
     }
@@ -650,14 +640,12 @@ public class TorrentEngine extends SessionManager
         String swigType = sp.getString(settings_pack.int_types.proxy_type.swigValue());
 
         type = ProxySettingsPack.ProxyType.NONE;
-
-        if (swigType.equals(settings_pack.proxy_type_t.socks4.toString())) {
+        if (swigType.equals(settings_pack.proxy_type_t.socks4.toString()))
             type = ProxySettingsPack.ProxyType.SOCKS4;
-        } else if (swigType.equals(settings_pack.proxy_type_t.socks5.toString())) {
+        else if (swigType.equals(settings_pack.proxy_type_t.socks5.toString()))
             type = ProxySettingsPack.ProxyType.SOCKS5;
-        } else if (swigType.equals(settings_pack.proxy_type_t.http.toString())) {
+        else if (swigType.equals(settings_pack.proxy_type_t.http.toString()))
             type = ProxySettingsPack.ProxyType.HTTP;
-        }
 
         proxy.setType(type);
         proxy.setPort(sp.getInteger(settings_pack.int_types.proxy_port.swigValue()));
@@ -888,17 +876,15 @@ public class TorrentEngine extends SessionManager
         public void run()
         {
             try {
-                if (isMagnet) {
+                if (isMagnet)
                     download(uri, saveDir);
-                } else {
+                else
                     download(new TorrentInfo(torrentFile), saveDir, resume, priorities, null);
-                }
 
             } catch (Exception e) {
                 Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
-                if (callback != null) {
+                if (callback != null)
                     callback.onRestoreSessionError(torrentId);
-                }
             }
         }
     }

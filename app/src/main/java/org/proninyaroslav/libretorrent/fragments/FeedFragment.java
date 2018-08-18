@@ -21,9 +21,6 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -34,12 +31,16 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -165,7 +166,7 @@ public class FeedFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity) getActivity();
+            activity = (AppCompatActivity)getActivity();
 
         showBlankFragment();
 
@@ -174,34 +175,14 @@ public class FeedFragment extends Fragment
             activity.setSupportActionBar(toolbar);
 
             setHasOptionsMenu(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener((View view) -> onBackPressed());
             toolbar.getNavigationIcon();
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item)
-                {
-                    return onOptionsItemSelected(item);
-                }
-            });
+            toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
         }
         if (activity.getSupportActionBar() != null)
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        addChannelButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                addChannelDialog();
-            }
-        });
+        addChannelButton.setOnClickListener((View v) -> addChannelDialog());
 
         if (savedInstanceState != null)
             prevImplIntent = savedInstanceState.getParcelable(TAG_PREV_IMPL_INTENT);
@@ -217,7 +198,7 @@ public class FeedFragment extends Fragment
         DefaultItemAnimator animator = new DefaultItemAnimator()
         {
             @Override
-            public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder)
+            public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder)
             {
                 return true;
             }
@@ -234,13 +215,7 @@ public class FeedFragment extends Fragment
         channelList.setAdapter(adapter);
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh()
-            {
-                refreshChannels(channels);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> refreshChannels(channels));
 
         Intent i = activity.getIntent();
         /* If add channel dialog has been called by an implicit intent */
@@ -272,16 +247,14 @@ public class FeedFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putParcelable(TAG_PREV_IMPL_INTENT, prevImplIntent);
-        if (layoutManager != null) {
+        if (layoutManager != null)
             channelListState = layoutManager.onSaveInstanceState();
-        }
         outState.putParcelable(TAG_CHANNEL_LIST_STATE, channelListState);
-        if (adapter != null) {
+        if (adapter != null)
             outState.putIntegerArrayList(TAG_SELECTABLE_ADAPTER, adapter.getSelectedItems());
-        }
         outState.putBoolean(TAG_IN_ACTION_MODE, inActionMode);
         outState.putParcelableArrayList(TAG_SELECTED_CHANNELS, selectedChannels);
 
@@ -364,6 +337,7 @@ public class FeedFragment extends Fragment
 
         if (urls.isEmpty()) {
             swipeRefreshLayout.setRefreshing(false);
+
             return;
         }
 
@@ -440,8 +414,9 @@ public class FeedFragment extends Fragment
         if (dialog == null)
             return;
 
-        if (getFragmentManager().findFragmentByTag(TAG_ADD_CHANNEL_DIALOG) != null ||
-            getFragmentManager().findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) != null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && (fm.findFragmentByTag(TAG_ADD_CHANNEL_DIALOG) != null ||
+            fm.findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) != null)) {
             final TextInputEditText urlField = dialog.findViewById(R.id.feed_channel_url);
             final TextInputLayout urlFieldLayout = dialog.findViewById(R.id.layout_feed_channel_url);
             final TextInputEditText filterField = dialog.findViewById(R.id.feed_channel_filter);
@@ -494,27 +469,22 @@ public class FeedFragment extends Fragment
                 @Override
                 public void afterTextChanged(Editable s) { /* Nothing */ }
             });
-            filterField.setOnTouchListener(new View.OnTouchListener()
-            {
-                @Override
-                public boolean onTouch(View v, MotionEvent event)
-                {
-                    final int DRAWABLE_LEFT = 0;
-                    final int DRAWABLE_TOP = 1;
-                    final int DRAWABLE_RIGHT = 2;
-                    final int DRAWABLE_BOTTOM = 3;
+            filterField.setOnTouchListener((View v, MotionEvent event) -> {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
 
-                    if(event.getAction() == MotionEvent.ACTION_UP) {
-                        if (event.getRawX() >= (filterField.getRight() -
-                                filterField.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            expandableLayout.toggle();
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (filterField.getRight() -
+                            filterField.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        expandableLayout.toggle();
 
-                            return true;
-                        }
+                        return true;
                     }
-
-                    return false;
                 }
+
+                return false;
             });
 
             /*
@@ -523,25 +493,20 @@ public class FeedFragment extends Fragment
              */
 
             Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    String link = urlField.getText().toString();
-                    String filter = filterField.getText().toString();
-                    String name = nameField.getText().toString();
-                    boolean isRegex = isRegexFilter.isChecked();
-                    boolean autoDownload = autoDownloadField.isChecked();
+            positiveButton.setOnClickListener((View v) -> {
+                String link = urlField.getText().toString();
+                String filter = filterField.getText().toString();
+                String name = nameField.getText().toString();
+                boolean isRegex = isRegexFilter.isChecked();
+                boolean autoDownload = autoDownloadField.isChecked();
 
-                    if (checkUrlField(link, urlFieldLayout) &&
-                        checkFilterField(filter, isRegex, filterFieldLayout)) {
-                        /* Delete old channel after edit */
-                        if (channel != null)
-                            deleteChannel(channel);
-                        addChannel(Utils.normalizeURL(link), name, filter, isRegex, autoDownload);
-                        dialog.dismiss();
-                    }
+                if (checkUrlField(link, urlFieldLayout) &&
+                    checkFilterField(filter, isRegex, filterFieldLayout)) {
+                    /* Delete old channel after edit */
+                    if (channel != null)
+                        deleteChannel(channel);
+                    addChannel(Utils.normalizeURL(link), name, filter, isRegex, autoDownload);
+                    dialog.dismiss();
                 }
             });
 
@@ -593,7 +558,11 @@ public class FeedFragment extends Fragment
     @Override
     public void onPositiveClicked(@Nullable View v)
     {
-        if (getFragmentManager().findFragmentByTag(TAG_DELETE_CHANNELS_DIALOG) != null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
+
+        if (fm.findFragmentByTag(TAG_DELETE_CHANNELS_DIALOG) != null) {
             FeedItemsFragment f = getCurrentFeedItemsFragment();
             if (f != null) {
                 String feedUrl = f.getFeedUrl();
@@ -604,8 +573,8 @@ public class FeedFragment extends Fragment
                 deleteChannel(channel);
             selectedChannels.clear();
 
-        } else if (getFragmentManager().findFragmentByTag(TAG_IMPORT_ERROR_DIALOG) != null ||
-                   getFragmentManager().findFragmentByTag(TAG_EXPORT_ERROR_DIALOG) != null) {
+        } else if (fm.findFragmentByTag(TAG_IMPORT_ERROR_DIALOG) != null ||
+                   fm.findFragmentByTag(TAG_EXPORT_ERROR_DIALOG) != null) {
             if (sentError != null) {
                 String comment = null;
                 if (v != null) {
@@ -687,7 +656,8 @@ public class FeedFragment extends Fragment
             FragmentManager fm = getFragmentManager();
             BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_feed_channel));
 
-            fm.beginTransaction()
+            if (fm != null)
+                fm.beginTransaction()
                     .replace(R.id.feed_items_fragmentContainer, blank)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .commitAllowingStateLoss();
@@ -701,6 +671,8 @@ public class FeedFragment extends Fragment
 
         if (Utils.isTwoPane(activity.getApplicationContext())) {
             FragmentManager fm = getFragmentManager();
+            if (fm == null)
+                return;
             FeedItemsFragment feedItems = FeedItemsFragment.newInstance(channel.getUrl());
             Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
             if (fragment != null && fragment instanceof FeedItemsFragment) {
@@ -708,7 +680,6 @@ public class FeedFragment extends Fragment
                 if (oldFeedUrl != null && channel.getUrl().equals(oldFeedUrl))
                     return;
             }
-
             fm.beginTransaction()
                     .replace(R.id.feed_items_fragmentContainer, feedItems)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -726,27 +697,31 @@ public class FeedFragment extends Fragment
         if (!Utils.isTwoPane(activity.getApplicationContext()))
             return null;
 
-        Fragment fragment = getFragmentManager()
-                .findFragmentById(R.id.feed_items_fragmentContainer);
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return null;
+        Fragment fragment = fm.findFragmentById(R.id.feed_items_fragmentContainer);
 
         return (fragment instanceof FeedItemsFragment ? (FeedItemsFragment)fragment : null);
     }
 
     private void addChannelDialog()
     {
-        if (getFragmentManager().findFragmentByTag(TAG_ADD_CHANNEL_DIALOG) == null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_ADD_CHANNEL_DIALOG) == null) {
             AddRssChannelDialog addDialog = AddRssChannelDialog.newInstance(
                     activity.getApplicationContext(),
                     getString(R.string.add_feed_channel),
                     getString(R.string.ok),
                     FeedFragment.this);
-            addDialog.show(getFragmentManager(), TAG_ADD_CHANNEL_DIALOG);
+            addDialog.show(fm, TAG_ADD_CHANNEL_DIALOG);
         }
     }
 
     private void addChannelErrorDialog()
     {
-        if (getFragmentManager().findFragmentByTag(TAG_ERROR_ADD_CHANNEL_DIALOG) == null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_ERROR_ADD_CHANNEL_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.error_cannot_add_channel),
@@ -755,45 +730,42 @@ public class FeedFragment extends Fragment
                     null,
                     null,
                     this);
-            errDialog.show(getFragmentManager(), TAG_ERROR_ADD_CHANNEL_DIALOG);
+            errDialog.show(fm, TAG_ERROR_ADD_CHANNEL_DIALOG);
         }
     }
 
     private void exportChooseDialog()
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
-
         FileManagerConfig config = new FileManagerConfig(FileIOUtils.getUserDirPath(),
                 null,
                 null,
                 FileManagerConfig.DIR_CHOOSER_MODE);
-
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-
         startActivityForResult(i, EXPORT_FEEDS_CHOOSE_REQUEST);
     }
 
     private void importChooseDialog()
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
-
         List<String> fileType = new ArrayList<>();
         fileType.add(FeedStorage.SERIALIZE_FILE_FORMAT);
         FileManagerConfig config = new FileManagerConfig(FileIOUtils.getUserDirPath(),
                 getString(R.string.feeds_file_selection_dialog_title),
                 fileType,
                 FileManagerConfig.FILE_CHOOSER_MODE);
-
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-
         startActivityForResult(i, IMPORT_FEEDS_CHOOSE_REQUEST);
     }
 
     private void importErrorDialog(Exception e)
     {
         sentError = e;
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
 
-        if (getFragmentManager().findFragmentByTag(TAG_IMPORT_ERROR_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_IMPORT_ERROR_DIALOG) == null) {
             if (e instanceof JsonSyntaxException) {
                 BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                         getString(R.string.error),
@@ -803,7 +775,7 @@ public class FeedFragment extends Fragment
                         null,
                         null,
                         this);
-                errDialog.show(getFragmentManager(), TAG_IMPORT_ERROR_DIALOG);
+                errDialog.show(fm, TAG_IMPORT_ERROR_DIALOG);
             } else {
                 ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                         activity.getApplicationContext(),
@@ -812,7 +784,7 @@ public class FeedFragment extends Fragment
                         (e != null ? Log.getStackTraceString(e) : null),
                         this);
 
-                errDialog.show(getFragmentManager(), TAG_IMPORT_ERROR_DIALOG);
+                errDialog.show(fm, TAG_IMPORT_ERROR_DIALOG);
             }
         }
     }
@@ -820,8 +792,11 @@ public class FeedFragment extends Fragment
     private void exportErrorDialog(Exception e)
     {
         sentError = e;
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
 
-        if (getFragmentManager().findFragmentByTag(TAG_EXPORT_ERROR_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_EXPORT_ERROR_DIALOG) == null) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                     activity.getApplicationContext(),
                     getString(R.string.error),
@@ -829,7 +804,7 @@ public class FeedFragment extends Fragment
                     (e != null ? Log.getStackTraceString(e) : null),
                     this);
 
-            errDialog.show(getFragmentManager(), TAG_EXPORT_ERROR_DIALOG);
+            errDialog.show(fm, TAG_EXPORT_ERROR_DIALOG);
         }
     }
 
@@ -895,10 +870,12 @@ public class FeedFragment extends Fragment
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item)
         {
+            FragmentManager fm = getFragmentManager();
+
             switch (item.getItemId()) {
                 case R.id.delete_feed_channel_menu:
                     mode.finish();
-                    if (getFragmentManager().findFragmentByTag(TAG_DELETE_CHANNELS_DIALOG) == null) {
+                    if (fm != null && fm.findFragmentByTag(TAG_DELETE_CHANNELS_DIALOG) == null) {
                         BaseAlertDialog deleteTrackersDialog = BaseAlertDialog.newInstance(
                                 getString(R.string.deleting),
                                 (selectedChannels.size() > 1 ? getString(R.string.delete_selected_channels) :
@@ -909,24 +886,26 @@ public class FeedFragment extends Fragment
                                 null,
                                 FeedFragment.this);
 
-                        deleteTrackersDialog.show(getFragmentManager(), TAG_DELETE_CHANNELS_DIALOG);
+                        deleteTrackersDialog.show(fm, TAG_DELETE_CHANNELS_DIALOG);
                     }
                     break;
                 case R.id.edit_feed_channel_menu:
                     mode.finish();
-                    if (getFragmentManager().findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) == null) {
+                    if (fm != null && fm.findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) == null) {
                         AddRssChannelDialog addDialog = AddRssChannelDialog.newInstance(
                                 activity.getApplicationContext(),
                                 getString(R.string.edit_feed_channel),
                                 getString(R.string.edit),
                                 FeedFragment.this);
-                        addDialog.show(getFragmentManager(), TAG_EDIT_CHANNEL_DIALOG);
+                        addDialog.show(fm, TAG_EDIT_CHANNEL_DIALOG);
                     }
                     break;
                 case R.id.copy_feed_channel_url_menu:
                     mode.finish();
                     if (selectedChannels.size() != 0) {
                         ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+                        if (clipboard == null)
+                            break;
                         ClipData clip;
                         clip = ClipData.newPlainText("URL", selectedChannels.get(0).getUrl());
                         clipboard.setPrimaryClip(clip);

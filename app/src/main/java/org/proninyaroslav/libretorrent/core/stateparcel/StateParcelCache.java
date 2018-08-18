@@ -37,22 +37,19 @@ public class StateParcelCache<T extends AbstractStateParcel>
 
     public void put(T state)
     {
-        if (state == null) {
+        if (state == null)
             return;
-        }
 
         cache.put(state.parcelId, state);
     }
 
     public void putAll(Collection<T> states)
     {
-        if (states == null) {
+        if (states == null)
             return;
-        }
 
-        for (T state : states) {
+        for (T state : states)
             cache.put(state.parcelId, state);
-        }
     }
 
     public void remove(String parcelId)
@@ -64,9 +61,8 @@ public class StateParcelCache<T extends AbstractStateParcel>
     {
         Set<String> keys = new HashSet<>(states.size());
 
-        for (T state : states) {
+        for (T state : states)
             keys.add(state.parcelId);
-        }
 
         cache.keySet().removeAll(keys);
     }

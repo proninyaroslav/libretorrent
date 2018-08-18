@@ -72,7 +72,7 @@ public class SchedulerReceiver extends BroadcastReceiver
                 }
                 if (pref.getBoolean(context.getString(R.string.pref_key_scheduling_switch_wifi),
                                     SettingsManager.Default.schedulingSwitchWiFi))
-                    ((WifiManager) context.getApplicationContext()
+                    ((WifiManager)context.getApplicationContext()
                             .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 
                 Utils.startTorrentServiceBackground(context, null);
@@ -97,8 +97,9 @@ public class SchedulerReceiver extends BroadcastReceiver
                 Utils.startTorrentServiceBackground(context, TorrentTaskService.ACTION_SHUTDOWN);
 
                 if (pref.getBoolean(context.getString(R.string.pref_key_scheduling_switch_wifi),
-                        SettingsManager.Default.schedulingSwitchWiFi))
-                    ((WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(false);
+                                    SettingsManager.Default.schedulingSwitchWiFi))
+                    ((WifiManager)context.getApplicationContext()
+                            .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(false);
                 Utils.enableBootReceiverIfNeeded(context);
                 break;
             } case ACTION_FETCH_FEEDS: {

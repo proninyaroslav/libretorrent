@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -54,16 +55,11 @@ public class FeedChannelListAdapter extends SelectableAdapter<FeedChannelListAda
     private int rowLayout;
     private List<FeedChannel> items;
     private AtomicReference<FeedChannel> curOpenChannel = new AtomicReference<>();
-    private Comparator<FeedChannel> sorting = new Comparator<FeedChannel>()
-    {
-        @Override
-        public int compare(FeedChannel o1, FeedChannel o2)
-        {
-            String cmp1 = (o1.getName() == null || TextUtils.isEmpty(o1.getName()) ? o1.getUrl() : o1.getName());
-            String cmp2 = (o2.getName() == null || TextUtils.isEmpty(o2.getName()) ? o2.getUrl() : o2.getName());
+    private Comparator<FeedChannel> sorting = (FeedChannel o1, FeedChannel o2) -> {
+        String cmp1 = (o1.getName() == null || TextUtils.isEmpty(o1.getName()) ? o1.getUrl() : o1.getName());
+        String cmp2 = (o2.getName() == null || TextUtils.isEmpty(o2.getName()) ? o2.getUrl() : o2.getName());
 
-            return cmp1.compareTo(cmp2);
-        }
+        return cmp1.compareTo(cmp2);
     };
 
     public FeedChannelListAdapter(List<FeedChannel> items, Context context,
@@ -76,8 +72,9 @@ public class FeedChannelListAdapter extends SelectableAdapter<FeedChannelListAda
         Collections.sort(this.items, sorting);
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
@@ -86,7 +83,7 @@ public class FeedChannelListAdapter extends SelectableAdapter<FeedChannelListAda
 
     @SuppressWarnings("ResourceType")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         FeedChannel item = items.get(position);
 

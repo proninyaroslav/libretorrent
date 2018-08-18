@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.util.TypedValue;
@@ -63,8 +64,9 @@ public class TorrentContentFilesAdapter
         this.files = files;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
@@ -73,7 +75,7 @@ public class TorrentContentFilesAdapter
 
     @SuppressWarnings("ResourceType")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         final TorrentContentFileTree file = files.get(position);
 
@@ -82,25 +84,18 @@ public class TorrentContentFilesAdapter
                 R.attr.defaultRectRipple
         });
 
-        if (isSelected(position)) {
-            Utils.setBackground(
-                    holder.itemView,
-                    a.getDrawable(0));
-        } else {
-            Utils.setBackground(
-                    holder.itemFileList,
-                    a.getDrawable(1));
-        }
+        if (isSelected(position))
+            Utils.setBackground(holder.itemView, a.getDrawable(0));
+        else
+            Utils.setBackground(holder.itemFileList, a.getDrawable(1));
         a.recycle();
 
         holder.fileName.setText(file.getName());
 
-        if (file.getType() == FileNode.Type.DIR) {
+        if (file.getType() == FileNode.Type.DIR)
             holder.fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-
-        } else if (file.getType() == FileNode.Type.FILE) {
+        else if (file.getType() == FileNode.Type.FILE)
             holder.fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
-        }
 
         if (file.getName().equals(BencodeFileTree.PARENT_DIR)) {
             holder.fileSelected.setVisibility(View.GONE);
@@ -141,9 +136,8 @@ public class TorrentContentFilesAdapter
                 holder.fileProgress.setVisibility(View.VISIBLE);
 
                 String statusTemplate = context.getString(R.string.file_downloading_status_template);
-                holder.fileStatus.setText(
-                        String.format(statusTemplate, priority,
-                                      received, total, progress, availability));
+                holder.fileStatus.setText(String.format(statusTemplate, priority,
+                                                        received, total, progress, availability));
                 holder.fileProgress.setProgress(progress);
             } else {
                 holder.fileSelected.setVisibility(View.VISIBLE);
@@ -200,16 +194,9 @@ public class TorrentContentFilesAdapter
             fileStatus = itemView.findViewById(R.id.file_status);
             fileIcon = itemView.findViewById(R.id.file_icon);
             fileSelected = itemView.findViewById(R.id.file_selected);
-            fileSelected.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    if (listener != null) {
-                        listener.onItemCheckedChanged(files.get(getAdapterPosition()),
-                                fileSelected.isChecked());
-                    }
-                }
+            fileSelected.setOnClickListener((View v) -> {
+                if (listener != null)
+                    listener.onItemCheckedChanged(files.get(getAdapterPosition()), fileSelected.isChecked());
             });
             fileProgress = itemView.findViewById(R.id.file_progress);
             Utils.colorizeProgressBar(context, fileProgress);
@@ -222,7 +209,6 @@ public class TorrentContentFilesAdapter
 
             if (listener != null && position >= 0) {
                 TorrentContentFileTree file = files.get(position);
-
                 listener.onItemClicked(position, file);
             }
         }
@@ -234,7 +220,6 @@ public class TorrentContentFilesAdapter
 
             if (listener != null && position >= 0) {
                 TorrentContentFileTree file = files.get(position);
-
                 listener.onItemLongClicked(position, file);
 
                 return true;

@@ -203,6 +203,7 @@ public class TorrentTaskService extends Service
     {
         try {
             FileIOUtils.cleanTempDir(getBaseContext());
+
         } catch (Exception e) {
             Log.e(TAG, "Error during setup of temp directory: ", e);
         }
@@ -425,11 +426,10 @@ public class TorrentTaskService extends Service
                             PendingIntent.FLAG_ONE_SHOT);
 
             AlarmManager alarmService =
-                    (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            alarmService.set(
-                    AlarmManager.ELAPSED_REALTIME,
-                    SystemClock.elapsedRealtime() + 1000,
-                    restartServicePendingIntent);
+                    (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            alarmService.set(AlarmManager.ELAPSED_REALTIME,
+                             SystemClock.elapsedRealtime() + 1000,
+                             restartServicePendingIntent);
         }
     }
 
@@ -583,7 +583,6 @@ public class TorrentTaskService extends Service
         if (success) {
             if (torrentsMoveSuccess != null && name != null)
                 torrentsMoveSuccess.add(name);
-
         } else {
             if (torrentsMoveFailed != null && name != null)
                 torrentsMoveFailed.add(name);
@@ -639,6 +638,7 @@ public class TorrentTaskService extends Service
         TorrentMetaInfo info = null;
         try {
             info = new TorrentMetaInfo(bencode);
+
         } catch (DecodeException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
@@ -648,13 +648,11 @@ public class TorrentTaskService extends Service
     @Override
     public void onRestoreSessionError(String id)
     {
-        if (id == null) {
+        if (id == null)
             return;
-        }
 
         try {
             Torrent torrent = repo.getTorrentByID(id);
-
             if (torrent != null) {
                 makeTorrentErrorNotify(torrent.getName(), getString(R.string.restore_torrent_error));
                 repo.delete(torrent);
@@ -1025,14 +1023,12 @@ public class TorrentTaskService extends Service
 
     public synchronized void forceRecheckTorrents(List<String> ids)
     {
-        if (ids == null) {
+        if (ids == null)
             return;
-        }
 
         for (String id : ids) {
-            if (id == null) {
+            if (id == null)
                 continue;
-            }
 
             TorrentDownload task = TorrentEngine.getInstance().getTask(id);
             if (task != null)
@@ -1252,18 +1248,15 @@ public class TorrentTaskService extends Service
                 wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
             }
 
-            if (!wakeLock.isHeld()) {
+            if (!wakeLock.isHeld())
                 wakeLock.acquire();
-            }
 
         } else {
-            if (wakeLock == null) {
+            if (wakeLock == null)
                 return;
-            }
 
-            if (wakeLock.isHeld()) {
+            if (wakeLock.isHeld())
                 wakeLock.release();
-            }
         }
     }
 
@@ -1796,7 +1789,6 @@ public class TorrentTaskService extends Service
 
         if (pref.getBoolean(getString(R.string.pref_key_vibration_notify),
                             SettingsManager.Default.vibrationNotify))
-            /* TODO: Make the ability to customize vibration */
             builder.setVibrate(new long[] {1000}); /* ms */
 
         if (pref.getBoolean(getString(R.string.pref_key_led_indicator_notify),
@@ -2073,7 +2065,6 @@ public class TorrentTaskService extends Service
         if (pref.getBoolean(getString(R.string.pref_key_vibration_notify),
                             SettingsManager.Default.vibrationNotify)) {
             defaultChan.enableVibration(true);
-            /* TODO: Make the ability to customize vibration */
             defaultChan.setVibrationPattern(new long[]{1000}); /* ms */
         } else {
             defaultChan.enableVibration(false);

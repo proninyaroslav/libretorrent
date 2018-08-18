@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -86,7 +87,7 @@ public class AddTorrentFilesFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_add_torrent_files, container, false);
     }
@@ -96,9 +97,8 @@ public class AddTorrentFilesFragment extends Fragment
     {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
-        }
+        if (context instanceof AppCompatActivity)
+            activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -106,9 +106,8 @@ public class AddTorrentFilesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
+        if (activity == null)
             activity = (AppCompatActivity) getActivity();
-        }
 
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
         if (storage != null) {
@@ -124,25 +123,24 @@ public class AddTorrentFilesFragment extends Fragment
             }
         }
 
-        filesSize = (TextView) activity.findViewById(R.id.files_size);
-        filesSize.setText(
-                String.format(getString(R.string.files_size),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.selectedFileSize()),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.size())));
+        filesSize = activity.findViewById(R.id.files_size);
+        filesSize.setText(String.format(getString(R.string.files_size),
+                                        Formatter.formatFileSize(activity.getApplicationContext(),
+                                                                 fileTree.selectedFileSize()),
+                          Formatter.formatFileSize(activity.getApplicationContext(),
+                                                   fileTree.size())));
 
-        fileList = (RecyclerView) activity.findViewById(R.id.file_list);
+        fileList = activity.findViewById(R.id.file_list);
         layoutManager = new LinearLayoutManager(activity);
         fileList.setLayoutManager(layoutManager);
         fileList.setItemAnimator(new DefaultItemAnimator());
         adapter = new DownloadableFilesAdapter(getChildren(curDir), activity,
-                R.layout.item_torrent_downloadable_file, this);
+                                               R.layout.item_torrent_downloadable_file, this);
         fileList.setAdapter(adapter);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
@@ -162,9 +160,8 @@ public class AddTorrentFilesFragment extends Fragment
     {
         super.onViewStateRestored(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             listFilesState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
-        }
     }
 
     @Override
@@ -172,9 +169,8 @@ public class AddTorrentFilesFragment extends Fragment
     {
         super.onResume();
 
-        if (listFilesState != null) {
+        if (listFilesState != null)
             layoutManager.onRestoreInstanceState(listFilesState);
-        }
     }
 
     @Override
@@ -199,24 +195,21 @@ public class AddTorrentFilesFragment extends Fragment
 
         filesSize.setText(
                 String.format(getString(R.string.files_size),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.selectedFileSize()),
-                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                fileTree.size())));
+                              Formatter.formatFileSize(activity.getApplicationContext(),
+                                                       fileTree.selectedFileSize()),
+                              Formatter.formatFileSize(activity.getApplicationContext(),
+                                                       fileTree.size())));
     }
 
     private List<BencodeFileTree> getChildren(BencodeFileTree node)
     {
-        List<BencodeFileTree> children = new ArrayList<BencodeFileTree>();
-
-        if (node.isFile()) {
+        List<BencodeFileTree> children = new ArrayList<>();
+        if (node.isFile())
             return children;
-        }
 
         /* Adding parent dir for navigation */
-        if (curDir != fileTree && curDir.getParent() != null) {
+        if (curDir != fileTree && curDir.getParent() != null)
             children.add(0, new BencodeFileTree(BencodeFileTree.PARENT_DIR, 0L, FileNode.Type.DIR, curDir.getParent()));
-        }
 
         children.addAll(curDir.getChildren());
 
@@ -225,9 +218,8 @@ public class AddTorrentFilesFragment extends Fragment
 
     private void chooseDirectory(BencodeFileTree node)
     {
-        if (node.isFile()) {
+        if (node.isFile())
             node = fileTree;
-        }
 
         curDir = node;
     }
@@ -247,22 +239,19 @@ public class AddTorrentFilesFragment extends Fragment
         adapter.clearFiles();
 
         List<BencodeFileTree> children = getChildren(curDir);
-        if (children.size() == 0) {
+        if (children.size() == 0)
             adapter.notifyDataSetChanged();
-        } else {
+        else
             adapter.addFiles(children);
-        }
     }
 
     public ArrayList<Integer> getSelectedFileIndexes()
     {
         List<BencodeFileTree> files = BencodeFileTreeUtils.getFiles(fileTree);
         ArrayList<Integer> indexes = new ArrayList<>();
-        for (BencodeFileTree file : files) {
-            if (file.isSelected()) {
+        for (BencodeFileTree file : files)
+            if (file.isSelected())
                 indexes.add(file.getIndex());
-            }
-        }
 
         return indexes;
     }

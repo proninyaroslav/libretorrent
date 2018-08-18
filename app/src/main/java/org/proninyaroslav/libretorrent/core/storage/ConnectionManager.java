@@ -38,9 +38,8 @@ public class ConnectionManager
 
     public static synchronized SQLiteDatabase getDatabase(Context context)
     {
-        if (INSTANCE.helper == null){
+        if (INSTANCE.helper == null)
             INSTANCE.helper = new DatabaseHelper(context);
-        }
 
         return INSTANCE.helper.getWritableDatabase();
     }

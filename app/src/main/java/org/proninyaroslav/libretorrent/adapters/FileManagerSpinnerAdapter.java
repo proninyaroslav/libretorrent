@@ -135,19 +135,19 @@ public class FileManagerSpinnerAdapter extends BaseAdapter
     public View getDropDownView(int position, View view, ViewGroup parent)
     {
         if (view == null || !view.getTag().toString().equals(DROPDOWN)) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.filemanager_storage_spinner_item_dropdown, parent, false);
             view.setTag(DROPDOWN);
         }
 
         String nameAndSizeTemplate = context.getString(R.string.storage_name_and_size);
-        TextView nameAndSize = (TextView) view.findViewById(R.id.storage_name_and_size);
-        TextView path = (TextView) view.findViewById(R.id.storage_path);
+        TextView nameAndSize = view.findViewById(R.id.storage_name_and_size);
+        TextView path = view.findViewById(R.id.storage_path);
 
         StorageSpinnerItem item = getStorageItem(position);
         if (item != null) {
             nameAndSize.setText(String.format(nameAndSizeTemplate, item.name,
-                    Formatter.formatFileSize(context, item.size)));
+                                Formatter.formatFileSize(context, item.size)));
             path.setText(item.getStoragePath());
         }
 
@@ -163,7 +163,7 @@ public class FileManagerSpinnerAdapter extends BaseAdapter
             view.setTag(NON_DROPDOWN);
         }
 
-        TextView title = (TextView) view.findViewById(R.id.storage_title);
+        TextView title = view.findViewById(R.id.storage_title);
         title.setText(getTitle());
 
         return view;

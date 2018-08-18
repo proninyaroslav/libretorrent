@@ -19,9 +19,7 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
-import android.content.ComponentName;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.CheckBoxPreference;
@@ -32,7 +30,6 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.receivers.SchedulerReceiver;
 import org.proninyaroslav.libretorrent.settings.customprefs.TimePreference;
 

@@ -60,53 +60,44 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     {
         this.priority = priority;
 
-        if (priority.getType() == FilePriority.Type.IGNORE && selected == SelectState.SELECTED) {
+        if (priority.getType() == FilePriority.Type.IGNORE && selected == SelectState.SELECTED)
             select(SelectState.UNSELECTED);
-        } else if (priority.getType() != FilePriority.Type.IGNORE && selected == SelectState.UNSELECTED) {
+        else if (priority.getType() != FilePriority.Type.IGNORE && selected == SelectState.UNSELECTED)
             select(SelectState.SELECTED);
-        }
 
         /* Sending priority change event up the tree */
-        if (parent != null && parent.priority.getType() != priority.getType()) {
+        if (parent != null && parent.priority.getType() != priority.getType())
             parent.onChildPriorityChanged(priority);
-        }
 
         /* Sending priority change event down the tree */
-        if (children.size() != 0) {
-            for (TorrentContentFileTree node : children.values()) {
-                if (node.priority.getType() != priority.getType()) {
+        if (children.size() != 0)
+            for (TorrentContentFileTree node : children.values())
+                if (node.priority.getType() != priority.getType())
                     node.setPriority(priority);
-                }
-            }
-        }
     }
 
     private synchronized void onChildPriorityChanged(FilePriority priority)
     {
         if (children.size() != 0) {
             boolean isMixedPriority = false;
-            for (TorrentContentFileTree child : children.values()) {
-                if (child.priority.getType() != priority.getType()) {
+            for (TorrentContentFileTree child : children.values())
+                if (child.priority.getType() != priority.getType())
                     isMixedPriority = true;
-                }
-            }
 
             this.priority = (isMixedPriority ? new FilePriority(FilePriority.Type.MIXED) : priority);
         }
 
         /* Sending priority change event up the parent */
-        if (parent != null && parent.priority.getType() != priority.getType()) {
+        if (parent != null && parent.priority.getType() != priority.getType())
             parent.onChildPriorityChanged(priority);
-        }
     }
 
     public long getReceivedBytes()
     {
         if (children.size() != 0) {
             receivedBytes = 0;
-            for (TorrentContentFileTree node : children.values()) {
+            for (TorrentContentFileTree node : children.values())
                 receivedBytes += node.getReceivedBytes();
-            }
         }
 
         return receivedBytes;
@@ -126,25 +117,20 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     {
         selected = select;
 
-        if (selected == SelectState.SELECTED && priority.getType() == FilePriority.Type.IGNORE) {
+        if (selected == SelectState.SELECTED && priority.getType() == FilePriority.Type.IGNORE)
             setPriority(new FilePriority(FilePriority.Type.NORMAL));
-        } else if (selected == SelectState.UNSELECTED && priority.getType() != FilePriority.Type.IGNORE) {
+        else if (selected == SelectState.UNSELECTED && priority.getType() != FilePriority.Type.IGNORE)
             setPriority(new FilePriority(FilePriority.Type.IGNORE));
-        }
 
         /* Sending select change event up the parent */
-        if (parent != null && parent.selected != select) {
+        if (parent != null && parent.selected != select)
             parent.onChildSelectChange();
-        }
 
         /* Sending select change event down the tree */
-        if (children.size() != 0) {
-            for (TorrentContentFileTree node : children.values()) {
-                if (node.selected != select) {
+        if (children.size() != 0)
+            for (TorrentContentFileTree node : children.values())
+                if (node.selected != select)
                     node.select(select);
-                }
-            }
-        }
     }
 
     /*
@@ -157,41 +143,34 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
             long childrenSelectedNum = 0, childrenDisabledNum = 0;
 
             for (TorrentContentFileTree child : children.values()) {
-                if (child.selected == SelectState.SELECTED) {
+                if (child.selected == SelectState.SELECTED)
                     ++childrenSelectedNum;
-                } else if (child.selected == SelectState.DISABLED) {
+                else if (child.selected == SelectState.DISABLED)
                     ++childrenDisabledNum;
-                }
             }
 
-            if (childrenDisabledNum > 0) {
+            if (childrenDisabledNum > 0)
                 selected = SelectState.DISABLED;
-            } else {
-            /* Unselect parent only if don't left selected children nodes */
+            else
+                /* Unselect parent only if don't left selected children nodes */
                 selected = (childrenSelectedNum > 0 ? SelectState.SELECTED : SelectState.UNSELECTED);
-            }
         }
 
         /* Sending select change event up the parent */
-        if (parent != null && parent.selected != selected) {
+        if (parent != null && parent.selected != selected)
             parent.onChildSelectChange();
-        }
     }
 
     public long selectedFileSize()
     {
         long size = 0;
 
-        if (children.size() != 0) {
-            for (TorrentContentFileTree child : children.values()) {
-                if (child.selected != SelectState.UNSELECTED) {
+        if (children.size() != 0)
+            for (TorrentContentFileTree child : children.values())
+                if (child.selected != SelectState.UNSELECTED)
                     size += child.selectedFileSize();
-                }
-            }
-
-        } else if (selected != SelectState.UNSELECTED) {
+        else if (selected != SelectState.UNSELECTED)
             size = this.size();
-        }
 
         return size;
     }

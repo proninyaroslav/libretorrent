@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,7 @@ import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /*
  * The fragment for displaying torrent metainformation,
@@ -113,33 +115,32 @@ public class AddTorrentInfoFragment extends Fragment
     {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
-        }
+        if (context instanceof AppCompatActivity)
+            activity = (AppCompatActivity)context;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_add_torrent_info, container, false);
 
-        torrentNameField = (EditText) v.findViewById(R.id.torrent_name);
-        layoutTorrentName = (TextInputLayout) v.findViewById(R.id.layout_torrent_name);
-        sha1HashView = (TextView) v.findViewById(R.id.torrent_hash_sum);
-        commentView = (TextView) v.findViewById(R.id.torrent_comment);
-        createdByView = (TextView) v.findViewById(R.id.torrent_created_in_program);
-        torrentSizeView = (TextView) v.findViewById(R.id.torrent_size);
-        fileCountView = (TextView) v.findViewById(R.id.torrent_file_count);
-        creationDateView = (TextView) v.findViewById(R.id.torrent_create_date);
-        pathToUploadView = (TextView) v.findViewById(R.id.upload_torrent_into);
-        folderChooserButton = (ImageButton) v.findViewById(R.id.folder_chooser_button);
-        sequentialDownload = (CheckBox) v.findViewById(R.id.sequential_download);
-        startTorrent = (CheckBox) v.findViewById(R.id.start_torrent);
-        freeSpace = (TextView) v.findViewById(R.id.free_space);
-        commentViewLayout = (LinearLayout) v.findViewById(R.id.layout_torrent_comment);
-        createdByViewLayout = (LinearLayout) v.findViewById(R.id.layout_torrent_created_in_program);
-        sizeAndCountViewLayout = (LinearLayout) v.findViewById(R.id.layout_torrent_size_and_count);
-        creationDateViewLayout = (LinearLayout) v.findViewById(R.id.layout_torrent_create_date);
+        torrentNameField = v.findViewById(R.id.torrent_name);
+        layoutTorrentName = v.findViewById(R.id.layout_torrent_name);
+        sha1HashView = v.findViewById(R.id.torrent_hash_sum);
+        commentView = v.findViewById(R.id.torrent_comment);
+        createdByView = v.findViewById(R.id.torrent_created_in_program);
+        torrentSizeView = v.findViewById(R.id.torrent_size);
+        fileCountView = v.findViewById(R.id.torrent_file_count);
+        creationDateView = v.findViewById(R.id.torrent_create_date);
+        pathToUploadView = v.findViewById(R.id.upload_torrent_into);
+        folderChooserButton = v.findViewById(R.id.folder_chooser_button);
+        sequentialDownload = v.findViewById(R.id.sequential_download);
+        startTorrent = v.findViewById(R.id.start_torrent);
+        freeSpace = v.findViewById(R.id.free_space);
+        commentViewLayout = v.findViewById(R.id.layout_torrent_comment);
+        createdByViewLayout = v.findViewById(R.id.layout_torrent_created_in_program);
+        sizeAndCountViewLayout = v.findViewById(R.id.layout_torrent_size_and_count);
+        creationDateViewLayout = v.findViewById(R.id.layout_torrent_create_date);
 
         initFields();
 
@@ -148,9 +149,8 @@ public class AddTorrentInfoFragment extends Fragment
 
     private void initFields()
     {
-        if (info == null) {
+        if (info == null)
             return;
-        }
 
         torrentNameField.setText(info.torrentName);
         sha1HashView.setText(info.sha1Hash);
@@ -175,12 +175,10 @@ public class AddTorrentInfoFragment extends Fragment
             sizeAndCountViewLayout.setVisibility(View.GONE);
         } else {
             torrentSizeView.setText(Formatter.formatFileSize(activity, info.torrentSize));
-            fileCountView.setText(Integer.toString(info.fileCount));
-            freeSpace.setText(
-                    String.format(
-                            getString(R.string.free_space),
-                            Formatter.formatFileSize(activity.getApplicationContext(),
-                                    FileIOUtils.getFreeSpace(downloadDir))));
+            fileCountView.setText(String.format(Locale.getDefault(), "%d", info.fileCount));
+            freeSpace.setText(String.format(getString(R.string.free_space),
+                              Formatter.formatFileSize(activity.getApplicationContext(),
+                                                       FileIOUtils.getFreeSpace(downloadDir))));
             sizeAndCountViewLayout.setVisibility(View.VISIBLE);
         }
 
@@ -194,7 +192,7 @@ public class AddTorrentInfoFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
@@ -212,26 +210,17 @@ public class AddTorrentInfoFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
-            activity = (AppCompatActivity) getActivity();
-        }
+        if (activity == null)
+            activity = (AppCompatActivity)getActivity();
 
-        folderChooserButton.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(activity, FileManagerDialog.class);
-
-                FileManagerConfig config = new FileManagerConfig(downloadDir,
-                        null,
-                        null,
-                        FileManagerConfig.DIR_CHOOSER_MODE);
-
-                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-
-                startActivityForResult(i, DIR_CHOOSER_REQUEST);
-            }
+        folderChooserButton.setOnClickListener((View v) -> {
+            Intent i = new Intent(activity, FileManagerDialog.class);
+            FileManagerConfig config = new FileManagerConfig(downloadDir,
+                    null,
+                    null,
+                    FileManagerConfig.DIR_CHOOSER_MODE);
+            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+            startActivityForResult(i, DIR_CHOOSER_REQUEST);
         });
 
         torrentNameField.addTextChangedListener(new TextWatcher()
@@ -267,10 +256,9 @@ public class AddTorrentInfoFragment extends Fragment
                     downloadDir = data.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH);
                     pathToUploadView.setText(downloadDir);
                     freeSpace.setText(
-                            String.format(
-                                    getString(R.string.free_space),
-                                    Formatter.formatFileSize(activity.getApplicationContext(),
-                                            FileIOUtils.getFreeSpace(downloadDir))));
+                            String.format(getString(R.string.free_space),
+                                          Formatter.formatFileSize(activity.getApplicationContext(),
+                                                                   FileIOUtils.getFreeSpace(downloadDir))));
                 }
             }
         }

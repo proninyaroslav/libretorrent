@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -62,7 +63,8 @@ public class DetailTorrentStateFragment extends Fragment
             textViewUploaded, shareRatio, availability,
             textViewActiveTime, textViewSeedingTime;
 
-    public static DetailTorrentStateFragment newInstance(TorrentMetaInfo info) {
+    public static DetailTorrentStateFragment newInstance(TorrentMetaInfo info)
+    {
         DetailTorrentStateFragment fragment = new DetailTorrentStateFragment();
 
         fragment.info = info;
@@ -79,7 +81,7 @@ public class DetailTorrentStateFragment extends Fragment
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity) context;
+            activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class DetailTorrentStateFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_detail_torrent_state, container, false);
 
@@ -124,15 +126,14 @@ public class DetailTorrentStateFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
+        if (activity == null)
             activity = (AppCompatActivity) getActivity();
-        }
 
         reloadInfoView();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
@@ -172,28 +173,22 @@ public class DetailTorrentStateFragment extends Fragment
 
     public void reloadInfoView()
     {
-        if (activity == null || basicState == null || advanceState == null) {
+        if (activity == null || basicState == null || advanceState == null)
             return;
-        }
 
         String speedTemplate = activity.getString(R.string.download_upload_speed_template);
         String downloadSpeed = Formatter.formatFileSize(activity, basicState.downloadSpeed);
         String uploadSpeed = Formatter.formatFileSize(activity, basicState.uploadSpeed);
-        downloadUploadSpeed.setText(
-                String.format(speedTemplate, downloadSpeed, uploadSpeed));
+        downloadUploadSpeed.setText(String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
         String counterTemplate = activity.getString(R.string.download_counter_template);
         String totalBytes = Formatter.formatFileSize(activity, basicState.totalBytes);
         String receivedBytes;
-        if (basicState.progress == 100) {
+        if (basicState.progress == 100)
             receivedBytes = totalBytes;
-        } else {
+        else
             receivedBytes = Formatter.formatFileSize(activity, basicState.receivedBytes);
-        }
-        downloadCounter.setText(
-                String.format(
-                        counterTemplate, receivedBytes,
-                        totalBytes, basicState.progress));
+        downloadCounter.setText(String.format(counterTemplate, receivedBytes, totalBytes, basicState.progress));
 
         String ETA;
         if (basicState.ETA == -1 || basicState.ETA == 0)
@@ -220,11 +215,8 @@ public class DetailTorrentStateFragment extends Fragment
         if (info != null) {
             String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
             String pieceLength = Formatter.formatFileSize(activity, info.pieceLength);
-            textViewPieces.setText(
-                    String.format(piecesTemplate,
-                            advanceState.downloadedPieces,
-                            info.numPieces,
-                            pieceLength));
+            textViewPieces.setText(String.format(piecesTemplate, advanceState.downloadedPieces,
+                                                 info.numPieces, pieceLength));
         }
         textViewActiveTime.setText(DateFormatUtils.formatElapsedTime(
                 activity.getApplicationContext(), advanceState.activeTime));

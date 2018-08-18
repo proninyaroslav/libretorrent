@@ -19,10 +19,10 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -56,15 +56,15 @@ public class MainActivity extends AppCompatActivity
 
         setTheme(Utils.getAppTheme(getApplicationContext()));
         if (getIntent().getAction() != null &&
-                getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
+            getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP))
+        {
             finish();
 
             return;
         }
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-        }
 
         if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
             permDialogIsShow = true;
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Utils.showColoredStatusBar_KitKat(this);
 
-        FragmentManager fm = getFragmentManager();
-        mainFragment = (MainFragment) fm.findFragmentById(R.id.main_fragmentContainer);
+        FragmentManager fm = getSupportFragmentManager();
+        mainFragment = (MainFragment)fm.findFragmentById(R.id.main_fragmentContainer);
     }
 
     @Override
@@ -109,66 +109,56 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTorrentInfoChanged()
     {
-        if (mainFragment == null) {
+        if (mainFragment == null)
             return;
-        }
 
         DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null) {
+        if (fragment != null)
             fragment.onTorrentInfoChanged();
-        }
     }
 
     @Override
     public void onTorrentInfoChangesUndone()
     {
-        if (mainFragment == null) {
+        if (mainFragment == null)
             return;
-        }
 
         DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null) {
+        if (fragment != null)
             fragment.onTorrentInfoChangesUndone();
-        }
     }
 
     @Override
     public void onTorrentFilesChanged()
     {
-        if (mainFragment == null) {
+        if (mainFragment == null)
             return;
-        }
 
         DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null) {
+        if (fragment != null)
             fragment.onTorrentFilesChanged();
-        }
     }
 
     @Override
     public void onTrackersChanged(ArrayList<String> trackers, boolean replace)
     {
-        if (mainFragment == null) {
+        if (mainFragment == null)
             return;
-        }
 
         DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null) {
+        if (fragment != null)
             fragment.onTrackersChanged(trackers, replace);
-        }
     }
 
     @Override
     public void openFile(String relativePath)
     {
-        if (mainFragment == null) {
+        if (mainFragment == null)
             return;
-        }
 
         DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null) {
+        if (fragment != null)
             fragment.openFile(relativePath);
-        }
     }
 
     @Override

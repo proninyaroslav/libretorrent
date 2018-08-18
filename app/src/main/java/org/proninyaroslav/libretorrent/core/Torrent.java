@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.frostwire.jlibtorrent.Priority;
 
@@ -223,7 +224,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
             };
 
     @Override
-    public int compareTo(Torrent another)
+    public int compareTo(@NonNull Torrent another)
     {
         return torrentName.compareTo(another.getName());
     }

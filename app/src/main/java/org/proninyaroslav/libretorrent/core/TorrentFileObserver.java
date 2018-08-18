@@ -28,15 +28,12 @@ import android.support.annotation.Nullable;
 
 public abstract class TorrentFileObserver extends FileObserver
 {
-    private String pathToDir;
     private static final int mask = FileObserver.CREATE | FileObserver.MOVED_TO |
                                     FileObserver.MODIFY | FileObserver.ATTRIB;
 
     public TorrentFileObserver(String pathToDir)
     {
         super(pathToDir, mask);
-
-        this.pathToDir = pathToDir;
     }
 
     public abstract void onEvent(int event, @Nullable String name);

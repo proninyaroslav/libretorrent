@@ -47,9 +47,8 @@ public class SettingsActivity extends BasePreferenceActivity implements Settings
             setFragment(SettingsFragment.newInstance());
         } else {
             title = savedInstanceState.getString(TAG_TITLE);
-            if (title != null && detailTitle != null) {
+            if (title != null && detailTitle != null)
                 detailTitle.setText(title);
-            }
         }
     }
 
@@ -58,9 +57,8 @@ public class SettingsActivity extends BasePreferenceActivity implements Settings
     {
         this.title = title;
 
-        if (detailTitle != null && title != null) {
+        if (detailTitle != null && title != null)
             detailTitle.setText(title);
-        }
     }
 
     @Override
@@ -70,5 +68,4 @@ public class SettingsActivity extends BasePreferenceActivity implements Settings
 
         super.onSaveInstanceState(outState);
     }
-
 }

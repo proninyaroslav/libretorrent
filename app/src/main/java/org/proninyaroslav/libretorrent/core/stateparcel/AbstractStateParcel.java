@@ -29,8 +29,7 @@ import java.util.UUID;
  */
 
 public abstract class AbstractStateParcel<F extends AbstractStateParcel>
-        implements
-        Parcelable, Comparable<F>
+        implements Parcelable, Comparable<F>
 {
     public String parcelId;
 

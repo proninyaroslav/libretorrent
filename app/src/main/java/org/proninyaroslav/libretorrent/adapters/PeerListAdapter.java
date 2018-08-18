@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -54,8 +55,9 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
         this.clickListener = clickListener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
@@ -63,22 +65,19 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         PeerStateParcel state = items.get(position);
         holder.state = state;
 
         holder.ip.setText(state.ip);
-
         holder.progress.setProgress(state.progress);
 
         String portTemplate = context.getString(R.string.peer_port);
-        holder.port.setText(
-                String.format(portTemplate, state.port));
+        holder.port.setText(String.format(portTemplate, state.port));
 
         String relevanceTemplate = context.getString(R.string.peer_relevance);
-        holder.relevance.setText(
-                String.format(relevanceTemplate, state.relevance));
+        holder.relevance.setText(String.format(relevanceTemplate, state.relevance));
 
         String connectionTemplate = context.getString(R.string.peer_connection_type);
         String connectionType = "";
@@ -93,24 +92,20 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
                 connectionType = context.getString(R.string.peer_connection_type_utp);
                 break;
         }
-        holder.connection.setText(
-                String.format(connectionTemplate, connectionType));
+        holder.connection.setText(String.format(connectionTemplate, connectionType));
 
         String speedTemplate = context.getString(R.string.download_upload_speed_template);
         String downSpeed = Formatter.formatFileSize(context, state.downSpeed);
         String upSpeed = Formatter.formatFileSize(context, state.upSpeed);
-        holder.upDownSpeed.setText(
-                String.format(speedTemplate, downSpeed, upSpeed));
+        holder.upDownSpeed.setText(String.format(speedTemplate, downSpeed, upSpeed));
 
         String clientTemplate = context.getString(R.string.peer_client);
-        holder.client.setText(
-                String.format(clientTemplate, state.client));
+        holder.client.setText(String.format(clientTemplate, state.client));
 
         String downloadUploadTemplate = context.getString(R.string.peer_total_download_upload);
         String upload = Formatter.formatFileSize(context, state.totalUpload);
         String download = Formatter.formatFileSize(context, state.totalDownload);
-        holder.totalDownloadUpload.setText(
-                String.format(downloadUploadTemplate, download, upload));
+        holder.totalDownloadUpload.setText(String.format(downloadUploadTemplate, download, upload));
     }
 
     public synchronized void addItems(Collection<PeerStateParcel> states)
@@ -171,15 +166,15 @@ public class PeerListAdapter extends SelectableAdapter<PeerListAdapter.ViewHolde
             this.listener = listener;
             itemView.setOnLongClickListener(this);
 
-            ip = (TextView) itemView.findViewById(R.id.peer_ip);
-            progress = (ProgressBar) itemView.findViewById(R.id.peer_progress);
+            ip = itemView.findViewById(R.id.peer_ip);
+            progress = itemView.findViewById(R.id.peer_progress);
             Utils.colorizeProgressBar(context, progress);
-            port = (TextView) itemView.findViewById(R.id.peer_port);
-            relevance = (TextView) itemView.findViewById(R.id.peer_relevance);
-            connection = (TextView) itemView.findViewById(R.id.peer_connection_type);
-            upDownSpeed = (TextView) itemView.findViewById(R.id.peer_up_down_speed);
-            client = (TextView) itemView.findViewById(R.id.peer_client);
-            totalDownloadUpload = (TextView) itemView.findViewById(R.id.peer_total_download_upload);
+            port = itemView.findViewById(R.id.peer_port);
+            relevance = itemView.findViewById(R.id.peer_relevance);
+            connection = itemView.findViewById(R.id.peer_connection_type);
+            upDownSpeed = itemView.findViewById(R.id.peer_up_down_speed);
+            client = itemView.findViewById(R.id.peer_client);
+            totalDownloadUpload = itemView.findViewById(R.id.peer_total_download_upload);
         }
 
         @Override

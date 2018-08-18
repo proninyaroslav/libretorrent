@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.frostwire.jlibtorrent.AnnounceEndpoint;
 import com.frostwire.jlibtorrent.AnnounceEntry;
@@ -62,10 +63,8 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
         if (entry.endpoints().size() == 0) {
             status = Status.NOT_WORKING;
             message = "";
-
         } else {
             AnnounceEndpoint bestEndpoint = getBestEndpoint(entry.endpoints());
-
             message = bestEndpoint.message();
             status = makeStatus(entry, bestEndpoint);
         }
@@ -154,7 +153,7 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
 
 
     @Override
-    public int compareTo(TrackerStateParcel another)
+    public int compareTo(@NonNull TrackerStateParcel another)
     {
         return url.compareTo(another.url);
     }
@@ -175,13 +174,11 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof TrackerStateParcel)) {
+        if (!(o instanceof TrackerStateParcel))
             return false;
-        }
 
-        if (o == this) {
+        if (o == this)
             return true;
-        }
 
         TrackerStateParcel state = (TrackerStateParcel) o;
 

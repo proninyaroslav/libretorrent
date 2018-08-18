@@ -54,18 +54,14 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
         selected = check;
 
         /* Sending select change event up the parent */
-        if (parent != null && parent.selected != check) {
+        if (parent != null && parent.selected != check)
             parent.onChildSelectChange();
-        }
 
         /* Sending select change event down the tree */
-        if (getChildrenCount() != 0) {
-            for (BencodeFileTree node : children.values()) {
-                if (node.selected != check) {
+        if (getChildrenCount() != 0)
+            for (BencodeFileTree node : children.values())
+                if (node.selected != check)
                     node.select(check);
-                }
-            }
-        }
     }
 
     /*
@@ -76,36 +72,28 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
     {
         if (children.size() != 0) {
             long childrenCheckNum = 0;
-            for (BencodeFileTree child : children.values()) {
-                if (child.selected) {
+            for (BencodeFileTree child : children.values())
+                if (child.selected)
                     ++childrenCheckNum;
-                }
-            }
-
-        /* Uncheck parent only if don't left selected children nodes */
+            /* Uncheck parent only if don't left selected children nodes */
             selected = childrenCheckNum > 0;
         }
 
         /* Sending select change event up the parent */
-        if (parent != null && parent.selected != selected) {
+        if (parent != null && parent.selected != selected)
             parent.onChildSelectChange();
-        }
     }
 
     public long selectedFileSize()
     {
         long size = 0;
 
-        if (children.size() != 0) {
-            for (BencodeFileTree child : children.values()) {
-                if (child.selected) {
+        if (children.size() != 0)
+            for (BencodeFileTree child : children.values())
+                if (child.selected)
                     size += child.selectedFileSize();
-                }
-            }
-
-        } else if (selected) {
+        else if (selected)
             size = this.size();
-        }
 
         return size;
     }

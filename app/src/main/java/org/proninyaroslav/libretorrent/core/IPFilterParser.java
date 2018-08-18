@@ -69,25 +69,18 @@ public class IPFilterParser
         HandlerThread handlerThread = new HandlerThread(THREAD_NAME);
         handlerThread.start();
         handler = new Handler(handlerThread.getLooper());
-        Runnable r = new Runnable()
-        {
-            @Override
-            public void run() {
-                Log.d(TAG, "start parsing IP filter file");
-                boolean success = false;
-                if (path.contains(".dat")) {
-                    success = parseDATFilterFile(path, filter);
-                } else if (path.contains(".p2p")) {
-                    success = parseP2PFilterFile(path, filter);
-                }
+        handler.post(() -> {
+            Log.d(TAG, "start parsing IP filter file");
+            boolean success = false;
+            if (path.contains(".dat"))
+                success = parseDATFilterFile(path, filter);
+            else if (path.contains(".p2p"))
+                success = parseP2PFilterFile(path, filter);
 
-                Log.d(TAG, "completed parsing IP filter file, is success = " + success);
-                if (listener != null) {
-                    listener.onParsed(filter, success);
-                }
-            }
-        };
-        handler.post(r);
+            Log.d(TAG, "completed parsing IP filter file, is success = " + success);
+            if (listener != null)
+                listener.onParsed(filter, success);
+        });
     }
 
     public void setOnParsedListener(OnParsedListener listener)
@@ -102,9 +95,8 @@ public class IPFilterParser
 
     private static String cleanupIPAddress(String ip)
     {
-        if (ip == null) {
+        if (ip == null)
             return null;
-        }
 
         String cleanupIp = null;
 
@@ -125,27 +117,22 @@ public class IPFilterParser
 
     public static boolean parseDATFilterFile(String path, ip_filter filter)
     {
-        if (path == null || filter == null) {
+        if (path == null || filter == null)
             return false;
-        }
 
         File file = new File(path);
-        if (!file.exists()) {
+        if (!file.exists())
             return false;
-        }
 
         LineIterator it = null;
-
         try {
             it = FileUtils.lineIterator(file, "UTF-8");
 
         } catch (IOException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-
-        if (it == null) {
+        if (it == null)
             return false;
-        }
 
         long lineNum = 0;
         long badLineNum = 0;
@@ -155,14 +142,12 @@ public class IPFilterParser
                 String line = it.nextLine();
 
                 line = line.trim();
-                if (line.isEmpty()) {
+                if (line.isEmpty())
                     continue;
-                }
 
                 /* Ignoring commented lines */
-                if (line.startsWith("#") || line.startsWith("//")) {
+                if (line.startsWith("#") || line.startsWith("//"))
                     continue;
-                }
 
                 /* Line should be split by commas */
                 String[] parts = line.split(",");
@@ -219,15 +204,13 @@ public class IPFilterParser
 
                 /* Check if there is an access value (apparently not mandatory) */
                 int accessNum = 0;
-                if (elementNum > 1) {
-                /* There is possibly one */
+                if (elementNum > 1)
+                    /* There is possibly one */
                     accessNum = Integer.parseInt(parts[1].trim());
-                }
 
                 /* Ignoring this rule because access value is too high */
-                if (accessNum > 127) {
+                if (accessNum > 127)
                     continue;
-                }
 
                 try {
                     filter.add_rule(startAddr, endAddr, ip_filter.access_flags.blocked.swigValue());
@@ -252,9 +235,8 @@ public class IPFilterParser
 
     public static boolean parseP2PFilterFile(String path, ip_filter filter)
     {
-        if (path == null || filter == null) {
+        if (path == null || filter == null)
             return false;
-        }
 
         File file = new File(path);
         if (!file.exists()) {
@@ -262,35 +244,27 @@ public class IPFilterParser
         }
 
         LineIterator it = null;
-
         try {
             it = FileUtils.lineIterator(file, "UTF-8");
 
         } catch (IOException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-
-        if (it == null) {
+        if (it == null)
             return false;
-        }
 
         long lineNum = 0;
         long badLineNum = 0;
-
         try {
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
-
                 line = line.trim();
-                if (line.isEmpty()) {
+                if (line.isEmpty())
                     continue;
-                }
-
                 /* Ignoring commented lines */
-                if (line.startsWith("#") || line.startsWith("//")) {
+                if (line.startsWith("#") || line.startsWith("//"))
                     continue;
-                }
 
                 /* Line should be split by ':' */
                 String[] parts = line.split(":");

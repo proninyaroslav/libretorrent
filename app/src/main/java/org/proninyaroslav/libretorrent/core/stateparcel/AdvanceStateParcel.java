@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Arrays;
 
@@ -122,7 +123,7 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
             };
 
     @Override
-    public int compareTo(AdvanceStateParcel another)
+    public int compareTo(@NonNull AdvanceStateParcel another)
     {
         return torrentId.compareTo(another.torrentId);
     }

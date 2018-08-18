@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -57,20 +58,20 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         this.clickListener = clickListener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
-        return new ViewHolder(v, clickListener, items);
+        return new ViewHolder(v, clickListener);
     }
 
     @SuppressWarnings("ResourceType")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         TrackerStateParcel state = items.get(position);
-
         holder.state = state;
 
         TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
@@ -78,15 +79,10 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
                 R.attr.defaultRectRipple
         });
 
-        if (isSelected(position)) {
-            Utils.setBackground(
-                    holder.itemTrackerList,
-                    a.getDrawable(0));
-        } else {
-            Utils.setBackground(
-                    holder.itemTrackerList,
-                    a.getDrawable(1));
-        }
+        if (isSelected(position))
+            Utils.setBackground(holder.itemTrackerList, a.getDrawable(0));
+        else
+            Utils.setBackground(holder.itemTrackerList, a.getDrawable(1));
         a.recycle();
 
         holder.url.setText(state.url);
@@ -112,13 +108,12 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         }
         holder.status.setText(status);
 
-        if (state.status == TrackerStateParcel.Status.WORKING) {
+        if (state.status == TrackerStateParcel.Status.WORKING)
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.ok));
-        } else if (state.status == TrackerStateParcel.Status.NOT_WORKING) {
+        else if (state.status == TrackerStateParcel.Status.NOT_WORKING)
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.error));
-        } else {
+        else
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.text_secondary));
-        }
     }
 
     public synchronized void addItems(Collection<TrackerStateParcel> states)
@@ -132,7 +127,6 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         int size = items.size();
         if (size > 0) {
             items.clear();
-
             notifyItemRangeRemoved(0, size);
         }
     }
@@ -165,7 +159,7 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         private ClickListener listener;
         private TrackerStateParcel state;
 
-        public ViewHolder(View itemView, ClickListener listener, List<TrackerStateParcel> states)
+        public ViewHolder(View itemView, ClickListener listener)
         {
             super(itemView);
 
@@ -173,9 +167,9 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            itemTrackerList = (LinearLayout) itemView.findViewById(R.id.item_trackers_list);
-            url = (TextView) itemView.findViewById(R.id.tracker_url);
-            status = (TextView) itemView.findViewById(R.id.tracker_status);
+            itemTrackerList = itemView.findViewById(R.id.item_trackers_list);
+            url = itemView.findViewById(R.id.tracker_url);
+            status = itemView.findViewById(R.id.tracker_status);
         }
 
         @Override
@@ -183,9 +177,8 @@ public class TrackerListAdapter extends SelectableAdapter<TrackerListAdapter.Vie
         {
             int position = getAdapterPosition();
 
-            if (listener != null && position >= 0) {
+            if (listener != null && position >= 0)
                 listener.onItemClicked(position, state);
-            }
         }
 
         @Override

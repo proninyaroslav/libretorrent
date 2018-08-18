@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -38,8 +39,6 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 public class ProxySettingsFragment extends PreferenceFragmentCompat
         implements
@@ -62,7 +61,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
 
@@ -93,7 +92,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         boolean enableAdvancedSettings;
 
         String keyProxyType = getString(R.string.pref_key_proxy_type);
-        ListPreference proxyType = (ListPreference) findPreference(keyProxyType);
+        ListPreference proxyType = (ListPreference)findPreference(keyProxyType);
         int type = pref.getInt(keyProxyType, SettingsManager.Default.proxyType);
         proxyType.setValueIndex(type);
         String typesName[] = getResources().getStringArray(R.array.pref_proxy_type_entries);
@@ -102,7 +101,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(proxyType);
 
         String keyAddress = getString(R.string.pref_key_proxy_address);
-        EditTextPreference address = (EditTextPreference) findPreference(keyAddress);
+        EditTextPreference address = (EditTextPreference)findPreference(keyAddress);
         address.setEnabled(enableAdvancedSettings);
         String addressValue = pref.getString(keyAddress, SettingsManager.Default.proxyAddress);
         address.setText(addressValue);
@@ -110,7 +109,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(address);
 
         String keyPort = getString(R.string.pref_key_proxy_port);
-        EditTextPreference port = (EditTextPreference) findPreference(keyPort);
+        EditTextPreference port = (EditTextPreference)findPreference(keyPort);
         port.setEnabled(enableAdvancedSettings);
         InputFilter[] portFilter =
                 new InputFilter[]{new InputFilterMinMax(0, 65535)};
@@ -122,24 +121,24 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         bindOnPreferenceChangeListener(port);
 
         String keyProxyPeersToo = getString(R.string.pref_key_proxy_peers_too);
-        SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat) findPreference(keyProxyPeersToo);
+        SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat)findPreference(keyProxyPeersToo);
         proxyPeersToo.setEnabled(enableAdvancedSettings);
         proxyPeersToo.setChecked(pref.getBoolean(keyProxyPeersToo, SettingsManager.Default.proxyPeersToo));
 
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
-        SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat) findPreference(keyRequiresAuth);
+        SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat)findPreference(keyRequiresAuth);
         requiresAuth.setEnabled(enableAdvancedSettings);
         requiresAuth.setChecked(pref.getBoolean(keyRequiresAuth, SettingsManager.Default.proxyRequiresAuth));
 
         String keyLogin = getString(R.string.pref_key_proxy_login);
-        EditTextPreference login = (EditTextPreference) findPreference(keyLogin);
+        EditTextPreference login = (EditTextPreference)findPreference(keyLogin);
         String loginValue = pref.getString(keyLogin, SettingsManager.Default.proxyLogin);
         login.setText(loginValue);
         login.setSummary(loginValue);
         bindOnPreferenceChangeListener(login);
 
         String keyPassword = getString(R.string.pref_key_proxy_password);
-        EditTextPreference password = (EditTextPreference) findPreference(keyPassword);
+        EditTextPreference password = (EditTextPreference)findPreference(keyPassword);
         String passwordValue = pref.getString(keyPassword, SettingsManager.Default.proxyPassword);
         password.setText(passwordValue);
         EditText edit = password.getEditText();
@@ -153,16 +152,11 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         super.onActivityCreated(savedInstanceState);
 
         saveChangesButton.show();
-        saveChangesButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                SharedPreferences pref = SettingsManager.getPreferences(getActivity());
-                /* Value change is tracked in TorrentService */
-                pref.edit().putBoolean(getString(R.string.pref_key_apply_proxy), true).apply();
-                proxyChanged = false;
-            }
+        saveChangesButton.setOnClickListener((View view) -> {
+            SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+            /* Value change is tracked in TorrentService */
+            pref.edit().putBoolean(getString(R.string.pref_key_apply_proxy), true).apply();
+            proxyChanged = false;
         });
     }
 
@@ -180,19 +174,19 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     private void enableOrDisablePreferences(boolean enable)
     {
         String keyAddress = getString(R.string.pref_key_proxy_address);
-        EditTextPreference address = (EditTextPreference) findPreference(keyAddress);
+        EditTextPreference address = (EditTextPreference)findPreference(keyAddress);
         address.setEnabled(enable);
 
         String keyPort = getString(R.string.pref_key_proxy_port);
-        EditTextPreference port = (EditTextPreference) findPreference(keyPort);
+        EditTextPreference port = (EditTextPreference)findPreference(keyPort);
         port.setEnabled(enable);
 
         String keyProxyPeersToo = getString(R.string.pref_key_proxy_peers_too);
-        SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat) findPreference(keyProxyPeersToo);
+        SwitchPreferenceCompat proxyPeersToo = (SwitchPreferenceCompat)findPreference(keyProxyPeersToo);
         proxyPeersToo.setEnabled(enable);
 
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
-        SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat) findPreference(keyRequiresAuth);
+        SwitchPreferenceCompat requiresAuth = (SwitchPreferenceCompat)findPreference(keyRequiresAuth);
         requiresAuth.setEnabled(enable);
     }
 

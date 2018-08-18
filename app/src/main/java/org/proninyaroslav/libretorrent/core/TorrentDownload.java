@@ -108,7 +108,6 @@ public class TorrentDownload
         this.callback = callback;
         TorrentInfo ti = th.torrentFile();
         this.parts = (ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null);
-
         listener = new InnerListener();
         TorrentEngine.getInstance().addListener(listener);
     }
@@ -124,20 +123,16 @@ public class TorrentDownload
         @Override
         public void alert(Alert<?> alert)
         {
-            if (!(alert instanceof TorrentAlert<?>)) {
+            if (!(alert instanceof TorrentAlert<?>))
                 return;
-            }
 
-            if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig())) {
+            if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig()))
                 return;
-            }
+
+            if (callback == null)
+                return;
 
             AlertType type = alert.type();
-
-            if (callback == null) {
-                return;
-            }
-
             switch (type) {
                 case BLOCK_FINISHED:
                 case STATE_CHANGED:
@@ -331,34 +326,29 @@ public class TorrentDownload
 
     public int getProgress()
     {
-        if (th == null || !th.isValid()) {
+        if (th == null || !th.isValid())
             return 0;
-        }
 
-        if (th.torrentFile() == null) {
+        if (th.torrentFile() == null)
             return 0;
-        }
 
-        if (th.status() == null) {
+        if (th.status() == null)
             return 0;
-        }
 
         float fp = th.status().progress();
         TorrentStatus.State state = th.status().state();
-
-        if (Float.compare(fp, 1f) == 0 && state != TorrentStatus.State.CHECKING_FILES) {
+        if (Float.compare(fp, 1f) == 0 && state != TorrentStatus.State.CHECKING_FILES)
             return 100;
-        }
 
         int p = (int) (th.status().progress() * 100);
         if (p > 0 && state != TorrentStatus.State.CHECKING_FILES) {
             return Math.min(p, 100);
         }
+
         final long received = getTotalReceivedBytes();
         final long size = getSize();
-        if (size == received) {
+        if (size == received)
             return 100;
-        }
         if (size > 0) {
             p = (int) ((received * 100) / size);
             return Math.min(p, 100);
@@ -416,11 +406,10 @@ public class TorrentDownload
         incompleteFilesToRemove = getIncompleteFiles();
 
         if (th.isValid()) {
-            if (withFiles) {
+            if (withFiles)
                 TorrentEngine.getInstance().remove(th, SessionHandle.DELETE_FILES);
-            } else {
+            else
                 TorrentEngine.getInstance().remove(th);
-            }
         }
     }
 
@@ -433,9 +422,8 @@ public class TorrentDownload
         if (incompleteFiles != null) {
             for (File f : incompleteFiles) {
                 try {
-                    if (f.exists() && !f.delete()) {
+                    if (f.exists() && !f.delete())
                         Log.w(TAG, "Can't delete file " + f);
-                    }
                 } catch (Exception e) {
                     Log.w(TAG, "Can't delete file " + f + ", ex: " + e.getMessage());
                 }
@@ -447,49 +435,38 @@ public class TorrentDownload
     {
         Set<File> s = new HashSet<>();
 
-        if (torrent.isDownloadingMetadata()) {
+        if (torrent.isDownloadingMetadata())
             return s;
-        }
 
         try {
-            if (!th.isValid()) {
+            if (!th.isValid())
                 return s;
-            }
 
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
-
             TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
-
             String prefix = torrent.getDownloadPath();
-
             File torrentFile = new File(torrent.getTorrentFilePath());
-
-            if (!torrentFile.exists()) {
+            if (!torrentFile.exists())
                 return s;
-            }
-
             long createdTime = torrentFile.lastModified();
 
             for (int i = 0; i < progress.length; i++) {
                 String filePath = fs.filePath(i);
                 long fileSize = fs.fileSize(i);
-
                 if (progress[i] < fileSize) {
                     /* Lets see if indeed the file is incomplete */
                     File f = new File(prefix, filePath);
-
-                    if (!f.exists()) {
+                    if (!f.exists())
                         /* Nothing to do here */
                         continue;
-                    }
 
-                    if (f.lastModified() >= createdTime) {
+                    if (f.lastModified() >= createdTime)
                         /* We have a file modified (supposedly) by this transfer */
                         s.add(f);
-                    }
                 }
             }
+
         } catch (Exception e) {
             Log.e(TAG, "Error calculating the incomplete files set of " + torrent.getId());
         }
@@ -583,18 +560,16 @@ public class TorrentDownload
         List<AnnounceEntry> trackers = th.trackers();
         Set<String> urls = new HashSet<>(trackers.size());
 
-        for (AnnounceEntry entry : trackers) {
+        for (AnnounceEntry entry : trackers)
             urls.add(entry.url());
-        }
 
         return urls;
     }
 
     public List<AnnounceEntry> getTrackers()
     {
-        if (!th.isValid()) {
+        if (!th.isValid())
             return new ArrayList<>();
-        }
 
         return th.trackers();
     }
@@ -655,10 +630,8 @@ public class TorrentDownload
     {
         PieceIndexBitfield bitfield = th.status(TorrentHandle.QUERY_PIECES).pieces();
         boolean[] pieces = new boolean[bitfield.size()];
-
-        for (int i = 0; i < bitfield.size(); i++) {
+        for (int i = 0; i < bitfield.size(); i++)
             pieces[i] = bitfield.getBit(i);
-        }
 
         return pieces;
     }
@@ -785,35 +758,28 @@ public class TorrentDownload
 
     public TorrentStateCode getStateCode()
     {
-        if (!TorrentEngine.getInstance().isRunning()) {
+        if (!TorrentEngine.getInstance().isRunning())
             return TorrentStateCode.STOPPED;
-        }
 
-        if (isPaused()) {
+        if (isPaused())
             return TorrentStateCode.PAUSED;
-        }
 
-        if (!th.isValid()) {
+        if (!th.isValid())
             return TorrentStateCode.ERROR;
-        }
 
         TorrentStatus status = th.status();
         boolean isPaused = isPaused(status);
 
-        if (isPaused && status.isFinished()) {
+        if (isPaused && status.isFinished())
             return TorrentStateCode.FINISHED;
-        }
 
-        if (isPaused && !status.isFinished()) {
+        if (isPaused && !status.isFinished())
             return TorrentStateCode.PAUSED;
-        }
 
-        if (!isPaused && status.isFinished()) {
+        if (!isPaused && status.isFinished())
             return TorrentStateCode.SEEDING;
-        }
 
         TorrentStatus.State stateCode = status.state();
-
         switch (stateCode) {
             case CHECKING_FILES:
                 return TorrentStateCode.CHECKING;

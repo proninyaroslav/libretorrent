@@ -52,7 +52,7 @@ public class FeedItemsActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_feed_items);
 
-        feedItemsFragment = (FeedItemsFragment)getFragmentManager()
+        feedItemsFragment = (FeedItemsFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.feed_items_fragmentContainer);
 
         String feedUrl = getIntent().getStringExtra(TAG_FEED_URL);

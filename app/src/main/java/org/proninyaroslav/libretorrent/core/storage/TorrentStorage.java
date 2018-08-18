@@ -182,9 +182,8 @@ public class TorrentStorage
                 DatabaseHelper.COLUMN_TORRENT_ID + " = '" + torrent.getId() + "' ",
                 null);
 
-        if (!TorrentUtils.removeTorrentDataDir(context, torrent.getId())) {
+        if (!TorrentUtils.removeTorrentDataDir(context, torrent.getId()))
             Log.e(TAG, "Can't delete torrent " + torrent);
-        }
     }
 
     public void delete(String id)
@@ -193,9 +192,8 @@ public class TorrentStorage
                 DatabaseHelper.COLUMN_TORRENT_ID + " = '" + id + "' ",
                 null);
 
-        if (!TorrentUtils.removeTorrentDataDir(context, id)) {
+        if (!TorrentUtils.removeTorrentDataDir(context, id))
             Log.e(TAG, "Can't delete torrent " + id);
-        }
     }
 
     public Torrent getTorrentByID(String id)
@@ -211,11 +209,8 @@ public class TorrentStorage
         Torrent torrent = null;
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
-        if (cursor.moveToNext()) {
+        if (cursor.moveToNext())
             torrent = cursorToTorrent(cursor, indexCache);
-        }
-
         cursor.close();
         indexCache.clear();
 
@@ -235,11 +230,8 @@ public class TorrentStorage
                 null);
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
-        while (cursor.moveToNext()) {
+        while (cursor.moveToNext())
             torrents.add(cursorToTorrent(cursor, indexCache));
-        }
-
         cursor.close();
         indexCache.clear();
 
@@ -263,12 +255,10 @@ public class TorrentStorage
                 null);
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
         while (cursor.moveToNext()) {
             Torrent torrent = cursorToTorrent(cursor, indexCache);
             torrents.put(torrent.getId(), torrent);
         }
-
         cursor.close();
         indexCache.clear();
 
@@ -290,7 +280,6 @@ public class TorrentStorage
 
             return true;
         }
-
         cursor.close();
 
         return false;
@@ -311,7 +300,6 @@ public class TorrentStorage
 
             return true;
         }
-
         cursor.close();
 
         return false;
@@ -349,11 +337,9 @@ public class TorrentStorage
 
         long datetime = cursor.getLong(indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_DATETIME));
 
-        Torrent torrent =
-                new Torrent(
-                        id, pathToTorrent,
-                        name, filePriorities,
-                        pathToDownload, datetime);
+        Torrent torrent = new Torrent(id, pathToTorrent,
+                                      name, filePriorities,
+                                      pathToDownload, datetime);
 
         torrent.setSequentialDownload(isSequentialDownload);
         torrent.setFinished(isFinished);
@@ -401,9 +387,8 @@ public class TorrentStorage
 
         public int getColumnIndex(Cursor cursor, String columnName)
         {
-            if (!map.containsKey(columnName)) {
+            if (!map.containsKey(columnName))
                 map.put(columnName, cursor.getColumnIndex(columnName));
-            }
 
             return map.get(columnName);
         }

@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -88,7 +89,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
 
     @SuppressWarnings("ResourceType")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         TorrentListItem item = currentItems.get(position);
 
@@ -100,19 +101,13 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                 R.attr.defaultRectRipple
         });
 
-        if (isSelected(position)) {
-            Utils.setBackground(
-                    holder.itemTorrentList,
-                    a.getDrawable(0));
-        } else {
-            Utils.setBackground(
-                    holder.itemTorrentList,
-                    a.getDrawable(1));
-        }
+        if (isSelected(position))
+            Utils.setBackground(holder.itemTorrentList, a.getDrawable(0));
+        else
+            Utils.setBackground(holder.itemTorrentList, a.getDrawable(1));
         a.recycle();
 
         holder.name.setText(item.name);
-
         holder.progress.setProgress(item.progress);
 
         String stateString = "";
@@ -156,16 +151,13 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         else
             receivedBytes = Formatter.formatFileSize(context, item.receivedBytes);
 
-        holder.downloadCounter.setText(
-                String.format(
-                        counterTemplate, receivedBytes,
-                        totalBytes, item.progress, ETA));
+        holder.downloadCounter.setText(String.format(counterTemplate, receivedBytes,
+                                                     totalBytes, item.progress, ETA));
 
         String speedTemplate = context.getString(R.string.download_upload_speed_template);
         String downloadSpeed = Formatter.formatFileSize(context, item.downloadSpeed);
         String uploadSpeed = Formatter.formatFileSize(context, item.uploadSpeed);
-        holder.downloadUploadSpeed.setText(
-                String.format(speedTemplate, downloadSpeed, uploadSpeed));
+        holder.downloadUploadSpeed.setText(String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
         String peersTemplate = context.getString(R.string.peers_template);
         holder.peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
@@ -176,13 +168,12 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             if (getItemPosition(curTorrent) == position && Utils.isTwoPane(context)) {
                 if (!isSelected(position)) {
                     a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
-                    Utils.setBackground(
-                            holder.itemTorrentList, a.getDrawable(0));
+                    Utils.setBackground(holder.itemTorrentList, a.getDrawable(0));
                     a.recycle();
                 }
 
                 Utils.setBackground(holder.indicatorCurOpenTorrent,
-                        ContextCompat.getDrawable(context, R.color.accent));
+                                    ContextCompat.getDrawable(context, R.color.accent));
             }
         }
     }
@@ -241,7 +232,6 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
                 Collections.sort(currentItems, sorting);
                 notifyItemInserted(currentItems.indexOf(filtered));
             }
-
         } else {
             int position = currentItems.indexOf(item);
             if (position >= 0) {
@@ -396,16 +386,11 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             itemTorrentList = itemView.findViewById(R.id.item_torrent_list);
             name = itemView.findViewById(R.id.torrent_name);
             pauseButton = itemView.findViewById(R.id.pause_torrent);
-            pauseButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    int position = getAdapterPosition();
-                    if (listener != null && position >= 0) {
-                        TorrentListItem item = items.get(position);
-                        listener.onPauseButtonClicked(position, item);
-                    }
+            pauseButton.setOnClickListener((View v) -> {
+                int position = getAdapterPosition();
+                if (listener != null && position >= 0) {
+                    TorrentListItem item = items.get(position);
+                    listener.onPauseButtonClicked(position, item);
                 }
             });
             progress = itemView.findViewById(R.id.torrent_progress);

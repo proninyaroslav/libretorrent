@@ -69,25 +69,23 @@ public class DateFormatUtils
         seconds = elapsedSeconds;
 
         StringBuilder sb = recycle;
-        if (sb == null) {
+        if (sb == null)
             sb = new StringBuilder(8);
-        } else {
+        else
             sb.setLength(0);
-        }
 
         Formatter f = new Formatter(sb, Locale.getDefault());
 
         initFormatStrings(context);
 
-        if (days > 0) {
+        if (days > 0)
             return f.format(elapsedFormatDHMM, days, hours, minutes).toString();
-        } else if (hours > 0) {
+        else if (hours > 0)
             return f.format(elapsedFormatHMMSS, hours, minutes, seconds).toString();
-        } else if (minutes > 0) {
+        else if (minutes > 0)
             return f.format(elapsedFormatMMSS, minutes, seconds).toString();
-        } else {
+        else
             return f.format(elapsedFormatSS, seconds).toString();
-        }
     }
 
     private static void initFormatStrings(Context context)

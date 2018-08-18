@@ -25,10 +25,7 @@ package org.proninyaroslav.libretorrent.core.exceptions;
 
 public class DecodeException extends Exception
 {
-    public DecodeException()
-    {
-
-    }
+    public DecodeException() { }
 
     public DecodeException(String message)
     {

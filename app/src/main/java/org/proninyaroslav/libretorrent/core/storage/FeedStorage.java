@@ -168,10 +168,8 @@ public class FeedStorage
         FeedChannel channel = null;
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
         if (cursor.moveToNext())
             channel = cursorToChannel(cursor, indexCache);
-
         cursor.close();
         indexCache.clear();
 
@@ -191,10 +189,8 @@ public class FeedStorage
                 null);
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
         while (cursor.moveToNext())
             channels.add(cursorToChannel(cursor, indexCache));
-
         cursor.close();
         indexCache.clear();
 
@@ -218,12 +214,10 @@ public class FeedStorage
                 null);
 
         ColumnIndexCache indexCache = new ColumnIndexCache();
-
         while (cursor.moveToNext()) {
             FeedChannel channel = cursorToChannel(cursor, indexCache);
             channels.put(channel.getUrl(), channel);
         }
-
         cursor.close();
         indexCache.clear();
 

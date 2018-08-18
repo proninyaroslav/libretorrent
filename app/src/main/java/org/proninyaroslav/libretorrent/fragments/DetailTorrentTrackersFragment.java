@@ -20,11 +20,14 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +45,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
 import org.proninyaroslav.libretorrent.adapters.TrackerListAdapter;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
-import org.proninyaroslav.libretorrent.dialogs.SupportBaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +57,7 @@ import java.util.Collections;
 public class DetailTorrentTrackersFragment extends Fragment
         implements
         TrackerListAdapter.ViewHolder.ClickListener,
-        SupportBaseAlertDialog.OnClickListener
+        BaseAlertDialog.OnClickListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentTrackersFragment.class.getSimpleName();
@@ -88,18 +91,15 @@ public class DetailTorrentTrackersFragment extends Fragment
         return fragment;
     }
 
-    /* For API < 23 */
     @Override
-    public void onAttach(Activity activity)
+    public void onAttach(Context context)
     {
-        super.onAttach(activity);
+        super.onAttach(context);
 
-        if (activity instanceof AppCompatActivity) {
-            this.activity = (AppCompatActivity) activity;
-
-            if (activity instanceof DetailTorrentFragment.Callback) {
-                callback = (DetailTorrentFragment.Callback) activity;
-            }
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity)context;
+            if (context instanceof DetailTorrentFragment.Callback)
+                callback = (DetailTorrentFragment.Callback)context;
         }
     }
 
@@ -116,13 +116,12 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             trackers = savedInstanceState.getParcelableArrayList(TAG_TRACKER_LIST);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_detail_torrent_tracker_list, container, false);
     }
@@ -132,11 +131,10 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
+        if (activity == null)
             activity = (AppCompatActivity) getActivity();
-        }
 
-        trackersList = (RecyclerView) activity.findViewById(R.id.tracker_list);
+        trackersList = activity.findViewById(R.id.tracker_list);
         if (trackersList != null) {
             layoutManager = new LinearLayoutManager(activity);
             trackersList.setLayoutManager(layoutManager);
@@ -149,21 +147,20 @@ public class DetailTorrentTrackersFragment extends Fragment
             DefaultItemAnimator animator = new DefaultItemAnimator()
             {
                 @Override
-                public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder)
+                public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder)
                 {
                     return true;
                 }
             };
 
             int resId = R.drawable.list_divider;
-            if (Utils.isDarkTheme(activity.getApplicationContext()) || Utils.isBlackTheme(activity.getApplicationContext())) {
+            if (Utils.isDarkTheme(activity.getApplicationContext()) ||
+                Utils.isBlackTheme(activity.getApplicationContext()))
                 resId = R.drawable.list_divider_dark;
-            }
             
             trackersList.setItemAnimator(animator);
-            trackersList.addItemDecoration(
-                    new RecyclerViewDividerDecoration(
-                            activity.getApplicationContext(), resId));
+            trackersList.addItemDecoration(new RecyclerViewDividerDecoration(
+                    activity.getApplicationContext(), resId));
 
             adapter = new TrackerListAdapter(trackers, activity, R.layout.item_trackers_list, this);
             trackersList.setAdapter(adapter);
@@ -180,16 +177,14 @@ public class DetailTorrentTrackersFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        if (layoutManager != null) {
+        if (layoutManager != null)
             listTrackerState = layoutManager.onSaveInstanceState();
-        }
         outState.putParcelable(TAG_LIST_TRACKER_STATE, listTrackerState);
         outState.putSerializable(TAG_TRACKER_LIST, trackers);
-        if (adapter != null) {
+        if (adapter != null)
             outState.putIntegerArrayList(TAG_SELECTABLE_ADAPTER, adapter.getSelectedItems());
-        }
         outState.putBoolean(TAG_IN_ACTION_MODE, inActionMode);
         outState.putStringArrayList(TAG_SELECTED_TRACKERS, selectedTrackers);
 
@@ -201,9 +196,8 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         super.onViewStateRestored(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             listTrackerState = savedInstanceState.getParcelable(TAG_LIST_TRACKER_STATE);
-        }
     }
 
     @Override
@@ -211,9 +205,8 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         super.onResume();
 
-        if (listTrackerState != null && layoutManager != null) {
+        if (listTrackerState != null && layoutManager != null)
             layoutManager.onRestoreInstanceState(listTrackerState);
-        }
     }
 
     public void setTrackersList(ArrayList<TrackerStateParcel> trackers)
@@ -230,8 +223,9 @@ public class DetailTorrentTrackersFragment extends Fragment
         if (actionMode != null) {
             String url = state.url;
             if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
+                url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
+                url.equals(TrackerStateParcel.PEX_ENTRY_NAME))
+            {
                 return;
             }
 
@@ -244,14 +238,14 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         String url = state.url;
         if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
-                url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
-                url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
+            url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
+            url.equals(TrackerStateParcel.PEX_ENTRY_NAME))
+        {
             return false;
         }
 
-        if (actionMode == null) {
+        if (actionMode == null)
             actionMode = activity.startActionMode(actionModeCallback);
-        }
 
         onItemSelected(url, position);
 
@@ -262,31 +256,29 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         toggleSelection(position);
 
-        if (selectedTrackers.contains(url)) {
+        if (selectedTrackers.contains(url))
             selectedTrackers.remove(url);
-        } else {
+        else
             selectedTrackers.add(url);
-        }
     }
 
     private void toggleSelection(int position) {
         adapter.toggleSelection(position);
-        int count = adapter.getSelectedItemCount();
 
-        if (count == 0) {
+        int count = adapter.getSelectedItemCount();
+        if (count == 0)
             actionMode.finish();
-        } else {
+        else
             actionMode.setTitle(String.valueOf(count));
             actionMode.invalidate();
-        }
     }
 
     @Override
     public void onPositiveClicked(@Nullable View v)
     {
-        if (getFragmentManager().findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG) != null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG) != null)
             deleteTrackers();
-        }
     }
 
     @Override
@@ -303,19 +295,13 @@ public class DetailTorrentTrackersFragment extends Fragment
 
     private void deleteTrackers()
     {
-        if (!selectedTrackers.isEmpty()) {
-            if (callback != null) {
-                ArrayList<String> urls = new ArrayList<>();
-                for (TrackerStateParcel tracker : trackers) {
-                    if (!selectedTrackers.contains(tracker.url)) {
-                        urls.add(tracker.url);
-                    }
-                }
-
+        if (!selectedTrackers.isEmpty() && callback != null) {
+            ArrayList<String> urls = new ArrayList<>();
+            for (TrackerStateParcel tracker : trackers)
+                if (!selectedTrackers.contains(tracker.url))
+                    urls.add(tracker.url);
                 callback.onTrackersChanged(urls, true);
-
                 selectedTrackers.clear();
-            }
         }
     }
 
@@ -326,12 +312,11 @@ public class DetailTorrentTrackersFragment extends Fragment
             sharingIntent.setType("text/plain");
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
 
-            if (selectedTrackers.size() == 1) {
+            if (selectedTrackers.size() == 1)
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, selectedTrackers.get(0));
-            } else {
+            else
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
                         TextUtils.join(Utils.getLineSeparator(), selectedTrackers));
-            }
 
             startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
 
@@ -369,18 +354,20 @@ public class DetailTorrentTrackersFragment extends Fragment
                 case R.id.delete_tracker_url:
                     mode.finish();
 
-                    if (getFragmentManager().findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG) == null) {
-                         SupportBaseAlertDialog deleteTrackersDialog = SupportBaseAlertDialog.newInstance(
-                                 getString(R.string.deleting),
-                                (selectedTrackers.size() > 1 ? getString(R.string.delete_selected_trackers) :
-                                        getString(R.string.delete_selected_tracker)),
+                    FragmentManager fm = getFragmentManager();
+                    if (fm != null && fm.findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG) == null) {
+                         BaseAlertDialog deleteTrackersDialog = BaseAlertDialog.newInstance(
+                                getString(R.string.deleting),
+                                (selectedTrackers.size() > 1 ?
+                                 getString(R.string.delete_selected_trackers) :
+                                 getString(R.string.delete_selected_tracker)),
                                 0,
-                                 getString(R.string.ok),
-                                 getString(R.string.cancel),
+                                getString(R.string.ok),
+                                getString(R.string.cancel),
                                 null,
                                 DetailTorrentTrackersFragment.this);
 
-                        deleteTrackersDialog.show(getFragmentManager(), TAG_DELETE_TRACKERS_DIALOG);
+                        deleteTrackersDialog.show(fm, TAG_DELETE_TRACKERS_DIALOG);
                     }
                     break;
             }
@@ -395,7 +382,6 @@ public class DetailTorrentTrackersFragment extends Fragment
             actionMode = null;
             inActionMode = false;
             Utils.showActionModeStatusBar(activity, false);
-
         }
     }
 }

@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.frostwire.jlibtorrent.PieceIndexBitfield;
 import com.frostwire.jlibtorrent.TorrentStatus;
@@ -179,7 +180,7 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
             };
 
     @Override
-    public int compareTo(PeerStateParcel another)
+    public int compareTo(@NonNull PeerStateParcel another)
     {
         return ip.compareTo(another.ip);
     }
@@ -207,13 +208,11 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof PeerStateParcel)) {
+        if (!(o instanceof PeerStateParcel))
             return false;
-        }
 
-        if (o == this) {
+        if (o == this)
             return true;
-        }
 
         PeerStateParcel state = (PeerStateParcel) o;
 

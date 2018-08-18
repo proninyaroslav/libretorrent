@@ -19,10 +19,10 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,7 +62,7 @@ public class AddTorrentActivity extends AppCompatActivity
         setTheme(Utils.getAppTheme(getApplicationContext()));
         setContentView(R.layout.activity_add_torrent);
 
-        addTorrentFragment = (AddTorrentFragment) getFragmentManager()
+        addTorrentFragment = (AddTorrentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.add_torrent_fragmentContainer);
 
         Intent intent = getIntent();
@@ -87,7 +87,7 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        progress = (SpinnerProgressDialog) getFragmentManager().findFragmentByTag(TAG_SPINNER_PROGRESS);
+        progress = (SpinnerProgressDialog)getSupportFragmentManager().findFragmentByTag(TAG_SPINNER_PROGRESS);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 true,
                 true);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(progress, TAG_SPINNER_PROGRESS);
         ft.commitAllowingStateLoss();
     }
@@ -121,6 +121,7 @@ public class AddTorrentActivity extends AppCompatActivity
         if (progress != null) {
             try {
                 progress.dismiss();
+
             } catch (Exception e) {
                 /* Ignore */
             }
@@ -133,6 +134,7 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         if (params == null)
             return;
+
         EventBus.getDefault().postSticky(params);
     }
 
@@ -156,7 +158,7 @@ public class AddTorrentActivity extends AppCompatActivity
         resetResult();
         if (code == ResultCode.OK) {
             /* If add torrent dialog has been called by an implicit intent */
-            setResult((AddTorrentParams)intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
+            setResult(intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
             if (getIntent().getData() != null && intent.hasExtra(TAG_ADD_TORRENT_PARAMS)) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -167,11 +169,10 @@ public class AddTorrentActivity extends AppCompatActivity
 
         } else if (code == ResultCode.BACK) {
             /* For correctly finishing activity, if it was called by implicit intent */
-            if (getIntent().getData() != null) {
+            if (getIntent().getData() != null)
                 finish();
-            } else {
+            else
                 setResult(RESULT_CANCELED, intent);
-            }
 
         } else if (code == ResultCode.CANCEL) {
             setResult(RESULT_CANCELED, intent);

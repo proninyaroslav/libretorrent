@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -63,16 +64,17 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
         this.highlightFileTypes = highlightFileTypes;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
-        return new ViewHolder(v, clickListener, files);
+        return new ViewHolder(v, clickListener);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         final FileManagerNode file = files.get(position);
 
@@ -83,24 +85,24 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
             if (highlightFileTypes != null && highlightFileTypes.contains(FilenameUtils.getExtension(file.getName()))) {
                 holder.fileName.setTextColor(ContextCompat.getColor(context, R.color.file_manager_highlight));
             } else {
-                TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorPrimary });
+                TypedArray a = context.obtainStyledAttributes(new TypedValue().data,
+                        new int[]{ android.R.attr.textColorPrimary });
                 holder.fileName.setTextColor(a.getColor(0, 0));
                 a.recycle();
             }
 
         } else {
-            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ android.R.attr.textColorSecondary });
+            TypedArray a = context.obtainStyledAttributes(new TypedValue().data,
+                    new int[]{ android.R.attr.textColorSecondary });
             holder.fileName.setTextColor(a.getColor(0, 0));
             a.recycle();
         }
 
         holder.fileName.setText(file.getName());
-        if (file.getType() == FileNode.Type.DIR) {
+        if (file.getType() == FileNode.Type.DIR)
             holder.fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-
-        } else if (file.getType() == FileNode.Type.FILE) {
+        else if (file.getType() == FileNode.Type.FILE)
             holder.fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
-        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
@@ -110,15 +112,15 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
         TextView fileName;
         ImageView fileIcon;
 
-        public ViewHolder(View itemView, final ClickListener listener, final List<FileManagerNode> files)
+        public ViewHolder(View itemView, final ClickListener listener)
         {
             super(itemView);
 
             this.listener = listener;
             itemView.setOnClickListener(this);
 
-            fileName = (TextView) itemView.findViewById(R.id.file_name);
-            fileIcon = (ImageView) itemView.findViewById(R.id.file_icon);
+            fileName = itemView.findViewById(R.id.file_name);
+            fileIcon = itemView.findViewById(R.id.file_icon);
         }
 
         @Override
@@ -126,9 +128,8 @@ public class FileManagerAdapter extends BaseFileListAdapter<FileManagerAdapter.V
         {
             int position = getAdapterPosition();
 
-            if (listener != null && position >= 0) {
+            if (listener != null && position >= 0)
                 listener.onItemClicked(file.getName(), file.getType());
-            }
         }
 
         public interface ClickListener

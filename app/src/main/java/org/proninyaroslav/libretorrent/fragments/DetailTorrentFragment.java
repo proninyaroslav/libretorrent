@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +27,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +35,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -197,7 +199,7 @@ public class DetailTorrentFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_detail_torrent, container, false);
 
@@ -216,7 +218,7 @@ public class DetailTorrentFragment extends Fragment
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity) context;
+            activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -248,11 +250,12 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onDestroyView();
 
-        Fragment fragment = getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
-
-        /* Prevents leak the dialog in portrait mode */
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null) {
-            ((BaseAlertDialog) fragment).dismiss();
+        FragmentManager fm = getFragmentManager();
+        if (fm != null) {
+            Fragment fragment = fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
+            /* Prevents leak the dialog in portrait mode */
+            if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null)
+                ((BaseAlertDialog)fragment).dismiss();
         }
     }
 
@@ -261,9 +264,8 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
-            activity = (AppCompatActivity) getActivity();
-        }
+        if (activity == null)
+            activity = (AppCompatActivity)getActivity();
 
         Utils.showColoredStatusBar_KitKat(activity);
 
@@ -284,78 +286,53 @@ public class DetailTorrentFragment extends Fragment
         }
 
         if (isTorrentFilesChanged || isTorrentInfoChanged) {
-            saveChangesButton.setVisibility(View.VISIBLE);
+            saveChangesButton.show();
         } else {
-            saveChangesButton.setVisibility(View.GONE);
+            saveChangesButton.hide();
         }
 
-        saveChangesButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                saveChangesButton.hide();
+        saveChangesButton.setOnClickListener((View view) -> {
+            saveChangesButton.hide();
 
-                if (isTorrentInfoChanged) {
-                    applyInfoChanges();
-                }
+            if (isTorrentInfoChanged)
+                applyInfoChanges();
 
-                if (isTorrentFilesChanged) {
-                    applyFilesChanges();
-                }
+            if (isTorrentFilesChanged)
+                applyFilesChanges();
 
-                isTorrentInfoChanged = false;
-                isTorrentFilesChanged = false;
-            }
+            isTorrentInfoChanged = false;
+            isTorrentFilesChanged = false;
         });
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             torrentId = savedInstanceState.getString(TAG_TORRENT_ID);
-        }
 
         repo = new TorrentStorage(activity.getApplicationContext());
-        if (torrentId != null) {
+        if (torrentId != null)
             torrent = repo.getTorrentByID(torrentId);
-        }
 
         downloadingMetadata = torrent != null && torrent.isDownloadingMetadata();
         if (Utils.isTwoPane(activity.getApplicationContext())) {
             toolbar.inflateMenu(R.menu.detail_torrent);
-            toolbar.setNavigationIcon(
-                    ContextCompat.getDrawable(activity.getApplicationContext(),
-                            R.drawable.ic_arrow_back_white_24dp));
-            toolbar.setNavigationOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    onBackPressed();
-                }
-            });
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item)
-                {
-                    return onOptionsItemSelected(item);
-                }
-            });
+            toolbar.setNavigationIcon(ContextCompat.getDrawable(activity.getApplicationContext(),
+                                                                R.drawable.ic_arrow_back_white_24dp));
+            toolbar.setNavigationOnClickListener((View view) -> onBackPressed());
+            toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
 
         } else {
-            if (torrent != null) {
+            if (torrent != null)
                 toolbar.setTitle(torrent.getName());
-            }
 
             activity.setSupportActionBar(toolbar);
             setHasOptionsMenu(true);
 
-            if (activity.getSupportActionBar() != null) {
+            if (activity.getSupportActionBar() != null)
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            }
         }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putBoolean(TAG_TORRENT_INFO_CHANGED, isTorrentInfoChanged);
         outState.putBoolean(TAG_TORRENT_FILES_CHANGED, isTorrentFilesChanged);
@@ -410,19 +387,13 @@ public class DetailTorrentFragment extends Fragment
 
         /* Removing previous ViewPagerAdapter fragments, if any */
         if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
-            android.support.v4.app.FragmentManager fm = activity.getSupportFragmentManager();
-            List<android.support.v4.app.Fragment> fragments = fm.getFragments();
-
-            if (fragments != null) {
-                FragmentTransaction ft = fm.beginTransaction();
-                for (android.support.v4.app.Fragment f : fragments) {
-                    if (f != null) {
-                        ft.remove(f);
-                    }
-                }
-
-                ft.commitAllowingStateLoss();
-            }
+            FragmentManager fm = activity.getSupportFragmentManager();
+            List<Fragment> fragments = fm.getFragments();
+            FragmentTransaction ft = fm.beginTransaction();
+            for (Fragment f : fragments)
+                if (f != null)
+                    ft.remove(f);
+            ft.commitAllowingStateLoss();
         }
 
         adapter.addFragment(fragmentInfo, INFO_FRAG_POS, getString(R.string.torrent_info));
@@ -489,14 +460,13 @@ public class DetailTorrentFragment extends Fragment
 
     private ArrayList<BencodeFileItem> getFileList()
     {
-        return (infoCache != null ? infoCache.fileList : new ArrayList<BencodeFileItem>());
+        return (infoCache != null ? infoCache.fileList : new ArrayList<>());
     }
 
     private List<Priority>  getPrioritiesList()
     {
-        if (torrent == null) {
+        if (torrent == null)
             return null;
-        }
 
         return torrent.getFilePriorities();
     }
@@ -524,12 +494,11 @@ public class DetailTorrentFragment extends Fragment
 
     private void applyInfoChanges()
     {
-        DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment) adapter.getItem(INFO_FRAG_POS);
-        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
+        DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
+        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
 
-        if (infoFrag == null || fileFrag == null) {
+        if (infoFrag == null || fileFrag == null)
             return;
-        }
 
         String name = infoFrag.getTorrentName();
         String path = infoFrag.getDownloadPath();
@@ -569,7 +538,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void applyFilesChanges()
     {
-        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
+        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
 
         if (fileFrag == null)
             return;
@@ -587,12 +556,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void setTabLayoutColor(int colorId)
     {
-        if (tabLayout == null) {
+        if (tabLayout == null)
             return;
-        }
 
-        Utils.setBackground(tabLayout,
-                ContextCompat.getDrawable(activity.getApplicationContext(), colorId));
+        Utils.setBackground(tabLayout, ContextCompat.getDrawable(activity.getApplicationContext(), colorId));
     }
 
     public void onTrackersChanged(ArrayList<String> trackers, boolean replace)
@@ -627,14 +594,11 @@ public class DetailTorrentFragment extends Fragment
     private void torrentSaveChooseDialog()
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
-
         FileManagerConfig config = new FileManagerConfig(FileIOUtils.getUserDirPath(),
                 null,
                 null,
                 FileManagerConfig.DIR_CHOOSER_MODE);
-
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-
         startActivityForResult(i, SAVE_TORRENT_FILE_CHOOSE_REQUEST);
     }
 
@@ -659,29 +623,26 @@ public class DetailTorrentFragment extends Fragment
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         if (torrent == null || !torrent.isPaused()) {
             pauseResume.setTitle(R.string.pause_torrent);
-            if (!Utils.isTwoPane(activity.getApplicationContext())) {
+            if (!Utils.isTwoPane(activity.getApplicationContext()))
                 pauseResume.setIcon(R.drawable.ic_pause_white_24dp);
-            }
 
         } else {
             pauseResume.setTitle(R.string.resume_torrent);
-            if (!Utils.isTwoPane(activity.getApplicationContext())) {
+            if (!Utils.isTwoPane(activity.getApplicationContext()))
                 pauseResume.setIcon(R.drawable.ic_play_arrow_white_24dp);
-            }
         }
 
         MenuItem saveTorrentFile = menu.findItem(R.id.save_torrent_file_menu);
-        if (downloadingMetadata) {
+        if (downloadingMetadata)
             saveTorrentFile.setVisible(false);
-
-        } else {
+        else
             saveTorrentFile.setVisible(true);
-        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+        FragmentManager fm = getFragmentManager();
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -690,7 +651,7 @@ public class DetailTorrentFragment extends Fragment
                 pauseResumeTorrentRequest();
                 break;
             case R.id.delete_torrent_menu:
-                if (getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) == null) {
+                if (fm != null && fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) == null) {
                     BaseAlertDialog deleteTorrentDialog = BaseAlertDialog.newInstance(
                             getString(R.string.deleting),
                             getString(R.string.delete_selected_torrent),
@@ -700,7 +661,7 @@ public class DetailTorrentFragment extends Fragment
                             null,
                             DetailTorrentFragment.this);
 
-                    deleteTorrentDialog.show(getFragmentManager(), TAG_DELETE_TORRENT_DIALOG);
+                    deleteTorrentDialog.show(fm, TAG_DELETE_TORRENT_DIALOG);
                 }
                 break;
             case R.id.force_recheck_torrent_menu:
@@ -716,7 +677,7 @@ public class DetailTorrentFragment extends Fragment
                 torrentSaveChooseDialog();
                 break;
             case R.id.add_trackers_menu:
-                if (getFragmentManager().findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) == null) {
+                if (fm != null && fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) == null) {
                     BaseAlertDialog addTrackersDialog = BaseAlertDialog.newInstance(
                             getString(R.string.add_trackers),
                             getString(R.string.dialog_add_trackers),
@@ -726,11 +687,11 @@ public class DetailTorrentFragment extends Fragment
                             getString(R.string.cancel),
                             DetailTorrentFragment.this);
 
-                    addTrackersDialog.show(getFragmentManager(), TAG_ADD_TRACKERS_DIALOG);
+                    addTrackersDialog.show(fm, TAG_ADD_TRACKERS_DIALOG);
                 }
                 break;
             case R.id.torrent_speed_limit:
-                if (getFragmentManager().findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) == null) {
+                if (fm != null && fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) == null) {
                     BaseAlertDialog speedLimitDialog = BaseAlertDialog.newInstance(
                             getString(R.string.speed_limit_title),
                             getString(R.string.speed_limit_dialog),
@@ -740,7 +701,7 @@ public class DetailTorrentFragment extends Fragment
                             null,
                             DetailTorrentFragment.this);
 
-                    speedLimitDialog.show(getFragmentManager(), TAG_SPEED_LIMIT_DIALOG);
+                    speedLimitDialog.show(fm, TAG_SPEED_LIMIT_DIALOG);
                 }
                 break;
         }
@@ -751,11 +712,14 @@ public class DetailTorrentFragment extends Fragment
     @Override
     public void onShow(final AlertDialog dialog)
     {
-        if (dialog == null) {
+        if (dialog == null)
             return;
-        }
 
-        if (getFragmentManager().findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) != null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
+
+        if (fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) != null) {
             final TextInputEditText field =
                     dialog.findViewById(R.id.multiline_text_input_dialog);
             final TextInputLayout fieldLayout =
@@ -801,59 +765,44 @@ public class DetailTorrentFragment extends Fragment
             Button addButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             Button replaceButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
-            addButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    if (field != null && fieldLayout != null) {
-                        String text = field.getText().toString();
-                        List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+            addButton.setOnClickListener((View v) -> {
+                if (field != null && fieldLayout != null) {
+                    String text = field.getText().toString();
+                    List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+                    if (checkEditTextField(urls, fieldLayout, field)) {
+                        addTrackersRequest(new ArrayList<>(urls), false);
 
-                        if (checkEditTextField(urls, fieldLayout, field)) {
-                            addTrackersRequest(new ArrayList<>(urls), false);
-
-                            dialog.dismiss();
-                        }
+                        dialog.dismiss();
                     }
                 }
             });
 
-            replaceButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    if (field != null && fieldLayout != null) {
-                        String text = field.getText().toString();
-                        List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+            replaceButton.setOnClickListener((View v) -> {
+                if (field != null && field.getText() != null && fieldLayout != null) {
+                    String text = field.getText().toString();
+                    List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
 
-                        if (checkEditTextField(urls, fieldLayout, field)) {
-                            addTrackersRequest(new ArrayList<>(urls), true);
+                    if (checkEditTextField(urls, fieldLayout, field)) {
+                        addTrackersRequest(new ArrayList<>(urls), true);
 
-                            dialog.dismiss();
-                        }
+                        dialog.dismiss();
                     }
                 }
             });
 
             /* Inserting links from the clipboard */
             String clipboard = Utils.getClipboard(activity.getApplicationContext());
-
             if (clipboard != null && field != null) {
                 List<String> urls = Arrays.asList(clipboard.split(Utils.getLineSeparator()));
                 ArrayList<String> validUrls = new ArrayList<>();
 
-                for (String url : urls) {
-                    if (Utils.isValidTrackerUrl(url)) {
+                for (String url : urls)
+                    if (Utils.isValidTrackerUrl(url))
                         validUrls.add(url);
-                    }
-                }
-
                 field.setText(TextUtils.join(Utils.getLineSeparator(), validUrls));
             }
 
-        } else if (getFragmentManager().findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
+        } else if (fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
             TextInputEditText upload = dialog.findViewById(R.id.upload_limit);
             TextInputEditText download = dialog.findViewById(R.id.download_limit);
 
@@ -863,16 +812,14 @@ public class DetailTorrentFragment extends Fragment
                 InputFilter[] filter = new InputFilter[]{ new InputFilterMinMax(minSpeedLimit, maxSpeedLimit) };
 
                 upload.setFilters(filter);
-                if (TextUtils.isEmpty(upload.getText())) {
+                if (TextUtils.isEmpty(upload.getText()))
                     upload.setText((uploadSpeedLimit != -1 ?
                             Integer.toString(uploadSpeedLimit / 1024) : Integer.toString(minSpeedLimit)));
-                }
 
                 download.setFilters(filter);
-                if (TextUtils.isEmpty(download.getText())) {
+                if (TextUtils.isEmpty(download.getText()))
                     download.setText((downloadSpeedLimit != -1 ?
                             Integer.toString(downloadSpeedLimit / 1024) : Integer.toString(minSpeedLimit)));
-                }
             }
         }
     }
@@ -880,29 +827,32 @@ public class DetailTorrentFragment extends Fragment
     @Override
     public void onPositiveClicked(@Nullable View v)
     {
-        if (v != null) {
-            if (getFragmentManager().findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) != null) {
+        FragmentManager fm = getFragmentManager();
+        if (v != null && fm != null) {
+            if (fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) != null) {
                 CheckBox withFiles = v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
                 deleteTorrentRequest(withFiles.isChecked());
 
                 finish(new Intent(), FragmentCallback.ResultCode.CANCEL);
 
-            } else if (getFragmentManager().findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
+            } else if (fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) != null) {
                 TextInputEditText upload = v.findViewById(R.id.upload_limit);
                 TextInputEditText download = v.findViewById(R.id.download_limit);
 
-                if (!TextUtils.isEmpty(upload.getText().toString()) && !TextUtils.isEmpty(download.getText().toString())) {
-                    uploadSpeedLimit = Integer.parseInt(upload.getText().toString()) * 1024;
-                    downloadSpeedLimit = Integer.parseInt(download.getText().toString()) * 1024;
-
+                Editable uploadEditable = upload.getText();
+                Editable downloadEditable = download.getText();
+                if (uploadEditable != null && downloadEditable != null &&
+                    !(TextUtils.isEmpty(uploadEditable.toString()) || TextUtils.isEmpty(uploadEditable.toString())))
+                {
+                    uploadSpeedLimit = Integer.parseInt(uploadEditable.toString()) * 1024;
+                    downloadSpeedLimit = Integer.parseInt(downloadEditable.toString()) * 1024;
                     setSpeedLimitRequest(uploadSpeedLimit, downloadSpeedLimit);
                 }
 
-            } else if (getFragmentManager().findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) != null) {
+            } else if (fm.findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) != null) {
                 if (sentError != null) {
                     EditText editText = v.findViewById(R.id.comment);
                     String comment = editText.getText().toString();
-
                     Utils.reportError(sentError, comment);
                 }
             }
@@ -925,9 +875,8 @@ public class DetailTorrentFragment extends Fragment
                                        TextInputLayout layout,
                                        TextInputEditText field)
     {
-        if (strings == null || layout == null) {
+        if (strings == null || layout == null)
             return false;
-        }
 
         if (strings.isEmpty()) {
             layout.setErrorEnabled(true);
@@ -940,7 +889,7 @@ public class DetailTorrentFragment extends Fragment
         boolean valid = true;
         int curLineStartIndex = 0;
         for (String s : strings) {
-            if (!Utils.isValidTrackerUrl(s)) {
+            if (!Utils.isValidTrackerUrl(s) && field.getText() != null) {
                 /* Select invalid url */
                 field.getText().setSpan(new ForegroundColorSpan(
                         ContextCompat.getColor(activity.getApplicationContext(), R.color.error)),
@@ -970,7 +919,8 @@ public class DetailTorrentFragment extends Fragment
     {
         sentError = e;
 
-        if (getFragmentManager().findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) == null) {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_SAVE_ERR_TORRENT_FILE_DIALOG) == null) {
             ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
                     activity.getApplicationContext(),
                     getString(R.string.error),
@@ -978,15 +928,14 @@ public class DetailTorrentFragment extends Fragment
                     (e != null ? Log.getStackTraceString(e) : null),
                     this);
 
-            errDialog.show(getFragmentManager(), TAG_SAVE_ERR_TORRENT_FILE_DIALOG);
+            errDialog.show(fm, TAG_SAVE_ERR_TORRENT_FILE_DIALOG);
         }
     }
 
     private void initRequest()
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         infoCache = service.getTorrentMetaInfo(torrentId);
         uploadSpeedLimit = service.getUploadSpeedLimit(torrentId);
@@ -996,32 +945,27 @@ public class DetailTorrentFragment extends Fragment
 
     private void changeFilesPriorityRequest(Priority[] priorities)
     {
-        if (!bound || service == null || priorities == null || torrentId == null) {
+        if (!bound || service == null || priorities == null || torrentId == null)
             return;
-        }
 
         service.changeFilesPriority(torrentId, priorities);
     }
 
     private void addTrackersRequest(ArrayList<String> trackers, boolean replace)
     {
-        if (!bound || service == null || trackers == null || torrentId == null) {
+        if (!bound || service == null || trackers == null || torrentId == null)
             return;
-        }
 
-        if (replace) {
+        if (replace)
             service.replaceTrackers(torrentId, trackers);
-
-        } else {
+        else
             service.addTrackers(torrentId, trackers);
-        }
     }
 
     private void deleteTorrentRequest(boolean withFiles)
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
@@ -1031,9 +975,8 @@ public class DetailTorrentFragment extends Fragment
 
     private void forceRecheckRequest()
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
@@ -1043,9 +986,8 @@ public class DetailTorrentFragment extends Fragment
 
     private void forceAnnounceRequest()
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
@@ -1055,21 +997,18 @@ public class DetailTorrentFragment extends Fragment
 
     private void pauseResumeTorrentRequest()
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         service.pauseResumeTorrent(torrentId);
     }
 
     private void getMagnetRequest()
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         String magnet = service.getMagnet(torrentId);
-
         if (magnet != null) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -1081,9 +1020,8 @@ public class DetailTorrentFragment extends Fragment
 
     private void setSpeedLimitRequest(int uploadSpeedLimit, int downloadSpeedLimit)
     {
-        if (!bound || service == null) {
+        if (!bound || service == null)
             return;
-        }
 
         service.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
         service.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
@@ -1091,9 +1029,8 @@ public class DetailTorrentFragment extends Fragment
 
     private void startUpdateTorrentState()
     {
-        if (!bound) {
+        if (!bound)
             return;
-        }
 
         updateTorrentStateHandler.post(updateTorrentState);
     }
@@ -1133,22 +1070,17 @@ public class DetailTorrentFragment extends Fragment
     private void getTrackersStatesRequest()
     {
         ArrayList<TrackerStateParcel> states = service.getTrackerStatesList(torrentId);
-
-        if (states == null) {
+        if (states == null)
             return;
-        }
 
         if (!trackersCache.containsAll(states)) {
             trackersCache.clear();
             trackersCache.putAll(states);
-
             if (viewPager.getCurrentItem() == TRACKERS_FRAG_POS) {
                 DetailTorrentTrackersFragment trackersFrag =
-                        (DetailTorrentTrackersFragment) adapter.getItem(TRACKERS_FRAG_POS);
-
-                if (trackersFrag != null) {
+                        (DetailTorrentTrackersFragment)adapter.getItem(TRACKERS_FRAG_POS);
+                if (trackersFrag != null)
                     trackersFrag.setTrackersList(states);
-                }
             }
         }
     }
@@ -1156,22 +1088,17 @@ public class DetailTorrentFragment extends Fragment
     private void getPeerStatesRequest()
     {
         ArrayList<PeerStateParcel> states = service.getPeerStatesList(torrentId);
-
-        if (states == null) {
+        if (states == null)
             return;
-        }
 
         if (!peersCache.containsAll(states) || states.isEmpty()) {
             peersCache.clear();
             peersCache.putAll(states);
-
             if (viewPager.getCurrentItem() == PEERS_FRAG_POS) {
                 DetailTorrentPeersFragment peersFrag =
-                        (DetailTorrentPeersFragment) adapter.getItem(PEERS_FRAG_POS);
-
-                if (peersFrag != null) {
+                        (DetailTorrentPeersFragment)adapter.getItem(PEERS_FRAG_POS);
+                if (peersFrag != null)
                     peersFrag.setPeerList(states);
-                }
             }
         }
     }
@@ -1179,21 +1106,16 @@ public class DetailTorrentFragment extends Fragment
     private void getPiecesRequest()
     {
         boolean[] pieces = service.getPieces(torrentId);
-
-        if (pieces == null) {
+        if (pieces == null)
             return;
-        }
 
         if (!Arrays.equals(piecesCache, pieces)) {
             piecesCache = pieces;
-
             if (viewPager.getCurrentItem() == PIECES_FRAG_POS) {
                 DetailTorrentPiecesFragment piecesFrag =
-                        (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
-
-                if (piecesFrag != null) {
+                        (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
+                if (piecesFrag != null)
                     piecesFrag.setPieces(pieces);
-                }
             }
         }
     }
@@ -1214,7 +1136,7 @@ public class DetailTorrentFragment extends Fragment
                     case UPDATE_TORRENTS: {
                         Bundle states = b.getParcelable(TorrentStateMsg.STATES);
                         if (states != null && states.containsKey(torrentId))
-                            handleTorrentState((BasicStateParcel)states.getParcelable(torrentId));
+                            handleTorrentState(states.getParcelable(torrentId));
                         break;
                     }
                 }
@@ -1238,22 +1160,22 @@ public class DetailTorrentFragment extends Fragment
             if (info != null && (infoCache == null || !infoCache.equals(info))) {
                 infoCache = info;
                 DetailTorrentInfoFragment infoFrag =
-                        (DetailTorrentInfoFragment) adapter.getItem(INFO_FRAG_POS);
+                        (DetailTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
                 if (infoFrag != null)
                     infoFrag.setInfo(infoCache);
 
                 DetailTorrentStateFragment stateFrag =
-                        (DetailTorrentStateFragment) adapter.getItem(STATE_FRAG_POS);
+                        (DetailTorrentStateFragment)adapter.getItem(STATE_FRAG_POS);
                 if (stateFrag != null)
                     stateFrag.setInfo(infoCache);
 
                 DetailTorrentFilesFragment fileFrag =
-                        (DetailTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
+                        (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
                 if (fileFrag != null)
                     fileFrag.setFilesAndPriorities(getFileList(), getPrioritiesList());
 
                 DetailTorrentPiecesFragment piecesFrag =
-                        (DetailTorrentPiecesFragment) adapter.getItem(PIECES_FRAG_POS);
+                        (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
                 if (piecesFrag != null)
                     piecesFrag.setPiecesCountAndSize(infoCache.numPieces, infoCache.pieceLength);
             }
@@ -1284,16 +1206,14 @@ public class DetailTorrentFragment extends Fragment
         if (requestCode == SAVE_TORRENT_FILE_CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
             if (data.hasExtra(FileManagerDialog.TAG_RETURNED_PATH)) {
                 String path = data.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH);
-
                 if (path != null && torrentId != null && torrent != null) {
                     try {
                         if (TorrentUtils.copyTorrentFile(activity.getApplicationContext(),
-                                torrentId, path, torrent.getName() + ".torrent")) {
+                                                         torrentId, path, torrent.getName() + ".torrent"))
                             showSnackbar(getString(R.string.save_torrent_file_successfully),
-                                    Snackbar.LENGTH_SHORT);
-                        } else {
+                                         Snackbar.LENGTH_SHORT);
+                        else
                             saveErrorTorrentFileDialog(null);
-                        }
 
                     } catch (IOException e) {
                         saveErrorTorrentFileDialog(e);
@@ -1310,6 +1230,6 @@ public class DetailTorrentFragment extends Fragment
 
     private void finish(Intent intent, FragmentCallback.ResultCode code)
     {
-        ((FragmentCallback) activity).fragmentFinished(intent, code);
+        ((FragmentCallback)activity).fragmentFinished(intent, code);
     }
 }

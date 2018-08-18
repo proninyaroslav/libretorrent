@@ -57,9 +57,8 @@ public class RequestPermissions extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setTheme(Utils.getAppTheme(getApplicationContext()));
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-        }
 
         /* Prevents duplication permission dialog */
         if (!permDialogIsShow) {
@@ -86,7 +85,7 @@ public class RequestPermissions extends AppCompatActivity
                 finish();
                 overridePendingTransition(0, 0);
 
-            } else if (getFragmentManager().findFragmentByTag(TAG_PERM_DIALOG) == null) {
+            } else if (getSupportFragmentManager().findFragmentByTag(TAG_PERM_DIALOG) == null) {
                 BaseAlertDialog permDialog = BaseAlertDialog.newInstance(
                         getString(R.string.perm_denied_title),
                         getString(R.string.perm_denied_warning),
@@ -96,7 +95,7 @@ public class RequestPermissions extends AppCompatActivity
                         null,
                         this);
 
-                permDialog.show(getFragmentManager(), TAG_PERM_DIALOG);
+                permDialog.show(getSupportFragmentManager(), TAG_PERM_DIALOG);
             }
         }
     }

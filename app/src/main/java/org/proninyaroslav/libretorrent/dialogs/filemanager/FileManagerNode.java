@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.dialogs.filemanager;
 
+import android.support.annotation.NonNull;
+
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 
 /*
@@ -76,7 +78,7 @@ public class FileManagerNode implements FileNode<FileManagerNode>
     }
 
     @Override
-    public int compareTo(FileManagerNode another)
+    public int compareTo(@NonNull FileManagerNode another)
     {
         return node.compareTo(another.getName());
     }

@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import android.content.ContentProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -32,7 +31,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -54,17 +52,14 @@ public class FileIOUtils
 
     public static String getDefaultDownloadPath()
     {
-        String path = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 .getAbsolutePath();
 
         File dir = new File(path);
-        if (dir.exists() && dir.isDirectory()) {
+        if (dir.exists() && dir.isDirectory())
             return path;
-
-        } else {
+        else
             return dir.mkdirs() ? path : "";
-        }
     }
 
     /*
@@ -76,12 +71,10 @@ public class FileIOUtils
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         File dir = new File(path);
-        if (dir.exists() && dir.isDirectory()) {
+        if (dir.exists() && dir.isDirectory())
             return path;
-
-        } else {
+        else
             return dir.mkdirs() ? path : "";
-        }
     }
 
     /*
@@ -90,9 +83,8 @@ public class FileIOUtils
 
     public static String[] parsePath(String path)
     {
-        if (path == null || TextUtils.isEmpty(path)) {
+        if (path == null || TextUtils.isEmpty(path))
             return new String[0];
-        }
 
         return path.split(File.separator);
     }
@@ -143,11 +135,10 @@ public class FileIOUtils
             try {
                 StatFs stat = new StatFs(path);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                     availableBytes = stat.getAvailableBytes();
-                } else {
+                else
                     availableBytes = stat.getAvailableBlocks() * stat.getBlockSize();
-                }
             } catch (Exception ee) {
                 /* Ignore */
             }
@@ -159,11 +150,9 @@ public class FileIOUtils
     public static File getTempDir(Context context)
     {
         File tmpDir = new File(context.getExternalFilesDir(null), TEMP_DIR);
-        if (!tmpDir.exists()) {
-            if (!tmpDir.mkdirs()) {
+        if (!tmpDir.exists())
+            if (!tmpDir.mkdirs())
                 return null;
-            }
-        }
 
         return tmpDir;
     }
@@ -171,11 +160,8 @@ public class FileIOUtils
     public static void cleanTempDir(Context context) throws Exception
     {
         File tmpDir = getTempDir(context);
-
-        if (tmpDir == null) {
+        if (tmpDir == null)
             throw new FileNotFoundException("Temp dir not found");
-        }
-
         FileUtils.cleanDirectory(tmpDir);
     }
 
@@ -201,11 +187,10 @@ public class FileIOUtils
                 /* Skip primary storage */
                 for (int i = 1; i < filesDirs.length; i++) {
                     if (filesDirs[i] != null) {
-                        if (filesDirs[i].exists()) {
+                        if (filesDirs[i].exists())
                             storages.add(filesDirs[i].getAbsolutePath());
-                        } else {
+                        else
                             Log.w(TAG, "Unexpected external storage: " + filesDirs[i].getAbsolutePath());
-                        }
                     }
                 }
             }
@@ -214,8 +199,7 @@ public class FileIOUtils
         return storages;
     }
 
-    public static File makeTempFile(Context context, String postfix) throws Exception
-    {
+    public static File makeTempFile(Context context, String postfix) {
         return new File(getTempDir(context), UUID.randomUUID().toString() + postfix);
     }
 

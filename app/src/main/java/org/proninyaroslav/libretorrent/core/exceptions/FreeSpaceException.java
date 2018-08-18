@@ -25,10 +25,7 @@ package org.proninyaroslav.libretorrent.core.exceptions;
 
 public class FreeSpaceException extends Exception
 {
-    public FreeSpaceException()
-    {
-
-    }
+    public FreeSpaceException() { }
 
     public FreeSpaceException(String message)
     {

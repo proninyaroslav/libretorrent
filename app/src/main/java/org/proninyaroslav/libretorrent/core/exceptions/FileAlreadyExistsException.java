@@ -21,10 +21,7 @@ package org.proninyaroslav.libretorrent.core.exceptions;
 
 public class FileAlreadyExistsException extends Exception
 {
-    public FileAlreadyExistsException()
-    {
-
-    }
+    public FileAlreadyExistsException() { }
 
     public FileAlreadyExistsException(String message)
     {

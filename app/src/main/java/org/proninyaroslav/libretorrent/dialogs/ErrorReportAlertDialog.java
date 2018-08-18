@@ -21,10 +21,10 @@ package org.proninyaroslav.libretorrent.dialogs;
 
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -54,7 +54,6 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         ErrorReportAlertDialog frag = new ErrorReportAlertDialog();
 
         Bundle args = new Bundle();
-
         args.putString(TAG_TITLE, title);
         args.putString(TAG_MESSAGE, message);
         args.putString(TAG_POS_TEXT, context.getString(R.string.report));
@@ -62,9 +61,8 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_error);
         args.putString(TAG_DETAIL_ERROR, detailError);
 
-        if (callback instanceof Fragment) {
+        if (callback instanceof Fragment)
             frag.setTargetFragment((Fragment) callback, 0);
-        }
 
         frag.setArguments(args);
 
@@ -75,7 +73,6 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         Bundle args = getArguments();
-
         String title = args.getString(TAG_TITLE);
         String message = args.getString(TAG_MESSAGE);
         String negativeText = args.getString(TAG_NEG_TEXT);
@@ -86,39 +83,26 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         View v = null;
         if (detailError != null && !TextUtils.isEmpty(detailError)) {
             LayoutInflater i = LayoutInflater.from(getActivity());
-            if (resIdView != 0) {
+            if (resIdView != 0)
                 v = i.inflate(resIdView, null);
-            }
 
             initLayoutView(v);
 
             if (v != null) {
-                TextView detailErrorView = (TextView) v.findViewById(R.id.detail_error);
+                TextView detailErrorView = v.findViewById(R.id.detail_error);
                 detailErrorView.setText(detailError);
             }
         }
 
-        AlertDialog.Builder dialog = buildDialog(title, message, v,
-                positiveText, negativeText, null);
+        AlertDialog.Builder dialog = buildDialog(title, message, v, positiveText,
+                                                 negativeText, null);
 
         final AlertDialog alert = dialog.create();
-
-        alert.setOnShowListener(new DialogInterface.OnShowListener()
-        {
-            @Override
-            public void onShow(DialogInterface dialog)
-            {
-                if (getTargetFragment() != null) {
-                    if (getTargetFragment() instanceof OnDialogShowListener) {
-                        ((OnDialogShowListener) getTargetFragment()).onShow(alert);
-                    }
-
-                } else {
-                    if (getActivity() instanceof OnDialogShowListener) {
-                        ((OnDialogShowListener) getActivity()).onShow(alert);
-                    }
-                }
-            }
+        alert.setOnShowListener((DialogInterface dialogInterface) -> {
+            if (getTargetFragment() != null && getTargetFragment() instanceof OnDialogShowListener)
+                ((OnDialogShowListener) getTargetFragment()).onShow(alert);
+            else if (getActivity() instanceof OnDialogShowListener)
+                ((OnDialogShowListener) getActivity()).onShow(alert);
         });
 
         return alert;
@@ -136,50 +120,47 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
     private void initLayoutView(View v)
     {
         if (v != null) {
-            final RelativeLayout expandableSpinner =
-                    (RelativeLayout) v.findViewById(R.id.expandable_spinner);
-            final RelativeLayout expandButton = (RelativeLayout) v.findViewById(R.id.expand_button);
-            final ExpandableLinearLayout expandableLayout =
-                    (ExpandableLinearLayout) v.findViewById(R.id.expandable_layout);
-
+            final RelativeLayout expandableSpinner = v.findViewById(R.id.expandable_spinner);
+            final RelativeLayout expandButton = v.findViewById(R.id.expand_button);
+            final ExpandableLinearLayout expandableLayout = v.findViewById(R.id.expandable_layout);
             expandableLayout.setListener(new ExpandableLayoutListener() {
                 @Override
-                public void onAnimationStart() {
+                public void onAnimationStart()
+                {
                     /* Nothing */
                 }
 
                 @Override
-                public void onAnimationEnd() {
+                public void onAnimationEnd()
+                {
                     /* Nothing */
                 }
 
                 @Override
-                public void onPreOpen() {
+                public void onPreOpen()
+                {
                     createRotateAnimator(expandButton, 0f, 180f).start();
                 }
 
                 @Override
-                public void onPreClose() {
+                public void onPreClose()
+                {
                     createRotateAnimator(expandButton, 180f, 0f).start();
                 }
 
                 @Override
-                public void onOpened() {
+                public void onOpened()
+                {
                     /* Nothing */
                 }
 
                 @Override
-                public void onClosed() {
+                public void onClosed()
+                {
                     /* Nothing */
                 }
             });
-
-            expandableSpinner.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expandableLayout.toggle();
-                }
-            });
+            expandableSpinner.setOnClickListener((View view) -> expandableLayout.toggle());
         }
     }
 }

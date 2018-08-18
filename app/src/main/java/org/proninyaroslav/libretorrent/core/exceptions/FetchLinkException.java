@@ -25,10 +25,7 @@ package org.proninyaroslav.libretorrent.core.exceptions;
 
 public class FetchLinkException extends Exception
 {
-    public FetchLinkException()
-    {
-
-    }
+    public FetchLinkException() { }
 
     public FetchLinkException(String message)
     {

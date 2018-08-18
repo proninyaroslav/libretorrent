@@ -23,6 +23,8 @@ package org.proninyaroslav.libretorrent.core.filetree;
  * The interface with basic functions for a file object.
  */
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public interface FileNode<F> extends Comparable<F>
@@ -42,5 +44,5 @@ public interface FileNode<F> extends Comparable<F>
     void setType(int type);
 
     @Override
-    int compareTo(F another);
+    int compareTo(@NonNull F another);
 }

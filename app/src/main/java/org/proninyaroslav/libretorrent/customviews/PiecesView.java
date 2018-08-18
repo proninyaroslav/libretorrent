@@ -39,7 +39,6 @@ public class PiecesView extends View
     private static final float BORDER_SIZE_DP  = 1f;
 
     private boolean[] pieces;
-
     private int cells = 0;
     private int cellSize;
     private int borderSize;
@@ -76,20 +75,16 @@ public class PiecesView extends View
 
     public void setPieces(boolean[] pieces)
     {
-        if (pieces == null) {
+        if (pieces == null)
             return;
-        }
 
         int prevLength = (this.pieces != null ? this.pieces.length : 0);
-
         cells = pieces.length;
         this.pieces = pieces;
-
-        if (prevLength == pieces.length) {
+        if (prevLength == pieces.length)
             invalidate();
-        } else {
+        else
             requestLayout();
-        }
     }
 
     @Override
@@ -98,12 +93,10 @@ public class PiecesView extends View
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
-
         cols = width / stepSize;
         /* We don't limit rows in the smaller side, thereby preventing cuts display cells */
-        rows = (int) Math.ceil((float) cells / (float) cols);
+        rows = (int)Math.ceil((float)cells / (float)cols);
         margin = (width - cols * stepSize) / 2;
-
         int height = rows * stepSize;
 
         setMeasuredDimension(width, Math.max(width, height));
@@ -114,16 +107,13 @@ public class PiecesView extends View
     {
         super.onDraw(canvas);
 
-        if (pieces == null) {
+        if (pieces == null)
             return;
-        }
 
         int position = 0;
-
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols && position < pieces.length; c++) {
                 Paint paint = (pieces[position] ? complete : empty);
-
                 int left = c * stepSize + borderSize + margin;
                 int right = left + stepSize - borderSize * 2;
                 int top = r * stepSize + borderSize;
@@ -131,7 +121,6 @@ public class PiecesView extends View
 
                 canvas.drawRect(left + borderSize, top + borderSize,
                         right + borderSize, bottom + borderSize, paint);
-
                 ++position;
             }
         }

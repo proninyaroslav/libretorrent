@@ -56,7 +56,7 @@ public class DetailTorrentActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_detail_torrent);
 
-        detailTorrentFragment = (DetailTorrentFragment) getFragmentManager()
+        detailTorrentFragment = (DetailTorrentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.detail_torrent_fragmentContainer);
 
         String id = getIntent().getStringExtra(TAG_TORRENT_ID);
@@ -67,41 +67,36 @@ public class DetailTorrentActivity extends AppCompatActivity
     @Override
     public void onTorrentInfoChanged()
     {
-        if (detailTorrentFragment != null) {
+        if (detailTorrentFragment != null)
             detailTorrentFragment.onTorrentInfoChanged();
-        }
     }
 
     @Override
     public void onTorrentInfoChangesUndone()
     {
-        if (detailTorrentFragment != null) {
+        if (detailTorrentFragment != null)
             detailTorrentFragment.onTorrentInfoChangesUndone();
-        }
     }
 
     @Override
     public void onTorrentFilesChanged()
     {
-        if (detailTorrentFragment != null) {
+        if (detailTorrentFragment != null)
             detailTorrentFragment.onTorrentFilesChanged();
-        }
     }
 
     @Override
     public void onTrackersChanged(ArrayList<String> trackers, boolean replace)
     {
-        if (detailTorrentFragment != null) {
+        if (detailTorrentFragment != null)
             detailTorrentFragment.onTrackersChanged(trackers, replace);
-        }
     }
 
     @Override
     public void openFile(String relativePath)
     {
-        if (detailTorrentFragment != null) {
+        if (detailTorrentFragment != null)
             detailTorrentFragment.openFile(relativePath);
-        }
     }
 
     @Override

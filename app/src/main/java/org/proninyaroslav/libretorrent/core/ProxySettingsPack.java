@@ -65,18 +65,14 @@ public class ProxySettingsPack
         }
     }
 
-    public ProxySettingsPack()
-    {
-
-    }
+    public ProxySettingsPack() { }
 
     public ProxySettingsPack(ProxyType type,
                              String address,
                              String login,
                              String password,
                              int port,
-                             boolean proxyPeersToo,
-                             boolean forceProxy)
+                             boolean proxyPeersToo)
     {
         this.type = type;
         this.address = address;

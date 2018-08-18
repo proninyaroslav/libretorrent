@@ -20,9 +20,6 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -33,10 +30,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -164,26 +165,25 @@ public class AddTorrentFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_add_torrent, container, false);
-        coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordinator_layout);
-        fetchMagnetProgress = (ProgressBar) v.findViewById(R.id.fetch_magnet_progress);
-        viewPager = (ViewPager) v.findViewById(R.id.add_torrent_viewpager);
-        tabLayout = (TabLayout) v.findViewById(R.id.add_torrent_tabs);
+        coordinatorLayout = v.findViewById(R.id.coordinator_layout);
+        fetchMagnetProgress = v.findViewById(R.id.fetch_magnet_progress);
+        viewPager = v.findViewById(R.id.add_torrent_viewpager);
+        tabLayout = v.findViewById(R.id.add_torrent_tabs);
 
         return v;
     }
 
-    /* For API < 23 */
     @Override
-    public void onAttach(Activity activity)
+    public void onAttach(Context context)
     {
-        super.onAttach(activity);
+        super.onAttach(context);
 
-        if (activity instanceof AppCompatActivity) {
-            this.activity = (AppCompatActivity) activity;
-            callback = (Callback) activity;
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity)context;
+            callback = (Callback)context;
         }
     }
 
@@ -217,7 +217,8 @@ public class AddTorrentFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity) getActivity();
+            activity = (AppCompatActivity)getActivity();
+
         Utils.showColoredStatusBar_KitKat(activity);
         toolbar = activity.findViewById(R.id.toolbar);
         if (toolbar != null)
@@ -239,7 +240,7 @@ public class AddTorrentFragment extends Fragment
         if (savedInstanceState != null) {
             pathToTempTorrent = savedInstanceState.getString(TAG_PATH_TO_TEMP_TORRENT);
             saveTorrentFile = savedInstanceState.getBoolean(TAG_SAVE_TORRENT_FILE);
-            decodeState = (AtomicReference<State>) savedInstanceState.getSerializable(TAG_FETCHING_STATE);
+            decodeState = (AtomicReference<State>)savedInstanceState.getSerializable(TAG_FETCHING_STATE);
             fromMagnet = savedInstanceState.getBoolean(TAG_FROM_MAGNET);
 
             showFetchMagnetProgress(decodeState.get() == State.FETCHING_MAGNET);
@@ -249,9 +250,9 @@ public class AddTorrentFragment extends Fragment
              * torrent decoding in process (after configuration changes)
              */
             if (decodeState.get() != State.FETCHING_HTTP &&
-                    decodeState.get() != State.DECODE_TORRENT_FILE &&
-                    decodeState.get() != State.UNKNOWN &&
-                    decodeState.get() != State.ERROR)
+                decodeState.get() != State.DECODE_TORRENT_FILE &&
+                decodeState.get() != State.UNKNOWN &&
+                decodeState.get() != State.ERROR)
             {
                 showFragments(true, decodeState.get() != State.FETCHING_MAGNET);
             }
@@ -320,24 +321,17 @@ public class AddTorrentFragment extends Fragment
             decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
         } else {
             Handler handler = new Handler(activity.getMainLooper());
-            Runnable r = new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    decodeTask = new TorrentDecodeTask(AddTorrentFragment.this, progressDialogText);
-                    decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
-                }
-            };
-            handler.post(r);
+            handler.post(() -> {
+                decodeTask = new TorrentDecodeTask(AddTorrentFragment.this, progressDialogText);
+                decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
+            });
         }
     }
 
     public void handlingException(Exception e)
     {
-        if (e == null) {
+        if (e == null)
             return;
-        }
 
         decodeState.set(State.ERROR);
         showFetchMagnetProgress(false);
@@ -413,7 +407,7 @@ public class AddTorrentFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
@@ -438,7 +432,7 @@ public class AddTorrentFragment extends Fragment
             AddTorrentFragment.this.service = binder.getService();
             bound = true;
             if (Utils.checkStoragePermission(activity.getApplicationContext()) &&
-                    decodeState.get() == State.UNKNOWN)
+                decodeState.get() == State.UNKNOWN)
             {
                 initDecode();
             }
@@ -464,7 +458,7 @@ public class AddTorrentFragment extends Fragment
                 TorrentMetaInfo ti = b.getParcelable(TorrentStateMsg.META_INFO);
                 decodeState.set(State.FETCHING_MAGNET_COMPLETED);
                 showFetchMagnetProgress(false);
-                if (info != null) {
+                if (info != null && ti != null) {
                     if (ti.sha1Hash.equals(info.sha1Hash)) {
                         info = ti;
                         /* Prevent race condition */
@@ -484,7 +478,8 @@ public class AddTorrentFragment extends Fragment
         }
     };
 
-    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Exception> {
+    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Exception>
+    {
         private final WeakReference<AddTorrentFragment> fragment;
         private String progressDialogText;
 
@@ -582,9 +577,8 @@ public class AddTorrentFragment extends Fragment
                     break;
             }
 
-            if (e != null) {
+            if (e != null)
                 return;
-            }
 
             fragment.get().showFragments(true, fragment.get().decodeState.get() != State.FETCHING_MAGNET);
         }
@@ -597,7 +591,7 @@ public class AddTorrentFragment extends Fragment
             String comment = null;
 
             if (v != null) {
-                EditText editText = (EditText) v.findViewById(R.id.comment);
+                EditText editText = v.findViewById(R.id.comment);
                 comment = editText.getText().toString();
             }
 
@@ -616,7 +610,7 @@ public class AddTorrentFragment extends Fragment
     @Override
     public void onNeutralClicked(@Nullable View v)
     {
-            /* Nothing */
+        /* Nothing */
     }
 
     private synchronized void updateInfoFragment()
@@ -639,36 +633,22 @@ public class AddTorrentFragment extends Fragment
                 (showFile && adapter.getItem(FILE_FRAG_POS) != null))
             return;
 
-        activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (showInfo) {
-                    adapter.addFragment(AddTorrentInfoFragment.newInstance(info),
-                            INFO_FRAG_POS, getString(R.string.torrent_info));
-                }
+        activity.runOnUiThread(() -> {
+            if (showInfo)
+                adapter.addFragment(AddTorrentInfoFragment.newInstance(info),
+                        INFO_FRAG_POS, getString(R.string.torrent_info));
 
-                if (showFile) {
-                    adapter.addFragment(AddTorrentFilesFragment.newInstance(info.fileList),
-                            FILE_FRAG_POS, getString(R.string.torrent_files));
-                }
+            if (showFile)
+                adapter.addFragment(AddTorrentFilesFragment.newInstance(info.fileList),
+                        FILE_FRAG_POS, getString(R.string.torrent_files));
 
-                adapter.notifyDataSetChanged();
-            }
+            adapter.notifyDataSetChanged();
         });
     }
 
     private void showFetchMagnetProgress(final boolean show)
     {
-        activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                fetchMagnetProgress.setVisibility((show ? View.VISIBLE : View.GONE));
-            }
-        });
+        activity.runOnUiThread(() -> fetchMagnetProgress.setVisibility((show ? View.VISIBLE : View.GONE)));
     }
 
     @Override
@@ -702,8 +682,8 @@ public class AddTorrentFragment extends Fragment
 
     private void buildTorrent()
     {
-        AddTorrentFilesFragment fileFrag = (AddTorrentFilesFragment) adapter.getItem(FILE_FRAG_POS);
-        AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment) adapter.getItem(INFO_FRAG_POS);
+        AddTorrentFilesFragment fileFrag = (AddTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
+        AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
         if (infoFrag == null || info == null)
             return;
 
@@ -718,7 +698,7 @@ public class AddTorrentFragment extends Fragment
             selectedIndexes = fileFrag.getSelectedFileIndexes();
 
         if ((selectedIndexes == null || selectedIndexes.size() == 0) &&
-                decodeState.get() != State.FETCHING_MAGNET)
+            decodeState.get() != State.FETCHING_MAGNET)
         {
             Snackbar.make(coordinatorLayout,
                     R.string.error_no_files_selected,
@@ -765,6 +745,6 @@ public class AddTorrentFragment extends Fragment
     {
         if (decodeTask != null)
             decodeTask.cancel(true);
-        ((FragmentCallback) activity).fragmentFinished(intent, code);
+        ((FragmentCallback)activity).fragmentFinished(intent, code);
     }
 }

@@ -93,7 +93,7 @@ public class ToolbarSpinnerAdapter extends BaseAdapter
             view.setTag(DROPDOWN);
         }
 
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(getTitle(position));
 
         return view;
@@ -104,12 +104,11 @@ public class ToolbarSpinnerAdapter extends BaseAdapter
     {
         if (view == null || !view.getTag().toString().equals(NON_DROPDOWN)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.
-                    toolbar_spinner_item_actionbar, parent, false);
+            view = inflater.inflate(R.layout.toolbar_spinner_item_actionbar, parent, false);
             view.setTag(NON_DROPDOWN);
         }
 
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(getTitle(position));
 
         return view;

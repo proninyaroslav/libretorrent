@@ -111,9 +111,8 @@ public class TorrentUtils
     {
         if (FileIOUtils.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null), id);
-            if (dataDir.exists()) {
+            if (dataDir.exists())
                 return dataDir.getAbsolutePath();
-            }
         }
 
         return null;
@@ -135,9 +134,8 @@ public class TorrentUtils
         if (FileIOUtils.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null),  id);
 
-            if (dataDir.exists()) {
+            if (dataDir.exists())
                 return new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME).exists();
-            }
         }
 
         return false;
@@ -151,12 +149,10 @@ public class TorrentUtils
     @Nullable
     public static String makeTorrentDataDir(Context context, String name)
     {
-        if (!FileIOUtils.isStorageWritable()) {
+        if (!FileIOUtils.isStorageWritable())
             return null;
-        }
 
         String dataDir = context.getExternalFilesDir(null).getAbsolutePath();
-
         File newDir = new File(dataDir, name);
 
         return (newDir.mkdir()) ? newDir.getAbsolutePath() : null;
@@ -164,12 +160,10 @@ public class TorrentUtils
 
     public static boolean removeTorrentDataDir(Context context, String id)
     {
-        if (!FileIOUtils.isStorageWritable()) {
+        if (!FileIOUtils.isStorageWritable())
             return false;
-        }
 
         String path = findTorrentDataDir(context, id);
-
         if (path != null) {
             try {
                 FileUtils.deleteDirectory(new File(path));
@@ -193,10 +187,8 @@ public class TorrentUtils
     public static void saveResumeData(Context context, String id, byte[] data) throws Exception
     {
         String pathToDataDir = findTorrentDataDir(context, id);
-
-        if (pathToDataDir == null) {
+        if (pathToDataDir == null)
             return;
-        }
 
         FileUtils.writeByteArrayToFile(
                 new File(pathToDataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME),
@@ -205,9 +197,8 @@ public class TorrentUtils
 
     public static File createTorrentFile(String name, byte[] data, File saveDir) throws Exception
     {
-        if (name == null || data == null || saveDir == null) {
+        if (name == null || data == null || saveDir == null)
             return null;
-        }
 
         File torrent = new File(saveDir, name);
         FileUtils.writeByteArrayToFile(torrent, data);
@@ -234,17 +225,14 @@ public class TorrentUtils
         }
 
         String dataDir = findTorrentDataDir(context, id);
-        if (dataDir == null) {
+        if (dataDir == null)
             return false;
-        }
 
         File torrent = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
-        if (!torrent.exists()) {
+        if (!torrent.exists())
             return false;
-        }
 
         String newTorrent = (fileName != null ? fileName : id);
-
         FileUtils.copyFile(torrent, new File(pathToDir, newTorrent));
 
         return true;
@@ -265,9 +253,8 @@ public class TorrentUtils
             String dataDir = context.getExternalFilesDir(null).getAbsolutePath();
             File session = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_SESSION_FILE);
 
-            if (session.exists()) {
+            if (session.exists())
                 return session.getAbsolutePath();
-            }
         }
 
         return null;

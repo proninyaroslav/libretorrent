@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.filetree;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,11 +47,13 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
     protected F parent;
     protected Map<String, F> children = new LinkedHashMap<>();
 
-    public FileTree(String name, long size, int type) {
+    public FileTree(String name, long size, int type)
+    {
         this(-1, name, size, type, null);
     }
 
-    public FileTree(String name, long size, int type, F parent) {
+    public FileTree(String name, long size, int type, F parent)
+    {
         this(-1, name, size, type, parent);
     }
 
@@ -96,9 +100,8 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
     {
         List<Integer> indexes = new ArrayList<>();
 
-        for (F child : children.values()) {
+        for (F child : children.values())
             indexes.add(child.getIndex());
-        }
 
         return indexes;
     }
@@ -159,11 +162,9 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
 
     public long size()
     {
-        if (size == 0 && children.size() != 0) {
-            for (F child : children.values()) {
+        if (size == 0 && children.size() != 0)
+            for (F child : children.values())
                 size += child.size();
-            }
-        }
 
         return size;
     }
@@ -182,7 +183,7 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
     }
 
     @Override
-    public int compareTo(FileTree another)
+    public int compareTo(@NonNull FileTree another)
     {
         return name.compareTo(another.getName());
     }

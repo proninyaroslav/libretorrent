@@ -20,11 +20,11 @@
 package org.proninyaroslav.libretorrent.dialogs;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +43,7 @@ public class BaseAlertDialog extends DialogFragment
     protected static final String TAG_MESSAGE = "message";
     protected static final String TAG_POS_TEXT = "positive_test";
     protected static final String TAG_NEG_TEXT = "negative_text";
-    protected static final String TAG_NEUTRAL_TEXT = "neutral_button";
+    protected static final String TAG_NEUTRAL_BUTTON = "neutral_button";
     protected static final String TAG_RES_ID_VIEW = "res_id_view";
 
     public interface OnClickListener
@@ -69,17 +69,15 @@ public class BaseAlertDialog extends DialogFragment
         BaseAlertDialog frag = new BaseAlertDialog();
 
         Bundle args = new Bundle();
-
         args.putString(TAG_TITLE, title);
         args.putString(TAG_MESSAGE, message);
         args.putString(TAG_POS_TEXT, positiveText);
         args.putString(TAG_NEG_TEXT, negativeText);
-        args.putString(TAG_NEUTRAL_TEXT, neutralText);
+        args.putString(TAG_NEUTRAL_BUTTON, neutralText);
         args.putInt(TAG_RES_ID_VIEW, resIdView);
 
-        if (callback instanceof Fragment) {
+        if (callback instanceof Fragment)
             frag.setTargetFragment((Fragment) callback, 0);
-        }
 
         frag.setArguments(args);
 
@@ -90,41 +88,27 @@ public class BaseAlertDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         Bundle args = getArguments();
-
         String title = args.getString(TAG_TITLE);
         String message = args.getString(TAG_MESSAGE);
         String positiveText = args.getString(TAG_POS_TEXT);
         String negativeText = args.getString(TAG_NEG_TEXT);
-        String neutralText = args.getString(TAG_NEUTRAL_TEXT);
+        String neutralText = args.getString(TAG_NEUTRAL_BUTTON);
         int resIdView = args.getInt(TAG_RES_ID_VIEW);
 
         LayoutInflater i = LayoutInflater.from(getActivity());
         View v = null;
-        if (resIdView != 0) {
+        if (resIdView != 0)
             v = i.inflate(resIdView, null);
-        }
 
-        AlertDialog.Builder dialog = buildDialog(title, message, v,
-                positiveText, negativeText, neutralText);
+        AlertDialog.Builder dialog = buildDialog(title, message, v, positiveText,
+                                                 negativeText, neutralText);
 
         final AlertDialog alert = dialog.create();
-
-        alert.setOnShowListener(new DialogInterface.OnShowListener()
-        {
-            @Override
-            public void onShow(DialogInterface dialog)
-            {
-                if (getTargetFragment() != null) {
-                    if (getTargetFragment() instanceof OnDialogShowListener) {
-                        ((OnDialogShowListener) getTargetFragment()).onShow(alert);
-                    }
-
-                } else {
-                    if (getActivity() instanceof OnDialogShowListener) {
-                        ((OnDialogShowListener) getActivity()).onShow(alert);
-                    }
-                }
-            }
+        alert.setOnShowListener((DialogInterface dialogInterface) -> {
+            if (getTargetFragment() != null && getTargetFragment() instanceof OnDialogShowListener)
+                ((OnDialogShowListener) getTargetFragment()).onShow(alert);
+            else if (getActivity() instanceof OnDialogShowListener)
+                ((OnDialogShowListener) getActivity()).onShow(alert);
         });
 
         return alert;
@@ -137,79 +121,39 @@ public class BaseAlertDialog extends DialogFragment
         AlertDialog.Builder dialog;
 
         dialog = new AlertDialog.Builder(getActivity());
-
-        if (title != null) {
+        if (title != null)
             dialog.setTitle(title);
-        }
 
-        if (message != null) {
+        if (message != null)
             dialog.setMessage(message);
-        }
 
-        if (view != null) {
+        if (view != null)
             dialog.setView(view);
-        }
 
         if (positiveText != null) {
-            dialog.setPositiveButton(positiveText, new DialogInterface.OnClickListener()
-            {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    if (getTargetFragment() != null) {
-                        if (getTargetFragment() instanceof OnClickListener) {
-                            ((OnClickListener) getTargetFragment()).onPositiveClicked(view);
-                        }
-
-                    } else {
-                        if (getActivity() instanceof OnClickListener) {
-                            ((OnClickListener) getActivity()).onPositiveClicked(view);
-                        }
-                    }
-                }
+            dialog.setPositiveButton(positiveText, (DialogInterface dialogInterface, int which) -> {
+                if (getTargetFragment() != null && getTargetFragment() instanceof OnClickListener)
+                    ((OnClickListener) getTargetFragment()).onPositiveClicked(view);
+                else if (getActivity() instanceof OnClickListener)
+                    ((OnClickListener) getActivity()).onPositiveClicked(view);
             });
         }
 
         if (negativeText != null) {
-            dialog.setNegativeButton(negativeText, new DialogInterface.OnClickListener()
-            {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    if (getTargetFragment() != null) {
-                        if (getTargetFragment() instanceof OnClickListener) {
-                            ((OnClickListener) getTargetFragment()).onNegativeClicked(view);
-                        }
-
-                    } else {
-                        if (getActivity() instanceof OnClickListener) {
-                            ((OnClickListener) getActivity()).onNegativeClicked(view);
-                        }
-                    }
-                }
+            dialog.setNegativeButton(negativeText, (DialogInterface dialogInterface, int which) -> {
+                if (getTargetFragment() != null && getTargetFragment() instanceof OnClickListener)
+                    ((OnClickListener) getTargetFragment()).onNegativeClicked(view);
+                else if (getActivity() instanceof OnClickListener)
+                    ((OnClickListener) getActivity()).onNegativeClicked(view);
             });
         }
 
         if (neutralText != null) {
-            dialog.setNeutralButton(neutralText, new DialogInterface.OnClickListener()
-            {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    if (getTargetFragment() != null) {
-                        if (getTargetFragment() instanceof OnClickListener) {
-                            ((OnClickListener) getTargetFragment()).onNeutralClicked(view);
-                        }
-
-                    } else {
-                        if (getActivity() instanceof OnClickListener) {
-                            ((OnClickListener) getActivity()).onNeutralClicked(view);
-                        }
-                    }
-                }
+            dialog.setNeutralButton(neutralText, (DialogInterface dialogInterface, int which) -> {
+                if (getTargetFragment() != null && getTargetFragment() instanceof OnClickListener)
+                    ((OnClickListener) getTargetFragment()).onNeutralClicked(view);
+                else if (getActivity() instanceof OnClickListener)
+                    ((OnClickListener) getActivity()).onNeutralClicked(view);
             });
         }
 

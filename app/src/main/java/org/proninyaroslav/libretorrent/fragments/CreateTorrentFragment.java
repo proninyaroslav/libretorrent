@@ -20,9 +20,6 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -31,10 +28,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -139,7 +140,7 @@ public class CreateTorrentFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_create_torrent, container, false);
         coordinatorLayout = v.findViewById(R.id.coordinator_layout);
@@ -161,14 +162,13 @@ public class CreateTorrentFragment extends Fragment
         return v;
     }
 
-    /* For API < 23 */
     @Override
-    public void onAttach(Activity activity)
+    public void onAttach(Context context)
     {
-        super.onAttach(activity);
+        super.onAttach(context);
 
-        if (activity instanceof AppCompatActivity)
-            this.activity = (AppCompatActivity) activity;
+        if (context instanceof AppCompatActivity)
+            activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -177,7 +177,7 @@ public class CreateTorrentFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity) getActivity();
+            activity = (AppCompatActivity)getActivity();
 
         Utils.showColoredStatusBar_KitKat(activity);
 
@@ -222,36 +222,26 @@ public class CreateTorrentFragment extends Fragment
             }
         });
 
-        fileChooserButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent i = new Intent(activity, FileManagerDialog.class);
-                FileManagerConfig config = new FileManagerConfig(
-                        FileIOUtils.getUserDirPath(),
-                        null,
-                        null,
-                        FileManagerConfig.FILE_CHOOSER_MODE);
-                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-                startActivityForResult(i, CHOOSE_FILE_REQUEST);
-            }
+        fileChooserButton.setOnClickListener((View v) -> {
+            Intent i = new Intent(activity, FileManagerDialog.class);
+            FileManagerConfig config = new FileManagerConfig(
+                    FileIOUtils.getUserDirPath(),
+                    null,
+                    null,
+                    FileManagerConfig.FILE_CHOOSER_MODE);
+            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+            startActivityForResult(i, CHOOSE_FILE_REQUEST);
         });
 
-        folderChooserButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent i = new Intent(activity, FileManagerDialog.class);
-                FileManagerConfig config = new FileManagerConfig(
-                        FileIOUtils.getUserDirPath(),
-                        null,
-                        null,
-                        FileManagerConfig.DIR_CHOOSER_MODE);
-                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-                startActivityForResult(i, CHOOSE_DIR_REQUEST);
-            }
+        folderChooserButton.setOnClickListener((View v) -> {
+            Intent i = new Intent(activity, FileManagerDialog.class);
+            FileManagerConfig config = new FileManagerConfig(
+                    FileIOUtils.getUserDirPath(),
+                    null,
+                    null,
+                    FileManagerConfig.DIR_CHOOSER_MODE);
+            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+            startActivityForResult(i, CHOOSE_DIR_REQUEST);
         });
 
         /* Dismiss error label if user has changed the text */
@@ -300,16 +290,10 @@ public class CreateTorrentFragment extends Fragment
             decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, createParams);
         } else {
             Handler handler = new Handler(activity.getMainLooper());
-            Runnable r = new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    decodeTask = new BuildTorrentTask(CreateTorrentFragment.this);
-                    decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, createParams);
-                }
-            };
-            handler.post(r);
+            handler.post(() -> {
+                decodeTask = new BuildTorrentTask(CreateTorrentFragment.this);
+                decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, createParams);
+            });
         }
     }
 
@@ -374,7 +358,7 @@ public class CreateTorrentFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putString(TAG_PATH_TO_FILE_OR_DIR, pathToFileOrDir);
         outState.putInt(TAG_PIECE_SIZE, pieceSize);
@@ -540,7 +524,9 @@ public class CreateTorrentFragment extends Fragment
         if (err != null)
             return;
 
-        String comments = commentsEditText.getText().toString();
+        String comments = null;
+        if (commentsEditText.getText() != null)
+            comments = commentsEditText.toString();
         boolean startSeeding = startSeedingOption.isChecked();
         boolean isPrivate = isPrivateOption.isChecked();
         boolean optimizeAlignment = optimizeAlignmentOption.isChecked();
@@ -558,7 +544,9 @@ public class CreateTorrentFragment extends Fragment
 
     private ArrayList<String> getAndValidateTrackers()
     {
-        String[] trackerUrls = trackersEditText.getText().toString().split("\n");
+        String[] trackerUrls = new String[0];
+        if (trackersEditText.getText() != null)
+         trackerUrls = trackersEditText.toString().split("\n");
         ArrayList<String> validatedTrackers = new ArrayList<>();
         for (String url : trackerUrls) {
             url = Utils.normalizeURL(url.trim());
@@ -578,7 +566,9 @@ public class CreateTorrentFragment extends Fragment
 
     private ArrayList<String> getAndValidateWebSeeds()
     {
-        String[] webSeedsUrls = webSeedsEditText.getText().toString().split("\n");
+        String[] webSeedsUrls = new String[0];
+        if (webSeedsEditText.getText() != null)
+            webSeedsUrls = webSeedsEditText.getText().toString().split("\n");
         ArrayList<String> validatedWebSeeds = new ArrayList<>();
         for (String url : webSeedsUrls) {
             url = Utils.normalizeURL(url.trim());

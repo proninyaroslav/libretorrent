@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,10 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -97,7 +99,7 @@ public class FeedItemsFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_feed_items, container, false);
 
@@ -114,7 +116,7 @@ public class FeedItemsFragment extends Fragment
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity) context;
+            activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -122,9 +124,8 @@ public class FeedItemsFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
-            activity = (AppCompatActivity) getActivity();
-        }
+        if (activity == null)
+            activity = (AppCompatActivity)getActivity();
 
         Utils.showColoredStatusBar_KitKat(activity);
 
@@ -132,21 +133,8 @@ public class FeedItemsFragment extends Fragment
             toolbar.inflateMenu(R.menu.feed_items);
             toolbar.setNavigationIcon(ContextCompat.getDrawable(activity.getApplicationContext(),
                     R.drawable.ic_arrow_back_white_24dp));
-            toolbar.setNavigationOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    onBackPressed();
-                }
-            });
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item)
-                {
-                    return onOptionsItemSelected(item);
-                }
-            });
+            toolbar.setNavigationOnClickListener((View view) -> onBackPressed());
+            toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
 
         } else {
             if (toolbar != null) {
@@ -193,13 +181,7 @@ public class FeedItemsFragment extends Fragment
         itemList.setAdapter(adapter);
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh()
-            {
-                refreshChannel();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::refreshChannel);
     }
 
     @Override
@@ -233,7 +215,10 @@ public class FeedItemsFragment extends Fragment
     {
         super.onDestroyView();
 
-        Fragment fragment = getFragmentManager().findFragmentByTag(TAG_FETCH_ERROR_DIALOG);
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
+        Fragment fragment = fm.findFragmentByTag(TAG_FETCH_ERROR_DIALOG);
 
         /* Prevents leak the dialog in portrait mode */
         if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null)
@@ -241,7 +226,7 @@ public class FeedItemsFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putString(TAG_FEED_URL, feedUrl);
         outState.putParcelableArrayList(TAG_ITEMS, items);

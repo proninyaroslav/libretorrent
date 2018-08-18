@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -52,14 +53,8 @@ public class FeedItemsAdapter extends RecyclerView.Adapter<FeedItemsAdapter.View
     private ViewHolder.ClickListener clickListener;
     private int rowLayout;
     private List<FeedItem> items;
-    private Comparator<FeedItem> sorting = new Comparator<FeedItem>()
-    {
-        @Override
-        public int compare(FeedItem o1, FeedItem o2)
-        {
-            return Long.valueOf(o2.getPubDate()).compareTo(o1.getPubDate());
-        }
-    };
+    private Comparator<FeedItem> sorting = (FeedItem o1, FeedItem o2) ->
+            Long.compare(o2.getPubDate(), o1.getPubDate());
 
     public FeedItemsAdapter(List<FeedItem> items, Context context, int rowLayout,
                             ViewHolder.ClickListener clickListener)
@@ -71,8 +66,9 @@ public class FeedItemsAdapter extends RecyclerView.Adapter<FeedItemsAdapter.View
         Collections.sort(this.items, sorting);
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
 
@@ -81,7 +77,7 @@ public class FeedItemsAdapter extends RecyclerView.Adapter<FeedItemsAdapter.View
 
     @SuppressWarnings("ResourceType")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         FeedItem item = items.get(position);
 
@@ -188,30 +184,20 @@ public class FeedItemsAdapter extends RecyclerView.Adapter<FeedItemsAdapter.View
             title = itemView.findViewById(R.id.item_title);
             pubDate = itemView.findViewById(R.id.item_pub_date);
             menu = itemView.findViewById(R.id.item_menu);
-            menu.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    PopupMenu popup = new PopupMenu(v.getContext(), v);
-                    popup.inflate(R.menu.feed_item_popup);
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
-                    {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem menuItem)
-                        {
-                            int position = getAdapterPosition();
+            menu.setOnClickListener((View v) -> {
+                PopupMenu popup = new PopupMenu(v.getContext(), v);
+                popup.inflate(R.menu.feed_item_popup);
+                popup.setOnMenuItemClickListener((MenuItem menuItem) -> {
+                    int position = getAdapterPosition();
 
-                            if (listener != null && position >= 0) {
-                                FeedItem item = items.get(position);
-                                listener.onMenuItemClicked(menuItem.getItemId(), item);
-                            }
+                    if (listener != null && position >= 0) {
+                        FeedItem item = items.get(position);
+                        listener.onMenuItemClicked(menuItem.getItemId(), item);
+                    }
 
-                            return true;
-                        }
-                    });
-                    popup.show();
-                }
+                    return true;
+                });
+                popup.show();
             });
         }
 

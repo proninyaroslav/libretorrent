@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
@@ -61,7 +62,8 @@ public class DetailTorrentPiecesFragment extends Fragment
     private int downloadedPieces;
     private int[] scrollPosition = new int[]{0, 0};
 
-    public static DetailTorrentPiecesFragment newInstance(int allPiecesCount, int pieceSize) {
+    public static DetailTorrentPiecesFragment newInstance(int allPiecesCount, int pieceSize)
+    {
         DetailTorrentPiecesFragment fragment = new DetailTorrentPiecesFragment();
 
         fragment.allPiecesCount = allPiecesCount;
@@ -77,9 +79,8 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            this.activity = (AppCompatActivity) context;
-        }
+        if (context instanceof AppCompatActivity)
+            this.activity = (AppCompatActivity)context;
     }
 
     @Override
@@ -101,13 +102,13 @@ public class DetailTorrentPiecesFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_detail_torrent_pieces, container, false);
 
-        pieceMap = (PiecesView) v.findViewById(R.id.piece_map);
-        piecesCounter = (TextView) v.findViewById(R.id.pieces_count);
-        pieceMapScrollView = (NestedScrollView) v.findViewById(R.id.piece_map_scroll_view);
+        pieceMap = v.findViewById(R.id.piece_map);
+        piecesCounter = v.findViewById(R.id.pieces_count);
+        pieceMapScrollView = v.findViewById(R.id.piece_map_scroll_view);
 
         return v;
     }
@@ -117,16 +118,15 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        if (activity == null) {
+        if (activity == null)
             activity = (AppCompatActivity) getActivity();
-        }
 
         pieceMap.setPieces(pieces);
         updatePieceCounter();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
@@ -151,17 +151,15 @@ public class DetailTorrentPiecesFragment extends Fragment
 
         if (savedInstanceState != null) {
             scrollPosition = savedInstanceState.getIntArray(TAG_SCROLL_POSITION);
-            if (scrollPosition != null && scrollPosition.length == 2) {
+            if (scrollPosition != null && scrollPosition.length == 2)
                 pieceMapScrollView.scrollTo(scrollPosition[0], scrollPosition[1]);
-            }
         }
     }
 
     public void setPieces(boolean[] pieces)
     {
-        if (pieces == null) {
+        if (pieces == null)
             return;
-        }
 
         this.pieces = pieces;
         pieceMap.setPieces(pieces);
@@ -186,10 +184,6 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
         String pieceLength = Formatter.formatFileSize(activity, pieceSize);
-        piecesCounter.setText(
-                String.format(piecesTemplate,
-                        downloadedPieces,
-                        allPiecesCount,
-                        pieceLength));
+        piecesCounter.setText(String.format(piecesTemplate, downloadedPieces, allPiecesCount, pieceLength));
     }
 }

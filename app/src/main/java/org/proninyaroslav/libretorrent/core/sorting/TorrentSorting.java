@@ -27,16 +27,16 @@ public class TorrentSorting extends BaseSorting
     {
         none {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 return 0;
             }
         },
         name {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 if (direction == Direction.ASC)
                     return item1.name.compareTo(item2.name);
@@ -46,58 +46,57 @@ public class TorrentSorting extends BaseSorting
         },
         size {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.valueOf(item2.totalBytes).compareTo(item1.totalBytes);
+                    return Long.compare(item2.totalBytes, item1.totalBytes);
                 else
-                    return Long.valueOf(item1.totalBytes).compareTo(item2.totalBytes);
+                    return Long.compare(item1.totalBytes, item2.totalBytes);
             }
         },
         progress {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Integer.valueOf(item2.progress).compareTo(item1.progress);
+                    return Integer.compare(item2.progress, item1.progress);
                 else
-                    return Integer.valueOf(item1.progress).compareTo(item2.progress);
+                    return Integer.compare(item1.progress, item2.progress);
             }
         },
         ETA {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.valueOf(item2.ETA).compareTo(item1.ETA);
+                    return Long.compare(item2.ETA, item1.ETA);
                 else
-                    return Long.valueOf(item1.ETA).compareTo(item2.ETA);
+                    return Long.compare(item1.ETA, item2.ETA);
             }
         },
         peers {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Integer.valueOf(item2.peers).compareTo(item1.peers);
+                    return Integer.compare(item2.peers, item1.peers);
                 else
-                    return Integer.valueOf(item1.peers).compareTo(item2.peers);
+                    return Integer.compare(item1.peers, item2.peers);
             }
         },
         dateAdded {
             @Override
-            public int compare(TorrentListItem item1,
-                               TorrentListItem item2, Direction direction)
+            public int compare(TorrentListItem item1, TorrentListItem item2,
+                               Direction direction)
             {
-                if (direction == Direction.ASC) {
-                    return Long.valueOf(item2.dateAdded).compareTo(item1.dateAdded);
-                } else {
-                    return Long.valueOf(item1.dateAdded).compareTo(item2.dateAdded);
-                }
+                if (direction == Direction.ASC)
+                    return Long.compare(item2.dateAdded, item1.dateAdded);
+                else
+                    return Long.compare(item1.dateAdded, item2.dateAdded);
             }
         };
 
@@ -106,20 +105,17 @@ public class TorrentSorting extends BaseSorting
             SortingColumns[] values = SortingColumns.class.getEnumConstants();
             String[] arr = new String[values.length];
 
-            for (int i = 0; i < values.length; i++){
+            for (int i = 0; i < values.length; i++)
                 arr[i] = values[i].toString();
-            }
 
             return arr;
         }
 
         public static SortingColumns fromValue(String value)
         {
-            for (SortingColumns column : SortingColumns.class.getEnumConstants()) {
-                if (column.toString().equalsIgnoreCase(value)) {
+            for (SortingColumns column : SortingColumns.class.getEnumConstants())
+                if (column.toString().equalsIgnoreCase(value))
                     return column;
-                }
-            }
 
             return SortingColumns.none;
         }

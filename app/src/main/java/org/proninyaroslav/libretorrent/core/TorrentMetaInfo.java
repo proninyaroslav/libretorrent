@@ -160,13 +160,11 @@ public class TorrentMetaInfo implements Parcelable
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof TorrentMetaInfo)) {
+        if (!(o instanceof TorrentMetaInfo))
             return false;
-        }
 
-        if (o == this) {
+        if (o == this)
             return true;
-        }
 
         TorrentMetaInfo info = (TorrentMetaInfo) o;
 

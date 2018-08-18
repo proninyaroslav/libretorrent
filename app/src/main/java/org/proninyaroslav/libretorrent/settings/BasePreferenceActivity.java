@@ -59,21 +59,18 @@ public class BasePreferenceActivity extends AppCompatActivity
             title = config.getTitle();
         }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            if (title != null) {
+            if (title != null)
                 toolbar.setTitle(title);
-            }
             setSupportActionBar(toolbar);
         }
 
-        if (getSupportActionBar() != null) {
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
-        if (fragment != null && savedInstanceState == null) {
+        if (fragment != null && savedInstanceState == null)
             setFragment(getFragment(fragment));
-        }
     }
 
     public <F extends PreferenceFragmentCompat> void setFragment(F fragment)

@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /*
  * The class encapsulates path, index and file size, extracted from bencode.
@@ -107,7 +108,7 @@ public class BencodeFileItem implements Parcelable, Comparable<BencodeFileItem>
             };
 
     @Override
-    public int compareTo(BencodeFileItem anotner)
+    public int compareTo(@NonNull BencodeFileItem anotner)
     {
         return path.compareTo(anotner.path);
     }

@@ -95,18 +95,17 @@ public class Utils
 
     public static void showColoredStatusBar_KitKat(Activity activity)
     {
-        RelativeLayout statusBar = (RelativeLayout) activity.findViewById(R.id.statusBarKitKat);
+        RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
 
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
             statusBar.setVisibility(View.VISIBLE);
-        }
     }
 
     public static void showActionModeStatusBar(Activity activity, boolean mode)
     {
         int color = (mode ? R.color.action_mode_dark : R.color.primary_dark);
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            RelativeLayout statusBar = (RelativeLayout) activity.findViewById(R.id.statusBarKitKat);
+            RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
             statusBar.setBackground(ContextCompat.getDrawable(activity, color));
             statusBar.setVisibility(View.VISIBLE);
 
@@ -121,12 +120,9 @@ public class Utils
 
     public static void colorizeProgressBar(Context context, ProgressBar progress)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            progress.getProgressDrawable()
-                    .setColorFilter(
-                            ContextCompat.getColor(context, R.color.accent),
-                            android.graphics.PorterDuff.Mode.SRC_IN);
-        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
+                                                          android.graphics.PorterDuff.Mode.SRC_IN);
     }
 
     /*
@@ -136,7 +132,7 @@ public class Utils
 
     public static ArrayList<BencodeFileItem> getFileList(FileStorage storage)
     {
-        ArrayList<BencodeFileItem> files = new ArrayList<BencodeFileItem>();
+        ArrayList<BencodeFileItem> files = new ArrayList<>();
         for (int i = 0; i < storage.numFiles(); i++) {
             BencodeFileItem file = new BencodeFileItem(storage.filePath(i), i, storage.fileSize(i));
             files.add(file);
@@ -147,28 +143,10 @@ public class Utils
 
     public static void setBackground(View v, Drawable d)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
             v.setBackgroundDrawable(d);
-        } else {
+        else
             v.setBackground(d);
-        }
-    }
-
-    public static byte[] toPrimitive(Collection<Byte> array) {
-        if (array == null) {
-            return null;
-        } else if (array.isEmpty()) {
-            return new byte[]{};
-        }
-
-        final byte[] result = new byte[array.size()];
-
-        int i = 0;
-        for (Byte b : array) {
-            result[i++] = b;
-        }
-
-        return result;
     }
 
     /*
@@ -177,8 +155,7 @@ public class Utils
 
     public static boolean checkNetworkConnection(Context context)
     {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
@@ -227,9 +204,8 @@ public class Utils
 
     public static boolean isValidTrackerUrl(String url)
     {
-        if (url == null || TextUtils.isEmpty(url)) {
+        if (url == null || TextUtils.isEmpty(url))
             return false;
-        }
 
         Pattern pattern = Pattern.compile(TRACKER_URL_PATTERN);
         Matcher matcher = pattern.matcher(url.trim());
@@ -253,11 +229,10 @@ public class Utils
 
     public static String getLineSeparator()
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
             return System.lineSeparator();
-        } else {
+        else
             return System.getProperty("line.separator");
-        }
     }
 
     /*
@@ -267,36 +242,31 @@ public class Utils
     @Nullable
     public static String getClipboard(Context context)
     {
-        ClipboardManager clipboard =
-                (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
-
-        if (!clipboard.hasPrimaryClip()) {
+        ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
+        if (clipboard == null)
             return null;
-        }
+
+        if (!clipboard.hasPrimaryClip())
+            return null;
 
         ClipData clip = clipboard.getPrimaryClip();
-
-        if (clip == null || clip.getItemCount() == 0) {
+        if (clip == null || clip.getItemCount() == 0)
             return null;
-        }
 
         CharSequence text = clip.getItemAt(0).getText();
-        if (text == null) {
+        if (text == null)
             return null;
-        }
 
         return text.toString();
     }
 
     public static void reportError(Throwable error, String comment)
     {
-        if (error == null) {
+        if (error == null)
             return;
-        }
 
-        if (comment != null) {
+        if (comment != null)
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
-        }
 
         ACRA.getErrorReporter().handleSilentException(error);
     }
@@ -349,11 +319,8 @@ public class Utils
 
     public static int getThemePreference(Context context)
     {
-        int theme = SettingsManager.getPreferences(context)
-                .getInt(context.getString(R.string.pref_key_theme),
-                        SettingsManager.Default.theme(context));
-
-        return theme;
+        return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
+                                                              SettingsManager.Default.theme(context));
     }
     
     public static boolean isDarkTheme(Context context)

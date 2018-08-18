@@ -20,11 +20,11 @@
 package org.proninyaroslav.libretorrent.dialogs;
 
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +53,7 @@ public class AddRssChannelDialog extends BaseAlertDialog
         args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_add_feed_channel);
 
         if (callback instanceof Fragment)
-            frag.setTargetFragment((Fragment) callback, 0);
+            frag.setTargetFragment((Fragment)callback, 0);
 
         frag.setArguments(args);
 
@@ -78,34 +78,24 @@ public class AddRssChannelDialog extends BaseAlertDialog
             final TextInputEditText filterField = v.findViewById(R.id.feed_channel_filter);
             final CheckBox isRegexField = v.findViewById(R.id.feed_use_regex);
             CheckBox autoDownloadField = v.findViewById(R.id.feed_auto_download);
-            autoDownloadField.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-            {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                {
-                    if (!isChecked)
-                        filterField.clearFocus();
-                    filterField.setEnabled(isChecked);
-                    isRegexField.setEnabled(isChecked);
-                }
+            autoDownloadField.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+                if (!isChecked)
+                    filterField.clearFocus();
+                filterField.setEnabled(isChecked);
+                isRegexField.setEnabled(isChecked);
             });
         }
 
         AlertDialog.Builder dialog = buildDialog(title, null, v, positiveText, negativeText, null);
         final AlertDialog alert = dialog.create();
-        alert.setOnShowListener(new DialogInterface.OnShowListener()
-        {
-            @Override
-            public void onShow(DialogInterface dialog)
-            {
-                if (getTargetFragment() != null) {
-                    if (getTargetFragment() instanceof OnDialogShowListener)
-                        ((OnDialogShowListener) getTargetFragment()).onShow(alert);
+        alert.setOnShowListener((DialogInterface dialogInterface) -> {
+            if (getTargetFragment() != null) {
+                if (getTargetFragment() instanceof OnDialogShowListener)
+                    ((OnDialogShowListener) getTargetFragment()).onShow(alert);
 
-                } else {
-                    if (getActivity() instanceof OnDialogShowListener)
-                        ((OnDialogShowListener) getActivity()).onShow(alert);
-                }
+            } else {
+                if (getActivity() instanceof OnDialogShowListener)
+                    ((OnDialogShowListener) getActivity()).onShow(alert);
             }
         });
 

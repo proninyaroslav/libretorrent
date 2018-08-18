@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -54,9 +55,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        if (position < 0) {
+        if (position < 0)
             return new Fragment();
-        }
 
         return fragmentList.get(position);
     }
@@ -64,9 +64,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public CharSequence getPageTitle(int position)
     {
-        if (position < 0) {
+        if (position < 0)
             return "";
-        }
 
         return fragmentTitleList.get(position);
     }
@@ -77,6 +76,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
         return fragmentList.size();
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {

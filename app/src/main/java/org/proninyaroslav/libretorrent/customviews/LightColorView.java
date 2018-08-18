@@ -72,8 +72,8 @@ public class LightColorView extends View
     {
         super.onDraw(canvas);
 
-        float centerX = (float) w / 2;
-        float centerY = (float) h / 2;
+        float centerX = (float)w / 2;
+        float centerY = (float)h / 2;
 
         canvas.drawCircle(centerX, centerY, getWidth() / 2, paint);
     }

@@ -48,11 +48,11 @@ public class InputFilterMinMax implements InputFilter
     {
         if (charSequence.length() != 0 && charSequence.charAt(0) == '-')
             return null;
+
         try {
             int input = Integer.parseInt(spanned.toString() + charSequence.toString());
-            if (inRange(min, max, input)) {
+            if (inRange(min, max, input))
                 return null;
-            }
 
         } catch (NumberFormatException e) {
             /* Ignore */

@@ -54,7 +54,7 @@ public class CreateTorrentActivity extends AppCompatActivity
 
         resetResult();
 
-        createTorrentFragment = (CreateTorrentFragment)getFragmentManager()
+        createTorrentFragment = (CreateTorrentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.create_torrent_fragmentContainer);
     }
 
@@ -84,7 +84,7 @@ public class CreateTorrentActivity extends AppCompatActivity
          */
         resetResult();
         if (code == ResultCode.OK) {
-            setResult((AddTorrentParams)intent.getParcelableExtra(TAG_CREATED_TORRENT));
+            setResult(intent.getParcelableExtra(TAG_CREATED_TORRENT));
             setResult(RESULT_OK, new Intent());
         } else if (code == ResultCode.BACK) {
             finish();

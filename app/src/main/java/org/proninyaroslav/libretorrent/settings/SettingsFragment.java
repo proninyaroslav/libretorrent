@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -51,15 +52,13 @@ public class SettingsFragment extends PreferenceFragmentCompat
         return fragment;
     }
 
-    /* For API < 23 */
     @Override
-    public void onAttach(Activity activity)
+    public void onAttach(Context context)
     {
-        super.onAttach(activity);
+        super.onAttach(context);
 
-        if (activity instanceof Callback) {
-            callback = (Callback) activity;
-        }
+        if (context instanceof Callback)
+            callback = (Callback) context;
     }
 
     @Override
@@ -81,129 +80,94 @@ public class SettingsFragment extends PreferenceFragmentCompat
         }
 
         Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
-        appearance.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(AppearanceSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_appearance));
-                } else {
-                    startActivity(AppearanceSettingsFragment.class,
-                            getString(R.string.pref_header_appearance));
-                }
-
-                return true;
+        appearance.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(AppearanceSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_appearance));
+            } else {
+                startActivity(AppearanceSettingsFragment.class,
+                        getString(R.string.pref_header_appearance));
             }
+
+            return true;
         });
 
         Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
-        behavior.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(BehaviorSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_behavior));
-                } else {
-                    startActivity(BehaviorSettingsFragment.class,
-                            getString(R.string.pref_header_behavior));
-                }
-
-                return true;
+        behavior.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(BehaviorSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_behavior));
+            } else {
+                startActivity(BehaviorSettingsFragment.class,
+                        getString(R.string.pref_header_behavior));
             }
+
+            return true;
         });
 
         Preference storage = findPreference(StorageSettingsFragment.class.getSimpleName());
-        storage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(StorageSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_storage));
-                } else {
-                    startActivity(StorageSettingsFragment.class,
-                            getString(R.string.pref_header_storage));
-                }
-
-                return true;
+        storage.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(StorageSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_storage));
+            } else {
+                startActivity(StorageSettingsFragment.class,
+                        getString(R.string.pref_header_storage));
             }
+
+            return true;
         });
 
         Preference limitations = findPreference(LimitationsSettingsFragment.class.getSimpleName());
-        limitations.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(LimitationsSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_limitations));
-                } else {
-                    startActivity(LimitationsSettingsFragment.class,
-                            getString(R.string.pref_header_limitations));
-                }
-
-                return true;
+        limitations.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(LimitationsSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_limitations));
+            } else {
+                startActivity(LimitationsSettingsFragment.class,
+                        getString(R.string.pref_header_limitations));
             }
+
+            return true;
         });
 
         Preference network = findPreference(NetworkSettingsFragment.class.getSimpleName());
-        network.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(NetworkSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_network));
-                } else {
-                    startActivity(NetworkSettingsFragment.class,
-                            getString(R.string.pref_header_network));
-                }
-
-                return true;
+        network.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(NetworkSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_network));
+            } else {
+                startActivity(NetworkSettingsFragment.class,
+                        getString(R.string.pref_header_network));
             }
+
+            return true;
         });
 
         Preference scheduling = findPreference(SchedulingSettingsFragment.class.getSimpleName());
-        scheduling.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(SchedulingSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_scheduling));
-                } else {
-                    startActivity(SchedulingSettingsFragment.class,
-                            getString(R.string.pref_header_scheduling));
-                }
-
-                return true;
+        scheduling.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(SchedulingSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_scheduling));
+            } else {
+                startActivity(SchedulingSettingsFragment.class,
+                        getString(R.string.pref_header_scheduling));
             }
+
+            return true;
         });
 
         Preference feed = findPreference(FeedSettingsFragment.class.getSimpleName());
-        feed.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-                    setFragment(FeedSettingsFragment.newInstance(),
-                            getString(R.string.pref_header_feed));
-                } else {
-                    startActivity(FeedSettingsFragment.class,
-                            getString(R.string.pref_header_feed));
-                }
-
-                return true;
+        feed.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(FeedSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_feed));
+            } else {
+                startActivity(FeedSettingsFragment.class,
+                        getString(R.string.pref_header_feed));
             }
+
+            return true;
         });
     }
 
@@ -216,9 +180,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
     private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
     {
         if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
-            if (callback != null) {
+            if (callback != null)
                 callback.onDetailTitleChanged(title);
-            }
 
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_fragment_container, fragment)

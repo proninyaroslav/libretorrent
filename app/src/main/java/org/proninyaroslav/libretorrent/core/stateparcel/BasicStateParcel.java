@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.stateparcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 
@@ -90,7 +91,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
 
         torrentId = source.readString();
         name = source.readString();
-        stateCode = (TorrentStateCode) source.readSerializable();
+        stateCode = (TorrentStateCode)source.readSerializable();
         progress = source.readInt();
         receivedBytes = source.readLong();
         uploadedBytes = source.readLong();
@@ -146,7 +147,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
             };
 
     @Override
-    public int compareTo(BasicStateParcel another)
+    public int compareTo(@NonNull BasicStateParcel another)
     {
         return name.compareTo(another.name);
     }

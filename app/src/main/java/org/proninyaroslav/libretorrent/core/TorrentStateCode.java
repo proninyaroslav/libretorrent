@@ -73,11 +73,9 @@ public enum TorrentStateCode
 
     public static TorrentStateCode fromValue(int value)
     {
-        for (TorrentStateCode ev : TorrentStateCode.class.getEnumConstants()) {
-            if (ev.value() == value) {
+        for (TorrentStateCode ev : TorrentStateCode.class.getEnumConstants())
+            if (ev.value() == value)
                 return ev;
-            }
-        }
 
         return UNKNOWN;
     }

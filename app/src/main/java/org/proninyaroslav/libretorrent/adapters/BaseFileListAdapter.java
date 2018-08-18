@@ -51,7 +51,6 @@ public abstract class BaseFileListAdapter<VH extends RecyclerView.ViewHolder, F 
         int size = files.size();
         if (size > 0) {
             files.clear();
-
             this.notifyItemRangeRemoved(0, size);
         }
     }

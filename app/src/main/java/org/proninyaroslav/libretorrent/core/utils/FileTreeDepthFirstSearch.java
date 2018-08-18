@@ -46,23 +46,18 @@ public class FileTreeDepthFirstSearch<F extends FileTree<F>>
 
     public F find(F node, int index)
     {
-        if (node == null) {
+        if (node == null)
             return null;
-        }
 
-        if (findIndex == -1) {
+        if (findIndex == -1)
             findIndex = index;
-        }
 
-        if (node.getIndex() == findIndex) {
+        if (node.getIndex() == findIndex)
             findResult = node;
-        } else {
-            for (String n : node.getChildrenName()) {
-                if (!node.isFile()) {
+        else
+            for (String n : node.getChildrenName())
+                if (!node.isFile())
                     find(node.getChild(n), index);
-                }
-            }
-        }
 
         findIndex = -1;
 
@@ -75,38 +70,30 @@ public class FileTreeDepthFirstSearch<F extends FileTree<F>>
 
     public List<F> getLeaves(F node)
     {
-        if (node == null) {
+        if (node == null)
             return null;
-        }
 
-        if (node.isFile()) {
+        if (node.isFile())
             leaves.add(node);
-        }
 
-        for (F n : node.getChildren()) {
-            if (!node.isFile()) {
+        for (F n : node.getChildren())
+            if (!node.isFile())
                 getLeaves(n);
-            }
-        }
 
         return leaves;
     }
 
     public Map<Integer, F> getLeavesAsMap(F node)
     {
-        if (node == null) {
+        if (node == null)
             return null;
-        }
 
-        if (node.isFile()) {
+        if (node.isFile())
             leavesAsMap.put(node.getIndex(), node);
-        }
 
-        for (F n : node.getChildren()) {
-            if (!node.isFile()) {
+        for (F n : node.getChildren())
+            if (!node.isFile())
                 getLeavesAsMap(n);
-            }
-        }
 
         return leavesAsMap;
     }
