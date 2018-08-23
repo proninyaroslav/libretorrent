@@ -58,6 +58,7 @@ import com.frostwire.jlibtorrent.swig.torrent_info;
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -104,6 +105,8 @@ public class TorrentEngine extends SessionManager
     /* Base unit in KiB. Used for create torrent */
     public static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512,
                                            1024, 2048, 4096, 8192, 16384, 32768};
+    public static final String PEER_FINGERPRINT = "Lr"; /* called peer id */
+    public static final String USER_AGENT = "LibreTorrent %s";
 
     public static class Settings
     {
@@ -209,6 +212,23 @@ public class TorrentEngine extends SessionManager
         SessionParams params = loadSettings();
         settings_pack sp = params.settings().swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
+
+        if (context != null) {
+            String versionName = Utils.getAppVersionName(context);
+            if (versionName != null) {
+                int[] version = Utils.getVersionComponents(versionName);
+
+                String fingerprint = libtorrent.generate_fingerprint(PEER_FINGERPRINT,
+                        version[0], version[1], version[2], 0);
+                sp.set_str(settings_pack.string_types.peer_fingerprint.swigValue(), fingerprint);
+
+                String userAgent = String.format(USER_AGENT, Utils.getAppVersionNumber(versionName));
+                sp.set_str(settings_pack.string_types.user_agent.swigValue(), userAgent);
+
+                Log.i(TAG, "Peer fingerprint: " + sp.get_str(settings_pack.string_types.peer_fingerprint.swigValue()));
+                Log.i(TAG, "User agent: " + sp.get_str(settings_pack.string_types.user_agent.swigValue()));
+            }
+        }
 
         super.start(params);
     }

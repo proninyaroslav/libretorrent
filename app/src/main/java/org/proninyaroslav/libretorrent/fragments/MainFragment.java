@@ -25,8 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
@@ -886,13 +884,9 @@ public class MainFragment extends Fragment
     {
         TextView version = dialog.findViewById(R.id.about_version);
         if (version != null) {
-            try {
-                PackageInfo info = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
-                version.setText(info.versionName);
-
-            } catch (PackageManager.NameNotFoundException e) {
-                /* Ignore */
-            }
+            String versionName = Utils.getAppVersionName(activity);
+            if (versionName != null)
+                version.setText(versionName);
         }
     }
 

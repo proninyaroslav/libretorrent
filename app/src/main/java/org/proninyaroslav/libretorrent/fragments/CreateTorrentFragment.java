@@ -22,8 +22,6 @@ package org.proninyaroslav.libretorrent.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -455,14 +453,11 @@ public class CreateTorrentFragment extends Fragment
 
             Context context = fragment.get().activity.getApplicationContext();
             String creator = context.getString(R.string.app_name);
-            PackageInfo info;
-            try {
-                info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            } catch (PackageManager.NameNotFoundException e) {
+            String versionName = Utils.getAppVersionName(context);
+            if (versionName == null)
                 return creator;
-            }
 
-            return creator + " " + info.versionName;
+            return creator + " " + versionName;
         }
 
         @Override
