@@ -329,9 +329,6 @@ public class TorrentDownload
         if (th == null || !th.isValid())
             return 0;
 
-        if (th.torrentFile() == null)
-            return 0;
-
         if (th.status() == null)
             return 0;
 
@@ -362,12 +359,13 @@ public class TorrentDownload
         if (th == null || !th.isValid())
             return;
 
+        TorrentInfo ti = th.torrentFile();
+        if (ti == null)
+            return;
+
         if (priorities != null) {
             /* Priorities for all files, priorities list for some selected files not supported */
-            TorrentInfo ti = th.torrentFile();
-            if (ti == null)
-                return;
-            if (th.torrentFile().numFiles() != priorities.length)
+            if (ti.numFiles() != priorities.length)
                 return;
 
             th.prioritizeFiles(priorities);
@@ -375,7 +373,7 @@ public class TorrentDownload
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, th.torrentFile().numFiles());
+                    Priority.array(Priority.NORMAL, ti.numFiles());
 
             th.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -900,7 +898,7 @@ public class TorrentDownload
             return filesAvail;
         }
         for (int i = 0; i < numFiles; i++) {
-            Pair<Integer, Integer> filePieces = getFilePieces(i);
+            Pair<Integer, Integer> filePieces = getFilePieces(ti, i);
             if (filePieces == null) {
                 filesAvail[i] = -1;
                 continue;
@@ -935,14 +933,11 @@ public class TorrentDownload
         return avail;
     }
 
-    public Pair<Integer, Integer> getFilePieces(int fileIndex)
+    private Pair<Integer, Integer> getFilePieces(TorrentInfo ti, int fileIndex)
     {
         if (!th.isValid())
             return null;
 
-        TorrentInfo ti = th.torrentFile();
-        if (ti == null)
-            return null;
         if (fileIndex < 0 || fileIndex >= ti.numFiles())
             return null;
         FileStorage fs = ti.files();
