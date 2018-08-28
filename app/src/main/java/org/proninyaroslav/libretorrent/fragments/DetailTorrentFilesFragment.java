@@ -292,6 +292,9 @@ public class DetailTorrentFilesFragment extends Fragment
 
     public void setFilesAndPriorities(ArrayList<BencodeFileItem> files, List<Priority> priorities)
     {
+        if (priorities == null)
+            return;
+
         this.files = files;
         this.priorities = new ArrayList<>();
         for (Priority priority : priorities)
