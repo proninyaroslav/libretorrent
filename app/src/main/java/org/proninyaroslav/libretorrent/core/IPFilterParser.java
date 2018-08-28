@@ -29,7 +29,6 @@ import com.frostwire.jlibtorrent.swig.ip_filter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
-import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 
 import java.io.File;
 import java.io.IOException;

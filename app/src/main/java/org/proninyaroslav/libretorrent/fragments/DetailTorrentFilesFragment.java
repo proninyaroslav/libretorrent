@@ -624,7 +624,7 @@ public class DetailTorrentFilesFragment extends Fragment
     private List<TorrentContentFileTree> getChildren(TorrentContentFileTree node)
     {
         List<TorrentContentFileTree> children = new ArrayList<>();
-        if (node.isFile())
+        if (node == null || node.isFile())
             return children;
 
         /* Adding parent dir for navigation */

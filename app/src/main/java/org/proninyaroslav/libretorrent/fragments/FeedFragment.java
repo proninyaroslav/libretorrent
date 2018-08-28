@@ -620,11 +620,13 @@ public class FeedFragment extends Fragment
         adapter.toggleSelection(position);
         int count = adapter.getSelectedItemCount();
 
-        if (count == 0) {
-            actionMode.finish();
-        } else {
-            actionMode.setTitle(String.valueOf(count));
-            actionMode.invalidate();
+        if (actionMode != null) {
+            if (count == 0) {
+                actionMode.finish();
+            } else {
+                actionMode.setTitle(String.valueOf(count));
+                actionMode.invalidate();
+            }
         }
     }
 
