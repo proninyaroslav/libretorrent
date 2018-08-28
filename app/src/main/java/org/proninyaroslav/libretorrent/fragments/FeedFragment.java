@@ -975,13 +975,10 @@ public class FeedFragment extends Fragment
             if (intent.hasExtra(FileManagerDialog.TAG_RETURNED_PATH)) {
                 String path = intent.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH);
                 if (path != null) {
-                    FileInputStream inputStream = null;
-                    InputStreamReader reader = null;
-                    try {
-                        inputStream = FileUtils.openInputStream(new File(path));
-                        reader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                    try (FileInputStream inputStream = FileUtils.openInputStream(new File(path));
+                         InputStreamReader reader = new InputStreamReader(inputStream, Charset.forName("UTF-8")))
+                    {
                         ArrayList<FeedChannel> exported = FeedStorage.deserializeChannels(reader);
-
                         channels.clear();
                         storage.addChannels(exported);
                         channels.addAll(storage.getAllChannels());
@@ -995,9 +992,6 @@ public class FeedFragment extends Fragment
 
                     } catch (Exception e) {
                         importErrorDialog(e);
-                    } finally {
-                        IOUtils.closeQuietly(inputStream);
-                        IOUtils.closeQuietly(reader);
                     }
                 }
             }

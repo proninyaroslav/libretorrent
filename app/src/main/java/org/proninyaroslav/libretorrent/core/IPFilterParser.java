@@ -29,6 +29,7 @@ import com.frostwire.jlibtorrent.swig.ip_filter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
+import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,19 +125,9 @@ public class IPFilterParser
         if (!file.exists())
             return false;
 
-        LineIterator it = null;
-        try {
-            it = FileUtils.lineIterator(file, "UTF-8");
-
-        } catch (IOException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-        if (it == null)
-            return false;
-
         long lineNum = 0;
         long badLineNum = 0;
-        try {
+        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8")){
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -222,8 +213,10 @@ public class IPFilterParser
                 }
             }
 
-        } finally {
-            it.close();
+        } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+
+            return false;
         }
 
         return badLineNum < lineNum;
@@ -239,23 +232,12 @@ public class IPFilterParser
             return false;
 
         File file = new File(path);
-        if (!file.exists()) {
-            return false;
-        }
-
-        LineIterator it = null;
-        try {
-            it = FileUtils.lineIterator(file, "UTF-8");
-
-        } catch (IOException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-        if (it == null)
+        if (!file.exists())
             return false;
 
         long lineNum = 0;
         long badLineNum = 0;
-        try {
+        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8")){
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -333,8 +315,10 @@ public class IPFilterParser
                 }
             }
 
-        } finally {
-            it.close();
+        } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+
+            return false;
         }
 
         return badLineNum < lineNum;
