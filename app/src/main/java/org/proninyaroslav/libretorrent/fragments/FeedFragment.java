@@ -70,6 +70,7 @@ import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.google.gson.JsonSyntaxException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.proninyaroslav.libretorrent.FeedActivity;
 import org.proninyaroslav.libretorrent.FeedItemsActivity;
 import org.proninyaroslav.libretorrent.R;
@@ -88,7 +89,9 @@ import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 import org.proninyaroslav.libretorrent.services.FeedFetcherService;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -972,9 +975,13 @@ public class FeedFragment extends Fragment
             if (intent.hasExtra(FileManagerDialog.TAG_RETURNED_PATH)) {
                 String path = intent.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH);
                 if (path != null) {
+                    FileInputStream inputStream = null;
+                    InputStreamReader reader = null;
                     try {
-                        String data = FileUtils.readFileToString(new File(path), Charset.forName("UTF-8"));
-                        ArrayList<FeedChannel> exported = FeedStorage.deserializeChannels(data);
+                        inputStream = FileUtils.openInputStream(new File(path));
+                        reader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                        ArrayList<FeedChannel> exported = FeedStorage.deserializeChannels(reader);
+
                         channels.clear();
                         storage.addChannels(exported);
                         channels.addAll(storage.getAllChannels());
@@ -988,6 +995,9 @@ public class FeedFragment extends Fragment
 
                     } catch (Exception e) {
                         importErrorDialog(e);
+                    } finally {
+                        IOUtils.closeQuietly(inputStream);
+                        IOUtils.closeQuietly(reader);
                     }
                 }
             }

@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import org.proninyaroslav.libretorrent.core.FeedChannel;
 import org.proninyaroslav.libretorrent.core.FeedItem;
 
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -285,9 +286,9 @@ public class FeedStorage
         return new Gson().toJson(channels);
     }
 
-    public static ArrayList<FeedChannel> deserializeChannels(String data)
+    public static ArrayList<FeedChannel> deserializeChannels(Reader reader)
     {
-        return new Gson().fromJson(data, new TypeToken<ArrayList<FeedChannel>>(){}.getType());
+        return new Gson().fromJson(reader, new TypeToken<ArrayList<FeedChannel>>(){}.getType());
     }
 
     /*
