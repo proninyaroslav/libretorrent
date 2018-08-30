@@ -413,27 +413,6 @@ public class TorrentTaskService extends Service
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT && pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                                                                                   SettingsManager.Default.keepAlive)) {
-            Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
-            restartServiceIntent.setPackage(getPackageName());
-
-            PendingIntent restartServicePendingIntent =
-                    PendingIntent.getService(
-                            getApplicationContext(),
-                            1, restartServiceIntent,
-                            PendingIntent.FLAG_ONE_SHOT);
-
-            AlarmManager alarmService =
-                    (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            alarmService.set(AlarmManager.ELAPSED_REALTIME,
-                             SystemClock.elapsedRealtime() + 1000,
-                             restartServicePendingIntent);
-        }
-    }
-
-    @Override
     public void onEngineStarted()
     {
         loadTorrents(repo.getAll());
