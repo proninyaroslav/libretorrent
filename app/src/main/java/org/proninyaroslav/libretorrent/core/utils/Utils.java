@@ -293,9 +293,8 @@ public class Utils
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
         /* Error checking that probably isn't needed but I added just in case */
-        if (level == -1 || scale == -1) {
+        if (level == -1 || scale == -1)
             return 50.0f;
-        }
 
         return ((float) level / (float) scale) * 100.0f;
     }

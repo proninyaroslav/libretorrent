@@ -348,7 +348,11 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void unregisterMediaReceiver()
     {
-        unregisterReceiver(mediaReceiver);
+        try {
+            unregisterReceiver(mediaReceiver);
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
+        }
     }
 
     @Override

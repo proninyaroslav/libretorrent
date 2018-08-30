@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.services;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -36,7 +35,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -127,8 +125,6 @@ public class TorrentTaskService extends Service
     private PowerManager.WakeLock wakeLock;
     private PowerReceiver powerReceiver = new PowerReceiver();
     private WifiReceiver wifiReceiver = new WifiReceiver();
-    boolean powerReceiverRegistered = false;
-    boolean wifiReceiverRegistered = false;
     /* Pause torrents (including new added) when in power settings are set power save flags */
     private AtomicBoolean pauseTorrents = new AtomicBoolean(false);
     /* Reduces sending packets due skip cache duplicates */
@@ -219,13 +215,15 @@ public class TorrentTaskService extends Service
     private void stopService()
     {
         pref.unregisterOnSharedPreferenceChangeListener(this);
-        if (powerReceiverRegistered) {
-            powerReceiverRegistered = false;
+        try {
             unregisterReceiver(powerReceiver);
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
         }
-        if (wifiReceiverRegistered) {
-            wifiReceiverRegistered = false;
+        try {
             unregisterReceiver(wifiReceiver);
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
         }
         stopWatchDir();
         setKeepCpuAwake(false);
@@ -802,25 +800,23 @@ public class TorrentTaskService extends Service
         boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
                 SettingsManager.Default.wifiOnly);
 
-        boolean registerWifiReceiver = wifiOnly;
-        boolean registerPowerReceiver = false;
-        if (powerReceiverRegistered)
+        try {
             unregisterReceiver(powerReceiver);
-        if (customBatteryControl) {
-            registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
-            registerPowerReceiver = true;
-        } else if (batteryControl || onlyCharging) {
-            registerReceiver(powerReceiver, PowerReceiver.getFilter());
-            registerPowerReceiver = true;
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
         }
+        if (customBatteryControl)
+            registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
+        else if (batteryControl || onlyCharging)
+            registerReceiver(powerReceiver, PowerReceiver.getFilter());
 
-        if (registerWifiReceiver && !wifiReceiverRegistered)
-            registerReceiver(wifiReceiver, WifiReceiver.getFilter());
-        else if (!registerWifiReceiver && wifiReceiverRegistered)
+        try {
             unregisterReceiver(wifiReceiver);
-
-        powerReceiverRegistered = registerPowerReceiver;
-        wifiReceiverRegistered = registerWifiReceiver;
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
+        }
+        if (wifiOnly)
+            registerReceiver(wifiReceiver, WifiReceiver.getFilter());
 
         boolean pause = false;
         if (wifiOnly)
