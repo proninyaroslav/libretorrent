@@ -6,18 +6,18 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="error">错误</string>
-    <string name="warning">Warning</string>
-    <string name="shutdown">退出</string>
+    <string name="warning">警告</string>
+    <string name="shutdown">关闭</string>
     <string name="replace">替换</string>
     <string name="add">添加</string>
     <string name="delete">删除</string>
-    <string name="deleting">删除</string>
+    <string name="deleting">正在删除</string>
     <string name="select_all">全选</string>
     <string name="apply">应用</string>
     <string name="save">保存</string>
     <string name="install">安装</string>
     <string name="search">搜索</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">不可用</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 小时 %3$d 分钟</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -26,22 +26,22 @@
     <string name="elapsed_time_format_mm_ss">%1$d 分钟 %2$d 秒</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d 秒</string>
-    <string name="sort_by_ascending">By ascending</string>
-    <string name="sort_by_descending">By descending</string>
-    <string name="sorting">Sorting</string>
-    <string name="def">Default</string>
-    <string name="foreground_notification">Foreground notification</string>
-    <string name="link">Link</string>
-    <string name="filter">Filter</string>
-    <string name="refresh">Refresh</string>
-    <string name="edit">Edit</string>
+    <string name="sort_by_ascending">升序排列</string>
+    <string name="sort_by_descending">降序排列</string>
+    <string name="sorting">分类</string>
+    <string name="def">默认</string>
+    <string name="foreground_notification">前台通知</string>
+    <string name="link">链接</string>
+    <string name="filter">过滤器</string>
+    <string name="refresh">刷新</string>
+    <string name="edit">编辑</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">没有 torrent 任务</string>
     <string name="spinner_all_torrents">全部</string>
     <string name="spinner_downloading_torrents">正在下载</string>
     <string name="spinner_downloaded_torrents">已下载</string>
-    <string name="spinner_downloading_metadata_torrents">Downloading metadata</string>
+    <string name="spinner_downloading_metadata_torrents">正下载元数据</string>
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选择的 torrent ？此操作无法撤销。</string>
     <string name="delete_selected_torrents">删除所选择的所有 torrent ？此操作无法撤销。</string>
@@ -57,20 +57,20 @@
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
     <string name="ip_filter_add_error">无法添加 IP 过滤器。可能文件已损坏或格式不正确。</string>
-    <string name="ip_filter_add_success">IP filter added successfully</string>
+    <string name="ip_filter_add_success">IP filter 添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
-    <string name="settings_apply_after_reboot">Settings will be applied after restarting the app</string>
+    <string name="theme_settings_apply_after_reboot">重新启动应用程序后，将应用主题设置</string>
+    <string name="settings_apply_after_reboot">重新启动应用程序后，将应用设置</string>
     <string name="about">关于</string>
     <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Date added</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
-        <item>Peers</item>
+        <item>不分类</item>
+        <item>按名称</item>
+        <item>按添加日期</item>
+        <item>按大小</item>
+        <item>按下载进度</item>
+        <item>按预计完成时间</item>
+        <item>按Peers数目</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -87,10 +87,10 @@
     <string name="network_offline">网络状态：离线</string>
 
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Torrent error</string>
+    <string name="torrent_error_notify_title">torrent 错误</string>
     <string name="torrent_error_notify_template">Error: %1$s</string>
-    <string name="torrent_does_not_exists_error">torrent doesn\'t exists</string>
-    <string name="restore_torrent_error">unable to restore torrent from previous session</string>
+    <string name="torrent_does_not_exists_error">torrent 不存在</string>
+    <string name="restore_torrent_error">无法从此前会话中恢复torrent</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">torrent 已完成</string>
@@ -104,7 +104,7 @@
     <string name="torrents_move_inbox_failed">失败:</string>
 
     <!-- Added notification -->
-    <string name="torrent_added_notify">torrent 添加</string>
+    <string name="torrent_added_notify">torrent 已添加</string>
 
     <!-- Torrent list item -->
 
@@ -122,7 +122,7 @@
     <string name="torrent_status_stopped">已停止</string>
     <string name="torrent_status_checking">检查中</string>
     <string name="torrent_status_finished">已完成</string>
-    <string name="torrent_status_downloading_metadata">Downloading metadata</string>
+    <string name="torrent_status_downloading_metadata">下载元数据</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">获取权限失败</string>
@@ -174,13 +174,13 @@
     <string name="home_directory">主页</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
-    <string name="permission_denied">Permission denied</string>
-    <string name="save_file">Save file</string>
-    <string name="file_name">File name</string>
-    <string name="error_file_exists">File already exists</string>
-    <string name="file_name_is_empty">File name cannot be empty</string>
+    <string name="internal_storage_name">内部存储</string>
+    <string name="external_storage_name" formatted="false">外部存储 %1$d</string>
+    <string name="permission_denied">权限被拒</string>
+    <string name="save_file">保存文件</string>
+    <string name="file_name">文件名</string>
+    <string name="error_file_exists">文件已经存在</string>
+    <string name="file_name_is_empty">文件名不能为空</string>
 
     <!-- Error dialog -->
     <string name="report">反馈</string>
@@ -215,14 +215,14 @@
     <string name="torrent_peers_template" formatted="false">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
     <string name="torrent_share_ratio">分享率</string>
-    <string name="torrent_active_time">活动时间</string>
+    <string name="torrent_active_time">活跃时间</string>
     <string name="torrent_seeding_time">做种时间</string>
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total （piece length） -->
     <string name="torrent_pieces_template" formatted="false">%1$d/%2$d （%3$s）</string>
     <string name="torrent_trackers">tracker</string>
     <string name="tracker_state_working">工作</string>
-    <string name="tracker_state_not_working">未工作</string>
+    <string name="tracker_state_not_working">不工作</string>
     <string name="tracker_state_error" formatted="false">错误: %1$s</string>
     <string name="tracker_state_updating">更新中&#8230;</string>
     <string name="tracker_state_not_contacted">尚未连接</string>
@@ -255,12 +255,12 @@
     <string name="upload_speed">上传速度</string>
     <string name="download_speed">下载速度</string>
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
-    <string name="torrent_added_date">Added</string>
-    <string name="torrent_availability">Availability</string>
+    <string name="torrent_added_date">已添加</string>
+    <string name="torrent_availability">可用度</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
-    <string name="text_copied_to_clipboard">文字已复制到黏贴板</string>
+    <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>
 
     <!-- Error report -->
     <string name="app_error_occurred">应用程序发生错误。您可以将报告发送给开发人员。</string>
@@ -268,48 +268,48 @@
 
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_channel_list_empty">No channels</string>
-    <string name="select_or_add_feed_channel">Select or add an RSS/Atom channel</string>
-    <string name="add_feed_channel">Add channel</string>
-    <string name="feed_name">Name (optional)</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="feed_use_regex">Use regular expression</string>
-    <string name="import_feed_channels">Import channels</string>
-    <string name="export_feed_channels">Export channels</string>
-    <string name="feed_last_update_template" formatted="false">Updated: %1$s</string>
-    <string name="feed_last_update_never">never</string>
-    <string name="error_cannot_add_channel">Cannot add channel</string>
-    <string name="copy_link">Copy link</string>
-    <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="delete_selected_channels">Delete the selected channels?</string>
-    <string name="edit_feed_channel">Edit channel</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
-    <string name="mark_as_read">Mark as read</string>
-    <string name="feed_item_list_empty">No articles</string>
-    <string name="feed_items">Articles</string>
-    <string name="export_feeds_successfully" formatted="false">Channels saved successfully: %1$s</string>
-    <string name="import_feeds_successfully" formatted="false">Channels imported successfully</string>
-    <string name="error_import_feeds">Failed to import channels</string>
-    <string name="error_export_feeds">Failed to export channels</string>
-    <string name="feed_item_open_article_url">Open article</string>
-    <string name="feeds_file_selection_dialog_title">Select a file with channels</string>
-    <string name="error_import_invalid_format">Invalid format</string>
+    <string name="feed_channel_list_empty">无频道</string>
+    <string name="select_or_add_feed_channel">选择或添加一个 RSS/Atom 频道</string>
+    <string name="add_feed_channel">添加频道</string>
+    <string name="feed_name">频道名 （可选）</string>
+    <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用"|"隔开，其中之一必须包含在torrent名称中）。只有当这个过滤器与torrent名称相匹配时，才会添加种子</string>
+    <string name="feed_auto_download">自动下载新的torrent</string>
+    <string name="feed_use_regex">使用正则表达式</string>
+    <string name="import_feed_channels">导入频道</string>
+    <string name="export_feed_channels">导出频道</string>
+    <string name="feed_last_update_template" formatted="false">上次更新: %1$s</string>
+    <string name="feed_last_update_never">从未更新</string>
+    <string name="error_cannot_add_channel">无法添加频道</string>
+    <string name="copy_link">复制链接</string>
+    <string name="delete_selected_channel">删除选中频道？</string>
+    <string name="delete_selected_channels">删除选中的多个频道？</string>
+    <string name="edit_feed_channel">编辑频道</string>
+    <string name="link_copied_to_clipboard">链接已复制到剪贴板</string>
+    <string name="mark_as_read">标为已读</string>
+    <string name="feed_item_list_empty">没有文章</string>
+    <string name="feed_items">文章</string>
+    <string name="export_feeds_successfully" formatted="false">频道保存成功: %1$s</string>
+    <string name="import_feeds_successfully" formatted="false">成功导入频道</string>
+    <string name="error_import_feeds">导入失败</string>
+    <string name="error_export_feeds">导出失败</string>
+    <string name="feed_item_open_article_url">打开文章</string>
+    <string name="feeds_file_selection_dialog_title">选择RSS频道文件</string>
+    <string name="error_import_invalid_format">无效格式</string>
 
     <!-- Create torrent dialog -->
-    <string name="create_torrent">Create torrent</string>
-    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="tracker_urls">Tracker URLs</string>
-    <string name="web_seed_urls">Web seed URLs</string>
-    <string name="comments">Comments</string>
-    <string name="optional_hint">(optional)</string>
-    <string name="piece_size">Piece size</string>
-    <string name="create_torrent_options">Options</string>
-    <string name="option_start_seeding">Start seeding</string>
-    <string name="option_private_torrent">Private torrent</string>
-    <string name="option_optimize_alignment">Optimize alignment</string>
+    <string name="create_torrent">创建 torrent</string>
+    <string name="file_or_folder_for_seeding">需要做种的文件或文件夹</string>
+    <string name="tracker_urls">Tracker 链接</string>
+    <string name="web_seed_urls">Web seed 链接</string>
+    <string name="comments">评论</string>
+    <string name="optional_hint">（可选）</string>
+    <string name="piece_size">区块大小</string>
+    <string name="create_torrent_options">选项</string>
+    <string name="option_start_seeding">开始做种</string>
+    <string name="option_private_torrent">私有种子</string>
+    <string name="option_optimize_alignment">优化队列</string>
     <string-array name="piece_size_entries">
-        <item>Auto</item>
+        <item>自动</item>
         <item>16 KiB</item>
         <item>32 KiB</item>
         <item>64 KiB</item>
@@ -323,25 +323,25 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Invalid URL: %1$s</string>
-    <string name="file_or_folder_not_found">Selected file or folder not found</string>
-    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files">Skip files</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="folder_to_save_not_found">Selected folder to save not found</string>
-    <string name="torrent_saved_to" formatted="false">Torrent saved to %1$s</string>
+    <string name="invalid_url" formatted="false">无效链接: %1$s</string>
+    <string name="file_or_folder_not_found">未找到选中的文件或文件夹</string>
+    <string name="folder_is_empty">选中文件夹为空或过滤器排除了所有文件</string>
+    <string name="error_create_torrent">无法创建 torrent</string>
+    <string name="skip_files">跳过文件</string>
+    <string name="skip_files_hint">输入文件名，多个名称中间用"|"隔开</string>
+    <string name="select_folder_to_save">选择保存文件夹</string>
+    <string name="folder_to_save_not_found">未找到选中的文件夹</string>
+    <string name="torrent_saved_to" formatted="false">torrent 保存至 %1$s</string>
 
     <!-- Settings -->
 
     <!-- Headers -->
-    <string name="pref_header_appearance">出現</string>
+    <string name="pref_header_appearance">外观</string>
     <string name="pref_header_behavior">行为</string>
     <string name="pref_header_storage">存储</string>
     <string name="pref_header_limitations">限制</string>
     <string name="pref_header_network">网络</string>
-    <string name="pref_header_scheduling">Scheduling</string>
+    <string name="pref_header_scheduling">计划调度</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">默认下载目录</string>
@@ -349,10 +349,10 @@
     <string name="pref_move_after_download_in_title">下载完成后移动文件至</string>
     <string name="pref_save_torrent_files_title">保存 torrent 文件</string>
     <string name="pref_save_torrent_files_summary">下载开始时保存 torrent 文件</string>
-    <string name="pref_save_torrent_files_in_title">保存 torrent 文件件至</string>
-    <string name="pref_watch_dir_title">Watch directory</string>
-    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
-    <string name="pref_dir_to_watch_title">Directory to watch</string>
+    <string name="pref_save_torrent_files_in_title">保存 torrent 文件至</string>
+    <string name="pref_watch_dir_title">监测目录</string>
+    <string name="pref_watch_dir_summary">APP会 监测指定目录内以.torrent扩展名结尾的文件并把它们加入下载队列。加入下载后这些文件将被删除。</string>
+    <string name="pref_dir_to_watch_title">要监测的目录</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">下载速度</string>
     <string name="pref_max_download_speed_title">最大下载速度</string>
@@ -363,30 +363,30 @@
     <string name="pref_max_active_uploads_title">最大上传数</string>
     <string name="pref_max_active_downloads_title">最大下载数</string>
     <string name="pref_max_active_torrents_title">最大活动 torrent 数</string>
-    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
+    <string name="pref_max_connections_per_torrent_title">每torrent最大连接数</string>
     <string name="pref_max_connections_per_torrent_summary">最小连接数 - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
-    <string name="pref_auto_manage_title">Auto manage</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_uploads_per_torrent_title">每torrent最大上传槽数目</string>
+    <string name="pref_max_uploads_per_torrent_summary">最小槽数 - 2</string>
+    <string name="pref_auto_manage_title">自动管理</string>
+    <string name="pref_auto_manage_summary">可在任何时候自动恢复或暂停 torrent。注：启用该选项可能会减慢暂停/恢复的速度</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 无限大</string>
     <!-- Behavior settings -->
-    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
-    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_keep_alive_title">Keep alive</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
+    <string name="pref_custom_battery_control_title">自定义电量百分比</string>
+    <string name="pref_custom_battery_control_value_title">电量百分比</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
+    <string name="pref_keep_alive_title">保持活动</string>
+    <string name="pref_keep_alive_summary">若启用, APP将在后台继续运行。注：下载完成后退出应用选项依旧有效。</string>
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
-    <string name="pref_wifi_only_title">Wi-Fi only</string>
-    <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
-    <string name="pref_theme_category">Theme settings</string>
-    <string name="pref_theme_title">Theme</string>
+    <string name="pref_wifi_only_title">仅WIFI连接</string>
+    <string name="pref_wifi_only_summary">仅在连接至WIFI时上传和下载</string>
+    <string name="pref_theme_category">主题设置</string>
+    <string name="pref_theme_title">主题</string>
     <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
+        <item>明亮</item>
+        <item>暗黑</item>
+        <item>黑色</item>
     </string-array>
     <string name="pref_notification_category">通知设置</string>
     <string name="pref_torrent_finish_notify_title">torrent 完成时通知</string>
@@ -405,10 +405,10 @@
     <string name="pref_download_and_upload_only_when_charging_summary">如果启用，torrent 将仅在充电时下载/上传。当没有连接到充电器时，所有的 torrent 都将暂停。</string>
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有 torrent 都将暂停。此规则充电时无效。</string>
-    <string name="pref_foreground_notification_category">Foreground notification</string>
-    <string name="pref_function_button_title">Function button</string>
+    <string name="pref_foreground_notification_category">前台通知</string>
+    <string name="pref_function_button_title">功能按钮</string>
     <string-array name="pref_function_button_entries">
-        <item>Pause/resume torrents</item>
+        <item>暂停/恢复 torrents</item>
         <item>添加 torrent</item>
     </string-array>
     <!-- Network settings -->
@@ -416,7 +416,7 @@
     <string name="pref_enable_dht_title">开启 DHT</string>
     <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用 tracker 便能找到彼此。</string>
     <string name="pref_enable_lsd_title">开启 LSD</string>
-    <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度地减少流量。</string>
+    <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度减少流量。</string>
     <string name="pref_enable_utp_title">开启 μTP</string>
     <string name="pref_enable_utp_summary">旨在减轻传统 torrent 的 TCP 传输中潜在低延迟和其他拥塞控制问题，同时提供可靠的有序传输。</string>
     <string name="pref_enable_upnp_title">开启 UPnP</string>
@@ -455,46 +455,46 @@
     <string name="pref_proxy_login_title">登录名</string>
     <string name="pref_proxy_password_title">密码</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_title">Start time</string>
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
-    <string name="pref_scheduling_run_only_once_title">Run only once</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <string name="pref_enable_scheduling_start_title">启动时间</string>
+    <string name="pref_enable_scheduling_start_summary">在指定时间启动APP。torrents将根据APP上次关闭前的状态运行</string>
+    <string name="pref_enable_scheduling_shutdown_title">退出时间</string>
+    <string name="pref_enable_scheduling_shutdown_summary">在指定时间退出APP</string>
+    <string name="pref_scheduling_run_only_once_title">只运行一次</string>
+    <string name="pref_scheduling_switch_wifi_title">启用/禁用 Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary"> 当APP在计划时间启动时，将自动开启WIFI；在APP于计划时间退出后，将自动禁用WIFI</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
-    <string name="pref_feed_refresh_interval_title">Refresh interval</string>
+    <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
+    <string name="pref_feed_auto_refresh_summary">后台定期刷新频道</string>
+    <string name="pref_feed_refresh_interval_title">刷新间隔</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutes</item>
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>6 hours</item>
-        <item>12 hours</item>
-        <item>1 day</item>
+        <item>5 分钟</item>
+        <item>15 分钟</item>
+        <item>30 分钟</item>
+        <item>1 小时</item>
+        <item>2 小时</item>
+        <item>6 小时</item>
+        <item>12 小时</item>
+        <item>1 天</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi only</string>
-    <string name="pref_feed_keep_items_time_title">Keep articles</string>
+    <string name="pref_feed_auto_refresh_wifi_only_title">仅WIFI</string>
+    <string name="pref_feed_keep_items_time_title">保留文章</string>
     <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 day</item>
-        <item>2 days</item>
-        <item>4 days</item>
-        <item>1 week</item>
-        <item>2 weeks</item>
-        <item>1 month</item>
-        <item>2 months</item>
-        <item>3 months</item>
-        <item>Always</item>
+        <item>1 天</item>
+        <item>2 天</item>
+        <item>4 天</item>
+        <item>1 周</item>
+        <item>2 周</item>
+        <item>1 个月</item>
+        <item>2 个月</item>
+        <item>3 个月</item>
+        <item>始终</item>
     </string-array>
-    <string name="pref_feed_start_torrents_title">Run torrents</string>
-    <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
+    <string name="pref_feed_start_torrents_title">运行 torrent</string>
+    <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
 
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
-    <string name="about_website">More information and also to help the project: https://gitlab.com/proninyaroslav/libretorrent</string>
+    <string name="about_website">想了解更多信息并帮助项目发展？请浏览 https://gitlab.com/proninyaroslav/libretorrent</string>
     <string name="about_description">LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ） 库。\n\nLibreTorrent 是自由软件，基于 GNU 通用公共许可证v3（GPLv3）条款发布\nhttp：//www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">更新日志</string>
 </resources>

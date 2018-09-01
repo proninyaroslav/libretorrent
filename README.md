@@ -53,6 +53,7 @@ Current languages:
  - Russian
  - German *(thanks vanitasvitae)*
  - Lithuanian *(thanks techwebpd)*
+ - Chinese *(thanks yanglw and Xu Eric)*
  - Polish *(thanks Azaradel)*
  - Spanish *(thanks ed10vi)*
  - Brazilian Portuguese *(thanks Wolfterro)*
