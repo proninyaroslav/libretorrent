@@ -144,6 +144,7 @@
     <string name="error_free_space">Δεν υπάρχει αρκετός ελεύθερος χώρος στην επιλεγμένη διαδρομή για να γίνει λήψη των επιλεγμένων αρχείων</string>
     <string name="files_size" formatted="false">Επιλέχθηκαν %1$s από %2$s</string>
     <string name="start_torrent">Εκκίνηση torrent</string>
+    <string name="file_is_too_large_error">Το αρχείο είναι πολύ μεγάλο</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Πληροφορίες</string>

@@ -148,6 +148,7 @@
     <string name="error_free_space">Nu este destul spațiu liber pe calea selectată pentru a descărca fișierele selectate</string>
     <string name="files_size" formatted="false">S-au selectat %1$s din %2$s</string>
     <string name="start_torrent">Pornește torrent</string>
+    <string name="file_is_too_large_error">Fișierul este prea mare</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Informații</string>

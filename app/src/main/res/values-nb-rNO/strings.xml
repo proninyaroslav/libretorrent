@@ -148,6 +148,7 @@
     <string name="error_free_space">Det finnes ikke nok ledig plass i valgt sti til nedlasting av valgte filer</string>
     <string name="files_size" formatted="false">Valgte %1$s av %2$s</string>
     <string name="start_torrent">Start torrent</string>
+    <string name="file_is_too_large_error">Filen er for stor</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>

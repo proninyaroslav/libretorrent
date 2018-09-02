@@ -148,6 +148,7 @@
     <string name="error_free_space">Es ist nicht genug freier Speicherplatz auf dem gewählten Pfad vorhanden, um die gewählten Dateien herunterzuladen</string>
     <string name="files_size" formatted="false">%1$s von %2$s ausgewählt</string>
     <string name="start_torrent">Starten Sie torrent</string>
+    <string name="file_is_too_large_error">Datei ist zu groß</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>

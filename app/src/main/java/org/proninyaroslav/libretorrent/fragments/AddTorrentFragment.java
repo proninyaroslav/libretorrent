@@ -98,6 +98,7 @@ public class AddTorrentFragment extends Fragment
     private static final String TAG_IO_EXCEPT_DIALOG = "io_except_dialog";
     private static final String TAG_DECODE_EXCEPT_DIALOG = "decode_except_dialog";
     private static final String TAG_FETCH_EXCEPT_DIALOG = "fetch_except_dialog";
+    private static final String TAG_OUT_OF_MEMORY_DIALOG = "out_of_memory_dialog";
     private static final String TAG_ILLEGAL_ARGUMENT = "illegal_argument";
     private static final String TAG_FROM_MAGNET = "from_magnet";
 
@@ -124,7 +125,7 @@ public class AddTorrentFragment extends Fragment
     private boolean saveTorrentFile = true;
     private AtomicReference<State> decodeState = new AtomicReference<>(State.UNKNOWN);
 
-    private Exception sentError;
+    private Throwable sentError;
 
     private enum State
     {
@@ -328,7 +329,7 @@ public class AddTorrentFragment extends Fragment
         }
     }
 
-    public void handlingException(Exception e)
+    public void handlingException(Throwable e)
     {
         if (e == null)
             return;
@@ -401,6 +402,22 @@ public class AddTorrentFragment extends Fragment
 
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.add(errDialog, TAG_IO_EXCEPT_DIALOG);
+                ft.commitAllowingStateLoss();
+            }
+
+        } else if (e instanceof OutOfMemoryError) {
+            if (fm.findFragmentByTag(TAG_OUT_OF_MEMORY_DIALOG) == null) {
+                BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
+                        getString(R.string.error),
+                        getString(R.string.file_is_too_large_error),
+                        0,
+                        getString(R.string.ok),
+                        null,
+                        null,
+                        this);
+
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(errDialog, TAG_OUT_OF_MEMORY_DIALOG);
                 ft.commitAllowingStateLoss();
             }
         }
@@ -478,7 +495,7 @@ public class AddTorrentFragment extends Fragment
         }
     };
 
-    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Exception>
+    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Throwable>
     {
         private final WeakReference<AddTorrentFragment> fragment;
         private String progressDialogText;
@@ -497,7 +514,7 @@ public class AddTorrentFragment extends Fragment
         }
 
         @Override
-        protected Exception doInBackground(Uri... params)
+        protected Throwable doInBackground(Uri... params)
         {
             if (fragment.get() == null || isCancelled())
                 return null;
@@ -551,7 +568,7 @@ public class AddTorrentFragment extends Fragment
 
                 if (fragment.get().pathToTempTorrent != null && !isCancelled())
                     fragment.get().info = new TorrentMetaInfo(fragment.get().pathToTempTorrent);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 return e;
             }
 
@@ -559,7 +576,7 @@ public class AddTorrentFragment extends Fragment
         }
 
         @Override
-        protected void onPostExecute(Exception e)
+        protected void onPostExecute(Throwable e)
         {
             if (fragment.get() == null)
                 return;

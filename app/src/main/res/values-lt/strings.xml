@@ -148,6 +148,7 @@
     <string name="error_free_space">Pasirinktoje vietoje nėra pakankamai laisvos atminties, kad parsiųsti pasirinktus failus</string>
     <string name="files_size" formatted="false">Pasirinkti %1$s iš %2$s</string>
     <string name="start_torrent">Pradėti torentą</string>
+    <string name="file_is_too_large_error">Failas per didelis</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>

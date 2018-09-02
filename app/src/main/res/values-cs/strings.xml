@@ -144,6 +144,7 @@
     <string name="error_free_space">Nedostatek volného místa ve vyznačené cestě ke stažení vybraných souborů</string>
     <string name="files_size" formatted="false">Vybráno %1$s z %2$s</string>
     <string name="start_torrent">Spustit torrent</string>
+    <string name="file_is_too_large_error">Soubor je příliš velký</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>

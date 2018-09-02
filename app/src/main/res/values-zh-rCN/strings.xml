@@ -148,6 +148,7 @@
     <string name="error_free_space">所选目录没有足够的可用空间用以下载所选文件</string>
     <string name="files_size" formatted="false">已选文件大小 %1$s ，torrent 文件总大小 %2$s</string>
     <string name="start_torrent">开始 torrent</string>
+    <string name="file_is_too_large_error">文件太大了</string>
 
     <!-- torrent info -->
     <string name="torrent_info">详情</string>

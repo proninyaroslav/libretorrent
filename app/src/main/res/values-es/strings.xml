@@ -148,6 +148,7 @@
     <string name="error_free_space">No hay suficiente espacio libre en la ruta seleccionada para descargar los archivos seleccionados</string>
     <string name="files_size" formatted="false">Seleccionados %1$s de %2$s</string>
     <string name="start_torrent">Iniciar torrent</string>
+    <string name="file_is_too_large_error">El archivo es demasiado grande</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Información</string>
