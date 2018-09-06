@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -50,6 +50,7 @@ public class AddTorrentActivity extends AppCompatActivity
 
     public static final String TAG_URI = "uri";
     public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
+    public static final String ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.AddTorrentActivity.ACTION_ADD_TORRENT";
 
     private AddTorrentFragment addTorrentFragment;
     private SpinnerProgressDialog progress;
@@ -157,12 +158,13 @@ public class AddTorrentActivity extends AppCompatActivity
         if (code == ResultCode.OK) {
             /* If add torrent dialog has been called by an implicit intent */
             setResult(intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS));
-            if (getIntent().getData() != null && intent.hasExtra(TAG_ADD_TORRENT_PARAMS)) {
+            if (getIntent().getData() != null) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                i.setAction(ACTION_ADD_TORRENT);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             } else {
-                setResult(RESULT_OK, new Intent());
+                setResult(RESULT_OK, new Intent(ACTION_ADD_TORRENT));
             }
 
         } else if (code == ResultCode.BACK) {

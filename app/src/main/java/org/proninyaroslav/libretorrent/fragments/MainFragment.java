@@ -287,33 +287,35 @@ public class MainFragment extends Fragment
         torrentsList.setAdapter(adapter);
 
         Intent i = activity.getIntent();
-        /* If add torrent dialog has been called by an implicit intent */
-        if (i != null && i.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS)) {
-            if (prevImplIntent == null || !prevImplIntent.equals(i)) {
-                prevImplIntent = i;
-                AddTorrentParams params = i.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
-                if (params != null) {
-                    if (!bound || service == null) {
-                        addTorrentsQueue.add(params);
-                    } else {
-                        try {
-                            service.addTorrent(params, false);
-                        } catch (Throwable e) {
-                            Log.e(TAG, Log.getStackTraceString(e));
-                            addTorrentError(e);
+        if (i != null && i.getAction() != null) {
+            /* If add torrent dialog has been called by an implicit intent */
+            if (i.getAction().equals(AddTorrentActivity.ACTION_ADD_TORRENT)) {
+                if (prevImplIntent == null || !prevImplIntent.equals(i)) {
+                    prevImplIntent = i;
+                    AddTorrentParams params = AddTorrentActivity.getResult();
+                    if (params != null) {
+                        if (!bound || service == null) {
+                            addTorrentsQueue.add(params);
+                        } else {
+                            try {
+                                service.addTorrent(params, false);
+                            } catch (Throwable e) {
+                                Log.e(TAG, Log.getStackTraceString(e));
+                                addTorrentError(e);
+                            }
                         }
                     }
                 }
-            }
 
-        } else if (i != null && i.getAction() != null) {
-            switch (i.getAction()) {
-                case MainActivity.ACTION_ADD_TORRENT_SHORTCUT:
-                case NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT:
-                    addTorrentMenu = true;
-                    /* Prevents re-reading action after device configuration changes */
-                    i.setAction(null);
-                    break;
+            } else {
+                switch (i.getAction()) {
+                    case MainActivity.ACTION_ADD_TORRENT_SHORTCUT:
+                    case NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT:
+                        addTorrentMenu = true;
+                        /* Prevents re-reading action after device configuration changes */
+                        i.setAction(null);
+                        break;
+                }
             }
         }
 
