@@ -136,6 +136,7 @@ public class AddTorrentInfoFragment extends Fragment
         folderChooserButton = v.findViewById(R.id.folder_chooser_button);
         sequentialDownload = v.findViewById(R.id.sequential_download);
         startTorrent = v.findViewById(R.id.start_torrent);
+        startTorrent.setChecked(true);
         freeSpace = v.findViewById(R.id.free_space);
         commentViewLayout = v.findViewById(R.id.layout_torrent_comment);
         createdByViewLayout = v.findViewById(R.id.layout_torrent_created_in_program);
@@ -155,7 +156,6 @@ public class AddTorrentInfoFragment extends Fragment
         torrentNameField.setText(info.torrentName);
         sha1HashView.setText(info.sha1Hash);
         pathToUploadView.setText(downloadDir);
-        startTorrent.setChecked(true);
 
         if (TextUtils.isEmpty(info.comment)) {
             commentViewLayout.setVisibility(View.GONE);
