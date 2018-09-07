@@ -84,6 +84,7 @@ public class TorrentDownload
             AlertType.STORAGE_MOVED.swig(),
             AlertType.STORAGE_MOVED_FAILED.swig(),
             AlertType.METADATA_RECEIVED.swig(),
+            AlertType.PIECE_FINISHED.swig(),
     };
 
     private Context context;
