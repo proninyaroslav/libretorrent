@@ -126,7 +126,9 @@ public class IPFilterParser
 
         long lineNum = 0;
         long badLineNum = 0;
-        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8")){
+        LineIterator it = null;
+        try {
+            it = FileUtils.lineIterator(file, "UTF-8");
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -216,6 +218,10 @@ public class IPFilterParser
             Log.e(TAG, Log.getStackTraceString(e));
 
             return false;
+
+        } finally {
+            if (it != null)
+                it.close();
         }
 
         return badLineNum < lineNum;
@@ -236,7 +242,9 @@ public class IPFilterParser
 
         long lineNum = 0;
         long badLineNum = 0;
-        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8")){
+        LineIterator it = null;
+        try {
+            it = FileUtils.lineIterator(file, "UTF-8");
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -318,6 +326,10 @@ public class IPFilterParser
             Log.e(TAG, Log.getStackTraceString(e));
 
             return false;
+
+        } finally {
+            if (it != null)
+                it.close();
         }
 
         return badLineNum < lineNum;
