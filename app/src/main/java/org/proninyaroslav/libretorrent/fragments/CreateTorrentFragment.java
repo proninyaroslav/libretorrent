@@ -521,7 +521,7 @@ public class CreateTorrentFragment extends Fragment
 
         String comments = null;
         if (commentsEditText.getText() != null)
-            comments = commentsEditText.toString();
+            comments = commentsEditText.getText().toString();
         boolean startSeeding = startSeedingOption.isChecked();
         boolean isPrivate = isPrivateOption.isChecked();
         boolean optimizeAlignment = optimizeAlignmentOption.isChecked();
@@ -541,7 +541,7 @@ public class CreateTorrentFragment extends Fragment
     {
         String[] trackerUrls = new String[0];
         if (trackersEditText.getText() != null)
-         trackerUrls = trackersEditText.toString().split("\n");
+            trackerUrls = trackersEditText.getText().toString().split("\n");
         ArrayList<String> validatedTrackers = new ArrayList<>();
         for (String url : trackerUrls) {
             url = Utils.normalizeURL(url.trim());
