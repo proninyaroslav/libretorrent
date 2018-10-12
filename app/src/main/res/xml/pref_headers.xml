@@ -35,4 +35,9 @@
         android:key="FeedSettingsFragment"
         android:title="@string/pref_header_feed"
         android:persistent="false" />
+
+    <Preference
+        android:key="StreamingSettingsFragment"
+        android:title="@string/pref_header_streaming"
+        android:persistent="false" />
 </PreferenceScreen>

@@ -19,8 +19,9 @@
 
 package org.proninyaroslav.libretorrent.fragments;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -52,11 +53,13 @@ import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.filetree.FileTree;
 import org.proninyaroslav.libretorrent.core.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +88,7 @@ public class DetailTorrentFilesFragment extends Fragment
     private static final String TAG_SELECTED_FILES = "selected_files";
     private static final String TAG_IN_ACTION_MODE = "in_action_mode";
     private static final String TAG_PRIORITY_DIALOG = "priority_dialog";
+    private static final String TAG_TORRENT_ID = "torrent_id";
 
     private AppCompatActivity activity;
     private RecyclerView fileList;
@@ -104,8 +108,9 @@ public class DetailTorrentFilesFragment extends Fragment
     private TorrentContentFileTree fileTree;
     /* Current directory */
     private TorrentContentFileTree curDir;
+    String torrentId;
 
-    public static DetailTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files,
+    public static DetailTorrentFilesFragment newInstance(String torrentId, ArrayList<BencodeFileItem> files,
                                                          List<Priority> priorities)
     {
         DetailTorrentFilesFragment fragment = new DetailTorrentFilesFragment();
@@ -114,6 +119,7 @@ public class DetailTorrentFilesFragment extends Fragment
         if (priorities != null)
             for (Priority priority : priorities)
                 fragment.priorities.add(new FilePriority(priority));
+        fragment.torrentId = torrentId;
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -161,6 +167,8 @@ public class DetailTorrentFilesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
+        if (savedInstanceState != null)
+            torrentId = savedInstanceState.getString(TAG_TORRENT_ID);
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
         if (storage != null) {
             Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
@@ -221,6 +229,7 @@ public class DetailTorrentFilesFragment extends Fragment
         }
         outState.putBoolean(TAG_IN_ACTION_MODE, inActionMode);
         outState.putStringArrayList(TAG_SELECTED_FILES, selectedFiles);
+        outState.putString(TAG_TORRENT_ID, torrentId);
 
         Bundle b = new Bundle();
         b.putSerializable(TAG_FILES, files);
@@ -375,6 +384,11 @@ public class DetailTorrentFilesFragment extends Fragment
             selectedFiles.remove(fileName);
         else
             selectedFiles.add(fileName);
+
+        int size = selectedFiles.size();
+        /* Show/hide menu items after change selected channels */
+        if (actionMode != null && (size == 1 || size == 2))
+            actionMode.invalidate();
     }
 
     private void toggleSelection(int position) {
@@ -410,7 +424,10 @@ public class DetailTorrentFilesFragment extends Fragment
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu)
         {
-            return false;
+            MenuItem shareStreamUrl = menu.findItem(R.id.share_stream_url_menu);
+            shareStreamUrl.setVisible(selectedFiles.size() <= 1);
+
+            return true;
         }
 
         @Override
@@ -431,6 +448,12 @@ public class DetailTorrentFilesFragment extends Fragment
                     mode.finish();
 
                     showPriorityDialog();
+                    break;
+                case R.id.share_stream_url_menu:
+                    mode.finish();
+
+                    shareStreamUrl(selectedFiles.get(0));
+                    selectedFiles.clear();
                     break;
             }
 
@@ -668,5 +691,31 @@ public class DetailTorrentFilesFragment extends Fragment
             adapter.notifyDataSetChanged();
         else
             adapter.addFiles(children);
+    }
+
+    private void shareStreamUrl(String fileName)
+    {
+        if (curDir == null)
+            return;
+        TorrentContentFileTree file = curDir.getChild(fileName);
+        if (file == null)
+            return;
+
+        int fileIndex = file.getIndex();
+
+        SharedPreferences pref = SettingsManager.getPreferences(activity.getApplicationContext());
+        String hostname = pref.getString(getString(R.string.pref_key_streaming_hostname),
+                                         SettingsManager.Default.streamingHostname);
+        int port = pref.getInt(getString(R.string.pref_key_streaming_port),
+                               SettingsManager.Default.streamingPort);
+
+        String url = TorrentStreamServer.makeStreamUrl(hostname, port, torrentId, fileIndex);
+
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "url");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, url);
+
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));;
     }
 }

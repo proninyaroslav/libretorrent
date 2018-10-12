@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Nastavit rychlost v KiB/s (0 - bez limitu)</string>
     <string name="torrent_added_date">Přidal</string>
     <string name="torrent_availability">Dostupnost</string>
+    <string name="share_stream_url">Sdílejte adresu URL streamu</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Síť</string>
     <string name="pref_header_scheduling">Plánování</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streamování</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Uložit torrent do</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>
@@ -490,6 +492,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Spusťte torrenty</string>
     <string name="pref_feed_start_torrents_summary">Spusťte torrenty po přidání</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Aktivovat streamování</string>
+    <string name="pref_streaming_enable_summary">Streamování umožňuje stahovat jednotlivé soubory z torrentu pomocí prohlížeče nebo přehrávače médií pomocí adres URL HTTP</string>
+    <string name="pref_streaming_hostname">Jméno hostitele</string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Vybraný port nebo název hostitele pro streamování je obsazeno nebo nesprávné. Opravte to prosím</string>
 
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>

@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Ορισμός ταχύτητας σε KiB/s (0 - χωρίς όριο)</string>
     <string name="torrent_added_date">Προστέθηκε</string>
     <string name="torrent_availability">Διαθεσιμότητα</string>
+    <string name="share_stream_url">Μοιραστείτε το stream URL</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Δίκτυο</string>
     <string name="pref_header_scheduling">Χρονοδρομολόγηση</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Αποθήκευση των torrents στο</string>
     <string name="pref_move_after_download_title">Μετακίνηση μετά την λήψη</string>
@@ -490,6 +492,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Εκτελέστε torrents</string>
     <string name="pref_feed_start_torrents_summary">Εκτελέστε torrents μετά την προσθήκη</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Ενεργοποίηση streaming</string>
+    <string name="pref_streaming_enable_summary">Streaming σας επιτρέπει να κατεβάζετε μεμονωμένα αρχεία από ένα torrent χρησιμοποιώντας ένα πρόγραμμα περιήγησης ή ένα media player χρησιμοποιώντας URL HTTP</string>
+    <string name="pref_streaming_hostname">Όνομα κεντρικού υπολογιστή</string>
+    <string name="pref_streaming_port">Θύρα</string>
+    <string name="pref_streaming_error">Η επιλεγμένη θύρα ή όνομα κεντρικού υπολογιστή για streaming είναι απασχολημένη ή λανθασμένη. Παρακαλώ διορθώστε το</string>
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>

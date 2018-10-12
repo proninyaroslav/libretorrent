@@ -25,6 +25,7 @@ import android.content.Context;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
+import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
@@ -43,5 +44,6 @@ public class MainApplication extends Application
 
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
+        EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     }
 }

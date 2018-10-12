@@ -50,6 +50,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.frostwire.jlibtorrent.FileStorage;
+import com.frostwire.jlibtorrent.Sha1Hash;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -65,9 +66,10 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -629,5 +631,27 @@ public class Utils
         }
 
         return version;
+    }
+
+    public static String makeSha1Hash(String s)
+    {
+        if (s == null)
+            return null;
+
+        MessageDigest messageDigest;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA1");
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+        messageDigest.update(s.getBytes(Charset.forName("UTF-8")));
+        StringBuilder sha1 = new StringBuilder();
+        for (byte b : messageDigest.digest()) {
+            if ((0xff & b) < 0x10)
+                sha1.append("0");
+            sha1.append(Integer.toHexString(0xff & b));
+        }
+
+        return sha1.toString();
     }
 }

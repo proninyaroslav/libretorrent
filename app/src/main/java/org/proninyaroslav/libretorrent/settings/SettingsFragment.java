@@ -169,6 +169,19 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
             return true;
         });
+
+        Preference streaming = findPreference(StreamingSettingsFragment.class.getSimpleName());
+        streaming.setOnPreferenceClickListener((Preference preference) -> {
+            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+                setFragment(StreamingSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_streaming));
+            } else {
+                startActivity(StreamingSettingsFragment.class,
+                        getString(R.string.pref_header_streaming));
+            }
+
+            return true;
+        });
     }
 
     @Override

@@ -236,6 +236,7 @@
     <string name="speed_limit_dialog">Установите скорость в КБ/с (0 - без ограничений)</string>
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
+    <string name="share_stream_url">Поделиться URL стрима</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
@@ -322,6 +323,7 @@
     <string name="pref_header_network">Сеть</string>
     <string name="pref_header_scheduling">Планировщик</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Стриминг</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Сохранять торренты в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
@@ -471,6 +473,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Запускать торренты</string>
     <string name="pref_feed_start_torrents_summary">Запускать торренты после добавления</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Включить стриминг</string>
+    <string name="pref_streaming_enable_summary">Стриминг позволяет загружать отдельный файлы из торрента с помощью браузера или медиаплеера, используя HTTP ссылки</string>
+    <string name="pref_streaming_hostname">Имя хоста</string>
+    <string name="pref_streaming_port">Порт</string>
+    <string name="pref_streaming_error">Выбранный порт или имя хоста занято или некорректно. Пожалуйста, исправьте это</string>
 
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>

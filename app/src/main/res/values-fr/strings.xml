@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Régler la vitesse en KiB/s (0 - illimité)</string>
     <string name="torrent_added_date">Ajoutée</string>
     <string name="torrent_availability">Disponibilité</string>
+    <string name="share_stream_url">Partager l\'URL du stream</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copier</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Réseau</string>
     <string name="pref_header_scheduling">Planification</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
@@ -489,6 +491,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Exécuter des torrents</string>
     <string name="pref_feed_start_torrents_summary">Exécuter des torrents après l\'ajout</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Activer le streaming</string>
+    <string name="pref_streaming_enable_summary">Le streaming vous permet de télécharger des fichiers individuels depuis un torrent à l\'aide d\'un navigateur ou d\'un lecteur multimédia à l\'aide d\'URL HTTP</string>
+    <string name="pref_streaming_hostname">Nom d\'hôte</string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Le port ou nom d\'hôte sélectionné pour la diffusion en continu est occupé ou incorrect. S\'il vous plaît le réparer</string>
 
     <!-- About dialog -->
     <string name="about_title">À propos de LibreTorrent</string>

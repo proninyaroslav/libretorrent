@@ -258,6 +258,7 @@
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
     <string name="torrent_added_date">已添加</string>
     <string name="torrent_availability">可用度</string>
+    <string name="share_stream_url">Share stream URL</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
@@ -344,6 +345,7 @@
     <string name="pref_header_network">网络</string>
     <string name="pref_header_scheduling">计划调度</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">默认下载目录</string>
     <string name="pref_move_after_download_title">下载完成后移动文件</string>
@@ -492,6 +494,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">运行 torrent</string>
     <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Enable streaming</string>
+    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
+    <string name="pref_streaming_hostname">Hostname</string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
 
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>

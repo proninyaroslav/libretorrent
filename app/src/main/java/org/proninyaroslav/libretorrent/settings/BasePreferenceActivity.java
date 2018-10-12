@@ -101,6 +101,8 @@ public class BasePreferenceActivity extends AppCompatActivity
                 return (F) SchedulingSettingsFragment.newInstance();
             else if (fragment.equals(FeedSettingsFragment.class.getSimpleName()))
                 return (F) FeedSettingsFragment.newInstance();
+            else if (fragment.equals(StreamingSettingsFragment.class.getSimpleName()))
+                return (F) StreamingSettingsFragment.newInstance();
             else
                 return null;
         }

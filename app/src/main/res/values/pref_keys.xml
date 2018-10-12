@@ -78,4 +78,8 @@
     <string name="pref_key_feed_auto_refresh_wifi_only" translatable="false">pref_key_feed_auto_refresh_wifi_only</string>
     <string name="pref_key_feed_keep_items_time" translatable="false">pref_key_feed_keep_items_time</string>
     <string name="pref_key_feed_start_torrents" translatable="false">pref_key_feed_start_torrents</string>
+    <!-- Streaming settings -->
+    <string name="pref_key_streaming_enable" translatable="false">pref_key_streaming_enable</string>
+    <string name="pref_key_streaming_hostname" translatable="false">pref_key_streaming_hostname</string>
+    <string name="pref_key_streaming_port" translatable="false">pref_key_streaming_port</string>
 </resources>

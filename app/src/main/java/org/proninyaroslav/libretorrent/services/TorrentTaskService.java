@@ -68,6 +68,7 @@ import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
@@ -138,6 +139,7 @@ public class TorrentTaskService extends Service
     private AtomicBoolean isPauseButton = new AtomicBoolean(true);
     private TorrentFileObserver fileObserver;
     private Thread shutdownThread;
+    private TorrentStreamServer torrentStreamServer;
 
     public class LocalBinder extends Binder
     {
@@ -155,7 +157,7 @@ public class TorrentTaskService extends Service
 
     private void init()
     {
-        Log.i(TAG, "Start " + TorrentTaskService.class.getSimpleName());
+        Log.i(TAG, "Start " + TAG);
         shutdownThread = new Thread() {
             @Override
             public void run()
@@ -192,7 +194,7 @@ public class TorrentTaskService extends Service
         super.onDestroy();
 
         cleanTemp();
-        Log.i(TAG, "Stop " + TorrentTaskService.class.getSimpleName());
+        Log.i(TAG, "Stop " + TAG);
     }
 
     private void cleanTemp()
@@ -229,6 +231,8 @@ public class TorrentTaskService extends Service
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
         TorrentEngine.getInstance().stop();
+        torrentStreamServer.stop();
+        torrentStreamServer = null;
         isAlreadyRunning = false;
         repo = null;
         pref = null;
@@ -436,6 +440,35 @@ public class TorrentTaskService extends Service
 
         if (pref.getBoolean(getString(R.string.pref_key_watch_dir), SettingsManager.Default.watchDir))
             startWatchDir();
+
+        boolean enableStreaming = pref.getBoolean(getString(R.string.pref_key_streaming_enable),
+                                                  SettingsManager.Default.enableStreaming);
+        if (enableStreaming)
+            startStreamingServer();
+    }
+
+    private void startStreamingServer()
+    {
+        stopStreamingServer();
+
+        String hostname = pref.getString(getString(R.string.pref_key_streaming_hostname),
+                                         SettingsManager.Default.streamingHostname);
+        int port = pref.getInt(getString(R.string.pref_key_streaming_port),
+                               SettingsManager.Default.streamingPort);
+
+        torrentStreamServer = new TorrentStreamServer(hostname, port);
+        try {
+            torrentStreamServer.start();
+        } catch (IOException e) {
+            makeTorrentErrorNotify(null, getString(R.string.pref_streaming_error));
+        }
+    }
+
+    private void stopStreamingServer()
+    {
+        if (torrentStreamServer != null)
+            torrentStreamServer.stop();
+        torrentStreamServer = null;
     }
 
     @Override
@@ -780,6 +813,14 @@ public class TorrentTaskService extends Service
         } else if (key.equals(getString(R.string.pref_key_dir_to_watch))) {
             stopWatchDir();
             startWatchDir();
+        } else if (key.equals(getString(R.string.pref_key_streaming_enable))) {
+            if (pref.getBoolean(key, SettingsManager.Default.enableStreaming))
+                startStreamingServer();
+            else
+                stopStreamingServer();
+        } else if (key.equals(getString(R.string.pref_key_streaming_port)) ||
+                   key.equals(getString(R.string.pref_key_streaming_hostname))) {
+            startStreamingServer();
         }
     }
 

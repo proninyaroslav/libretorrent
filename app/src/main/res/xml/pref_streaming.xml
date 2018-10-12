@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_streaming_enable"
+        android:title="@string/pref_streaming_enable_title"
+        android:summary="@string/pref_streaming_enable_summary" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_streaming_hostname"
+        android:title="@string/pref_streaming_hostname"
+        android:inputType="text|textNoSuggestions"
+        android:dependency="@string/pref_key_streaming_enable"
+        android:persistent="false" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_streaming_port"
+        android:title="@string/pref_streaming_port"
+        android:inputType="numberDecimal"
+        android:dependency="@string/pref_key_streaming_enable"
+        android:persistent="false" />
+</PreferenceScreen>

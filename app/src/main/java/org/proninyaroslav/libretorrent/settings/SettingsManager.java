@@ -111,6 +111,10 @@ public class SettingsManager
         public static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
         public static final boolean autoRefreshWiFiOnly = false;
         public static final boolean feedStartTorrents = true;
+        /* Streaming settings */
+        public static final boolean enableStreaming = true;
+        public static final String streamingHostname = "127.0.0.1";
+        public static final int streamingPort = 8800;
     }
 
     public static SharedPreferences getPreferences(Context context)

@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Establecer velocidad en KiB/s (0 - sin límite)</string>
     <string name="torrent_added_date">Adicional</string>
     <string name="torrent_availability">Disponibilidad</string>
+    <string name="share_stream_url">Comparte la URL del stream</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Red</string>
     <string name="pref_header_scheduling">Programación</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Guardar torrents en</string>
     <string name="pref_move_after_download_title">Mover al finalizar descarga</string>
@@ -489,6 +491,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Ejecutar torrents</string>
     <string name="pref_feed_start_torrents_summary">Ejecutar torrents después de agregar</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Habilitar streaming</string>
+    <string name="pref_streaming_enable_summary">La streaming  le permite descargar archivos individuales desde un torrent usando un navegador o un reproductor de medios usando las URL de HTTP</string>
+    <string name="pref_streaming_hostname">Nombre de host</string>
+    <string name="pref_streaming_port">Puerto</string>
+    <string name="pref_streaming_error">El puerto o nombre de host seleccionado para la streaming está ocupado o es incorrecto. Por favor, arreglalo</string>
 
     <!-- About dialog -->
     <string name="about_title">Acerca de LibreTorrent</string>

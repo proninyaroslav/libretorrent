@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Sett hastighet i KiB/s (0 - grenseløs)</string>
     <string name="torrent_added_date">La til</string>
     <string name="torrent_availability">Tilgjengelighet</string>
+    <string name="share_stream_url">Del nettadressen til stream</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopier</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Nettverk</string>
     <string name="pref_header_scheduling">Planlegging</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Lagre torrenter i</string>
     <string name="pref_move_after_download_title">Flytt etter nedlasting</string>
@@ -490,6 +492,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Kjør torrenter</string>
     <string name="pref_feed_start_torrents_summary">Kjør torrenter etter å ha lagt til</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Aktiver streaming</string>
+    <string name="pref_streaming_enable_summary">Streaming lar deg laste ned individuelle filer fra en torrent ved hjelp av en nettleser eller mediespiller ved hjelp av HTTP-adresser</string>
+    <string name="pref_streaming_hostname">Vertsnavn </string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Valgte port eller vertsnavn for streaming er opptatt eller feil. Vennligst reparer det</string>
 
     <!-- About dialog -->
     <string name="about_title">Om LibreTorrent</string>

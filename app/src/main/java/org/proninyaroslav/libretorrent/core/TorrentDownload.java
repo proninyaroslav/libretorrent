@@ -71,6 +71,9 @@ public class TorrentDownload
     private static final long SAVE_RESUME_SYNC_TIME = 10000; /* ms */
 
     public static final double MAX_RATIO = 9999.;
+    /* For streaming */
+    private final static int PRELOAD_PIECES_COUNT = 5;
+    private static final int DEFAULT_PIECE_DEADLINE = 1000; /* ms */
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.BLOCK_FINISHED.swig(),
@@ -85,6 +88,7 @@ public class TorrentDownload
             AlertType.STORAGE_MOVED_FAILED.swig(),
             AlertType.METADATA_RECEIVED.swig(),
             AlertType.PIECE_FINISHED.swig(),
+            AlertType.READ_PIECE.swig(),
     };
 
     private Context context;
@@ -918,15 +922,15 @@ public class TorrentDownload
         if (!th.isValid())
             return new int[0];
 
-        boolean[] pieces = pieces();
+        PieceIndexBitfield pieces = th.status(TorrentHandle.QUERY_PIECES).pieces();
         List<AdvancedPeerInfo> peers = advancedPeerInfo();
-        int[] avail = new int[pieces.length];
-        for (int i = 0; i < pieces.length; i++)
-            avail[i] = (pieces[i] ? 1 : 0);
+        int[] avail = new int[pieces.size()];
+        for (int i = 0; i < pieces.size(); i++)
+            avail[i] = (pieces.getBit(i) ? 1 : 0);
 
         for (AdvancedPeerInfo peer : peers) {
             PieceIndexBitfield peerPieces = peer.pieces();
-            for (int i = 0; i < pieces.length; i++)
+            for (int i = 0; i < pieces.size(); i++)
                 if (peerPieces.getBit(i))
                     ++avail[i];
         }
@@ -943,9 +947,77 @@ public class TorrentDownload
             return null;
         FileStorage fs = ti.files();
         long fileSize = fs.fileSize(fileIndex);
-        long firstOffset = fs.fileOffset(fileIndex);
+        long fileOffset = fs.fileOffset(fileIndex);
 
-        return new Pair<>((int)(firstOffset / ti.pieceLength()),
-                          (int)((firstOffset + fileSize - 1) / ti.pieceLength()));
+        return new Pair<>((int)(fileOffset / ti.pieceLength()),
+                          (int)((fileOffset + fileSize - 1) / ti.pieceLength()));
+    }
+
+    public boolean havePiece(int pieceIndex)
+    {
+        return th.havePiece(pieceIndex);
+    }
+
+    public void readPiece(int pieceIndex)
+    {
+        th.readPiece(pieceIndex);
+    }
+
+    public File getFile(int fileIndex)
+    {
+        return new File(th.savePath() + "/" + th.torrentFile().files().filePath(fileIndex));
+    }
+
+    /*
+     * Set the bytes of the selected file that you're interested in
+     * the piece of that specific offset is selected and that piece plus the 1 preceding and the 3 after it.
+     * These pieces will then be prioritised, which results in continuing the sequential download after that piece
+     */
+
+    public void setInterestedPieces(TorrentStream stream, int startPiece, int numPieces)
+    {
+        if (stream == null || startPiece < 0 || numPieces < 0)
+            return;
+
+        for (int i = 0; i < numPieces; i++) {
+            int piece = startPiece + i;
+            if (piece > stream.lastFilePiece)
+                break;
+
+            if (i + 1 == numPieces) {
+                int preloadPieces = PRELOAD_PIECES_COUNT;
+                for (int p = piece; p <= stream.lastFilePiece; p++) {
+                    /* Set max priority to first found piece that is not confirmed finished */
+                    if (!th.havePiece(p)) {
+                        th.piecePriority(p, Priority.SEVEN);
+                        th.setPieceDeadline(p, DEFAULT_PIECE_DEADLINE);
+                        preloadPieces--;
+                        if (preloadPieces == 0)
+                            break;
+                    }
+                }
+
+            } else {
+                if (!th.havePiece(piece)) {
+                    th.piecePriority(piece, Priority.SEVEN);
+                    th.setPieceDeadline(piece, DEFAULT_PIECE_DEADLINE);
+                }
+            }
+        }
+    }
+
+    public TorrentStream getStream(int fileIndex)
+    {
+        TorrentInfo ti = th.torrentFile();
+        FileStorage fs = ti.files();
+        Pair<Integer, Integer> filePieces = getFilePieces(ti, fileIndex);
+        if (filePieces == null)
+            throw new IllegalArgumentException("Incorrect file index");
+
+        return new TorrentStream(torrent.getId(), fileIndex,
+                                 filePieces.first, filePieces.second, ti.pieceLength(),
+                                 fs.fileOffset(fileIndex), fs.fileSize(fileIndex),
+                                 ti.pieceSize(filePieces.second));
+
     }
 }

@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Ustaw prędkość w KiB/s (0 - bez limitu)</string>
     <string name="torrent_added_date">Dodano</string>
     <string name="torrent_availability">Dostępność</string>
+    <string name="share_stream_url">Udostępnij adres URL strumienia</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopiuj</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Sieć</string>
     <string name="pref_header_scheduling">Planowanie</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Scieżka zapisu torrentów</string>
     <string name="pref_move_after_download_title">Przenieś po pobraniu jako</string>
@@ -490,6 +492,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Uruchom torrenty</string>
     <string name="pref_feed_start_torrents_summary">Uruchom torrenty po dodaniu</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Włącz streaming</string>
+    <string name="pref_streaming_enable_summary">Streaming pozwala na pobranie pojedynczych plików z potoku przy użyciu przeglądarki lub odtwarzacza multimedialnego przy użyciu HTTP URL</string>
+    <string name="pref_streaming_hostname">Nazwa hosta</string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Wybrany port lub nazwa hosta do przesyłania strumieniowego jest zajęta lub niepoprawna. Proszę napraw to</string>
 
     <!-- About dialog -->
     <string name="about_title">Informacje o LibreTorrent</string>

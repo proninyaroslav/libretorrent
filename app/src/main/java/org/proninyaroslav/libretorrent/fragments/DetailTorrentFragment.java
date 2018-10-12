@@ -377,7 +377,7 @@ public class DetailTorrentFragment extends Fragment
         DetailTorrentInfoFragment fragmentInfo = DetailTorrentInfoFragment.newInstance(torrent, infoCache);
         DetailTorrentStateFragment fragmentState = DetailTorrentStateFragment.newInstance(infoCache);
         DetailTorrentFilesFragment fragmentFiles =
-                DetailTorrentFilesFragment.newInstance(getFileList(), getPrioritiesList());
+                DetailTorrentFilesFragment.newInstance(torrentId, getFileList(), getPrioritiesList());
         DetailTorrentTrackersFragment fragmentTrackers = DetailTorrentTrackersFragment.newInstance();
         DetailTorrentPeersFragment fragmentPeers = DetailTorrentPeersFragment.newInstance();
         DetailTorrentPiecesFragment fragmentPieces = (infoCache != null ?

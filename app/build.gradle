@@ -16,6 +16,7 @@ android {
         versionName "1.8"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -83,6 +84,8 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'net.java.dev.jna:jna:4.5.2'
 
     /* libtorrent wrapper */
     implementation 'com.frostwire:jlibtorrent:' + JLIBTORRENT_VERSION

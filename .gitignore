@@ -67,3 +67,6 @@ captures/
 
 # Keystore files
 *.jks
+
+# Android NDK build stuff
+.externalNativeBuild

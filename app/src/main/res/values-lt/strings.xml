@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Nustatyti greitį KiB/s (0 - be ribų)</string>
     <string name="torrent_added_date">Pridėta</string>
     <string name="torrent_availability">Prieinamumas</string>
+    <string name="share_stream_url">Dalytis stream URL</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Tinklas</string>
     <string name="pref_header_scheduling">Planavimas</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Išsaugoiti torentus į</string>
     <string name="pref_move_after_download_title">Perkelti po parsiuntimo</string>
@@ -489,6 +491,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Paleisti torentus</string>
     <string name="pref_feed_start_torrents_summary">Paleiskite torentus po pridėjimo</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Įgalinti streaming</string>
+    <string name="pref_streaming_enable_summary">Streaming leidžia jums atsisiųsti atskirus failus iš torrent naudodami naršyklę arba medijos leistuvą naudojant HTTP URL</string>
+    <string name="pref_streaming_hostname">Hostname</string>
+    <string name="pref_streaming_port">Prievadas</string>
+    <string name="pref_streaming_error">Pasirinktas uostas ar prieglobos vardas yra užimtas arba neteisingas. Prašome ją išspręsti</string>
 
     <!-- About dialog -->
     <string name="about_title">Apie LibreTorrent</string>

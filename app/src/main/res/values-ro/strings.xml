@@ -255,6 +255,7 @@
     <string name="speed_limit_dialog">Setează viteza în KO/s (0 - nelimitată)</string>
     <string name="torrent_added_date">Adăugat</string>
     <string name="torrent_availability">Disponibilitate</string>
+    <string name="share_stream_url">Distribuiți URL-ul stream</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiază</string>
@@ -341,6 +342,7 @@
     <string name="pref_header_network">Rețea</string>
     <string name="pref_header_scheduling">Programare</string>
     <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salvează torrentele în</string>
     <string name="pref_move_after_download_title">Mută după download</string>
@@ -490,6 +492,12 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Rulați torrentele</string>
     <string name="pref_feed_start_torrents_summary">Rulați torrentele după adăugare</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Activați streamingul</string>
+    <string name="pref_streaming_enable_summary">Streaming vă permite să descărcați fișiere individuale dintr-un torrent utilizând un browser sau un media player utilizând url-uri HTTP</string>
+    <string name="pref_streaming_hostname">Numele gazdei</string>
+    <string name="pref_streaming_port">Port</string>
+    <string name="pref_streaming_error">Portul sau numele gazdei selectate pentru streaming sunt ocupate sau incorecte. Fixați-l</string>
 
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>

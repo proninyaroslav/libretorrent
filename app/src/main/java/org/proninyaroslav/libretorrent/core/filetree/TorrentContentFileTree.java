@@ -27,6 +27,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     private FilePriority priority = new FilePriority(FilePriority.Type.IGNORE);
     private long receivedBytes = 0L;
     private double availability = -1;
+    private boolean isStream = false;
 
     public enum SelectState
     {
@@ -204,6 +205,36 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         return availability;
     }
 
+    public boolean isStream()
+    {
+        return isStream;
+    }
+
+    public void setStream(boolean stream)
+    {
+        isStream = stream;
+        /* Sending select change event up the parent */
+        if (parent != null && parent.isStream != isStream)
+            parent.onChildStreamChange();
+    }
+
+    /*
+     * Sending stream change events up the tree.
+     */
+
+    private void onChildStreamChange()
+    {
+        boolean stream = false;
+        for (TorrentContentFileTree child : children.values()) {
+            if (child.isStream) {
+                stream = true;
+                break;
+            }
+        }
+
+        setStream(stream);
+    }
+
     @Override
     public String toString()
     {
@@ -213,6 +244,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
                 ", priority=" + priority +
                 ", receivedBytes=" + receivedBytes +
                 ", availability=" + availability +
+                ", isStream=" + isStream +
                 '}';
     }
 }
