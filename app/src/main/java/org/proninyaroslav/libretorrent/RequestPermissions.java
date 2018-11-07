@@ -56,7 +56,7 @@ public class RequestPermissions extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getAppTheme(getApplicationContext()));
+        setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
 
