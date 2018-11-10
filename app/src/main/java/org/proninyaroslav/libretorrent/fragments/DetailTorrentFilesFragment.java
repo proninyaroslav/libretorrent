@@ -425,7 +425,17 @@ public class DetailTorrentFilesFragment extends Fragment
         public boolean onPrepareActionMode(ActionMode mode, Menu menu)
         {
             MenuItem shareStreamUrl = menu.findItem(R.id.share_stream_url_menu);
-            shareStreamUrl.setVisible(selectedFiles.size() <= 1);
+            shareStreamUrl.setVisible(false);
+
+            if (selectedFiles.size() != 1)
+                return true;
+            if (curDir == null)
+                return true;
+            TorrentContentFileTree file = curDir.getChild(selectedFiles.get(0));
+            if (file == null || !file.isFile())
+                return true;
+
+            shareStreamUrl.setVisible(true);
 
             return true;
         }
@@ -698,7 +708,7 @@ public class DetailTorrentFilesFragment extends Fragment
         if (curDir == null)
             return;
         TorrentContentFileTree file = curDir.getChild(fileName);
-        if (file == null)
+        if (file == null || !file.isFile())
             return;
 
         int fileIndex = file.getIndex();
