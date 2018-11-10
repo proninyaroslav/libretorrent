@@ -104,7 +104,7 @@ public class TorrentInputStream extends InputStream
         int firstPieceSize = (stream.firstFilePiece == stream.lastFilePiece ?
                               stream.lastFilePieceSize :
                               stream.pieceLength);
-        long firstPieceEnd = stream.firstFilePiece * stream.pieceLength + firstPieceSize;
+        long firstPieceEnd = (long)stream.firstFilePiece * stream.pieceLength + firstPieceSize;
 
         if (stream.fileOffset > firstPieceEnd)
             throw new IllegalArgumentException();
@@ -169,7 +169,7 @@ public class TorrentInputStream extends InputStream
         int pieceSize = (piece == stream.lastFilePiece ?
                          stream.lastFilePieceSize :
                          stream.pieceLength);
-        long pieceEnd = pieceLocalIndex * stream.pieceLength + pieceSize;
+        long pieceEnd = (long)pieceLocalIndex * stream.pieceLength + pieceSize;
 
         return pieceSize - (int)(pieceEnd - pos);
     }
