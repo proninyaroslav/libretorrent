@@ -52,7 +52,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.frostwire.jlibtorrent.Priority;
+import org.libtorrent4j.Priority;
 
 import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.Subscribe;

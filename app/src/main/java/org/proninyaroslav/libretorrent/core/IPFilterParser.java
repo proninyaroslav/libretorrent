@@ -23,9 +23,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
-import com.frostwire.jlibtorrent.swig.address;
-import com.frostwire.jlibtorrent.swig.error_code;
-import com.frostwire.jlibtorrent.swig.ip_filter;
+import org.libtorrent4j.swig.address;
+import org.libtorrent4j.swig.error_code;
+import org.libtorrent4j.swig.ip_filter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;

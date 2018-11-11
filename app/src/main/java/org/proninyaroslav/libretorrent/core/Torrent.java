@@ -23,7 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.frostwire.jlibtorrent.Priority;
+import org.libtorrent4j.Priority;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

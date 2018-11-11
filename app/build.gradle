@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
-        minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in jlibtorrent */
+        minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
         targetSdkVersion 28
         versionCode 9
         /*
@@ -63,7 +63,7 @@ repositories {
 }
 
 def ANDROID_SUPPORT_VERSION='28.0.0-alpha3'
-def JLIBTORRENT_VERSION='1.2.0.18-RC11'
+def LIBTORRENT4J_VERSION='1.2.0.20-RC1'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -87,9 +87,9 @@ dependencies {
     implementation 'net.java.dev.jna:jna:4.5.2'
 
     /* libtorrent wrapper */
-    implementation 'com.frostwire:jlibtorrent:' + JLIBTORRENT_VERSION
-    implementation 'com.frostwire:jlibtorrent-android-arm:' + JLIBTORRENT_VERSION
-    implementation 'com.frostwire:jlibtorrent-android-arm64:' + JLIBTORRENT_VERSION
-    implementation 'com.frostwire:jlibtorrent-android-x86:' + JLIBTORRENT_VERSION
-    implementation 'com.frostwire:jlibtorrent-android-x86_64:' + JLIBTORRENT_VERSION
+    implementation 'org.libtorrent4j:libtorrent4j:' + LIBTORRENT4J_VERSION
+    implementation 'org.libtorrent4j:libtorrent4j-android-arm:' + LIBTORRENT4J_VERSION
+    implementation 'org.libtorrent4j:libtorrent4j-android-arm64:' + LIBTORRENT4J_VERSION
+    implementation 'org.libtorrent4j:libtorrent4j-android-x86:' + LIBTORRENT4J_VERSION
+    implementation 'org.libtorrent4j:libtorrent4j-android-x86_64:' + LIBTORRENT4J_VERSION
 }

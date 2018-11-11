@@ -26,9 +26,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
 import android.util.Log;
 
-import com.frostwire.jlibtorrent.Priority;
-import com.frostwire.jlibtorrent.swig.add_torrent_params;
-import com.frostwire.jlibtorrent.swig.error_code;
+import org.libtorrent4j.Priority;
+import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.error_code;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;

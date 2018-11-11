@@ -44,7 +44,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.frostwire.jlibtorrent.Priority;
+import org.libtorrent4j.Priority;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.TorrentContentFilesAdapter;

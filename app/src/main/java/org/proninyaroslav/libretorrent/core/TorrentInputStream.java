@@ -22,12 +22,12 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.support.annotation.NonNull;
 
-import com.frostwire.jlibtorrent.AlertListener;
-import com.frostwire.jlibtorrent.TorrentHandle;
-import com.frostwire.jlibtorrent.alerts.Alert;
-import com.frostwire.jlibtorrent.alerts.AlertType;
-import com.frostwire.jlibtorrent.alerts.ReadPieceAlert;
-import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import org.libtorrent4j.AlertListener;
+import org.libtorrent4j.TorrentHandle;
+import org.libtorrent4j.alerts.Alert;
+import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.ReadPieceAlert;
+import org.libtorrent4j.alerts.TorrentAlert;
 import com.sun.jna.Pointer;
 
 import java.io.IOException;

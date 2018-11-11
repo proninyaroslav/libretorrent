@@ -55,9 +55,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.frostwire.jlibtorrent.Pair;
-import com.frostwire.jlibtorrent.Priority;
-import com.frostwire.jlibtorrent.TorrentBuilder;
+import org.libtorrent4j.Pair;
+import org.libtorrent4j.Priority;
+import org.libtorrent4j.TorrentBuilder;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.CreateTorrentActivity;

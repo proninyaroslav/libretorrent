@@ -23,8 +23,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.frostwire.jlibtorrent.AnnounceEndpoint;
-import com.frostwire.jlibtorrent.AnnounceEntry;
+import org.libtorrent4j.AnnounceEndpoint;
+import org.libtorrent4j.AnnounceEntry;
 
 import java.util.List;
 

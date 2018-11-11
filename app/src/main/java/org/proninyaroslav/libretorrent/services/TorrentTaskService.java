@@ -44,12 +44,12 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.frostwire.jlibtorrent.AnnounceEntry;
-import com.frostwire.jlibtorrent.FileStorage;
-import com.frostwire.jlibtorrent.Priority;
-import com.frostwire.jlibtorrent.TorrentInfo;
-import com.frostwire.jlibtorrent.TorrentStatus;
-import com.frostwire.jlibtorrent.swig.settings_pack;
+import org.libtorrent4j.AnnounceEntry;
+import org.libtorrent4j.FileStorage;
+import org.libtorrent4j.Priority;
+import org.libtorrent4j.TorrentInfo;
+import org.libtorrent4j.TorrentStatus;
+import org.libtorrent4j.swig.settings_pack;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
@@ -1535,7 +1535,7 @@ public class TorrentTaskService extends Service
 
     public TorrentMetaInfo fetchMagnet(String uri) throws Exception
     {
-        com.frostwire.jlibtorrent.AddTorrentParams p = TorrentEngine.getInstance().fetchMagnet(uri);
+        org.libtorrent4j.AddTorrentParams p = TorrentEngine.getInstance().fetchMagnet(uri);
         TorrentMetaInfo info = null;
         if (p != null)
             info = new TorrentMetaInfo(p.name(), p.infoHash().toHex());

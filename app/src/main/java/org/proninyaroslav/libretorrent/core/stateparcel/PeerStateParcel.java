@@ -23,8 +23,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.frostwire.jlibtorrent.PieceIndexBitfield;
-import com.frostwire.jlibtorrent.TorrentStatus;
+import org.libtorrent4j.PieceIndexBitfield;
+import org.libtorrent4j.TorrentStatus;
 
 import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
 

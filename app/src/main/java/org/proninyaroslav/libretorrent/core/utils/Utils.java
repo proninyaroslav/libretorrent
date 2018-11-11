@@ -49,8 +49,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.frostwire.jlibtorrent.FileStorage;
-import com.frostwire.jlibtorrent.Sha1Hash;
+import org.libtorrent4j.FileStorage;
+import org.libtorrent4j.Sha1Hash;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -131,7 +131,7 @@ public class Utils
 
     /*
      * Returns the list of BencodeFileItem objects, extracted from FileStorage.
-     * The order of addition in the list corresponds to the order of indexes in jlibtorrent.FileStorage
+     * The order of addition in the list corresponds to the order of indexes in libtorrent4j.FileStorage
      */
 
     public static ArrayList<BencodeFileItem> getFileList(FileStorage storage)

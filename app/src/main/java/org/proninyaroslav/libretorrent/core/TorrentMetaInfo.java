@@ -22,7 +22,7 @@ package org.proninyaroslav.libretorrent.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.frostwire.jlibtorrent.TorrentInfo;
+import org.libtorrent4j.TorrentInfo;
 
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;

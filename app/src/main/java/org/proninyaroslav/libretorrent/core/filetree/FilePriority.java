@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.filetree;
 
-import com.frostwire.jlibtorrent.Priority;
+import org.libtorrent4j.Priority;
 
 import java.io.Serializable;
 

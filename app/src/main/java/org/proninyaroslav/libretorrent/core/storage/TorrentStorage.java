@@ -27,7 +27,7 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.frostwire.jlibtorrent.Priority;
+import org.libtorrent4j.Priority;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.Torrent;

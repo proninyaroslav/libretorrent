@@ -19,12 +19,12 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import com.frostwire.jlibtorrent.PeerInfo;
-import com.frostwire.jlibtorrent.PieceIndexBitfield;
-import com.frostwire.jlibtorrent.swig.peer_info;
+import org.libtorrent4j.PeerInfo;
+import org.libtorrent4j.PieceIndexBitfield;
+import org.libtorrent4j.swig.peer_info;
 
 /*
- * Extension of com.frostwire.jlibtorrent.PeerInfo class with additional information
+ * Extension of org.libtorrent4j.PeerInfo class with additional information
  */
 
 public class AdvancedPeerInfo extends PeerInfo
