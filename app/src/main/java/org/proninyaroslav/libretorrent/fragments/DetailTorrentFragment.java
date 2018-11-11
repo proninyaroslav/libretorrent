@@ -792,6 +792,7 @@ public class DetailTorrentFragment extends Fragment
             /* Inserting links from the clipboard */
             String clipboard = Utils.getClipboard(activity.getApplicationContext());
             if (clipboard != null && field != null) {
+                clipboard = clipboard.toLowerCase();
                 List<String> urls = Arrays.asList(clipboard.split(Utils.getLineSeparator()));
                 ArrayList<String> validUrls = new ArrayList<>();
 

@@ -872,6 +872,7 @@ public class MainFragment extends Fragment
         String clipboard = Utils.getClipboard(activity.getApplicationContext());
         String url = null;
         if (clipboard != null) {
+            clipboard = clipboard.toLowerCase();
             if (clipboard.startsWith(Utils.MAGNET_PREFIX) ||
                 clipboard.startsWith(Utils.HTTP_PREFIX) ||
                 clipboard.startsWith(Utils.HTTPS_PREFIX) ||
