@@ -32,6 +32,7 @@ Already implemented features (help is highly desired!):
  - RSS manager
  - Android TV support
  - Ability to create torrents
+ - Streaming of any selected files
  - And more
 
 Donation
