@@ -417,7 +417,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>
-    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用 tracker 便能找到彼此。</string>
+    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用 tracker 便能找到彼此。启用此选项将增加电池使用量。</string>
     <string name="pref_enable_lsd_title">开启 LSD</string>
     <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度减少流量。</string>
     <string name="pref_enable_utp_title">开启 μTP</string>

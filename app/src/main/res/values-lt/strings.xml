@@ -414,7 +414,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Įgaliotojo serverio nustatymai</string>
     <string name="pref_enable_dht_title">Įgalinti DHT</string>
-    <string name="pref_enable_dht_summary">Tai leidžia BitTorrent-klientams rasti vienas kitą be sekėjo</string>
+    <string name="pref_enable_dht_summary">Tai leidžia BitTorrent-klientams rasti vienas kitą be sekėjo. Tai įgalinus padidės baterijos naudojimas</string>
     <string name="pref_enable_lsd_title">Įgalinti LSD</string>
     <string name="pref_enable_lsd_summary">Tai sukurta palaikyti vietinių BitTorrent peerams, kad sumažinti interneto naudojimą</string>
     <string name="pref_enable_utp_title">Įgalinti μTP</string>

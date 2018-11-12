@@ -414,7 +414,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy Einstellungen</string>
     <string name="pref_enable_dht_title">DHT einschalten</string>
-    <string name="pref_enable_dht_summary">Erlaubt BitTorrent-Clients sich gegenseitig ohne Tracker zu finden</string>
+    <string name="pref_enable_dht_summary">Erlaubt BitTorrent-Clients sich gegenseitig ohne Tracker zu finden. Dies erhöht den Akkuverbrauch</string>
     <string name="pref_enable_lsd_title">LSD einschalten</string>
     <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
     <string name="pref_enable_utp_title">μTP einschalten</string>

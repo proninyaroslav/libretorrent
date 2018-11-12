@@ -415,7 +415,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ρυθμίσεις μεσολαβητή</string>
     <string name="pref_enable_dht_title">Ενεργοποίηση DHT</string>
-    <string name="pref_enable_dht_summary">Επιτρέπει στους πελάτες BitTorrent να συνδέονται μεταξύ τους χωρίς την χρήση ιχνηλάτη</string>
+    <string name="pref_enable_dht_summary">Επιτρέπει στους πελάτες BitTorrent να συνδέονται μεταξύ τους χωρίς την χρήση ιχνηλάτη. Αν ενεργοποιηθεί θα αυξηθεί η χρήση της μπαταρίας</string>
     <string name="pref_enable_lsd_title">Ενεργοποίηση LSD</string>
     <string name="pref_enable_lsd_summary">Υποστηρίζει την ανακάλυψη τοπικών ομότιμων χρηστών, προκειμένου να μειωθεί η κίνηση δεδομένων</string>
     <string name="pref_enable_utp_title">Ενεργοποίηση μTP</string>

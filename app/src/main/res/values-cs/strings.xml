@@ -415,7 +415,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Nastavení Proxy</string>
     <string name="pref_enable_dht_title">Povolit DHT</string>
-    <string name="pref_enable_dht_summary">Povoluje BitTorrent klientům se navzájem kontaktovat bez použití trackeru.</string>
+    <string name="pref_enable_dht_summary">Povoluje BitTorrent klientům se navzájem kontaktovat bez použití trackeru. Použitím této možnosti se zvýší spotřeba energie</string>
     <string name="pref_enable_lsd_title">Povolit LSD</string>
     <string name="pref_enable_lsd_summary">Určeno k podpoře hledání lokálních BitTorrent peerů, čímž se sníží vytížení sítě</string>
     <string name="pref_enable_utp_title">Povolit μTP</string>

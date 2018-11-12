@@ -396,7 +396,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
-    <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера</string>
+    <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера. Включение этой опции увеличит использование батареи</string>
     <string name="pref_enable_lsd_title">Включить LSD</string>
     <string name="pref_enable_lsd_summary">Разработан для получения возможности обнаружения локальных BitTorrent-пиров, и, следовательно, сокращения трафика</string>
     <string name="pref_enable_utp_title">Включить μTP</string>

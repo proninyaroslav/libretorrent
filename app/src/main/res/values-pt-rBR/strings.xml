@@ -414,7 +414,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Configurações de Proxy</string>
     <string name="pref_enable_dht_title">Habilitar DHT</string>
-    <string name="pref_enable_dht_summary">Isto permite que clientes BitTorrent consigam se achar sem o uso de rastreadores</string>
+    <string name="pref_enable_dht_summary">Isto permite que clientes BitTorrent consigam se achar sem o uso de rastreadores. Se habilitado, irá aumentar o uso da bateria</string>
     <string name="pref_enable_lsd_title">Habilitar LSD</string>
     <string name="pref_enable_lsd_summary">Está designado para suportar o descobrimento de peers locais de BitTorrent, visando minimizar o tráfego</string>
     <string name="pref_enable_utp_title">Habilitar μTP</string>
