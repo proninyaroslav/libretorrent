@@ -63,7 +63,7 @@ public class SettingsManager
         public static final boolean useRandomPort = true;
         public static final boolean encryptInConnections = true;
         public static final boolean encryptOutConnections = true;
-        public static final boolean enableIpFiltering = true;
+        public static final boolean enableIpFiltering = false;
         public static final String ipFilteringFile = null;
         public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
         /* Storage settings */
