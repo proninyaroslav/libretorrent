@@ -497,7 +497,7 @@ public class FeedFragment extends Fragment
 
             Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener((View v) -> {
-                String link = urlField.getText().toString().toLowerCase();
+                String link = urlField.getText().toString();
                 String filter = filterField.getText().toString();
                 String name = nameField.getText().toString();
                 boolean isRegex = isRegexFilter.isChecked();
@@ -508,7 +508,7 @@ public class FeedFragment extends Fragment
                     /* Delete old channel after edit */
                     if (channel != null)
                         deleteChannel(channel);
-                    addChannel(Utils.normalizeURL(link), name, filter, isRegex, autoDownload);
+                    addChannel(Utils.normalizeURL(link.toLowerCase()), name, filter, isRegex, autoDownload);
                     dialog.dismiss();
                 }
             });
