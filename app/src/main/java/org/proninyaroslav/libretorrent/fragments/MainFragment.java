@@ -850,7 +850,7 @@ public class MainFragment extends Fragment
 
         positiveButton.setOnClickListener((View v) -> {
             if (field != null && field.getText() != null && fieldLayout != null) {
-                String link = field.getText().toString();
+                String link = field.getText().toString().toLowerCase();
                 if (checkEditTextField(link, fieldLayout)) {
                     String url;
                     if (link.startsWith(Utils.MAGNET_PREFIX))

@@ -497,7 +497,7 @@ public class FeedFragment extends Fragment
 
             Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener((View v) -> {
-                String link = urlField.getText().toString();
+                String link = urlField.getText().toString().toLowerCase();
                 String filter = filterField.getText().toString();
                 String name = nameField.getText().toString();
                 boolean isRegex = isRegexFilter.isChecked();
