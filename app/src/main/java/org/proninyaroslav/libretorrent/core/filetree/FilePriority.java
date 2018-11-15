@@ -57,14 +57,14 @@ public class FilePriority implements Serializable
         switch (priority) {
             case IGNORE:
                 return Type.IGNORE;
-            case NORMAL:
+            case LOW:
             case TWO:
             case THREE:
-            case FOUR:
+            case DEFAULT:
             case FIVE:
             case SIX:
                 return Type.NORMAL;
-            case SEVEN:
+            case TOP_PRIORITY:
                 return Type.HIGH;
             default:
                 return null;
@@ -77,9 +77,9 @@ public class FilePriority implements Serializable
             case IGNORE:
                 return Priority.IGNORE.swig();
             case NORMAL:
-                return Priority.NORMAL.swig();
+                return Priority.DEFAULT.swig();
             case HIGH:
-                return Priority.SEVEN.swig();
+                return Priority.TOP_PRIORITY.swig();
             default:
                 return -1;
         }

@@ -740,7 +740,7 @@ public class AddTorrentFragment extends Fragment
             priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE));
             if (selectedIndexes != null)
                 for (int index : selectedIndexes)
-                    priorities.set(index, Priority.NORMAL);
+                    priorities.set(index, Priority.DEFAULT);
         }
         String source = (pathToTempTorrent == null && fromMagnet ? uri.toString() : pathToTempTorrent);
         AddTorrentParams params = new AddTorrentParams(source, fromMagnet, info.sha1Hash,

@@ -618,7 +618,7 @@ public class CreateTorrentFragment extends Fragment
                     false,
                     info.sha1Hash,
                     info.torrentName,
-                    new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.NORMAL)),
+                    new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.DEFAULT)),
                     createParams.getPath().substring(0, createParams.getPath().lastIndexOf(File.separator)),
                     false,
                     false);

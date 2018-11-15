@@ -984,7 +984,7 @@ public class TorrentTaskService extends Service
         List<Priority> priorities = torrent.getFilePriorities();
         if (!torrent.isDownloadingMetadata() && (priorities == null || priorities.isEmpty())) {
             TorrentMetaInfo info = new TorrentMetaInfo(torrent.getTorrentFilePath());
-            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
             repo.update(torrent);
         }
 
@@ -1978,7 +1978,7 @@ public class TorrentTaskService extends Service
             makeTorrentErrorNotify(null, getString(R.string.error_decode_torrent));
             return;
         }
-        ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(ti.files().numFiles(),Priority.NORMAL));
+        ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(ti.files().numFiles(),Priority.DEFAULT));
         String downloadPath = pref.getString(getString(R.string.pref_key_save_torrents_in),
                                              SettingsManager.Default.saveTorrentsIn);
         AddTorrentParams params = new AddTorrentParams(file.getAbsolutePath(), false, ti.infoHash().toHex(),

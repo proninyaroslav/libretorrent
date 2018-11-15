@@ -162,7 +162,7 @@ public class FeedDownloaderService extends JobIntentService
                         Log.getStackTraceString(e));
                 return null;
             }
-            priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+            priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
             sha1hash = info.sha1Hash;
             name = info.torrentName;
             source = tmp.getAbsolutePath();

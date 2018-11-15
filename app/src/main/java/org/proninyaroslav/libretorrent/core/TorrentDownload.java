@@ -214,7 +214,7 @@ public class TorrentDownload
                 torrent.setName(newName);
             }
             torrent.setTorrentFilePath(pathToTorrent);
-            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.NORMAL));
+            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
             torrent.setDownloadingMetadata(false);
             setSequentialDownload(torrent.isSequentialDownload());
             if (torrent.isPaused())
@@ -378,7 +378,7 @@ public class TorrentDownload
         } else {
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
             final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.NORMAL, ti.numFiles());
+                    Priority.array(Priority.DEFAULT, ti.numFiles());
 
             th.prioritizeFiles(wholeTorrentPriorities);
         }
@@ -989,7 +989,7 @@ public class TorrentDownload
                 for (int p = piece; p <= stream.lastFilePiece; p++) {
                     /* Set max priority to first found piece that is not confirmed finished */
                     if (!th.havePiece(p)) {
-                        th.piecePriority(p, Priority.SEVEN);
+                        th.piecePriority(p, Priority.TOP_PRIORITY);
                         th.setPieceDeadline(p, DEFAULT_PIECE_DEADLINE);
                         preloadPieces--;
                         if (preloadPieces == 0)
@@ -999,7 +999,7 @@ public class TorrentDownload
 
             } else {
                 if (!th.havePiece(piece)) {
-                    th.piecePriority(piece, Priority.SEVEN);
+                    th.piecePriority(piece, Priority.TOP_PRIORITY);
                     th.setPieceDeadline(piece, DEFAULT_PIECE_DEADLINE);
                 }
             }
