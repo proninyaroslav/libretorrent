@@ -64,13 +64,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.google.gson.JsonSyntaxException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.proninyaroslav.libretorrent.FeedActivity;
 import org.proninyaroslav.libretorrent.FeedItemsActivity;
 import org.proninyaroslav.libretorrent.R;
@@ -227,7 +227,7 @@ public class FeedFragment extends Fragment
                 prevImplIntent = i;
                 Uri uri = i.getData();
                 if (uri != null)
-                    addChannel(Utils.normalizeURL(uri.toString()), null, null, false, false);
+                    addChannel(Utils.normalizeURL(uri.toString()), null, null, false, false, false);
                 else
                     addChannelErrorDialog();
             }
@@ -350,11 +350,12 @@ public class FeedFragment extends Fragment
         FeedFetcherService.enqueueWork(activity, i);
     }
 
-    private void refreshChannel(FeedChannel channel)
+    private void refreshChannel(FeedChannel channel, boolean noDownloadImmediately)
     {
         Intent i = new Intent(activity, FeedFetcherService.class);
         i.setAction(FeedFetcherService.ACTION_FETCH_CHANNEL);
         i.putExtra(FeedFetcherService.TAG_CHANNEL_URL_ARG, channel.getUrl());
+        i.putExtra(FeedFetcherService.TAG_NO_AUTO_DOWNLOAD, noDownloadImmediately);
         FeedFetcherService.enqueueWork(activity, i);
     }
 
@@ -426,8 +427,13 @@ public class FeedFragment extends Fragment
             final TextInputLayout filterFieldLayout = dialog.findViewById(R.id.layout_feed_channel_filter);
             final CheckBox isRegexFilter = dialog.findViewById(R.id.feed_use_regex);
             final CheckBox autoDownloadField = dialog.findViewById(R.id.feed_auto_download);
+            final CheckBox noDownloadImmediatelyField = dialog.findViewById(R.id.feed_do_not_download_immediately);
             final TextInputEditText nameField = dialog.findViewById(R.id.feed_channel_name);
             final ExpandableLinearLayout expandableLayout = dialog.findViewById(R.id.expandable_layout);
+
+            autoDownloadField.setOnCheckedChangeListener(
+                    (CompoundButton buttonView, boolean isChecked) ->
+                            noDownloadImmediatelyField.setEnabled(isChecked));
 
             final FeedChannel channel = (selectedChannels.size() != 0 ? selectedChannels.get(0) : null);
             if (getFragmentManager().findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) != null) {
@@ -502,13 +508,15 @@ public class FeedFragment extends Fragment
                 String name = nameField.getText().toString();
                 boolean isRegex = isRegexFilter.isChecked();
                 boolean autoDownload = autoDownloadField.isChecked();
+                boolean noDownloadImmediately = noDownloadImmediatelyField.isChecked();
 
                 if (checkUrlField(link, urlFieldLayout) &&
                     checkFilterField(filter, isRegex, filterFieldLayout)) {
                     /* Delete old channel after edit */
                     if (channel != null)
                         deleteChannel(channel);
-                    addChannel(Utils.normalizeURL(link.toLowerCase()), name, filter, isRegex, autoDownload);
+                    addChannel(Utils.normalizeURL(link.toLowerCase()), name, filter,
+                            isRegex, autoDownload, noDownloadImmediately);
                     dialog.dismiss();
                 }
             });
@@ -529,11 +537,11 @@ public class FeedFragment extends Fragment
     }
 
     private void addChannel(String url, String name, String filter,
-                            boolean isRegex, boolean autoDownload)
+                            boolean isRegex, boolean autoDownload, boolean noDownloadImmediately)
     {
         FeedChannel channel = new FeedChannel(url, name, 0, autoDownload, filter, isRegex, null);
         if (addChannel(channel))
-            refreshChannel(channel);
+            refreshChannel(channel, noDownloadImmediately);
         else
             addChannelErrorDialog();
     }

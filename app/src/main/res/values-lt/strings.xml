@@ -294,6 +294,7 @@
     <string name="feed_item_open_article_url">Atviras straipsnis</string>
     <string name="feeds_file_selection_dialog_title">Pasirinkite failą su kanalais</string>
     <string name="error_import_invalid_format">Netinkamas formatas</string>
+    <string name="feed_do_not_download_immediately">Nedarykite atsisiųsti nedelsiant</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Sukurti torentą</string>

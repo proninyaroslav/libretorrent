@@ -294,6 +294,7 @@
     <string name="feed_item_open_article_url">Deschideți articolul</string>
     <string name="feeds_file_selection_dialog_title">Selectați un fișier cu canale</string>
     <string name="error_import_invalid_format">Format invalid</string>
+    <string name="feed_do_not_download_immediately">Nu descărcați imediat</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Creați torrent</string>

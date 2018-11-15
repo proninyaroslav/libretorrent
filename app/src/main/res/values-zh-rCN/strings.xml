@@ -297,6 +297,7 @@
     <string name="feed_item_open_article_url">打开文章</string>
     <string name="feeds_file_selection_dialog_title">选择RSS频道文件</string>
     <string name="error_import_invalid_format">无效格式</string>
+    <string name="feed_do_not_download_immediately">Do not download immediately</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建 torrent</string>

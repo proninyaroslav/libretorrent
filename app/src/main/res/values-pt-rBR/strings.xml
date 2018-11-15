@@ -294,6 +294,7 @@
     <string name="feed_item_open_article_url">Artigo aberto</string>
     <string name="feeds_file_selection_dialog_title">Selecione um arquivo com canals</string>
     <string name="error_import_invalid_format">Formato Inválido</string>
+    <string name="feed_do_not_download_immediately">Não faça o download imediatamente</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>

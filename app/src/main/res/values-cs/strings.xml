@@ -294,6 +294,7 @@
     <string name="feed_item_open_article_url">Otevřený článek</string>
     <string name="feeds_file_selection_dialog_title">Vyberte soubor s kanály</string>
     <string name="error_import_invalid_format">Nesprávný formát</string>
+    <string name="feed_do_not_download_immediately">Nestahovat okamžitě</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Vytvořit torrent</string>

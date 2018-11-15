@@ -295,6 +295,7 @@
     <string name="feed_item_open_article_url">Open article</string>
     <string name="feeds_file_selection_dialog_title">Select a file with channels</string>
     <string name="error_import_invalid_format">Invalid format</string>
+    <string name="feed_do_not_download_immediately">Do not download immediately</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Create torrent</string>

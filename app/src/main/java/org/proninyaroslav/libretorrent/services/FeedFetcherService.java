@@ -52,6 +52,7 @@ public class FeedFetcherService extends JobIntentService
     public static final String TAG_CHANNEL_URL_ARG = "channel_url_arg";
     public static final String TAG_CHANNEL_URL_LIST_ARG = "channel_url_list_arg";
     public static final String TAG_CHANNEL_URL_RESULT = "channel_url_result";
+    public static final String TAG_NO_AUTO_DOWNLOAD = "no_download";
 
     private FeedStorage storage;
 
@@ -67,15 +68,16 @@ public class FeedFetcherService extends JobIntentService
             return;
 
         deleteOldItems();
+        boolean noAutoDownload = intent.getBooleanExtra(TAG_NO_AUTO_DOWNLOAD, false);
         switch (intent.getAction()) {
             case ACTION_FETCH_CHANNEL:
-                fetchChannel(intent.getStringExtra(TAG_CHANNEL_URL_ARG));
+                fetchChannel(intent.getStringExtra(TAG_CHANNEL_URL_ARG), noAutoDownload);
                 break;
             case ACTION_FETCH_CHANNEL_LIST:
-                fetchChannelsByUrl(intent.getStringArrayListExtra(TAG_CHANNEL_URL_LIST_ARG));
+                fetchChannelsByUrl(intent.getStringArrayListExtra(TAG_CHANNEL_URL_LIST_ARG), noAutoDownload);
                 break;
             case ACTION_FETCH_ALL_CHANNELS:
-                fetchChannels(storage.getAllChannels());
+                fetchChannels(storage.getAllChannels(), noAutoDownload);
                 break;
         }
     }
@@ -98,29 +100,29 @@ public class FeedFetcherService extends JobIntentService
         Log.i(TAG, "Stop " + FeedFetcherService.class.getSimpleName());
     }
 
-    private void fetchChannelsByUrl(List<String> urls)
+    private void fetchChannelsByUrl(List<String> urls, boolean noAutoDownload)
     {
         if (urls == null)
             return;
         for (String url : urls) {
             if (url == null)
                 continue;
-            fetchChannel(url);
+            fetchChannel(url, noAutoDownload);
         }
     }
 
-    private void fetchChannels(List<FeedChannel> channels)
+    private void fetchChannels(List<FeedChannel> channels, boolean noAutoDownload)
     {
         if (channels == null)
             return;
         for (FeedChannel channel : channels) {
             if (channel == null)
                 continue;
-            fetchChannel(channel.getUrl());
+            fetchChannel(channel.getUrl(), noAutoDownload);
         }
     }
 
-    private void fetchChannel(String url)
+    private void fetchChannel(String url, boolean noAutoDownload)
     {
         if (url == null || !storage.channelExists(url))
             return;
@@ -157,7 +159,7 @@ public class FeedFetcherService extends JobIntentService
         i.putExtra(TAG_CHANNEL_URL_RESULT, url);
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
-        if (channel != null && channel.isAutoDownload())
+        if (!noAutoDownload && channel != null && channel.isAutoDownload())
             sendUrls(channel, items);
     }
 
