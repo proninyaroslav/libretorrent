@@ -431,9 +431,11 @@ public class FeedFragment extends Fragment
             final TextInputEditText nameField = dialog.findViewById(R.id.feed_channel_name);
             final ExpandableLinearLayout expandableLayout = dialog.findViewById(R.id.expandable_layout);
 
-            autoDownloadField.setOnCheckedChangeListener(
-                    (CompoundButton buttonView, boolean isChecked) ->
-                            noDownloadImmediatelyField.setEnabled(isChecked));
+            autoDownloadField.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+                noDownloadImmediatelyField.setEnabled(isChecked);
+                filterField.setEnabled(isChecked);
+                isRegexFilter.setEnabled(isChecked);
+            });
 
             final FeedChannel channel = (selectedChannels.size() != 0 ? selectedChannels.get(0) : null);
             if (getFragmentManager().findFragmentByTag(TAG_EDIT_CHANNEL_DIALOG) != null) {
@@ -441,9 +443,7 @@ public class FeedFragment extends Fragment
                     urlField.setText(channel.getUrl());
                     nameField.setText(channel.getName());
                     filterField.setText(channel.getFilter());
-                    filterField.setEnabled(channel.getFilter() != null && TextUtils.isEmpty(channel.getFilter()));
                     isRegexFilter.setChecked(channel.isRegexFilter());
-                    isRegexFilter.setEnabled(channel.isRegexFilter());
                     autoDownloadField.setChecked(channel.isAutoDownload());
                 }
                 selectedChannels.clear();
