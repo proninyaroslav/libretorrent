@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 

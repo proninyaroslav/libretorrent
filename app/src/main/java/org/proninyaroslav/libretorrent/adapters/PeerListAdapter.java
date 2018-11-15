@@ -20,8 +20,8 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;

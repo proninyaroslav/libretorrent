@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.adapters;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;

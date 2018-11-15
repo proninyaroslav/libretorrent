@@ -19,17 +19,17 @@
             android:text="@string/torrent_name"
             style="@style/BaseTheme.HeaderText" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_torrent_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/torrent_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textNoSuggestions" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <RelativeLayout

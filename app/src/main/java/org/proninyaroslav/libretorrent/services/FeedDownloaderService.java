@@ -22,8 +22,8 @@ package org.proninyaroslav.libretorrent.services;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
-import android.support.v4.app.JobIntentService;
+import androidx.annotation.Nullable;
+import androidx.core.app.JobIntentService;
 import android.util.Log;
 
 import org.libtorrent4j.Priority;

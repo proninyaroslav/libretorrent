@@ -22,8 +22,8 @@ package org.proninyaroslav.libretorrent.core.storage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.NonNull;
+import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 

@@ -2,7 +2,7 @@ package org.proninyaroslav.libretorrent.settings.customprefs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.preference.DialogPreference;
+import androidx.preference.DialogPreference;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;

@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /*
  * The class encapsulates path, index and file size, extracted from bencode.

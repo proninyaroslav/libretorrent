@@ -6,30 +6,30 @@
     android:minWidth="@dimen/min_width_dialog"
     android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_download_limit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/download_limit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/download_speed"
             android:inputType="numberDecimal" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_upload_limit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/upload_limit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/upload_speed"
             android:inputType="numberDecimal" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

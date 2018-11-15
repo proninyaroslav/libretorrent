@@ -20,9 +20,9 @@
 package org.proninyaroslav.libretorrent.customviews;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 

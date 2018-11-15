@@ -21,13 +21,14 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.SwitchPreferenceCompat;
+
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
 
-import com.takisoft.fix.support.v7.preference.EditTextPreference;
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.takisoft.preferencex.EditTextPreference;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;

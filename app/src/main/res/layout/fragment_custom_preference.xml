@@ -4,12 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_changes_button"
             android:transitionName="fab"
             android:layout_width="@dimen/fab_size"
@@ -33,5 +33,5 @@
             android:id="@android:id/list_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

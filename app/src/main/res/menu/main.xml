@@ -6,7 +6,7 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/search"
-        app:actionViewClass="android.support.v7.widget.SearchView"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item android:id="@+id/feed_menu"
         app:showAsAction="ifRoom"

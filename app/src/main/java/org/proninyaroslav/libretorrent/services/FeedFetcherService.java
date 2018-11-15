@@ -22,9 +22,9 @@ package org.proninyaroslav.libretorrent.services;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
-import android.support.v4.app.JobIntentService;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.Nullable;
+import androidx.core.app.JobIntentService;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 

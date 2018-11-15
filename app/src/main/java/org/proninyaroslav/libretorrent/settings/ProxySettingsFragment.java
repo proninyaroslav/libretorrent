@@ -21,21 +21,21 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.SwitchPreferenceCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.takisoft.preferencex.EditTextPreference;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.takisoft.fix.support.v7.preference.EditTextPreference;
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;

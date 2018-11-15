@@ -29,18 +29,6 @@
         <item name="vc_autoStartAnimation">false</item>
     </style>
 
-    <style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
-
-    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
-
-    <style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
-
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

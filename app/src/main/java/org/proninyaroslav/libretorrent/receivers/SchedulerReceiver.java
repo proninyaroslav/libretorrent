@@ -27,7 +27,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;

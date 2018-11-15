@@ -20,7 +20,7 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.TorrentHandle;

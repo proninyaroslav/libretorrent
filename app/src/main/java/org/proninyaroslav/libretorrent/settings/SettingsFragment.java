@@ -19,14 +19,14 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.preference.Preference;
 
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
+import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.Preference;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;

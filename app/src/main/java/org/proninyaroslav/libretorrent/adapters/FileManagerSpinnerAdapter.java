@@ -20,7 +20,7 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;

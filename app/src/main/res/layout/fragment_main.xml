@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:gravity="center">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -27,7 +27,7 @@
                 app:popupTheme="?attr/popupTheme"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:focusable="true" />
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
             android:id="@+id/torrent_list"
@@ -116,5 +116,5 @@
                 fab:fab_size="mini"
                 fab:fab_label="@string/create_torrent" />
         </com.github.clans.fab.FloatingActionMenu>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

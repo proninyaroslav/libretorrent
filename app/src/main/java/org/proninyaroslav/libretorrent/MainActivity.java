@@ -22,8 +22,8 @@ package org.proninyaroslav.libretorrent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;

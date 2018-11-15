@@ -39,8 +39,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -50,7 +50,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.libtorrent4j.FileStorage;
-import org.libtorrent4j.Sha1Hash;
 
 import org.acra.ACRA;
 import org.acra.ReportField;

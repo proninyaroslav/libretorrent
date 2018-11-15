@@ -25,13 +25,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.SwitchPreferenceCompat;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
+
 import android.widget.Toast;
 
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference;

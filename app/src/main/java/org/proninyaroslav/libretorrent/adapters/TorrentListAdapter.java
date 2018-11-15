@@ -21,10 +21,10 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.TypedValue;

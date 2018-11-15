@@ -2,8 +2,8 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.preference.DialogPreference;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceDialogFragmentCompat;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TimePicker;

@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Priority;
 

@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.dialogs.filemanager;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 

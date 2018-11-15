@@ -20,7 +20,7 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.os.FileObserver;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /*
  * Watch torrent files in the specified directory and download them.

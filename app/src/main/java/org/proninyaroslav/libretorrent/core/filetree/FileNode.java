@@ -23,7 +23,7 @@ package org.proninyaroslav.libretorrent.core.filetree;
  * The interface with basic functions for a file object.
  */
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 

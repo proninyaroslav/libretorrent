@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,31 +13,31 @@
         android:minWidth="@dimen/min_width_dialog"
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_feed_channel_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/feed_channel_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/feed_name" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_feed_channel_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/feed_channel_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textNoSuggestions"
                 android:hint="@string/link" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/feed_auto_download"
@@ -57,12 +57,12 @@
             android:enabled="false"
             android:text="@string/feed_do_not_download_immediately" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_feed_channel_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/feed_channel_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:inputType="text|textNoSuggestions"
                 android:enabled="false"
                 android:hint="@string/filter" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.github.aakira.expandablelayout.ExpandableLinearLayout
             android:id="@+id/expandable_layout"
@@ -111,4 +111,4 @@
             android:textColor="?android:attr/textColorPrimary"
             android:text="@string/feed_use_regex" />
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>
