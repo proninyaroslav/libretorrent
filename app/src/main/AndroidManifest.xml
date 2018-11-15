@@ -145,8 +145,7 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
 
         <activity android:name=".settings.SettingsActivity"
-            android:label="@string/settings"
-            android:theme="@style/BaseTheme.Settings">
+            android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -154,8 +153,7 @@
         </activity>
 
         <activity
-            android:name=".settings.BasePreferenceActivity"
-            android:theme="@style/BaseTheme.Settings" />
+            android:name=".settings.BasePreferenceActivity" />
 
         <activity
             android:name="org.proninyaroslav.libretorrent.ErrorReportActivity"

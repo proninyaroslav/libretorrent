@@ -40,9 +40,9 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         setContentView(R.layout.activity_feed);
         Utils.showColoredStatusBar_KitKat(this);
 

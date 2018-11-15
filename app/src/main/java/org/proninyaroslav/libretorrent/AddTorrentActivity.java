@@ -58,9 +58,9 @@ public class AddTorrentActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         setContentView(R.layout.activity_add_torrent);
 
         addTorrentFragment = (AddTorrentFragment)getSupportFragmentManager()

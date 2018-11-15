@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         if (getIntent().getAction() != null &&
             getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP))
         {

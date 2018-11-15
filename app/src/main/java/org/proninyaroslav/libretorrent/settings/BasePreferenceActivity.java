@@ -19,12 +19,15 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.AttributeSet;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
@@ -43,9 +46,9 @@ public class BasePreferenceActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         setContentView(R.layout.activity_settings);
 
         Utils.showColoredStatusBar_KitKat(this);

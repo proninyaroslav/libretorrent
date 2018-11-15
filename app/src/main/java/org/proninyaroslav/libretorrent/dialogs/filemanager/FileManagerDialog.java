@@ -141,9 +141,9 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         Intent intent = getIntent();
         if (!intent.hasExtra(TAG_CONFIG)) {
             Log.e(TAG, "To work need to set intent with FileManagerConfig in startActivity()");
