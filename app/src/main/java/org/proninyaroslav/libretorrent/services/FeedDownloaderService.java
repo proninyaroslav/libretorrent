@@ -24,11 +24,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.Nullable;
 import androidx.core.app.JobIntentService;
+
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.libtorrent4j.Priority;
-import org.libtorrent4j.swig.add_torrent_params;
-import org.libtorrent4j.swig.error_code;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
@@ -123,14 +123,16 @@ public class FeedDownloaderService extends JobIntentService
         String source, sha1hash;
 
         if (url.startsWith(Utils.MAGNET_PREFIX)) {
-            error_code ec = new error_code();
-            add_torrent_params p = add_torrent_params.parse_magnet_uri(url, ec);
-            if (ec.value() != 0) {
-                Log.e(TAG, "Invalid magnet link: " + url);
+            org.libtorrent4j.AddTorrentParams p;
+            try {
+                p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(url);
+
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, e.getMessage());
                 return null;
             }
-            sha1hash = p.getInfo_hash().to_hex();
-            name = sha1hash;
+            sha1hash = p.infoHash().toHex();
+            name = (TextUtils.isEmpty(p.name()) ? sha1hash : p.name());
             isMagnet = true;
             source = url;
 
