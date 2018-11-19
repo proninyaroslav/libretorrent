@@ -256,6 +256,8 @@
     <string name="torrent_added_date">Adicionado</string>
     <string name="torrent_availability">Disponibilidade</string>
     <string name="share_stream_url">Compartilhar o URL do stream</string>
+    <string name="magnet_include_file_priorities">Incluir prioridades de arquivo?</string>
+    <string name="magnet_more_about_bep53">Mais Informações: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>

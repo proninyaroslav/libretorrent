@@ -15,6 +15,7 @@ android {
          */
         versionName "1.8"
         vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -66,7 +67,10 @@ def LIBTORRENT4J_VERSION='1.2.0.20-RC2'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     /* Standard Android Support libs */
     implementation 'androidx.appcompat:appcompat:1.0.2'

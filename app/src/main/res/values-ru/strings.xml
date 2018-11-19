@@ -237,6 +237,8 @@
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
     <string name="share_stream_url">Поделиться URL стрима</string>
+    <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
+    <string name="magnet_more_about_bep53">Больше информации: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>

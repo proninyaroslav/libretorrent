@@ -133,6 +133,18 @@ public class TorrentStorage
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
 
+    public void replace(Torrent torrent, byte[] bencode) throws Throwable
+    {
+        if (torrent == null || bencode == null)
+            return;
+
+        String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), bencode);
+        if (newPath == null)
+            return;
+        torrent.setTorrentFilePath(newPath);
+        update(torrent, false);
+    }
+
     public void replace(Torrent torrent, boolean deleteFile) throws Throwable
     {
         if (torrent == null || torrent.getTorrentFilePath() == null)
@@ -152,10 +164,15 @@ public class TorrentStorage
         if (newPath == null)
             return;
         torrent.setTorrentFilePath(newPath);
-        update(torrent);
+        update(torrent, false);
     }
 
     public void update(Torrent torrent)
+    {
+        update(torrent, true);
+    }
+
+    public void update(Torrent torrent, boolean replaceStatus)
     {
         ContentValues values = new ContentValues();
 
@@ -165,8 +182,10 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_PATH_TO_DOWNLOAD, torrent.getDownloadPath());
         values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, prioritiesToString(torrent.getFilePriorities()));
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
-        values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
-        values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
+        if (replaceStatus) {
+            values.put(DatabaseHelper.COLUMN_IS_FINISHED, (torrent.isFinished() ? 1 : 0));
+            values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
+        }
         values.put(DatabaseHelper.COLUMN_DOWNLOADING_METADATA, (torrent.isDownloadingMetadata() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_DATETIME, torrent.getDateAdded());
 

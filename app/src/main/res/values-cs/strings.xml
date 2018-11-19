@@ -256,6 +256,8 @@
     <string name="torrent_added_date">Přidal</string>
     <string name="torrent_availability">Dostupnost</string>
     <string name="share_stream_url">Sdílejte adresu URL streamu</string>
+    <string name="magnet_include_file_priorities">Zahrnout priority souborů?</string>
+    <string name="magnet_more_about_bep53">Další informace: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>

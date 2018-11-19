@@ -57,6 +57,7 @@ import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
+import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentDownload;
@@ -945,17 +946,23 @@ public class TorrentTaskService extends Service
         if (params.fromMagnet()) {
             byte[] bencode = TorrentEngine.getInstance().getLoadedMagnet(torrent.getId());
             TorrentEngine.getInstance().removeLoadedMagnet(torrent.getId());
-            if (!repo.exists(torrent)) {
-                if (bencode == null) {
-                    torrent.setDownloadingMetadata(true);
+            if (bencode == null) {
+                torrent.setDownloadingMetadata(true);
+                if (!repo.exists(torrent))
                     repo.add(torrent);
+            } else {
+                torrent.setDownloadingMetadata(false);
+                if (repo.exists(torrent)) {
+                    repo.replace(torrent, bencode);
+                    TorrentEngine.getInstance().mergeTorrent(torrent, bencode);
+                    throw new FileAlreadyExistsException();
                 } else {
-                    torrent.setDownloadingMetadata(false);
                     repo.add(torrent, bencode);
                 }
             }
         } else if (new File(torrent.getTorrentFilePath()).exists()) {
             if (repo.exists(torrent)) {
+                TorrentEngine.getInstance().mergeTorrent(torrent);
                 repo.replace(torrent, removeFile);
                 throw new FileAlreadyExistsException();
             } else {
@@ -984,7 +991,7 @@ public class TorrentTaskService extends Service
         List<Priority> priorities = torrent.getFilePriorities();
         if (!torrent.isDownloadingMetadata() && (priorities == null || priorities.isEmpty())) {
             TorrentMetaInfo info = new TorrentMetaInfo(torrent.getTorrentFilePath());
-            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
+            torrent.setFilePriorities(Collections.nCopies(info.fileCount, Priority.DEFAULT));
             repo.update(torrent);
         }
 
@@ -1223,7 +1230,7 @@ public class TorrentTaskService extends Service
             task.addTrackers(new HashSet<>(urls));
     }
 
-    public String getMagnet(String id)
+    public String getMagnet(String id, boolean includePriorities)
     {
         if (id == null)
             return null;
@@ -1232,7 +1239,7 @@ public class TorrentTaskService extends Service
         if (task == null)
             return null;
 
-        return task.makeMagnet();
+        return task.makeMagnet(includePriorities);
     }
 
     public void setUploadSpeedLimit(String id, int limit)
@@ -1533,12 +1540,16 @@ public class TorrentTaskService extends Service
         return task.getDownloadSpeedLimit();
     }
 
-    public TorrentMetaInfo fetchMagnet(String uri) throws Exception
+    public MagnetInfo fetchMagnet(String uri) throws Exception
     {
         org.libtorrent4j.AddTorrentParams p = TorrentEngine.getInstance().fetchMagnet(uri);
-        TorrentMetaInfo info = null;
-        if (p != null)
-            info = new TorrentMetaInfo(p.name(), p.infoHash().toHex());
+        MagnetInfo info = null;
+        List<Priority> priorities = null;
+        if (p != null) {
+            if (p.filePriorities() != null)
+                priorities = Arrays.asList(p.filePriorities());
+            info = new MagnetInfo(uri, p.infoHash().toHex(), p.name(), priorities);
+        }
 
         return info;
     }

@@ -256,6 +256,8 @@
     <string name="torrent_added_date">Pridėta</string>
     <string name="torrent_availability">Prieinamumas</string>
     <string name="share_stream_url">Dalytis stream URL</string>
+    <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
+    <string name="magnet_more_about_bep53">Daugiau informacijos: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>

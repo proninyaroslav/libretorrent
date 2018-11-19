@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.ArraySet;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -35,15 +36,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.DownloadableFilesAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /*
  * The fragment for list files of torrent. Part of AddTorrentFragment.
@@ -70,15 +74,18 @@ public class AddTorrentFilesFragment extends Fragment
     private TextView filesSize;
 
     private ArrayList<BencodeFileItem> files;
+    private List<Priority> priorities;
     private BencodeFileTree fileTree;
     /* Current directory */
     private BencodeFileTree curDir;
 
-    public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files)
+    public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files,
+                                                      List<Priority> priorities)
     {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
 
         fragment.files = files;
+        fragment.priorities = priorities;
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -116,10 +123,7 @@ public class AddTorrentFilesFragment extends Fragment
                 fileTree = (BencodeFileTree)heavyInstance.getSerializable(TAG_FILE_TREE);
                 curDir = (BencodeFileTree)heavyInstance.getSerializable(TAG_CUR_DIR);
             } else {
-                fileTree = BencodeFileTreeUtils.buildFileTree(files);
-                fileTree.select(true);
-                /* Is assigned the root dir of the file tree */
-                curDir = fileTree;
+                makeFileTree();
             }
         }
 
@@ -137,6 +141,30 @@ public class AddTorrentFilesFragment extends Fragment
         adapter = new DownloadableFilesAdapter(getChildren(curDir), activity,
                                                R.layout.item_torrent_downloadable_file, this);
         fileList.setAdapter(adapter);
+    }
+
+    private void makeFileTree()
+    {
+        fileTree = BencodeFileTreeUtils.buildFileTree(files);
+
+        if (priorities == null || priorities.size() == 0) {
+            fileTree.select(true);
+
+        } else {
+            FileTreeDepthFirstSearch<BencodeFileTree> search = new FileTreeDepthFirstSearch<>();
+            /* Select files that have non-IGNORE priority (see BEP35 standard) */
+            long n = (priorities.size() > files.size() ? files.size() : priorities.size());
+            for (int i = 0; i < n; i++) {
+                if (priorities.get(i) == Priority.IGNORE)
+                    continue;
+                BencodeFileTree file = search.find(fileTree, i);
+                if (file != null)
+                    file.select(true);
+            }
+        }
+
+        /* Is assigned the root dir of the file tree */
+        curDir = fileTree;
     }
 
     @Override
@@ -245,10 +273,10 @@ public class AddTorrentFilesFragment extends Fragment
             adapter.addFiles(children);
     }
 
-    public ArrayList<Integer> getSelectedFileIndexes()
+    public Set<Integer> getSelectedFileIndexes()
     {
         List<BencodeFileTree> files = BencodeFileTreeUtils.getFiles(fileTree);
-        ArrayList<Integer> indexes = new ArrayList<>();
+        Set<Integer> indexes = new ArraySet<>();
         for (BencodeFileTree file : files)
             if (file.isSelected())
                 indexes.add(file.getIndex());

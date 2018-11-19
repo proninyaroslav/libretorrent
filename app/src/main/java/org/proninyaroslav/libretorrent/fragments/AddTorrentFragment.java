@@ -62,6 +62,7 @@ import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
@@ -78,6 +79,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AddTorrentFragment extends Fragment
@@ -101,6 +103,7 @@ public class AddTorrentFragment extends Fragment
     private static final String TAG_OUT_OF_MEMORY_DIALOG = "out_of_memory_dialog";
     private static final String TAG_ILLEGAL_ARGUMENT = "illegal_argument";
     private static final String TAG_FROM_MAGNET = "from_magnet";
+    private static final String TAG_MAGNET_PRIORITIES = "magnet_priorities";
 
     private static final int PERMISSION_REQUEST = 1;
 
@@ -120,6 +123,8 @@ public class AddTorrentFragment extends Fragment
     /* Flag indicating whether we have called bind on the service. */
     private boolean bound;
     private boolean fromMagnet = false;
+    /* BEP53 standard */
+    private ArrayList<Priority> magnetPriorities;
 
     private String pathToTempTorrent = null;
     private boolean saveTorrentFile = true;
@@ -235,8 +240,10 @@ public class AddTorrentFragment extends Fragment
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
         if (storage != null) {
             Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
-            if (heavyInstance != null)
+            if (heavyInstance != null) {
                 info = heavyInstance.getParcelable(TAG_INFO);
+                magnetPriorities = (ArrayList<Priority>)heavyInstance.getSerializable(TAG_FROM_MAGNET);
+            }
         }
         if (savedInstanceState != null) {
             pathToTempTorrent = savedInstanceState.getString(TAG_PATH_TO_TEMP_TORRENT);
@@ -436,6 +443,7 @@ public class AddTorrentFragment extends Fragment
 
         Bundle b = new Bundle();
         b.putParcelable(TAG_INFO, info);
+        b.putSerializable(TAG_MAGNET_PRIORITIES, magnetPriorities);
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
         if (storage != null)
             storage.pushData(HEAVY_STATE_TAG, b);
@@ -545,9 +553,14 @@ public class AddTorrentFragment extends Fragment
                                     .show();
                             fragment.get().showFetchMagnetProgress(true);
 
-                            TorrentMetaInfo info = fragment.get().service.fetchMagnet(uri.toString());
-                            if (info != null && !isCancelled())
-                                fragment.get().info = info;
+                            MagnetInfo magnetInfo = fragment.get().service.fetchMagnet(uri.toString());
+                            if (magnetInfo  != null && !isCancelled()) {
+                                fragment.get().info = new TorrentMetaInfo(magnetInfo.getName(),
+                                                                          magnetInfo.getSha1hash());
+                                if (magnetInfo.getFilePriorities() != null)
+                                    fragment.get().magnetPriorities = new ArrayList<>(
+                                            magnetInfo.getFilePriorities());
+                            }
                         }
                         break;
                     case Utils.HTTP_PREFIX:
@@ -655,9 +668,12 @@ public class AddTorrentFragment extends Fragment
                 adapter.addFragment(AddTorrentInfoFragment.newInstance(info),
                         INFO_FRAG_POS, getString(R.string.torrent_info));
 
-            if (showFile)
-                adapter.addFragment(AddTorrentFilesFragment.newInstance(info.fileList),
+            if (showFile) {
+                adapter.addFragment(AddTorrentFilesFragment.newInstance(info.fileList, magnetPriorities),
                         FILE_FRAG_POS, getString(R.string.torrent_files));
+                /* Don't need anymore */
+                magnetPriorities = null;
+            }
 
             adapter.notifyDataSetChanged();
         });
@@ -710,7 +726,7 @@ public class AddTorrentFragment extends Fragment
             return;
         boolean sequentialDownload = infoFrag.isSequentialDownload();
         boolean startTorrent = infoFrag.startTorrent();
-        ArrayList<Integer> selectedIndexes = null;
+        Set<Integer> selectedIndexes = null;
         if (fileFrag != null)
             selectedIndexes = fileFrag.getSelectedFileIndexes();
 
@@ -736,11 +752,15 @@ public class AddTorrentFragment extends Fragment
         }
 
         ArrayList<Priority> priorities = null;
-        if (info.fileList.size() != 0) {
-            priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.IGNORE));
-            if (selectedIndexes != null)
-                for (int index : selectedIndexes)
-                    priorities.set(index, Priority.DEFAULT);
+        if (info.fileCount != 0) {
+            if (selectedIndexes != null && selectedIndexes.size() == info.fileCount) {
+                priorities = new ArrayList<>(Collections.nCopies(info.fileCount, Priority.DEFAULT));
+            } else {
+                priorities = new ArrayList<>(Collections.nCopies(info.fileCount, Priority.IGNORE));
+                if (selectedIndexes != null)
+                    for (int index : selectedIndexes)
+                        priorities.set(index, Priority.DEFAULT);
+            }
         }
         String source = (pathToTempTorrent == null && fromMagnet ? uri.toString() : pathToTempTorrent);
         AddTorrentParams params = new AddTorrentParams(source, fromMagnet, info.sha1Hash,

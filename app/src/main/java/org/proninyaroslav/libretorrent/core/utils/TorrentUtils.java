@@ -88,10 +88,9 @@ public class TorrentUtils
         if (dataDir == null)
             throw new IOException("Unable to create dir");
 
-        /* The same file */
-        if (new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME).exists())
-            throw new FileAlreadyExistsException();
         File torrent = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_FILE_NAME);
+        if (torrent.exists())
+            torrent.delete();
         /* We are sure that one of them is not null */
         if (pathToTorrent != null)
             FileUtils.copyFile(new File(pathToTorrent), torrent);

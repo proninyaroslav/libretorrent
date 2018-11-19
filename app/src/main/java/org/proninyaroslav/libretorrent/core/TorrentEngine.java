@@ -43,14 +43,20 @@ import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentRemovedAlert;
 import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.announce_entry;
+import org.libtorrent4j.swig.announce_entry_vector;
 import org.libtorrent4j.swig.bdecode_node;
 import org.libtorrent4j.swig.byte_vector;
+import org.libtorrent4j.swig.create_torrent;
+import org.libtorrent4j.swig.entry;
 import org.libtorrent4j.swig.error_code;
+import org.libtorrent4j.swig.int_vector;
 import org.libtorrent4j.swig.ip_filter;
 import org.libtorrent4j.swig.libtorrent;
 import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
 import org.libtorrent4j.swig.sha1_hash;
+import org.libtorrent4j.swig.string_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
@@ -737,10 +743,10 @@ public class TorrentEngine extends SessionManager
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
                     add = false;
-                    if (callback != null) {
-                        torrent_info ti = th.torrent_file_ptr();
+                    torrent_info ti = th.torrent_file_ptr();
+                    loadedMagnets.put(hash.to_hex(), createTorrent(p, ti));
+                    if (callback != null)
                         callback.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null);
-                    }
                 } else {
                     add = true;
                 }
@@ -774,6 +780,24 @@ public class TorrentEngine extends SessionManager
             magnets.add(strHash);
 
         return new AddTorrentParams(p);
+    }
+
+    private byte[] createTorrent(add_torrent_params params, torrent_info ti) {
+        create_torrent ct = new create_torrent(ti);
+
+        string_vector v = params.get_url_seeds();
+        int size = (int)v.size();
+        for (int i = 0; i < size; i++) {
+            ct.add_url_seed(v.get(i));
+        }
+        string_vector trackers = params.get_trackers();
+        int_vector tiers = params.get_tracker_tiers();
+        size = (int)trackers.size();
+        for (int i = 0; i < size; i++)
+            ct.add_tracker(trackers.get(i), tiers.get(i));
+
+        entry e = ct.generate();
+        return Vectors.byte_vector2bytes(e.bencode());
     }
 
     public void cancelFetchMagnet(String infoHash)
@@ -859,6 +883,41 @@ public class TorrentEngine extends SessionManager
                 continue;
             task.saveResumeData(true);
         }
+    }
+
+    public void mergeTorrent(Torrent torrent)
+    {
+        mergeTorrent(torrent, null);
+    }
+
+    public void mergeTorrent(Torrent torrent, byte[] bencode)
+    {
+        if (torrent == null)
+            return;
+
+        TorrentDownload task = torrentTasks.get(torrent.getId());
+        if (task == null)
+            return;
+
+        TorrentInfo ti = null;
+        try {
+             ti = (bencode == null ?
+                     new TorrentInfo(new File(torrent.getTorrentFilePath())) :
+                     new TorrentInfo(bencode));
+        } catch (Exception e) {
+            return;
+        }
+
+        task.setTorrent(torrent);
+        task.setSequentialDownload(torrent.isSequentialDownload());
+        task.addTrackers(ti.trackers());
+        task.addWebSeeds(ti.webSeeds());
+        Priority[] priorities = new Priority[torrent.getFilePriorities().size()];
+        task.prioritizeFiles(torrent.getFilePriorities().toArray(priorities));
+        if (torrent.isPaused())
+            task.pause();
+        else
+            task.resume();
     }
 
     private final class LoadTorrentTask implements Runnable

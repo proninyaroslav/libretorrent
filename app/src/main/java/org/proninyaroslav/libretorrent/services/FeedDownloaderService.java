@@ -33,6 +33,7 @@ import org.libtorrent4j.Priority;
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
@@ -123,16 +124,16 @@ public class FeedDownloaderService extends JobIntentService
         String source, sha1hash;
 
         if (url.startsWith(Utils.MAGNET_PREFIX)) {
-            org.libtorrent4j.AddTorrentParams p;
+            MagnetInfo info;
             try {
-                p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(url);
+                info = new MagnetInfo(url);
 
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, e.getMessage());
                 return null;
             }
-            sha1hash = p.infoHash().toHex();
-            name = (TextUtils.isEmpty(p.name()) ? sha1hash : p.name());
+            sha1hash = info.getSha1hash();
+            name = info.getName();
             isMagnet = true;
             source = url;
 

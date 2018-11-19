@@ -113,6 +113,7 @@ public class DetailTorrentFragment extends Fragment
     private static final String TAG_SAVE_ERR_TORRENT_FILE_DIALOG = "save_err_torrent_file_dialog";
     private static final String TAG_SPEED_LIMIT_DIALOG = "speed_limit_dialog";
     private static final String TAG_CURRENT_FRAG_POS = "current_frag_pos";
+    private static final String TAG_MAGNET_INCLUDE_PRIOR_DIALOG = "include_prior_dialog";
 
     private static final int SAVE_TORRENT_FILE_CHOOSE_REQUEST = 1;
 
@@ -670,7 +671,7 @@ public class DetailTorrentFragment extends Fragment
                 forceAnnounceRequest();
                 break;
             case R.id.share_magnet_menu:
-                getMagnetRequest();
+                shareMagnetDialog();
                 break;
             case R.id.save_torrent_file_menu:
                 torrentSaveChooseDialog();
@@ -855,6 +856,8 @@ public class DetailTorrentFragment extends Fragment
                     String comment = editText.getText().toString();
                     Utils.reportError(sentError, comment);
                 }
+            } if (fm.findFragmentByTag(TAG_MAGNET_INCLUDE_PRIOR_DIALOG) != null) {
+                shareMagnetRequest(true);
             }
         }
     }
@@ -862,7 +865,12 @@ public class DetailTorrentFragment extends Fragment
     @Override
     public void onNegativeClicked(@Nullable View v)
     {
-        /* Nothing */
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
+
+        if (fm.findFragmentByTag(TAG_MAGNET_INCLUDE_PRIOR_DIALOG) != null)
+            shareMagnetRequest(false);
     }
 
     @Override
@@ -1003,12 +1011,32 @@ public class DetailTorrentFragment extends Fragment
         service.pauseResumeTorrent(torrentId);
     }
 
-    private void getMagnetRequest()
+    private void shareMagnetDialog()
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm == null)
+            return;
+
+        if (fm.findFragmentByTag(TAG_MAGNET_INCLUDE_PRIOR_DIALOG) == null) {
+            BaseAlertDialog shareMagnetDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.share_magnet),
+                    null,
+                    R.layout.dialog_magnet_include_prior,
+                    getString(R.string.yes),
+                    getString(R.string.no),
+                    null,
+                    DetailTorrentFragment.this);
+
+            shareMagnetDialog.show(fm, TAG_MAGNET_INCLUDE_PRIOR_DIALOG);
+        }
+    }
+
+    private void shareMagnetRequest(boolean includePriorities)
     {
         if (!bound || service == null)
             return;
 
-        String magnet = service.getMagnet(torrentId);
+        String magnet = service.getMagnet(torrentId, includePriorities);
         if (magnet != null) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");

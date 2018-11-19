@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
@@ -35,6 +36,7 @@ import org.libtorrent4j.TorrentHandle;
 import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.TorrentStatus;
 import org.libtorrent4j.Vectors;
+import org.libtorrent4j.WebSeedEntry;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
@@ -57,6 +59,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /*
@@ -213,8 +216,37 @@ public class TorrentDownload
                 name = newName;
                 torrent.setName(newName);
             }
+            String uri = torrent.getTorrentFilePath();
+            /* Change to filepath */
             torrent.setTorrentFilePath(pathToTorrent);
-            torrent.setFilePriorities(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
+
+            ArrayList<Priority> priorities = null;
+            MagnetInfo magnetInfo = null;
+            try {
+                magnetInfo = new MagnetInfo(uri);
+            } catch (IllegalArgumentException e) {
+                /* Ignore */
+            }
+            if (magnetInfo != null) {
+                List<Priority> p = magnetInfo.getFilePriorities();
+
+                if (p == null || p.size() == 0) {
+                    priorities = new ArrayList<>(Collections.nCopies(info.fileCount, Priority.DEFAULT));
+
+                } else if (p.size() > info.fileCount) {
+                    priorities = new ArrayList<>(p.subList(0, info.fileCount));
+
+                } else if (p.size() < info.fileCount) {
+                    priorities = new ArrayList<>(p);
+                    priorities.addAll(Collections.nCopies(info.fileCount - p.size(), Priority.IGNORE));
+                }
+
+            } else {
+                priorities = new ArrayList<>(
+                        Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
+            }
+
+            torrent.setFilePriorities(priorities);
             torrent.setDownloadingMetadata(false);
             setSequentialDownload(torrent.isSequentialDownload());
             if (torrent.isPaused())
@@ -629,6 +661,30 @@ public class TorrentDownload
         saveResumeData(true);
     }
 
+    public void addTrackers(List<AnnounceEntry> trackers)
+    {
+        for (AnnounceEntry tracker : trackers)
+            th.addTracker(tracker);
+        saveResumeData(true);
+    }
+
+    public void addWebSeeds(List<WebSeedEntry> webSeeds)
+    {
+        for (WebSeedEntry webSeed : webSeeds) {
+            if (webSeed == null)
+                continue;
+
+            switch (webSeed.type()) {
+                case HTTP_SEED:
+                    th.addHttpSeed(webSeed.url());
+                    break;
+                case URL_SEED:
+                    th.addUrlSeed(webSeed.url());
+                    break;
+            }
+        }
+    }
+
     public boolean[] pieces()
     {
         PieceIndexBitfield bitfield = th.status(TorrentHandle.QUERY_PIECES).pieces();
@@ -639,9 +695,60 @@ public class TorrentDownload
         return pieces;
     }
 
-    public String makeMagnet()
+    public String makeMagnet(boolean includePriorities)
     {
-        return th.makeMagnetUri();
+        if (!th.isValid())
+            return null;
+
+        String uri = th.makeMagnetUri();
+
+        if (includePriorities) {
+            String indices = getFileIndicesBep53(th.filePriorities());
+            if (!TextUtils.isEmpty(indices))
+                uri += "&so=" + indices;
+        }
+
+        return uri;
+    }
+
+    /*
+     * Returns files indices whose priorities are higher than IGNORE.
+     * For more about see BEP53 http://www.bittorrent.org/beps/bep_0053.html
+     */
+
+    public static String getFileIndicesBep53(Priority[] priorities)
+    {
+        ArrayList<String> buf = new ArrayList<>();
+        int startIndex = -1;
+        int endIndex = -1;
+
+        String indicesStr;
+        for (int i = 0; i < priorities.length; i++) {
+            if (priorities[i].swig() == Priority.IGNORE.swig()) {
+                if ((indicesStr = indicesToStr(startIndex, endIndex)) != null)
+                    buf.add(indicesStr);
+                startIndex = -1;
+
+            } else {
+                endIndex = i;
+                if (startIndex == -1)
+                    startIndex = endIndex;
+            }
+        }
+        if ((indicesStr = indicesToStr(startIndex, endIndex)) != null)
+            buf.add(indicesStr);
+
+        return TextUtils.join(",", buf);
+    }
+
+    private static String indicesToStr(int startIndex, int endIndex)
+    {
+        if (startIndex == -1 || endIndex == -1)
+            return null;
+
+        return (startIndex == endIndex ?
+                Integer.toString(endIndex) :
+                String.format(Locale.ENGLISH, "%d-%d", startIndex, endIndex));
     }
 
     public void setSequentialDownload(boolean sequential)
