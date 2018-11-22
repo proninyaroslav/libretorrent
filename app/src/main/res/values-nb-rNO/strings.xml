@@ -88,9 +88,12 @@
 
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent feil</string>
-    <string name="torrent_error_notify_template">Feil: %1$s</string>
+    <string name="error_template">Feil: %1$s</string>
     <string name="torrent_does_not_exists_error">torrent eksisterer ikke</string>
     <string name="restore_torrent_error">kan ikke gjenopprette torrent fra forrige økt</string>
+    <string name="session_error_title">Session feil</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="listen_failed_error" formatted="false">Kunne ikke høre %1$s:%2$d, skriv: %3$s (feil: %4$s)</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent fullført</string>

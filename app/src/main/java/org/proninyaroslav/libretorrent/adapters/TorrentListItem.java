@@ -43,6 +43,7 @@ public class TorrentListItem implements Comparable<TorrentListItem>
     public long dateAdded = 0L;
     public int totalPeers = 0;
     public int peers = 0;
+    public String error;
 
     public TorrentListItem() { }
 
@@ -69,6 +70,7 @@ public class TorrentListItem implements Comparable<TorrentListItem>
         this.dateAdded = state.dateAdded;
         this.totalPeers = state.totalPeers;
         this.peers = state.peers;
+        this.error = state.error;
     }
 
     @Override

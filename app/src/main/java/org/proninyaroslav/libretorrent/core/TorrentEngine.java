@@ -27,6 +27,7 @@ import android.util.Log;
 
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AlertListener;
+import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.Priority;
 import org.libtorrent4j.SessionHandle;
 import org.libtorrent4j.SessionManager;
@@ -39,7 +40,10 @@ import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.Vectors;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.ListenFailedAlert;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
+import org.libtorrent4j.alerts.PortmapErrorAlert;
+import org.libtorrent4j.alerts.SessionErrorAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentRemovedAlert;
 import org.libtorrent4j.swig.add_torrent_params;
@@ -60,6 +64,7 @@ import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
 
 import org.apache.commons.io.FileUtils;
+import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -89,7 +94,10 @@ public class TorrentEngine extends SessionManager
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.ADD_TORRENT.swig(),
             AlertType.METADATA_RECEIVED.swig(),
-            AlertType.TORRENT_REMOVED.swig()
+            AlertType.TORRENT_REMOVED.swig(),
+            AlertType.SESSION_ERROR.swig(),
+            AlertType.PORTMAP_ERROR.swig(),
+            AlertType.LISTEN_FAILED.swig()
     };
 
     private Context context;
@@ -315,6 +323,40 @@ public class TorrentEngine extends SessionManager
                 case TORRENT_REMOVED:
                     torrentTasks.remove(((TorrentRemovedAlert) alert).infoHash().toHex());
                     break;
+                default:
+                    checkError(alert);
+                    break;
+            }
+        }
+    }
+
+    private void checkError(Alert<?> alert)
+    {
+        if (callback == null)
+            return;
+
+        switch (alert.type()) {
+            case SESSION_ERROR: {
+                SessionErrorAlert sessionErrorAlert = (SessionErrorAlert)alert;
+                ErrorCode error = sessionErrorAlert.error();
+                if (error.isError())
+                    callback.onSessionError(TorrentUtils.getErrorMsg(error));
+                break;
+            } case LISTEN_FAILED: {
+                ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
+                String fmt = context.getString(R.string.listen_failed_error);
+                callback.onSessionError(String.format(fmt,
+                        listenFailedAlert.address(),
+                        listenFailedAlert.port(),
+                        listenFailedAlert.socketType(),
+                        TorrentUtils.getErrorMsg(listenFailedAlert.error())));
+                break;
+            } case PORTMAP_ERROR: {
+                PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert)alert;
+                ErrorCode error = portmapErrorAlert.error();
+                if (error.isError())
+                    callback.onSessionError(TorrentUtils.getErrorMsg(error));
+                break;
             }
         }
     }

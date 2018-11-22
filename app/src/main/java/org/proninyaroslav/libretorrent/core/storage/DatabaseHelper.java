@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "libretorrent.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static final String COLUMN_ID = "_id";
 
     /* Torrents storage */
@@ -49,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final String COLUMN_IS_PAUSED = "is_paused";
     public static final String COLUMN_DOWNLOADING_METADATA = "downloading_metadata";
     public static final String COLUMN_DATETIME = "datetime";
+    public static final String COLUMN_ERROR = "error";
 
     /* Feed storage */
     public static final String FEEDS_TABLE = "feeds";
@@ -82,7 +83,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
             + COLUMN_IS_FINISHED + " integer, "
             + COLUMN_IS_PAUSED + " integer, "
             + COLUMN_DOWNLOADING_METADATA + " integer, "
-            + COLUMN_DATETIME + " integer );";
+            + COLUMN_DATETIME + " integer, "
+            + COLUMN_ERROR + " text);";
 
     private static final String CREATE_FEEDS_TABLE = "create table "
             + FEEDS_TABLE +
@@ -142,5 +144,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
             sqLiteDatabase.execSQL(CREATE_FEED_ITEMS_TABLE);
             sqLiteDatabase.execSQL(CREATE_FEEDS_TABLE);
         }
+        if (oldVersion < 4)
+            sqLiteDatabase.execSQL("ALTER TABLE " + TORRENTS_TABLE + " ADD COLUMN "
+                    + COLUMN_ERROR + " integer ");
     }
 }

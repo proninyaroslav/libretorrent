@@ -107,6 +107,7 @@ public class TorrentTaskService extends Service
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = 1;
     private static final int TORRENTS_MOVED_NOTIFICATION_ID = 2;
+    private static final int SESSION_ERROR_NOTIFICATION_ID = 3;
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
     public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_SHUTDOWN";
@@ -525,10 +526,31 @@ public class TorrentTaskService extends Service
             return;
 
         torrent.setPaused(false);
+        torrent.setError(null);
         repo.update(torrent);
 
         if (task != null)
             task.setTorrent(torrent);
+    }
+
+    @Override
+    public void onTorrentError(String id, String errorMsg)
+    {
+        if (errorMsg != null)
+            Log.e(TAG, "Torrent " + id + ": " + errorMsg);
+
+        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        Torrent torrent = repo.getTorrentByID(id);
+        if (torrent == null)
+            return;
+
+        torrent.setError(errorMsg);
+        repo.update(torrent);
+
+        if (task != null) {
+            task.setTorrent(torrent);
+            task.pause();
+        }
     }
 
     @Override
@@ -672,6 +694,13 @@ public class TorrentTaskService extends Service
         } catch (Exception e) {
             /* Ignore */
         }
+    }
+
+    @Override
+    public void onSessionError(String errorMsg)
+    {
+        Log.e(TAG, errorMsg);
+        makeSessionErrorNotify(errorMsg);
     }
 
     @Override
@@ -1302,7 +1331,8 @@ public class TorrentTaskService extends Service
                 task.getETA(),
                 torrent.getDateAdded(),
                 task.getTotalPeers(),
-                task.getConnectedPeers());
+                task.getConnectedPeers(),
+                torrent.getError());
     }
 
     public BasicStateParcel makeBasicStateParcel(String id)
@@ -1841,7 +1871,7 @@ public class TorrentTaskService extends Service
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                 .setContentTitle(name)
                 .setTicker(getString(R.string.torrent_error_notify_title))
-                .setContentText(String.format(getString(R.string.torrent_error_notify_template), message))
+                .setContentText(String.format(getString(R.string.error_template), message))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
@@ -1849,6 +1879,27 @@ public class TorrentTaskService extends Service
             builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(name.hashCode(), builder.build());
+    }
+
+    private void makeSessionErrorNotify(String message)
+    {
+        if (message == null)
+            return;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                DEFAULT_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
+                .setContentTitle(getString(R.string.session_error_title))
+                .setTicker(getString(R.string.session_error_title))
+                .setContentText(String.format(getString(R.string.error_template), message))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setCategory(Notification.CATEGORY_ERROR);
+
+        notifyManager.notify(SESSION_ERROR_NOTIFICATION_ID, builder.build());
     }
 
     private void makeTorrentInfoNotify(String name, String message)

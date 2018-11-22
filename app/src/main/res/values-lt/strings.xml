@@ -88,9 +88,12 @@
 
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrento klaida</string>
-    <string name="torrent_error_notify_template">Klaida: %1$s</string>
+    <string name="error_template">Klaida: %1$s</string>
     <string name="torrent_does_not_exists_error">torrent neegzistuoja</string>
     <string name="restore_torrent_error">nepavyko atkurti torrent iš ankstesnio seanso</string>
+    <string name="session_error_title">Klaida sesijos</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="listen_failed_error" formatted="false">Nepavyko klausytis %1$s:%2$d, įveskite: %3$s (klaida: %4$s)</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torentas baigtas siųsti</string>

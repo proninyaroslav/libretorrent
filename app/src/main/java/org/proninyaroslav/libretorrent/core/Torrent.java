@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -51,6 +51,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     private boolean paused = false;
     private boolean downloadingMetadata = false;
     private long dateAdded;
+    private String error;
 
     public Torrent(String id, String torrentName,
                    List<Priority> filePriorities,
@@ -84,6 +85,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         paused = source.readByte() != 0;
         downloadingMetadata = source.readByte() != 0;
         dateAdded = source.readLong();
+        error = source.readString();
     }
 
     public String getId()
@@ -186,6 +188,16 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         this.dateAdded = datetime;
     }
 
+    public String getError()
+    {
+        return error;
+    }
+
+    public void setError(String error)
+    {
+        this.error = error;
+    }
+
     @Override
     public int describeContents()
     {
@@ -205,6 +217,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         dest.writeByte((byte) (paused ? 1 : 0));
         dest.writeByte((byte) (downloadingMetadata ? 1 : 0));
         dest.writeLong(dateAdded);
+        dest.writeString(error);
     }
 
     public static final Parcelable.Creator<Torrent> CREATOR =
@@ -254,6 +267,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
                 ", paused=" + paused +
                 ", downloadingMetadata=" + downloadingMetadata +
                 ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
+                ", error=" + error +
                 '}';
     }
 }

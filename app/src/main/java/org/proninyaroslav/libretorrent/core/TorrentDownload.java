@@ -26,6 +26,7 @@ import android.util.Pair;
 
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.AnnounceEntry;
+import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.libtorrent4j.MoveFlags;
 import org.libtorrent4j.PieceIndexBitfield;
@@ -39,9 +40,12 @@ import org.libtorrent4j.Vectors;
 import org.libtorrent4j.WebSeedEntry;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.FileErrorAlert;
+import org.libtorrent4j.alerts.MetadataFailedAlert;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.SaveResumeDataAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
+import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.peer_info_vector;
@@ -92,6 +96,9 @@ public class TorrentDownload
             AlertType.METADATA_RECEIVED.swig(),
             AlertType.PIECE_FINISHED.swig(),
             AlertType.READ_PIECE.swig(),
+            AlertType.TORRENT_ERROR.swig(),
+            AlertType.METADATA_FAILED.swig(),
+            AlertType.FILE_ERROR.swig()
     };
 
     private Context context;
@@ -163,7 +170,7 @@ public class TorrentDownload
                     callback.onTorrentStateChanged(torrent.getId());
                     break;
                 case SAVE_RESUME_DATA:
-                    serializeResumeData((SaveResumeDataAlert) alert);
+                    serializeResumeData((SaveResumeDataAlert)alert);
                     break;
                 case STORAGE_MOVED:
                     callback.onTorrentMoved(torrent.getId(), true);
@@ -177,7 +184,7 @@ public class TorrentDownload
                     saveResumeData(false);
                     break;
                 case METADATA_RECEIVED:
-                    MetadataReceivedAlert metadataAlert = ((MetadataReceivedAlert) alert);
+                    MetadataReceivedAlert metadataAlert = (MetadataReceivedAlert)alert;
                     String hash = metadataAlert.handle().infoHash().toHex();
                     int size = metadataAlert.metadataSize();
                     int maxSize = 2 * 1024 * 1024;
@@ -186,6 +193,46 @@ public class TorrentDownload
                         bencode = metadataAlert.torrentData(true);
                     handleMetadata(bencode, hash, metadataAlert.torrentName());
                     break;
+                default:
+                    checkError(alert);
+                    break;
+            }
+        }
+    }
+
+    private void checkError(Alert<?> alert)
+    {
+        switch (alert.type()) {
+            case TORRENT_ERROR: {
+                TorrentErrorAlert errorAlert = (TorrentErrorAlert)alert;
+                ErrorCode error = errorAlert.error();
+                if (error.isError()) {
+                    String errorMsg = "";
+                    String filename = errorAlert.filename().substring(
+                            errorAlert.filename().lastIndexOf("/") + 1);
+                    if (errorAlert.filename() != null)
+                        errorMsg = "[" + filename + "] ";
+                    errorMsg += TorrentUtils.getErrorMsg(error);
+                    callback.onTorrentError(torrent.getId(), errorMsg);
+                }
+                break;
+            } case METADATA_FAILED: {
+                MetadataFailedAlert metadataFailedAlert = (MetadataFailedAlert)alert;
+                ErrorCode error = metadataFailedAlert.getError();
+                if (error.isError())
+                    callback.onTorrentError(torrent.getId(), TorrentUtils.getErrorMsg(error));
+                break;
+            } case FILE_ERROR: {
+                FileErrorAlert fileErrorAlert = (FileErrorAlert)alert;
+                ErrorCode error = fileErrorAlert.error();
+                String filename = fileErrorAlert.filename().substring(
+                        fileErrorAlert.filename().lastIndexOf("/") + 1);
+                if (error.isError()) {
+                    String errorMsg = "[" + filename + "] " +
+                            TorrentUtils.getErrorMsg(error);
+                    callback.onTorrentError(torrent.getId(), errorMsg);
+                }
+                break;
             }
         }
     }

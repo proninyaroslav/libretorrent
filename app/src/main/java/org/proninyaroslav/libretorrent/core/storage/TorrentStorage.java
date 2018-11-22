@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -61,7 +61,8 @@ public class TorrentStorage
             DatabaseHelper.COLUMN_IS_FINISHED,
             DatabaseHelper.COLUMN_IS_PAUSED,
             DatabaseHelper.COLUMN_DOWNLOADING_METADATA,
-            DatabaseHelper.COLUMN_DATETIME
+            DatabaseHelper.COLUMN_DATETIME,
+            DatabaseHelper.COLUMN_ERROR
     };
 
     private Context context;
@@ -129,6 +130,7 @@ public class TorrentStorage
         values.put(DatabaseHelper.COLUMN_IS_PAUSED, (torrent.isPaused() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_DOWNLOADING_METADATA, (torrent.isDownloadingMetadata() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_DATETIME, torrent.getDateAdded());
+        values.put(DatabaseHelper.COLUMN_ERROR, torrent.getError());
 
         return ConnectionManager.getDatabase(context).insert(DatabaseHelper.TORRENTS_TABLE, null, values);
     }
@@ -188,6 +190,7 @@ public class TorrentStorage
         }
         values.put(DatabaseHelper.COLUMN_DOWNLOADING_METADATA, (torrent.isDownloadingMetadata() ? 1 : 0));
         values.put(DatabaseHelper.COLUMN_DATETIME, torrent.getDateAdded());
+        values.put(DatabaseHelper.COLUMN_ERROR, torrent.getError());
 
         ConnectionManager.getDatabase(context).update(DatabaseHelper.TORRENTS_TABLE,
                 values,
@@ -355,6 +358,7 @@ public class TorrentStorage
                 indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_DOWNLOADING_METADATA)) > 0;
 
         long datetime = cursor.getLong(indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_DATETIME));
+        String error = cursor.getString(indexCache.getColumnIndex(cursor, DatabaseHelper.COLUMN_ERROR));
 
         Torrent torrent = new Torrent(id, pathToTorrent,
                                       name, filePriorities,
@@ -364,6 +368,7 @@ public class TorrentStorage
         torrent.setFinished(isFinished);
         torrent.setPaused(isPaused);
         torrent.setDownloadingMetadata(downloadingMetadata);
+        torrent.setError(error);
 
         return torrent;
     }

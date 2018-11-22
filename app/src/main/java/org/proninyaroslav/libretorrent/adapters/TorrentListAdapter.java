@@ -163,6 +163,14 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         holder.peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
         holder.setPauseButtonState(item.stateCode == TorrentStateCode.PAUSED);
 
+        if (item.error != null) {
+            holder.error.setVisibility(View.VISIBLE);
+            String errorTemplate = context.getString(R.string.error_template);
+            holder.error.setText(String.format(errorTemplate, item.error));
+        } else {
+            holder.error.setVisibility(View.GONE);
+        }
+
         TorrentListItem curTorrent = curOpenTorrent.get();
         if (curTorrent != null) {
             if (getItemPosition(curTorrent) == position && Utils.isTwoPane(context)) {
@@ -366,6 +374,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         TextView downloadCounter;
         TextView downloadUploadSpeed;
         TextView peers;
+        TextView error;
         View indicatorCurOpenTorrent;
         private AnimatedVectorDrawableCompat playToPauseAnim;
         private AnimatedVectorDrawableCompat pauseToPlayAnim;
@@ -399,6 +408,7 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
             downloadCounter = itemView.findViewById(R.id.torrent_download_counter);
             downloadUploadSpeed = itemView.findViewById(R.id.torrent_download_upload_speed);
             peers = itemView.findViewById(R.id.torrent_peers);
+            error = itemView.findViewById(R.id.torrent_error);
             indicatorCurOpenTorrent = itemView.findViewById(R.id.indicator_cur_open_torrent);
         }
 

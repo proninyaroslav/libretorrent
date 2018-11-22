@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -44,4 +44,8 @@ public interface TorrentEngineCallback
     void onTorrentMetadataLoaded(String id, Exception err);
 
     void onRestoreSessionError(String id);
+
+    void onTorrentError(String id, String errorMsg);
+
+    void onSessionError(String errorMsg);
 }

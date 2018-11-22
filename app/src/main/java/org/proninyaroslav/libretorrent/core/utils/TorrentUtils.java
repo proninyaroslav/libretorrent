@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,6 +27,7 @@ import android.util.Log;
 
 
 import org.apache.commons.io.FileUtils;
+import org.libtorrent4j.ErrorCode;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
@@ -273,5 +274,10 @@ public class TorrentUtils
             return path;
 
         return FileIOUtils.getDefaultDownloadPath();
+    }
+
+    public static String getErrorMsg(ErrorCode error)
+    {
+        return (error == null ? "" : error.message() + ", code " + error.value());
     }
 }

@@ -45,6 +45,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
     public long dateAdded = 0L;
     public int totalPeers = 0;
     public int peers = 0;
+    public String error;
 
     public BasicStateParcel()
     {
@@ -66,7 +67,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                             long receivedBytes, long uploadedBytes,
                             long totalBytes, long downloadSpeed,
                             long uploadSpeed, long ETA, long dateAdded,
-                            int totalPeers, int peers)
+                            int totalPeers, int peers, String error)
     {
         super(torrentId);
 
@@ -83,6 +84,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         this.dateAdded = dateAdded;
         this.totalPeers = totalPeers;
         this.peers = peers;
+        this.error = error;
     }
 
     public BasicStateParcel(Parcel source)
@@ -102,6 +104,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         dateAdded = source.readLong();
         totalPeers = source.readInt();
         peers = source.readInt();
+        error = source.readString();
     }
 
     @Override
@@ -128,6 +131,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         dest.writeLong(dateAdded);
         dest.writeInt(totalPeers);
         dest.writeInt(peers);
+        dest.writeString(error);
     }
 
     public static final Parcelable.Creator<BasicStateParcel> CREATOR =
@@ -170,6 +174,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
         result = prime * result + totalPeers;
         result = prime * result + peers;
+        result = prime * result + ((error == null) ? 0 : error.hashCode());
 
         return result;
     }
@@ -197,7 +202,8 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                 ETA == state.ETA &&
                 dateAdded == state.dateAdded &&
                 totalPeers == state.totalPeers &&
-                peers == state.peers;
+                peers == state.peers &&
+                (error == null || error.equals(state.error));
     }
 
     @Override
@@ -217,6 +223,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                 ", dateAdded=" + dateAdded +
                 ", totalPeers=" + totalPeers +
                 ", peers=" + peers +
+                ", error=" + error +
                 '}';
     }
 }

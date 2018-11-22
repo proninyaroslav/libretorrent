@@ -125,6 +125,19 @@
                     android:maxLines="1"
                     android:textAppearance="?attr/smallText" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/torrent_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/error"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
