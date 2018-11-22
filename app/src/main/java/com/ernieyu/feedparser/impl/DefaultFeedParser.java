@@ -10,6 +10,7 @@ import org.xml.sax.XMLReader;
 import com.ernieyu.feedparser.Feed;
 import com.ernieyu.feedparser.FeedException;
 import com.ernieyu.feedparser.FeedParser;
+import com.ernieyu.feedparser.XMLInputStream;
 
 /**
  * Default implementation of FeedParser.  This uses a SAX parser to process
@@ -33,7 +34,7 @@ public class DefaultFeedParser implements FeedParser {
         	FeedHandler handler = new FeedHandler();
         	
             // Parse feed and return data.
-        	parser.parse(inStream, handler);
+        	parser.parse(new XMLInputStream(inStream), handler);
         	Feed feed = handler.getFeed();
             if (feed == null)
                 throw new FeedException("Invalid RSS/Atom feed");
