@@ -38,7 +38,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     /* Usually torrent SHA-1 hash */
     private String id;
     /* Path to the torrent file (or magnet URI if downloadingMetadata = true)*/
-    private String torrentFile;
+    private String source;
     private String downloadPath;
     /*
      * The index position in array must be
@@ -59,13 +59,13 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         this(id, null, torrentName, filePriorities, downloadPath, dateAdded);
     }
 
-    public Torrent(String id, String torrentFile,
+    public Torrent(String id, String source,
                    String torrentName,
                    List<Priority> filePriorities,
                    String downloadPath, long dateAdded)
     {
         this.id = id;
-        this.torrentFile = torrentFile;
+        this.source = source;
         this.torrentName = torrentName;
         this.filePriorities = filePriorities;
         this.downloadPath = downloadPath;
@@ -75,7 +75,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public Torrent(Parcel source)
     {
         id = source.readString();
-        torrentFile = source.readString();
+        this.source = source.readString();
         downloadPath = source.readString();
         filePriorities = source.readArrayList(Priority.class.getClassLoader());
         torrentName = source.readString();
@@ -106,14 +106,14 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         torrentName = name;
     }
 
-    public String getTorrentFilePath()
+    public String getSource()
     {
-        return torrentFile;
+        return source;
     }
 
-    public void setTorrentFilePath(String path)
+    public void setSource(String source)
     {
-        torrentFile = path;
+        this.source = source;
     }
 
     public List<Priority> getFilePriorities()
@@ -196,7 +196,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeString(id);
-        dest.writeString(torrentFile);
+        dest.writeString(source);
         dest.writeString(downloadPath);
         dest.writeList(filePriorities);
         dest.writeString(torrentName);
@@ -245,7 +245,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public String toString() {
         return "Torrent{" +
                 "id='" + id + '\'' +
-                ", torrentFile='" + torrentFile + '\'' +
+                ", source='" + source + '\'' +
                 ", downloadPath='" + downloadPath + '\'' +
                 ", filePriorities=" + filePriorities +
                 ", torrentName='" + torrentName + '\'' +

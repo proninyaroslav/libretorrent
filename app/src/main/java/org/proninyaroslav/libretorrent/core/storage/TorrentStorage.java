@@ -91,7 +91,7 @@ public class TorrentStorage
         }
         if (newPath == null || newPath.isEmpty())
             return false;
-        torrent.setTorrentFilePath(newPath);
+        torrent.setSource(newPath);
 
         return insert(torrent) >= 0;
     }
@@ -101,7 +101,7 @@ public class TorrentStorage
         String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), bencode);
         if (newPath == null || newPath.isEmpty())
             throw new IOException("Unable to create file");
-        torrent.setTorrentFilePath(newPath);
+        torrent.setSource(newPath);
 
         return insert(torrent) >= 0;
     }
@@ -121,7 +121,7 @@ public class TorrentStorage
 
         values.put(DatabaseHelper.COLUMN_TORRENT_ID, torrent.getId());
         values.put(DatabaseHelper.COLUMN_NAME, torrent.getName());
-        values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getTorrentFilePath());
+        values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getSource());
         values.put(DatabaseHelper.COLUMN_PATH_TO_DOWNLOAD, torrent.getDownloadPath());
         values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, prioritiesToString(torrent.getFilePriorities()));
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));
@@ -141,29 +141,29 @@ public class TorrentStorage
         String newPath = TorrentUtils.torrentToDataDir(context, torrent.getId(), bencode);
         if (newPath == null)
             return;
-        torrent.setTorrentFilePath(newPath);
+        torrent.setSource(newPath);
         update(torrent, false);
     }
 
     public void replace(Torrent torrent, boolean deleteFile) throws Throwable
     {
-        if (torrent == null || torrent.getTorrentFilePath() == null)
+        if (torrent == null || torrent.getSource() == null)
             return;
 
         String newPath = TorrentUtils.torrentToDataDir(
                 context,
                 torrent.getId(),
-                torrent.getTorrentFilePath());
+                torrent.getSource());
         if (deleteFile) {
             try {
-                FileUtils.forceDelete(new File(torrent.getTorrentFilePath()));
+                FileUtils.forceDelete(new File(torrent.getSource()));
             } catch (Exception e) {
                 Log.w(TAG, "Could not delete torrent file: ", e);
             }
         }
         if (newPath == null)
             return;
-        torrent.setTorrentFilePath(newPath);
+        torrent.setSource(newPath);
         update(torrent, false);
     }
 
@@ -178,7 +178,7 @@ public class TorrentStorage
 
         values.put(DatabaseHelper.COLUMN_TORRENT_ID, torrent.getId());
         values.put(DatabaseHelper.COLUMN_NAME, torrent.getName());
-        values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getTorrentFilePath());
+        values.put(DatabaseHelper.COLUMN_PATH_TO_TORRENT, torrent.getSource());
         values.put(DatabaseHelper.COLUMN_PATH_TO_DOWNLOAD, torrent.getDownloadPath());
         values.put(DatabaseHelper.COLUMN_FILE_PRIORITIES, prioritiesToString(torrent.getFilePriorities()));
         values.put(DatabaseHelper.COLUMN_IS_SEQUENTIAL, (torrent.isSequentialDownload() ? 1 : 0));

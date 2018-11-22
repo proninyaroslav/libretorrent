@@ -939,7 +939,7 @@ public class TorrentTaskService extends Service
 
         Torrent torrent = new Torrent(params.getSha1hash(), params.getName(), params.getFilePriorities(),
                                       params.getPathToDownload(), System.currentTimeMillis());
-        torrent.setTorrentFilePath(params.getSource());
+        torrent.setSource(params.getSource());
         torrent.setSequentialDownload(params.isSequentialDownload());
         torrent.setPaused(params.addPaused());
 
@@ -960,16 +960,16 @@ public class TorrentTaskService extends Service
                     repo.add(torrent, bencode);
                 }
             }
-        } else if (new File(torrent.getTorrentFilePath()).exists()) {
+        } else if (new File(torrent.getSource()).exists()) {
             if (repo.exists(torrent)) {
                 TorrentEngine.getInstance().mergeTorrent(torrent);
                 repo.replace(torrent, removeFile);
                 throw new FileAlreadyExistsException();
             } else {
-                repo.add(torrent, torrent.getTorrentFilePath(), removeFile);
+                repo.add(torrent, torrent.getSource(), removeFile);
             }
         } else {
-            throw new FileNotFoundException(torrent.getTorrentFilePath());
+            throw new FileNotFoundException(torrent.getSource());
         }
         torrent = repo.getTorrentByID(torrent.getId());
         if (torrent == null)
@@ -990,7 +990,7 @@ public class TorrentTaskService extends Service
          */
         List<Priority> priorities = torrent.getFilePriorities();
         if (!torrent.isDownloadingMetadata() && (priorities == null || priorities.isEmpty())) {
-            TorrentMetaInfo info = new TorrentMetaInfo(torrent.getTorrentFilePath());
+            TorrentMetaInfo info = new TorrentMetaInfo(torrent.getSource());
             torrent.setFilePriorities(Collections.nCopies(info.fileCount, Priority.DEFAULT));
             repo.update(torrent);
         }
@@ -1197,7 +1197,7 @@ public class TorrentTaskService extends Service
         if (torrent == null)
             return;
         torrent.setFilePriorities(Arrays.asList(priorities));
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
+        TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
         if (isSelectedFilesTooBig(torrent, ti)) {
             makeTorrentErrorNotify(torrent.getName(), getString(R.string.error_free_space));
             return;

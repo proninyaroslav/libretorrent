@@ -43,8 +43,6 @@ import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentRemovedAlert;
 import org.libtorrent4j.swig.add_torrent_params;
-import org.libtorrent4j.swig.announce_entry;
-import org.libtorrent4j.swig.announce_entry_vector;
 import org.libtorrent4j.swig.bdecode_node;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.create_torrent;
@@ -362,9 +360,9 @@ public class TorrentEngine extends SessionManager
 
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.getId());
             if (torrent.isDownloadingMetadata()) {
-                loadTask.putMagnet(torrent.getTorrentFilePath(), new File(torrent.getTorrentFilePath()));
+                loadTask.putMagnet(torrent.getSource(), new File(torrent.getSource()));
             } else {
-                TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
+                TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
                 List<Priority> priorities = torrent.getFilePriorities();
                 if (priorities == null || priorities.size() != ti.numFiles()) {
                     if (callback != null)
@@ -380,7 +378,7 @@ public class TorrentEngine extends SessionManager
                     if (file.exists())
                         resumeFile = file;
                 }
-                loadTask.putTorrentFile(new File(torrent.getTorrentFilePath()), saveDir,
+                loadTask.putTorrentFile(new File(torrent.getSource()), saveDir,
                                         resumeFile, priorities.toArray(new Priority[priorities.size()]));
             }
             addTorrentsQueue.put(torrent.getId(), torrent);
@@ -412,11 +410,11 @@ public class TorrentEngine extends SessionManager
         File saveDir = new File(torrent.getDownloadPath());
         if (torrent.isDownloadingMetadata()) {
             addTorrentsQueue.put(torrent.getId(), torrent);
-            download(torrent.getTorrentFilePath(), saveDir);
+            download(torrent.getSource(), saveDir);
             return;
         }
 
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getTorrentFilePath()));
+        TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
         List<Priority> priorities = torrent.getFilePriorities();
         if (priorities == null || priorities.size() != ti.numFiles())
             throw new IllegalArgumentException("File count doesn't match: " + torrent.getName());
@@ -902,7 +900,7 @@ public class TorrentEngine extends SessionManager
         TorrentInfo ti = null;
         try {
              ti = (bencode == null ?
-                     new TorrentInfo(new File(torrent.getTorrentFilePath())) :
+                     new TorrentInfo(new File(torrent.getSource())) :
                      new TorrentInfo(bencode));
         } catch (Exception e) {
             return;

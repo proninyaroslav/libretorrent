@@ -216,9 +216,9 @@ public class TorrentDownload
                 name = newName;
                 torrent.setName(newName);
             }
-            String uri = torrent.getTorrentFilePath();
+            String uri = torrent.getSource();
             /* Change to filepath */
-            torrent.setTorrentFilePath(pathToTorrent);
+            torrent.setSource(pathToTorrent);
 
             ArrayList<Priority> priorities = null;
             MagnetInfo magnetInfo = null;
@@ -481,7 +481,7 @@ public class TorrentDownload
             TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
             String prefix = torrent.getDownloadPath();
-            File torrentFile = new File(torrent.getTorrentFilePath());
+            File torrentFile = new File(torrent.getSource());
             if (!torrentFile.exists())
                 return s;
             long createdTime = torrentFile.lastModified();
