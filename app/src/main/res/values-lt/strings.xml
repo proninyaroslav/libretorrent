@@ -94,6 +94,7 @@
     <string name="session_error_title">Klaida sesijos</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Nepavyko klausytis %1$s:%2$d, įveskite: %3$s (klaida: %4$s)</string>
+    <string name="nat_error_title">NAT klaidos</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torentas baigtas siųsti</string>
@@ -443,6 +444,7 @@
     <string name="pref_enable_ip_filtering_title">Įgalinti IP filtravimą</string>
     <string name="pref_enable_ip_filtering_summary">Naudojant IP filtravimą padidėja atminties naudojimas. Priklausomai nuo failo dydžio, filtravimo parodymas užtrunka kol būna įgalinamas pajungiant</string>
     <string name="pref_ip_filtering_file_title">Kelias iki rodymofiltro failo (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Rodyti NAT klaidas</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Įgaliotojo serverio tipas</string>
     <string-array name="pref_proxy_type_entries">

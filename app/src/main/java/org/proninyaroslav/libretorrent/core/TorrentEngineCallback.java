@@ -48,4 +48,6 @@ public interface TorrentEngineCallback
     void onTorrentError(String id, String errorMsg);
 
     void onSessionError(String errorMsg);
+
+    void onNatError(String errorMsg);
 }

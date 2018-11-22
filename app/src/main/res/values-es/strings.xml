@@ -94,6 +94,7 @@
     <string name="session_error_title">Error de sesion</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">No se pudo escuchar %1$s:%2$d, escriba: %3$s (error: %4$s)</string>
+    <string name="nat_error_title">Error de NAT</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finalizado</string>
@@ -443,6 +444,7 @@
     <string name="pref_enable_ip_filtering_title">Habilitar filtrado IP</string>
     <string name="pref_enable_ip_filtering_summary">Usar el filtrado IP incrementa el uso de memoria. Dependiendo del tamaño del fichero, el filtro puede tardar algún tiempo en ser aplicado al inicio</string>
     <string name="pref_ip_filtering_file_title">Ruta al fichero de filtro (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Mostrar errores NAT</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
     <string-array name="pref_proxy_type_entries">

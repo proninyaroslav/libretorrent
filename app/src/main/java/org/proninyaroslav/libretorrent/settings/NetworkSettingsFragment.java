@@ -165,6 +165,10 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             return true;
         });
 
+        String keyShowNatErrors = getString(R.string.pref_key_show_nat_errors);
+        SwitchPreferenceCompat showNatErrors = (SwitchPreferenceCompat)findPreference(keyShowNatErrors);
+        showNatErrors.setChecked(pref.getBoolean(keyShowNatErrors, SettingsManager.Default.showNatErrors));
+
         Preference proxy = findPreference(getString(R.string.pref_key_proxy_settings));
         proxy.setOnPreferenceClickListener((Preference preference) -> {
             if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {

@@ -355,7 +355,7 @@ public class TorrentEngine extends SessionManager
                 PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert)alert;
                 ErrorCode error = portmapErrorAlert.error();
                 if (error.isError())
-                    callback.onSessionError(TorrentUtils.getErrorMsg(error));
+                    callback.onNatError(TorrentUtils.getErrorMsg(error));
                 break;
             }
         }

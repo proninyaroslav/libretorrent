@@ -29,6 +29,10 @@
         android:key="@string/pref_key_enable_natpmp"
         android:title="@string/pref_enable_natpmp_title" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_show_nat_errors"
+        android:title="@string/pref_show_nat_errors" />
+
     <PreferenceCategory
         android:title="@string/pref_port_settings_category">
 

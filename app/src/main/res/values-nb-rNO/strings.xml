@@ -94,6 +94,7 @@
     <string name="session_error_title">Session feil</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Kunne ikke høre %1$s:%2$d, skriv: %3$s (feil: %4$s)</string>
+    <string name="nat_error_title">NAT feil</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent fullført</string>
@@ -444,6 +445,7 @@
     <string name="pref_enable_ip_filtering_title">Skrui på IP-filtrering</string>
     <string name="pref_enable_ip_filtering_summary">Bruk av IP-filtrering øker minnebruken. Avhengig av filstørrelsen, kan det hende det tar litt tid å legge det til ved oppstart</string>
     <string name="pref_ip_filtering_file_title">Sti til filter-fil (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Vis NAT-feil</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
     <string-array name="pref_proxy_type_entries">

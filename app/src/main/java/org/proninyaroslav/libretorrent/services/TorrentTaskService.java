@@ -108,6 +108,7 @@ public class TorrentTaskService extends Service
     private static final int SERVICE_STARTED_NOTIFICATION_ID = 1;
     private static final int TORRENTS_MOVED_NOTIFICATION_ID = 2;
     private static final int SESSION_ERROR_NOTIFICATION_ID = 3;
+    private static final int NAT_ERROR_NOTIFICATION_ID = 3;
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
     public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_SHUTDOWN";
@@ -701,6 +702,15 @@ public class TorrentTaskService extends Service
     {
         Log.e(TAG, errorMsg);
         makeSessionErrorNotify(errorMsg);
+    }
+
+    @Override
+    public void onNatError(String errorMsg)
+    {
+        Log.e(TAG, "NAT error: " + errorMsg);
+        if (pref.getBoolean(getString(R.string.pref_key_show_nat_errors),
+                            SettingsManager.Default.showNatErrors))
+            makeNatErrorNotify(errorMsg);
     }
 
     @Override
@@ -1900,6 +1910,27 @@ public class TorrentTaskService extends Service
             builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(SESSION_ERROR_NOTIFICATION_ID, builder.build());
+    }
+
+    private void makeNatErrorNotify(String message)
+    {
+        if (message == null)
+            return;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                DEFAULT_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
+                .setContentTitle(getString(R.string.nat_error_title))
+                .setTicker(getString(R.string.nat_error_title))
+                .setContentText(String.format(getString(R.string.error_template), message))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setCategory(Notification.CATEGORY_ERROR);
+
+        notifyManager.notify(NAT_ERROR_NOTIFICATION_ID, builder.build());
     }
 
     private void makeTorrentInfoNotify(String name, String message)

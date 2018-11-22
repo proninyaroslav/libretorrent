@@ -66,6 +66,7 @@ public class SettingsManager
         public static final boolean enableIpFiltering = false;
         public static final String ipFilteringFile = null;
         public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
+        public static final boolean showNatErrors = false;
         /* Storage settings */
         public static final String saveTorrentsIn = FileIOUtils.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;

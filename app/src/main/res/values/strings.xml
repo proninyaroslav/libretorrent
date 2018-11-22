@@ -94,6 +94,7 @@
     <string name="session_error_title">Session error</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Could not listen %1$s:%2$d, type: %3$s (error: %4$s)</string>
+    <string name="nat_error_title">NAT error</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finished</string>
@@ -445,6 +446,7 @@
     <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
     <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Show NAT errors</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
     <string-array name="pref_proxy_type_entries">

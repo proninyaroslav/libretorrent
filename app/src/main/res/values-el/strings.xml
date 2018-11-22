@@ -94,6 +94,7 @@
     <string name="session_error_title">Σφάλμα περιόδου σύνδεσης</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Δεν ήταν δυνατή η ακρόαση %1$s:%2$d, πληκτρολογήστε: %3$s (σφάλμα: %4$s)</string>
+    <string name="nat_error_title">Σφάλμα NAT</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Το torrent κατέβηκε</string>
@@ -444,6 +445,7 @@
     <string name="pref_enable_ip_filtering_title">Ενεργοποίηση φίλτρου IP</string>
     <string name="pref_enable_ip_filtering_summary">Η χρήση φίλτρου IP αυξάνει την απαιτούμενη μνήμη. Ανάλογα με το μέγεθος του αρχείου, το φίλτρο μπορεί να πάρει λίγη ώρα για να εφαρμοστεί κατά την εκκίνηση.</string>
     <string name="pref_ip_filtering_file_title">Διαδρομή σε αρχείο φίλτρου (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Εμφάνιση σφαλμάτων NAT</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
     <string-array name="pref_proxy_type_entries">

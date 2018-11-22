@@ -94,6 +94,7 @@
     <string name="session_error_title">Chyba relace</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Nelze poslouchat %1$s:%2$d, typ: %3$s (chyba: %4$s)</string>
+    <string name="nat_error_title">Chyba NAT</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent dokončen</string>
@@ -444,6 +445,7 @@
     <string name="pref_enable_ip_filtering_title">Povolit filtrování IP</string>
     <string name="pref_enable_ip_filtering_summary">Použitím IP filtrování je zvýšeno využití paměti. V závislosti na velikosti souboru může dojít k zpoždění spuštění aplikace</string>
     <string name="pref_ip_filtering_file_title">Cesta k souboru filtru (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Ukázat NAT chyby</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ proxy</string>
     <string-array name="pref_proxy_type_entries">

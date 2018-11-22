@@ -94,6 +94,7 @@
     <string name="session_error_title">Eroare de sesiune</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">Nu am putut asculta %1$s:%2$d, tastați: %3$s (eroare: %4$s)</string>
+    <string name="nat_error_title">Eroare NAT</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finalizat</string>
@@ -444,6 +445,7 @@
     <string name="pref_enable_ip_filtering_title">Activează filtrarea IP</string>
     <string name="pref_enable_ip_filtering_summary">Folosirea filtrării IP mărește utilizarea memoriei. În funcție de dimensiunea fișierului, poate trece ceva timp până când filtrul este aplicat la pornire</string>
     <string name="pref_ip_filtering_file_title">Calea către fișierul de filtrare (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Afișați erorile NAT</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tip de proxy</string>
     <string-array name="pref_proxy_type_entries">
