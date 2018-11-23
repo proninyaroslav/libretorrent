@@ -512,6 +512,6 @@
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
     <string name="about_website">想了解更多信息并帮助项目发展？请浏览 https://gitlab.com/proninyaroslav/libretorrent</string>
-    <string name="about_description">LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper frostwire-jlibtorrent https://github.com/frostwire/frostwire-jlibtorrent ） 库。\n\nLibreTorrent 是自由软件，基于 GNU 通用公共许可证v3（GPLv3）条款发布\nhttp：//www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description">LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper libtorrent4j https://github.com/aldenml/libtorrent4j） 库。\n\nLibreTorrent 是自由软件，基于 GNU 通用公共许可证v3（GPLv3）条款发布\nhttp：//www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">更新日志</string>
 </resources>
