@@ -8,12 +8,12 @@ android {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
         targetSdkVersion 28
-        versionCode 9
+        versionCode 10
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName "1.8"
+        versionName "1.9"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,6 +53,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    /* Remove JNA libs for other OS */
+    packagingOptions {
+        exclude 'com/sun/**'
     }
 }
 
