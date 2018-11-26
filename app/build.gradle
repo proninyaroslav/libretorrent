@@ -16,6 +16,10 @@ android {
         versionName "1.9"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
 
     buildTypes {
@@ -54,11 +58,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    /* Remove JNA libs for other OS */
-    packagingOptions {
-        exclude 'com/sun/**'
-    }
 }
 
 repositories {
@@ -91,7 +90,7 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'net.java.dev.jna:jna:4.5.2'
+    implementation 'net.java.dev.jna:jna:4.5.2@aar'
 
     /* libtorrent wrapper */
     implementation 'org.libtorrent4j:libtorrent4j:' + LIBTORRENT4J_VERSION
