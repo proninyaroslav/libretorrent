@@ -234,8 +234,7 @@ public class TorrentTaskService extends Service
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
         TorrentEngine.getInstance().stop();
-        torrentStreamServer.stop();
-        torrentStreamServer = null;
+        stopStreamingServer();
         isAlreadyRunning = false;
         repo = null;
         pref = null;
