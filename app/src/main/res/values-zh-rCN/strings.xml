@@ -57,7 +57,7 @@
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
     <string name="ip_filter_add_error">无法添加 IP 过滤器。可能文件已损坏或格式不正确。</string>
-    <string name="ip_filter_add_success">IP filter 添加成功</string>
+    <string name="ip_filter_add_success">IP 过滤器添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
     <string name="theme_settings_apply_after_reboot">重新启动应用程序后，将应用主题设置</string>
@@ -91,10 +91,10 @@
     <string name="error_template">Error: %1$s</string>
     <string name="torrent_does_not_exists_error">torrent 不存在</string>
     <string name="restore_torrent_error">无法从此前会话中恢复torrent</string>
-    <string name="session_error_title">Session error</string>
+    <string name="session_error_title">会话错误</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="listen_failed_error" formatted="false">Could not listen %1$s:%2$d, type: %3$s (error: %4$s)</string>
-    <string name="nat_error_title">NAT error</string>
+    <string name="listen_failed_error" formatted="false">无法侦听（listen） %1$s:%2$d, 类型: %3$s (error: %4$s)</string>
+    <string name="nat_error_title">NAT 错误</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">torrent 已完成</string>
@@ -262,9 +262,9 @@
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
     <string name="torrent_added_date">已添加</string>
     <string name="torrent_availability">可用度</string>
-    <string name="share_stream_url">Share stream URL</string>
-    <string name="magnet_include_file_priorities">Include file priorities?</string>
-    <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="share_stream_url">分享stream URL</string>
+    <string name="magnet_include_file_priorities">包含文件属性?</string>
+    <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
@@ -303,7 +303,7 @@
     <string name="feed_item_open_article_url">打开文章</string>
     <string name="feeds_file_selection_dialog_title">选择RSS频道文件</string>
     <string name="error_import_invalid_format">无效格式</string>
-    <string name="feed_do_not_download_immediately">Do not download immediately</string>
+    <string name="feed_do_not_download_immediately">不立即下载</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建 torrent</string>
@@ -395,7 +395,7 @@
     <string name="pref_theme_title">主题</string>
     <string-array name="pref_theme_entries">
         <item>明亮</item>
-        <item>暗黑</item>
+        <item>深色</item>
         <item>黑色</item>
     </string-array>
     <string name="pref_notification_category">通知设置</string>
@@ -447,7 +447,7 @@
     <string name="pref_enable_ip_filtering_title">开启 IP 过滤</string>
     <string name="pref_enable_ip_filtering_summary">使用 IP 过滤会增加内存使用。根据文件大小，过滤器可能需要一些时间才能在启动时应用。</string>
     <string name="pref_ip_filtering_file_title">过滤规则文件路径 （.dat ，.p2p ）</string>
-    <string name="pref_show_nat_errors">Show NAT errors</string>
+    <string name="pref_show_nat_errors">显示NAT错误</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
@@ -503,11 +503,11 @@
     <string name="pref_feed_start_torrents_title">运行 torrent</string>
     <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Enable streaming</string>
-    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
-    <string name="pref_streaming_hostname">Hostname</string>
-    <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
+    <string name="pref_streaming_enable_title">启用streaming功能</string>
+    <string name="pref_streaming_enable_summary">Streaming允许通过浏览器或媒体播放器中输入的HTTP 地址从torrent中下载一个或多个单独文件</string>
+    <string name="pref_streaming_hostname">主机名</string>
+    <string name="pref_streaming_port">端口</string>
+    <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它。</string>
 
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
