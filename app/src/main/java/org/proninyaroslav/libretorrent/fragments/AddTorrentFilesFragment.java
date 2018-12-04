@@ -46,6 +46,7 @@ import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -79,13 +80,9 @@ public class AddTorrentFilesFragment extends Fragment
     /* Current directory */
     private BencodeFileTree curDir;
 
-    public static AddTorrentFilesFragment newInstance(ArrayList<BencodeFileItem> files,
-                                                      List<Priority> priorities)
+    public static AddTorrentFilesFragment newInstance()
     {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
-
-        fragment.files = files;
-        fragment.priorities = priorities;
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -96,7 +93,12 @@ public class AddTorrentFilesFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_add_torrent_files, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_torrent_files, container, false);
+
+        filesSize = v.findViewById(R.id.files_size);
+        fileList = v.findViewById(R.id.file_list);
+
+        return v;
     }
 
     @Override
@@ -122,29 +124,37 @@ public class AddTorrentFilesFragment extends Fragment
             if (heavyInstance != null) {
                 fileTree = (BencodeFileTree)heavyInstance.getSerializable(TAG_FILE_TREE);
                 curDir = (BencodeFileTree)heavyInstance.getSerializable(TAG_CUR_DIR);
-            } else {
-                makeFileTree();
             }
         }
 
-        filesSize = activity.findViewById(R.id.files_size);
-        filesSize.setText(String.format(getString(R.string.files_size),
-                                        Formatter.formatFileSize(activity.getApplicationContext(),
-                                                                 fileTree.selectedFileSize()),
-                          Formatter.formatFileSize(activity.getApplicationContext(),
-                                                   fileTree.size())));
+        updateFileSize();
 
-        fileList = activity.findViewById(R.id.file_list);
         layoutManager = new LinearLayoutManager(activity);
         fileList.setLayoutManager(layoutManager);
-        fileList.setItemAnimator(new DefaultItemAnimator());
+        /*
+         * A RecyclerView by default creates another copy of the ViewHolder in order to
+         * fade the views into each other. This causes the problem because the old ViewHolder gets
+         * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
+         */
+        DefaultItemAnimator animator = new DefaultItemAnimator()
+        {
+            @Override
+            public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder)
+            {
+                return true;
+            }
+        };
+        fileList.setItemAnimator(animator);
         adapter = new DownloadableFilesAdapter(getChildren(curDir), activity,
-                                               R.layout.item_torrent_downloadable_file, this);
+                R.layout.item_torrent_downloadable_file, this);
         fileList.setAdapter(adapter);
     }
 
     private void makeFileTree()
     {
+        if (files == null)
+            return;
+
         fileTree = BencodeFileTreeUtils.buildFileTree(files);
 
         if (priorities == null || priorities.size() == 0) {
@@ -165,6 +175,32 @@ public class AddTorrentFilesFragment extends Fragment
 
         /* Is assigned the root dir of the file tree */
         curDir = fileTree;
+    }
+
+    private void updateFileSize()
+    {
+        if (fileTree == null)
+            return;
+
+        filesSize.setText(String.format(getString(R.string.files_size),
+                Formatter.formatFileSize(activity.getApplicationContext(),
+                        fileTree.selectedFileSize()),
+                Formatter.formatFileSize(activity.getApplicationContext(),
+                        fileTree.size())));
+    }
+
+    public void setFilesAndPriorities(ArrayList<BencodeFileItem> files,
+                                      List<Priority> priorities)
+    {
+        if (files == null)
+            return;
+
+        this.files = files;
+        this.priorities = priorities;
+
+        makeFileTree();
+        updateFileSize();
+        reloadData();
     }
 
     @Override
@@ -220,19 +256,13 @@ public class AddTorrentFilesFragment extends Fragment
     public void onItemCheckedChanged(BencodeFileTree node, boolean selected)
     {
         node.select(selected);
-
-        filesSize.setText(
-                String.format(getString(R.string.files_size),
-                              Formatter.formatFileSize(activity.getApplicationContext(),
-                                                       fileTree.selectedFileSize()),
-                              Formatter.formatFileSize(activity.getApplicationContext(),
-                                                       fileTree.size())));
+        updateFileSize();
     }
 
     private List<BencodeFileTree> getChildren(BencodeFileTree node)
     {
         List<BencodeFileTree> children = new ArrayList<>();
-        if (node.isFile())
+        if (node == null || node.isFile())
             return children;
 
         /* Adding parent dir for navigation */
@@ -275,6 +305,9 @@ public class AddTorrentFilesFragment extends Fragment
 
     public Set<Integer> getSelectedFileIndexes()
     {
+        if (fileTree == null)
+            return new HashSet<Integer>();
+
         List<BencodeFileTree> files = BencodeFileTreeUtils.getFiles(fileTree);
         Set<Integer> indexes = new ArraySet<>();
         for (BencodeFileTree file : files)
@@ -286,6 +319,6 @@ public class AddTorrentFilesFragment extends Fragment
 
     public long getSelectedFileSize()
     {
-        return fileTree.selectedFileSize();
+        return (fileTree != null ? fileTree.selectedFileSize() : 0);
     }
 }

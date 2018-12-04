@@ -60,7 +60,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
+import org.proninyaroslav.libretorrent.adapters.AddTorrentPagerAdapter;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
@@ -90,8 +90,6 @@ public class AddTorrentFragment extends Fragment
 
     private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_URI = "uri";
-    private static final int INFO_FRAG_POS = 0;
-    private static final int FILE_FRAG_POS = 1;
 
     private static final String TAG_PATH_TO_TEMP_TORRENT = "path_to_temp_torrent";
     private static final String TAG_SAVE_TORRENT_FILE = "save_torrent_file";
@@ -112,7 +110,7 @@ public class AddTorrentFragment extends Fragment
     private ViewPager viewPager;
     private CoordinatorLayout coordinatorLayout;
     private TabLayout tabLayout;
-    private ViewPagerAdapter adapter;
+    private AddTorrentPagerAdapter adapter;
     private ProgressBar fetchMagnetProgress;
 
     private Uri uri;
@@ -233,8 +231,9 @@ public class AddTorrentFragment extends Fragment
         setHasOptionsMenu(true);
         if (activity.getSupportActionBar() != null)
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        adapter = new AddTorrentPagerAdapter(activity.getSupportFragmentManager(), activity);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(AddTorrentPagerAdapter.NUM_FRAGMENTS);
         tabLayout.setupWithViewPager(viewPager);
 
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
@@ -262,7 +261,9 @@ public class AddTorrentFragment extends Fragment
                 decodeState.get() != State.UNKNOWN &&
                 decodeState.get() != State.ERROR)
             {
-                showFragments(true, decodeState.get() != State.FETCHING_MAGNET);
+                updateInfoFragment();
+                if (decodeState.get() != State.FETCHING_MAGNET)
+                    updateFilesFragment();
             }
 
         } else {
@@ -489,7 +490,7 @@ public class AddTorrentFragment extends Fragment
                         /* Prevent race condition */
                         if (decodeTask == null || decodeTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
                             updateInfoFragment();
-                            showFragments(false, true);
+                            updateFilesFragment();
                         }
                     }
                 } else {
@@ -610,7 +611,9 @@ public class AddTorrentFragment extends Fragment
             if (e != null)
                 return;
 
-            fragment.get().showFragments(true, fragment.get().decodeState.get() != State.FETCHING_MAGNET);
+            fragment.get().updateInfoFragment();
+            if (fragment.get().decodeState.get() != State.FETCHING_MAGNET)
+                fragment.get().updateFilesFragment();
         }
     }
 
@@ -645,38 +648,26 @@ public class AddTorrentFragment extends Fragment
 
     private synchronized void updateInfoFragment()
     {
-        if (!isAdded() || adapter == null)
+        if (!isAdded() || adapter == null || info == null)
             return;
 
-        final AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
+        final AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter
+                .getFragment(AddTorrentPagerAdapter.INFO_FRAG_POS);
         if (infoFrag == null)
             return;
         infoFrag.setInfo(info);
     }
 
-    private synchronized void showFragments(final boolean showInfo, final boolean showFile)
+    private synchronized void updateFilesFragment()
     {
         if (!isAdded() || adapter == null || info == null)
             return;
 
-        if ((showInfo && adapter.getItem(INFO_FRAG_POS) != null) ||
-                (showFile && adapter.getItem(FILE_FRAG_POS) != null))
+        final AddTorrentFilesFragment filesFrag = (AddTorrentFilesFragment)adapter
+                .getFragment(AddTorrentPagerAdapter.FILES_FRAG_POS);
+        if (filesFrag == null)
             return;
-
-        activity.runOnUiThread(() -> {
-            if (showInfo)
-                adapter.addFragment(AddTorrentInfoFragment.newInstance(info),
-                        INFO_FRAG_POS, getString(R.string.torrent_info));
-
-            if (showFile) {
-                adapter.addFragment(AddTorrentFilesFragment.newInstance(info.fileList, magnetPriorities),
-                        FILE_FRAG_POS, getString(R.string.torrent_files));
-                /* Don't need anymore */
-                magnetPriorities = null;
-            }
-
-            adapter.notifyDataSetChanged();
-        });
+        filesFrag.setFilesAndPriorities(info.fileList, magnetPriorities);
     }
 
     private void showFetchMagnetProgress(final boolean show)
@@ -715,8 +706,10 @@ public class AddTorrentFragment extends Fragment
 
     private void buildTorrent()
     {
-        AddTorrentFilesFragment fileFrag = (AddTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
-        AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
+        AddTorrentFilesFragment fileFrag = (AddTorrentFilesFragment)adapter
+                .getFragment(AddTorrentPagerAdapter.FILES_FRAG_POS);
+        AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter
+                .getFragment(AddTorrentPagerAdapter.INFO_FRAG_POS);
         if (infoFrag == null || info == null)
             return;
 

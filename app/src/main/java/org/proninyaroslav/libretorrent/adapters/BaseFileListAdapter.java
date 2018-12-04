@@ -43,7 +43,7 @@ public abstract class BaseFileListAdapter<VH extends RecyclerView.ViewHolder, F 
     {
         this.files.addAll(files);
         Collections.sort(this.files);
-        notifyItemRangeInserted(0, files.size() - 1);
+        notifyItemRangeInserted(0, files.size());
     }
 
     public void clearFiles()

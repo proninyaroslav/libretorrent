@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
@@ -195,6 +196,19 @@ public class MainFragment extends Fragment
 
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
+
+        /* Clean garbage fragments after rotate for tablets */
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            if (fm != null) {
+                List<Fragment> fragments = fm.getFragments();
+                FragmentTransaction ft = fm.beginTransaction();
+                for (Fragment f : fragments)
+                    if (f != null && !(f instanceof MainFragment))
+                        ft.remove(f);
+                ft.commitAllowingStateLoss();
+            }
+        }
 
         pref = SettingsManager.getPreferences(activity);
         showBlankFragment();

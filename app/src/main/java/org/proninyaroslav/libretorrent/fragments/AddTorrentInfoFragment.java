@@ -82,10 +82,9 @@ public class AddTorrentInfoFragment extends Fragment
     private ImageButton folderChooserButton;
     private CheckBox sequentialDownload, startTorrent;
 
-    public static AddTorrentInfoFragment newInstance(TorrentMetaInfo info)
+    public static AddTorrentInfoFragment newInstance()
     {
         AddTorrentInfoFragment fragment = new AddTorrentInfoFragment();
-        fragment.info = info;
 
         Bundle b = new Bundle();
         fragment.setArguments(b);

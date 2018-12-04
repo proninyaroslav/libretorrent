@@ -172,6 +172,9 @@ public class DetailTorrentPeersFragment extends Fragment
 
     public void setPeerList(ArrayList<PeerStateParcel> peers)
     {
+        if (adapter == null)
+            return;
+
         if (peers.isEmpty()) {
             adapter.clearAll();
             return;

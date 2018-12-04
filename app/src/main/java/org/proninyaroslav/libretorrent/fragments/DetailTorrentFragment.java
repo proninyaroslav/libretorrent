@@ -37,7 +37,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.ViewPager;
@@ -68,6 +67,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.Torrent;
@@ -96,6 +96,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.FILES_FRAG_POS;
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.INFO_FRAG_POS;
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.PEERS_FRAG_POS;
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.PIECES_FRAG_POS;
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.STATE_FRAG_POS;
+import static org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter.TRACKERS_FRAG_POS;
+
 public class DetailTorrentFragment extends Fragment
         implements
         BaseAlertDialog.OnClickListener,
@@ -116,14 +123,7 @@ public class DetailTorrentFragment extends Fragment
     private static final String TAG_MAGNET_INCLUDE_PRIOR_DIALOG = "include_prior_dialog";
 
     private static final int SAVE_TORRENT_FILE_CHOOSE_REQUEST = 1;
-
     private static final int SYNC_TIME = 1000; /* ms */
-    private static final int INFO_FRAG_POS = 0;
-    private static final int STATE_FRAG_POS = 1;
-    private static final int FILE_FRAG_POS = 2;
-    private static final int TRACKERS_FRAG_POS = 3;
-    private static final int PEERS_FRAG_POS = 4;
-    private static final int PIECES_FRAG_POS = 5;
 
     private AppCompatActivity activity;
     private Toolbar toolbar;
@@ -160,7 +160,7 @@ public class DetailTorrentFragment extends Fragment
     private boolean isTorrentFilesChanged = false;
     /* One of the fragments in ViewPagerAdapter is in ActionMode */
     private boolean childInActionMode = false;
-    private int currentFragPos = INFO_FRAG_POS;
+    private int currentFragPos = TorrentStatusPagerAdapter.INFO_FRAG_POS;
     private Exception sentError;
     /*
      * Caching data, if a fragment in tab isn't into view,
@@ -251,12 +251,17 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onDestroyView();
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            Fragment fragment = fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
-            /* Prevents leak the dialog in portrait mode */
-            if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null)
-                ((BaseAlertDialog)fragment).dismiss();
+        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+            /* Delete pager fragments */
+            if (viewPager != null && adapter != null)
+                adapter.clearFragments();
+            FragmentManager fm = getFragmentManager();
+            if (fm != null) {
+                Fragment fragment = fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
+                /* Prevents leak the dialog in portrait mode */
+                if (fragment != null)
+                    ((BaseAlertDialog)fragment).dismiss();
+            }
         }
     }
 
@@ -270,9 +275,8 @@ public class DetailTorrentFragment extends Fragment
 
         Utils.showColoredStatusBar_KitKat(activity);
 
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        adapter = new TorrentStatusPagerAdapter(torrentId, activity.getSupportFragmentManager(), activity);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(6);
         viewPager.addOnPageChangeListener(viewPagerListener);
         int colorId = (childInActionMode ? R.color.action_mode : R.color.primary);
         setTabLayoutColor(colorId);
@@ -350,7 +354,7 @@ public class DetailTorrentFragment extends Fragment
             DetailTorrentFragment.this.service = binder.getService();
             bound = true;
             initRequest();
-            initFragments();
+            init();
             startUpdateTorrentState();
         }
 
@@ -370,41 +374,66 @@ public class DetailTorrentFragment extends Fragment
         return torrentId;
     }
 
-    private void initFragments()
+    private void init()
     {
-        if (!isAdded() || adapter.getCount() > 0)
+        if (!isAdded())
             return;
 
-        DetailTorrentInfoFragment fragmentInfo = DetailTorrentInfoFragment.newInstance(torrent, infoCache);
-        DetailTorrentStateFragment fragmentState = DetailTorrentStateFragment.newInstance(infoCache);
-        DetailTorrentFilesFragment fragmentFiles =
-                DetailTorrentFilesFragment.newInstance(torrentId, getFileList(), getPrioritiesList());
-        DetailTorrentTrackersFragment fragmentTrackers = DetailTorrentTrackersFragment.newInstance();
-        DetailTorrentPeersFragment fragmentPeers = DetailTorrentPeersFragment.newInstance();
-        DetailTorrentPiecesFragment fragmentPieces = (infoCache != null ?
-                DetailTorrentPiecesFragment.newInstance(infoCache.numPieces, infoCache.pieceLength) :
-                DetailTorrentPiecesFragment.newInstance(0, 0));
-
-        /* Removing previous ViewPagerAdapter fragments, if any */
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            List<Fragment> fragments = fm.getFragments();
-            FragmentTransaction ft = fm.beginTransaction();
-            for (Fragment f : fragments)
-                if (f != null)
-                    ft.remove(f);
-            ft.commitAllowingStateLoss();
-        }
-
-        adapter.addFragment(fragmentInfo, INFO_FRAG_POS, getString(R.string.torrent_info));
-        adapter.addFragment(fragmentState, STATE_FRAG_POS, getString(R.string.torrent_state));
-        adapter.addFragment(fragmentFiles, FILE_FRAG_POS, getString(R.string.torrent_files));
-        adapter.addFragment(fragmentTrackers, TRACKERS_FRAG_POS, getString(R.string.torrent_trackers));
-        adapter.addFragment(fragmentPeers, PEERS_FRAG_POS, getString(R.string.torrent_peers));
-        adapter.addFragment(fragmentPieces, PIECES_FRAG_POS, getString(R.string.torrent_pieces));
-
-        adapter.notifyDataSetChanged();
         viewPager.setCurrentItem(currentFragPos);
+        updateCurrentFragment();
+    }
+
+    private void updateCurrentFragment()
+    {
+        switch (currentFragPos) {
+            case INFO_FRAG_POS:
+                DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment)adapter
+                        .getFragment(INFO_FRAG_POS);
+                if (infoFrag != null && torrent != null && infoCache != null)
+                    infoFrag.setInfo(torrent, infoCache);
+                break;
+            case STATE_FRAG_POS:
+                DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter
+                        .getFragment(STATE_FRAG_POS);
+                if (infoCache != null)
+                    stateFrag.setInfo(infoCache);
+                if (stateFrag != null)
+                    stateFrag.setStates(basicStateCache, advanceStateCache);
+                break;
+            case FILES_FRAG_POS:
+                DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter
+                        .getFragment(FILES_FRAG_POS);
+                if (fileFrag != null) {
+                    fileFrag.init(torrentId, getFileList(), getPrioritiesList());
+                    if (advanceStateCache != null)
+                        fileFrag.updateFiles(advanceStateCache.filesReceivedBytes,
+                                advanceStateCache.filesAvailability);
+                }
+                break;
+            case TRACKERS_FRAG_POS:
+                DetailTorrentTrackersFragment trackersFrag = (DetailTorrentTrackersFragment)adapter
+                        .getFragment(TRACKERS_FRAG_POS);
+                if (trackersFrag != null && trackersCache != null)
+                    trackersFrag.setTrackersList(new ArrayList<>(trackersCache.getAll()));
+                break;
+            case PEERS_FRAG_POS:
+                DetailTorrentPeersFragment peersFrag = (DetailTorrentPeersFragment)adapter
+                        .getFragment(PEERS_FRAG_POS);
+                if (peersFrag != null && piecesCache != null)
+                    peersFrag.setPeerList(new ArrayList<>(peersCache.getAll()));
+                break;
+            case PIECES_FRAG_POS:
+                DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)adapter
+                        .getFragment(PIECES_FRAG_POS);
+                if (piecesFrag != null) {
+                    piecesFrag.setPiecesCountAndSize(infoCache.numPieces, infoCache.pieceLength);
+                    if (advanceStateCache != null) {
+                        piecesFrag.setPieces(piecesCache);
+                        piecesFrag.setDownloadedPiecesCount(advanceStateCache.downloadedPieces);
+                    }
+                }
+                break;
+        }
     }
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
@@ -419,36 +448,7 @@ public class DetailTorrentFragment extends Fragment
         public void onPageSelected(int position)
         {
             currentFragPos = position;
-            switch (position) {
-                case STATE_FRAG_POS:
-                    DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter.getItem(STATE_FRAG_POS);
-                    if (stateFrag != null && basicStateCache != null && advanceStateCache != null)
-                        stateFrag.setStates(basicStateCache, advanceStateCache);
-                    break;
-                case FILE_FRAG_POS:
-                    DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
-                    if (fileFrag != null && advanceStateCache != null)
-                        fileFrag.updateFiles(advanceStateCache.filesReceivedBytes,
-                                             advanceStateCache.filesAvailability);
-                    break;
-                case TRACKERS_FRAG_POS:
-                    DetailTorrentTrackersFragment trackersFrag = (DetailTorrentTrackersFragment)adapter.getItem(TRACKERS_FRAG_POS);
-                    if (trackersFrag != null && trackersCache != null)
-                        trackersFrag.setTrackersList(new ArrayList<>(trackersCache.getAll()));
-                    break;
-                case PEERS_FRAG_POS:
-                    DetailTorrentPeersFragment peersFrag = (DetailTorrentPeersFragment)adapter.getItem(PEERS_FRAG_POS);
-                    if (peersFrag != null && piecesCache != null)
-                        peersFrag.setPeerList(new ArrayList<>(peersCache.getAll()));
-                    break;
-                case PIECES_FRAG_POS:
-                    DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
-                    if (piecesFrag != null && advanceStateCache != null) {
-                        piecesFrag.setPieces(piecesCache);
-                        piecesFrag.setDownloadedPiecesCount(advanceStateCache.downloadedPieces);
-                    }
-                    break;
-            }
+            updateCurrentFragment();
         }
 
         @Override
@@ -494,8 +494,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void applyInfoChanges()
     {
-        DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
-        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
+        DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment)adapter
+                .getFragment(INFO_FRAG_POS);
+        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter
+                .getFragment(FILES_FRAG_POS);
 
         if (infoFrag == null || fileFrag == null)
             return;
@@ -538,7 +540,8 @@ public class DetailTorrentFragment extends Fragment
 
     private void applyFilesChanges()
     {
-        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
+        DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter
+                .getFragment(FILES_FRAG_POS);
 
         if (fileFrag == null)
             return;
@@ -1077,18 +1080,21 @@ public class DetailTorrentFragment extends Fragment
         advanceStateCache = advanceStateParcel;
         switch (viewPager.getCurrentItem()) {
             case STATE_FRAG_POS:
-                DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter.getItem(STATE_FRAG_POS);
+                DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter
+                        .getFragment(STATE_FRAG_POS);
                 if (stateFrag != null)
                     stateFrag.setAdvanceState(advanceStateCache);
                 break;
-            case FILE_FRAG_POS:
-                DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
+            case FILES_FRAG_POS:
+                DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter
+                        .getFragment(FILES_FRAG_POS);
                 if (fileFrag != null)
                     fileFrag.updateFiles(advanceStateCache.filesReceivedBytes,
                                          advanceStateCache.filesAvailability);
                 break;
             case PIECES_FRAG_POS:
-                DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
+                DetailTorrentPiecesFragment piecesFrag = (DetailTorrentPiecesFragment)adapter
+                        .getFragment(PIECES_FRAG_POS);
                 if (piecesFrag != null)
                     piecesFrag.setDownloadedPiecesCount(advanceStateCache.downloadedPieces);
                 break;
@@ -1106,7 +1112,7 @@ public class DetailTorrentFragment extends Fragment
             trackersCache.putAll(states);
             if (viewPager.getCurrentItem() == TRACKERS_FRAG_POS) {
                 DetailTorrentTrackersFragment trackersFrag =
-                        (DetailTorrentTrackersFragment)adapter.getItem(TRACKERS_FRAG_POS);
+                        (DetailTorrentTrackersFragment)adapter.getFragment(TRACKERS_FRAG_POS);
                 if (trackersFrag != null)
                     trackersFrag.setTrackersList(states);
             }
@@ -1124,7 +1130,7 @@ public class DetailTorrentFragment extends Fragment
             peersCache.putAll(states);
             if (viewPager.getCurrentItem() == PEERS_FRAG_POS) {
                 DetailTorrentPeersFragment peersFrag =
-                        (DetailTorrentPeersFragment)adapter.getItem(PEERS_FRAG_POS);
+                        (DetailTorrentPeersFragment)adapter.getFragment(PEERS_FRAG_POS);
                 if (peersFrag != null)
                     peersFrag.setPeerList(states);
             }
@@ -1141,7 +1147,7 @@ public class DetailTorrentFragment extends Fragment
             piecesCache = pieces;
             if (viewPager.getCurrentItem() == PIECES_FRAG_POS) {
                 DetailTorrentPiecesFragment piecesFrag =
-                        (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
+                        (DetailTorrentPiecesFragment)adapter.getFragment(PIECES_FRAG_POS);
                 if (piecesFrag != null)
                     piecesFrag.setPieces(pieces);
             }
@@ -1185,28 +1191,9 @@ public class DetailTorrentFragment extends Fragment
                 torrent = repo.getTorrentByID(torrentId);
 
             TorrentMetaInfo info = service.getTorrentMetaInfo(torrentId);
-            if (info != null && (infoCache == null || !infoCache.equals(info))) {
+            if (info != null)
                 infoCache = info;
-                DetailTorrentInfoFragment infoFrag =
-                        (DetailTorrentInfoFragment)adapter.getItem(INFO_FRAG_POS);
-                if (infoFrag != null)
-                    infoFrag.setInfo(infoCache);
-
-                DetailTorrentStateFragment stateFrag =
-                        (DetailTorrentStateFragment)adapter.getItem(STATE_FRAG_POS);
-                if (stateFrag != null)
-                    stateFrag.setInfo(infoCache);
-
-                DetailTorrentFilesFragment fileFrag =
-                        (DetailTorrentFilesFragment)adapter.getItem(FILE_FRAG_POS);
-                if (fileFrag != null)
-                    fileFrag.setFilesAndPriorities(getFileList(), getPrioritiesList());
-
-                DetailTorrentPiecesFragment piecesFrag =
-                        (DetailTorrentPiecesFragment)adapter.getItem(PIECES_FRAG_POS);
-                if (piecesFrag != null)
-                    piecesFrag.setPiecesCountAndSize(infoCache.numPieces, infoCache.pieceLength);
-            }
+            updateCurrentFragment();
             activity.invalidateOptionsMenu();
         }
 
@@ -1222,7 +1209,7 @@ public class DetailTorrentFragment extends Fragment
         }
 
         if (viewPager.getCurrentItem() == STATE_FRAG_POS) {
-            DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter.getItem(STATE_FRAG_POS);
+            DetailTorrentStateFragment stateFrag = (DetailTorrentStateFragment)adapter.getFragment(STATE_FRAG_POS);
             if (stateFrag != null)
                 stateFrag.setBasicState(state);
         }

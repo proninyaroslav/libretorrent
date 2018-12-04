@@ -110,16 +110,9 @@ public class DetailTorrentFilesFragment extends Fragment
     private TorrentContentFileTree curDir;
     String torrentId;
 
-    public static DetailTorrentFilesFragment newInstance(String torrentId, ArrayList<BencodeFileItem> files,
-                                                         List<Priority> priorities)
+    public static DetailTorrentFilesFragment newInstance()
     {
         DetailTorrentFilesFragment fragment = new DetailTorrentFilesFragment();
-        fragment.files = files;
-        fragment.priorities = new ArrayList<>();
-        if (priorities != null)
-            for (Priority priority : priorities)
-                fragment.priorities.add(new FilePriority(priority));
-        fragment.torrentId = torrentId;
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -177,8 +170,6 @@ public class DetailTorrentFilesFragment extends Fragment
                 priorities = (ArrayList<FilePriority>)heavyInstance.getSerializable(TAG_PRIORITIES);
                 fileTree = (TorrentContentFileTree)heavyInstance.getSerializable(TAG_FILE_TREE);
                 curDir = (TorrentContentFileTree)heavyInstance.getSerializable(TAG_CUR_DIR);
-            } else {
-                makeFileTree();
             }
         }
 
@@ -299,17 +290,22 @@ public class DetailTorrentFilesFragment extends Fragment
                                                    fileTree.size())));
     }
 
-    public void setFilesAndPriorities(ArrayList<BencodeFileItem> files, List<Priority> priorities)
+    public void init(String torrentId, ArrayList<BencodeFileItem> files,
+                     List<Priority> priorities)
     {
-        if (priorities == null)
+        if (fileTree != null)
+            return;
+        if (torrentId == null || files == null || priorities == null)
             return;
 
+        this.torrentId = torrentId;
         this.files = files;
         this.priorities = new ArrayList<>();
         for (Priority priority : priorities)
             this.priorities.add(new FilePriority(priority));
 
         makeFileTree();
+        updateFileSize();
         reloadData();
     }
 

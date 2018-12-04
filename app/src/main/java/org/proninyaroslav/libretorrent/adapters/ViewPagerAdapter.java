@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,75 +22,161 @@ package org.proninyaroslav.libretorrent.adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+
+import android.os.Parcelable;
 import android.util.SparseArray;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /*
- * The adapter for tabs in activity.
+ * The abstract adapter for tabs in activity (based on FragmentPagerAdapter).
  */
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter
+public abstract class ViewPagerAdapter extends PagerAdapter
 {
     @SuppressWarnings("unused")
     private static final String TAG = ViewPagerAdapter.class.getSimpleName();
 
-    private SparseArray<Fragment> fragmentList = new SparseArray<>();
-    private List<String> fragmentTitleList = new ArrayList<>();
+    protected SparseArray<Fragment> registeredFragments = new SparseArray<>();
+    protected List<String> fragmentTitleList = new ArrayList<>();
+    private FragmentManager fm;
+    private FragmentTransaction curTransaction = null;
+    private Fragment currentPrimaryItem = null;
+    private String baseTag;
 
-    public ViewPagerAdapter(FragmentManager fm)
+    public ViewPagerAdapter(String baseTag, FragmentManager fm)
     {
-        super(fm);
+        this.fm = fm;
+        this.baseTag = baseTag;
     }
 
-    public void addFragment(Fragment fragment, int position, String title)
+    public abstract Fragment getItem(int position);
+
+    public abstract int getCount();
+
+    public Fragment getFragment(int position)
     {
-        fragmentList.put(position, fragment);
-        fragmentTitleList.add(title);
+        return registeredFragments.get(position);
     }
 
     @Override
-    public Fragment getItem(int position)
-    {
-        if (position < 0)
-            return new Fragment();
-
-        return fragmentList.get(position);
+    public void startUpdate(@NonNull ViewGroup container) {
+        if (container.getId() == View.NO_ID)
+            throw new IllegalStateException("ViewPager with adapter " + this
+                    + " requires a view id");
     }
 
     @Override
     public CharSequence getPageTitle(int position)
     {
-        if (position < 0)
-            return "";
+        if (position < 0 || position >= getCount())
+            return null;
 
         return fragmentTitleList.get(position);
-    }
-
-    @Override
-    public int getCount()
-    {
-        return fragmentList.size();
     }
 
     @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
-        Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        fragmentList.put(position, fragment);
+        if (position < 0 || position >= getCount())
+            return null;
 
-        return fragment;
+        if (curTransaction == null)
+            curTransaction = fm.beginTransaction();
+
+        String name = makeFragmentName(container.getId(), position);
+        Fragment f = fm.findFragmentByTag(name);
+        if (f != null) {
+            curTransaction.attach(f);
+        } else {
+            f = getItem(position);
+            curTransaction.add(container.getId(), f,
+                    makeFragmentName(container.getId(), position));
+        }
+        if (f != currentPrimaryItem) {
+            f.setMenuVisibility(false);
+            f.setUserVisibleHint(false);
+        }
+        registeredFragments.put(position, f);
+
+        return f;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object)
     {
-        fragmentList.remove(position);
+        if (position < 0 || position >= getCount())
+            return;
 
-        super.destroyItem(container, position, object);
+        if (curTransaction == null)
+            curTransaction = fm.beginTransaction();
+        curTransaction.detach((Fragment)object);
+        registeredFragments.remove(position);
+    }
+
+    public void clearFragments()
+    {
+        if (curTransaction == null)
+            curTransaction = fm.beginTransaction();
+
+        for (int pos = 0; pos < getCount(); pos++) {
+            Fragment f = registeredFragments.get(pos);
+            if (f == null)
+                continue;
+            registeredFragments.remove(pos);
+            curTransaction.remove(f);
+        }
+        curTransaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object)
+    {
+        Fragment f = (Fragment)object;
+        if (f == currentPrimaryItem)
+            return;
+
+        if (currentPrimaryItem != null) {
+            currentPrimaryItem.setMenuVisibility(false);
+            currentPrimaryItem.setUserVisibleHint(false);
+        }
+        f.setMenuVisibility(true);
+        f.setUserVisibleHint(true);
+        currentPrimaryItem = f;
+    }
+
+    @Override
+    public void finishUpdate(@NonNull ViewGroup container)
+    {
+        if (curTransaction == null)
+            return;
+        curTransaction.commitNowAllowingStateLoss();
+        curTransaction = null;
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object)
+    {
+        return ((Fragment)object).getView() == view;
+    }
+
+    @Override
+    public Parcelable saveState()
+    {
+        return null;
+    }
+
+    @Override
+    public void restoreState(Parcelable state, ClassLoader loader) { }
+
+    private String makeFragmentName(int viewId, int position)
+    {
+        return "android:switcher:" + baseTag + ":" + viewId + ":" + position;
     }
 }

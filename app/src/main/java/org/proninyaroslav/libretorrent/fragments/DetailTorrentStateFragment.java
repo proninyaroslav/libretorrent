@@ -63,11 +63,9 @@ public class DetailTorrentStateFragment extends Fragment
             textViewUploaded, shareRatio, availability,
             textViewActiveTime, textViewSeedingTime;
 
-    public static DetailTorrentStateFragment newInstance(TorrentMetaInfo info)
+    public static DetailTorrentStateFragment newInstance()
     {
         DetailTorrentStateFragment fragment = new DetailTorrentStateFragment();
-
-        fragment.info = info;
 
         Bundle b = new Bundle();
         fragment.setArguments(b);
@@ -82,23 +80,6 @@ public class DetailTorrentStateFragment extends Fragment
 
         if (context instanceof AppCompatActivity)
             activity = (AppCompatActivity)context;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
-        if (storage != null) {
-            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
-            if (heavyInstance != null) {
-                advanceState = heavyInstance.getParcelable(TAG_ADVANCE_STATE);
-                info = heavyInstance.getParcelable(TAG_INFO);
-            }
-        }
-        if (savedInstanceState != null)
-            basicState = savedInstanceState.getParcelable(TAG_BASIC_STATE);
     }
 
     @Override
@@ -128,6 +109,17 @@ public class DetailTorrentStateFragment extends Fragment
 
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
+
+        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
+        if (storage != null) {
+            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
+            if (heavyInstance != null) {
+                advanceState = heavyInstance.getParcelable(TAG_ADVANCE_STATE);
+                info = heavyInstance.getParcelable(TAG_INFO);
+            }
+        }
+        if (savedInstanceState != null)
+            basicState = savedInstanceState.getParcelable(TAG_BASIC_STATE);
 
         reloadInfoView();
     }
