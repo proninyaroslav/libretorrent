@@ -103,12 +103,12 @@ public class DetailTorrentFilesFragment extends Fragment
     private ArrayList<String> selectedFiles = new ArrayList<>();
     private DetailTorrentFragment.Callback callback;
 
-    ArrayList<BencodeFileItem> files;
-    ArrayList<FilePriority> priorities;
+    private ArrayList<BencodeFileItem> files;
+    private ArrayList<FilePriority> priorities;
     private TorrentContentFileTree fileTree;
     /* Current directory */
     private TorrentContentFileTree curDir;
-    String torrentId;
+    private String torrentId;
 
     public static DetailTorrentFilesFragment newInstance()
     {

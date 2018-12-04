@@ -20,21 +20,16 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
@@ -81,13 +76,13 @@ import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.Torrent;
+import org.proninyaroslav.libretorrent.core.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
@@ -101,12 +96,9 @@ import org.proninyaroslav.libretorrent.settings.SettingsActivity;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 /*
@@ -160,14 +152,6 @@ public class MainFragment extends Fragment
 
     /* Prevents re-adding the torrent, obtained through implicit intent */
     private Intent prevImplIntent;
-    private TorrentTaskService service;
-    /* Flag indicating whether we have called bind on the service. */
-    private boolean bound;
-    /*
-     * Torrents are added to the queue, if the client is not bounded to service.
-     * Trying to add torrents will be made at the first connect.
-     */
-    private HashSet<AddTorrentParams> addTorrentsQueue = new HashSet<>();
     private SharedPreferences pref;
     private Throwable sentError;
 
@@ -307,18 +291,8 @@ public class MainFragment extends Fragment
                 if (prevImplIntent == null || !prevImplIntent.equals(i)) {
                     prevImplIntent = i;
                     AddTorrentParams params = AddTorrentActivity.getResult();
-                    if (params != null) {
-                        if (!bound || service == null) {
-                            addTorrentsQueue.add(params);
-                        } else {
-                            try {
-                                service.addTorrent(params, false);
-                            } catch (Throwable e) {
-                                Log.e(TAG, Log.getStackTraceString(e));
-                                addTorrentError(e);
-                            }
-                        }
-                    }
+                    if (params != null)
+                        addTorrent(params);
                 }
 
             } else {
@@ -371,8 +345,7 @@ public class MainFragment extends Fragment
     {
         super.onStart();
 
-        activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
-                connection, Context.BIND_AUTO_CREATE);
+        handleBasicStates(TorrentHelper.makeBasicStatesList());
         if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
             TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
@@ -383,10 +356,6 @@ public class MainFragment extends Fragment
         super.onStop();
 
         TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
-        if (bound) {
-            getActivity().unbindService(connection);
-            bound = false;
-        }
     }
 
     @Override
@@ -410,35 +379,6 @@ public class MainFragment extends Fragment
         if (savedInstanceState != null)
             torrentsListState = savedInstanceState.getParcelable(TAG_TORRENTS_LIST_STATE);
     }
-
-    private ServiceConnection connection = new ServiceConnection()
-    {
-        public void onServiceConnected(ComponentName className, IBinder service)
-        {
-            TorrentTaskService.LocalBinder binder = (TorrentTaskService.LocalBinder) service;
-            MainFragment.this.service = binder.getService();
-            bound = true;
-
-            handleBasicStates(MainFragment.this.service.makeBasicStatesList());
-            if (!addTorrentsQueue.isEmpty()) {
-                for (AddTorrentParams params : addTorrentsQueue) {
-                    try {
-                        MainFragment.this.service.addTorrent(params, false);
-
-                    } catch (Throwable e) {
-                        Log.e(TAG, Log.getStackTraceString(e));
-                        addTorrentError(e);
-                    }
-                }
-                addTorrentsQueue.clear();
-            }
-        }
-
-        public void onServiceDisconnected(ComponentName className)
-        {
-            bound = false;
-        }
-    };
 
     TorrentTaskServiceReceiver.Callback serviceReceiver = new TorrentTaskServiceReceiver.Callback()
     {
@@ -534,16 +474,12 @@ public class MainFragment extends Fragment
                     break;
                 case R.id.force_recheck_torrent_menu:
                     mode.finish();
-
-                    if (bound && service != null)
-                        service.forceRecheckTorrents(selectedTorrents);
+                    TorrentHelper.forceRecheckTorrents(selectedTorrents);
                     selectedTorrents.clear();
                     break;
                 case R.id.force_announce_torrent_menu:
                     mode.finish();
-
-                    if (bound && service != null)
-                        service.forceAnnounceTorrents(selectedTorrents);
+                    TorrentHelper.forceAnnounceTorrents(selectedTorrents);
                     selectedTorrents.clear();
                     break;
             }
@@ -768,10 +704,7 @@ public class MainFragment extends Fragment
         @Override
         public void onPauseButtonClicked(int position, TorrentListItem item)
         {
-            if (!bound || service == null)
-                return;
-
-            service.pauseResumeTorrent(item.torrentId);
+            TorrentHelper.pauseResumeTorrent(item.torrentId);
         }
     };
 
@@ -953,8 +886,8 @@ public class MainFragment extends Fragment
                 if (selectedTorrents.contains(id))
                     resetCurOpenTorrent();
             }
-            if (bound && service != null)
-                service.deleteTorrents(selectedTorrents, withFiles.isChecked());
+            TorrentHelper.deleteTorrents(activity.getApplicationContext(),
+                    selectedTorrents, withFiles.isChecked());
             selectedTorrents.clear();
 
         } else if (fm.findFragmentByTag(TAG_ERROR_OPEN_TORRENT_FILE_DIALOG) != null ||
@@ -1114,55 +1047,12 @@ public class MainFragment extends Fragment
         return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment) fragment : null);
     }
 
-    private void addTorrentError(Throwable e)
+    private void addTorrent(AddTorrentParams params)
     {
-        if (e == null || !isAdded())
-            return;
-
-        FragmentManager fm = getFragmentManager();
-        if (fm == null)
-            return;
-
-        sentError = e;
-        if (e instanceof FileNotFoundException) {
-            ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                    activity.getApplicationContext(),
-                    getString(R.string.error),
-                    getString(R.string.error_file_not_found_add_torrent),
-                    Log.getStackTraceString(e),
-                    this);
-
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
-            ft.commitAllowingStateLoss();
-        } else if (e instanceof IOException) {
-            ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                    activity.getApplicationContext(),
-                    getString(R.string.error),
-                    getString(R.string.error_io_add_torrent),
-                    Log.getStackTraceString(e),
-                    this);
-
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
-            ft.commitAllowingStateLoss();
-        } else if (e instanceof FileAlreadyExistsException) {
-            Snackbar.make(coordinatorLayout,
-                    R.string.torrent_exist,
-                    Snackbar.LENGTH_LONG)
-                    .show();
-        } else {
-            ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                    activity.getApplicationContext(),
-                    getString(R.string.error),
-                    getString(R.string.error_add_torrent),
-                    Log.getStackTraceString(e),
-                    this);
-
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(errDialog, TAG_SAVE_ERROR_DIALOG);
-            ft.commitAllowingStateLoss();
-        }
+        Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
+        i.setAction(TorrentTaskService.ACTION_ADD_TORRENT_LIST);
+        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS_LIST, params);
+        activity.startService(i);
     }
 
     @Override
@@ -1204,18 +1094,8 @@ public class MainFragment extends Fragment
                     AddTorrentParams params;
                     params = (requestCode == ADD_TORRENT_REQUEST ? AddTorrentActivity.getResult() :
                                                                    CreateTorrentActivity.getResult());
-                    if (params != null) {
-                        if (!bound || service == null) {
-                            addTorrentsQueue.add(params);
-                        } else {
-                            try {
-                                service.addTorrent(params, false);
-                            } catch (Throwable e) {
-                                Log.e(TAG, Log.getStackTraceString(e));
-                                addTorrentError(e);
-                            }
-                        }
-                    }
+                    if (params != null)
+                        addTorrent(params);
                 }
                 break;
         }

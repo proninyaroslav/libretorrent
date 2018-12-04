@@ -32,6 +32,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -175,10 +176,10 @@ public class DetailTorrentInfoFragment extends Fragment
             @Override
             public void afterTextChanged(Editable s)
             {
+                checkEditTextField(s);
+
                 if (torrentNameField.isFocused() && callback != null)
                     callback.onTorrentInfoChanged();
-
-                checkEditTextField(s);
             }
         });
         sha1HashView.setText(info.sha1Hash);

@@ -63,6 +63,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.AddTorrentPagerAdapter;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
+import org.proninyaroslav.libretorrent.core.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
@@ -117,9 +118,6 @@ public class AddTorrentFragment extends Fragment
     private TorrentMetaInfo info;
     private Callback callback;
     private TorrentDecodeTask decodeTask;
-    private TorrentTaskService service;
-    /* Flag indicating whether we have called bind on the service. */
-    private boolean bound;
     private boolean fromMagnet = false;
     /* BEP53 standard */
     private ArrayList<Priority> magnetPriorities;
@@ -197,11 +195,6 @@ public class AddTorrentFragment extends Fragment
         super.onDetach();
 
         callback = null;
-        if (bound) {
-            getActivity().unbindService(connection);
-
-            bound = false;
-        }
     }
 
     @Override
@@ -211,8 +204,7 @@ public class AddTorrentFragment extends Fragment
 
         TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         if (!saveTorrentFile)
-            if (bound && service != null && info != null)
-                service.cancelFetchMagnet(info.sha1Hash);
+            TorrentHelper.cancelFetchMagnet(info.sha1Hash);
     }
 
     @Override
@@ -280,16 +272,19 @@ public class AddTorrentFragment extends Fragment
         }
 
         if (uri.getScheme().equals(Utils.MAGNET_PREFIX)) {
-            activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
-                    connection, Context.BIND_AUTO_CREATE);
             if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
                 TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
+            if (Utils.checkStoragePermission(activity.getApplicationContext()) &&
+                decodeState.get() == State.UNKNOWN)
+            {
+                initDecode();
+            }
         }
     }
 
     private void initDecode()
     {
-        if (uri.getScheme().equals(Utils.MAGNET_PREFIX) && !bound)
+        if (uri.getScheme().equals(Utils.MAGNET_PREFIX))
             return;
 
         String progressDialogText;
@@ -450,26 +445,6 @@ public class AddTorrentFragment extends Fragment
             storage.pushData(HEAVY_STATE_TAG, b);
     }
 
-    private ServiceConnection connection = new ServiceConnection()
-    {
-        public void onServiceConnected(ComponentName className, IBinder service)
-        {
-            TorrentTaskService.LocalBinder binder = (TorrentTaskService.LocalBinder) service;
-            AddTorrentFragment.this.service = binder.getService();
-            bound = true;
-            if (Utils.checkStoragePermission(activity.getApplicationContext()) &&
-                decodeState.get() == State.UNKNOWN)
-            {
-                initDecode();
-            }
-        }
-
-        public void onServiceDisconnected(ComponentName className)
-        {
-            bound = false;
-        }
-    };
-
     public void setUri(Uri uri)
     {
         this.uri = uri;
@@ -547,21 +522,19 @@ public class AddTorrentFragment extends Fragment
                         break;
                     case Utils.MAGNET_PREFIX:
                         fragment.get().saveTorrentFile = false;
-                        if (fragment.get().service != null) {
-                            Snackbar.make(fragment.get().coordinatorLayout,
-                                    R.string.decode_torrent_fetch_magnet_message,
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                            fragment.get().showFetchMagnetProgress(true);
+                        Snackbar.make(fragment.get().coordinatorLayout,
+                                R.string.decode_torrent_fetch_magnet_message,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                        fragment.get().showFetchMagnetProgress(true);
 
-                            MagnetInfo magnetInfo = fragment.get().service.fetchMagnet(uri.toString());
-                            if (magnetInfo  != null && !isCancelled()) {
-                                fragment.get().info = new TorrentMetaInfo(magnetInfo.getName(),
-                                                                          magnetInfo.getSha1hash());
-                                if (magnetInfo.getFilePriorities() != null)
-                                    fragment.get().magnetPriorities = new ArrayList<>(
-                                            magnetInfo.getFilePriorities());
-                            }
+                        MagnetInfo magnetInfo = TorrentHelper.fetchMagnet(uri.toString());
+                        if (magnetInfo  != null && !isCancelled()) {
+                            fragment.get().info = new TorrentMetaInfo(magnetInfo.getName(),
+                                    magnetInfo.getSha1hash());
+                            if (magnetInfo.getFilePriorities() != null)
+                                fragment.get().magnetPriorities = new ArrayList<>(
+                                        magnetInfo.getFilePriorities());
                         }
                         break;
                     case Utils.HTTP_PREFIX:

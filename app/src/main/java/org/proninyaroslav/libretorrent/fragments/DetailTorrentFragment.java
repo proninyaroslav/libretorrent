@@ -71,8 +71,10 @@ import org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter;
 import org.proninyaroslav.libretorrent.adapters.ViewPagerAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.Torrent;
+import org.proninyaroslav.libretorrent.core.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
@@ -136,9 +138,6 @@ public class DetailTorrentFragment extends Fragment
     private String torrentId;
     private Torrent torrent;
     private TorrentStorage repo;
-    private TorrentTaskService service;
-    /* Flag indicating whether we have called bind on the service. */
-    private boolean bound;
     /* Update the torrent status params, which aren't included in BasicStateParcel */
     private Handler updateTorrentStateHandler = new Handler();
     Runnable updateTorrentState = new Runnable()
@@ -146,12 +145,10 @@ public class DetailTorrentFragment extends Fragment
         @Override
         public void run()
         {
-            if (bound && service != null && torrentId != null) {
-                getAdvancedStateRequest();
-                getTrackersStatesRequest();
-                getPeerStatesRequest();
-                getPiecesRequest();
-            }
+            getAdvancedStateRequest();
+            getTrackersStatesRequest();
+            getPeerStatesRequest();
+            getPiecesRequest();
             updateTorrentStateHandler.postDelayed(this, SYNC_TIME);
         }
     };
@@ -227,8 +224,6 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onStart();
 
-        activity.bindService(new Intent(activity.getApplicationContext(), TorrentTaskService.class),
-                connection, Context.BIND_AUTO_CREATE);
         if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
             TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
@@ -240,10 +235,6 @@ public class DetailTorrentFragment extends Fragment
 
         TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         stopUpdateTorrentState();
-        if (bound) {
-            getActivity().unbindService(connection);
-            bound = false;
-        }
     }
 
     @Override
@@ -333,6 +324,10 @@ public class DetailTorrentFragment extends Fragment
             if (activity.getSupportActionBar() != null)
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        initRequest();
+        init();
+        startUpdateTorrentState();
     }
 
     @Override
@@ -346,23 +341,6 @@ public class DetailTorrentFragment extends Fragment
 
         super.onSaveInstanceState(outState);
     }
-
-    private ServiceConnection connection = new ServiceConnection() {
-        public void onServiceConnected(ComponentName className, IBinder service)
-        {
-            TorrentTaskService.LocalBinder binder = (TorrentTaskService.LocalBinder) service;
-            DetailTorrentFragment.this.service = binder.getService();
-            bound = true;
-            initRequest();
-            init();
-            startUpdateTorrentState();
-        }
-
-        public void onServiceDisconnected(ComponentName className)
-        {
-            bound = false;
-        }
-    };
 
     public void setTorrentId(String id)
     {
@@ -380,7 +358,8 @@ public class DetailTorrentFragment extends Fragment
             return;
 
         viewPager.setCurrentItem(currentFragPos);
-        updateCurrentFragment();
+        /* Wait instantiate */
+        viewPager.post(this::updateCurrentFragment);
     }
 
     private void updateCurrentFragment()
@@ -463,7 +442,7 @@ public class DetailTorrentFragment extends Fragment
         return (infoCache != null ? infoCache.fileList : new ArrayList<>());
     }
 
-    private List<Priority>  getPrioritiesList()
+    private List<Priority> getPrioritiesList()
     {
         if (torrent == null)
             return null;
@@ -515,26 +494,29 @@ public class DetailTorrentFragment extends Fragment
             return;
         }
 
-        if (service != null) {
-            if (!name.equals(torrent.getName())) {
-                service.setTorrentName(torrentId, name);
-                torrent.setName(name);
-            }
+        if (!name.equals(torrent.getName())) {
+            TorrentHelper.setTorrentName(activity.getApplicationContext(), torrentId, name);
+            torrent.setName(name);
+        }
 
-            if (!path.equals(torrent.getDownloadPath())) {
-                ArrayList<String> list = new ArrayList<>();
-                list.add(torrentId);
+        if (!path.equals(torrent.getDownloadPath())) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(torrentId);
 
-                service.setTorrentDownloadPath(list, path);
-                torrent.setDownloadPath(path);
-                infoFrag.setDownloadPath(path);
-            }
+            Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
+            i.setAction(TorrentTaskService.ACTION_MOVE_TORRENT);
+            i.putExtra(TorrentTaskService.TAG_ID_LIST, list);
+            i.putExtra(TorrentTaskService.TAG_DOWNLOAD_PATH, path);
+            activity.startService(i);
 
-            if (sequential != torrent.isSequentialDownload()) {
-                service.setSequentialDownload(torrentId, sequential);
-                torrent.setSequentialDownload(sequential);
-                infoFrag.setSequentialDownload(sequential);
-            }
+            torrent.setDownloadPath(path);
+            infoFrag.setDownloadPath(path);
+        }
+
+        if (sequential != torrent.isSequentialDownload()) {
+            TorrentHelper.setSequentialDownload(activity.getApplicationContext(), torrentId, sequential);
+            torrent.setSequentialDownload(sequential);
+            infoFrag.setSequentialDownload(sequential);
         }
     }
 
@@ -651,7 +633,7 @@ public class DetailTorrentFragment extends Fragment
                 onBackPressed();
                 break;
             case R.id.pause_resume_torrent_menu:
-                pauseResumeTorrentRequest();
+                TorrentHelper.pauseResumeTorrent(torrentId);
                 break;
             case R.id.delete_torrent_menu:
                 if (fm != null && fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) == null) {
@@ -945,73 +927,61 @@ public class DetailTorrentFragment extends Fragment
 
     private void initRequest()
     {
-        if (!bound || service == null)
-            return;
-
-        infoCache = service.getTorrentMetaInfo(torrentId);
-        uploadSpeedLimit = service.getUploadSpeedLimit(torrentId);
-        downloadSpeedLimit = service.getDownloadSpeedLimit(torrentId);
-        basicStateCache = service.makeBasicStateParcel(torrentId);
+        infoCache = TorrentHelper.getTorrentMetaInfo(torrentId);
+        uploadSpeedLimit = TorrentHelper.getUploadSpeedLimit(torrentId);
+        downloadSpeedLimit = TorrentHelper.getDownloadSpeedLimit(torrentId);
+        basicStateCache = TorrentHelper.makeBasicStateParcel(torrentId);
     }
 
     private void changeFilesPriorityRequest(Priority[] priorities)
     {
-        if (!bound || service == null || priorities == null || torrentId == null)
+        if (priorities == null || torrentId == null)
             return;
 
-        service.changeFilesPriority(torrentId, priorities);
+        try {
+            TorrentHelper.changeFilesPriority(activity.getApplicationContext(), torrentId, priorities);
+
+        } catch (FreeSpaceException e) {
+            Snackbar.make(coordinatorLayout,
+                    R.string.error_free_space,
+                    Snackbar.LENGTH_LONG)
+                    .show();
+        }
     }
 
     private void addTrackersRequest(ArrayList<String> trackers, boolean replace)
     {
-        if (!bound || service == null || trackers == null || torrentId == null)
+        if (trackers == null || torrentId == null)
             return;
 
         if (replace)
-            service.replaceTrackers(torrentId, trackers);
+            TorrentHelper.replaceTrackers(torrentId, trackers);
         else
-            service.addTrackers(torrentId, trackers);
+            TorrentHelper.addTrackers(torrentId, trackers);
     }
 
     private void deleteTorrentRequest(boolean withFiles)
     {
-        if (!bound || service == null)
-            return;
-
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        service.deleteTorrents(list, withFiles);
+        TorrentHelper.deleteTorrents(activity.getApplicationContext(), list, withFiles);
     }
 
     private void forceRecheckRequest()
     {
-        if (!bound || service == null)
-            return;
-
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        service.forceRecheckTorrents(list);
+        TorrentHelper.forceRecheckTorrents(list);
     }
 
     private void forceAnnounceRequest()
     {
-        if (!bound || service == null)
-            return;
-
         ArrayList<String> list = new ArrayList<>();
         list.add(torrentId);
 
-        service.forceAnnounceTorrents(list);
-    }
-
-    private void pauseResumeTorrentRequest()
-    {
-        if (!bound || service == null)
-            return;
-
-        service.pauseResumeTorrent(torrentId);
+        TorrentHelper.forceAnnounceTorrents(list);
     }
 
     private void shareMagnetDialog()
@@ -1036,10 +1006,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void shareMagnetRequest(boolean includePriorities)
     {
-        if (!bound || service == null)
-            return;
-
-        String magnet = service.getMagnet(torrentId, includePriorities);
+        String magnet = TorrentHelper.getMagnet(torrentId, includePriorities);
         if (magnet != null) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -1051,18 +1018,12 @@ public class DetailTorrentFragment extends Fragment
 
     private void setSpeedLimitRequest(int uploadSpeedLimit, int downloadSpeedLimit)
     {
-        if (!bound || service == null)
-            return;
-
-        service.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
-        service.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
+        TorrentHelper.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
+        TorrentHelper.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
     }
 
     private void startUpdateTorrentState()
     {
-        if (!bound)
-            return;
-
         updateTorrentStateHandler.post(updateTorrentState);
     }
 
@@ -1073,7 +1034,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void getAdvancedStateRequest()
     {
-        AdvanceStateParcel advanceStateParcel = service.makeAdvancedState(torrentId);
+        AdvanceStateParcel advanceStateParcel = TorrentHelper.makeAdvancedState(torrentId);
         if (advanceStateParcel == null)
             return;
 
@@ -1103,7 +1064,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void getTrackersStatesRequest()
     {
-        ArrayList<TrackerStateParcel> states = service.getTrackerStatesList(torrentId);
+        ArrayList<TrackerStateParcel> states = TorrentHelper.getTrackerStatesList(torrentId);
         if (states == null)
             return;
 
@@ -1121,7 +1082,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void getPeerStatesRequest()
     {
-        ArrayList<PeerStateParcel> states = service.getPeerStatesList(torrentId);
+        ArrayList<PeerStateParcel> states = TorrentHelper.getPeerStatesList(torrentId);
         if (states == null)
             return;
 
@@ -1139,7 +1100,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void getPiecesRequest()
     {
-        boolean[] pieces = service.getPieces(torrentId);
+        boolean[] pieces = TorrentHelper.getPieces(torrentId);
         if (pieces == null)
             return;
 
@@ -1190,7 +1151,7 @@ public class DetailTorrentFragment extends Fragment
             if (torrentId != null)
                 torrent = repo.getTorrentByID(torrentId);
 
-            TorrentMetaInfo info = service.getTorrentMetaInfo(torrentId);
+            TorrentMetaInfo info = TorrentHelper.getTorrentMetaInfo(torrentId);
             if (info != null)
                 infoCache = info;
             updateCurrentFragment();
