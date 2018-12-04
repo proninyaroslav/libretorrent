@@ -20,13 +20,10 @@
 package org.proninyaroslav.libretorrent.fragments;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -140,7 +137,7 @@ public class DetailTorrentFragment extends Fragment
     private TorrentStorage repo;
     /* Update the torrent status params, which aren't included in BasicStateParcel */
     private Handler updateTorrentStateHandler = new Handler();
-    Runnable updateTorrentState = new Runnable()
+    private Runnable updateTorrentState = new Runnable()
     {
         @Override
         public void run()
@@ -154,7 +151,7 @@ public class DetailTorrentFragment extends Fragment
     };
 
     private boolean isTorrentInfoChanged = false;
-    private boolean isTorrentFilesChanged = false;
+    private boolean isTorrentFilesChanged = false;;
     /* One of the fragments in ViewPagerAdapter is in ActionMode */
     private boolean childInActionMode = false;
     private int currentFragPos = TorrentStatusPagerAdapter.INFO_FRAG_POS;
@@ -473,6 +470,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void applyInfoChanges()
     {
+        /* Query the fragments if we not current (for getting data) */
+        adapter.instantiateItem(viewPager, INFO_FRAG_POS);
+        adapter.instantiateItem(viewPager, FILES_FRAG_POS);
+
         DetailTorrentInfoFragment infoFrag = (DetailTorrentInfoFragment)adapter
                 .getFragment(INFO_FRAG_POS);
         DetailTorrentFilesFragment fileFrag = (DetailTorrentFilesFragment)adapter

@@ -132,7 +132,12 @@ public abstract class ViewPagerAdapter extends PagerAdapter
             registeredFragments.remove(pos);
             curTransaction.remove(f);
         }
-        curTransaction.commitAllowingStateLoss();
+        try {
+            curTransaction.commitAllowingStateLoss();
+
+        } catch (IllegalStateException e) {
+            /* Ignore */
+        }
     }
 
     @Override
@@ -156,7 +161,12 @@ public abstract class ViewPagerAdapter extends PagerAdapter
     {
         if (curTransaction == null)
             return;
-        curTransaction.commitNowAllowingStateLoss();
+        try {
+            curTransaction.commitNowAllowingStateLoss();
+
+        } catch (IllegalStateException e) {
+            /* Ignore */
+        }
         curTransaction = null;
     }
 
