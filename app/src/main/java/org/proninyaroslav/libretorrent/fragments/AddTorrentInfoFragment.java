@@ -65,12 +65,14 @@ public class AddTorrentInfoFragment extends Fragment
     private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
     private static final String TAG_INFO = "info";
     private static final String TAG_DOWNLOAD_DIR = "download_dir";
+    private static final String TAG_CUSTOM_NAME = "custom_name";
 
     private static final int DIR_CHOOSER_REQUEST = 1;
 
     private AppCompatActivity activity;
     private String downloadDir = "";
     private TorrentMetaInfo info;
+    private String customName;
 
     private EditText torrentNameField;
     private TextInputLayout layoutTorrentName;
@@ -103,10 +105,12 @@ public class AddTorrentInfoFragment extends Fragment
             if (heavyInstance != null)
                 info = heavyInstance.getParcelable(TAG_INFO);
         }
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             downloadDir = savedInstanceState.getString(TAG_DOWNLOAD_DIR);
-        else
+            customName = savedInstanceState.getString(TAG_CUSTOM_NAME);
+        } else {
             downloadDir = TorrentUtils.getTorrentDownloadPath(activity.getApplicationContext());
+        }
     }
 
     @Override
@@ -138,9 +142,13 @@ public class AddTorrentInfoFragment extends Fragment
         startTorrent.setChecked(true);
         freeSpace = v.findViewById(R.id.free_space);
         commentViewLayout = v.findViewById(R.id.layout_torrent_comment);
+        commentViewLayout.setVisibility(View.GONE);
         createdByViewLayout = v.findViewById(R.id.layout_torrent_created_in_program);
+        createdByViewLayout.setVisibility(View.GONE);
         sizeAndCountViewLayout = v.findViewById(R.id.layout_torrent_size_and_count);
+        sizeAndCountViewLayout.setVisibility(View.GONE);
         creationDateViewLayout = v.findViewById(R.id.layout_torrent_create_date);
+        creationDateViewLayout.setVisibility(View.GONE);
 
         initFields();
 
@@ -152,7 +160,7 @@ public class AddTorrentInfoFragment extends Fragment
         if (info == null)
             return;
 
-        torrentNameField.setText(info.torrentName);
+        torrentNameField.setText(TextUtils.isEmpty(customName) ? info.torrentName : customName);
         sha1HashView.setText(info.sha1Hash);
         pathToUploadView.setText(downloadDir);
 
@@ -196,6 +204,7 @@ public class AddTorrentInfoFragment extends Fragment
         super.onSaveInstanceState(outState);
 
         outState.putString(TAG_DOWNLOAD_DIR, downloadDir);
+        outState.putString(TAG_CUSTOM_NAME, customName);
 
         Bundle b = new Bundle();
         b.putParcelable(TAG_INFO, info);
@@ -240,6 +249,10 @@ public class AddTorrentInfoFragment extends Fragment
             public void afterTextChanged(Editable s)
             {
                 checkEditTextField(s);
+                String name = s.toString();
+                if (info != null && name.equals(info.torrentName))
+                    return;
+                customName = name;
             }
         });
     }
@@ -277,6 +290,9 @@ public class AddTorrentInfoFragment extends Fragment
 
     public void setInfo(TorrentMetaInfo info)
     {
+        if (info == null)
+            return;
+
         this.info = info;
 
         initFields();
@@ -289,7 +305,7 @@ public class AddTorrentInfoFragment extends Fragment
 
     public String getTorrentName()
     {
-        return torrentNameField.getText().toString();
+        return customName;
     }
 
     public boolean isSequentialDownload()
