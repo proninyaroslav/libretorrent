@@ -544,7 +544,7 @@ public class CreateTorrentFragment extends Fragment
             trackerUrls = trackersEditText.getText().toString().split("\n");
         ArrayList<String> validatedTrackers = new ArrayList<>();
         for (String url : trackerUrls) {
-            url = Utils.normalizeURL(url.trim().toLowerCase());
+            url = Utils.normalizeURL(url.trim());
             if (Utils.isValidTrackerUrl(url)) {
                 validatedTrackers.add(url);
             } else {
@@ -566,7 +566,7 @@ public class CreateTorrentFragment extends Fragment
             webSeedsUrls = webSeedsEditText.getText().toString().split("\n");
         ArrayList<String> validatedWebSeeds = new ArrayList<>();
         for (String url : webSeedsUrls) {
-            url = Utils.normalizeURL(url.trim().toLowerCase());
+            url = Utils.normalizeURL(url.trim());
             if (Utils.isValidTrackerUrl(url)) {
                 validatedWebSeeds.add(url);
             } else {

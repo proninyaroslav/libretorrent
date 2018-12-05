@@ -515,7 +515,7 @@ public class FeedFragment extends Fragment
                     /* Delete old channel after edit */
                     if (channel != null)
                         deleteChannel(channel);
-                    addChannel(Utils.normalizeURL(link.toLowerCase()), name, filter,
+                    addChannel(Utils.normalizeURL(link), name, filter,
                             isRegex, autoDownload, noDownloadImmediately);
                     dialog.dismiss();
                 }
@@ -525,9 +525,9 @@ public class FeedFragment extends Fragment
             String clipboard = Utils.getClipboard(activity.getApplicationContext());
             String url = null;
             if (clipboard != null) {
-                clipboard = clipboard.toLowerCase();
-                if (clipboard.startsWith(Utils.HTTP_PREFIX) ||
-                    clipboard.startsWith(Utils.HTTPS_PREFIX)) {
+                String c = clipboard.toLowerCase();
+                if (c.startsWith(Utils.HTTP_PREFIX) ||
+                    c.startsWith(Utils.HTTPS_PREFIX)) {
                     url = clipboard;
                 }
                 if (url != null)
