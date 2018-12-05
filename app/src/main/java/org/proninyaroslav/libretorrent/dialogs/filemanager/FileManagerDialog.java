@@ -38,6 +38,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -103,7 +105,8 @@ public class FileManagerDialog extends AppCompatActivity
     private LinearLayoutManager layoutManager;
     /* Save state scrolling */
     private Parcelable filesListState;
-    CoordinatorLayout coordinatorLayout;
+    private CoordinatorLayout coordinatorLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private FileManagerAdapter adapter;
     private FloatingActionButton addFolder;
     private TextInputLayout fileNameLayout;
@@ -261,6 +264,9 @@ public class FileManagerDialog extends AppCompatActivity
         listFiles.setAdapter(adapter);
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
+        swipeRefreshLayout = findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
+        swipeRefreshLayout.setOnRefreshListener(this::refreshDir);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             storageAdapter = new FileManagerSpinnerAdapter(this);
@@ -541,7 +547,14 @@ public class FileManagerDialog extends AppCompatActivity
         reloadData();
     }
 
-    final synchronized void reloadData()
+    private void refreshDir()
+    {
+        swipeRefreshLayout.setRefreshing(true);
+        reloadData();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private final synchronized void reloadData()
     {
         if (adapter == null)
             return;
