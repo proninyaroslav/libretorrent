@@ -67,7 +67,7 @@ repositories {
     }
 }
 
-def LIBTORRENT4J_VERSION='1.2.0.20-RC2'
+def LIBTORRENT4J_VERSION='1.2.0.20-RC3'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
