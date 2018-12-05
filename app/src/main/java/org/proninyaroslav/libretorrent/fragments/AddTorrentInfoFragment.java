@@ -305,7 +305,7 @@ public class AddTorrentInfoFragment extends Fragment
 
     public String getTorrentName()
     {
-        return customName;
+        return torrentNameField.getText().toString();
     }
 
     public boolean isSequentialDownload()
