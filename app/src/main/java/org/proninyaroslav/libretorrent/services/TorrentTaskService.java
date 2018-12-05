@@ -31,6 +31,7 @@ import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -42,6 +43,8 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.libtorrent4j.Priority;
 import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.swig.settings_pack;
@@ -182,6 +185,8 @@ public class TorrentTaskService extends Service
 
         makeForegroundNotify();
         startUpdateForegroundNotify();
+        if (!TorrentTaskServiceReceiver.getInstance().isRegistered(msgReceiver))
+            TorrentTaskServiceReceiver.getInstance().register(msgReceiver);
     }
 
     @Override
@@ -223,6 +228,7 @@ public class TorrentTaskService extends Service
         } catch (IllegalArgumentException e) {
             /* Ignore non-registered receiver */
         }
+        TorrentTaskServiceReceiver.getInstance().unregister(msgReceiver);
         stopWatchDir();
         setKeepCpuAwake(false);
         stopUpdateForegroundNotify();
@@ -656,7 +662,6 @@ public class TorrentTaskService extends Service
             Log.e(TAG, Log.getStackTraceString(err));
             if (err instanceof FreeSpaceException) {
                 makeTorrentErrorNotify(repo.getTorrentByID(id).getName(), getString(R.string.error_free_space));
-                needsUpdateNotify.set(true);
                 TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentRemovedBundle(id));
             }
             repo.delete(id);
@@ -722,6 +727,32 @@ public class TorrentTaskService extends Service
                             SettingsManager.Default.showNatErrors))
             makeNatErrorNotify(errorMsg);
     }
+
+    private TorrentTaskServiceReceiver.Callback msgReceiver = new TorrentTaskServiceReceiver.Callback()
+    {
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onReceive(Bundle b)
+        {
+            if (b != null) {
+                Object type = b.getSerializable(TorrentStateMsg.TYPE);
+                if (type == null)
+                    return;
+                switch ((TorrentStateMsg.Type)type) {
+                    case UPDATE_TORRENT:
+                    case UPDATE_TORRENTS: {
+                        needsUpdateNotify.set(true);
+                        break;
+                    }
+                    case TORRENT_REMOVED: {
+                        String id = b.getString(TorrentStateMsg.TORRENT_ID);
+                        if (id != null)
+                            needsUpdateNotify.set(true);
+                        break;
+                    }
+                }
+            }
+        }
+    };
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
@@ -1035,13 +1066,9 @@ public class TorrentTaskService extends Service
             return;
 
         BasicStateParcel state = TorrentHelper.makeBasicStateParcel(task);
-        if (basicStateCache.contains(state)) {
+        if (basicStateCache.contains(state))
             return;
-        } else {
-            basicStateCache.put(state);
-            /* Update foreground notification only if added a new package to the cache */
-            needsUpdateNotify.set(true);
-        }
+        basicStateCache.put(state);
         TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeUpdateTorrentBundle(state));
     }
 

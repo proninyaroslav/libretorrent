@@ -1050,8 +1050,8 @@ public class MainFragment extends Fragment
     private void addTorrent(AddTorrentParams params)
     {
         Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
-        i.setAction(TorrentTaskService.ACTION_ADD_TORRENT_LIST);
-        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS_LIST, params);
+        i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
+        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
         activity.startService(i);
     }
 
