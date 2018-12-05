@@ -1052,6 +1052,7 @@ public class MainFragment extends Fragment
         Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
         i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
         i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
+        i.putExtra(TorrentTaskService.TAG_SAVE_TORRENT_FILE, true);
         activity.startService(i);
     }
 

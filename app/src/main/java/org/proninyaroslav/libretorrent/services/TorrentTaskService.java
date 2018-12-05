@@ -110,6 +110,7 @@ public class TorrentTaskService extends Service
     public static final String ACTION_MOVE_TORRENT = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_MOVE_TORRENT";
     public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
     public static final String TAG_ADD_TORRENT_PARAMS_LIST = "add_torrent_params_list";
+    public static final String TAG_SAVE_TORRENT_FILE = "save_torrnet_file";
     public static final String TAG_ID_LIST = "id_list";
     public static final String TAG_DOWNLOAD_PATH = "download_path";
     private static final int SYNC_TIME = 1000; /* ms */
@@ -389,8 +390,9 @@ public class TorrentTaskService extends Service
                     break;
                 case ACTION_ADD_TORRENT: {
                     AddTorrentParams params = intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS);
+                    boolean saveFile = intent.getBooleanExtra(TAG_SAVE_TORRENT_FILE, false);
                     try {
-                        TorrentHelper.addTorrent(getApplicationContext(), params, true);
+                        TorrentHelper.addTorrent(getApplicationContext(), params, !saveFile);
 
                     } catch (Throwable e) {
                         handleAddTorrentError(params, e);
@@ -399,10 +401,11 @@ public class TorrentTaskService extends Service
                 } case ACTION_ADD_TORRENT_LIST: {
                     ArrayList<AddTorrentParams> paramsList =
                             intent.getParcelableArrayListExtra(TAG_ADD_TORRENT_PARAMS_LIST);
+                    boolean saveFile = intent.getBooleanExtra(TAG_SAVE_TORRENT_FILE, false);
                     if (paramsList != null) {
                         for (AddTorrentParams params : paramsList) {
                             try {
-                                TorrentHelper.addTorrent(getApplicationContext(), params, true);
+                                TorrentHelper.addTorrent(getApplicationContext(), params, !saveFile);
 
                             } catch (Throwable e) {
                                 handleAddTorrentError(params, e);
