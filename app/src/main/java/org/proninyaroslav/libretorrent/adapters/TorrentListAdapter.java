@@ -108,7 +108,12 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         a.recycle();
 
         holder.name.setText(item.name);
-        holder.progress.setProgress(item.progress);
+        if (item.stateCode == TorrentStateCode.DOWNLOADING_METADATA) {
+            holder.progress.setIndeterminate(true);
+        } else {
+            holder.progress.setIndeterminate(false);
+            holder.progress.setProgress(item.progress);
+        }
 
         String stateString = "";
         switch (item.stateCode) {
@@ -151,8 +156,8 @@ public class TorrentListAdapter extends SelectableAdapter<TorrentListAdapter.Vie
         else
             receivedBytes = Formatter.formatFileSize(context, item.receivedBytes);
 
-        holder.downloadCounter.setText(String.format(counterTemplate, receivedBytes,
-                                                     totalBytes, item.progress, ETA));
+        holder.downloadCounter.setText(String.format(counterTemplate, receivedBytes, totalBytes,
+                                                     (item.totalBytes == 0 ? 0 : item.progress), ETA));
 
         String speedTemplate = context.getString(R.string.download_upload_speed_template);
         String downloadSpeed = Formatter.formatFileSize(context, item.downloadSpeed);
