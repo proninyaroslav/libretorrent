@@ -203,7 +203,7 @@ public class AddTorrentFragment extends Fragment
         super.onDestroy();
 
         TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
-        if (!saveTorrentFile)
+        if (!saveTorrentFile && info != null)
             TorrentHelper.cancelFetchMagnet(info.sha1Hash);
     }
 
@@ -226,6 +226,10 @@ public class AddTorrentFragment extends Fragment
         adapter = new AddTorrentPagerAdapter(activity.getSupportFragmentManager(), activity);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(AddTorrentPagerAdapter.NUM_FRAGMENTS);
+        viewPager.post(() -> {
+            updateInfoFragment();
+            updateFilesFragment();
+        });
         tabLayout.setupWithViewPager(viewPager);
 
         HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(activity.getSupportFragmentManager());
@@ -243,20 +247,6 @@ public class AddTorrentFragment extends Fragment
             fromMagnet = savedInstanceState.getBoolean(TAG_FROM_MAGNET);
 
             showFetchMagnetProgress(decodeState.get() == State.FETCHING_MAGNET);
-
-            /*
-             * No initialize fragments in the event of an decode error or
-             * torrent decoding in process (after configuration changes)
-             */
-            if (decodeState.get() != State.FETCHING_HTTP &&
-                decodeState.get() != State.DECODE_TORRENT_FILE &&
-                decodeState.get() != State.UNKNOWN &&
-                decodeState.get() != State.ERROR)
-            {
-                updateInfoFragment();
-                if (decodeState.get() != State.FETCHING_MAGNET)
-                    updateFilesFragment();
-            }
 
         } else {
             if (uri == null || uri.getScheme() == null) {
@@ -284,9 +274,6 @@ public class AddTorrentFragment extends Fragment
 
     private void initDecode()
     {
-        if (uri.getScheme().equals(Utils.MAGNET_PREFIX))
-            return;
-
         String progressDialogText;
 
         switch (uri.getScheme()) {
@@ -624,7 +611,7 @@ public class AddTorrentFragment extends Fragment
         if (!isAdded() || adapter == null || info == null)
             return;
 
-        final AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter
+        AddTorrentInfoFragment infoFrag = (AddTorrentInfoFragment)adapter
                 .getFragment(AddTorrentPagerAdapter.INFO_FRAG_POS);
         if (infoFrag == null)
             return;
@@ -636,7 +623,7 @@ public class AddTorrentFragment extends Fragment
         if (!isAdded() || adapter == null || info == null)
             return;
 
-        final AddTorrentFilesFragment filesFrag = (AddTorrentFilesFragment)adapter
+        AddTorrentFilesFragment filesFrag = (AddTorrentFilesFragment)adapter
                 .getFragment(AddTorrentPagerAdapter.FILES_FRAG_POS);
         if (filesFrag == null)
             return;
