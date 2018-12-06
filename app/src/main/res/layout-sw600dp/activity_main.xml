@@ -4,29 +4,5 @@
     android:layout_width="match_parent">
 
     <include
-        layout="@layout/statusbar_kitkat" />
-
-    <RelativeLayout
-        android:gravity="center"
-        android:fitsSystemWindows="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <fragment
-            class="org.proninyaroslav.libretorrent.fragments.MainFragment"
-            android:id="@+id/main_fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:orientation="horizontal">
-        </fragment>
-
-        <!-- To eliminate leaks a detail fragment in
-             portrait mode after two pane mode -->
-        <FrameLayout
-            android:id="@+id/detail_torrent_fragmentContainer"
-            android:layout_width="0dp"
-            android:layout_height="0dp">
-        </FrameLayout>
-    </RelativeLayout>
+        layout="@layout/activity_main_portrait" />
 </FrameLayout>

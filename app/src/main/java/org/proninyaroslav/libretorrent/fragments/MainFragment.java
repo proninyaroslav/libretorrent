@@ -1020,7 +1020,7 @@ public class MainFragment extends Fragment
 
     private void showBlankFragment()
     {
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity.getApplicationContext())) {
             FragmentManager fm = getFragmentManager();
             if (fm == null)
                 return;

@@ -4,5 +4,5 @@
     android:layout_width="match_parent">
 
     <include
-        layout="@layout/activity_main_600dp_land" />
+        layout="@layout/activity_main_land" />
 </FrameLayout>
