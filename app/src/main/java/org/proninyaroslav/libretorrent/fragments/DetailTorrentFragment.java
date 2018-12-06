@@ -36,6 +36,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -243,12 +244,15 @@ public class DetailTorrentFragment extends Fragment
             /* Delete pager fragments */
             if (viewPager != null && adapter != null)
                 adapter.clearFragments();
+            /* Also clean all dialogs and heavy instance fragments */
             FragmentManager fm = getFragmentManager();
             if (fm != null) {
-                Fragment fragment = fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
-                /* Prevents leak the dialog in portrait mode */
-                if (fragment != null)
-                    ((BaseAlertDialog)fragment).dismiss();
+                List<Fragment> fragments = fm.getFragments();
+                FragmentTransaction ft = fm.beginTransaction();
+                for (Fragment f : fragments)
+                    if (f != null && (f instanceof HeavyInstanceStorage || f instanceof BaseAlertDialog))
+                        ft.remove(f);
+                ft.commitAllowingStateLoss();
             }
         }
     }
