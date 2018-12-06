@@ -255,6 +255,23 @@ public class TorrentHelper
         return states;
     }
 
+    public static Bundle makeOfflineStatesList(Context context)
+    {
+        TorrentStorage storage = new TorrentStorage(context);
+        Bundle states = new Bundle();
+        for (Torrent torrent : storage.getAll()) {
+            if (torrent == null)
+                continue;
+            BasicStateParcel state = new BasicStateParcel(
+                    torrent.getId(),
+                    torrent.getName(),
+                    torrent.getDateAdded());
+            states.putParcelable(state.torrentId, state);
+        }
+
+        return states;
+    }
+
     public static BasicStateParcel makeBasicStateParcel(String id)
     {
         if (id == null)

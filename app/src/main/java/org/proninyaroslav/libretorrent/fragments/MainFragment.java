@@ -346,7 +346,7 @@ public class MainFragment extends Fragment
     {
         super.onStart();
 
-        handleBasicStates(TorrentHelper.makeBasicStatesList());
+        fetchStates();
         if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
             TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
@@ -943,18 +943,35 @@ public class MainFragment extends Fragment
         /* Nothing */
     }
 
+    private void fetchStates()
+    {
+        Bundle states = TorrentHelper.makeBasicStatesList();
+        List<TorrentListItem> items = statesToItems(states);
+        if (items.isEmpty()) {
+            states = TorrentHelper.makeOfflineStatesList(activity.getApplicationContext());
+            items = statesToItems(states);
+        }
+        reloadAdapter(items);
+    }
+
     private void handleBasicStates(Bundle states)
     {
         if (states == null)
             return;
 
-        ArrayList<TorrentListItem> items = new ArrayList<>();
+        reloadAdapter(statesToItems(states));
+    }
+
+    private List<TorrentListItem> statesToItems(Bundle states)
+    {
+        List<TorrentListItem> items = new ArrayList<>();
         for (String key : states.keySet()) {
             BasicStateParcel state = states.getParcelable(key);
             if (state != null)
                 items.add(new TorrentListItem(state));
         }
-        reloadAdapter(items);
+
+        return items;
     }
 
     final synchronized void reloadAdapter(final List<TorrentListItem> items)
