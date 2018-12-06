@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.view.MenuItem;
 
@@ -72,6 +73,11 @@ public class BasePreferenceActivity extends AppCompatActivity
 
         if (fragment != null && savedInstanceState == null)
             setFragment(getFragment(fragment));
+
+        /* Prevent restore non list fragment after resize window */
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (Utils.isTwoPane(this) && !(f instanceof SettingsFragment))
+            finish();
     }
 
     public <F extends PreferenceFragmentCompat> void setFragment(F fragment)
