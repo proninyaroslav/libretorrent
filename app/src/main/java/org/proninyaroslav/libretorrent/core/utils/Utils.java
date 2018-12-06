@@ -186,6 +186,10 @@ public class Utils
         return INFOHASH_PREFIX + hash;
     }
 
+    /*
+     * Don't use app context (its doesn't reload after configuration changes)
+     */
+
     public static boolean isTwoPane(Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
@@ -193,7 +197,10 @@ public class Utils
 
     /*
      * Tablets (from 7"), notebooks, TVs
+     *
+     * Don't use app context (its doesn't reload after configuration changes)
      */
+
     public static boolean isLargeScreenDevice(Context context)
     {
         return context.getResources().getBoolean(R.bool.isLargeScreenDevice);

@@ -240,7 +240,7 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onDestroyView();
 
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(activity)) {
             /* Delete pager fragments */
             if (viewPager != null && adapter != null)
                 adapter.clearFragments();
@@ -308,7 +308,7 @@ public class DetailTorrentFragment extends Fragment
             torrent = repo.getTorrentByID(torrentId);
 
         downloadingMetadata = torrent != null && torrent.isDownloadingMetadata();
-        if (Utils.isTwoPane(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity)) {
             toolbar.inflateMenu(R.menu.detail_torrent);
             toolbar.setNavigationIcon(ContextCompat.getDrawable(activity.getApplicationContext(),
                                                                 R.drawable.ic_arrow_back_white_24dp));
@@ -613,12 +613,12 @@ public class DetailTorrentFragment extends Fragment
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         if (torrent == null || !torrent.isPaused()) {
             pauseResume.setTitle(R.string.pause_torrent);
-            if (!Utils.isTwoPane(activity.getApplicationContext()))
+            if (!Utils.isTwoPane(activity))
                 pauseResume.setIcon(R.drawable.ic_pause_white_24dp);
 
         } else {
             pauseResume.setTitle(R.string.resume_torrent);
-            if (!Utils.isTwoPane(activity.getApplicationContext()))
+            if (!Utils.isTwoPane(activity))
                 pauseResume.setIcon(R.drawable.ic_play_arrow_white_24dp);
         }
 
@@ -1166,7 +1166,7 @@ public class DetailTorrentFragment extends Fragment
             if (state.stateCode == TorrentStateCode.PAUSED || torrent.isPaused()) {
                 torrent.setPaused(state.stateCode == TorrentStateCode.PAUSED);
                 /* Redraw pause/resume menu */
-                if (Utils.isTwoPane(activity.getApplicationContext()))
+                if (Utils.isTwoPane(activity))
                     prepareOptionsMenu(toolbar.getMenu());
                 else
                     activity.invalidateOptionsMenu();

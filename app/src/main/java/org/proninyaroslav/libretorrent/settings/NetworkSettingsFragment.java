@@ -171,7 +171,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         Preference proxy = findPreference(getString(R.string.pref_key_proxy_settings));
         proxy.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(ProxySettingsFragment.newInstance(),
                         getString(R.string.pref_proxy_settings_title));
             } else {
@@ -245,7 +245,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
     private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
     {
-        if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(getActivity())) {
             if (callback != null)
                 callback.onDetailTitleChanged(title);
 

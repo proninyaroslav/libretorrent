@@ -182,7 +182,7 @@ public class MainFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
 
         /* Clean garbage fragments after rotate for tablets */
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(activity)) {
             FragmentManager fm = activity.getSupportFragmentManager();
             if (fm != null) {
                 List<Fragment> fragments = fm.getFragments();
@@ -995,7 +995,7 @@ public class MainFragment extends Fragment
 
     private void showDetailTorrent(String id)
     {
-        if (Utils.isTwoPane(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity)) {
             FragmentManager fm = getFragmentManager();
             if (fm == null)
                 return;
@@ -1020,7 +1020,7 @@ public class MainFragment extends Fragment
 
     private void showBlankFragment()
     {
-        if (Utils.isTwoPane(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity)) {
             FragmentManager fm = getFragmentManager();
             if (fm == null)
                 return;
@@ -1034,7 +1034,7 @@ public class MainFragment extends Fragment
 
     public DetailTorrentFragment getCurrentDetailFragment()
     {
-        if (!Utils.isTwoPane(activity.getApplicationContext()))
+        if (!Utils.isTwoPane(activity))
             return null;
 
         FragmentManager fm = getFragmentManager();

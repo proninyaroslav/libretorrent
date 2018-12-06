@@ -666,7 +666,7 @@ public class FeedFragment extends Fragment
 
     private void showBlankFragment()
     {
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(activity)) {
             FragmentManager fm = getFragmentManager();
             BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_feed_channel));
 
@@ -683,7 +683,7 @@ public class FeedFragment extends Fragment
         if (channel == null)
             return;
 
-        if (Utils.isTwoPane(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity)) {
             FragmentManager fm = getFragmentManager();
             if (fm == null)
                 return;
@@ -708,7 +708,7 @@ public class FeedFragment extends Fragment
 
     public FeedItemsFragment getCurrentFeedItemsFragment()
     {
-        if (!Utils.isTwoPane(activity.getApplicationContext()))
+        if (!Utils.isTwoPane(activity))
             return null;
 
         FragmentManager fm = getFragmentManager();

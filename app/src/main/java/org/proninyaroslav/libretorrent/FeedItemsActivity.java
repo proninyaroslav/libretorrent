@@ -44,7 +44,7 @@ public class FeedItemsActivity extends AppCompatActivity
         setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        if (Utils.isTwoPane(getApplicationContext())) {
+        if (Utils.isTwoPane(this)) {
             finish();
 
             return;

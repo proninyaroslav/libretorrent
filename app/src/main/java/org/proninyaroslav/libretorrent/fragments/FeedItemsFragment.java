@@ -129,7 +129,7 @@ public class FeedItemsFragment extends Fragment
 
         Utils.showColoredStatusBar_KitKat(activity);
 
-        if (Utils.isTwoPane(activity.getApplicationContext())) {
+        if (Utils.isTwoPane(activity)) {
             toolbar.inflateMenu(R.menu.feed_items);
             toolbar.setNavigationIcon(ContextCompat.getDrawable(activity.getApplicationContext(),
                     R.drawable.ic_arrow_back_white_24dp));
@@ -221,7 +221,7 @@ public class FeedItemsFragment extends Fragment
         Fragment fragment = fm.findFragmentByTag(TAG_FETCH_ERROR_DIALOG);
 
         /* Prevents leak the dialog in portrait mode */
-        if (Utils.isLargeScreenDevice(activity.getApplicationContext()) && fragment != null)
+        if (Utils.isLargeScreenDevice(activity) && fragment != null)
             ((BaseAlertDialog)fragment).dismiss();
     }
 

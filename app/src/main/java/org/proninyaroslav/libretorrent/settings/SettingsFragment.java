@@ -81,7 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
         appearance.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(AppearanceSettingsFragment.newInstance(),
                         getString(R.string.pref_header_appearance));
             } else {
@@ -94,7 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
         behavior.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(BehaviorSettingsFragment.newInstance(),
                         getString(R.string.pref_header_behavior));
             } else {
@@ -107,7 +107,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference storage = findPreference(StorageSettingsFragment.class.getSimpleName());
         storage.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(StorageSettingsFragment.newInstance(),
                         getString(R.string.pref_header_storage));
             } else {
@@ -120,7 +120,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference limitations = findPreference(LimitationsSettingsFragment.class.getSimpleName());
         limitations.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(LimitationsSettingsFragment.newInstance(),
                         getString(R.string.pref_header_limitations));
             } else {
@@ -133,7 +133,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference network = findPreference(NetworkSettingsFragment.class.getSimpleName());
         network.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(NetworkSettingsFragment.newInstance(),
                         getString(R.string.pref_header_network));
             } else {
@@ -146,7 +146,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference scheduling = findPreference(SchedulingSettingsFragment.class.getSimpleName());
         scheduling.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(SchedulingSettingsFragment.newInstance(),
                         getString(R.string.pref_header_scheduling));
             } else {
@@ -159,7 +159,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference feed = findPreference(FeedSettingsFragment.class.getSimpleName());
         feed.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(FeedSettingsFragment.newInstance(),
                         getString(R.string.pref_header_feed));
             } else {
@@ -172,7 +172,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference streaming = findPreference(StreamingSettingsFragment.class.getSimpleName());
         streaming.setOnPreferenceClickListener((Preference preference) -> {
-            if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+            if (Utils.isLargeScreenDevice(getActivity())) {
                 setFragment(StreamingSettingsFragment.newInstance(),
                         getString(R.string.pref_header_streaming));
             } else {
@@ -192,7 +192,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
     {
-        if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
+        if (Utils.isLargeScreenDevice(getActivity())) {
             if (callback != null)
                 callback.onDetailTitleChanged(title);
 
