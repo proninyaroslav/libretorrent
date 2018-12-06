@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/pause_resume_torrent_menu"
+        app:showAsAction="never"
+        android:title="@string/pause_torrent" />
+
+    <item android:id="@+id/delete_torrent_menu"
+        app:showAsAction="never"
+        android:title="@string/delete" />
+
+    <item android:id="@+id/force_recheck_torrent_menu"
+        app:showAsAction="never"
+        android:title="@string/force_recheck_torrent" />
+
+    <item android:id="@+id/force_announce_torrent_menu"
+        app:showAsAction="never"
+        android:title="@string/force_announce_torrent" />
+
+    <item android:id="@+id/share_magnet_menu"
+        app:showAsAction="never"
+        android:title="@string/share_magnet" />
+
+    <item android:id="@+id/save_torrent_file_menu"
+        app:showAsAction="never"
+        android:title="@string/save_torrent_file" />
+
+    <item android:id="@+id/add_trackers_menu"
+        app:showAsAction="never"
+        android:title="@string/add_trackers" />
+
+    <item android:id="@+id/torrent_speed_limit"
+        app:showAsAction="never"
+        android:title="@string/torrent_speed_limit" />
+</menu>
