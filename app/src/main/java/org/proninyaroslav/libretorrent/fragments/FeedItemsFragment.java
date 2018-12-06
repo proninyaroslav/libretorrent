@@ -106,6 +106,7 @@ public class FeedItemsFragment extends Fragment
         toolbar = v.findViewById(R.id.toolbar);
         coordinatorLayout = v.findViewById(R.id.coordinator_layout);
         swipeRefreshLayout = v.findViewById(R.id.swipe_container);
+        itemList = v.findViewById(R.id.feed_items_list);
 
         return v;
     }
@@ -146,7 +147,6 @@ public class FeedItemsFragment extends Fragment
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        itemList = activity.findViewById(R.id.feed_items_list);
         layoutManager = new LinearLayoutManager(activity);
         itemList.setLayoutManager(layoutManager);
         /*
