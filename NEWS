@@ -1,3 +1,15 @@
+Version 1.9.1 (2018-12-06)
+========================
+
+ * Added:
+     - Swipe refresh to filemanager
+ * Bugfixing:
+     - Blank detail window on tablets
+     - Multi-window support
+     - Chrome OS and Android notebooks support
+ * Update of Chinese translation
+ * Update to libtorrent4j 1.2.0.20-RC3
+
 Version 1.9 (2018-11-23)
 ========================
 
