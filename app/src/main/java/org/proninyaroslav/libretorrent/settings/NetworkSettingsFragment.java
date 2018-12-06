@@ -258,12 +258,12 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
     private <F extends PreferenceFragmentCompat> void startActivity(Class<F> fragment, String title)
     {
-        Intent i = new Intent(getActivity(), BasePreferenceActivity.class);
+        Intent i = new Intent(getActivity(), PreferenceActivity.class);
         PreferenceActivityConfig config = new PreferenceActivityConfig(
                 fragment.getSimpleName(),
                 title);
 
-        i.putExtra(BasePreferenceActivity.TAG_CONFIG, config);
+        i.putExtra(PreferenceActivity.TAG_CONFIG, config);
         startActivity(i);
     }
 

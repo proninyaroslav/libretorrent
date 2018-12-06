@@ -153,7 +153,7 @@
         </activity>
 
         <activity
-            android:name=".settings.BasePreferenceActivity" />
+            android:name=".settings.PreferenceActivity" />
 
         <activity
             android:name="org.proninyaroslav.libretorrent.ErrorReportActivity"

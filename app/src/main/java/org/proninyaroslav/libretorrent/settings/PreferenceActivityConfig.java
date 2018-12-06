@@ -23,7 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /*
- * Specifies the toolbar title and fragment (by class name). Part of BasePreferenceActivity.
+ * Specifies the toolbar title and fragment (by class name). Part of PreferenceActivity.
  */
 
 public class PreferenceActivityConfig implements Parcelable

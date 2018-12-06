@@ -27,11 +27,12 @@
         android:showDividers="middle"
         android:divider="?attr/divider">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <fragment
+            class="org.proninyaroslav.libretorrent.settings.SettingsFragment"
+            android:id="@+id/settings_fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="0dp"

@@ -19,9 +19,8 @@
         app:popupTheme="?attr/popupTheme"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <fragment
-        class="org.proninyaroslav.libretorrent.settings.SettingsFragment"
-        android:id="@+id/settings_fragmentContainer"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar" />

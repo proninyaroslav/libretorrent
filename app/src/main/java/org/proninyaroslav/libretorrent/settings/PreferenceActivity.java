@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import android.view.MenuItem;
 
@@ -32,10 +31,10 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-public class BasePreferenceActivity extends AppCompatActivity
+public class PreferenceActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")
-    private static final String TAG = BasePreferenceActivity.class.getSimpleName();
+    private static final String TAG = PreferenceActivity.class.getSimpleName();
 
     public static final String TAG_CONFIG = "config";
 
@@ -47,7 +46,13 @@ public class BasePreferenceActivity extends AppCompatActivity
         setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_settings);
+        /* Prevent create activity in two pane mode (after resizing window) */
+        if (Utils.isLargeScreenDevice(this)) {
+            finish();
+            return;
+        }
+
+        setContentView(R.layout.activity_preference);
 
         Utils.showColoredStatusBar_KitKat(this);
 
@@ -73,11 +78,6 @@ public class BasePreferenceActivity extends AppCompatActivity
 
         if (fragment != null && savedInstanceState == null)
             setFragment(getFragment(fragment));
-
-        /* Prevent restore non list fragment after resize window */
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (Utils.isTwoPane(this) && !(f instanceof SettingsFragment))
-            finish();
     }
 
     public <F extends PreferenceFragmentCompat> void setFragment(F fragment)

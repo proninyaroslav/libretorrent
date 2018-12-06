@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,32 +20,45 @@
 package org.proninyaroslav.libretorrent.settings;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-public class SettingsActivity extends BasePreferenceActivity implements SettingsFragment.Callback
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+public class SettingsActivity extends AppCompatActivity implements SettingsFragment.Callback
 {
     @SuppressWarnings("unused")
     private static final String TAG = SettingsActivity.class.getSimpleName();
-
     private static final String TAG_TITLE = "title";
 
+    private Toolbar toolbar;
     private TextView detailTitle;
     private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setTitle(getString(R.string.settings));
+        setContentView(R.layout.activity_settings);
+        Utils.showColoredStatusBar_KitKat(this);
+
+        toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle(getString(R.string.settings));
+            setSupportActionBar(toolbar);
+        }
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         detailTitle = findViewById(R.id.detail_title);
 
-        if (savedInstanceState == null) {
-            setFragment(SettingsFragment.newInstance());
-        } else {
+        if (savedInstanceState != null) {
             title = savedInstanceState.getString(TAG_TITLE);
             if (title != null && detailTitle != null)
                 detailTitle.setText(title);
@@ -67,5 +80,17 @@ public class SettingsActivity extends BasePreferenceActivity implements Settings
         outState.putString(TAG_TITLE, title);
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return true;
     }
 }
