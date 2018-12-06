@@ -1,6 +1,13 @@
 - web interface
-- streaming support
+- DLNA support
 - I2P torrents support
 - write unit test
 - peer block subscriptions
 - BiglyBT's Swarm Discovery feature
+- tags for torrents
+- status filter in foreground notify
+- option to seed for particular amount of time or particular ratio
+- make regenerated feed parser (skip broken articles)
+- autoclose service
+- if minSdkVersion will be >= 17, go to getChildFragmentManager()
+  instead of manually managing detail fragments

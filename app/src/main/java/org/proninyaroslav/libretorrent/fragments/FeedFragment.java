@@ -172,6 +172,7 @@ public class FeedFragment extends Fragment
             activity = (AppCompatActivity)getActivity();
 
         /* Clean garbage fragments after rotate for tablets */
+        /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
         if (Utils.isLargeScreenDevice(activity)) {
             FragmentManager fm = activity.getSupportFragmentManager();
             if (fm != null) {
@@ -691,6 +692,7 @@ public class FeedFragment extends Fragment
         }
     }
 
+    /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
     private void showFeedItems(FeedChannel channel)
     {
         if (channel == null)

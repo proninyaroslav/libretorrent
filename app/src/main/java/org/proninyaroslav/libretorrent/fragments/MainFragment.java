@@ -182,6 +182,7 @@ public class MainFragment extends Fragment
             activity = (AppCompatActivity) getActivity();
 
         /* Clean garbage fragments after rotate for tablets */
+        /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
         if (Utils.isLargeScreenDevice(activity)) {
             FragmentManager fm = activity.getSupportFragmentManager();
             if (fm != null) {
@@ -993,6 +994,7 @@ public class MainFragment extends Fragment
         startActivityForResult(new Intent(activity, CreateTorrentActivity.class), CREATE_TORRENT_REQUEST);
     }
 
+    /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
     private void showDetailTorrent(String id)
     {
         if (Utils.isTwoPane(activity)) {
