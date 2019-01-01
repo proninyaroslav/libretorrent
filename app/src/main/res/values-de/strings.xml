@@ -151,14 +151,14 @@
     <string name="free_space" formatted="false">%1$s frei</string>
     <string name="error_free_space">Es ist nicht genug freier Speicherplatz auf dem gewählten Pfad vorhanden, um die gewählten Dateien herunterzuladen</string>
     <string name="files_size" formatted="false">%1$s von %2$s ausgewählt</string>
-    <string name="start_torrent">Starten Sie torrent</string>
+    <string name="start_torrent">Torrent starten</string>
     <string name="file_is_too_large_error">Datei ist zu groß</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Dateien</string>
     <string name="torrent_name">Name</string>
-    <string name="upload_torrent_into">Upload into</string>
+    <string name="upload_torrent_into">Download nach</string>
     <string name="torrent_size">Größe</string>
     <string name="torrent_file_count">Anzahl Dateien</string>
     <string name="torrent_hash_sum">Prüfsumme</string>
@@ -353,10 +353,10 @@
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Speichere Torrents in</string>
     <string name="pref_move_after_download_title">Verschiebe nach Download</string>
-    <string name="pref_move_after_download_in_title">Verschiebe nach Download nach</string>
-    <string name="pref_save_torrent_files_title">Speichern .torrent Dateien</string>
-    <string name="pref_save_torrent_files_summary">Speichern .torrent Dateien nach Beginn des Downloads</string>
-    <string name="pref_save_torrent_files_in_title">Speichern .torrent Dateien nach</string>
+    <string name="pref_move_after_download_in_title">Verschiebe Download nach</string>
+    <string name="pref_save_torrent_files_title">Speichere .torrent Dateien</string>
+    <string name="pref_save_torrent_files_summary">Speichere .torrent Dateien nach Beginn des Downloads</string>
+    <string name="pref_save_torrent_files_in_title">Speichere .torrent Dateien nach</string>
     <string name="pref_watch_dir_title">Verzeichnis ansehen</string>
     <string name="pref_watch_dir_summary">Die Torrent-Dateien (mit der Erweiterung .torrent) werden im angegebenen Verzeichnis überwacht und automatisch hinzugefügt. Die Torrent-Dateien werden nach dem Hinzufügen gelöscht</string>
     <string name="pref_dir_to_watch_title">Verzeichnis zum Ansehen</string>
@@ -375,7 +375,7 @@
     <string name="pref_max_uploads_per_torrent_title">Maximale Anzahl von Upload-Slots pro Torrent</string>
     <string name="pref_max_uploads_per_torrent_summary">Mindestanzahl von Slots - 2</string>
     <string name="pref_auto_manage_title">Automatisch verwalten</string>
-    <string name="pref_auto_manage_summary">Der Torrent kann an jedem Punkt automatisch fortgesetzt oder Pause werden. Die Aktivierung dieser Option kann die Pause/den Lebenslauf verlangsamen</string>
+    <string name="pref_auto_manage_summary">Der Torrent kann an jedem Punkt automatisch fortgesetzt oder pausiert werden. Die Aktivierung dieser Option kann die Pause/den Fortschritt verlangsamen</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 unbeschränkt</string>
     <!-- Behavior settings -->
     <string name="pref_custom_battery_control_title">Kundenspezifische Batterie Prozentsatz</string>
@@ -434,9 +434,9 @@
     <string name="pref_encryption_category">Verschlüsselung</string>
     <string name="pref_enc_mode_title">Verschlüsselungsmodus</string>
     <string-array name="pref_enc_mode_entries">
-        <item>Bevorzugte Verschlüsselung</item>
-        <item>Erforderlich Verschlüsselung</item>
-        <item>Deaktivieren Sie die Verschlüsselung</item>
+        <item>Bevorzuge Verschlüsselung</item>
+        <item>Erfordere Verschlüsselung</item>
+        <item>Deaktiviere Verschlüsselung</item>
     </string-array>
     <string name="pref_enc_in_connections_title">Eingehende Verbindungen</string>
     <string name="pref_enc_out_connections_title">Ausgehende Verbindungen</string>
@@ -464,16 +464,16 @@
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Startzeit</string>
-    <string name="pref_enable_scheduling_start_summary">Starten Sie die App zur angegebenen Zeit. Torrents werden wiederhergestellt wie beim letzten mal</string>
-    <string name="pref_enable_scheduling_shutdown_title">Zeit zum beenden</string>
-    <string name="pref_enable_scheduling_shutdown_summary">App zur angegebenen Zeit herunterfahren</string>
+    <string name="pref_enable_scheduling_start_summary">Startet die App zur angegebenen Zeit. Torrents bleiben erhalten</string>
+    <string name="pref_enable_scheduling_shutdown_title">Beendigungszeitpunkt</string>
+    <string name="pref_enable_scheduling_shutdown_summary">App zur angegebenen Zeit beenden</string>
     <string name="pref_scheduling_run_only_once_title">Nur einmal starten</string>
     <string name="pref_scheduling_switch_wifi_title">Wi-Fi aktivieren/deaktivieren</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi wird automatisch aktiviert, wenn die App zum geplanten Zeitpunkt gestartet wird. Sie wird deaktiviert, nachdem die App zum geplanten Zeitpunkt abgeschlossen wurde</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi wird automatisch aktiviert, wenn die App zum geplanten Zeitpunkt gestartet wird. Wi-Fi wird deaktiviert, nachdem die App zum geplanten Zeitpunkt beendet wurde</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Automatische Aktualisierung der Kanäle</string>
     <string name="pref_feed_auto_refresh_summary">Aktualisieren Sie regelmäßig Kanäle im Hintergrund</string>
-    <string name="pref_feed_refresh_interval_title">Aktualisierungs intervall</string>
+    <string name="pref_feed_refresh_interval_title">Aktualisierungsintervall</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>5 Minuten</item>
         <item>15 Minuten</item>
