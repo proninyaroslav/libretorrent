@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * The abstract adapter for tabs in activity (based on FragmentPagerAdapter).
+ * The abstract adapter for tabs in activity (based on PagerAdapter).
  */
 
 public abstract class ViewPagerAdapter extends PagerAdapter
