@@ -6,7 +6,6 @@
     <shortcut
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut_add"
-        android:shortcutDisabledMessage="@string/error_io_torrent"
         android:shortcutId="addTorrent"
         android:shortcutLongLabel="@string/add_torrent_title"
         android:shortcutShortLabel="@string/add_torrent_title">
@@ -19,7 +18,6 @@
     <shortcut
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut_rss_feed"
-        android:shortcutDisabledMessage="@string/error_cannot_add_channel"
         android:shortcutId="addShortcut"
         android:shortcutLongLabel="@string/add_feed_channel"
         android:shortcutShortLabel="@string/add_feed_channel">
