@@ -31,6 +31,7 @@
     <string name="filter">Фильтр</string>
     <string name="refresh">Обновить</string>
     <string name="edit">Редактировать</string>
+    <string name="menu">Меню</string>
     
     <!-- Main window -->
     <string name="main_empty_torrent_list">Нет торрентов</string>

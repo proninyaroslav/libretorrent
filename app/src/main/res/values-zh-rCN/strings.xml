@@ -35,6 +35,7 @@
     <string name="filter">过滤器</string>
     <string name="refresh">刷新</string>
     <string name="edit">编辑</string>
+    <string name="menu">菜单</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">没有 torrent 任务</string>

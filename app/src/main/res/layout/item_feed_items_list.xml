@@ -36,7 +36,7 @@
         android:padding="16dp"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:contentDescription="@null"
+        android:contentDescription="@string/menu"
         android:background="?attr/transparentRoundRipple"
         android:src="@drawable/ic_more_vert_grey600_24dp" />
 </RelativeLayout>

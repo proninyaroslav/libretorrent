@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:background="?attr/defaultRoundRipple"
-                android:contentDescription="@null"
+                android:contentDescription="@string/dir_chooser_title"
                 android:src="@drawable/ic_folder_grey600_24dp" />
 
             <ImageButton
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:background="?attr/defaultRoundRipple"
-                android:contentDescription="@null"
+                android:contentDescription="@string/file_chooser_title"
                 android:src="@drawable/ic_file_grey600_24dp" />
         </LinearLayout>
     </RelativeLayout>

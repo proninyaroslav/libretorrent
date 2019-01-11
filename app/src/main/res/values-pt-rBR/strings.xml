@@ -35,6 +35,7 @@
     <string name="filter">Filtro</string>
     <string name="refresh">Atualizar</string>
     <string name="edit">Editar</string>
+    <string name="menu">Menu</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Sem torrents</string>

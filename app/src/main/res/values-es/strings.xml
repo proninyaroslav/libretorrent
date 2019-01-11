@@ -35,6 +35,7 @@
     <string name="filter">Filtrar</string>
     <string name="refresh">Refrescar</string>
     <string name="edit">Editar</string>
+    <string name="menu">Menú</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No hay torrents</string>

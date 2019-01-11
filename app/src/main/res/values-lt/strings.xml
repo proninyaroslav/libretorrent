@@ -35,6 +35,7 @@
     <string name="filter">Filtras</string>
     <string name="refresh">Atnaujinti</string>
     <string name="edit">Redaguoti</string>
+    <string name="menu">Meniu</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Nėra torentų</string>

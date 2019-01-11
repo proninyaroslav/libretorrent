@@ -35,6 +35,7 @@
     <string name="filter">Filtr</string>
     <string name="refresh">Obnovit</string>
     <string name="edit">Upravit</string>
+    <string name="menu">Jídelní lístek</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Žádný torrent</string>

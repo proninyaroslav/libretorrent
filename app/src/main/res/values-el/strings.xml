@@ -35,6 +35,7 @@
     <string name="filter">Φίλτρο</string>
     <string name="refresh">Φρεσκάρω</string>
     <string name="edit">Επεξεργασία</string>
+    <string name="menu">Μενού</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Κανένα torrent</string>

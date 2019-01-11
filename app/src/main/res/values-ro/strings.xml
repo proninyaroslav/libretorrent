@@ -35,6 +35,7 @@
     <string name="filter">Filtru</string>
     <string name="refresh">Reîmprospăta</string>
     <string name="edit">Editați</string>
+    <string name="menu">Meniul</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Niciun torrent</string>

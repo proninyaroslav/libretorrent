@@ -35,6 +35,7 @@
     <string name="filter">Filter</string>
     <string name="refresh">Aktualisierung</string>
     <string name="edit">Bearbeiten</string>
+    <string name="menu">Menü</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Keine Torrents</string>

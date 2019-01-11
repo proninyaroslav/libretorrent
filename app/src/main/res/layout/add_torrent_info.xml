@@ -69,7 +69,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="?attr/defaultRoundRipple"
-            android:contentDescription="@null"
+            android:contentDescription="@string/dir_chooser_title"
             android:src="@drawable/ic_folder_grey600_24dp" />
     </RelativeLayout>
 

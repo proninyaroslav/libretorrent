@@ -35,6 +35,7 @@
     <string name="filter">Filtre</string>
     <string name="refresh">Rafraîchir</string>
     <string name="edit">Modifier</string>
+    <string name="menu">Menu</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Aucun torrent</string>
