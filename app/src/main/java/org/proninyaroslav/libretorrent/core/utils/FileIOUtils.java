@@ -175,6 +175,14 @@ public class FileIOUtils
         ArrayList<String> storages = new ArrayList<>();
         storages.add(Environment.getExternalStorageDirectory().getAbsolutePath());
 
+
+        File cdirectory = new File("/storage");
+        File[] cfiles = cdirectory.listFiles();
+        for (int i =0; i< cfiles.length;i++) {
+            storages.add(cfiles[i].toString());
+
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             /*
              * First volume returned by getExternalFilesDirs is always primary storage,
