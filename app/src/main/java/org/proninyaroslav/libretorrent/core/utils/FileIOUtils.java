@@ -62,8 +62,22 @@ public class FileIOUtils
             return dir.mkdirs() ? path : "";
     }
 
-    /*
-     * Return the primary shared/external storage directory.
+
+
+
+    public static String altExtStoragePath() {
+        File extdir = new File("/storage/sdcard1");
+        String path = "";
+        if (extdir.exists() && extdir.isDirectory()) {
+            File[] contents = extdir.listFiles();
+            if (contents != null && contents.length > 0) {
+               path = extdir.toString();
+            }
+        }
+        return path;
+    }
+     /*
+    * Return the primary shared/external storage directory.
      */
 
     public static String getUserDirPath()
@@ -174,6 +188,12 @@ public class FileIOUtils
     {
         ArrayList<String> storages = new ArrayList<>();
         storages.add(Environment.getExternalStorageDirectory().getAbsolutePath());
+
+        if (altExtStoragePath() != ""){
+            storages.add(altExtStoragePath());
+
+
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             /*
