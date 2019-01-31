@@ -65,7 +65,8 @@ import org.libtorrent4j.swig.torrent_info;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
+import org.proninyaroslav.libretorrent.core.old.Torrent;
+import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 

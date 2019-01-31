@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.storage;
+package org.proninyaroslav.libretorrent.core.storage.old;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

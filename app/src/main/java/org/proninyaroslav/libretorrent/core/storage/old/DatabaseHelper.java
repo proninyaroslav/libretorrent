@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.storage;
+package org.proninyaroslav.libretorrent.core.storage.old;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @SuppressWarnings("unused")
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
-    private static final String DATABASE_NAME = "libretorrent.db";
+    private static final String DATABASE_NAME = "libretorrent_old.db";
     private static final int DATABASE_VERSION = 4;
     public static final String COLUMN_ID = "_id";
 

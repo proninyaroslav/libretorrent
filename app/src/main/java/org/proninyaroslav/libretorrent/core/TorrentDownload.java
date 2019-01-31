@@ -52,7 +52,8 @@ import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
 
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.storage.TorrentStorage;
+import org.proninyaroslav.libretorrent.core.old.Torrent;
+import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 

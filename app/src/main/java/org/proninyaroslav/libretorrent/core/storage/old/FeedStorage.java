@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.storage;
+package org.proninyaroslav.libretorrent.core.storage.old;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,8 +29,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.proninyaroslav.libretorrent.core.FeedChannel;
-import org.proninyaroslav.libretorrent.core.FeedItem;
+import org.proninyaroslav.libretorrent.core.old.FeedChannel;
+import org.proninyaroslav.libretorrent.core.old.FeedItem;
 
 import java.io.Reader;
 import java.util.ArrayList;

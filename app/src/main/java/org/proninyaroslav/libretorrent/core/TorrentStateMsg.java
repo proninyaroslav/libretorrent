@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Bundle;
 
+import org.proninyaroslav.libretorrent.core.old.Torrent;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 
 /*

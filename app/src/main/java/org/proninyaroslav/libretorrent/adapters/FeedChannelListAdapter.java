@@ -33,7 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FeedChannel;
+import org.proninyaroslav.libretorrent.core.old.FeedChannel;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.text.DateFormat;

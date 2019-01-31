@@ -75,7 +75,7 @@ import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
 import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
-import org.proninyaroslav.libretorrent.core.Torrent;
+import org.proninyaroslav.libretorrent.core.old.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;

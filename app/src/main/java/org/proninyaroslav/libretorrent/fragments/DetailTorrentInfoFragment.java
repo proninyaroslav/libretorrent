@@ -32,7 +32,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.*;
-import org.proninyaroslav.libretorrent.core.Torrent;
+import org.proninyaroslav.libretorrent.core.old.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;

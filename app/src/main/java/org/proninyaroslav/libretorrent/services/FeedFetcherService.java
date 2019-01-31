@@ -29,10 +29,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FeedChannel;
-import org.proninyaroslav.libretorrent.core.FeedItem;
+import org.proninyaroslav.libretorrent.core.old.FeedChannel;
+import org.proninyaroslav.libretorrent.core.old.FeedItem;
 import org.proninyaroslav.libretorrent.core.FeedParser;
-import org.proninyaroslav.libretorrent.core.storage.FeedStorage;
+import org.proninyaroslav.libretorrent.core.storage.old.FeedStorage;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
