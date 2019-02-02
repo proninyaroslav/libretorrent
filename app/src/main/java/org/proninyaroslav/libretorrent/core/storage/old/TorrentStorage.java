@@ -31,7 +31,7 @@ import org.libtorrent4j.Priority;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.core.old.Torrent;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
 
 import java.io.File;
 import java.io.IOException;

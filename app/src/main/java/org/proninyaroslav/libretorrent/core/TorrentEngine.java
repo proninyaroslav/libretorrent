@@ -67,8 +67,8 @@ import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.old.Torrent;
 import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 import java.io.File;
 import java.util.ArrayList;

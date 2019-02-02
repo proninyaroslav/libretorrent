@@ -25,7 +25,7 @@ import android.os.Parcelable;
 import org.libtorrent4j.TorrentInfo;
 
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 import java.io.File;
 import java.util.ArrayList;

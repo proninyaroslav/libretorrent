@@ -31,7 +31,7 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         implements

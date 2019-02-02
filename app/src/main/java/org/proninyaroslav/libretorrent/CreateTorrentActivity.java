@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.fragments.CreateTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 

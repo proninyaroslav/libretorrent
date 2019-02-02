@@ -29,7 +29,7 @@ import android.view.MenuItem;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 public class PreferenceActivity extends AppCompatActivity
 {

@@ -34,7 +34,7 @@ import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.old.FeedItem;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

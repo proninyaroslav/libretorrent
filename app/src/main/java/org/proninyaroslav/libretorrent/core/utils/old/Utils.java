@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.utils;
+package org.proninyaroslav.libretorrent.core.utils.old;
 
 import android.Manifest;
 import android.app.Activity;
@@ -39,20 +39,23 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.libtorrent4j.FileStorage;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
-import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
@@ -60,28 +63,14 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.IDN;
+import java.net.URL;
 import java.nio.charset.Charset;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 /*
  * General utils.
@@ -100,14 +89,39 @@ public class Utils
     public static final String TRACKER_URL_PATTERN =
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
+    public static final int MAX_HTTP_REDIRECTION = 10;
     public static final String MIME_TORRENT = "application/x-bittorrent";
+
+    /*
+     * Colored status bar in KitKat.
+     */
+
+    public static void showColoredStatusBar_KitKat(Activity activity)
+    {
+        RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
+            statusBar.setVisibility(View.VISIBLE);
+    }
+
+    public static void showActionModeStatusBar(Activity activity, boolean mode)
+    {
+        int color = (mode ? R.color.action_mode_dark : R.color.primary_dark);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
+            statusBar.setBackground(ContextCompat.getDrawable(activity, color));
+            statusBar.setVisibility(View.VISIBLE);
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, color));
+        }
+    }
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
      */
 
-    public static void colorizeProgressBar(@NonNull Context context,
-                                           @NonNull ProgressBar progress)
+    public static void colorizeProgressBar(Context context, ProgressBar progress)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
@@ -119,7 +133,7 @@ public class Utils
      * The order of addition in the list corresponds to the order of indexes in libtorrent4j.FileStorage
      */
 
-    public static ArrayList<BencodeFileItem> getFileList(@NonNull FileStorage storage)
+    public static ArrayList<BencodeFileItem> getFileList(FileStorage storage)
     {
         ArrayList<BencodeFileItem> files = new ArrayList<>();
         for (int i = 0; i < storage.numFiles(); i++) {
@@ -130,8 +144,7 @@ public class Utils
         return files;
     }
 
-    public static void setBackground(@NonNull View v,
-                                     @NonNull Drawable d)
+    public static void setBackground(View v, Drawable d)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
             v.setBackgroundDrawable(d);
@@ -143,7 +156,7 @@ public class Utils
      * Returns the checking result or throws an exception.
      */
 
-    public static boolean checkNetworkConnection(@NonNull Context context)
+    public static boolean checkNetworkConnection(Context context)
     {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -153,15 +166,13 @@ public class Utils
     }
 
     /*
-     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
+     * Returns the link as "(http[s]|udp)://[www.]name.domain/...".
      */
 
-    public static String normalizeURL(@NonNull String url)
+    public static String normalizeURL(String url)
     {
-        url = IDN.toUnicode(url);
-
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX))
-            return HTTP_PREFIX + url;
+        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(UDP_PREFIX))
+            return HTTP_PREFIX + "://" + url;
         else
             return url;
     }
@@ -170,7 +181,7 @@ public class Utils
      * Returns the link as "magnet:?xt=urn:btih:hash".
      */
 
-    public static String normalizeMagnetHash(@NonNull String hash)
+    public static String normalizeMagnetHash(String hash)
     {
         return INFOHASH_PREFIX + hash;
     }
@@ -179,7 +190,7 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isTwoPane(@NonNull Context context)
+    public static boolean isTwoPane(Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
     }
@@ -190,7 +201,7 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isLargeScreenDevice(@NonNull Context context)
+    public static boolean isLargeScreenDevice(Context context)
     {
         return context.getResources().getBoolean(R.bool.isLargeScreenDevice);
     }
@@ -201,9 +212,9 @@ public class Utils
      * Returns false if the link is not valid.
      */
 
-    public static boolean isValidTrackerUrl(@NonNull String url)
+    public static boolean isValidTrackerUrl(String url)
     {
-        if (TextUtils.isEmpty(url))
+        if (url == null || TextUtils.isEmpty(url))
             return false;
 
         Pattern pattern = Pattern.compile(TRACKER_URL_PATTERN);
@@ -212,8 +223,8 @@ public class Utils
         return matcher.matches();
     }
 
-    public static boolean isHash(@NonNull String hash) {
-        if (TextUtils.isEmpty(hash))
+    public static boolean isHash(String hash) {
+        if (hash == null || TextUtils.isEmpty(hash))
             return false;
 
         Pattern pattern = Pattern.compile(HASH_PATTERN);
@@ -239,7 +250,7 @@ public class Utils
      */
 
     @Nullable
-    public static String getClipboard(@NonNull Context context)
+    public static String getClipboard(Context context)
     {
         ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
         if (clipboard == null)
@@ -259,20 +270,22 @@ public class Utils
         return text.toString();
     }
 
-    public static void reportError(@NonNull Throwable error,
-                                   String comment)
+    public static void reportError(Throwable error, String comment)
     {
+        if (error == null)
+            return;
+
         if (comment != null)
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
 
         ACRA.getErrorReporter().handleSilentException(error);
     }
 
-    public static int dpToPx(@NonNull Context context, float dp)
+    public static int dpToPx(Context context, float dp)
     {
-        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp, context.getResources().getDisplayMetrics());
     }
 
     public static int getDefaultBatteryLowLevel()
@@ -281,11 +294,9 @@ public class Utils
                 Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));
     }
 
-    public static float getBatteryLevel(@NonNull Context context)
+    public static float getBatteryLevel(Context context)
     {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        if (batteryIntent == null)
-            return 50.0f;
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
@@ -293,47 +304,45 @@ public class Utils
         if (level == -1 || scale == -1)
             return 50.0f;
 
-        return ((float)level / (float)scale) * 100.0f;
+        return ((float) level / (float) scale) * 100.0f;
     }
 
-    public static boolean isBatteryCharging(@NonNull Context context)
+    public static boolean isBatteryCharging(Context context)
     {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        if (batteryIntent == null)
-            return false;
         int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
         return status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
-    public static boolean isBatteryLow(@NonNull Context context)
+    public static boolean isBatteryLow(Context context)
     {
         return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
     }
 
-    public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold)
+    public static boolean isBatteryBelowThreshold(Context context, int threshold)
     {
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static int getThemePreference(@NonNull Context context)
+    public static int getThemePreference(Context context)
     {
         return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
                                                               SettingsManager.Default.theme(context));
     }
     
-    public static boolean isDarkTheme(@NonNull Context context)
+    public static boolean isDarkTheme(Context context)
     {
         return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
     }
     
-    public static boolean isBlackTheme(@NonNull Context context)
+    public static boolean isBlackTheme(Context context)
     {
         return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
     }
 
-    public static int getAppTheme(@NonNull Context context)
+    public static int getAppTheme(Context context)
     {
         int theme = getThemePreference(context);
 
@@ -347,7 +356,7 @@ public class Utils
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(@NonNull Context context)
+    public static int getTranslucentAppTheme(Context context)
     {
         int theme = getThemePreference(context);
 
@@ -361,7 +370,7 @@ public class Utils
         return R.style.Theme_AppCompat_Translucent;
     }
 
-    public static int getSettingsTheme(@NonNull Context context)
+    public static int getSettingsTheme(Context context)
     {
         int theme = getThemePreference(context);
 
@@ -375,7 +384,7 @@ public class Utils
         return R.style.BaseTheme_Settings;
     }
 
-    public static TorrentSorting getTorrentSorting(@NonNull Context context)
+    public static TorrentSorting getTorrentSorting(Context context)
     {
         SharedPreferences pref = SettingsManager.getPreferences(context);
 
@@ -388,15 +397,15 @@ public class Utils
                 TorrentSorting.Direction.fromValue(direction));
     }
 
-    public static boolean checkStoragePermission(@NonNull Context context)
+    public static boolean checkStoragePermission(Context context)
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean isWifiEnabled(@NonNull Context context)
+    public static boolean isWifiEnabled(Context context)
     {
-        WifiManager manager = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         return manager != null && manager.isWifiEnabled();
     }
@@ -406,7 +415,7 @@ public class Utils
      * TODO: delete after some releases
      */
     @Deprecated
-    public static void migrateTray2SharedPreferences(@NonNull Context context)
+    public static void migrateTray2SharedPreferences(Context context)
     {
         final String TAG = "tray2shared";
         final String migrate_key = "tray2shared_migrated";
@@ -479,7 +488,7 @@ public class Utils
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startTorrentServiceBackground(@NonNull Context context, String action)
+    public static void startTorrentServiceBackground(Context context, String action)
     {
         Intent i = new Intent(context, TorrentTaskService.class);
         if (action != null)
@@ -490,7 +499,7 @@ public class Utils
             context.startService(i);
     }
 
-    public static void enableBootReceiver(@NonNull Context context, boolean enable)
+    public static void enableBootReceiver(Context context, boolean enable)
     {
         SharedPreferences pref = SettingsManager.getPreferences(context);
         boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
@@ -509,7 +518,7 @@ public class Utils
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static void enableBootReceiverIfNeeded(@NonNull Context context)
+    public static void enableBootReceiverIfNeeded(Context context)
     {
         SharedPreferences pref = SettingsManager.getPreferences(context);
         boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
@@ -528,8 +537,7 @@ public class Utils
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static byte[] fetchHttpUrl(@NonNull Context context,
-                                      @NonNull String url) throws FetchLinkException
+    public static byte[] fetchHttpUrl(Context context, String url) throws FetchLinkException
     {
         byte[] response = null;
 
@@ -537,54 +545,35 @@ public class Utils
             throw new FetchLinkException("No network connection");
 
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-        HttpConnection connection;
-        try {
-            connection = new HttpConnection(url);
-        } catch (Exception e) {
-            throw new FetchLinkException(e);
-        }
+        for (int i = 0; i < MAX_HTTP_REDIRECTION; i++) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection)new URL(url).openConnection();
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    response = IOUtils.toByteArray(connection.getInputStream());
 
-        connection.setListener(new HttpConnection.Listener() {
-            @Override
-            public void onConnectionCreated(HttpURLConnection conn)
-            {
-                /* Nothing */
-            }
+                } else if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP ||
+                           responseCode == HttpURLConnection.HTTP_MOVED_PERM ||
+                           responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    url = connection.getHeaderField("Location");
+                    Log.i("fetchHttpUrl", "Redirect to the new URL: " + url);
+                    connection.disconnect();
 
-            @Override
-            public void onResponseHandle(HttpURLConnection conn, int code, String message)
-            {
-                if (code == HttpURLConnection.HTTP_OK) {
-                    try {
-                        IOUtils.toByteArray(conn.getInputStream());
-
-                    } catch (IOException e) {
-                        errorArray.add(e);
-                    }
+                    continue;
                 } else {
-                    errorArray.add(new FetchLinkException("Failed to fetch link, response code: " + code));
+                    throw new FetchLinkException("Failed to fetch link, response code: " + responseCode);
                 }
-            }
-
-            @Override
-            public void onMovedPermanently(String newUrl)
-            {
-                /* Nothing */
-            }
-
-            @Override
-            public void onIOException(IOException e)
-            {
+            } catch (Throwable e) {
                 errorArray.add(e);
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
             }
-
-            @Override
-            public void onTooManyRedirects()
-            {
-                errorArray.add(new FetchLinkException("Too many redirects"));
-            }
-        });
-        connection.run();
+            if (response == null && i + 1 == MAX_HTTP_REDIRECTION)
+                throw new FetchLinkException("Failed to fetch link, cyclic redirection");
+            break;
+        }
 
         if (!errorArray.isEmpty()) {
             StringBuilder s = new StringBuilder();
@@ -597,9 +586,7 @@ public class Utils
         return response;
     }
 
-    public static void setTextViewStyle(@NonNull Context context,
-                                        @NonNull TextView textView,
-                                        int resId)
+    public static void setTextViewStyle(Context context, TextView textView, int resId)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             textView.setTextAppearance(context, resId);
@@ -607,7 +594,7 @@ public class Utils
             textView.setTextAppearance(resId);
     }
 
-    public static String getAppVersionName(@NonNull Context context)
+    public static String getAppVersionName(Context context)
     {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -624,8 +611,11 @@ public class Utils
      * Without additional information (e.g -DEBUG)
      */
 
-    public static String getAppVersionNumber(@NonNull String versionName)
+    public static String getAppVersionNumber(String versionName)
     {
+        if (versionName == null)
+            return null;
+
         int index = versionName.indexOf("-");
         if (index >= 0)
             versionName = versionName.substring(0, index);
@@ -637,9 +627,11 @@ public class Utils
      * Return version components in these format: [major, minor, revision]
      */
 
-    public static int[] getVersionComponents(@NonNull String versionName)
+    public static int[] getVersionComponents(String versionName)
     {
         int[] version = new int[3];
+        if (versionName == null)
+            return version;
 
         /* Discard additional information */
         versionName = getAppVersionNumber(versionName);
@@ -661,8 +653,11 @@ public class Utils
         return version;
     }
 
-    public static String makeSha1Hash(@NonNull String s)
+    public static String makeSha1Hash(String s)
     {
+        if (s == null)
+            return null;
+
         MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("SHA1");
@@ -678,37 +673,5 @@ public class Utils
         }
 
         return sha1.toString();
-    }
-
-    public static SSLContext getSSLContext() throws GeneralSecurityException
-    {
-        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        tmf.init((KeyStore)null);
-
-        TrustManager[] trustManagers = tmf.getTrustManagers();
-        final X509TrustManager origTrustManager = (X509TrustManager)trustManagers[0];
-
-        TrustManager[] wrappedTrustManagers = new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers()
-                    {
-                        return origTrustManager.getAcceptedIssuers();
-                    }
-
-                    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException
-                    {
-                        origTrustManager.checkClientTrusted(certs, authType);
-                    }
-
-                    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException
-                    {
-                        origTrustManager.checkServerTrusted(certs, authType);
-                    }
-                }
-        };
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, wrappedTrustManagers, null);
-
-        return sslContext;
     }
 }

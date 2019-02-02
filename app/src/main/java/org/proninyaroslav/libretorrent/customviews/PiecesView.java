@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 /*
  * A widget for display parts map.

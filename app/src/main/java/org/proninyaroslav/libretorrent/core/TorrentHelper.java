@@ -40,8 +40,8 @@ import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
-import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 

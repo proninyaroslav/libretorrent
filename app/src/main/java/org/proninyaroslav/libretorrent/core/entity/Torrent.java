@@ -49,14 +49,20 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public String id;
     @NonNull
     public String name;
-    /* Path to the torrent file (or magnet URI if downloadingMetadata = true) */
+    /*
+     * Filesystem path to the torrent file in app data
+     * (or magnet URI if downloadingMetadata = true)
+     */
     @NonNull
-    public String source;
+    private String source;
     @NonNull
     public Uri downloadPath;
     /*
      * The index position in array must be
      * equal to the priority position in array
+     *
+     * Warning: read-only field, do not change directly,
+     *          only trough setFilesystemPath or setMagnetPath
      */
     @NonNull
     @TypeConverters({PriorityListConverter.class})
@@ -64,6 +70,10 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public boolean sequentialDownload = false;
     public boolean finished = false;
     public boolean paused = false;
+    /*
+     * Warning: read-only field, do not change directly,
+     *          only trough setFilesystemPath or setMagnetPath
+     */
     public boolean downloadingMetadata = false;
     public long dateAdded;
     public String error;
@@ -97,6 +107,29 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         downloadingMetadata = source.readByte() != 0;
         dateAdded = source.readLong();
         error = source.readString();
+    }
+
+    public boolean isDownloadingMetadata()
+    {
+        return downloadingMetadata;
+    }
+
+    @NonNull
+    public String getSource()
+    {
+        return source;
+    }
+
+    public void setFilesystemPath(@NonNull String path)
+    {
+        source = path;
+        downloadingMetadata = false;
+    }
+
+    public void seMagnetUri(@NonNull String magnet)
+    {
+        source = magnet;
+        downloadingMetadata = true;
     }
 
     @Override

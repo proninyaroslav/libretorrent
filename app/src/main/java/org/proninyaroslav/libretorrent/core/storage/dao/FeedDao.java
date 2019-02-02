@@ -39,8 +39,8 @@ public interface FeedDao
     String QUERY_GET_FEED_BY_ID = "SELECT * FROM FeedChannel WHERE url = :url";
     String QUERY_DELETE_FEED_ITEMS = "DELETE FROM FeedItem WHERE feedUrl = :feedUrl";
     String QUERY_DELETE_ITEMS_OLDER_THAN = "DELETE FROM FeedItem WHERE fetchDate < :keepDateBorderTime";
-    String QUERY_MARK_AS_READ = "UPDATE FeedItem SET read = 1 WHERE title = :itemTitle";
-    String QUERY_MARK_AS_UNREAD = "UPDATE FeedItem SET read = 0 WHERE title = :itemTitle";
+    String QUERY_MARK_AS_READ = "UPDATE FeedItem SET read = 1 WHERE id = :itemId";
+    String QUERY_MARK_AS_UNREAD = "UPDATE FeedItem SET read = 0 WHERE id = :itemId";
     String QUERY_MARK_ALL_AS_READ = "UPDATE FeedItem SET read = 1";
     String QUERY_GET_ITEMS_BY_FEED_URL = "SELECT * FROM FeedItem WHERE feedUrl = :feedUrl";
 
@@ -78,10 +78,10 @@ public interface FeedDao
     void deleteItemsOlderThan(long keepDateBorderTime);
 
     @Query(QUERY_MARK_AS_READ)
-    void markAsRead(String itemTitle);
+    void markAsRead(long itemId);
 
     @Query(QUERY_MARK_AS_UNREAD)
-    void markAsUnread(String itemTitle);
+    void markAsUnread(long itemId);
 
     @Query(QUERY_MARK_ALL_AS_READ)
     void markAllAsRead();

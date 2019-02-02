@@ -37,7 +37,7 @@ import android.widget.TextView;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.filetree.TorrentContentFileTree;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 
 import java.util.Collections;

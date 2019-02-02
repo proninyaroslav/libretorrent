@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -34,7 +34,6 @@ public class FetchLinkException extends Exception
 
     public FetchLinkException(Exception e)
     {
-        super(e.getMessage());
-        super.setStackTrace(e.getStackTrace());
+        super(e);
     }
 }

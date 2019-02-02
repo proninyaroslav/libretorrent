@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import androidx.annotation.Nullable;
 import androidx.core.app.JobIntentService;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.libtorrent4j.Priority;
@@ -37,9 +36,9 @@ import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
-import org.proninyaroslav.libretorrent.core.utils.FileIOUtils;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;

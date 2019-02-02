@@ -40,7 +40,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
 import org.proninyaroslav.libretorrent.adapters.TrackerListAdapter;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;

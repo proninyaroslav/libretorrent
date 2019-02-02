@@ -31,7 +31,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 public class SettingsFragment extends PreferenceFragmentCompat
 {

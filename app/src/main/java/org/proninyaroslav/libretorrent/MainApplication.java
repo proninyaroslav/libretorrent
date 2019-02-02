@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,7 +26,10 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.greenrobot.eventbus.EventBus;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
+import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
                 mode = ReportingInteractionMode.DIALOG,
@@ -45,5 +48,20 @@ public class MainApplication extends Application
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
         EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
+    }
+
+    public AppDatabase getDatabase()
+    {
+        return AppDatabase.getInstance(this);
+    }
+
+    public TorrentRepository getTorrentRepository()
+    {
+        return TorrentRepository.getInstance(getDatabase());
+    }
+
+    public FeedRepository getFeedRepository()
+    {
+        return FeedRepository.getInstance(getDatabase());
     }
 }
