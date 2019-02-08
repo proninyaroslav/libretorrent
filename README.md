@@ -7,6 +7,7 @@ LibreTorrent
 [<img alt="Get it on AFH" height="80" width="207" src="https://www.androidfilehost.com/images/afh.png">](https://www.androidfilehost.com/?w=files&flid=246723)
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
+**Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
 
 LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper [libtorrent4j](https://github.com/aldenml/libtorrent4j)) lib.
 
