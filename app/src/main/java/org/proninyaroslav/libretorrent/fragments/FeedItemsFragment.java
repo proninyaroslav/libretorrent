@@ -50,14 +50,14 @@ import android.view.ViewGroup;
 
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.FeedItemsAdapter;
-import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.adapters.old.FeedItemsAdapter;
+import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.old.FeedItem;
 import org.proninyaroslav.libretorrent.core.storage.old.FeedStorage;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.services.FeedFetcherService;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 

@@ -26,10 +26,12 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.greenrobot.eventbus.EventBus;
+import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
                 mode = ReportingInteractionMode.DIALOG,
@@ -48,20 +50,19 @@ public class MainApplication extends Application
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
         EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
-    }
 
-    public AppDatabase getDatabase()
-    {
-        return AppDatabase.getInstance(this);
+        /* TODO: temporary */
+        TorrentEngine.getInstance().setContext(this);
+        TorrentEngine.getInstance().start();
     }
 
     public TorrentRepository getTorrentRepository()
     {
-        return TorrentRepository.getInstance(getDatabase());
+        return TorrentRepository.getInstance(AppDatabase.getInstance(this));
     }
 
     public FeedRepository getFeedRepository()
     {
-        return FeedRepository.getInstance(getDatabase());
+        return FeedRepository.getInstance(AppDatabase.getInstance(this));
     }
 }

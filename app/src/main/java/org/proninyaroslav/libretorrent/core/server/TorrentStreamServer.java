@@ -24,8 +24,8 @@ import android.util.Log;
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.response.Response;
-import org.proninyaroslav.libretorrent.core.TorrentDownload;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.old.TorrentDownload;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentInputStream;
 import org.proninyaroslav.libretorrent.core.TorrentStream;
 

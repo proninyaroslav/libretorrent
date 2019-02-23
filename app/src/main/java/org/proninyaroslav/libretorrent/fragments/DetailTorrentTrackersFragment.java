@@ -42,9 +42,9 @@ import android.view.ViewGroup;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
-import org.proninyaroslav.libretorrent.adapters.TrackerListAdapter;
+import org.proninyaroslav.libretorrent.adapters.old.TrackerListAdapter;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;

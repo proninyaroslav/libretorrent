@@ -6,6 +6,7 @@
     <string name="pref_key_sort_torrent_by" translatable="false">pref_key_sort_torrent_by</string>
     <string name="pref_key_sort_torrent_direction" translatable="false">pref_key_sort_torrent_direction</string>
     <!-- Storage settings -->
+    <string name="pref_key_last_download_dir_uri" translatable="false">pref_key_last_download_dir_uri</string>
     <string name="pref_key_save_torrents_in" translatable="false">pref_key_save_torrents_in</string>
     <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
     <string name="pref_key_move_after_download_in" translatable="false">pref_key_move_after_download_in</string>

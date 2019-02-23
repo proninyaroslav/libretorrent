@@ -35,6 +35,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements

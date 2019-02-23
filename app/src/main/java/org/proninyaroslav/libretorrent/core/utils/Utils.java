@@ -57,7 +57,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -531,7 +531,7 @@ public class Utils
     public static byte[] fetchHttpUrl(@NonNull Context context,
                                       @NonNull String url) throws FetchLinkException
     {
-        byte[] response = null;
+        byte[][] response = new byte[1][];
 
         if (!Utils.checkNetworkConnection(context))
             throw new FetchLinkException("No network connection");
@@ -556,7 +556,7 @@ public class Utils
             {
                 if (code == HttpURLConnection.HTTP_OK) {
                     try {
-                        IOUtils.toByteArray(conn.getInputStream());
+                        response[0] = IOUtils.toByteArray(conn.getInputStream());
 
                     } catch (IOException e) {
                         errorArray.add(e);
@@ -594,7 +594,7 @@ public class Utils
             throw new FetchLinkException(s.toString());
         }
 
-        return response;
+        return response[0];
     }
 
     public static void setTextViewStyle(@NonNull Context context,

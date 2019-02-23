@@ -25,6 +25,7 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.ErrorCode;
@@ -62,13 +63,11 @@ import org.libtorrent4j.swig.string_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
-
-import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.old.Torrent;
-import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
-import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -82,6 +81,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
+
+import androidx.annotation.NonNull;
 
 /*
  * This class is designed for seeding, downloading and management of torrents.
@@ -103,7 +104,7 @@ public class TorrentEngine extends SessionManager
 
     private Context context;
     private InnerListener innerListener;
-    private TorrentEngineCallback callback;
+    private ArrayList<TorrentEngineListener> listeners = new ArrayList<>();
     private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     /* Tasks list */
@@ -184,6 +185,19 @@ public class TorrentEngine extends SessionManager
         return Loader.INSTANCE;
     }
 
+    public interface CallListener
+    {
+        void apply(TorrentEngineListener listener);
+    }
+
+    private void notifyListeners(@NonNull CallListener l)
+    {
+        for (TorrentEngineListener listener : listeners) {
+            if (listener != null)
+                l.apply(listener);
+        }
+    }
+
     private static class Loader
     {
         static final TorrentEngine INSTANCE = new TorrentEngine();
@@ -194,9 +208,14 @@ public class TorrentEngine extends SessionManager
         this.context = context;
     }
 
-    public void setCallback(TorrentEngineCallback callback)
+    public void addListener(TorrentEngineListener callback)
     {
-        this.callback = callback;
+        listeners.add(callback);
+    }
+
+    public void removeListener(TorrentEngineListener callback)
+    {
+        listeners.remove(callback);
     }
 
     public TorrentDownload getTask(String id)
@@ -268,8 +287,7 @@ public class TorrentEngine extends SessionManager
     @Override
     protected void onAfterStart()
     {
-        if (callback != null)
-            callback.onEngineStarted();
+        notifyListeners(TorrentEngineListener::onEngineStarted);
     }
 
     @Override
@@ -313,9 +331,9 @@ public class TorrentEngine extends SessionManager
                     Torrent torrent = addTorrentsQueue.get(hash);
                     if (torrent == null)
                         break;
-                    torrentTasks.put(torrent.getId(), newTask(th, torrent));
-                    if (callback != null)
-                        callback.onTorrentAdded(torrent.getId());
+                    torrentTasks.put(torrent.id, newTask(th, torrent));
+                    notifyListeners((listener) ->
+                            listener.onTorrentAdded(torrent.id));
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
@@ -333,33 +351,34 @@ public class TorrentEngine extends SessionManager
 
     private void checkError(Alert<?> alert)
     {
-        if (callback == null)
-            return;
-
-        switch (alert.type()) {
-            case SESSION_ERROR: {
-                SessionErrorAlert sessionErrorAlert = (SessionErrorAlert)alert;
-                ErrorCode error = sessionErrorAlert.error();
-                if (error.isError())
-                    callback.onSessionError(TorrentUtils.getErrorMsg(error));
-                break;
-            } case LISTEN_FAILED: {
-                ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
-                String fmt = context.getString(R.string.listen_failed_error);
-                callback.onSessionError(String.format(fmt,
-                        listenFailedAlert.address(),
-                        listenFailedAlert.port(),
-                        listenFailedAlert.socketType(),
-                        TorrentUtils.getErrorMsg(listenFailedAlert.error())));
-                break;
-            } case PORTMAP_ERROR: {
-                PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert)alert;
-                ErrorCode error = portmapErrorAlert.error();
-                if (error.isError())
-                    callback.onNatError(TorrentUtils.getErrorMsg(error));
-                break;
+        notifyListeners((listener) -> {
+            switch (alert.type()) {
+                case SESSION_ERROR: {
+                    SessionErrorAlert sessionErrorAlert = (SessionErrorAlert) alert;
+                    ErrorCode error = sessionErrorAlert.error();
+                    if (error.isError())
+                        listener.onSessionError(TorrentUtils.getErrorMsg(error));
+                    break;
+                }
+                case LISTEN_FAILED: {
+                    ListenFailedAlert listenFailedAlert = (ListenFailedAlert) alert;
+                    String fmt = context.getString(R.string.listen_failed_error);
+                    listener.onSessionError(String.format(fmt,
+                            listenFailedAlert.address(),
+                            listenFailedAlert.port(),
+                            listenFailedAlert.socketType(),
+                            TorrentUtils.getErrorMsg(listenFailedAlert.error())));
+                    break;
+                }
+                case PORTMAP_ERROR: {
+                    PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert) alert;
+                    ErrorCode error = portmapErrorAlert.error();
+                    if (error.isError())
+                        listener.onNatError(TorrentUtils.getErrorMsg(error));
+                    break;
+                }
             }
-        }
+        });
     }
 
     private void handleMetadata(MetadataReceivedAlert metadataAlert)
@@ -378,8 +397,8 @@ public class TorrentEngine extends SessionManager
             loadedMagnets.put(hash, bencode);
         remove(th, SessionHandle.DELETE_FILES);
 
-        if (callback != null)
-            callback.onMagnetLoaded(hash, bencode);
+        notifyListeners((listener) ->
+                listener.onMagnetLoaded(hash, loadedMagnets.get(hash)));
     }
 
     public byte[] getLoadedMagnet(String hash)
@@ -401,30 +420,31 @@ public class TorrentEngine extends SessionManager
             if (torrent == null)
                 continue;
 
-            LoadTorrentTask loadTask = new LoadTorrentTask(torrent.getId());
+            LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata()) {
                 loadTask.putMagnet(torrent.getSource(), new File(torrent.getSource()));
             } else {
                 TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
-                List<Priority> priorities = torrent.getFilePriorities();
-                if (priorities == null || priorities.size() != ti.numFiles()) {
-                    if (callback != null)
-                        callback.onRestoreSessionError(torrent.getId());
+                List<Priority> priorities = torrent.filePriorities;
+                if (priorities.size() != ti.numFiles()) {
+                    notifyListeners((listener) ->
+                            listener.onRestoreSessionError(torrent.id));
                     continue;
                 }
 
-                File saveDir = new File(torrent.getDownloadPath());
-                String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
+                /* TODO: SAF support */
+                File saveDir = new File(torrent.downloadPath.getPath());
+                String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.id);
                 File resumeFile = null;
                 if (dataDir != null) {
-                    File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
+                    File file = new File(dataDir, TorrentRepository.DataModel.TORRENT_RESUME_FILE_NAME);
                     if (file.exists())
                         resumeFile = file;
                 }
                 loadTask.putTorrentFile(new File(torrent.getSource()), saveDir,
                                         resumeFile, priorities.toArray(new Priority[priorities.size()]));
             }
-            addTorrentsQueue.put(torrent.getId(), torrent);
+            addTorrentsQueue.put(torrent.id, torrent);
             loadTorrentsQueue.add(loadTask);
         }
         runNextLoadTorrentTask();
@@ -447,29 +467,30 @@ public class TorrentEngine extends SessionManager
 
     public void download(Torrent torrent)
     {
-        if (magnets.contains(torrent.getId()))
-            cancelFetchMagnet(torrent.getId());
+        if (magnets.contains(torrent.id))
+            cancelFetchMagnet(torrent.id);
 
-        File saveDir = new File(torrent.getDownloadPath());
+        /* TODO: SAF support */
+        File saveDir = new File(torrent.downloadPath.getPath());
         if (torrent.isDownloadingMetadata()) {
-            addTorrentsQueue.put(torrent.getId(), torrent);
+            addTorrentsQueue.put(torrent.id, torrent);
             download(torrent.getSource(), saveDir);
             return;
         }
 
         TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
-        List<Priority> priorities = torrent.getFilePriorities();
-        if (priorities == null || priorities.size() != ti.numFiles())
-            throw new IllegalArgumentException("File count doesn't match: " + torrent.getName());
+        List<Priority> priorities = torrent.filePriorities;
+        if (priorities.size() != ti.numFiles())
+            throw new IllegalArgumentException("File count doesn't match: " + torrent.name);
 
-        TorrentDownload task = torrentTasks.get(torrent.getId());
+        TorrentDownload task = torrentTasks.get(torrent.id);
         if (task != null)
             task.remove(false);
 
-        String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.getId());
+        String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.id);
         File resumeFile = null;
         if (dataDir != null) {
-            File file = new File(dataDir, TorrentStorage.Model.DATA_TORRENT_RESUME_FILE_NAME);
+            File file = new File(dataDir, TorrentRepository.DataModel.TORRENT_RESUME_FILE_NAME);
             if (file.exists())
                 resumeFile = file;
         }
@@ -656,8 +677,8 @@ public class TorrentEngine extends SessionManager
         parser.setOnParsedListener((ip_filter filter, boolean success) -> {
             if (success && swig() != null)
                 swig().set_ip_filter(filter);
-            if (callback != null)
-                callback.onIpFilterParsed(success);
+            notifyListeners((listener) ->
+                    listener.onIpFilterParsed(success));
         });
         parser.parse();
     }
@@ -786,8 +807,8 @@ public class TorrentEngine extends SessionManager
                     add = false;
                     torrent_info ti = th.torrent_file_ptr();
                     loadedMagnets.put(hash.to_hex(), createTorrent(p, ti));
-                    if (callback != null)
-                        callback.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null);
+                    notifyListeners((listener) ->
+                            listener.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null));
                 } else {
                     add = true;
                 }
@@ -841,9 +862,9 @@ public class TorrentEngine extends SessionManager
         return Vectors.byte_vector2bytes(e.bencode());
     }
 
-    public void cancelFetchMagnet(String infoHash)
+    public void cancelFetchMagnet(@NonNull String infoHash)
     {
-        if (infoHash == null || !magnets.contains(infoHash))
+        if (!magnets.contains(infoHash))
             return;
 
         magnets.remove(infoHash);
@@ -904,12 +925,12 @@ public class TorrentEngine extends SessionManager
 
     public TorrentDownload newTask(TorrentHandle th, Torrent torrent)
     {
-        TorrentDownload task = new TorrentDownload(context, th, torrent, callback);
+        TorrentDownload task = new TorrentDownload(context, th, torrent, listeners);
         task.setMaxConnections(settings.connectionsLimitPerTorrent);
         task.setMaxUploads(settings.uploadsLimitPerTorrent);
-        task.setSequentialDownload(torrent.isSequentialDownload());
+        task.setSequentialDownload(torrent.sequentialDownload);
         task.setAutoManaged(settings.autoManaged);
-        if (torrent.isPaused())
+        if (torrent.paused)
             task.pause();
         else
             task.resume();
@@ -936,7 +957,7 @@ public class TorrentEngine extends SessionManager
         if (torrent == null)
             return;
 
-        TorrentDownload task = torrentTasks.get(torrent.getId());
+        TorrentDownload task = torrentTasks.get(torrent.id);
         if (task == null)
             return;
 
@@ -950,12 +971,12 @@ public class TorrentEngine extends SessionManager
         }
 
         task.setTorrent(torrent);
-        task.setSequentialDownload(torrent.isSequentialDownload());
+        task.setSequentialDownload(torrent.sequentialDownload);
         task.addTrackers(ti.trackers());
         task.addWebSeeds(ti.webSeeds());
-        Priority[] priorities = new Priority[torrent.getFilePriorities().size()];
-        task.prioritizeFiles(torrent.getFilePriorities().toArray(priorities));
-        if (torrent.isPaused())
+        Priority[] priorities = new Priority[torrent.filePriorities.size()];
+        task.prioritizeFiles(torrent.filePriorities.toArray(priorities));
+        if (torrent.paused)
             task.pause();
         else
             task.resume();
@@ -1003,8 +1024,8 @@ public class TorrentEngine extends SessionManager
 
             } catch (Exception e) {
                 Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
-                if (callback != null)
-                    callback.onRestoreSessionError(torrentId);
+                notifyListeners((listener) ->
+                        listener.onRestoreSessionError(torrentId));
             }
         }
     }

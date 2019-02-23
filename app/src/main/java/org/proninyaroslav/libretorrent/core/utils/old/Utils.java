@@ -60,7 +60,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
 import java.net.HttpURLConnection;

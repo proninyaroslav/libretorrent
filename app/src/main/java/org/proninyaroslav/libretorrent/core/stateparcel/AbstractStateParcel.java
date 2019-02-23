@@ -28,8 +28,8 @@ import java.util.UUID;
  * The class provides an abstract package model, sent from the service.
  */
 
-public abstract class AbstractStateParcel<F extends AbstractStateParcel>
-        implements Parcelable, Comparable<F>
+public abstract class AbstractStateParcel
+        implements Parcelable, Comparable
 {
     public String parcelId;
 

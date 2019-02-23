@@ -33,7 +33,7 @@ import java.util.List;
  * about the state of the bittorrent tracker, sent from the service.
  */
 
-public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
+public class TrackerStateParcel extends AbstractStateParcel
 {
     public static final String DHT_ENTRY_NAME = "**DHT**";
     public static final String LSD_ENTRY_NAME = "**LSD**";
@@ -153,9 +153,9 @@ public class TrackerStateParcel extends AbstractStateParcel<TrackerStateParcel>
 
 
     @Override
-    public int compareTo(@NonNull TrackerStateParcel another)
+    public int compareTo(@NonNull Object another)
     {
-        return url.compareTo(another.url);
+        return url.compareTo(((TrackerStateParcel)another).url);
     }
 
     @Override

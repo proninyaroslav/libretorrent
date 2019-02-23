@@ -30,7 +30,7 @@ import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.ErrorCode;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;

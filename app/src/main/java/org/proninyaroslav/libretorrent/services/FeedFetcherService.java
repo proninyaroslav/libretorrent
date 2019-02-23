@@ -33,7 +33,7 @@ import org.proninyaroslav.libretorrent.core.old.FeedChannel;
 import org.proninyaroslav.libretorrent.core.old.FeedItem;
 import org.proninyaroslav.libretorrent.core.FeedParser;
 import org.proninyaroslav.libretorrent.core.storage.old.FeedStorage;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.List;

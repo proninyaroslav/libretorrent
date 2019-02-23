@@ -4,14 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <include
-        layout="@layout/statusbar_kitkat"/>
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@id/statusBarKitKat"
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="enterAlways"

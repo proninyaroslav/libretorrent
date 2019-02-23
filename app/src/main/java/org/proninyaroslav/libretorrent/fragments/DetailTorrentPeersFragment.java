@@ -35,7 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.PeerListAdapter;
+import org.proninyaroslav.libretorrent.adapters.old.PeerListAdapter;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;

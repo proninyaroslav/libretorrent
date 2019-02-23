@@ -30,9 +30,10 @@ import org.proninyaroslav.libretorrent.core.TorrentStateCode;
  * about state of the torrent, sent from the service.
  */
 
-public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
+public class BasicStateParcel extends AbstractStateParcel
 {
-    public String torrentId = "";
+    @NonNull
+    public String torrentId;
     public String name = "";
     public TorrentStateCode stateCode = TorrentStateCode.UNKNOWN;
     public int progress = 0;
@@ -47,12 +48,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
     public int peers = 0;
     public String error;
 
-    public BasicStateParcel()
-    {
-        super();
-    }
-
-    public BasicStateParcel(String torrentId, String name, long dateAdded)
+    public BasicStateParcel(@NonNull String torrentId, String name, long dateAdded)
     {
         super(torrentId);
 
@@ -62,7 +58,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
         this.dateAdded = dateAdded;
     }
 
-    public BasicStateParcel(String torrentId, String name,
+    public BasicStateParcel(@NonNull String torrentId, String name,
                             TorrentStateCode stateCode, int progress,
                             long receivedBytes, long uploadedBytes,
                             long totalBytes, long downloadSpeed,
@@ -151,9 +147,9 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
             };
 
     @Override
-    public int compareTo(@NonNull BasicStateParcel another)
+    public int compareTo(@NonNull Object another)
     {
-        return name.compareTo(another.name);
+        return name.compareTo(((BasicStateParcel)another).name);
     }
 
     @Override
@@ -161,7 +157,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
     {
         int prime = 31, result = 1;
 
-        result = prime * result + ((torrentId == null) ? 0 : torrentId.hashCode());
+        result = prime * result + torrentId.hashCode();
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((stateCode == null) ? 0 : stateCode.hashCode());
         result = prime * result + progress;
@@ -190,7 +186,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
 
         BasicStateParcel state = (BasicStateParcel) o;
 
-        return (torrentId == null || torrentId.equals(state.torrentId)) &&
+        return (torrentId.equals(state.torrentId) &&
                 (name == null || name.equals(state.name)) &&
                 (stateCode == null || stateCode.equals(state.stateCode)) &&
                 progress == state.progress &&
@@ -203,7 +199,7 @@ public class BasicStateParcel extends AbstractStateParcel<BasicStateParcel>
                 dateAdded == state.dateAdded &&
                 totalPeers == state.totalPeers &&
                 peers == state.peers &&
-                (error == null || error.equals(state.error));
+                (error == null || error.equals(state.error)));
     }
 
     @Override

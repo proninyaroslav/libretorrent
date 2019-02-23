@@ -35,10 +35,11 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.List;

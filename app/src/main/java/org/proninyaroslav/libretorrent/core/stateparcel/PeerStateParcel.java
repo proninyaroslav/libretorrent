@@ -33,7 +33,7 @@ import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
  * about the state of the peer, sent from the service.
  */
 
-public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
+public class PeerStateParcel extends AbstractStateParcel
 {
     public String ip;
     public String client;
@@ -180,9 +180,9 @@ public class PeerStateParcel extends AbstractStateParcel<PeerStateParcel>
             };
 
     @Override
-    public int compareTo(@NonNull PeerStateParcel another)
+    public int compareTo(@NonNull Object another)
     {
-        return ip.compareTo(another.ip);
+        return ip.compareTo(((PeerStateParcel)another).ip);
     }
 
     @Override

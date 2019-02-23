@@ -31,7 +31,7 @@ import org.libtorrent4j.Priority;
 
 import org.apache.commons.io.FileUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
@@ -39,7 +39,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
 import java.util.ArrayList;

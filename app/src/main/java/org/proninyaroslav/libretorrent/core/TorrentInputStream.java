@@ -28,6 +28,9 @@ import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.ReadPieceAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
+import org.proninyaroslav.libretorrent.core.old.TorrentDownload;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
+
 import com.sun.jna.Pointer;
 
 import java.io.IOException;

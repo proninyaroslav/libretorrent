@@ -31,6 +31,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class StreamingSettingsFragment extends PreferenceFragmentCompat
         implements

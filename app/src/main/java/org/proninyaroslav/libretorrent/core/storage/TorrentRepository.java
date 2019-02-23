@@ -23,6 +23,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
@@ -50,6 +51,7 @@ public class TorrentRepository
 
     private static TorrentRepository INSTANCE;
     private AppDatabase db;
+    private TorrentStateProvider stateProvider;
 
     public static TorrentRepository getInstance(AppDatabase db)
     {
@@ -65,6 +67,7 @@ public class TorrentRepository
     private TorrentRepository(AppDatabase db)
     {
         this.db = db;
+        this.stateProvider = new TorrentStateProvider();
     }
 
     public void addTorrent(@NonNull Context context,
@@ -148,7 +151,7 @@ public class TorrentRepository
 
     private void copyStatusToNew(Torrent torrent)
     {
-        Torrent oldTorrent = db.torrentDao().getTorrentById(torrent.id);
+        Torrent oldTorrent = getTorrentById(torrent.id);
         if (oldTorrent != null) {
             torrent.paused = oldTorrent.paused;
             torrent.finished = oldTorrent.finished;
@@ -169,6 +172,11 @@ public class TorrentRepository
             Log.e(TAG, "Can't delete torrent data " + torrent);
     }
 
+    public Torrent getTorrentById(@NonNull String id)
+    {
+        return db.torrentDao().getTorrentById(id);
+    }
+
     public Flowable<Torrent> observeTorrentById(@NonNull String id)
     {
         return db.torrentDao().observeTorrentById(id);
@@ -177,5 +185,10 @@ public class TorrentRepository
     public Flowable<List<Torrent>> observeAllTorrents()
     {
         return db.torrentDao().observeAllTorrents();
+    }
+
+    public TorrentStateProvider getStateProvider()
+    {
+        return stateProvider;
     }
 }

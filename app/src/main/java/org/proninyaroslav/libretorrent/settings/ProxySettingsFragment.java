@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class ProxySettingsFragment extends PreferenceFragmentCompat
         implements

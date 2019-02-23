@@ -32,6 +32,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         implements

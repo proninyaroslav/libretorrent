@@ -47,7 +47,7 @@ import android.widget.TextView;
 import org.libtorrent4j.Priority;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.TorrentContentFilesAdapter;
+import org.proninyaroslav.libretorrent.adapters.old.TorrentContentFilesAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.filetree.FilePriority;
@@ -58,8 +58,8 @@ import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.List;

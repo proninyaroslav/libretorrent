@@ -30,7 +30,7 @@ import java.util.Arrays;
  * changing information about state of the torrent.
  */
 
-public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
+public class AdvanceStateParcel extends AbstractStateParcel
 {
     public String torrentId = "";
     public int totalSeeds = 0;
@@ -123,9 +123,9 @@ public class AdvanceStateParcel extends AbstractStateParcel<AdvanceStateParcel>
             };
 
     @Override
-    public int compareTo(@NonNull AdvanceStateParcel another)
+    public int compareTo(@NonNull Object another)
     {
-        return torrentId.compareTo(another.torrentId);
+        return torrentId.compareTo(((AdvanceStateParcel)another).torrentId);
     }
 
     @Override

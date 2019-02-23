@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.acra.dialog.BaseCrashReportDialog;
-import org.proninyaroslav.libretorrent.dialogs.ErrorReportAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
 
 public class ErrorReportActivity extends BaseCrashReportDialog
         implements

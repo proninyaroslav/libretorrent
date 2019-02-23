@@ -32,7 +32,8 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         implements

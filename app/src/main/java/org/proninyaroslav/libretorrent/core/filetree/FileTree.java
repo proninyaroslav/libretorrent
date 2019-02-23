@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core.filetree;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.Serializable;
@@ -186,6 +187,23 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
     public int compareTo(@NonNull FileTree another)
     {
         return name.compareTo(another.getName());
+    }
+
+    @Override
+    public boolean equals(@Nullable Object o)
+    {
+        if (!(o instanceof FileTree))
+            return false;
+
+        if (o == this)
+            return true;
+
+        FileTree fileTree = (FileTree)o;
+
+        return index == fileTree.index &&
+                (name == null || name.equals(fileTree.name)) &&
+                size == fileTree.size &&
+                isLeaf == fileTree.isLeaf;
     }
 
     @Override

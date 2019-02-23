@@ -66,6 +66,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
      */
     @NonNull
     @TypeConverters({PriorityListConverter.class})
+    /* May be empty */
     public List<Priority> filePriorities;
     public boolean sequentialDownload = false;
     public boolean finished = false;
@@ -126,7 +127,7 @@ public class Torrent implements Parcelable, Comparable<Torrent>
         downloadingMetadata = false;
     }
 
-    public void seMagnetUri(@NonNull String magnet)
+    public void setMagnetUri(@NonNull String magnet)
     {
         source = magnet;
         downloadingMetadata = true;

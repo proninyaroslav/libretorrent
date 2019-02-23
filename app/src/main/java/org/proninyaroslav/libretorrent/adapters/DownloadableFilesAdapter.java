@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,8 +20,6 @@
 package org.proninyaroslav.libretorrent.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,108 +35,128 @@ import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
 /*
- * The adapter for representation of downloadable files in a file tree view.
+ * The adapter for directory or file chooser dialog.
  */
 
-public class DownloadableFilesAdapter
-        extends BaseFileListAdapter<DownloadableFilesAdapter.ViewHolder, BencodeFileTree>
+public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, DownloadableFilesAdapter.ViewHolder>
 {
-    private Context context;
-    private ViewHolder.ClickListener clickListener;
-    private int rowLayout;
+    @SuppressWarnings("unused")
+    private static final String TAG = DownloadableFilesAdapter.class.getSimpleName();
 
-    public DownloadableFilesAdapter(List<BencodeFileTree> files, Context context,
-                                    int rowLayout, ViewHolder.ClickListener clickListener)
+    private ClickListener clickListener;
+
+    public DownloadableFilesAdapter(ClickListener clickListener)
     {
-        this.context = context;
-        this.rowLayout = rowLayout;
+        super(diffCallback);
+
         this.clickListener = clickListener;
-        Collections.sort(files);
-        this.files = files;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View v = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_torrent_downloadable_file, parent, false);
 
-        return new ViewHolder(v, clickListener, files);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        final BencodeFileTree file = files.get(position);
-
-        holder.fileName.setText(file.getName());
-
-        if (file.getType() == FileNode.Type.DIR)
-            holder.fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-        else if (file.getType() == FileNode.Type.FILE)
-            holder.fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
-
-        if (file.getName().equals(BencodeFileTree.PARENT_DIR)) {
-            holder.fileSelected.setVisibility(View.GONE);
-            holder.fileSize.setVisibility(View.GONE);
-        } else {
-            holder.fileSelected.setVisibility(View.VISIBLE);
-            holder.fileSelected.setChecked(file.isSelected());
-            holder.fileSize.setVisibility(View.VISIBLE);
-            holder.fileSize.setText(Formatter.formatFileSize(context, file.size()));
-        }
+        holder.bind(getItem(position), clickListener);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    @Override
+    public void submitList(@Nullable List<BencodeFileTree> list)
     {
-        private ClickListener listener;
-        private List<BencodeFileTree> files;
-        TextView fileName;
-        TextView fileSize;
-        ImageView fileIcon;
-        CheckBox fileSelected;
+        if (list != null)
+            Collections.sort(list);
 
-        public ViewHolder(View itemView, final ClickListener listener, final List<BencodeFileTree> files)
+        super.submitList(list);
+    }
+
+    public static final DiffUtil.ItemCallback<BencodeFileTree> diffCallback = new DiffUtil.ItemCallback<BencodeFileTree>()
+    {
+        @Override
+        public boolean areContentsTheSame(@NonNull BencodeFileTree oldItem,
+                                          @NonNull BencodeFileTree newItem)
         {
-            super(itemView);
-
-            this.listener = listener;
-            this.files = files;
-            itemView.setOnClickListener(this);
-
-            fileName = itemView.findViewById(R.id.file_name);
-            fileSize = itemView.findViewById(R.id.file_size);
-            fileIcon = itemView.findViewById(R.id.file_icon);
-            fileSelected = itemView.findViewById(R.id.file_selected);
-            fileSelected.setOnClickListener((View v) -> {
-                if (listener != null)
-                    listener.onItemCheckedChanged(ViewHolder.this.files.get(getAdapterPosition()),
-                                                  fileSelected.isChecked());
-            });
+            return oldItem.equals(newItem);
         }
 
         @Override
-        public void onClick(View v)
+        public boolean areItemsTheSame(@NonNull BencodeFileTree oldItem,
+                                       @NonNull BencodeFileTree newItem)
         {
-            int position = getAdapterPosition();
+            return oldItem.equals(newItem);
+        }
+    };
 
-            if (listener != null && position >= 0) {
-                BencodeFileTree file = files.get(position);
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
+        private TextView fileName;
+        private ImageView fileIcon;
+        private CheckBox selected;
+        private TextView fileSize;
 
-                if (file.getType() == FileNode.Type.FILE) {
+        public ViewHolder(View itemView)
+        {
+            super(itemView);
+
+            fileName = itemView.findViewById(R.id.file_name);
+            fileIcon = itemView.findViewById(R.id.file_icon);
+            selected = itemView.findViewById(R.id.file_selected);
+            fileSize = itemView.findViewById(R.id.file_size);
+        }
+
+        void bind(BencodeFileTree item, ClickListener listener)
+        {
+            Context context = itemView.getContext();
+
+            itemView.setOnClickListener((v) -> {
+                if (item.getType() == FileNode.Type.FILE) {
                     /* Check file if it clicked */
-                    fileSelected.performClick();
+                    selected.performClick();
                 }
+                if (listener != null)
+                    listener.onItemClicked(item);
+            });
+            selected.setOnClickListener((View v) -> {
+                if (listener != null)
+                    listener.onItemCheckedChanged(item, selected.isChecked());
+            });
 
-                listener.onItemClicked(file);
+            fileName.setText(item.getName());
+
+            if (item.getType() == FileNode.Type.DIR)
+                fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
+            else if (item.getType() == FileNode.Type.FILE)
+                fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
+
+            if (item.getName().equals(BencodeFileTree.PARENT_DIR)) {
+                selected.setVisibility(View.GONE);
+                fileSize.setVisibility(View.GONE);
+            } else {
+                selected.setVisibility(View.VISIBLE);
+                selected.setChecked(item.isSelected());
+                fileSize.setVisibility(View.VISIBLE);
+                fileSize.setText(Formatter.formatFileSize(context, item.size()));
             }
         }
+    }
 
-        public interface ClickListener
-        {
-            void onItemClicked(BencodeFileTree node);
+    public interface ClickListener
+    {
+        void onItemClicked(BencodeFileTree item);
 
-            void onItemCheckedChanged(BencodeFileTree node, boolean selected);
-        }
+        void onItemCheckedChanged(BencodeFileTree node, boolean selected);
     }
 }

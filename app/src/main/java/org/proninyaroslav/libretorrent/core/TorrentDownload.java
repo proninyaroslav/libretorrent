@@ -50,12 +50,11 @@ import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
-
+import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.old.Torrent;
-import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
-import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
-import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,6 +65,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 /*
  * This class encapsulate one stream with running torrent.
@@ -105,7 +106,7 @@ public class TorrentDownload
     private Context context;
     private TorrentHandle th;
     private Torrent torrent;
-    private TorrentEngineCallback callback;
+    private final List<TorrentEngineListener> listeners;
     private InnerListener listener;
     private Set<File> incompleteFilesToRemove;
     private File parts;
@@ -115,17 +116,31 @@ public class TorrentDownload
     public TorrentDownload(Context context,
                            TorrentHandle handle,
                            Torrent torrent,
-                           TorrentEngineCallback callback)
+                           final List<TorrentEngineListener> listeners)
     {
         this.context = context;
         this.th = handle;
         this.name = handle.name();
         this.torrent = torrent;
-        this.callback = callback;
+        this.listeners = listeners;
         TorrentInfo ti = th.torrentFile();
-        this.parts = (ti != null ? new File(torrent.getDownloadPath(), "." + ti.infoHash() + ".parts") : null);
+        /* TODO: SAF support */
+        this.parts = (ti != null ? new File(torrent.downloadPath.getPath(), "." + ti.infoHash() + ".parts") : null);
         listener = new InnerListener();
         TorrentEngine.getInstance().addListener(listener);
+    }
+
+    private interface CallListener
+    {
+        void apply(TorrentEngineListener listener);
+    }
+
+    private void notifyListeners(@NonNull CallListener l)
+    {
+        for (TorrentEngineListener listener : listeners) {
+            if (listener != null)
+                l.apply(listener);
+        }
     }
 
     private final class InnerListener implements AlertListener
@@ -145,40 +160,44 @@ public class TorrentDownload
             if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig()))
                 return;
 
-            if (callback == null)
-                return;
-
             AlertType type = alert.type();
             switch (type) {
                 case BLOCK_FINISHED:
                 case STATE_CHANGED:
-                    callback.onTorrentStateChanged(torrent.getId());
+                    notifyListeners((listener) ->
+                            listener.onTorrentStateChanged(torrent.id));
                     break;
                 case TORRENT_FINISHED:
-                    callback.onTorrentFinished(torrent.getId());
+                    notifyListeners((listener) ->
+                            listener.onTorrentFinished(torrent.id));
                     saveResumeData(true);
                     break;
                 case TORRENT_REMOVED:
                     torrentRemoved();
                     break;
                 case TORRENT_PAUSED:
-                    callback.onTorrentPaused(torrent.getId());
+                    notifyListeners((listener) ->
+                            listener.onTorrentPaused(torrent.id));
                     break;
                 case TORRENT_RESUMED:
-                    callback.onTorrentResumed(torrent.getId());
+                    notifyListeners((listener) ->
+                            listener.onTorrentResumed(torrent.id));
                     break;
                 case STATS:
-                    callback.onTorrentStateChanged(torrent.getId());
+                    notifyListeners((listener) ->
+                            listener.onTorrentStateChanged(torrent.id));
                     break;
                 case SAVE_RESUME_DATA:
                     serializeResumeData((SaveResumeDataAlert)alert);
                     break;
                 case STORAGE_MOVED:
-                    callback.onTorrentMoved(torrent.getId(), true);
+                    notifyListeners((listener) ->
+                            listener.onTorrentMoved(torrent.id, true));
                     saveResumeData(true);
                     break;
                 case STORAGE_MOVED_FAILED:
-                    callback.onTorrentMoved(torrent.getId(), false);
+                    notifyListeners((listener) ->
+                            listener.onTorrentMoved(torrent.id, false));
                     saveResumeData(true);
                     break;
                 case PIECE_FINISHED:
@@ -208,20 +227,22 @@ public class TorrentDownload
                 TorrentErrorAlert errorAlert = (TorrentErrorAlert)alert;
                 ErrorCode error = errorAlert.error();
                 if (error.isError()) {
-                    String errorMsg = "";
+                    StringBuilder errorMsg = new StringBuilder();
                     String filename = errorAlert.filename().substring(
                             errorAlert.filename().lastIndexOf("/") + 1);
                     if (errorAlert.filename() != null)
-                        errorMsg = "[" + filename + "] ";
-                    errorMsg += TorrentUtils.getErrorMsg(error);
-                    callback.onTorrentError(torrent.getId(), errorMsg);
+                        errorMsg.append("[").append(filename).append("] ");
+                    errorMsg.append(TorrentUtils.getErrorMsg(error));
+                    notifyListeners((listener) ->
+                            listener.onTorrentError(torrent.id, errorMsg.toString()));
                 }
                 break;
             } case METADATA_FAILED: {
                 MetadataFailedAlert metadataFailedAlert = (MetadataFailedAlert)alert;
                 ErrorCode error = metadataFailedAlert.getError();
                 if (error.isError())
-                    callback.onTorrentError(torrent.getId(), TorrentUtils.getErrorMsg(error));
+                    notifyListeners((listener) ->
+                            listener.onTorrentError(torrent.id, TorrentUtils.getErrorMsg(error)));
                 break;
             } case FILE_ERROR: {
                 FileErrorAlert fileErrorAlert = (FileErrorAlert)alert;
@@ -231,7 +252,8 @@ public class TorrentDownload
                 if (error.isError()) {
                     String errorMsg = "[" + filename + "] " +
                             TorrentUtils.getErrorMsg(error);
-                    callback.onTorrentError(torrent.getId(), errorMsg);
+                    notifyListeners((listener) ->
+                            listener.onTorrentError(torrent.id, errorMsg));
                 }
                 break;
             }
@@ -240,38 +262,36 @@ public class TorrentDownload
 
     private void handleMetadata(byte[] bencode, String hash, String newName)
     {
-        Exception err = null;
+        Exception[] err = new Exception[1];
         try {
             String pathToDir = TorrentUtils.findTorrentDataDir(context, hash);
             if (pathToDir == null)
                 throw new FileNotFoundException("Data dir not found");
 
-            File torrentFile = TorrentUtils.createTorrentFile(TorrentStorage.Model.DATA_TORRENT_FILE_NAME, bencode, new File(pathToDir));
+            File torrentFile = new File(pathToDir, TorrentRepository.DataModel.TORRENT_FILE_NAME);
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile, bencode);
             String pathToTorrent;
-            if (torrentFile != null && torrentFile.exists())
+            if (torrentFile.exists())
                 pathToTorrent = torrentFile.getAbsolutePath();
             else
                 throw new FileNotFoundException("Torrent file not found");
 
             TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
-            long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
-            if (freeSpace < info.torrentSize)
+            long availableBytes = FileUtils.getDirAvailableBytes(context, torrent.downloadPath);
+            if (availableBytes < info.torrentSize)
                 throw new FreeSpaceException("Not enough free space: "
-                        + freeSpace + " free, but torrent size is " + info.torrentSize);
+                        + availableBytes + " free, but torrent size is " + info.torrentSize);
 
             /* Skip if default name is changed */
-            if (torrent.getName().equals(name)) {
+            if (torrent.name.equals(name)) {
                 name = newName;
-                torrent.setName(newName);
+                torrent.name = newName;
             }
-            String uri = torrent.getSource();
-            /* Change to filepath */
-            torrent.setSource(pathToTorrent);
 
             ArrayList<Priority> priorities = null;
             MagnetInfo magnetInfo = null;
             try {
-                magnetInfo = new MagnetInfo(uri);
+                magnetInfo = new MagnetInfo(torrent.getSource());
             } catch (IllegalArgumentException e) {
                 /* Ignore */
             }
@@ -294,26 +314,27 @@ public class TorrentDownload
                         Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
             }
 
-            torrent.setFilePriorities(priorities);
-            torrent.setDownloadingMetadata(false);
-            setSequentialDownload(torrent.isSequentialDownload());
-            if (torrent.isPaused())
+            torrent.filePriorities = priorities;
+            torrent.setFilesystemPath(pathToTorrent);
+            setSequentialDownload(torrent.sequentialDownload);
+            if (torrent.paused)
                 pause();
             else
                 resume();
-            setDownloadPath(torrent.getDownloadPath());
+            /* TODO: SAF support */
+            setDownloadPath(torrent.downloadPath.getPath());
         } catch (Exception e) {
-            err = e;
+            err[0] = e;
             remove(true);
         }
-        if (callback != null)
-            callback.onTorrentMetadataLoaded(hash, err);
+        notifyListeners((listener) ->
+                listener.onTorrentMetadataLoaded(hash, err[0]));
     }
 
     private void torrentRemoved()
     {
-        if (callback != null)
-            callback.onTorrentRemoved(torrent.getId());
+        notifyListeners((listener) ->
+                listener.onTorrentRemoved(torrent.id));
 
         TorrentEngine.getInstance().removeListener(listener);
         if (parts != null)
@@ -352,7 +373,7 @@ public class TorrentDownload
         try {
             if (th.isValid()) {
                 byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
-                TorrentUtils.saveResumeData(context, torrent.getId(), Vectors.byte_vector2bytes(data));
+                TorrentUtils.saveResumeData(context, torrent.id, Vectors.byte_vector2bytes(data));
             }
         } catch (Throwable e) {
             Log.e(TAG, "Error saving resume data of " + torrent + ":");
@@ -528,7 +549,8 @@ public class TorrentDownload
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
             TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
-            String prefix = torrent.getDownloadPath();
+            /* TODO: SAF support */
+            String prefix = torrent.downloadPath.getPath();
             File torrentFile = new File(torrent.getSource());
             if (!torrentFile.exists())
                 return s;
@@ -551,7 +573,7 @@ public class TorrentDownload
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "Error calculating the incomplete files set of " + torrent.getId());
+            Log.e(TAG, "Error calculating the incomplete files set of " + torrent.id);
         }
 
         return s;
@@ -1169,7 +1191,7 @@ public class TorrentDownload
         if (filePieces == null)
             throw new IllegalArgumentException("Incorrect file index");
 
-        return new TorrentStream(torrent.getId(), fileIndex,
+        return new TorrentStream(torrent.id, fileIndex,
                                  filePieces.first, filePieces.second, ti.pieceLength(),
                                  fs.fileOffset(fileIndex), fs.fileSize(fileIndex),
                                  ti.pieceSize(filePieces.second));

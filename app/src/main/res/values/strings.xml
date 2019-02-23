@@ -36,6 +36,8 @@
     <string name="refresh">Refresh</string>
     <string name="edit">Edit</string>
     <string name="menu">Menu</string>
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -154,6 +156,8 @@
     <string name="files_size" formatted="false">Selected %1$s out of %2$s</string>
     <string name="start_torrent">Start torrent</string>
     <string name="file_is_too_large_error">File is too large</string>
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="error_empty_name">Please enter name</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
@@ -187,7 +191,10 @@
     <string name="file_name">File name</string>
     <string name="error_file_exists">File already exists</string>
     <string name="file_name_is_empty">File name cannot be empty</string>
-
+    <string name="system_manager">System manager</string>
+    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
 
     <!-- Error dialog -->
     <string name="report">Report</string>

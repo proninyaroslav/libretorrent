@@ -11,6 +11,7 @@
     <dimen name="button_elevation">2dp</dimen>
     <dimen name="button_press_elevation">4dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
     <!-- Toolbar Padding -->
     <dimen name="tool_bar_top_padding">0dp</dimen>
@@ -26,4 +27,6 @@
 
     <dimen name="min_width_dialog">300dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="padding_zero">0dp</dimen>
 </resources>

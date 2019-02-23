@@ -45,8 +45,8 @@ import org.proninyaroslav.libretorrent.*;
 import org.proninyaroslav.libretorrent.core.old.Torrent;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

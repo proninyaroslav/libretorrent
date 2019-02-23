@@ -19,9 +19,9 @@
 
 package org.proninyaroslav.libretorrent.dialogs.filemanager;
 
-import androidx.annotation.NonNull;
-
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
+
+import androidx.annotation.NonNull;
 
 /*
  * The class encapsulates a node and properties, that determine whether he is a file or directory.
@@ -81,6 +81,22 @@ public class FileManagerNode implements FileNode<FileManagerNode>
     public int compareTo(@NonNull FileManagerNode another)
     {
         return node.compareTo(another.getName());
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o instanceof FileManagerNode))
+            return false;
+
+        if (o == this)
+            return true;
+
+        FileManagerNode fileManagerNode = (FileManagerNode)o;
+
+        return (node == null || node.equals(fileManagerNode.node)) &&
+                nodeType == fileManagerNode.nodeType &&
+                enabled == fileManagerNode.enabled;
     }
 
     @Override

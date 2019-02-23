@@ -30,7 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 
 public class RequestPermissions extends AppCompatActivity
         implements

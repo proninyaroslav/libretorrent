@@ -22,13 +22,18 @@ package org.proninyaroslav.libretorrent.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.TorrentInfo;
 
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
 
 /*
  * Provides full information about the torrent, taken from bencode.
@@ -36,9 +41,13 @@ import java.util.ArrayList;
 
 public class TorrentMetaInfo implements Parcelable
 {
+    @NonNull
     public String torrentName = "";
+    @NonNull
     public String sha1Hash = "";
+    @NonNull
     public String comment = "";
+    @NonNull
     public String createdBy = "";
     public long torrentSize = 0L;
     public long creationDate = 0L;
@@ -81,6 +90,21 @@ public class TorrentMetaInfo implements Parcelable
 
         } catch (Exception e) {
             throw new DecodeException(e);
+        }
+    }
+
+    public TorrentMetaInfo(FileInputStream is) throws DecodeException
+    {
+        FileChannel chan = null;
+        try {
+            chan = is.getChannel();
+            getMetaInfo(new TorrentInfo(chan
+                    .map(FileChannel.MapMode.READ_ONLY, 0, chan.size())));
+
+        } catch (Exception e) {
+            throw new DecodeException(e);
+        } finally {
+            IOUtils.closeQuietly(chan);
         }
     }
 

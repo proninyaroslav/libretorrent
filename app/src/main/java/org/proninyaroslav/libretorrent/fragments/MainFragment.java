@@ -71,29 +71,29 @@ import com.github.clans.fab.FloatingActionMenu;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.*;
-import org.proninyaroslav.libretorrent.adapters.ToolbarSpinnerAdapter;
-import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
-import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
-import org.proninyaroslav.libretorrent.core.AddTorrentParams;
+import org.proninyaroslav.libretorrent.adapters.old.ToolbarSpinnerAdapter;
+import org.proninyaroslav.libretorrent.adapters.old.TorrentListAdapter;
+import org.proninyaroslav.libretorrent.adapters.old.TorrentListItem;
+import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.old.Torrent;
-import org.proninyaroslav.libretorrent.core.TorrentHelper;
+import org.proninyaroslav.libretorrent.core.old.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.TorrentStateMsg;
+import org.proninyaroslav.libretorrent.core.old.TorrentStateMsg;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
-import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.dialogs.ErrorReportAlertDialog;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsActivity;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -289,12 +289,12 @@ public class MainFragment extends Fragment
         if (i != null && i.getAction() != null) {
             /* If add torrent dialog has been called by an implicit intent */
             if (i.getAction().equals(AddTorrentActivity.ACTION_ADD_TORRENT)) {
-                if (prevImplIntent == null || !prevImplIntent.equals(i)) {
-                    prevImplIntent = i;
-                    AddTorrentParams params = AddTorrentActivity.getResult();
-                    if (params != null)
-                        addTorrent(params);
-                }
+//                if (prevImplIntent == null || !prevImplIntent.equals(i)) {
+//                    prevImplIntent = i;
+//                    AddTorrentParams params = AddTorrentActivity.getResult();
+//                    if (params != null)
+//                        addTorrent(params);
+//                }
 
             } else {
                 switch (i.getAction()) {
@@ -986,12 +986,11 @@ public class MainFragment extends Fragment
     private void torrentFileChooserDialog()
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
-        List<String> fileType = new ArrayList<>();
-        fileType.add("torrent");
         FileManagerConfig config = new FileManagerConfig(null,
                 getString(R.string.torrent_file_chooser_title),
-                fileType,
                 FileManagerConfig.FILE_CHOOSER_MODE);
+        config.highlightFileTypes = new ArrayList<>();
+        config.highlightFileTypes.add("torrent");
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
         startActivityForResult(i, TORRENT_FILE_CHOOSE_REQUEST);
     }
@@ -1080,43 +1079,21 @@ public class MainFragment extends Fragment
         switch (requestCode) {
             case TORRENT_FILE_CHOOSE_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.hasExtra(FileManagerDialog.TAG_RETURNED_PATH)) {
-                        String path = data.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH);
-                        try {
-                            addTorrentDialog(Uri.fromFile(new File(path)));
-
-                        } catch (Exception e) {
-                            sentError = e;
-
-                            Log.e(TAG, Log.getStackTraceString(e));
-
-                            FragmentManager fm = getFragmentManager();
-                            if (fm != null && fm.findFragmentByTag(TAG_ERROR_OPEN_TORRENT_FILE_DIALOG) == null) {
-                                ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                                        activity.getApplicationContext(),
-                                        getString(R.string.error),
-                                        getString(R.string.error_open_torrent_file),
-                                        Log.getStackTraceString(e),
-                                        this);
-
-                                FragmentTransaction ft = fm.beginTransaction();
-                                ft.add(errDialog, TAG_ERROR_OPEN_TORRENT_FILE_DIALOG);
-                                ft.commitAllowingStateLoss();
-                            }
-                        }
-                    }
+                    Uri uri = data.getData();
+                    if (uri != null)
+                        addTorrentDialog(uri);
                 }
                 break;
-            case ADD_TORRENT_REQUEST:
-            case CREATE_TORRENT_REQUEST:
-                if (resultCode == Activity.RESULT_OK) {
-                    AddTorrentParams params;
-                    params = (requestCode == ADD_TORRENT_REQUEST ? AddTorrentActivity.getResult() :
-                                                                   CreateTorrentActivity.getResult());
-                    if (params != null)
-                        addTorrent(params);
-                }
-                break;
+//            case ADD_TORRENT_REQUEST:
+//            case CREATE_TORRENT_REQUEST:
+//                if (resultCode == Activity.RESULT_OK) {
+//                    AddTorrentParams params;
+//                    params = (requestCode == ADD_TORRENT_REQUEST ? AddTorrentActivity.getResult() :
+//                                                                   CreateTorrentActivity.getResult());
+//                    if (params != null)
+//                        addTorrent(params);
+//                }
+//                break;
         }
     }
 

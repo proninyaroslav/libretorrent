@@ -30,8 +30,9 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class StorageSettingsFragment extends PreferenceFragmentCompat
 {
