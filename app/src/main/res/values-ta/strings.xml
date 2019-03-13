@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+<string name="ok">சரி</string>
+    <string name="cancel">ரத்து</string>
+    <string name="yes">ஆம்</string>
+    <string name="no">இல்லை</string>
+    <string name="error">பிழை</string>
+    <string name="warning">எச்சரிக்கை</string>
+    <string name="shutdown">நிறுத்தம்</string>
+    <string name="replace">மாற்றவும்</string>
+    <string name="add">கூட்டு</string>
+    <string name="delete">அழி</string>
+    <string name="deleting">நீக்குதல்</string>
+    <string name="select_all">அனைத்தையும் தெரிவுசெய்</string>
+    <string name="apply">விண்ணப்பிக்கவும்</string>
+    <string name="save">சேமி</string>
+    <string name="install">நிறுவ</string>
+    <string name="search">தேடல்</string>
+    <string name="not_available">பொ / இ</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d மீ</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d மீ. %3$d கள்</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d மீ. %2$d கள்</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d கள்</string>
+    <string name="sort_by_ascending">ஏறுவதன் மூலம்</string>
+    <string name="sort_by_descending">இறங்குதல்</string>
+    <string name="sorting">வரிசையாக்க</string>
+    <string name="def">இயல்புநிலை</string>
+    <string name="foreground_notification">முன்னால் அறிவிப்பு</string>
+    <string name="link">இணைப்பு</string>
+    <string name="filter">வடிகட்டி</string>
+    <string name="refresh">புதுப்பிப்பு</string>
+    <string name="edit">தொகு</string>
+    <string name="menu">பட்டி</string>
+
+    <!-- Main window -->
+     <string name="main_empty_torrent_list">இல்லை தொந்தரவுகள்</string>
+    <string name="spinner_all_torrents">அனைத்து</string>
+    <string name="spinner_downloading_torrents">பதிவிறக்குகிறது</string>
+    <string name="spinner_downloaded_torrents">பதிவிறக்கியவை</string>
+    <string name="spinner_downloading_metadata_torrents">மெட்டாடேட்டாவை பதிவிறக்குகிறது</string>
+    <string name="delete_torrent_with_downloaded_files">பதிவிறக்கப்பட்ட கோப்புகளை நீக்கு</string>
+    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்கு? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
+    <string name="delete_selected_torrents">தேர்ந்தெடுத்த தொகையை நீக்கவா? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
+    <string name="force_recheck_torrent">படை மறுபடியும்</string>
+    <string name="force_announce_torrent">படை அறிவிப்பு</string>
+    <string name="add_link">இணைப்பைச் சேர்க்கவும்</string>
+    <string name="dialog_add_link_title">Infohash மதிப்பு, காந்த இணைப்பு, அல்லது HTTP / HTTPS இணைப்பை உள்ளிடுக</string>
+    <string name="torrent_list_empty">இல்லை தொந்தரவுகள்</string>
+    <string name="select_or_add_torrent">ஒன்றைத் தேர்ந்தெடுக்கவும் அல்லது சேர்க்கவும்</string>
+    <string name="error_empty_link">இணைப்பை உள்ளிடுக</string>
+    <string name="error_invalid_link">தவறான இணைப்பு</string>
+    <string name="error_open_torrent_file">Torrent கோப்பை திறக்க முடியவில்லை</string>
+    <string name="open_file">கோப்பை திற</string>
+    <string name="settings">அமைப்புகள்</string>
+    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை. ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது</string>
+    <string name="ip_filter_add_success">IP வடிப்பான் வெற்றிகரமாக சேர்க்கப்பட்டது</string>
+    <string name="proxy_settings_applied">பதிலாள் சேவையக அமைப்புகள் வெற்றிகரமாக பயன்படுத்தப்பட்டன</string>
+    <string name="proxy_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பதிலாள் சேவையக அமைப்புகள் பயன்படுத்தப்படும்</string>
+    <string name="theme_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு தீம் அமைப்புகள் பயன்படுத்தப்படும்</string>
+    <string name="settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பின்னர் அமைப்புகள் பயன்படுத்தப்படும்</string>
+    <string name="about">பற்றி</string>
+    <string-array name="sort_torrent_by">
+        <item>வரிசையாக்க இல்லாமல்</item>
+        <item>பெயர்</item>
+        <item>தேதி சேர்க்கப்பட்டது</item>
+        <item>அளவு</item>
+        <item>முன்னேற்றம்</item>
+        <item>எ.ப.நே</item>
+        <item>சக</item>
+    </string-array>
+
+    <!-- Foreground notification -->
+
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template" formatted="false">பதிவிறக்குகிறது: %1$d மொத்தம்: %2$d</string>
+   <string name="app_running_in_the_background">பின்புலத்தில் LibreTorrent இயங்கும்</string>
+    <string name="network_online">நெட்வொர்க் நிலை: ஆன்லைன்</string>
+    <string name="network_offline">நெட்வொர்க் நிலை: ஆஃப்லைன்</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">டோரண்ட் பிழை</string>
+    <string name="error_template">பிழை: %1$s</string>
+    <string name="torrent_does_not_exists_error">torrent இல்லை</string>
+    <string name="restore_torrent_error">முந்தைய அமர்வில் இருந்து Torrent ஐ மீட்டமைக்க முடியவில்லை</string>
+    <string name="session_error_title">அமர்வு பிழை</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="listen_failed_error" formatted="false">ஐக் கேட்க முடியவில்லை %1$s:%2$d, வகை: %3$s (பிழை: %4$s)</string>
+    <string name="nat_error_title">NAT பிழை</string>
+
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">டொரண்ட் முடிந்தது</string>
+
+    <!-- Torrents move notification -->
+    <string name="torrents_move_notify_title" formatted="false">தொடுகின்ற நகர்த்தல்கள் (%1$d/%2$d)</string>
+    <string name="torrents_move_content">காத்திருக்கவும்&#8230;</string>
+    <string name="torrents_moved_title">தொந்தரவுகள் நகர்ந்தன</string>
+    <string name="torrents_moved_content" formatted="false">வெற்றிகரமாக: %1$d; தோல்வியடைந்தது: %2$d</string>
+    <string name="torrents_move_inbox_successfully">வெற்றிகரமாக:</string>
+    <string name="torrents_move_inbox_failed">தோல்வியடைந்தது:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">டொரண்ட் சேர்க்கப்பட்டது</string>
+
+    <!-- Torrent list item -->
+
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+     <string name="torrent_status_downloading">பதிவிறக்குகிறது</string>
+    <string name="torrent_status_seeding">விதைப்பு</string>
+    <string name="torrent_status_paused">இடைநிறுத்தப்பட்டது</string>
+    <string name="torrent_status_stopped">நிறுத்தப்பட்டது</string>
+    <string name="torrent_status_checking">சரிபார்க்கிறது</string>
+    <string name="torrent_status_finished">முடிந்தது</string>
+    <string name="torrent_status_downloading_metadata">மெட்டாடேட்டாவை பதிவிறக்குகிறது</string>
+
+    <!-- Permission dialog -->
+   <string name="perm_denied_title">அனுமதி மறுக்கப்பட்டது</string>
+    <string name="perm_denied_warning">இந்த அனுமதியின்றி, நினைவகத்தில் டாரண்ட் கோப்புகளை சேமிக்க முடியாது. பயன்பாடு ஒழுங்காக இயங்காது. இந்த அனுமதியை மறுக்க விரும்புகிறீர்களா?</string>
+
+    <!-- Add torrent dialog -->
+     <string name="add_torrent_title">Torrent ஐ சேர்க்கவும்</string>
+    <string name="error_decode_torrent">டிரான்டிங் டிராண்ட் கோப்பு தோல்வியடைந்தது. ஒருவேளை கோப்பு சிதைந்திருக்கலாம் அல்லது தவறான வடிவமைப்பில் இருக்கலாம்</string>
+    <string name="error_io_torrent">Torrent கோப்பைப் படிப்பதில் பிழை</string>
+    <string name="error_fetch_link">இணைப்பு இருந்து தரவை பெற முடியவில்லை</string>
+    <string name="error_invalid_link_or_path">தவறான இணைப்பு அல்லது வேகமான பாதை</string>
+    <string name="decode_torrent_progress_title">ஏற்றுதல்</string>
+    <string name="decode_torrent_default_message">காத்திருக்கவும்&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">காந்த இணைப்பு இருந்து தரவை பெறும். காத்திருக்கவும்&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">Torrent கோப்பை பதிவிறக்கும். காத்திருக்கவும்&#8230;</string>
+    <string name="error_add_torrent">வேகத்தை சேர்க்க முடியவில்லை</string>
+    <string name="error_file_not_found_add_torrent">வேகத்தை சேர்க்க முடியவில்லை. ஒருவேளை torrent கோப்பு நகர்த்தப்பட்டது அல்லது நீக்கப்பட்டது</string>
+    <string name="error_io_add_torrent">Torrent ஐ சேர்க்க முடியவில்லை. I / O பிழை</string>
+    <string name="torrent_exist">டோரண்ட் ஏற்கனவே உள்ளது. தொந்தரவுகள் இணைக்கப்பட்டன</string>
+    <string name="error_field_required">இந்த புலம் தேவை</string>
+    <string name="error_no_files_selected">கோப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை</string>
+    <string name="free_space" formatted="false">%1$s இலவசம்</string>
+    <string name="error_free_space">தேர்ந்தெடுக்கப்பட்ட கோப்புகளில் பதிவிறக்கப்பட்ட பாதையில் போதுமான இடைவெளி இல்லை</string>
+    <string formatted="false" name="files_size">%2$s இலிருந்து %1$s தேர்ந்தெடுக்கப்பட்டது</string>
+    <string name="start_torrent">Torrent ஐத் தொடங்குங்கள்</string>
+    <string name="file_is_too_large_error">கோப்பு மிகவும் பெரியது</string>
+
+    <!-- Torrent info -->
+     <string name="torrent_info">தகவல்</string>
+    <string name="torrent_files">கோப்புகள்</string>
+    <string name="torrent_name">பெயர்</string>
+    <string name="upload_torrent_into">பதிவேற்றவும்</string>
+    <string name="torrent_size">அளவு</string>
+    <string name="torrent_file_count">கோப்பு எண்ணிக்கை</string>
+    <string name="torrent_hash_sum">ஹாஷ் தொகை</string>
+    <string name="torrent_comment">கருத்து</string>
+    <string name="torrent_create_date">உருவாக்கப்பட்டது</string>
+    <string name="torrent_created_in_program">நிரலில் உருவாக்கப்பட்டது</string>
+    <string name="sequential_download">தொடர்ச்சியான பதிவிறக்க</string>
+    <string name="enable_sequential_download">தொடர்ச்சியான பதிவிறக்கத்தை இயக்கு</string>
+
+    <!-- Filemanager dialog -->
+   <string name="dir_chooser_title">அடைவு தேர்வு</string>
+    <string name="file_chooser_title">கோப்பு தேர்வு</string>
+    <string name="torrent_file_chooser_title">டோரண்ட் தேர்வு</string>
+    <string name="dialog_new_folder_title">புதிய அடைவை</string>
+    <string name="error_dialog_new_folder">புதிய கோப்புறையை உருவாக்க முடியவில்லை</string>
+    <string name="error_perm_write_in_folder">பதிவிறக்கப்பட்ட கோப்புறையைப் பயன்படுத்த முடியவில்லை. மற்றொரு கோப்புறையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="error_open_dir">கோப்புறையைத் திறக்க முடியவில்லை</string>
+    <string name="home_directory">முகப்பு</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">உள் சேமிப்பு</string>
+    <string formatted="false" name="external_storage_name">வெளி சேமிப்பு %1$d</string>
+    <string name="permission_denied">அனுமதி மறுக்கப்பட்டது</string>
+    <string name="save_file">கோப்பை சேமி</string>
+    <string name="file_name">கோப்பு பெயர்</string>
+    <string name="error_file_exists">கோப்பு ஏற்கனவே உள்ளது</string>
+    <string name="file_name_is_empty">கோப்பு பெயர் காலியாக இருக்க முடியாது</string>
+
+
+    <!-- Error dialog -->
+    <string name="report">அறிக்கை</string>
+    <string name="more_details">கூடுதல் தகவல்கள்</string>
+
+    <!-- Detail torrent dialog -->
+
+    <!-- priority • total -->
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n கிடைக்கக்கூடியதாக்கல்: %5$s</string>
+    <string name="file_priority_normal">இயல்பான</string>
+    <string name="file_priority_low">புறக்கணி</string>
+    <string name="file_priority_high">உயர்</string>
+    <string name="file_priority_mixed">கலப்பு</string>
+    <string name="change_priority">முன்னுரிமை</string>
+    <string name="dialog_change_priority_title">முன்னுரிமை மாற்றவும்</string>
+    <string name="change_priority_low">குறை (கோப்பு புறக்கணிக்க)</string>
+    <string name="change_priority_normal">இயல்பான</string>
+    <string name="change_priority_high">உயர்</string>
+    <string name="torrent_state">நிலை</string>
+    <string name="torrent_speed">வேகம்</string>
+    <string name="torrent_downloaded">பதிவிறக்கியவை</string>
+    <string name="torrent_ETA">எ.ப.நே</string>
+    <string name="torrent_seeds">விதைகள்</string>
+    <string name="torrent_peers">சக</string>
+    <string name="torrent_leechers">leechers</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+   <string name="torrent_uploaded">பதிவேற்றிய</string>
+    <string name="torrent_share_ratio">பகிர்வு விகிதம்</string>
+    <string name="torrent_active_time">செயலில் நேரம்</string>
+    <string name="torrent_seeding_time">விதைப்பு நேரம்</string>
+    <string name="torrent_pieces">துண்டுகளும்</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+     <string name="torrent_trackers">டிராக்கர்ஸ்</string>
+    <string name="tracker_state_working">வேலை</string>
+    <string name="tracker_state_not_working">வேலை செய்யவில்லை</string>
+    <string formatted="false" name="tracker_state_error">பிழை: %1$s</string>
+    <string name="tracker_state_updating">புதுப்பிக்கிறது&#8230;</string>
+    <string name="tracker_state_not_contacted">இதுவரை தொடர்பு கொள்ளப்படவில்லை</string>
+    <string name="share_tracker_url">URL ஐப் பகிர்</string>
+    <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா?</string>
+    <string name="delete_selected_trackers">தேர்ந்தெடுக்கப்பட்ட டிராக்கர்களை நீக்கவா?</string>
+    <string name="add_trackers">டிராக்கர்ஸ் சேர்க்கவும்</string>
+    <string name="dialog_add_trackers">(வரிக்கு ஒன்று)</string>
+    <string name="open_using">பயன்படுத்தி திறக்க</string>
+    <string formatted="false" name="peer_port">போர்ட்:%1$d</string>
+    <string formatted="false" name="peer_relevance">பொருத்தம்:%1$ .1f</string>
+    <string formatted="false" name="peer_connection_type">இணைப்பு:%1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
+   <string formatted="false" name="peer_client">கிளையண்ட்:%1$s</string>
+    <string name="peer_connection_type_bittorrent">பிடி</string>
+    <string name="peer_connection_type_web">வலை</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">இந்த torrent இதுவரை எந்த ஒருவருடனும் இணைக்கப்படவில்லை</string>
+    <string name="piece_map">துண்டு வரைபடம்</string>
+    <string name="resume_torrent">தற்குறிப்பு</string>
+    <string name="pause_torrent">இடைநிறுத்தம்</string>
+    <string name="share_magnet">பகிர்வு காந்தம்</string>
+    <string name="save_torrent_file">Torrent கோப்பை சேமி</string>
+    <string name="torrent_speed_limit">வேக வரம்பு</string>
+    <string name="share_via">வழியாக பகிர்ந்து</string>
+    <string name="save_torrent_file_successfully">டொரண்ட் கோப்பு வெற்றிகரமாக சேமிக்கப்பட்டது</string>
+    <string name="error_save_torrent_file">ஒரு Torrent கோப்பை சேமிக்க முடியவில்லை</string>
+    <string name="speed_limit_title">அதிகபட்ச வேகம்</string>
+    <string name="upload_speed">பதிவேற்றம்</string>
+    <string name="download_speed">பதிவிறக்க</string>
+    <string name="speed_limit_dialog">KiB / s இல் வேகத்தை அமைக்கவும் (0 - வரம்பு இல்லாத)</string>
+    <string name="torrent_added_date">சேர்க்கப்பட்டது</string>
+    <string name="torrent_availability">கிடைக்கும்</string>
+    <string name="share_stream_url">ஸ்ட்ரீம் URL ஐப் பகிர்</string>
+    <string name="magnet_include_file_priorities">கோப்பு முன்னுரிமைகள் அடங்கும்?</string>
+    <string name="magnet_more_about_bep53">மேலும் தகவல்: http://www.bittorrent.org/beps/bep_0053.html</string>
+
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">நகல்</string>
+    <string name="text_copied_to_clipboard">கிளிப்போர்டுக்கு உரை நகலெடுக்கப்பட்டது</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">பயன்பாட்டு பிழை ஏற்பட்டது. அறிக்கையை டெவலப்பர்களுக்கு அனுப்பலாம்</string>
+    <string name="error_comment_prompt">கூடுதல் தகவல் மற்றும் கருத்துகள் இங்கே சேர்க்கலாம்:</string>
+
+    <!-- Feeds -->
+ <string name="feed">ஆர்எஸ்எஸ்</string>
+    <string name="feed_channel_list_empty">சேனல்கள் இல்லை</string>
+    <string name="select_or_add_feed_channel">ஒரு RSS / Atom சேனலைத் தேர்ந்தெடுக்கவும் அல்லது சேர்க்கவும்</string>
+    <string name="add_feed_channel">சேனலைச் சேர்க்கவும்</string>
+    <string name="feed_name">பெயர் (விருப்பம்)</string>
+    <string name="feed_filter_prompt">வார்த்தைகளை உள்ளிடுக (\ "| \" என பிரிக்கப்பட்டது), அதில் ஒன்று ஒன்று அல்லது வழக்கமான வெளிப்பாடு உள்ளிட வேண்டும். இந்த வடிகட்டல் டொரண்ட் பெயருடன் பொருந்தும் என்றால் மட்டுமே டோரண்ட்ஸ் சேர்க்கப்படும்</string>
+    <string name="feed_auto_download">புதிய டொரண்ட்ஸ் தானாகவே பதிவிறக்கவும்</string>
+    <string name="feed_use_regex">வழக்கமான வெளிப்பாட்டை பயன்படுத்தவும்</string>
+    <string name="import_feed_channels">சேனல்களை இறக்குமதி செய்க</string>
+    <string name="export_feed_channels">சேனல்களை ஏற்றுமதி செய்க</string>
+    <string formatted="false" name="feed_last_update_template">புதுப்பிக்கப்பட்டது:  %1$s</string>
+    <string name="feed_last_update_never">ஒருபோதும்</string>
+    <string name="error_cannot_add_channel">சேனலைச் சேர்க்க முடியாது</string>
+    <string name="copy_link">இணைப்பை நகலெடு</string>
+    <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா?</string>
+    <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா?</string>
+    <string name="edit_feed_channel">சேனலைத் திருத்தவும்</string>
+    <string name="link_copied_to_clipboard">இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
+    <string name="mark_as_read">படித்ததாக</string>
+    <string name="feed_item_list_empty">கட்டுரைகள் இல்லை</string>
+    <string name="feed_items">கட்டுரைகள்</string>
+    <string formatted="false" name="export_feeds_successfully">சேனல்கள் வெற்றிகரமாக சேமிக்கப்பட்டன: %1$s</string>
+    <string formatted="false" name="import_feeds_successfully">சேனல்கள் வெற்றிகரமாக இறக்குமதி செய்யப்பட்டன</string>
+    <string name="error_import_feeds">சேனல்களை இறக்குமதி செய்வதில் தோல்வி</string>
+    <string name="error_export_feeds">சேனல்களை ஏற்றுமதி செய்வதில் தோல்வி</string>
+    <string name="feed_item_open_article_url">திறந்த கட்டுரை</string>
+    <string name="feeds_file_selection_dialog_title">சேனல்களுடன் ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="error_import_invalid_format">தவறான வடிவம்</string>
+    <string name="feed_do_not_download_immediately">உடனடியாக பதிவிறக்க வேண்டாம்</string>
+
+    <!-- Create torrent dialog -->
+  <string name="create_torrent">Torrent ஐ உருவாக்கவும்</string>
+    <string name="file_or_folder_for_seeding">விதைப்பதற்கு கோப்பு அல்லது அடைவு</string>
+    <string name="tracker_urls">டிராக்கரின் URL கள்</string>
+    <string name="web_seed_urls">வலை விதை URL கள்</string>
+    <string name="comments">கருத்துக்கள்</string>
+    <string name="optional_hint">(விரும்பினால்)</string>
+    <string name="piece_size">பீஸ் அளவு</string>
+    <string name="create_torrent_options">விருப்பங்கள்</string>
+    <string name="option_start_seeding">விதைப்பு தொடங்கவும்</string>
+    <string name="option_private_torrent">தனியார் டோரண்ட்</string>
+    <string name="option_optimize_alignment">சீரமைப்பு உகந்ததாக்கு</string>
+    <string-array name="piece_size_entries">
+        <item>ஆட்டோ</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string formatted="false" name="invalid_url">தவறான URL: %1$s</string>
+    <string name="file_or_folder_not_found">தேர்ந்தெடுத்த கோப்பு அல்லது கோப்புறை காணப்படவில்லை</string>
+    <string name="folder_is_empty">தேர்ந்தெடுக்கப்பட்ட கோப்புறை காலியாக உள்ளது அல்லது அனைத்து கோப்புகளும் வடிகட்டி மூலம் விலக்கப்படுகின்றன</string>
+    <string name="error_create_torrent">டொரண்ட் உருவாக்க முடியவில்லை</string>
+    <string name="skip_files">கோப்புகளை தவிர்</string>
+    <string name="skip_files_hint">\"|\" பிரிக்கப்பட்ட கோப்பு பெயர்களை உள்ளிடவும்</string>
+    <string name="select_folder_to_save">சேமிக்க கோப்புறையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="folder_to_save_not_found">சேமிக்கப்படாத கோப்புறை கண்டுபிடிக்கப்படவில்லை</string>
+    <string formatted="false" name="torrent_saved_to"> %1$s இல் டொரண்ட் சேமிக்கப்பட்டது</string>
+
+    <!-- Settings -->
+
+    <!-- Headers -->
+     <string name="pref_header_appearance">தோற்றம்</string>
+    <string name="pref_header_behavior">நடத்தை</string>
+    <string name="pref_header_storage">சேமிப்பு</string>
+    <string name="pref_header_limitations">வரம்புகள்</string>
+    <string name="pref_header_network">வலைப்பின்னல்</string>
+    <string name="pref_header_scheduling">திட்டமிடல்</string>
+    <string name="pref_header_feed">ஆர்எஸ்எஸ்</string>
+    <string name="pref_header_streaming">ஸ்ட்ரீமிங்</string>
+    <!-- Storage settings -->
+       <string name="pref_save_torrents_in_title">தொடுதிரைகளை சேமிக்கவும்</string>
+    <string name="pref_move_after_download_title">பதிவிறக்கக்குப் பிறகு நகர்த்தவும்</string>
+    <string name="pref_move_after_download_in_title">பதிவிறக்க பிறகு நகர்த்து</string>
+    <string name="pref_save_torrent_files_title">.Torrent கோப்புகளை சேமி</string>
+    <string name="pref_save_torrent_files_summary">.Torrent கோப்புகளை பதிவிறக்குவதன் பின்னர் சேமிக்கவும்</string>
+    <string name="pref_save_torrent_files_in_title">.Torrent கோப்புகளில் சேமி</string>
+    <string name="pref_watch_dir_title">பாருங்கள் அடைவு</string>
+    <string name="pref_watch_dir_summary">Torrent கோப்புகளை (.torrent நீட்டிப்புடன்) குறிப்பிட்ட அடைவில் பார்த்தால் தானாகவே சேர்க்கப்படும். Torrent கோப்புகள் சேர்த்த பிறகு நீக்கப்பட்டன</string>
+    <string name="pref_dir_to_watch_title">பார்க்க கோப்பகம்</string>
+    <!-- Limitations settings -->
+  <string name="pref_speed_category">வேகம்</string>
+    <string name="pref_max_download_speed_title">அதிகபட்ச வேகம்</string>
+    <string name="pref_max_upload_speed_title">அதிகபட்ச பதிவேற்ற வேகம்</string>
+    <string name="pref_max_connections_title">இணைப்புகளின் அதிகபட்ச எண்ணிக்கை</string>
+    <string name="pref_max_connections_summary">இணைப்புகளின் குறைந்தபட்ச எண்ணிக்கை - 2</string>
+    <string name="pref_torrent_queueing_category">டோண்ட் வரிசை</string>
+    <string name="pref_max_active_uploads_title">அதிகபட்ச செயலில் பதிவேற்றங்கள்</string>
+    <string name="pref_max_active_downloads_title">அதிகபட்ச செயலில் பதிவிறக்கங்கள்</string>
+    <string name="pref_max_active_torrents_title">அதிகபட்ச சுறுசுறுப்பான டோரண்ட்</string>
+    <string name="pref_max_connections_per_torrent_title">Torrent க்கு இணைப்புகளின் அதிகபட்ச எண்ணிக்கை</string>
+    <string name="pref_max_connections_per_torrent_summary">இணைப்புகளின் குறைந்தபட்ச எண்ணிக்கை - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Torrent க்கும் அதிகமான பதிவேற்ற இடங்கள்</string>
+    <string name="pref_max_uploads_per_torrent_summary">குறைந்த எண்ணிக்கையிலான இடங்கள் - 2</string>
+    <string name="pref_auto_manage_title">தானாக நிர்வகிக்கவும்</string>
+    <string name="pref_auto_manage_summary">எந்த நேரத்திலும் torrent மீண்டும் தொடங்கலாம் அல்லது இடைநிறுத்தப்படலாம். இந்த விருப்பத்தை செயல்படுத்தினால் இடைநிறுத்தம் / மீண்டும் தொடரலாம்</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 வரம்பு இல்லாமல்</string>
+    <!-- Appearance settings -->
+     <string name="pref_theme_category">தீம் அமைப்புகள்</string>
+    <string name="pref_theme_title">தீம்</string>
+    <string-array name="pref_theme_entries">
+        <item>ஒளி</item>
+        <item>டார்க்</item>
+        <item>பிளாக்</item>
+    </string-array>
+    <string name="pref_notification_category">அறிவிப்பு அமைப்புகள்</string>
+    <string name="pref_torrent_finish_notify_title">டொரண்ட் முடிப்பு அறிவிப்பு</string>
+    <string name="pref_torrent_finish_notify_summary">ஒரு டார்ட் பதிவிறக்க முடிந்ததும் ஒரு அறிவிப்பைக் காட்டு</string>
+    <string name="pref_play_sound_notify_title">ஒலி விளையாட</string>
+    <string name="pref_notify_sound_title">அறிவிப்பு ஒலி</string>
+    <string name="pref_led_indicator_notify_title">LED காட்டி</string>
+    <string name="pref_led_indicator_color_notify_title">LED காட்டி வண்ணம்</string>
+    <string name="pref_vibration_notify_title">அதிர்வு</string>
+    <string name="pref_foreground_notification_category">முன்னால் அறிவிப்பு</string>
+    <string name="pref_function_button_title">செயல்பாடு பொத்தானை அழுத்தவும்</string>
+    <string-array name="pref_function_button_entries">
+        <item>இடைநிறுத்தம் / துவக்கங்கள் தொடங்கும்</item>
+        <item>Torrent ஐ சேர்க்கவும்</item>
+    </string-array>
+    <!-- Behavior settings -->
+       <string name="pref_autostart_title">தானாகத்</string>
+    <string name="pref_autostart_summary">சாதனம் தொடங்கி பயன்பாட்டை இயக்கவும்</string>
+    <string name="pref_wifi_only_title">Wi-Fi மட்டுமே</string>
+    <string name="pref_wifi_only_summary">Wi-Fi இணைக்கப்பட்டுள்ளால் மட்டுமே பதிவிறக்க மற்றும் பதிவேற்றவும்</string>
+    <string name="pref_power_management_category">மின் மேலாண்மை</string>
+    <string name="pref_keep_alive_title">உயிரோடு வைத்திரு</string>
+    <string name="pref_keep_alive_summary">இயக்கப்பட்டால், பயன்பாடு பின்னணியில் இயங்கும். பதிவிறக்கங்கள் முடிந்தவுடன் பணிநிறுத்தம் செய்யப்படும்</string>
+    <string name="pref_shutdown_downloads_complete_title">பதிவிறக்கங்கள் முடிந்தவுடன் பணிநிறுத்தம்</string>
+    <string name="pref_shutdown_downloads_complete_summary">இயக்கப்பட்டிருந்தால், எல்லா பதிவிறக்கங்களும் முடிந்தவுடன் பயன்பாட்டை நிறுத்தலாம்</string>
+    <string name="pref_cpu_do_not_sleep_title">CPU விழித்திருங்கள்</string>
+    <string name="pref_cpu_do_not_sleep_summary">இதை இயக்குவதால் பேட்டரி பயன்பாட்டை அதிகரிக்கும். திரை முடக்கும் போது பதிவிறக்க வேகம் குறைகிறது என்றால் இந்த விருப்பத்தை பயன்படுத்தவும்</string>
+    <string name="pref_download_and_upload_only_when_charging_title">சார்ஜ் செய்யும் போது மட்டுமே பதிவிறக்க மற்றும் பதிவேற்றவும்</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">இயக்கப்பட்டால், கட்டணம் செலுத்தும் போது மட்டுமே பதிவிறக்கங்கள் / பதிவேற்றப்படும். சார்ஜரை இணைக்காதபோது எல்லா தொப்பிகளும் இடைநிறுத்தப்படும்</string>
+    <string name="pref_battery_control_title">பேட்டரி கட்டுப்பாடு</string>
+    <string name="pref_custom_battery_control_title">விருப்ப பேட்டரி சதவீதம்</string>
+    <string name="pref_custom_battery_control_value_title">பேட்டரி கட்டுப்பாடு சதவீதம்</string>
+    <string formatted="false" name="pref_battery_control_summary">பேட்டரி நிலை %1$d%% க்கு கீழே சென்றால் எல்லா தொனிகளும் இடைநிறுத்தப்படும். வரம்பை சார்ஜ் செய்யும் நேரத்தில் பயன்படுத்த முடியாது</string>
+    <string formatted="false" name="pref_custom_battery_control_summary">பேட்டரி கொடுக்கப்பட்ட நுழைவாயில் கீழே குறைகிறது என்றால் பதிவிறக்கங்களை இடைநிறுத்தம் விருப்ப சதவீதம் அமைக்கவும். இதை இயக்குவதன் மூலம் இயல்புநிலை %1$d%% வாசலில் புறக்கணிக்கப்படும்</string>
+    <string formatted="false" name="pref_custom_battery_control_dialog_summary">பயன்பாட்டிற்கான தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது, பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை நீங்கள் நிச்சயமாக இயக்க விரும்புகிறீர்களா?</string>
+    
+	<!-- Network settings -->
+<string name="pref_proxy_settings_title">பதிலாள் அமைப்புகள்</string>
+    <string name="pref_enable_dht_title">DHT ஐ இயக்கு</string>
+    <string name="pref_enable_dht_summary">இது பிட் டோரண்ட்-வாடிக்கையாளர்களுக்கு டிராக்கரின் பயன்பாடு இல்லாமல் ஒருவருக்கொருவர் கண்டுபிடிக்க உதவுகிறது. இதை இயக்குவதால் பேட்டரி பயன்பாட்டை அதிகரிக்கும்</string>
+    <string name="pref_enable_lsd_title">LSD ஐ இயக்கு</string>
+    <string name="pref_enable_lsd_summary">இது உள்ளூர் BitTorrent சகாக்களின் கண்டுபிடிப்பை ஆதரிக்க வடிவமைக்கப்பட்டுள்ளது, இது போக்குவரத்து குறைக்க நோக்கமாக உள்ளது</string>
+    <string name="pref_enable_utp_title">ΜTP ஐ இயக்கு</string>
+    <string name="pref_enable_utp_summary">இது நம்பகமான, உத்தரவு வழங்கப்பட்ட விநியோகத்தை வழங்கும்போது, TCP மீது வழக்கமான BitTorrent இல் காணப்படும் ஏழை செயலிழப்பு மற்றும் பிற நெரிசல் கட்டுப்பாடு சிக்கல்களைக் குறைக்க நோக்கம் கொண்டுள்ளது</string>
+    <string name="pref_enable_upnp_title">UPnP ஐ இயக்கு</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP ஐ இயக்கு</string>
+    <string name="pref_port_settings_category">துறைமுக அமைப்புகள்</string>
+    <string name="pref_use_random_port_title">சீரற்ற போர்ட் பயன்படுத்தவும்</string>
+    <string name="pref_port_title">போர்ட்</string>
+    <string name="pref_encryption_category">குறியாக்க</string>
+    <string name="pref_enc_mode_title">குறியாக்க முறை</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>குறியாக்கத்தை விரும்புகிறேன்</item>
+        <item>குறியாக்க தேவை</item>
+        <item>குறியாக்கத்தை முடக்கு</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">உள்வரும் இணைப்புகள்</string>
+    <string name="pref_enc_out_connections_title">வெளியேறும் இணைப்புகள்</string>
+    <string name="pref_ip_filtering_category">IP வடிப்பான்</string>
+    <string name="pref_enable_ip_filtering_title">ஐபி வடிகட்டலை இயக்கு</string>
+    <string name="pref_enable_ip_filtering_summary">ஐபி வடிகட்டல் பயன்படுத்தி நினைவக பயன்பாடு அதிகரிக்கிறது. கோப்பு அளவைப் பொறுத்து, வடிகட்டியைப் பயன்படுத்துவதற்கு சில நேரம் ஆகலாம்</string>
+    <string name="pref_ip_filtering_file_title">கோப்பு வடிகட்ட பாதை (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">NAT பிழைகள் காட்டு</string>
+    <!-- Proxy settings -->
+   <string name="pref_proxy_type_title">பதிலாள் வகை</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(எதுவும்)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>, HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">முகவரி</string>
+    <string name="pref_proxy_port_title">போர்ட்</string>
+    <string name="pref_proxy_peers_too_title">மேலும் பீர் இணைப்புகளை பயன்படுத்தவும்</string>
+    <string name="pref_proxy_peers_too_summary">ப்ராக்ஸி டிராக்கர்கள், சக மற்றும் வலை விதைகளை இணைப்பதற்காகப் பயன்படுத்தப்படும்</string>
+    <string name="pref_force_proxy_title">ப்ராக்ஸிகள் மூலம் இணைப்புகளை முடக்குவதை முடக்கு</string>
+    <string name="pref_proxy_requires_auth_title">அங்கீகாரம் தேவைப்படுகிறது</string>
+    <string name="pref_proxy_requires_auth_summary">எச்சரிக்கை: கடவுச்சொல் மறைகுறியாக்கப்பட்ட சேமிக்கப்பட்டது</string>
+    <string name="pref_proxy_login_title">உள் நுழை</string>
+    <string name="pref_proxy_password_title">கடவுச்சொல்</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">ஆரம்பிக்கும் நேரம்</string>
+    <string name="pref_enable_scheduling_start_summary">குறிப்பிட்ட நேரத்தில் பயன்பாட்டைத் தொடங்கவும். கடைசியாக பணிநிறுத்தம் செய்வதற்கு முன்னர் தியோரெண்ட்ஸ் அவர்களின் மாநிலத்தின்படி இயங்குவார்கள்</string>
+    <string name="pref_enable_scheduling_shutdown_title">பணிநிறுத்தம் நேரம்</string>
+    <string name="pref_enable_scheduling_shutdown_summary">குறிப்பிடப்பட்ட நேரத்தில் நிறுத்துதல் பயன்பாடு</string>
+    <string name="pref_scheduling_run_only_once_title">ஒரே ஒரு முறை இயக்கவும்</string>
+    <string name="pref_scheduling_switch_wifi_title">வைஃபை இயக்கு / முடக்கு</string>
+    <string name="pref_scheduling_switch_wifi_summary">திட்டமிடப்பட்ட நேரத்தில் பயன்பாட்டை தொடங்கும்போது Wi-Fi ஆனது தானாகவே செயல்படுத்தப்படும், மேலும் திட்டமிடப்பட்ட நேரத்தில் பயன்பாட்டை நிறுத்தும்போது, அது முடக்கப்படும்</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">ஆட்டோ புதுப்பிப்பு சேனல்கள்</string>
+    <string name="pref_feed_auto_refresh_summary">பின்னணியில் நேரலைகளை புதுப்பிக்கவும்</string>
+    <string name="pref_feed_refresh_interval_title">புதுப்பிப்பு இடைவெளி</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 நிமிடம்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>30 நிமிடம்</item>
+        <item>1 மணி நேரம்</item>
+        <item>2 மணி நேரம்</item>
+        <item>6 மணி</item>
+        <item>12 மணி நேரம்</item>
+        <item>1 நாள்</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi மட்டுமே</string>
+    <string name="pref_feed_keep_items_time_title">கட்டுரைகளை வைத்திருங்கள்</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 நாள்</item>
+        <item>2 நாட்கள்</item>
+        <item>4 நாட்கள்</item>
+        <item>1 வாரம்</item>
+        <item>2 வாரங்கள்</item>
+        <item>1 மாதம்</item>
+        <item>2 மாதங்கள்</item>
+        <item>3 மாதங்கள்</item>
+        <item>எப்போதும்</item>
+    </string-array>
+    <string name="pref_feed_start_torrents_title">தொந்தரவுகளை இயக்கவும்</string>
+    <string name="pref_feed_start_torrents_summary">சேர்ப்பதற்குப் பின் இயக்கங்கள் இயக்கவும்</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">ஸ்ட்ரீமிங்கை இயக்கு</string>
+    <string name="pref_streaming_enable_summary">HTTP URL களைப் பயன்படுத்தி ஒரு உலாவி அல்லது மீடியா பிளேயரைப் பயன்படுத்தி ஒரு டாரண்ட்டிலிருந்து தனிப்பட்ட கோப்புகளை பதிவிறக்க ஸ்ட்ரீமிங் அனுமதிக்கிறது</string>
+    <string name="pref_streaming_hostname">ஹோஸ்ட்பெயர்</string>
+    <string name="pref_streaming_port">போர்ட்</string>
+    <string name="pref_streaming_error">ஸ்ட்ரீமிங்கிற்கான தேர்ந்தெடுத்த துறை அல்லது புரவலன் பெயர் பிஸியாக அல்லது தவறானது. தயவுசெய்து அதை சரிசெய்யவும்</string>
+
+    <!-- About dialog -->
+    <string name="about_title">LibreTorrent பற்றி</string>
+    <string name="about_website">மேலும் தகவலுக்கு https://gitlab.com/proninyaroslav/libretorrent இல் கிடைக்கும்</string>
+    <string name="about_description">ஃப்ளாஷ் டாரண்ட் ஆனது அண்ட்ராய்டிற்கான ஃப்ரீடம் டொரண்ட் கிளையண்ட்டில் ஒரு இலவசமானது, லிப்டோரண்ட் அடிப்படையிலானது. \ N \ nLibreTorrent இலவச மென்பொருள்</string>
+    <string name="about_changelog">சேஞ்ச்</string>
+</resources>
