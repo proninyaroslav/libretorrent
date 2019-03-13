@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">ठीक</string>
+    <string name="cancel">रद्द करना</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="error">त्रुटि</string>
+    <string name="warning">चेतावनी</string>
+    <string name="shutdown">बंद करना</string>
+    <string name="replace">बदलने के</string>
+    <string name="add">जोड़ना</string>
+    <string name="delete">हटाना</string>
+    <string name="deleting">हटाया जा रहा है</string>
+    <string name="select_all">सभी का चयन करे</string>
+    <string name="apply">लागू करें</string>
+    <string name="save">बचाना</string>
+    <string name="install">इंस्टॉल करें</string>
+    <string name="search">खोज</string>
+    <string name="not_available">उपलब्ध नहीं है</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="sort_by_ascending">चढ़कर</string>
+    <string name="sort_by_descending">उतर कर</string>
+    <string name="sorting">छंटाई</string>
+    <string name="def">चूक</string>
+    <string name="foreground_notification">अग्रभूमि अधिसूचना</string>
+    <string name="link">संपर्क</string>
+    <string name="filter">फ़िल्टर</string>
+    <string name="refresh">ताज़ा करना</string>
+    <string name="edit">संपादित करें</string>
+    <string name="menu">मेन्यू</string>
+
+    <!-- Main window -->
+    <string name="main_empty_torrent_list">कोई धार नहीं</string>
+    <string name="spinner_all_torrents">सब</string>
+    <string name="spinner_downloading_torrents">डाउनलोड कर रहा है</string>
+    <string name="spinner_downloaded_torrents">डाउनलोड किया</string>
+    <string name="spinner_downloading_metadata_torrents">तत्व आंकड़े डाउन लोड हो रहे हैं</string>
+    <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
+    <string name="delete_selected_torrent">चयनित धार हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
+    <string name="delete_selected_torrents">चयनित टॉरेंट हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
+    <string name="force_recheck_torrent">बल पुनः जाँचना</string>
+    <string name="force_announce_torrent">बल की घोषणा</string>
+    <string name="add_link">लिंक जोड़ें</string>
+    <string name="dialog_add_link_title">Infohash मान, चुंबक लिंक, या HTTP / HTTPS लिंक दर्ज करें</string>
+    <string name="torrent_list_empty">कोई धार नहीं</string>
+    <string name="select_or_add_torrent">एक धार चुनें या जोड़ें</string>
+	<string name="error_empty_link">कृपया लिंक दर्ज करें</string>
+    <string name="error_invalid_link">अमान्य लिंक</string>
+    <string name="error_open_torrent_file">धार फ़ाइल खोलने में असमर्थ</string>
+    <string name="open_file">खुली फाइल</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="ip_filter_add_error">IP फ़िल्टर जोड़ने में विफल। हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
+    <string name="ip_filter_add_success">IP फ़िल्टर सफलतापूर्वक जोड़ा गया</string>
+    <string name="proxy_settings_applied">प्रॉक्सी सर्वर सेटिंग्स सफलतापूर्वक लागू हुईं</string>
+    <string name="proxy_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद प्रॉक्सी सर्वर सेटिंग्स लागू की जाएंगी</string>
+    <string name="theme_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद थीम सेटिंग्स लागू की जाएंगी</string>
+    <string name="settings_apply_after_reboot">ऐप को पुनरारंभ करने के बाद सेटिंग्स लागू की जाएंगी</string>
+    <string name="about">के बारे में</string>
+    <string-array name="sort_torrent_by">
+        <item>बिना छँटे</item>
+        <item>नाम</item>
+        <item>तारीख संकलित हुई</item>
+        <item>आकार</item>
+        <item>प्रगति</item>
+        <item>ईटीए</item>
+        <item>साथियों</item>
+    </string-array>
+
+    <!-- Foreground notification -->
+
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template" formatted="false">डाउनलोड कर रहा है: %1$d Total: %2$d</string>
+     <string name="app_running_in_the_background">LibreTorrent पृष्ठभूमि में चल रहा है</string>
+    <string name="network_online">नेटवर्क स्थिति: ऑनलाइन</string>
+    <string name="network_offline">नेटवर्क स्थिति: ऑफ़लाइन</string>
+
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">टोरेंट की त्रुटि</string>
+    <string name="error_template">त्रुटि: %1$s</string>
+ <string name="torrent_does_not_exists_error">टोरेंट नहीं करता मौजूद है</string>
+    <string name="restore_torrent_error">पिछले सत्र से धार बहाल करने में असमर्थ</string>
+    <string name="session_error_title">सत्र त्रुटि</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="listen_failed_error" formatted="false">सुन नहीं सका %1$s:%2$d, प्रकार: %3$s (त्रुटि: %4$s)</string>
+    <string name="nat_error_title">NAT त्रुटि</string>
+
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">धार समाप्त हो गई</string>
+
+    <!-- Torrents move notification -->
+    <string name="torrents_move_notify_title" formatted="false">चलती धार (%1$d/%2$d)</string>
+    <string name="torrents_move_content">कृपया प्रतीक्षा करें&#8230;</string>
+    <string name="torrents_moved_title">टोरेंट हिल गए</string>
+    <string name="torrents_moved_content" formatted="false">सफलतापूर्वक: %1$d; अनुत्तीर्ण होना: %2$d</string>
+    <string name="torrents_move_inbox_successfully">सफलतापूर्वक:</string>
+    <string name="torrents_move_inbox_failed">अनुत्तीर्ण होना:</string>
+
+    <!-- Added notification -->
+    <string name="torrent_added_notify">धार गयी</string>
+
+    <!-- Torrent list item -->
+
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+   <string name="torrent_status_downloading">डाउनलोड कर रहा है</string>
+    <string name="torrent_status_seeding">बीज बोने की क्रिया</string>
+    <string name="torrent_status_paused">रोके गए</string>
+    <string name="torrent_status_stopped">रोका हुआ</string>
+    <string name="torrent_status_checking">जाँच हो रही है</string>
+    <string name="torrent_status_finished">ख़त्म होना</string>
+    <string name="torrent_status_downloading_metadata">तत्व आंकड़े डाउन लोड हो रहे हैं</string>
+
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">अनुमति नहीं मिली</string>
+    <string name="perm_denied_warning">इस अनुमति के बिना ऐप मेमोरी में टोरेंट फाइलों को सेव नहीं कर सकता। ऐप ठीक से काम नहीं करेगा। क्या आप वाकई इस अनुमति को अस्वीकार करना चाहते हैं?</string>
+
+    <!-- Add torrent dialog -->
+        <string name="add_torrent_title">धार जोड़ें</string>
+    <string name="error_decode_torrent">असफल डिकोडिंग टोरेंट फ़ाइल। हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
+    <string name="error_io_torrent">धार फ़ाइल को पढ़ने में त्रुटि</string>
+    <string name="error_fetch_link">लिंक से डेटा लाने में विफल</string>
+    <string name="error_invalid_link_or_path">धार के लिए अमान्य लिंक या पथ</string>
+    <string name="decode_torrent_progress_title">लोड हो रहा है</string>
+    <string name="decode_torrent_default_message">कृपया प्रतीक्षा करें&#8230;</string>
+    <string name="decode_torrent_fetch_magnet_message">चुंबक  लिंक से डेटा प्राप्त करना। कृपया प्रतीक्षा करें&#8230;</string>
+    <string name="decode_torrent_downloading_torrent_message">धार फ़ाइल डाउनलोड करना। कृपया प्रतीक्षा करें&#8230;</string>
+    <string name="error_add_torrent">धार जोड़ने में विफल</string>
+    <string name="error_file_not_found_add_torrent">धार जोड़ने में विफल। हो सकता है कि टोरेंट फ़ाइल को स्थानांतरित या हटा दिया गया हो</string>
+    <string name="error_io_add_torrent">धार जोड़ने में असमर्थ। I / O त्रुटि</string>
+    <string name="torrent_exist">धार पहले से मौजूद है। मर्जों को मर्ज कर दिया गया</string>
+    <string name="error_field_required">यह फ़ील्ड आवश्यक है</string>
+    <string name="error_no_files_selected">कोई फ़ाइल चयनित नहीं है</string>
+    <string name="free_space" formatted="false">%1$s मुक्त</string>
+    <string name="error_free_space">चयनित फ़ाइलों को डाउनलोड करने के लिए चयनित पथ पर पर्याप्त खाली स्थान नहीं है</string>
+    <string name="files_size" formatted="false">चयनित %1$s से बाहर %2$s</string>
+  <string name="start_torrent">धार शुरू करो</string>
+    <string name="file_is_too_large_error">फ़ाइल बहुत बड़ी है</string>
+
+    <!-- Torrent info -->
+<string name="torrent_info">जानकारी</string>
+    <string name="torrent_files">फ़ाइलें</string>
+    <string name="torrent_name">नाम</string>
+    <string name="upload_torrent_into">में अपलोड करें</string>
+    <string name="torrent_size">आकार</string>
+    <string name="torrent_file_count">फ़ाइल की गिनती</string>
+    <string name="torrent_hash_sum">हैश योग</string>
+    <string name="torrent_comment">टिप्पणी</string>
+    <string name="torrent_create_date">बनाया था</string>
+    <string name="torrent_created_in_program">कार्यक्रम में बनाया गया</string>
+    <string name="sequential_download">अनुक्रमिक डाउनलोड</string>
+    <string name="enable_sequential_download">अनुक्रमिक डाउनलोड सक्षम करें</string>
+
+    <!-- Filemanager dialog -->
+     <string name="dir_chooser_title">फ़ोल्डर चयन</string>
+    <string name="file_chooser_title">फ़ाइल चयन</string>
+    <string name="torrent_file_chooser_title">धार चयन</string>
+    <string name="dialog_new_folder_title">नया फोल्डर</string>
+    <string name="error_dialog_new_folder">एक नया फ़ोल्डर बनाने में असमर्थ</string>
+    <string name="error_perm_write_in_folder">डाउनलोड करने के लिए चयनित फ़ोल्डर का उपयोग करने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करें</string>
+    <string name="error_open_dir">फ़ोल्डर को खोलने में असमर्थ</string>
+    <string name="home_directory">होम</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">आंतरिक स्टोरेज</string>
+    <string formatted="false" name="external_storage_name">बाहरी भंडारण% 1 $ d</string>
+    <string name="permission_denied">अनुमति नहीं मिली</string>
+    <string name="save_file">फाइल सुरक्षित करें</string>
+    <string name="file_name">फ़ाइल का नाम</string>
+    <string name="error_file_exists">फ़ाइल पहले से ही मौजूद है</string>
+    <string name="file_name_is_empty">फ़ाइल का नाम रिक्त नहीं हो सकता</string>
+
+
+    <!-- Error dialog -->
+     <string name="report">रिपोर्ट</string>
+    <string name="more_details">अधिक जानकारी</string>
+
+    <!-- Detail torrent dialog -->
+
+    <!-- priority • total -->
+    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nउपयोगिता: %5$s</string>
+    <string name="file_priority_normal">साधारण</string>
+    <string name="file_priority_low">नज़रअंदाज़ करना</string>
+    <string name="file_priority_high">उच्च</string>
+    <string name="file_priority_mixed">मिश्रित</string>
+    <string name="change_priority">प्राथमिकता</string>
+    <string name="dialog_change_priority_title">प्राथमिकता बदलें</string>
+    <string name="change_priority_low">कम (फ़ाइल को अनदेखा करें)</string>
+    <string name="change_priority_normal">साधारण</string>
+    <string name="change_priority_high">उच्च</string>
+    <string name="torrent_state">राज्य</string>
+    <string name="torrent_speed">गति</string>
+    <string name="torrent_downloaded">डाउनलोड की गई</string>
+    <string name="torrent_ETA">ईटीए</string>
+    <string name="torrent_seeds">बीज</string>
+    <string name="torrent_peers">साथियों</string>
+    <string name="torrent_leechers">leechers</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+   <string name="torrent_uploaded">अपलोड की गई</string>
+    <string name="torrent_share_ratio">शेयर अनुपात</string>
+    <string name="torrent_active_time">सक्रिय समय</string>
+    <string name="torrent_seeding_time">सीडिंग का समय</string>
+    <string name="torrent_pieces">टुकड़े</string>
+    <!-- downloaded/total (piece length) -->
+    <string formatted="false" name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">ट्रैकर्स</string>
+    <string name="tracker_state_working">काम कर रहे</string>
+    <string name="tracker_state_not_working">काम नहीं कर रहा</string>
+    <string formatted="false" name="tracker_state_error">त्रुटि: %1$s</string>
+    <string name="tracker_state_updating">अद्यतन कर रहा है &#8230;</string>
+    <string name="tracker_state_not_contacted">अभी तक संपर्क नहीं किया गया</string>
+    <string name="share_tracker_url">शेयर यूआरएल</string>
+    <string name="delete_selected_tracker">चयनित ट्रैकर हटाएं?</string>
+    <string name="delete_selected_trackers">चयनित ट्रैकर हटाएं?</string>
+    <string name="add_trackers">ट्रैकर्स जोड़ें</string>
+    <string name="dialog_add_trackers">(प्रति पंक्ति एक)</string>
+    <string name="open_using">का उपयोग कर खोलें</string>
+    <string formatted="false" name="peer_port">पोर्ट: %1$d</string>
+    <string formatted="false" name="peer_relevance">प्रासंगिकता   :  %1$.1f</string>
+    <string formatted="false" name="peer_connection_type">कनेक्शन: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string formatted="false" name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string formatted="false" name="peer_client">ग्राहक: %1$s</string>
+    <string name="peer_connection_type_bittorrent">बीटी</string>
+    <string name="peer_connection_type_web">वेब</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">यह धार अभी तक किसी भी साथी से नहीं जुड़ी है</string>
+    <string name="piece_map">टुकड़े का नक्शा</string>
+    <string name="resume_torrent">बायोडाटा</string>
+    <string name="pause_torrent">ठहराव</string>
+    <string name="share_magnet">शेयर चुंबक</string>
+    <string name="save_torrent_file">धार फ़ाइल सहेजें</string>
+    <string name="torrent_speed_limit">गति सीमा</string>
+    <string name="share_via">के माध्यम से बाँटे</string>
+    <string name="save_torrent_file_successfully">टॉरेंट फ़ाइल सफलतापूर्वक सहेजी गई</string>
+    <string name="error_save_torrent_file">एक धार फ़ाइल को सहेजने में विफल</string>
+    <string name="speed_limit_title">अधिकतम चाल</string>
+    <string name="upload_speed">अपलोड</string>
+    <string name="download_speed">डाउनलोड</string>
+    <string name="speed_limit_dialog">KiB / s में गति सेट करें (0 - बिना सीमा के)</string>
+    <string name="torrent_added_date">जोड़ा गया</string>
+    <string name="torrent_availability">उपलब्धता</string>
+    <string name="share_stream_url">शेयर स्ट्रीम यूआरएल</string>
+    <string name="magnet_include_file_priorities">फ़ाइल प्राथमिकताएं शामिल करें?</string>
+    <string name="magnet_more_about_bep53">अधिक जानकारी: http://www.bittorrent.org/beps/bep_0053.html</string>
+
+    <!-- Send text to clipboard -->
+  <string name="send_text_to_clipboard">प्रतिलिपि</string>
+    <string name="text_copied_to_clipboard">क्लिपबोर्ड पर पाठ कॉपी किया गया</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">ऐप त्रुटि हुई। आप डेवलपर्स को रिपोर्ट भेज सकते हैं</string>
+    <string name="error_comment_prompt">आप यहां अतिरिक्त जानकारी और टिप्पणियां जोड़ सकते हैं:</string>
+
+    <!-- Feeds -->
+      <string name="feed">आरएसएस</string>
+    <string name="feed_channel_list_empty">कोई चैनल नहीं</string>
+    <string name="select_or_add_feed_channel">RSS / Atom चैनल चुनें या जोड़ें</string>
+    <string name="add_feed_channel">चैनल जोड़ें</string>
+    <string name="feed_name">नाम: (वैकल्पिक)</string>
+    <string name="feed_filter_prompt">शब्दों को दर्ज करें (\"|\" से अलग), जिनमें से एक नाम होना चाहिए या नियमित अभिव्यक्ति दर्ज करें। टॉरेंट तभी जोड़े जाएंगे जब यह फ़िल्टर टोरेंट नाम से मेल खाएगा</string>
+    <string name="feed_auto_download">स्वचालित रूप से नए टॉरेंट डाउनलोड करें</string>
+    <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
+    <string name="import_feed_channels">आयात चैनल</string>
+    <string name="export_feed_channels">चैनल निर्यात करें</string>
+    <string formatted="false" name="feed_last_update_template">अपडेट किया गया:% 1 $ s</string>
+    <string name="feed_last_update_never">कभी नहीँ</string>
+    <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
+    <string name="copy_link">प्रतिरूप जोड़ना</string>
+    <string name="delete_selected_channel">चयनित चैनल हटाएं?</string>
+    <string name="delete_selected_channels">चयनित चैनल हटाएं?</string>
+    <string name="edit_feed_channel">चैनल संपादित करें</string>
+    <string name="link_copied_to_clipboard">लिंक को क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="mark_as_read">पढ़े हुए का चिह्न</string>
+    <string name="feed_item_list_empty">कोई लेख नहीं</string>
+    <string name="feed_items">सामग्री</string>
+    <string formatted="false" name="export_feeds_successfully">चैनल सफलतापूर्वक सहेजे गए:% 1 $ s</string>
+    <string formatted="false" name="import_feeds_successfully">चैनल सफलतापूर्वक आयात किए गए</string>
+    <string name="error_import_feeds">चैनलों को आयात करने में विफल</string>
+    <string name="error_export_feeds">चैनल निर्यात करने में विफल</string>
+    <string name="feed_item_open_article_url">लेख खोलें</string>
+    <string name="feeds_file_selection_dialog_title">चैनलों के साथ एक फ़ाइल का चयन करें</string>
+    <string name="error_import_invalid_format">अवैध प्रारूप</string>
+    <string name="feed_do_not_download_immediately">तुरंत डाउनलोड न करें</string>
+
+    <!-- Create torrent dialog -->
+     <string name="create_torrent">धार पैदा करो</string>
+    <string name="file_or_folder_for_seeding">बोने के लिए फाइल या फोल्डर</string>
+    <string name="tracker_urls">ट्रैकर यूआरएल</string>
+    <string name="web_seed_urls">वेब सीड यूआरएल</string>
+    <string name="comments">टिप्पणियाँ</string>
+    <string name="optional_hint">(वैकल्पिक)</string>
+    <string name="piece_size">टुकड़ा का आकार</string>
+    <string name="create_torrent_options">विकल्प</string>
+    <string name="option_start_seeding">बीजारोपण शुरू करें</string>
+    <string name="option_private_torrent">निजी धार</string>
+    <string name="option_optimize_alignment">संरेखण का अनुकूलन करें</string>
+    <string-array name="piece_size_entries">
+        <item>ऑटो</item>
+        <item>16 कीबी</item>
+        <item>32 कीबी</item>
+        <item>64 कीबी</item>
+        <item>128 कीबी</item>
+        <item>256 कीबी</item>
+        <item>512 कीबी</item>
+        <item>1 मि.बी.</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string formatted="false" name="invalid_url">अमान्य URL: %1$s</string>
+    <string name="file_or_folder_not_found">चयनित फ़ाइल या फ़ोल्डर नहीं मिला</string>
+    <string name="folder_is_empty">चयनित फ़ोल्डर खाली है या सभी फ़ाइलों को फ़िल्टर द्वारा बाहर रखा गया है</string>
+    <string name="error_create_torrent">धार बनाने में असमर्थ</string>
+    <string name="skip_files">फ़ाइलें छोड़ें</string>
+    <string name="skip_files_hint">\"|\" द्वारा अलग किए गए फ़ाइल नाम दर्ज करें</string>
+    <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
+    <string name="folder_to_save_not_found">सहेजने के लिए चयनित फ़ोल्डर नहीं मिला</string>
+    <string formatted="false" name="torrent_saved_to">टोरेंट ने %1$s पर सहेजा</string>
+
+    <!-- Settings -->
+
+    <!-- Headers -->
+    <string name="pref_header_appearance">दिखावट</string>
+    <string name="pref_header_behavior">व्यवहार</string>
+    <string name="pref_header_storage">भंडारण</string>
+    <string name="pref_header_limitations">सीमाएं</string>
+    <string name="pref_header_network">नेटवर्क</string>
+    <string name="pref_header_scheduling">निर्धारण</string>
+    <string name="pref_header_feed">आरएसएस</string>
+    <string name="pref_header_streaming">स्ट्रीमिंग</string>
+    <!-- Storage settings -->
+     <string name="pref_save_torrents_in_title">में torrents सहेजें</string>
+    <string name="pref_move_after_download_title">डाउनलोड करने के बाद आगे बढ़ें</string>
+    <string name="pref_move_after_download_in_title">डाउनलोड करने के बाद आगे बढ़ें</string>
+    <string name="pref_save_torrent_files_title">सहेजें .torrent फ़ाइलें</string>
+    <string name="pref_save_torrent_files_summary">डाउनलोड करने के बाद .torrent फ़ाइलों को सहेजें</string>
+    <string name="pref_save_torrent_files_in_title">में .torrent फ़ाइलों को सहेजें</string>
+    <string name="pref_watch_dir_title">देखो निर्देशिका</string>
+    <string name="pref_watch_dir_summary">टोरेंट फाइलें (.torrent एक्सटेंशन के साथ) निर्दिष्ट निर्देशिका में देखी जाती हैं और स्वचालित रूप से जोड़ी जाती हैं। धार फ़ाइलों को जोड़ने के बाद हटा दिया जाता है</string>
+    <string name="pref_dir_to_watch_title">देखने के लिए निर्देशिका</string>
+    <!-- Limitations settings -->
+   <string name="pref_speed_category">गति</string>
+    <string name="pref_max_download_speed_title">अधिकतम डाउनलोड गति</string>
+    <string name="pref_max_upload_speed_title">अधिकतम अपलोड गति</string>
+    <string name="pref_max_connections_title">कनेक्शन की अधिकतम संख्या</string>
+    <string name="pref_max_connections_summary">कनेक्शन की न्यूनतम संख्या - 2</string>
+    <string name="pref_torrent_queueing_category">टोरेंट की कतार</string>
+    <string name="pref_max_active_uploads_title">अधिकतम सक्रिय अपलोड</string>
+    <string name="pref_max_active_downloads_title">अधिकतम सक्रिय डाउनलोड</string>
+    <string name="pref_max_active_torrents_title">अधिकतम सक्रिय टोरेंट</string>
+    <string name="pref_max_connections_per_torrent_title">प्रति टॉरेंट की अधिकतम संख्या</string>
+    <string name="pref_max_connections_per_torrent_summary">कनेक्शन की न्यूनतम संख्या - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">प्रति टोरेंट पर अधिकतम अपलोड स्लॉट</string>
+    <string name="pref_max_uploads_per_torrent_summary">स्लॉट की न्यूनतम संख्या - 2</string>
+    <string name="pref_auto_manage_title">ऑटो का प्रबंधन</string>
+    <string name="pref_auto_manage_summary">किसी भी बिंदु पर स्वचालित रूप से धार को फिर से शुरू या रोका जा सकता है। इस विकल्प को सक्षम करने से ठहराव / फिर से शुरू हो सकता है</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 बिना सीमा के</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">विषय सेटिंग</string>
+    <string name="pref_theme_title">विषय</string>
+    <string-array name="pref_theme_entries">
+        <item>रोशनी</item>
+        <item>अंधेरा</item>
+        <item>काली</item>
+    </string-array>
+    <string name="pref_notification_category">अधिसूचना सेटिंग</string>
+    <string name="pref_torrent_finish_notify_title">टोरेंट फिनिश नोटिफिकेशन</string>
+    <string name="pref_torrent_finish_notify_summary">जब कोई धार डाउनलोड करना समाप्त करता है तो एक सूचना दिखाएं</string>
+    <string name="pref_play_sound_notify_title">ध्वनि खेलने</string>
+    <string name="pref_notify_sound_title">सूचना ध्वनि</string>
+    <string name="pref_led_indicator_notify_title">एलईडी सूचक</string>
+    <string name="pref_led_indicator_color_notify_title">एलईडी संकेतक रंग</string>
+    <string name="pref_vibration_notify_title">कंपन</string>
+    <string name="pref_foreground_notification_category">अग्रभूमि अधिसूचना</string>
+    <string name="pref_function_button_title">फंक्शन बटन</string>
+    <string-array name="pref_function_button_entries">
+        <item>टॉरेंट को रोकें / फिर से शुरू करें</item>
+        <item>धार जोड़ें</item>
+    </string-array>
+
+    <!-- Behavior settings -->
+<string name="pref_autostart_title">ऑटो स्टार्ट</string>
+    <string name="pref_autostart_summary">स्टार्ट डिवाइस के बाद ऐप को रन करें</string>
+    <string name="pref_wifi_only_title">केवल वाई - फाई</string>
+    <string name="pref_wifi_only_summary">डाउनलोड और अपलोड केवल अगर वाई-फाई जुड़ा हुआ है</string>
+    <string name="pref_power_management_category">ऊर्जा प्रबंधन</string>
+    <string name="pref_keep_alive_title">जिंदा रहो</string>
+    <string name="pref_keep_alive_summary">यदि सक्षम है, तो एप्लिकेशन पृष्ठभूमि में चलता रहेगा। जब डाउनलोड पूरा हो जाता है तब भी शटडाउन का सम्मान किया जाता है</string>
+    <string name="pref_shutdown_downloads_complete_title">डाउनलोड पूरा होने पर शटडाउन करें</string>
+    <string name="pref_shutdown_downloads_complete_summary">यदि सक्षम है, तो सभी डाउनलोड पूर्ण होने पर ऐप बंद हो जाएगा</string>
+    <string name="pref_cpu_do_not_sleep_title">सीपीयू को जागृत रखें</string>
+    <string name="pref_cpu_do_not_sleep_summary">इसे सक्षम करने से बैटरी का उपयोग बढ़ेगा। यदि स्क्रीन बंद होने पर डाउनलोड की गति कम हो जाती है तो इस विकल्प का उपयोग करें</string>
+    <string name="pref_download_and_upload_only_when_charging_title">डाउनलोड करें और चार्ज करते समय ही अपलोड करें</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">यदि सक्षम है, तो चार्ज करने पर ही टोरेंट डाउनलोड / अपलोड होंगे। चार्जर से कनेक्ट न होने पर सभी टोरेंट रुक जाएंगे</string>
+    <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
+    <string name="pref_custom_battery_control_title">कस्टम बैटरी प्रतिशत</string>
+    <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
+    <string formatted="false" name="pref_battery_control_summary">यदि बैटरी स्तर% 1 $ d %% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string formatted="false" name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1 $ d %% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
+    <string formatted="false" name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>
+    <string name="pref_enable_dht_title">DHT को सक्षम करें</string>
+    <string name="pref_enable_dht_summary">यह BitTorrent- क्लाइंट को ट्रैकर के उपयोग के बिना एक-दूसरे को खोजने की अनुमति देता है। इसे सक्षम करने से बैटरी का उपयोग बढ़ेगा</string>
+    <string name="pref_enable_lsd_title">एलएसडी सक्षम करें</string>
+    <string name="pref_enable_lsd_summary">यह यातायात को कम करने के उद्देश्य से स्थानीय बिटटोरेंट साथियों की खोज का समर्थन करने के लिए डिज़ाइन किया गया है</string>
+    <string name="pref_enable_utp_title">ΜTP सक्षम करें</string>
+    <string name="pref_enable_utp_summary">यह गरीब विलंबता और टीसीपी पर पारंपरिक बिटटोरेंट में पाए जाने वाले अन्य भीड़ नियंत्रण मुद्दों को कम करने का इरादा रखता है, जबकि विश्वसनीय, आदेशित डिलीवरी प्रदान करता है।</string>
+    <string name="pref_enable_upnp_title">UPnP सक्षम करें</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP सक्षम करें</string>
+    <string name="pref_port_settings_category">पोर्ट सेटिंग्स</string>
+    <string name="pref_use_random_port_title">यादृच्छिक पोर्ट का उपयोग करें</string>
+    <string name="pref_port_title">बंदरगाह</string>
+    <string name="pref_encryption_category">एन्क्रिप्शन</string>
+    <string name="pref_enc_mode_title">एन्क्रिप्शन प्रणाली</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>एन्क्रिप्शन को प्राथमिकता दें</item>
+        <item>एन्क्रिप्शन की आवश्यकता है</item>
+        <item>एन्क्रिप्शन अक्षम करें</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">आने वाले कनेक्शन</string>
+    <string name="pref_enc_out_connections_title">निवर्तमान कनेक्शन</string>
+    <string name="pref_ip_filtering_category">आईपी फ़िल्टरिंग</string>
+    <string name="pref_enable_ip_filtering_title">IP फ़िल्टरिंग सक्षम करें</string>
+    <string name="pref_enable_ip_filtering_summary">IP फ़िल्टरिंग के उपयोग से मेमोरी का उपयोग बढ़ता है। फ़ाइल आकार के आधार पर, फ़िल्टर को स्टार्टअप पर लागू होने में कुछ समय लग सकता है</string>
+    <string name="pref_ip_filtering_file_title">फ़ाइल को फ़िल्टर करने का पथ (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">NAT त्रुटियों को दिखाएं</string>
+    <!-- Proxy settings -->
+   <string name="pref_proxy_type_title">प्रॉक्सी प्रकार</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(कोई नहीं)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>एचटीटीपी</item>
+    </string-array>
+    <string name="pref_proxy_address_title">पता</string>
+    <string name="pref_proxy_port_title">बंदरगाह</string>
+    <string name="pref_proxy_peers_too_title">सहकर्मी कनेक्शन के लिए भी उपयोग करें</string>
+    <string name="pref_proxy_peers_too_summary">प्रॉक्सी का उपयोग ट्रैकर्स, साथियों और वेब बीजों के साथ जुड़ने के लिए किया जाएगा</string>
+    <string name="pref_force_proxy_title">प्रॉक्सी द्वारा समर्थित नहीं कनेक्शन अक्षम करें</string>
+    <string name="pref_proxy_requires_auth_title">प्राधिकरण की आवश्यकता है</string>
+    <string name="pref_proxy_requires_auth_summary">चेतावनी: पासवर्ड अनएन्क्रिप्टेड सहेजा जाता है</string>
+    <string name="pref_proxy_login_title">लॉग इन करें</string>
+    <string name="pref_proxy_password_title">पारण शब्द</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">समय शुरू</string>
+    <string name="pref_enable_scheduling_start_summary">निर्धारित समय पर ऐप शुरू करें। अंतिम बंद से पहले टोरेंट अपने राज्य के अनुसार चलेंगे</string>
+    <string name="pref_enable_scheduling_shutdown_title">शटडाउन समय</string>
+    <string name="pref_enable_scheduling_shutdown_summary">निर्दिष्ट समय पर शटडाउन ऐप</string>
+    <string name="pref_scheduling_run_only_once_title">केवल एक बार चलाएं</string>
+    <string name="pref_scheduling_switch_wifi_title">वाई-फाई को सक्षम / अक्षम करें</string>
+    <string name="pref_scheduling_switch_wifi_summary">निर्धारित समय पर ऐप लॉन्च होने पर वाई-फाई स्वचालित रूप से सक्षम हो जाता है और निर्धारित समय पर ऐप बंद होने के बाद अक्षम हो जाता है</string>
+     <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">ऑटो रिफ्रेश चैनल</string>
+    <string name="pref_feed_auto_refresh_summary">समय-समय पर चैनलों को पृष्ठभूमि में ताज़ा करें</string>
+    <string name="pref_feed_refresh_interval_title">ताजा अंतराल</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>5 मिनट</item>
+        <item>15 मिनट</item>
+        <item>30 मिनिट</item>
+        <item>1 घंटा</item>
+        <item>2 घंटे</item>
+        <item>6 घंटे</item>
+        <item>12 घंटे</item>
+        <item>एक दिन</item>
+    </string-array>
+    <string name="pref_feed_auto_refresh_wifi_only_title">केवल वाई - फाई</string>
+    <string name="pref_feed_keep_items_time_title">लेख रखें</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>एक दिन</item>
+        <item>दो दिन</item>
+        <item>चार दिन</item>
+        <item>1 सप्ताह</item>
+        <item>2 सप्ताह</item>
+        <item>1 महीना</item>
+        <item>2 महीने</item>
+        <item>3 महीने</item>
+        <item>हमेशा</item>
+    </string-array>
+    <string name="pref_feed_start_torrents_title">दौड़ो धार</string>
+    <string name="pref_feed_start_torrents_summary">जोड़ने के बाद टॉरेंट चलाएं</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">स्ट्रीमिंग सक्षम करें</string>
+    <string name="pref_streaming_enable_summary">स्ट्रीमिंग आपको HTTP यूआरएल का उपयोग करके ब्राउज़र या मीडिया प्लेयर का उपयोग करके एक टोरेंट से व्यक्तिगत फ़ाइलों को डाउनलोड करने की अनुमति देता है</string>
+    <string name="pref_streaming_hostname">होस्ट का नाम</string>
+    <string name="pref_streaming_port">बंदरगाह</string>
+    <string name="pref_streaming_error">स्ट्रीमिंग के लिए चयनित पोर्ट या होस्टनाम व्यस्त या गलत है। कृपया इसे ठीक करे</string>
+
+    <!-- About dialog -->
+      <string name="about_title">LibreTorrent के बारे में</string>
+    <string name="about_website">अधिक जानकारी https://gitlab.com/proninyaroslav/libretorrent पर उपलब्ध है</string>
+    <string name="about_description">LibreTorrent एक फ्री है जैसा कि एंड्रॉइड 4 के लिए फ्रीडम टोरेंट क्लाइंट में है, जो कि libtorrent पर आधारित है। \ n \ nLibreTorrent मुफ्त सॉफ्टवेयर है</string>
+    <string name="about_changelog">बदलाव का</string>
+</resources>

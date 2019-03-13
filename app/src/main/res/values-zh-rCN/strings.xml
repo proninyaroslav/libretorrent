@@ -44,8 +44,8 @@
     <string name="spinner_downloaded_torrents">已下载</string>
     <string name="spinner_downloading_metadata_torrents">正下载元数据</string>
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
-    <string name="delete_selected_torrent">删除所选择的 torrent ？此操作无法撤销。</string>
-    <string name="delete_selected_torrents">删除所选择的所有 torrent ？此操作无法撤销。</string>
+    <string name="delete_selected_torrent">删除所选择的 torrent？此操作无法撤销。</string>
+    <string name="delete_selected_torrents">删除所选择的所有 torrent？此操作无法撤销。</string>
     <string name="force_recheck_torrent">强制重新效验文件</string>
     <string name="force_announce_torrent">强制发布</string>
     <string name="add_link">添加链接</string>
@@ -71,7 +71,7 @@
         <item>按大小</item>
         <item>按下载进度</item>
         <item>按预计完成时间</item>
-        <item>按Peers数目</item>
+        <item>按类型</item>
     </string-array>
 
     <!-- Foreground notification -->
@@ -90,8 +90,8 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">torrent 错误</string>
     <string name="error_template">Error: %1$s</string>
-    <string name="torrent_does_not_exists_error">torrent 不存在</string>
-    <string name="restore_torrent_error">无法从此前会话中恢复torrent</string>
+    <string name="torrent_does_not_exists_error">torrent不存在</string>
+    <string name="restore_torrent_error">无法从此前会话中恢复 torrent</string>
     <string name="session_error_title">会话错误</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="listen_failed_error" formatted="false">无法侦听（listen） %1$s:%2$d, 类型: %3$s (error: %4$s)</string>
@@ -122,7 +122,7 @@
     <!-- connected/total -->
     <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">下载中</string>
-    <string name="torrent_status_seeding">做种中</string>
+    <string name="torrent_status_seeding">播种中</string>
     <string name="torrent_status_paused">已暂停</string>
     <string name="torrent_status_stopped">已停止</string>
     <string name="torrent_status_checking">检查中</string>
@@ -211,31 +211,31 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">已下载</string>
     <string name="torrent_ETA">剩余时间</string>
-    <!-- torrent 把提供完整文件档案的人称为种子(SEED)，正在下载的人称为客户(Client) -->
-    <!-- seeds 是已经下载完某个文件在做种上传的人 -->
+    <!-- torrent 把提供完整文件档案的人称为种子 (SEED)，正在下载的人称为客户 (Client) -->
+    <!-- seeds 是已经下载完某个文件在播种上传的人 -->
     <string name="torrent_seeds">种子</string>
     <string name="torrent_peers">用户</string>
-    <!-- leechers 是正在下载某个文件并做种上传已经下载完成部分文件的人 -->
+    <!-- leechers 是正在下载某个文件并播种上传已经下载完成部分文件的人 -->
     <string name="torrent_leechers">不完整种子</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template" formatted="false">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
     <string name="torrent_share_ratio">分享率</string>
     <string name="torrent_active_time">活跃时间</string>
-    <string name="torrent_seeding_time">做种时间</string>
+    <string name="torrent_seeding_time">播种时间</string>
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total （piece length） -->
     <string name="torrent_pieces_template" formatted="false">%1$d/%2$d （%3$s）</string>
-    <string name="torrent_trackers">tracker</string>
+    <string name="torrent_trackers">追踪器</string>
     <string name="tracker_state_working">工作</string>
     <string name="tracker_state_not_working">不工作</string>
     <string name="tracker_state_error" formatted="false">错误: %1$s</string>
     <string name="tracker_state_updating">更新中&#8230;</string>
     <string name="tracker_state_not_contacted">尚未连接</string>
     <string name="share_tracker_url">分享链接</string>
-    <string name="delete_selected_tracker">删除所选 tracker ？</string>
-    <string name="delete_selected_trackers">删除所选的所有 tracker ？</string>
-    <string name="add_trackers">添加 tracker</string>
+    <string name="delete_selected_tracker">删除所选追踪器？</string>
+    <string name="delete_selected_trackers">删除所选的所有追踪器？</string>
+    <string name="add_trackers">添加追踪器</string>
     <string name="dialog_add_trackers">（每行一个）</string>
     <string name="open_using">打开文件</string>
     <string name="peer_port" formatted="false">端口: %1$d</string>
@@ -263,8 +263,8 @@
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
     <string name="torrent_added_date">已添加</string>
     <string name="torrent_availability">可用度</string>
-    <string name="share_stream_url">分享stream URL</string>
-    <string name="magnet_include_file_priorities">包含文件属性?</string>
+    <string name="share_stream_url">分享流媒体链接</string>
+    <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
 
     <!-- Send text to clipboard -->
@@ -276,12 +276,12 @@
     <string name="error_comment_prompt">您可以在这里添加额外的信息和评论：</string>
 
     <!-- Feeds -->
-    <string name="feed">RSS</string>
+    <string name="feed">RSS 订阅</string>
     <string name="feed_channel_list_empty">无频道</string>
     <string name="select_or_add_feed_channel">选择或添加一个 RSS/Atom 频道</string>
     <string name="add_feed_channel">添加频道</string>
     <string name="feed_name">频道名 （可选）</string>
-    <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用"|"隔开，其中之一必须包含在torrent名称中）。只有当这个过滤器与torrent名称相匹配时，才会添加种子</string>
+    <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用"|"隔开，其中之一必须包含在 torrent 名称中）。只有当这个过滤器与 torrent 名称相匹配时，才会添加种子</string>
     <string name="feed_auto_download">自动下载新的torrent</string>
     <string name="feed_use_regex">使用正则表达式</string>
     <string name="import_feed_channels">导入频道</string>
@@ -302,20 +302,20 @@
     <string name="error_import_feeds">导入失败</string>
     <string name="error_export_feeds">导出失败</string>
     <string name="feed_item_open_article_url">打开文章</string>
-    <string name="feeds_file_selection_dialog_title">选择RSS频道文件</string>
+    <string name="feeds_file_selection_dialog_title">选择 RSS 频道文件</string>
     <string name="error_import_invalid_format">无效格式</string>
     <string name="feed_do_not_download_immediately">不立即下载</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建 torrent</string>
-    <string name="file_or_folder_for_seeding">需要做种的文件或文件夹</string>
-    <string name="tracker_urls">Tracker 链接</string>
-    <string name="web_seed_urls">Web seed 链接</string>
+    <string name="file_or_folder_for_seeding">需要播种的文件或文件夹</string>
+    <string name="tracker_urls">追踪链接</string>
+    <string name="web_seed_urls">种子链接</string>
     <string name="comments">评论</string>
     <string name="optional_hint">（可选）</string>
     <string name="piece_size">区块大小</string>
     <string name="create_torrent_options">选项</string>
-    <string name="option_start_seeding">开始做种</string>
+    <string name="option_start_seeding">开始播种</string>
     <string name="option_private_torrent">私有种子</string>
     <string name="option_optimize_alignment">优化队列</string>
     <string-array name="piece_size_entries">
@@ -352,8 +352,8 @@
     <string name="pref_header_limitations">限制</string>
     <string name="pref_header_network">网络</string>
     <string name="pref_header_scheduling">计划调度</string>
-    <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_feed">RSS 订阅</string>
+    <string name="pref_header_streaming">流媒体</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">默认下载目录</string>
     <string name="pref_move_after_download_title">下载完成后移动文件</string>
@@ -362,7 +362,7 @@
     <string name="pref_save_torrent_files_summary">下载开始时保存 torrent 文件</string>
     <string name="pref_save_torrent_files_in_title">保存 torrent 文件至</string>
     <string name="pref_watch_dir_title">监测目录</string>
-    <string name="pref_watch_dir_summary">APP会 监测指定目录内以.torrent扩展名结尾的文件并把它们加入下载队列。加入下载后这些文件将被删除。</string>
+    <string name="pref_watch_dir_summary">APP 会监测指定目录内以 .torrent 扩展名结尾的文件并把它们加入下载队列。加入下载后这些文件将被删除。</string>
     <string name="pref_dir_to_watch_title">要监测的目录</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">下载速度</string>
@@ -387,11 +387,11 @@
     <string name="pref_custom_battery_control_summary" formatted="false">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
     <string name="pref_keep_alive_title">保持活动</string>
-    <string name="pref_keep_alive_summary">若启用, APP将在后台继续运行。注：下载完成后退出应用选项依旧有效。</string>
+    <string name="pref_keep_alive_summary">若启用，此应用将在后台继续运行。注：下载完成后退出应用选项依旧有效。</string>
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
-    <string name="pref_wifi_only_title">仅WIFI连接</string>
-    <string name="pref_wifi_only_summary">仅在连接至WIFI时上传和下载</string>
+    <string name="pref_wifi_only_title">仅 Wi-Fi 连接</string>
+    <string name="pref_wifi_only_summary">仅在连接至 Wi-Fi 时上传和下载</string>
     <string name="pref_theme_category">主题设置</string>
     <string name="pref_theme_title">主题</string>
     <string-array name="pref_theme_entries">
@@ -425,7 +425,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>
-    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用 tracker 便能找到彼此。启用此选项将增加电池使用量。</string>
+    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用追踪器便能找到彼此。启用此选项将增加电池使用量。</string>
     <string name="pref_enable_lsd_title">开启 LSD</string>
     <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度减少流量。</string>
     <string name="pref_enable_utp_title">开启 μTP</string>
@@ -460,7 +460,7 @@
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
     <string name="pref_proxy_peers_too_title">用于与用户的连接</string>
-    <string name="pref_proxy_peers_too_summary">代理服务器将用于与 tracker 、用户和网页种子的连接</string>
+    <string name="pref_proxy_peers_too_summary">代理服务器将用于与追踪器、用户和网页种子的连接</string>
     <string name="pref_force_proxy_title">禁用代理服务器不支持的连接</string>
     <string name="pref_proxy_requires_auth_title">需要授权认证</string>
     <string name="pref_proxy_requires_auth_summary">警告：密码将以不加密的方式保存</string>
@@ -468,12 +468,12 @@
     <string name="pref_proxy_password_title">密码</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">启动时间</string>
-    <string name="pref_enable_scheduling_start_summary">在指定时间启动APP。torrents将根据APP上次关闭前的状态运行</string>
+    <string name="pref_enable_scheduling_start_summary">在指定时间内启动应用。torrents 将根据此应用上次关闭前的状态运行</string>
     <string name="pref_enable_scheduling_shutdown_title">退出时间</string>
-    <string name="pref_enable_scheduling_shutdown_summary">在指定时间退出APP</string>
+    <string name="pref_enable_scheduling_shutdown_summary">在指定时间内退出应用</string>
     <string name="pref_scheduling_run_only_once_title">只运行一次</string>
     <string name="pref_scheduling_switch_wifi_title">启用/禁用 Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary"> 当APP在计划时间启动时，将自动开启WIFI；在APP于计划时间退出后，将自动禁用WIFI</string>
+    <string name="pref_scheduling_switch_wifi_summary"> 当此应用在计划时间内启动时，将自动开启 Wi-Fi；此应用在计划时间退出后，将自动禁用 Wi-Fi</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
     <string name="pref_feed_auto_refresh_summary">后台定期刷新频道</string>
@@ -488,7 +488,7 @@
         <item>12 小时</item>
         <item>1 天</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">仅WIFI</string>
+    <string name="pref_feed_auto_refresh_wifi_only_title">仅 Wi-Fi</string>
     <string name="pref_feed_keep_items_time_title">保留文章</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 天</item>
@@ -504,8 +504,8 @@
     <string name="pref_feed_start_torrents_title">运行 torrent</string>
     <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">启用streaming功能</string>
-    <string name="pref_streaming_enable_summary">Streaming允许通过浏览器或媒体播放器中输入的HTTP 地址从torrent中下载一个或多个单独文件</string>
+    <string name="pref_streaming_enable_title">启用流媒体功能</string>
+    <string name="pref_streaming_enable_summary">流媒体允许通过浏览器或媒体播放器中输入的 HTTP 地址从 torrent 中下载一个或多个单独文件</string>
     <string name="pref_streaming_hostname">主机名</string>
     <string name="pref_streaming_port">端口</string>
     <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它。</string>

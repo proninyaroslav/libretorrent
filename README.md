@@ -54,7 +54,7 @@ Current languages:
  - Russian
  - German *(thanks vanitasvitae)*
  - Lithuanian *(thanks techwebpd)*
- - Chinese *(thanks yanglw and Xu Eric)*
+ - Chinese *(thanks yanglw, Xu Eric and Tan Yongle)*
  - Polish *(thanks Azaradel)*
  - Spanish *(thanks ed10vi)*
  - Brazilian Portuguese *(thanks Wolfterro)*
@@ -63,6 +63,9 @@ Current languages:
  - Czech *(thanks HarryPhoon)*
  - Norwegian Bokmål *(thanks comradekingu)*
  - Romanian *(thanks georgenetu)*
+ - Hindi *(thanks Lino Joseph)*
+ - Malayalam *(thanks Lino Joseph)*
+ - Tamil *(thanks Lino Joseph)*
 
 Contributors
 ---
