@@ -121,7 +121,7 @@
     <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template" formatted="false">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Parsikunčia</string>
+    <string name="torrent_status_downloading">Parsiunčiama</string>
     <string name="torrent_status_seeding">Skleidžia</string>
     <string name="torrent_status_paused">Pauzė</string>
     <string name="torrent_status_stopped">Sustabdyta</string>
