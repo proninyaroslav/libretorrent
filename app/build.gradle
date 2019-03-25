@@ -79,7 +79,7 @@ repositories {
     }
 }
 
-def LIBTORRENT4J_VERSION='1.2.0.21'
+def LIBTORRENT4J_VERSION='1.2.0.22'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
