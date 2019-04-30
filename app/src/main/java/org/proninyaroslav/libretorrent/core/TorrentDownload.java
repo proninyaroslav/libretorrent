@@ -106,7 +106,7 @@ public class TorrentDownload
     private Context context;
     private TorrentHandle th;
     private Torrent torrent;
-    private final List<TorrentEngineListener> listeners;
+    private final List<TorrentSessionListener> listeners;
     private InnerListener listener;
     private Set<File> incompleteFilesToRemove;
     private File parts;
@@ -116,7 +116,7 @@ public class TorrentDownload
     public TorrentDownload(Context context,
                            TorrentHandle handle,
                            Torrent torrent,
-                           final List<TorrentEngineListener> listeners)
+                           final List<TorrentSessionListener> listeners)
     {
         this.context = context;
         this.th = handle;
@@ -127,17 +127,17 @@ public class TorrentDownload
         /* TODO: SAF support */
         this.parts = (ti != null ? new File(torrent.downloadPath.getPath(), "." + ti.infoHash() + ".parts") : null);
         listener = new InnerListener();
-        TorrentEngine.getInstance().addListener(listener);
+        TorrentEngineOld.getInstance().addListener(listener);
     }
 
     private interface CallListener
     {
-        void apply(TorrentEngineListener listener);
+        void apply(TorrentSessionListener listener);
     }
 
     private void notifyListeners(@NonNull CallListener l)
     {
-        for (TorrentEngineListener listener : listeners) {
+        for (TorrentSessionListener listener : listeners) {
             if (listener != null)
                 l.apply(listener);
         }
@@ -336,7 +336,7 @@ public class TorrentDownload
         notifyListeners((listener) ->
                 listener.onTorrentRemoved(torrent.id));
 
-        TorrentEngine.getInstance().removeListener(listener);
+        TorrentEngineOld.getInstance().removeListener(listener);
         if (parts != null)
             parts.delete();
         finalCleanup(incompleteFilesToRemove);
@@ -396,7 +396,7 @@ public class TorrentDownload
         if (!th.isValid())
             return;
 
-        if (TorrentEngine.getInstance().getSettings().autoManaged)
+        if (TorrentEngineOld.getInstance().getSettings().autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
         else
             th.unsetFlags(TorrentFlags.AUTO_MANAGED);
@@ -511,9 +511,9 @@ public class TorrentDownload
 
         if (th.isValid()) {
             if (withFiles)
-                TorrentEngine.getInstance().remove(th, SessionHandle.DELETE_FILES);
+                TorrentEngineOld.getInstance().remove(th, SessionHandle.DELETE_FILES);
             else
-                TorrentEngine.getInstance().remove(th);
+                TorrentEngineOld.getInstance().remove(th);
         }
     }
 
@@ -938,7 +938,7 @@ public class TorrentDownload
 
     public TorrentStateCode getStateCode()
     {
-        if (!TorrentEngine.getInstance().isRunning())
+        if (!TorrentEngineOld.getInstance().isRunning())
             return TorrentStateCode.STOPPED;
 
         if (isPaused())
@@ -985,7 +985,7 @@ public class TorrentDownload
     public boolean isPaused()
     {
         return th.isValid() && (isPaused(th.status(true)) ||
-                TorrentEngine.getInstance().isPaused() || !TorrentEngine.getInstance().isRunning());
+                TorrentEngineOld.getInstance().isPaused() || !TorrentEngineOld.getInstance().isRunning());
     }
 
     private static boolean isPaused(TorrentStatus s)

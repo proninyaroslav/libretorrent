@@ -55,7 +55,7 @@ public class TorrentHelper
 
     public static BasicStateParcel makeBasicStateParcel(@NonNull String id)
     {
-        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        TorrentDownload task = TorrentEngineOld.getInstance().getTask(id);
         if (task == null)
             return null;
 
@@ -80,7 +80,7 @@ public class TorrentHelper
 
     public static AdvanceStateParcel makeAdvancedState(@NonNull String id)
     {
-        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        TorrentDownload task = TorrentEngineOld.getInstance().getTask(id);
         if (task == null)
             return null;
 
@@ -102,20 +102,20 @@ public class TorrentHelper
 
     public static ArrayList<TrackerStateParcel> makeTrackerStateParcelList(@NonNull String id)
     {
-        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        TorrentDownload task = TorrentEngineOld.getInstance().getTask(id);
         if (task == null)
             return null;
 
         List<AnnounceEntry> trackers = task.getTrackers();
         ArrayList<TrackerStateParcel> states = new ArrayList<>();
 
-        int statusDHT = TorrentEngine.getInstance().isDHTEnabled() ?
+        int statusDHT = TorrentEngineOld.getInstance().isDHTEnabled() ?
                 TrackerStateParcel.Status.WORKING :
                 TrackerStateParcel.Status.NOT_WORKING;
-        int statusLSD = TorrentEngine.getInstance().isLSDEnabled() ?
+        int statusLSD = TorrentEngineOld.getInstance().isLSDEnabled() ?
                 TrackerStateParcel.Status.WORKING :
                 TrackerStateParcel.Status.NOT_WORKING;
-        int statusPeX = TorrentEngine.getInstance().isPeXEnabled() ?
+        int statusPeX = TorrentEngineOld.getInstance().isPeXEnabled() ?
                 TrackerStateParcel.Status.WORKING :
                 TrackerStateParcel.Status.NOT_WORKING;
 
@@ -140,7 +140,7 @@ public class TorrentHelper
 
     public static ArrayList<PeerStateParcel> makePeerStateParcelList(@NonNull String id)
     {
-        TorrentDownload task = TorrentEngine.getInstance().getTask(id);
+        TorrentDownload task = TorrentEngineOld.getInstance().getTask(id);
         if (task == null)
             return null;
 
@@ -161,7 +161,7 @@ public class TorrentHelper
 
     public static MagnetInfo fetchMagnet(String uri) throws Exception
     {
-        org.libtorrent4j.AddTorrentParams p = TorrentEngine.getInstance().fetchMagnet(uri);
+        org.libtorrent4j.AddTorrentParams p = TorrentEngineOld.getInstance().fetchMagnet(uri);
         MagnetInfo info = null;
         List<Priority> priorities = null;
         if (p != null) {
@@ -182,8 +182,8 @@ public class TorrentHelper
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         if (fromMagnet) {
-            byte[] bencode = TorrentEngine.getInstance().getLoadedMagnet(torrent.id);
-            TorrentEngine.getInstance().removeLoadedMagnet(torrent.id);
+            byte[] bencode = TorrentEngineOld.getInstance().getLoadedMagnet(torrent.id);
+            TorrentEngineOld.getInstance().removeLoadedMagnet(torrent.id);
             if (bencode == null) {
                 torrent.setMagnetUri(source);
                 repo.addTorrent(context, torrent);
@@ -191,7 +191,7 @@ public class TorrentHelper
                 if (repo.getTorrentById(torrent.id) == null) {
                     repo.addTorrent(context, torrent, bencode);
                 } else {
-                    TorrentEngine.getInstance().mergeTorrent(torrent, bencode);
+                    TorrentEngineOld.getInstance().mergeTorrent(torrent, bencode);
                     repo.replaceTorrent(context, torrent, bencode);
                     throw new FileAlreadyExistsException();
                 }
@@ -200,7 +200,7 @@ public class TorrentHelper
             if (repo.getTorrentById(torrent.id) == null) {
                 repo.addTorrent(context, torrent, Uri.parse(source), removeFile);
             } else {
-                TorrentEngine.getInstance().mergeTorrent(torrent);
+                TorrentEngineOld.getInstance().mergeTorrent(torrent);
                 repo.replaceTorrent(context, torrent, Uri.parse(source), removeFile);
                 throw new FileAlreadyExistsException();
             }

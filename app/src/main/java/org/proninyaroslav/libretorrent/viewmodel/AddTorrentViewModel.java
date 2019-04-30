@@ -28,14 +28,13 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentEngineOld;
 import org.proninyaroslav.libretorrent.core.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
@@ -135,8 +134,8 @@ public class AddTorrentViewModel extends AndroidViewModel
         decodeState.setValue(new DecodeState(Status.UNKNOWN));
 
         /* Init download dir */
-        String path = pref.getString(application.getString(R.string.pref_key_last_download_dir_uri),
-                                     SettingsManager.Default.lastDownloadDirUri);
+        String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
+                                     SettingsManager.Default.saveTorrentFilesIn);
         if (path != null)
             params.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
     }
@@ -525,6 +524,6 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         DecodeState state = decodeState.getValue();
         if (state != null && state.status == Status.FETCHING_MAGNET)
-            TorrentEngine.getInstance().cancelFetchMagnet(infoVal.sha1Hash);
+            TorrentEngineOld.getInstance().cancelFetchMagnet(infoVal.sha1Hash);
     }
 }

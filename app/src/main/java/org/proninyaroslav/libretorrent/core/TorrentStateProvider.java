@@ -76,7 +76,7 @@ public class TorrentStateProvider
     private Flowable<Object> createBasicStateFlowable(String torrentId)
     {
         return Flowable.create((emitter) -> {
-            TorrentEngineListener listener = new TorrentEngineListener() {
+            TorrentSessionListener listener = new TorrentSessionListener() {
                 @Override
                 void onTorrentStateChanged(String id)
                 {
@@ -98,9 +98,9 @@ public class TorrentStateProvider
                 }
             };
             if (!emitter.isCancelled()) {
-                TorrentEngine.getInstance().addListener(listener);
+                TorrentEngineOld.getInstance().addListener(listener);
                 emitter.setDisposable(Disposables.fromAction(() ->
-                        TorrentEngine.getInstance().removeListener(listener)));
+                        TorrentEngineOld.getInstance().removeListener(listener)));
             }
 
             /* Emit once to avoid missing any data and also easy chaining */
@@ -113,7 +113,7 @@ public class TorrentStateProvider
     private Single<TorrentMetaInfo> createMagnetLoadedFlowable(String hash)
     {
         return Single.create((emitter) -> {
-            TorrentEngineListener listener = new TorrentEngineListener() {
+            TorrentSessionListener listener = new TorrentSessionListener() {
                 @Override
                 void onMagnetLoaded(String h, byte[] bencode)
                 {
@@ -134,9 +134,9 @@ public class TorrentStateProvider
                 }
             };
             if (!emitter.isDisposed()) {
-                TorrentEngine.getInstance().addListener(listener);
+                TorrentEngineOld.getInstance().addListener(listener);
                 emitter.setDisposable(Disposables.fromAction(() ->
-                        TorrentEngine.getInstance().removeListener(listener)));
+                        TorrentEngineOld.getInstance().removeListener(listener)));
             }
         });
     }

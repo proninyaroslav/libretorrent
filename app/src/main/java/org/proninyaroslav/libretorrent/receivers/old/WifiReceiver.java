@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers;
+package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,8 +34,8 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 public class WifiReceiver extends BroadcastReceiver
 {
-    public static final String ACTION_WIFI_ENABLED = "org.proninyaroslav.libretorrent.receivers.WifiReceiver.ACTION_WIFI_ENABLED";
-    public static final String ACTION_WIFI_DISABLED = "org.proninyaroslav.libretorrent.receivers.WifiReceiver.ACTION_WIFI_DISABLED";
+    public static final String ACTION_WIFI_ENABLED = "org.proninyaroslav.libretorrent.receivers.old.WifiReceiver.ACTION_WIFI_ENABLED";
+    public static final String ACTION_WIFI_DISABLED = "org.proninyaroslav.libretorrent.receivers.old.WifiReceiver.ACTION_WIFI_DISABLED";
 
     @Override
     public void onReceive(Context context, Intent intent)

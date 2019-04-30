@@ -253,22 +253,6 @@ public class TorrentUtils
         return null;
     }
 
-    /*
-     * Return path to the current torrent download directory.
-     * If the directory doesn't exist, the function creates it automatically.
-     */
-
-    public static String getTorrentDownloadPath(@NonNull Context context)
-    {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
-        String path = pref.getString(context.getString(R.string.pref_key_save_torrents_in),
-                                     SettingsManager.Default.saveTorrentsIn);
-        if (!TextUtils.isEmpty(path))
-            return path;
-
-        return FileIOUtils.getDefaultDownloadPath();
-    }
-
     public static String getErrorMsg(ErrorCode error)
     {
         return (error == null ? "" : error.message() + ", code " + error.value());

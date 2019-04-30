@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
@@ -53,9 +54,11 @@ import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
+import org.proninyaroslav.libretorrent.core.RealSystemFacade;
+import org.proninyaroslav.libretorrent.core.SystemFacade;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
-import org.proninyaroslav.libretorrent.receivers.BootReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
@@ -81,6 +84,7 @@ import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 
 /*
@@ -101,6 +105,22 @@ public class Utils
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
+
+    private static SystemFacade systemFacade;
+
+    public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
+    {
+        if (systemFacade == null)
+            systemFacade = new RealSystemFacade(context);
+
+        return systemFacade;
+    }
+
+    @VisibleForTesting
+    public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
+    {
+        Utils.systemFacade = systemFacade;
+    }
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
@@ -317,6 +337,33 @@ public class Utils
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
+    public static boolean isMetered(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                    systemFacade.isActiveNetworkMetered();
+        } else {
+            return systemFacade.isActiveNetworkMetered();
+        }
+    }
+
+    public static boolean isRoaming(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isRoaming();
+        }
+    }
+
+
     public static int getThemePreference(@NonNull Context context)
     {
         return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
@@ -392,13 +439,6 @@ public class Utils
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    public static boolean isWifiEnabled(@NonNull Context context)
-    {
-        WifiManager manager = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
-        return manager != null && manager.isWifiEnabled();
     }
 
     /*

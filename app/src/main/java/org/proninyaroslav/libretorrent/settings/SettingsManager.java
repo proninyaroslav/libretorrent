@@ -26,7 +26,9 @@ import android.preference.PreferenceManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentEngineOld;
+import org.proninyaroslav.libretorrent.core.TorrentSession;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 
@@ -54,9 +56,10 @@ public class SettingsManager
         public static final boolean onlyCharging = false;
         public static final boolean batteryControl = false;
         public static final boolean customBatteryControl = false;
-        public static final boolean wifiOnly = false;
+        public static final boolean unmeteredConnectionsOnly = false;
+        public static final boolean enableRoaming = true;
         /* Network settings */
-        public static final int port = TorrentEngine.Settings.DEFAULT_PORT;
+        public static final int port = TorrentEngineOld.Settings.DEFAULT_PORT;
         public static final boolean enableDht = true;
         public static final boolean enableLsd = true;
         public static final boolean enableUtp = true;
@@ -70,7 +73,6 @@ public class SettingsManager
         public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
         public static final boolean showNatErrors = false;
         /* Storage settings */
-        public static final String lastDownloadDirUri = FileUtils.getDefaultDownloadPath();
         public static final String saveTorrentsIn = FileUtils.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;
         public static final String moveAfterDownloadIn = FileUtils.getDefaultDownloadPath();
@@ -79,14 +81,14 @@ public class SettingsManager
         public static final boolean watchDir = false;
         public static final String dirToWatch = FileUtils.getDefaultDownloadPath();
         /* Limitations settings */
-        public static final int maxDownloadSpeedLimit = TorrentEngine.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
-        public static final int maxUploadSpeedLimit = TorrentEngine.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
-        public static final int maxConnections = TorrentEngine.Settings.DEFAULT_CONNECTIONS_LIMIT;
-        public static final int maxConnectionsPerTorrent = TorrentEngine.Settings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
-        public static final int maxUploadsPerTorrent = TorrentEngine.Settings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
-        public static final int maxActiveUploads = TorrentEngine.Settings.DEFAULT_ACTIVE_SEEDS;
-        public static final int maxActiveDownloads = TorrentEngine.Settings.DEFAULT_ACTIVE_DOWNLOADS;
-        public static final int maxActiveTorrents = TorrentEngine.Settings.DEFAULT_ACTIVE_LIMIT;
+        public static final int maxDownloadSpeedLimit = TorrentEngineOld.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
+        public static final int maxUploadSpeedLimit = TorrentEngineOld.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
+        public static final int maxConnections = TorrentEngineOld.Settings.DEFAULT_CONNECTIONS_LIMIT;
+        public static final int maxConnectionsPerTorrent = TorrentEngineOld.Settings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
+        public static final int maxUploadsPerTorrent = TorrentEngineOld.Settings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
+        public static final int maxActiveUploads = TorrentEngineOld.Settings.DEFAULT_ACTIVE_SEEDS;
+        public static final int maxActiveDownloads = TorrentEngineOld.Settings.DEFAULT_ACTIVE_DOWNLOADS;
+        public static final int maxActiveTorrents = TorrentEngineOld.Settings.DEFAULT_ACTIVE_LIMIT;
         public static final boolean autoManage = false;
         /* Proxy settings */
         public static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();
@@ -145,9 +147,9 @@ public class SettingsManager
         return pref;
     }
 
-    public TorrentEngine.Settings readEngineSettings(Context context)
+    public TorrentSession.Settings readSessionSettings(Context context)
     {
-        TorrentEngine.Settings settings = new TorrentEngine.Settings();
+        TorrentSession.Settings settings = new TorrentSession.Settings();
         settings.downloadRateLimit = pref.getInt(context.getString(R.string.pref_key_max_download_speed),
                                                  Default.maxDownloadSpeedLimit);
         settings.uploadRateLimit = pref.getInt(context.getString(R.string.pref_key_max_upload_speed),

@@ -70,14 +70,14 @@ import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.old.TorrentStateMsg;
-import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
-import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
-import org.proninyaroslav.libretorrent.receivers.WifiReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.PowerReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.WifiReceiver;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
@@ -271,7 +271,7 @@ public class TorrentTaskService extends Service
                                                         Utils.getDefaultBatteryLowLevel());
             boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
                                                    SettingsManager.Default.onlyCharging);
-            boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
+            boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_umnetered_connections_only),
                                                SettingsManager.Default.wifiOnly);
 
             switch (intent.getAction()) {
@@ -767,7 +767,7 @@ public class TorrentTaskService extends Service
                 key.equals(getString(R.string.pref_key_custom_battery_control)) ||
                 key.equals(getString(R.string.pref_key_custom_battery_control_value)) ||
                 key.equals(getString(R.string.pref_key_download_and_upload_only_when_charging)) ||
-                key.equals(getString(R.string.pref_key_wifi_only))) {
+                key.equals(getString(R.string.pref_key_umnetered_connections_only))) {
             if (checkPauseControl())
                 TorrentEngine.getInstance().pauseAll();
             else
@@ -922,7 +922,7 @@ public class TorrentTaskService extends Service
                 R.string.pref_key_custom_battery_control_value), Utils.getDefaultBatteryLowLevel());
         boolean onlyCharging = pref.getBoolean(getString(R.string.pref_key_download_and_upload_only_when_charging),
                 SettingsManager.Default.onlyCharging);
-        boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_wifi_only),
+        boolean wifiOnly = pref.getBoolean(getString(R.string.pref_key_umnetered_connections_only),
                 SettingsManager.Default.wifiOnly);
 
         try {

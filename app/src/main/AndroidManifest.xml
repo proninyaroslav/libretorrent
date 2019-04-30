@@ -230,7 +230,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
-            android:name=".receivers.NotificationReceiver"
+            android:name=".receivers.old.NotificationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP" />
@@ -239,7 +239,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.BootReceiver">
+            android:name=".receivers.old.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -248,7 +248,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.SchedulerReceiver" />
+            android:name=".receivers.old.SchedulerReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

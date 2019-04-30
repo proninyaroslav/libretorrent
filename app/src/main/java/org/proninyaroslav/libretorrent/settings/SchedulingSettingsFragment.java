@@ -31,7 +31,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.receivers.SchedulerReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.SchedulerReceiver;
 import org.proninyaroslav.libretorrent.settings.customprefs.TimePreference;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 

@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-public abstract class TorrentEngineListener
+public abstract class TorrentSessionListener
 {
     void onTorrentAdded(String id) {};
 

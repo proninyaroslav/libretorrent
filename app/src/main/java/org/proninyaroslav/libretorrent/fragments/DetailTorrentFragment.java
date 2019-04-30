@@ -73,7 +73,7 @@ import org.proninyaroslav.libretorrent.core.old.TorrentHelper;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.receivers.TorrentTaskServiceReceiver;
+import org.proninyaroslav.libretorrent.receivers.old.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;

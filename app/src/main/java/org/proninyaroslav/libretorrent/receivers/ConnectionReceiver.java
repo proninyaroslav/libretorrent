@@ -23,55 +23,29 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 /*
- * The receiver for power monitoring.
+ * The receiver for Wi-Fi connection state changes and roaming state.
  */
 
-public class PowerReceiver extends BroadcastReceiver
+public class ConnectionReceiver extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
     {
         String action = intent.getAction();
-        if (action == null)
-            return;
-        switch (action) {
-            case Intent.ACTION_BATTERY_LOW:
-            case Intent.ACTION_BATTERY_OKAY:
-            case Intent.ACTION_POWER_CONNECTED:
-            case Intent.ACTION_POWER_DISCONNECTED:
-            case Intent.ACTION_BATTERY_CHANGED:
-                TorrentEngine engine = ((MainApplication)context).getTorrentEngine();
-                engine.rescheduleTorrents();
-                break;
+        if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            TorrentEngine engine = ((MainApplication)context).getTorrentEngine();
+            engine.rescheduleTorrents();
         }
     }
 
     public static IntentFilter getFilter()
     {
-        IntentFilter filter = new IntentFilter();
-
-        filter.addAction(Intent.ACTION_POWER_CONNECTED);
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        /* About BATTERY_LOW and BATTERY_OKAY see https://code.google.com/p/android/issues/detail?id=36712 */
-        filter.addAction(Intent.ACTION_BATTERY_LOW);
-        filter.addAction(Intent.ACTION_BATTERY_OKAY);
-
-        return filter;
-    }
-
-    public static IntentFilter getCustomFilter()
-    {
-        IntentFilter filter = new IntentFilter();
-
-        filter.addAction(Intent.ACTION_POWER_CONNECTED);
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
-
-        return filter;
+        return new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
     }
 }

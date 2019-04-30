@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,15 +17,14 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers;
+package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import org.proninyaroslav.libretorrent.MainApplication;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 /*
  * The receiver for power monitoring.
@@ -45,8 +44,9 @@ public class PowerReceiver extends BroadcastReceiver
             case Intent.ACTION_POWER_CONNECTED:
             case Intent.ACTION_POWER_DISCONNECTED:
             case Intent.ACTION_BATTERY_CHANGED:
-                TorrentEngine engine = ((MainApplication)context).getTorrentEngine();
-                engine.rescheduleTorrents();
+                Intent serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
+                serviceIntent.setAction(intent.getAction());
+                context.startService(serviceIntent);
                 break;
         }
     }

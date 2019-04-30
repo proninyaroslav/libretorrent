@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers;
+package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,9 +32,9 @@ import org.proninyaroslav.libretorrent.services.TorrentTaskService;
 
 public class NotificationReceiver extends BroadcastReceiver
 {
-    public static final String NOTIFY_ACTION_SHUTDOWN_APP = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP";
-    public static final String NOTIFY_ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT";
-    public static final String NOTIFY_ACTION_PAUSE_RESUME = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME";
+    public static final String NOTIFY_ACTION_SHUTDOWN_APP = "org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP";
+    public static final String NOTIFY_ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT";
+    public static final String NOTIFY_ACTION_PAUSE_RESUME = "org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME";
 
     @Override
     public void onReceive(Context context, Intent intent)

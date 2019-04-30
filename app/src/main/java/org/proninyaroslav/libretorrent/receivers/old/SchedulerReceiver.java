@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers;
+package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -43,9 +43,9 @@ import java.util.Calendar;
 
 public class SchedulerReceiver extends BroadcastReceiver
 {
-    public static final String ACTION_START_APP = "org.proninyaroslav.libretorrent.receivers.SchedulerReceiver.ACTION_START_APP";
-    public static final String ACTION_STOP_APP = "org.proninyaroslav.libretorrent.receivers.SchedulerReceiver.ACTION_STOP_APP";
-    public static final String ACTION_FETCH_FEEDS = "org.proninyaroslav.libretorrent.receivers.SchedulerReceiver.ACTION_FETCH_FEEDS";
+    public static final String ACTION_START_APP = "org.proninyaroslav.libretorrent.receivers.old.SchedulerReceiver.ACTION_START_APP";
+    public static final String ACTION_STOP_APP = "org.proninyaroslav.libretorrent.receivers.old.SchedulerReceiver.ACTION_STOP_APP";
+    public static final String ACTION_FETCH_FEEDS = "org.proninyaroslav.libretorrent.receivers.old.SchedulerReceiver.ACTION_FETCH_FEEDS";
 
     @Override
     public void onReceive(Context context, Intent intent)

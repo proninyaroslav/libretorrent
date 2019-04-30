@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers;
+package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.os.Bundle;
 

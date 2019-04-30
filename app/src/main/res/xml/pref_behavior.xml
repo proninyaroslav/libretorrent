@@ -7,7 +7,7 @@
         android:summary="@string/pref_autostart_summary" />
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_wifi_only"
+        android:key="@string/pref_key_umnetered_connections_only"
         android:title="@string/pref_wifi_only_title"
         android:summary="@string/pref_wifi_only_summary" />
 
