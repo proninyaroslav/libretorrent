@@ -88,7 +88,7 @@ import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 
 import java.io.File;
 import java.io.IOException;

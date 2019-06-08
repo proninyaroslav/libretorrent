@@ -23,7 +23,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
@@ -34,7 +33,9 @@ import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 public class TorrentRepository
 {
@@ -51,23 +52,22 @@ public class TorrentRepository
 
     private static TorrentRepository INSTANCE;
     private AppDatabase db;
-    private TorrentStateProvider stateProvider;
 
-    public static TorrentRepository getInstance(AppDatabase db)
+    public static TorrentRepository getInstance(@NonNull Context context,
+                                                @NonNull AppDatabase db)
     {
         if (INSTANCE == null) {
             synchronized (TorrentRepository.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new TorrentRepository(db);
+                    INSTANCE = new TorrentRepository(context, db);
             }
         }
         return INSTANCE;
     }
 
-    private TorrentRepository(AppDatabase db)
+    private TorrentRepository(Context context, AppDatabase db)
     {
         this.db = db;
-        this.stateProvider = new TorrentStateProvider();
     }
 
     public void addTorrent(@NonNull Context context,
@@ -177,6 +177,11 @@ public class TorrentRepository
         return db.torrentDao().getTorrentById(id);
     }
 
+    public Single<Torrent> getTorrentByIdSingle(@NonNull String id)
+    {
+        return db.torrentDao().getTorrentByIdSingle(id);
+    }
+
     public Flowable<Torrent> observeTorrentById(@NonNull String id)
     {
         return db.torrentDao().observeTorrentById(id);
@@ -187,8 +192,13 @@ public class TorrentRepository
         return db.torrentDao().observeAllTorrents();
     }
 
-    public TorrentStateProvider getStateProvider()
+    public Single<List<Torrent>> getAllTorrentsSingle()
     {
-        return stateProvider;
+        return db.torrentDao().getAllTorrentsSingle();
+    }
+
+    public List<Torrent> getAllTorrents()
+    {
+        return db.torrentDao().getAllTorrents();
     }
 }

@@ -88,8 +88,8 @@ import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
 import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.SettingsActivity;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="java.lang.Integer" />
         <import type="android.view.View" />
         <import type="android.text.TextUtils" />
         <variable

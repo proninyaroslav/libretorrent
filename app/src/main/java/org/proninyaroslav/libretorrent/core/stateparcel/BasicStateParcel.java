@@ -48,7 +48,7 @@ public class BasicStateParcel extends AbstractStateParcel
     public int peers = 0;
     public String error;
 
-    public BasicStateParcel(@NonNull String torrentId, String name, long dateAdded)
+    public BasicStateParcel(@NonNull String torrentId, String name, long dateAdded, String error)
     {
         super(torrentId);
 
@@ -56,6 +56,7 @@ public class BasicStateParcel extends AbstractStateParcel
         this.name = name;
         this.stateCode = TorrentStateCode.STOPPED;
         this.dateAdded = dateAdded;
+        this.error = error;
     }
 
     public BasicStateParcel(@NonNull String torrentId, String name,

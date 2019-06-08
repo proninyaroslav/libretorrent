@@ -112,6 +112,19 @@ public class TorrentUtils
                 new File(context.getExternalFilesDir(null), id).exists();
     }
 
+    public static boolean torrentFileExists(@NonNull Context context,
+                                            @NonNull String id)
+    {
+        if (FileUtils.isStorageReadable()) {
+            File dataDir = new File(context.getExternalFilesDir(null),  id);
+
+            if (dataDir.exists())
+                return new File(dataDir, TorrentRepository.DataModel.TORRENT_FILE_NAME).exists();
+        }
+
+        return false;
+    }
+
     /*
      * Search directory with data of added torrent (in standard data directory).
      * Returns path to the directory found if successful or null if the directory is not found.

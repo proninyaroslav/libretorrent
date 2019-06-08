@@ -650,17 +650,6 @@ public class TorrentEngine extends SessionManager
 
     public void enableIpFilter(String path)
     {
-        if (path == null)
-            return;
-
-        IPFilterParser parser = new IPFilterParser(path);
-        parser.setOnParsedListener((ip_filter filter, boolean success) -> {
-            if (success && swig() != null)
-                swig().set_ip_filter(filter);
-            if (callback != null)
-                callback.onIpFilterParsed(success);
-        });
-        parser.parse();
     }
 
     public void disableIpFilter()

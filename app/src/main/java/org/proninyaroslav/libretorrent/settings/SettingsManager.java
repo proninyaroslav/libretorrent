@@ -26,9 +26,7 @@ import android.preference.PreferenceManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
-import org.proninyaroslav.libretorrent.core.TorrentEngineOld;
 import org.proninyaroslav.libretorrent.core.TorrentSession;
-import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 
@@ -59,7 +57,7 @@ public class SettingsManager
         public static final boolean unmeteredConnectionsOnly = false;
         public static final boolean enableRoaming = true;
         /* Network settings */
-        public static final int port = TorrentEngineOld.Settings.DEFAULT_PORT;
+        public static final int port = TorrentSession.Settings.DEFAULT_PORT;
         public static final boolean enableDht = true;
         public static final boolean enableLsd = true;
         public static final boolean enableUtp = true;
@@ -73,22 +71,22 @@ public class SettingsManager
         public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
         public static final boolean showNatErrors = false;
         /* Storage settings */
-        public static final String saveTorrentsIn = FileUtils.getDefaultDownloadPath();
+        public static final String saveTorrentsIn = "file://" + FileUtils.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;
-        public static final String moveAfterDownloadIn = FileUtils.getDefaultDownloadPath();
+        public static final String moveAfterDownloadIn = "file://" + FileUtils.getDefaultDownloadPath();
         public static final boolean saveTorrentFiles = false;
-        public static final String saveTorrentFilesIn = FileUtils.getDefaultDownloadPath();
+        public static final String saveTorrentFilesIn = "file://" + FileUtils.getDefaultDownloadPath();
         public static final boolean watchDir = false;
-        public static final String dirToWatch = FileUtils.getDefaultDownloadPath();
+        public static final String dirToWatch = "file://" + FileUtils.getDefaultDownloadPath();
         /* Limitations settings */
-        public static final int maxDownloadSpeedLimit = TorrentEngineOld.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
-        public static final int maxUploadSpeedLimit = TorrentEngineOld.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
-        public static final int maxConnections = TorrentEngineOld.Settings.DEFAULT_CONNECTIONS_LIMIT;
-        public static final int maxConnectionsPerTorrent = TorrentEngineOld.Settings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
-        public static final int maxUploadsPerTorrent = TorrentEngineOld.Settings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
-        public static final int maxActiveUploads = TorrentEngineOld.Settings.DEFAULT_ACTIVE_SEEDS;
-        public static final int maxActiveDownloads = TorrentEngineOld.Settings.DEFAULT_ACTIVE_DOWNLOADS;
-        public static final int maxActiveTorrents = TorrentEngineOld.Settings.DEFAULT_ACTIVE_LIMIT;
+        public static final int maxDownloadSpeedLimit = TorrentSession.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
+        public static final int maxUploadSpeedLimit = TorrentSession.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
+        public static final int maxConnections = TorrentSession.Settings.DEFAULT_CONNECTIONS_LIMIT;
+        public static final int maxConnectionsPerTorrent = TorrentSession.Settings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
+        public static final int maxUploadsPerTorrent = TorrentSession.Settings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
+        public static final int maxActiveUploads = TorrentSession.Settings.DEFAULT_ACTIVE_SEEDS;
+        public static final int maxActiveDownloads = TorrentSession.Settings.DEFAULT_ACTIVE_DOWNLOADS;
+        public static final int maxActiveTorrents = TorrentSession.Settings.DEFAULT_ACTIVE_LIMIT;
         public static final boolean autoManage = false;
         /* Proxy settings */
         public static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();

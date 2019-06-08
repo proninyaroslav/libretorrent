@@ -20,18 +20,20 @@
 package org.proninyaroslav.libretorrent;
 
 import android.app.Application;
-import android.content.Context;
+import android.app.NotificationManager;
+
+import androidx.annotation.VisibleForTesting;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.TorrentEngineOld;
+import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 @ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
                 mode = ReportingInteractionMode.DIALOG,
@@ -42,32 +44,55 @@ public class MainApplication extends Application
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
 
+//    private TorrentNotifier torrentNotifier;
+    private AppDatabase db;
+
     @Override
-    protected void attachBaseContext(Context base)
+    public void onCreate()
     {
-        super.attachBaseContext(base);
+        super.onCreate();
 
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
         EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
 
-        /* TODO: temporary */
-        TorrentEngineOld.getInstance().setContext(this);
-        TorrentEngineOld.getInstance().start();
+        db = AppDatabase.getInstance(this);
+        Utils.makeNotifyChans(this, (NotificationManager)getSystemService(NOTIFICATION_SERVICE));
+
+        TorrentEngine.getInstance(this).start();
+
+//        torrentNotifier = new TorrentNotifier(this, getTorrentRepository());
+//        torrentNotifier.startUpdate();
     }
+
+    public AppDatabase getDatabase()
+    {
+        return db;
+    }
+
+    @VisibleForTesting
+    public void setDatabase(AppDatabase db)
+    {
+        this.db = db;
+    }
+
+//    public TorrentNotifier getTorrentNotifier()
+//    {
+//        return torrentNotifier;
+//    }
 
     public TorrentRepository getTorrentRepository()
     {
-        return TorrentRepository.getInstance(AppDatabase.getInstance(this));
+        return TorrentRepository.getInstance(this, db);
+    }
+
+    public TorrentStateProvider getTorrentStateProvider()
+    {
+        return TorrentStateProvider.getInstance(TorrentEngine.getInstance(this));
     }
 
     public FeedRepository getFeedRepository()
     {
-        return FeedRepository.getInstance(AppDatabase.getInstance(this));
-    }
-
-    public TorrentEngine getTorrentEngine()
-    {
-        return TorrentEngine.getInstance(this);
+        return FeedRepository.getInstance(db);
     }
 }

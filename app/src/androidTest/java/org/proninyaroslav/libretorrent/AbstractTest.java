@@ -25,6 +25,8 @@ import android.content.Context;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
+import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
@@ -42,6 +44,8 @@ public class AbstractTest
 
     protected Context context;
     protected AppDatabase db;
+    protected TorrentEngine engine;
+    protected TorrentStateProvider stateProvider;
     protected TorrentRepository torrentRepo;
     protected FeedRepository feedRepo;
 
@@ -53,8 +57,10 @@ public class AbstractTest
                 AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        torrentRepo = TorrentRepository.getInstance(db);
+        torrentRepo = TorrentRepository.getInstance(context, db);
         feedRepo = FeedRepository.getInstance(db);
+        engine = TorrentEngine.getInstance(context);
+        stateProvider = TorrentStateProvider.getInstance(engine);
     }
 
     @After

@@ -218,19 +218,19 @@
             android:name=".CreateTorrentActivity" />
 
         <service
-            android:name=".services.TorrentTaskService"
+            android:name=".services.old.TorrentTaskService"
             android:stopWithTask="false" />
 
         <service
-            android:name=".services.FeedFetcherService"
+            android:name=".services.old.FeedFetcherService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <service
-            android:name=".services.FeedDownloaderService"
+            android:name=".services.old.FeedDownloaderService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
-            android:name=".receivers.old.NotificationReceiver"
+            android:name=".receivers.NotificationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP" />

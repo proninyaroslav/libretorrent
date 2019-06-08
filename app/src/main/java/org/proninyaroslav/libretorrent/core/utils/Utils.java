@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -37,7 +39,6 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -59,7 +60,7 @@ import org.proninyaroslav.libretorrent.core.SystemFacade;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
@@ -106,6 +107,10 @@ public class Utils
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
 
+    public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
+    public static final String DEFAULT_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_NOTIFY_CHAN_ID";
+    public static final String FINISH_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FINISH_NOTIFY_CHAN_ID";
+
     private static SystemFacade systemFacade;
 
     public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
@@ -120,6 +125,29 @@ public class Utils
     public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
     {
         Utils.systemFacade = systemFacade;
+    }
+
+    public static void makeNotifyChans(@NonNull Context context,
+                                       @NonNull NotificationManager notifyManager)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+
+        ArrayList<NotificationChannel> channels = new ArrayList<>();
+
+        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
+                context.getString(R.string.def),
+                NotificationManager.IMPORTANCE_DEFAULT));
+        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
+                context.getString(R.string.foreground_notification),
+                NotificationManager.IMPORTANCE_LOW);
+        foregroundChan.setShowBadge(false);
+        channels.add(foregroundChan);
+        channels.add(new NotificationChannel(FINISH_NOTIFY_CHAN_ID,
+                context.getString(R.string.finished),
+                NotificationManager.IMPORTANCE_DEFAULT));
+
+        notifyManager.createNotificationChannels(channels);
     }
 
     /*
@@ -519,11 +547,8 @@ public class Utils
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startTorrentServiceBackground(@NonNull Context context, String action)
+    public static void startServiceBackground(@NonNull Context context, @NonNull Intent i)
     {
-        Intent i = new Intent(context, TorrentTaskService.class);
-        if (action != null)
-            i.setAction(action);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(i);
         else

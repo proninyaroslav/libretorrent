@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -74,12 +75,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 public class TorrentSession extends SessionManager
@@ -96,19 +99,19 @@ public class TorrentSession extends SessionManager
             AlertType.LISTEN_FAILED.swig()
     };
 
-    private Context context;
+    private Context appContext;
     private InnerListener innerListener;
-    private ArrayList<TorrentSessionListener> listeners = new ArrayList<>();
+    private ArrayList<TorrentEngineListener> listeners = new ArrayList<>();
     private Settings settings = new Settings();
-    private CompositeDisposable disposables = new CompositeDisposable();
     private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     private HashMap<String, TorrentDownload> torrentTasks = new HashMap<>();
     /* Wait list for non added magnets */
     private ArrayList<String> magnets = new ArrayList<>();
-    private HashMap<String, byte[]> loadedMagnets = new HashMap<>();
+    private ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
     private HashMap<String, Torrent> addTorrentsQueue = new HashMap<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     /* Base unit in KiB. Used for create torrent */
     public static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512,
@@ -170,19 +173,29 @@ public class TorrentSession extends SessionManager
 
     public TorrentSession(@NonNull Context appContext)
     {
-        this.context = appContext;
+        this.appContext = appContext;
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
     }
 
-    public void addListener(TorrentSessionListener listener)
+    public void addListener(TorrentEngineListener listener)
     {
         listeners.add(listener);
     }
 
-    public void removeListener(TorrentSessionListener listener)
+    public void removeListener(TorrentEngineListener listener)
     {
         listeners.remove(listener);
+    }
+
+    public TorrentDownload getTask(String id)
+    {
+        return torrentTasks.get(id);
+    }
+
+    public Collection<TorrentDownload> getTasks()
+    {
+        return torrentTasks.values();
     }
 
     public void setSettings(@NonNull Settings settings)
@@ -215,6 +228,9 @@ public class TorrentSession extends SessionManager
             cancelFetchMagnet(torrent.id);
 
         /* TODO: SAF support */
+        if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
+            throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
+
         File saveDir = new File(torrent.downloadPath.getPath());
         if (torrent.isDownloadingMetadata()) {
             addTorrentsQueue.put(torrent.id, torrent);
@@ -231,7 +247,7 @@ public class TorrentSession extends SessionManager
         if (task != null)
             task.remove(false);
 
-        String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.id);
+        String dataDir = TorrentUtils.findTorrentDataDir(appContext, torrent.id);
         File resumeFile = null;
         if (dataDir != null) {
             File file = new File(dataDir, TorrentRepository.DataModel.TORRENT_RESUME_FILE_NAME);
@@ -265,8 +281,11 @@ public class TorrentSession extends SessionManager
                 }
 
                 /* TODO: SAF support */
+                if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
+                    throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
+
                 File saveDir = new File(torrent.downloadPath.getPath());
-                String dataDir = TorrentUtils.findTorrentDataDir(context, torrent.id);
+                String dataDir = TorrentUtils.findTorrentDataDir(appContext, torrent.id);
                 File resumeFile = null;
                 if (dataDir != null) {
                     File file = new File(dataDir, TorrentRepository.DataModel.TORRENT_RESUME_FILE_NAME);
@@ -282,20 +301,23 @@ public class TorrentSession extends SessionManager
         runNextLoadTorrentTask();
     }
 
-    /*
-     * Returns sha1hash.
-     */
-
-    public AddTorrentParams fetchMagnet(@NonNull String uri) throws Exception
+    public AddTorrentParams parseMagnetUri(@NonNull String uri)
     {
-        if (swig() == null)
-            return null;
-
         error_code ec = new error_code();
         add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
 
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
+
+        return new AddTorrentParams(p);
+    }
+
+    public AddTorrentParams fetchMagnet(AddTorrentParams params) throws Exception
+    {
+        if (swig() == null)
+            return null;
+
+        add_torrent_params p = params.swig();
 
         p.set_disabled_storage();
         sha1_hash hash = p.getInfo_hash();
@@ -327,7 +349,7 @@ public class TorrentSession extends SessionManager
                     flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
-                    ec.clear();
+                    error_code ec = new error_code();
                     th = swig().add_torrent(p, ec);
                     th.resume();
                 }
@@ -383,7 +405,6 @@ public class TorrentSession extends SessionManager
             return;
         }
 
-        task.setTorrent(torrent);
         task.setSequentialDownload(torrent.sequentialDownload);
         task.addTrackers(ti.trackers());
         task.addWebSeeds(ti.webSeeds());
@@ -445,24 +466,29 @@ public class TorrentSession extends SessionManager
 
     public void setRandomPort()
     {
-        int randomPort = TorrentEngineOld.Settings.MIN_PORT_NUMBER + (int)(Math.random()
-                * ((TorrentEngineOld.Settings.MAX_PORT_NUMBER - TorrentEngineOld.Settings.MIN_PORT_NUMBER) + 1));
+        int randomPort = Settings.MIN_PORT_NUMBER + (int)(Math.random()
+                * ((Settings.MAX_PORT_NUMBER - Settings.MIN_PORT_NUMBER) + 1));
         setPort(randomPort);
     }
 
-    public void enableIpFilter(@NonNull String path)
+    public void enableIpFilter(@NonNull Uri path)
     {
         if (swig() == null)
             return;
 
         IPFilterParser parser = new IPFilterParser(path);
-        parser.setOnParsedListener((ip_filter filter, boolean success) -> {
-            if (success && swig() != null)
-                swig().set_ip_filter(filter);
-            notifyListeners((listener) ->
-                    listener.onIpFilterParsed(success));
-        });
-        parser.parse();
+        disposables.add(parser.parse(appContext)
+                .subscribe((filter) -> {
+                            if (swig() != null)
+                                swig().set_ip_filter(filter);
+                            notifyListeners((listener) ->
+                                    listener.onIpFilterParsed(true));
+                        },
+                        (Throwable t) -> {
+                            notifyListeners((listener) ->
+                                    listener.onIpFilterParsed(false));
+                        })
+        );
     }
 
     public void disableIpFilter()
@@ -610,7 +636,7 @@ public class TorrentSession extends SessionManager
         settings_pack sp = params.settings().swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
 
-        String versionName = Utils.getAppVersionName(context);
+        String versionName = Utils.getAppVersionName(appContext);
         if (versionName != null) {
             int[] version = Utils.getVersionComponents(versionName);
 
@@ -637,7 +663,7 @@ public class TorrentSession extends SessionManager
     @Override
     protected void onAfterStart()
     {
-        notifyListeners(TorrentSessionListener::onEngineStarted);
+        notifyListeners(TorrentEngineListener::onSessionStarted);
     }
 
     @Override
@@ -650,12 +676,6 @@ public class TorrentSession extends SessionManager
         loadedMagnets.clear();
         removeListener(innerListener);
         saveSettings();
-    }
-
-    @Override
-    protected void onAfterStop()
-    {
-        disposables.clear();
     }
 
     @Override
@@ -718,7 +738,7 @@ public class TorrentSession extends SessionManager
                 }
                 case LISTEN_FAILED: {
                     ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
-                    String fmt = context.getString(R.string.listen_failed_error);
+                    String fmt = appContext.getString(R.string.listen_failed_error);
                     listener.onSessionError(String.format(fmt,
                             listenFailedAlert.address(),
                             listenFailedAlert.port(),
@@ -776,7 +796,7 @@ public class TorrentSession extends SessionManager
     private SessionParams loadSettings()
     {
         try {
-            String sessionPath = TorrentUtils.findSessionFile(context);
+            String sessionPath = TorrentUtils.findSessionFile(appContext);
             if (sessionPath == null)
                 return new SessionParams(defaultSettingsPack());
 
@@ -815,7 +835,7 @@ public class TorrentSession extends SessionManager
             return;
 
         try {
-            TorrentUtils.saveSession(context, saveState());
+            TorrentUtils.saveSession(appContext, saveState());
 
         } catch (Exception e) {
             Log.e(TAG, "Error saving session state: ");
@@ -910,7 +930,7 @@ public class TorrentSession extends SessionManager
 
     private TorrentDownload newTask(TorrentHandle th, Torrent torrent)
     {
-        TorrentDownload task = new TorrentDownload(context, th, torrent, listeners);
+        TorrentDownload task = new TorrentDownload(appContext, this, listeners, torrent.id, th);
         task.setMaxConnections(settings.connectionsLimitPerTorrent);
         task.setMaxUploads(settings.uploadsLimitPerTorrent);
         task.setSequentialDownload(torrent.sequentialDownload);
@@ -923,14 +943,14 @@ public class TorrentSession extends SessionManager
         return task;
     }
 
-    public interface CallListener
+    private interface CallListener
     {
-        void apply(TorrentSessionListener listener);
+        void apply(TorrentEngineListener listener);
     }
 
     private void notifyListeners(@NonNull CallListener l)
     {
-        for (TorrentSessionListener listener : listeners) {
+        for (TorrentEngineListener listener : listeners) {
             if (listener != null)
                 l.apply(listener);
         }

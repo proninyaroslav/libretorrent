@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.databinding.AddTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;

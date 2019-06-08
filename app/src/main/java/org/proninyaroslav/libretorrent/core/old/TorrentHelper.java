@@ -268,7 +268,8 @@ public class TorrentHelper
             BasicStateParcel state = new BasicStateParcel(
                     torrent.getId(),
                     torrent.getName(),
-                    torrent.getDateAdded());
+                    torrent.getDateAdded(),
+                    torrent.getError());
             states.putParcelable(state.torrentId, state);
         }
 

@@ -139,6 +139,7 @@ public class FileIOUtils
         long availableBytes = -1L;
 
         try {
+
             File file = new File(path);
             availableBytes = file.getUsableSpace();
         } catch (Exception e) {

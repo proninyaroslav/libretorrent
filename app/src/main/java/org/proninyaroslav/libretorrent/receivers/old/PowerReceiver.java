@@ -24,7 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 
 /*
  * The receiver for power monitoring.

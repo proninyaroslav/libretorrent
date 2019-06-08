@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,13 +17,12 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent;
+package org.proninyaroslav.libretorrent.core;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.Priority;
-import org.proninyaroslav.libretorrent.core.old.TorrentDownload;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +35,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 public class TorrentDownloadTest
 {
     @Test
-    public void getFileIndicesBep53_isCorrect()
+    public void getFileIndicesBep53Test()
     {
         String baseMagnet = "magnet:?xt=urn:btih:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd&so=";
         final int n = 100;

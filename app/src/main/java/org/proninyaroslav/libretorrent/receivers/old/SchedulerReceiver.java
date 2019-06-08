@@ -31,8 +31,8 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.services.FeedFetcherService;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.old.FeedFetcherService;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.Calendar;

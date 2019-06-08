@@ -29,6 +29,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 @Dao
 public interface TorrentDao
@@ -48,8 +49,17 @@ public interface TorrentDao
     @Query(QUERY_GET_ALL)
     Flowable<List<Torrent>> observeAllTorrents();
 
+    @Query(QUERY_GET_ALL)
+    Single<List<Torrent>> getAllTorrentsSingle();
+
+    @Query(QUERY_GET_ALL)
+    List<Torrent> getAllTorrents();
+
     @Query(QUERY_GET_BY_ID)
     Torrent getTorrentById(String id);
+
+    @Query(QUERY_GET_BY_ID)
+    Single<Torrent> getTorrentByIdSingle(String id);
 
     @Query(QUERY_GET_BY_ID)
     Flowable<Torrent> observeTorrentById(String id);

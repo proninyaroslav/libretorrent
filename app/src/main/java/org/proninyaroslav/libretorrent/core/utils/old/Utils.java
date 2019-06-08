@@ -59,7 +59,7 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;

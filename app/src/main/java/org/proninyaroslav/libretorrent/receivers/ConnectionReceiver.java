@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 
-import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 /*
@@ -39,7 +38,7 @@ public class ConnectionReceiver extends BroadcastReceiver
     {
         String action = intent.getAction();
         if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            TorrentEngine engine = ((MainApplication)context).getTorrentEngine();
+            TorrentEngine engine = TorrentEngine.getInstance(context);
             engine.rescheduleTorrents();
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,20 +19,28 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import android.os.Handler;
-import android.os.HandlerThread;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.ip_filter;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
-import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
 
 /*
  * Parser of blacklist IP addresses in DAT and P2P formats.
@@ -42,50 +50,35 @@ public class IPFilterParser
 {
     @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
-    private static final String THREAD_NAME = IPFilterParser.class.getSimpleName();
 
-    private String path;
-    private Handler handler;
-    private OnParsedListener listener;
+    private Uri path;
 
-    public interface OnParsedListener
-    {
-        void onParsed(ip_filter filter, boolean success);
-    }
-
-    public IPFilterParser(String path)
+    public IPFilterParser(@NonNull Uri path)
     {
         this.path = path;
     }
 
-    public void parse()
+    public Single<ip_filter> parse(@NonNull Context context)
     {
-        if (path == null) {
-            return;
-        }
-
-        final ip_filter filter = new ip_filter();
-
-        HandlerThread handlerThread = new HandlerThread(THREAD_NAME);
-        handlerThread.start();
-        handler = new Handler(handlerThread.getLooper());
-        handler.post(() -> {
-            Log.d(TAG, "start parsing IP filter file");
+        return Single.create((emitter) -> {
+            Log.d(TAG, "Start parsing IP filter file");
+            ip_filter filter = new ip_filter();
             boolean success = false;
-            if (path.contains(".dat"))
-                success = parseDATFilterFile(path, filter);
-            else if (path.contains(".p2p"))
-                success = parseP2PFilterFile(path, filter);
 
-            Log.d(TAG, "completed parsing IP filter file, is success = " + success);
-            if (listener != null)
-                listener.onParsed(filter, success);
+            String pathStr = path.toString();
+            if (pathStr.contains(".dat"))
+                success = parseDATFilterFile(context, path, filter);
+            else if (pathStr.contains(".p2p"))
+                success = parseP2PFilterFile(context, path, filter);
+
+            Log.d(TAG, "Completed parsing IP filter file, is success = " + success);
+            if (!emitter.isDisposed()) {
+                if (success)
+                    emitter.onSuccess(filter);
+                else
+                    emitter.onError(new IllegalStateException());
+            }
         });
-    }
-
-    public void setOnParsedListener(OnParsedListener listener)
-    {
-        this.listener = listener;
     }
 
     /*
@@ -112,23 +105,25 @@ public class IPFilterParser
     }
 
     /*
-     * Parser for eMule ip filter in DAT format.
+     * Parser for eMule ip filter in DAT format
      */
 
-    public static boolean parseDATFilterFile(String path, ip_filter filter)
+    public static boolean parseDATFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (path == null || filter == null)
-            return false;
-
-        File file = new File(path);
-        if (!file.exists())
+        if (!org.proninyaroslav.libretorrent.core.utils.FileUtils.fileExists(context, file))
             return false;
 
         long lineNum = 0;
         long badLineNum = 0;
+        ContentResolver contentResolver = context.getContentResolver();
+        FileInputStream is = null;
         LineIterator it = null;
         try {
-            it = FileUtils.lineIterator(file, "UTF-8");
+            ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
+            FileDescriptor outFd = outPfd.getFileDescriptor();
+            is = new FileInputStream(outFd);
+            it = IOUtils.lineIterator(is, "UTF-8");
+
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -222,29 +217,32 @@ public class IPFilterParser
         } finally {
             if (it != null)
                 it.close();
+            IOUtils.closeQuietly(is);
         }
 
         return badLineNum < lineNum;
     }
 
     /*
-     * Parser for PeerGuardian ip filter in p2p format.
+     * Parser for PeerGuardian ip filter in p2p format
      */
 
-    public static boolean parseP2PFilterFile(String path, ip_filter filter)
+    public static boolean parseP2PFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (path == null || filter == null)
-            return false;
-
-        File file = new File(path);
-        if (!file.exists())
+        if (!org.proninyaroslav.libretorrent.core.utils.FileUtils.fileExists(context, file))
             return false;
 
         long lineNum = 0;
         long badLineNum = 0;
+        ContentResolver contentResolver = context.getContentResolver();
+        FileInputStream is = null;
         LineIterator it = null;
         try {
-            it = FileUtils.lineIterator(file, "UTF-8");
+            ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
+            FileDescriptor outFd = outPfd.getFileDescriptor();
+            is = new FileInputStream(outFd);
+            it = IOUtils.lineIterator(is, "UTF-8");
+
             while (it.hasNext()) {
                 ++lineNum;
                 String line = it.nextLine();
@@ -330,6 +328,7 @@ public class IPFilterParser
         } finally {
             if (it != null)
                 it.close();
+            IOUtils.closeQuietly(is);
         }
 
         return badLineNum < lineNum;

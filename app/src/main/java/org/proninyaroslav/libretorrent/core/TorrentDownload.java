@@ -20,9 +20,12 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
 
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.AnnounceEntry;
@@ -50,6 +53,7 @@ import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
+import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
@@ -66,7 +70,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 
 /*
  * This class encapsulate one stream with running torrent.
@@ -103,43 +107,79 @@ public class TorrentDownload
             AlertType.FILE_ERROR.swig()
     };
 
-    private Context context;
+    private Context appContext;
+    private TorrentSession session;
     private TorrentHandle th;
-    private Torrent torrent;
-    private final List<TorrentSessionListener> listeners;
+    private String id;
+    private TorrentRepository repo;
+    private final List<TorrentEngineListener> listeners;
+    private CompositeDisposable disposables = new CompositeDisposable();
     private InnerListener listener;
     private Set<File> incompleteFilesToRemove;
-    private File parts;
+    private Uri partsFile;
     private long lastSaveResumeTime;
     private String name;
+    private ChangeParamsState changeState = new ChangeParamsState();
 
-    public TorrentDownload(Context context,
-                           TorrentHandle handle,
-                           Torrent torrent,
-                           final List<TorrentSessionListener> listeners)
+    public TorrentDownload(Context appContext,
+                           TorrentSession session,
+                           final List<TorrentEngineListener> listeners,
+                           String id,
+                           TorrentHandle handle)
     {
-        this.context = context;
+        this.appContext = appContext;
+        this.id = id;
+        repo = ((MainApplication)appContext).getTorrentRepository();
+        this.session = session;
+        this.listeners = listeners;
         this.th = handle;
         this.name = handle.name();
-        this.torrent = torrent;
-        this.listeners = listeners;
-        TorrentInfo ti = th.torrentFile();
-        /* TODO: SAF support */
-        this.parts = (ti != null ? new File(torrent.downloadPath.getPath(), "." + ti.infoHash() + ".parts") : null);
+        partsFile = getPartsFile();
         listener = new InnerListener();
-        TorrentEngineOld.getInstance().addListener(listener);
+        session.addListener(listener);
     }
 
     private interface CallListener
     {
-        void apply(TorrentSessionListener listener);
+        void apply(TorrentEngineListener listener);
     }
 
     private void notifyListeners(@NonNull CallListener l)
     {
-        for (TorrentSessionListener listener : listeners) {
+        for (TorrentEngineListener listener : listeners) {
             if (listener != null)
                 l.apply(listener);
+        }
+    }
+
+    private class ChangeParamsState
+    {
+        private boolean applyingParams;
+        private boolean moving;
+
+        public void setMoving(boolean moving)
+        {
+            this.moving = moving;
+        }
+
+        public boolean isMoving()
+        {
+            return moving;
+        }
+
+        public void setApplyingParams(boolean applyingParams)
+        {
+            this.applyingParams = applyingParams;
+        }
+
+        public boolean isApplyingParams()
+        {
+            return applyingParams;
+        }
+
+        public boolean isDuringChange()
+        {
+            return applyingParams || moving;
         }
     }
 
@@ -165,42 +205,43 @@ public class TorrentDownload
                 case BLOCK_FINISHED:
                 case STATE_CHANGED:
                     notifyListeners((listener) ->
-                            listener.onTorrentStateChanged(torrent.id));
+                            listener.onTorrentStateChanged(id));
                     break;
                 case TORRENT_FINISHED:
                     notifyListeners((listener) ->
-                            listener.onTorrentFinished(torrent.id));
+                            listener.onTorrentFinished(id));
                     saveResumeData(true);
                     break;
                 case TORRENT_REMOVED:
                     torrentRemoved();
                     break;
                 case TORRENT_PAUSED:
+                    setPauseFlag();
+
                     notifyListeners((listener) ->
-                            listener.onTorrentPaused(torrent.id));
+                            listener.onTorrentPaused(id));
                     break;
                 case TORRENT_RESUMED:
+                    setResumeFlag();
+
                     notifyListeners((listener) ->
-                            listener.onTorrentResumed(torrent.id));
+                            listener.onTorrentResumed(id));
                     break;
                 case STATS:
                     notifyListeners((listener) ->
-                            listener.onTorrentStateChanged(torrent.id));
+                            listener.onTorrentStateChanged(id));
                     break;
                 case SAVE_RESUME_DATA:
                     serializeResumeData((SaveResumeDataAlert)alert);
                     break;
                 case STORAGE_MOVED:
-                    notifyListeners((listener) ->
-                            listener.onTorrentMoved(torrent.id, true));
-                    saveResumeData(true);
+                    onStorageMoved(true);
                     break;
                 case STORAGE_MOVED_FAILED:
-                    notifyListeners((listener) ->
-                            listener.onTorrentMoved(torrent.id, false));
-                    saveResumeData(true);
+                    onStorageMoved(false);
                     break;
                 case PIECE_FINISHED:
+                    setFinishedFlag();
                     saveResumeData(false);
                     break;
                 case METADATA_RECEIVED:
@@ -220,51 +261,110 @@ public class TorrentDownload
         }
     }
 
+    private void onStorageMoved(boolean success)
+    {
+        boolean moved = changeState.isMoving();
+        changeState.setMoving(false);
+
+        notifyListeners((listener) -> listener.onTorrentMoved(id, success));
+        if (moved && !changeState.isDuringChange())
+            notifyListeners((listener) -> listener.onParamsApplied(id, null));
+
+        saveResumeData(true);
+    }
+
+    private void setPauseFlag()
+    {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null || torrent.paused)
+            return;
+
+        torrent.paused = true;
+        repo.updateTorrent(torrent);
+    }
+
+    private void setResumeFlag()
+    {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null || !torrent.paused)
+            return;
+
+        torrent.paused = false;
+        torrent.error = null;
+        repo.updateTorrent(torrent);
+    }
+
+    private void setFinishedFlag()
+    {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null || !torrent.finished)
+            return;
+
+        torrent.finished = false;
+        repo.updateTorrent(torrent);
+    }
+
     private void checkError(Alert<?> alert)
     {
+        String errorMsg = getErrorMsg(alert);
+
+        if (errorMsg != null) {
+            Log.e(TAG, "Torrent " + id + ": " + errorMsg);
+            Torrent torrent = repo.getTorrentById(id);
+            if (torrent != null) {
+                torrent.error = errorMsg;
+                repo.updateTorrent(torrent);
+            }
+            pause();
+        }
+
+        notifyListeners((listener) ->
+                listener.onTorrentError(id, errorMsg));
+    }
+
+    private String getErrorMsg(Alert<?> alert)
+    {
+        String errorMsg = null;
         switch (alert.type()) {
             case TORRENT_ERROR: {
                 TorrentErrorAlert errorAlert = (TorrentErrorAlert)alert;
                 ErrorCode error = errorAlert.error();
                 if (error.isError()) {
-                    StringBuilder errorMsg = new StringBuilder();
+                    StringBuilder sb = new StringBuilder();
                     String filename = errorAlert.filename().substring(
                             errorAlert.filename().lastIndexOf("/") + 1);
                     if (errorAlert.filename() != null)
-                        errorMsg.append("[").append(filename).append("] ");
-                    errorMsg.append(TorrentUtils.getErrorMsg(error));
-                    notifyListeners((listener) ->
-                            listener.onTorrentError(torrent.id, errorMsg.toString()));
+                        sb.append("[").append(filename).append("] ");
+                    sb.append(TorrentUtils.getErrorMsg(error));
+                    errorMsg = sb.toString();
                 }
                 break;
             } case METADATA_FAILED: {
                 MetadataFailedAlert metadataFailedAlert = (MetadataFailedAlert)alert;
                 ErrorCode error = metadataFailedAlert.getError();
                 if (error.isError())
-                    notifyListeners((listener) ->
-                            listener.onTorrentError(torrent.id, TorrentUtils.getErrorMsg(error)));
+                    errorMsg = TorrentUtils.getErrorMsg(error);
                 break;
             } case FILE_ERROR: {
                 FileErrorAlert fileErrorAlert = (FileErrorAlert)alert;
                 ErrorCode error = fileErrorAlert.error();
                 String filename = fileErrorAlert.filename().substring(
                         fileErrorAlert.filename().lastIndexOf("/") + 1);
-                if (error.isError()) {
-                    String errorMsg = "[" + filename + "] " +
+                if (error.isError())
+                    errorMsg = "[" + filename + "] " +
                             TorrentUtils.getErrorMsg(error);
-                    notifyListeners((listener) ->
-                            listener.onTorrentError(torrent.id, errorMsg));
-                }
                 break;
             }
         }
+
+        return errorMsg;
     }
 
     private void handleMetadata(byte[] bencode, String hash, String newName)
     {
         Exception[] err = new Exception[1];
         try {
-            String pathToDir = TorrentUtils.findTorrentDataDir(context, hash);
+            String pathToDir = TorrentUtils.findTorrentDataDir(appContext, hash);
             if (pathToDir == null)
                 throw new FileNotFoundException("Data dir not found");
 
@@ -277,7 +377,11 @@ public class TorrentDownload
                 throw new FileNotFoundException("Torrent file not found");
 
             TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
-            long availableBytes = FileUtils.getDirAvailableBytes(context, torrent.downloadPath);
+            Torrent torrent = repo.getTorrentById(id);
+            if (torrent == null)
+                throw new NullPointerException(id + "doesn't exists");
+
+            long availableBytes = FileUtils.getDirAvailableBytes(appContext, torrent.downloadPath);
             if (availableBytes < info.torrentSize)
                 throw new FreeSpaceException("Not enough free space: "
                         + availableBytes + " free, but torrent size is " + info.torrentSize);
@@ -292,6 +396,7 @@ public class TorrentDownload
             MagnetInfo magnetInfo = null;
             try {
                 magnetInfo = new MagnetInfo(torrent.getSource());
+
             } catch (IllegalArgumentException e) {
                 /* Ignore */
             }
@@ -310,19 +415,19 @@ public class TorrentDownload
                 }
 
             } else {
-                priorities = new ArrayList<>(
-                        Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
+                priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
             }
 
             torrent.filePriorities = priorities;
             torrent.setFilesystemPath(pathToTorrent);
             setSequentialDownload(torrent.sequentialDownload);
+            repo.updateTorrent(torrent);
+
             if (torrent.paused)
                 pause();
             else
                 resume();
-            /* TODO: SAF support */
-            setDownloadPath(torrent.downloadPath.getPath());
+            setDownloadPath(torrent.downloadPath);
         } catch (Exception e) {
             err[0] = e;
             remove(true);
@@ -333,12 +438,22 @@ public class TorrentDownload
 
     private void torrentRemoved()
     {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null)
+            repo.deleteTorrent(appContext, torrent);
+        disposables.clear();
         notifyListeners((listener) ->
-                listener.onTorrentRemoved(torrent.id));
+                listener.onTorrentRemoved(id));
 
-        TorrentEngineOld.getInstance().removeListener(listener);
-        if (parts != null)
-            parts.delete();
+        session.removeListener(listener);
+        if (partsFile != null) {
+            try {
+                FileUtils.deleteFile(appContext, partsFile);
+
+            } catch (FileNotFoundException e) {
+                /* Ignore */
+            }
+        }
         finalCleanup(incompleteFilesToRemove);
     }
 
@@ -350,20 +465,18 @@ public class TorrentDownload
     {
         long now = System.currentTimeMillis();
 
-        if (force || (now - lastSaveResumeTime) >= SAVE_RESUME_SYNC_TIME) {
+        if (force || (now - lastSaveResumeTime) >= SAVE_RESUME_SYNC_TIME)
             lastSaveResumeTime = now;
-        } else {
+        else
             /* Skip, too fast, see SAVE_RESUME_SYNC_TIME */
             return;
-        }
 
         try {
-            if (th != null && th.isValid()) {
+            if (th.isValid())
                 th.saveResumeData(TorrentHandle.SAVE_INFO_DICT);
-            }
 
         } catch (Exception e) {
-            Log.w(TAG, "Error triggering resume data of " + torrent + ":");
+            Log.w(TAG, "Error triggering resume data of " + id + ":");
             Log.w(TAG, Log.getStackTraceString(e));
         }
     }
@@ -373,12 +486,17 @@ public class TorrentDownload
         try {
             if (th.isValid()) {
                 byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
-                TorrentUtils.saveResumeData(context, torrent.id, Vectors.byte_vector2bytes(data));
+                TorrentUtils.saveResumeData(appContext, id, Vectors.byte_vector2bytes(data));
             }
         } catch (Throwable e) {
-            Log.e(TAG, "Error saving resume data of " + torrent + ":");
+            Log.e(TAG, "Error saving resume data of " + id + ":");
             Log.e(TAG, Log.getStackTraceString(e));
         }
+    }
+
+    public String getTorrentId()
+    {
+        return id;
     }
 
     public void pause()
@@ -389,6 +507,12 @@ public class TorrentDownload
         th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.pause();
         saveResumeData(true);
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            torrent.paused = true;
+            repo.updateTorrent(torrent);
+        }
     }
 
     public void resume()
@@ -396,12 +520,18 @@ public class TorrentDownload
         if (!th.isValid())
             return;
 
-        if (TorrentEngineOld.getInstance().getSettings().autoManaged)
+        if (session.getSettings().autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
         else
             th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.resume();
         saveResumeData(true);
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            torrent.paused = false;
+            repo.updateTorrent(torrent);
+        }
     }
 
     public void setAutoManaged(boolean autoManaged)
@@ -420,19 +550,9 @@ public class TorrentDownload
         return th.isValid() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).nonZero();
     }
 
-    public void setTorrent(Torrent torrent)
-    {
-        this.torrent = torrent;
-    }
-
-    public Torrent getTorrent()
-    {
-        return torrent;
-    }
-
     public int getProgress()
     {
-        if (th == null || !th.isValid())
+        if (!th.isValid())
             return 0;
 
         if (th.status() == null)
@@ -462,27 +582,29 @@ public class TorrentDownload
 
     public void prioritizeFiles(Priority[] priorities)
     {
-        if (th == null || !th.isValid())
+        if (!th.isValid())
             return;
 
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
             return;
 
-        if (priorities != null) {
-            /* Priorities for all files, priorities list for some selected files not supported */
-            if (ti.numFiles() != priorities.length)
-                return;
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return;
 
-            th.prioritizeFiles(priorities);
-
-        } else {
+        if (priorities == null)
             /* Did they just add the entire torrent (therefore not selecting any priorities) */
-            final Priority[] wholeTorrentPriorities =
-                    Priority.array(Priority.DEFAULT, ti.numFiles());
+            priorities = Priority.array(Priority.DEFAULT, ti.numFiles());
 
-            th.prioritizeFiles(wholeTorrentPriorities);
-        }
+        /* Priorities for all files, priorities list for some selected files not supported */
+        if (ti.numFiles() != priorities.length)
+            return;
+
+        torrent.filePriorities = Arrays.asList(priorities);
+        repo.updateTorrent(torrent);
+
+        th.prioritizeFiles(priorities);
     }
 
     public long getSize()
@@ -507,13 +629,15 @@ public class TorrentDownload
 
     public void remove(boolean withFiles)
     {
-        incompleteFilesToRemove = getIncompleteFiles();
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null)
+            incompleteFilesToRemove = getIncompleteFiles(torrent);
 
         if (th.isValid()) {
             if (withFiles)
-                TorrentEngineOld.getInstance().remove(th, SessionHandle.DELETE_FILES);
+                session.remove(th, SessionHandle.DELETE_FILES);
             else
-                TorrentEngineOld.getInstance().remove(th);
+                session.remove(th);
         }
     }
 
@@ -535,7 +659,7 @@ public class TorrentDownload
         }
     }
 
-    public Set<File> getIncompleteFiles()
+    private Set<File> getIncompleteFiles(Torrent torrent)
     {
         Set<File> s = new HashSet<>();
 
@@ -550,6 +674,8 @@ public class TorrentDownload
             TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
             /* TODO: SAF support */
+            if (FileUtils.isSAFPath(torrent.downloadPath))
+                throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
             String prefix = torrent.downloadPath.getPath();
             File torrentFile = new File(torrent.getSource());
             if (!torrentFile.exists())
@@ -573,7 +699,7 @@ public class TorrentDownload
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "Error calculating the incomplete files set of " + torrent.id);
+            Log.e(TAG, "Error calculating the incomplete files set of " + id);
         }
 
         return s;
@@ -757,6 +883,9 @@ public class TorrentDownload
 
     public boolean[] pieces()
     {
+        if (!th.isValid())
+            return new boolean[0];
+
         PieceIndexBitfield bitfield = th.status(TorrentHandle.QUERY_PIECES).pieces();
         boolean[] pieces = new boolean[bitfield.size()];
         for (int i = 0; i < bitfield.size(); i++)
@@ -823,10 +952,26 @@ public class TorrentDownload
 
     public void setSequentialDownload(boolean sequential)
     {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            torrent.sequentialDownload = sequential;
+            repo.updateTorrent(torrent);
+        }
+
         if (sequential)
             th.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
         else
             th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+    }
+
+    public void setTorrentName(@NonNull String name)
+    {
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return;
+
+        torrent.name = name;
+        repo.updateTorrent(torrent);
     }
 
     public long getETA() {
@@ -854,10 +999,28 @@ public class TorrentDownload
         return th.torrentFile();
     }
 
-    public void setDownloadPath(String path)
+    public String getTorrentName()
     {
+        Torrent torrent = repo.getTorrentById(id);
+
+        return (torrent == null ? null : torrent.name);
+    }
+
+    public void setDownloadPath(Uri path)
+    {
+        /* TODO: SAF support */
+        if (FileUtils.isSAFPath(path))
+            throw new IllegalArgumentException("SAF is not supported:" + path);
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return;
+
+        torrent.downloadPath = path;
+        repo.updateTorrent(torrent);
+
         try {
-            th.moveStorage(path, MoveFlags.ALWAYS_REPLACE_FILES);
+            th.moveStorage(path.getPath(), MoveFlags.ALWAYS_REPLACE_FILES);
 
         } catch (Exception e) {
             Log.e(TAG, "Error changing save path: ");
@@ -904,9 +1067,17 @@ public class TorrentDownload
         return (ratio > MAX_RATIO ? MAX_RATIO : ratio);
     }
 
-    public File getPartsFile()
+    public Uri getPartsFile()
     {
-        return parts;
+        TorrentInfo ti = th.torrentFile();
+        if (ti == null)
+            return null;
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return null;
+
+        return FileUtils.getFileUri(appContext, torrent.downloadPath, "." + ti.infoHash() + ".parts");
     }
 
     public void setDownloadSpeedLimit(int limit)
@@ -938,7 +1109,7 @@ public class TorrentDownload
 
     public TorrentStateCode getStateCode()
     {
-        if (!TorrentEngineOld.getInstance().isRunning())
+        if (!session.isRunning())
             return TorrentStateCode.STOPPED;
 
         if (isPaused())
@@ -985,10 +1156,10 @@ public class TorrentDownload
     public boolean isPaused()
     {
         return th.isValid() && (isPaused(th.status(true)) ||
-                TorrentEngineOld.getInstance().isPaused() || !TorrentEngineOld.getInstance().isRunning());
+                session.isPaused() || !session.isRunning());
     }
 
-    private static boolean isPaused(TorrentStatus s)
+    private boolean isPaused(TorrentStatus s)
     {
         return s.flags().and_(TorrentFlags.PAUSED).nonZero();
     }
@@ -1191,10 +1362,48 @@ public class TorrentDownload
         if (filePieces == null)
             throw new IllegalArgumentException("Incorrect file index");
 
-        return new TorrentStream(torrent.id, fileIndex,
+        return new TorrentStream(id, fileIndex,
                                  filePieces.first, filePieces.second, ti.pieceLength(),
                                  fs.fileOffset(fileIndex), fs.fileSize(fileIndex),
                                  ti.pieceSize(filePieces.second));
 
+    }
+
+    public synchronized void applyParams(@NonNull ChangeableParams params)
+    {
+        if (changeState.isDuringChange())
+            return;
+
+        changeState.setApplyingParams(true);
+        changeState.setMoving(params.dirPath != null);
+
+        notifyListeners((listener) -> listener.onApplyingParams(id));
+
+        Throwable[] err = new Throwable[1];
+        try {
+            if (params.sequentialDownload != null)
+                setSequentialDownload(params.sequentialDownload);
+
+            if (!TextUtils.isEmpty(params.name))
+                setTorrentName(params.name);
+
+            if (params.dirPath != null)
+                setDownloadPath(params.dirPath);
+
+            if (params.priorities != null)
+                prioritizeFiles(params.priorities);
+
+        } catch (Throwable e) {
+            err[0] = e;
+        } finally {
+            changeState.setApplyingParams(false);
+            if (!changeState.isMoving())
+                notifyListeners((listener) -> listener.onParamsApplied(id, err[0]));
+        }
+    }
+
+    public boolean isDuringChangeParams()
+    {
+        return changeState.isDuringChange();
     }
 }

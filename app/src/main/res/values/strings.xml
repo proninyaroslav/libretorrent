@@ -38,6 +38,7 @@
     <string name="menu">Menu</string>
     <string name="file">File</string>
     <string name="folder">Folder</string>
+    <string name="finished">Finished</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>

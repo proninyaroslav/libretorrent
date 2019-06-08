@@ -28,16 +28,15 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
-import org.proninyaroslav.libretorrent.core.TorrentEngineOld;
-import org.proninyaroslav.libretorrent.core.TorrentHelper;
+import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
@@ -70,6 +69,8 @@ import androidx.databinding.ObservableField;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 
@@ -82,6 +83,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
     public MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
     private TorrentRepository repo;
+    private TorrentEngine engine;
     private SharedPreferences pref;
     private TorrentDecodeTask decodeTask;
     /* BEP53 standard. Optional field */
@@ -128,6 +130,7 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         repo = ((MainApplication)getApplication()).getTorrentRepository();
         pref = SettingsManager.getInstance(application).getPreferences();
+        engine = TorrentEngine.getInstance(getApplication());
 
         info.addOnPropertyChangedCallback(infoCallback);
         params.getDirPath().addOnPropertyChangedCallback(dirPathCallback);
@@ -136,8 +139,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         /* Init download dir */
         String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentFilesIn);
-        if (path != null)
-            params.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+        params.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
     }
 
     @Override
@@ -203,9 +205,10 @@ public class AddTorrentViewModel extends AndroidViewModel
                         viewModel.get().params.setFromMagnet(true);
                         viewModel.get().saveTorrentFile = false;
 
-                        MagnetInfo magnetInfo = TorrentHelper.fetchMagnet(uri.toString());
+                        Pair<MagnetInfo, Single<TorrentMetaInfo>> res = viewModel.get().engine.fetchMagnet(uri.toString());
+                        MagnetInfo magnetInfo = res.first;
                         if (magnetInfo != null && !isCancelled()) {
-                            viewModel.get().observeFetchedMetadata(magnetInfo.getSha1hash());
+                            viewModel.get().observeFetchedMetadata(res.second);
 
                             viewModel.get().info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));
                             if (magnetInfo.getFilePriorities() != null)
@@ -285,11 +288,9 @@ public class AddTorrentViewModel extends AndroidViewModel
         }
     }
 
-    private void observeFetchedMetadata(String hash)
+    private void observeFetchedMetadata(Single<TorrentMetaInfo> single)
     {
-        TorrentStateProvider provider = repo.getStateProvider();
-
-        disposable.add(provider.getFetchedMetadata(hash)
+        disposable.add(single
                 .subscribe((downloadInfo) -> {
                     info.set(downloadInfo);
                     decodeState.postValue(
@@ -478,8 +479,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         try {
             Thread t = new Thread(() ->  {
                 try {
-                    torrentRes[0] = TorrentHelper.addTorrent(getApplication(), repo, torrent,
-                            source, fromMagnet, false);
+                    torrentRes[0] = engine.addTorrentSync(torrent, source, fromMagnet, false);
 
                 } catch (Exception e) {
                     err[0] = e;
@@ -524,6 +524,6 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         DecodeState state = decodeState.getValue();
         if (state != null && state.status == Status.FETCHING_MAGNET)
-            TorrentEngineOld.getInstance().cancelFetchMagnet(infoVal.sha1Hash);
+            engine.cancelFetchMagnet(infoVal.sha1Hash);
     }
 }

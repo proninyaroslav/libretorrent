@@ -53,7 +53,7 @@ import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.filetree.FileTree;
 import org.proninyaroslav.libretorrent.core.filetree.TorrentContentFileTree;
-import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
+import org.proninyaroslav.libretorrent.core.server.old.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;

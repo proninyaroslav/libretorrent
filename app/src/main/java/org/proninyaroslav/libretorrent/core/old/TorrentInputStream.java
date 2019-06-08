@@ -18,11 +18,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.old;
 
 import androidx.annotation.NonNull;
-
-import com.sun.jna.Pointer;
 
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.TorrentHandle;
@@ -30,6 +28,9 @@ import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.ReadPieceAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
+import org.proninyaroslav.libretorrent.core.TorrentStream;
+
+import com.sun.jna.Pointer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,9 +55,8 @@ public class TorrentInputStream extends InputStream
 {
     public static final int EOF = -1;
 
-    private TorrentSession session;
     private TorrentStream stream;
-    private ReadSession readSession;
+    private ReadSession session;
     private long filePos, fileStart, eof;
     private byte[] cacheBuf;
     private int cachePieceIndex = -1;
@@ -96,11 +96,10 @@ public class TorrentInputStream extends InputStream
         }
     }
 
-    public TorrentInputStream(@NonNull TorrentSession session, @NonNull TorrentStream stream)
+    public TorrentInputStream(TorrentStream stream)
     {
-        this.session = session;
         this.stream = stream;
-        TorrentDownload task = session.getTask(stream.torrentId);
+        TorrentDownload task = TorrentEngine.getInstance().getTask(stream.torrentId);
         if (task == null)
             throw new NullPointerException("task " + stream.torrentId + " is null");
 
@@ -116,7 +115,7 @@ public class TorrentInputStream extends InputStream
         fileStart = filePos + 1;
         eof = filePos + stream.fileSize;
 
-        session.addListener(listener);
+        TorrentEngine.getInstance().addListener(listener);
         task.setInterestedPieces(stream, stream.firstFilePiece, 1);
     }
 
@@ -125,9 +124,7 @@ public class TorrentInputStream extends InputStream
     {
         synchronized (this) {
             stopped = true;
-            if (session != null)
-                session.removeListener(listener);
-            session = null;
+            TorrentEngine.getInstance().removeListener(listener);
             notifyAll();
         }
 
@@ -153,7 +150,7 @@ public class TorrentInputStream extends InputStream
     {
         while (!Thread.currentThread().isInterrupted() && !stopped) {
             try {
-                if (readSession != null && readSession.countLatch <= 0)
+                if (session != null && session.countLatch <= 0)
                     return true;
                 wait();
             } catch (InterruptedException e) {
@@ -200,10 +197,7 @@ public class TorrentInputStream extends InputStream
         lock.lock();
 
         try {
-            if (session == null)
-                throw new IOException("Torrent session is null");
-
-            TorrentDownload task = session.getTask(stream.torrentId);
+            TorrentDownload task = TorrentEngine.getInstance().getTask(stream.torrentId);
             if (task == null)
                 throw new IOException("task " + stream.torrentId + " is null");
 
@@ -218,10 +212,10 @@ public class TorrentInputStream extends InputStream
 
             task.setInterestedPieces(stream, p, 1);
 
-            readSession = new ReadSession();
-            readSession.piecesForReading = new Piece[1];
-            readSession.buf = new byte[1];
-            readSession.countLatch = 1;
+            session = new ReadSession();
+            session.piecesForReading = new Piece[1];
+            session.buf = new byte[1];
+            session.countLatch = 1;
 
             Piece piece = new Piece(p);
             piece.readOffset = filePosToPiecePos(p, filePos);
@@ -230,13 +224,13 @@ public class TorrentInputStream extends InputStream
 
             /* Check cache */
             if (p == cachePieceIndex) {
-                readFromCache(piece, readSession.buf);
+                readFromCache(piece, session.buf);
                 filePos++;
 
-                return toUnsignedByte(readSession.buf[0]);
+                return toUnsignedByte(session.buf[0]);
             }
             piece.cache = true;
-            readSession.piecesForReading[0] = piece;
+            session.piecesForReading[0] = piece;
 
             if (!waitForPiece(task, p))
                 return EOF;
@@ -247,10 +241,10 @@ public class TorrentInputStream extends InputStream
                 return EOF;
             filePos++;
 
-            return toUnsignedByte(readSession.buf[0]);
+            return toUnsignedByte(session.buf[0]);
 
         } finally {
-            readSession = null;
+            session = null;
             lock.unlock();
         }
     }
@@ -266,12 +260,9 @@ public class TorrentInputStream extends InputStream
             else if (len == 0)
                 return 0;
 
-            if (session == null)
-                throw new IOException("Torrent session is null");
-
-            TorrentDownload task = session.getTask(stream.torrentId);
+            TorrentDownload task = TorrentEngine.getInstance().getTask(stream.torrentId);
             if (task == null)
-                throw new IOException("Task " + stream.torrentId + " is null");
+                throw new IOException("task " + stream.torrentId + " is null");
 
             /* EOF check */
             if (filePos == eof) {
@@ -289,10 +280,10 @@ public class TorrentInputStream extends InputStream
 
             task.setInterestedPieces(stream, firstPiece, numPieces);
 
-            readSession = new ReadSession();
-            readSession.piecesForReading = new Piece[numPieces];
-            readSession.buf = b;
-            readSession.countLatch = numPieces;
+            session = new ReadSession();
+            session.piecesForReading = new Piece[numPieces];
+            session.buf = b;
+            session.countLatch = numPieces;
 
             int bufIndex = off;
             for (int p = firstPiece, i = 0; p <= lastPiece; p++, i++) {
@@ -332,7 +323,7 @@ public class TorrentInputStream extends InputStream
                     }
                 }
 
-                readSession.piecesForReading[i] = piece;
+                session.piecesForReading[i] = piece;
 
                 if (!waitForPiece(task, p))
                     return EOF;
@@ -348,7 +339,7 @@ public class TorrentInputStream extends InputStream
             return len;
 
         } finally {
-            readSession = null;
+            session = null;
             lock.unlock();
         }
     }
@@ -364,9 +355,7 @@ public class TorrentInputStream extends InputStream
     {
         synchronized (this) {
             stopped = true;
-            if (session != null)
-                session.removeListener(listener);
-            session = null;
+            TorrentEngine.getInstance().removeListener(listener);
             notifyAll();
         }
 
@@ -390,11 +379,9 @@ public class TorrentInputStream extends InputStream
 
             filePos += n;
 
-            if (session != null) {
-                TorrentDownload task = session.getTask(stream.torrentId);
-                if (task != null)
-                    task.setInterestedPieces(stream, stream.bytesToPieceIndex(filePos + 1), 1);
-            }
+            TorrentDownload task = TorrentEngine.getInstance().getTask(stream.torrentId);
+            if (task != null)
+                task.setInterestedPieces(stream, stream.bytesToPieceIndex(filePos + 1), 1);
 
             return n;
 
@@ -426,7 +413,7 @@ public class TorrentInputStream extends InputStream
             if (!(alert instanceof TorrentAlert<?>))
                 return;
 
-            if (!((TorrentAlert<?>)alert).handle().infoHash().toHex().equals(stream.torrentId))
+            if (!((TorrentAlert<?>) alert).handle().infoHash().toHex().equals(stream.torrentId))
                 return;
 
             switch (alert.type()) {
@@ -449,17 +436,17 @@ public class TorrentInputStream extends InputStream
 
     private synchronized void readPiece(ReadPieceAlert alert)
     {
-        if (readSession == null)
+        if (session == null)
             return;
 
         Piece piece = null;
-        for (Piece p : readSession.piecesForReading) {
+        for (Piece p : session.piecesForReading) {
             if (p.index == alert.piece()) {
                 piece = p;
                 break;
             }
         }
-        if (readSession.countLatch > 0 && piece != null && readSession.buf != null) {
+        if (session.countLatch > 0 && piece != null && session.buf != null) {
             try {
                 if (alert.error().isError()) {
                     TorrentHandle th = alert.handle();
@@ -472,12 +459,12 @@ public class TorrentInputStream extends InputStream
                     cacheBuf = new byte[alert.size()];
                     ptr.read(0, cacheBuf, 0, alert.size());
                     cachePieceIndex = piece.index;
-                    readFromCache(piece, readSession.buf);
+                    readFromCache(piece, session.buf);
                 } else {
-                    ptr.read(piece.readOffset, readSession.buf, piece.bufIndex, piece.readLength);
+                    ptr.read(piece.readOffset, session.buf, piece.bufIndex, piece.readLength);
                 }
             } finally {
-                --readSession.countLatch;
+                --session.countLatch;
                 notifyAll();
             }
         }

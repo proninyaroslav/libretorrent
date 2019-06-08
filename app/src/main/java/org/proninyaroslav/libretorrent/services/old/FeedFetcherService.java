@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.services;
+package org.proninyaroslav.libretorrent.services.old;
 
 import android.content.Context;
 import android.content.Intent;
@@ -45,10 +45,10 @@ public class FeedFetcherService extends JobIntentService
     @SuppressWarnings("unused")
     private static final String TAG = FeedFetcherService.class.getSimpleName();
 
-    public static final String ACTION_FETCH_CHANNEL = "org.proninyaroslav.libretorrent.services.FeedFetcherService.ACTION_FETCH_CHANNEL";
-    public static final String ACTION_FETCH_CHANNEL_LIST = "org.proninyaroslav.libretorrent.services.FeedFetcherService.ACTION_FETCH_CHANNEL_LIST";
-    public static final String ACTION_FETCH_ALL_CHANNELS = "org.proninyaroslav.libretorrent.services.FeedFetcherService.ACTION_FETCH_ALL_CHANNELS";
-    public static final String ACTION_CHANNEL_RESULT = "org.proninyaroslav.libretorrent.services.FeedFetcherService.ACTION_CHANNEL_RESULT";
+    public static final String ACTION_FETCH_CHANNEL = "org.proninyaroslav.libretorrent.services.old.FeedFetcherService.ACTION_FETCH_CHANNEL";
+    public static final String ACTION_FETCH_CHANNEL_LIST = "org.proninyaroslav.libretorrent.services.old.FeedFetcherService.ACTION_FETCH_CHANNEL_LIST";
+    public static final String ACTION_FETCH_ALL_CHANNELS = "org.proninyaroslav.libretorrent.services.old.FeedFetcherService.ACTION_FETCH_ALL_CHANNELS";
+    public static final String ACTION_CHANNEL_RESULT = "org.proninyaroslav.libretorrent.services.old.FeedFetcherService.ACTION_CHANNEL_RESULT";
     public static final String TAG_CHANNEL_URL_ARG = "channel_url_arg";
     public static final String TAG_CHANNEL_URL_LIST_ARG = "channel_url_list_arg";
     public static final String TAG_CHANNEL_URL_RESULT = "channel_url_result";

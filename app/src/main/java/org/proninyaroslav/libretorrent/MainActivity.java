@@ -29,8 +29,8 @@ import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
-import org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
+import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
+import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.ArrayList;

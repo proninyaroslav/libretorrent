@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.services;
+package org.proninyaroslav.libretorrent.services.old;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -66,7 +66,7 @@ import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
+import org.proninyaroslav.libretorrent.core.server.old.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.StateParcelCache;
 import org.proninyaroslav.libretorrent.core.old.TorrentStateMsg;
@@ -75,7 +75,7 @@ import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.receivers.old.NotificationReceiver;
+import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.receivers.old.PowerReceiver;
 import org.proninyaroslav.libretorrent.receivers.old.WifiReceiver;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
@@ -104,10 +104,10 @@ public class TorrentTaskService extends Service
     private static final int NAT_ERROR_NOTIFICATION_ID = 3;
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_CHAN";
-    public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_SHUTDOWN";
-    public static final String ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_ADD_TORRENT";
-    public static final String ACTION_ADD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_ADD_TORRENT_LIST";
-    public static final String ACTION_MOVE_TORRENT = "org.proninyaroslav.libretorrent.services.TorrentTaskService.ACTION_MOVE_TORRENT";
+    public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.old.TorrentTaskService.ACTION_SHUTDOWN";
+    public static final String ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.services.old.TorrentTaskService.ACTION_ADD_TORRENT";
+    public static final String ACTION_ADD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.old.TorrentTaskService.ACTION_ADD_TORRENT_LIST";
+    public static final String ACTION_MOVE_TORRENT = "org.proninyaroslav.libretorrent.services.old.TorrentTaskService.ACTION_MOVE_TORRENT";
     public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
     public static final String TAG_ADD_TORRENT_PARAMS_LIST = "add_torrent_params_list";
     public static final String TAG_SAVE_TORRENT_FILE = "save_torrnet_file";
@@ -179,10 +179,10 @@ public class TorrentTaskService extends Service
                             SettingsManager.Default.cpuDoNotSleep))
             setKeepCpuAwake(true);
 
-        TorrentEngine.getInstance().setContext(context);
-        TorrentEngine.getInstance().setCallback(this);
-        TorrentEngine.getInstance().setSettings(SettingsManager.readEngineSettings(context));
-        TorrentEngine.getInstance().start();
+//        TorrentEngine.getInstance().setContext(context);
+//        TorrentEngine.getInstance().setCallback(this);
+//        TorrentEngine.getInstance().setSettings(SettingsManager.readEngineSettings(context));
+//        TorrentEngine.getInstance().start();
 
         makeForegroundNotify();
         startUpdateForegroundNotify();
@@ -1081,7 +1081,8 @@ public class TorrentTaskService extends Service
         public void run()
         {
             if (isAlreadyRunning) {
-                boolean online = TorrentEngine.getInstance().isConnected();
+//                boolean online = TorrentEngine.getInstance().isConnected();
+                boolean online = true;
                 if (isNetworkOnline != online) {
                     isNetworkOnline = online;
                     needsUpdateNotify.set(true);

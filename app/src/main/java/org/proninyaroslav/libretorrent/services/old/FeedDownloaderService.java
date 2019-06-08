@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.services;
+package org.proninyaroslav.libretorrent.services.old;
 
 import android.content.Context;
 import android.content.Intent;
@@ -50,8 +50,8 @@ public class FeedDownloaderService extends JobIntentService
     @SuppressWarnings("unused")
     private static final String TAG = FeedDownloaderService.class.getSimpleName();
 
-    public static final String ACTION_DOWNLOAD_TORRENT = "org.proninyaroslav.libretorrent.services.FeedDownloaderService.ACTION_DOWNLOAD_TORRENT";
-    public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.FeedDownloaderService.ACTION_DOWNLOAD_TORRENT_LIST";
+    public static final String ACTION_DOWNLOAD_TORRENT = "org.proninyaroslav.libretorrent.services.old.FeedDownloaderService.ACTION_DOWNLOAD_TORRENT";
+    public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.services.old.FeedDownloaderService.ACTION_DOWNLOAD_TORRENT_LIST";
     public static final String TAG_URL_ARG = "url_arg";
     public static final String TAG_URL_LIST_ARG = "url_list_arg";
 

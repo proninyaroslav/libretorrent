@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 /*
@@ -45,7 +44,7 @@ public class PowerReceiver extends BroadcastReceiver
             case Intent.ACTION_POWER_CONNECTED:
             case Intent.ACTION_POWER_DISCONNECTED:
             case Intent.ACTION_BATTERY_CHANGED:
-                TorrentEngine engine = ((MainApplication)context).getTorrentEngine();
+                TorrentEngine engine = TorrentEngine.getInstance(context);
                 engine.rescheduleTorrents();
                 break;
         }

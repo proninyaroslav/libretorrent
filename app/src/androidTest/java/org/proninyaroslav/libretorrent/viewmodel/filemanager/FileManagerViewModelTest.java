@@ -17,13 +17,14 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent;
+package org.proninyaroslav.libretorrent.viewmodel.filemanager;
 
 import android.net.Uri;
 import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.viewmodel.filemanager.FileManagerViewModel;

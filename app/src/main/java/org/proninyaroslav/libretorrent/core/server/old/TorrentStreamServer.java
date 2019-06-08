@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,18 +17,16 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.server;
+package org.proninyaroslav.libretorrent.core.server.old;
 
-import android.content.Context;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.response.Response;
-import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.TorrentInputStream;
+import org.proninyaroslav.libretorrent.core.old.TorrentDownload;
+import org.proninyaroslav.libretorrent.core.old.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.old.TorrentInputStream;
 import org.proninyaroslav.libretorrent.core.TorrentStream;
 
 import java.io.IOException;
@@ -68,18 +66,15 @@ public class TorrentStreamServer extends NanoHTTPD
         DLNA_FILE_TYPES.put("mkv", new DLNAFileType("mkv", "video/x-matroska", "DLNA.ORG_PN=AVC_MKV_MP_HD_AC3;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000", "Streaming"));
     }
 
-    private TorrentEngine engine;
-
-    public TorrentStreamServer(@NonNull String host, int port)
+    public TorrentStreamServer(String host, int port)
     {
         super(host, port);
     }
 
-    public void start(@NonNull Context appContext) throws IOException
+    @Override
+    public void start() throws IOException
     {
         Log.i(TAG, "Start " + TAG);
-
-        engine = TorrentEngine.getInstance(appContext);
 
         super.start();
     }
@@ -96,8 +91,8 @@ public class TorrentStreamServer extends NanoHTTPD
      * URL format: http://'hostname':'port'/stream?file='file_index'&torrent='torrent_hash'
      */
 
-    public static String makeStreamUrl(@NonNull String hostname, int port,
-                                       @NonNull String torrentId, int fileIndex)
+    public static String makeStreamUrl(String hostname, int port,
+                                       String torrentId, int fileIndex)
     {
         try {
             return new URI("http", null, hostname, port,
@@ -127,30 +122,32 @@ public class TorrentStreamServer extends NanoHTTPD
         return res;
     }
 
-    public Response handleTorrent(IHTTPSession httpSession)
+    public Response handleTorrent(IHTTPSession session)
     {
-        if (!httpSession.getUri().equals("/stream"))
+        if (!session.getUri().equals("/stream"))
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
-        Map<String, List<String>> params = httpSession.getParameters();
+        Map<String, List<String>> params = session.getParameters();
         if (params.size() < 2)
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
         String torrentId = params.get("torrent").get(0);
 
+        TorrentDownload task = TorrentEngine.getInstance().getTask(torrentId);
+        if (task == null)
+            return newFixedLengthResponse(NOT_FOUND, "", "");
+
         int fileIndex;
         TorrentStream stream;
         try {
             fileIndex = Integer.parseInt(params.get("file").get(0));
-            stream = engine.getStream(torrentId, fileIndex);
-            if (engine == null)
-                return newFixedLengthResponse(NOT_FOUND, "", "");
+            stream = task.getStream(fileIndex);
 
         } catch (Exception e) {
             return newFixedLengthResponse(NOT_FOUND, "", "");
         }
 
-        Map<String, String> header = httpSession.getHeaders();
+        Map<String, String> header = session.getHeaders();
         try {
             Response res;
             String etag = stream.id;
@@ -206,7 +203,7 @@ public class TorrentStreamServer extends NanoHTTPD
                     if (newLen < 0)
                         newLen = 0;
 
-                    TorrentInputStream is = engine.getTorrentInputStream(stream);
+                    TorrentInputStream is = new TorrentInputStream(stream);
                     is.skip(startFrom);
 
                     res = newFixedLengthResponse(PARTIAL_CONTENT, MIME_OCTET_STREAM, is, newLen);
@@ -243,7 +240,7 @@ public class TorrentStreamServer extends NanoHTTPD
                     res.addHeader("ETag", etag);
 
                 } else {
-                    TorrentInputStream is = engine.getTorrentInputStream(stream);
+                    TorrentInputStream is = new TorrentInputStream(stream);
                     res = newFixedLengthResponse(OK, MIME_OCTET_STREAM, is, stream.fileSize);
                     res.addHeader("Accept-Ranges", "bytes");
                     res.addHeader("Content-Length", "" + stream.fileSize);
