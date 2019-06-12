@@ -181,7 +181,7 @@ public class TorrentEngine
             } catch (Exception e) {
                 handleAddTorrentError(torrent.name, e);
             }
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -211,7 +211,7 @@ public class TorrentEngine
                 IOUtils.closeQuietly(is);
             }
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -337,7 +337,7 @@ public class TorrentEngine
                 /* Ignore */
             }
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -479,7 +479,7 @@ public class TorrentEngine
             if (isRunning())
                 session.resumeAll();
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -491,7 +491,7 @@ public class TorrentEngine
             if (task != null)
                 task.applyParams(params);
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -845,7 +845,7 @@ public class TorrentEngine
             if (isRunning())
                 session.restoreDownloads();
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -1006,7 +1006,7 @@ public class TorrentEngine
                     if (task != null)
                         task.pause();
 
-                }).observeOn(Schedulers.io())
+                }).subscribeOn(Schedulers.io())
                   .subscribe());
             }
         }
