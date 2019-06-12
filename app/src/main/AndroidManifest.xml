@@ -218,8 +218,7 @@
             android:name=".CreateTorrentActivity" />
 
         <service
-            android:name=".services.old.TorrentTaskService"
-            android:stopWithTask="false" />
+            android:name=".services.TorrentService" />
 
         <service
             android:name=".services.old.FeedFetcherService"

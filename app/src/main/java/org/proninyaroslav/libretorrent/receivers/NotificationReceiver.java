@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,7 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.TorrentService;
 
 /*
  * The receiver for actions of foreground notification, added by service.
@@ -34,7 +34,8 @@ public class NotificationReceiver extends BroadcastReceiver
 {
     public static final String NOTIFY_ACTION_SHUTDOWN_APP = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP";
     public static final String NOTIFY_ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_ADD_TORRENT";
-    public static final String NOTIFY_ACTION_PAUSE_RESUME = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME";
+    public static final String NOTIFY_ACTION_PAUSE_ALL = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL";
+    public static final String NOTIFY_ACTION_RESUME_ALL = "org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_RESUME_ALL";
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -51,7 +52,7 @@ public class NotificationReceiver extends BroadcastReceiver
                 mainIntent.setAction(NOTIFY_ACTION_SHUTDOWN_APP);
                 context.startActivity(mainIntent);
 
-                serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
+                serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_SHUTDOWN_APP);
                 context.startService(serviceIntent);
                 break;
@@ -61,9 +62,14 @@ public class NotificationReceiver extends BroadcastReceiver
                 mainIntent.setAction(NOTIFY_ACTION_ADD_TORRENT);
                 context.startActivity(mainIntent);
                 break;
-            case NOTIFY_ACTION_PAUSE_RESUME:
-                serviceIntent = new Intent(context.getApplicationContext(), TorrentTaskService.class);
-                serviceIntent.setAction(NOTIFY_ACTION_PAUSE_RESUME);
+            case NOTIFY_ACTION_PAUSE_ALL:
+                serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
+                serviceIntent.setAction(NOTIFY_ACTION_PAUSE_ALL);
+                context.startService(serviceIntent);
+                break;
+            case NOTIFY_ACTION_RESUME_ALL:
+                serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
+                serviceIntent.setAction(NOTIFY_ACTION_RESUME_ALL);
                 context.startService(serviceIntent);
                 break;
         }

@@ -35,6 +35,8 @@ public abstract class TorrentEngineListener
 
     public void onSessionStarted() {};
 
+    public void onTorrentMoving(String id){ };
+
     public void onTorrentMoved(String id, boolean success){ };
 
     public void onIpFilterParsed(boolean success) {};

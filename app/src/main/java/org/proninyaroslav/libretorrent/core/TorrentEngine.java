@@ -75,7 +75,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -93,6 +92,7 @@ public class TorrentEngine
     private TorrentStreamServer torrentStreamServer;
     private TorrentRepository repo;
     private SharedPreferences pref;
+    private TorrentNotifier notifier;
     private CompositeDisposable disposables = new CompositeDisposable();
     private TorrentFileObserver fileObserver;
     private PowerReceiver powerReceiver = new PowerReceiver();
@@ -117,6 +117,7 @@ public class TorrentEngine
         this.appContext = appContext;
         repo = ((MainApplication)appContext).getTorrentRepository();
         pref = SettingsManager.getInstance(appContext).getPreferences();
+        notifier = ((MainApplication)appContext).getTorrentNotifier();
         session = new TorrentSession(appContext);
         session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));
         session.addListener(engineListener);
@@ -142,6 +143,7 @@ public class TorrentEngine
         stopWatchDir();
         stopStreamingServer();
         session.stop();
+        cleanTemp();
     }
 
     public boolean isRunning()
@@ -177,7 +179,7 @@ public class TorrentEngine
                 addTorrentSync(torrent, source, fromMagnet, removeFile);
 
             } catch (Exception e) {
-                /* TODO: error notify */
+                handleAddTorrentError(torrent.name, e);
             }
         }).observeOn(Schedulers.io())
           .subscribe());
@@ -188,13 +190,13 @@ public class TorrentEngine
         disposables.add(Completable.fromRunnable(() -> {
             ContentResolver contentResolver = appContext.getContentResolver();
             FileInputStream is = null;
+            TorrentInfo ti = null;
             try {
                 ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
                 FileDescriptor outFd = outPfd.getFileDescriptor();
                 is = new FileInputStream(outFd);
                 FileChannel chan = is.getChannel();
 
-                TorrentInfo ti;
                 try {
                     ti = new TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size()));
 
@@ -204,7 +206,7 @@ public class TorrentEngine
                 addTorrentSync(file, ti);
 
             } catch (Exception e) {
-                handleAddTorrentError(e);
+                handleAddTorrentError((ti == null ? file.getPath() : ti.name()), e);
             } finally {
                 IOUtils.closeQuietly(is);
             }
@@ -222,64 +224,15 @@ public class TorrentEngine
                                   boolean fromMagnet,
                                   boolean removeFile) throws IOException, FileAlreadyExistsException, DecodeException
     {
-        Torrent t = torrent;
+        Torrent t = session.addTorrent(torrent, source, fromMagnet, removeFile);
 
-        if (fromMagnet) {
-            byte[] bencode = session.getLoadedMagnet(t.id);
-            session.removeLoadedMagnet(t.id);
-            if (bencode == null) {
-                t.setMagnetUri(source);
-                repo.addTorrent(appContext, t);
-            } else {
-                if (repo.getTorrentById(t.id) == null) {
-                    repo.addTorrent(appContext, t, bencode);
-                } else {
-                    session.mergeTorrent(t, bencode);
-                    repo.replaceTorrent(appContext, t, bencode);
-                    throw new FileAlreadyExistsException();
-                }
-            }
-        } else {
-            if (repo.getTorrentById(t.id) == null) {
-                repo.addTorrent(appContext, t, Uri.parse(source), removeFile);
-            } else {
-                session.mergeTorrent(t);
-                repo.replaceTorrent(appContext, t, Uri.parse(source), removeFile);
-                throw new FileAlreadyExistsException();
-            }
+        boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
+                                                  SettingsManager.Default.saveTorrentFiles);
+        if (saveTorrentFile) {
+            String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
+                                             t.downloadPath.toString());
+            saveTorrentFileIn(t, Uri.parse(org.proninyaroslav.libretorrent.core.utils.FileUtils.normalizeFilesystemPath(savePath)));
         }
-
-        String id = t.id;
-        t = repo.getTorrentById(id);
-        if (t == null)
-            throw new IOException("Torrent " + id + " is null");
-
-        if (!t.isDownloadingMetadata()) {
-            if (!TorrentUtils.torrentDataExists(appContext, t.id)) {
-                repo.deleteTorrent(appContext, t);
-                throw new FileNotFoundException("Torrent doesn't exists: " + t.name);
-            }
-            /*
-             * This is possible if the magnet data came after Torrent object
-             * has already been created and nothing is known about the received data
-             */
-            if (t.filePriorities.isEmpty()) {
-                TorrentMetaInfo info = new TorrentMetaInfo(t.getSource());
-                t.filePriorities = Collections.nCopies(info.fileCount, Priority.DEFAULT);
-                repo.updateTorrent(t);
-            }
-
-            /* TODO: maybe move to another method */
-            boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
-                    SettingsManager.Default.saveTorrentFiles);
-            if (saveTorrentFile) {
-                String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
-                                                 t.downloadPath.toString());
-                saveTorrentFileIn(t, Uri.parse(FileUtils.normalizeFilesystemPath(savePath)));
-            }
-        }
-
-        session.download(t);
 
         return t;
     }
@@ -875,8 +828,7 @@ public class TorrentEngine
             torrentStreamServer.start(appContext);
 
         } catch (IOException e) {
-            /* TODO: make notification */
-//            makeTorrentErrorNotify(null, getString(R.string.pref_streaming_error));
+            notifier.makeErrorNotify(appContext.getString(R.string.pref_streaming_error));
         }
     }
 
@@ -889,30 +841,12 @@ public class TorrentEngine
 
     private void loadTorrents()
     {
-        disposables.add(repo.getAllTorrentsSingle()
-                .subscribeOn(Schedulers.io())
-                .flatMap((torrentList) ->
-                        Observable.fromIterable(torrentList)
-                                .filter((torrent) -> torrent != null)
-                                .filter((torrent) -> {
-                                    if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentFileExists(appContext, torrent.id)) {
-                                        Log.e(TAG, "Torrent doesn't exists: " + torrent);
-                                        /* TODO: make notification */
-//                                        makeTorrentErrorNotify(torrent.getName(), getString(R.string.torrent_does_not_exists_error));
-                                        repo.deleteTorrent(appContext, torrent);
-                                        return false;
-                                    }
-                                    return true;
-                                })
-                                .toList()
-                )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(session::restoreDownloads,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting torrents error: " +
-                                    Log.getStackTraceString(t));
-                        })
-        );
+        disposables.add(Completable.fromRunnable(() -> {
+            if (isRunning())
+                session.restoreDownloads();
+
+        }).observeOn(Schedulers.io())
+          .subscribe());
     }
 
     private void setProxy()
@@ -1029,22 +963,31 @@ public class TorrentEngine
         return addTorrentSync(torrent, file.toString(), false, false);
     }
 
-    private void handleAddTorrentError(Throwable e)
+    private void handleAddTorrentError(String name, Throwable e)
     {
-        /* TODO: error notify */
-//        if (e instanceof FileAlreadyExistsException) {
-//            makeTorrentInfoNotify(params.getName(), getString(R.string.torrent_exist));
-//            return;
-//        }
-//        Log.e(TAG, Log.getStackTraceString(e));
-//        String message;
-//        if (e instanceof FileNotFoundException)
-//            message = getString(R.string.error_file_not_found_add_torrent);
-//        else if (e instanceof IOException)
-//            message = getString(R.string.error_io_add_torrent);
-//        else
-//            message = getString(R.string.error_add_torrent);
-//        makeTorrentErrorNotify(params.getName(), message);
+        if (e instanceof FileAlreadyExistsException) {
+            notifier.makeTorrentInfoNotify(name, appContext.getString(R.string.torrent_exist));
+            return;
+        }
+        Log.e(TAG, Log.getStackTraceString(e));
+        String message;
+        if (e instanceof FileNotFoundException)
+            message = appContext.getString(R.string.error_file_not_found_add_torrent);
+        else if (e instanceof IOException)
+            message = appContext.getString(R.string.error_io_add_torrent);
+        else
+            message = appContext.getString(R.string.error_add_torrent);
+        notifier.makeTorrentErrorNotify(name, message);
+    }
+
+    private void cleanTemp()
+    {
+        try {
+            FileUtils.cleanTempDir(appContext);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error during setup of temp directory: ", e);
+        }
     }
 
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
@@ -1099,31 +1042,77 @@ public class TorrentEngine
         }
 
         @Override
+        public void onTorrentMoving(String id)
+        {
+            disposables.add(repo.getTorrentByIdSingle(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe((torrent) -> {
+                                String name;
+                                if (torrent == null)
+                                    name = id;
+                                else
+                                    name = torrent.name;
+
+                                notifier.makeMovingTorrentNotify(name);
+                            },
+                            (Throwable t) -> {
+                                Log.e(TAG, "Getting torrent " + id + " error: " +
+                                        Log.getStackTraceString(t));
+                            })
+            );
+        }
+
+        @Override
         public void onTorrentMoved(String id, boolean success)
         {
-            /* TODO: move torrents notification */
+            disposables.add(repo.getTorrentByIdSingle(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe((torrent) -> {
+                                String name;
+                                if (torrent == null)
+                                    name = id;
+                                else
+                                    name = torrent.name;
+
+                                if (success)
+                                    notifier.makeTorrentInfoNotify(name,
+                                            appContext.getString(R.string.torrent_move_success));
+                                else
+                                    notifier.makeTorrentErrorNotify(name,
+                                            appContext.getString(R.string.torrent_move_fail));
+                            },
+                            (Throwable t) -> {
+                                Log.e(TAG, "Getting torrent " + id + " error: " +
+                                        Log.getStackTraceString(t));
+                            })
+            );
         }
 
         @Override
         public void onIpFilterParsed(boolean success)
         {
-            /* TODO: error notification */
+            Toast.makeText(appContext,
+                    (success ? appContext.getString(R.string.ip_filter_add_success) :
+                            appContext.getString(R.string.ip_filter_add_error)),
+                    Toast.LENGTH_LONG)
+                    .show();
         }
 
         @Override
         public void onSessionError(String errorMsg)
         {
-            Log.e(TAG, errorMsg);
-            /* TODO: error notification */
+           notifier.makeSessionErrorNotify(errorMsg);
         }
 
         @Override
         public void onNatError(String errorMsg)
         {
             Log.e(TAG, "NAT error: " + errorMsg);
-//            if (pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
-//                    SettingsManager.Default.showNatErrors))
-            /* TODO: error notification */
+            if (pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
+                                SettingsManager.Default.showNatErrors))
+                notifier.makeNatErrorNotify(errorMsg);
         }
 
         @Override
@@ -1132,9 +1121,15 @@ public class TorrentEngine
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
-                                /* TODO: error notification */
+                                String name;
+                                if (torrent == null)
+                                    name = id;
+                                else
+                                    name = torrent.name;
+
+                                notifier.makeTorrentErrorNotify(name,
+                                        appContext.getString(R.string.restore_torrent_error));
                             },
                             (Throwable t) -> {
                                 Log.e(TAG, "Getting torrent " + id + " error: " +
@@ -1155,16 +1150,16 @@ public class TorrentEngine
                     .subscribeOn(Schedulers.io())
                     .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
-                                if (err != null) {
-                                    repo.deleteTorrent(appContext, torrent);
-                                    /* TODO: error notification */
-                                } else {
+                                if (err == null) {
                                     if (pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
                                                         SettingsManager.Default.saveTorrentFiles)) {
                                         String path = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
                                                                      torrent.downloadPath.toString());
                                         saveTorrentFileIn(torrent, Uri.parse(FileUtils.normalizeFilesystemPath(path)));
                                     }
+
+                                } else if (err instanceof FreeSpaceException) {
+                                    notifier.makeTorrentErrorNotify(torrent.name, appContext.getString(R.string.error_free_space));
                                 }
                             },
                             (Throwable t) -> {

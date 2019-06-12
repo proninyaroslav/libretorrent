@@ -33,6 +33,7 @@ import org.junit.runner.RunWith;
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -114,6 +115,51 @@ public class TorrentEngineTest extends AbstractTest
 
         try {
             engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            c.await();
+
+        } catch (Exception e) {
+            fail(Log.getStackTraceString(e));
+        }
+    }
+
+    @Test
+    public void downloadTest_duplicateTorrent()
+    {
+        CountDownLatch c = new CountDownLatch(1);
+        assertTrue(engine.isRunning());
+        String source = downloadTorrent(torrentUrl);
+
+        engine.addListener(new TorrentEngineListener() {
+            @Override
+            public void onTorrentFinished(String id)
+            {
+                if (!torrent.id.equals(id))
+                    return;
+
+                c.countDown();
+                try {
+                    Torrent t = torrentRepo.getTorrentById(id);
+                    assertNotNull(t);
+                    assertTrue(t.finished);
+
+                    try {
+                        engine.addTorrentSync(torrent, source, false, true);
+
+                    } catch (FileAlreadyExistsException e) {
+                        engine.deleteTorrents(Collections.singletonList(id), true);
+                        return;
+                    }
+                    fail();
+
+                } catch (Exception e) {
+                    engine.deleteTorrents(Collections.singletonList(id), true);
+                    fail(Log.getStackTraceString(e));
+                }
+            }
+        });
+
+        try {
+            engine.addTorrentSync(torrent, source, false, true);
             c.await();
 
         } catch (Exception e) {

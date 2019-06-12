@@ -380,14 +380,14 @@ public class TorrentTaskService extends Service
                         }
                     }
                     break;
-                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
-                    boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
-                    updateForegroundNotifyActions();
-                    if (pause)
-                        TorrentEngine.getInstance().pauseAll();
-                    else
-                        TorrentEngine.getInstance().resumeAll();
-                    break;
+//                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
+//                    boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
+//                    updateForegroundNotifyActions();
+//                    if (pause)
+//                        TorrentEngine.getInstance().pauseAll();
+//                    else
+//                        TorrentEngine.getInstance().resumeAll();
+//                    break;
                 case ACTION_ADD_TORRENT: {
                     AddTorrentParams params = intent.getParcelableExtra(TAG_ADD_TORRENT_PARAMS);
                     boolean saveFile = intent.getBooleanExtra(TAG_SAVE_TORRENT_FILE, false);
@@ -1187,7 +1187,7 @@ public class TorrentTaskService extends Service
         int icon = 0;
         String text = null;
         if (type == Integer.parseInt(getString(R.string.pref_function_button_pause_value))) {
-            funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
+//            funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
             boolean isPause = isPauseButton.get();
             icon = (isPause ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp);
             text = (isPause ? getString(R.string.pause_torrent) : getString(R.string.resume_torrent));
@@ -1448,37 +1448,37 @@ public class TorrentTaskService extends Service
 
     private synchronized void makeTorrentsMoveNotify()
     {
-        if (torrentsMoveTotal == null ||
-                torrentsMoveSuccess == null ||
-                torrentsMoveFailed == null) {
-            return;
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                DEFAULT_CHAN_ID);
-
-        String resultTemplate = getString(R.string.torrents_moved_content);
-        int successfully = torrentsMoveSuccess.size();
-        int failed = torrentsMoveFailed.size();
-
-        builder.setContentTitle(getString(R.string.torrents_moved_title))
-                .setTicker(getString(R.string.torrents_moved_title))
-                .setContentText(String.format(resultTemplate, successfully, failed));
-
-        builder.setSmallIcon(R.drawable.ic_folder_move_white_24dp)
-                .setAutoCancel(true)
-                .setWhen(System.currentTimeMillis())
-                .setStyle(makeTorrentsMoveInboxStyle(torrentsMoveSuccess, torrentsMoveFailed));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setCategory(Notification.CATEGORY_STATUS);
-        }
-
-        notifyManager.notify(TORRENTS_MOVED_NOTIFICATION_ID, builder.build());
-
-        torrentsMoveTotal = null;
-        torrentsMoveSuccess = null;
-        torrentsMoveFailed = null;
+//        if (torrentsMoveTotal == null ||
+//                torrentsMoveSuccess == null ||
+//                torrentsMoveFailed == null) {
+//            return;
+//        }
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+//                DEFAULT_CHAN_ID);
+//
+//        String resultTemplate = getString(R.string.torrents_moved_content);
+//        int successfully = torrentsMoveSuccess.size();
+//        int failed = torrentsMoveFailed.size();
+//
+//        builder.setContentTitle(getString(R.string.torrents_moved_title))
+//                .setTicker(getString(R.string.torrents_moved_title))
+//                .setContentText(String.format(resultTemplate, successfully, failed));
+//
+//        builder.setSmallIcon(R.drawable.ic_folder_move_white_24dp)
+//                .setAutoCancel(true)
+//                .setWhen(System.currentTimeMillis())
+//                .setStyle(makeTorrentsMoveInboxStyle(torrentsMoveSuccess, torrentsMoveFailed));
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            builder.setCategory(Notification.CATEGORY_STATUS);
+//        }
+//
+//        notifyManager.notify(TORRENTS_MOVED_NOTIFICATION_ID, builder.build());
+//
+//        torrentsMoveTotal = null;
+//        torrentsMoveSuccess = null;
+//        torrentsMoveFailed = null;
     }
 
     private NotificationCompat.InboxStyle makeTorrentsMoveInboxStyle(List<String> torrentsMoveSuccess,
@@ -1486,25 +1486,25 @@ public class TorrentTaskService extends Service
     {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        boolean successNotEmpty = !torrentsMoveSuccess.isEmpty();
-
-        if (successNotEmpty) {
-            inboxStyle.addLine(getString(R.string.torrents_move_inbox_successfully));
-            for (String name : torrentsMoveSuccess) {
-                inboxStyle.addLine(name);
-            }
-        }
-
-        if (!torrentsMoveFailed.isEmpty()) {
-            if (successNotEmpty) {
-                inboxStyle.addLine("\n");
-            }
-
-            inboxStyle.addLine(getString(R.string.torrents_move_inbox_failed));
-            for (String name : torrentsMoveFailed) {
-                inboxStyle.addLine(name);
-            }
-        }
+//        boolean successNotEmpty = !torrentsMoveSuccess.isEmpty();
+//
+//        if (successNotEmpty) {
+//            inboxStyle.addLine(getString(R.string.torrents_move_inbox_successfully));
+//            for (String name : torrentsMoveSuccess) {
+//                inboxStyle.addLine(name);
+//            }
+//        }
+//
+//        if (!torrentsMoveFailed.isEmpty()) {
+//            if (successNotEmpty) {
+//                inboxStyle.addLine("\n");
+//            }
+//
+//            inboxStyle.addLine(getString(R.string.torrents_move_inbox_failed));
+//            for (String name : torrentsMoveFailed) {
+//                inboxStyle.addLine(name);
+//            }
+//        }
 
         return inboxStyle;
     }

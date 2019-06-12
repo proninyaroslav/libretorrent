@@ -1019,6 +1019,8 @@ public class TorrentDownload
         torrent.downloadPath = path;
         repo.updateTorrent(torrent);
 
+        notifyListeners((listener) -> listener.onTorrentMoving(id));
+
         try {
             th.moveStorage(path.getPath(), MoveFlags.ALWAYS_REPLACE_FILES);
 

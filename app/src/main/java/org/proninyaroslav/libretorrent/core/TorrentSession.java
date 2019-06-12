@@ -62,15 +62,21 @@ import org.libtorrent4j.swig.string_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
+import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
+import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,6 +118,7 @@ public class TorrentSession extends SessionManager
     private HashMap<String, Torrent> addTorrentsQueue = new HashMap<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
     private CompositeDisposable disposables = new CompositeDisposable();
+    private TorrentRepository repo;
 
     /* Base unit in KiB. Used for create torrent */
     public static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512,
@@ -174,6 +181,7 @@ public class TorrentSession extends SessionManager
     public TorrentSession(@NonNull Context appContext)
     {
         this.appContext = appContext;
+        repo = ((MainApplication)appContext).getTorrentRepository();
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
     }
@@ -219,6 +227,64 @@ public class TorrentSession extends SessionManager
         loadedMagnets.remove(hash);
     }
 
+    public Torrent addTorrent(@NonNull final Torrent torrent,
+                              @NonNull String source,
+                              boolean fromMagnet,
+                              boolean removeFile) throws IOException, FileAlreadyExistsException, DecodeException
+    {
+        Torrent t = torrent;
+
+        if (fromMagnet) {
+            byte[] bencode = getLoadedMagnet(t.id);
+            removeLoadedMagnet(t.id);
+            if (bencode == null) {
+                t.setMagnetUri(source);
+                repo.addTorrent(appContext, t);
+            } else {
+                if (repo.getTorrentById(t.id) == null) {
+                    repo.addTorrent(appContext, t, bencode);
+                } else {
+                    mergeTorrent(t, bencode);
+                    repo.replaceTorrent(appContext, t, bencode);
+                    throw new FileAlreadyExistsException();
+                }
+            }
+        } else {
+            if (repo.getTorrentById(t.id) == null) {
+                repo.addTorrent(appContext, t, Uri.parse(source), removeFile);
+            } else {
+                mergeTorrent(t);
+                repo.replaceTorrent(appContext, t, Uri.parse(source), removeFile);
+                throw new FileAlreadyExistsException();
+            }
+        }
+
+        String id = t.id;
+        t = repo.getTorrentById(id);
+        if (t == null)
+            throw new IOException("Torrent " + id + " is null");
+
+        if (!t.isDownloadingMetadata()) {
+            if (!TorrentUtils.torrentDataExists(appContext, t.id)) {
+                repo.deleteTorrent(appContext, t);
+                throw new FileNotFoundException("Torrent doesn't exists: " + t.name);
+            }
+            /*
+             * This is possible if the magnet data came after Torrent object
+             * has already been created and nothing is known about the received data
+             */
+            if (t.filePriorities.isEmpty()) {
+                TorrentMetaInfo info = new TorrentMetaInfo(t.getSource());
+                t.filePriorities = Collections.nCopies(info.fileCount, Priority.DEFAULT);
+                repo.updateTorrent(t);
+            }
+        }
+
+        download(t);
+
+        return t;
+    }
+
     public void download(@NonNull Torrent torrent)
     {
         if (swig() == null)
@@ -259,14 +325,21 @@ public class TorrentSession extends SessionManager
         download(ti, saveDir, resumeFile, priorities.toArray(new Priority[0]), null);
     }
 
-    public void restoreDownloads(@NonNull Collection<Torrent> torrents)
+    public void restoreDownloads()
     {
         if (swig() == null)
             return;
 
-        for (Torrent torrent : torrents) {
+        for (Torrent torrent : repo.getAllTorrents()) {
             if (torrent == null)
                 continue;
+
+            if (!torrent.isDownloadingMetadata() && !TorrentUtils.torrentFileExists(appContext, torrent.id)) {
+                repo.deleteTorrent(appContext, torrent);
+                notifyListeners((listener) ->
+                        listener.onRestoreSessionError(torrent.id));
+                continue;
+            }
 
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata()) {
@@ -1013,6 +1086,10 @@ public class TorrentSession extends SessionManager
 
             } catch (Exception e) {
                 Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
+                Torrent torrent = repo.getTorrentById(torrentId);
+                if (torrent != null)
+                    repo.deleteTorrent(appContext, torrent);
+
                 notifyListeners((listener) ->
                         listener.onRestoreSessionError(torrentId));
             }

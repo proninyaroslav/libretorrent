@@ -30,7 +30,7 @@ import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.MainFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
+import org.proninyaroslav.libretorrent.services.TorrentService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, RequestPermissions.class));
         }
 
-        startService(new Intent(this, TorrentTaskService.class));
+        startService(new Intent(this, TorrentService.class));
 
         setContentView(R.layout.activity_main);
         Utils.showColoredStatusBar_KitKat(this);
@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences pref = SettingsManager.getPreferences(this);
         if (isFinishing() && !pref.getBoolean(getString(R.string.pref_key_keep_alive),
                                               SettingsManager.Default.keepAlive)) {
-            Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
-            i.setAction(TorrentTaskService.ACTION_SHUTDOWN);
+            Intent i = new Intent(getApplicationContext(), TorrentService.class);
+            i.setAction(TorrentService.ACTION_SHUTDOWN);
             startService(i);
         }
     }
@@ -166,8 +166,8 @@ public class MainActivity extends AppCompatActivity
     {
         switch (code) {
             case OK:
-                Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
-                i.setAction(TorrentTaskService.ACTION_SHUTDOWN);
+                Intent i = new Intent(getApplicationContext(), TorrentService.class);
+                i.setAction(TorrentService.ACTION_SHUTDOWN);
                 startService(i);
                 finish();
                 break;

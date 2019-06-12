@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent;
 
 import android.app.Application;
-import android.app.NotificationManager;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -29,6 +28,7 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
@@ -44,7 +44,7 @@ public class MainApplication extends Application
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
 
-//    private TorrentNotifier torrentNotifier;
+    private TorrentNotifier torrentNotifier;
     private AppDatabase db;
 
     @Override
@@ -57,12 +57,10 @@ public class MainApplication extends Application
         EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
 
         db = AppDatabase.getInstance(this);
-        Utils.makeNotifyChans(this, (NotificationManager)getSystemService(NOTIFICATION_SERVICE));
+        torrentNotifier = new TorrentNotifier(this);
+        torrentNotifier.makeNotifyChans();
 
         TorrentEngine.getInstance(this).start();
-
-//        torrentNotifier = new TorrentNotifier(this, getTorrentRepository());
-//        torrentNotifier.startUpdate();
     }
 
     public AppDatabase getDatabase()
@@ -76,10 +74,10 @@ public class MainApplication extends Application
         this.db = db;
     }
 
-//    public TorrentNotifier getTorrentNotifier()
-//    {
-//        return torrentNotifier;
-//    }
+    public TorrentNotifier getTorrentNotifier()
+    {
+        return torrentNotifier;
+    }
 
     public TorrentRepository getTorrentRepository()
     {

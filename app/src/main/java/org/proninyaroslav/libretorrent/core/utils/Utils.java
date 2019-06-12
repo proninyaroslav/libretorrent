@@ -21,8 +21,6 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -36,7 +34,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
@@ -60,8 +57,7 @@ import org.proninyaroslav.libretorrent.core.SystemFacade;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
-import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,10 +103,6 @@ public class Utils
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
 
-    public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
-    public static final String DEFAULT_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_NOTIFY_CHAN_ID";
-    public static final String FINISH_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FINISH_NOTIFY_CHAN_ID";
-
     private static SystemFacade systemFacade;
 
     public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
@@ -125,29 +117,6 @@ public class Utils
     public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
     {
         Utils.systemFacade = systemFacade;
-    }
-
-    public static void makeNotifyChans(@NonNull Context context,
-                                       @NonNull NotificationManager notifyManager)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return;
-
-        ArrayList<NotificationChannel> channels = new ArrayList<>();
-
-        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
-                context.getString(R.string.def),
-                NotificationManager.IMPORTANCE_DEFAULT));
-        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
-                context.getString(R.string.foreground_notification),
-                NotificationManager.IMPORTANCE_LOW);
-        foregroundChan.setShowBadge(false);
-        channels.add(foregroundChan);
-        channels.add(new NotificationChannel(FINISH_NOTIFY_CHAN_ID,
-                context.getString(R.string.finished),
-                NotificationManager.IMPORTANCE_DEFAULT));
-
-        notifyManager.createNotificationChannels(channels);
     }
 
     /*
@@ -187,17 +156,85 @@ public class Utils
             v.setBackground(d);
     }
 
-    /*
-     * Returns the checking result or throws an exception.
-     */
-
-    public static boolean checkNetworkConnection(@NonNull Context context)
+    public static boolean checkConnectivity(@NonNull Context context)
     {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        SystemFacade systemFacade = getSystemFacade(context);
+        NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
+    }
 
-        return activeNetwork.isConnectedOrConnecting();
+    public static boolean isNetworkTypeAllowed(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+        boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
+                                                SettingsManager.Default.enableRoaming);
+        boolean unmeteredOnly = pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
+                                                SettingsManager.Default.unmeteredConnectionsOnly);
+
+        boolean noUnmeteredOnly;
+        boolean noRoaming;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            /*
+             * Use ConnectivityManager#isActiveNetworkMetered() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
+             * since Android detection VPN as metered, including on Android 9, oddly enough.
+             * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
+             *
+             * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
+             */
+            boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                    !systemFacade.isActiveNetworkMetered();
+            noUnmeteredOnly = !unmeteredOnly || unmetered;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+            } else {
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+                noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
+            }
+
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            if (netInfo == null) {
+                noUnmeteredOnly = false;
+                noRoaming = false;
+            } else {
+                noUnmeteredOnly = !unmeteredOnly || !systemFacade.isActiveNetworkMetered();
+                noRoaming = !(enableRoaming && netInfo.isRoaming());
+            }
+        }
+
+        return noUnmeteredOnly && noRoaming;
+    }
+
+    public static boolean isMetered(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                                    systemFacade.isActiveNetworkMetered();
+        } else {
+            return systemFacade.isActiveNetworkMetered();
+        }
+    }
+
+    public static boolean isRoaming(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isRoaming();
+        }
     }
 
     /*
@@ -365,37 +402,11 @@ public class Utils
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static boolean isMetered(@NonNull Context context)
-    {
-        SystemFacade systemFacade = getSystemFacade(context);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                    systemFacade.isActiveNetworkMetered();
-        } else {
-            return systemFacade.isActiveNetworkMetered();
-        }
-    }
-
-    public static boolean isRoaming(@NonNull Context context)
-    {
-        SystemFacade systemFacade = getSystemFacade(context);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
-        } else {
-            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-            return netInfo != null && netInfo.isRoaming();
-        }
-    }
-
-
     public static int getThemePreference(@NonNull Context context)
     {
-        return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
-                                                              SettingsManager.Default.theme(context));
+        return SettingsManager.getInstance(context)
+                .getPreferences().getInt(context.getString(R.string.pref_key_theme),
+                                         SettingsManager.Default.theme(context));
     }
     
     public static boolean isDarkTheme(@NonNull Context context)
@@ -452,7 +463,7 @@ public class Utils
 
     public static TorrentSorting getTorrentSorting(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
                                        SettingsManager.Default.sortTorrentBy);
@@ -478,7 +489,7 @@ public class Utils
     {
         final String TAG = "tray2shared";
         final String migrate_key = "tray2shared_migrated";
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         if (pref.getBoolean(migrate_key, false))
             return;
@@ -557,7 +568,7 @@ public class Utils
 
     public static void enableBootReceiver(@NonNull Context context, boolean enable)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
                                                   SettingsManager.Default.enableSchedulingStart);
         boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
@@ -576,7 +587,7 @@ public class Utils
 
     public static void enableBootReceiverIfNeeded(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
                 SettingsManager.Default.enableSchedulingStart);
         boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
@@ -598,7 +609,7 @@ public class Utils
     {
         byte[][] response = new byte[1][];
 
-        if (!Utils.checkNetworkConnection(context))
+        if (!Utils.checkConnectivity(context))
             throw new FetchLinkException("No network connection");
 
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);

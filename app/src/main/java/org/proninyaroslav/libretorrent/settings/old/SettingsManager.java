@@ -53,6 +53,7 @@ public class SettingsManager
         public static final boolean batteryControl = false;
         public static final boolean customBatteryControl = false;
         public static final boolean wifiOnly = false;
+        public static final boolean enableRoaming = true;
         /* Network settings */
         public static final int port = TorrentEngine.Settings.DEFAULT_PORT;
         public static final boolean enableDht = true;

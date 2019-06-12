@@ -39,6 +39,8 @@
     <string name="file">File</string>
     <string name="folder">Folder</string>
     <string name="finished">Finished</string>
+    <string name="pause_all">Pause all</string>
+    <string name="resume_all">Resume all</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -104,12 +106,10 @@
     <string name="torrent_finished_notify">Torrent finished</string>
 
     <!-- Torrents move notification -->
-    <string name="torrents_move_notify_title" formatted="false">Moving torrents (%1$d/%2$d)</string>
-    <string name="torrents_move_content">Please wait&#8230;</string>
-    <string name="torrents_moved_title">Torrents moved</string>
-    <string name="torrents_moved_content" formatted="false">Successfully: %1$d; Failed: %2$d</string>
-    <string name="torrents_move_inbox_successfully">Successfully:</string>
-    <string name="torrents_move_inbox_failed">Failed:</string>
+    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
     <string name="torrent_added_notify">Torrent added</string>
