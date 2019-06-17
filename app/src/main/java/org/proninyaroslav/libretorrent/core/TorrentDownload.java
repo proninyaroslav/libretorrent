@@ -58,7 +58,7 @@ import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -335,7 +335,7 @@ public class TorrentDownload
                             errorAlert.filename().lastIndexOf("/") + 1);
                     if (errorAlert.filename() != null)
                         sb.append("[").append(filename).append("] ");
-                    sb.append(TorrentUtils.getErrorMsg(error));
+                    sb.append(Utils.getErrorMsg(error));
                     errorMsg = sb.toString();
                 }
                 break;
@@ -343,7 +343,7 @@ public class TorrentDownload
                 MetadataFailedAlert metadataFailedAlert = (MetadataFailedAlert)alert;
                 ErrorCode error = metadataFailedAlert.getError();
                 if (error.isError())
-                    errorMsg = TorrentUtils.getErrorMsg(error);
+                    errorMsg = Utils.getErrorMsg(error);
                 break;
             } case FILE_ERROR: {
                 FileErrorAlert fileErrorAlert = (FileErrorAlert)alert;
@@ -352,7 +352,7 @@ public class TorrentDownload
                         fileErrorAlert.filename().lastIndexOf("/") + 1);
                 if (error.isError())
                     errorMsg = "[" + filename + "] " +
-                            TorrentUtils.getErrorMsg(error);
+                            Utils.getErrorMsg(error);
                 break;
             }
         }
@@ -364,17 +364,15 @@ public class TorrentDownload
     {
         Exception[] err = new Exception[1];
         try {
-            String pathToDir = TorrentUtils.findTorrentDataDir(appContext, hash);
-            if (pathToDir == null)
-                throw new FileNotFoundException("Data dir not found");
-
-            File torrentFile = new File(pathToDir, TorrentRepository.DataModel.TORRENT_FILE_NAME);
-            org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile, bencode);
-            String pathToTorrent;
-            if (torrentFile.exists())
-                pathToTorrent = torrentFile.getAbsolutePath();
-            else
+            String pathToTorrent = repo.getTorrentFile(appContext, hash);
+            if (pathToTorrent == null)
                 throw new FileNotFoundException("Torrent file not found");
+
+            File torrentFile = new File(pathToTorrent);
+            if (!torrentFile.exists())
+                throw new FileNotFoundException("Torrent file not found");
+
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile, bencode);
 
             TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
             Torrent torrent = repo.getTorrentById(id);
@@ -420,14 +418,8 @@ public class TorrentDownload
 
             torrent.filePriorities = priorities;
             torrent.setFilesystemPath(pathToTorrent);
-            setSequentialDownload(torrent.sequentialDownload);
             repo.updateTorrent(torrent);
 
-            if (torrent.paused)
-                pause();
-            else
-                resume();
-            setDownloadPath(torrent.downloadPath);
         } catch (Exception e) {
             err[0] = e;
             remove(true);
@@ -486,7 +478,7 @@ public class TorrentDownload
         try {
             if (th.isValid()) {
                 byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
-                TorrentUtils.saveResumeData(appContext, id, Vectors.byte_vector2bytes(data));
+                repo.saveResumeData(appContext, id, Vectors.byte_vector2bytes(data));
             }
         } catch (Throwable e) {
             Log.e(TAG, "Error saving resume data of " + id + ":");

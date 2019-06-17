@@ -81,7 +81,7 @@ public class MainApplication extends Application
 
     public TorrentRepository getTorrentRepository()
     {
-        return TorrentRepository.getInstance(this, db);
+        return TorrentRepository.getInstance(db);
     }
 
     public TorrentStateProvider getTorrentStateProvider()

@@ -57,7 +57,7 @@ public class AbstractTest
                 AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        torrentRepo = TorrentRepository.getInstance(context, db);
+        torrentRepo = TorrentRepository.getInstance(db);
         feedRepo = FeedRepository.getInstance(db);
         engine = TorrentEngine.getInstance(context);
         stateProvider = TorrentStateProvider.getInstance(engine);

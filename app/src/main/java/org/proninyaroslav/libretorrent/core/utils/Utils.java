@@ -48,6 +48,7 @@ import android.widget.TextView;
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
+import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
@@ -786,5 +787,10 @@ public class Utils
         sslContext.init(null, wrappedTrustManagers, null);
 
         return sslContext;
+    }
+
+    public static String getErrorMsg(ErrorCode error)
+    {
+        return (error == null ? "" : error.message() + ", code " + error.value());
     }
 }

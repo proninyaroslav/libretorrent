@@ -49,7 +49,6 @@ import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
-import org.proninyaroslav.libretorrent.core.utils.TorrentUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
@@ -687,12 +686,33 @@ public class TorrentEngine
     {
         String torrentFileName = torrent.name + ".torrent";
         try {
-            if (!TorrentUtils.copyTorrentFileToDir(appContext, torrent.id, saveDir, torrentFileName))
+            if (!saveTorrentFile(torrent.id, saveDir, torrentFileName))
                 Log.w(TAG, "Could not save torrent file + " + torrentFileName);
 
         } catch (Exception e) {
             Log.w(TAG, "Could not save torrent file + " + torrentFileName + ": ", e);
         }
+    }
+
+    private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException
+    {
+        String pathToTorrent = repo.getTorrentFile(appContext, id);
+        if (pathToTorrent == null)
+            return false;
+
+        File torrent = new File(pathToTorrent);
+        if (!torrent.exists())
+            return false;
+
+        String name = (fileName != null ? fileName : id);
+
+        Pair<Uri, String> ret = FileUtils.createFile(appContext, destDir, name, Utils.MIME_TORRENT, true);
+        if (ret == null || ret.first == null)
+            return false;
+
+        FileUtils.copyFile(appContext, Uri.fromFile(torrent), ret.first);
+
+        return true;
     }
 
     private void runDeleteTorrentsWorker(String[] idList, boolean withFiles)
