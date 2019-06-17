@@ -22,11 +22,9 @@ package org.proninyaroslav.libretorrent.core.storage;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.util.Pair;
 
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +46,6 @@ public class TorrentRepository
         private static final String TORRENT_FILE_NAME = "torrent";
         private static final String TORRENT_RESUME_FILE_NAME = "fastresume";
         private static final String TORRENT_SESSION_FILE = "session";
-        private static final String FILE_LIST_SEPARATOR = ",";
     }
 
     private static TorrentRepository INSTANCE;

@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.core.storage.converter;
 import android.text.TextUtils;
 
 import org.libtorrent4j.Priority;
-import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,10 +32,12 @@ import androidx.room.TypeConverter;
 
 public class PriorityListConverter
 {
+    private static final String SEPARATOR = ",";
+
     @TypeConverter
     public static List<Priority> toPriorityList(@NonNull String prioritiesStr)
     {
-        List<String> numbers = Arrays.asList(prioritiesStr.split(TorrentStorage.Model.FILE_LIST_SEPARATOR));
+        List<String> numbers = Arrays.asList(prioritiesStr.split(SEPARATOR));
         int length = numbers.size();
         List<Priority> priorities = new ArrayList<>(length);
 
@@ -57,6 +58,6 @@ public class PriorityListConverter
         for (int i = 0; i < priorities.size(); i++)
             val.add(priorities.get(i).swig());
 
-        return TextUtils.join(TorrentStorage.Model.FILE_LIST_SEPARATOR, val);
+        return TextUtils.join(SEPARATOR, val);
     }
 }

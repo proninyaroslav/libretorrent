@@ -119,15 +119,16 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         randomPort.setDisableDependentsState(true);
         randomPort.setChecked(pref.getBoolean(keyRandomPort, SettingsManager.Default.useRandomPort));
 
-        InputFilter[] portFilter =
-                new InputFilter[]{ new InputFilterMinMax(1, TorrentEngine.Settings.MAX_PORT_NUMBER)};
-        String keyPort = getString(R.string.pref_key_port);
-        EditTextPreference port = (EditTextPreference)findPreference(keyPort);
-        String value = Integer.toString(pref.getInt(keyPort, SettingsManager.Default.port));
-        port.getEditText().setFilters(portFilter);
-        port.setSummary(value);
-        port.setText(value);
-        bindOnPreferenceChangeListener(port);
+        /* TODO: make port range settings */
+//        InputFilter[] portFilter =
+//                new InputFilter[]{ new InputFilterMinMax(1, TorrentEngine.Settings.MAX_PORT_NUMBER)};
+//        String keyPort = getString(R.string.pref_key_port);
+//        EditTextPreference port = (EditTextPreference)findPreference(keyPort);
+//        String value = Integer.toString(pref.getInt(keyPort, SettingsManager.Default.port));
+//        port.getEditText().setFilters(portFilter);
+//        port.setSummary(value);
+//        port.setText(value);
+//        bindOnPreferenceChangeListener(port);
 
         boolean enableAdvancedEncryptSettings;
 
@@ -214,13 +215,15 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     {
         SharedPreferences pref = SettingsManager.getPreferences(getActivity());
 
-        if (preference.getKey().equals(getString(R.string.pref_key_port))) {
-            int value = TorrentEngine.Settings.DEFAULT_PORT;
-            if (!TextUtils.isEmpty((String) newValue))
-                value = Integer.parseInt((String) newValue);
-            pref.edit().putInt(preference.getKey(), value).apply();
-            preference.setSummary(Integer.toString(value));
-        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
+        /* TODO: make port range settings */
+//        if (preference.getKey().equals(getString(R.string.pref_key_port))) {
+//            int value = TorrentEngine.Settings.DEFAULT_PORT;
+//            if (!TextUtils.isEmpty((String) newValue))
+//                value = Integer.parseInt((String) newValue);
+//            pref.edit().putInt(preference.getKey(), value).apply();
+//            preference.setSummary(Integer.toString(value));
+//        } else
+            if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
             int type = Integer.parseInt((String) newValue);
             pref.edit().putInt(preference.getKey(), type).apply();
             String typesName[] = getResources().getStringArray(R.array.pref_enc_mode_entries);

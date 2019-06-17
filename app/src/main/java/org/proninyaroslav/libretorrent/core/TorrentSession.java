@@ -28,6 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.ErrorCode;
+import org.libtorrent4j.Pair;
 import org.libtorrent4j.Priority;
 import org.libtorrent4j.SessionHandle;
 import org.libtorrent4j.SessionManager;
@@ -80,6 +81,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -138,9 +140,8 @@ public class TorrentSession extends SessionManager
         public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
         public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;
         public static final int DEFAULT_ACTIVE_LIMIT = 6;
-        public static final int DEFAULT_PORT = 6881;
-        public static final int MAX_PORT_NUMBER = 65535;
-        public static final int MIN_PORT_NUMBER = 49160;
+        public static final int MAX_PORT_NUMBER = 50256;
+        public static final int MIN_PORT_NUMBER = 40256;
         public static final int DEFAULT_DOWNLOAD_RATE_LIMIT = 0;
         public static final int DEFAULT_UPLOAD_RATE_LIMIT = 0;
         public static final boolean DEFAULT_DHT_ENABLED = true;
@@ -152,6 +153,9 @@ public class TorrentSession extends SessionManager
         public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
         public static final int DEFAULT_ENCRYPT_MODE = settings_pack.enc_policy.pe_enabled.swigValue();
         public static final boolean DEFAULT_AUTO_MANAGED = false;
+        public static final String DEFAULT_INETADDRESS = "0.0.0.0";
+        public static final int DEFAULT_PORT_RANGE_FIRST = MIN_PORT_NUMBER;
+        public static final int DEFAULT_PORT_RANGE_SECOND = MAX_PORT_NUMBER;
 
         public int cacheSize = DEFAULT_CACHE_SIZE;
         public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
@@ -163,7 +167,8 @@ public class TorrentSession extends SessionManager
         public int connectionsLimitPerTorrent = DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
         public int uploadsLimitPerTorrent = DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
         public int activeLimit = DEFAULT_ACTIVE_LIMIT;
-        public int port = DEFAULT_PORT;
+        public int portRangeFirst = DEFAULT_PORT_RANGE_FIRST;
+        public int portRangeSecond = DEFAULT_PORT_RANGE_SECOND;
         public int downloadRateLimit = DEFAULT_DOWNLOAD_RATE_LIMIT;
         public int uploadRateLimit = DEFAULT_UPLOAD_RATE_LIMIT;
         public boolean dhtEnabled = DEFAULT_DHT_ENABLED;
@@ -175,6 +180,7 @@ public class TorrentSession extends SessionManager
         public boolean encryptOutConnections = DEFAULT_ENCRYPT_OUT_CONNECTIONS;
         public int encryptMode = DEFAULT_ENCRYPT_MODE;
         public boolean autoManaged = DEFAULT_AUTO_MANAGED;
+        public String inetAddress = DEFAULT_INETADDRESS;
     }
 
     public TorrentSession(@NonNull Context appContext)
@@ -515,25 +521,36 @@ public class TorrentSession extends SessionManager
         return (settingsPack == null ? -1 : settingsPack.uploadRateLimit());
     }
 
-    public int getPort()
+    public int getListenPort()
     {
         return (swig() == null ? -1 : swig().listen_port());
     }
 
-    public void setPort(int port)
+    public void setPortRange(int portFirst, int portSecond)
     {
-        if (swig() == null || port == -1)
+        if (swig() == null || portFirst == -1 || portSecond == -1)
             return;
 
-        settings.port = port;
+        settings.portRangeFirst = portFirst;
+        settings.portRangeSecond = portSecond;
         applySettings(settings);
     }
 
-    public void setRandomPort()
+    public void setRandomPortRange()
     {
-        int randomPort = Settings.MIN_PORT_NUMBER + (int)(Math.random()
-                * ((Settings.MAX_PORT_NUMBER - Settings.MIN_PORT_NUMBER) + 1));
-        setPort(randomPort);
+        Pair<Integer, Integer> portRange = getRandomRangePort();
+        setPortRange(portRange.first, portRange.second);
+    }
+
+    /*
+     * Get the first port in range [37000, 57000] and the second `first` + 10
+     */
+
+    private Pair<Integer, Integer> getRandomRangePort()
+    {
+        int port = 37000 + new Random().nextInt(20000);
+
+        return new Pair<>(port , port + 10);
     }
 
     public void enableIpFilter(@NonNull Uri path)
@@ -704,8 +721,13 @@ public class TorrentSession extends SessionManager
         sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), 0);
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), 5000);
         sp.set_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue(), true);
-        /* TODO: implement port range*/
-        //sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(), );
+
+        Pair<Integer, Integer> portRange = getRandomRangePort();
+        settings.portRangeFirst = portRange.first;
+        settings.portRangeSecond = portRange.second;
+        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), getIface());
+        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(),
+                settings.portRangeSecond - settings.portRangeFirst);
 
         String versionName = Utils.getAppVersionName(appContext);
         if (versionName != null) {
@@ -941,8 +963,9 @@ public class TorrentSession extends SessionManager
         sp.tickInterval(settings.tickInterval);
         sp.inactivityTimeout(settings.inactivityTimeout);
         sp.connectionsLimit(settings.connectionsLimit);
-        sp.setString(settings_pack.string_types.listen_interfaces.swigValue(),
-                "0.0.0.0:" + settings.port);
+        sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), getIface());
+        sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
+                settings.portRangeSecond - settings.portRangeFirst);
         sp.enableDht(settings.dhtEnabled);
         sp.broadcastLSD(settings.lsdEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_incoming_utp.swigValue(), settings.utpEnabled);
@@ -953,6 +976,22 @@ public class TorrentSession extends SessionManager
         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), settings.encryptMode);
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
+    }
+
+    private String getIface()
+    {
+        String iface = settings.inetAddress;
+        if (iface.equals(Settings.DEFAULT_INETADDRESS)) {
+            iface = "0.0.0.0:%1$d,[::]:%1$d";
+        } else {
+            /* IPv6 test */
+            if (iface.contains(":")) {
+                iface = "[" + iface + "]";
+            }
+            iface = iface + ":%1$d";
+        }
+
+        return String.format(iface, settings.portRangeFirst);
     }
 
     private void applySettingsPack(SettingsPack sp)

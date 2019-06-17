@@ -442,7 +442,7 @@ public class TorrentTaskService extends Service
                             SettingsManager.Default.useRandomPort)) {
             TorrentEngine.getInstance().setRandomPort();
             /* Update port */
-            pref.edit().putInt(getString(R.string.pref_key_port), TorrentEngine.getInstance().getPort()).apply();
+//            pref.edit().putInt(getString(R.string.pref_key_port), TorrentEngine.getInstance().getPort()).apply();
         }
 
         if (pref.getBoolean(getString(R.string.pref_key_proxy_changed),
@@ -856,16 +856,18 @@ public class TorrentTaskService extends Service
             s.encryptMode = state;
             TorrentEngine.getInstance().setSettings(s);
         } else if (key.equals(getString(R.string.pref_key_use_random_port))) {
-            if (pref.getBoolean(getString(R.string.pref_key_use_random_port),
-                    SettingsManager.Default.useRandomPort))
-                TorrentEngine.getInstance().setRandomPort();
-            else
-                TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
-                        SettingsManager.Default.port));
-        } else if (key.equals(getString(R.string.pref_key_port))) {
-            TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
-                    SettingsManager.Default.port));
-        } else if (key.equals(getString(R.string.pref_key_enable_ip_filtering))) {
+//            if (pref.getBoolean(getString(R.string.pref_key_use_random_port),
+//                    SettingsManager.Default.useRandomPort))
+//                TorrentEngine.getInstance().setRandomPort();
+//            else
+//                TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
+//                        SettingsManager.Default.port));
+        }
+//        else if (key.equals(getString(R.string.pref_key_port))) {
+//            TorrentEngine.getInstance().setPort(pref.getInt(getString(R.string.pref_key_port),
+//                    SettingsManager.Default.port));
+//        }
+        else if (key.equals(getString(R.string.pref_key_enable_ip_filtering))) {
             if (pref.getBoolean(getString(R.string.pref_key_enable_ip_filtering),
                     SettingsManager.Default.enableIpFiltering))
                 TorrentEngine.getInstance().enableIpFilter(

@@ -40,12 +40,13 @@
             android:key="@string/pref_key_use_random_port"
             android:title="@string/pref_use_random_port_title" />
 
-        <EditTextPreference
-            android:key="@string/pref_key_port"
-            android:title="@string/pref_port_title"
-            android:inputType="numberDecimal"
-            android:dependency="@string/pref_key_use_random_port"
-            android:persistent="false" />
+        <!-- TODO: make port range settings -->
+        <!--<EditTextPreference-->
+            <!--android:key="@string/pref_key_port"-->
+            <!--android:title="@string/pref_port_title"-->
+            <!--android:inputType="numberDecimal"-->
+            <!--android:dependency="@string/pref_key_use_random_port"-->
+            <!--android:persistent="false" />-->
     </PreferenceCategory>
 
     <PreferenceCategory

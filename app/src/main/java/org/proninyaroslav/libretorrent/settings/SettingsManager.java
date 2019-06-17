@@ -57,7 +57,8 @@ public class SettingsManager
         public static final boolean unmeteredConnectionsOnly = false;
         public static final boolean enableRoaming = true;
         /* Network settings */
-        public static final int port = TorrentSession.Settings.DEFAULT_PORT;
+        public static final int portRangeFirst = TorrentSession.Settings.DEFAULT_PORT_RANGE_FIRST;
+        public static final int portRangeSecond = TorrentSession.Settings.DEFAULT_PORT_RANGE_SECOND;
         public static final boolean enableDht = true;
         public static final boolean enableLsd = true;
         public static final boolean enableUtp = true;
@@ -164,7 +165,10 @@ public class SettingsManager
                                            Default.maxActiveUploads);
         settings.activeLimit = pref.getInt(context.getString(R.string.pref_key_max_active_torrents),
                                            Default.maxActiveTorrents);
-        settings.port = pref.getInt(context.getString(R.string.pref_key_port), Default.port);
+        settings.portRangeFirst = pref.getInt(context.getString(R.string.pref_key_port_range_first),
+                                              Default.portRangeFirst);
+        settings.portRangeSecond = pref.getInt(context.getString(R.string.pref_key_port_range_second),
+                                               Default.portRangeSecond);
         settings.dhtEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_dht), Default.enableDht);
         settings.lsdEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_lsd), Default.enableLsd);
         settings.utpEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_utp), Default.enableUtp);

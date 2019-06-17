@@ -144,7 +144,7 @@ public class SettingsManager
                                            Default.maxActiveUploads);
         settings.activeLimit = pref.getInt(context.getString(R.string.pref_key_max_active_torrents),
                                            Default.maxActiveTorrents);
-        settings.port = pref.getInt(context.getString(R.string.pref_key_port), Default.port);
+//        settings.port = pref.getInt(context.getString(R.string.pref_key_port), Default.port);
         settings.dhtEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_dht), Default.enableDht);
         settings.lsdEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_lsd), Default.enableLsd);
         settings.utpEnabled = pref.getBoolean(context.getString(R.string.pref_key_enable_utp), Default.enableUtp);

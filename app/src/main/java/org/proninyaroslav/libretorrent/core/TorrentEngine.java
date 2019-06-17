@@ -803,11 +803,13 @@ public class TorrentEngine
     {
         loadTorrents();
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
+        if (!pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
                 SettingsManager.Default.useRandomPort)) {
-            session.setRandomPort();
-            /* Update port */
-            pref.edit().putInt(appContext.getString(R.string.pref_key_port), session.getPort()).apply();
+            int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
+                                        SettingsManager.Default.portRangeFirst);
+            int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
+                                         SettingsManager.Default.portRangeSecond);
+            session.setPortRange(portFirst, portSecond);
         }
 
         if (pref.getBoolean(appContext.getString(R.string.pref_key_proxy_changed),
@@ -1303,15 +1305,23 @@ public class TorrentEngine
 
         } else if (key.equals(appContext.getString(R.string.pref_key_use_random_port))) {
             if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
-                                SettingsManager.Default.useRandomPort))
-                session.setRandomPort();
-            else
-                session.setPort(pref.getInt(appContext.getString(R.string.pref_key_port),
-                                            SettingsManager.Default.port));
+                                SettingsManager.Default.useRandomPort)) {
+                session.setRandomPortRange();
+            } else {
+                int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
+                                            SettingsManager.Default.portRangeFirst);
+                int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
+                                             SettingsManager.Default.portRangeSecond);
+                session.setPortRange(portFirst, portSecond);
+            }
 
-        } else if (key.equals(appContext.getString(R.string.pref_key_port))) {
-            session.setPort(pref.getInt(appContext.getString(R.string.pref_key_port),
-                                        SettingsManager.Default.port));
+        } else if (key.equals(appContext.getString(R.string.pref_key_port_range_first)) ||
+                   key.equals(appContext.getString(R.string.pref_key_port_range_second))) {
+            int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
+                                        SettingsManager.Default.portRangeFirst);
+            int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
+                                         SettingsManager.Default.portRangeSecond);
+            session.setPortRange(portFirst, portSecond);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_ip_filtering))) {
             if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_ip_filtering),
