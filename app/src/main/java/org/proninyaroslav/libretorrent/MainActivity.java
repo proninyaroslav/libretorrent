@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,49 +19,106 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatActivity;
+import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
+
+import org.proninyaroslav.libretorrent.adapters.drawer.DrawerExpandableAdapter;
+import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroup;
+import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroupItem;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.fragments.BlankFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.MainFragment;
-import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentService;
-import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
+import org.proninyaroslav.libretorrent.settings.SettingsActivity;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.viewmodel.MainViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements
-        FragmentCallback,
-        DetailTorrentFragment.Callback
-{
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
+    private static final String TAG_ABOUT_DIALOG = "about_dialog";
+
     public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
 
+    /* Android data binding doesn't work with layout aliases */
+    private CoordinatorLayout coordinatorLayout;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
+    private RecyclerView drawerItemsList;
+    private LinearLayoutManager layoutManager;
+    private DrawerExpandableAdapter drawerAdapter;
+    private RecyclerView.Adapter wrappedDrawerAdapter;
+    private RecyclerViewExpandableItemManager drawerItemManager;
+    private SearchView searchView;
+
+    private MainViewModel viewModel;
+    protected CompositeDisposable disposables = new CompositeDisposable();
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private BaseAlertDialog aboutDialog;
     private boolean permDialogIsShow = false;
-    MainFragment mainFragment;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
         setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         if (getIntent().getAction() != null &&
-            getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP))
-        {
+                getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();
-
             return;
         }
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        aboutDialog = (BaseAlertDialog) getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
@@ -74,18 +131,105 @@ public class MainActivity extends AppCompatActivity
         startService(new Intent(this, TorrentService.class));
 
         setContentView(R.layout.activity_main);
-        Utils.showColoredStatusBar_KitKat(this);
 
-        FragmentManager fm = getSupportFragmentManager();
-        mainFragment = (MainFragment)fm.findFragmentById(R.id.main_fragmentContainer);
+        cleanGarbageFragments();
+        initLayout();
+    }
+
+    private void initLayout()
+    {
+        showBlankFragment();
+        toolbar = findViewById(R.id.toolbar);
+        coordinatorLayout = findViewById(R.id.coordinator);
+        navigationView = findViewById(R.id.navigation_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerItemsList = findViewById(R.id.drawer_items_list);
+        layoutManager = new LinearLayoutManager(this);
+
+        toolbar.setTitle(R.string.app_name);
+        /* Disable elevation for portrait mode */
+        if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbar.setElevation(0);
+        setSupportActionBar(toolbar);
+
+        if (drawerLayout != null) {
+            toggle = new ActionBarDrawerToggle(this,
+                    drawerLayout,
+                    toolbar,
+                    R.string.open_navigation_drawer,
+                    R.string.close_navigation_drawer);
+            drawerLayout.addDrawerListener(toggle);
+        }
+        initDrawer();
+        viewModel.resetSearch();
+    }
+
+    private void initDrawer()
+    {
+        drawerItemManager = new RecyclerViewExpandableItemManager(null);
+        drawerItemManager.setDefaultGroupsExpandedState(false);
+        drawerItemManager.setOnGroupCollapseListener((groupPosition, fromUser, payload) -> {
+            if (fromUser)
+                saveGroupExpandState(groupPosition, false);
+        });
+        drawerItemManager.setOnGroupExpandListener((groupPosition, fromUser, payload) -> {
+            if (fromUser)
+                saveGroupExpandState(groupPosition, true);
+        });
+        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+        /*
+         * Change animations are enabled by default since support-v7-recyclerview v22.
+         * Need to disable them when using animation indicator.
+         */
+        animator.setSupportsChangeAnimations(false);
+
+        List<DrawerGroup> groups = Utils.getNavigationDrawerItems(this,
+                PreferenceManager.getDefaultSharedPreferences(this));
+        drawerAdapter = new DrawerExpandableAdapter(groups, drawerItemManager, this::onDrawerItemSelected);
+        wrappedDrawerAdapter = drawerItemManager.createWrappedAdapter(drawerAdapter);
+        onDrawerGroupsCreated();
+
+        drawerItemsList.setLayoutManager(layoutManager);
+        drawerItemsList.setAdapter(wrappedDrawerAdapter);
+        drawerItemsList.setItemAnimator(animator);
+        drawerItemsList.setHasFixedSize(false);
+
+        drawerItemManager.attachRecyclerView(drawerItemsList);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        super.onSaveInstanceState(outState);
-
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
+
+        if (toggle != null)
+            toggle.syncState();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+        subscribeOpenTorrentDetails();
+        subscribeDeleteTorrents();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        disposables.clear();
     }
 
     @Override
@@ -93,89 +237,309 @@ public class MainActivity extends AppCompatActivity
     {
         super.onDestroy();
 
-        SharedPreferences pref = SettingsManager.getPreferences(this);
+        SharedPreferences pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
         if (isFinishing() && !pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                                              SettingsManager.Default.keepAlive)) {
-            Intent i = new Intent(getApplicationContext(), TorrentService.class);
-            i.setAction(TorrentService.ACTION_SHUTDOWN);
-            startService(i);
+                                              SettingsManager.Default.keepAlive))
+            shutdown();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (!event.dialogTag.equals(TAG_ABOUT_DIALOG))
+                        return;
+                    switch (event.type) {
+                        case NEGATIVE_BUTTON_CLICKED:
+                            openChangelogLink();
+                            break;
+                        case DIALOG_SHOWN:
+                            initAboutDialog();
+                            break;
+                    }
+                });
+        disposables.add(d);
+    }
+
+    private void subscribeOpenTorrentDetails()
+    {
+        disposables.add(viewModel.observeOpenTorrentDetails()
+                .subscribe(this::showDetailTorrent));
+    }
+
+    private void subscribeDeleteTorrents()
+    {
+        disposables.add(viewModel.observeDeleteTorrents()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((ids) -> {
+                    DetailTorrentFragment f = getCurrentDetailFragment();
+                    if (f != null && ids.contains(f.getTorrentId()))
+                        showBlankFragment();
+                }));
+    }
+
+    private void saveGroupExpandState(int groupPosition, boolean expanded)
+    {
+        DrawerGroup group = drawerAdapter.getGroup(groupPosition);
+        if (group == null)
+            return;
+
+        Resources res = getResources();
+        String prefKey = null;
+        if (group.id == res.getInteger(R.integer.drawer_status_id))
+            prefKey = getString(R.string.drawer_status_is_expanded);
+
+        else if (group.id == res.getInteger(R.integer.drawer_sorting_id))
+            prefKey = getString(R.string.drawer_sorting_is_expanded);
+
+        else if (group.id == res.getInteger(R.integer.drawer_date_added_id))
+            prefKey = getString(R.string.drawer_time_is_expanded);
+
+        if (prefKey != null)
+            PreferenceManager.getDefaultSharedPreferences(this)
+                    .edit()
+                    .putBoolean(prefKey, expanded)
+                    .apply();
+    }
+
+    private void onDrawerGroupsCreated()
+    {
+        for (int pos = 0; pos < drawerAdapter.getGroupCount(); pos++) {
+            DrawerGroup group = drawerAdapter.getGroup(pos);
+            if (group == null)
+                return;
+
+            Resources res = getResources();
+            if (group.id == res.getInteger(R.integer.drawer_status_id)) {
+                viewModel.setStatusFilter(
+                        Utils.getDrawerGroupStatusFilter(this, group.getSelectedItemId()), false);
+
+            } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
+                viewModel.setSort(Utils.getDrawerGroupItemSorting(this, group.getSelectedItemId()), false);
+            } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
+                viewModel.setDateAddedFilter(
+                        Utils.getDrawerGroupDateAddedFilter(this, group.getSelectedItemId()), false);
+
+            }
+
+            applyExpandState(group, pos);
         }
     }
 
-    /*
-     * Changed in detail fragment.
-     */
-
-    @Override
-    public void onTorrentInfoChanged()
+    private void applyExpandState(DrawerGroup group, int pos)
     {
-        if (mainFragment == null)
-            return;
+        if (group.getDefaultExpandState())
+            drawerItemManager.expandGroup(pos);
+        else
+            drawerItemManager.collapseGroup(pos);
+    }
 
-        DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null)
-            fragment.onTorrentInfoChanged();
+    private void onDrawerItemSelected(DrawerGroup group, DrawerGroupItem item)
+    {
+        Resources res = getResources();
+        String prefKey = null;
+        if (group.id == res.getInteger(R.integer.drawer_status_id)) {
+            prefKey = getString(R.string.drawer_status_selected_item);
+            viewModel.setStatusFilter(Utils.getDrawerGroupStatusFilter(this, item.id), true);
+
+        } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
+            prefKey = getString(R.string.drawer_sorting_selected_item);
+            viewModel.setSort(Utils.getDrawerGroupItemSorting(this, item.id), true);
+
+        } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
+            prefKey = getString(R.string.drawer_time_selected_item);
+            viewModel.setDateAddedFilter(Utils.getDrawerGroupDateAddedFilter(this, item.id), true);
+        }
+
+        if (prefKey != null)
+            saveSelectionState(prefKey, item);
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void saveSelectionState(String prefKey, DrawerGroupItem item)
+    {
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putLong(prefKey, item.id)
+                .apply();
+    };
+
+    private void cleanGarbageFragments()
+    {
+        /* Clean garbage fragments after rotate for tablets */
+        /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
+        if (Utils.isLargeScreenDevice(this)) {
+            FragmentManager fm = getSupportFragmentManager();
+            List<Fragment> fragments = fm.getFragments();
+            FragmentTransaction ft = fm.beginTransaction();
+            for (Fragment f : fragments)
+                if (f != null && !(f instanceof MainFragment))
+                    ft.remove(f);
+            ft.commitAllowingStateLoss();
+        }
+    }
+
+    /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
+    private void showDetailTorrent(String id)
+    {
+        if (Utils.isTwoPane(this)) {
+            FragmentManager fm = getSupportFragmentManager();
+            DetailTorrentFragment detail = DetailTorrentFragment.newInstance(id);
+            Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
+
+            if (fragment instanceof DetailTorrentFragment) {
+                String oldId = ((DetailTorrentFragment) fragment).getTorrentId();
+                if (id.equals(oldId))
+                    return;
+            }
+            fm.beginTransaction()
+                    .replace(R.id.detail_torrent_fragmentContainer, detail)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+        } else {
+            Intent i = new Intent(this, DetailTorrentActivity.class);
+            i.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, id);
+            startActivity(i);
+        }
+    }
+
+    private void showBlankFragment()
+    {
+        if (Utils.isTwoPane(this)) {
+            FragmentManager fm = getSupportFragmentManager();
+            BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_torrent));
+            fm.beginTransaction()
+                    .replace(R.id.detail_torrent_fragmentContainer, blank)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    public DetailTorrentFragment getCurrentDetailFragment()
+    {
+        if (!Utils.isTwoPane(this))
+            return null;
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
+
+        return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment) fragment : null);
     }
 
     @Override
-    public void onTorrentInfoChangesUndone()
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-        if (mainFragment == null)
-            return;
+        getMenuInflater().inflate(R.menu.main, menu);
 
-        DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null)
-            fragment.onTorrentInfoChangesUndone();
+        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        initSearch();
+
+        return true;
+    }
+
+    private void initSearch()
+    {
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnCloseListener(() -> {
+            viewModel.resetSearch();
+
+            return false;
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                viewModel.setSearchQuery(query);
+                /* Submit the search will hide the keyboard */
+                searchView.clearFocus();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                viewModel.setSearchQuery(newText);
+
+                return true;
+            }
+        });
+        searchView.setQueryHint(getString(R.string.search));
+        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+        /* Assumes current activity is the searchable activity */
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
 
     @Override
-    public void onTorrentFilesChanged()
+    public boolean onOptionsItemSelected(MenuItem item)
     {
-        if (mainFragment == null)
-            return;
-
-        DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null)
-            fragment.onTorrentFilesChanged();
-    }
-
-    @Override
-    public void onTrackersChanged(ArrayList<String> trackers, boolean replace)
-    {
-        if (mainFragment == null)
-            return;
-
-        DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null)
-            fragment.onTrackersChanged(trackers, replace);
-    }
-
-    @Override
-    public void openFile(String relativePath)
-    {
-        if (mainFragment == null)
-            return;
-
-        DetailTorrentFragment fragment = mainFragment.getCurrentDetailFragment();
-        if (fragment != null)
-            fragment.openFile(relativePath);
-    }
-
-    @Override
-    public void fragmentFinished(Intent intent, ResultCode code)
-    {
-        switch (code) {
-            case OK:
-                Intent i = new Intent(getApplicationContext(), TorrentService.class);
-                i.setAction(TorrentService.ACTION_SHUTDOWN);
-                startService(i);
-                finish();
+        switch (item.getItemId()) {
+            case R.id.feed_menu:
+                startActivity(new Intent(this, FeedActivity.class));
                 break;
-            case CANCEL:
-            case BACK:
-                if (mainFragment != null)
-                    mainFragment.resetCurOpenTorrent();
+            case R.id.settings_menu:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.about_menu:
+                showAboutDialog();
+                break;
+            case R.id.shutdown_app_menu:
+                closeOptionsMenu();
+                shutdown();
                 break;
         }
+
+        return true;
+    }
+
+    private void showAboutDialog()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag(TAG_ABOUT_DIALOG) == null) {
+            aboutDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.about_title),
+                    null,
+                    R.layout.dialog_about,
+                    getString(R.string.ok),
+                    getString(R.string.about_changelog),
+                    null,
+                    true);
+            aboutDialog.show(fm, TAG_ABOUT_DIALOG);
+        }
+    }
+
+    private void initAboutDialog()
+    {
+        if (aboutDialog == null)
+            return;
+
+        Dialog dialog = aboutDialog.getDialog();
+        if (dialog != null) {
+            TextView versionTextView = dialog.findViewById(R.id.about_version);
+            TextView descriptionTextView = dialog.findViewById(R.id.about_description);
+            String versionName = Utils.getAppVersionName(this);
+            if (versionName != null)
+                versionTextView.setText(versionName);
+            descriptionTextView.setText(Html.fromHtml(getString(R.string.about_description)));
+            descriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+    }
+
+    private void openChangelogLink()
+    {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(getString(R.string.about_changelog_link)));
+        startActivity(i);
+    }
+
+    public void shutdown()
+    {
+        Intent i = new Intent(getApplicationContext(), TorrentService.class);
+        i.setAction(TorrentService.ACTION_SHUTDOWN);
+        startService(i);
+        finish();
     }
 }

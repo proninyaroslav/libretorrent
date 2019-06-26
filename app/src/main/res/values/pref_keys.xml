@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main activity local preferences -->
+    <!-- Status -->
+    <string name="drawer_status_is_expanded" translatable="false">drawer_status_is_expanded</string>
+    <string name="drawer_status_selected_item" translatable="false">drawer_status_selected_item</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting_is_expanded" translatable="false">drawer_sorting_is_expanded</string>
+    <string name="drawer_sorting_selected_item" translatable="false">drawer_sorting_selected_item</string>
+    <!-- Time -->
+    <string name="drawer_time_is_expanded" translatable="false">drawer_time_is_expanded</string>
+    <string name="drawer_time_selected_item" translatable="false">drawer_time_selected_item</string>
+
     <!-- Filemanager -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
     <!-- Sorting -->

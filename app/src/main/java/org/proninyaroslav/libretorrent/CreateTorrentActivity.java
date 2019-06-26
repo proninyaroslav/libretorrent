@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.fragments.CreateTorrentFragment;
@@ -62,12 +61,13 @@ public class CreateTorrentActivity extends AppCompatActivity
     {
         if (params == null)
             return;
-        EventBus.getDefault().postSticky(params);
+//        EventBus.getDefault().postSticky(params);
     }
 
     public static AddTorrentParams getResult()
     {
-        return EventBus.getDefault().removeStickyEvent(AddTorrentParams.class);
+        return (AddTorrentParams)new Object();
+//        return EventBus.getDefault().removeStickyEvent(AddTorrentParams.class);
     }
 
     public static void resetResult()

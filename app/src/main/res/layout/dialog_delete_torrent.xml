@@ -5,7 +5,7 @@
     android:minWidth="@dimen/min_width_dialog">
 
     <CheckBox
-        android:id="@+id/dialog_delete_torrent_with_downloaded_files"
+        android:id="@+id/delete_with_downloaded_files"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dialog_padding"

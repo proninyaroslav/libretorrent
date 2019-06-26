@@ -132,7 +132,7 @@ public class TorrentHelper
         }
 
         TorrentEngine.getInstance().download(torrent);
-        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentAddedBundle(torrent));
+//        TorrentTaskServiceReceiver.getInstance().post(TorrentStateMsg.makeTorrentAddedBundle(torrent));
     }
 
     public static void saveTorrentFileIn(Context context, Torrent torrent, String saveDirPath)
@@ -240,8 +240,8 @@ public class TorrentHelper
         TorrentDownload task = TorrentEngine.getInstance().getTask(id);
         if (task != null) {
             task.setTorrent(torrent);
-            TorrentTaskServiceReceiver.getInstance()
-                    .post(TorrentStateMsg.makeUpdateTorrentsBundle(makeBasicStatesList()));
+//            TorrentTaskServiceReceiver.getInstance()
+//                    .post(TorrentStateMsg.makeUpdateTorrentsBundle(makeBasicStatesList()));
         }
     }
 

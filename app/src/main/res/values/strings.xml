@@ -36,11 +36,14 @@
     <string name="refresh">Refresh</string>
     <string name="edit">Edit</string>
     <string name="menu">Menu</string>
+    <string name="open_navigation_drawer">Open navigation drawer</string>
+    <string name="close_navigation_drawer">Close navigation drawer</string>
     <string name="file">File</string>
     <string name="folder">Folder</string>
     <string name="finished">Finished</string>
     <string name="pause_all">Pause all</string>
     <string name="resume_all">Resume all</string>
+    <string name="all">All</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -78,6 +81,28 @@
         <item>ETA</item>
         <item>Peers</item>
     </string-array>
+    <!-- Navigation drawer -->
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_downloading">Downloading</string>
+    <string name="drawer_status_downloaded">Downloaded</string>
+    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting_name">Name</string>
+    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added_today">Today</string>
+    <string name="drawer_date_added_yesterday">Yesterday</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added_year">Year</string>
 
     <!-- Foreground notification -->
 
@@ -196,6 +221,7 @@
     <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
 
     <!-- Error dialog -->
     <string name="report">Report</string>
@@ -519,7 +545,9 @@
 
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>
-    <string name="about_website">More information and also to help the project: https://gitlab.com/proninyaroslav/libretorrent</string>
-    <string name="about_description">LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper libtorrent4j https://github.com/aldenml/libtorrent4j) lib.\n\nLibreTorrent is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
+    LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Changelog</string>
 </resources>

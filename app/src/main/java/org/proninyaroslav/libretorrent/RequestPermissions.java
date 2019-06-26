@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,20 +22,20 @@ package org.proninyaroslav.libretorrent;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProviders;
 
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class RequestPermissions extends AppCompatActivity
-        implements
-        BaseAlertDialog.OnClickListener,
-        BaseAlertDialog.OnDialogShowListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = RequestPermissions.class.getSimpleName();
@@ -45,6 +45,9 @@ public class RequestPermissions extends AppCompatActivity
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private boolean permDialogIsShow = false;
+    private BaseAlertDialog permDialog;
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -57,6 +60,9 @@ public class RequestPermissions extends AppCompatActivity
         setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
+        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        permDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_PERM_DIALOG);
+
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
 
@@ -65,6 +71,49 @@ public class RequestPermissions extends AppCompatActivity
             permDialogIsShow = true;
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        disposable.clear();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (!event.dialogTag.equals(TAG_PERM_DIALOG) || permDialog == null)
+                        return;
+                    switch (event.type) {
+                        case POSITIVE_BUTTON_CLICKED:
+                            permDialog.dismiss();
+                            setResult(RESULT_OK);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            break;
+                        case NEGATIVE_BUTTON_CLICKED:
+                            permDialog.dismiss();
+                            ActivityCompat.requestPermissions(RequestPermissions.this,
+                                    PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+                            break;
+                        case DIALOG_SHOWN:
+                            if (permDialog.getDialog() != null)
+                                permDialog.getDialog().setCanceledOnTouchOutside(false);
+                            break;
+                    }
+                });
+        disposable.add(d);
     }
 
     @Override
@@ -86,43 +135,17 @@ public class RequestPermissions extends AppCompatActivity
                 overridePendingTransition(0, 0);
 
             } else if (getSupportFragmentManager().findFragmentByTag(TAG_PERM_DIALOG) == null) {
-                BaseAlertDialog permDialog = BaseAlertDialog.newInstance(
+                permDialog = BaseAlertDialog.newInstance(
                         getString(R.string.perm_denied_title),
                         getString(R.string.perm_denied_warning),
                         0,
                         getString(R.string.yes),
                         getString(R.string.no),
                         null,
-                        this);
+                        false);
 
                 permDialog.show(getSupportFragmentManager(), TAG_PERM_DIALOG);
             }
         }
-    }
-
-    @Override
-    public void onPositiveClicked(@Nullable View v)
-    {
-        setResult(RESULT_OK);
-        finish();
-        overridePendingTransition(0, 0);
-    }
-
-    @Override
-    public void onNegativeClicked(@Nullable View v)
-    {
-        ActivityCompat.requestPermissions(RequestPermissions.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public void onNeutralClicked(@Nullable View v)
-    {
-        /* Nothing */
-    }
-
-    @Override
-    public void onShow(AlertDialog dialog)
-    {
-        dialog.setCanceledOnTouchOutside(false);
     }
 }

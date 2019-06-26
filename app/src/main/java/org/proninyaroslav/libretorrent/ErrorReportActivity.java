@@ -33,7 +33,7 @@ public class ErrorReportActivity extends BaseCrashReportDialog
         ErrorReportAlertDialog.OnClickListener
 {
     @SuppressWarnings("unused")
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = ErrorReportActivity.class.getSimpleName();
 
     private static final String TAG_ERROR_DIALOG = "error_dialog";
 

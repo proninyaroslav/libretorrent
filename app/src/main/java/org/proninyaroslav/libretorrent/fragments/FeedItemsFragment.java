@@ -59,7 +59,6 @@ import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
 import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
 import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.services.old.FeedFetcherService;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 
 import java.util.ArrayList;
 
@@ -394,10 +393,10 @@ public class FeedItemsFragment extends Fragment
             if (data.hasExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS)) {
                 AddTorrentParams params = data.getParcelableExtra(AddTorrentActivity.TAG_ADD_TORRENT_PARAMS);
                 if (params != null) {
-                    Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
-                    i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
-                    i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
-                    activity.startService(i);
+//                    Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
+//                    i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
+//                    i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
+//                    activity.startService(i);
                 }
             }
         }

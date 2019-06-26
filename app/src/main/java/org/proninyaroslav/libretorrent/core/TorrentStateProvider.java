@@ -35,8 +35,10 @@ import androidx.annotation.NonNull;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Consumer;
 
 /*
  * Provides runtime information about torrent, which isn't saved to the database.
@@ -78,6 +80,11 @@ public class TorrentStateProvider
         return makeStateListFlowable();
     }
 
+    public Single<List<BasicStateParcel>> getStateListSingle()
+    {
+        return makeStateListSingle();
+    }
+
     public Flowable<AdvanceStateParcel> observeAdvancedState(@NonNull String id)
     {
         return makeAdvancedStateFlowable(id);
@@ -103,19 +110,41 @@ public class TorrentStateProvider
         return Flowable.create((emitter) -> {
             final AtomicReference<BasicStateParcel> state = new AtomicReference<>();
 
+            Consumer<String> handleEvent = (torrentId) -> {
+                if (!id.equals(torrentId))
+                    return;
+
+                BasicStateParcel newState = engine.makeBasicStateSync(id);
+                BasicStateParcel oldState = state.get();
+                if (newState != null && !newState.equals(oldState)) {
+                    state.set(newState);
+                    if (!emitter.isCancelled())
+                        emitter.onNext(newState);
+                }
+            };
+
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
                 public void onTorrentStateChanged(String torrentId)
                 {
-                    if (!id.equals(torrentId))
-                        return;
+                    try {
+                        handleEvent.accept(torrentId);
 
-                    BasicStateParcel newState = engine.makeBasicStateSync(id);
-                    BasicStateParcel oldState = state.get();
-                    if (newState != null && !newState.equals(oldState)) {
-                        state.set(newState);
+                    } catch ( Exception e) {
                         if (!emitter.isCancelled())
-                            emitter.onNext(newState);
+                            emitter.onError(e);
+                    }
+                }
+
+                @Override
+                public void onTorrentPaused(String torrentId)
+                {
+                    try {
+                        handleEvent.accept(torrentId);
+
+                    } catch ( Exception e) {
+                        if (!emitter.isCancelled())
+                            emitter.onError(e);
                     }
                 }
             };
@@ -144,17 +173,33 @@ public class TorrentStateProvider
         return Flowable.create((emitter) -> {
             final AtomicReference<List<BasicStateParcel>> stateList = new AtomicReference<>();
 
+            Runnable handleState = () -> {
+                List<BasicStateParcel> newStateList = engine.makeBasicStateListSync();
+                List<BasicStateParcel> oldStateList = stateList.get();
+                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
+                    stateList.set(newStateList);
+                    if (!emitter.isCancelled())
+                        emitter.onNext(newStateList);
+                }
+            };
+
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
                 public void onTorrentStateChanged(String torrentId)
                 {
-                    List<BasicStateParcel> newStateList = engine.makeBasicStateListSync();
-                    List<BasicStateParcel> oldStateList = stateList.get();
-                    if (oldStateList == null || !oldStateList.containsAll(newStateList)) {
-                        stateList.set(newStateList);
-                        if (!emitter.isCancelled())
-                            emitter.onNext(newStateList);
-                    }
+                    handleState.run();
+                }
+
+                @Override
+                public void onTorrentPaused(String torrentId)
+                {
+                    handleState.run();
+                }
+
+                @Override
+                public void onTorrentRemoved(String torrentId)
+                {
+                    handleState.run();
                 }
             };
 
@@ -173,6 +218,20 @@ public class TorrentStateProvider
             }
 
         }, BackpressureStrategy.LATEST);
+    }
+
+    private Single<List<BasicStateParcel>> makeStateListSingle()
+    {
+        return Single.create((emitter) -> {
+            if (!emitter.isDisposed()) {
+                Thread t = new Thread(() -> {
+                    List<BasicStateParcel> stateList = engine.makeBasicStateListSync();
+                    if (!emitter.isDisposed())
+                        emitter.onSuccess(stateList);
+                });
+                t.start();
+            }
+        });
     }
 
     private Flowable<AdvanceStateParcel> makeAdvancedStateFlowable(String id)
@@ -221,7 +280,7 @@ public class TorrentStateProvider
                     .subscribe((__) -> {
                                 List<TrackerStateParcel> newStateList = engine.makeTrackerStateParcelList(id);
                                 List<TrackerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || !oldStateList.containsAll(newStateList)) {
+                                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
                                     stateList.set(newStateList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newStateList);
@@ -256,7 +315,7 @@ public class TorrentStateProvider
                     .subscribe((__) -> {
                                 List<PeerStateParcel> newStateList = engine.makePeerStateParcelList(id);
                                 List<PeerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || !oldStateList.containsAll(newStateList)) {
+                                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
                                     stateList.set(newStateList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newStateList);

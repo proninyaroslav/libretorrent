@@ -22,11 +22,11 @@ package org.proninyaroslav.libretorrent;
 import android.app.Application;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-import org.greenrobot.eventbus.EventBus;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
@@ -39,7 +39,8 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
                 mode = ReportingInteractionMode.DIALOG,
                 reportDialogClass = ErrorReportActivity.class)
 
-public class MainApplication extends Application
+/* TODO: temp */
+public class MainApplication extends MultiDexApplication
 {
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
@@ -54,7 +55,6 @@ public class MainApplication extends Application
 
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
-        EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
 
         db = AppDatabase.getInstance(this);
         torrentNotifier = new TorrentNotifier(this);

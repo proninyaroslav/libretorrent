@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.services;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -45,7 +44,6 @@ import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
@@ -101,7 +99,10 @@ public class TorrentService extends Service
 
         engine = TorrentEngine.getInstance(getApplicationContext());
         engine.addListener(engineListener);
-        engine.start();
+        if (engine.isRunning())
+            engine.loadTorrents();
+        else
+            engine.start();
 
         stateProvider = ((MainApplication)getApplication()).getTorrentStateProvider();
 
@@ -195,6 +196,12 @@ public class TorrentService extends Service
     }
 
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
+        @Override
+        public void onSessionStarted()
+        {
+            engine.loadTorrents();
+        }
+
         @Override
         public void onTorrentFinished(String id)
         {

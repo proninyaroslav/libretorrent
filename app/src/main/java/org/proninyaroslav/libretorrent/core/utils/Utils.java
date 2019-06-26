@@ -43,6 +43,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.acra.ACRA;
@@ -51,12 +52,17 @@ import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroup;
+import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroupItem;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.RealSystemFacade;
 import org.proninyaroslav.libretorrent.core.SystemFacade;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -72,6 +78,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -792,5 +799,181 @@ public class Utils
     public static String getErrorMsg(ErrorCode error)
     {
         return (error == null ? "" : error.message() + ", code " + error.value());
+    }
+
+    public static void showActionModeStatusBar(@NonNull Activity activity, boolean mode)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        int color = (mode ? R.color.action_mode_dark : R.color.primary_dark);
+        activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, color));
+    }
+
+    public static int getAttributeColor(@NonNull Context context, int attributeId)
+    {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+
+        } catch (Resources.NotFoundException e) {
+            return color;
+        }
+
+        return color;
+    }
+
+    public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
+                                                             @NonNull SharedPreferences localPref)
+    {
+        Resources res = context.getResources();
+
+        ArrayList<DrawerGroup> groups = new ArrayList<>();
+
+        DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
+                res.getString(R.string.drawer_status),
+                localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), true));
+        status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
+                                            DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
+                res.getString(R.string.drawer_sorting),
+                localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
+                                             DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
+                res.getString(R.string.drawer_date_added),
+                localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
+        dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
+                                               DrawerGroup.DEFAULT_SELECTED_ID));
+
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_id),
+                R.drawable.ic_download_grey600_24dp, res.getString(R.string.drawer_status_downloading)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloaded_id),
+                R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_status_downloaded)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
+                R.drawable.ic_magnet_grey600_24dp, res.getString(R.string.drawer_status_downloading_metadata)));
+
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
+                R.drawable.ic_sort_off_grey600_24dp, res.getString(R.string.drawer_sorting_no_sorting)));
+
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
+                R.drawable.ic_calendar_today_grey600_24dp, res.getString(R.string.drawer_date_added_today)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
+                R.drawable.ic_calendar_yesterday_grey600_24dp, res.getString(R.string.drawer_date_added_yesterday)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
+                R.drawable.ic_calendar_week_grey600_24dp, res.getString(R.string.drawer_date_added_week)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
+                R.drawable.ic_calendar_month_grey600_24dp, res.getString(R.string.drawer_date_added_month)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
+                R.drawable.ic_calendar_year_grey600_24dp, res.getString(R.string.drawer_date_added_year)));
+
+        groups.add(status);
+        groups.add(sorting);
+        groups.add(dateAdded);
+
+        return groups;
+    }
+
+    public static TorrentSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
+                                                                     long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.DESC));
+        else
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+    }
+
+    public static TorrentFilter getDrawerGroupStatusFilter(@NonNull Context context,
+                                                           long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_status_all_id))
+            return TorrentFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_id))
+            return TorrentFilterCollection.statusDownloading();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloaded_id))
+            return TorrentFilterCollection.statusDownloaded();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_metadata_id))
+            return TorrentFilterCollection.statusDownloadingMetadata();
+        else
+            return TorrentFilterCollection.all();
+    }
+
+    public static TorrentFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
+                                                              long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
+            return TorrentFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_today_id))
+            return TorrentFilterCollection.dateAddedToday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_yesterday_id))
+            return TorrentFilterCollection.dateAddedYesterday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_week_id))
+            return TorrentFilterCollection.dateAddedWeek();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_month_id))
+            return TorrentFilterCollection.dateAddedMonth();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_year_id))
+            return TorrentFilterCollection.dateAddedYear();
+        else
+            return TorrentFilterCollection.all();
     }
 }

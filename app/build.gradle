@@ -24,6 +24,8 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        /* TODO: temp */
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -80,26 +82,28 @@ repositories {
 }
 
 def LIBTORRENT4J_VERSION='1.2.0.22'
+def ROOM_VERSION = "2.1.0"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
+    /* Testing */
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.robolectric:robolectric:4.0.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    androidTestImplementation "androidx.test:rules:1.2.0"
 
     /* AndroidX libraries */
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation 'com.google.android.material:material:1.1.0-alpha03'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
-    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha01'
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-alpha06"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
+    implementation "com.google.android.material:material:1.1.0-alpha07"
 
-    implementation "androidx.room:room-runtime:2.1.0-alpha04"
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
-    implementation "androidx.room:room-rxjava2:2.1.0-alpha04"
+    implementation "androidx.room:room-runtime:$ROOM_VERSION"
+    implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
+    annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation "androidx.work:work-runtime:2.0.1"
 
     /* ReactiveX */
@@ -112,9 +116,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.takisoft.preferencex:preferencex:1.0.0'
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-    implementation 'com.github.clans:fab:1.6.4'
-    implementation 'com.github.yukuku:ambilwarna:2.0.1'
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'uk.co.markormesher:android-fab:2.5.0'
     implementation 'net.java.dev.jna:jna:4.5.2@aar'
 
     /* libtorrent wrapper */
@@ -123,4 +125,11 @@ dependencies {
     implementation 'org.libtorrent4j:libtorrent4j-android-arm64:' + LIBTORRENT4J_VERSION
     implementation 'org.libtorrent4j:libtorrent4j-android-x86:' + LIBTORRENT4J_VERSION
     implementation 'org.libtorrent4j:libtorrent4j-android-x86_64:' + LIBTORRENT4J_VERSION
+
+    /* Other */
+    implementation "net.cachapa.expandablelayout:expandablelayout:2.9.2"
+    implementation "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0"
+    implementation 'com.github.anthonynsimon:jurl:v0.4.2'
+    /* TODO: temp */
+    implementation 'com.android.support:multidex:1.0.3'
 }

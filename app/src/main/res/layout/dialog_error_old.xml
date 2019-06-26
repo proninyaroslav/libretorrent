@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:minWidth="@dimen/min_width_dialog">
+
+    <RelativeLayout
+        android:id="@+id/expandable_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:paddingLeft="@dimen/dialog_padding"
+        android:background="?attr/defaultRectRipple">
+
+        <RelativeLayout
+            android:id="@+id/expand_button"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_arrow_down_gray_24dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/more_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@id/expand_button"
+            android:text="@string/more_details"
+            android:textAppearance="?attr/smallText" />
+    </RelativeLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableLinearLayout
+        android:id="@+id/expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/expandable_spinner"
+        android:orientation="vertical"
+        app:ael_duration="5"
+        app:ael_expanded="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/dialog_padding"
+                android:paddingRight="16dp"
+                android:fadeScrollbars="false">
+
+                <TextView
+                    android:id="@+id/detail_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/dialog_padding"
+                    android:textIsSelectable="true"
+                    android:textAppearance="?attr/smallText" />
+            </ScrollView>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray" />
+        </RelativeLayout>
+    </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dialog_padding"
+        android:layout_marginTop="@dimen/dialog_padding"
+        android:layout_marginRight="@dimen/dialog_padding"
+        android:text="@string/error_comment_prompt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dialog_padding"
+        android:layout_marginRight="@dimen/dialog_padding"
+        android:inputType="textMultiLine" />
+</LinearLayout>

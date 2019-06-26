@@ -8,6 +8,8 @@
     <style name="AppTheme.Black" parent="BaseTheme.Black">
     </style>
 
+    <style name="AppTheme.Launcher" parent="BaseTheme.Launcher" />
+
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -36,6 +38,7 @@
         <item name="defaultSelectRect">@drawable/default_select_rect</item>
         <item name="curOpenTorrentIndicator">@color/cur_open_torrent_indicator</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple</item>
+        <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
@@ -60,6 +63,7 @@
         <item name="defaultSelectRect">@drawable/default_select_rect_dark</item>
         <item name="curOpenTorrentIndicator">@color/cur_open_torrent_indicator_dark</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
+        <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
@@ -184,5 +188,13 @@
 
     <style name="PopupMenu_Dark" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:popupBackground">@drawable/popup_menu_dark</item>
+    </style>
+
+    <style name="TextCaption" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseTheme.Launcher" parent="BaseTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 </resources>

@@ -27,13 +27,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerNode;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +35,14 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
+
+import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerNode;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
+
 import io.reactivex.subjects.BehaviorSubject;
 
 public class FileManagerViewModel extends ViewModel
@@ -56,6 +57,7 @@ public class FileManagerViewModel extends ViewModel
     public ObservableField<String> curDir = new ObservableField<>();
     public FileManagerConfig config;
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
+    public Exception errorReport;
 
     public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config)
     {
@@ -66,7 +68,7 @@ public class FileManagerViewModel extends ViewModel
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
             startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
-                                      SettingsManager.Default.fileManagerLastDir);
+                    SettingsManager.Default.fileManagerLastDir);
 
             if (startDir != null) {
                 File dir = new File(startDir);

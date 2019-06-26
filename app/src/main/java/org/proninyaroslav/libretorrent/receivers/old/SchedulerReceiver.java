@@ -32,7 +32,6 @@ import androidx.annotation.NonNull;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.services.old.FeedFetcherService;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.util.Calendar;
@@ -94,7 +93,7 @@ public class SchedulerReceiver extends BroadcastReceiver
                                         SettingsManager.Default.schedulingShutdownTime));
                 }
 
-                Utils.startTorrentServiceBackground(context, TorrentTaskService.ACTION_SHUTDOWN);
+//                Utils.startTorrentServiceBackground(context, TorrentTaskService.ACTION_SHUTDOWN);
 
                 if (pref.getBoolean(context.getString(R.string.pref_key_scheduling_switch_wifi),
                                     SettingsManager.Default.schedulingSwitchWiFi))

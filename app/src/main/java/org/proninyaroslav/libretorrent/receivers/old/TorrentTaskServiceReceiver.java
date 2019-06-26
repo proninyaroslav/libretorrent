@@ -21,8 +21,6 @@ package org.proninyaroslav.libretorrent.receivers.old;
 
 import android.os.Bundle;
 
-import org.greenrobot.eventbus.EventBus;
-
 public class TorrentTaskServiceReceiver
 {
     public interface Callback
@@ -37,8 +35,8 @@ public class TorrentTaskServiceReceiver
         void onReceive(Bundle b);
     }
 
-    public static EventBus getInstance()
+    public static Object getInstance()
     {
-        return EventBus.getDefault();
+        return new Object();
     }
 }

@@ -44,10 +44,10 @@
             android:key="@string/pref_key_led_indicator_notify"
             android:title="@string/pref_led_indicator_notify_title" />
 
-        <org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference
-            android:key="@string/pref_key_led_indicator_color_notify"
-            android:title="@string/pref_led_indicator_color_notify_title"
-            android:dependency="@string/pref_key_led_indicator_notify" />
+        <!--<org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference-->
+            <!--android:key="@string/pref_key_led_indicator_color_notify"-->
+            <!--android:title="@string/pref_led_indicator_color_notify_title"-->
+            <!--android:dependency="@string/pref_key_led_indicator_notify" />-->
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_vibration_notify"

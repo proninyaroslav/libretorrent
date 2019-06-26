@@ -19,10 +19,12 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +33,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +52,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.NoFilesSelectedException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityAddTorrentBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.viewmodel.AddTorrentViewModel;
 
 import java.io.FileNotFoundException;
@@ -67,9 +71,8 @@ public class AddTorrentActivity extends AppCompatActivity
 
     public static final String TAG_URI = "uri";
     public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
-    public static final String ACTION_ADD_TORRENT = "org.proninyaroslav.libretorrent.AddTorrentActivity.ACTION_ADD_TORRENT";
 
-    private static final String TAG_IO_EXCEPT_DIALOG = "io_except_dialog";
+    private static final String TAG_ERR_REPORT_DIALOG = "io_err_report_dialog";
     private static final String TAG_DECODE_EXCEPT_DIALOG = "decode_except_dialog";
     private static final String TAG_FETCH_EXCEPT_DIALOG = "fetch_except_dialog";
     private static final String TAG_OUT_OF_MEMORY_DIALOG = "out_of_memory_dialog";
@@ -81,6 +84,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private AddTorrentPagerAdapter adapter;
     private boolean permDialogIsShow = false;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private ErrorReportDialog errReportDialog;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -109,18 +113,22 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:
-                /* TODO: add error dialog */
-//                if (sentError != null) {
-//                    String comment = null;
-//                    if (v != null) {
-//                        EditText editText = v.findViewById(R.id.comment);
-//                        comment = editText.getText().toString();
-//                    }
-//                    Utils.reportError(sentError, comment);
-//                }
+                if (event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null) {
+                    Dialog dialog = errReportDialog.getDialog();
+                    if (dialog != null) {
+                        TextInputEditText editText = dialog.findViewById(R.id.comment);
+                        Editable e = editText.getText();
+                        String comment = (e == null ? null : e.toString());
+
+                        Utils.reportError(viewModel.errorReport, comment);
+                        errReportDialog.dismiss();
+                    }
+                }
                 finish();
                 break;
             case NEGATIVE_BUTTON_CLICKED:
+                if (event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null)
+                    errReportDialog.dismiss();
                 finish();
                 break;
         }
@@ -142,6 +150,9 @@ public class AddTorrentActivity extends AppCompatActivity
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
         viewModel = ViewModelProviders.of(this).get(AddTorrentViewModel.class);
+
+        errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
+
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
 
         initLayout();
@@ -207,15 +218,14 @@ public class AddTorrentActivity extends AppCompatActivity
 
     private Uri getUri()
     {
-        Intent intent = getIntent();
-        Uri uri;
-        if (intent.getData() != null)
-            /* Implicit intent with path to torrent file, http or magnet link */
-            uri = intent.getData();
+        Intent i = getIntent();
+        /* Implicit intent with path to torrent file, http or magnet link */
+        if (i.getData() != null)
+            return i.getData();
+        else if (i.getStringExtra(Intent.EXTRA_TEXT) != null)
+            return Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
         else
-            uri = intent.getParcelableExtra(TAG_URI);
-
-        return uri;
+            return i.getParcelableExtra(TAG_URI);
     }
 
     private void addTorrent()
@@ -234,7 +244,16 @@ public class AddTorrentActivity extends AppCompatActivity
                 finish();
 
         } catch (Exception e) {
-            handleAddException(e);
+            if (e instanceof FileAlreadyExistsException) {
+                Toast.makeText(getApplication(),
+                        R.string.torrent_exist,
+                        Toast.LENGTH_SHORT)
+                        .show();
+                finish();
+
+            } else {
+                handleAddException(e);
+            }
         }
     }
 
@@ -252,14 +271,6 @@ public class AddTorrentActivity extends AppCompatActivity
             Snackbar.make(binding.coordinatorLayout,
                     R.string.error_free_space,
                     Snackbar.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        if (e instanceof FileAlreadyExistsException) {
-            Toast.makeText(getApplication(),
-                    R.string.torrent_exist,
-                    Toast.LENGTH_SHORT)
                     .show();
             return;
         }
@@ -351,20 +362,17 @@ public class AddTorrentActivity extends AppCompatActivity
             }
 
         } else if (e instanceof IOException) {
-            /* TODO: add error dialog */
-//            sentError = e;
-//            if (fm.findFragmentByTag(TAG_IO_EXCEPT_DIALOG) == null) {
-//                ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-//                        activity.getApplicationContext(),
-//                        getString(R.string.error),
-//                        getString(R.string.error_io_torrent),
-//                        Log.getStackTraceString(e),
-//                        this);
-//
-//                FragmentTransaction ft = fm.beginTransaction();
-//                ft.add(errDialog, TAG_IO_EXCEPT_DIALOG);
-//                ft.commitAllowingStateLoss();
-//            }
+            viewModel.errorReport = e;
+            if (fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG) == null) {
+                errReportDialog = ErrorReportDialog.newInstance(
+                        getString(R.string.error),
+                        getString(R.string.error_io_torrent),
+                        Log.getStackTraceString(e));
+
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(errReportDialog, TAG_ERR_REPORT_DIALOG);
+                ft.commitAllowingStateLoss();
+            }
 
         } else if (e instanceof OutOfMemoryError) {
             if (fm.findFragmentByTag(TAG_OUT_OF_MEMORY_DIALOG) == null) {

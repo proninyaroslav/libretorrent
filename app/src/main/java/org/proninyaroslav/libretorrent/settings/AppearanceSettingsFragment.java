@@ -34,7 +34,6 @@ import android.widget.Toast;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.settings.customprefs.ColorPreference;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
@@ -112,10 +111,10 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         SwitchPreferenceCompat ledIndicator = (SwitchPreferenceCompat)findPreference(keyLedIndicator);
         ledIndicator.setChecked(pref.getBoolean(keyLedIndicator, SettingsManager.Default.ledIndicatorNotify));
 
-        String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
-        ColorPreference ledIndicatorColor = (ColorPreference)findPreference(keyLedIndicatorColor);
-        ledIndicatorColor.forceSetValue(pref.getInt(keyLedIndicatorColor, SettingsManager.Default.ledIndicatorColorNotify(getContext())));
-        bindOnPreferenceChangeListener(ledIndicatorColor);
+//        String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
+//        ColorPreference ledIndicatorColor = (ColorPreference)findPreference(keyLedIndicatorColor);
+//        ledIndicatorColor.forceSetValue(pref.getInt(keyLedIndicatorColor, SettingsManager.Default.ledIndicatorColorNotify(getContext())));
+//        bindOnPreferenceChangeListener(ledIndicatorColor);
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
         SwitchPreferenceCompat vibration = (SwitchPreferenceCompat)findPreference(keyVibration);
@@ -166,10 +165,11 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     {
         SharedPreferences pref = SettingsManager.getPreferences(getActivity());
 
-        if (preference instanceof ColorPreference) {
-            ColorPreference ledIndicatorColor = (ColorPreference)preference;
-            ledIndicatorColor.forceSetValue((int)newValue);
-        } else if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
+//        if (preference instanceof ColorPreference) {
+//            ColorPreference ledIndicatorColor = (ColorPreference)preference;
+//            ledIndicatorColor.forceSetValue((int)newValue);
+//        } else
+            if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
             int type = Integer.parseInt((String) newValue);
             pref.edit().putInt(preference.getKey(), type).apply();
             String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);

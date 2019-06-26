@@ -35,7 +35,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.utils.DateFormatUtils;
+import org.proninyaroslav.libretorrent.core.utils.DateUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
 import java.util.Locale;
@@ -186,7 +186,7 @@ public class DetailTorrentStateFragment extends Fragment
         if (basicState.ETA == -1 || basicState.ETA == 0)
             ETA = Utils.INFINITY_SYMBOL;
         else
-            ETA = DateFormatUtils.formatElapsedTime(activity.getApplicationContext(), basicState.ETA);
+            ETA = DateUtils.formatElapsedTime(activity.getApplicationContext(), basicState.ETA);
         textViewETA.setText(ETA);
 
         String seedsTemplate = activity.getString(R.string.torrent_peers_template);
@@ -210,9 +210,9 @@ public class DetailTorrentStateFragment extends Fragment
             textViewPieces.setText(String.format(piecesTemplate, advanceState.downloadedPieces,
                                                  info.numPieces, pieceLength));
         }
-        textViewActiveTime.setText(DateFormatUtils.formatElapsedTime(
+        textViewActiveTime.setText(DateUtils.formatElapsedTime(
                 activity.getApplicationContext(), advanceState.activeTime));
-        textViewSeedingTime.setText(DateFormatUtils.formatElapsedTime(
+        textViewSeedingTime.setText(DateUtils.formatElapsedTime(
                 activity.getApplicationContext(), advanceState.seedingTime));
     }
 }

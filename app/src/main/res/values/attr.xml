@@ -11,6 +11,13 @@
         <attr name="defaultSelectRect" format="reference" />
         <attr name="curOpenTorrentIndicator" format="reference" />
         <attr name="transparentRoundRipple" format="reference" />
+        <attr name="dialogRectRipple" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpansionHeader">
+        <attr name="expansion_text" format="string" />
+        <attr name="expansion_expanded" format="boolean"/>
+        <attr name="expansion_textAppearance" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="LightColorView">

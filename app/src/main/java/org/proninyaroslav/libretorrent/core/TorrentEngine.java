@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -52,6 +53,7 @@ import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
+import org.proninyaroslav.libretorrent.services.TorrentService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.worker.DeleteTorrentsWorker;
 
@@ -187,6 +189,8 @@ public class TorrentEngine
     public void addTorrent(@NonNull Uri file)
     {
         disposables.add(Completable.fromRunnable(() -> {
+            Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+
             ContentResolver contentResolver = appContext.getContentResolver();
             FileInputStream is = null;
             TorrentInfo ti = null;
@@ -223,6 +227,8 @@ public class TorrentEngine
                                   boolean fromMagnet,
                                   boolean removeFile) throws IOException, FileAlreadyExistsException, DecodeException
     {
+        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+
         Torrent t = session.addTorrent(torrent, source, fromMagnet, removeFile);
 
         boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
@@ -530,7 +536,7 @@ public class TorrentEngine
     private BasicStateParcel makeBasicState(Torrent torrent)
     {
         TorrentDownload task = session.getTask(torrent.id);
-        if (task == null)
+        if (task == null || !task.isValid())
             return new BasicStateParcel(torrent.id,
                     torrent.name,
                     torrent.dateAdded,
@@ -801,8 +807,6 @@ public class TorrentEngine
 
     private void initSession()
     {
-        loadTorrents();
-
         if (!pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
                 SettingsManager.Default.useRandomPort)) {
             int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
@@ -850,6 +854,7 @@ public class TorrentEngine
             torrentStreamServer.start(appContext);
 
         } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
             notifier.makeErrorNotify(appContext.getString(R.string.pref_streaming_error));
         }
     }
@@ -861,7 +866,7 @@ public class TorrentEngine
         torrentStreamServer = null;
     }
 
-    private void loadTorrents()
+    public void loadTorrents()
     {
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())

@@ -61,8 +61,6 @@ import android.widget.EditText;
 
 import org.libtorrent4j.Priority;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter;
@@ -88,7 +86,6 @@ import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 
 import java.io.File;
 import java.io.IOException;
@@ -222,8 +219,8 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onStart();
 
-        if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
-            TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
+//        if (!TorrentTaskServiceReceiver.getInstance().isRegistered(serviceReceiver))
+//            TorrentTaskServiceReceiver.getInstance().register(serviceReceiver);
     }
 
     @Override
@@ -231,7 +228,7 @@ public class DetailTorrentFragment extends Fragment
     {
         super.onStop();
 
-        TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
+//        TorrentTaskServiceReceiver.getInstance().unregister(serviceReceiver);
         stopUpdateTorrentState();
     }
 
@@ -508,11 +505,11 @@ public class DetailTorrentFragment extends Fragment
             ArrayList<String> list = new ArrayList<>();
             list.add(torrentId);
 
-            Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
-            i.setAction(TorrentTaskService.ACTION_MOVE_TORRENT);
-            i.putExtra(TorrentTaskService.TAG_ID_LIST, list);
-            i.putExtra(TorrentTaskService.TAG_DOWNLOAD_PATH, path);
-            activity.startService(i);
+//            Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
+//            i.setAction(TorrentTaskService.ACTION_MOVE_TORRENT);
+//            i.putExtra(TorrentTaskService.TAG_ID_LIST, list);
+//            i.putExtra(TorrentTaskService.TAG_DOWNLOAD_PATH, path);
+//            activity.startService(i);
 
             torrent.setDownloadPath(path);
             infoFrag.setDownloadPath(path);
@@ -820,7 +817,7 @@ public class DetailTorrentFragment extends Fragment
         FragmentManager fm = getFragmentManager();
         if (v != null && fm != null) {
             if (fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) != null) {
-                CheckBox withFiles = v.findViewById(R.id.dialog_delete_torrent_with_downloaded_files);
+                CheckBox withFiles = v.findViewById(R.id.delete_with_downloaded_files);
                 deleteTorrentRequest(withFiles.isChecked());
 
                 finish(new Intent(), FragmentCallback.ResultCode.CANCEL);
@@ -1121,7 +1118,7 @@ public class DetailTorrentFragment extends Fragment
 
     TorrentTaskServiceReceiver.Callback serviceReceiver = new TorrentTaskServiceReceiver.Callback()
     {
-        @Subscribe(threadMode = ThreadMode.MAIN)
+//        @Subscribe(threadMode = ThreadMode.MAIN)
         public void onReceive(Bundle b)
         {
             if (b != null) {

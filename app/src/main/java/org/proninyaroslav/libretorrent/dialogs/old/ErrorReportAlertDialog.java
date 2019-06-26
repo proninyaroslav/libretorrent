@@ -58,7 +58,7 @@ public class ErrorReportAlertDialog extends BaseAlertDialog
         args.putString(TAG_MESSAGE, message);
         args.putString(TAG_POS_TEXT, context.getString(R.string.report));
         args.putString(TAG_NEG_TEXT, context.getString(R.string.cancel));
-        args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_error);
+        args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_error_old);
         args.putString(TAG_DETAIL_ERROR, detailError);
 
         if (callback instanceof Fragment)

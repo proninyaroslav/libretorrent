@@ -95,6 +95,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     public BehaviorSubject<List<BencodeFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private BencodeFileTree curDir;
+    public Throwable errorReport;
 
     public enum Status
     {
@@ -232,6 +233,8 @@ public class AddTorrentViewModel extends AndroidViewModel
                         }
 
                         break;
+                    default:
+                        throw new IllegalArgumentException("Invalid scheme");
                 }
 
                 String tmpSource = viewModel.get().params.getSource();
@@ -473,13 +476,11 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         /* TODO: maybe rewrite to WorkManager */
         /* Sync wait inserting */
-        /* TODO: start download torrent */
-        Torrent[] torrentRes = new Torrent[1];
         Exception[] err = new Exception[1];
         try {
             Thread t = new Thread(() ->  {
                 try {
-                    torrentRes[0] = engine.addTorrentSync(torrent, source, fromMagnet, false);
+                    engine.addTorrentSync(torrent, source, fromMagnet, false);
 
                 } catch (Exception e) {
                     err[0] = e;

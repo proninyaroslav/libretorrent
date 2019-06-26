@@ -40,7 +40,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:transitionName="actionBar"
                 app:layout_scrollFlags="enterAlways"
-                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
                 app:popupTheme="?attr/popupTheme" />
 
             <HorizontalScrollView
@@ -61,7 +61,7 @@
                     android:paddingRight="16dp"
                     android:text="@{viewModel.curDir}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@android:color/white" />
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -137,7 +137,7 @@
             android:text="@string/system_manager"
             android:layout_marginTop="135dp"
             android:layout_gravity="top|start"
-            android:visibility="@{enableSystemManagerButton ? View.VISIBLE : View.GONE}"
+            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
             app:backgroundTint="@color/accent"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp" />

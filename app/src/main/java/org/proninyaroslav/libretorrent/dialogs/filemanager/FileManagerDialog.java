@@ -34,13 +34,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
+import org.proninyaroslav.libretorrent.ErrorReportActivity;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.FileManagerAdapter;
+import org.proninyaroslav.libretorrent.adapters.filemanager.FileManagerAdapter;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityFilemanagerDialogBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.viewmodel.filemanager.FileManagerViewModel;
 import org.proninyaroslav.libretorrent.viewmodel.filemanager.FileManagerViewModelFactory;
 
@@ -49,6 +52,7 @@ import java.io.IOException;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,7 +69,7 @@ import io.reactivex.disposables.Disposable;
  *  - FILE_CHOOSER_MODE: Uri of the selected file (filesystem or SAF)
  *  - DIR_CHOOSER_MODE: Uri of the selected folder
  *                      (filesystem or SAF; SAF requires Android API >= 21)
- *  - FILE_CHOOSER_MODE: Uri of the created file (filesystem or SAF)
+ *  - SAVE_FILE_MODE: Uri of the created file (filesystem or SAF)
  */
 
 public class FileManagerDialog extends AppCompatActivity
@@ -79,6 +83,7 @@ public class FileManagerDialog extends AppCompatActivity
     private static final String TAG_ERR_CREATE_DIR = "err_create_dir";
     private static final String TAG_ERROR_OPEN_DIR_DIALOG = "error_open_dir_dialog";
     private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
+    private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
     private static final int SAF_CREATE_FILE_REQUEST_CODE = 1;
     private static final int SAF_OPEN_FILE_REQUEST_CODE = 2;
     private static final int SAF_OPEN_FILE_TREE_REQUEST_CODE = 3;
@@ -93,6 +98,7 @@ public class FileManagerDialog extends AppCompatActivity
 
     private FileManagerViewModel viewModel;
     private BaseAlertDialog inputNameDialog;
+    private ErrorReportDialog errorReportDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -114,11 +120,14 @@ public class FileManagerDialog extends AppCompatActivity
         viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
-        binding.setEnableSystemManagerButton(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+        /* TODO: SAF support */
+        binding.setEnableSystemManagerButton(false/* Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT */);
         binding.setViewModel(viewModel);
 
+        FragmentManager fm = getSupportFragmentManager();
+        inputNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_INPUT_NAME_DIALOG);
+        errorReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
-        inputNameDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_INPUT_NAME_DIALOG);
 
         String title = viewModel.config.title;
         if (TextUtils.isEmpty(title)) {
@@ -213,7 +222,7 @@ public class FileManagerDialog extends AppCompatActivity
             case FileManagerConfig.DIR_CHOOSER_MODE:
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                     Snackbar.make(binding.coordinatorLayout,
-                            R.string.device_does_not_support_this_feauter,
+                            R.string.device_does_not_support_this_feature,
                             Snackbar.LENGTH_SHORT)
                             .show();
                     return;
@@ -307,19 +316,38 @@ public class FileManagerDialog extends AppCompatActivity
 
                 } else if (event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG)) {
                     createFile(true);
+                } else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null) {
+                    Dialog dialog = errorReportDialog.getDialog();
+                    if (dialog != null) {
+                        TextInputEditText editText = dialog.findViewById(R.id.comment);
+                        Editable e = editText.getText();
+                        String comment = (e == null ? null : e.toString());
+
+                        Utils.reportError(viewModel.errorReport, comment);
+                        errorReportDialog.dismiss();
+                    }
                 }
                 break;
             case NEGATIVE_BUTTON_CLICKED:
                 if (event.dialogTag.equals(TAG_INPUT_NAME_DIALOG) && inputNameDialog != null)
                     inputNameDialog.dismiss();
+                else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null)
+                    errorReportDialog.dismiss();
                 break;
         }
     }
 
-    /* TODO: add error report dialog */
     private void showSendErrorDialog(Exception e)
     {
+        viewModel.errorReport = e;
+        if (getSupportFragmentManager().findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
+            errorReportDialog = ErrorReportDialog.newInstance(
+                    getString(R.string.error),
+                    getString(R.string.error_open_dir),
+                    Log.getStackTraceString(e));
 
+            errorReportDialog.show(getSupportFragmentManager(), TAG_ERROR_REPORT_DIALOG);
+        }
     }
 
     private void permissionDeniedToast()
@@ -398,7 +426,7 @@ public class FileManagerDialog extends AppCompatActivity
             }
 
         } else if (item.getType() == FileManagerNode.Type.FILE &&
-                   viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+                viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
             viewModel.saveCurDirectoryPath();
             returnFileUri(item.getName());
         }
@@ -572,6 +600,8 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (data == null)
             return;
 

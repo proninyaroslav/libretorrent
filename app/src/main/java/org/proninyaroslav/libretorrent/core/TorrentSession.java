@@ -333,7 +333,7 @@ public class TorrentSession extends SessionManager
             return;
 
         for (Torrent torrent : repo.getAllTorrents()) {
-            if (torrent == null)
+            if (torrent == null || torrentTasks.containsKey(torrent.id))
                 continue;
 
             if (!torrent.isDownloadingMetadata() && !repo.torrentFileExists(appContext, torrent.id)) {
@@ -347,7 +347,16 @@ public class TorrentSession extends SessionManager
             if (torrent.isDownloadingMetadata()) {
                 loadTask.putMagnet(torrent.getSource(), new File(torrent.getSource()));
             } else {
-                TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
+                TorrentInfo ti;
+                try {
+                    ti = new TorrentInfo(new File(torrent.getSource()));
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Unable to restore torrent from previous session: " + torrent.id, e);
+                    repo.deleteTorrent(appContext, torrent);
+                    continue;
+                }
+
                 List<Priority> priorities = torrent.filePriorities;
                 if (priorities.size() != ti.numFiles()) {
                     notifyListeners((listener) ->
@@ -1119,6 +1128,9 @@ public class TorrentSession extends SessionManager
         public void run()
         {
             try {
+                if (torrentTasks.containsKey(torrentId))
+                    return;
+
                 if (isMagnet)
                     download(uri, saveDir);
                 else

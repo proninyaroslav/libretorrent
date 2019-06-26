@@ -59,7 +59,6 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
-import org.proninyaroslav.libretorrent.services.old.TorrentTaskService;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
@@ -490,13 +489,13 @@ public class Utils
 
     public static void startTorrentServiceBackground(Context context, String action)
     {
-        Intent i = new Intent(context, TorrentTaskService.class);
-        if (action != null)
-            i.setAction(action);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            context.startForegroundService(i);
-        else
-            context.startService(i);
+//        Intent i = new Intent(context, TorrentTaskService.class);
+//        if (action != null)
+//            i.setAction(action);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+//            context.startForegroundService(i);
+//        else
+//            context.startService(i);
     }
 
     public static void enableBootReceiver(Context context, boolean enable)

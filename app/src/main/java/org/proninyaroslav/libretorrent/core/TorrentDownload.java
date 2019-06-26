@@ -430,9 +430,6 @@ public class TorrentDownload
 
     private void torrentRemoved()
     {
-        Torrent torrent = repo.getTorrentById(id);
-        if (torrent != null)
-            repo.deleteTorrent(appContext, torrent);
         disposables.clear();
         notifyListeners((listener) ->
                 listener.onTorrentRemoved(id));
@@ -475,11 +472,13 @@ public class TorrentDownload
 
     private void serializeResumeData(SaveResumeDataAlert alert)
     {
+        if (!th.isValid())
+            return;
+
         try {
-            if (th.isValid()) {
-                byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
-                repo.saveResumeData(appContext, id, Vectors.byte_vector2bytes(data));
-            }
+            byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
+            repo.saveResumeData(appContext, id, Vectors.byte_vector2bytes(data));
+
         } catch (Throwable e) {
             Log.e(TAG, "Error saving resume data of " + id + ":");
             Log.e(TAG, Log.getStackTraceString(e));
@@ -622,8 +621,10 @@ public class TorrentDownload
     public void remove(boolean withFiles)
     {
         Torrent torrent = repo.getTorrentById(id);
-        if (torrent != null)
+        if (torrent != null) {
+            repo.deleteTorrent(appContext, torrent);
             incompleteFilesToRemove = getIncompleteFiles(torrent);
+        }
 
         if (th.isValid()) {
             if (withFiles)
@@ -1399,5 +1400,10 @@ public class TorrentDownload
     public boolean isDuringChangeParams()
     {
         return changeState.isDuringChange();
+    }
+
+    public boolean isValid()
+    {
+        return th.isValid();
     }
 }

@@ -4,6 +4,7 @@
 
     <item android:id="@+id/delete_torrent_menu"
         android:icon="@drawable/ic_delete_white_24dp"
+        app:showAsAction="always|withText"
         android:title="@string/delete" />
 
     <item android:id="@+id/force_recheck_torrent_menu"
