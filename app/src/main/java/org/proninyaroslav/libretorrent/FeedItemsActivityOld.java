@@ -25,14 +25,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.fragments.FeedItemsFragment;
-import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
+import org.proninyaroslav.libretorrent.fragments.old.FeedItemsFragment;
+import org.proninyaroslav.libretorrent.fragments.old.FragmentCallback;
 
-public class FeedItemsActivity extends AppCompatActivity
+public class FeedItemsActivityOld extends AppCompatActivity
         implements FragmentCallback
 {
     @SuppressWarnings("unused")
-    private static final String TAG = FeedItemsActivity.class.getSimpleName();
+    private static final String TAG = FeedItemsActivityOld.class.getSimpleName();
 
     public static final String TAG_FEED_URL = "feed_url";
 

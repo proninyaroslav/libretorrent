@@ -88,7 +88,6 @@ public class AddTorrentViewModel extends AndroidViewModel
     private TorrentDecodeTask decodeTask;
     /* BEP53 standard. Optional field */
     private ArrayList<Priority> magnetPriorities;
-    private boolean saveTorrentFile = true;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     public BencodeFileTree fileTree;
@@ -204,14 +203,13 @@ public class AddTorrentViewModel extends AndroidViewModel
                         viewModel.get().decodeState.postValue(
                                 new DecodeState(AddTorrentViewModel.Status.FETCHING_MAGNET));
                         viewModel.get().params.setFromMagnet(true);
-                        viewModel.get().saveTorrentFile = false;
 
                         Pair<MagnetInfo, Single<TorrentMetaInfo>> res = viewModel.get().engine.fetchMagnet(uri.toString());
                         MagnetInfo magnetInfo = res.first;
                         if (magnetInfo != null && !isCancelled()) {
+                            viewModel.get().info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));
                             viewModel.get().observeFetchedMetadata(res.second);
 
-                            viewModel.get().info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));
                             if (magnetInfo.getFilePriorities() != null)
                                 viewModel.get().magnetPriorities = new ArrayList<>(magnetInfo.getFilePriorities());
                         }
@@ -227,7 +225,6 @@ public class AddTorrentViewModel extends AndroidViewModel
                         if (httpTmp.exists() && !isCancelled()) {
                             viewModel.get().params.setSource(
                                     FileUtils.normalizeFilesystemPath(httpTmp.getAbsolutePath()));
-                            viewModel.get().saveTorrentFile = false;
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
                         }
@@ -326,21 +323,9 @@ public class AddTorrentViewModel extends AndroidViewModel
                 return;
 
             params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-            params.setDirName(getDirName(dirPath));
+            params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
         }
     };
-
-    private String getDirName(Uri dirPath)
-    {
-        if (FileUtils.isSAFPath(dirPath)) {
-            DocumentFile dir = DocumentFile.fromTreeUri(getApplication(), dirPath);
-            String name = dir.getName();
-
-            return name;
-        }
-
-        return dirPath.getPath();
-    }
 
     public void makeFileTree()
     {
@@ -351,7 +336,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (infoObj == null)
             return;
         List<BencodeFileItem> files = infoObj.fileList;
-        if (files == null)
+        if (files.isEmpty())
             return;
 
         fileTree = BencodeFileTreeUtils.buildFileTree(files);
@@ -400,13 +385,27 @@ public class AddTorrentViewModel extends AndroidViewModel
         return children;
     }
 
-    public void chooseDirectory(BencodeFileTree node)
+    public void chooseDirectory(@NonNull String name)
     {
+        BencodeFileTree node = curDir.getChild(name);
+        if (node == null)
+            return;
+
         if (node.isFile())
             node = fileTree;
 
         updateCurDir(node);
     }
+
+    public void selectFile(@NonNull String name, boolean selected)
+    {
+        BencodeFileTree node = curDir.getChild(name);
+        if (node == null)
+            return;
+
+        node.select(selected);
+    }
+
 
     private void updateCurDir(BencodeFileTree node)
     {

@@ -54,8 +54,6 @@ public class MainViewModel extends AndroidViewModel
     private TorrentFilter statusFilter = TorrentFilterCollection.all();
     private TorrentFilter dateAddedFilter = TorrentFilterCollection.all();
     private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
-    private PublishSubject<String> openTorrentDetailsEvents = PublishSubject.create();
-    private PublishSubject<List<String>> deleteTorrentsEvents = PublishSubject.create();
 
     private String searchQuery;
     private TorrentFilter searchFilter = (state) -> {
@@ -83,6 +81,11 @@ public class MainViewModel extends AndroidViewModel
     public Single<List<BasicStateParcel>> getAllTorrentsStateSingle()
     {
         return stateProvider.getStateListSingle();
+    }
+
+    public Flowable<String> observeTorrentsDeleted()
+    {
+        return stateProvider.observeTorrentsDeleted();
     }
 
     public void setSort(@NonNull TorrentSortingComparator sorting, boolean force)
@@ -129,12 +132,12 @@ public class MainViewModel extends AndroidViewModel
         setSearchQuery(null);
     }
 
-    public Observable<Boolean> onForceSortAndFilter()
+    public Observable<Boolean> observeForceSortAndFilter()
     {
         return forceSortAndFilter;
     }
 
-    public void pauseResumeDownload(@NonNull String id)
+    public void pauseResumeTorrent(@NonNull String id)
     {
         engine.pauseResumeTorrent(id);
     }
@@ -142,7 +145,6 @@ public class MainViewModel extends AndroidViewModel
     public void deleteTorrents(@NonNull List<String> ids, boolean withFiles)
     {
         engine.deleteTorrents(ids, withFiles);
-        deleteTorrentsEvents.onNext(ids);
     }
 
     public String normalizeUrl(@NonNull String url) throws NormalizeUrlException
@@ -167,20 +169,5 @@ public class MainViewModel extends AndroidViewModel
     public void forceAnnounceTorrents(@NonNull List<String> ids)
     {
         engine.forceAnnounceTorrents(ids);
-    }
-
-    public Observable<String> observeOpenTorrentDetails()
-    {
-        return openTorrentDetailsEvents;
-    }
-
-    public void openTorrentDetails(@NonNull String id)
-    {
-        openTorrentDetailsEvents.onNext(id);
-    }
-
-    public Observable<List<String>> observeDeleteTorrents()
-    {
-        return deleteTorrentsEvents;
     }
 }

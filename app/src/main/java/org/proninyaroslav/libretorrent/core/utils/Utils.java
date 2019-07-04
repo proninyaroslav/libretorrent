@@ -43,7 +43,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.acra.ACRA;
@@ -441,18 +440,18 @@ public class Utils
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(@NonNull Context context)
+    public static int getTranslucentAppTheme(@NonNull Context appContext)
     {
-        int theme = getThemePreference(context);
+        int theme = getThemePreference(appContext);
 
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.Theme_AppCompat_Translucent;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.Theme_AppCompat_Translucent_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.Theme_AppCompat_Translucent_Black;
+        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
+            return R.style.AppTheme_Translucent;
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
+            return R.style.AppTheme_Translucent_Dark;
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
+            return R.style.AppTheme_Translucent_Black;
 
-        return R.style.Theme_AppCompat_Translucent;
+        return R.style.AppTheme_Translucent;
     }
 
     public static int getSettingsTheme(@NonNull Context context)
@@ -679,16 +678,6 @@ public class Utils
         }
 
         return response[0];
-    }
-
-    public static void setTextViewStyle(@NonNull Context context,
-                                        @NonNull TextView textView,
-                                        int resId)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            textView.setTextAppearance(context, resId);
-        else
-            textView.setTextAppearance(resId);
     }
 
     public static String getAppVersionName(@NonNull Context context)

@@ -25,19 +25,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.fragments.CreateTorrentFragment;
-import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
+import org.proninyaroslav.libretorrent.fragments.old.CreateTorrentFragment;
+import org.proninyaroslav.libretorrent.fragments.old.FragmentCallback;
 
 /*
  * The dialog for adding torrent. The parent window.
  */
 
-public class CreateTorrentActivity extends AppCompatActivity
+public class CreateTorrentActivityOld extends AppCompatActivity
         implements FragmentCallback
 {
 
     @SuppressWarnings("unused")
-    private static final String TAG = CreateTorrentActivity.class.getSimpleName();
+    private static final String TAG = CreateTorrentActivityOld.class.getSimpleName();
 
     public static final String TAG_CREATED_TORRENT = "created_torrent";
 

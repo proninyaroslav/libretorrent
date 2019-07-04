@@ -369,10 +369,9 @@ public class TorrentDownload
                 throw new FileNotFoundException("Torrent file not found");
 
             File torrentFile = new File(pathToTorrent);
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile, bencode);
             if (!torrentFile.exists())
                 throw new FileNotFoundException("Torrent file not found");
-
-            org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile, bencode);
 
             TorrentMetaInfo info = new TorrentMetaInfo(pathToTorrent);
             Torrent torrent = repo.getTorrentById(id);
@@ -385,7 +384,7 @@ public class TorrentDownload
                         + availableBytes + " free, but torrent size is " + info.torrentSize);
 
             /* Skip if default name is changed */
-            if (torrent.name.equals(name)) {
+            if (torrent.name.equals(name) || TextUtils.isEmpty(name)) {
                 name = newName;
                 torrent.name = newName;
             }
@@ -422,7 +421,14 @@ public class TorrentDownload
 
         } catch (Exception e) {
             err[0] = e;
-            remove(true);
+            Torrent torrent = repo.getTorrentById(id);
+            if (torrent != null) {
+                torrent.error = e.getMessage();
+                repo.updateTorrent(torrent);
+            }
+            pause();
+            notifyListeners((listener) ->
+                    listener.onTorrentError(id, e.getMessage()));
         }
         notifyListeners((listener) ->
                 listener.onTorrentMetadataLoaded(hash, err[0]));
@@ -546,27 +552,18 @@ public class TorrentDownload
         if (!th.isValid())
             return 0;
 
-        if (th.status() == null)
+        TorrentStatus ts = th.status();
+        if (ts == null)
             return 0;
 
-        float fp = th.status().progress();
-        TorrentStatus.State state = th.status().state();
+        float fp = ts.progress();
+        TorrentStatus.State state = ts.state();
         if (Float.compare(fp, 1f) == 0 && state != TorrentStatus.State.CHECKING_FILES)
             return 100;
 
-        int p = (int) (th.status().progress() * 100);
-        if (p > 0 && state != TorrentStatus.State.CHECKING_FILES) {
+        int p = (int) (fp * 100);
+        if (p > 0 && state != TorrentStatus.State.CHECKING_FILES)
             return Math.min(p, 100);
-        }
-
-        final long received = getTotalReceivedBytes();
-        final long size = getSize();
-        if (size == received)
-            return 100;
-        if (size > 0) {
-            p = (int) ((received * 100) / size);
-            return Math.min(p, 100);
-        }
 
         return 0;
     }
@@ -1025,9 +1022,8 @@ public class TorrentDownload
 
     public long[] getFilesReceivedBytes()
     {
-        if (!th.isValid()) {
+        if (!th.isValid())
             return null;
-        }
 
         return th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
     }

@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.fragments;
+package org.proninyaroslav.libretorrent.fragments.old;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -71,8 +71,8 @@ import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.google.gson.JsonSyntaxException;
 
 import org.apache.commons.io.FileUtils;
-import org.proninyaroslav.libretorrent.FeedActivity;
-import org.proninyaroslav.libretorrent.FeedItemsActivity;
+import org.proninyaroslav.libretorrent.FeedActivityOld;
+import org.proninyaroslav.libretorrent.FeedItemsActivityOld;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.old.FeedChannelListAdapter;
 import org.proninyaroslav.libretorrent.core.old.FeedChannel;
@@ -86,6 +86,7 @@ import org.proninyaroslav.libretorrent.dialogs.old.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.old.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.fragments.BlankFragment;
 import org.proninyaroslav.libretorrent.services.old.FeedFetcherService;
 
 import java.io.File;
@@ -247,7 +248,7 @@ public class FeedFragment extends Fragment
             }
 
         } else if (i != null && i.getAction() != null &&
-                   i.getAction().equals(FeedActivity.ACTION_ADD_CHANNEL_SHORTCUT)) {
+                   i.getAction().equals(FeedActivityOld.ACTION_ADD_CHANNEL_SHORTCUT)) {
             /* Prevents re-reading action after device configuration changes */
             i.setAction(null);
             addChannelDialog();
@@ -715,8 +716,8 @@ public class FeedFragment extends Fragment
                     .commit();
 
         } else {
-            Intent i = new Intent(activity, FeedItemsActivity.class);
-            i.putExtra(FeedItemsActivity.TAG_FEED_URL, channel.getUrl());
+            Intent i = new Intent(activity, FeedItemsActivityOld.class);
+            i.putExtra(FeedItemsActivityOld.TAG_FEED_URL, channel.getUrl());
             startActivity(i);
         }
     }

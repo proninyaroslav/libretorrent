@@ -1,59 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator_layout"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/detail_toolbar"
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/detail_torrent_appbar" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/fragment_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:transitionName="actionBar"
-            app:popupTheme="?attr/popupTheme"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar"
+            android:background="?attr/backgroundBlank"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_changes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_save_white_24dp"
+            android:visibility="gone"
             android:focusable="true" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/detail_torrent_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:tabMode="scrollable"
-            app:tabMaxWidth="0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/detail_torrent_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="?attr/backgroundBlank" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_changes_button"
-        android:transitionName="fab"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
-        android:layout_marginTop="-16dp"
-        android:elevation="6dp"
-        android:padding="14dp"
-        android:scaleType="fitCenter"
-        android:background="@drawable/fab_ripple"
-        android:stateListAnimator="@anim/fab_anim"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/save"
-        android:visibility="gone"
-        android:src="@drawable/ic_save_white_24dp"
-        android:focusable="true" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

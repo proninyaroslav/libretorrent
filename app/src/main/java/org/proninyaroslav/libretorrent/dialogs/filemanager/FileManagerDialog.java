@@ -36,7 +36,6 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.proninyaroslav.libretorrent.ErrorReportActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.filemanager.FileManagerAdapter;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;

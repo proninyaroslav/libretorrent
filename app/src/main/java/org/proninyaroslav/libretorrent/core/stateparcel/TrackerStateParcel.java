@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -35,10 +35,6 @@ import java.util.List;
 
 public class TrackerStateParcel extends AbstractStateParcel
 {
-    public static final String DHT_ENTRY_NAME = "**DHT**";
-    public static final String LSD_ENTRY_NAME = "**LSD**";
-    public static final String PEX_ENTRY_NAME = "**PeX**";
-
     public String url;
     public String message;
     public int tier;

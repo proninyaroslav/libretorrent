@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.fragments;
+package org.proninyaroslav.libretorrent.fragments.old;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

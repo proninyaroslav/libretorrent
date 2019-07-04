@@ -36,6 +36,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -47,6 +48,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.databinding.ItemTorrentListBinding;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -56,6 +58,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     private ClickListener listener;
     private SelectionTracker<TorrentListItem> selectionTracker;
     private AtomicReference<TorrentListItem> currOpenTorrent = new AtomicReference<>();
+    private boolean onBind = false;
 
     public TorrentListAdapter(ClickListener listener)
     {
@@ -73,13 +76,20 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_torrent_list, parent, false));
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemTorrentListBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.item_torrent_list,
+                parent,
+                false);
+
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
+        onBind = true;
+
         TorrentListItem item = getItem(position);
 
         if (selectionTracker != null)
@@ -91,6 +101,8 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             isOpened = item.torrentId.equals(currTorrent.torrentId);
 
         holder.bind(item, isOpened, listener);
+
+        onBind = false;
     }
 
     @Override
@@ -110,10 +122,25 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
     public void markAsOpen(TorrentListItem item)
     {
-        currOpenTorrent.set(item);
-        int position = getItemPosition(item);
+        TorrentListItem prevItem = currOpenTorrent.getAndSet(item);
+
+        if (onBind)
+            return;
+
+        int position = getItemPosition(prevItem);
         if (position >= 0)
             notifyItemChanged(position);
+
+        if (item != null) {
+            position = getItemPosition(item);
+            if (position >= 0)
+                notifyItemChanged(position);
+        }
+    }
+
+    public TorrentListItem getOpenedItem()
+    {
+        return currOpenTorrent.get();
     }
 
     interface ViewHolderWithDetails
@@ -124,15 +151,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     public static class ViewHolder extends RecyclerView.ViewHolder
         implements ViewHolderWithDetails
     {
-        private TextView name;
-        private ImageButton pauseButton;
-        private ProgressBar progressBar;
-        private TextView status;
-        private TextView downloadCounter;
-        private TextView downloadUploadSpeed;
-        private TextView peers;
-        private TextView error;
-        private View indicatorCurOpenTorrent;
+        private ItemTorrentListBinding binding;
         private AnimatedVectorDrawableCompat playToPauseAnim;
         private AnimatedVectorDrawableCompat pauseToPlayAnim;
         private AnimatedVectorDrawableCompat currAnim;
@@ -140,20 +159,12 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         private ItemDetails details = new ItemDetails();
         private boolean isSelected;
 
-        ViewHolder(View itemView)
+        ViewHolder(ItemTorrentListBinding binding)
         {
-            super(itemView);
+            super(binding.getRoot());
 
-            name = itemView.findViewById(R.id.name);
-            pauseButton = itemView.findViewById(R.id.pause);
-            progressBar = itemView.findViewById(R.id.progress);
-            Utils.colorizeProgressBar(itemView.getContext(), progressBar);
-            status = itemView.findViewById(R.id.status);
-            downloadCounter = itemView.findViewById(R.id.download_counter);
-            downloadUploadSpeed = itemView.findViewById(R.id.download_upload_speed);
-            peers = itemView.findViewById(R.id.peers);
-            error = itemView.findViewById(R.id.error);
-            indicatorCurOpenTorrent = itemView.findViewById(R.id.indicator_cur_open_torrent);
+            this.binding = binding;
+            Utils.colorizeProgressBar(itemView.getContext(), binding.progress);
             playToPauseAnim = AnimatedVectorDrawableCompat.create(itemView.getContext(), R.drawable.play_to_pause);
             pauseToPlayAnim = AnimatedVectorDrawableCompat.create(itemView.getContext(), R.drawable.pause_to_play);
         }
@@ -187,17 +198,17 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             });
 
             setPauseButtonState(item.stateCode == TorrentStateCode.PAUSED);
-            pauseButton.setOnClickListener((v) -> {
+            binding.pause.setOnClickListener((v) -> {
                 if (listener != null)
                     listener.onItemPauseClicked(item);
             });
 
-            name.setText(item.name);
+            binding.name.setText(item.name);
             if (item.stateCode == TorrentStateCode.DOWNLOADING_METADATA) {
-                progressBar.setIndeterminate(true);
+                binding.progress.setIndeterminate(true);
             } else {
-                progressBar.setIndeterminate(false);
-                progressBar.setProgress(item.progress);
+                binding.progress.setIndeterminate(false);
+                binding.progress.setProgress(item.progress);
             }
 
             String statusString = "";
@@ -223,7 +234,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
                 case DOWNLOADING_METADATA:
                     statusString = context.getString(R.string.torrent_status_downloading_metadata);
             }
-            status.setText(statusString);
+            binding.status.setText(statusString);
 
             String counterTemplate = context.getString(R.string.download_counter_ETA_template);
             String totalBytes = Formatter.formatFileSize(context, item.totalBytes);
@@ -241,24 +252,24 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             else
                 receivedBytes = Formatter.formatFileSize(context, item.receivedBytes);
 
-            downloadCounter.setText(String.format(counterTemplate, receivedBytes, totalBytes,
+            binding.downloadCounter.setText(String.format(counterTemplate, receivedBytes, totalBytes,
                     (item.totalBytes == 0 ? 0 : item.progress), ETA));
 
             String speedTemplate = context.getString(R.string.download_upload_speed_template);
             String downloadSpeed = Formatter.formatFileSize(context, item.downloadSpeed);
             String uploadSpeed = Formatter.formatFileSize(context, item.uploadSpeed);
-            downloadUploadSpeed.setText(String.format(speedTemplate, downloadSpeed, uploadSpeed));
+            binding.downloadUploadSpeed.setText(String.format(speedTemplate, downloadSpeed, uploadSpeed));
 
             String peersTemplate = context.getString(R.string.peers_template);
-            peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
+            binding.peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
             setPauseButtonState(item.stateCode == TorrentStateCode.PAUSED);
 
             if (item.error != null) {
-                error.setVisibility(View.VISIBLE);
+                binding.error.setVisibility(View.VISIBLE);
                 String errorTemplate = context.getString(R.string.error_template);
-                error.setText(String.format(errorTemplate, item.error));
+                binding.error.setText(String.format(errorTemplate, item.error));
             } else {
-                error.setVisibility(View.GONE);
+                binding.error.setVisibility(View.GONE);
             }
 
             if (isOpened) {
@@ -271,11 +282,11 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
                 }
                 d = ContextCompat.getDrawable(context, R.color.accent);
                 if (d != null)
-                    Utils.setBackground(indicatorCurOpenTorrent, d);
+                    Utils.setBackground(binding.indicatorCurOpenTorrent, d);
             } else {
                 d = ContextCompat.getDrawable(context, android.R.color.transparent);
                 if (d != null)
-                    Utils.setBackground(indicatorCurOpenTorrent, d);
+                    Utils.setBackground(binding.indicatorCurOpenTorrent, d);
             }
         }
 
@@ -294,7 +305,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         {
             AnimatedVectorDrawableCompat prevAnim = currAnim;
             currAnim = (isPause ? pauseToPlayAnim : playToPauseAnim);
-            pauseButton.setImageDrawable(currAnim);
+            binding.pause.setImageDrawable(currAnim);
             if (currAnim != prevAnim)
                 currAnim.start();
         }

@@ -22,17 +22,20 @@ package org.proninyaroslav.libretorrent.adapters;
 import android.content.Context;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.fragments.DetailTorrentFilesFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentInfoFragment;
+import org.proninyaroslav.libretorrent.fragments.DetailTorrentStateFragment;
+import org.proninyaroslav.libretorrent.fragments.DetailTorrentFilesFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentPeersFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentPiecesFragment;
-import org.proninyaroslav.libretorrent.fragments.DetailTorrentStateFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentTrackersFragment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class TorrentStatusPagerAdapter extends ViewPagerAdapter
+public class TorrentStatusPagerAdapter extends FragmentStatePagerAdapter
 {
     public static final int NUM_FRAGMENTS = 6;
     public static final int INFO_FRAG_POS = 0;
@@ -42,18 +45,37 @@ public class TorrentStatusPagerAdapter extends ViewPagerAdapter
     public static final int PEERS_FRAG_POS = 4;
     public static final int PIECES_FRAG_POS = 5;
 
-    public TorrentStatusPagerAdapter(String torrentId, FragmentManager fm, Context context)
-    {
-        super(torrentId, fm);
+    private Context context;
 
-        fragmentTitleList.add(context.getString(R.string.torrent_info));
-        fragmentTitleList.add(context.getString(R.string.torrent_state));
-        fragmentTitleList.add(context.getString(R.string.torrent_files));
-        fragmentTitleList.add(context.getString(R.string.torrent_trackers));
-        fragmentTitleList.add(context.getString(R.string.torrent_peers));
-        fragmentTitleList.add(context.getString(R.string.torrent_pieces));
+    public TorrentStatusPagerAdapter(Context context, FragmentManager fm)
+    {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.context = context;
     }
 
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position)
+    {
+        switch (position) {
+            case INFO_FRAG_POS:
+                return context.getString(R.string.torrent_info);
+            case STATE_FRAG_POS:
+                return context.getString(R.string.torrent_state);
+            case FILES_FRAG_POS:
+                return context.getString(R.string.torrent_files);
+            case TRACKERS_FRAG_POS:
+                return context.getString(R.string.torrent_trackers);
+            case PEERS_FRAG_POS:
+                return context.getString(R.string.torrent_peers);
+            case PIECES_FRAG_POS:
+                return context.getString(R.string.torrent_pieces);
+            default:
+                return null;
+        }
+    }
+
+    @NonNull
     @Override
     public Fragment getItem(int position)
     {
@@ -71,7 +93,7 @@ public class TorrentStatusPagerAdapter extends ViewPagerAdapter
             case PIECES_FRAG_POS:
                 return DetailTorrentPiecesFragment.newInstance();
             default:
-                return null;
+                return new Fragment();
         }
     }
 

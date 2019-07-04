@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.fragments;
+package org.proninyaroslav.libretorrent.fragments.old;
 
 import android.app.Activity;
 import android.content.Context;
@@ -60,7 +60,7 @@ import org.libtorrent4j.Priority;
 import org.libtorrent4j.TorrentBuilder;
 
 import org.apache.commons.io.FileUtils;
-import org.proninyaroslav.libretorrent.CreateTorrentActivity;
+import org.proninyaroslav.libretorrent.CreateTorrentActivityOld;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.RequestPermissions;
 import org.proninyaroslav.libretorrent.core.old.AddTorrentParams;
@@ -622,7 +622,7 @@ public class CreateTorrentFragment extends Fragment
                     createParams.getPath().substring(0, createParams.getPath().lastIndexOf(File.separator)),
                     false,
                     false);
-            intent.putExtra(CreateTorrentActivity.TAG_CREATED_TORRENT, params);
+            intent.putExtra(CreateTorrentActivityOld.TAG_CREATED_TORRENT, params);
         }
         finish(intent, FragmentCallback.ResultCode.OK);
     }

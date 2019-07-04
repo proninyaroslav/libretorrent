@@ -1,55 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    android:background="?attr/defaultRectRipple">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="60dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentLeft="true">
-
-        <ImageView
-            android:id="@+id/file_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_folder_grey600_24dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp" />
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/defaultRectRipple">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginRight="60dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true">
 
-            <TextView
-                android:id="@+id/file_name"
+            <ImageView
+                android:id="@+id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:layout_gravity="center"
+                android:src="@drawable/ic_folder_grey600_24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
-            <TextView
-                android:id="@+id/file_size"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:maxLines="1"
-                android:textAppearance="?attr/smallText" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/smallText" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/file_selected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="16dp" />
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="16dp" />
+    </RelativeLayout>
+</layout>

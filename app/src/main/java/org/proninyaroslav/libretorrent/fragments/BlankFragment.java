@@ -46,7 +46,7 @@ public class BlankFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_blank, container, false);
-        TextView textView = v.findViewById(R.id.blank_textview);
+        TextView textView = v.findViewById(R.id.blank_text);
         textView.setText(text);
 
         return v;

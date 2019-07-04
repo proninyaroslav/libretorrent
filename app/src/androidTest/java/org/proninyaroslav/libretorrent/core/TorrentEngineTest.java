@@ -23,10 +23,12 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.*;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,7 +94,7 @@ public class TorrentEngineTest extends AbstractTest
 
         engine.addListener(new TorrentEngineListener() {
             @Override
-            public void onTorrentFinished(String id)
+            public void onTorrentFinished(@NonNull String id)
             {
                 if (!torrent.id.equals(id))
                     return;
@@ -131,7 +133,7 @@ public class TorrentEngineTest extends AbstractTest
 
         engine.addListener(new TorrentEngineListener() {
             @Override
-            public void onTorrentFinished(String id)
+            public void onTorrentFinished(@NonNull String id)
             {
                 if (!torrent.id.equals(id))
                     return;
@@ -180,20 +182,20 @@ public class TorrentEngineTest extends AbstractTest
 
         engine.addListener(new TorrentEngineListener() {
             @Override
-            public void onTorrentAdded(String id)
+            public void onTorrentAdded(@NonNull String id)
             {
                 if (torrent.id.equals(id))
                     engine.changeParams(torrent.id, params);
             }
 
             @Override
-            public void onApplyingParams(String id)
+            public void onApplyingParams(@NotNull String id)
             {
                 applying.set(true);
             }
 
             @Override
-            public void onParamsApplied(String id, Throwable e)
+            public void onParamsApplied(@NotNull String id, Throwable e)
             {
                 if (!torrent.id.equals(id))
                     return;
@@ -238,20 +240,20 @@ public class TorrentEngineTest extends AbstractTest
 
         engine.addListener(new TorrentEngineListener() {
             @Override
-            public void onTorrentAdded(String id)
+            public void onTorrentAdded(@NonNull String id)
             {
                 if (torrent.id.equals(id))
                     engine.changeParams(torrent.id, params);
             }
 
             @Override
-            public void onApplyingParams(String id)
+            public void onApplyingParams(@NotNull String id)
             {
                 applying.set(true);
             }
 
             @Override
-            public void onTorrentMoved(String id, boolean success)
+            public void onTorrentMoved(@NotNull String id, boolean success)
             {
                 if (!torrent.id.equals(id))
                     return;
@@ -262,7 +264,7 @@ public class TorrentEngineTest extends AbstractTest
             }
 
             @Override
-            public void onParamsApplied(String id, Throwable e)
+            public void onParamsApplied(@NotNull String id, Throwable e)
             {
                 if (!torrent.id.equals(id))
                     return;

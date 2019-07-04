@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.adapters.DownloadableFileItem;
 import org.proninyaroslav.libretorrent.adapters.DownloadableFilesAdapter;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
@@ -51,7 +52,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /*
  * The fragment for list files of torrent. Part of AddTorrentFragment.
@@ -83,14 +88,6 @@ public class AddTorrentFilesFragment extends Fragment
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
     }
 
     @Override
@@ -129,6 +126,13 @@ public class AddTorrentFilesFragment extends Fragment
     private void subscribeAdapter()
     {
         disposable.add(viewModel.children
+                .subscribeOn(Schedulers.computation())
+                .flatMapSingle((children) ->
+                        Flowable.fromIterable(children)
+                                .map(DownloadableFileItem::new)
+                                .toList()
+                )
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((children) -> {
                     adapter.submitList(children);
                     updateFileSize();
@@ -142,6 +146,9 @@ public class AddTorrentFilesFragment extends Fragment
 
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
+
+        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
+        binding.setViewModel(viewModel);
 
         layoutManager = new LinearLayoutManager(activity);
         binding.fileList.setLayoutManager(layoutManager);
@@ -189,18 +196,18 @@ public class AddTorrentFilesFragment extends Fragment
     }
 
     @Override
-    public void onItemClicked(BencodeFileTree node)
+    public void onItemClicked(@NonNull DownloadableFileItem item)
     {
-        if (node.getName().equals(BencodeFileTree.PARENT_DIR)) {
+        if (item.name.equals(BencodeFileTree.PARENT_DIR))
             viewModel.upToParentDirectory();
-        } else if (node.getType() == FileNode.Type.DIR)
-            viewModel.chooseDirectory(node);
+        else if (!item.isFile)
+            viewModel.chooseDirectory(item.name);
     }
 
     @Override
-    public void onItemCheckedChanged(BencodeFileTree node, boolean selected)
+    public void onItemCheckedChanged(@NonNull DownloadableFileItem item, boolean selected)
     {
-        node.select(selected);
+        viewModel.selectFile(item.name, selected);
         updateFileSize();
     }
 }

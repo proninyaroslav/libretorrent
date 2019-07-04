@@ -327,7 +327,25 @@ public class TorrentSession extends SessionManager
                 null);
     }
 
-    public void restoreDownloads()
+    public void deleteTorrent(@NonNull String id, boolean withFiles)
+    {
+        if (swig() == null)
+            return;
+
+        TorrentDownload task = getTask(id);
+        if (task == null) {
+            Torrent torrent = repo.getTorrentById(id);
+            if (torrent != null)
+                repo.deleteTorrent(appContext, torrent);
+
+            notifyListeners((listener) ->
+                    listener.onTorrentRemoved(id));
+        } else {
+            task.remove(withFiles);
+        }
+    }
+
+    public void restoreTorrents()
     {
         if (swig() == null)
             return;
@@ -338,6 +356,7 @@ public class TorrentSession extends SessionManager
 
             if (!torrent.isDownloadingMetadata() && !repo.torrentFileExists(appContext, torrent.id)) {
                 repo.deleteTorrent(appContext, torrent);
+                Log.e(TAG, "Unable to restore torrent from previous session: torrent file doesn't exists");
                 notifyListeners((listener) ->
                         listener.onRestoreSessionError(torrent.id));
                 continue;
@@ -354,11 +373,14 @@ public class TorrentSession extends SessionManager
                 } catch (Exception e) {
                     Log.e(TAG, "Unable to restore torrent from previous session: " + torrent.id, e);
                     repo.deleteTorrent(appContext, torrent);
+                    notifyListeners((listener) ->
+                            listener.onRestoreSessionError(torrent.id));
                     continue;
                 }
 
                 List<Priority> priorities = torrent.filePriorities;
                 if (priorities.size() != ti.numFiles()) {
+                    Log.e(TAG, "Unable to restore torrent from previous session: number of files and priorities doesn't match");
                     notifyListeners((listener) ->
                             listener.onRestoreSessionError(torrent.id));
                     continue;
@@ -411,7 +433,6 @@ public class TorrentSession extends SessionManager
             try {
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
-                    add = false;
                     torrent_info ti = th.torrent_file_ptr();
                     loadedMagnets.put(hash.to_hex(), createTorrent(p, ti));
                     notifyListeners((listener) ->
@@ -421,7 +442,7 @@ public class TorrentSession extends SessionManager
                 }
 
                 if (add) {
-                    if (p.getName().isEmpty())
+                    if (TextUtils.isEmpty(p.getName()))
                         p.setName(strHash);
                     torrent_flags_t flags = p.getFlags();
                     flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
@@ -476,11 +497,12 @@ public class TorrentSession extends SessionManager
         if (task == null)
             return;
 
-        TorrentInfo ti = null;
+        TorrentInfo ti;
         try {
             ti = (bencode == null ?
                     new TorrentInfo(new File(torrent.getSource())) :
                     new TorrentInfo(bencode));
+
         } catch (Exception e) {
             return;
         }
@@ -953,7 +975,8 @@ public class TorrentSession extends SessionManager
         sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
         int sendBufferWatermark = sp.sendBufferWatermark();
         sp.sendBufferWatermark(sendBufferWatermark / 2);
-        sp.seedingOutgoingConnections(false);
+        /* TODO: settings */
+//        sp.seedingOutgoingConnections(false);
         sp.cacheSize(256);
         sp.tickInterval(1000);
         sp.inactivityTimeout(60);

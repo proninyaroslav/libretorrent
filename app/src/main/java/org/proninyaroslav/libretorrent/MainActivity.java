@@ -62,12 +62,13 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.fragments.BlankFragment;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
-import org.proninyaroslav.libretorrent.fragments.MainFragment;
+import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentService;
 import org.proninyaroslav.libretorrent.settings.SettingsActivity;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.viewmodel.MainViewModel;
+import org.proninyaroslav.libretorrent.viewmodel.MsgMainViewModel;
 
 import java.util.List;
 
@@ -76,7 +77,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentCallback
+{
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -99,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
 
     private MainViewModel viewModel;
-    protected CompositeDisposable disposables = new CompositeDisposable();
+    private MsgMainViewModel msgViewModel;
+    private CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
     private boolean permDialogIsShow = false;
@@ -111,12 +114,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (getIntent().getAction() != null &&
-                getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
+            getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();
             return;
         }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        msgViewModel = ViewModelProviders.of(this).get(MsgMainViewModel.class);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
         aboutDialog = (BaseAlertDialog) getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
@@ -220,8 +224,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         subscribeAlertDialog();
-        subscribeOpenTorrentDetails();
-        subscribeDeleteTorrents();
+        subscribeMsgViewModel();
     }
 
     @Override
@@ -261,20 +264,17 @@ public class MainActivity extends AppCompatActivity {
         disposables.add(d);
     }
 
-    private void subscribeOpenTorrentDetails()
+    private void subscribeMsgViewModel()
     {
-        disposables.add(viewModel.observeOpenTorrentDetails()
+        disposables.add(msgViewModel.observeTorrentDetailsOpened()
                 .subscribe(this::showDetailTorrent));
-    }
 
-    private void subscribeDeleteTorrents()
-    {
-        disposables.add(viewModel.observeDeleteTorrents()
+        disposables.add(viewModel.observeTorrentsDeleted()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((ids) -> {
+                .subscribe((id) -> {
                     DetailTorrentFragment f = getCurrentDetailFragment();
-                    if (f != null && ids.contains(f.getTorrentId()))
+                    if (f != null && id.equals(f.getTorrentId()))
                         showBlankFragment();
                 }));
     }
@@ -368,20 +368,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void cleanGarbageFragments()
     {
-        /* Clean garbage fragments after rotate for tablets */
-        /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
+        /* Clean detail and blank fragments after rotate for tablets */
         if (Utils.isLargeScreenDevice(this)) {
             FragmentManager fm = getSupportFragmentManager();
             List<Fragment> fragments = fm.getFragments();
             FragmentTransaction ft = fm.beginTransaction();
             for (Fragment f : fragments)
-                if (f != null && !(f instanceof MainFragment))
+                if (f instanceof DetailTorrentFragment || f instanceof BlankFragment)
                     ft.remove(f);
             ft.commitAllowingStateLoss();
         }
     }
 
-    /* TODO: if minSdkVersion will be >= 17, go to getChildFragmentManager() instead of manually managing the fragments */
     private void showDetailTorrent(String id)
     {
         if (Utils.isTwoPane(this)) {
@@ -390,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
 
             if (fragment instanceof DetailTorrentFragment) {
-                String oldId = ((DetailTorrentFragment) fragment).getTorrentId();
+                String oldId = ((DetailTorrentFragment)fragment).getTorrentId();
                 if (id.equals(oldId))
                     return;
             }
@@ -398,6 +396,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.detail_torrent_fragmentContainer, detail)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
+
         } else {
             Intent i = new Intent(this, DetailTorrentActivity.class);
             i.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, id);
@@ -478,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
     {
         switch (item.getItemId()) {
             case R.id.feed_menu:
-                startActivity(new Intent(this, FeedActivity.class));
+                startActivity(new Intent(this, FeedActivityOld.class));
                 break;
             case R.id.settings_menu:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -541,5 +540,15 @@ public class MainActivity extends AppCompatActivity {
         i.setAction(TorrentService.ACTION_SHUTDOWN);
         startService(i);
         finish();
+    }
+
+    @Override
+    public void onFragmentFinished(@NonNull Fragment f, Intent intent,
+                                   @NonNull ResultCode code)
+    {
+        if (f instanceof DetailTorrentFragment && Utils.isTwoPane(this)) {
+            showBlankFragment();
+            msgViewModel.torrentDetailsClosed();
+        }
     }
 }

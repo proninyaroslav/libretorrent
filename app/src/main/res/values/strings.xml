@@ -44,6 +44,7 @@
     <string name="pause_all">Pause all</string>
     <string name="resume_all">Resume all</string>
     <string name="all">All</string>
+    <string name="details">Details</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -298,6 +299,7 @@
     <string name="share_stream_url">Share stream URL</string>
     <string name="magnet_include_file_priorities">Include file priorities?</string>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">No trackers</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copy</string>

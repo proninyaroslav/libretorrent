@@ -1,135 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:background="?attr/defaultRectRipple">
-
-    <View
-        android:id="@+id/indicator_cur_open_torrent"
-        android:layout_width="6dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent" />
-
-    <ImageButton
-        android:id="@+id/pause"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/fab_ripple"
-        android:contentDescription="@string/pause_torrent"
-        android:scaleType="fitXY"
-        android:padding="6dp"
-        android:layout_gravity="center" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_toRightOf="@id/pause">
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/defaultRectRipple">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/indicator_cur_open_torrent"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/pause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:text="name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:max="100"
-            android:progress="100"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+            android:background="@drawable/fab_ripple"
+            android:contentDescription="@string/pause_torrent"
+            android:scaleType="fitXY"
+            android:padding="6dp"
+            android:layout_gravity="center" />
 
         <LinearLayout
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/pause">
 
             <TextView
-                android:id="@+id/status"
-                android:layout_width="0dp"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:max="100"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextCaption" />
+
+                <TextView
+                    android:id="@+id/download_upload_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextCaption" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/download_counter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:layout_weight="0.8"
+                    android:textAppearance="@style/TextCaption" />
+
+                <TextView
+                    android:id="@+id/peers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
+                    android:maxLines="1"
+                    android:layout_weight="0.2"
+                    android:textAppearance="@style/TextCaption" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:layout_weight="1"
-                android:text="status"
-                android:textAppearance="@style/TextCaption" />
-
-            <TextView
-                android:id="@+id/download_upload_speed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:ellipsize="end"
-                android:gravity="right|center_vertical"
-                android:maxLines="1"
-                android:layout_weight="1"
-                android:text="speed"
+                android:maxLines="3"
+                android:textColor="@color/error"
                 android:textAppearance="@style/TextCaption" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/download_counter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="8dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:layout_weight="0.8"
-                android:text="progress"
-                android:textAppearance="@style/TextCaption" />
-
-            <TextView
-                android:id="@+id/peers"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:ellipsize="end"
-                android:gravity="right|center_vertical"
-                android:maxLines="1"
-                android:layout_weight="0.2"
-                android:text="peers"
-                android:textAppearance="@style/TextCaption" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text="error"
-            android:textColor="@color/error"
-            android:textAppearance="@style/TextCaption" />
     </LinearLayout>
-</LinearLayout>
+</layout>

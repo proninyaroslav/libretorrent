@@ -23,7 +23,7 @@
         android:shortcutShortLabel="@string/add_feed_channel">
         <intent
             android:action="org.proninyaroslav.libretorrent.ADD_CHANNEL_SHORTCUT"
-            android:targetClass="org.proninyaroslav.libretorrent.FeedActivity"
+            android:targetClass="org.proninyaroslav.libretorrent.FeedActivityOld"
             android:targetPackage="org.proninyaroslav.libretorrent" />
     </shortcut>
 </shortcuts>

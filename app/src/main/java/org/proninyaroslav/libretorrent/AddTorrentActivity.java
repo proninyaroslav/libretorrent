@@ -169,7 +169,7 @@ public class AddTorrentActivity extends AppCompatActivity
         if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             binding.toolbar.setElevation(0);
 
-        adapter = new AddTorrentPagerAdapter(getSupportFragmentManager(), this);
+        adapter = new AddTorrentPagerAdapter(this, getSupportFragmentManager());
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setOffscreenPageLimit(AddTorrentPagerAdapter.NUM_FRAGMENTS);
         binding.tabLayout.setupWithViewPager(binding.viewpager);

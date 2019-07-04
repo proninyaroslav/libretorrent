@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -25,23 +25,39 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.fragments.AddTorrentFilesFragment;
 import org.proninyaroslav.libretorrent.fragments.AddTorrentInfoFragment;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class AddTorrentPagerAdapter extends ViewPagerAdapter
+public class AddTorrentPagerAdapter extends FragmentStatePagerAdapter
 {
     public static final int NUM_FRAGMENTS = 2;
     public static final int INFO_FRAG_POS = 0;
     public static final int FILES_FRAG_POS = 1;
 
-    public AddTorrentPagerAdapter(FragmentManager fm, Context context)
-    {
-        super(null, fm);
+    private Context context;
 
-        fragmentTitleList.add(context.getString(R.string.torrent_info));
-        fragmentTitleList.add(context.getString(R.string.torrent_files));
+    public AddTorrentPagerAdapter(Context context, FragmentManager fm)
+    {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.context = context;
     }
 
+    @Override
+    public CharSequence getPageTitle(int position)
+    {
+        switch (position) {
+            case INFO_FRAG_POS:
+                return context.getString(R.string.torrent_info);
+            case FILES_FRAG_POS:
+                return context.getString(R.string.torrent_files);
+            default:
+                return null;
+        }
+    }
+
+    @NonNull
     @Override
     public Fragment getItem(int position)
     {
@@ -51,7 +67,7 @@ public class AddTorrentPagerAdapter extends ViewPagerAdapter
             case FILES_FRAG_POS:
                 return AddTorrentFilesFragment.newInstance();
             default:
-                return null;
+                return new Fragment();
         }
     }
 

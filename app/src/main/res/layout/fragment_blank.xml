@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.proninyaroslav.libretorrent.fragments.BlankFragment">
+    tools:context="org.proninyaroslav.libretorrent.fragments.BlankFragment"
+    android:background="?attr/backgroundBlank">
 
-    <RelativeLayout
+    <View
+        android:id="@+id/fake_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/blank_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundBlank">
-
-        <View
-            android:id="@+id/fake_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            android:background="?attr/colorPrimary" />
-
-        <TextView
-            android:id="@+id/blank_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/fake_toolbar"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-    </RelativeLayout>
-</FrameLayout>
+        android:layout_below="@id/fake_toolbar"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
+</RelativeLayout>

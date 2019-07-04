@@ -29,6 +29,8 @@ import android.view.View;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 
+import java.util.Arrays;
+
 /*
  * A widget for display parts map.
  */
@@ -75,7 +77,7 @@ public class PiecesView extends View
 
     public void setPieces(boolean[] pieces)
     {
-        if (pieces == null)
+        if (pieces == null || Arrays.equals(this.pieces, pieces))
             return;
 
         int prevLength = (this.pieces != null ? this.pieces.length : 0);

@@ -148,7 +148,7 @@
 
         <activity
             android:name=".RequestPermissions"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/AppTheme.Translucent" />
 
         <activity android:name=".settings.SettingsActivity"
             android:label="@string/settings">
@@ -161,17 +161,16 @@
         <activity
             android:name=".settings.PreferenceActivity" />
 
-        <activity
-            android:name="org.proninyaroslav.libretorrent.ErrorReportActivity"
-            android:theme="@style/AppTheme"
-            android:process=":error_report"
-            android:launchMode="singleInstance"
+        <activity android:name=".ErrorReportActivity"
+            android:theme="@style/AppTheme.Translucent"
+            android:process=":acra"
             android:excludeFromRecents="true"
-            android:finishOnTaskLaunch="true" />
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedActivity">
+            android:name=".FeedActivityOld">
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -217,11 +216,11 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedItemsActivity" />
+            android:name=".FeedItemsActivityOld" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".CreateTorrentActivity" />
+            android:name=".CreateTorrentActivityOld" />
 
         <service
             android:name=".services.TorrentService" />

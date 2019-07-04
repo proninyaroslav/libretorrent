@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,6 +21,9 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 /*
  * The basic callback interface with codes and functions, returned by fragments.
  */
@@ -34,5 +37,5 @@ public interface FragmentCallback
         OK, CANCEL, BACK
     }
 
-    void fragmentFinished(Intent intent, ResultCode code);
+    void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code);
 }

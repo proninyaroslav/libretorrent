@@ -82,18 +82,9 @@ public class AddTorrentInfoFragment extends Fragment
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_torrent_info, container, false);
-        binding.setViewModel(viewModel);
 
         return binding.getRoot();
     }
@@ -105,6 +96,9 @@ public class AddTorrentInfoFragment extends Fragment
 
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
+        binding.setViewModel(viewModel);
 
         binding.info.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
         binding.info.name.addTextChangedListener(new TextWatcher()

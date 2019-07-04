@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,19 +21,24 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.core.widget.NestedScrollView;
-import androidx.appcompat.app.AppCompatActivity;
-import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.customviews.PiecesView;
+import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentPiecesBinding;
+import org.proninyaroslav.libretorrent.viewmodel.DetailTorrentViewModel;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /*
  * The fragment for displaying torrent pieces. Part of DetailTorrentFragment.
@@ -44,22 +49,12 @@ public class DetailTorrentPiecesFragment extends Fragment
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentPiecesFragment.class.getSimpleName();
 
-    private static final String HEAVY_STATE_TAG = TAG + "_" + HeavyInstanceStorage.class.getSimpleName();
-    private static final String TAG_PIECES = "pieces";
-    private static final String TAG_ALL_PIECES_COUNT = "all_pieces_count";
-    private static final String TAG_PIECE_SIZE = "piece_size";
-    private static final String TAG_DOWNLOADED_PIECES = "downloaded_pieces";
     private static final String TAG_SCROLL_POSITION = "scroll_position";
 
     private AppCompatActivity activity;
-    private PiecesView pieceMap;
-    private TextView piecesCounter;
-    private NestedScrollView pieceMapScrollView;
-
-    private boolean[] pieces;
-    private int allPiecesCount;
-    private int pieceSize;
-    private int downloadedPieces;
+    private FragmentDetailTorrentPiecesBinding binding;
+    private DetailTorrentViewModel viewModel;
+    private CompositeDisposable disposables = new CompositeDisposable();
     private int[] scrollPosition = new int[]{0, 0};
 
     public static DetailTorrentPiecesFragment newInstance()
@@ -72,24 +67,36 @@ public class DetailTorrentPiecesFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_torrent_pieces, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
     {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            this.activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity)context;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void onStop()
     {
-        View v = inflater.inflate(R.layout.fragment_detail_torrent_pieces, container, false);
+        super.onStop();
 
-        pieceMap = v.findViewById(R.id.piece_map);
-        piecesCounter = v.findViewById(R.id.pieces_count);
-        pieceMapScrollView = v.findViewById(R.id.piece_map_scroll_view);
+        disposables.clear();
+    }
 
-        return v;
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAdapter();
     }
 
     @Override
@@ -100,20 +107,8 @@ public class DetailTorrentPiecesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
-        if (storage != null) {
-            Bundle heavyInstance = storage.popData(HEAVY_STATE_TAG);
-            if (heavyInstance != null)
-                pieces = heavyInstance.getBooleanArray(TAG_PIECES);
-        }
-        if (savedInstanceState != null) {
-            allPiecesCount = savedInstanceState.getInt(TAG_ALL_PIECES_COUNT);
-            pieceSize = savedInstanceState.getInt(TAG_PIECE_SIZE);
-            downloadedPieces = savedInstanceState.getInt(TAG_DOWNLOADED_PIECES);
-        }
-
-        pieceMap.setPieces(pieces);
-        updatePieceCounter();
+        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        binding.setViewModel(viewModel);
     }
 
     @Override
@@ -121,20 +116,11 @@ public class DetailTorrentPiecesFragment extends Fragment
     {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(TAG_ALL_PIECES_COUNT, allPiecesCount);
-        outState.putInt(TAG_PIECE_SIZE, pieceSize);
-        outState.putInt(TAG_DOWNLOADED_PIECES, downloadedPieces);
-        if (pieceMapScrollView != null && scrollPosition != null) {
-            scrollPosition[0] = pieceMapScrollView.getScrollX();
-            scrollPosition[1] = pieceMapScrollView.getScrollY();
+        if (scrollPosition != null) {
+            scrollPosition[0] = binding.pieceMapScrollView.getScrollX();
+            scrollPosition[1] = binding.pieceMapScrollView.getScrollY();
             outState.putIntArray(TAG_SCROLL_POSITION, scrollPosition);
         }
-
-        Bundle b = new Bundle();
-        b.putBooleanArray(TAG_PIECES, pieces);
-        HeavyInstanceStorage storage = HeavyInstanceStorage.getInstance(getFragmentManager());
-        if (storage != null)
-            storage.pushData(HEAVY_STATE_TAG, b);
     }
 
     @Override
@@ -145,40 +131,15 @@ public class DetailTorrentPiecesFragment extends Fragment
         if (savedInstanceState != null) {
             scrollPosition = savedInstanceState.getIntArray(TAG_SCROLL_POSITION);
             if (scrollPosition != null && scrollPosition.length == 2)
-                pieceMapScrollView.scrollTo(scrollPosition[0], scrollPosition[1]);
+                binding.pieceMapScrollView.scrollTo(scrollPosition[0], scrollPosition[1]);
         }
     }
 
-    public void setPieces(boolean[] pieces)
+    private void subscribeAdapter()
     {
-        if (pieces == null)
-            return;
-
-        this.pieces = pieces;
-        pieceMap.setPieces(pieces);
-    }
-
-    public void setPiecesCountAndSize(int allPiecesCount, int pieceSize)
-    {
-        if (this.allPiecesCount != 0 && this.pieceSize != 0)
-            return;
-        this.allPiecesCount = allPiecesCount;
-        this.pieceSize = pieceSize;
-
-        updatePieceCounter();
-    }
-
-    public void setDownloadedPiecesCount(int downloadedPieces)
-    {
-        this.downloadedPieces = downloadedPieces;
-
-        updatePieceCounter();
-    }
-
-    private void updatePieceCounter()
-    {
-        String piecesTemplate = activity.getString(R.string.torrent_pieces_template);
-        String pieceLength = Formatter.formatFileSize(activity, pieceSize);
-        piecesCounter.setText(String.format(piecesTemplate, downloadedPieces, allPiecesCount, pieceLength));
+        disposables.add(viewModel.observePieces()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((pieces) -> binding.pieceMap.setPieces(pieces)));
     }
 }

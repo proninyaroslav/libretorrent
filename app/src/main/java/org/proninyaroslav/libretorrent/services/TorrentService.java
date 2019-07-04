@@ -32,9 +32,11 @@ import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
@@ -203,19 +205,19 @@ public class TorrentService extends Service
         }
 
         @Override
-        public void onTorrentFinished(String id)
+        public void onTorrentFinished(@NonNull String id)
         {
             checkShutdown();
         }
 
         @Override
-        public void onParamsApplied(String id, Throwable e)
+        public void onParamsApplied(@NotNull String id, Throwable e)
         {
             checkShutdown();
         }
 
         @Override
-        public void onTorrentRemoved(String id)
+        public void onTorrentRemoved(@NonNull String id)
         {
             checkShutdown();
         }

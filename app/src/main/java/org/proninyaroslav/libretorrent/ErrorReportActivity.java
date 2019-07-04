@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,67 +19,126 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
-import org.acra.dialog.BaseCrashReportDialog;
-import org.proninyaroslav.libretorrent.dialogs.old.ErrorReportAlertDialog;
+import android.text.Editable;
 
-public class ErrorReportActivity extends BaseCrashReportDialog
-        implements
-        ErrorReportAlertDialog.OnClickListener
+import com.google.android.material.textfield.TextInputEditText;
+
+import org.acra.ReportField;
+import org.acra.data.CrashReportData;
+import org.acra.dialog.CrashReportDialogHelper;
+import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.dialogs.ErrorReportDialog;
+
+import java.io.IOException;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
+public class ErrorReportActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")
     private static final String TAG = ErrorReportActivity.class.getSimpleName();
 
     private static final String TAG_ERROR_DIALOG = "error_dialog";
+    private ErrorReportDialog errDialog;
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private CrashReportDialogHelper helper;
 
     @Override
-    protected void init(@Nullable Bundle savedInstanceState)
+    public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        super.init(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-        if (getSupportFragmentManager().findFragmentByTag(TAG_ERROR_DIALOG) == null) {
-            ErrorReportAlertDialog errDialog = ErrorReportAlertDialog.newInstance(
-                    getApplicationContext(),
+        helper = new CrashReportDialogHelper(this, getIntent());
+        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        errDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERROR_DIALOG);
+
+        if (errDialog == null) {
+            errDialog = ErrorReportDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.app_error_occurred),
-                    Log.getStackTraceString(getException()),
-                    this);
+                    getStackTrace());
 
             errDialog.show(getSupportFragmentManager(), TAG_ERROR_DIALOG);
         }
     }
 
     @Override
-    public void onPositiveClicked(@Nullable View v)
+    public void onStop()
     {
-        String comment = "";
-        if (v != null) {
-            EditText editText = v.findViewById(R.id.comment);
-            if (editText != null)
-                comment = editText.getText().toString();
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
+        disposables.add(d);
+    }
+
+    private void handleAlertDialogEvent(BaseAlertDialog.Event event)
+    {
+        if (!event.dialogTag.equals(TAG_ERROR_DIALOG) || errDialog == null)
+            return;
+        switch (event.type) {
+            case POSITIVE_BUTTON_CLICKED:
+                Dialog dialog = errDialog.getDialog();
+                if (dialog != null) {
+                    TextInputEditText editText = dialog.findViewById(R.id.comment);
+                    Editable e = editText.getText();
+                    String comment = (e == null ? null : e.toString());
+
+                    helper.sendCrash(comment, null);
+                    finish();
+                }
+                break;
+            case NEGATIVE_BUTTON_CLICKED:
+                helper.cancelReports();
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void finish()
+    {
+        if (errDialog != null)
+            errDialog.dismiss();
+
+        super.finish();
+    }
+
+    private String getStackTrace()
+    {
+        Intent i = getIntent();
+        if (i == null)
+            return null;
+
+        CrashReportData crashReportData;
+        try {
+            crashReportData = helper.getReportData();
+
+        } catch (IOException e) {
+            return null;
         }
 
-        sendCrash(comment, "");
-
-        finish();
-    }
-
-    @Override
-    public void onNegativeClicked(@Nullable View v)
-    {
-        cancelReports();
-
-        finish();
-    }
-
-    @Override
-    public void onNeutralClicked(@Nullable View v)
-    {
-        /* Nothing */
+        return crashReportData.getString(ReportField.STACK_TRACE);
     }
 }

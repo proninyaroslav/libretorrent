@@ -19,14 +19,13 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.app.Application;
-
 import androidx.annotation.VisibleForTesting;
 import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
+import org.acra.annotation.AcraCore;
+import org.acra.annotation.AcraDialog;
+import org.acra.annotation.AcraMailSender;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
@@ -35,9 +34,9 @@ import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-@ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
-                mode = ReportingInteractionMode.DIALOG,
-                reportDialogClass = ErrorReportActivity.class)
+@AcraCore(buildConfigClass = BuildConfig.class)
+@AcraMailSender(mailTo = "proninyaroslav@mail.ru")
+@AcraDialog(reportDialogClass = ErrorReportActivity.class)
 
 /* TODO: temp */
 public class MainApplication extends MultiDexApplication

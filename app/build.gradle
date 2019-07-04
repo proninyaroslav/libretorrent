@@ -81,8 +81,9 @@ repositories {
     }
 }
 
-def LIBTORRENT4J_VERSION='1.2.0.22'
+def LIBTORRENT4J_VERSION='1.2.1.0'
 def ROOM_VERSION = "2.1.0"
+def ACRA_VERSION = "5.4.0"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -110,9 +111,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
 
+    /* ACRA */
+    implementation "ch.acra:acra-mail:$ACRA_VERSION"
+    implementation "ch.acra:acra-dialog:$ACRA_VERSION"
+
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
     implementation 'commons-io:commons-io:2.5'
-    implementation 'ch.acra:acra:4.11'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.takisoft.preferencex:preferencex:1.0.0'
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'

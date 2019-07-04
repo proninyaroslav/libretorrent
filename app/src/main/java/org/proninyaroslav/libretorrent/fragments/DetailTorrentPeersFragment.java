@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,50 +21,58 @@ package org.proninyaroslav.libretorrent.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.old.PeerListAdapter;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView;
-import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.adapters.PeerItem;
+import org.proninyaroslav.libretorrent.adapters.PeerListAdapter;
+import org.proninyaroslav.libretorrent.customviews.RecyclerViewDividerDecoration;
+import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentPeerListBinding;
+import org.proninyaroslav.libretorrent.viewmodel.DetailTorrentViewModel;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /*
  * The fragment for displaying bittorrent peer list. Part of DetailTorrentFragment.
  */
 
 public class DetailTorrentPeersFragment extends Fragment
-        implements
-        PeerListAdapter.ViewHolder.ClickListener
+    implements PeerListAdapter.ClickListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentPeersFragment.class.getSimpleName();
 
-    private static final String TAG_PEER_LIST = "peer_list";
-    private static final String TAG_LIST_PEER_STATE = "list_tracker_state";
+    private static final String TAG_LIST_TRACKER_STATE = "list_tracker_state";
 
     private AppCompatActivity activity;
-    private EmptyRecyclerView peerList;
+    private FragmentDetailTorrentPeerListBinding binding;
+    private DetailTorrentViewModel viewModel;
+    private LinearLayoutManager layoutManager;
+    private PeerListAdapter adapter;
     /* Save state scrolling */
     private Parcelable listPeerState;
-    private PeerListAdapter adapter;
-    private LinearLayoutManager layoutManager;
-
-    private ArrayList<PeerStateParcel> peers = new ArrayList<>();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public static DetailTorrentPeersFragment newInstance()
     {
@@ -76,27 +84,36 @@ public class DetailTorrentPeersFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_torrent_peer_list, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
     {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            this.activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity)context;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
+    public void onStop()
     {
-        super.onCreate(savedInstanceState);
+        super.onStop();
 
-        if (savedInstanceState != null)
-            peers = savedInstanceState.getParcelableArrayList(TAG_PEER_LIST);
+        disposables.clear();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void onStart()
     {
-        return inflater.inflate(R.layout.fragment_detail_torrent_peer_list, container, false);
+        super.onStart();
+
+        subscribeAdapter();
     }
 
     @Override
@@ -105,49 +122,37 @@ public class DetailTorrentPeersFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
-        peerList = activity.findViewById(R.id.peer_list);
-        if (peerList != null) {
-            layoutManager = new LinearLayoutManager(activity);
-            peerList.setLayoutManager(layoutManager);
-            peerList.setEmptyView(activity.findViewById(R.id.empty_view_peer_list));
+        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
 
-            /*
-             * A RecyclerView by default creates another copy of the ViewHolder in order to
-             * fade the views into each other. This causes the problem because the old ViewHolder gets
-             * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
-             */
-            DefaultItemAnimator animator = new DefaultItemAnimator()
-            {
-                @Override
-                public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder)
-                {
-                    return true;
-                }
-            };
-
-            int resId = R.drawable.list_divider;
-            if (Utils.isDarkTheme(activity.getApplicationContext()) ||
-                Utils.isBlackTheme(activity.getApplicationContext()))
-                resId = R.drawable.list_divider_dark;
-
-            peerList.setItemAnimator(animator);
-            peerList.addItemDecoration(
-                    new RecyclerViewDividerDecoration(activity.getApplicationContext(), resId));
-
-            adapter = new PeerListAdapter(peers, activity, R.layout.item_peers_list, this);
-            peerList.setAdapter(adapter);
-        }
+        layoutManager = new LinearLayoutManager(activity);
+        binding.peerList.setLayoutManager(layoutManager);
+        binding.peerList.setEmptyView(binding.emptyViewPeerList);
+        adapter = new PeerListAdapter(this);
+        /*
+         * A RecyclerView by default creates another copy of the ViewHolder in order to
+         * fade the views into each other. This causes the problem because the old ViewHolder gets
+         * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
+         */
+        DefaultItemAnimator animator = new DefaultItemAnimator() {
+            @Override
+            public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder) {
+                return true;
+            }
+        };
+        binding.peerList.setItemAnimator(animator);
+        TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{R.attr.divider});
+        binding.peerList.addItemDecoration(new RecyclerViewDividerDecoration(a.getDrawable(0)));
+        a.recycle();
+        binding.peerList.setAdapter(adapter);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        if (layoutManager != null)
-            listPeerState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_LIST_PEER_STATE, listPeerState);
-        outState.putParcelableArrayList(TAG_PEER_LIST, peers);
+        listPeerState = layoutManager.onSaveInstanceState();
+        outState.putParcelable(TAG_LIST_TRACKER_STATE, listPeerState);
 
         super.onSaveInstanceState(outState);
     }
@@ -158,7 +163,7 @@ public class DetailTorrentPeersFragment extends Fragment
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null)
-            listPeerState = savedInstanceState.getParcelable(TAG_LIST_PEER_STATE);
+            listPeerState = savedInstanceState.getParcelable(TAG_LIST_TRACKER_STATE);
     }
 
     @Override
@@ -166,37 +171,48 @@ public class DetailTorrentPeersFragment extends Fragment
     {
         super.onResume();
 
-        if (listPeerState != null && layoutManager != null)
+        if (listPeerState != null)
             layoutManager.onRestoreInstanceState(listPeerState);
     }
 
-    public void setPeerList(ArrayList<PeerStateParcel> peers)
+    private void subscribeAdapter()
     {
-        if (adapter == null)
-            return;
-
-        if (peers.isEmpty()) {
-            adapter.clearAll();
-            return;
-        }
-
-        this.peers = peers;
-
-        if (adapter.isEmpty())
-            adapter.addItems(peers);
-        else
-            adapter.updateItems(peers);
+        disposables.add(viewModel.observePeers()
+                .subscribeOn(Schedulers.io())
+                .flatMapSingle((children) ->
+                        Flowable.fromIterable(children)
+                                .map(PeerItem::new)
+                                .toList()
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((children) -> adapter.submitList(children)));
     }
 
     @Override
-    public boolean onItemLongClicked(int position, PeerStateParcel state)
+    public boolean onItemLongClick(@NonNull PeerItem item)
+    {
+        sharePeerIp(item.ip);
+
+        return true;
+    }
+
+    private void sharePeerIp(String ip)
     {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ip");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, state.ip);
-        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ip);
 
-        return true;
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+    }
+
+    /*
+     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
+     * to remove all nested fragments in two-pane interface mode
+     */
+
+    private FragmentManager getSupportFragmentManager()
+    {
+        return getChildFragmentManager();
     }
 }

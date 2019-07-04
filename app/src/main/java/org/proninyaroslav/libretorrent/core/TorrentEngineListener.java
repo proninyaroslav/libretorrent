@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,41 +19,43 @@
 
 package org.proninyaroslav.libretorrent.core;
 
+import androidx.annotation.NonNull;
+
 public abstract class TorrentEngineListener
 {
-    public void onTorrentAdded(String id) {};
+    public void onTorrentAdded(@NonNull String id) {};
 
-    public void onTorrentStateChanged(String id) {};
+    public void onTorrentStateChanged(@NonNull String id) {};
 
-    public void onTorrentFinished(String id) {};
+    public void onTorrentFinished(@NonNull String id) {};
 
-    public void onTorrentRemoved(String id) {};
+    public void onTorrentRemoved(@NonNull String id) {};
 
-    public void onTorrentPaused(String id) {};
+    public void onTorrentPaused(@NonNull String id) {};
 
-    public void onTorrentResumed(String id) {};
+    public void onTorrentResumed(@NonNull String id) {};
 
     public void onSessionStarted() {};
 
-    public void onTorrentMoving(String id){ };
+    public void onTorrentMoving(@NonNull String id){ };
 
-    public void onTorrentMoved(String id, boolean success){ };
+    public void onTorrentMoved(@NonNull String id, boolean success){ };
 
     public void onIpFilterParsed(boolean success) {};
 
-    public void onMagnetLoaded(String hash, byte[] bencode) {};
+    public void onMagnetLoaded(@NonNull String hash, byte[] bencode) {};
 
-    public void onTorrentMetadataLoaded(String id, Exception err) {};
+    public void onTorrentMetadataLoaded(@NonNull String id, Exception err) {};
 
-    public void onRestoreSessionError(String id) {};
+    public void onRestoreSessionError(@NonNull String id) {};
 
-    public void onTorrentError(String id, String errorMsg) {};
+    public void onTorrentError(@NonNull String id, String errorMsg) {};
 
-    public void onSessionError(String errorMsg) {};
+    public void onSessionError(@NonNull String errorMsg) {};
 
-    public void onNatError(String errorMsg) {};
+    public void onNatError(@NonNull String errorMsg) {};
 
-    public void onApplyingParams(String id) {};
+    public void onApplyingParams(@NonNull String id) {};
 
-    public void onParamsApplied(String id, Throwable e) {}
+    public void onParamsApplied(@NonNull String id, Throwable e) {}
 }

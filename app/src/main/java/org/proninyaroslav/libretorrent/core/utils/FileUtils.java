@@ -128,6 +128,19 @@ public class FileUtils
         return scheme.equals("content");
     }
 
+    /*
+     * Return true if the uri is a simple filesystem path
+     */
+
+    public static boolean isFileSystemPath(@NonNull Uri uri)
+    {
+        String scheme = uri.getScheme();
+        if (scheme == null)
+            throw new IllegalArgumentException("Scheme of " + uri.getPath() + " is null");
+
+        return scheme.equals("file");
+    }
+
     public static boolean deleteFile(@NonNull Context context,
                                      @NonNull Uri path) throws FileNotFoundException
     {
@@ -151,22 +164,54 @@ public class FileUtils
                                  @NonNull String fileName)
     {
         if (isSAFPath(dir)) {
-            DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
-            DocumentFile f;
-            try {
-                f = tree.findFile(fileName);
-
-            } catch (UnsupportedOperationException e) {
-                return null;
-            }
-
-            return (f != null ? f.getUri() : null);
+            return getSAFFileUri(context, dir, fileName);
 
         } else {
             File f = new File(dir.getPath(), fileName);
 
             return (f.exists() ? Uri.fromFile(f) : null);
         }
+    }
+
+    /*
+     * Returns a file (if exists) Uri by relative path (e.g foo/bar.txt)
+     * from the pointed directory
+     */
+
+    public static Uri getFileUri(@NonNull Context context,
+                                 @NonNull String relativePath,
+                                 @NonNull Uri dir)
+    {
+        if (isFileSystemPath(dir)) {
+            File f = new File(dir.getPath() + File.separator + relativePath);
+
+            return (f.exists() ? Uri.fromFile(f) : null);
+
+        } else {
+            Uri currNode = dir;
+
+            for (String nodeName : relativePath.split(File.separator)) {
+                if (currNode == null)
+                    break;
+                currNode = getSAFFileUri(context, currNode, nodeName);
+            }
+
+            return currNode;
+        }
+    }
+
+    private static Uri getSAFFileUri(Context context, Uri dir, String fileName)
+    {
+        DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
+        DocumentFile f;
+        try {
+            f = tree.findFile(fileName);
+
+        } catch (UnsupportedOperationException e) {
+            return null;
+        }
+
+        return (f != null ? f.getUri() : null);
     }
 
     public static boolean fileExists(@NonNull Context context,
@@ -501,5 +546,25 @@ public class FileUtils
     public static String normalizeFilesystemPath(@NonNull String path)
     {
         return (path.startsWith("file://") ? path : "file://" + path);
+    }
+
+    /*
+     * Returns path if the directory belongs to the filesystem,
+     * otherwise returns SAF name
+     */
+
+    public static String getDirName(@NonNull Context context,
+                                    @NonNull Uri dirPath)
+    {
+        if (FileUtils.isFileSystemPath(dirPath))
+            return dirPath.getPath();
+
+        DocumentFile dir = DocumentFile.fromTreeUri(context, dirPath);
+        if (dir == null)
+            return dirPath.getPath();
+
+        String name = dir.getName();
+
+        return (name == null ? dirPath.getPath() : name);
     }
 }

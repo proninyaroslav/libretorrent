@@ -89,6 +89,7 @@ public class AddTorrentParams extends BaseObservable
         this.dirName = dirName;
         notifyPropertyChanged(BR.dirName);
     }
+
     @Bindable
     public long getStorageFreeSpace()
     {

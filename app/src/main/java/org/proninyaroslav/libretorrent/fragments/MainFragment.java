@@ -63,7 +63,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
-import org.proninyaroslav.libretorrent.CreateTorrentActivity;
+import org.proninyaroslav.libretorrent.CreateTorrentActivityOld;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
@@ -76,6 +76,7 @@ import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
 import org.proninyaroslav.libretorrent.viewmodel.MainViewModel;
+import org.proninyaroslav.libretorrent.viewmodel.MsgMainViewModel;
 
 import java.util.Collections;
 
@@ -115,6 +116,7 @@ public class MainFragment extends Fragment
     private ActionMode actionMode;
     private FragmentMainBinding binding;
     private MainViewModel viewModel;
+    private MsgMainViewModel msgViewModel;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog deleteTorrentsDialog, addLinkDialog;
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -137,8 +139,23 @@ public class MainFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState)
+    {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        if (activity == null)
+            activity = (AppCompatActivity)getActivity();
+
+        viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
+        msgViewModel = ViewModelProviders.of(activity).get(MsgMainViewModel.class);
 
         adapter = new TorrentListAdapter(this);
         /*
@@ -172,7 +189,8 @@ public class MainFragment extends Fragment
 
         selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
             @Override
-            public void onSelectionChanged() {
+            public void onSelectionChanged()
+            {
                 super.onSelectionChanged();
 
                 if (selectionTracker.hasSelection() && actionMode == null) {
@@ -190,7 +208,8 @@ public class MainFragment extends Fragment
             }
 
             @Override
-            public void onSelectionRestored() {
+            public void onSelectionRestored()
+            {
                 super.onSelectionRestored();
 
                 actionMode = activity.startSupportActionMode(actionModeCallback);
@@ -205,19 +224,6 @@ public class MainFragment extends Fragment
         binding.fabButton.setContentCoverColour(Utils.getAttributeColor(activity, R.attr.background));
         binding.fabButton.getContentCoverView().getBackground().setAlpha(128);
         binding.fabButton.setSpeedDialMenuAdapter(fabAdapter);
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        if (activity == null)
-            activity = (AppCompatActivity)getActivity();
-
-        viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
 
         FragmentManager fm = getFragmentManager();
         if (fm != null) {
@@ -263,6 +269,8 @@ public class MainFragment extends Fragment
         subscribeAdapter();
         subscribeAlertDialog();
         subscribeForceSortAndFilter();
+        subscribeTorrentsDeleted();
+        subscribeMsgViewModel();
     }
 
     @Override
@@ -331,10 +339,13 @@ public class MainFragment extends Fragment
                 .subscribe((event) -> {
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
-                            if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null)
-                                deleteDownloads();
-                            else if (event.dialogTag.equals(TAG_ADD_LINK_DIALOG) && addLinkDialog != null)
+                            if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
+                                deleteTorrents();
+                                deleteTorrentsDialog.dismiss();
+                            } else if (event.dialogTag.equals(TAG_ADD_LINK_DIALOG) && addLinkDialog != null) {
                                 addLink();
+                                addLinkDialog.dismiss();
+                            }
                             break;
                         case NEGATIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null)
@@ -353,7 +364,7 @@ public class MainFragment extends Fragment
 
     private void subscribeForceSortAndFilter()
     {
-        disposables.add(viewModel.onForceSortAndFilter()
+        disposables.add(viewModel.observeForceSortAndFilter()
                 .filter((force) -> force)
                 .observeOn(Schedulers.io())
                 .subscribe((force) -> disposables.add(getAllTorrentsSingle())));
@@ -378,18 +389,45 @@ public class MainFragment extends Fragment
                         });
     }
 
+    private void subscribeTorrentsDeleted()
+    {
+        disposables.add(viewModel.observeTorrentsDeleted()
+                .subscribeOn(Schedulers.io())
+                .filter((id) -> {
+                    TorrentListItem item = adapter.getOpenedItem();
+                    if (item == null)
+                        return false;
+
+                    return id.equals(item.torrentId);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((__) -> {
+                    if (Utils.isTwoPane(activity))
+                        adapter.markAsOpen(null);
+                }));
+    }
+
+    private void subscribeMsgViewModel()
+    {
+        disposables.add(msgViewModel.observeTorrentDetailsClosed()
+                .subscribe((__) -> {
+                    if (Utils.isTwoPane(activity))
+                        adapter.markAsOpen(null);
+                }));
+    }
+
     @Override
     public void onItemClicked(@NonNull TorrentListItem item)
     {
         if (Utils.isTwoPane(activity))
             adapter.markAsOpen(item);
-        viewModel.openTorrentDetails(item.torrentId);
+        msgViewModel.torrentDetailsOpened(item.torrentId);
     }
 
     @Override
     public void onItemPauseClicked(@NonNull TorrentListItem item)
     {
-        viewModel.pauseResumeDownload(item.torrentId);
+        viewModel.pauseResumeTorrent(item.torrentId);
     }
 
     @Override
@@ -614,7 +652,7 @@ public class MainFragment extends Fragment
 
     private void createTorrentDialog()
     {
-        startActivity(new Intent(activity, CreateTorrentActivity.class));
+        startActivity(new Intent(activity, CreateTorrentActivityOld.class));
     }
 
     private boolean checkUrlField(Editable link, TextInputLayout layoutLink)
@@ -664,8 +702,6 @@ public class MainFragment extends Fragment
         Intent i = new Intent(activity, AddTorrentActivity.class);
         i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(url));
         startActivity(i);
-
-        addLinkDialog.dismiss();
     }
 
     private void initAddLinkDialog()
@@ -712,7 +748,7 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void deleteDownloads()
+    private void deleteTorrents()
     {
         Dialog dialog = deleteTorrentsDialog.getDialog();
         if (dialog == null)
@@ -730,10 +766,6 @@ public class MainFragment extends Fragment
 
         if (actionMode != null)
             actionMode.finish();
-        deleteTorrentsDialog.dismiss();
-
-        if (Utils.isTwoPane(activity))
-            adapter.markAsOpen(null);
     }
 
     private void selectAllTorrents()

@@ -4,7 +4,7 @@
     android:layout_width="match_parent">
 
     <fragment
-        class="org.proninyaroslav.libretorrent.fragments.FeedItemsFragment"
+        class="org.proninyaroslav.libretorrent.fragments.old.FeedItemsFragment"
         android:id="@+id/feed_items_fragmentContainer"
         android:layout_weight="1"
         android:layout_width="match_parent"

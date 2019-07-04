@@ -21,26 +21,23 @@ package org.proninyaroslav.libretorrent;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
 import org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 
-import java.util.ArrayList;
-
 public class DetailTorrentActivity extends AppCompatActivity
-        implements
-        DetailTorrentFragment.Callback,
-        FragmentCallback
+        implements FragmentCallback
 {
     @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentActivity.class.getSimpleName();
 
     public static final String TAG_TORRENT_ID = "torrent_id";
-
-    private DetailTorrentFragment detailTorrentFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -50,64 +47,22 @@ public class DetailTorrentActivity extends AppCompatActivity
 
         if (Utils.isTwoPane(this)) {
             finish();
-
             return;
         }
 
         setContentView(R.layout.activity_detail_torrent);
 
-        detailTorrentFragment = (DetailTorrentFragment)getSupportFragmentManager()
+        DetailTorrentFragment detailTorrentFragment = (DetailTorrentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.detail_torrent_fragmentContainer);
 
-        String id = getIntent().getStringExtra(TAG_TORRENT_ID);
-
-        detailTorrentFragment.setTorrentId(id);
-    }
-
-    @Override
-    public void onTorrentInfoChanged()
-    {
         if (detailTorrentFragment != null)
-            detailTorrentFragment.onTorrentInfoChanged();
+            detailTorrentFragment.setTorrentId(getIntent().getStringExtra(TAG_TORRENT_ID));
     }
 
     @Override
-    public void onTorrentInfoChangesUndone()
-    {
-        if (detailTorrentFragment != null)
-            detailTorrentFragment.onTorrentInfoChangesUndone();
-    }
-
-    @Override
-    public void onTorrentFilesChanged()
-    {
-        if (detailTorrentFragment != null)
-            detailTorrentFragment.onTorrentFilesChanged();
-    }
-
-    @Override
-    public void onTrackersChanged(ArrayList<String> trackers, boolean replace)
-    {
-        if (detailTorrentFragment != null)
-            detailTorrentFragment.onTrackersChanged(trackers, replace);
-    }
-
-    @Override
-    public void openFile(String relativePath)
-    {
-        if (detailTorrentFragment != null)
-            detailTorrentFragment.openFile(relativePath);
-    }
-
-    @Override
-    public void fragmentFinished(Intent intent, ResultCode code)
+    public void onFragmentFinished(@NonNull Fragment f, Intent intent,
+                                   @NonNull ResultCode code)
     {
         finish();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        detailTorrentFragment.onBackPressed();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,8 +19,11 @@
 
 package org.proninyaroslav.libretorrent.core.filetree;
 
+import androidx.annotation.Nullable;
+
 import org.libtorrent4j.Priority;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class FilePriority implements Serializable
@@ -83,5 +86,28 @@ public class FilePriority implements Serializable
             default:
                 return -1;
         }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object o)
+    {
+        if (!(o instanceof FilePriority))
+            return false;
+
+        if (o == this)
+            return true;
+
+         FilePriority filePriority = (FilePriority)o;
+
+         return priority == filePriority.priority && type.equals(filePriority.getType());
+    }
+
+    @Override
+    public String toString()
+    {
+        return "FilePriority{" +
+                "priority=" + priority +
+                ", type=" + type +
+                '}';
     }
 }

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.jetbrains.annotations.NotNull;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.Priority;
@@ -55,13 +56,9 @@ import org.proninyaroslav.libretorrent.receivers.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
 import org.proninyaroslav.libretorrent.services.TorrentService;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
-import org.proninyaroslav.libretorrent.worker.DeleteTorrentsWorker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -74,8 +71,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -262,15 +263,17 @@ public class TorrentEngine
         return Single.create((emitter) -> {
                 TorrentEngineListener listener = new TorrentEngineListener() {
                     @Override
-                    public void onMagnetLoaded(String hash, byte[] bencode)
+                    public void onMagnetLoaded(@NonNull String hash, byte[] bencode)
                     {
                         if (!targetHash.equals(hash))
                             return;
 
-                        if (bencode == null)
-                            emitter.onError(new NullPointerException());
-                        else
-                            sendInfoToEmitter(emitter, bencode);
+                        if (!emitter.isDisposed()) {
+                            if (bencode == null)
+                                emitter.onError(new NullPointerException());
+                            else
+                                sendInfoToEmitter(emitter, bencode);
+                        }
                     }
                 };
                 if (!emitter.isDisposed()) {
@@ -316,16 +319,6 @@ public class TorrentEngine
         session.cancelFetchMagnet(infoHash);
     }
 
-    public void pauseResumeTorrents(@NonNull List<String> ids)
-    {
-        for (String id : ids) {
-            if (id == null)
-                continue;
-
-            pauseResumeTorrent(id);
-        }
-    }
-
     public void pauseResumeTorrent(@NonNull String id)
     {
         disposables.add(Completable.fromRunnable(() -> {
@@ -348,37 +341,56 @@ public class TorrentEngine
 
     public void forceRecheckTorrents(@NonNull List<String> ids)
     {
-        if (!isRunning())
-            return;
+        disposables.add(Observable.fromIterable(ids)
+                .filter((id) -> id != null)
+                .subscribe((id) -> {
+                    if (!isRunning())
+                        return;
 
-        for (String id : ids) {
-            if (id == null)
-                continue;
-
-            TorrentDownload task = session.getTask(id);
-            if (task != null)
-                task.forceRecheck();
-        }
+                    TorrentDownload task = session.getTask(id);
+                    if (task != null)
+                        task.forceRecheck();
+                }));
     }
 
     public void forceAnnounceTorrents(@NonNull List<String> ids)
     {
-        if (!isRunning())
-            return;
+        disposables.add(Observable.fromIterable(ids)
+                .filter((id) -> id != null)
+                .subscribe((id) -> {
+                    if (!isRunning())
+                        return;
 
-        for (String id : ids) {
-            if (id == null)
-                continue;
-
-            TorrentDownload task = session.getTask(id);
-            if (task != null)
-                task.requestTrackerAnnounce();
-        }
+                    TorrentDownload task = session.getTask(id);
+                    if (task != null)
+                        task.requestTrackerAnnounce();
+                }));
     }
 
     public void deleteTorrents(@NonNull List<String> ids, boolean withFiles)
     {
-        runDeleteTorrentsWorker(ids.toArray(new String[0]), withFiles);
+        disposables.add(Observable.fromIterable(ids)
+                .observeOn(Schedulers.io())
+                .subscribe((id) -> {
+                    if (!isRunning())
+                        return;
+                    session.deleteTorrent(id, withFiles);
+                }));
+    }
+
+    public void deleteTrackers(@NonNull String id, @NonNull List<String> urls)
+    {
+        if (!isRunning())
+            return;
+
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return;
+
+        Set<String> trackers = task.getTrackersUrl();
+        trackers.removeAll(urls);
+
+        task.replaceTrackers(trackers);
     }
 
     public void replaceTrackers(@NonNull String id, @NonNull List<String> urls)
@@ -387,8 +399,10 @@ public class TorrentEngine
             return;
 
         TorrentDownload task = session.getTask(id);
-        if (task != null)
-            task.replaceTrackers(new HashSet<>(urls));
+        if (task == null)
+            return;
+
+        task.replaceTrackers(new HashSet<>(urls));
     }
 
     public void addTrackers(@NonNull String id, @NonNull List<String> urls)
@@ -411,6 +425,41 @@ public class TorrentEngine
             return null;
 
         return task.makeMagnet(includePriorities);
+    }
+
+    public Flowable<TorrentMetaInfo> observeTorrentMetaInfo(@NonNull String id)
+    {
+        return Flowable.create((emitter) -> {
+            TorrentEngineListener listener = new TorrentEngineListener() {
+                @Override
+                public void onTorrentMetadataLoaded(@NotNull String torrentId, Exception err)
+                {
+                    if (!id.equals(torrentId) || emitter.isCancelled())
+                        return;
+
+                    if (err == null) {
+                        TorrentMetaInfo info = getTorrentMetaInfo(id);
+                        if (info == null)
+                            emitter.onError(new NullPointerException());
+                        else
+                            emitter.onNext(info);
+                    } else {
+                        emitter.onError(err);
+                    }
+                }
+            };
+            if (!emitter.isCancelled()) {
+                TorrentMetaInfo info = getTorrentMetaInfo(id);
+                if (info == null)
+                    emitter.onError(new NullPointerException());
+                else
+                    emitter.onNext(info);
+
+                session.addListener(listener);
+                emitter.setDisposable(Disposables.fromAction(() ->
+                        session.removeListener(listener)));
+            }
+        }, BackpressureStrategy.LATEST);
     }
 
     public TorrentMetaInfo getTorrentMetaInfo(@NonNull String id)
@@ -474,7 +523,7 @@ public class TorrentEngine
             if (isRunning())
                 session.pauseAll();
 
-        }).observeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
           .subscribe());
     }
 
@@ -620,31 +669,8 @@ public class TorrentEngine
         List<AnnounceEntry> trackers = task.getTrackers();
         ArrayList<TrackerStateParcel> states = new ArrayList<>();
 
-        int statusDHT = session.isDHTEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-        int statusLSD = session.isLSDEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-        int statusPeX = session.isPeXEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-
-        states.add(new TrackerStateParcel(TrackerStateParcel.DHT_ENTRY_NAME, "", -1, statusDHT));
-        states.add(new TrackerStateParcel(TrackerStateParcel.LSD_ENTRY_NAME, "", -1, statusLSD));
-        states.add(new TrackerStateParcel(TrackerStateParcel.PEX_ENTRY_NAME, "", -1, statusPeX));
-
-        for (AnnounceEntry entry : trackers) {
-            String url = entry.url();
-            /* Prevent duplicate */
-            if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
-                continue;
-            }
-
+        for (AnnounceEntry entry : trackers)
             states.add(new TrackerStateParcel(entry));
-        }
 
         return states;
     }
@@ -673,18 +699,52 @@ public class TorrentEngine
         return states;
     }
 
-    /*
-     * Do not call directly
-     */
+    public int getUploadSpeedLimit(@NonNull String id)
+    {
+        if (!isRunning())
+            return -1;
 
-    public void doDeleteTorrent(@NonNull Torrent torrent, boolean withFiles)
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return -1;
+
+        return task.getUploadSpeedLimit();
+    }
+
+    public int getDownloadSpeedLimit(@NonNull String id)
+    {
+        if (!isRunning())
+            return -1;
+
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return -1;
+
+        return task.getDownloadSpeedLimit();
+    }
+
+    public void setDownloadSpeedLimit(@NonNull String id, int limit)
     {
         if (!isRunning())
             return;
 
-        TorrentDownload task = session.getTask(torrent.id);
-        if (task != null)
-            task.remove(withFiles);
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return;
+
+        task.setDownloadSpeedLimit(limit);
+    }
+
+    public void setUploadSpeedLimit(@NonNull String id, int limit)
+    {
+        if (!isRunning())
+            return;
+
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return;
+
+        task.setUploadSpeedLimit(limit);
     }
 
     private void saveTorrentFileIn(@NonNull Torrent torrent,
@@ -719,18 +779,6 @@ public class TorrentEngine
         FileUtils.copyFile(appContext, Uri.fromFile(torrent), ret.first);
 
         return true;
-    }
-
-    private void runDeleteTorrentsWorker(String[] idList, boolean withFiles)
-    {
-        Data data = new Data.Builder()
-                .putStringArray(DeleteTorrentsWorker.TAG_ID_LIST, idList)
-                .putBoolean(DeleteTorrentsWorker.TAG_WITH_FILES, withFiles)
-                .build();
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DeleteTorrentsWorker.class)
-                .setInputData(data)
-                .build();
-        WorkManager.getInstance().enqueue(work);
     }
 
     private void switchPowerReceiver()
@@ -870,7 +918,7 @@ public class TorrentEngine
     {
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())
-                session.restoreDownloads();
+                session.restoreTorrents();
 
         }).subscribeOn(Schedulers.io())
           .subscribe());
@@ -1025,7 +1073,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentAdded(String id)
+        public void onTorrentAdded(@NonNull String id)
         {
             if (checkPauseTorrents() && isRunning()) {
                 disposables.add(Completable.fromRunnable(() -> {
@@ -1039,7 +1087,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentFinished(String id)
+        public void onTorrentFinished(@NonNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1069,7 +1117,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMoving(String id)
+        public void onTorrentMoving(@NotNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1091,7 +1139,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMoved(String id, boolean success)
+        public void onTorrentMoved(@NotNull String id, boolean success)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1128,13 +1176,13 @@ public class TorrentEngine
         }
 
         @Override
-        public void onSessionError(String errorMsg)
+        public void onSessionError(@NotNull String errorMsg)
         {
            notifier.makeSessionErrorNotify(errorMsg);
         }
 
         @Override
-        public void onNatError(String errorMsg)
+        public void onNatError(@NotNull String errorMsg)
         {
             Log.e(TAG, "NAT error: " + errorMsg);
             if (pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
@@ -1143,7 +1191,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onRestoreSessionError(String id)
+        public void onRestoreSessionError(@NotNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1166,7 +1214,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMetadataLoaded(String id, Exception err)
+        public void onTorrentMetadataLoaded(@NotNull String id, Exception err)
         {
             if (err != null) {
                 Log.e(TAG, "Load metadata error: ");

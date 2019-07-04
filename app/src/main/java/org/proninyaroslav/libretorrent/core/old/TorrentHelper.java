@@ -526,31 +526,31 @@ public class TorrentHelper
         List<AnnounceEntry> trackers = task.getTrackers();
         ArrayList<TrackerStateParcel> states = new ArrayList<>();
 
-        int statusDHT = TorrentEngine.getInstance().isDHTEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-        int statusLSD = TorrentEngine.getInstance().isLSDEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-        int statusPeX = TorrentEngine.getInstance().isPeXEnabled() ?
-                TrackerStateParcel.Status.WORKING :
-                TrackerStateParcel.Status.NOT_WORKING;
-
-        states.add(new TrackerStateParcel(TrackerStateParcel.DHT_ENTRY_NAME, "", -1, statusDHT));
-        states.add(new TrackerStateParcel(TrackerStateParcel.LSD_ENTRY_NAME, "", -1, statusLSD));
-        states.add(new TrackerStateParcel(TrackerStateParcel.PEX_ENTRY_NAME, "", -1, statusPeX));
-
-        for (AnnounceEntry entry : trackers) {
-            String url = entry.url();
-            /* Prevent duplicate */
-            if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
-                    url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
-                continue;
-            }
-
-            states.add(new TrackerStateParcel(entry));
-        }
+//        int statusDHT = TorrentEngine.getInstance().isDHTEnabled() ?
+//                TrackerStateParcel.Status.WORKING :
+//                TrackerStateParcel.Status.NOT_WORKING;
+//        int statusLSD = TorrentEngine.getInstance().isLSDEnabled() ?
+//                TrackerStateParcel.Status.WORKING :
+//                TrackerStateParcel.Status.NOT_WORKING;
+//        int statusPeX = TorrentEngine.getInstance().isPeXEnabled() ?
+//                TrackerStateParcel.Status.WORKING :
+//                TrackerStateParcel.Status.NOT_WORKING;
+//
+//        states.add(new TrackerStateParcel(TrackerStateParcel.DHT_ENTRY_NAME, "", -1, statusDHT));
+//        states.add(new TrackerStateParcel(TrackerStateParcel.LSD_ENTRY_NAME, "", -1, statusLSD));
+//        states.add(new TrackerStateParcel(TrackerStateParcel.PEX_ENTRY_NAME, "", -1, statusPeX));
+//
+//        for (AnnounceEntry entry : trackers) {
+//            String url = entry.url();
+//            /* Prevent duplicate */
+//            if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
+//                    url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
+//                    url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
+//                continue;
+//            }
+//
+//            states.add(new TrackerStateParcel(entry));
+//        }
 
         return states;
     }

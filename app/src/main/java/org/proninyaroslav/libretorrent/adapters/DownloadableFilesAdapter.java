@@ -24,19 +24,17 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
-import org.proninyaroslav.libretorrent.core.filetree.FileNode;
+import org.proninyaroslav.libretorrent.databinding.ItemTorrentDownloadableFileBinding;
 
 import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * The adapter for directory or file chooser dialog.
  */
 
-public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, DownloadableFilesAdapter.ViewHolder>
+public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, DownloadableFilesAdapter.ViewHolder>
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadableFilesAdapter.class.getSimpleName();
@@ -63,9 +61,13 @@ public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, Downl
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_torrent_downloadable_file, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemTorrentDownloadableFileBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.item_torrent_downloadable_file,
+                parent,
+                false);
 
-        return new ViewHolder(v);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, Downl
     }
 
     @Override
-    public void submitList(@Nullable List<BencodeFileTree> list)
+    public void submitList(@Nullable List<DownloadableFileItem> list)
     {
         if (list != null)
             Collections.sort(list);
@@ -83,18 +85,18 @@ public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, Downl
         super.submitList(list);
     }
 
-    public static final DiffUtil.ItemCallback<BencodeFileTree> diffCallback = new DiffUtil.ItemCallback<BencodeFileTree>()
+    public static final DiffUtil.ItemCallback<DownloadableFileItem> diffCallback = new DiffUtil.ItemCallback<DownloadableFileItem>()
     {
         @Override
-        public boolean areContentsTheSame(@NonNull BencodeFileTree oldItem,
-                                          @NonNull BencodeFileTree newItem)
+        public boolean areContentsTheSame(@NonNull DownloadableFileItem oldItem,
+                                          @NonNull DownloadableFileItem newItem)
         {
             return oldItem.equals(newItem);
         }
 
         @Override
-        public boolean areItemsTheSame(@NonNull BencodeFileTree oldItem,
-                                       @NonNull BencodeFileTree newItem)
+        public boolean areItemsTheSame(@NonNull DownloadableFileItem oldItem,
+                                       @NonNull DownloadableFileItem newItem)
         {
             return oldItem.equals(newItem);
         }
@@ -102,61 +104,55 @@ public class DownloadableFilesAdapter extends ListAdapter<BencodeFileTree, Downl
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView fileName;
-        private ImageView fileIcon;
-        private CheckBox selected;
-        private TextView fileSize;
+        private ItemTorrentDownloadableFileBinding binding;
 
-        public ViewHolder(View itemView)
+        public ViewHolder(ItemTorrentDownloadableFileBinding binding)
         {
-            super(itemView);
+            super(binding.getRoot());
 
-            fileName = itemView.findViewById(R.id.file_name);
-            fileIcon = itemView.findViewById(R.id.file_icon);
-            selected = itemView.findViewById(R.id.file_selected);
-            fileSize = itemView.findViewById(R.id.file_size);
+            this.binding = binding;
         }
 
-        void bind(BencodeFileTree item, ClickListener listener)
+        void bind(DownloadableFileItem item, ClickListener listener)
         {
             Context context = itemView.getContext();
 
             itemView.setOnClickListener((v) -> {
-                if (item.getType() == FileNode.Type.FILE) {
+                if (item.isFile) {
                     /* Check file if it clicked */
-                    selected.performClick();
+                    binding.selected.performClick();
                 }
                 if (listener != null)
                     listener.onItemClicked(item);
             });
-            selected.setOnClickListener((View v) -> {
+            binding.selected.setOnClickListener((View v) -> {
                 if (listener != null)
-                    listener.onItemCheckedChanged(item, selected.isChecked());
+                    listener.onItemCheckedChanged(item, binding.selected.isChecked());
             });
 
-            fileName.setText(item.getName());
+            binding.name.setText(item.name);
 
-            if (item.getType() == FileNode.Type.DIR)
-                fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-            else if (item.getType() == FileNode.Type.FILE)
-                fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
+            if (item.isFile)
+                binding.icon.setImageResource(R.drawable.ic_file_grey600_24dp);
+            else
+                binding.icon.setImageResource(R.drawable.ic_folder_grey600_24dp);
 
-            if (item.getName().equals(BencodeFileTree.PARENT_DIR)) {
-                selected.setVisibility(View.GONE);
-                fileSize.setVisibility(View.GONE);
+            if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
+                binding.selected.setVisibility(View.GONE);
+                binding.size.setVisibility(View.GONE);
             } else {
-                selected.setVisibility(View.VISIBLE);
-                selected.setChecked(item.isSelected());
-                fileSize.setVisibility(View.VISIBLE);
-                fileSize.setText(Formatter.formatFileSize(context, item.size()));
+                binding.selected.setVisibility(View.VISIBLE);
+                binding.selected.setChecked(item.selected);
+                binding.size.setVisibility(View.VISIBLE);
+                binding.size.setText(Formatter.formatFileSize(context, item.size));
             }
         }
     }
 
     public interface ClickListener
     {
-        void onItemClicked(BencodeFileTree item);
+        void onItemClicked(@NonNull DownloadableFileItem item);
 
-        void onItemCheckedChanged(BencodeFileTree node, boolean selected);
+        void onItemCheckedChanged(@NonNull DownloadableFileItem item, boolean selected);
     }
 }

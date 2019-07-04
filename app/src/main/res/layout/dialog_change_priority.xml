@@ -27,7 +27,6 @@
             android:text="@string/change_priority_normal" />
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/dialog_priority_high"
             android:layout_width="wrap_content"
             android:layout_height="48dp"

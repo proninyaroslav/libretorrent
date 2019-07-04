@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
@@ -105,6 +106,11 @@ public class TorrentStateProvider
         return makePiecesFlowable(id);
     }
 
+    public Flowable<String> observeTorrentsDeleted()
+    {
+        return torrentsDeletedFlowable();
+    }
+
     private Flowable<BasicStateParcel> makeStateFlowable(String id)
     {
         return Flowable.create((emitter) -> {
@@ -125,7 +131,7 @@ public class TorrentStateProvider
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentStateChanged(String torrentId)
+                public void onTorrentStateChanged(@NonNull String torrentId)
                 {
                     try {
                         handleEvent.accept(torrentId);
@@ -137,7 +143,7 @@ public class TorrentStateProvider
                 }
 
                 @Override
-                public void onTorrentPaused(String torrentId)
+                public void onTorrentPaused(@NotNull String torrentId)
                 {
                     try {
                         handleEvent.accept(torrentId);
@@ -176,7 +182,8 @@ public class TorrentStateProvider
             Runnable handleState = () -> {
                 List<BasicStateParcel> newStateList = engine.makeBasicStateListSync();
                 List<BasicStateParcel> oldStateList = stateList.get();
-                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
+                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
+                    !oldStateList.containsAll(newStateList)) {
                     stateList.set(newStateList);
                     if (!emitter.isCancelled())
                         emitter.onNext(newStateList);
@@ -185,19 +192,19 @@ public class TorrentStateProvider
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentStateChanged(String torrentId)
+                public void onTorrentStateChanged(@NonNull String torrentId)
                 {
                     handleState.run();
                 }
 
                 @Override
-                public void onTorrentPaused(String torrentId)
+                public void onTorrentPaused(@NotNull String torrentId)
                 {
                     handleState.run();
                 }
 
                 @Override
-                public void onTorrentRemoved(String torrentId)
+                public void onTorrentRemoved(@NonNull String torrentId)
                 {
                     handleState.run();
                 }
@@ -280,7 +287,8 @@ public class TorrentStateProvider
                     .subscribe((__) -> {
                                 List<TrackerStateParcel> newStateList = engine.makeTrackerStateParcelList(id);
                                 List<TrackerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
+                                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
+                                    !oldStateList.containsAll(newStateList)) {
                                     stateList.set(newStateList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newStateList);
@@ -315,7 +323,8 @@ public class TorrentStateProvider
                     .subscribe((__) -> {
                                 List<PeerStateParcel> newStateList = engine.makePeerStateParcelList(id);
                                 List<PeerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || !oldStateList.containsAll(newStateList) || newStateList.isEmpty()) {
+                                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
+                                    !oldStateList.containsAll(newStateList)) {
                                     stateList.set(newStateList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newStateList);
@@ -374,5 +383,26 @@ public class TorrentStateProvider
             }
 
         }, BackpressureStrategy.LATEST);
+    }
+
+    private Flowable<String> torrentsDeletedFlowable()
+    {
+        return Flowable.create((emitter) -> {
+            TorrentEngineListener listener = new TorrentEngineListener() {
+                @Override
+                public void onTorrentRemoved(@NonNull String id)
+                {
+                    if (!emitter.isCancelled())
+                        emitter.onNext(id);
+                }
+            };
+
+            if (!emitter.isCancelled()) {
+                engine.addListener(listener);
+                emitter.setDisposable(Disposables.fromAction(() ->
+                        engine.removeListener(listener)));
+            }
+
+        }, BackpressureStrategy.DROP);
     }
 }

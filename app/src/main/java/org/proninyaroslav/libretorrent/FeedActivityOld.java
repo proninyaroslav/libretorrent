@@ -25,13 +25,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
-import org.proninyaroslav.libretorrent.fragments.FeedFragment;
+import org.proninyaroslav.libretorrent.fragments.old.FragmentCallback;
+import org.proninyaroslav.libretorrent.fragments.old.FeedFragment;
 
-public class FeedActivity extends AppCompatActivity implements FragmentCallback
+public class FeedActivityOld extends AppCompatActivity implements FragmentCallback
 {
     @SuppressWarnings("unused")
-    private static final String TAG = FeedActivity.class.getSimpleName();
+    private static final String TAG = FeedActivityOld.class.getSimpleName();
 
     public static final String ACTION_ADD_CHANNEL_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_CHANNEL_SHORTCUT";
 
