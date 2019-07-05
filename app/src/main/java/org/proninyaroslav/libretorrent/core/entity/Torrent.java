@@ -23,25 +23,20 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.libtorrent4j.Priority;
-import org.proninyaroslav.libretorrent.core.storage.converter.PriorityListConverter;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
 /*
  * The class encapsulates the torrent file and its meta information.
  */
 
 @Entity
-public class Torrent implements Parcelable, Comparable<Torrent>
+public class Torrent implements Parcelable
 {
     /* Usually torrent SHA-1 hash */
     @NonNull
@@ -49,62 +44,47 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public String id;
     @NonNull
     public String name;
-    /*
-     * Filesystem path to the torrent file in app data
-     * (or magnet URI if downloadingMetadata = true)
-     */
-    @NonNull
-    private String source;
     @NonNull
     public Uri downloadPath;
-    /*
-     * The index position in array must be
-     * equal to the priority position in array
-     *
-     * Warning: read-only field, do not change directly,
-     *          only trough setFilesystemPath or setMagnetPath
-     */
-    @NonNull
-    @TypeConverters({PriorityListConverter.class})
-    /* May be empty */
-    public List<Priority> filePriorities;
-    public boolean sequentialDownload = false;
-    public boolean finished = false;
-    public boolean paused = false;
-    /*
-     * Warning: read-only field, do not change directly,
-     *          only trough setFilesystemPath or setMagnetPath
-     */
-    public boolean downloadingMetadata = false;
     public long dateAdded;
     public String error;
+    /*
+     * Warning: read-only field, do not change directly,
+     *          only trough setMagnetUri
+     */
+    private String magnet;
+    public boolean downloadingMetadata = false;
 
+    @Ignore
     public Torrent(@NonNull String id,
-                   @NonNull String source,
                    @NonNull Uri downloadPath,
                    @NonNull String name,
-                   @NonNull List<Priority> filePriorities,
                    long dateAdded)
     {
         this.id = id;
-        this.source = source;
         this.name = name;
-        this.filePriorities = filePriorities;
         this.downloadPath = downloadPath;
         this.dateAdded = dateAdded;
+    }
+
+    public Torrent(@NonNull String id,
+                   String magnet,
+                   @NonNull Uri downloadPath,
+                   @NonNull String name,
+                   long dateAdded)
+    {
+        this(id, downloadPath, name, dateAdded);
+
+        this.magnet = magnet;
     }
 
     @Ignore
     public Torrent(Parcel source)
     {
         id = source.readString();
-        this.source = source.readString();
+        magnet = source.readString();
         downloadPath = source.readParcelable(Uri.class.getClassLoader());
-        filePriorities = source.readArrayList(Priority.class.getClassLoader());
         name = source.readString();
-        sequentialDownload = source.readByte() != 0;
-        finished = source.readByte() != 0;
-        paused = source.readByte() != 0;
         downloadingMetadata = source.readByte() != 0;
         dateAdded = source.readLong();
         error = source.readString();
@@ -116,20 +96,14 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     }
 
     @NonNull
-    public String getSource()
+    public String getMagnet()
     {
-        return source;
-    }
-
-    public void setFilesystemPath(@NonNull String path)
-    {
-        source = path;
-        downloadingMetadata = false;
+        return magnet;
     }
 
     public void setMagnetUri(@NonNull String magnet)
     {
-        source = magnet;
+        this.magnet = magnet;
         downloadingMetadata = true;
     }
 
@@ -143,13 +117,9 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeString(id);
-        dest.writeString(source);
+        dest.writeString(magnet);
         dest.writeParcelable(downloadPath, flags);
-        dest.writeList(filePriorities);
         dest.writeString(name);
-        dest.writeByte((byte)(sequentialDownload ? 1 : 0));
-        dest.writeByte((byte)(finished ? 1 : 0));
-        dest.writeByte((byte)(paused ? 1 : 0));
         dest.writeByte((byte)(downloadingMetadata ? 1 : 0));
         dest.writeLong(dateAdded);
         dest.writeString(error);
@@ -172,12 +142,6 @@ public class Torrent implements Parcelable, Comparable<Torrent>
             };
 
     @Override
-    public int compareTo(@NonNull Torrent another)
-    {
-        return name.compareTo(another.name);
-    }
-
-    @Override
     public int hashCode()
     {
         return id.hashCode();
@@ -194,16 +158,12 @@ public class Torrent implements Parcelable, Comparable<Torrent>
     {
         return "Torrent{" +
                 "id='" + id + '\'' +
-                ", source='" + source + '\'' +
-                ", downloadPath='" + downloadPath + '\'' +
-                ", filePriorities=" + filePriorities +
                 ", name='" + name + '\'' +
-                ", sequentialDownload=" + sequentialDownload +
-                ", finished=" + finished +
-                ", paused=" + paused +
-                ", downloadingMetadata=" + downloadingMetadata +
+                ", downloadPath=" + downloadPath +
                 ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
-                ", error=" + error +
+                ", error='" + error + '\'' +
+                ", magnet='" + magnet + '\'' +
+                ", downloadingMetadata=" + downloadingMetadata +
                 '}';
     }
 }

@@ -964,7 +964,8 @@ public class TorrentDownload
         repo.updateTorrent(torrent);
     }
 
-    public long getETA() {
+    public long getETA()
+    {
         if (!th.isValid())
             return 0;
         if (getStateCode() != TorrentStateCode.DOWNLOADING)

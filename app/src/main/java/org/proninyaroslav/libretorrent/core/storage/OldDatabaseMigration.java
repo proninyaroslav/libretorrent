@@ -31,6 +31,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Deprecated
 public class OldDatabaseMigration
 {
+    private static class OldDataModel
+    {
+        private static final String TORRENT_FILE_NAME = "torrent";
+        private static final String TORRENT_RESUME_FILE_NAME = "fastresume";
+        private static final String TORRENT_SESSION_FILE = "session";
+    }
+
     public static Migration[] getMigrations()
     {
         return new Migration[]{MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5};

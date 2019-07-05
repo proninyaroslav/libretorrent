@@ -35,6 +35,7 @@ import org.libtorrent4j.SessionManager;
 import org.libtorrent4j.SessionParams;
 import org.libtorrent4j.SettingsPack;
 import org.libtorrent4j.Sha1Hash;
+import org.libtorrent4j.TcpEndpoint;
 import org.libtorrent4j.TorrentFlags;
 import org.libtorrent4j.TorrentHandle;
 import org.libtorrent4j.TorrentInfo;
@@ -60,6 +61,7 @@ import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
 import org.libtorrent4j.swig.sha1_hash;
 import org.libtorrent4j.swig.string_vector;
+import org.libtorrent4j.swig.tcp_endpoint_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
@@ -365,37 +367,19 @@ public class TorrentSession extends SessionManager
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata()) {
                 loadTask.putMagnet(torrent.getSource(), new File(torrent.getSource()));
+
             } else {
-                TorrentInfo ti;
-                try {
-                    ti = new TorrentInfo(new File(torrent.getSource()));
-
-                } catch (Exception e) {
-                    Log.e(TAG, "Unable to restore torrent from previous session: " + torrent.id, e);
-                    repo.deleteTorrent(appContext, torrent);
-                    notifyListeners((listener) ->
-                            listener.onRestoreSessionError(torrent.id));
-                    continue;
-                }
-
-                List<Priority> priorities = torrent.filePriorities;
-                if (priorities.size() != ti.numFiles()) {
-                    Log.e(TAG, "Unable to restore torrent from previous session: number of files and priorities doesn't match");
-                    notifyListeners((listener) ->
-                            listener.onRestoreSessionError(torrent.id));
-                    continue;
-                }
-
                 /* TODO: SAF support */
                 if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
                     throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
 
-                File saveDir = new File(torrent.downloadPath.getPath());
                 String resumeFile = repo.getResumeFile(appContext, torrent.id);
-
-                loadTask.putTorrentFile(new File(torrent.getSource()), saveDir,
-                        (resumeFile == null ? null : new File(resumeFile)),
-                        priorities.toArray(new Priority[0]));
+                if (resumeFile == null) {
+                    Log.e(TAG, "Unable to restore torrent from previous session: resume file not found");
+                    notifyListeners((listener) ->
+                            listener.onRestoreSessionError(torrent.id));
+                }
+                loadTask.putTorrentFile(resumeFile == null ? null : new File(resumeFile));
             }
             addTorrentsQueue.put(torrent.id, torrent);
             loadTorrentsQueue.add(loadTask);
@@ -1119,10 +1103,8 @@ public class TorrentSession extends SessionManager
     private final class LoadTorrentTask implements Runnable
     {
         private String torrentId;
-        private File torrentFile = null;
         private File saveDir = null;
         private File resume = null;
-        private Priority[] priorities = null;
         private String uri = null;
         private boolean isMagnet;
 
@@ -1131,12 +1113,9 @@ public class TorrentSession extends SessionManager
             this.torrentId = torrentId;
         }
 
-        public void putTorrentFile(File torrentFile, File saveDir, File resume, Priority[] priorities)
+        public void putTorrentFile(File resume)
         {
-            this.torrentFile = torrentFile;
-            this.saveDir = saveDir;
             this.resume = resume;
-            this.priorities = priorities;
             isMagnet = false;
         }
 
@@ -1157,7 +1136,7 @@ public class TorrentSession extends SessionManager
                 if (isMagnet)
                     download(uri, saveDir);
                 else
-                    download(new TorrentInfo(torrentFile), saveDir, resume, priorities, null);
+                    restoreDownload(resume);
 
             } catch (Exception e) {
                 Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
@@ -1169,5 +1148,25 @@ public class TorrentSession extends SessionManager
                         listener.onRestoreSessionError(torrentId));
             }
         }
+    }
+
+    private void restoreDownload(File resumeFile) throws IOException
+    {
+        if (swig() == null)
+            return;
+
+        byte[] data = FileUtils.readFileToByteArray(resumeFile);
+        error_code ec = new error_code();
+        add_torrent_params p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(data), ec);
+        if (ec.value() != 0)
+            throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
+
+        torrent_flags_t flags = p.getFlags();
+
+        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+
+        p.setFlags(flags);
+
+        swig().async_add_torrent(p);
     }
 }

@@ -21,10 +21,12 @@ package org.proninyaroslav.libretorrent.core.storage;
 
 import android.content.Context;
 
+import org.proninyaroslav.libretorrent.core.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.storage.converter.UriConverter;
+import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
 
@@ -36,6 +38,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {Torrent.class,
+        FastResume.class,
         FeedChannel.class,
         FeedItem.class},
         version = 5)
@@ -48,6 +51,8 @@ public abstract class AppDatabase extends RoomDatabase
     private static AppDatabase INSTANCE;
 
     public abstract TorrentDao torrentDao();
+
+    public abstract FastResumeDao fastResumeDao();
 
     public abstract FeedDao feedDao();
 
