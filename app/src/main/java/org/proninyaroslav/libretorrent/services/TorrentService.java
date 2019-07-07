@@ -237,7 +237,7 @@ public class TorrentService extends Service
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateForegroundNotify,
-                        (Throwable t) -> Log.e(TAG, "Getting torrents torrentInfo error: "
+                        (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
     }

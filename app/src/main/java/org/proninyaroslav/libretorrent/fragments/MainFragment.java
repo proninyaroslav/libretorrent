@@ -110,7 +110,7 @@ public class MainFragment extends Fragment
     private AppCompatActivity activity;
     private TorrentListAdapter adapter;
     private LinearLayoutManager layoutManager;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable torrentListState;
     private SelectionTracker<TorrentListItem> selectionTracker;
     private ActionMode actionMode;
@@ -328,7 +328,7 @@ public class MainFragment extends Fragment
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
                         (Throwable t) -> {
-                            Log.e(TAG, "Getting torrent torrentInfo list error: " +
+                            Log.e(TAG, "Getting torrent info list error: " +
                                     Log.getStackTraceString(t));
                         });
     }
@@ -384,7 +384,7 @@ public class MainFragment extends Fragment
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
                         (Throwable t) -> {
-                            Log.e(TAG, "Getting torrent torrentInfo list error: " +
+                            Log.e(TAG, "Getting torrent info list error: " +
                                     Log.getStackTraceString(t));
                         });
     }

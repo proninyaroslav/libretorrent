@@ -91,7 +91,7 @@ public class FileManagerDialog extends AppCompatActivity
 
     private ActivityFilemanagerDialogBinding binding;
     private LinearLayoutManager layoutManager;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable filesListState;
     private FileManagerAdapter adapter;
 

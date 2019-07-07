@@ -70,7 +70,7 @@ public class DetailTorrentPeersFragment extends Fragment
     private DetailTorrentViewModel viewModel;
     private LinearLayoutManager layoutManager;
     private PeerListAdapter adapter;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable listPeerState;
     private CompositeDisposable disposables = new CompositeDisposable();
 

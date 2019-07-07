@@ -81,7 +81,7 @@ public class FeedItemsFragment extends Fragment
     private LinearLayoutManager layoutManager;
     private EmptyRecyclerView itemList;
     private SwipeRefreshLayout swipeRefreshLayout;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable itemsListState;
     private ArrayList<FeedItem> items = new ArrayList<>();
     private String feedUrl;

@@ -129,7 +129,7 @@ public class FeedFragment extends Fragment
     private LinearLayoutManager layoutManager;
     private EmptyRecyclerView channelList;
     private SwipeRefreshLayout swipeRefreshLayout;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable channelListState;
     private ArrayList<FeedChannel> selectedChannels = new ArrayList<>();
     private boolean inActionMode = false;

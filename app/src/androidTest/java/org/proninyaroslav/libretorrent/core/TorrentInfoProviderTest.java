@@ -60,13 +60,13 @@ public class TorrentInfoProviderTest extends AbstractTest
         Disposable d = stateProvider.observeInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((state) -> {
-                    Log.d(TAG, "torrentInfo=" + state);
-                    assertEquals(params.sha1hash, state.torrentId);
-                    if (state.stateCode == TorrentStateCode.FINISHED ||
-                        state.stateCode == TorrentStateCode.SEEDING) {
+                .subscribe((info) -> {
+                    Log.d(TAG, "info=" + info);
+                    assertEquals(params.sha1hash, info.torrentId);
+                    if (info.stateCode == TorrentStateCode.FINISHED ||
+                        info.stateCode == TorrentStateCode.SEEDING) {
                         c.countDown();
-                        assertEquals(100, state.progress);
+                        assertEquals(100, info.progress);
                     }
                 });
 
@@ -92,9 +92,9 @@ public class TorrentInfoProviderTest extends AbstractTest
         Disposable d = stateProvider.observeAdvancedInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((state) -> {
-                    Log.d(TAG, "torrentInfo=" + state);
-                    assertEquals(params.sha1hash, state.torrentId);
+                .subscribe((info) -> {
+                    Log.d(TAG, "info=" + info);
+                    assertEquals(params.sha1hash, info.torrentId);
                     c.countDown();
                 });
 
@@ -120,13 +120,13 @@ public class TorrentInfoProviderTest extends AbstractTest
         Disposable d = stateProvider.observeTrackersInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((stateList) -> {
-                    if (!stateList.isEmpty()) {
+                .subscribe((infoList) -> {
+                    if (!infoList.isEmpty()) {
                         c.countDown();
-                        for (TrackerInfo state : stateList) {
-                            Log.d(TAG, "torrentInfo=" + state);
-                            assertNotNull(state);
-                            assertNotNull(state.url);
+                        for (TrackerInfo info : infoList) {
+                            Log.d(TAG, "info=" + info);
+                            assertNotNull(info);
+                            assertNotNull(info.url);
                         }
                     }
                 });
@@ -153,13 +153,13 @@ public class TorrentInfoProviderTest extends AbstractTest
         Disposable d = stateProvider.observePeersInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((stateList) -> {
-                    if (!stateList.isEmpty()) {
+                .subscribe((infoList) -> {
+                    if (!infoList.isEmpty()) {
                         c.countDown();
-                        for (PeerInfo state : stateList) {
-                            Log.d(TAG, "torrentInfo=" + state);
-                            assertNotNull(state);
-                            assertNotNull(state.ip);
+                        for (PeerInfo info : infoList) {
+                            Log.d(TAG, "info=" + info);
+                            assertNotNull(info);
+                            assertNotNull(info.ip);
                         }
                     }
                 });

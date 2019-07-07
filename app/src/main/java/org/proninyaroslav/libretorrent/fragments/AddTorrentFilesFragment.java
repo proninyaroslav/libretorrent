@@ -76,7 +76,7 @@ public class AddTorrentFilesFragment extends Fragment
     private AddTorrentViewModel viewModel;
     private LinearLayoutManager layoutManager;
     private DownloadableFilesAdapter adapter;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable listFilesState;
     private CompositeDisposable disposable = new CompositeDisposable();
 

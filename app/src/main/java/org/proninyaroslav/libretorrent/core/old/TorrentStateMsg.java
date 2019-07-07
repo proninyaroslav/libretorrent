@@ -25,7 +25,7 @@ import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 
 /*
- * Provides message with information about the torrent torrentInfo.
+ * Provides message with information about the torrent state.
  */
 
 public class TorrentStateMsg

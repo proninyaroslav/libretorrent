@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 /*
  * The class provides a package model with dynamically
- * changing information about torrentInfo of the torrent.
+ * changing information about state of the torrent.
  */
 
 public class AdvancedTorrentInfo extends AbstractInfoParcel

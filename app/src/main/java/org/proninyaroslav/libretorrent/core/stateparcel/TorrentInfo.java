@@ -30,7 +30,7 @@ import java.util.Arrays;
 
 /*
  * The class provides a package model with dynamically changing information
- * about torrentInfo of the torrent, sent from the service.
+ * about state of the torrent, sent from the service.
  */
 
 public class TorrentInfo extends AbstractInfoParcel

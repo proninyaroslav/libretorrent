@@ -293,7 +293,7 @@ public class TorrentInfoProvider
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting advanced torrentInfo for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting advanced info for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 
@@ -331,7 +331,7 @@ public class TorrentInfoProvider
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting trackers torrentInfo for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting trackers info for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 
@@ -367,7 +367,7 @@ public class TorrentInfoProvider
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting peers torrentInfo for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting peers info for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 

@@ -30,7 +30,7 @@ import java.util.List;
 
 /*
  * The class provides a package model with information
- * about the torrentInfo of the bittorrent tracker, sent from the service.
+ * about the state of the bittorrent tracker, sent from the service.
  */
 
 public class TrackerInfo extends AbstractInfoParcel

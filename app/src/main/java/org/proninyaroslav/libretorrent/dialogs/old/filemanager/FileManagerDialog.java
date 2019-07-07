@@ -103,7 +103,7 @@ public class FileManagerDialog extends AppCompatActivity
     private int spinnerPos = 0;
     private RecyclerView listFiles;
     private LinearLayoutManager layoutManager;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable filesListState;
     private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout swipeRefreshLayout;

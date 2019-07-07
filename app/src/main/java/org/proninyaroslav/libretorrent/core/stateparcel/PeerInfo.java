@@ -30,7 +30,7 @@ import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
 
 /*
  * The class provides a package model with information
- * about the torrentInfo of the peer, sent from the service.
+ * about the state of the peer, sent from the service.
  */
 
 public class PeerInfo extends AbstractInfoParcel

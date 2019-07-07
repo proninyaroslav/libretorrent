@@ -38,7 +38,7 @@ import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentStateBin
 import org.proninyaroslav.libretorrent.viewmodel.DetailTorrentViewModel;
 
 /*
- * The fragment for displaying torrent torrentInfo. Part of DetailTorrentFragment.
+ * The fragment for displaying torrent state. Part of DetailTorrentFragment.
  */
 
 public class DetailTorrentStateFragment extends Fragment

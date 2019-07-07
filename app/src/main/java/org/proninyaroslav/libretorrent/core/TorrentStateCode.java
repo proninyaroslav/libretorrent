@@ -28,12 +28,12 @@ public enum TorrentStateCode
     UNKNOWN(-1),
     ERROR(0),
     /*
-     * In this torrentInfo the torrent has finished downloading and
+     * In this state the torrent has finished downloading and
      * is a pure seeder.
      */
     SEEDING(1),
     /*
-     * The torrent is being downloaded. This is the torrentInfo
+     * The torrent is being downloaded. This is the state
      * most torrents will be in most of the time. The progress
      * meter will tell how much of the files that has been
      * downloaded.
@@ -52,7 +52,7 @@ public enum TorrentStateCode
      */
     DOWNLOADING_METADATA(6),
     /*
-     * In this torrentInfo the torrent has finished downloading but
+     * In this state the torrent has finished downloading but
      * still doesn't have the entire torrent. i.e. some pieces
      * are filtered and won't get downloaded.
      */

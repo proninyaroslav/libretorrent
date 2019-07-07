@@ -91,7 +91,7 @@ public class DetailTorrentFilesFragment extends Fragment
     private SelectionTracker<TorrentContentFileItem> selectionTracker;
     private ActionMode actionMode;
     private TorrentContentFilesAdapter adapter;
-    /* Save torrentInfo scrolling */
+    /* Save state scrolling */
     private Parcelable listFilesState;
     private CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog priorityDialog;
