@@ -17,39 +17,14 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.adapters;
+package org.proninyaroslav.libretorrent.core.exceptions;
 
-import androidx.annotation.NonNull;
-
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
-
-public class TrackerItem extends TrackerInfo
+public class TorrentAlreadyExistsException extends Exception
 {
-    public TrackerItem(@NonNull TrackerInfo state)
+    public TorrentAlreadyExistsException() { }
+
+    public TorrentAlreadyExistsException(String message)
     {
-        super(state.url, state.message, state.tier, state.status);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return url.hashCode();
-    }
-
-    public boolean equalsContent(Object o)
-    {
-        return super.equals(o);
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (!(o instanceof TrackerItem))
-            return false;
-
-        if (o == this)
-            return true;
-
-        return url.equals(((TrackerItem)o).url);
+        super(message);
     }
 }

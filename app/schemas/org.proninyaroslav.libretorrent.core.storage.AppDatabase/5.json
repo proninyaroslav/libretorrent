@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "ecece0a3ce577e3e49f6cb98c1e7d708",
+    "identityHash": "3fce0f0312dd9fcf6c3a45b93607be68",
     "entities": [
       {
         "tableName": "Torrent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `source` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `filePriorities` TEXT NOT NULL, `sequentialDownload` INTEGER NOT NULL, `finished` INTEGER NOT NULL, `paused` INTEGER NOT NULL, `downloadingMetadata` INTEGER NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,45 +21,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "source",
-            "columnName": "source",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
             "fieldPath": "downloadPath",
             "columnName": "downloadPath",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "filePriorities",
-            "columnName": "filePriorities",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "sequentialDownload",
-            "columnName": "sequentialDownload",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "finished",
-            "columnName": "finished",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "paused",
-            "columnName": "paused",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "downloadingMetadata",
-            "columnName": "downloadingMetadata",
-            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -73,6 +37,18 @@
             "columnName": "error",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "magnet",
+            "columnName": "magnet",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "downloadingMetadata",
+            "columnName": "downloadingMetadata",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -83,6 +59,53 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "FastResume",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`torrentId` TEXT NOT NULL, `data` BLOB NOT NULL, PRIMARY KEY(`torrentId`), FOREIGN KEY(`torrentId`) REFERENCES `Torrent`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "torrentId",
+            "columnName": "torrentId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "BLOB",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "torrentId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_FastResume_torrentId",
+            "unique": false,
+            "columnNames": [
+              "torrentId"
+            ],
+            "createSql": "CREATE  INDEX `index_FastResume_torrentId` ON `${TABLE_NAME}` (`torrentId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Torrent",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "torrentId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "FeedChannel",
@@ -227,7 +250,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ecece0a3ce577e3e49f6cb98c1e7d708\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3fce0f0312dd9fcf6c3a45b93607be68')"
     ]
   }
 }

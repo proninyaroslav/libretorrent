@@ -40,7 +40,7 @@
                     android:id="@+id/pieces_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{BindingAdapterUtils.formatPiecesInfo(context, viewModel.info.advancedState.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
+                    android:text="@{BindingAdapterUtils.formatPiecesInfo(context, viewModel.info.advancedInfo.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
                     style="@style/BaseTheme.TorrentInfoText" />
             </LinearLayout>
 

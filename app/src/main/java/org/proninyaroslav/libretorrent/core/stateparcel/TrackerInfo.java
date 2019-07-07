@@ -30,10 +30,10 @@ import java.util.List;
 
 /*
  * The class provides a package model with information
- * about the state of the bittorrent tracker, sent from the service.
+ * about the torrentInfo of the bittorrent tracker, sent from the service.
  */
 
-public class TrackerStateParcel extends AbstractStateParcel
+public class TrackerInfo extends AbstractInfoParcel
 {
     public String url;
     public String message;
@@ -49,7 +49,7 @@ public class TrackerStateParcel extends AbstractStateParcel
         public static final int NOT_WORKING = 3;
     }
 
-    public TrackerStateParcel(AnnounceEntry entry)
+    public TrackerInfo(AnnounceEntry entry)
     {
         super(entry.url());
 
@@ -66,7 +66,7 @@ public class TrackerStateParcel extends AbstractStateParcel
         }
     }
 
-    public TrackerStateParcel(String url, String message, int tier, int status)
+    public TrackerInfo(String url, String message, int tier, int status)
     {
         super(url);
 
@@ -104,7 +104,7 @@ public class TrackerStateParcel extends AbstractStateParcel
         return bestEndpoint;
     }
 
-    public TrackerStateParcel(Parcel source)
+    public TrackerInfo(Parcel source)
     {
         super(source);
 
@@ -131,19 +131,19 @@ public class TrackerStateParcel extends AbstractStateParcel
         dest.writeInt(status);
     }
 
-    public static final Parcelable.Creator<TrackerStateParcel> CREATOR =
-            new Parcelable.Creator<TrackerStateParcel>()
+    public static final Parcelable.Creator<TrackerInfo> CREATOR =
+            new Parcelable.Creator<TrackerInfo>()
             {
                 @Override
-                public TrackerStateParcel createFromParcel(Parcel source)
+                public TrackerInfo createFromParcel(Parcel source)
                 {
-                    return new TrackerStateParcel(source);
+                    return new TrackerInfo(source);
                 }
 
                 @Override
-                public TrackerStateParcel[] newArray(int size)
+                public TrackerInfo[] newArray(int size)
                 {
-                    return new TrackerStateParcel[size];
+                    return new TrackerInfo[size];
                 }
             };
 
@@ -151,7 +151,7 @@ public class TrackerStateParcel extends AbstractStateParcel
     @Override
     public int compareTo(@NonNull Object another)
     {
-        return url.compareTo(((TrackerStateParcel)another).url);
+        return url.compareTo(((TrackerInfo)another).url);
     }
 
     @Override
@@ -170,13 +170,13 @@ public class TrackerStateParcel extends AbstractStateParcel
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof TrackerStateParcel))
+        if (!(o instanceof TrackerInfo))
             return false;
 
         if (o == this)
             return true;
 
-        TrackerStateParcel state = (TrackerStateParcel) o;
+        TrackerInfo state = (TrackerInfo) o;
 
         return (url == null || url.equals(state.url)) &&
                 (message == null || message.equals(state.message)) &&
@@ -206,7 +206,7 @@ public class TrackerStateParcel extends AbstractStateParcel
                 status = "UNKNOWN";
         }
 
-        return "TrackerStateParcel{" +
+        return "TrackerInfo{" +
                 "url='" + url + '\'' +
                 ", message='" + message + '\'' +
                 ", tier=" + tier +

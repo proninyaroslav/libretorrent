@@ -25,6 +25,8 @@ public abstract class TorrentEngineListener
 {
     public void onTorrentAdded(@NonNull String id) {};
 
+    public void onTorrentLoaded(@NonNull String id) {};
+
     public void onTorrentStateChanged(@NonNull String id) {};
 
     public void onTorrentFinished(@NonNull String id) {};

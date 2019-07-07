@@ -23,14 +23,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
+import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+
+import java.util.Arrays;
 
 /*
  * The class provides a package model with dynamically changing information
- * about state of the torrent, sent from the service.
+ * about torrentInfo of the torrent, sent from the service.
  */
 
-public class BasicStateParcel extends AbstractStateParcel
+public class TorrentInfo extends AbstractInfoParcel
 {
     @NonNull
     public String torrentId;
@@ -47,8 +50,10 @@ public class BasicStateParcel extends AbstractStateParcel
     public int totalPeers = 0;
     public int peers = 0;
     public String error;
+    public boolean sequentialDownload = false;
+    public Priority[] filePriorities = new Priority[0];
 
-    public BasicStateParcel(@NonNull String torrentId, String name, long dateAdded, String error)
+    public TorrentInfo(@NonNull String torrentId, String name, long dateAdded, String error)
     {
         super(torrentId);
 
@@ -59,12 +64,13 @@ public class BasicStateParcel extends AbstractStateParcel
         this.error = error;
     }
 
-    public BasicStateParcel(@NonNull String torrentId, String name,
-                            TorrentStateCode stateCode, int progress,
-                            long receivedBytes, long uploadedBytes,
-                            long totalBytes, long downloadSpeed,
-                            long uploadSpeed, long ETA, long dateAdded,
-                            int totalPeers, int peers, String error)
+    public TorrentInfo(@NonNull String torrentId, String name,
+                       TorrentStateCode stateCode, int progress,
+                       long receivedBytes, long uploadedBytes,
+                       long totalBytes, long downloadSpeed,
+                       long uploadSpeed, long ETA, long dateAdded,
+                       int totalPeers, int peers, String error,
+                       boolean sequentialDownload, Priority[] filePriorities)
     {
         super(torrentId);
 
@@ -82,9 +88,11 @@ public class BasicStateParcel extends AbstractStateParcel
         this.totalPeers = totalPeers;
         this.peers = peers;
         this.error = error;
+        this.sequentialDownload = sequentialDownload;
+        this.filePriorities = filePriorities;
     }
 
-    public BasicStateParcel(Parcel source)
+    public TorrentInfo(Parcel source)
     {
         super(source);
 
@@ -102,6 +110,8 @@ public class BasicStateParcel extends AbstractStateParcel
         totalPeers = source.readInt();
         peers = source.readInt();
         error = source.readString();
+        sequentialDownload = source.readByte() != 0;
+        filePriorities = (Priority[])source.readArray(Priority.class.getClassLoader());
     }
 
     @Override
@@ -129,28 +139,30 @@ public class BasicStateParcel extends AbstractStateParcel
         dest.writeInt(totalPeers);
         dest.writeInt(peers);
         dest.writeString(error);
+        dest.writeByte((byte)(sequentialDownload ? 1 : 0));
+        dest.writeArray(filePriorities);
     }
 
-    public static final Parcelable.Creator<BasicStateParcel> CREATOR =
-            new Parcelable.Creator<BasicStateParcel>()
+    public static final Parcelable.Creator<TorrentInfo> CREATOR =
+            new Parcelable.Creator<TorrentInfo>()
             {
                 @Override
-                public BasicStateParcel createFromParcel(Parcel source)
+                public TorrentInfo createFromParcel(Parcel source)
                 {
-                    return new BasicStateParcel(source);
+                    return new TorrentInfo(source);
                 }
 
                 @Override
-                public BasicStateParcel[] newArray(int size)
+                public TorrentInfo[] newArray(int size)
                 {
-                    return new BasicStateParcel[size];
+                    return new TorrentInfo[size];
                 }
             };
 
     @Override
     public int compareTo(@NonNull Object another)
     {
-        return name.compareTo(((BasicStateParcel)another).name);
+        return name.compareTo(((TorrentInfo)another).name);
     }
 
     @Override
@@ -162,16 +174,18 @@ public class BasicStateParcel extends AbstractStateParcel
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((stateCode == null) ? 0 : stateCode.hashCode());
         result = prime * result + progress;
-        result = prime * result + (int) (receivedBytes ^ (receivedBytes >>> 32));
-        result = prime * result + (int) (uploadedBytes ^ (uploadedBytes >>> 32));
-        result = prime * result + (int) (totalBytes ^ (totalBytes >>> 32));
-        result = prime * result + (int) (downloadSpeed ^ (downloadSpeed >>> 32));
-        result = prime * result + (int) (uploadSpeed ^ (uploadSpeed >>> 32));
-        result = prime * result + (int) (ETA ^ (ETA >>> 32));
-        result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
+        result = prime * result + (int)(receivedBytes ^ (receivedBytes >>> 32));
+        result = prime * result + (int)(uploadedBytes ^ (uploadedBytes >>> 32));
+        result = prime * result + (int)(totalBytes ^ (totalBytes >>> 32));
+        result = prime * result + (int)(downloadSpeed ^ (downloadSpeed >>> 32));
+        result = prime * result + (int)(uploadSpeed ^ (uploadSpeed >>> 32));
+        result = prime * result + (int)(ETA ^ (ETA >>> 32));
+        result = prime * result + (int)(dateAdded ^ (dateAdded >>> 32));
         result = prime * result + totalPeers;
         result = prime * result + peers;
         result = prime * result + ((error == null) ? 0 : error.hashCode());
+        result = prime * result + (sequentialDownload ? 1 : 0);
+        result = Arrays.hashCode(filePriorities);
 
         return result;
     }
@@ -179,34 +193,36 @@ public class BasicStateParcel extends AbstractStateParcel
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof BasicStateParcel))
+        if (!(o instanceof TorrentInfo))
             return false;
 
         if (o == this)
             return true;
 
-        BasicStateParcel state = (BasicStateParcel) o;
+        TorrentInfo info = (TorrentInfo)o;
 
-        return (torrentId.equals(state.torrentId) &&
-                (name == null || name.equals(state.name)) &&
-                (stateCode == null || stateCode.equals(state.stateCode)) &&
-                progress == state.progress &&
-                receivedBytes == state.receivedBytes &&
-                uploadedBytes == state.uploadedBytes &&
-                totalBytes == state.totalBytes &&
-                downloadSpeed == state.downloadSpeed &&
-                uploadSpeed == state.uploadSpeed &&
-                ETA == state.ETA &&
-                dateAdded == state.dateAdded &&
-                totalPeers == state.totalPeers &&
-                peers == state.peers &&
-                (error == null || error.equals(state.error)));
+        return (torrentId.equals(info.torrentId) &&
+                (name == null || name.equals(info.name)) &&
+                (stateCode == null || stateCode.equals(info.stateCode)) &&
+                progress == info.progress &&
+                receivedBytes == info.receivedBytes &&
+                uploadedBytes == info.uploadedBytes &&
+                totalBytes == info.totalBytes &&
+                downloadSpeed == info.downloadSpeed &&
+                uploadSpeed == info.uploadSpeed &&
+                ETA == info.ETA &&
+                dateAdded == info.dateAdded &&
+                totalPeers == info.totalPeers &&
+                peers == info.peers &&
+                (error == null || error.equals(info.error)) &&
+                sequentialDownload == info.sequentialDownload &&
+                Arrays.equals(filePriorities, info.filePriorities));
     }
 
     @Override
     public String toString()
     {
-        return "BasicStateParcel{" +
+        return "TorrentInfo{" +
                 "torrentId='" + torrentId + '\'' +
                 ", name='" + name + '\'' +
                 ", stateCode=" + stateCode +
@@ -220,7 +236,9 @@ public class BasicStateParcel extends AbstractStateParcel
                 ", dateAdded=" + dateAdded +
                 ", totalPeers=" + totalPeers +
                 ", peers=" + peers +
-                ", error=" + error +
+                ", error='" + error + '\'' +
+                ", sequentialDownload=" + sequentialDownload +
+                ", filePriorities=" + Arrays.toString(filePriorities) +
                 '}';
     }
 }

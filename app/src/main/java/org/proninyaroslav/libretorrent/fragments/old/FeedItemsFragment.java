@@ -81,7 +81,7 @@ public class FeedItemsFragment extends Fragment
     private LinearLayoutManager layoutManager;
     private EmptyRecyclerView itemList;
     private SwipeRefreshLayout swipeRefreshLayout;
-    /* Save state scrolling */
+    /* Save torrentInfo scrolling */
     private Parcelable itemsListState;
     private ArrayList<FeedItem> items = new ArrayList<>();
     private String feedUrl;
@@ -395,7 +395,7 @@ public class FeedItemsFragment extends Fragment
                 if (params != null) {
 //                    Intent i = new Intent(activity.getApplicationContext(), TorrentTaskService.class);
 //                    i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
-//                    i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
+//                    i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, mutableParams);
 //                    activity.startService(i);
                 }
             }

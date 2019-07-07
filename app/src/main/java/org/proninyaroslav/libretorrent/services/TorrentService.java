@@ -44,8 +44,8 @@ import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.NotificationReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
@@ -69,7 +69,7 @@ public class TorrentService extends Service
     private NotificationCompat.Builder foregroundNotify;
     private Disposable foregroundDisposable;
     private boolean isNetworkOnline = false;
-    private TorrentStateProvider stateProvider;
+    private TorrentInfoProvider stateProvider;
     private TorrentEngine engine;
     private SharedPreferences pref;
     private PowerManager.WakeLock wakeLock;
@@ -106,7 +106,7 @@ public class TorrentService extends Service
         else
             engine.start();
 
-        stateProvider = ((MainApplication)getApplication()).getTorrentStateProvider();
+        stateProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
 
         makeForegroundNotify();
         startUpdateForegroundNotify();
@@ -233,11 +233,11 @@ public class TorrentService extends Service
         if (foregroundNotify == null)
             return;
 
-        foregroundDisposable = stateProvider.observeStateList()
+        foregroundDisposable = stateProvider.observeInfoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateForegroundNotify,
-                        (Throwable t) -> Log.e(TAG, "Getting torrents state error: "
+                        (Throwable t) -> Log.e(TAG, "Getting torrents torrentInfo error: "
                                 + Log.getStackTraceString(t))
                 );
     }
@@ -282,7 +282,7 @@ public class TorrentService extends Service
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private void updateForegroundNotify(List<BasicStateParcel> stateList)
+    private void updateForegroundNotify(List<TorrentInfo> stateList)
     {
         if (foregroundNotify == null)
             return;
@@ -300,7 +300,7 @@ public class TorrentService extends Service
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private NotificationCompat.InboxStyle makeDetailNotifyInboxStyle(List<BasicStateParcel> stateList)
+    private NotificationCompat.InboxStyle makeDetailNotifyInboxStyle(List<TorrentInfo> stateList)
     {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
@@ -308,7 +308,7 @@ public class TorrentService extends Service
 
         int downloadingCount = 0;
 
-        for (BasicStateParcel state : stateList) {
+        for (TorrentInfo state : stateList) {
             if (state == null)
                 continue;
 

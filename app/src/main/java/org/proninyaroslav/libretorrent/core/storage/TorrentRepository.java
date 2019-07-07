@@ -20,15 +20,12 @@
 package org.proninyaroslav.libretorrent.core.storage;
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 
 import org.proninyaroslav.libretorrent.core.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,8 +63,7 @@ public class TorrentRepository
         this.db = db;
     }
 
-    public void addTorrent(@NonNull Context context,
-                           @NonNull Torrent torrent)
+    public void addTorrent(@NonNull Torrent torrent)
     {
         db.torrentDao().add(torrent);
     }
@@ -77,8 +73,7 @@ public class TorrentRepository
         db.torrentDao().update(torrent);
     }
 
-    public void deleteTorrent(@NonNull Context context,
-                              @NonNull Torrent torrent)
+    public void deleteTorrent(@NonNull Torrent torrent)
     {
         db.torrentDao().delete(torrent);
     }
@@ -106,11 +101,6 @@ public class TorrentRepository
     public void addFastResume(@NonNull FastResume fastResume)
     {
         db.fastResumeDao().add(fastResume);
-    }
-
-    public void updateFastResume(@NonNull FastResume fastResume)
-    {
-        db.fastResumeDao().update(fastResume);
     }
 
     public FastResume getFastResumeById(@NonNull String torrentId)

@@ -28,13 +28,13 @@ import androidx.lifecycle.AndroidViewModel;
 
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
+import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.exceptions.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.utils.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -47,7 +47,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class MainViewModel extends AndroidViewModel
 {
-    private TorrentStateProvider stateProvider;
+    private TorrentInfoProvider stateProvider;
     private TorrentEngine engine;
     private TorrentSortingComparator sorting = new TorrentSortingComparator(
             new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
@@ -69,18 +69,18 @@ public class MainViewModel extends AndroidViewModel
     {
         super(application);
 
-        stateProvider = ((MainApplication)getApplication()).getTorrentStateProvider();
+        stateProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
         engine = TorrentEngine.getInstance(application);
     }
 
-    public Flowable<List<BasicStateParcel>> observeAllTorrentsState()
+    public Flowable<List<TorrentInfo>> observeAllTorrentsState()
     {
-        return stateProvider.observeStateList();
+        return stateProvider.observeInfoList();
     }
 
-    public Single<List<BasicStateParcel>> getAllTorrentsStateSingle()
+    public Single<List<TorrentInfo>> getAllTorrentsStateSingle()
     {
-        return stateProvider.getStateListSingle();
+        return stateProvider.getInfoListSingle();
     }
 
     public Flowable<String> observeTorrentsDeleted()

@@ -30,10 +30,10 @@ import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
 
 /*
  * The class provides a package model with information
- * about the state of the peer, sent from the service.
+ * about the torrentInfo of the peer, sent from the service.
  */
 
-public class PeerStateParcel extends AbstractStateParcel
+public class PeerInfo extends AbstractInfoParcel
 {
     public String ip;
     public String client;
@@ -53,7 +53,7 @@ public class PeerStateParcel extends AbstractStateParcel
         public static final int UTP = 2;
     }
 
-    public PeerStateParcel(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
+    public PeerInfo(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
     {
         super(peer.ip());
 
@@ -69,11 +69,11 @@ public class PeerStateParcel extends AbstractStateParcel
         upSpeed = peer.upSpeed();
     }
 
-    public PeerStateParcel(String ip, String client,
-                           long totalDownload, long totalUpload,
-                           double relevance, int connectionType,
-                           int port, int progress,
-                           int downSpeed, int upSpeed)
+    public PeerInfo(String ip, String client,
+                    long totalDownload, long totalUpload,
+                    double relevance, int connectionType,
+                    int port, int progress,
+                    int downSpeed, int upSpeed)
     {
         super(ip);
 
@@ -89,7 +89,7 @@ public class PeerStateParcel extends AbstractStateParcel
         this.upSpeed = upSpeed;
     }
 
-    public PeerStateParcel(Parcel source)
+    public PeerInfo(Parcel source)
     {
         super(source);
 
@@ -163,26 +163,26 @@ public class PeerStateParcel extends AbstractStateParcel
         dest.writeInt(upSpeed);
     }
 
-    public static final Parcelable.Creator<PeerStateParcel> CREATOR =
-            new Parcelable.Creator<PeerStateParcel>()
+    public static final Parcelable.Creator<PeerInfo> CREATOR =
+            new Parcelable.Creator<PeerInfo>()
             {
                 @Override
-                public PeerStateParcel createFromParcel(Parcel source)
+                public PeerInfo createFromParcel(Parcel source)
                 {
-                    return new PeerStateParcel(source);
+                    return new PeerInfo(source);
                 }
 
                 @Override
-                public PeerStateParcel[] newArray(int size)
+                public PeerInfo[] newArray(int size)
                 {
-                    return new PeerStateParcel[size];
+                    return new PeerInfo[size];
                 }
             };
 
     @Override
     public int compareTo(@NonNull Object another)
     {
-        return ip.compareTo(((PeerStateParcel)another).ip);
+        return ip.compareTo(((PeerInfo)another).ip);
     }
 
     @Override
@@ -208,13 +208,13 @@ public class PeerStateParcel extends AbstractStateParcel
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof PeerStateParcel))
+        if (!(o instanceof PeerInfo))
             return false;
 
         if (o == this)
             return true;
 
-        PeerStateParcel state = (PeerStateParcel) o;
+        PeerInfo state = (PeerInfo) o;
 
         return (ip == null || ip.equals(state.ip)) &&
                 (client == null || client.equals(state.client)) &&
@@ -231,7 +231,7 @@ public class PeerStateParcel extends AbstractStateParcel
     @Override
     public String toString()
     {
-        return "PeerStateParcel{" +
+        return "PeerInfo{" +
                 "ip='" + ip + '\'' +
                 ", client='" + client + '\'' +
                 ", totalDownload=" + totalDownload +

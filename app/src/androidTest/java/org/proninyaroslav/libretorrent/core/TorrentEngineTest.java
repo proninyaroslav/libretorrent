@@ -36,6 +36,7 @@ import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -53,7 +54,7 @@ public class TorrentEngineTest extends AbstractTest
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngineTest.class.getSimpleName();
 
-    private Torrent torrent, torrent2;
+    private AddTorrentParams params, params2;
     private String torrentUrl = "http://www.pcds.fi/downloads/applications/internet/browsers/midori/current/debian-ubuntu/midori_0.5.11-0_amd64_.deb.torrent";
     private String torrentName = "midori_0.5.11-0_amd64_.deb";
     private String torrentHash = "3fe5f1a11c51cd01fd09a79621e074dda8eb36b6";
@@ -70,19 +71,15 @@ public class TorrentEngineTest extends AbstractTest
         super.init();
 
         dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
-        torrent = new Torrent(torrentHash,
-                "",
-                dir,
-                torrentName,
-                Collections.singletonList(Priority.DEFAULT),
-                System.currentTimeMillis());
+        params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
+                torrentHash, torrentName,
+                Collections.singletonList(Priority.DEFAULT), dir,
+                false, false);
 
-        torrent2 = new Torrent(torrentHash2,
-                "",
-                dir,
-                torrentName2,
-                Collections.singletonList(Priority.DEFAULT),
-                System.currentTimeMillis());
+        params = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
+                torrentHash2, torrentName2,
+                Collections.singletonList(Priority.DEFAULT), dir,
+                false, false);
     }
 
     @Test
@@ -96,14 +93,13 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onTorrentFinished(@NonNull String id)
             {
-                if (!torrent.id.equals(id))
+                if (!params.sha1hash.equals(id))
                     return;
 
                 c.countDown();
                 try {
                     Torrent t = torrentRepo.getTorrentById(id);
                     assertNotNull(t);
-                    assertTrue(t.finished);
 
                     /* Check if file exists */
                     File file = new File(dir.getPath(), torrentName);
@@ -116,7 +112,7 @@ public class TorrentEngineTest extends AbstractTest
         });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
@@ -129,25 +125,23 @@ public class TorrentEngineTest extends AbstractTest
     {
         CountDownLatch c = new CountDownLatch(1);
         assertTrue(engine.isRunning());
-        String source = downloadTorrent(torrentUrl);
 
         engine.addListener(new TorrentEngineListener() {
             @Override
             public void onTorrentFinished(@NonNull String id)
             {
-                if (!torrent.id.equals(id))
+                if (!params.sha1hash.equals(id))
                     return;
 
                 c.countDown();
                 try {
                     Torrent t = torrentRepo.getTorrentById(id);
                     assertNotNull(t);
-                    assertTrue(t.finished);
 
                     try {
-                        engine.addTorrentSync(torrent, source, false, true);
+                        engine.addTorrentSync(params, true);
 
-                    } catch (FileAlreadyExistsException e) {
+                    } catch (TorrentAlreadyExistsException e) {
                         engine.deleteTorrents(Collections.singletonList(id), true);
                         return;
                     }
@@ -161,7 +155,7 @@ public class TorrentEngineTest extends AbstractTest
         });
 
         try {
-            engine.addTorrentSync(torrent, source, false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
@@ -184,8 +178,8 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onTorrentAdded(@NonNull String id)
             {
-                if (torrent.id.equals(id))
-                    engine.changeParams(torrent.id, params);
+                if (TorrentEngineTest.this.params.sha1hash.equals(id))
+                    engine.changeParams(TorrentEngineTest.this.params.sha1hash, params);
             }
 
             @Override
@@ -197,7 +191,7 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onParamsApplied(@NotNull String id, Throwable e)
             {
-                if (!torrent.id.equals(id))
+                if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;
 
                 c.countDown();
@@ -210,7 +204,6 @@ public class TorrentEngineTest extends AbstractTest
                 try {
                     Torrent t = torrentRepo.getTorrentById(id);
                     assertNotNull(t);
-                    assertEquals(params.sequentialDownload, t.sequentialDownload);
                     assertEquals(params.name, t.name);
 
                 } finally {
@@ -220,7 +213,7 @@ public class TorrentEngineTest extends AbstractTest
         });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(this.params, true);
             c.await();
 
         } catch (Exception e) {
@@ -242,8 +235,8 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onTorrentAdded(@NonNull String id)
             {
-                if (torrent.id.equals(id))
-                    engine.changeParams(torrent.id, params);
+                if (TorrentEngineTest.this.params.sha1hash.equals(id))
+                    engine.changeParams(TorrentEngineTest.this.params.sha1hash, params);
             }
 
             @Override
@@ -255,7 +248,7 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onTorrentMoved(@NotNull String id, boolean success)
             {
-                if (!torrent.id.equals(id))
+                if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;
 
                 c.countDown();
@@ -266,7 +259,7 @@ public class TorrentEngineTest extends AbstractTest
             @Override
             public void onParamsApplied(@NotNull String id, Throwable e)
             {
-                if (!torrent.id.equals(id))
+                if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;
 
                 c.countDown();
@@ -291,7 +284,7 @@ public class TorrentEngineTest extends AbstractTest
         });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(this.params, true);
             c.await();
 
         } catch (Exception e) {

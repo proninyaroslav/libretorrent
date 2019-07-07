@@ -25,20 +25,15 @@ import androidx.databinding.Bindable;
 import org.proninyaroslav.libretorrent.BR;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
-
-import java.util.Arrays;
-import java.util.List;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 
 public class TorrentDetailsInfo extends BaseObservable
 {
     private Torrent torrent;
     private TorrentMetaInfo metaInfo;
-    private BasicStateParcel state;
-    private AdvanceStateParcel advancedState;
+    private TorrentInfo torrentInfo;
+    private AdvancedTorrentInfo advancedInfo;
     private String dirName;
     private long storageFreeSpace = -1;
     private int leechers;
@@ -57,27 +52,27 @@ public class TorrentDetailsInfo extends BaseObservable
     }
 
     @Bindable
-    public BasicStateParcel getState()
+    public TorrentInfo getTorrentInfo()
     {
-        return state;
+        return torrentInfo;
     }
 
-    public void setState(BasicStateParcel state)
+    public void setTorrentInfo(TorrentInfo torrentInfo)
     {
-        this.state = state;
-        notifyPropertyChanged(BR.state);
+        this.torrentInfo = torrentInfo;
+        notifyPropertyChanged(BR.torrentInfo);
     }
 
     @Bindable
-    public AdvanceStateParcel getAdvancedState()
+    public AdvancedTorrentInfo getAdvancedInfo()
     {
-        return advancedState;
+        return advancedInfo;
     }
 
-    public void setAdvancedState(AdvanceStateParcel advancedState)
+    public void setAdvancedInfo(AdvancedTorrentInfo advancedInfo)
     {
-        this.advancedState = advancedState;
-        notifyPropertyChanged(BR.advancedState);
+        this.advancedInfo = advancedInfo;
+        notifyPropertyChanged(BR.advancedInfo);
     }
 
     @Bindable
@@ -140,50 +135,14 @@ public class TorrentDetailsInfo extends BaseObservable
         notifyPropertyChanged(BR.totalLeechers);
     }
 
-//    @Bindable
-//    public List<TrackerStateParcel> getTrackers()
-//    {
-//        return trackers;
-//    }
-//
-//    public void setTrackers(List<TrackerStateParcel> trackers)
-//    {
-//        this.trackers = trackers;
-//        notifyPropertyChanged(BR.trackers);
-//    }
-//
-//    @Bindable
-//    public List<PeerStateParcel> getPeers()
-//    {
-//        return peers;
-//    }
-//
-//    public void setPeers(List<PeerStateParcel> peers)
-//    {
-//        this.peers = peers;
-//        notifyPropertyChanged(BR.peers);
-//    }
-//
-//    @Bindable
-//    public boolean[] getPieces()
-//    {
-//        return pieces;
-//    }
-//
-//    public void setPieces(boolean[] pieces)
-//    {
-//        this.pieces = pieces;
-//        notifyPropertyChanged(BR.pieces);
-//    }
-
     @Override
     public String toString()
     {
         return "TorrentDetailsInfo{" +
                 "torrent=" + torrent +
                 ", metaInfo=" + metaInfo +
-                ", state=" + state +
-                ", advancedState=" + advancedState +
+                ", torrentInfo=" + torrentInfo +
+                ", advancedInfo=" + advancedInfo +
                 ", dirName='" + dirName + '\'' +
                 ", storageFreeSpace=" + storageFreeSpace +
                 ", leechers=" + leechers +

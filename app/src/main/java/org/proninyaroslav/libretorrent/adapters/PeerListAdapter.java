@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemPeersListBinding;
 
@@ -154,13 +154,13 @@ public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewH
             String connectionTemplate = context.getString(R.string.peer_connection_type);
             String connectionType = "";
             switch (item.connectionType) {
-                case PeerStateParcel.ConnectionType.BITTORRENT:
+                case PeerInfo.ConnectionType.BITTORRENT:
                     connectionType = context.getString(R.string.peer_connection_type_bittorrent);
                     break;
-                case PeerStateParcel.ConnectionType.WEB:
+                case PeerInfo.ConnectionType.WEB:
                     connectionType = context.getString(R.string.peer_connection_type_web);
                     break;
-                case PeerStateParcel.ConnectionType.UTP:
+                case PeerInfo.ConnectionType.UTP:
                     connectionType = context.getString(R.string.peer_connection_type_utp);
                     break;
             }

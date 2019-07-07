@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,10 +17,13 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.old;
+package org.proninyaroslav.libretorrent.core;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Priority;
 
@@ -29,40 +32,49 @@ import java.util.List;
 public class AddTorrentParams implements Parcelable
 {
     /* File path or magnet link */
-    private String source;
-    private boolean fromMagnet;
-    private String sha1hash;
-    private String name;
+    @NonNull
+    public String source;
+    public boolean fromMagnet;
+    @NonNull
+    public String sha1hash;
+    @NonNull
+    public String name;
     /* Optional field (e.g. if file information is available) */
-    private List<Priority> filePriorities;
-    private String pathToDownload;
-    private boolean sequentialDownload;
-    private boolean addPaused;
+    public List<Priority> filePriorities;
+    @NonNull
+    public Uri downloadPath;
+    public boolean sequentialDownload;
+    public boolean addPaused;
 
-    public AddTorrentParams(String source, boolean fromMagnet, String sha1hash,
-                            String name, List<Priority> filePriorities, String pathToDownload,
-                            boolean sequentialDownload, boolean addPaused)
+    public AddTorrentParams(@NonNull String source,
+                            boolean fromMagnet,
+                            @NonNull String sha1hash,
+                            @NonNull String name,
+                            List<Priority> filePriorities,
+                            @NonNull Uri downloadPath,
+                            boolean sequentialDownload,
+                            boolean addPaused)
     {
         this.source = source;
         this.fromMagnet = fromMagnet;
         this.sha1hash = sha1hash;
         this.name = name;
         this.filePriorities = filePriorities;
-        this.pathToDownload = pathToDownload;
+        this.downloadPath = downloadPath;
         this.sequentialDownload = sequentialDownload;
         this.addPaused = addPaused;
     }
 
-    public AddTorrentParams(Parcel s)
+    public AddTorrentParams(Parcel source)
     {
-        source = s.readString();
-        fromMagnet = s.readByte() != 0;
-        sha1hash = s.readString();
-        name = s.readString();
-        filePriorities = s.readArrayList(Priority.class.getClassLoader());
-        pathToDownload = s.readString();
-        sequentialDownload = s.readByte() != 0;
-        addPaused = s.readByte() != 0;
+        this.source = source.readString();
+        fromMagnet = source.readByte() != 0;
+        sha1hash = source.readString();
+        name = source.readString();
+        filePriorities = source.readArrayList(Priority.class.getClassLoader());
+        downloadPath = source.readParcelable(Uri.class.getClassLoader());
+        sequentialDownload = source.readByte() != 0;
+        addPaused = source.readByte() != 0;
     }
 
     @Override
@@ -79,7 +91,7 @@ public class AddTorrentParams implements Parcelable
         dest.writeString(sha1hash);
         dest.writeString(name);
         dest.writeList(filePriorities);
-        dest.writeString(pathToDownload);
+        dest.writeParcelable(downloadPath, flags);
         dest.writeByte((byte) (sequentialDownload ? 1 : 0));
         dest.writeByte((byte) (addPaused ? 1 : 0));
     }
@@ -100,45 +112,6 @@ public class AddTorrentParams implements Parcelable
                 }
             };
 
-    public String getSource()
-    {
-        return source;
-    }
-
-    public boolean fromMagnet()
-    {
-        return fromMagnet;
-    }
-
-    public String getSha1hash()
-    {
-        return sha1hash;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public List<Priority> getFilePriorities()
-    {
-        return filePriorities;
-    }
-
-    public String getPathToDownload()
-    {
-        return pathToDownload;
-    }
-
-    public boolean isSequentialDownload()
-    {
-        return sequentialDownload;
-    }
-
-    public boolean addPaused()
-    {
-        return addPaused;
-    }
 
     @Override
     public int hashCode()
@@ -155,7 +128,7 @@ public class AddTorrentParams implements Parcelable
                 ", sha1hash='" + sha1hash + '\'' +
                 ", name='" + name + '\'' +
                 ", filePriorities=" + filePriorities +
-                ", pathToDownload='" + pathToDownload + '\'' +
+                ", downloadPath=" + downloadPath +
                 ", sequentialDownload=" + sequentialDownload +
                 ", addPaused=" + addPaused +
                 '}';

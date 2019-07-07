@@ -333,6 +333,23 @@ public class FileUtils
         }
     }
 
+    public static void write(@NonNull Context context,
+                             @NonNull byte[] data,
+                             @NonNull Uri destFile) throws IOException
+    {
+        ContentResolver resolver = context.getContentResolver();
+        FileOutputStream fout = null;
+        try {
+            ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
+            fout = new FileOutputStream(fd.getFileDescriptor());
+
+            IOUtils.write(data, fout);
+
+        } finally {
+            IOUtils.closeQuietly(fout);
+        }
+    }
+
     /*
      * Return the number of bytes that are free on the file system
      * backing the given FileDescriptor

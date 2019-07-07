@@ -23,8 +23,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 public class FastResume
 {
-    @PrimaryKey(autoGenerate = true)
-    public long id;
+    @PrimaryKey
     @NonNull
     public String torrentId;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)

@@ -116,7 +116,7 @@
     <!-- Drawable used to draw menu_vector paths. -->
     <declare-styleable name="VectorDrawable">
         <!-- If set, specifies the color to apply to the drawable as a tint. By default,
-             no tint is applied. May be a color state list. -->
+             no tint is applied. May be a color torrentInfo list. -->
         <attr name="vc_tint" />
         <!-- When a tint color is set, specifies its Porter-Duff blending mode. The
              default value is src_in, which treats the drawable as an alpha mask. -->

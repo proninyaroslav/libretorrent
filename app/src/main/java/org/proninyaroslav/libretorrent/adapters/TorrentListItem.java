@@ -21,21 +21,22 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 
 /*
- * Wrapper of BasicStateParcel class for TorrentListAdapter, that override Object::equals method
+ * Wrapper of TorrentInfo class for TorrentListAdapter, that override Object::equals method
  * Necessary for other behavior in case if item was selected (see SelectionTracker).
  */
 
-public class TorrentListItem extends BasicStateParcel
+public class TorrentListItem extends TorrentInfo
 {
-    public TorrentListItem(@NonNull BasicStateParcel state)
+    public TorrentListItem(@NonNull TorrentInfo state)
     {
         super(state.torrentId, state.name, state.stateCode, state.progress,
               state.receivedBytes, state.uploadedBytes, state.totalBytes,
               state.downloadSpeed, state.uploadSpeed, state.ETA, state.dateAdded,
-              state.totalPeers, state.peers, state.error);
+              state.totalPeers, state.peers, state.error, state.sequentialDownload,
+              state.filePriorities);
     }
 
     @Override

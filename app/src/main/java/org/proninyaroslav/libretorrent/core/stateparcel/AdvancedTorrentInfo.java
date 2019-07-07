@@ -27,10 +27,10 @@ import java.util.Arrays;
 
 /*
  * The class provides a package model with dynamically
- * changing information about state of the torrent.
+ * changing information about torrentInfo of the torrent.
  */
 
-public class AdvanceStateParcel extends AbstractStateParcel
+public class AdvancedTorrentInfo extends AbstractInfoParcel
 {
     public String torrentId = "";
     public int totalSeeds = 0;
@@ -43,15 +43,15 @@ public class AdvanceStateParcel extends AbstractStateParcel
     public double availability = 0.0;
     public double[] filesAvailability = new double[0];
 
-    public AdvanceStateParcel()
+    public AdvancedTorrentInfo()
     {
         super();
     }
 
-    public AdvanceStateParcel(String torrentId, long[] filesReceivedBytes,
-                              int totalSeeds, int seeds, int downloadedPieces,
-                              double shareRatio, long activeTime, long seedingTime,
-                              double availability, double[] filesAvailability)
+    public AdvancedTorrentInfo(String torrentId, long[] filesReceivedBytes,
+                               int totalSeeds, int seeds, int downloadedPieces,
+                               double shareRatio, long activeTime, long seedingTime,
+                               double availability, double[] filesAvailability)
     {
         super(torrentId);
 
@@ -67,7 +67,7 @@ public class AdvanceStateParcel extends AbstractStateParcel
         this.filesAvailability = filesAvailability;
     }
 
-    public AdvanceStateParcel(Parcel source)
+    public AdvancedTorrentInfo(Parcel source)
     {
         super(source);
 
@@ -106,26 +106,26 @@ public class AdvanceStateParcel extends AbstractStateParcel
         dest.writeDoubleArray(filesAvailability);
     }
 
-    public static final Parcelable.Creator<AdvanceStateParcel> CREATOR =
-            new Parcelable.Creator<AdvanceStateParcel>()
+    public static final Parcelable.Creator<AdvancedTorrentInfo> CREATOR =
+            new Parcelable.Creator<AdvancedTorrentInfo>()
             {
                 @Override
-                public AdvanceStateParcel createFromParcel(Parcel source)
+                public AdvancedTorrentInfo createFromParcel(Parcel source)
                 {
-                    return new AdvanceStateParcel(source);
+                    return new AdvancedTorrentInfo(source);
                 }
 
                 @Override
-                public AdvanceStateParcel[] newArray(int size)
+                public AdvancedTorrentInfo[] newArray(int size)
                 {
-                    return new AdvanceStateParcel[size];
+                    return new AdvancedTorrentInfo[size];
                 }
             };
 
     @Override
     public int compareTo(@NonNull Object another)
     {
-        return torrentId.compareTo(((AdvanceStateParcel)another).torrentId);
+        return torrentId.compareTo(((AdvancedTorrentInfo)another).torrentId);
     }
 
     @Override
@@ -152,13 +152,13 @@ public class AdvanceStateParcel extends AbstractStateParcel
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof AdvanceStateParcel))
+        if (!(o instanceof AdvancedTorrentInfo))
             return false;
 
         if (o == this)
             return true;
 
-        AdvanceStateParcel state = (AdvanceStateParcel) o;
+        AdvancedTorrentInfo state = (AdvancedTorrentInfo) o;
 
         return (torrentId == null || torrentId.equals(state.torrentId)) &&
                 totalSeeds == state.totalSeeds &&
@@ -175,7 +175,7 @@ public class AdvanceStateParcel extends AbstractStateParcel
     @Override
     public String toString()
     {
-        return "AdvanceStateParcel{" +
+        return "AdvancedTorrentInfo{" +
                 "torrentId='" + torrentId + '\'' +
                 ", totalSeeds=" + totalSeeds +
                 ", seeds=" + seeds +

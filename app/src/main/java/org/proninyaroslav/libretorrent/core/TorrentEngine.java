@@ -32,10 +32,8 @@ import android.widget.Toast;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.jetbrains.annotations.NotNull;
-import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.Priority;
-import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.TorrentStatus;
 import org.libtorrent4j.swig.settings_pack;
 import org.proninyaroslav.libretorrent.MainApplication;
@@ -44,11 +42,12 @@ import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
-import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -171,17 +170,15 @@ public class TorrentEngine
             resumeAll();
     }
 
-    public void addTorrent(@NonNull final Torrent torrent,
-                           @NonNull String source,
-                           boolean fromMagnet,
+    public void addTorrent(@NonNull AddTorrentParams params,
                            boolean removeFile)
     {
         disposables.add(Completable.fromRunnable(() -> {
             try {
-                addTorrentSync(torrent, source, fromMagnet, removeFile);
+                addTorrentSync(params, removeFile);
 
             } catch (Exception e) {
-                handleAddTorrentError(torrent.name, e);
+                handleAddTorrentError(params.name, e);
             }
         }).subscribeOn(Schedulers.io())
           .subscribe());
@@ -194,7 +191,7 @@ public class TorrentEngine
 
             ContentResolver contentResolver = appContext.getContentResolver();
             FileInputStream is = null;
-            TorrentInfo ti = null;
+            org.libtorrent4j.TorrentInfo ti = null;
             try {
                 ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
                 FileDescriptor outFd = outPfd.getFileDescriptor();
@@ -202,7 +199,7 @@ public class TorrentEngine
                 FileChannel chan = is.getChannel();
 
                 try {
-                    ti = new TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size()));
+                    ti = new org.libtorrent4j.TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size()));
 
                 } catch (Exception e) {
                     throw new DecodeException(e);
@@ -223,30 +220,18 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public Torrent addTorrentSync(@NonNull final Torrent torrent,
-                                  @NonNull String source,
-                                  boolean fromMagnet,
-                                  boolean removeFile) throws IOException, FileAlreadyExistsException, DecodeException
+    public Torrent addTorrentSync(@NonNull AddTorrentParams params,
+                                  boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
         Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
 
-        Torrent t = session.addTorrent(torrent, source, fromMagnet, removeFile);
-
-        boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
-                                                  SettingsManager.Default.saveTorrentFiles);
-        if (saveTorrentFile) {
-            String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
-                                             t.downloadPath.toString());
-            saveTorrentFileIn(t, Uri.parse(org.proninyaroslav.libretorrent.core.utils.FileUtils.normalizeFilesystemPath(savePath)));
-        }
-
-        return t;
+        return session.addTorrent(params, removeFile);
     }
 
     public Pair<MagnetInfo, Single<TorrentMetaInfo>> fetchMagnet(@NonNull String uri) throws Exception
     {
-        AddTorrentParams params = session.parseMagnetUri(uri);
-        AddTorrentParams res_params = session.fetchMagnet(params);
+        org.libtorrent4j.AddTorrentParams params = session.parseMagnetUri(uri);
+        org.libtorrent4j.AddTorrentParams res_params = session.fetchMagnet(params);
         Single<TorrentMetaInfo> res = createFetchMagnetSingle(params.infoHash().toHex());
         MagnetInfo info = null;
         List<Priority> priorities;
@@ -471,7 +456,7 @@ public class TorrentEngine
         if (task == null)
             return null;
 
-        TorrentInfo ti = task.getTorrentInfo();
+        org.libtorrent4j.TorrentInfo ti = task.getTorrentInfo();
         TorrentMetaInfo info = null;
         try {
             if (ti != null)
@@ -570,7 +555,7 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public BasicStateParcel makeBasicStateSync(@NonNull String id)
+    public TorrentInfo makeInfoSync(@NonNull String id)
     {
         if (!isRunning())
             return null;
@@ -579,19 +564,19 @@ public class TorrentEngine
         if (torrent == null)
             return null;
 
-        return makeBasicState(torrent);
+        return makeInfo(torrent);
     }
 
-    private BasicStateParcel makeBasicState(Torrent torrent)
+    private TorrentInfo makeInfo(Torrent torrent)
     {
         TorrentDownload task = session.getTask(torrent.id);
         if (task == null || !task.isValid())
-            return new BasicStateParcel(torrent.id,
+            return new TorrentInfo(torrent.id,
                     torrent.name,
                     torrent.dateAdded,
                     torrent.error);
         else
-            return new BasicStateParcel(
+            return new TorrentInfo(
                     torrent.id,
                     torrent.name,
                     task.getStateCode(),
@@ -605,16 +590,18 @@ public class TorrentEngine
                     torrent.dateAdded,
                     task.getTotalPeers(),
                     task.getConnectedPeers(),
-                    torrent.error);
+                    torrent.error,
+                    task.isSequentialDownload(),
+                    task.getFilePriorities());
     }
 
     /*
      * Do not run in the UI thread
      */
 
-    public List<BasicStateParcel> makeBasicStateListSync()
+    public List<TorrentInfo> makeInfoListSync()
     {
-        ArrayList<BasicStateParcel> stateList = new ArrayList<>();
+        ArrayList<TorrentInfo> stateList = new ArrayList<>();
 
         if (!isRunning())
             return stateList;
@@ -622,7 +609,7 @@ public class TorrentEngine
         for (Torrent torrent : repo.getAllTorrents()) {
             if (torrent == null)
                 continue;
-            stateList.add(makeBasicState(torrent));
+            stateList.add(makeInfo(torrent));
         }
 
         return stateList;
@@ -632,7 +619,7 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public AdvanceStateParcel makeAdvancedStateSync(@NonNull String id)
+    public AdvancedTorrentInfo makeAdvancedInfoSync(@NonNull String id)
     {
         if (!isRunning())
             return null;
@@ -644,7 +631,7 @@ public class TorrentEngine
         Torrent torrent = repo.getTorrentById(id);
         int[] piecesAvail = task.getPiecesAvailability();
 
-        return new AdvanceStateParcel(
+        return new AdvancedTorrentInfo(
                 torrent.id,
                 task.getFilesReceivedBytes(),
                 task.getTotalSeeds(),
@@ -657,7 +644,7 @@ public class TorrentEngine
                 task.getFilesAvailability(piecesAvail));
     }
 
-    public List<TrackerStateParcel> makeTrackerStateParcelList(@NonNull String id)
+    public List<TrackerInfo> makeTrackerInfoList(@NonNull String id)
     {
         if (!isRunning())
             return new ArrayList<>();
@@ -667,15 +654,15 @@ public class TorrentEngine
             return new ArrayList<>();
 
         List<AnnounceEntry> trackers = task.getTrackers();
-        ArrayList<TrackerStateParcel> states = new ArrayList<>();
+        ArrayList<TrackerInfo> states = new ArrayList<>();
 
         for (AnnounceEntry entry : trackers)
-            states.add(new TrackerStateParcel(entry));
+            states.add(new TrackerInfo(entry));
 
         return states;
     }
 
-    public List<PeerStateParcel> makePeerStateParcelList(@NonNull String id)
+    public List<PeerInfo> makePeerInfoList(@NonNull String id)
     {
         if (!isRunning())
             return new ArrayList<>();
@@ -684,7 +671,7 @@ public class TorrentEngine
         if (task == null)
             return new ArrayList<>();
 
-        ArrayList<PeerStateParcel> states = new ArrayList<>();
+        ArrayList<PeerInfo> states = new ArrayList<>();
         List<AdvancedPeerInfo> peers = task.advancedPeerInfo();
 
         TorrentStatus status = task.getTorrentStatus();
@@ -692,7 +679,7 @@ public class TorrentEngine
             return states;
 
         for (AdvancedPeerInfo peer : peers) {
-            PeerStateParcel state = new PeerStateParcel(peer, status);
+            PeerInfo state = new PeerInfo(peer, status);
             states.add(state);
         }
 
@@ -747,6 +734,30 @@ public class TorrentEngine
         task.setUploadSpeedLimit(limit);
     }
 
+    public byte[] getBencode(@NonNull String id)
+    {
+        if (!isRunning())
+            return null;
+
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return null;
+
+        return task.getBencode();
+    }
+
+    public boolean isSequentialDownload(@NonNull String id)
+    {
+        if (!isRunning())
+            return false;
+
+        TorrentDownload task = session.getTask(id);
+        if (task == null)
+            return false;
+
+        return task.isSequentialDownload();
+    }
+
     private void saveTorrentFileIn(@NonNull Torrent torrent,
                                    @NonNull Uri saveDir)
     {
@@ -762,12 +773,8 @@ public class TorrentEngine
 
     private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException
     {
-        String pathToTorrent = repo.getTorrentFile(appContext, id);
-        if (pathToTorrent == null)
-            return false;
-
-        File torrent = new File(pathToTorrent);
-        if (!torrent.exists())
+        byte[] bencode = getBencode(id);
+        if (bencode == null)
             return false;
 
         String name = (fileName != null ? fileName : id);
@@ -776,7 +783,7 @@ public class TorrentEngine
         if (ret == null || ret.first == null)
             return false;
 
-        FileUtils.copyFile(appContext, Uri.fromFile(torrent), ret.first);
+        FileUtils.write(appContext, bencode, ret.first);
 
         return true;
     }
@@ -1018,29 +1025,31 @@ public class TorrentEngine
         }
     }
 
-    private Torrent addTorrentSync(Uri file, TorrentInfo ti)
-            throws IOException, FreeSpaceException,
-            FileAlreadyExistsException, DecodeException
+    private Torrent addTorrentSync(Uri file, org.libtorrent4j.TorrentInfo ti)
+            throws IOException, FreeSpaceException, TorrentAlreadyExistsException, DecodeException
     {
         ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(ti.files().numFiles(), Priority.DEFAULT));
         String downloadPath = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
                                              SettingsManager.Default.saveTorrentsIn);
-        Torrent torrent = new Torrent(ti.infoHash().toHex(),
-                file.toString(),
-                Uri.parse(FileUtils.normalizeFilesystemPath(downloadPath)),
+
+        AddTorrentParams params = new AddTorrentParams(file.toString(),
+                false,
+                ti.infoHash().toHex(),
                 ti.name(),
                 priorities,
-                System.currentTimeMillis());
+                Uri.parse(FileUtils.normalizeFilesystemPath(downloadPath)),
+                false,
+                false);
 
         if (FileUtils.getDirAvailableBytes(appContext, Uri.parse(downloadPath)) < ti.totalSize())
             throw new FreeSpaceException();
 
-        return addTorrentSync(torrent, file.toString(), false, false);
+        return addTorrentSync(params, false);
     }
 
     private void handleAddTorrentError(String name, Throwable e)
     {
-        if (e instanceof FileAlreadyExistsException) {
+        if (e instanceof TorrentAlreadyExistsException) {
             notifier.makeTorrentInfoNotify(name, appContext.getString(R.string.torrent_exist));
             return;
         }
@@ -1075,8 +1084,19 @@ public class TorrentEngine
         @Override
         public void onTorrentAdded(@NonNull String id)
         {
-            if (checkPauseTorrents() && isRunning()) {
+            boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
+                                                      SettingsManager.Default.saveTorrentFiles);
+            if (saveTorrentFile) {
+                Torrent torrent = repo.getTorrentById(id);
+                String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
+                                                 torrent.downloadPath.toString());
+                saveTorrentFileIn(torrent, Uri.parse(FileUtils.normalizeFilesystemPath(savePath)));
+            }
+
+            if (checkPauseTorrents()) {
                 disposables.add(Completable.fromRunnable(() -> {
+                    if (!isRunning())
+                        return;
                     TorrentDownload task = session.getTask(id);
                     if (task != null)
                         task.pause();
@@ -1087,11 +1107,27 @@ public class TorrentEngine
         }
 
         @Override
+        public void onTorrentLoaded(@NonNull String id)
+        {
+            if (checkPauseTorrents()) {
+                disposables.add(Completable.fromRunnable(() -> {
+                    if (!isRunning())
+                        return;
+                    TorrentDownload task = session.getTask(id);
+                    if (task != null)
+                        task.pause();
+
+                }).subscribeOn(Schedulers.io())
+                        .subscribe());
+            }
+        }
+
+        @Override
         public void onTorrentFinished(@NonNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
-                    .filter((torrent) -> torrent != null && !torrent.finished)
+                    .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
                                 if (pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
                                                     SettingsManager.Default.moveAfterDownload)) {
@@ -1242,6 +1278,18 @@ public class TorrentEngine
                                         Log.getStackTraceString(t));
                             })
             );
+
+            if (checkPauseTorrents()) {
+                disposables.add(Completable.fromRunnable(() -> {
+                    if (!isRunning())
+                        return;
+                    TorrentDownload task = session.getTask(id);
+                    if (task != null)
+                        task.pause();
+
+                }).subscribeOn(Schedulers.io())
+                        .subscribe());
+            }
         }
     };
 

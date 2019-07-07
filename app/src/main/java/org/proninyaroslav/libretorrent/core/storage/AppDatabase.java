@@ -30,12 +30,17 @@ import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 
 @Database(entities = {Torrent.class,
         FastResume.class,
@@ -75,7 +80,29 @@ public abstract class AppDatabase extends RoomDatabase
     private static AppDatabase buildDatabase(Context appContext)
     {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addMigrations(OldDatabaseMigration.getMigrations())
+                .addCallback(new Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db)
+                    {
+                        super.onCreate(db);
+
+                        if (db.getVersion() == 5) {
+                            Completable.fromAction(() ->  {
+                                AppDatabase appDb = AppDatabase.getInstance(appContext);
+                                try {
+                                    DatabaseMigration.advancedMigrationTo5(appContext, appDb);
+
+                                } catch (Exception e) {
+                                    /* Ignore */
+                                }
+                                appDb.setDatabaseCreated();
+                            })
+                            .subscribeOn(Schedulers.io())
+                            .subscribe();
+                        }
+                    }
+                })
+                .addMigrations(DatabaseMigration.getMigrations())
                 .build();
     }
 

@@ -488,7 +488,7 @@ public class TorrentEngine extends SessionManager
             TorrentUtils.saveSession(context, saveState());
 
         } catch (Exception e) {
-            Log.e(TAG, "Error saving session state: ");
+            Log.e(TAG, "Error saving session torrentInfo: ");
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
@@ -522,7 +522,7 @@ public class TorrentEngine extends SessionManager
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "Error loading session state: ");
+            Log.e(TAG, "Error loading session torrentInfo: ");
             Log.e(TAG, Log.getStackTraceString(e));
 
             return new SessionParams(defaultSettingsPack());

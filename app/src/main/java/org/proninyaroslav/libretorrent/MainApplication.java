@@ -28,7 +28,7 @@ import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraMailSender;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
+import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
@@ -83,9 +83,9 @@ public class MainApplication extends MultiDexApplication
         return TorrentRepository.getInstance(db);
     }
 
-    public TorrentStateProvider getTorrentStateProvider()
+    public TorrentInfoProvider getTorrentInfoProvider()
     {
-        return TorrentStateProvider.getInstance(TorrentEngine.getInstance(this));
+        return TorrentInfoProvider.getInstance(TorrentEngine.getInstance(this));
     }
 
     public FeedRepository getFeedRepository()

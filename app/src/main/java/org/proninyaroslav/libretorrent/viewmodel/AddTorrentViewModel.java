@@ -33,6 +33,7 @@ import android.util.Pair;
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
@@ -66,7 +67,6 @@ import androidx.annotation.NonNull;
 import androidx.collection.ArraySet;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
@@ -79,7 +79,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     @SuppressWarnings("unused")
     private static final String TAG = AddTorrentViewModel.class.getSimpleName();
 
-    public AddTorrentParams params = new AddTorrentParams();
+    public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
     public MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
     private TorrentRepository repo;
@@ -133,13 +133,13 @@ public class AddTorrentViewModel extends AndroidViewModel
         engine = TorrentEngine.getInstance(getApplication());
 
         info.addOnPropertyChangedCallback(infoCallback);
-        params.getDirPath().addOnPropertyChangedCallback(dirPathCallback);
+        mutableParams.getDirPath().addOnPropertyChangedCallback(dirPathCallback);
         decodeState.setValue(new DecodeState(Status.UNKNOWN));
 
         /* Init download dir */
         String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentFilesIn);
-        params.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+        mutableParams.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
     }
 
     @Override
@@ -147,7 +147,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     {
         disposable.clear();
         info.removeOnPropertyChangedCallback(infoCallback);
-        params.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);
+        mutableParams.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);
     }
 
     public void startDecodeTask(@NonNull Uri uri)
@@ -194,15 +194,15 @@ public class AddTorrentViewModel extends AndroidViewModel
                 switch (uri.getScheme()) {
                     case Utils.FILE_PREFIX:
                     case Utils.CONTENT_PREFIX:
-                        viewModel.get().params.setSource(uri.toString());
+                        viewModel.get().mutableParams.setSource(uri.toString());
                         viewModel.get().decodeState.postValue(
                                 new DecodeState(AddTorrentViewModel.Status.DECODE_TORRENT_FILE));
                         break;
                     case Utils.MAGNET_PREFIX:
-                        viewModel.get().params.setSource(uri.toString());
+                        viewModel.get().mutableParams.setSource(uri.toString());
                         viewModel.get().decodeState.postValue(
                                 new DecodeState(AddTorrentViewModel.Status.FETCHING_MAGNET));
-                        viewModel.get().params.setFromMagnet(true);
+                        viewModel.get().mutableParams.setFromMagnet(true);
 
                         Pair<MagnetInfo, Single<TorrentMetaInfo>> res = viewModel.get().engine.fetchMagnet(uri.toString());
                         MagnetInfo magnetInfo = res.first;
@@ -223,7 +223,7 @@ public class AddTorrentViewModel extends AndroidViewModel
                         org.apache.commons.io.FileUtils.writeByteArrayToFile(httpTmp, response);
 
                         if (httpTmp.exists() && !isCancelled()) {
-                            viewModel.get().params.setSource(
+                            viewModel.get().mutableParams.setSource(
                                     FileUtils.normalizeFilesystemPath(httpTmp.getAbsolutePath()));
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
@@ -234,8 +234,8 @@ public class AddTorrentViewModel extends AndroidViewModel
                         throw new IllegalArgumentException("Invalid scheme");
                 }
 
-                String tmpSource = viewModel.get().params.getSource();
-                boolean fromMagnet = viewModel.get().params.isFromMagnet();
+                String tmpSource = viewModel.get().mutableParams.getSource();
+                boolean fromMagnet = viewModel.get().mutableParams.isFromMagnet();
                 if (tmpSource != null && !fromMagnet && !isCancelled())
                     readTorrentFile(Uri.parse(tmpSource));
 
@@ -307,9 +307,9 @@ public class AddTorrentViewModel extends AndroidViewModel
             if (downloadInfo == null)
                 return;
 
-            String name = params.getName();
+            String name = mutableParams.getName();
             if (name == null || name.equals(downloadInfo.sha1Hash))
-                params.setName(downloadInfo.torrentName);
+                mutableParams.setName(downloadInfo.torrentName);
         }
     };
 
@@ -318,12 +318,12 @@ public class AddTorrentViewModel extends AndroidViewModel
         @Override
         public void onPropertyChanged(Observable sender, int propertyId)
         {
-            Uri dirPath = params.getDirPath().get();
+            Uri dirPath = mutableParams.getDirPath().get();
             if (dirPath == null)
                 return;
 
-            params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-            params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+            mutableParams.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
+            mutableParams.setDirName(FileUtils.getDirName(getApplication(), dirPath));
         }
     };
 
@@ -433,17 +433,17 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (downloadInfo == null)
             return false;
 
-        boolean fromMagnet = params.isFromMagnet();
+        boolean fromMagnet = mutableParams.isFromMagnet();
 
-        String source = params.getSource();
+        String source = mutableParams.getSource();
         if (source == null)
             return false;
 
-        Uri dirPath = params.getDirPath().get();
+        Uri dirPath = mutableParams.getDirPath().get();
         if (dirPath == null)
             return false;
 
-        String name = params.getName();
+        String name = mutableParams.getName();
         if (TextUtils.isEmpty(name))
             return false;
 
@@ -467,11 +467,10 @@ public class AddTorrentViewModel extends AndroidViewModel
             }
         }
 
-        Torrent torrent = new Torrent(downloadInfo.sha1Hash, source,
-                dirPath, name, priorities,
-                System.currentTimeMillis());
-        torrent.sequentialDownload = params.isSequentialDownload();
-        torrent.paused = !params.isStartAfterAdd();
+        AddTorrentParams params = new AddTorrentParams(source, fromMagnet,downloadInfo.sha1Hash,
+                name, priorities, dirPath,
+                mutableParams.isSequentialDownload(),
+                !mutableParams.isStartAfterAdd());
 
         /* TODO: maybe rewrite to WorkManager */
         /* Sync wait inserting */
@@ -479,7 +478,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         try {
             Thread t = new Thread(() ->  {
                 try {
-                    engine.addTorrentSync(torrent, source, fromMagnet, false);
+                    engine.addTorrentSync(params, false);
 
                 } catch (Exception e) {
                     err[0] = e;
@@ -503,7 +502,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (fileTree == null)
             return false;
 
-        long storageFreeSpace = params.getStorageFreeSpace();
+        long storageFreeSpace = mutableParams.getStorageFreeSpace();
 
         return storageFreeSpace == -1 || storageFreeSpace >= fileTree.selectedFileSize();
     }

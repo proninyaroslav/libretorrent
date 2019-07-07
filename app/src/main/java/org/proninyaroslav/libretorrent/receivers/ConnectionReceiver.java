@@ -28,7 +28,7 @@ import android.net.ConnectivityManager;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 
 /*
- * The receiver for Wi-Fi connection state changes and roaming state.
+ * The receiver for Wi-Fi connection torrentInfo changes and roaming torrentInfo.
  */
 
 public class ConnectionReceiver extends BroadcastReceiver

@@ -503,7 +503,7 @@
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Start time</string>
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
+    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their torrentInfo before the last shutdown</string>
     <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
     <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
     <string name="pref_scheduling_run_only_once_title">Run only once</string>

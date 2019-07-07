@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -27,12 +27,12 @@ import io.reactivex.schedulers.Schedulers;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class TorrentStateProviderTest extends AbstractTest
+public class TorrentInfoProviderTest extends AbstractTest
 {
     @SuppressWarnings("unused")
-    private static final String TAG = TorrentStateProviderTest.class.getSimpleName();
+    private static final String TAG = TorrentInfoProviderTest.class.getSimpleName();
 
-    private Torrent torrent;
+    private AddTorrentParams params;
     private String torrentUrl = "http://www.pcds.fi/downloads/applications/internet/browsers/midori/current/debian-ubuntu/midori_0.5.11-0_amd64_.deb.torrent";
     private String torrentName = "midori_0.5.11-0_amd64_.deb";
     private String torrentHash = "3fe5f1a11c51cd01fd09a79621e074dda8eb36b6";
@@ -44,12 +44,10 @@ public class TorrentStateProviderTest extends AbstractTest
         super.init();
 
         dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
-        torrent = new Torrent(torrentHash,
-                "",
-                dir,
-                torrentName,
-                Collections.singletonList(Priority.DEFAULT),
-                System.currentTimeMillis());
+        params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
+                torrentHash, torrentName,
+                Collections.singletonList(Priority.DEFAULT), dir,
+                false, false);
     }
 
     @Test
@@ -59,12 +57,12 @@ public class TorrentStateProviderTest extends AbstractTest
 
         assertTrue(engine.isRunning());
 
-        Disposable d = stateProvider.observeState(torrent.id)
+        Disposable d = stateProvider.observeInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((state) -> {
-                    Log.d(TAG, "state=" + state);
-                    assertEquals(torrent.id, state.torrentId);
+                    Log.d(TAG, "torrentInfo=" + state);
+                    assertEquals(params.sha1hash, state.torrentId);
                     if (state.stateCode == TorrentStateCode.FINISHED ||
                         state.stateCode == TorrentStateCode.SEEDING) {
                         c.countDown();
@@ -73,14 +71,14 @@ public class TorrentStateProviderTest extends AbstractTest
                 });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
         } finally {
             d.dispose();
-            engine.deleteTorrents(Collections.singletonList(torrent.id), true);
+            engine.deleteTorrents(Collections.singletonList(params.sha1hash), true);
         }
     }
 
@@ -91,24 +89,24 @@ public class TorrentStateProviderTest extends AbstractTest
 
         assertTrue(engine.isRunning());
 
-        Disposable d = stateProvider.observeAdvancedState(torrent.id)
+        Disposable d = stateProvider.observeAdvancedInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((state) -> {
-                    Log.d(TAG, "state=" + state);
-                    assertEquals(torrent.id, state.torrentId);
+                    Log.d(TAG, "torrentInfo=" + state);
+                    assertEquals(params.sha1hash, state.torrentId);
                     c.countDown();
                 });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
         } finally {
             d.dispose();
-            engine.deleteTorrents(Collections.singletonList(torrent.id), true);
+            engine.deleteTorrents(Collections.singletonList(params.sha1hash), true);
         }
     }
 
@@ -119,14 +117,14 @@ public class TorrentStateProviderTest extends AbstractTest
 
         assertTrue(engine.isRunning());
 
-        Disposable d = stateProvider.observeTrackersState(torrent.id)
+        Disposable d = stateProvider.observeTrackersInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((stateList) -> {
                     if (!stateList.isEmpty()) {
                         c.countDown();
-                        for (TrackerStateParcel state : stateList) {
-                            Log.d(TAG, "state=" + state);
+                        for (TrackerInfo state : stateList) {
+                            Log.d(TAG, "torrentInfo=" + state);
                             assertNotNull(state);
                             assertNotNull(state.url);
                         }
@@ -134,14 +132,14 @@ public class TorrentStateProviderTest extends AbstractTest
                 });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
         } finally {
             d.dispose();
-            engine.deleteTorrents(Collections.singletonList(torrent.id), true);
+            engine.deleteTorrents(Collections.singletonList(params.sha1hash), true);
         }
     }
 
@@ -152,14 +150,14 @@ public class TorrentStateProviderTest extends AbstractTest
 
         assertTrue(engine.isRunning());
 
-        Disposable d = stateProvider.observePeersState(torrent.id)
+        Disposable d = stateProvider.observePeersInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((stateList) -> {
                     if (!stateList.isEmpty()) {
                         c.countDown();
-                        for (PeerStateParcel state : stateList) {
-                            Log.d(TAG, "state=" + state);
+                        for (PeerInfo state : stateList) {
+                            Log.d(TAG, "torrentInfo=" + state);
                             assertNotNull(state);
                             assertNotNull(state.ip);
                         }
@@ -167,14 +165,14 @@ public class TorrentStateProviderTest extends AbstractTest
                 });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
         } finally {
             d.dispose();
-            engine.deleteTorrents(Collections.singletonList(torrent.id), true);
+            engine.deleteTorrents(Collections.singletonList(params.sha1hash), true);
         }
     }
 
@@ -185,25 +183,25 @@ public class TorrentStateProviderTest extends AbstractTest
 
         assertTrue(engine.isRunning());
 
-        Disposable d = stateProvider.observePiecesState(torrent.id)
+        Disposable d = stateProvider.observePiecesInfo(params.sha1hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((pieces) -> {
                     c.countDown();
                     assertNotEquals(0, pieces);
-                    boolean[] expectedPieces = engine.getPieces(torrent.id);
+                    boolean[] expectedPieces = engine.getPieces(params.sha1hash);
                     assertEquals(expectedPieces.length, pieces.length);
                 });
 
         try {
-            engine.addTorrentSync(torrent, downloadTorrent(torrentUrl), false, true);
+            engine.addTorrentSync(params, true);
             c.await();
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
         } finally {
             d.dispose();
-            engine.deleteTorrents(Collections.singletonList(torrent.id), true);
+            engine.deleteTorrents(Collections.singletonList(params.sha1hash), true);
         }
     }
 

@@ -22,10 +22,10 @@ package org.proninyaroslav.libretorrent.core.old;
 import android.os.Bundle;
 
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 
 /*
- * Provides message with information about the torrent state.
+ * Provides message with information about the torrent torrentInfo.
  */
 
 public class TorrentStateMsg
@@ -45,7 +45,7 @@ public class TorrentStateMsg
         MAGNET_FETCHED
     }
 
-    public static Bundle makeUpdateTorrentBundle(BasicStateParcel state)
+    public static Bundle makeUpdateTorrentBundle(TorrentInfo state)
     {
         Bundle b = new Bundle();
         b.putSerializable(TYPE, Type.UPDATE_TORRENT);

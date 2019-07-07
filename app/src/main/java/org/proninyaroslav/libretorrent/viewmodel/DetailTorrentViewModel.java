@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Pair;
@@ -40,17 +39,17 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.TorrentStateProvider;
+import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
-import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.FileUtils;
@@ -58,7 +57,6 @@ import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,7 +74,7 @@ import io.reactivex.subjects.BehaviorSubject;
 public class DetailTorrentViewModel extends AndroidViewModel
 {
     private String torrentId;
-    private TorrentStateProvider stateProvider;
+    private TorrentInfoProvider infoProvider;
     private TorrentEngine engine;
     private TorrentRepository repo;
     private SharedPreferences pref;
@@ -95,7 +93,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     {
         super(application);
 
-        stateProvider = ((MainApplication)getApplication()).getTorrentStateProvider();
+        infoProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
         engine = TorrentEngine.getInstance(application);
         repo = ((MainApplication)getApplication()).getTorrentRepository();
         pref = SettingsManager.getInstance(application).getPreferences();
@@ -133,14 +131,14 @@ public class DetailTorrentViewModel extends AndroidViewModel
         fileTree = null;
     }
 
-    public Flowable<BasicStateParcel> observeTorrentState()
+    public Flowable<TorrentInfo> observeTorrentInfo()
     {
-        return stateProvider.observeState(torrentId);
+        return infoProvider.observeInfo(torrentId);
     }
 
-    public Flowable<AdvanceStateParcel> observeAdvancedTorrentState()
+    public Flowable<AdvancedTorrentInfo> observeAdvancedTorrentInfo()
     {
-        return stateProvider.observeAdvancedState(torrentId);
+        return infoProvider.observeAdvancedInfo(torrentId);
     }
 
     public Flowable<Torrent> observeTorrent()
@@ -148,24 +146,24 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return repo.observeTorrentById(torrentId);
     }
 
-    public Flowable<List<TrackerStateParcel>> observeTrackers()
+    public Flowable<List<TrackerInfo>> observeTrackers()
     {
-        return stateProvider.observeTrackersState(torrentId);
+        return infoProvider.observeTrackersInfo(torrentId);
     }
 
-    public Flowable<List<PeerStateParcel>> observePeers()
+    public Flowable<List<PeerInfo>> observePeers()
     {
-        return stateProvider.observePeersState(torrentId);
+        return infoProvider.observePeersInfo(torrentId);
     }
 
     public Flowable<boolean[]> observePieces()
     {
-        return stateProvider.observePiecesState(torrentId);
+        return infoProvider.observePiecesInfo(torrentId);
     }
 
-    public Flowable<Pair<Torrent, BasicStateParcel>> observeTorrentInfo()
+    public Flowable<Pair<Torrent, TorrentInfo>> observeTorrentInfoPair()
     {
-        return Flowable.combineLatest(observeTorrent(), observeTorrentState(), Pair::create);
+        return Flowable.combineLatest(observeTorrent(), observeTorrentInfo(), Pair::create);
     }
 
     public Flowable<TorrentMetaInfo> observeTorrentMetaInfo()
@@ -181,12 +179,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
             startMakeFileTree();
     }
 
-    public void updateInfo(Torrent torrent, BasicStateParcel state)
+    public void updateInfo(Torrent torrent, TorrentInfo ti)
     {
         boolean firstUpdate = info.getTorrent() == null;
 
         info.setTorrent(torrent);
-        info.setState(state);
+        info.setTorrentInfo(ti);
         info.setLeechers(calcLeechers());
         info.setTotalLeechers(calcTotalLeechers());
 
@@ -196,29 +194,29 @@ public class DetailTorrentViewModel extends AndroidViewModel
             startMakeFileTree();
     }
 
-    public void updateInfo(AdvanceStateParcel advancedState)
+    public void updateInfo(AdvancedTorrentInfo advancedInfo)
     {
-        info.setAdvancedState(advancedState);
+        info.setAdvancedInfo(advancedInfo);
     }
 
     public int calcLeechers()
     {
-        BasicStateParcel state = info.getState();
-        AdvanceStateParcel advancedState = info.getAdvancedState();
-        if (state == null || advancedState == null)
+        TorrentInfo ti = info.getTorrentInfo();
+        AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
+        if (ti == null || advancedInfo == null)
             return 0;
 
-        return Math.abs(state.peers - advancedState.seeds);
+        return Math.abs(ti.peers - advancedInfo.seeds);
     }
 
     public int calcTotalLeechers()
     {
-        BasicStateParcel state = info.getState();
-        AdvanceStateParcel advancedState = info.getAdvancedState();
-        if (state == null || advancedState == null)
+        TorrentInfo ti = info.getTorrentInfo();
+        AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
+        if (ti == null || advancedInfo == null)
             return 0;
 
-        return state.totalPeers - advancedState.totalSeeds;
+        return ti.totalPeers - advancedInfo.totalSeeds;
     }
 
     /*
@@ -417,12 +415,13 @@ public class DetailTorrentViewModel extends AndroidViewModel
             throw new FreeSpaceException();
 
         Torrent torrent = info.getTorrent();
-        if (torrent == null)
+        TorrentInfo ti = info.getTorrentInfo();
+        if (torrent == null || ti == null)
             return;
 
         paramsChanged.setValue(false);
         disableSelectedFiles();
-        engine.changeParams(torrentId, makeParams(torrent));
+        engine.changeParams(torrentId, makeParams(ti, torrent));
     }
 
     public String makeMagnet(boolean includePriorities)
@@ -432,11 +431,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
     public void copyTorrentFile(@NonNull Uri destFile) throws IOException
     {
-        String srcFile = repo.getTorrentFile(getApplication(), torrentId);
-        if (srcFile == null)
-            throw new FileNotFoundException();
+        byte[] bencode = engine.getBencode(torrentId);
+        if (bencode == null)
+            throw new IOException("Cannot read bencode");
 
-        FileUtils.copyFile(getApplication(), Uri.fromFile(new File(srcFile)), destFile);
+        FileUtils.write(getApplication(), bencode, destFile);
     }
 
     public void setSpeedLimit(int uploadSpeedLimit, int downloadSpeedLimit)
@@ -445,7 +444,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         engine.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
     }
 
-    private ChangeableParams makeParams(Torrent torrent)
+    private ChangeableParams makeParams(TorrentInfo info, Torrent torrent)
     {
         ChangeableParams params = new ChangeableParams();
 
@@ -458,7 +457,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
             params.name = name;
         if (!torrent.downloadPath.equals(dirPath))
             params.dirPath = dirPath;
-        if (torrent.sequentialDownload != sequential)
+        if (info.sequentialDownload != sequential)
             params.sequentialDownload = sequential;
         if (prioritiesChanged)
             params.priorities = getFilePriorities();
@@ -495,7 +494,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
         mutableParams.setName(torrent.name);
         mutableParams.setDirPath(torrent.downloadPath);
-        mutableParams.setSequentialDownload(torrent.sequentialDownload);
+        mutableParams.setSequentialDownload(engine.isSequentialDownload(torrentId));
     }
 
     private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback()
@@ -520,10 +519,10 @@ public class DetailTorrentViewModel extends AndroidViewModel
         @Override
         public void onPropertyChanged(Observable sender, int propertyId)
         {
-            if (propertyId == BR.advancedState) {
-                AdvanceStateParcel advancedState = info.getAdvancedState();
-                if (advancedState != null)
-                    updateFiles(advancedState.filesReceivedBytes, advancedState.filesAvailability);
+            if (propertyId == BR.advancedInfo) {
+                AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
+                if (advancedInfo != null)
+                    updateFiles(advancedInfo.filesReceivedBytes, advancedInfo.filesAvailability);
             }
         }
     };
@@ -531,12 +530,13 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private void checkParamsChanged()
     {
         Torrent torrent = info.getTorrent();
-        if (torrent == null)
+        TorrentInfo ti = info.getTorrentInfo();
+        if (torrent == null || ti == null)
             return;
 
         boolean changed = !torrent.name.equals(mutableParams.getName()) ||
                 !torrent.downloadPath.equals(mutableParams.getDirPath()) ||
-                torrent.sequentialDownload != mutableParams.isSequentialDownload() ||
+                ti.sequentialDownload != mutableParams.isSequentialDownload() ||
                 mutableParams.isPrioritiesChanged();
 
         paramsChanged.setValue(changed);
@@ -562,11 +562,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (files.isEmpty())
             return;
         Torrent torrent = info.getTorrent();
-        if (torrent == null || torrent.filePriorities.size() != metaInfo.fileCount)
+        TorrentInfo ti = info.getTorrentInfo();
+        if (torrent == null || ti == null || ti.filePriorities.length != metaInfo.fileCount)
             return;
 
         ArrayList<FilePriority> priorities = new ArrayList<>();
-        for (Priority p : torrent.filePriorities)
+        for (Priority p : ti.filePriorities)
             priorities.add(new FilePriority(p));
 
         TorrentContentFileTree fileTree = TorrentContentFileTreeUtils.buildFileTree(files);

@@ -146,7 +146,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_gravity="center_vertical"
-                            app:fileSize="@{viewModel.info.state.totalBytes}"
+                            app:fileSize="@{viewModel.info.torrentInfo.totalBytes}"
                             style="@style/BaseTheme.TorrentInfoText" />
 
                         <TextView
@@ -182,7 +182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@{Integer.toString(viewModel.info.torrent.filePriorities.size())}"
+                            android:text="@{Integer.toString(viewModel.info.torrentInfo.filePriorities.length)}"
                             style="@style/BaseTheme.TorrentInfoText" />
                     </LinearLayout>
 

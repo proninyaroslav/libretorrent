@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textNoSuggestions"
-                    android:text="@={viewModel.params.name}"/>
+                    android:text="@={viewModel.mutableParams.name}"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -70,7 +70,7 @@
                     android:id="@+id/save_path"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.params.dirName}"
+                    android:text="@{viewModel.mutableParams.dirName}"
                     style="@style/BaseTheme.TorrentInfoText"/>
             </LinearLayout>
 
@@ -118,7 +118,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?android:attr/textColorPrimary"
                         android:text="@string/enable_sequential_download"
-                        android:checked="@={viewModel.params.sequentialDownload}" />
+                        android:checked="@={viewModel.mutableParams.sequentialDownload}" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -147,7 +147,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="?android:attr/textColorPrimary"
                         android:text="@string/start_torrent"
-                        android:checked="@={viewModel.params.startAfterAdd}"/>
+                        android:checked="@={viewModel.mutableParams.startAfterAdd}"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -194,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textAppearance="?attr/smallText"
-                        app:fileSize="@{viewModel.params.storageFreeSpace}"
+                        app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
                         app:formatFileSize="@{@string/free_space}" />
                 </LinearLayout>
             </LinearLayout>

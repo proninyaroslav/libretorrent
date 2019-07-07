@@ -86,7 +86,7 @@ public class DetailTorrentTrackersFragment extends Fragment
     private SelectionTracker<TrackerItem> selectionTracker;
     private ActionMode actionMode;
     private TrackerListAdapter adapter;
-    /* Save state scrolling */
+    /* Save torrentInfo scrolling */
     private Parcelable listTrackerState;
     private CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog deleteTrackersDialog;

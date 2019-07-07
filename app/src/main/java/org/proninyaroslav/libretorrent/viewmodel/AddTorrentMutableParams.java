@@ -27,7 +27,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.ObservableField;
 
-public class AddTorrentParams extends BaseObservable
+public class AddTorrentMutableParams extends BaseObservable
 {
     /* File path or magnet link */
     private String source;
@@ -102,7 +102,6 @@ public class AddTorrentParams extends BaseObservable
         notifyPropertyChanged(BR.storageFreeSpace);
     }
 
-
     @Bindable
     public boolean isSequentialDownload()
     {
@@ -130,7 +129,7 @@ public class AddTorrentParams extends BaseObservable
     @Override
     public String toString()
     {
-        return "AddTorrentParams{" +
+        return "AddTorrentMutableParams{" +
                 "source='" + source + '\'' +
                 ", fromMagnet=" + fromMagnet +
                 ", name='" + name + '\'' +

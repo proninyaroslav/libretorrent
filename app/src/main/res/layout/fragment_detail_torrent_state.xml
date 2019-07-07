@@ -39,7 +39,7 @@
                     android:id="@+id/speed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{BindingAdapterUtils.formatSpeed(context, viewModel.info.state.uploadSpeed, viewModel.info.state.downloadSpeed)}"
+                    android:text="@{BindingAdapterUtils.formatSpeed(context, viewModel.info.torrentInfo.uploadSpeed, viewModel.info.torrentInfo.downloadSpeed)}"
                     style="@style/BaseTheme.TorrentInfoText" />
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                         android:id="@+id/seeds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/torrent_peers_template(viewModel.info.advancedState.seeds, viewModel.info.advancedState.totalSeeds)}"
+                        android:text="@{@string/torrent_peers_template(viewModel.info.advancedInfo.seeds, viewModel.info.advancedInfo.totalSeeds)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
 
@@ -117,7 +117,7 @@
                         android:id="@+id/downloading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.state.receivedBytes, viewModel.info.state.totalBytes, viewModel.info.state.progress)}"
+                        android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.torrentInfo.receivedBytes, viewModel.info.torrentInfo.totalBytes, viewModel.info.torrentInfo.progress)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
 
@@ -138,7 +138,7 @@
                         android:id="@+id/ETA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{BindingAdapterUtils.formatETA(context, viewModel.info.state.ETA)}"
+                        android:text="@{BindingAdapterUtils.formatETA(context, viewModel.info.torrentInfo.ETA)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
             </LinearLayout>
@@ -167,7 +167,7 @@
                         android:id="@+id/uploaded"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:fileSize="@{viewModel.info.state.uploadedBytes}"
+                        app:fileSize="@{viewModel.info.torrentInfo.uploadedBytes}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
 
@@ -188,7 +188,7 @@
                         android:id="@+id/share_ratio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:floatNum="@{viewModel.info.advancedState.shareRatio}"
+                        app:floatNum="@{viewModel.info.advancedInfo.shareRatio}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
             </LinearLayout>
@@ -217,7 +217,7 @@
                         android:id="@+id/active_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedState.activeTime)}"
+                        android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.activeTime)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
 
@@ -238,7 +238,7 @@
                         android:id="@+id/seeding_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedState.seedingTime)}"
+                        android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.seedingTime)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
             </LinearLayout>
@@ -267,7 +267,7 @@
                         android:id="@+id/pieces"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{BindingAdapterUtils.formatPieces(context, viewModel.info.advancedState.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
+                        android:text="@{BindingAdapterUtils.formatPieces(context, viewModel.info.advancedInfo.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
 
@@ -288,7 +288,7 @@
                         android:id="@+id/availability"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:floatNum="@{viewModel.info.advancedState.availability}"
+                        app:floatNum="@{viewModel.info.advancedInfo.availability}"
                         style="@style/BaseTheme.TorrentInfoText" />
                 </LinearLayout>
             </LinearLayout>

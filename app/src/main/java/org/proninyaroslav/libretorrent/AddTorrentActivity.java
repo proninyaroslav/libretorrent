@@ -49,6 +49,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exceptions.NoFilesSelectedException;
+import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityAddTorrentBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
@@ -230,7 +231,7 @@ public class AddTorrentActivity extends AppCompatActivity
 
     private void addTorrent()
     {
-        String name = viewModel.params.getName();
+        String name = viewModel.mutableParams.getName();
         if (TextUtils.isEmpty(name)) {
             Snackbar.make(binding.coordinatorLayout,
                     R.string.error_empty_name,
@@ -244,7 +245,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 finish();
 
         } catch (Exception e) {
-            if (e instanceof FileAlreadyExistsException) {
+            if (e instanceof TorrentAlreadyExistsException) {
                 Toast.makeText(getApplication(),
                         R.string.torrent_exist,
                         Toast.LENGTH_SHORT)

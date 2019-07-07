@@ -628,7 +628,7 @@ free software which everyone can redistribute and change under these terms.
 
   To do so, attach the following notices to the program.  It is safest
 to attach them to the start of each source file to most effectively
-state the exclusion of warranty; and each file should have at least
+torrentInfo the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
     {one line to give the program's name and a brief idea of what it does.}

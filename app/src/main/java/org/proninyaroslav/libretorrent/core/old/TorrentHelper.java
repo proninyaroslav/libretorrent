@@ -28,7 +28,6 @@ import android.util.Log;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.FileStorage;
 import org.libtorrent4j.Priority;
-import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.TorrentStatus;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AdvancedPeerInfo;
@@ -37,14 +36,13 @@ import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.old.TorrentStorage;
 import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
 import org.proninyaroslav.libretorrent.core.utils.old.TorrentUtils;
-import org.proninyaroslav.libretorrent.receivers.old.TorrentTaskServiceReceiver;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 import java.io.File;
@@ -121,7 +119,7 @@ public class TorrentHelper
             throw new FileNotFoundException("Torrent doesn't exists: " + torrent.getName());
         }
         /*
-         * This is possible if the magnet data came after AddTorrentParams object
+         * This is possible if the magnet data came after AddTorrentMutableParams object
          * has already been created and nothing is known about the received data
          */
         List<Priority> priorities = torrent.getFilePriorities();
@@ -251,7 +249,7 @@ public class TorrentHelper
         for (TorrentDownload task : TorrentEngine.getInstance().getTasks()) {
             if (task == null)
                 continue;
-            BasicStateParcel state = makeBasicStateParcel(task);
+            TorrentInfo state = makeBasicStateParcel(task);
             states.putParcelable(state.torrentId, state);
         }
 
@@ -265,7 +263,7 @@ public class TorrentHelper
         for (Torrent torrent : storage.getAll()) {
             if (torrent == null)
                 continue;
-            BasicStateParcel state = new BasicStateParcel(
+            TorrentInfo state = new TorrentInfo(
                     torrent.getId(),
                     torrent.getName(),
                     torrent.getDateAdded(),
@@ -276,7 +274,7 @@ public class TorrentHelper
         return states;
     }
 
-    public static BasicStateParcel makeBasicStateParcel(String id)
+    public static TorrentInfo makeBasicStateParcel(String id)
     {
         if (id == null)
             return null;
@@ -286,28 +284,29 @@ public class TorrentHelper
         return makeBasicStateParcel(task);
     }
 
-    public static BasicStateParcel makeBasicStateParcel(TorrentDownload task)
+    public static TorrentInfo makeBasicStateParcel(TorrentDownload task)
     {
         if (task == null)
             return null;
 
         Torrent torrent = task.getTorrent();
 
-        return new BasicStateParcel(
-                torrent.getId(),
-                torrent.getName(),
-                task.getStateCode(),
-                task.getProgress(),
-                task.getTotalReceivedBytes(),
-                task.getTotalSentBytes(),
-                task.getTotalWanted(),
-                task.getDownloadSpeed(),
-                task.getUploadSpeed(),
-                task.getETA(),
-                torrent.getDateAdded(),
-                task.getTotalPeers(),
-                task.getConnectedPeers(),
-                torrent.getError());
+        return null;
+//        return new TorrentInfo(
+//                torrent.getId(),
+//                torrent.getName(),
+//                task.getStateCode(),
+//                task.getProgress(),
+//                task.getTotalReceivedBytes(),
+//                task.getTotalSentBytes(),
+//                task.getTotalWanted(),
+//                task.getDownloadSpeed(),
+//                task.getUploadSpeed(),
+//                task.getETA(),
+//                torrent.getDateAdded(),
+//                task.getTotalPeers(),
+//                task.getConnectedPeers(),
+//                torrent.getError());
     }
 
     public static synchronized void setSequentialDownload(Context context, String id, boolean sequential)
@@ -342,7 +341,7 @@ public class TorrentHelper
         if (torrent == null)
             return;
         torrent.setFilePriorities(Arrays.asList(priorities));
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
+        org.libtorrent4j.TorrentInfo ti = new org.libtorrent4j.TorrentInfo(new File(torrent.getSource()));
         if (isSelectedFilesTooBig(torrent, ti))
             throw new FreeSpaceException();
         storage.update(torrent);
@@ -353,7 +352,7 @@ public class TorrentHelper
         }
     }
 
-    private static boolean isSelectedFilesTooBig(Torrent torrent, TorrentInfo ti)
+    private static boolean isSelectedFilesTooBig(Torrent torrent, org.libtorrent4j.TorrentInfo ti)
     {
         long freeSpace = FileIOUtils.getFreeSpace(torrent.getDownloadPath());
         long filesSize = 0;
@@ -420,7 +419,7 @@ public class TorrentHelper
             task.setDownloadSpeedLimit(limit);
     }
 
-    public static AdvanceStateParcel makeAdvancedState(String id)
+    public static AdvancedTorrentInfo makeAdvancedState(String id)
     {
         if (id == null)
             return null;
@@ -432,7 +431,7 @@ public class TorrentHelper
         Torrent torrent = task.getTorrent();
         int[] piecesAvail = task.getPiecesAvailability();
 
-        return new AdvanceStateParcel(
+        return new AdvancedTorrentInfo(
                 torrent.getId(),
                 task.getFilesReceivedBytes(),
                 task.getTotalSeeds(),
@@ -454,7 +453,7 @@ public class TorrentHelper
         if (task == null)
             return null;
 
-        TorrentInfo ti = task.getTorrentInfo();
+        org.libtorrent4j.TorrentInfo ti = task.getTorrentInfo();
         TorrentMetaInfo info = null;
         try {
             if (ti != null)
@@ -494,7 +493,7 @@ public class TorrentHelper
         return task.getSeedingTime();
     }
 
-    public static ArrayList<TrackerStateParcel> getTrackerStatesList(String id)
+    public static ArrayList<TrackerInfo> getTrackerStatesList(String id)
     {
         if (id == null)
             return null;
@@ -506,7 +505,7 @@ public class TorrentHelper
         return makeTrackerStateParcelList(task);
     }
 
-    public static ArrayList<PeerStateParcel> getPeerStatesList(String id)
+    public static ArrayList<PeerInfo> getPeerStatesList(String id)
     {
         if (id == null)
             return null;
@@ -518,49 +517,49 @@ public class TorrentHelper
         return makePeerStateParcelList(task);
     }
 
-    private static ArrayList<TrackerStateParcel> makeTrackerStateParcelList(TorrentDownload task)
+    private static ArrayList<TrackerInfo> makeTrackerStateParcelList(TorrentDownload task)
     {
         if (task == null)
             return null;
 
         List<AnnounceEntry> trackers = task.getTrackers();
-        ArrayList<TrackerStateParcel> states = new ArrayList<>();
+        ArrayList<TrackerInfo> states = new ArrayList<>();
 
 //        int statusDHT = TorrentEngine.getInstance().isDHTEnabled() ?
-//                TrackerStateParcel.Status.WORKING :
-//                TrackerStateParcel.Status.NOT_WORKING;
+//                TrackerInfo.Status.WORKING :
+//                TrackerInfo.Status.NOT_WORKING;
 //        int statusLSD = TorrentEngine.getInstance().isLSDEnabled() ?
-//                TrackerStateParcel.Status.WORKING :
-//                TrackerStateParcel.Status.NOT_WORKING;
+//                TrackerInfo.Status.WORKING :
+//                TrackerInfo.Status.NOT_WORKING;
 //        int statusPeX = TorrentEngine.getInstance().isPeXEnabled() ?
-//                TrackerStateParcel.Status.WORKING :
-//                TrackerStateParcel.Status.NOT_WORKING;
+//                TrackerInfo.Status.WORKING :
+//                TrackerInfo.Status.NOT_WORKING;
 //
-//        states.add(new TrackerStateParcel(TrackerStateParcel.DHT_ENTRY_NAME, "", -1, statusDHT));
-//        states.add(new TrackerStateParcel(TrackerStateParcel.LSD_ENTRY_NAME, "", -1, statusLSD));
-//        states.add(new TrackerStateParcel(TrackerStateParcel.PEX_ENTRY_NAME, "", -1, statusPeX));
+//        states.add(new TrackerInfo(TrackerInfo.DHT_ENTRY_NAME, "", -1, statusDHT));
+//        states.add(new TrackerInfo(TrackerInfo.LSD_ENTRY_NAME, "", -1, statusLSD));
+//        states.add(new TrackerInfo(TrackerInfo.PEX_ENTRY_NAME, "", -1, statusPeX));
 //
 //        for (AnnounceEntry entry : trackers) {
 //            String url = entry.url();
 //            /* Prevent duplicate */
-//            if (url.equals(TrackerStateParcel.DHT_ENTRY_NAME) ||
-//                    url.equals(TrackerStateParcel.LSD_ENTRY_NAME) ||
-//                    url.equals(TrackerStateParcel.PEX_ENTRY_NAME)) {
+//            if (url.equals(TrackerInfo.DHT_ENTRY_NAME) ||
+//                    url.equals(TrackerInfo.LSD_ENTRY_NAME) ||
+//                    url.equals(TrackerInfo.PEX_ENTRY_NAME)) {
 //                continue;
 //            }
 //
-//            states.add(new TrackerStateParcel(entry));
+//            states.add(new TrackerInfo(entry));
 //        }
 
         return states;
     }
 
-    private static ArrayList<PeerStateParcel> makePeerStateParcelList(TorrentDownload task)
+    private static ArrayList<PeerInfo> makePeerStateParcelList(TorrentDownload task)
     {
         if (task == null)
             return null;
 
-        ArrayList<PeerStateParcel> states = new ArrayList<>();
+        ArrayList<PeerInfo> states = new ArrayList<>();
         List<AdvancedPeerInfo> peers = task.advancedPeerInfo();
 
         TorrentStatus status = task.getTorrentStatus();
@@ -568,7 +567,7 @@ public class TorrentHelper
             return null;
 
         for (AdvancedPeerInfo peer : peers) {
-            PeerStateParcel state = new PeerStateParcel(peer, status);
+            PeerInfo state = new PeerInfo(peer, status);
             states.add(state);
         }
 

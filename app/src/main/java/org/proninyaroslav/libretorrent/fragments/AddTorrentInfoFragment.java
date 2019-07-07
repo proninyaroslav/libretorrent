@@ -140,7 +140,7 @@ public class AddTorrentInfoFragment extends Fragment
             return;
         }
 
-        viewModel.params.getDirPath().set(data.getData());
+        viewModel.mutableParams.getDirPath().set(data.getData());
     }
 
     private void showOpenDirErrorDialog()

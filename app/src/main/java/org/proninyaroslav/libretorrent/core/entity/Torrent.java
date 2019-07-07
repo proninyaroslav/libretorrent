@@ -95,16 +95,15 @@ public class Torrent implements Parcelable
         return downloadingMetadata;
     }
 
-    @NonNull
     public String getMagnet()
     {
         return magnet;
     }
 
-    public void setMagnetUri(@NonNull String magnet)
+    public void setMagnetUri(String magnet)
     {
         this.magnet = magnet;
-        downloadingMetadata = true;
+        downloadingMetadata = magnet != null;
     }
 
     @Override

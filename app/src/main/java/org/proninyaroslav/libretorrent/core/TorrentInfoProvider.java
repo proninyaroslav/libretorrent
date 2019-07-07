@@ -22,10 +22,10 @@ package org.proninyaroslav.libretorrent.core;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
-import org.proninyaroslav.libretorrent.core.stateparcel.AdvanceStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,63 +45,63 @@ import io.reactivex.functions.Consumer;
  * Provides runtime information about torrent, which isn't saved to the database.
  */
 
-public class TorrentStateProvider
+public class TorrentInfoProvider
 {
     @SuppressWarnings("unused")
-    private static final String TAG = TorrentStateProvider.class.getSimpleName();
+    private static final String TAG = TorrentInfoProvider.class.getSimpleName();
 
-    private static final int GET_STATE_SYNC_TIME = 1000; /* ms */
+    private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
 
-    private static TorrentStateProvider INSTANCE;
+    private static TorrentInfoProvider INSTANCE;
     private TorrentEngine engine;
 
-    public static TorrentStateProvider getInstance(@NonNull TorrentEngine engine)
+    public static TorrentInfoProvider getInstance(@NonNull TorrentEngine engine)
     {
         if (INSTANCE == null) {
-            synchronized (TorrentStateProvider.class) {
+            synchronized (TorrentInfoProvider.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new TorrentStateProvider(engine);
+                    INSTANCE = new TorrentInfoProvider(engine);
             }
         }
         return INSTANCE;
     }
 
-    private TorrentStateProvider(TorrentEngine engine)
+    private TorrentInfoProvider(TorrentEngine engine)
     {
         this.engine = engine;
     }
 
-    public Flowable<BasicStateParcel> observeState(@NonNull String id)
+    public Flowable<TorrentInfo> observeInfo(@NonNull String id)
     {
-        return makeStateFlowable(id);
+        return makeInfoFlowable(id);
     }
 
-    public Flowable<List<BasicStateParcel>> observeStateList()
+    public Flowable<List<TorrentInfo>> observeInfoList()
     {
-        return makeStateListFlowable();
+        return makeInfoListFlowable();
     }
 
-    public Single<List<BasicStateParcel>> getStateListSingle()
+    public Single<List<TorrentInfo>> getInfoListSingle()
     {
-        return makeStateListSingle();
+        return makeInfoListSingle();
     }
 
-    public Flowable<AdvanceStateParcel> observeAdvancedState(@NonNull String id)
+    public Flowable<AdvancedTorrentInfo> observeAdvancedInfo(@NonNull String id)
     {
-        return makeAdvancedStateFlowable(id);
+        return makeAdvancedInfoFlowable(id);
     }
 
-    public Flowable<List<TrackerStateParcel>> observeTrackersState(@NonNull String id)
+    public Flowable<List<TrackerInfo>> observeTrackersInfo(@NonNull String id)
     {
-        return makeTrackersStateFlowable(id);
+        return makeTrackersInfoFlowable(id);
     }
 
-    public Flowable<List<PeerStateParcel>> observePeersState(@NonNull String id)
+    public Flowable<List<PeerInfo>> observePeersInfo(@NonNull String id)
     {
-        return makePeersStateFlowable(id);
+        return makePeersInfoFlowable(id);
     }
 
-    public Flowable<boolean[]> observePiecesState(@NonNull String id)
+    public Flowable<boolean[]> observePiecesInfo(@NonNull String id)
     {
         return makePiecesFlowable(id);
     }
@@ -111,21 +111,21 @@ public class TorrentStateProvider
         return torrentsDeletedFlowable();
     }
 
-    private Flowable<BasicStateParcel> makeStateFlowable(String id)
+    private Flowable<TorrentInfo> makeInfoFlowable(String id)
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<BasicStateParcel> state = new AtomicReference<>();
+            final AtomicReference<TorrentInfo> info = new AtomicReference<>();
 
             Consumer<String> handleEvent = (torrentId) -> {
                 if (!id.equals(torrentId))
                     return;
 
-                BasicStateParcel newState = engine.makeBasicStateSync(id);
-                BasicStateParcel oldState = state.get();
-                if (newState != null && !newState.equals(oldState)) {
-                    state.set(newState);
+                TorrentInfo newInfo = engine.makeInfoSync(id);
+                TorrentInfo oldInfo = info.get();
+                if (newInfo != null && !newInfo.equals(oldInfo)) {
+                    info.set(newInfo);
                     if (!emitter.isCancelled())
-                        emitter.onNext(newState);
+                        emitter.onNext(newInfo);
                 }
             };
 
@@ -153,12 +153,36 @@ public class TorrentStateProvider
                             emitter.onError(e);
                     }
                 }
+
+                @Override
+                public void onRestoreSessionError(@NonNull String torrentId)
+                {
+                    try {
+                        handleEvent.accept(torrentId);
+
+                    } catch ( Exception e) {
+                        if (!emitter.isCancelled())
+                            emitter.onError(e);
+                    }
+                }
+
+                @Override
+                public void onTorrentError(@NonNull String torrentId, String errorMsg)
+                {
+                    try {
+                        handleEvent.accept(torrentId);
+
+                    } catch ( Exception e) {
+                        if (!emitter.isCancelled())
+                            emitter.onError(e);
+                    }
+                }
             };
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    BasicStateParcel s = engine.makeBasicStateSync(id);
-                    state.set(s);
+                    TorrentInfo s = engine.makeInfoSync(id);
+                    info.set(s);
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
                         if (s != null)
@@ -174,19 +198,19 @@ public class TorrentStateProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<BasicStateParcel>> makeStateListFlowable()
+    private Flowable<List<TorrentInfo>> makeInfoListFlowable()
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<BasicStateParcel>> stateList = new AtomicReference<>();
+            final AtomicReference<List<TorrentInfo>> infoList = new AtomicReference<>();
 
-            Runnable handleState = () -> {
-                List<BasicStateParcel> newStateList = engine.makeBasicStateListSync();
-                List<BasicStateParcel> oldStateList = stateList.get();
-                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
-                    !oldStateList.containsAll(newStateList)) {
-                    stateList.set(newStateList);
+            Runnable handleInfo = () -> {
+                List<TorrentInfo> newInfoList = engine.makeInfoListSync();
+                List<TorrentInfo> oldInfoList = infoList.get();
+                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
+                    !oldInfoList.containsAll(newInfoList)) {
+                    infoList.set(newInfoList);
                     if (!emitter.isCancelled())
-                        emitter.onNext(newStateList);
+                        emitter.onNext(newInfoList);
                 }
             };
 
@@ -194,28 +218,40 @@ public class TorrentStateProvider
                 @Override
                 public void onTorrentStateChanged(@NonNull String torrentId)
                 {
-                    handleState.run();
+                    handleInfo.run();
                 }
 
                 @Override
                 public void onTorrentPaused(@NotNull String torrentId)
                 {
-                    handleState.run();
+                    handleInfo.run();
                 }
 
                 @Override
                 public void onTorrentRemoved(@NonNull String torrentId)
                 {
-                    handleState.run();
+                    handleInfo.run();
+                }
+
+                @Override
+                public void onRestoreSessionError(@NonNull String torrentId)
+                {
+                    handleInfo.run();
+                }
+
+                @Override
+                public void onTorrentError(@NonNull String torrentId, String errorMsg)
+                {
+                    handleInfo.run();
                 }
             };
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    stateList.set(engine.makeBasicStateListSync());
+                    infoList.set(engine.makeInfoListSync());
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(stateList.get());
+                        emitter.onNext(infoList.get());
                         engine.addListener(listener);
                         emitter.setDisposable(Disposables.fromAction(() ->
                                 engine.removeListener(listener)));
@@ -227,44 +263,44 @@ public class TorrentStateProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Single<List<BasicStateParcel>> makeStateListSingle()
+    private Single<List<TorrentInfo>> makeInfoListSingle()
     {
         return Single.create((emitter) -> {
             if (!emitter.isDisposed()) {
                 Thread t = new Thread(() -> {
-                    List<BasicStateParcel> stateList = engine.makeBasicStateListSync();
+                    List<TorrentInfo> infoList = engine.makeInfoListSync();
                     if (!emitter.isDisposed())
-                        emitter.onSuccess(stateList);
+                        emitter.onSuccess(infoList);
                 });
                 t.start();
             }
         });
     }
 
-    private Flowable<AdvanceStateParcel> makeAdvancedStateFlowable(String id)
+    private Flowable<AdvancedTorrentInfo> makeAdvancedInfoFlowable(String id)
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<AdvanceStateParcel> state = new AtomicReference<>();
+            final AtomicReference<AdvancedTorrentInfo> info = new AtomicReference<>();
 
-            Disposable d = Observable.interval(GET_STATE_SYNC_TIME, TimeUnit.MILLISECONDS)
+            Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                AdvanceStateParcel newState = engine.makeAdvancedStateSync(id);
-                                AdvanceStateParcel oldState = state.get();
-                                if (newState != null && !newState.equals(oldState)) {
-                                    state.set(newState);
+                                AdvancedTorrentInfo newInfo = engine.makeAdvancedInfoSync(id);
+                                AdvancedTorrentInfo oldInfo = info.get();
+                                if (newInfo != null && !newInfo.equals(oldInfo)) {
+                                    info.set(newInfo);
                                     if (!emitter.isCancelled())
-                                        emitter.onNext(newState);
+                                        emitter.onNext(newInfo);
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting advanced state for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting advanced torrentInfo for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    AdvanceStateParcel s = engine.makeAdvancedStateSync(id);
-                    state.set(s);
+                    AdvancedTorrentInfo s = engine.makeAdvancedInfoSync(id);
+                    info.set(s);
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
                         if (s != null)
@@ -278,33 +314,33 @@ public class TorrentStateProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<TrackerStateParcel>> makeTrackersStateFlowable(String id)
+    private Flowable<List<TrackerInfo>> makeTrackersInfoFlowable(String id)
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<TrackerStateParcel>> stateList = new AtomicReference<>();
+            final AtomicReference<List<TrackerInfo>> infoList = new AtomicReference<>();
 
-            Disposable d = Observable.interval(GET_STATE_SYNC_TIME, TimeUnit.MILLISECONDS)
+            Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                List<TrackerStateParcel> newStateList = engine.makeTrackerStateParcelList(id);
-                                List<TrackerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
-                                    !oldStateList.containsAll(newStateList)) {
-                                    stateList.set(newStateList);
+                                List<TrackerInfo> newInfoList = engine.makeTrackerInfoList(id);
+                                List<TrackerInfo> oldInfoList = infoList.get();
+                                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
+                                    !oldInfoList.containsAll(newInfoList)) {
+                                    infoList.set(newInfoList);
                                     if (!emitter.isCancelled())
-                                        emitter.onNext(newStateList);
+                                        emitter.onNext(newInfoList);
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting trackers state for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting trackers torrentInfo for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    stateList.set(engine.makeTrackerStateParcelList(id));
+                    infoList.set(engine.makeTrackerInfoList(id));
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(stateList.get());
+                        emitter.onNext(infoList.get());
                         emitter.setDisposable(Disposables.fromAction(d::dispose));
                     }
                 });
@@ -314,33 +350,33 @@ public class TorrentStateProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<PeerStateParcel>> makePeersStateFlowable(String id)
+    private Flowable<List<PeerInfo>> makePeersInfoFlowable(String id)
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<PeerStateParcel>> stateList = new AtomicReference<>();
+            final AtomicReference<List<PeerInfo>> infoList = new AtomicReference<>();
 
-            Disposable d = Observable.interval(GET_STATE_SYNC_TIME, TimeUnit.MILLISECONDS)
+            Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                List<PeerStateParcel> newStateList = engine.makePeerStateParcelList(id);
-                                List<PeerStateParcel> oldStateList = stateList.get();
-                                if (oldStateList == null || oldStateList.size() != newStateList.size() ||
-                                    !oldStateList.containsAll(newStateList)) {
-                                    stateList.set(newStateList);
+                                List<PeerInfo> newInfoList = engine.makePeerInfoList(id);
+                                List<PeerInfo> oldInfoList = infoList.get();
+                                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
+                                    !oldInfoList.containsAll(newInfoList)) {
+                                    infoList.set(newInfoList);
                                     if (!emitter.isCancelled())
-                                        emitter.onNext(newStateList);
+                                        emitter.onNext(newInfoList);
                                 }
                             },
                             (Throwable t) -> {
-                                Log.e(TAG, "Getting peers state for torrent " + id + " error: " +
+                                Log.e(TAG, "Getting peers torrentInfo for torrent " + id + " error: " +
                                         Log.getStackTraceString(t));
                             });
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    stateList.set(engine.makePeerStateParcelList(id));
+                    infoList.set(engine.makePeerInfoList(id));
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(stateList.get());
+                        emitter.onNext(infoList.get());
                         emitter.setDisposable(Disposables.fromAction(d::dispose));
                     }
                 });
@@ -353,16 +389,16 @@ public class TorrentStateProvider
     private Flowable<boolean[]> makePiecesFlowable(String id)
     {
         return Flowable.create((emitter) -> {
-            final AtomicReference<boolean[]> stateList = new AtomicReference<>();
+            final AtomicReference<boolean[]> infoList = new AtomicReference<>();
 
-            Disposable d = Observable.interval(GET_STATE_SYNC_TIME, TimeUnit.MILLISECONDS)
+            Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                boolean[] newStateList = engine.getPieces(id);
-                                boolean[] oldStateList = stateList.get();
-                                if (!Arrays.equals(oldStateList, newStateList)) {
-                                    stateList.set(newStateList);
+                                boolean[] newInfoList = engine.getPieces(id);
+                                boolean[] oldInfoList = infoList.get();
+                                if (!Arrays.equals(oldInfoList, newInfoList)) {
+                                    infoList.set(newInfoList);
                                     if (!emitter.isCancelled())
-                                        emitter.onNext(newStateList);
+                                        emitter.onNext(newInfoList);
                                 }
                             },
                             (Throwable t) -> {
@@ -372,10 +408,10 @@ public class TorrentStateProvider
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    stateList.set(engine.getPieces(id));
+                    infoList.set(engine.getPieces(id));
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(stateList.get());
+                        emitter.onNext(infoList.get());
                         emitter.setDisposable(Disposables.fromAction(d::dispose));
                     }
                 });

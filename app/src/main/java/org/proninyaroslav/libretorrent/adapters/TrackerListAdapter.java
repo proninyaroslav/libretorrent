@@ -40,7 +40,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTrackersListBinding;
 
@@ -171,16 +171,16 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
 
             String status = "";
             switch (item.status) {
-                case TrackerStateParcel.Status.NOT_CONTACTED:
+                case TrackerInfo.Status.NOT_CONTACTED:
                     status = context.getString(R.string.tracker_state_not_contacted);
                     break;
-                case TrackerStateParcel.Status.WORKING:
+                case TrackerInfo.Status.WORKING:
                     status = context.getString(R.string.tracker_state_working);
                     break;
-                case TrackerStateParcel.Status.UPDATING:
+                case TrackerInfo.Status.UPDATING:
                     status = context.getString(R.string.tracker_state_updating);
                     break;
-                case TrackerStateParcel.Status.NOT_WORKING:
+                case TrackerInfo.Status.NOT_WORKING:
                     status = context.getString(R.string.tracker_state_not_working);
                     break;
             }
@@ -192,9 +192,9 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
                 binding.message.setVisibility(View.GONE);
             }
 
-            if (item.status == TrackerStateParcel.Status.WORKING)
+            if (item.status == TrackerInfo.Status.WORKING)
                 binding.status.setTextColor(ContextCompat.getColor(context, R.color.ok));
-            else if (item.status == TrackerStateParcel.Status.NOT_WORKING)
+            else if (item.status == TrackerInfo.Status.NOT_WORKING)
                 binding.status.setTextColor(ContextCompat.getColor(context, R.color.error));
             else
                 binding.status.setTextColor(ContextCompat.getColor(context, R.color.text_secondary));

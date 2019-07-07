@@ -19,13 +19,14 @@
 
 package org.proninyaroslav.libretorrent.core;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
-import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.Pair;
@@ -67,13 +68,16 @@ import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,7 +94,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -112,13 +115,13 @@ public class TorrentSession extends SessionManager
     private InnerListener innerListener;
     private ArrayList<TorrentEngineListener> listeners = new ArrayList<>();
     private Settings settings = new Settings();
-    private Queue<LoadTorrentTask> loadTorrentsQueue = new LinkedList<>();
+    private Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     private HashMap<String, TorrentDownload> torrentTasks = new HashMap<>();
     /* Wait list for non added magnets */
     private ArrayList<String> magnets = new ArrayList<>();
     private ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
-    private HashMap<String, Torrent> addTorrentsQueue = new HashMap<>();
+    private ArrayList<String> addTorrentsList = new ArrayList<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
     private CompositeDisposable disposables = new CompositeDisposable();
     private TorrentRepository repo;
@@ -234,99 +237,99 @@ public class TorrentSession extends SessionManager
         loadedMagnets.remove(hash);
     }
 
-    public Torrent addTorrent(@NonNull final Torrent torrent,
-                              @NonNull String source,
-                              boolean fromMagnet,
-                              boolean removeFile) throws IOException, FileAlreadyExistsException, DecodeException
+    public Torrent addTorrent(@NonNull AddTorrentParams params,
+                              boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
-        Torrent t = torrent;
+        Torrent torrent = new Torrent(params.sha1hash, params.downloadPath, params.name, System.currentTimeMillis());
 
-        if (fromMagnet) {
-            byte[] bencode = getLoadedMagnet(t.id);
-            removeLoadedMagnet(t.id);
-            if (bencode == null) {
-                t.setMagnetUri(source);
-                repo.addTorrent(appContext, t);
-            } else {
-                if (repo.getTorrentById(t.id) == null) {
-                    repo.addTorrent(appContext, t, bencode);
-                } else {
-                    mergeTorrent(t, bencode);
-                    repo.replaceTorrent(appContext, t, bencode);
-                    throw new FileAlreadyExistsException();
-                }
-            }
-        } else {
-            if (repo.getTorrentById(t.id) == null) {
-                repo.addTorrent(appContext, t, Uri.parse(source), removeFile);
-            } else {
-                mergeTorrent(t);
-                repo.replaceTorrent(appContext, t, Uri.parse(source), removeFile);
-                throw new FileAlreadyExistsException();
-            }
+        byte[] bencode = null;
+        if (params.fromMagnet) {
+            bencode = getLoadedMagnet(params.sha1hash);
+            removeLoadedMagnet(params.sha1hash);
+            if (bencode == null)
+                torrent.setMagnetUri(params.source);
         }
 
-        String id = t.id;
-        t = repo.getTorrentById(id);
-        if (t == null)
-            throw new IOException("Torrent " + id + " is null");
+        if (repo.getTorrentById(torrent.id) != null) {
+            mergeTorrent(torrent.id, params, bencode);
+            throw new TorrentAlreadyExistsException();
+        }
 
-        if (!t.isDownloadingMetadata()) {
-            if (!repo.torrentDataExists(appContext, t.id)) {
-                repo.deleteTorrent(appContext, t);
-                throw new FileNotFoundException("Torrent doesn't exists: " + t.name);
-            }
+        repo.addTorrent(torrent);
+
+        if (!torrent.isDownloadingMetadata()) {
             /*
              * This is possible if the magnet data came after Torrent object
              * has already been created and nothing is known about the received data
              */
-            if (t.filePriorities.isEmpty()) {
-                TorrentMetaInfo info = new TorrentMetaInfo(t.getSource());
-                t.filePriorities = Collections.nCopies(info.fileCount, Priority.DEFAULT);
-                repo.updateTorrent(t);
+            if (params.filePriorities.isEmpty()) {
+                ContentResolver contentResolver = appContext.getContentResolver();
+                try (ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(Uri.parse(params.source), "r")) {
+                    FileDescriptor outFd = outPfd.getFileDescriptor();
+                    try (FileInputStream is = new FileInputStream(outFd)) {
+                        TorrentMetaInfo info = new TorrentMetaInfo(is);
+                        params.filePriorities = Collections.nCopies(info.fileCount, Priority.DEFAULT);
+                    }
+                } catch (FileNotFoundException e) {
+                    /* Ignore */
+                }
             }
         }
 
-        download(t);
+        try {
+            download(torrent.id, params, bencode);
 
-        return t;
-    }
-
-    public void download(@NonNull Torrent torrent)
-    {
-        if (swig() == null)
-            return;
-
-        if (magnets.contains(torrent.id))
-            cancelFetchMagnet(torrent.id);
-
-        /* TODO: SAF support */
-        if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
-            throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
-
-        File saveDir = new File(torrent.downloadPath.getPath());
-        if (torrent.isDownloadingMetadata()) {
-            addTorrentsQueue.put(torrent.id, torrent);
-            download(torrent.getSource(), saveDir);
-            return;
+        } catch (Exception e) {
+            repo.deleteTorrent(torrent);
+            throw e;
+        } finally {
+            if (removeFile && !params.fromMagnet)
+                org.proninyaroslav.libretorrent.core.utils.FileUtils.deleteFile(appContext, Uri.parse(params.source));
         }
 
-        TorrentInfo ti = new TorrentInfo(new File(torrent.getSource()));
-        List<Priority> priorities = torrent.filePriorities;
-        if (priorities.size() != ti.numFiles())
-            throw new IllegalArgumentException("File count doesn't match: " + torrent.name);
+        return torrent;
+    }
+
+    private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException
+    {
+        if (magnets.contains(id))
+            cancelFetchMagnet(id);
+
+        /* TODO: SAF support */
+        if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(params.downloadPath))
+            throw new IllegalArgumentException("SAF is not supported:" + params.downloadPath);
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            throw new IOException("Torrent " + id + " is null");
+
+        addTorrentsList.add(params.sha1hash);
+
+        File saveDir = new File(params.downloadPath.getPath());
+        if (torrent.isDownloadingMetadata()) {
+            download(params.source, saveDir);
+            return;
+        }
 
         TorrentDownload task = torrentTasks.get(torrent.id);
         if (task != null)
             task.remove(false);
 
-        String resumeFile = repo.getResumeFile(appContext, torrent.id);
-
-        addTorrentsQueue.put(ti.infoHash().toString(), torrent);
-        download(ti, saveDir,
-                (resumeFile == null ? null : new File(resumeFile)),
-                priorities.toArray(new Priority[0]),
-                null);
+        if (params.fromMagnet) {
+            download(bencode,
+                    saveDir,
+                    params.filePriorities.toArray(new Priority[0]),
+                    params.sequentialDownload,
+                    params.addPaused,
+                    null);
+        } else {
+            download(new TorrentInfo(new File(Uri.parse(params.source).getPath())),
+                    saveDir,
+                    params.filePriorities.toArray(new Priority[0]),
+                    params.sequentialDownload,
+                    params.addPaused,
+                    null);
+        }
     }
 
     public void deleteTorrent(@NonNull String id, boolean withFiles)
@@ -338,7 +341,7 @@ public class TorrentSession extends SessionManager
         if (task == null) {
             Torrent torrent = repo.getTorrentById(id);
             if (torrent != null)
-                repo.deleteTorrent(appContext, torrent);
+                repo.deleteTorrent(torrent);
 
             notifyListeners((listener) ->
                     listener.onTorrentRemoved(id));
@@ -356,38 +359,20 @@ public class TorrentSession extends SessionManager
             if (torrent == null || torrentTasks.containsKey(torrent.id))
                 continue;
 
-            if (!torrent.isDownloadingMetadata() && !repo.torrentFileExists(appContext, torrent.id)) {
-                repo.deleteTorrent(appContext, torrent);
-                Log.e(TAG, "Unable to restore torrent from previous session: torrent file doesn't exists");
-                notifyListeners((listener) ->
-                        listener.onRestoreSessionError(torrent.id));
-                continue;
-            }
+            /* TODO: SAF support */
+            if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
+                throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
 
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
-            if (torrent.isDownloadingMetadata()) {
-                loadTask.putMagnet(torrent.getSource(), new File(torrent.getSource()));
+            if (torrent.isDownloadingMetadata())
+                loadTask.putMagnet(torrent.getMagnet(), new File(torrent.downloadPath.getPath()));
 
-            } else {
-                /* TODO: SAF support */
-                if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
-                    throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
-
-                String resumeFile = repo.getResumeFile(appContext, torrent.id);
-                if (resumeFile == null) {
-                    Log.e(TAG, "Unable to restore torrent from previous session: resume file not found");
-                    notifyListeners((listener) ->
-                            listener.onRestoreSessionError(torrent.id));
-                }
-                loadTask.putTorrentFile(resumeFile == null ? null : new File(resumeFile));
-            }
-            addTorrentsQueue.put(torrent.id, torrent);
-            loadTorrentsQueue.add(loadTask);
+            restoreTorrentsQueue.add(loadTask);
         }
         runNextLoadTorrentTask();
     }
 
-    public AddTorrentParams parseMagnetUri(@NonNull String uri)
+    public org.libtorrent4j.AddTorrentParams parseMagnetUri(@NonNull String uri)
     {
         error_code ec = new error_code();
         add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
@@ -395,10 +380,10 @@ public class TorrentSession extends SessionManager
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
 
-        return new AddTorrentParams(p);
+        return new org.libtorrent4j.AddTorrentParams(p);
     }
 
-    public AddTorrentParams fetchMagnet(AddTorrentParams params) throws Exception
+    public org.libtorrent4j.AddTorrentParams fetchMagnet(org.libtorrent4j.AddTorrentParams params) throws Exception
     {
         if (swig() == null)
             return null;
@@ -453,7 +438,7 @@ public class TorrentSession extends SessionManager
         if (th.is_valid() && add)
             magnets.add(strHash);
 
-        return new AddTorrentParams(p);
+        return new org.libtorrent4j.AddTorrentParams(p);
     }
 
     public void cancelFetchMagnet(@NonNull String infoHash)
@@ -467,36 +452,33 @@ public class TorrentSession extends SessionManager
             remove(th, SessionHandle.DELETE_FILES);
     }
 
-    public void mergeTorrent(@NonNull Torrent torrent)
-    {
-        mergeTorrent(torrent, null);
-    }
-
-    public void mergeTorrent(@NonNull Torrent torrent, @Nullable byte[] bencode)
+    private void mergeTorrent(String id, AddTorrentParams params, byte[] bencode)
     {
         if (swig() == null)
             return;
 
-        TorrentDownload task = torrentTasks.get(torrent.id);
+        TorrentDownload task = torrentTasks.get(id);
         if (task == null)
             return;
 
-        TorrentInfo ti;
+        TorrentInfo ti = null;
         try {
             ti = (bencode == null ?
-                    new TorrentInfo(new File(torrent.getSource())) :
+                    new TorrentInfo(new File(Uri.parse(params.source).getPath())) :
                     new TorrentInfo(bencode));
 
         } catch (Exception e) {
-            return;
+            /* Ignore */
         }
 
-        task.setSequentialDownload(torrent.sequentialDownload);
-        task.addTrackers(ti.trackers());
-        task.addWebSeeds(ti.webSeeds());
-        Priority[] priorities = new Priority[torrent.filePriorities.size()];
-        task.prioritizeFiles(torrent.filePriorities.toArray(priorities));
-        if (torrent.paused)
+        task.setSequentialDownload(params.sequentialDownload);
+        if (ti != null) {
+            task.addTrackers(ti.trackers());
+            task.addWebSeeds(ti.webSeeds());
+        }
+        Priority[] priorities = new Priority[params.filePriorities.size()];
+        task.prioritizeFiles(params.filePriorities.toArray(priorities));
+        if (params.addPaused)
             task.pause();
         else
             task.resume();
@@ -812,12 +794,14 @@ public class TorrentSession extends SessionManager
                     String hash = th.infoHash().toHex();
                     if (magnets.contains(hash))
                         break;
-                    Torrent torrent = addTorrentsQueue.get(hash);
-                    if (torrent == null)
-                        break;
-                    torrentTasks.put(torrent.id, newTask(th, torrent));
-                    notifyListeners((listener) ->
-                            listener.onTorrentAdded(torrent.id));
+                    torrentTasks.put(hash, newTask(th, hash));
+                    if (addTorrentsList.contains(hash))
+                        notifyListeners((listener) ->
+                                listener.onTorrentAdded(hash));
+                    else
+                        notifyListeners((listener) ->
+                                listener.onTorrentLoaded(hash));
+                    addTorrentsList.remove(hash);
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
@@ -930,7 +914,7 @@ public class TorrentSession extends SessionManager
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "Error loading session state: ");
+            Log.e(TAG, "Error loading session torrentInfo: ");
             Log.e(TAG, Log.getStackTraceString(e));
 
             return new SessionParams(defaultSettingsPack());
@@ -946,7 +930,7 @@ public class TorrentSession extends SessionManager
             repo.saveSession(appContext, saveState());
 
         } catch (Exception e) {
-            Log.e(TAG, "Error saving session state: ");
+            Log.e(TAG, "Error saving session torrentInfo: ");
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
@@ -1057,17 +1041,11 @@ public class TorrentSession extends SessionManager
         return Vectors.byte_vector2bytes(e.bencode());
     }
 
-    private TorrentDownload newTask(TorrentHandle th, Torrent torrent)
+    private TorrentDownload newTask(TorrentHandle th, String id)
     {
-        TorrentDownload task = new TorrentDownload(appContext, this, listeners, torrent.id, th);
+        TorrentDownload task = new TorrentDownload(appContext, this, listeners, id, th);
         task.setMaxConnections(settings.connectionsLimitPerTorrent);
         task.setMaxUploads(settings.uploadsLimitPerTorrent);
-        task.setSequentialDownload(torrent.sequentialDownload);
-        task.setAutoManaged(settings.autoManaged);
-        if (torrent.paused)
-            task.pause();
-        else
-            task.resume();
 
         return task;
     }
@@ -1088,8 +1066,8 @@ public class TorrentSession extends SessionManager
     private void runNextLoadTorrentTask() {
         LoadTorrentTask task = null;
         try {
-            if (!loadTorrentsQueue.isEmpty())
-                task = loadTorrentsQueue.poll();
+            if (!restoreTorrentsQueue.isEmpty())
+                task = restoreTorrentsQueue.poll();
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
 
@@ -1104,24 +1082,17 @@ public class TorrentSession extends SessionManager
     {
         private String torrentId;
         private File saveDir = null;
-        private File resume = null;
-        private String uri = null;
-        private boolean isMagnet;
+        private String magnetUri = null;
+        private boolean isMagnet = false;
 
         LoadTorrentTask(String torrentId)
         {
             this.torrentId = torrentId;
         }
 
-        public void putTorrentFile(File resume)
+        public void putMagnet(String magnetUri, File saveDir)
         {
-            this.resume = resume;
-            isMagnet = false;
-        }
-
-        public void putMagnet(String uri, File saveDir)
-        {
-            this.uri = uri;
+            this.magnetUri = magnetUri;
             this.saveDir = saveDir;
             isMagnet = true;
         }
@@ -1134,15 +1105,17 @@ public class TorrentSession extends SessionManager
                     return;
 
                 if (isMagnet)
-                    download(uri, saveDir);
+                    download(magnetUri, saveDir);
                 else
-                    restoreDownload(resume);
+                    restoreDownload(torrentId);
 
             } catch (Exception e) {
                 Log.e(TAG, "Unable to restore torrent from previous session: " + torrentId, e);
                 Torrent torrent = repo.getTorrentById(torrentId);
-                if (torrent != null)
-                    repo.deleteTorrent(appContext, torrent);
+                if (torrent != null) {
+                    torrent.error = e.toString();
+                    repo.updateTorrent(torrent);
+                }
 
                 notifyListeners((listener) ->
                         listener.onRestoreSessionError(torrentId));
@@ -1150,20 +1123,118 @@ public class TorrentSession extends SessionManager
         }
     }
 
-    private void restoreDownload(File resumeFile) throws IOException
+    private void download(byte[] bencode, File saveDir,
+                          Priority[] priorities, boolean sequentialDownload,
+                          boolean paused, List<TcpEndpoint> peers)
+    {
+        download(new TorrentInfo(bencode), saveDir, priorities, sequentialDownload, paused, peers);
+    }
+
+    private void download(TorrentInfo ti, File saveDir,
+                          Priority[] priorities, boolean sequentialDownload,
+                          boolean paused, List<TcpEndpoint> peers)
     {
         if (swig() == null)
             return;
 
-        byte[] data = FileUtils.readFileToByteArray(resumeFile);
+        if (!ti.isValid())
+            throw new IllegalArgumentException("Torrent info not valid");
+
+        torrent_handle th = swig().find_torrent(ti.swig().info_hash());
+        if (th != null && th.is_valid()) {
+            /* Found a download with the same hash */
+            return;
+        }
+
+        add_torrent_params p = add_torrent_params.create_instance();
+
+        p.set_ti(ti.swig());
+        if (saveDir != null)
+            p.setSave_path(saveDir.getAbsolutePath());
+
+        if (priorities != null) {
+            if (ti.files().numFiles() != priorities.length)
+                throw new IllegalArgumentException("Priorities count should be equals to the number of files");
+
+            byte_vector v = new byte_vector();
+            for (Priority priority : priorities)
+                v.push_back((byte)priority.swig());
+
+            p.set_file_priorities2(v);
+        }
+
+        if (peers != null && !peers.isEmpty()) {
+            tcp_endpoint_vector v = new tcp_endpoint_vector();
+            for (TcpEndpoint endp : peers)
+                v.push_back(endp.swig());
+
+            p.set_peers(v);
+        }
+
+        torrent_flags_t flags = p.getFlags();
+        flags = flags.and_(TorrentFlags.NEED_SAVE_RESUME);
+
+        if (!settings.autoManaged)
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+        if (sequentialDownload)
+            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+        if (paused)
+            flags = flags.and_(TorrentFlags.PAUSED);
+
+        p.setFlags(flags);
+
+        swig().async_add_torrent(p);
+    }
+
+    public void download(String magnetUri, File saveDir)
+    {
+        if (swig() == null)
+            return;
+
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(data), ec);
+        add_torrent_params p = add_torrent_params.parse_magnet_uri(magnetUri, ec);
+
+        if (ec.value() != 0)
+            throw new IllegalArgumentException(ec.message());
+
+        sha1_hash info_hash = p.getInfo_hash();
+        torrent_handle th = swig().find_torrent(info_hash);
+        if (th != null && th.is_valid()) {
+            /* Found a download with the same hash */
+            return;
+        }
+
+        if (saveDir != null)
+            p.setSave_path(saveDir.getAbsolutePath());
+
+        torrent_flags_t flags = p.getFlags();
+
+        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+        flags = flags.and_(TorrentFlags.PAUSED.inv());
+
+        p.setFlags(flags);
+
+        swig().async_add_torrent(p);
+    }
+
+    private void restoreDownload(String id) throws IOException
+    {
+        if (swig() == null)
+            return;
+
+        FastResume fastResume = repo.getFastResumeById(id);
+        if (fastResume == null)
+            throw new IOException("Fast resume data not found");
+
+        error_code ec = new error_code();
+        add_torrent_params p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(fastResume.data), ec);
         if (ec.value() != 0)
             throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
 
         torrent_flags_t flags = p.getFlags();
 
-        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+        if (!settings.autoManaged)
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         p.setFlags(flags);
 

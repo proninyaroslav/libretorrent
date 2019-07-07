@@ -19,8 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 
 import io.reactivex.functions.Predicate;
 
-public interface TorrentFilter extends Predicate<BasicStateParcel> {}
+public interface TorrentFilter extends Predicate<TorrentInfo> {}

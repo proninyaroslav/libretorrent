@@ -21,11 +21,11 @@ package org.proninyaroslav.libretorrent.adapters;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
 
-public class PeerItem extends PeerStateParcel
+public class PeerItem extends PeerInfo
 {
-    public PeerItem(@NonNull PeerStateParcel state)
+    public PeerItem(@NonNull PeerInfo state)
     {
         super(state.ip, state.client, state.totalDownload,
                 state.totalUpload, state.relevance, state.connectionType,

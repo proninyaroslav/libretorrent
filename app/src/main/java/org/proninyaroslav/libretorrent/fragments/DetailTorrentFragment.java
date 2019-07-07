@@ -63,7 +63,7 @@ import org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.stateparcel.BasicStateParcel;
+import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
@@ -240,7 +240,7 @@ public class DetailTorrentFragment extends Fragment
                             Log.e(TAG, "Getting meta info error: " + Log.getStackTraceString(e));
                         }));
 
-        disposables.add(viewModel.observeTorrentInfo()
+        disposables.add(viewModel.observeTorrentInfoPair()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleTorrentInfo,
@@ -248,7 +248,7 @@ public class DetailTorrentFragment extends Fragment
                             Log.e(TAG, "Getting info error: " + Log.getStackTraceString(e));
                         }));
 
-        disposables.add(viewModel.observeAdvancedTorrentState()
+        disposables.add(viewModel.observeAdvancedTorrentInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((info) -> viewModel.updateInfo(info),
@@ -323,21 +323,21 @@ public class DetailTorrentFragment extends Fragment
         disposables.add(d);
     }
 
-    private void handleTorrentInfo(Pair<Torrent, BasicStateParcel> info)
+    private void handleTorrentInfo(Pair<Torrent, TorrentInfo> info)
     {
         Torrent torrent = info.first;
-        BasicStateParcel state = info.second;
+        TorrentInfo ti = info.second;
 
-        viewModel.updateInfo(torrent, state);
+        viewModel.updateInfo(torrent, ti);
 
-        if (state == null || torrent == null)
+        if (ti == null || torrent == null)
             return;
 
-        if (downloadingMetadata && state.stateCode != TorrentStateCode.DOWNLOADING_METADATA)
+        if (downloadingMetadata && ti.stateCode != TorrentStateCode.DOWNLOADING_METADATA)
             activity.invalidateOptionsMenu();
         downloadingMetadata = torrent.downloadingMetadata;
 
-        if (state.stateCode == TorrentStateCode.PAUSED || torrent.paused) {
+        if (ti.stateCode == TorrentStateCode.PAUSED) {
             /* Redraw pause/resume menu */
             if (Utils.isTwoPane(activity))
                 prepareOptionsMenu(binding.appbar.toolbar.getMenu());
@@ -409,7 +409,8 @@ public class DetailTorrentFragment extends Fragment
     {
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         Torrent torrent = viewModel.info.getTorrent();
-        if (torrent == null || !torrent.paused) {
+        TorrentInfo ti = viewModel.info.getTorrentInfo();
+        if (torrent == null || ti == null || ti.stateCode != TorrentStateCode.PAUSED) {
             pauseResume.setTitle(R.string.pause_torrent);
             if (!Utils.isTwoPane(activity))
                 pauseResume.setIcon(R.drawable.ic_pause_white_24dp);

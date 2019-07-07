@@ -183,7 +183,7 @@ public class FeedDownloaderService extends JobIntentService
 
 //        Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
 //        i.setAction(TorrentTaskService.ACTION_ADD_TORRENT);
-//        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, params);
+//        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS, mutableParams);
 //        startService(i);
     }
 
@@ -194,7 +194,7 @@ public class FeedDownloaderService extends JobIntentService
 
 //        Intent i = new Intent(getApplicationContext(), TorrentTaskService.class);
 //        i.setAction(TorrentTaskService.ACTION_ADD_TORRENT_LIST);
-//        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS_LIST, params);
+//        i.putExtra(TorrentTaskService.TAG_ADD_TORRENT_PARAMS_LIST, mutableParams);
 //        startService(i);
     }
 }

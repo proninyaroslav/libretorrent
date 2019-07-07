@@ -61,13 +61,13 @@ public class CreateTorrentActivityOld extends AppCompatActivity
     {
         if (params == null)
             return;
-//        EventBus.getDefault().postSticky(params);
+//        EventBus.getDefault().postSticky(mutableParams);
     }
 
     public static AddTorrentParams getResult()
     {
         return (AddTorrentParams)new Object();
-//        return EventBus.getDefault().removeStickyEvent(AddTorrentParams.class);
+//        return EventBus.getDefault().removeStickyEvent(AddTorrentMutableParams.class);
     }
 
     public static void resetResult()
