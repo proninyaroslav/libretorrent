@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "3fce0f0312dd9fcf6c3a45b93607be68",
+    "identityHash": "32f6e911f9f24bf3556d9e037d16f50c",
     "entities": [
       {
         "tableName": "Torrent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `manuallyPaused` INTEGER NOT NULL, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,6 +37,12 @@
             "columnName": "error",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "manuallyPaused",
+            "columnName": "manuallyPaused",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "magnet",
@@ -250,7 +256,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3fce0f0312dd9fcf6c3a45b93607be68')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32f6e911f9f24bf3556d9e037d16f50c')"
     ]
   }
 }

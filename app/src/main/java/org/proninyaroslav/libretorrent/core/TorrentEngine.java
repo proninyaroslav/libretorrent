@@ -164,10 +164,17 @@ public class TorrentEngine
 
     public void rescheduleTorrents()
     {
-        if (checkPauseTorrents())
-            pauseAll();
-        else
-            resumeAll();
+        disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning())
+                return;
+
+            if (checkPauseTorrents())
+                session.pauseAll();
+            else
+                session.resumeAll();
+
+        }).subscribeOn(Schedulers.io())
+          .subscribe());
     }
 
     public void addTorrent(@NonNull AddTorrentParams params,
@@ -312,9 +319,9 @@ public class TorrentEngine
                 return;
             try {
                 if (task.isPaused())
-                    task.resume();
+                    task.resumeManually();
                 else
-                    task.pause();
+                    task.pauseManually();
 
             } catch (Exception e) {
                 /* Ignore */
@@ -506,7 +513,7 @@ public class TorrentEngine
     {
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())
-                session.pauseAll();
+                session.pauseAllManually();
 
         }).subscribeOn(Schedulers.io())
           .subscribe());
@@ -516,7 +523,7 @@ public class TorrentEngine
     {
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())
-                session.resumeAll();
+                session.resumeAllManually();
 
         }).subscribeOn(Schedulers.io())
           .subscribe());

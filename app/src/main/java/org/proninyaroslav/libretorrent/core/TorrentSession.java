@@ -240,7 +240,8 @@ public class TorrentSession extends SessionManager
     public Torrent addTorrent(@NonNull AddTorrentParams params,
                               boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
-        Torrent torrent = new Torrent(params.sha1hash, params.downloadPath, params.name, System.currentTimeMillis());
+        Torrent torrent = new Torrent(params.sha1hash, params.downloadPath, params.name,
+                params.addPaused, System.currentTimeMillis());
 
         byte[] bencode = null;
         if (params.fromMagnet) {
@@ -307,7 +308,7 @@ public class TorrentSession extends SessionManager
 
         File saveDir = new File(params.downloadPath.getPath());
         if (torrent.isDownloadingMetadata()) {
-            download(params.source, saveDir);
+            download(params.source, saveDir, params.addPaused);
             return;
         }
 
@@ -365,7 +366,8 @@ public class TorrentSession extends SessionManager
 
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata())
-                loadTask.putMagnet(torrent.getMagnet(), new File(torrent.downloadPath.getPath()));
+                loadTask.putMagnet(torrent.getMagnet(), new File(torrent.downloadPath.getPath()),
+                        torrent.manuallyPaused);
 
             restoreTorrentsQueue.add(loadTask);
         }
@@ -479,9 +481,9 @@ public class TorrentSession extends SessionManager
         Priority[] priorities = new Priority[params.filePriorities.size()];
         task.prioritizeFiles(params.filePriorities.toArray(priorities));
         if (params.addPaused)
-            task.pause();
+            task.pauseManually();
         else
-            task.resume();
+            task.resumeManually();
     }
 
     public long getDownloadRate()
@@ -629,6 +631,24 @@ public class TorrentSession extends SessionManager
             if (task == null)
                 continue;
             task.resume();
+        }
+    }
+
+    public void pauseAllManually()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.pauseManually();
+        }
+    }
+
+    public void resumeAllManually()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+            task.resumeManually();
         }
     }
 
@@ -1084,16 +1104,18 @@ public class TorrentSession extends SessionManager
         private File saveDir = null;
         private String magnetUri = null;
         private boolean isMagnet = false;
+        private boolean magnetPaused = false;
 
         LoadTorrentTask(String torrentId)
         {
             this.torrentId = torrentId;
         }
 
-        public void putMagnet(String magnetUri, File saveDir)
+        public void putMagnet(String magnetUri, File saveDir, boolean magnetPaused)
         {
             this.magnetUri = magnetUri;
             this.saveDir = saveDir;
+            this.magnetPaused = magnetPaused;
             isMagnet = true;
         }
 
@@ -1105,7 +1127,7 @@ public class TorrentSession extends SessionManager
                     return;
 
                 if (isMagnet)
-                    download(magnetUri, saveDir);
+                    download(magnetUri, saveDir, magnetPaused);
                 else
                     restoreDownload(torrentId);
 
@@ -1186,7 +1208,7 @@ public class TorrentSession extends SessionManager
         swig().async_add_torrent(p);
     }
 
-    public void download(String magnetUri, File saveDir)
+    public void download(String magnetUri, File saveDir, boolean paused)
     {
         if (swig() == null)
             return;
@@ -1210,7 +1232,7 @@ public class TorrentSession extends SessionManager
         torrent_flags_t flags = p.getFlags();
 
         flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
-        flags = flags.and_(TorrentFlags.PAUSED.inv());
+        flags = flags.and_(paused ? TorrentFlags.PAUSED : TorrentFlags.PAUSED.inv());
 
         p.setFlags(flags);
 

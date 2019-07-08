@@ -83,6 +83,7 @@ public class DatabaseMigrationTest
         values1.put("name", torrentName);
         values1.put("path_to_download", FileUtils.getDefaultDownloadPath());
         values1.put("file_priorities", 0);
+        values1.put("is_paused", true); /* It's not imported from old db */
         values1.put("downloading_metadata", false);
         values1.put("path_to_torrent", torrentFile1.getAbsolutePath());
         values1.put("datetime", System.currentTimeMillis());
@@ -119,6 +120,7 @@ public class DatabaseMigrationTest
         assertEquals(torrentHash, torrent1.id);
         assertEquals(torrentName, torrent1.name);
         assertEquals("file://" + FileUtils.getDefaultDownloadPath(), torrent1.downloadPath.toString());
+        assertFalse(torrent1.manuallyPaused); /* It's not imported from old db */
         assertFalse(torrent1.downloadingMetadata);
         assertNull(torrent1.getMagnet());
 

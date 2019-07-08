@@ -440,9 +440,7 @@ public class TorrentDownload
         if (!th.isValid())
             return;
 
-        th.unsetFlags(TorrentFlags.AUTO_MANAGED);
-        th.pause();
-        saveResumeData(true);
+        doPause();
     }
 
     public void resume()
@@ -450,6 +448,52 @@ public class TorrentDownload
         if (!th.isValid())
             return;
 
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null || torrent.manuallyPaused)
+            return;
+
+        doResume();
+    }
+
+    public void pauseManually()
+    {
+        if (!th.isValid())
+            return;
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return;
+
+        torrent.manuallyPaused = true;
+        repo.updateTorrent(torrent);
+
+        doPause();
+    }
+
+    public void resumeManually()
+    {
+        if (!th.isValid())
+            return;
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return;
+
+        torrent.manuallyPaused = false;
+        repo.updateTorrent(torrent);
+
+        doResume();
+    }
+
+    private void doPause()
+    {
+        th.unsetFlags(TorrentFlags.AUTO_MANAGED);
+        th.pause();
+        saveResumeData(true);
+    }
+
+    private void doResume()
+    {
         if (session.getSettings().autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
         else

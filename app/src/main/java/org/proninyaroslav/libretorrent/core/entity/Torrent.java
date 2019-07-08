@@ -48,6 +48,7 @@ public class Torrent implements Parcelable
     public Uri downloadPath;
     public long dateAdded;
     public String error;
+    public boolean manuallyPaused;
     /*
      * Warning: read-only field, do not change directly,
      *          only trough setMagnetUri
@@ -59,11 +60,13 @@ public class Torrent implements Parcelable
     public Torrent(@NonNull String id,
                    @NonNull Uri downloadPath,
                    @NonNull String name,
+                   boolean manuallyPaused,
                    long dateAdded)
     {
         this.id = id;
         this.name = name;
         this.downloadPath = downloadPath;
+        this.manuallyPaused = manuallyPaused;
         this.dateAdded = dateAdded;
     }
 
@@ -71,9 +74,10 @@ public class Torrent implements Parcelable
                    String magnet,
                    @NonNull Uri downloadPath,
                    @NonNull String name,
+                   boolean manuallyPaused,
                    long dateAdded)
     {
-        this(id, downloadPath, name, dateAdded);
+        this(id, downloadPath, name, manuallyPaused, dateAdded);
 
         this.magnet = magnet;
     }
@@ -88,6 +92,7 @@ public class Torrent implements Parcelable
         downloadingMetadata = source.readByte() != 0;
         dateAdded = source.readLong();
         error = source.readString();
+        manuallyPaused = source.readByte() != 0;
     }
 
     public boolean isDownloadingMetadata()
@@ -122,6 +127,7 @@ public class Torrent implements Parcelable
         dest.writeByte((byte)(downloadingMetadata ? 1 : 0));
         dest.writeLong(dateAdded);
         dest.writeString(error);
+        dest.writeByte((byte)(manuallyPaused ? 1 : 0));
     }
 
     public static final Creator<Torrent> CREATOR =
@@ -161,6 +167,7 @@ public class Torrent implements Parcelable
                 ", downloadPath=" + downloadPath +
                 ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
                 ", error='" + error + '\'' +
+                ", manuallyPaused=" + manuallyPaused +
                 ", magnet='" + magnet + '\'' +
                 ", downloadingMetadata=" + downloadingMetadata +
                 '}';

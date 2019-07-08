@@ -83,18 +83,18 @@ public class DatabaseMigration
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
             /* Create new tablets */
-            database.execSQL("CREATE TABLE IF NOT EXISTS `Torrent` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Torrent` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `manuallyPaused` INTEGER NOT NULL, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))");
             database.execSQL("CREATE TABLE IF NOT EXISTS `FastResume` (`torrentId` TEXT NOT NULL, `data` BLOB NOT NULL, PRIMARY KEY(`torrentId`), FOREIGN KEY(`torrentId`) REFERENCES `Torrent`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
             database.execSQL("CREATE TABLE IF NOT EXISTS `FeedChannel` (`url` TEXT NOT NULL, `name` TEXT, `lastUpdate` INTEGER NOT NULL, `autoDownload` INTEGER NOT NULL, `filter` TEXT, `isRegexFilter` INTEGER NOT NULL, `fetchError` TEXT, PRIMARY KEY(`url`))");
             database.execSQL("CREATE TABLE IF NOT EXISTS `FeedItem` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `feedUrl` TEXT NOT NULL, `downloadUrl` TEXT, `articleUrl` TEXT, `pubDate` INTEGER NOT NULL, `fetchDate` INTEGER NOT NULL, `read` INTEGER NOT NULL, FOREIGN KEY(`feedUrl`) REFERENCES `FeedChannel`(`url`) ON UPDATE NO ACTION ON DELETE CASCADE )");
             database.execSQL("CREATE INDEX `index_FeedItem_feedUrl` ON `FeedItem` (`feedUrl`)");
             database.execSQL("CREATE INDEX `index_FastResume_torrentId` ON `FastResume` (`torrentId`)");
             database.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-            database.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3fce0f0312dd9fcf6c3a45b93607be68')");
+            database.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32f6e911f9f24bf3556d9e037d16f50c')");
 
             /* Copy from old */
             database.execSQL("ALTER TABLE torrents RENAME TO torrents_old;");
-            database.execSQL("INSERT INTO `Torrent` (`id`, `name`, `downloadPath`, `downloadingMetadata`, `magnet`, `dateAdded`, `error`) SELECT torrent_id, name, 'file://' || path_to_download, downloading_metadata, CASE WHEN downloading_metadata THEN path_to_torrent ELSE NULL END path_to_torrent, datetime, error FROM torrents_old;");
+            database.execSQL("INSERT INTO `Torrent` (`id`, `name`, `downloadPath`, `manuallyPaused`, `downloadingMetadata`, `magnet`, `dateAdded`, `error`) SELECT torrent_id, name, 'file://' || path_to_download, 0, downloading_metadata, CASE WHEN downloading_metadata THEN path_to_torrent ELSE NULL END path_to_torrent, datetime, error FROM torrents_old;");
             database.execSQL("DROP TABLE torrents_old;");
 
             database.execSQL("ALTER TABLE feeds RENAME TO feeds_old;");
