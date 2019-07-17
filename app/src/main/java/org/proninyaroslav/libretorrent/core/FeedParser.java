@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,14 +21,17 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.ernieyu.feedparser.Element;
 import com.ernieyu.feedparser.Enclosure;
 import com.ernieyu.feedparser.Feed;
 import com.ernieyu.feedparser.FeedParserFactory;
 import com.ernieyu.feedparser.Item;
 
-import org.proninyaroslav.libretorrent.core.old.FeedItem;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.xml.sax.Attributes;
 
 import java.io.ByteArrayInputStream;
@@ -50,15 +53,15 @@ import java.util.List;
 
 public class FeedParser
 {
-    private String feedUrl;
+    private FeedChannel feedChannel;
     private Feed feed;
 
-    public FeedParser(Context context, String feedUrl) throws Exception
+    public FeedParser(@NonNull Context context, @NonNull FeedChannel feedChannel) throws Exception
     {
-        this.feedUrl = feedUrl;
+        this.feedChannel = feedChannel;
         ByteArrayInputStream bsStream = null;
         try {
-            byte[] response = Utils.fetchHttpUrl(context, feedUrl);
+            byte[] response = Utils.fetchHttpUrl(context, feedChannel.url);
             if (response == null)
                 return;
             bsStream = new ByteArrayInputStream(response);
@@ -83,7 +86,7 @@ public class FeedParser
     public List<FeedItem> getItems()
     {
         List<FeedItem> items = new ArrayList<>();
-        if (feedUrl == null || feed == null)
+        if (feed == null)
             return items;
 
         for (Item item : feed.getItemList()) {
@@ -103,8 +106,8 @@ public class FeedParser
             if (pubDate != null)
                 pubDateTime = pubDate.getTime();
 
-            FeedItem feedItem = new FeedItem(feedUrl, downloadUrl, articleUrl, item.getTitle(), pubDateTime);
-            feedItem.setFetchDate(System.currentTimeMillis());
+            FeedItem feedItem = new FeedItem(feedChannel.id, downloadUrl, articleUrl, item.getTitle(), pubDateTime);
+            feedItem.fetchDate = System.currentTimeMillis();
             items.add(feedItem);
         }
 

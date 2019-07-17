@@ -155,7 +155,7 @@ public class Torrent implements Parcelable
     @Override
     public boolean equals(Object o)
     {
-        return o instanceof Torrent && (o == this || id.equals(((Torrent) o).id));
+        return o instanceof Torrent && (o == this || id.equals(((Torrent)o).id));
     }
 
     @Override

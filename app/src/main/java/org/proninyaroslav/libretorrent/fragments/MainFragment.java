@@ -101,7 +101,7 @@ public class MainFragment extends Fragment
 
     private static final int TORRENT_FILE_CHOOSE_REQUEST = 1;
 
-    private static final String TAG_DOWNLOAD_LIST_STATE = "download_list_state";
+    private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
     private static final String TAG_DELETE_TORRENTS_DIALOG = "delete_torrents_dialog";
     private static final String TAG_ADD_LINK_DIALOG = "add_link_dialog";
@@ -296,14 +296,14 @@ public class MainFragment extends Fragment
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null)
-            torrentListState = savedInstanceState.getParcelable(TAG_DOWNLOAD_LIST_STATE);
+            torrentListState = savedInstanceState.getParcelable(TAG_TORRENT_LIST_STATE);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
         torrentListState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_DOWNLOAD_LIST_STATE, torrentListState);
+        outState.putParcelable(TAG_TORRENT_LIST_STATE, torrentListState);
         selectionTracker.onSaveInstanceState(outState);
 
         super.onSaveInstanceState(outState);
@@ -316,10 +316,10 @@ public class MainFragment extends Fragment
 
     private Disposable observeTorrents()
     {
-        return viewModel.observeAllTorrentsState()
+        return viewModel.observeAllTorrentsInfo()
                 .subscribeOn(Schedulers.io())
-                .flatMapSingle((stateList) ->
-                        Flowable.fromIterable(stateList)
+                .flatMapSingle((infoList) ->
+                        Flowable.fromIterable(infoList)
                                 .filter(viewModel.getFilter())
                                 .map(TorrentListItem::new)
                                 .sorted(viewModel.getSorting())
@@ -372,10 +372,10 @@ public class MainFragment extends Fragment
 
     private Disposable getAllTorrentsSingle()
     {
-        return viewModel.getAllTorrentsStateSingle()
+        return viewModel.getAllTorrentsInfoSingle()
                 .subscribeOn(Schedulers.io())
-                .flatMap((stateList) ->
-                        Observable.fromIterable(stateList)
+                .flatMap((infoList) ->
+                        Observable.fromIterable(infoList)
                                 .filter(viewModel.getFilter())
                                 .map(TorrentListItem::new)
                                 .sorted(viewModel.getSorting())
@@ -410,6 +410,7 @@ public class MainFragment extends Fragment
     private void subscribeMsgViewModel()
     {
         disposables.add(msgViewModel.observeTorrentDetailsClosed()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((__) -> {
                     if (Utils.isTwoPane(activity))
                         adapter.markAsOpen(null);
@@ -718,17 +719,17 @@ public class MainFragment extends Fragment
             field.addTextChangedListener(new TextWatcher()
             {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count)
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+                @Override
+                public void afterTextChanged(Editable s)
                 {
                     fieldLayout.setErrorEnabled(false);
                     fieldLayout.setError(null);
                 }
-
-                @Override
-                public void afterTextChanged(Editable s) {}
             });
         }
 

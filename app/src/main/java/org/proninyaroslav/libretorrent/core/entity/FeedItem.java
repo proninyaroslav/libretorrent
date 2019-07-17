@@ -38,32 +38,33 @@ import static androidx.room.ForeignKey.CASCADE;
  * Representation of the feed article.
  */
 
-@Entity(indices = {@Index(value = "feedUrl")},
+@Entity(indices = {@Index(value = "feedId")},
         foreignKeys = @ForeignKey(
                 entity = FeedChannel.class,
-                parentColumns = "url",
-                childColumns = "feedUrl",
+                parentColumns = "id",
+                childColumns = "feedId",
                 onDelete = CASCADE))
 
 public class FeedItem implements Parcelable
 {
-    @PrimaryKey(autoGenerate = true)
-    public long id;
+    @PrimaryKey
+    @NonNull
+    public String id;
     @NonNull
     public String title;
-    @NonNull
-    public String feedUrl;
+    public long feedId;
     public String downloadUrl;
     public String articleUrl;
     public long pubDate;
     public long fetchDate;
     public boolean read = false;
 
-    public FeedItem(@NonNull String feedUrl, String downloadUrl,
-                    String articleUrl, @NonNull String title,
-                    long pubDate)
+    public FeedItem(@NonNull String id, long feedId,
+                    String downloadUrl, String articleUrl,
+                    @NonNull String title, long pubDate)
     {
-        this.feedUrl = feedUrl;
+        this.id = id;
+        this.feedId = feedId;
         this.downloadUrl = downloadUrl;
         this.articleUrl = articleUrl;
         this.title = title;
@@ -71,10 +72,18 @@ public class FeedItem implements Parcelable
     }
 
     @Ignore
+    public FeedItem(long feedId, String downloadUrl,
+                    String articleUrl, @NonNull String title,
+                    long pubDate)
+    {
+        this(feedId + "_" + title, feedId, downloadUrl, articleUrl, title, pubDate);
+    }
+
+    @Ignore
     public FeedItem(Parcel source)
     {
-        id = source.readLong();
-        feedUrl = source.readString();
+        id = source.readString();
+        feedId = source.readLong();
         downloadUrl = source.readString();
         articleUrl = source.readString();
         title = source.readString();
@@ -92,8 +101,8 @@ public class FeedItem implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeLong(id);
-        dest.writeString(feedUrl);
+        dest.writeString(id);
+        dest.writeLong(feedId);
         dest.writeString(downloadUrl);
         dest.writeString(articleUrl);
         dest.writeString(title);
@@ -119,12 +128,15 @@ public class FeedItem implements Parcelable
             };
 
     @Override
-    public int hashCode() { return title.hashCode(); }
+    public int hashCode()
+    {
+        return id.hashCode();
+    }
 
     @Override
     public boolean equals(Object o)
     {
-        return o instanceof FeedItem && (o == this || title.equals(((FeedItem)o).title));
+        return o instanceof FeedItem && (o == this || id.equals(((FeedItem)o).id));
     }
 
     @Override
@@ -132,7 +144,7 @@ public class FeedItem implements Parcelable
     {
         return "FeedItem{" +
                 "id=" + id +
-                "feedUrl='" + feedUrl + '\'' +
+                "feedId='" + feedId + '\'' +
                 ", title='" + title + '\'' +
                 ", downloadUrl='" + downloadUrl + '\'' +
                 ", articleUrl='" + articleUrl + '\'' +

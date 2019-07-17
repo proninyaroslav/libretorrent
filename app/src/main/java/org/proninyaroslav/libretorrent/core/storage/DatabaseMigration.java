@@ -85,12 +85,12 @@ public class DatabaseMigration
             /* Create new tablets */
             database.execSQL("CREATE TABLE IF NOT EXISTS `Torrent` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `downloadPath` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, `error` TEXT, `manuallyPaused` INTEGER NOT NULL, `magnet` TEXT, `downloadingMetadata` INTEGER NOT NULL, PRIMARY KEY(`id`))");
             database.execSQL("CREATE TABLE IF NOT EXISTS `FastResume` (`torrentId` TEXT NOT NULL, `data` BLOB NOT NULL, PRIMARY KEY(`torrentId`), FOREIGN KEY(`torrentId`) REFERENCES `Torrent`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
-            database.execSQL("CREATE TABLE IF NOT EXISTS `FeedChannel` (`url` TEXT NOT NULL, `name` TEXT, `lastUpdate` INTEGER NOT NULL, `autoDownload` INTEGER NOT NULL, `filter` TEXT, `isRegexFilter` INTEGER NOT NULL, `fetchError` TEXT, PRIMARY KEY(`url`))");
-            database.execSQL("CREATE TABLE IF NOT EXISTS `FeedItem` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `feedUrl` TEXT NOT NULL, `downloadUrl` TEXT, `articleUrl` TEXT, `pubDate` INTEGER NOT NULL, `fetchDate` INTEGER NOT NULL, `read` INTEGER NOT NULL, FOREIGN KEY(`feedUrl`) REFERENCES `FeedChannel`(`url`) ON UPDATE NO ACTION ON DELETE CASCADE )");
-            database.execSQL("CREATE INDEX `index_FeedItem_feedUrl` ON `FeedItem` (`feedUrl`)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `FeedChannel` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `name` TEXT, `lastUpdate` INTEGER NOT NULL, `autoDownload` INTEGER NOT NULL, `filter` TEXT, `isRegexFilter` INTEGER NOT NULL, `fetchError` TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `FeedItem` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `feedId` INTEGER NOT NULL, `downloadUrl` TEXT, `articleUrl` TEXT, `pubDate` INTEGER NOT NULL, `fetchDate` INTEGER NOT NULL, `read` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`feedId`) REFERENCES `FeedChannel`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("CREATE INDEX `index_FeedItem_feedId` ON `FeedItem` (`feedId`)");
             database.execSQL("CREATE INDEX `index_FastResume_torrentId` ON `FastResume` (`torrentId`)");
             database.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-            database.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32f6e911f9f24bf3556d9e037d16f50c')");
+            database.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9a928af8203fc8a72546bb3719135e08')");
 
             /* Copy from old */
             database.execSQL("ALTER TABLE torrents RENAME TO torrents_old;");
@@ -101,9 +101,8 @@ public class DatabaseMigration
             database.execSQL("INSERT INTO `FeedChannel` (`url`, `name`, `lastUpdate`, `autoDownload`, `filter`, `isRegexFilter`, `fetchError`) SELECT url, name, last_update, auto_download, filter, is_regex_filter, fetch_error FROM feeds_old;");
             database.execSQL("DROP TABLE feeds_old;");
 
-            database.execSQL("ALTER TABLE feed_items RENAME TO feed_items_old;");
-            database.execSQL("INSERT INTO `FeedItem` (`id`, `title`, `feedUrl`, `downloadUrl`, `articleUrl`, `pubDate`, `fetchDate`, `read`) SELECT _id, title, feed_url, download_url, article_url, pub_date, fetch_date, read FROM feed_items_old;");
-            database.execSQL("DROP TABLE feed_items_old;");
+            /* Don't import feed items */
+            database.execSQL("DROP TABLE feed_items;");
         }
     };
 

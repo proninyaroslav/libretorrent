@@ -89,6 +89,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -113,7 +114,7 @@ public class TorrentSession extends SessionManager
 
     private Context appContext;
     private InnerListener innerListener;
-    private ArrayList<TorrentEngineListener> listeners = new ArrayList<>();
+    private ConcurrentLinkedQueue<TorrentEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private Settings settings = new Settings();
     private Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
@@ -1194,14 +1195,21 @@ public class TorrentSession extends SessionManager
         }
 
         torrent_flags_t flags = p.getFlags();
-        flags = flags.and_(TorrentFlags.NEED_SAVE_RESUME);
 
-        if (!settings.autoManaged)
+        if (settings.autoManaged)
+            flags = flags.or_(TorrentFlags.AUTO_MANAGED);
+        else
             flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+
         if (sequentialDownload)
-            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+            flags = flags.or_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+        else
+            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD.inv());
+
         if (paused)
-            flags = flags.and_(TorrentFlags.PAUSED);
+            flags = flags.or_(TorrentFlags.PAUSED);
+        else
+            flags = flags.and_(TorrentFlags.PAUSED.inv());
 
         p.setFlags(flags);
 
@@ -1232,7 +1240,10 @@ public class TorrentSession extends SessionManager
         torrent_flags_t flags = p.getFlags();
 
         flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
-        flags = flags.and_(paused ? TorrentFlags.PAUSED : TorrentFlags.PAUSED.inv());
+        if (paused)
+            flags = flags.or_(TorrentFlags.PAUSED);
+        else
+            flags = flags.and_(TorrentFlags.PAUSED.inv());
 
         p.setFlags(flags);
 
@@ -1255,7 +1266,9 @@ public class TorrentSession extends SessionManager
 
         torrent_flags_t flags = p.getFlags();
 
-        if (!settings.autoManaged)
+        if (settings.autoManaged)
+            flags = flags.or_(TorrentFlags.AUTO_MANAGED);
+        else
             flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         p.setFlags(flags);

@@ -170,16 +170,28 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedActivityOld">
+            android:name=".FeedActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".FeedItemsActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".AddFeedActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.Translucent">
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="http"  android:host="*" android:mimeType="*/*" />
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\.rss" />
@@ -188,6 +200,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="http" android:host="*" />
                 <data android:mimeType="text/xml" />
                 <data android:mimeType="application/rss+xml" />
@@ -198,6 +211,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="https" android:host="*" android:mimeType="*/*" />
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\.rss" />
@@ -206,6 +220,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="https" android:host="*" />
                 <data android:mimeType="text/xml" />
                 <data android:mimeType="application/rss+xml" />
@@ -213,10 +228,6 @@
                 <data android:mimeType="application/xml" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:label="@string/app_name"
-            android:name=".FeedItemsActivityOld" />
 
         <activity
             android:label="@string/app_name"

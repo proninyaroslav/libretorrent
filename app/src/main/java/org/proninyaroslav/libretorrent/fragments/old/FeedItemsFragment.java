@@ -100,7 +100,7 @@ public class FeedItemsFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_feed_items, container, false);
+        View v = inflater.inflate(R.layout.fragment_feed_items_old, container, false);
 
         toolbar = v.findViewById(R.id.toolbar);
         coordinatorLayout = v.findViewById(R.id.coordinator_layout);
@@ -176,7 +176,7 @@ public class FeedItemsFragment extends Fragment
                 items.addAll(storage.getItemsByFeedUrl(feedUrl));
         }
         adapter = new FeedItemsAdapter(new ArrayList<>(items), activity,
-                R.layout.item_feed_items_list, feedItemsListener);
+                R.layout.item_feed_items_list_old, feedItemsListener);
         itemList.setAdapter(adapter);
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));

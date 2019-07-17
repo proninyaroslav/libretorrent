@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
 
     /* Android data binding doesn't work with layout aliases */
-    private CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -144,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     {
         showBlankFragment();
         toolbar = findViewById(R.id.toolbar);
-        coordinatorLayout = findViewById(R.id.coordinator);
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerItemsList = findViewById(R.id.drawer_items_list);
@@ -267,7 +265,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     private void subscribeMsgViewModel()
     {
         disposables.add(msgViewModel.observeTorrentDetailsOpened()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::showDetailTorrent));
+
+        disposables.add(msgViewModel.observeTorrentDetailsClosed()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((__) -> showBlankFragment()));
 
         disposables.add(viewModel.observeTorrentsDeleted()
                 .subscribeOn(Schedulers.io())
@@ -424,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
 
-        return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment) fragment : null);
+        return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment)fragment : null);
     }
 
     @Override
@@ -477,7 +480,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     {
         switch (item.getItemId()) {
             case R.id.feed_menu:
-                startActivity(new Intent(this, FeedActivityOld.class));
+                startActivity(new Intent(this, FeedActivity.class));
                 break;
             case R.id.settings_menu:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -546,9 +549,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     public void onFragmentFinished(@NonNull Fragment f, Intent intent,
                                    @NonNull ResultCode code)
     {
-        if (f instanceof DetailTorrentFragment && Utils.isTwoPane(this)) {
-            showBlankFragment();
+        if (f instanceof DetailTorrentFragment && Utils.isTwoPane(this))
             msgViewModel.torrentDetailsClosed();
-        }
     }
 }

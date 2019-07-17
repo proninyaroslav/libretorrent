@@ -50,7 +50,7 @@ public class FeedItemsActivityOld extends AppCompatActivity
             return;
         }
 
-        setContentView(R.layout.activity_feed_items);
+        setContentView(R.layout.activity_feed_items_old);
 
         feedItemsFragment = (FeedItemsFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.feed_items_fragmentContainer);

@@ -33,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_below="@id/expansion_header"
             app:el_duration="5"
             app:el_parallax="0"
             app:el_expanded="false">

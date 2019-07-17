@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".FeedActivity">
+
+    <include
+        layout="@layout/toolbar" />
 
     <fragment
-        class="org.proninyaroslav.libretorrent.fragments.old.FeedFragment"
+        class="org.proninyaroslav.libretorrent.fragments.FeedFragment"
         android:id="@+id/feed_fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar" />
+</RelativeLayout>

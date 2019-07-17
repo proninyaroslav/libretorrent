@@ -43,7 +43,7 @@ public class FeedActivityOld extends AppCompatActivity implements FragmentCallba
         setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_feed);
+        setContentView(R.layout.activity_feed_old);
         Utils.showColoredStatusBar_KitKat(this);
 
         feedFragment = (FeedFragment)getSupportFragmentManager()

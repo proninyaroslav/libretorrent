@@ -65,10 +65,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Queue;
 import java.util.Set;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -113,7 +113,7 @@ public class TorrentDownload
     private TorrentHandle th;
     private String id;
     private TorrentRepository repo;
-    private final List<TorrentEngineListener> listeners;
+    private final Queue<TorrentEngineListener> listeners;
     private CompositeDisposable disposables = new CompositeDisposable();
     private InnerListener listener;
     private Set<File> incompleteFilesToRemove;
@@ -124,7 +124,7 @@ public class TorrentDownload
 
     public TorrentDownload(Context appContext,
                            TorrentSession session,
-                           final List<TorrentEngineListener> listeners,
+                           final Queue<TorrentEngineListener> listeners,
                            String id,
                            TorrentHandle handle)
     {
@@ -138,6 +138,12 @@ public class TorrentDownload
         partsFile = getPartsFile();
         listener = new InnerListener();
         session.addListener(listener);
+
+        /*
+         * The flag TorrentFlags.NEED_SAVE_RESUME doesn't work properly,
+         * run saveResumeData() directly
+         */
+        saveResumeData(true);
     }
 
     private interface CallListener

@@ -191,6 +191,23 @@ public class TorrentEngine
           .subscribe());
     }
 
+    public void addTorrents(@NonNull List<AddTorrentParams> paramsList,
+                           boolean removeFile)
+    {
+        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+
+        disposables.add(Observable.fromIterable(paramsList)
+                .subscribeOn(Schedulers.io())
+                .subscribe((params) -> {
+                    try {
+                        session.addTorrent(params, removeFile);
+
+                    } catch (Exception e) {
+                        handleAddTorrentError(params.name, e);
+                    }
+                }));
+    }
+
     public void addTorrent(@NonNull Uri file)
     {
         disposables.add(Completable.fromRunnable(() -> {

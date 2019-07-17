@@ -89,6 +89,31 @@ public class AddTorrentActivity extends AppCompatActivity
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        setTheme(Utils.getAppTheme(getApplicationContext()));
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null)
+            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
+
+        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
+            permDialogIsShow = true;
+            startActivity(new Intent(this, RequestPermissions.class));
+        }
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
+        viewModel = ViewModelProviders.of(this).get(AddTorrentViewModel.class);
+
+        errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
+
+        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+
+        initLayout();
+        observeDecodeState();
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();
@@ -133,31 +158,6 @@ public class AddTorrentActivity extends AppCompatActivity
                 finish();
                 break;
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null)
-            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-
-        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
-            permDialogIsShow = true;
-            startActivity(new Intent(this, RequestPermissions.class));
-        }
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
-        viewModel = ViewModelProviders.of(this).get(AddTorrentViewModel.class);
-
-        errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
-
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
-
-        initLayout();
-        observeDecodeState();
     }
 
     private void initLayout()
@@ -223,7 +223,7 @@ public class AddTorrentActivity extends AppCompatActivity
         /* Implicit intent with path to torrent file, http or magnet link */
         if (i.getData() != null)
             return i.getData();
-        else if (i.getStringExtra(Intent.EXTRA_TEXT) != null)
+        else if (!TextUtils.isEmpty(i.getStringExtra(Intent.EXTRA_TEXT)))
             return Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
         else
             return i.getParcelableExtra(TAG_URI);

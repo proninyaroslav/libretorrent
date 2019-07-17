@@ -146,7 +146,7 @@ public class FeedFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_feed, container, false);
+        View v = inflater.inflate(R.layout.fragment_feed_old, container, false);
         coordinatorLayout = v.findViewById(R.id.feed_coordinator_layout);
         toolbar = v.findViewById(R.id.toolbar);
         addChannelButton = v.findViewById(R.id.add_channel_button);
@@ -229,7 +229,7 @@ public class FeedFragment extends Fragment
 
         storage = new FeedStorage(activity.getApplicationContext());
         adapter = new FeedChannelListAdapter(new ArrayList<>(channels), activity,
-                R.layout.item_feed_channel_list, torrentListListener);
+                R.layout.item_feed_channel_list_old, torrentListListener);
         channelList.setAdapter(adapter);
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
@@ -859,10 +859,10 @@ public class FeedFragment extends Fragment
             case R.id.refresh_feed_channel_menu:
                 refreshChannels(channels);
                 break;
-            case R.id.export_feed_channels_menu:
+            case R.id.backup_feed_channels_menu:
                 exportChooseDialog();
                 break;
-            case R.id.import_feed_channels_menu:
+            case R.id.restore_feed_channels_backup_menu:
                 importChooseDialog();
                 break;
         }

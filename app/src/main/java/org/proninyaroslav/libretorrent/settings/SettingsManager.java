@@ -116,6 +116,7 @@ public class SettingsManager
         public static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
         public static final boolean autoRefreshWiFiOnly = false;
         public static final boolean feedStartTorrents = true;
+        public static final boolean feedRemoveDuplicates = true;
         /* Streaming settings */
         public static final boolean enableStreaming = true;
         public static final String streamingHostname = "127.0.0.1";

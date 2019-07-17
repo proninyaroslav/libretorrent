@@ -260,20 +260,12 @@ public class FileUtils
     {
 
         ContentResolver resolver = context.getContentResolver();
-        FileOutputStream fout = null;
-        FileInputStream fin = null;
-        try {
-            ParcelFileDescriptor fd = resolver.openFileDescriptor(src, "r");
-            fin = new FileInputStream(fd.getFileDescriptor());
+        ParcelFileDescriptor fdSrc = resolver.openFileDescriptor(src, "r");
+        ParcelFileDescriptor fdDest = resolver.openFileDescriptor(dest, "rw");
 
-            fd = resolver.openFileDescriptor(dest, "rw");
-            fout = new FileOutputStream(fd.getFileDescriptor());
-
+        try (FileInputStream fin = new FileInputStream(fdSrc.getFileDescriptor());
+             FileOutputStream fout = new FileOutputStream(fdDest.getFileDescriptor())){
             IOUtils.copy(fin, fout);
-
-        } finally {
-            IOUtils.closeQuietly(fout);
-            IOUtils.closeQuietly(fin);
         }
     }
 
@@ -338,15 +330,23 @@ public class FileUtils
                              @NonNull Uri destFile) throws IOException
     {
         ContentResolver resolver = context.getContentResolver();
-        FileOutputStream fout = null;
-        try {
-            ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
-            fout = new FileOutputStream(fd.getFileDescriptor());
+        ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
 
+        try (FileOutputStream fout = new FileOutputStream(fd.getFileDescriptor())) {
             IOUtils.write(data, fout);
+        }
+    }
 
-        } finally {
-            IOUtils.closeQuietly(fout);
+    public static void write(@NonNull Context context,
+                             @NonNull CharSequence data,
+                             @NonNull Charset charset,
+                             @NonNull Uri destFile) throws IOException
+    {
+        ContentResolver resolver = context.getContentResolver();
+        ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
+
+        try (FileOutputStream fout = new FileOutputStream(fd.getFileDescriptor())) {
+            IOUtils.write(data, fout, charset);
         }
     }
 

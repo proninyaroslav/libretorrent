@@ -37,8 +37,9 @@ import androidx.room.PrimaryKey;
 @Entity
 public class FeedChannel implements Parcelable
 {
+    @PrimaryKey(autoGenerate = true)
+    public long id;
     @NonNull
-    @PrimaryKey
     public String url;
     public String name;
     public long lastUpdate;
@@ -70,6 +71,7 @@ public class FeedChannel implements Parcelable
     @Ignore
     public FeedChannel(Parcel source)
     {
+        id = source.readLong();
         url = source.readString();
         name = source.readString();
         lastUpdate = source.readLong();
@@ -88,6 +90,7 @@ public class FeedChannel implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
+        dest.writeLong(id);
         dest.writeString(url);
         dest.writeString(name);
         dest.writeLong(lastUpdate);
@@ -116,20 +119,21 @@ public class FeedChannel implements Parcelable
     @Override
     public int hashCode()
     {
-        return url.hashCode();
+        return (int)(id ^ (id >>> 32));
     }
 
     @Override
     public boolean equals(Object o)
     {
-        return o instanceof FeedChannel && (o == this || url.equals(((FeedChannel)o).url));
+        return o instanceof FeedChannel && (o == this || id == ((FeedChannel)o).id);
     }
 
     @Override
     public String toString()
     {
         return "FeedChannel{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", lastUpdate=" + SimpleDateFormat.getDateTimeInstance().format(new Date(lastUpdate)) +
                 ", autoDownload=" + autoDownload +

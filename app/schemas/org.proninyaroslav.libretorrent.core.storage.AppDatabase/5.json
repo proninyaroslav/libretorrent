@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "32f6e911f9f24bf3556d9e037d16f50c",
+    "identityHash": "9a928af8203fc8a72546bb3719135e08",
     "entities": [
       {
         "tableName": "Torrent",
@@ -115,8 +115,14 @@
       },
       {
         "tableName": "FeedChannel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `name` TEXT, `lastUpdate` INTEGER NOT NULL, `autoDownload` INTEGER NOT NULL, `filter` TEXT, `isRegexFilter` INTEGER NOT NULL, `fetchError` TEXT, PRIMARY KEY(`url`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `name` TEXT, `lastUpdate` INTEGER NOT NULL, `autoDownload` INTEGER NOT NULL, `filter` TEXT, `isRegexFilter` INTEGER NOT NULL, `fetchError` TEXT)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "url",
             "columnName": "url",
@@ -162,21 +168,21 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "url"
+            "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "FeedItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `feedUrl` TEXT NOT NULL, `downloadUrl` TEXT, `articleUrl` TEXT, `pubDate` INTEGER NOT NULL, `fetchDate` INTEGER NOT NULL, `read` INTEGER NOT NULL, FOREIGN KEY(`feedUrl`) REFERENCES `FeedChannel`(`url`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `feedId` INTEGER NOT NULL, `downloadUrl` TEXT, `articleUrl` TEXT, `pubDate` INTEGER NOT NULL, `fetchDate` INTEGER NOT NULL, `read` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`feedId`) REFERENCES `FeedChannel`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -186,9 +192,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "feedUrl",
-            "columnName": "feedUrl",
-            "affinity": "TEXT",
+            "fieldPath": "feedId",
+            "columnName": "feedId",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -226,16 +232,16 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [
           {
-            "name": "index_FeedItem_feedUrl",
+            "name": "index_FeedItem_feedId",
             "unique": false,
             "columnNames": [
-              "feedUrl"
+              "feedId"
             ],
-            "createSql": "CREATE  INDEX `index_FeedItem_feedUrl` ON `${TABLE_NAME}` (`feedUrl`)"
+            "createSql": "CREATE  INDEX `index_FeedItem_feedId` ON `${TABLE_NAME}` (`feedId`)"
           }
         ],
         "foreignKeys": [
@@ -244,10 +250,10 @@
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "feedUrl"
+              "feedId"
             ],
             "referencedColumns": [
-              "url"
+              "id"
             ]
           }
         ]
@@ -256,7 +262,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32f6e911f9f24bf3556d9e037d16f50c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9a928af8203fc8a72546bb3719135e08')"
     ]
   }
 }

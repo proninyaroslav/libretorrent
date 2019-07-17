@@ -260,6 +260,7 @@ public class DetailTorrentFragment extends Fragment
     private void subscribeMsgViewModel()
     {
         disposables.add(msgViewModel.observeFragmentInActionMode()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((inActionMode) -> {
                     setTabLayoutColor((inActionMode ? R.color.action_mode : R.color.primary));
                 }));
@@ -521,6 +522,11 @@ public class DetailTorrentFragment extends Fragment
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
+        TorrentInfo info = viewModel.info.getTorrentInfo();
+        if (info != null)
+            config.fileName = info.name;
+        config.mimeType = Utils.MIME_TORRENT;
+
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
         startActivityForResult(i, SAVE_TORRENT_FILE_CHOOSE_REQUEST);
     }
@@ -595,22 +601,23 @@ public class DetailTorrentFragment extends Fragment
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s)
             {
                 fieldLayout.setErrorEnabled(false);
                 fieldLayout.setError(null);
 
                 /* Clear selection of invalid url */
                 Spannable text = field.getText();
-                ForegroundColorSpan[] errorSpans = text.getSpans(0, text.length(),
-                        ForegroundColorSpan.class);
-                for (ForegroundColorSpan span : errorSpans) {
-                    text.removeSpan(span);
+                if (text != null) {
+                    ForegroundColorSpan[] errorSpans = text.getSpans(0, text.length(),
+                            ForegroundColorSpan.class);
+                    for (ForegroundColorSpan span : errorSpans)
+                        text.removeSpan(span);
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
         });
 
         /* Inserting links from the clipboard */

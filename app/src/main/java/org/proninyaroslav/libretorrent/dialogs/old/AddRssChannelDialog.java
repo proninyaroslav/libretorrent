@@ -50,7 +50,7 @@ public class AddRssChannelDialog extends BaseAlertDialog
         args.putString(TAG_TITLE, title);
         args.putString(TAG_POS_TEXT, positiveText);
         args.putString(TAG_NEG_TEXT, context.getString(R.string.cancel));
-        args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_add_feed_channel);
+        args.putInt(TAG_RES_ID_VIEW, R.layout.dialog_add_feed_channel_old);
 
         if (callback instanceof Fragment)
             frag.setTargetFragment((Fragment)callback, 0);

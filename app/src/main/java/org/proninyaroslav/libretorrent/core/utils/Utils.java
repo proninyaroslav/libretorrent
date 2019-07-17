@@ -36,6 +36,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -44,6 +45,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -85,11 +91,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 
 /*
  * General utils.
@@ -813,6 +814,32 @@ public class Utils
         }
 
         return color;
+    }
+
+    /*
+     * Return path to the current torrent download directory.
+     * If the directory doesn't exist, the function creates it automatically
+     */
+
+    public static Uri getTorrentDownloadPath(@NonNull Context appContext)
+    {
+        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        String path = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
+                                     SettingsManager.Default.saveTorrentsIn);
+
+        path = (TextUtils.isEmpty(path) ? FileUtils.getDefaultDownloadPath() : path);
+
+        return (path == null ? null : Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+    }
+
+    public static void setTextViewStyle(@NonNull Context context,
+                                        @NonNull TextView textView,
+                                        int resId)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            textView.setTextAppearance(context, resId);
+        else
+            textView.setTextAppearance(resId);
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

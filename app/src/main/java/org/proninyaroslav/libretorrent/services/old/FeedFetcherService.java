@@ -31,7 +31,7 @@ import android.util.Log;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.old.FeedChannel;
 import org.proninyaroslav.libretorrent.core.old.FeedItem;
-import org.proninyaroslav.libretorrent.core.FeedParser;
+import org.proninyaroslav.libretorrent.core.old.FeedParser;
 import org.proninyaroslav.libretorrent.core.storage.old.FeedStorage;
 import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 

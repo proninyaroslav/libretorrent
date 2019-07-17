@@ -73,12 +73,12 @@ public class MainViewModel extends AndroidViewModel
         engine = TorrentEngine.getInstance(application);
     }
 
-    public Flowable<List<TorrentInfo>> observeAllTorrentsState()
+    public Flowable<List<TorrentInfo>> observeAllTorrentsInfo()
     {
         return stateProvider.observeInfoList();
     }
 
-    public Single<List<TorrentInfo>> getAllTorrentsStateSingle()
+    public Single<List<TorrentInfo>> getAllTorrentsInfoSingle()
     {
         return stateProvider.getInfoListSingle();
     }
