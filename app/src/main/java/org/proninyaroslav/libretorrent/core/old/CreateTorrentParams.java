@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.old;
 
 import android.os.Parcel;
 import android.os.Parcelable;

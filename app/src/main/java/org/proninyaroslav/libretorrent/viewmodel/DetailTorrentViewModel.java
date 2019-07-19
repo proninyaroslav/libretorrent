@@ -30,6 +30,7 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.libtorrent4j.Priority;
@@ -81,11 +82,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private CompositeDisposable disposable = new CompositeDisposable();
     public TorrentDetailsInfo info = new TorrentDetailsInfo();
     public TorrentDetailsMutableParams mutableParams = new TorrentDetailsMutableParams();
-    public MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
+    private MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
     public Throwable errorReport;
 
     public TorrentContentFileTree fileTree;
-    public BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
+    private BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private TorrentContentFileTree curDir;
 
@@ -129,6 +130,16 @@ public class DetailTorrentViewModel extends AndroidViewModel
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
         paramsChanged.setValue(false);
         fileTree = null;
+    }
+
+    public LiveData<Boolean> getParamsChanged()
+    {
+        return paramsChanged;
+    }
+
+    public io.reactivex.Observable<List<TorrentContentFileTree>> getDirChildren()
+    {
+        return children;
     }
 
     public Flowable<TorrentInfo> observeTorrentInfo()

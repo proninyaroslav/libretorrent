@@ -130,7 +130,7 @@ public class AddTorrentInfoFragment extends Fragment
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         if (resultCode != DIR_CHOOSER_REQUEST && resultCode != Activity.RESULT_OK)
             return;

@@ -35,7 +35,7 @@ public class AddTorrentMutableParams extends BaseObservable
     private String name;
     /* SAF or filesystem storage */
     private ObservableField<Uri> dirPath = new ObservableField<>();
-    /* Equal with dirPath is case if the path is non-SAF path */
+    /* Equal with dirPath in case if the path is non-SAF path */
     private String dirName;
     private long storageFreeSpace = -1;
     private boolean sequentialDownload;

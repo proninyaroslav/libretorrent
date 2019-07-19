@@ -63,7 +63,9 @@ import org.proninyaroslav.libretorrent.adapters.TorrentStatusPagerAdapter;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.exceptions.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.utils.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
@@ -184,7 +186,7 @@ public class DetailTorrentFragment extends Fragment
         binding.fragmentViewpager.setCurrentItem(currentFragPos);
 
         binding.saveChanges.setOnClickListener((v) -> applyChangedParams());
-        viewModel.paramsChanged.observe(this, (changed) -> {
+        viewModel.getParamsChanged().observe(this, (changed) -> {
             if (changed)
                 binding.saveChanges.show();
             else
@@ -682,12 +684,24 @@ public class DetailTorrentFragment extends Fragment
         TextInputEditText field = dialog.findViewById(R.id.multiline_text_input_dialog);
         TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_multiline_text_input_dialog);
 
-        Editable e = field.getText();
-        if (TextUtils.isEmpty(e))
+        Editable editable = field.getText();
+        if (TextUtils.isEmpty(editable))
             return;
 
-        String text = e.toString();
+        String text = editable.toString();
         List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+
+        NormalizeUrl.Options options = new NormalizeUrl.Options();
+        options.decode = false;
+        for (int i = 0; i < urls.size(); i++) {
+            try {
+                urls.set(i, NormalizeUrl.normalize(urls.get(i), options));
+
+            } catch (NormalizeUrlException e) {
+                /* Ignore */
+            }
+        }
+
         if (!checkAddTrackersField(urls, fieldLayout, field))
             return;
 
@@ -745,7 +759,7 @@ public class DetailTorrentFragment extends Fragment
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         if (requestCode != SAVE_TORRENT_FILE_CHOOSE_REQUEST || resultCode != Activity.RESULT_OK)
             return;

@@ -178,7 +178,7 @@ public class AddTorrentActivity extends AppCompatActivity
 
     private void observeDecodeState()
     {
-        viewModel.decodeState.observe(this, (state) -> {
+        viewModel.getDecodeState().observe(this, (state) -> {
             switch (state.status) {
                 case UNKNOWN:
                     Uri uri = getUri();

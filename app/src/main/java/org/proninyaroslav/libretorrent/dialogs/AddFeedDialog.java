@@ -249,7 +249,7 @@ public class AddFeedDialog extends DialogFragment
                 .setNegativeButton(R.string.cancel, null)
                 .setView(view);
 
-        if (viewModel.mode == AddFeedViewModel.Mode.EDIT) {
+        if (viewModel.getMode() == AddFeedViewModel.Mode.EDIT) {
             builder.setTitle(R.string.edit_feed_channel);
             builder.setPositiveButton(R.string.edit, null);
             builder.setNeutralButton(R.string.delete, null);
@@ -261,7 +261,7 @@ public class AddFeedDialog extends DialogFragment
         alert = builder.create();
         alert.setCanceledOnTouchOutside(false);
         alert.setOnShowListener((DialogInterface dialog) -> {
-            if (viewModel.mode == AddFeedViewModel.Mode.EDIT) {
+            if (viewModel.getMode() == AddFeedViewModel.Mode.EDIT) {
                 Button editButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
                 Button deleteButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
                 editButton.setOnClickListener((v) -> updateChannel());

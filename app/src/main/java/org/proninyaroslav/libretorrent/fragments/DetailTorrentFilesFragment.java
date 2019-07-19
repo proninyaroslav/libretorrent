@@ -152,7 +152,7 @@ public class DetailTorrentFilesFragment extends Fragment
 
     private void subscribeAdapter()
     {
-        disposables.add(viewModel.children
+        disposables.add(viewModel.getDirChildren()
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle((children) ->
                         Flowable.fromIterable(children)

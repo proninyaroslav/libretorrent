@@ -20,9 +20,7 @@
 package org.proninyaroslav.libretorrent;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,18 +29,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.dialogs.AddFeedDialog;
+import org.proninyaroslav.libretorrent.dialogs.CreateTorrentDialog;
 import org.proninyaroslav.libretorrent.fragments.FragmentCallback;
 
-public class AddFeedActivity extends AppCompatActivity
+public class CreateTorrentActivity extends AppCompatActivity
     implements FragmentCallback
 {
-    public static final String ACTION_EDIT_FEED = "org.proninyaroslav.libretorrent.AddFeedActivity.ACTION_EDIT_FEED";
-    public static final String TAG_FEED_ID = "feed_id";
+    private static final String TAG_CREATE_TORRENT_DIALOG = "create_torrent_dialog";
+    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
 
-    private static final String TAG_ADD_FEED_DIALOG = "add_feed_dialog";
-
-    private AddFeedDialog addFeedDialog;
+    private CreateTorrentDialog createTorrentDialog;
+    private boolean permDialogIsShow = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -51,34 +48,27 @@ public class AddFeedActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();
-        addFeedDialog = (AddFeedDialog)fm.findFragmentByTag(TAG_ADD_FEED_DIALOG);
-        if (addFeedDialog == null) {
-            Intent i = getIntent();
-            if (i == null)
-                return;
+        createTorrentDialog = (CreateTorrentDialog)fm.findFragmentByTag(TAG_CREATE_TORRENT_DIALOG);
+        if (createTorrentDialog == null) {
+            createTorrentDialog = CreateTorrentDialog.newInstance();
+            createTorrentDialog.show(fm, TAG_CREATE_TORRENT_DIALOG);
+        }
 
-            if (ACTION_EDIT_FEED.equals(i.getAction())) {
-                long feedId = i.getLongExtra(TAG_FEED_ID, -1);
-                addFeedDialog = AddFeedDialog.newInstance(feedId);
-            } else {
-                addFeedDialog = AddFeedDialog.newInstance(getUriFromIntent());
-            }
+        if (savedInstanceState != null)
+            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
 
-            addFeedDialog.show(fm, TAG_ADD_FEED_DIALOG);
+        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
+            permDialogIsShow = true;
+            startActivity(new Intent(this, RequestPermissions.class));
         }
     }
 
-    private Uri getUriFromIntent()
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        Intent i = getIntent();
-        if (i != null) {
-            if (i.getData() != null)
-                return i.getData();
-            else if (!TextUtils.isEmpty(i.getStringExtra(Intent.EXTRA_TEXT)))
-                return Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
-        }
+        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
 
-        return null;
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -90,6 +80,6 @@ public class AddFeedActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        addFeedDialog.onBackPressed();
+        createTorrentDialog.onBackPressed();
     }
 }

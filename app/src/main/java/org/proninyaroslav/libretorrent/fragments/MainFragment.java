@@ -63,7 +63,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.AddTorrentActivity;
-import org.proninyaroslav.libretorrent.CreateTorrentActivityOld;
+import org.proninyaroslav.libretorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.TorrentListAdapter;
@@ -653,7 +653,7 @@ public class MainFragment extends Fragment
 
     private void createTorrentDialog()
     {
-        startActivity(new Intent(activity, CreateTorrentActivityOld.class));
+        startActivity(new Intent(activity, CreateTorrentActivity.class));
     }
 
     private boolean checkUrlField(Editable link, TextInputLayout layoutLink)

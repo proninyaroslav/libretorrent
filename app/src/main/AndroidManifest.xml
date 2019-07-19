@@ -231,7 +231,8 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".CreateTorrentActivityOld" />
+            android:name=".CreateTorrentActivity"
+            android:theme="@style/AppTheme.Translucent" />
 
         <service
             android:name=".services.TorrentService" />

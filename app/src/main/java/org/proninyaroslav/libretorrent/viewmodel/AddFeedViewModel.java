@@ -41,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 public class AddFeedViewModel extends AndroidViewModel
 {
     public AddFeedMutableParams mutableParams = new AddFeedMutableParams();
-    public Mode mode;
+    private Mode mode;
     private FeedRepository repo;
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -64,6 +64,11 @@ public class AddFeedViewModel extends AndroidViewModel
         super.onCleared();
 
         disposables.clear();
+    }
+
+    public Mode getMode()
+    {
+        return mode;
     }
 
     public void initAddMode(@NonNull Uri uri)

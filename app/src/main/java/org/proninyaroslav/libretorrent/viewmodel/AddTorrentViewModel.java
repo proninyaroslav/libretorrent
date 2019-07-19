@@ -68,6 +68,7 @@ import androidx.collection.ArraySet;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import io.reactivex.Single;
@@ -81,7 +82,7 @@ public class AddTorrentViewModel extends AndroidViewModel
 
     public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
-    public MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
+    private MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
     private TorrentRepository repo;
     private TorrentEngine engine;
     private SharedPreferences pref;
@@ -140,6 +141,11 @@ public class AddTorrentViewModel extends AndroidViewModel
         String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentFilesIn);
         mutableParams.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+    }
+
+    public LiveData<DecodeState> getDecodeState()
+    {
+        return decodeState;
     }
 
     @Override
