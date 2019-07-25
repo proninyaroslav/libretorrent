@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,25 +19,24 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.receivers.old.SchedulerReceiver;
+import org.proninyaroslav.libretorrent.core.Scheduler;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.settings.customprefs.TimePreference;
-import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class SchedulingSettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
+        implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = SchedulingSettingsFragment.class.getSimpleName();
@@ -55,35 +54,46 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
 
         String keyEnableStart = getString(R.string.pref_key_enable_scheduling_start);
-        SwitchPreferenceCompat enableStart = (SwitchPreferenceCompat)findPreference(keyEnableStart);
-        enableStart.setChecked(pref.getBoolean(keyEnableStart, SettingsManager.Default.enableSchedulingStart));
-        bindOnPreferenceChangeListener(enableStart);
+        SwitchPreferenceCompat enableStart = findPreference(keyEnableStart);
+        if (enableStart != null) {
+            enableStart.setChecked(pref.getBoolean(keyEnableStart, SettingsManager.Default.enableSchedulingStart));
+            bindOnPreferenceChangeListener(enableStart);
+        }
 
         String keyEnableStop = getString(R.string.pref_key_enable_scheduling_shutdown);
-        SwitchPreferenceCompat enableStop = (SwitchPreferenceCompat)findPreference(keyEnableStop);
-        enableStop.setChecked(pref.getBoolean(keyEnableStop, SettingsManager.Default.enableSchedulingShutdown));
-        bindOnPreferenceChangeListener(enableStop);
+        SwitchPreferenceCompat enableStop = findPreference(keyEnableStop);
+        if (enableStop != null) {
+            enableStop.setChecked(pref.getBoolean(keyEnableStop, SettingsManager.Default.enableSchedulingShutdown));
+            bindOnPreferenceChangeListener(enableStop);
+        }
 
         String keyStartTime = getString(R.string.pref_key_scheduling_start_time);
-        TimePreference startTime = (TimePreference)findPreference(keyStartTime);
-        startTime.setTime(pref.getInt(keyStartTime, SettingsManager.Default.schedulingStartTime));
-        bindOnPreferenceChangeListener(startTime);
+        TimePreference startTime = findPreference(keyStartTime);
+        if (startTime != null) {
+            startTime.setTime(pref.getInt(keyStartTime, SettingsManager.Default.schedulingStartTime));
+            bindOnPreferenceChangeListener(startTime);
+        }
 
         String keyStopTime = getString(R.string.pref_key_scheduling_shutdown_time);
-        TimePreference stopTime = (TimePreference)findPreference(keyStopTime);
-        stopTime.setTime(pref.getInt(keyStopTime, SettingsManager.Default.schedulingShutdownTime));
-        bindOnPreferenceChangeListener(stopTime);
+        TimePreference stopTime = findPreference(keyStopTime);
+        if (stopTime != null) {
+            stopTime.setTime(pref.getInt(keyStopTime, SettingsManager.Default.schedulingShutdownTime));
+            bindOnPreferenceChangeListener(stopTime);
+        }
 
         String keyRunOnlyOnce = getString(R.string.pref_key_scheduling_run_only_once);
-        CheckBoxPreference runOnlyOnce = (CheckBoxPreference)findPreference(keyRunOnlyOnce);
-        runOnlyOnce.setChecked(pref.getBoolean(keyRunOnlyOnce, SettingsManager.Default.schedulingRunOnlyOnce));
+        CheckBoxPreference runOnlyOnce = findPreference(keyRunOnlyOnce);
+        if (runOnlyOnce != null)
+            runOnlyOnce.setChecked(pref.getBoolean(keyRunOnlyOnce, SettingsManager.Default.schedulingRunOnlyOnce));
 
         String keySwitchWiFi = getString(R.string.pref_key_scheduling_switch_wifi);
-        CheckBoxPreference switchWiFi = (CheckBoxPreference)findPreference(keySwitchWiFi);
-        switchWiFi.setChecked(pref.getBoolean(keySwitchWiFi, SettingsManager.Default.schedulingSwitchWiFi));
+        CheckBoxPreference switchWiFi = findPreference(keySwitchWiFi);
+        if (switchWiFi != null)
+            switchWiFi.setChecked(pref.getBoolean(keySwitchWiFi, SettingsManager.Default.schedulingSwitchWiFi));
     }
 
     @Override
@@ -116,33 +126,34 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+        Context context = getActivity().getApplicationContext();
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         if (preference.getKey().equals(getString(R.string.pref_key_enable_scheduling_start))) {
             if ((boolean)newValue) {
                 int time = pref.getInt(getString(R.string.pref_key_scheduling_start_time),
-                        SettingsManager.Default.schedulingStartTime);
-                SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_START_APP, time);
+                                       SettingsManager.Default.schedulingStartTime);
+                Scheduler.setStartAppAlarm(context, time);
             } else {
-                SchedulerReceiver.cancelScheduling(getActivity(), SchedulerReceiver.ACTION_START_APP);
+                Scheduler.cancelStartAppAlarm(context);
             }
-            Utils.enableBootReceiver(getActivity(), (boolean)newValue);
+            Utils.enableBootReceiver(context, (boolean)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_scheduling_shutdown))) {
             if ((boolean)newValue) {
                 int time = pref.getInt(getString(R.string.pref_key_scheduling_shutdown_time),
-                        SettingsManager.Default.schedulingStartTime);
-                SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_STOP_APP, time);
+                                       SettingsManager.Default.schedulingStartTime);
+                Scheduler.setStopAppAlarm(context, time);
             } else {
-                SchedulerReceiver.cancelScheduling(getActivity(), SchedulerReceiver.ACTION_STOP_APP);
+                Scheduler.cancelStopAppAlarm(context);
             }
             Utils.enableBootReceiver(getActivity(), (boolean)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_start_time))) {
-            SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_START_APP, (int)newValue);
+            Scheduler.setStartAppAlarm(context, (int)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_shutdown_time))) {
-            SchedulerReceiver.setStartStopAppAlarm(getActivity(), SchedulerReceiver.ACTION_STOP_APP, (int)newValue);
+            Scheduler.setStopAppAlarm(context, (int)newValue);
         }
 
         return true;

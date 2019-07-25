@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,15 +21,15 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.view.MenuItem;
 
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class PreferenceActivity extends AppCompatActivity
 {
@@ -54,11 +54,8 @@ public class PreferenceActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_preference);
 
-        Utils.showColoredStatusBar_KitKat(this);
-
         String fragment = null;
         String title = null;
-
         Intent intent = getIntent();
         if (intent.hasExtra(TAG_CONFIG)) {
             PreferenceActivityConfig config = intent.getParcelableExtra(TAG_CONFIG);
@@ -67,12 +64,9 @@ public class PreferenceActivity extends AppCompatActivity
         }
 
         toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            if (title != null)
-                toolbar.setTitle(title);
-            setSupportActionBar(toolbar);
-        }
-
+        if (title != null)
+            toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -93,23 +87,23 @@ public class PreferenceActivity extends AppCompatActivity
     {
         if (fragment != null) {
             if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName()))
-                return (F) AppearanceSettingsFragment.newInstance();
+                return (F)AppearanceSettingsFragment.newInstance();
             else if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName()))
-                return (F) BehaviorSettingsFragment.newInstance();
+                return (F)BehaviorSettingsFragment.newInstance();
             else if (fragment.equals(StorageSettingsFragment.class.getSimpleName()))
-                return (F) StorageSettingsFragment.newInstance();
+                return (F)StorageSettingsFragment.newInstance();
             else if (fragment.equals(LimitationsSettingsFragment.class.getSimpleName()))
-                return (F) LimitationsSettingsFragment.newInstance();
+                return (F)LimitationsSettingsFragment.newInstance();
             else if (fragment.equals(NetworkSettingsFragment.class.getSimpleName()))
-                return (F) NetworkSettingsFragment.newInstance();
+                return (F)NetworkSettingsFragment.newInstance();
             else if (fragment.equals(ProxySettingsFragment.class.getSimpleName()))
-                return (F) ProxySettingsFragment.newInstance();
+                return (F)ProxySettingsFragment.newInstance();
             else if (fragment.equals(SchedulingSettingsFragment.class.getSimpleName()))
-                return (F) SchedulingSettingsFragment.newInstance();
+                return (F)SchedulingSettingsFragment.newInstance();
             else if (fragment.equals(FeedSettingsFragment.class.getSimpleName()))
-                return (F) FeedSettingsFragment.newInstance();
+                return (F)FeedSettingsFragment.newInstance();
             else if (fragment.equals(StreamingSettingsFragment.class.getSimpleName()))
-                return (F) StreamingSettingsFragment.newInstance();
+                return (F)StreamingSettingsFragment.newInstance();
             else
                 return null;
         }
@@ -117,25 +111,11 @@ public class PreferenceActivity extends AppCompatActivity
         return null;
     }
 
-    public void setTitle(String title)
-    {
-        if (toolbar != null)
-            toolbar.setTitle(title);
-    }
-
-    public String getToolbarTitle()
-    {
-        return (toolbar != null ? toolbar.getTitle().toString() : null);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
+        if (item.getItemId() == android.R.id.home)
+            finish();
 
         return true;
     }

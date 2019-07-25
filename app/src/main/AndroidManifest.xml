@@ -255,7 +255,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.old.BootReceiver">
+            android:name=".receivers.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -264,7 +264,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.old.SchedulerReceiver" />
+            android:name=".receivers.SchedulerReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

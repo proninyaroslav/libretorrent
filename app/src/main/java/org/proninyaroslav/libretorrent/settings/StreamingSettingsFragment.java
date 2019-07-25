@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,21 +21,20 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
+
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
 
 public class StreamingSettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
+        implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = StreamingSettingsFragment.class.getSimpleName();
@@ -53,28 +52,34 @@ public class StreamingSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
 
         String keyEnable = getString(R.string.pref_key_streaming_enable);
-        SwitchPreferenceCompat enable = (SwitchPreferenceCompat)findPreference(keyEnable);
-        enable.setChecked(pref.getBoolean(keyEnable, SettingsManager.Default.enableStreaming));
+        SwitchPreferenceCompat enable = findPreference(keyEnable);
+        if (enable != null)
+            enable.setChecked(pref.getBoolean(keyEnable, SettingsManager.Default.enableStreaming));
 
         String keyHostname = getString(R.string.pref_key_streaming_hostname);
-        EditTextPreference hostname = (EditTextPreference)findPreference(keyHostname);
-        String addressValue = pref.getString(keyHostname, SettingsManager.Default.streamingHostname);
-        hostname.setText(addressValue);
-        hostname.setSummary(addressValue);
-        bindOnPreferenceChangeListener(hostname);
+        EditTextPreference hostname = findPreference(keyHostname);
+        if (hostname != null) {
+            String addressValue = pref.getString(keyHostname, SettingsManager.Default.streamingHostname);
+            hostname.setText(addressValue);
+            hostname.setSummary(addressValue);
+            bindOnPreferenceChangeListener(hostname);
+        }
 
         String keyPort = getString(R.string.pref_key_streaming_port);
-        EditTextPreference port = (EditTextPreference)findPreference(keyPort);
-        InputFilter[] portFilter = new InputFilter[]{new InputFilterMinMax(0, 65535)};
-        int portNumber = pref.getInt(keyPort, SettingsManager.Default.streamingPort);
-        String portValue = Integer.toString(portNumber);
-        port.getEditText().setFilters(portFilter);
-        port.setSummary(portValue);
-        port.setText(portValue);
-        bindOnPreferenceChangeListener(port);
+        EditTextPreference port = findPreference(keyPort);
+        if (port != null) {
+            InputFilter[] portFilter = new InputFilter[]{new InputFilterMinMax(0, 65535)};
+            int portNumber = pref.getInt(keyPort, SettingsManager.Default.streamingPort);
+            String portValue = Integer.toString(portNumber);
+            port.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
+            port.setSummary(portValue);
+            port.setText(portValue);
+            bindOnPreferenceChangeListener(port);
+        }
     }
 
     @Override
@@ -91,7 +96,8 @@ public class StreamingSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
 
         if (preference.getKey().equals(getString(R.string.pref_key_streaming_hostname))) {
             pref.edit().putString(preference.getKey(), (String)newValue).apply();

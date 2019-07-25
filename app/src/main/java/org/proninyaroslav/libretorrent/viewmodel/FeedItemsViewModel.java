@@ -100,7 +100,7 @@ public class FeedItemsViewModel extends AndroidViewModel
             return;
 
         Data data = new Data.Builder()
-                .putString(FeedFetcherWorker.TAG_ACTION,FeedFetcherWorker.ACTION_FETCH_CHANNEL)
+                .putString(FeedFetcherWorker.TAG_ACTION, FeedFetcherWorker.ACTION_FETCH_CHANNEL)
                 .putLong(FeedFetcherWorker.TAG_CHANNEL_ID, feedId)
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FeedFetcherWorker.class)

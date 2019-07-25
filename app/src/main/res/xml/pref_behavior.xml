@@ -2,14 +2,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
+        android:key="@string/pref_key_umnetered_connections_only"
+        android:title="@string/pref_umnetered_connections_only_title"
+        android:summary="@string/pref_umnetered_connections_only_summary" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_enable_roaming"
+        android:title="@string/pref_enable_roaming_title"
+        android:summary="@string/pref_enable_roaming_summary" />
+
+    <SwitchPreferenceCompat
         android:key="@string/pref_key_autostart"
         android:title="@string/pref_autostart_title"
         android:summary="@string/pref_autostart_summary" />
-
-    <SwitchPreferenceCompat
-        android:key="@string/pref_key_umnetered_connections_only"
-        android:title="@string/pref_wifi_only_title"
-        android:summary="@string/pref_wifi_only_summary" />
 
     <PreferenceCategory
         android:title="@string/pref_power_management_category">

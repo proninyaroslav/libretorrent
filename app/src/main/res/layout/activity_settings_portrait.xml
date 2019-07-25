@@ -6,8 +6,9 @@
     <include
         layout="@layout/toolbar" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <fragment
+        class="org.proninyaroslav.libretorrent.settings.SettingsFragment"
+        android:id="@+id/settings_fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar" />

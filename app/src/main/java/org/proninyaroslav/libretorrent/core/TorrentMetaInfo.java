@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,7 +26,7 @@ import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.TorrentInfo;
 
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -192,10 +192,10 @@ public class TorrentMetaInfo implements Parcelable
 
         TorrentMetaInfo info = (TorrentMetaInfo) o;
 
-        return (torrentName == null || torrentName.equals(info.torrentName)) &&
-                (sha1Hash == null || sha1Hash.equals(info.sha1Hash)) &&
-                (comment == null || comment.equals(info.comment)) &&
-                (createdBy == null || createdBy.equals(info.createdBy)) &&
+        return torrentName.equals(info.torrentName) &&
+                sha1Hash.equals(info.sha1Hash) &&
+                comment.equals(info.comment) &&
+                createdBy.equals(info.createdBy) &&
                 torrentSize == info.torrentSize &&
                 creationDate == info.creationDate &&
                 fileCount == info.fileCount &&

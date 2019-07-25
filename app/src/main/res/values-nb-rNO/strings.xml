@@ -477,7 +477,6 @@
     <string name="pref_feed_auto_refresh_summary">Med jevne mellomrom oppdatere kanaler i bakgrunnen</string>
     <string name="pref_feed_refresh_interval_title">Oppdaterings intervall</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutter</item>
         <item>15 minutter</item>
         <item>30 minutter</item>
         <item>1 time</item>

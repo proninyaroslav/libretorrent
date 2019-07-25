@@ -479,7 +479,6 @@
     <string name="pref_feed_auto_refresh_summary">समय-समय पर चैनलों को पृष्ठभूमि में ताज़ा करें</string>
     <string name="pref_feed_refresh_interval_title">ताजा अंतराल</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 मिनट</item>
         <item>15 मिनट</item>
         <item>30 मिनिट</item>
         <item>1 घंटा</item>

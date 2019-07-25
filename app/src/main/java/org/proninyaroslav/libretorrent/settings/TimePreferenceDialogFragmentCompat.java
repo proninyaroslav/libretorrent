@@ -2,17 +2,18 @@ package org.proninyaroslav.libretorrent.settings;
 
 import android.os.Build;
 import android.os.Bundle;
-import androidx.preference.DialogPreference;
-import androidx.preference.PreferenceDialogFragmentCompat;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TimePicker;
+
+import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.settings.customprefs.TimePreference;
 
 /**
- * The Dialog for the {@link org.proninyaroslav.libretorrent.settings.customprefs.TimePreference}.
+ * The Dialog for the {@link TimePreference}.
  *
  * @author Jakob Ulbrich
  */

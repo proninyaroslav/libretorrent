@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
 
 /*
  * Parser of blacklist IP addresses in DAT and P2P formats.

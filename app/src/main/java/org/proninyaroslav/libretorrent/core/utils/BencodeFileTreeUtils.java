@@ -23,7 +23,6 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.filetree.FileTree;
-import org.proninyaroslav.libretorrent.core.utils.old.FileIOUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +78,7 @@ public class BencodeFileTreeUtils
                 parentTree = root;
             }
 
-            String[] nodes = FileIOUtils.parsePath(path);
+            String[] nodes = FileUtils.parsePath(path);
             /*
              * Remove last node (file) from previous path.
              * Example:

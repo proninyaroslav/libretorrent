@@ -477,7 +477,6 @@
     <string name="pref_feed_auto_refresh_summary">Okresowo odświeżyć kanały w tle</string>
     <string name="pref_feed_refresh_interval_title">Interwał odświeżania</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minut</item>
         <item>15 minut</item>
         <item>30 minut</item>
         <item>1 godzina</item>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,21 +23,22 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
-public class SettingsActivity extends AppCompatActivity implements SettingsFragment.Callback
+import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.viewmodel.settings.SettingsViewModel;
+
+public class SettingsActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")
     private static final String TAG = SettingsActivity.class.getSimpleName();
-    private static final String TAG_TITLE = "title";
 
     private Toolbar toolbar;
     private TextView detailTitle;
-    private String title;
+    private SettingsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,41 +46,21 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
         setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
+        viewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+
         setContentView(R.layout.activity_settings);
-        Utils.showColoredStatusBar_KitKat(this);
 
         toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle(getString(R.string.settings));
-            setSupportActionBar(toolbar);
-        }
+        toolbar.setTitle(getString(R.string.settings));
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         detailTitle = findViewById(R.id.detail_title);
-
-        if (savedInstanceState != null) {
-            title = savedInstanceState.getString(TAG_TITLE);
+        viewModel.detailTitleChanged.observe(this, title -> {
             if (title != null && detailTitle != null)
                 detailTitle.setText(title);
-        }
-    }
-
-    @Override
-    public void onDetailTitleChanged(String title)
-    {
-        this.title = title;
-
-        if (detailTitle != null && title != null)
-            detailTitle.setText(title);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        outState.putString(TAG_TITLE, title);
-
-        super.onSaveInstanceState(outState);
+        });
     }
 
     @Override

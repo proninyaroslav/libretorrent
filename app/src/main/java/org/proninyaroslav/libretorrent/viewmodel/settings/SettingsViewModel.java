@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,26 +17,12 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.receivers.old;
+package org.proninyaroslav.libretorrent.viewmodel.settings;
 
-import android.os.Bundle;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-public class TorrentTaskServiceReceiver
+public class SettingsViewModel extends ViewModel
 {
-    public interface Callback
-    {
-        /* IMPORTANT: please add:
-         *
-         *  @Subscribe(threadMode = ThreadMode.MAIN)
-         *
-         * annotation in implementation.
-         * For more information about configuring see EventBus javadoc.
-         */
-        void onReceive(Bundle b);
-    }
-
-    public static Object getInstance()
-    {
-        return new Object();
-    }
+    public MutableLiveData<String> detailTitleChanged = new MutableLiveData<>();
 }

@@ -457,6 +457,10 @@
     <string name="pref_autostart_summary">Run the app after start device</string>
     <string name="pref_wifi_only_title">Wi-Fi only</string>
     <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <string name="pref_power_management_category">Power management</string>
     <string name="pref_keep_alive_title">Keep alive</string>
     <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
@@ -484,7 +488,11 @@
     <string name="pref_enable_natpmp_title">Enable NAT-PMP</string>
     <string name="pref_port_settings_category">Port settings</string>
     <string name="pref_use_random_port_title">Use random port</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_title">Port</string>
+    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_start_title">Start</string>
+    <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">Encryption</string>
     <string name="pref_enc_mode_title">Encryption mode</string>
     <string-array name="pref_enc_mode_entries">
@@ -529,7 +537,6 @@
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
     <string name="pref_feed_refresh_interval_title">Refresh interval</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutes</item>
         <item>15 minutes</item>
         <item>30 minutes</item>
         <item>1 hour</item>
@@ -539,6 +546,9 @@
         <item>1 day</item>
     </string-array>
     <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <string name="pref_feed_keep_items_time_title">Keep articles</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 day</item>

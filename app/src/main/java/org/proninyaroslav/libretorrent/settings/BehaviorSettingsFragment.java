@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,27 +19,34 @@
 
 package org.proninyaroslav.libretorrent.settings;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.takisoft.preferencex.PreferenceFragmentCompat;
-
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.Preference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
-import org.proninyaroslav.libretorrent.settings.old.SettingsManager;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class BehaviorSettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
+        implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = BehaviorSettingsFragment.class.getSimpleName();
+
+    private static final String TAG_CUSTOM_BATTERY_DIALOG = "custom_battery_dialog";
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+
 
     public static BehaviorSettingsFragment newInstance()
     {
@@ -54,57 +61,111 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        final SharedPreferences pref = SettingsManager.getPreferences(getActivity());
+        dialogViewModel = ViewModelProviders.of(getActivity()).get(BaseAlertDialog.SharedViewModel.class);
+
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
 
         String keyAutostart = getString(R.string.pref_key_autostart);
-        SwitchPreferenceCompat autostart = (SwitchPreferenceCompat)findPreference(keyAutostart);
-        autostart.setChecked(pref.getBoolean(keyAutostart, SettingsManager.Default.autostart));
-        bindOnPreferenceChangeListener(autostart);
+        SwitchPreferenceCompat autostart = findPreference(keyAutostart);
+        if (autostart != null) {
+            autostart.setChecked(pref.getBoolean(keyAutostart, SettingsManager.Default.autostart));
+            bindOnPreferenceChangeListener(autostart);
+        }
 
         String keyKeepAlive = getString(R.string.pref_key_keep_alive);
-        SwitchPreferenceCompat keepAlive = (SwitchPreferenceCompat)findPreference(keyKeepAlive);
-        keepAlive.setChecked(pref.getBoolean(keyKeepAlive, SettingsManager.Default.keepAlive));
-        bindOnPreferenceChangeListener(keepAlive);
+        SwitchPreferenceCompat keepAlive = findPreference(keyKeepAlive);
+        if (keepAlive != null) {
+            keepAlive.setChecked(pref.getBoolean(keyKeepAlive, SettingsManager.Default.keepAlive));
+            bindOnPreferenceChangeListener(keepAlive);
+        }
 
         String keyShutdownComplete = getString(R.string.pref_key_shutdown_downloads_complete);
-        SwitchPreferenceCompat shutdownComplete = (SwitchPreferenceCompat)findPreference(keyShutdownComplete);
-        shutdownComplete.setChecked(pref.getBoolean(keyShutdownComplete, SettingsManager.Default.shutdownDownloadsComplete));
-        bindOnPreferenceChangeListener(shutdownComplete);
+        SwitchPreferenceCompat shutdownComplete = findPreference(keyShutdownComplete);
+        if (shutdownComplete != null) {
+            shutdownComplete.setChecked(pref.getBoolean(keyShutdownComplete, SettingsManager.Default.shutdownDownloadsComplete));
+            bindOnPreferenceChangeListener(shutdownComplete);
+        }
 
         String keyCpuSleep = getString(R.string.pref_key_cpu_do_not_sleep);
-        SwitchPreferenceCompat cpuSleep = (SwitchPreferenceCompat)findPreference(keyCpuSleep);
-        cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, SettingsManager.Default.cpuDoNotSleep));
-        bindOnPreferenceChangeListener(cpuSleep);
+        SwitchPreferenceCompat cpuSleep = findPreference(keyCpuSleep);
+        if (cpuSleep != null) {
+            cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, SettingsManager.Default.cpuDoNotSleep));
+            bindOnPreferenceChangeListener(cpuSleep);
+        }
 
         String keyOnlyCharging = getString(R.string.pref_key_download_and_upload_only_when_charging);
-        SwitchPreferenceCompat onlyCharging = (SwitchPreferenceCompat)findPreference(keyOnlyCharging);
-        onlyCharging.setChecked(pref.getBoolean(keyOnlyCharging, SettingsManager.Default.onlyCharging));
-        bindOnPreferenceChangeListener(onlyCharging);
+        SwitchPreferenceCompat onlyCharging = findPreference(keyOnlyCharging);
+        if (onlyCharging != null) {
+            onlyCharging.setChecked(pref.getBoolean(keyOnlyCharging, SettingsManager.Default.onlyCharging));
+            bindOnPreferenceChangeListener(onlyCharging);
+        }
 
         String keyBatteryControl = getString(R.string.pref_key_battery_control);
-        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat)findPreference(keyBatteryControl);
-        batteryControl.setSummary(String.format(getString(R.string.pref_battery_control_summary),
-                                  Utils.getDefaultBatteryLowLevel()));
-        batteryControl.setChecked(pref.getBoolean(keyBatteryControl, SettingsManager.Default.batteryControl));
-        bindOnPreferenceChangeListener(batteryControl);
+        SwitchPreferenceCompat batteryControl = findPreference(keyBatteryControl);
+        if (batteryControl != null) {
+            batteryControl.setSummary(String.format(getString(R.string.pref_battery_control_summary),
+                    Utils.getDefaultBatteryLowLevel()));
+            batteryControl.setChecked(pref.getBoolean(keyBatteryControl, SettingsManager.Default.batteryControl));
+            bindOnPreferenceChangeListener(batteryControl);
+        }
 
         String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
-        SwitchPreferenceCompat customBatteryControl = (SwitchPreferenceCompat)findPreference(keyCustomBatteryControl);
-        customBatteryControl.setSummary(String.format(getString(R.string.pref_custom_battery_control_summary),
-                Utils.getDefaultBatteryLowLevel()));
-        customBatteryControl.setChecked(pref.getBoolean(keyCustomBatteryControl, SettingsManager.Default.customBatteryControl));
-        bindOnPreferenceChangeListener(customBatteryControl);
+        SwitchPreferenceCompat customBatteryControl = findPreference(keyCustomBatteryControl);
+        if (customBatteryControl != null) {
+            customBatteryControl.setSummary(String.format(getString(R.string.pref_custom_battery_control_summary),
+                    Utils.getDefaultBatteryLowLevel()));
+            customBatteryControl.setChecked(pref.getBoolean(keyCustomBatteryControl, SettingsManager.Default.customBatteryControl));
+            bindOnPreferenceChangeListener(customBatteryControl);
+        }
 
         String keyCustomBatteryControlValue = getString(R.string.pref_key_custom_battery_control_value);
-        SeekBarPreference customBatteryControlValue = (SeekBarPreference)findPreference(keyCustomBatteryControlValue);
-        customBatteryControlValue.setValue(pref.getInt(keyCustomBatteryControlValue, Utils.getDefaultBatteryLowLevel()));
-        customBatteryControlValue.setMin(10);
-        customBatteryControlValue.setMax(90);
+        SeekBarPreference customBatteryControlValue = findPreference(keyCustomBatteryControlValue);
+        if (customBatteryControlValue != null) {
+            customBatteryControlValue.setValue(pref.getInt(keyCustomBatteryControlValue, Utils.getDefaultBatteryLowLevel()));
+            customBatteryControlValue.setMin(10);
+            customBatteryControlValue.setMax(90);
+        }
 
-        String keyWifiOnly = getString(R.string.pref_key_umnetered_connections_only);
-        SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat)findPreference(keyWifiOnly);
-        wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, SettingsManager.Default.wifiOnly));
-        bindOnPreferenceChangeListener(wifiOnly);
+        String keyUmneteredOnly = getString(R.string.pref_key_umnetered_connections_only);
+        SwitchPreferenceCompat unmeteredOnly = findPreference(keyUmneteredOnly);
+        if (unmeteredOnly != null) {
+            unmeteredOnly.setChecked(pref.getBoolean(keyUmneteredOnly, SettingsManager.Default.unmeteredConnectionsOnly));
+            bindOnPreferenceChangeListener(unmeteredOnly);
+        }
+
+        String keyRoaming = getString(R.string.pref_key_enable_roaming);
+        SwitchPreferenceCompat roaming = findPreference(keyRoaming);
+        if (roaming != null)
+            roaming.setChecked(pref.getBoolean(keyRoaming, SettingsManager.Default.enableRoaming));
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (!event.dialogTag.equals(TAG_CUSTOM_BATTERY_DIALOG))
+                        return;
+                    if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED)
+                        disableCustomBatteryControl();
+                });
+        disposables.add(d);
     }
 
     @Override
@@ -121,51 +182,66 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(final Preference preference, Object newValue)
     {
-        final SharedPreferences pref = SettingsManager.getPreferences(getActivity());
-
         if (preference instanceof SwitchPreferenceCompat) {
             if (preference.getKey().equals(getString(R.string.pref_key_autostart))) {
                 Utils.enableBootReceiver(getActivity(), (boolean)newValue);
-            }
-            if(preference.getKey().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
+
+            } else if(preference.getKey().equals(getString(R.string.pref_key_download_and_upload_only_when_charging))) {
                 if(!((SwitchPreferenceCompat) preference).isChecked())
-                    disableBatteryControl(pref);
-            }
-            if(preference.getKey().equals(getString(R.string.pref_key_battery_control))) {
+                    disableBatteryControl();
+
+            } else if(preference.getKey().equals(getString(R.string.pref_key_battery_control))) {
                 if(((SwitchPreferenceCompat) preference).isChecked())
-                    disableCustomBatteryControl(pref);
-            }
-            if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
-                if (!((SwitchPreferenceCompat) preference).isChecked()) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(getString(R.string.warning))
-                            .setMessage(getString(R.string.pref_custom_battery_control_dialog_summary))
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.yes, (DialogInterface dialog, int id) -> dialog.dismiss())
-                            .setNegativeButton(R.string.no, (DialogInterface dialog, int id) -> disableCustomBatteryControl(pref))
-                            .create()
-                            .show();
-                }
+                    disableCustomBatteryControl();
+
+            } else if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
+                if (!((SwitchPreferenceCompat) preference).isChecked())
+                    showCustomBatteryDialog();
             }
         }
 
         return true;
     }
 
-    private void disableBatteryControl(SharedPreferences pref)
+    private void showCustomBatteryDialog()
     {
-        String keyBatteryControl = getString(R.string.pref_key_battery_control);
-        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat)findPreference(keyBatteryControl);
-        batteryControl.setChecked(false);
-        pref.edit().putBoolean(batteryControl.getKey(), false).apply();
-        disableCustomBatteryControl(pref);
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CUSTOM_BATTERY_DIALOG) == null) {
+            BaseAlertDialog customBatteryDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.warning),
+                    getString(R.string.pref_custom_battery_control_dialog_summary),
+                    0,
+                    getString(R.string.yes),
+                    getString(R.string.no),
+                    null,
+                    true);
+
+            customBatteryDialog.show(fm, TAG_CUSTOM_BATTERY_DIALOG);
+        }
     }
 
-    private void disableCustomBatteryControl(SharedPreferences pref)
+    private void disableBatteryControl()
     {
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
+
+        String keyBatteryControl = getString(R.string.pref_key_battery_control);
+        SwitchPreferenceCompat batteryControl = findPreference(keyBatteryControl);
+        if (batteryControl != null)
+            batteryControl.setChecked(false);
+        pref.edit().putBoolean(keyBatteryControl, false).apply();
+        disableCustomBatteryControl();
+    }
+
+    private void disableCustomBatteryControl()
+    {
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
+
         String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
-        SwitchPreferenceCompat batteryControl = (SwitchPreferenceCompat)findPreference(keyCustomBatteryControl);
-        batteryControl.setChecked(false);
-        pref.edit().putBoolean(batteryControl.getKey(), false).apply();
+        SwitchPreferenceCompat batteryControl = findPreference(keyCustomBatteryControl);
+        if (batteryControl != null)
+            batteryControl.setChecked(false);
+        pref.edit().putBoolean(keyCustomBatteryControl, false).apply();
     }
 }

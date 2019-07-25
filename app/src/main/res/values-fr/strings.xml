@@ -476,7 +476,6 @@
     <string name="pref_feed_auto_refresh_summary">Rafraîchir périodiquement les canaux en arrière-plan</string>
     <string name="pref_feed_refresh_interval_title">Intervalle de rafraîchissement</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutes</item>
         <item>15 minutes</item>
         <item>30 minutes</item>
         <item>1 heure</item>

@@ -18,8 +18,14 @@
             android:persistent="false" />
 
         <SwitchPreferenceCompat
-            android:key="@string/pref_key_feed_auto_refresh_wifi_only"
-            android:title="@string/pref_feed_auto_refresh_wifi_only_title"
+            android:key="@string/pref_key_feed_auto_refresh_unmetered_connections_only"
+            android:title="@string/pref_feed_auto_refresh_unmetered_connections_only_title"
+            android:summary="@string/pref_feed_auto_refresh_unmetered_connections_only_summary"
+            android:dependency="@string/pref_key_feed_auto_refresh" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_feed_auto_refresh_enable_roaming"
+            android:title="@string/pref_feed_auto_refresh_enable_roaming_title"
             android:dependency="@string/pref_key_feed_auto_refresh" />
     </PreferenceCategory>
 

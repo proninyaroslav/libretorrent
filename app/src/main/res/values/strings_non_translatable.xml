@@ -54,7 +54,6 @@
     </string-array>
     <!-- Feed settings -->
     <string-array name="pref_feed_refresh_intervals_values" translatable="false">
-        <item>300000</item>
         <item>900000</item>
         <item>1800000</item>
         <item>3600000</item>

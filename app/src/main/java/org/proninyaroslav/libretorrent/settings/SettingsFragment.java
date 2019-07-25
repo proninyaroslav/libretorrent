@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,15 +23,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.takisoft.preferencex.PreferenceFragmentCompat;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.Preference;
 
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.old.Utils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.viewmodel.settings.SettingsViewModel;
 
 public class SettingsFragment extends PreferenceFragmentCompat
 {
@@ -47,13 +50,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
     private static final String FeedSettings = "FeedSettingsFragment";
     private static final String StreamingSettings = "StreamingSettingsFragment";
 
-    private Callback callback;
     private AppCompatActivity activity;
-
-    public interface Callback
-    {
-        void onDetailTitleChanged(String title);
-    }
+    private SettingsViewModel viewModel;
 
     public static SettingsFragment newInstance()
     {
@@ -65,22 +63,12 @@ public class SettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onAttach(Context context)
+    public void onAttach(@NonNull Context context)
     {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
             activity = (AppCompatActivity)context;
-        if (context instanceof Callback)
-            callback = (Callback)context;
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-
-        callback = null;
     }
 
     @Override
@@ -91,6 +79,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
+        viewModel = ViewModelProviders.of(activity).get(SettingsViewModel.class);
+
         if (Utils.isTwoPane(activity)) {
             Fragment f = activity.getSupportFragmentManager()
                     .findFragmentById(R.id.detail_fragment_container);
@@ -100,34 +90,40 @@ public class SettingsFragment extends PreferenceFragmentCompat
         }
 
         Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
-        appearance.setOnPreferenceClickListener(prefClickListener);
+        if (appearance != null)
+            appearance.setOnPreferenceClickListener(prefClickListener);
 
         Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
-        behavior.setOnPreferenceClickListener(prefClickListener);
+        if (behavior != null)
+            behavior.setOnPreferenceClickListener(prefClickListener);
 
         Preference storage = findPreference(StorageSettingsFragment.class.getSimpleName());
-        storage.setOnPreferenceClickListener(prefClickListener);
+        if (storage != null)
+            storage.setOnPreferenceClickListener(prefClickListener);
 
         Preference limitations = findPreference(LimitationsSettingsFragment.class.getSimpleName());
-        limitations.setOnPreferenceClickListener(prefClickListener);
+        if (limitations != null)
+            limitations.setOnPreferenceClickListener(prefClickListener);
 
         Preference network = findPreference(NetworkSettingsFragment.class.getSimpleName());
-        network.setOnPreferenceClickListener(prefClickListener);
+        if (network != null)
+            network.setOnPreferenceClickListener(prefClickListener);
 
         Preference scheduling = findPreference(SchedulingSettingsFragment.class.getSimpleName());
-        scheduling.setOnPreferenceClickListener(prefClickListener);
+        if (scheduling != null)
+            scheduling.setOnPreferenceClickListener(prefClickListener);
 
         Preference feed = findPreference(FeedSettingsFragment.class.getSimpleName());
-        feed.setOnPreferenceClickListener(prefClickListener);
+        if (feed != null)
+            feed.setOnPreferenceClickListener(prefClickListener);
 
         Preference streaming = findPreference(StreamingSettingsFragment.class.getSimpleName());
-        streaming.setOnPreferenceClickListener(prefClickListener);
+        if (streaming != null)
+            streaming.setOnPreferenceClickListener(prefClickListener);
     }
 
-    private Preference.OnPreferenceClickListener prefClickListener = (Preference preference) ->
-    {
+    private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
         openPreference(preference.getKey());
-
         return true;
     };
 
@@ -135,7 +131,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     {
         switch (prefName) {
             case AppearanceSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(AppearanceSettingsFragment.newInstance(),
                             getString(R.string.pref_header_appearance));
                 } else {
@@ -144,7 +140,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case BehaviorSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(BehaviorSettingsFragment.newInstance(),
                             getString(R.string.pref_header_behavior));
                 } else {
@@ -153,7 +149,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case NetworkSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(NetworkSettingsFragment.newInstance(),
                             getString(R.string.pref_header_network));
                 } else {
@@ -162,7 +158,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case StorageSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(StorageSettingsFragment.newInstance(),
                             getString(R.string.pref_header_storage));
                 } else {
@@ -171,7 +167,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case LimitationsSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(LimitationsSettingsFragment.newInstance(),
                             getString(R.string.pref_header_limitations));
                 } else {
@@ -180,7 +176,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case SchedulingSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(SchedulingSettingsFragment.newInstance(),
                             getString(R.string.pref_header_scheduling));
                 } else {
@@ -189,7 +185,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case FeedSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(FeedSettingsFragment.newInstance(),
                             getString(R.string.pref_header_feed));
                 } else {
@@ -198,7 +194,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case StreamingSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(StreamingSettingsFragment.newInstance(),
                             getString(R.string.pref_header_streaming));
                 } else {
@@ -217,10 +213,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
     {
-        if (Utils.isLargeScreenDevice(activity)) {
-            if (callback != null)
-                callback.onDetailTitleChanged(title);
+        viewModel.detailTitleChanged.setValue(title);
 
+        if (Utils.isLargeScreenDevice(activity)) {
             activity.getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

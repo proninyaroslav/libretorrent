@@ -49,6 +49,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import org.acra.ACRA;
@@ -68,7 +69,7 @@ import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
-import org.proninyaroslav.libretorrent.receivers.old.BootReceiver;
+import org.proninyaroslav.libretorrent.receivers.BootReceiver;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
@@ -583,9 +584,7 @@ public class Utils
                                                  SettingsManager.Default.enableSchedulingShutdown);
         boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
                                             SettingsManager.Default.autostart);
-        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
-                                                   SettingsManager.Default.autoRefreshFeeds);
-        int flag = (!(enable || schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+        int flag = (!(enable || schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
@@ -597,14 +596,12 @@ public class Utils
     {
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                SettingsManager.Default.enableSchedulingStart);
+                                                  SettingsManager.Default.enableSchedulingStart);
         boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                SettingsManager.Default.enableSchedulingShutdown);
+                                                 SettingsManager.Default.enableSchedulingShutdown);
         boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                SettingsManager.Default.autostart);
-        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
-                                                   SettingsManager.Default.autoRefreshFeeds);
-        int flag = (!(schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+                                            SettingsManager.Default.autostart);
+        int flag = (!(schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
@@ -830,6 +827,39 @@ public class Utils
         path = (TextUtils.isEmpty(path) ? FileUtils.getDefaultDownloadPath() : path);
 
         return (path == null ? null : Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+    }
+
+    /*
+     * Starting with the version of Android 8.0,
+     * setting notifications from the app preferences isn't working,
+     * you can change them only in the settings of Android 8.0
+     */
+
+    public static void applyLegacyNotifySettings(@NonNull Context appContext,
+                                                 @NonNull NotificationCompat.Builder builder)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            return;
+
+        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_play_sound_notify),
+                SettingsManager.Default.playSoundNotify)) {
+            Uri sound = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_notify_sound),
+                    SettingsManager.Default.notifySound));
+            builder.setSound(sound);
+        }
+
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_vibration_notify),
+                SettingsManager.Default.vibrationNotify))
+            builder.setVibrate(new long[] {1000}); /* ms */
+
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_led_indicator_notify),
+                SettingsManager.Default.ledIndicatorNotify)) {
+            int color = pref.getInt(appContext.getString(R.string.pref_key_led_indicator_color_notify),
+                    SettingsManager.Default.ledIndicatorColorNotify(appContext));
+            builder.setLights(color, 1000, 1000); /* ms */
+        }
     }
 
     public static void setTextViewStyle(@NonNull Context context,

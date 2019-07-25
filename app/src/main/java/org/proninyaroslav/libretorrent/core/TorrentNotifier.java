@@ -27,6 +27,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.util.ArrayList;
 
@@ -48,17 +52,18 @@ public class TorrentNotifier
     public static final String DEFAULT_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_NOTIFY_CHAN_ID";
     public static final String FINISH_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FINISH_NOTIFY_CHAN_ID";
 
-    private static final int TORRENTS_MOVED_NOTIFICATION_ID = 1;
-    private static final int SESSION_ERROR_NOTIFICATION_ID = 2;
-    private static final int NAT_ERROR_NOTIFICATION_ID = 3;
+    private static final int SESSION_ERROR_NOTIFICATION_ID = 1;
+    private static final int NAT_ERROR_NOTIFICATION_ID = 2;
 
     private Context appContext;
     private NotificationManager notifyManager;
+    private SharedPreferences pref;
 
     public TorrentNotifier(Context appContext)
     {
         this.appContext = appContext;
-        notifyManager = (NotificationManager) appContext.getSystemService(NOTIFICATION_SERVICE);
+        notifyManager = (NotificationManager)appContext.getSystemService(NOTIFICATION_SERVICE);
+        pref = SettingsManager.getInstance(appContext).getPreferences();
     }
 
     public void makeNotifyChans()
@@ -157,7 +162,6 @@ public class TorrentNotifier
 
     public void makeNatErrorNotify(@NonNull String message)
     {
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_error_white_24dp)
@@ -190,5 +194,28 @@ public class TorrentNotifier
             builder.setCategory(Notification.CATEGORY_STATUS);
 
         notifyManager.notify(name.hashCode(), builder.build());
+    }
+
+    public void makeTorrentFinishedNotify(@NonNull Torrent torrent)
+    {
+        if (!pref.getBoolean(appContext.getString(R.string.pref_key_torrent_finish_notify),
+                             SettingsManager.Default.torrentFinishNotify))
+            return;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
+                FINISH_NOTIFY_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_done_white_24dp)
+                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setContentTitle(appContext.getString(R.string.torrent_finished_notify))
+                .setTicker(appContext.getString(R.string.torrent_finished_notify))
+                .setContentText(torrent.name)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setCategory(Notification.CATEGORY_STATUS);
+
+        Utils.applyLegacyNotifySettings(appContext, builder);
+
+        notifyManager.notify(torrent.id.hashCode(), builder.build());
     }
 }

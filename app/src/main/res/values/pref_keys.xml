@@ -89,7 +89,8 @@
     <!-- Feed settings -->
     <string name="pref_key_feed_auto_refresh" translatable="false">pref_key_feed_auto_refresh</string>
     <string name="pref_key_feed_refresh_interval" translatable="false">pref_key_feed_refresh_interval</string>
-    <string name="pref_key_feed_auto_refresh_wifi_only" translatable="false">pref_key_feed_auto_refresh_wifi_only</string>
+    <string name="pref_key_feed_auto_refresh_unmetered_connections_only" translatable="false">pref_key_feed_auto_refresh_wifi_only</string>
+    <string name="pref_key_feed_auto_refresh_enable_roaming" translatable="false">pref_key_feed_auto_refresh_enable_roaming</string>
     <string name="pref_key_feed_keep_items_time" translatable="false">pref_key_feed_keep_items_time</string>
     <string name="pref_key_feed_start_torrents" translatable="false">pref_key_feed_start_torrents</string>
     <string name="pref_key_feed_remove_duplicates" translatable="false">pref_key_feed_remove_duplicates</string>

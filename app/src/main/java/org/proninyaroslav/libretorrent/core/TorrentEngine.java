@@ -886,8 +886,10 @@ public class TorrentEngine
 
     private void initSession()
     {
-        if (!pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
-                SettingsManager.Default.useRandomPort)) {
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
+                            SettingsManager.Default.useRandomPort)) {
+            setRandomPortRange();
+        } else {
             int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
                                         SettingsManager.Default.portRangeFirst);
             int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
@@ -1098,6 +1100,15 @@ public class TorrentEngine
         }
     }
 
+    private void setRandomPortRange()
+    {
+        org.libtorrent4j.Pair<Integer, Integer> range = session.getRandomRangePort();
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_port_range_first), range.first)
+                .putInt(appContext.getString(R.string.pref_key_port_range_second), range.second)
+                .apply();
+    }
+
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
         @Override
         public void onSessionStarted()
@@ -1153,6 +1164,8 @@ public class TorrentEngine
                     .subscribeOn(Schedulers.io())
                     .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
+                                notifier.makeTorrentFinishedNotify(torrent);
+
                                 if (pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
                                                     SettingsManager.Default.moveAfterDownload)) {
                                     String curPath = torrent.downloadPath.toString();
@@ -1431,7 +1444,8 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_use_random_port))) {
             if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
                                 SettingsManager.Default.useRandomPort)) {
-                session.setRandomPortRange();
+                setRandomPortRange();
+
             } else {
                 int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
                                             SettingsManager.Default.portRangeFirst);

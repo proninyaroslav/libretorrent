@@ -458,7 +458,6 @@
     <string name="pref_feed_auto_refresh_summary">Периодически обновлять каналы в фоне</string>
     <string name="pref_feed_refresh_interval_title">Интервал обновления</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 минут</item>
         <item>15 минут</item>
         <item>30 минут</item>
         <item>1 час</item>

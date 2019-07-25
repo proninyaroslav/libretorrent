@@ -114,7 +114,8 @@ public class SettingsManager
         public static final long feedItemKeepTime = 4 * 86400000L; /* 4 days */
         public static final boolean autoRefreshFeeds = false;
         public static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
-        public static final boolean autoRefreshWiFiOnly = false;
+        public static final boolean autoRefreshUnmeteredConnectionsOnly = false;
+        public static final boolean autoRefreshEnableRoaming = true;
         public static final boolean feedStartTorrents = true;
         public static final boolean feedRemoveDuplicates = true;
         /* Streaming settings */

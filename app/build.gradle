@@ -14,6 +14,7 @@ android {
         versionName "1.9.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
@@ -24,8 +25,6 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-        /* TODO: temp */
-        multiDexEnabled true
     }
 
     buildTypes {
@@ -94,19 +93,20 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation "androidx.room:room-testing:2.0.0"
+    androidTestImplementation "androidx.room:room-testing:2.1.0"
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-alpha06"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
-    implementation "com.google.android.material:material:1.1.0-alpha07"
+    implementation "com.google.android.material:material:1.1.0-alpha08"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.work:work-runtime:2.0.1"
+    implementation "androidx.work:work-runtime:2.1.0"
 
     /* ReactiveX */
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
@@ -117,24 +117,24 @@ dependencies {
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
 
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
-    implementation 'commons-io:commons-io:2.5'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.takisoft.preferencex:preferencex:1.0.0'
-    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-    implementation 'uk.co.markormesher:android-fab:2.5.0'
-    implementation 'net.java.dev.jna:jna:4.5.2@aar'
+    implementation "commons-io:commons-io:2.5"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
+    implementation "com.github.aakira:expandable-layout:1.6.0@aar"
+    implementation "uk.co.markormesher:android-fab:2.5.0"
+    implementation "net.java.dev.jna:jna:4.5.2@aar"
 
     /* libtorrent wrapper */
-    implementation 'org.libtorrent4j:libtorrent4j:' + LIBTORRENT4J_VERSION
-    implementation 'org.libtorrent4j:libtorrent4j-android-arm:' + LIBTORRENT4J_VERSION
-    implementation 'org.libtorrent4j:libtorrent4j-android-arm64:' + LIBTORRENT4J_VERSION
-    implementation 'org.libtorrent4j:libtorrent4j-android-x86:' + LIBTORRENT4J_VERSION
-    implementation 'org.libtorrent4j:libtorrent4j-android-x86_64:' + LIBTORRENT4J_VERSION
+    implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
+    implementation "org.libtorrent4j:libtorrent4j-android-arm:$LIBTORRENT4J_VERSION"
+    implementation "org.libtorrent4j:libtorrent4j-android-arm64:$LIBTORRENT4J_VERSION"
+    implementation "org.libtorrent4j:libtorrent4j-android-x86:$LIBTORRENT4J_VERSION"
+    implementation "org.libtorrent4j:libtorrent4j-android-x86_64:$LIBTORRENT4J_VERSION"
 
     /* Other */
     implementation "net.cachapa.expandablelayout:expandablelayout:2.9.2"
     implementation "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0"
-    implementation 'com.github.anthonynsimon:jurl:v0.4.2'
-    /* TODO: temp */
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation "com.github.anthonynsimon:jurl:v0.4.2"
+    implementation "com.jaredrummler:colorpicker:1.1.0"
+    implementation "androidx.multidex:multidex:2.0.1"
 }

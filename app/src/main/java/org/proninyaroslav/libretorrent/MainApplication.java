@@ -38,7 +38,6 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 @AcraMailSender(mailTo = "proninyaroslav@mail.ru")
 @AcraDialog(reportDialogClass = ErrorReportActivity.class)
 
-/* TODO: temp */
 public class MainApplication extends MultiDexApplication
 {
     @SuppressWarnings("unused")

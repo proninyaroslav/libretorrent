@@ -96,7 +96,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import androidx.annotation.NonNull;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TorrentSession extends SessionManager
 {
@@ -146,8 +149,6 @@ public class TorrentSession extends SessionManager
         public static final int DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT = 40;
         public static final int DEFAULT_UPLOADS_LIMIT_PER_TORRENT = 4;
         public static final int DEFAULT_ACTIVE_LIMIT = 6;
-        public static final int MAX_PORT_NUMBER = 50256;
-        public static final int MIN_PORT_NUMBER = 40256;
         public static final int DEFAULT_DOWNLOAD_RATE_LIMIT = 0;
         public static final int DEFAULT_UPLOAD_RATE_LIMIT = 0;
         public static final boolean DEFAULT_DHT_ENABLED = true;
@@ -160,8 +161,8 @@ public class TorrentSession extends SessionManager
         public static final int DEFAULT_ENCRYPT_MODE = settings_pack.enc_policy.pe_enabled.swigValue();
         public static final boolean DEFAULT_AUTO_MANAGED = false;
         public static final String DEFAULT_INETADDRESS = "0.0.0.0";
-        public static final int DEFAULT_PORT_RANGE_FIRST = MIN_PORT_NUMBER;
-        public static final int DEFAULT_PORT_RANGE_SECOND = MAX_PORT_NUMBER;
+        public static final int DEFAULT_PORT_RANGE_FIRST = 37000;
+        public static final int DEFAULT_PORT_RANGE_SECOND = 57010;
 
         public int cacheSize = DEFAULT_CACHE_SIZE;
         public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
@@ -536,19 +537,14 @@ public class TorrentSession extends SessionManager
         applySettings(settings);
     }
 
-    public void setRandomPortRange()
-    {
-        Pair<Integer, Integer> portRange = getRandomRangePort();
-        setPortRange(portRange.first, portRange.second);
-    }
-
     /*
      * Get the first port in range [37000, 57000] and the second `first` + 10
      */
 
-    private Pair<Integer, Integer> getRandomRangePort()
+    public Pair<Integer, Integer> getRandomRangePort()
     {
-        int port = 37000 + new Random().nextInt(20000);
+        int port = Settings.DEFAULT_PORT_RANGE_FIRST + new Random().nextInt(
+                Settings.DEFAULT_PORT_RANGE_SECOND - 10 - Settings.DEFAULT_PORT_RANGE_FIRST);
 
         return new Pair<>(port , port + 10);
     }
@@ -560,6 +556,8 @@ public class TorrentSession extends SessionManager
 
         IPFilterParser parser = new IPFilterParser(path);
         disposables.add(parser.parse(appContext)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((filter) -> {
                             if (swig() != null)
                                 swig().set_ip_filter(filter);

@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
-                android:progress="@{viewModel.buildProgress}"
+                android:progress="@{viewModel.buildProgress.intValue()}"
                 android:visibility="@{viewModel.state.status == Status.BUILDING ? View.VISIBLE : View.GONE}" />
 
             <LinearLayout

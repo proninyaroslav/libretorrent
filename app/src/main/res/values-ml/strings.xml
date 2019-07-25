@@ -478,7 +478,6 @@
     <string name="pref_feed_auto_refresh_summary">പശ്ചാത്തലത്തിൽ ചാനലുകൾ പുതുക്കിയെടുക്കുക</string>
     <string name="pref_feed_refresh_interval_title">ഇടവേള പുതുക്കുക</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 മിനിറ്റ്</item>
         <item>15 മിനിറ്റ്</item>
         <item>30 മിനിറ്റ്</item>
         <item> 1 മണിക്കൂർ</item>

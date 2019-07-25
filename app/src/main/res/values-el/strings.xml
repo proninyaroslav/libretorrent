@@ -477,7 +477,6 @@
     <string name="pref_feed_auto_refresh_summary">Περιοδικά ανανεώνετε κανάλια στο παρασκήνιο</string>
     <string name="pref_feed_refresh_interval_title">Διάστημα ανανέωσης</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 λεπτά</item>
         <item>15 λεπτά</item>
         <item>30 λεπτά</item>
         <item>1 ώρα</item>

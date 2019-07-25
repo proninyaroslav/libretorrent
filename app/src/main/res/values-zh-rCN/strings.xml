@@ -479,7 +479,6 @@
     <string name="pref_feed_auto_refresh_summary">后台定期刷新频道</string>
     <string name="pref_feed_refresh_interval_title">刷新间隔</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 分钟</item>
         <item>15 分钟</item>
         <item>30 分钟</item>
         <item>1 小时</item>

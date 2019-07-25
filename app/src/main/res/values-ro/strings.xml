@@ -477,7 +477,6 @@
     <string name="pref_feed_auto_refresh_summary">Actualizați periodic canalele în fundal</string>
     <string name="pref_feed_refresh_interval_title">Interval de reîmprospătare</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minute</item>
         <item>15 minute</item>
         <item>30 minute</item>
         <item>1 oră</item>

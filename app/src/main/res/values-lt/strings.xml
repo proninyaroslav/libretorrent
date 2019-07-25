@@ -476,7 +476,6 @@
     <string name="pref_feed_auto_refresh_summary">Periodiškai atnaujinkite kanalus fone</string>
     <string name="pref_feed_refresh_interval_title">Atnaujinimo intervalas</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutės</item>
         <item>15 minučių</item>
         <item>30 minučių</item>
         <item>1 valandą</item>
