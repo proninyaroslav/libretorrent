@@ -24,6 +24,7 @@ import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.SessionStats;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 
@@ -51,6 +52,7 @@ public class TorrentInfoProvider
     private static final String TAG = TorrentInfoProvider.class.getSimpleName();
 
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
+    private static final int GET_SESSION_STATS_SYNC_TIME = 3000; /* ms */
 
     private static TorrentInfoProvider INSTANCE;
     private TorrentEngine engine;
@@ -108,7 +110,12 @@ public class TorrentInfoProvider
 
     public Flowable<String> observeTorrentsDeleted()
     {
-        return torrentsDeletedFlowable();
+        return makeTorrentsDeletedFlowable();
+    }
+
+    public Flowable<SessionStats> observeSessionStats()
+    {
+        return makeSessionStatsFlowable();
     }
 
     private Flowable<TorrentInfo> makeInfoFlowable(String id)
@@ -421,7 +428,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<String> torrentsDeletedFlowable()
+    private Flowable<String> makeTorrentsDeletedFlowable()
     {
         return Flowable.create((emitter) -> {
             TorrentEngineListener listener = new TorrentEngineListener() {
@@ -440,5 +447,42 @@ public class TorrentInfoProvider
             }
 
         }, BackpressureStrategy.DROP);
+    }
+
+    private Flowable<SessionStats> makeSessionStatsFlowable()
+    {
+        return Flowable.create((emitter) -> {
+            final AtomicReference<SessionStats> stats = new AtomicReference<>();
+
+            Disposable d = Observable.interval(GET_SESSION_STATS_SYNC_TIME, TimeUnit.MILLISECONDS)
+                    .subscribe((__) -> {
+                                SessionStats newStats = engine.makeSessionStats();
+                                SessionStats oldStats = stats.get();
+                                if (newStats != null && !newStats.equals(oldStats)) {
+                                    stats.set(newStats);
+                                    if (!emitter.isCancelled())
+                                        emitter.onNext(newStats);
+                                }
+                            },
+                            (Throwable t) -> {
+                                Log.e(TAG, "Getting session stats error: " +
+                                        Log.getStackTraceString(t));
+                            });
+
+            if (!emitter.isCancelled()) {
+                Thread t = new Thread(() -> {
+                    SessionStats s = engine.makeSessionStats();
+                    stats.set(s);
+                    if (!emitter.isCancelled()) {
+                        /* Emit once to avoid missing any data and also easy chaining */
+                        if (s != null)
+                            emitter.onNext(s);
+                        emitter.setDisposable(Disposables.fromAction(d::dispose));
+                    }
+                });
+                t.start();
+            }
+
+        }, BackpressureStrategy.LATEST);
     }
 }

@@ -68,7 +68,7 @@ public class FileManagerViewModel extends ViewModel
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
             startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
-                    SettingsManager.Default.fileManagerLastDir);
+                                      SettingsManager.Default.fileManagerLastDir);
 
             if (startDir != null) {
                 File dir = new File(startDir);

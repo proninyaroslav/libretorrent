@@ -45,6 +45,8 @@
     <string name="resume_all">Resume all</string>
     <string name="all">All</string>
     <string name="details">Details</string>
+    <string name="stats">Stats</string>
+    <string name="filters">Filters</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">No torrents</string>
@@ -83,6 +85,10 @@
         <item>Peers</item>
     </string-array>
     <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>

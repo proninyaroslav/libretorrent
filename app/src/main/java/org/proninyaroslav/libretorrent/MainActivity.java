@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,8 @@ import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandab
 import org.proninyaroslav.libretorrent.adapters.drawer.DrawerExpandableAdapter;
 import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroupItem;
+import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
+import org.proninyaroslav.libretorrent.core.stateparcel.SessionStats;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.fragments.BlankFragment;
@@ -97,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     private RecyclerView.Adapter wrappedDrawerAdapter;
     private RecyclerViewExpandableItemManager drawerItemManager;
     private SearchView searchView;
+    private TextView sessionDhtNodesStat, sessionDownloadStat,
+            sessionUploadStat, sessionListenPortStat;
 
     private MainViewModel viewModel;
     private MsgMainViewModel msgViewModel;
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
     private boolean permDialogIsShow = false;
+    private TorrentInfoProvider infoProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -117,10 +123,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             return;
         }
 
+        infoProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         msgViewModel = ViewModelProviders.of(this).get(MsgMainViewModel.class);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
-        aboutDialog = (BaseAlertDialog) getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
+        aboutDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
@@ -141,11 +148,23 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     private void initLayout()
     {
         showBlankFragment();
+
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerItemsList = findViewById(R.id.drawer_items_list);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically()
+            {
+                /* Disable scroll, because RecyclerView is wrapped in ScrollView */
+                return false;
+            }
+        };
+        sessionDhtNodesStat = findViewById(R.id.session_dht_nodes_stat);
+        sessionDownloadStat = findViewById(R.id.session_download_stat);
+        sessionUploadStat = findViewById(R.id.session_upload_stat);
+        sessionListenPortStat = findViewById(R.id.session_listen_port_stat);
 
         toolbar.setTitle(R.string.app_name);
         /* Disable elevation for portrait mode */
@@ -196,6 +215,18 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         drawerItemsList.setHasFixedSize(false);
 
         drawerItemManager.attachRecyclerView(drawerItemsList);
+
+        sessionDhtNodesStat.setText(String.format(getString(R.string.session_stats_dht_nodes), 0));
+        String downloadUploadFmt = getString(R.string.session_stats_download_upload);
+        sessionDownloadStat.setText(String.format(downloadUploadFmt,
+                Formatter.formatFileSize(this, 0),
+                Formatter.formatFileSize(this, 0)));
+        sessionUploadStat.setText(String.format(downloadUploadFmt,
+                Formatter.formatFileSize(this, 0),
+                Formatter.formatFileSize(this, 0)));
+        String listenPortFmt = getString(R.string.session_stats_listen_port);
+        sessionListenPortStat.setText(String.format(listenPortFmt,
+                getString(R.string.not_available)));
     }
 
     @Override
@@ -222,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
 
         subscribeAlertDialog();
         subscribeMsgViewModel();
+        subscribeSessionStats();
     }
 
     @Override
@@ -279,6 +311,49 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                     if (f != null && id.equals(f.getTorrentId()))
                         showBlankFragment();
                 }));
+    }
+
+    private void subscribeSessionStats()
+    {
+        disposables.add(infoProvider.observeSessionStats()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateSessionStats));
+    }
+
+    private void updateSessionStats(SessionStats stats)
+    {
+        long dhtNodes = 0;
+        long totalDownload = 0;
+        long totalUpload = 0;
+        long downloadSpeed = 0;
+        long uploadSpeed = 0;
+        int listenPort = -1;
+
+        if (stats != null) {
+            dhtNodes = stats.dhtNodes;
+            totalDownload = stats.totalDownload;
+            totalUpload = stats.totalUpload;
+            downloadSpeed = stats.downloadSpeed;
+            uploadSpeed = stats.uploadSpeed;
+            listenPort = stats.listenPort;
+        }
+
+        sessionDhtNodesStat.setText(String.format(getString(R.string.session_stats_dht_nodes),
+                dhtNodes));
+
+        String downloadUploadFmt = getString(R.string.session_stats_download_upload);
+        sessionDownloadStat.setText(String.format(downloadUploadFmt,
+                Formatter.formatFileSize(this, totalDownload),
+                Formatter.formatFileSize(this, downloadSpeed)));
+        sessionUploadStat.setText(String.format(downloadUploadFmt,
+                Formatter.formatFileSize(this, totalUpload),
+                Formatter.formatFileSize(this, uploadSpeed)));
+        String listenPortFmt = getString(R.string.session_stats_listen_port);
+        sessionListenPortStat.setText(String.format(listenPortFmt,
+                listenPort <= 0 ?
+                        getString(R.string.not_available) :
+                        Integer.toString(listenPort)));
     }
 
     private void saveGroupExpandState(int groupPosition, boolean expanded)

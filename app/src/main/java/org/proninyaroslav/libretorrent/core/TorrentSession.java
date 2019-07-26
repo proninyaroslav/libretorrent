@@ -96,7 +96,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import androidx.annotation.NonNull;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -488,12 +487,12 @@ public class TorrentSession extends SessionManager
             task.resumeManually();
     }
 
-    public long getDownloadRate()
+    public long getDownloadSpeed()
     {
         return stats().downloadRate();
     }
 
-    public long getUploadRate()
+    public long getUploadSpeed()
     {
         return stats().uploadRate();
     }
@@ -508,14 +507,14 @@ public class TorrentSession extends SessionManager
         return stats().totalUpload();
     }
 
-    public int getDownloadRateLimit()
+    public int getDownloadSpeedLimit()
     {
         SettingsPack settingsPack = settings();
 
         return (settingsPack == null ? -1 : settingsPack.downloadRateLimit());
     }
 
-    public int getUploadRateLimit()
+    public int getUploadSpeedLimit()
     {
         SettingsPack settingsPack = settings();
 
@@ -525,6 +524,11 @@ public class TorrentSession extends SessionManager
     public int getListenPort()
     {
         return (swig() == null ? -1 : swig().listen_port());
+    }
+
+    public long getDhtNodes()
+    {
+        return stats().dhtNodes();
     }
 
     public void setPortRange(int portFirst, int portSecond)

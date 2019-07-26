@@ -46,6 +46,7 @@ import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsExcep
 import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.stateparcel.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
+import org.proninyaroslav.libretorrent.core.stateparcel.SessionStats;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
@@ -708,6 +709,19 @@ public class TorrentEngine
         }
 
         return states;
+    }
+
+    public SessionStats makeSessionStats()
+    {
+        if (!isRunning())
+            return null;
+
+        return new SessionStats(session.dhtNodes(),
+                session.getTotalDownload(),
+                session.getTotalUpload(),
+                session.getDownloadSpeed(),
+                session.getUploadSpeed(),
+                session.getListenPort());
     }
 
     public int getUploadSpeedLimit(@NonNull String id)

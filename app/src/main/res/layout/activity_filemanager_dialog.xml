@@ -65,46 +65,72 @@
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/file_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@{enableSystemManagerButton.booleanValue() ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
-                    android:clipToPadding="false"
-                    android:background="?attr/background"
-                    android:scrollbars="vertical" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-            <FrameLayout
-                android:id="@+id/bottom_bar"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/file_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@{enableSystemManagerButton.booleanValue() ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
+                android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
+                android:clipToPadding="false"
                 android:background="?attr/background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:scrollbars="vertical"
+                android:focusable="true"
+                android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- TODO: change to com.google.android.material.button.MaterialButton -->
+        <Button
+            android:id="@+id/open_system_filemanager_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/system_manager"
+            android:layout_marginTop="135dp"
+            android:layout_gravity="top|start"
+            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_folder_grey600_24dp"
+            android:focusable="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}"
+            app:layout_anchor="@id/bottom_bar"
+            app:layout_anchorGravity="top|right"
+            app:srcCompat="@drawable/ic_add_white_36dp"
+            android:focusable="true" />
+
+        <FrameLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingTop="48dp"
+            android:background="@android:color/transparent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="?attr/background"
+                android:visibility="@{viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_file_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:fitsSystemWindows="true"
-                    android:visibility="@{viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}">
+                    android:gravity="center_vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/file_name"
@@ -115,31 +141,6 @@
                         android:textColor="?android:attr/textColorPrimary" />
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_white_36dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- TODO: change to com.google.android.material.button.MaterialButton -->
-        <Button
-            android:id="@+id/open_system_filemanager_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="@string/system_manager"
-            android:layout_marginTop="135dp"
-            android:layout_gravity="top|start"
-            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
-            app:backgroundTint="@color/accent"
-            app:cornerRadius="16dp"
-            app:icon="@drawable/ic_folder_grey600_24dp" />
+        </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
