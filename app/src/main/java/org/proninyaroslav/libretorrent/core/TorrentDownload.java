@@ -58,7 +58,6 @@ import org.proninyaroslav.libretorrent.core.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -116,7 +115,7 @@ public class TorrentDownload
     private final Queue<TorrentEngineListener> listeners;
     private CompositeDisposable disposables = new CompositeDisposable();
     private InnerListener listener;
-    private Set<File> incompleteFilesToRemove;
+    private Set<Uri> incompleteFilesToRemove;
     private Uri partsFile;
     private long lastSaveResumeTime;
     private String name;
@@ -343,13 +342,13 @@ public class TorrentDownload
         try {
             Torrent torrent = repo.getTorrentById(id);
             if (torrent == null)
-                throw new NullPointerException(id + "doesn't exists");
+                throw new NullPointerException(id + " doesn't exists");
 
             int size = alert.metadataSize();
             int maxSize = 2 * 1024 * 1024;
             if (0 < size && size <= maxSize) {
                 TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
-                long availableBytes = FileUtils.getDirAvailableBytes(appContext, torrent.downloadPath);
+                long availableBytes = FileSystemFacade.getDirAvailableBytes(appContext, torrent.downloadPath);
                 if (availableBytes < info.torrentSize)
                     throw new FreeSpaceException("Not enough free space: "
                             + availableBytes + " free, but torrent size is " + info.torrentSize);
@@ -388,7 +387,7 @@ public class TorrentDownload
         session.removeListener(listener);
         if (partsFile != null) {
             try {
-                FileUtils.deleteFile(appContext, partsFile);
+                FileSystemFacade.deleteFile(appContext, partsFile);
 
             } catch (FileNotFoundException e) {
                 /* Ignore */
@@ -609,23 +608,23 @@ public class TorrentDownload
      * Deletes incomplete files.
      */
 
-    private void finalCleanup(Set<File> incompleteFiles)
+    private void finalCleanup(Set<Uri> incompleteFiles)
     {
         if (incompleteFiles != null) {
-            for (File f : incompleteFiles) {
+            for (Uri path : incompleteFiles) {
                 try {
-                    if (f.exists() && !f.delete())
-                        Log.w(TAG, "Can't delete file " + f);
+                    if (!FileSystemFacade.deleteFile(appContext, path))
+                        Log.w(TAG, "Can't delete file " + path);
                 } catch (Exception e) {
-                    Log.w(TAG, "Can't delete file " + f + ", ex: " + e.getMessage());
+                    Log.w(TAG, "Can't delete file " + path + ", ex: " + e.getMessage());
                 }
             }
         }
     }
 
-    private Set<File> getIncompleteFiles(Torrent torrent)
+    private Set<Uri> getIncompleteFiles(Torrent torrent)
     {
-        Set<File> s = new HashSet<>();
+        Set<Uri> s = new HashSet<>();
 
         if (torrent.isDownloadingMetadata())
             return s;
@@ -637,24 +636,20 @@ public class TorrentDownload
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
             TorrentInfo ti = th.torrentFile();
             FileStorage fs = ti.files();
-            /* TODO: SAF support */
-            if (FileUtils.isSAFPath(torrent.downloadPath))
-                throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
-            String prefix = torrent.downloadPath.getPath();
+            Uri prefix = torrent.downloadPath;
 
             for (int i = 0; i < progress.length; i++) {
                 String filePath = fs.filePath(i);
                 long fileSize = fs.fileSize(i);
                 if (progress[i] < fileSize) {
                     /* Lets see if indeed the file is incomplete */
-                    File f = new File(prefix, filePath);
-                    if (!f.exists())
-                        /* Nothing to do here */
+                    Uri path = FileSystemFacade.getFileUri(appContext, filePath, prefix);
+                    if (path == null)
                         continue;
 
-                    if (f.lastModified() >= torrent.dateAdded)
+                    if (FileSystemFacade.lastModified(appContext, path) >= torrent.dateAdded)
                         /* We have a file modified (supposedly) by this transfer */
-                        s.add(f);
+                        s.add(path);
                 }
             }
 
@@ -963,10 +958,6 @@ public class TorrentDownload
 
     public void setDownloadPath(Uri path)
     {
-        /* TODO: SAF support */
-        if (FileUtils.isSAFPath(path))
-            throw new IllegalArgumentException("SAF is not supported:" + path);
-
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
             return;
@@ -976,8 +967,9 @@ public class TorrentDownload
 
         notifyListeners((listener) -> listener.onTorrentMoving(id));
 
+        String pathStr = FileSystemFacade.makeFileSystemPath(appContext, path);
         try {
-            th.moveStorage(path.getPath(), MoveFlags.ALWAYS_REPLACE_FILES);
+            th.moveStorage(pathStr, MoveFlags.ALWAYS_REPLACE_FILES);
 
         } catch (Exception e) {
             Log.e(TAG, "Error changing save path: ");
@@ -1033,7 +1025,7 @@ public class TorrentDownload
         if (torrent == null)
             return null;
 
-        return FileUtils.getFileUri(appContext, torrent.downloadPath, "." + ti.infoHash() + ".parts");
+        return FileSystemFacade.getFileUri(appContext, torrent.downloadPath, "." + ti.infoHash() + ".parts");
     }
 
     public void setDownloadSpeedLimit(int limit)

@@ -40,7 +40,7 @@ import org.proninyaroslav.libretorrent.core.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -146,13 +146,13 @@ public class FeedDownloaderWorker extends Worker
                 Log.e(TAG, "Invalid torrent: " + Log.getStackTraceString(e));
                 return null;
             }
-            if (FileUtils.getDirAvailableBytes(getApplicationContext(), downloadPath) < info.torrentSize) {
+            if (FileSystemFacade.getDirAvailableBytes(getApplicationContext(), downloadPath) < info.torrentSize) {
                 Log.e(TAG, "Not enough free space for " + info.torrentName);
                 return null;
             }
             File tmp;
             try {
-                tmp = FileUtils.makeTempFile(getApplicationContext(), ".torrent");
+                tmp = FileSystemFacade.makeTempFile(getApplicationContext(), ".torrent");
                 org.apache.commons.io.FileUtils.writeByteArrayToFile(tmp, response);
 
             } catch (Exception e) {

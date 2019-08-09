@@ -38,7 +38,6 @@ import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exceptions.NoFilesSelectedException;
@@ -47,7 +46,7 @@ import org.proninyaroslav.libretorrent.core.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -140,7 +139,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         /* Init download dir */
         String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentFilesIn);
-        mutableParams.getDirPath().set(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+        mutableParams.getDirPath().set(Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
     }
 
     public LiveData<DecodeState> getDecodeState()
@@ -224,13 +223,13 @@ public class AddTorrentViewModel extends AndroidViewModel
                     case Utils.HTTPS_PREFIX:
                         viewModel.get().decodeState.postValue(new DecodeState(AddTorrentViewModel.Status.FETCHING_HTTP));
 
-                        File httpTmp = FileUtils.makeTempFile(viewModel.get().getApplication(), ".torrent");
+                        File httpTmp = FileSystemFacade.makeTempFile(viewModel.get().getApplication(), ".torrent");
                         byte[] response = Utils.fetchHttpUrl(viewModel.get().getApplication(), uri.toString());
                         org.apache.commons.io.FileUtils.writeByteArrayToFile(httpTmp, response);
 
                         if (httpTmp.exists() && !isCancelled()) {
                             viewModel.get().mutableParams.setSource(
-                                    FileUtils.normalizeFilesystemPath(httpTmp.getAbsolutePath()));
+                                    FileSystemFacade.normalizeFileSystemPath(httpTmp.getAbsolutePath()));
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
                         }
@@ -328,8 +327,8 @@ public class AddTorrentViewModel extends AndroidViewModel
             if (dirPath == null)
                 return;
 
-            mutableParams.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-            mutableParams.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+            mutableParams.setStorageFreeSpace(FileSystemFacade.getDirAvailableBytes(getApplication(), dirPath));
+            mutableParams.setDirName(FileSystemFacade.getDirName(getApplication(), dirPath));
         }
     };
 

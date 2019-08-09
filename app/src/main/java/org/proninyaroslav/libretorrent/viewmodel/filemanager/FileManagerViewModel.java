@@ -38,7 +38,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerNode;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
@@ -76,9 +76,9 @@ public class FileManagerViewModel extends ViewModel
                         dir.canRead() :
                         dir.canWrite();
                 if (!(dir.exists() && accessMode))
-                    startDir = FileUtils.getDefaultDownloadPath();
+                    startDir = FileSystemFacade.getDefaultDownloadPath();
             } else {
-                startDir = FileUtils.getDefaultDownloadPath();
+                startDir = FileSystemFacade.getDefaultDownloadPath();
             }
 
         } else {
@@ -221,14 +221,14 @@ public class FileManagerViewModel extends ViewModel
         if (TextUtils.isEmpty(fileName))
             fileName = config.fileName;
 
-        fileName = FileUtils.buildValidFatFilename(fileName);
+        fileName = FileSystemFacade.buildValidFatFilename(fileName);
 
         String extension = null;
-        if (TextUtils.isEmpty(FileUtils.getExtension(fileName)))
+        if (TextUtils.isEmpty(FileSystemFacade.getExtension(fileName)))
             extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
 
         if (extension != null && !fileName.endsWith(extension))
-            fileName += FileUtils.EXTENSION_SEPARATOR + extension;
+            fileName += FileSystemFacade.EXTENSION_SEPARATOR + extension;
 
         File f = new File(curDir.get(), fileName);
         if (!f.getParentFile().canWrite())

@@ -93,7 +93,10 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation "androidx.room:room-testing:2.1.0"
+    androidTestImplementation ("androidx.room:room-testing:2.1.0") {
+        /* The fix for dependency conflict with uk.co.markormesher:android-fab */
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    }
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.0.2"

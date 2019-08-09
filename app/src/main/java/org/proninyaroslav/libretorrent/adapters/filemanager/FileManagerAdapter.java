@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerNode;
 
 import java.util.Collections;
@@ -128,7 +128,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
             itemView.setEnabled(item.isEnabled());
             if (item.isEnabled()) {
-                if (highlightFileTypes != null && highlightFileTypes.contains(FileUtils.getExtension(item.getName()))) {
+                if (highlightFileTypes != null && highlightFileTypes.contains(FileSystemFacade.getExtension(item.getName()))) {
                     fileName.setTextColor(ContextCompat.getColor(context, R.color.accent));
                 } else {
                     TypedArray a = context.obtainStyledAttributes(new TypedValue().data,

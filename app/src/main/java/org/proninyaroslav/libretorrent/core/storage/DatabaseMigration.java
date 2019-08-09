@@ -27,7 +27,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import org.proninyaroslav.libretorrent.core.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;
@@ -160,13 +160,13 @@ public class DatabaseMigration
 
     private static boolean torrentDataExists(Context context, String id)
     {
-        return FileUtils.isStorageReadable() &&
+        return FileSystemFacade.isStorageReadable() &&
                 new File(context.getExternalFilesDir(null), id).exists();
     }
 
     private static File findTorrentDataDir(Context context, String id)
     {
-        if (FileUtils.isStorageReadable()) {
+        if (FileSystemFacade.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null), id);
             if (dataDir.exists())
                 return dataDir;
@@ -180,7 +180,7 @@ public class DatabaseMigration
         if (!torrent.exists())
             return;
 
-        String userDir = FileUtils.getUserDirPath();
+        String userDir = FileSystemFacade.getUserDirPath();
         if (userDir == null)
             return;
 

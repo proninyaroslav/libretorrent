@@ -40,7 +40,6 @@ import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.server.TorrentStreamServer;
@@ -50,7 +49,6 @@ import org.proninyaroslav.libretorrent.core.stateparcel.SessionStats;
 import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receivers.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receivers.PowerReceiver;
@@ -817,11 +815,11 @@ public class TorrentEngine
 
         String name = (fileName != null ? fileName : id);
 
-        Pair<Uri, String> ret = FileUtils.createFile(appContext, destDir, name, Utils.MIME_TORRENT, true);
-        if (ret == null || ret.first == null)
+        Uri path = FileSystemFacade.createFile(appContext, destDir, name, true);
+        if (path == null)
             return false;
 
-        FileUtils.write(appContext, bencode, ret.first);
+        FileSystemFacade.write(appContext, bencode, path);
 
         return true;
     }
@@ -922,7 +920,7 @@ public class TorrentEngine
             String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
                                          SettingsManager.Default.ipFilteringFile);
             if (path != null)
-                session.enableIpFilter(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+                session.enableIpFilter(Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
         }
 
         if (pref.getBoolean(appContext.getString(R.string.pref_key_watch_dir),
@@ -1013,9 +1011,9 @@ public class TorrentEngine
     {
         String dir = pref.getString(appContext.getString(R.string.pref_key_dir_to_watch),
                                     SettingsManager.Default.dirToWatch);
-        Uri uri = Uri.parse(FileUtils.normalizeFilesystemPath(dir));
+        Uri uri = Uri.parse(FileSystemFacade.normalizeFileSystemPath(dir));
         /* TODO: SAF support */
-        if (FileUtils.isSAFPath(uri))
+        if (FileSystemFacade.isSafPath(appContext, uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
         dir = uri.getPath();
 
@@ -1077,11 +1075,11 @@ public class TorrentEngine
                 ti.infoHash().toHex(),
                 ti.name(),
                 priorities,
-                Uri.parse(FileUtils.normalizeFilesystemPath(downloadPath)),
+                Uri.parse(FileSystemFacade.normalizeFileSystemPath(downloadPath)),
                 false,
                 false);
 
-        if (FileUtils.getDirAvailableBytes(appContext, Uri.parse(downloadPath)) < ti.totalSize())
+        if (FileSystemFacade.getDirAvailableBytes(appContext, Uri.parse(downloadPath)) < ti.totalSize())
             throw new FreeSpaceException();
 
         return addTorrentSync(params, false);
@@ -1107,7 +1105,7 @@ public class TorrentEngine
     private void cleanTemp()
     {
         try {
-            FileUtils.cleanTempDir(appContext);
+            FileSystemFacade.cleanTempDir(appContext);
 
         } catch (Exception e) {
             Log.e(TAG, "Error during setup of temp directory: ", e);
@@ -1139,7 +1137,7 @@ public class TorrentEngine
                 Torrent torrent = repo.getTorrentById(id);
                 String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
                                                  torrent.downloadPath.toString());
-                saveTorrentFileIn(torrent, Uri.parse(FileUtils.normalizeFilesystemPath(savePath)));
+                saveTorrentFileIn(torrent, Uri.parse(FileSystemFacade.normalizeFileSystemPath(savePath)));
             }
 
             if (checkPauseTorrents()) {
@@ -1184,7 +1182,7 @@ public class TorrentEngine
                                                     SettingsManager.Default.moveAfterDownload)) {
                                     String curPath = torrent.downloadPath.toString();
                                     String newPath = pref.getString(appContext.getString(R.string.pref_key_move_after_download_in), curPath);
-                                    newPath = FileUtils.normalizeFilesystemPath(newPath);
+                                    newPath = FileSystemFacade.normalizeFileSystemPath(newPath);
 
                                     if (!curPath.equals(newPath)) {
                                         ChangeableParams params = new ChangeableParams();
@@ -1317,7 +1315,7 @@ public class TorrentEngine
                                                         SettingsManager.Default.saveTorrentFiles)) {
                                         String path = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
                                                                      torrent.downloadPath.toString());
-                                        saveTorrentFileIn(torrent, Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+                                        saveTorrentFileIn(torrent, Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
                                     }
 
                                 } else if (err instanceof FreeSpaceException) {
@@ -1482,7 +1480,7 @@ public class TorrentEngine
                 String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
                                              SettingsManager.Default.ipFilteringFile);
                 if (path != null)
-                    session.enableIpFilter(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+                    session.enableIpFilter(Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
             } else {
                 session.disableIpFilter();
             }
@@ -1491,7 +1489,7 @@ public class TorrentEngine
             String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
                                          SettingsManager.Default.ipFilteringFile);
             if (path != null)
-                session.enableIpFilter(Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+                session.enableIpFilter(Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
 
         } else if (key.equals(appContext.getString(R.string.pref_key_apply_proxy))) {
             pref.edit().putBoolean(appContext.getString(R.string.pref_key_proxy_changed), false).apply();

@@ -61,6 +61,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.adapters.drawer.DrawerGroupItem;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.RealSystemFacade;
 import org.proninyaroslav.libretorrent.core.SystemFacade;
@@ -669,8 +670,11 @@ public class Utils
 
         if (!errorArray.isEmpty()) {
             StringBuilder s = new StringBuilder();
-            for (Throwable e : errorArray)
-                s.append(e.getMessage().concat("\n"));
+            for (Throwable e : errorArray) {
+                String msg = e.getMessage();
+                if (msg != null)
+                    s.append(msg.concat("\n"));
+            }
 
             throw new FetchLinkException(s.toString());
         }
@@ -824,9 +828,9 @@ public class Utils
         String path = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentsIn);
 
-        path = (TextUtils.isEmpty(path) ? FileUtils.getDefaultDownloadPath() : path);
+        path = (TextUtils.isEmpty(path) ? FileSystemFacade.getDefaultDownloadPath() : path);
 
-        return (path == null ? null : Uri.parse(FileUtils.normalizeFilesystemPath(path)));
+        return (path == null ? null : Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
     }
 
     /*

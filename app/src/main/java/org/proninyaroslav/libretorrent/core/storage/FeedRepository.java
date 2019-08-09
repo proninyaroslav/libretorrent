@@ -29,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.entity.FeedItem;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -122,7 +122,7 @@ public class FeedRepository
 
     public void serializeAllFeeds(@NonNull Context context, @NonNull Uri file) throws IOException
     {
-        FileUtils.write(context, new Gson().toJson(getAllFeeds()), Charset.forName("UTF-8"), file);
+        FileSystemFacade.write(context, new Gson().toJson(getAllFeeds()), Charset.forName("UTF-8"), file);
     }
 
     public List<FeedChannel> deserializeFeeds(@NonNull Context context, @NonNull Uri file) throws IOException

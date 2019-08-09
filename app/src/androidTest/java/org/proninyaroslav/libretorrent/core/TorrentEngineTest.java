@@ -35,9 +35,7 @@ import org.junit.runner.RunWith;
 import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.exceptions.FileAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -70,7 +68,7 @@ public class TorrentEngineTest extends AbstractTest
     {
         super.init();
 
-        dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
+        dir = Uri.parse("file://" + FileSystemFacade.getDefaultDownloadPath());
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 Collections.singletonList(Priority.DEFAULT), dir,
@@ -227,7 +225,7 @@ public class TorrentEngineTest extends AbstractTest
         CountDownLatch c = new CountDownLatch(2);
         AtomicBoolean applying = new AtomicBoolean();
         ChangeableParams params = new ChangeableParams();
-        params.dirPath = Uri.parse("file://" + FileUtils.getUserDirPath());
+        params.dirPath = Uri.parse("file://" + FileSystemFacade.getUserDirPath());
 
         assertTrue(engine.isRunning());
 
@@ -325,7 +323,7 @@ public class TorrentEngineTest extends AbstractTest
 
     private String downloadTorrent(String url)
     {
-        File tmp = FileUtils.makeTempFile(context, ".torrent");
+        File tmp = FileSystemFacade.makeTempFile(context, ".torrent");
         try {
             byte[] response = Utils.fetchHttpUrl(context, url);
             org.apache.commons.io.FileUtils.writeByteArrayToFile(tmp, response);

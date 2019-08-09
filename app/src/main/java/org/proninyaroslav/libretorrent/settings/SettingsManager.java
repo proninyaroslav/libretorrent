@@ -28,7 +28,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.TorrentSession;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -72,13 +72,13 @@ public class SettingsManager
         public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
         public static final boolean showNatErrors = false;
         /* Storage settings */
-        public static final String saveTorrentsIn = "file://" + FileUtils.getDefaultDownloadPath();
+        public static final String saveTorrentsIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;
-        public static final String moveAfterDownloadIn = "file://" + FileUtils.getDefaultDownloadPath();
+        public static final String moveAfterDownloadIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
         public static final boolean saveTorrentFiles = false;
-        public static final String saveTorrentFilesIn = "file://" + FileUtils.getDefaultDownloadPath();
+        public static final String saveTorrentFilesIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
         public static final boolean watchDir = false;
-        public static final String dirToWatch = "file://" + FileUtils.getDefaultDownloadPath();
+        public static final String dirToWatch = "file://" + FileSystemFacade.getDefaultDownloadPath();
         /* Limitations settings */
         public static final int maxDownloadSpeedLimit = TorrentSession.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
         public static final int maxUploadSpeedLimit = TorrentSession.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
@@ -102,7 +102,7 @@ public class SettingsManager
         public static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
         public static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
         /* Filemanager settings */
-        public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
+        public static final String fileManagerLastDir = FileSystemFacade.getDefaultDownloadPath();
         /* Scheduling settings */
         public static final boolean enableSchedulingStart = false;
         public static final boolean enableSchedulingShutdown = false;

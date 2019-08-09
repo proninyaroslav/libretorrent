@@ -109,7 +109,7 @@ public class IPFilterParser
 
     public static boolean parseDATFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (!org.proninyaroslav.libretorrent.core.utils.FileUtils.fileExists(context, file))
+        if (!FileSystemFacade.fileExists(context, file))
             return false;
 
         long lineNum = 0;
@@ -228,7 +228,7 @@ public class IPFilterParser
 
     public static boolean parseP2PFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (!org.proninyaroslav.libretorrent.core.utils.FileUtils.fileExists(context, file))
+        if (!FileSystemFacade.fileExists(context, file))
             return false;
 
         long lineNum = 0;

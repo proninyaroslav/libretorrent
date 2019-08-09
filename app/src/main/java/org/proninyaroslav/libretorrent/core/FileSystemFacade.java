@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.utils;
+package org.proninyaroslav.libretorrent.core;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
@@ -27,12 +27,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.os.StatFs;
-import android.provider.DocumentsContract;
 import android.system.Os;
 import android.system.StructStatVfs;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.apache.commons.io.IOUtils;
 
@@ -46,17 +47,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.documentfile.provider.DocumentFile;
-
-public class FileUtils
+public class FileSystemFacade
 {
     @SuppressWarnings("unused")
-    private static final String TAG = FileUtils.class.getSimpleName();
+    private static final String TAG = FileSystemFacade.class.getSimpleName();
 
     public static final char EXTENSION_SEPARATOR = '.';
-
     public static final String TEMP_DIR = "temp";
 
     /*
@@ -119,24 +115,21 @@ public class FileUtils
      * Return true if the uri is a SAF path
      */
 
-    public static boolean isSAFPath(@NonNull Uri uri)
+    public static boolean isSafPath(@NonNull Context context,
+                                    @NonNull Uri path)
     {
-        String scheme = uri.getScheme();
-        if (scheme == null)
-            throw new IllegalArgumentException("Scheme of " + uri + " is null");
-
-        return scheme.equals("content");
+        return SafFileSystem.getInstance(context).isSafPath(path);
     }
 
     /*
      * Return true if the uri is a simple filesystem path
      */
 
-    public static boolean isFileSystemPath(@NonNull Uri uri)
+    public static boolean isFileSystemPath(@NonNull Uri path)
     {
-        String scheme = uri.getScheme();
+        String scheme = path.getScheme();
         if (scheme == null)
-            throw new IllegalArgumentException("Scheme of " + uri.getPath() + " is null");
+            throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
 
         return scheme.equals("file");
     }
@@ -144,14 +137,15 @@ public class FileUtils
     public static boolean deleteFile(@NonNull Context context,
                                      @NonNull Uri path) throws FileNotFoundException
     {
-        if (isSAFPath(path)) {
-            return DocumentsContract.deleteDocument(context.getContentResolver(), path);
-
-        } else {
+        if (isFileSystemPath(path)) {
             String fileSystemPath = path.getPath();
             if (fileSystemPath == null)
                 return false;
             return new File(fileSystemPath).delete();
+
+        } else {
+            SafFileSystem fs = SafFileSystem.getInstance(context);
+            return fs.delete(path);
         }
     }
 
@@ -163,13 +157,14 @@ public class FileUtils
                                  @NonNull Uri dir,
                                  @NonNull String fileName)
     {
-        if (isSAFPath(dir)) {
-            return getSAFFileUri(context, dir, fileName);
-
-        } else {
+        if (isFileSystemPath(dir)) {
             File f = new File(dir.getPath(), fileName);
 
             return (f.exists() ? Uri.fromFile(f) : null);
+
+        } else {
+            return SafFileSystem.getInstance(context)
+                    .getFileUri(dir, fileName, false);
         }
     }
 
@@ -188,41 +183,46 @@ public class FileUtils
             return (f.exists() ? Uri.fromFile(f) : null);
 
         } else {
-            Uri currNode = dir;
-
-            for (String nodeName : relativePath.split(File.separator)) {
-                if (currNode == null)
-                    break;
-                currNode = getSAFFileUri(context, currNode, nodeName);
-            }
-
-            return currNode;
+            return SafFileSystem.getInstance(context)
+                    .getFileUri(new SafFileSystem.FakePath(dir, relativePath), false);
         }
-    }
-
-    private static Uri getSAFFileUri(Context context, Uri dir, String fileName)
-    {
-        DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
-        DocumentFile f;
-        try {
-            f = tree.findFile(fileName);
-
-        } catch (UnsupportedOperationException e) {
-            return null;
-        }
-
-        return (f != null ? f.getUri() : null);
     }
 
     public static boolean fileExists(@NonNull Context context,
                                      @NonNull Uri filePath)
     {
-        if (isSAFPath(filePath)) {
-            DocumentFile f = DocumentFile.fromSingleUri(context, filePath);
-            return f != null && f.exists();
+        if (isFileSystemPath(filePath)) {
+            return new File(filePath.getPath()).exists();
 
         } else {
-            return new File(filePath.getPath()).exists();
+            return SafFileSystem.getInstance(context).exists(filePath);
+        }
+    }
+
+    public static boolean fileExists(@NonNull Context context,
+                                     @NonNull Uri dir,
+                                     @NonNull String relativePath)
+    {
+        if (isFileSystemPath(dir)) {
+            return new File(dir.getPath(), relativePath).exists();
+
+        } else {
+            return SafFileSystem.getInstance(context)
+                    .exists(new SafFileSystem.FakePath(dir, relativePath));
+        }
+    }
+
+    public static long lastModified(@NonNull Context context,
+                                    @NonNull Uri filePath)
+    {
+        if (isFileSystemPath(filePath)) {
+            return new File(filePath.getPath()).lastModified();
+
+        } else {
+            SafFileSystem.Stat stat = SafFileSystem.getInstance(context)
+                    .stat(filePath);
+
+            return (stat == null ? -1 : stat.lastModified);
         }
     }
 
@@ -270,47 +270,23 @@ public class FileUtils
     }
 
     /*
-     * Returns Uri and name of created file.
+     * Returns Uri of created file.
      * Note: if replace == false, doesn't replace file if it exists and returns its Uri.
      *       Storage Access Framework can change the name after creating the file
      *       (e.g. extension), please check it after returning.
      */
 
-    public static Pair<Uri, String> createFile(@NonNull Context context,
-                                               @NonNull Uri dir,
-                                               @NonNull String desiredFileName,
-                                               @NonNull String mimeType,
-                                               boolean replace) throws IOException
+    public static Uri createFile(@NonNull Context context,
+                                 @NonNull Uri dir,
+                                 @NonNull String fileName,
+                                 boolean replace) throws IOException
     {
-        if (isSAFPath(dir)) {
-            DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
-            DocumentFile f;
-            try {
-                f = tree.findFile(desiredFileName);
-                if (f != null) {
-                    if (!replace)
-                        return Pair.create(f.getUri(), desiredFileName);
-                    else if (!DocumentsContract.deleteDocument(context.getContentResolver(), f.getUri()))
-                        return null;
-                }
-                f = tree.createFile(mimeType, desiredFileName);
-
-            } catch (UnsupportedOperationException e) {
-                throw new IOException(e);
-            }
-            if (f == null)
-                throw new IOException("Unable to create file {name=" + desiredFileName + ", dir=" + dir + "}");
-
-            /* Maybe an extension was added to the file name */
-            String newName = f.getName();
-
-            return Pair.create(f.getUri(), (newName == null ? desiredFileName : newName));
-        } else {
-            File f = new File(dir.getPath(), desiredFileName);
+        if (isFileSystemPath(dir)) {
+            File f = new File(dir.getPath(), fileName);
             try {
                 if (f.exists()) {
                     if (!replace)
-                        return Pair.create(Uri.fromFile(f), desiredFileName);
+                        return Uri.fromFile(f);
                     else if (!f.delete())
                         return null;
                 }
@@ -321,7 +297,21 @@ public class FileUtils
                 throw new IOException(e);
             }
 
-            return Pair.create(Uri.fromFile(f), desiredFileName);
+            return Uri.fromFile(f);
+
+        } else {
+            SafFileSystem fs = SafFileSystem.getInstance(context);
+            Uri path = fs.getFileUri(dir, fileName, false);
+            if (replace && path != null) {
+                if (!fs.delete(path))
+                    return null;
+                path = fs.getFileUri(dir, fileName, true);
+            }
+
+            if (path == null)
+                throw new IOException("Unable to create file {name=" + fileName + ", dir=" + dir + "}");
+
+            return path;
         }
     }
 
@@ -351,6 +341,27 @@ public class FileUtils
     }
 
     /*
+     * If the uri is a file system path, returns the path as is,
+     * otherwise returns the path in `SafFileSystem` format
+     */
+
+    public static String makeFileSystemPath(@NonNull Context context, @NonNull Uri uri)
+    {
+        return makeFileSystemPath(context, uri, null);
+    }
+
+    public static String makeFileSystemPath(@NonNull Context context,
+                                            @NonNull Uri uri,
+                                            String relativePath)
+    {
+        if (isSafPath(context, uri))
+            return new SafFileSystem.FakePath(uri, (relativePath == null ? "" : relativePath))
+                    .toString();
+        else
+            return uri.getPath();
+    }
+
+    /*
      * Return the number of bytes that are free on the file system
      * backing the given FileDescriptor
      *
@@ -374,12 +385,12 @@ public class FileUtils
     {
         long availableBytes = -1;
 
-        if (isSAFPath(dir)) {
-            Uri pseudoDirPath = DocumentsContract.buildDocumentUriUsingTree(dir,
-                    DocumentsContract.getTreeDocumentId(dir));
+        if (isSafPath(context, dir)) {
+            SafFileSystem fs = SafFileSystem.getInstance(context);
+            Uri dirPath = fs.makeSafRootDir(dir);
             try {
                 ParcelFileDescriptor pfd = context.getContentResolver()
-                        .openFileDescriptor(pseudoDirPath, "r");
+                        .openFileDescriptor(dirPath, "r");
                 availableBytes = getAvailableBytes(pfd.getFileDescriptor());
 
             } catch (IllegalArgumentException | IOException e) {
@@ -560,7 +571,7 @@ public class FileUtils
      * Append file:// scheme for Uri
      */
 
-    public static String normalizeFilesystemPath(@NonNull String path)
+    public static String normalizeFileSystemPath(@NonNull String path)
     {
         return (path.startsWith("file://") ? path : "file://" + path);
     }
@@ -571,17 +582,13 @@ public class FileUtils
      */
 
     public static String getDirName(@NonNull Context context,
-                                    @NonNull Uri dirPath)
+                                    @NonNull Uri dir)
     {
-        if (FileUtils.isFileSystemPath(dirPath))
-            return dirPath.getPath();
+        if (FileSystemFacade.isFileSystemPath(dir))
+            return dir.getPath();
 
-        DocumentFile dir = DocumentFile.fromTreeUri(context, dirPath);
-        if (dir == null)
-            return dirPath.getPath();
+        SafFileSystem.Stat stat = SafFileSystem.getInstance(context).statSafRoot(dir);
 
-        String name = dir.getName();
-
-        return (name == null ? dirPath.getPath() : name);
+        return (stat == null || stat.name == null ? dir.getPath() : stat.name);
     }
 }

@@ -286,7 +286,7 @@ public class TorrentSession extends SessionManager
             throw e;
         } finally {
             if (removeFile && !params.fromMagnet)
-                org.proninyaroslav.libretorrent.core.utils.FileUtils.deleteFile(appContext, Uri.parse(params.source));
+                FileSystemFacade.deleteFile(appContext, Uri.parse(params.source));
         }
 
         return torrent;
@@ -297,17 +297,14 @@ public class TorrentSession extends SessionManager
         if (magnets.contains(id))
             cancelFetchMagnet(id);
 
-        /* TODO: SAF support */
-        if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(params.downloadPath))
-            throw new IllegalArgumentException("SAF is not supported:" + params.downloadPath);
-
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
             throw new IOException("Torrent " + id + " is null");
 
         addTorrentsList.add(params.sha1hash);
 
-        File saveDir = new File(params.downloadPath.getPath());
+        String path = FileSystemFacade.makeFileSystemPath(appContext, params.downloadPath);
+        File saveDir = new File(path);
         if (torrent.isDownloadingMetadata()) {
             download(params.source, saveDir, params.addPaused);
             return;
@@ -361,13 +358,10 @@ public class TorrentSession extends SessionManager
             if (torrent == null || torrentTasks.containsKey(torrent.id))
                 continue;
 
-            /* TODO: SAF support */
-            if (org.proninyaroslav.libretorrent.core.utils.FileUtils.isSAFPath(torrent.downloadPath))
-                throw new IllegalArgumentException("SAF is not supported:" + torrent.downloadPath);
-
+            String path = FileSystemFacade.makeFileSystemPath(appContext, torrent.downloadPath);
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata())
-                loadTask.putMagnet(torrent.getMagnet(), new File(torrent.downloadPath.getPath()),
+                loadTask.putMagnet(torrent.getMagnet(), new File(path),
                         torrent.manuallyPaused);
 
             restoreTorrentsQueue.add(loadTask);

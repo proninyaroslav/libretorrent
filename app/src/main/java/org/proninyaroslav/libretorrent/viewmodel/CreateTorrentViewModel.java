@@ -39,7 +39,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentSession;
 import org.proninyaroslav.libretorrent.core.exceptions.NormalizeUrlException;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -171,7 +171,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             if (seedPath == null)
                 return;
 
-            mutableParams.setSeedPathName(FileUtils.getDirName(getApplication(), seedPath));
+            mutableParams.setSeedPathName(FileSystemFacade.getDirName(getApplication(), seedPath));
         }
     };
 
@@ -214,11 +214,12 @@ public class CreateTorrentViewModel extends AndroidViewModel
                     throw new IllegalArgumentException("Save path is null");
 
                 /* TODO: SAF support */
-                if (!FileUtils.isFileSystemPath(seedPath))
+                if (!FileSystemFacade.isFileSystemPath(seedPath))
                     throw new IllegalArgumentException("SAF doesn't supported");
 
+                String seedPathStr = FileSystemFacade.makeFileSystemPath(v.getApplication(), seedPath);
                 TorrentBuilder builder = new TorrentBuilder()
-                        .path(new File(seedPath.getPath()))
+                        .path(new File(seedPathStr))
                         .pieceSize(getPieceSizeByIndex(mutableParams.getPieceSizeIndex()))
                         .addTrackers(getAndValidateTrackers())
                         .addUrlSeeds(getAndValidateWebSeeds())
@@ -259,14 +260,14 @@ public class CreateTorrentViewModel extends AndroidViewModel
                     builder.flags(builder.flags().and_(TorrentBuilder.OPTIMIZE_ALIGNMENT.inv()));
 
                  byte[] bencode = builder.generate().entry().bencode();
-                 FileUtils.write(v.getApplication(), bencode, savePath);
+                 FileSystemFacade.write(v.getApplication(), bencode, savePath);
 
             } catch (Exception e) {
                 err = e;
                 Uri savePath = mutableParams.getSavePath();
                 if (savePath != null) {
                     try {
-                        FileUtils.deleteFile(v.getApplication(), savePath);
+                        FileSystemFacade.deleteFile(v.getApplication(), savePath);
 
                     } catch (IOException ioe) {
                         /* Ignore */

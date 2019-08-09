@@ -38,7 +38,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.adapters.filemanager.FileManagerAdapter;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityFilemanagerDialogBinding;
 import org.proninyaroslav.libretorrent.dialogs.BaseAlertDialog;
@@ -119,8 +119,8 @@ public class FileManagerDialog extends AppCompatActivity
         viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
-        /* TODO: SAF support */
-        binding.setEnableSystemManagerButton(false/* Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT */);
+        binding.setEnableSystemManagerButton(!viewModel.config.disableSystemFileManager &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         binding.setViewModel(viewModel);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -488,7 +488,7 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void openHomeDirectory()
     {
-        String path = FileUtils.getUserDirPath();
+        String path = FileSystemFacade.getUserDirPath();
         if (!TextUtils.isEmpty(path)) {
             try {
                 viewModel.jumpToDirectory(path);

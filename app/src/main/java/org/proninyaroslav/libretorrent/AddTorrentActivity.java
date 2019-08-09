@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -87,6 +87,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private ErrorReportDialog errReportDialog;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private boolean showAddButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -203,6 +204,8 @@ public class AddTorrentActivity extends AppCompatActivity
     private void onStartDecode()
     {
         binding.progress.setVisibility(View.VISIBLE);
+        showAddButton = false;
+        invalidateOptionsMenu();
     }
 
     private void onStopDecode(Throwable e)
@@ -215,6 +218,8 @@ public class AddTorrentActivity extends AppCompatActivity
         }
 
         viewModel.makeFileTree();
+        showAddButton = true;
+        invalidateOptionsMenu();
     }
 
     private Uri getUri()
@@ -397,6 +402,10 @@ public class AddTorrentActivity extends AppCompatActivity
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.add_torrent, menu);
+
+        MenuItem add = menu.findItem(R.id.add_torrent_dialog_add_menu);
+        if (add != null)
+            add.setVisible(showAddButton);
 
         return true;
     }

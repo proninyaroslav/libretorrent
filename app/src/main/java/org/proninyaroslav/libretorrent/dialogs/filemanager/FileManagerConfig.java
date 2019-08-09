@@ -44,6 +44,7 @@ public class FileManagerConfig implements Parcelable
     public int showMode;
     public boolean canReplace;
     public String mimeType;
+    public boolean disableSystemFileManager;
 
     public FileManagerConfig(String path, String title, int mode)
     {
@@ -62,6 +63,7 @@ public class FileManagerConfig implements Parcelable
         fileName = source.readString();
         canReplace = source.readByte() != 0;
         mimeType = source.readString();
+        disableSystemFileManager = source.readByte() != 0;
     }
 
     public FileManagerConfig setFileName(String name)
@@ -87,6 +89,7 @@ public class FileManagerConfig implements Parcelable
         dest.writeString(fileName);
         dest.writeByte((byte)(canReplace ? 1 : 0));
         dest.writeString(mimeType);
+        dest.writeByte((byte)(disableSystemFileManager ? 1 : 0));
     }
 
     public static final Creator<FileManagerConfig> CREATOR =

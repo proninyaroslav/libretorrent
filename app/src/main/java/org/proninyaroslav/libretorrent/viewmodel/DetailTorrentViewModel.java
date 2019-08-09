@@ -53,7 +53,7 @@ import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
-import org.proninyaroslav.libretorrent.core.utils.FileUtils;
+import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
@@ -301,11 +301,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (torrent == null)
             return null;
 
-        Uri path = FileUtils.getFileUri(getApplication(), relativePath, torrent.downloadPath);
+        Uri path = FileSystemFacade.getFileUri(getApplication(), relativePath, torrent.downloadPath);
         if (path == null)
             return null;
 
-        if (FileUtils.isFileSystemPath(path))
+        if (FileSystemFacade.isFileSystemPath(path))
             path = FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(path.getPath()));
@@ -446,7 +446,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (bencode == null)
             throw new IOException("Cannot read bencode");
 
-        FileUtils.write(getApplication(), bencode, destFile);
+        FileSystemFacade.write(getApplication(), bencode, destFile);
     }
 
     public void setSpeedLimit(int uploadSpeedLimit, int downloadSpeedLimit)
@@ -516,8 +516,8 @@ public class DetailTorrentViewModel extends AndroidViewModel
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
                 if (dirPath != null) {
-                    info.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-                    info.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+                    info.setStorageFreeSpace(FileSystemFacade.getDirAvailableBytes(getApplication(), dirPath));
+                    info.setDirName(FileSystemFacade.getDirName(getApplication(), dirPath));
                 }
             }
 
