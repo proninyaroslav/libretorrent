@@ -93,7 +93,7 @@ public class CookieHandler implements Iterable<String> {
         return this.cookies.get(name);
     }
 
-    public void set(Cookie cookie) {
+    public void addCookie(Cookie cookie) {
         this.queue.add(cookie);
     }
 
