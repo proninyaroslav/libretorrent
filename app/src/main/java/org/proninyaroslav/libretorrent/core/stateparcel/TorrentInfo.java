@@ -23,7 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.Priority;
+import org.proninyaroslav.libretorrent.core.Priority;
 import org.proninyaroslav.libretorrent.core.TorrentStateCode;
 
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class TorrentInfo extends AbstractInfoParcel
 
         torrentId = source.readString();
         name = source.readString();
-        stateCode = (TorrentStateCode)source.readSerializable();
+        stateCode = TorrentStateCode.fromValue(source.readInt());
         progress = source.readInt();
         receivedBytes = source.readLong();
         uploadedBytes = source.readLong();
@@ -127,7 +127,7 @@ public class TorrentInfo extends AbstractInfoParcel
 
         dest.writeString(torrentId);
         dest.writeString(name);
-        dest.writeSerializable(stateCode);
+        dest.writeInt(stateCode.value());
         dest.writeInt(progress);
         dest.writeLong(receivedBytes);
         dest.writeLong(uploadedBytes);

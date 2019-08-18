@@ -26,7 +26,7 @@ import android.preference.PreferenceManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.ProxySettingsPack;
-import org.proninyaroslav.libretorrent.core.TorrentSession;
+import org.proninyaroslav.libretorrent.core.SessionSettings;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 
@@ -57,8 +57,8 @@ public class SettingsManager
         public static final boolean unmeteredConnectionsOnly = false;
         public static final boolean enableRoaming = true;
         /* Network settings */
-        public static final int portRangeFirst = TorrentSession.Settings.DEFAULT_PORT_RANGE_FIRST;
-        public static final int portRangeSecond = TorrentSession.Settings.DEFAULT_PORT_RANGE_SECOND;
+        public static final int portRangeFirst = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
+        public static final int portRangeSecond = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
         public static final boolean enableDht = true;
         public static final boolean enableLsd = true;
         public static final boolean enableUtp = true;
@@ -80,14 +80,14 @@ public class SettingsManager
         public static final boolean watchDir = false;
         public static final String dirToWatch = "file://" + FileSystemFacade.getDefaultDownloadPath();
         /* Limitations settings */
-        public static final int maxDownloadSpeedLimit = TorrentSession.Settings.DEFAULT_DOWNLOAD_RATE_LIMIT;
-        public static final int maxUploadSpeedLimit = TorrentSession.Settings.DEFAULT_UPLOAD_RATE_LIMIT;
-        public static final int maxConnections = TorrentSession.Settings.DEFAULT_CONNECTIONS_LIMIT;
-        public static final int maxConnectionsPerTorrent = TorrentSession.Settings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
-        public static final int maxUploadsPerTorrent = TorrentSession.Settings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
-        public static final int maxActiveUploads = TorrentSession.Settings.DEFAULT_ACTIVE_SEEDS;
-        public static final int maxActiveDownloads = TorrentSession.Settings.DEFAULT_ACTIVE_DOWNLOADS;
-        public static final int maxActiveTorrents = TorrentSession.Settings.DEFAULT_ACTIVE_LIMIT;
+        public static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
+        public static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
+        public static final int maxConnections = SessionSettings.DEFAULT_CONNECTIONS_LIMIT;
+        public static final int maxConnectionsPerTorrent = SessionSettings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
+        public static final int maxUploadsPerTorrent = SessionSettings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
+        public static final int maxActiveUploads = SessionSettings.DEFAULT_ACTIVE_SEEDS;
+        public static final int maxActiveDownloads = SessionSettings.DEFAULT_ACTIVE_DOWNLOADS;
+        public static final int maxActiveTorrents = SessionSettings.DEFAULT_ACTIVE_LIMIT;
         public static final boolean autoManage = false;
         /* Proxy settings */
         public static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();
@@ -148,9 +148,9 @@ public class SettingsManager
         return pref;
     }
 
-    public TorrentSession.Settings readSessionSettings(Context context)
+    public SessionSettings readSessionSettings(Context context)
     {
-        TorrentSession.Settings settings = new TorrentSession.Settings();
+        SessionSettings settings = new SessionSettings();
         settings.downloadRateLimit = pref.getInt(context.getString(R.string.pref_key_max_download_speed),
                                                  Default.maxDownloadSpeedLimit);
         settings.uploadRateLimit = pref.getInt(context.getString(R.string.pref_key_max_upload_speed),
@@ -180,7 +180,8 @@ public class SettingsManager
                                                         Default.encryptInConnections);
         settings.encryptOutConnections = pref.getBoolean(context.getString(R.string.pref_key_enc_out_connections),
                                                          Default.encryptOutConnections);
-        settings.encryptMode = pref.getInt(context.getString(R.string.pref_key_enc_mode), Default.encryptMode(context));
+        int modeVal = pref.getInt(context.getString(R.string.pref_key_enc_mode), Default.encryptMode(context));
+        settings.encryptMode = SessionSettings.EncryptMode.fromValue(modeVal);
         settings.autoManaged = pref.getBoolean(context.getString(R.string.pref_key_auto_manage), Default.autoManage);
 
         return settings;

@@ -249,6 +249,8 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     null,
                     FileManagerConfig.FILE_CHOOSER_MODE);
+            /* TODO: SAF support */
+            config.disableSystemFileManager = true;
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             startActivityForResult(i, CHOOSE_FILE_REQUEST);
         });
@@ -259,6 +261,8 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     null,
                     FileManagerConfig.DIR_CHOOSER_MODE);
+            /* TODO: SAF support */
+            config.disableSystemFileManager = true;
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             startActivityForResult(i, CHOOSE_DIR_REQUEST);
         });

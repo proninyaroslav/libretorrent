@@ -21,9 +21,8 @@ package org.proninyaroslav.libretorrent.core.filetree;
 
 import androidx.annotation.Nullable;
 
-import org.libtorrent4j.Priority;
+import org.proninyaroslav.libretorrent.core.Priority;
 
-import java.io.File;
 import java.io.Serializable;
 
 public class FilePriority implements Serializable
@@ -35,7 +34,7 @@ public class FilePriority implements Serializable
 
     public FilePriority(Priority priority)
     {
-        this.priority = priority.swig();
+        this.priority = priority.value();
         this.type = typeFrom(priority);
     }
 
@@ -47,7 +46,7 @@ public class FilePriority implements Serializable
 
     public Priority getPriority()
     {
-        return Priority.fromSwig(priority);
+        return Priority.fromValue(priority);
     }
 
     public Type getType()
@@ -78,11 +77,11 @@ public class FilePriority implements Serializable
     {
         switch (type) {
             case IGNORE:
-                return Priority.IGNORE.swig();
+                return Priority.IGNORE.value();
             case NORMAL:
-                return Priority.DEFAULT.swig();
+                return Priority.DEFAULT.value();
             case HIGH:
-                return Priority.TOP_PRIORITY.swig();
+                return Priority.TOP_PRIORITY.value();
             default:
                 return -1;
         }

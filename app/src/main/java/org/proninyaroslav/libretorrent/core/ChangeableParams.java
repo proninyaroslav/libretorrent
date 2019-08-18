@@ -25,8 +25,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.Priority;
-
 import java.util.Arrays;
 
 /*

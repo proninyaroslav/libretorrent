@@ -8,7 +8,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
 import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
@@ -44,7 +43,7 @@ public class TorrentInfoProviderTest extends AbstractTest
         dir = Uri.parse("file://" + FileSystemFacade.getDefaultDownloadPath());
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
-                Collections.singletonList(Priority.DEFAULT), dir,
+                new Priority[]{Priority.DEFAULT}, dir,
                 false, false);
     }
 

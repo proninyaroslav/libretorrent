@@ -42,7 +42,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.TorrentSession;
+import org.proninyaroslav.libretorrent.core.SessionSettings;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerDialog;
@@ -133,8 +133,8 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         SwitchPreferenceCompat randomPort = findPreference(keyRandomPort);
         if (randomPort != null) {
             randomPort.setSummary(String.format(getString(R.string.pref_use_random_port_summarty),
-                    TorrentSession.Settings.DEFAULT_PORT_RANGE_FIRST,
-                    TorrentSession.Settings.DEFAULT_PORT_RANGE_SECOND - 10));
+                    SessionSettings.DEFAULT_PORT_RANGE_FIRST,
+                    SessionSettings.DEFAULT_PORT_RANGE_SECOND - 10));
             randomPort.setDisableDependentsState(true);
             randomPort.setChecked(pref.getBoolean(keyRandomPort, SettingsManager.Default.useRandomPort));
         }
@@ -260,14 +260,14 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 .getPreferences();
 
         if (preference.getKey().equals(getString(R.string.pref_key_port_range_first))) {
-            int value = TorrentSession.Settings.DEFAULT_PORT_RANGE_FIRST;
+            int value = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
             if (!TextUtils.isEmpty((String)newValue))
                 value = Integer.parseInt((String)newValue);
             pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(value));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_port_range_second))) {
-            int value = TorrentSession.Settings.DEFAULT_PORT_RANGE_SECOND;
+            int value = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
             if (!TextUtils.isEmpty((String)newValue))
                 value = Integer.parseInt((String)newValue);
             pref.edit().putInt(preference.getKey(), value).apply();

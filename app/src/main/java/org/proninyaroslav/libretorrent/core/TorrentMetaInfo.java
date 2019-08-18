@@ -56,24 +56,13 @@ public class TorrentMetaInfo implements Parcelable
     public int numPieces = 0;
     public ArrayList<BencodeFileItem> fileList = new ArrayList<>();
 
-    public TorrentMetaInfo(String pathToTorrent) throws DecodeException
-    {
-        File torrentFile = new File(pathToTorrent);
-        try {
-            getMetaInfo(new TorrentInfo(torrentFile));
-
-        } catch (Exception e) {
-            throw new DecodeException(e);
-        }
-    }
-
-    public TorrentMetaInfo(String torrentName, String sha1hash)
+    public TorrentMetaInfo(@NonNull String torrentName, @NonNull String sha1hash)
     {
         this.torrentName = torrentName;
         this.sha1Hash = sha1hash;
     }
 
-    public TorrentMetaInfo(byte[] data) throws DecodeException
+    public TorrentMetaInfo(@NonNull byte[] data) throws DecodeException
     {
         try {
             getMetaInfo(TorrentInfo.bdecode(data));

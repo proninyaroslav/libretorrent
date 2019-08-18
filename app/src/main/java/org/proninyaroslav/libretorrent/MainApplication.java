@@ -26,8 +26,6 @@ import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraMailSender;
-import org.libtorrent4j.swig.libtorrent;
-import org.proninyaroslav.libretorrent.core.LibTorrentSafAdapter;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
@@ -59,10 +57,6 @@ public class MainApplication extends MultiDexApplication
         db = AppDatabase.getInstance(this);
         torrentNotifier = new TorrentNotifier(this);
         torrentNotifier.makeNotifyChans();
-
-        LibTorrentSafAdapter adapter = new LibTorrentSafAdapter(this);
-        adapter.swigReleaseOwnership();
-        libtorrent.set_posix_wrapper(adapter);
 
         TorrentEngine.getInstance(this).start();
     }

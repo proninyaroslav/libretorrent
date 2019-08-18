@@ -29,11 +29,11 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
+import org.proninyaroslav.libretorrent.core.Priority;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.entity.FeedItem;
@@ -46,6 +46,7 @@ import org.proninyaroslav.libretorrent.settings.SettingsManager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /*
@@ -114,14 +115,14 @@ public class FeedDownloaderWorker extends Worker
         if (downloadPath == null)
             return null;
         String name;
-        ArrayList<Priority> priorities = null;
+        Priority[] priorities = null;
         boolean isMagnet = false;
         String source, sha1hash;
 
         if (item.downloadUrl.startsWith(Utils.MAGNET_PREFIX)) {
             MagnetInfo info;
             try {
-                info = new MagnetInfo(item.downloadUrl);
+                info = engine.parseMagnet(item.downloadUrl);
 
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, e.getMessage());
@@ -159,7 +160,8 @@ public class FeedDownloaderWorker extends Worker
                 Log.e(TAG, "Error write torrent file " + info.torrentName + ": " + Log.getStackTraceString(e));
                 return null;
             }
-            priorities = new ArrayList<>(Collections.nCopies(info.fileList.size(), Priority.DEFAULT));
+            priorities = new Priority[info.fileList.size()];
+            Arrays.fill(priorities, Priority.DEFAULT);
             sha1hash = info.sha1Hash;
             name = info.torrentName;
             source = Uri.fromFile(tmp).toString();

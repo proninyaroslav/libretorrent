@@ -32,7 +32,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.TorrentSession;
+import org.proninyaroslav.libretorrent.core.SessionSettings;
 
 public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
@@ -174,11 +174,11 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         if (preference.getKey().equals(getString(R.string.pref_key_max_connections)) ||
             preference.getKey().equals(getString(R.string.pref_key_max_connections_per_torrent))) {
-            int value = TorrentSession.Settings.MIN_CONNECTIONS_LIMIT;
+            int value = SessionSettings.MIN_CONNECTIONS_LIMIT;
             if (!TextUtils.isEmpty((String) newValue))
                 value = Integer.parseInt((String) newValue);
-            if (value < TorrentSession.Settings.MIN_CONNECTIONS_LIMIT)
-                value = TorrentSession.Settings.MIN_CONNECTIONS_LIMIT;
+            if (value < SessionSettings.MIN_CONNECTIONS_LIMIT)
+                value = SessionSettings.MIN_CONNECTIONS_LIMIT;
             pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(value));
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_upload_speed)) ||

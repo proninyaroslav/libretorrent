@@ -32,7 +32,7 @@ import java.util.Random;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 @RunWith(AndroidJUnit4.class)
-public class TorrentDownloadTest
+public class TorrentDownloadImplTest
 {
     @Test
     public void getFileIndicesBep53Test()
@@ -48,7 +48,7 @@ public class TorrentDownloadTest
                             .mapToObj(Priority::fromSwig)
                             .toArray(Priority[]::new);
 
-            String indicesStr = TorrentDownload.getFileIndicesBep53(expectedPriorities);
+            String indicesStr = TorrentDownloadImpl.getFileIndicesBep53(expectedPriorities);
             AddTorrentParams params = null;
             try {
                 params = AddTorrentParams.parseMagnetUri(baseMagnet + indicesStr);

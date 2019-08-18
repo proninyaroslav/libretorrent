@@ -27,31 +27,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.libtorrent4j.Priority;
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.adapters.DownloadableFileItem;
-import org.proninyaroslav.libretorrent.adapters.DownloadableFilesAdapter;
-import org.proninyaroslav.libretorrent.core.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
-import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
-import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
-import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentFilesBinding;
-import org.proninyaroslav.libretorrent.viewmodel.AddTorrentViewModel;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.collection.ArraySet;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.adapters.DownloadableFileItem;
+import org.proninyaroslav.libretorrent.adapters.DownloadableFilesAdapter;
+import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentFilesBinding;
+import org.proninyaroslav.libretorrent.viewmodel.AddTorrentViewModel;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

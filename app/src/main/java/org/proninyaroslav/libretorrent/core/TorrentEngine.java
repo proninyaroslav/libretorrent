@@ -31,11 +31,6 @@ import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.jetbrains.annotations.NotNull;
-import org.libtorrent4j.AnnounceEntry;
-import org.libtorrent4j.Priority;
-import org.libtorrent4j.TorrentStatus;
-import org.libtorrent4j.swig.settings_pack;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
@@ -63,10 +58,8 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -118,7 +111,8 @@ public class TorrentEngine
         repo = ((MainApplication)appContext).getTorrentRepository();
         pref = SettingsManager.getInstance(appContext).getPreferences();
         notifier = ((MainApplication)appContext).getTorrentNotifier();
-        session = new TorrentSession(appContext);
+        session = new TorrentSessionImpl(appContext);
+        session.init();
         session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));
         session.addListener(engineListener);
 
@@ -214,23 +208,22 @@ public class TorrentEngine
 
             ContentResolver contentResolver = appContext.getContentResolver();
             FileInputStream is = null;
-            org.libtorrent4j.TorrentInfo ti = null;
+            TorrentMetaInfo info = null;
             try {
                 ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
                 FileDescriptor outFd = outPfd.getFileDescriptor();
                 is = new FileInputStream(outFd);
-                FileChannel chan = is.getChannel();
 
                 try {
-                    ti = new org.libtorrent4j.TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size()));
+                    info = new TorrentMetaInfo(is);
 
                 } catch (Exception e) {
                     throw new DecodeException(e);
                 }
-                addTorrentSync(file, ti);
+                addTorrentSync(file, info);
 
             } catch (Exception e) {
-                handleAddTorrentError((ti == null ? file.getPath() : ti.name()), e);
+                handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
             } finally {
                 IOUtils.closeQuietly(is);
             }
@@ -253,17 +246,15 @@ public class TorrentEngine
 
     public Pair<MagnetInfo, Single<TorrentMetaInfo>> fetchMagnet(@NonNull String uri) throws Exception
     {
-        org.libtorrent4j.AddTorrentParams params = session.parseMagnetUri(uri);
-        org.libtorrent4j.AddTorrentParams res_params = session.fetchMagnet(params);
-        Single<TorrentMetaInfo> res = createFetchMagnetSingle(params.infoHash().toHex());
-        MagnetInfo info = null;
-        List<Priority> priorities;
-        if (res_params != null) {
-            priorities = Arrays.asList(res_params.filePriorities());
-            info = new MagnetInfo(uri, res_params.infoHash().toHex(), res_params.name(), priorities);
-        }
+        MagnetInfo info = session.fetchMagnet(uri);
+        Single<TorrentMetaInfo> res = createFetchMagnetSingle(info.getSha1hash());
 
         return Pair.create(info, res);
+    }
+
+    public MagnetInfo parseMagnet(@NonNull String uri)
+    {
+        return session.parseMagnet(uri);
     }
 
     private Single<TorrentMetaInfo> createFetchMagnetSingle(String targetHash)
@@ -440,7 +431,7 @@ public class TorrentEngine
         return Flowable.create((emitter) -> {
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentMetadataLoaded(@NotNull String torrentId, Exception err)
+                public void onTorrentMetadataLoaded(@NonNull String torrentId, Exception err)
                 {
                     if (!id.equals(torrentId) || emitter.isCancelled())
                         return;
@@ -479,13 +470,9 @@ public class TorrentEngine
         if (task == null)
             return null;
 
-        org.libtorrent4j.TorrentInfo ti = task.getTorrentInfo();
         TorrentMetaInfo info = null;
         try {
-            if (ti != null)
-                info = new TorrentMetaInfo(ti);
-            else
-                info = new TorrentMetaInfo(task.getTorrentName(), task.getInfoHash());
+            info = task.getTorrentMetaInfo();
 
         } catch (DecodeException e) {
             Log.e(TAG, "Can't decode torrent info: ");
@@ -676,13 +663,7 @@ public class TorrentEngine
         if (task == null)
             return new ArrayList<>();
 
-        List<AnnounceEntry> trackers = task.getTrackers();
-        ArrayList<TrackerInfo> states = new ArrayList<>();
-
-        for (AnnounceEntry entry : trackers)
-            states.add(new TrackerInfo(entry));
-
-        return states;
+       return task.getTrackerInfoList();
     }
 
     public List<PeerInfo> makePeerInfoList(@NonNull String id)
@@ -694,19 +675,7 @@ public class TorrentEngine
         if (task == null)
             return new ArrayList<>();
 
-        ArrayList<PeerInfo> states = new ArrayList<>();
-        List<AdvancedPeerInfo> peers = task.advancedPeerInfo();
-
-        TorrentStatus status = task.getTorrentStatus();
-        if (status == null)
-            return states;
-
-        for (AdvancedPeerInfo peer : peers) {
-            PeerInfo state = new PeerInfo(peer, status);
-            states.add(state);
-        }
-
-        return states;
+        return task.getPeerInfoList();
     }
 
     public SessionStats makeSessionStats()
@@ -792,6 +761,11 @@ public class TorrentEngine
             return false;
 
         return task.isSequentialDownload();
+    }
+
+    public int[] getPieceSizeList()
+    {
+        return session.getPieceSizeList();
     }
 
     private void saveTorrentFileIn(@NonNull Torrent torrent,
@@ -994,17 +968,12 @@ public class TorrentEngine
         session.setProxy(proxy);
     }
 
-    private int getEncryptMode()
+    private SessionSettings.EncryptMode getEncryptMode()
     {
-        int mode = pref.getInt(appContext.getString(R.string.pref_key_enc_mode),
-                               SettingsManager.Default.encryptMode(appContext));
+        int modeVal = pref.getInt(appContext.getString(R.string.pref_key_enc_mode),
+                                  SettingsManager.Default.encryptMode(appContext));
 
-        if (mode == Integer.parseInt(appContext.getString(R.string.pref_enc_mode_prefer_value)))
-            return settings_pack.enc_policy.pe_enabled.swigValue();
-        else if (mode == Integer.parseInt(appContext.getString(R.string.pref_enc_mode_require_value)))
-            return settings_pack.enc_policy.pe_forced.swigValue();
-        else
-            return settings_pack.enc_policy.pe_disabled.swigValue();
+        return SessionSettings.EncryptMode.fromValue(modeVal);
     }
 
     private void startWatchDir()
@@ -1063,23 +1032,24 @@ public class TorrentEngine
         }
     }
 
-    private Torrent addTorrentSync(Uri file, org.libtorrent4j.TorrentInfo ti)
+    private Torrent addTorrentSync(Uri file, TorrentMetaInfo info)
             throws IOException, FreeSpaceException, TorrentAlreadyExistsException, DecodeException
     {
-        ArrayList<Priority> priorities = new ArrayList<>(Collections.nCopies(ti.files().numFiles(), Priority.DEFAULT));
+        Priority[] priorities = new Priority[info.fileCount];
+        Arrays.fill(priorities, Priority.DEFAULT);
         String downloadPath = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
                                              SettingsManager.Default.saveTorrentsIn);
 
         AddTorrentParams params = new AddTorrentParams(file.toString(),
                 false,
-                ti.infoHash().toHex(),
-                ti.name(),
+                info.sha1Hash,
+                info.torrentName,
                 priorities,
                 Uri.parse(FileSystemFacade.normalizeFileSystemPath(downloadPath)),
                 false,
                 false);
 
-        if (FileSystemFacade.getDirAvailableBytes(appContext, Uri.parse(downloadPath)) < ti.totalSize())
+        if (FileSystemFacade.getDirAvailableBytes(appContext, Uri.parse(downloadPath)) < info.torrentSize)
             throw new FreeSpaceException();
 
         return addTorrentSync(params, false);
@@ -1114,7 +1084,7 @@ public class TorrentEngine
 
     private void setRandomPortRange()
     {
-        org.libtorrent4j.Pair<Integer, Integer> range = session.getRandomRangePort();
+        Pair<Integer, Integer> range = session.getRandomRangePort();
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_port_range_first), range.first)
                 .putInt(appContext.getString(R.string.pref_key_port_range_second), range.second)
@@ -1202,7 +1172,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMoving(@NotNull String id)
+        public void onTorrentMoving(@NonNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1224,7 +1194,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMoved(@NotNull String id, boolean success)
+        public void onTorrentMoved(@NonNull String id, boolean success)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1261,13 +1231,13 @@ public class TorrentEngine
         }
 
         @Override
-        public void onSessionError(@NotNull String errorMsg)
+        public void onSessionError(@NonNull String errorMsg)
         {
            notifier.makeSessionErrorNotify(errorMsg);
         }
 
         @Override
-        public void onNatError(@NotNull String errorMsg)
+        public void onNatError(@NonNull String errorMsg)
         {
             Log.e(TAG, "NAT error: " + errorMsg);
             if (pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
@@ -1276,7 +1246,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onRestoreSessionError(@NotNull String id)
+        public void onRestoreSessionError(@NonNull String id)
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
@@ -1299,7 +1269,7 @@ public class TorrentEngine
         }
 
         @Override
-        public void onTorrentMetadataLoaded(@NotNull String id, Exception err)
+        public void onTorrentMetadataLoaded(@NonNull String id, Exception err)
         {
             if (err != null) {
                 Log.e(TAG, "Load metadata error: ");
@@ -1360,17 +1330,17 @@ public class TorrentEngine
             switchPowerReceiver();
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_download_speed))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.downloadRateLimit = pref.getInt(key, SettingsManager.Default.maxDownloadSpeedLimit);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_upload_speed))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.uploadRateLimit = pref.getInt(key, SettingsManager.Default.maxUploadSpeedLimit);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_connections))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.connectionsLimit = pref.getInt(key, SettingsManager.Default.maxConnections);
             s.maxPeerListSize = s.connectionsLimit;
             session.setSettings(s);
@@ -1382,58 +1352,58 @@ public class TorrentEngine
             session.setMaxUploadsPerTorrent(pref.getInt(key, SettingsManager.Default.maxUploadsPerTorrent));
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_downloads))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.activeDownloads = pref.getInt(key, SettingsManager.Default.maxActiveDownloads);
             session.setSettings(s);
             
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_uploads))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.activeSeeds = pref.getInt(key, SettingsManager.Default.maxActiveUploads);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_torrents))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.activeLimit = pref.getInt(key, SettingsManager.Default.maxActiveTorrents);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_dht))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.dhtEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_dht),
                                            SettingsManager.Default.enableDht);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_lsd))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.lsdEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_lsd),
                                            SettingsManager.Default.enableLsd);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_utp))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.utpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_utp),
                                            SettingsManager.Default.enableUtp);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_upnp))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.upnpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_upnp),
                                             SettingsManager.Default.enableUpnp);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_natpmp))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.natPmpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_natpmp),
                                               SettingsManager.Default.enableNatPmp);
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_mode))) {
-            TorrentSession.Settings s = session.getSettings();
+            SessionSettings s = session.getSettings();
             s.encryptMode = getEncryptMode();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_in_connections))) {
-            TorrentSession.Settings s = session.getSettings();
-            int state = settings_pack.enc_policy.pe_disabled.swigValue();
+            SessionSettings s = session.getSettings();
+            SessionSettings.EncryptMode state = SessionSettings.EncryptMode.DISABLED;
             s.encryptInConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_in_connections),
                                                      SettingsManager.Default.encryptInConnections);
             if (s.encryptInConnections) {
@@ -1443,8 +1413,8 @@ public class TorrentEngine
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_out_connections))) {
-            TorrentSession.Settings s = session.getSettings();
-            int state = settings_pack.enc_policy.pe_disabled.swigValue();
+            SessionSettings s = session.getSettings();
+            SessionSettings.EncryptMode state = SessionSettings.EncryptMode.DISABLED;
             s.encryptOutConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_out_connections),
                                                       SettingsManager.Default.encryptOutConnections);
             if (s.encryptOutConnections) {

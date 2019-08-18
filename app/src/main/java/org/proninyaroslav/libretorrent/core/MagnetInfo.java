@@ -21,11 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
-import org.libtorrent4j.Priority;
-
-import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -53,14 +49,6 @@ public class MagnetInfo implements Parcelable
         this.sha1hash = sha1hash;
         this.name = name;
         this.filePriorities = filePriorities;
-    }
-
-    public MagnetInfo(String uri) throws IllegalArgumentException
-    {
-        org.libtorrent4j.AddTorrentParams p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(uri);
-        sha1hash = p.infoHash().toHex();
-        name = (TextUtils.isEmpty(p.name()) ? sha1hash : p.name());
-        filePriorities = Arrays.asList(p.filePriorities());
     }
 
     public MagnetInfo(Parcel s)

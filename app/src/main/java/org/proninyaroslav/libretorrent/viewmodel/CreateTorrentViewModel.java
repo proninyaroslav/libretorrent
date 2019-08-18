@@ -22,9 +22,6 @@ package org.proninyaroslav.libretorrent.viewmodel;
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -33,31 +30,30 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import org.libtorrent4j.Pair;
-import org.libtorrent4j.TorrentBuilder;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.TorrentSession;
 import org.proninyaroslav.libretorrent.core.exceptions.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentViewModel extends AndroidViewModel
 {
     public CreateTorrentMutableParams mutableParams = new CreateTorrentMutableParams();
     private MutableLiveData<BuildState> state = new MutableLiveData<>();
     private MutableLiveData<Integer> buildProgress = new MutableLiveData<>();
-    private BuildTorrentTask buildTask;
     public Throwable errorReport;
     private TorrentEngine engine;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public static class BuildState
     {
@@ -109,6 +105,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         super.onCleared();
 
         mutableParams.getSeedPath().removeOnPropertyChangedCallback(dirPathCallback);
+        disposable.clear();
     }
 
     public LiveData<BuildState> getState()
@@ -123,7 +120,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
 
     public void setPiecesSizeIndex(int index)
     {
-        if (index < 0 || index >= TorrentSession.pieceSize.length)
+        if (index < 0 || index >= engine.getPieceSizeList().length)
             return;
 
         mutableParams.setPieceSizeIndex(index);
@@ -131,20 +128,190 @@ public class CreateTorrentViewModel extends AndroidViewModel
 
     public void buildTorrent()
     {
-        /*
-         * The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.
-         * http://developer.android.com/intl/ru/reference/android/os/AsyncTask.html
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            buildTask = new BuildTorrentTask(this);
-            buildTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mutableParams);
-        } else {
-            Handler handler = new Handler(getApplication().getMainLooper());
-            handler.post(() -> {
-                buildTask = new BuildTorrentTask(this);
-                buildTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mutableParams);
-            });
+        state.setValue(new BuildState(BuildState.Status.BUILDING, null));
+
+        TorrentBuilder builder;
+        try {
+            builder = makeBuilder();
+
+        } catch (Exception e) {
+            onBuildError(e);
+
+            return;
         }
+
+        resetPercentProgress();
+        disposable.add(builder.observeProgress()
+                .subscribeOn(Schedulers.io())
+                .filter((progress) -> progress != null)
+                .subscribe(this::makePercentProgress)
+        );
+        disposable.add(builder.build()
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::onBuildSuccess, this::onBuildError)
+        );
+    }
+
+    private TorrentBuilder makeBuilder() throws Exception
+    {
+        Uri seedPath = mutableParams.getSeedPath().get();
+        if (seedPath == null)
+            throw new IllegalArgumentException("Seed path is null");
+        Uri savePath = mutableParams.getSavePath();
+        if (savePath == null)
+            throw new IllegalArgumentException("Save path is null");
+
+        /* TODO: SAF support */
+        if (!FileSystemFacade.isFileSystemPath(seedPath))
+            throw new IllegalArgumentException("SAF doesn't supported");
+
+        return new TorrentBuilder(getApplication())
+                .setSeedPath(seedPath)
+                .setPieceSize(getPieceSizeByIndex(mutableParams.getPieceSizeIndex()))
+                .addTrackers(getAndValidateTrackers())
+                .addUrlSeeds(getAndValidateWebSeeds())
+                .setAsPrivate(mutableParams.isPrivateTorrent())
+                .setCreator(makeCreator())
+                .setComment(mutableParams.getComments())
+                .setOptimizeAlignment(mutableParams.isOptimizeAlignment())
+                .setFileNameFilter((fileName) -> {
+                    List<String> skipFilesList = decodeSkipFilesList();
+                    if (skipFilesList.isEmpty())
+                        return true;
+
+                    for (String skipFile : skipFilesList)
+                        if (fileName.toLowerCase().endsWith(skipFile.toLowerCase().trim()))
+                            return false;
+
+                    return true;
+                });
+    }
+
+    private void onBuildSuccess(byte[] bencode)
+    {
+        Uri savePath = mutableParams.getSavePath();
+        if (savePath != null) {
+            try {
+                FileSystemFacade.write(getApplication(), bencode, savePath);
+
+            } catch (IOException e) {
+                onBuildError(e);
+
+                return;
+            }
+        }
+
+        state.postValue(new BuildState(BuildState.Status.FINISHED, null));
+    }
+
+    private void onBuildError(Throwable e)
+    {
+        Uri savePath = mutableParams.getSavePath();
+        if (savePath != null) {
+            try {
+                FileSystemFacade.deleteFile(getApplication(), savePath);
+
+            } catch (IOException eio) {
+                /* Ignore */
+            }
+        }
+
+        state.postValue(new BuildState(BuildState.Status.ERROR, e));
+    }
+
+    private void makePercentProgress(TorrentBuilder.Progress progress)
+    {
+        buildProgress.postValue((int)(progress.piece * 100.0) / progress.numPieces);
+    }
+
+    private void resetPercentProgress()
+    {
+        buildProgress.postValue(0);
+    }
+
+    private String makeCreator()
+    {
+        Context context = getApplication();
+        String creator = context.getString(R.string.app_name);
+        String versionName = Utils.getAppVersionName(context);
+        if (versionName == null)
+            return creator;
+
+        return creator + " " + versionName;
+    }
+
+    private List<TorrentBuilder.Tracker> getAndValidateTrackers() throws InvalidTrackerException
+    {
+        List<TorrentBuilder.Tracker> validTrackers = new ArrayList<>();
+        int tier = 0;
+        for (String url : decodeUrls(mutableParams.getTrackerUrls())) {
+            try {
+                url = normalizeAndValidateUrl(url);
+
+            } catch (IllegalArgumentException e) {
+                throw new InvalidTrackerException(url);
+            }
+            validTrackers.add(new TorrentBuilder.Tracker(url, tier++));
+        }
+
+        return validTrackers;
+    }
+
+    private List<String> getAndValidateWebSeeds() throws InvalidWebSeedException
+    {
+        List<String> validWebSeeds = new ArrayList<>();
+        for (String url : decodeUrls(mutableParams.getWebSeedUrls())) {
+            try {
+                url = normalizeAndValidateUrl(url);
+
+            } catch (IllegalArgumentException e) {
+                throw new InvalidWebSeedException(url);
+            }
+            validWebSeeds.add(url);
+        }
+
+        return validWebSeeds;
+    }
+
+    private String[] decodeUrls(String urlsStr)
+    {
+        String[] urls = new String[0];
+        if (!TextUtils.isEmpty(urlsStr))
+            urls = urlsStr.split("\n");
+
+        return urls;
+    }
+
+    private String normalizeAndValidateUrl(String url)
+    {
+        NormalizeUrl.Options options = new NormalizeUrl.Options();
+        options.decode = false;
+        try {
+            url = NormalizeUrl.normalize(url, options);
+
+        } catch (NormalizeUrlException e) {
+            throw new IllegalArgumentException();
+        }
+
+        if (!Utils.isValidTrackerUrl(url))
+            throw new IllegalArgumentException();
+
+        return url;
+    }
+
+    private List<String> decodeSkipFilesList()
+    {
+        List<String> skipFilesList = new ArrayList<>();
+        if (!TextUtils.isEmpty(mutableParams.getSkipFiles()))
+            skipFilesList = new ArrayList<>(Arrays.asList(mutableParams.getSkipFiles()
+                    .split(CreateTorrentMutableParams.FILTER_SEPARATOR)));
+
+        return skipFilesList;
+    }
+
+    private int getPieceSizeByIndex(int index)
+    {
+        return engine.getPieceSizeList()[index] * 1024;
     }
 
     public void downloadTorrent()
@@ -158,8 +325,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
 
     public void finish()
     {
-        if (buildTask != null)
-            buildTask.cancel(true);
+        disposable.clear();
     }
 
     private Observable.OnPropertyChangedCallback dirPathCallback = new Observable.OnPropertyChangedCallback()
@@ -174,209 +340,4 @@ public class CreateTorrentViewModel extends AndroidViewModel
             mutableParams.setSeedPathName(FileSystemFacade.getDirName(getApplication(), seedPath));
         }
     };
-
-    private static class BuildTorrentTask extends AsyncTask<CreateTorrentMutableParams, Void, Throwable>
-    {
-        private WeakReference<CreateTorrentViewModel> viewModel;
-        private CreateTorrentMutableParams mutableParams;
-
-        private BuildTorrentTask(CreateTorrentViewModel viewModel)
-        {
-            this.viewModel = new WeakReference<>(viewModel);
-        }
-
-        @Override
-        protected void onPreExecute()
-        {
-            CreateTorrentViewModel v = viewModel.get();
-            if (v == null)
-                return;
-
-            v.state.setValue(new BuildState(BuildState.Status.BUILDING, null));
-        }
-
-        @Override
-        protected Exception doInBackground(CreateTorrentMutableParams... params)
-        {
-            CreateTorrentViewModel v = viewModel.get();
-            if (v == null || isCancelled())
-                return null;
-
-            mutableParams = params[0];
-
-            Exception err = null;
-            try {
-                Uri seedPath = mutableParams.getSeedPath().get();
-                if (seedPath == null)
-                    throw new IllegalArgumentException("Seed path is null");
-                Uri savePath = mutableParams.getSavePath();
-                if (savePath == null)
-                    throw new IllegalArgumentException("Save path is null");
-
-                /* TODO: SAF support */
-                if (!FileSystemFacade.isFileSystemPath(seedPath))
-                    throw new IllegalArgumentException("SAF doesn't supported");
-
-                String seedPathStr = FileSystemFacade.makeFileSystemPath(v.getApplication(), seedPath);
-                TorrentBuilder builder = new TorrentBuilder()
-                        .path(new File(seedPathStr))
-                        .pieceSize(getPieceSizeByIndex(mutableParams.getPieceSizeIndex()))
-                        .addTrackers(getAndValidateTrackers())
-                        .addUrlSeeds(getAndValidateWebSeeds())
-                        .setPrivate(mutableParams.isPrivateTorrent())
-                        .creator(makeCreator())
-                        .comment(mutableParams.getComments())
-                        .listener(new TorrentBuilder.Listener() {
-                            @Override
-                            public boolean accept(String filename)
-                            {
-                                if (isCancelled())
-                                    return false;
-
-                                List<String> skipFilesList = decodeSkipFilesList();
-                                if (skipFilesList.isEmpty())
-                                    return true;
-
-                                for (String skipFile : skipFilesList)
-                                    if (filename.toLowerCase().endsWith(skipFile.toLowerCase().trim()))
-                                        return false;
-
-                                return true;
-                            }
-
-                            @Override
-                            public void progress(int pieceIndex, int numPieces)
-                            {
-                                CreateTorrentViewModel v = viewModel.get();
-                                if (v == null || isCancelled())
-                                    return;
-
-                                v.buildProgress.postValue((int)(pieceIndex * 100.0) / numPieces);
-                            }
-                        });
-                if (mutableParams.isOptimizeAlignment())
-                    builder.flags(builder.flags().or_(TorrentBuilder.OPTIMIZE_ALIGNMENT));
-                else
-                    builder.flags(builder.flags().and_(TorrentBuilder.OPTIMIZE_ALIGNMENT.inv()));
-
-                 byte[] bencode = builder.generate().entry().bencode();
-                 FileSystemFacade.write(v.getApplication(), bencode, savePath);
-
-            } catch (Exception e) {
-                err = e;
-                Uri savePath = mutableParams.getSavePath();
-                if (savePath != null) {
-                    try {
-                        FileSystemFacade.deleteFile(v.getApplication(), savePath);
-
-                    } catch (IOException ioe) {
-                        /* Ignore */
-                    }
-                }
-            }
-
-            return err;
-        }
-
-        private String makeCreator()
-        {
-            CreateTorrentViewModel v = viewModel.get();
-            if (v == null)
-                return "";
-
-            Context context = v.getApplication();
-            String creator = context.getString(R.string.app_name);
-            String versionName = Utils.getAppVersionName(context);
-            if (versionName == null)
-                return creator;
-
-            return creator + " " + versionName;
-        }
-
-        private List<Pair<String, Integer>> getAndValidateTrackers() throws InvalidTrackerException
-        {
-            List<Pair<String, Integer>> validTrackers = new ArrayList<>();
-            int tier = 0;
-            for (String url : decodeUrls(mutableParams.getTrackerUrls())) {
-                try {
-                    url = normalizeAndValidateUrl(url);
-
-                } catch (IllegalArgumentException e) {
-                    throw new InvalidTrackerException(url);
-                }
-                validTrackers.add(new Pair<>(url, tier++));
-            }
-
-            return validTrackers;
-        }
-
-        private List<String> getAndValidateWebSeeds() throws InvalidWebSeedException
-        {
-            List<String> validWebSeeds = new ArrayList<>();
-            for (String url : decodeUrls(mutableParams.getWebSeedUrls())) {
-                try {
-                    url = normalizeAndValidateUrl(url);
-
-                } catch (IllegalArgumentException e) {
-                    throw new InvalidWebSeedException(url);
-                }
-                validWebSeeds.add(url);
-            }
-
-            return validWebSeeds;
-        }
-
-        private String[] decodeUrls(String urlsStr)
-        {
-            String[] urls = new String[0];
-            if (!TextUtils.isEmpty(urlsStr))
-                urls = urlsStr.split("\n");
-
-            return urls;
-        }
-
-        private String normalizeAndValidateUrl(String url)
-        {
-            NormalizeUrl.Options options = new NormalizeUrl.Options();
-            options.decode = false;
-            try {
-                url = NormalizeUrl.normalize(url, options);
-
-            } catch (NormalizeUrlException e) {
-                throw new IllegalArgumentException();
-            }
-
-            if (!Utils.isValidTrackerUrl(url))
-                throw new IllegalArgumentException();
-
-            return url;
-        }
-
-        private List<String> decodeSkipFilesList()
-        {
-            List<String> skipFilesList = new ArrayList<>();
-            if (!TextUtils.isEmpty(mutableParams.getSkipFiles()))
-                skipFilesList = new ArrayList<>(Arrays.asList(mutableParams.getSkipFiles()
-                        .split(CreateTorrentMutableParams.FILTER_SEPARATOR)));
-
-            return skipFilesList;
-        }
-
-        private int getPieceSizeByIndex(int index)
-        {
-            return TorrentSession.pieceSize[index] * 1024;
-        }
-
-        @Override
-        protected void onPostExecute(Throwable err) {
-            CreateTorrentViewModel v = viewModel.get();
-            if (v == null)
-                return;
-
-            if (err == null)
-                v.state.setValue(new BuildState(BuildState.Status.FINISHED, null));
-            else
-                v.state.setValue(new BuildState(BuildState.Status.ERROR, err));
-        }
-    }
 }

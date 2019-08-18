@@ -30,12 +30,12 @@ import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.MagnetInfo;
+import org.proninyaroslav.libretorrent.core.Priority;
 import org.proninyaroslav.libretorrent.core.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.exceptions.DecodeException;
@@ -57,6 +57,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -461,14 +462,14 @@ public class AddTorrentViewModel extends AndroidViewModel
                 throw new FreeSpaceException();
         }
 
-        ArrayList<Priority> priorities = new ArrayList<>();
+        Priority[] priorities = new Priority[downloadInfo.fileCount];
         if (downloadInfo.fileCount != 0) {
             if (selectedFiles.size() == downloadInfo.fileCount) {
-                priorities = new ArrayList<>(Collections.nCopies(downloadInfo.fileCount, Priority.DEFAULT));
+                Arrays.fill(priorities, Priority.DEFAULT);
             } else {
-                priorities = new ArrayList<>(Collections.nCopies(downloadInfo.fileCount, Priority.IGNORE));
+                Arrays.fill(priorities, Priority.IGNORE);
                 for (int index : selectedFiles)
-                    priorities.set(index, Priority.DEFAULT);
+                    priorities[index] = Priority.DEFAULT;
             }
         }
 

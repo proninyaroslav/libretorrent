@@ -32,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.libtorrent4j.Priority;
 import org.proninyaroslav.libretorrent.AbstractTest;
 import org.proninyaroslav.libretorrent.core.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
@@ -71,12 +70,12 @@ public class TorrentEngineTest extends AbstractTest
         dir = Uri.parse("file://" + FileSystemFacade.getDefaultDownloadPath());
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
-                Collections.singletonList(Priority.DEFAULT), dir,
+                new Priority[]{Priority.DEFAULT}, dir,
                 false, false);
 
         params = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
                 torrentHash2, torrentName2,
-                Collections.singletonList(Priority.DEFAULT), dir,
+                new Priority[]{Priority.DEFAULT}, dir,
                 false, false);
     }
 

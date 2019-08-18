@@ -24,13 +24,6 @@ import androidx.annotation.NonNull;
 
 import com.sun.jna.Pointer;
 
-import org.libtorrent4j.AlertListener;
-import org.libtorrent4j.TorrentHandle;
-import org.libtorrent4j.alerts.Alert;
-import org.libtorrent4j.alerts.AlertType;
-import org.libtorrent4j.alerts.ReadPieceAlert;
-import org.libtorrent4j.alerts.TorrentAlert;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.locks.ReentrantLock;
@@ -409,36 +402,24 @@ public class TorrentInputStream extends InputStream
         return false;
     }
 
-    private AlertListener listener = new AlertListener()
+    private TorrentEngineListener listener = new TorrentEngineListener()
     {
         @Override
-        public int[] types()
+        public void onReadPiece(@NonNull String id, ReadPieceInfo info)
         {
-            return new int[]{
-                    AlertType.PIECE_FINISHED.swig(),
-                    AlertType.READ_PIECE.swig(),
-            };
+            if (!stream.torrentId.equals(id))
+                return;
+
+            readPiece(info);
         }
 
         @Override
-        public void alert(Alert<?> alert)
+        public void onPieceFinished(@NonNull String id, int piece)
         {
-            if (!(alert instanceof TorrentAlert<?>))
+            if (!stream.torrentId.equals(id))
                 return;
 
-            if (!((TorrentAlert<?>)alert).handle().infoHash().toHex().equals(stream.torrentId))
-                return;
-
-            switch (alert.type()) {
-                case PIECE_FINISHED:
-                    pieceFinished();
-                    break;
-                case READ_PIECE:
-                    readPiece((ReadPieceAlert)alert);
-                    break;
-                default:
-                    break;
-            }
+            pieceFinished();
         }
     };
 
@@ -447,30 +428,30 @@ public class TorrentInputStream extends InputStream
         notifyAll();
     }
 
-    private synchronized void readPiece(ReadPieceAlert alert)
+    private synchronized void readPiece(ReadPieceInfo info)
     {
         if (readSession == null)
             return;
 
         Piece piece = null;
         for (Piece p : readSession.piecesForReading) {
-            if (p.index == alert.piece()) {
+            if (p.index == info.piece) {
                 piece = p;
                 break;
             }
         }
         if (readSession.countLatch > 0 && piece != null && readSession.buf != null) {
             try {
-                if (alert.error().isError()) {
-                    TorrentHandle th = alert.handle();
-                    if (th.isValid())
-                        th.resume();
+                if (info.err != null) {
+                    TorrentDownload task = session.getTask(stream.torrentId);
+                    if (task != null)
+                        task.resume();
                     return;
                 }
-                Pointer ptr = new Pointer(alert.bufferPtr());
+                Pointer ptr = new Pointer(info.bufferPtr);
                 if (piece.cache) {
-                    cacheBuf = new byte[alert.size()];
-                    ptr.read(0, cacheBuf, 0, alert.size());
+                    cacheBuf = new byte[info.size];
+                    ptr.read(0, cacheBuf, 0, info.size);
                     cachePieceIndex = piece.index;
                     readFromCache(piece, readSession.buf);
                 } else {

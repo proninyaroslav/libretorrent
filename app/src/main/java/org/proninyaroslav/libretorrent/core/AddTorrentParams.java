@@ -25,10 +25,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.Priority;
-
-import java.util.List;
-
 public class AddTorrentParams implements Parcelable
 {
     /* File path or magnet link */
@@ -40,7 +36,7 @@ public class AddTorrentParams implements Parcelable
     @NonNull
     public String name;
     /* Optional field (e.g. if file information is available) */
-    public List<Priority> filePriorities;
+    public Priority[] filePriorities;
     @NonNull
     public Uri downloadPath;
     public boolean sequentialDownload;
@@ -50,7 +46,7 @@ public class AddTorrentParams implements Parcelable
                             boolean fromMagnet,
                             @NonNull String sha1hash,
                             @NonNull String name,
-                            List<Priority> filePriorities,
+                            Priority[] filePriorities,
                             @NonNull Uri downloadPath,
                             boolean sequentialDownload,
                             boolean addPaused)
@@ -71,7 +67,7 @@ public class AddTorrentParams implements Parcelable
         fromMagnet = source.readByte() != 0;
         sha1hash = source.readString();
         name = source.readString();
-        filePriorities = source.readArrayList(Priority.class.getClassLoader());
+        filePriorities = (Priority[])source.readArray(Priority.class.getClassLoader());
         downloadPath = source.readParcelable(Uri.class.getClassLoader());
         sequentialDownload = source.readByte() != 0;
         addPaused = source.readByte() != 0;
@@ -90,7 +86,7 @@ public class AddTorrentParams implements Parcelable
         dest.writeByte((byte)(fromMagnet ? 1 : 0));
         dest.writeString(sha1hash);
         dest.writeString(name);
-        dest.writeList(filePriorities);
+        dest.writeArray(filePriorities);
         dest.writeParcelable(downloadPath, flags);
         dest.writeByte((byte) (sequentialDownload ? 1 : 0));
         dest.writeByte((byte) (addPaused ? 1 : 0));
