@@ -4,10 +4,10 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="org.proninyaroslav.libretorrent.viewmodel.AddFeedViewModel.Mode" />
+        <import type="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedViewModel" />
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.AddFeedViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -67,7 +67,7 @@
                 android:layout_marginBottom="16dp"
                 android:textColor="?android:attr/textColorPrimary"
                 android:enabled="@{viewModel.mutableParams.autoDownload}"
-                android:visibility="@{viewModel.mode == Mode.ADD ? View.VISIBLE : View.GONE}"
+                android:visibility="@{viewModel.mode == AddFeedViewModel.Mode.ADD ? View.VISIBLE : View.GONE}"
                 android:text="@string/feed_do_not_download_immediately"
                 android:checked="@={viewModel.mutableParams.notDownloadImmediately}" />
 

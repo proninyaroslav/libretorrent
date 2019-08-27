@@ -27,6 +27,8 @@ import android.net.NetworkInfo;
 
 import androidx.annotation.NonNull;
 
+import org.proninyaroslav.libretorrent.core.system.SystemFacade;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 

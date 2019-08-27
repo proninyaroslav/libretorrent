@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import org.proninyaroslav.libretorrent.core.filetree.FileTree;
+import org.proninyaroslav.libretorrent.core.model.data.filetree.FileTree;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -33,8 +33,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.exceptions.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
+import org.proninyaroslav.libretorrent.core.model.data.Priority;
+import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
+import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
+import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;

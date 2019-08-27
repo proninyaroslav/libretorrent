@@ -29,8 +29,8 @@ import com.ernieyu.feedparser.Feed;
 import com.ernieyu.feedparser.FeedParserFactory;
 import com.ernieyu.feedparser.Item;
 
-import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
-import org.proninyaroslav.libretorrent.core.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.xml.sax.Attributes;
 

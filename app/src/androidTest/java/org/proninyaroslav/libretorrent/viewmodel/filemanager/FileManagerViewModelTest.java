@@ -25,8 +25,9 @@ import android.util.Log;
 import org.junit.Before;
 import org.junit.Test;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.FileSystemFacade;
-import org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerViewModel;
 
 import java.io.File;
 

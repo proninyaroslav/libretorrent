@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:background="?attr/background">
 
-        <org.proninyaroslav.libretorrent.customviews.EmptyRecyclerView
+        <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
             android:id="@+id/peer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

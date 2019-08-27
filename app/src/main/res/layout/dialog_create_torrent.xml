@@ -4,10 +4,10 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="org.proninyaroslav.libretorrent.viewmodel.CreateTorrentViewModel.BuildState.Status" />
+        <import type="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentViewModel" />
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.CreateTorrentViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -34,14 +34,14 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:progress="@{viewModel.buildProgress.intValue()}"
-                android:visibility="@{viewModel.state.status == Status.BUILDING ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{viewModel.state.status == CreateTorrentViewModel.BuildState.Status.BUILDING ? View.VISIBLE : View.GONE}" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true"
-                android:visibility="@{viewModel.state.status == Status.BUILDING ? View.GONE : View.VISIBLE}" >
+                android:visibility="@{viewModel.state.status == CreateTorrentViewModel.BuildState.Status.BUILDING ? View.GONE : View.VISIBLE}" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"

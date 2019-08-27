@@ -21,15 +21,6 @@ package org.proninyaroslav.libretorrent.core.storage;
 
 import android.content.Context;
 
-import org.proninyaroslav.libretorrent.core.entity.FastResume;
-import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
-import org.proninyaroslav.libretorrent.core.entity.FeedItem;
-import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.storage.converter.UriConverter;
-import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
-import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
-import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -38,6 +29,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.storage.converter.UriConverter;
+import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
+import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
+import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;

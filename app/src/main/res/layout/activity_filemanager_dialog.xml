@@ -6,12 +6,12 @@
     <data>
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.filemanager.FileManagerViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerViewModel" />
         <variable
             name="enableSystemManagerButton"
             type="java.lang.Boolean" />
         <import
-            type="org.proninyaroslav.libretorrent.dialogs.filemanager.FileManagerConfig" />
+            type="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig" />
         <import
             type="android.view.View" />
         <import

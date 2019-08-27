@@ -33,7 +33,7 @@
         android:fullBackupContent="true"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">
             <meta-data
                 android:name="android.app.shortcuts"
@@ -54,7 +54,7 @@
         <activity
             android:label="@string/app_name"
             android:exported="true"
-            android:name=".AddTorrentActivity">
+            android:name=".ui.addtorrent.AddTorrentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -127,13 +127,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".dialogs.filemanager.FileManagerDialog" />
+        <activity android:name=".ui.filemanager.FileManagerDialog" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".DetailTorrentActivity" />
+            android:name=".ui.detailtorrent.DetailTorrentActivity" />
 
-        <activity android:name=".SendTextToClipboard"
+        <activity android:name=".ui.SendTextToClipboard"
             android:label="@string/send_text_to_clipboard"
             android:icon="@drawable/ic_content_copy_grey600_48dp"
             android:theme="@android:style/Theme.NoDisplay">
@@ -147,10 +147,10 @@
         </activity>
 
         <activity
-            android:name=".RequestPermissions"
+            android:name=".ui.RequestPermissions"
             android:theme="@style/AppTheme.Translucent" />
 
-        <activity android:name=".settings.SettingsActivity"
+        <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -159,9 +159,9 @@
         </activity>
 
         <activity
-            android:name=".settings.PreferenceActivity" />
+            android:name=".ui.settings.PreferenceActivity" />
 
-        <activity android:name=".ErrorReportActivity"
+        <activity android:name=".ui.errorreport.ErrorReportActivity"
             android:theme="@style/AppTheme.Translucent"
             android:process=":acra"
             android:excludeFromRecents="true"
@@ -170,15 +170,15 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedActivity" />
+            android:name=".ui.feeds.FeedActivity" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedItemsActivity" />
+            android:name=".ui.feeditems.FeedItemsActivity" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".AddFeedActivity"
+            android:name=".ui.addfeed.AddFeedActivity"
             android:exported="true"
             android:theme="@style/AppTheme.Translucent">
 
@@ -231,22 +231,14 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".CreateTorrentActivity"
+            android:name=".ui.createtorrent.CreateTorrentActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <service
-            android:name=".services.TorrentService" />
-
-        <service
-            android:name=".services.old.FeedFetcherService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <service
-            android:name=".services.old.FeedDownloaderService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:name=".service.TorrentService" />
 
         <receiver
-            android:name=".receivers.NotificationReceiver"
+            android:name=".receiver.NotificationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP" />
@@ -255,7 +247,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.BootReceiver">
+            android:name=".receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -264,7 +256,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.SchedulerReceiver" />
+            android:name=".receiver.SchedulerReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

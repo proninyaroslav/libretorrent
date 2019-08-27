@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.DetailTorrentViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -66,7 +66,7 @@
                     android:text="@string/piece_map"
                     style="@style/BaseTheme.HeaderText" />
 
-                <org.proninyaroslav.libretorrent.customviews.PiecesView
+                <org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.PiecesView
                     android:id="@+id/piece_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:gravity="center"
     android:baselineAligned="false"
-    tools:context=".FeedActivity">
+    tools:context=".ui.feeds.FeedActivity">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -19,7 +19,7 @@
             layout="@layout/toolbar" />
 
         <fragment
-            class="org.proninyaroslav.libretorrent.fragments.FeedFragment"
+            class="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
             android:id="@+id/feed_fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

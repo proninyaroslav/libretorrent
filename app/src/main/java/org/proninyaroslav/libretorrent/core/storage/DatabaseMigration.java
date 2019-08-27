@@ -25,9 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import org.proninyaroslav.libretorrent.core.entity.FastResume;
-import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
+import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 
 import java.io.File;
 import java.io.IOException;

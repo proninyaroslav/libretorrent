@@ -7,7 +7,7 @@
     android:focusable="false"
     android:clickable="false">
 
-    <org.proninyaroslav.libretorrent.customviews.LightColorView
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.LightColorView
         android:id="@+id/lightColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

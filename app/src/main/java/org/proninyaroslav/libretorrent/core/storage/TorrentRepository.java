@@ -21,15 +21,15 @@ package org.proninyaroslav.libretorrent.core.storage;
 
 import android.content.Context;
 
-import org.proninyaroslav.libretorrent.core.entity.FastResume;
-import org.proninyaroslav.libretorrent.core.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.FileSystemFacade;
+import androidx.annotation.NonNull;
+
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
+import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import androidx.annotation.NonNull;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;

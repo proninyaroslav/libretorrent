@@ -19,17 +19,18 @@
 
 package org.proninyaroslav.libretorrent.core.storage.dao;
 
-import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
-import org.proninyaroslav.libretorrent.core.entity.FeedItem;
-
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+
+import java.util.List;
+
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 

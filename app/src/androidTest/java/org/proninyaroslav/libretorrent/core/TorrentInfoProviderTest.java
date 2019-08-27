@@ -9,8 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.stateparcel.PeerInfo;
-import org.proninyaroslav.libretorrent.core.stateparcel.TrackerInfo;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.model.data.Priority;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;

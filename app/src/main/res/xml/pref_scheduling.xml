@@ -5,7 +5,7 @@
         android:title="@string/pref_enable_scheduling_start_title"
         android:summary="@string/pref_enable_scheduling_start_summary" />
 
-    <org.proninyaroslav.libretorrent.settings.customprefs.TimePreference
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
         android:key="@string/pref_key_scheduling_start_time"
         android:positiveButtonText="@string/ok"
         android:negativeButtonText="@string/cancel"
@@ -16,7 +16,7 @@
         android:title="@string/pref_enable_scheduling_shutdown_title"
         android:summary="@string/pref_enable_scheduling_shutdown_summary" />
 
-    <org.proninyaroslav.libretorrent.settings.customprefs.TimePreference
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
         android:key="@string/pref_key_scheduling_shutdown_time"
         android:positiveButtonText="@string/ok"
         android:negativeButtonText="@string/cancel"

@@ -24,12 +24,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.proninyaroslav.libretorrent.core.entity.FeedChannel;
-import org.proninyaroslav.libretorrent.core.entity.FeedItem;
-import org.proninyaroslav.libretorrent.core.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,7 +40,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 

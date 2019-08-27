@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.AddTorrentViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentViewModel" />
     </data>
 
     <RelativeLayout

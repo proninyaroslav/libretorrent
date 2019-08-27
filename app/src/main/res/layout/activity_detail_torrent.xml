@@ -4,7 +4,7 @@
     android:layout_width="match_parent">
 
     <fragment
-        class="org.proninyaroslav.libretorrent.fragments.DetailTorrentFragment"
+        class="org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentFragment"
         android:id="@+id/detail_torrent_fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

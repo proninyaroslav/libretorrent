@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
-import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
+import org.proninyaroslav.libretorrent.ui.main.TorrentListItem;
 
 public class TorrentSorting extends BaseSorting
 {

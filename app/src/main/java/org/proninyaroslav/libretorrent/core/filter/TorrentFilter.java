@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
-import org.proninyaroslav.libretorrent.core.stateparcel.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
 import io.reactivex.functions.Predicate;
 

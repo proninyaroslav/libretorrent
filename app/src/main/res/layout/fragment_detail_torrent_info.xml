@@ -7,7 +7,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="viewModel"
-            type="org.proninyaroslav.libretorrent.viewmodel.DetailTorrentViewModel" />
+            type="org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

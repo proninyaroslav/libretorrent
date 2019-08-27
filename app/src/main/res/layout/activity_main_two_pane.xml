@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:gravity="center"
     android:baselineAligned="false"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -24,7 +24,7 @@
                 layout="@layout/toolbar" />
 
             <fragment
-                class="org.proninyaroslav.libretorrent.fragments.MainFragment"
+                class="org.proninyaroslav.libretorrent.ui.main.MainFragment"
                 android:id="@+id/main_fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

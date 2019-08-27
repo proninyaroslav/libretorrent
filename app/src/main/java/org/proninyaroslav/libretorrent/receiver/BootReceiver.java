@@ -1,0 +1,72 @@
+/*
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ *
+ * This file is part of LibreTorrent.
+ *
+ * LibreTorrent is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * LibreTorrent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package org.proninyaroslav.libretorrent.receiver;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.service.Scheduler;
+import org.proninyaroslav.libretorrent.service.TorrentService;
+
+/*
+ * The receiver for autostart service.
+ */
+
+public class BootReceiver extends BroadcastReceiver
+{
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        if (intent.getAction() == null)
+            return;
+
+        Context appContext = context.getApplicationContext();
+        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            initScheduling(context, pref);
+
+            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
+                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
+                Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+        }
+    }
+
+    private void initScheduling(Context appContext, SharedPreferences pref)
+    {
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start),
+                            SettingsManager.Default.enableSchedulingStart)) {
+            int time = pref.getInt(appContext.getString(R.string.pref_key_scheduling_start_time),
+                                   SettingsManager.Default.schedulingStartTime);
+            Scheduler.setStartAppAlarm(appContext, time);
+        }
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown),
+                            SettingsManager.Default.enableSchedulingShutdown)) {
+            int time = pref.getInt(appContext.getString(R.string.pref_key_scheduling_shutdown_time),
+                                   SettingsManager.Default.schedulingShutdownTime);
+            Scheduler.setStopAppAlarm(appContext, time);
+        }
+    }
+}

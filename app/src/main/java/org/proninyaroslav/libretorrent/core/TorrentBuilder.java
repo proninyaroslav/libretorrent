@@ -25,6 +25,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Pair;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 
 import java.io.File;
 import java.util.ArrayList;

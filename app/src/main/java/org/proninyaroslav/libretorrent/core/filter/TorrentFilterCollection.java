@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
-import org.proninyaroslav.libretorrent.core.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.utils.DateUtils;
 
 public class TorrentFilterCollection

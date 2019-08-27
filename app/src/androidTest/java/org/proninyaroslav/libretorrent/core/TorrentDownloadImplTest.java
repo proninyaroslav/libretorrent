@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.Priority;
+import org.proninyaroslav.libretorrent.core.model.session.TorrentDownloadImpl;
 
 import static org.junit.Assert.*;
 

@@ -7,7 +7,7 @@
         layout="@layout/toolbar" />
 
     <fragment
-        class="org.proninyaroslav.libretorrent.settings.SettingsFragment"
+        class="org.proninyaroslav.libretorrent.ui.settings.SettingsFragment"
         android:id="@+id/settings_fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

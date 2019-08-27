@@ -19,11 +19,11 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import org.proninyaroslav.libretorrent.core.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.filetree.FileTree;
-import org.proninyaroslav.libretorrent.core.filetree.TorrentContentFileTree;
-import org.proninyaroslav.libretorrent.core.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.data.filetree.FileTree;
+import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
