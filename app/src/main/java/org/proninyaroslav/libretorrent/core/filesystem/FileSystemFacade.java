@@ -20,12 +20,10 @@
 package org.proninyaroslav.libretorrent.core.filesystem;
 
 import android.annotation.TargetApi;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.os.StatFs;
 import android.system.Os;
 import android.system.StructStatVfs;
@@ -259,13 +257,13 @@ public class FileSystemFacade
                                 @NonNull Uri dest) throws IOException
     {
 
-        ContentResolver resolver = context.getContentResolver();
-        ParcelFileDescriptor fdSrc = resolver.openFileDescriptor(src, "r");
-        ParcelFileDescriptor fdDest = resolver.openFileDescriptor(dest, "rw");
+        try (FileDescriptorWrapper wSrc = new FileDescriptorWrapper(src);
+             FileDescriptorWrapper wDest = new FileDescriptorWrapper(dest)) {
 
-        try (FileInputStream fin = new FileInputStream(fdSrc.getFileDescriptor());
-             FileOutputStream fout = new FileOutputStream(fdDest.getFileDescriptor())){
-            IOUtils.copy(fin, fout);
+            try (FileInputStream fin = new FileInputStream(wSrc.open(context, "r"));
+                 FileOutputStream fout = new FileOutputStream(wDest.open(context, "rw"))) {
+                IOUtils.copy(fin, fout);
+            }
         }
     }
 
@@ -319,11 +317,10 @@ public class FileSystemFacade
                              @NonNull byte[] data,
                              @NonNull Uri destFile) throws IOException
     {
-        ContentResolver resolver = context.getContentResolver();
-        ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
-
-        try (FileOutputStream fout = new FileOutputStream(fd.getFileDescriptor())) {
-            IOUtils.write(data, fout);
+        try (FileDescriptorWrapper w = new FileDescriptorWrapper(destFile)) {
+            try (FileOutputStream fout = new FileOutputStream(w.open(context, "rw"))) {
+                IOUtils.write(data, fout);
+            }
         }
     }
 
@@ -332,11 +329,10 @@ public class FileSystemFacade
                              @NonNull Charset charset,
                              @NonNull Uri destFile) throws IOException
     {
-        ContentResolver resolver = context.getContentResolver();
-        ParcelFileDescriptor fd = resolver.openFileDescriptor(destFile, "rw");
-
-        try (FileOutputStream fout = new FileOutputStream(fd.getFileDescriptor())) {
-            IOUtils.write(data, fout, charset);
+        try (FileDescriptorWrapper w = new FileDescriptorWrapper(destFile)) {
+            try (FileOutputStream fout = new FileOutputStream(w.open(context, "rw"))) {
+                IOUtils.write(data, fout, charset);
+            }
         }
     }
 
@@ -388,10 +384,8 @@ public class FileSystemFacade
         if (isSafPath(context, dir)) {
             SafFileSystem fs = SafFileSystem.getInstance(context);
             Uri dirPath = fs.makeSafRootDir(dir);
-            try {
-                ParcelFileDescriptor pfd = context.getContentResolver()
-                        .openFileDescriptor(dirPath, "r");
-                availableBytes = getAvailableBytes(pfd.getFileDescriptor());
+            try (FileDescriptorWrapper w = new FileDescriptorWrapper(dirPath)) {
+                availableBytes = getAvailableBytes(w.open(context, "r"));
 
             } catch (IllegalArgumentException | IOException e) {
                 Log.e(TAG, Log.getStackTraceString(e));

@@ -19,10 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -32,6 +30,7 @@ import org.apache.commons.io.LineIterator;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.ip_filter;
+import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 
 import java.io.FileDescriptor;
@@ -114,12 +113,10 @@ public class IPFilterParser
 
         long lineNum = 0;
         long badLineNum = 0;
-        ContentResolver contentResolver = context.getContentResolver();
         FileInputStream is = null;
         LineIterator it = null;
-        try {
-            ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
-            FileDescriptor outFd = outPfd.getFileDescriptor();
+        try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
+            FileDescriptor outFd = w.open(context, "r");
             is = new FileInputStream(outFd);
             it = IOUtils.lineIterator(is, "UTF-8");
 
@@ -233,12 +230,10 @@ public class IPFilterParser
 
         long lineNum = 0;
         long badLineNum = 0;
-        ContentResolver contentResolver = context.getContentResolver();
         FileInputStream is = null;
         LineIterator it = null;
-        try {
-            ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
-            FileDescriptor outFd = outPfd.getFileDescriptor();
+        try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
+            FileDescriptor outFd = w.open(context, "r");
             is = new FileInputStream(outFd);
             it = IOUtils.lineIterator(is, "UTF-8");
 

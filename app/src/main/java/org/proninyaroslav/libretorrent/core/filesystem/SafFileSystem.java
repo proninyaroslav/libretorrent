@@ -408,9 +408,8 @@ public class SafFileSystem
             return -1;
         }
 
-        try {
-            ContentResolver cr = appContext.getContentResolver();
-            ParcelFileDescriptor fd = cr.openFileDescriptor(filePath, mode);
+        ContentResolver cr = appContext.getContentResolver();
+        try (ParcelFileDescriptor fd = cr.openFileDescriptor(filePath, mode)) {
             if (fd == null)
                 return -1;
 
