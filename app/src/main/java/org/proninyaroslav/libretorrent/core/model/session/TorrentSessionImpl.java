@@ -19,10 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -74,6 +72,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.IPFilterParser;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.filesystem.LibTorrentSafAdapter;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
@@ -240,9 +239,8 @@ public class TorrentSessionImpl extends SessionManager
              * has already been created and nothing is known about the received data
              */
             if (params.filePriorities.length == 0) {
-                ContentResolver contentResolver = appContext.getContentResolver();
-                try (ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(Uri.parse(params.source), "r")) {
-                    FileDescriptor outFd = outPfd.getFileDescriptor();
+                try (FileDescriptorWrapper w = new FileDescriptorWrapper(Uri.parse(params.source))) {
+                    FileDescriptor outFd = w.open(appContext, "r");
                     try (FileInputStream is = new FileInputStream(outFd)) {
                         TorrentMetaInfo info = new TorrentMetaInfo(is);
                         params.filePriorities = new Priority[info.fileCount];
@@ -298,17 +296,18 @@ public class TorrentSessionImpl extends SessionManager
                     params.addPaused,
                     null);
         } else {
-            ContentResolver resolver = appContext.getContentResolver();
-            ParcelFileDescriptor fd = resolver.openFileDescriptor(Uri.parse(params.source), "r");
-            try (FileInputStream fin = new FileInputStream(fd.getFileDescriptor())) {
-                FileChannel chan = fin.getChannel();
+            try (FileDescriptorWrapper w = new FileDescriptorWrapper(Uri.parse(params.source))) {
+                FileDescriptor fd = w.open(appContext, "r");
+                try (FileInputStream fin = new FileInputStream(fd)) {
+                    FileChannel chan = fin.getChannel();
 
-                download(new TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size())),
-                        saveDir,
-                        params.filePriorities,
-                        params.sequentialDownload,
-                        params.addPaused,
-                        null);
+                    download(new TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size())),
+                            saveDir,
+                            params.filePriorities,
+                            params.sequentialDownload,
+                            params.addPaused,
+                            null);
+                }
             }
         }
     }

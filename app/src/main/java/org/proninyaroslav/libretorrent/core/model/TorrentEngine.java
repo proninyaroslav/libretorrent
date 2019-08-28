@@ -19,12 +19,10 @@
 
 package org.proninyaroslav.libretorrent.core.model;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
@@ -32,7 +30,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
@@ -41,6 +38,7 @@ import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -220,15 +218,11 @@ public class TorrentEngine
         disposables.add(Completable.fromRunnable(() -> {
             Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
 
-            ContentResolver contentResolver = appContext.getContentResolver();
-            FileInputStream is = null;
             TorrentMetaInfo info = null;
-            try {
-                ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(file, "r");
-                FileDescriptor outFd = outPfd.getFileDescriptor();
-                is = new FileInputStream(outFd);
+            try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
+                FileDescriptor outFd = w.open(appContext, "r");
 
-                try {
+                try(FileInputStream is = new FileInputStream(outFd)) {
                     info = new TorrentMetaInfo(is);
 
                 } catch (Exception e) {
@@ -238,8 +232,6 @@ public class TorrentEngine
 
             } catch (Exception e) {
                 handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
-            } finally {
-                IOUtils.closeQuietly(is);
             }
 
         }).subscribeOn(Schedulers.io())
