@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -96,6 +97,8 @@ public class TorrentDownloadImpl implements TorrentDownload
     private static final String TAG = TorrentDownload.class.getSimpleName();
 
     private static final long SAVE_RESUME_SYNC_TIME = 10000; /* ms */
+    /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
+    private static final long MIN_PROGRESS_TIME = 2000;
 
     private static final double MAX_RATIO = 9999.;
     /* For streaming */
@@ -135,6 +138,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     private String name;
     private ChangeParamsState changeState = new ChangeParamsState();
     private boolean autoManaged;
+    private long lastProgressUpdateTime = 0;
 
     public TorrentDownloadImpl(Context appContext,
                                SessionManager sessionManager,
@@ -226,6 +230,7 @@ public class TorrentDownloadImpl implements TorrentDownload
             AlertType type = alert.type();
             switch (type) {
                 case BLOCK_FINISHED:
+                    onBlockFinished();
                 case STATE_CHANGED:
                     notifyListeners((listener) ->
                             listener.onTorrentStateChanged(id));
@@ -291,6 +296,17 @@ public class TorrentDownloadImpl implements TorrentDownload
             notifyListeners((listener) -> listener.onParamsApplied(id, null));
 
         saveResumeData(true);
+    }
+
+    private void onBlockFinished()
+    {
+        long now = SystemClock.elapsedRealtime();
+        long timeDelta = now - lastProgressUpdateTime;
+        if (timeDelta > MIN_PROGRESS_TIME) {
+            lastProgressUpdateTime = now;
+            notifyListeners((listener) ->
+                    listener.onTorrentStateChanged(id));
+        }
     }
 
     private void resetTorrentError()
