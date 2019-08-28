@@ -160,10 +160,11 @@ public class TorrentDownloadImpl implements TorrentDownload
         sessionManager.addListener(listener);
 
         /*
-         * The flag TorrentFlags.NEED_SAVE_RESUME doesn't work properly,
-         * run saveResumeData() directly
+         * Save resume data after first start, if needed
+         * (e.g torrent just added)
          */
-        saveResumeData(true);
+        if (th.needSaveResumeData())
+            saveResumeData(true);
     }
 
     private interface CallListener

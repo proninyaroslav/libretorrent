@@ -1269,6 +1269,8 @@ public class TorrentSessionImpl extends SessionManager
         }
 
         torrent_flags_t flags = p.getFlags();
+        /* Force saving resume data */
+        flags = flags.or_(TorrentFlags.NEED_SAVE_RESUME);
 
         if (settings.autoManaged)
             flags = flags.or_(TorrentFlags.AUTO_MANAGED);
@@ -1340,6 +1342,8 @@ public class TorrentSessionImpl extends SessionManager
             throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
 
         torrent_flags_t flags = p.getFlags();
+        /* Disable force saving resume data, because they already have */
+        flags = flags.and_(TorrentFlags.NEED_SAVE_RESUME.inv());
 
         if (settings.autoManaged)
             flags = flags.or_(TorrentFlags.AUTO_MANAGED);
