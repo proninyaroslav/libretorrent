@@ -68,7 +68,6 @@ import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.IPFilterParser;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;

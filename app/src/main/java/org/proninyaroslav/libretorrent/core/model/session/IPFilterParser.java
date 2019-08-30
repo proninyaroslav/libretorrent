@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.content.Context;
 import android.net.Uri;
