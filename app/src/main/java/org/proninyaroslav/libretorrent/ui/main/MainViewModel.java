@@ -69,7 +69,7 @@ public class MainViewModel extends AndroidViewModel
     {
         super(application);
 
-        stateProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
+        stateProvider = TorrentInfoProvider.getInstance(application);
         engine = TorrentEngine.getInstance(application);
     }
 

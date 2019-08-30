@@ -94,9 +94,9 @@ public class DetailTorrentViewModel extends AndroidViewModel
     {
         super(application);
 
-        infoProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
+        infoProvider = TorrentInfoProvider.getInstance(application);
         engine = TorrentEngine.getInstance(application);
-        repo = ((MainApplication)getApplication()).getTorrentRepository();
+        repo = TorrentRepository.getInstance(application);
         pref = SettingsManager.getInstance(application).getPreferences();
         paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);

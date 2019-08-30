@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent;
 
-import androidx.annotation.VisibleForTesting;
 import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
@@ -28,10 +27,6 @@ import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraMailSender;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
-import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
-import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
-import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
@@ -44,9 +39,6 @@ public class MainApplication extends MultiDexApplication
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
 
-    private TorrentNotifier torrentNotifier;
-    private AppDatabase db;
-
     @Override
     public void onCreate()
     {
@@ -55,41 +47,7 @@ public class MainApplication extends MultiDexApplication
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
 
-        db = AppDatabase.getInstance(this);
-        torrentNotifier = new TorrentNotifier(this);
-        torrentNotifier.makeNotifyChans();
-
+        TorrentNotifier.getInstance(this).makeNotifyChans();
         TorrentEngine.getInstance(this).start();
-    }
-
-    public AppDatabase getDatabase()
-    {
-        return db;
-    }
-
-    @VisibleForTesting
-    public void setDatabase(AppDatabase db)
-    {
-        this.db = db;
-    }
-
-    public TorrentNotifier getTorrentNotifier()
-    {
-        return torrentNotifier;
-    }
-
-    public TorrentRepository getTorrentRepository()
-    {
-        return TorrentRepository.getInstance(db);
-    }
-
-    public TorrentInfoProvider getTorrentInfoProvider()
-    {
-        return TorrentInfoProvider.getInstance(TorrentEngine.getInstance(this));
-    }
-
-    public FeedRepository getFeedRepository()
-    {
-        return FeedRepository.getInstance(db);
     }
 }

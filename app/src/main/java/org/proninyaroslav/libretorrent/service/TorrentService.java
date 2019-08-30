@@ -106,7 +106,7 @@ public class TorrentService extends Service
         else
             engine.start();
 
-        stateProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
+        stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
 
         makeForegroundNotify();
         startUpdateForegroundNotify();

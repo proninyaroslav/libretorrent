@@ -60,7 +60,7 @@ public class FeedViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)application).getFeedRepository();
+        repo = FeedRepository.getInstance(application);
     }
 
     @Override

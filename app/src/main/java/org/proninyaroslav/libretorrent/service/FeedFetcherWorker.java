@@ -76,7 +76,7 @@ public class FeedFetcherWorker extends Worker
     public Result doWork()
     {
         context = getApplicationContext();
-        repo = ((MainApplication)getApplicationContext()).getFeedRepository();
+        repo = FeedRepository.getInstance(context);
         pref = SettingsManager.getInstance(context).getPreferences();
 
         long keepTime = pref.getLong(context.getString(R.string.pref_key_feed_keep_items_time),

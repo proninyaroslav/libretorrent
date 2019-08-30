@@ -54,7 +54,7 @@ public class AddFeedViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)application).getFeedRepository();
+        repo = FeedRepository.getInstance(application);
         mode = Mode.ADD;
     }
 

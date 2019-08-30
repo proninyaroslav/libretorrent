@@ -63,13 +63,13 @@ public abstract class AppDatabase extends RoomDatabase
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
-    public static AppDatabase getInstance(Context context)
+    public static AppDatabase getInstance(@NonNull Context appContext)
     {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = buildDatabase(context.getApplicationContext());
-                    INSTANCE.updateDatabaseCreated(context.getApplicationContext());
+                    INSTANCE = buildDatabase(appContext);
+                    INSTANCE.updateDatabaseCreated(appContext);
                 }
             }
         }
@@ -121,8 +121,7 @@ public abstract class AppDatabase extends RoomDatabase
         isDatabaseCreated.postValue(true);
     }
 
-
-    public LiveData<Boolean> getDatabaseCreated()
+    public LiveData<Boolean> isDatabaseCreated()
     {
         return isDatabaseCreated;
     }

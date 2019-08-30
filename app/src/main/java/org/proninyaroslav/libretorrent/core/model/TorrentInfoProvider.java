@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,17 @@ public class TorrentInfoProvider
             synchronized (TorrentInfoProvider.class) {
                 if (INSTANCE == null)
                     INSTANCE = new TorrentInfoProvider(engine);
+            }
+        }
+        return INSTANCE;
+    }
+
+    public static TorrentInfoProvider getInstance(@NonNull Context appContext)
+    {
+        if (INSTANCE == null) {
+            synchronized (TorrentInfoProvider.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new TorrentInfoProvider(TorrentEngine.getInstance(appContext));
             }
         }
         return INSTANCE;

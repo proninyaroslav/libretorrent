@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             return;
         }
 
-        infoProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
+        infoProvider = TorrentInfoProvider.getInstance(getApplicationContext());
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         msgViewModel = ViewModelProviders.of(this).get(MsgMainViewModel.class);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);

@@ -149,7 +149,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     {
         this.appContext = appContext;
         this.id = id;
-        repo = ((MainApplication)appContext).getTorrentRepository();
+        repo = TorrentRepository.getInstance(appContext);
         this.sessionManager = sessionManager;
         this.autoManaged = autoManaged;
         this.listeners = listeners;

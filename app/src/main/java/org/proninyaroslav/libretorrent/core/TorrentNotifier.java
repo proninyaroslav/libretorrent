@@ -55,11 +55,24 @@ public class TorrentNotifier
     private static final int SESSION_ERROR_NOTIFICATION_ID = 1;
     private static final int NAT_ERROR_NOTIFICATION_ID = 2;
 
+    private static TorrentNotifier INSTANCE;
+
     private Context appContext;
     private NotificationManager notifyManager;
     private SharedPreferences pref;
 
-    public TorrentNotifier(Context appContext)
+    public static TorrentNotifier getInstance(@NonNull Context appContext)
+    {
+        if (INSTANCE == null) {
+            synchronized (TorrentNotifier.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new TorrentNotifier(appContext);
+            }
+        }
+        return INSTANCE;
+    }
+
+    private TorrentNotifier(Context appContext)
     {
         this.appContext = appContext;
         notifyManager = (NotificationManager)appContext.getSystemService(NOTIFICATION_SERVICE);

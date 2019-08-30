@@ -58,6 +58,17 @@ public class TorrentRepository
         return INSTANCE;
     }
 
+    public static TorrentRepository getInstance(@NonNull Context appContext)
+    {
+        if (INSTANCE == null) {
+            synchronized (TorrentRepository.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new TorrentRepository(AppDatabase.getInstance(appContext));
+            }
+        }
+        return INSTANCE;
+    }
+
     private TorrentRepository(AppDatabase db)
     {
         this.db = db;

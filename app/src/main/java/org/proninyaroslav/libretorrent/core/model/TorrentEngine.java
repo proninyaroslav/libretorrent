@@ -120,9 +120,9 @@ public class TorrentEngine
     private TorrentEngine(@NonNull Context appContext)
     {
         this.appContext = appContext;
-        repo = ((MainApplication)appContext).getTorrentRepository();
+        repo = TorrentRepository.getInstance(appContext);
         pref = SettingsManager.getInstance(appContext).getPreferences();
-        notifier = ((MainApplication)appContext).getTorrentNotifier();
+        notifier = TorrentNotifier.getInstance(appContext);
         session = new TorrentSessionImpl(appContext);
         session.init();
         session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));

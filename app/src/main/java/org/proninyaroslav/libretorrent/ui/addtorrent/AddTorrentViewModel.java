@@ -128,7 +128,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)getApplication()).getTorrentRepository();
+        repo = TorrentRepository.getInstance(application);
         pref = SettingsManager.getInstance(application).getPreferences();
         engine = TorrentEngine.getInstance(getApplication());
 

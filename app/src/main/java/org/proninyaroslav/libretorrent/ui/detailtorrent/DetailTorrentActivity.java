@@ -62,7 +62,7 @@ public class DetailTorrentActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_detail_torrent);
 
-        infoProvider = ((MainApplication)getApplication()).getTorrentInfoProvider();
+        infoProvider = TorrentInfoProvider.getInstance(getApplicationContext());
 
         detailTorrentFragment = (DetailTorrentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.detail_torrent_fragmentContainer);

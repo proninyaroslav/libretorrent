@@ -55,12 +55,23 @@ public class FeedRepository
     private static FeedRepository INSTANCE;
     private AppDatabase db;
 
-    public static FeedRepository getInstance(AppDatabase db)
+    public static FeedRepository getInstance(@NonNull AppDatabase db)
     {
         if (INSTANCE == null) {
             synchronized (FeedRepository.class) {
                 if (INSTANCE == null)
                     INSTANCE = new FeedRepository(db);
+            }
+        }
+        return INSTANCE;
+    }
+
+    public static FeedRepository getInstance(@NonNull Context appContext)
+    {
+        if (INSTANCE == null) {
+            synchronized (FeedRepository.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new FeedRepository(AppDatabase.getInstance(appContext));
             }
         }
         return INSTANCE;

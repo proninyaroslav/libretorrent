@@ -56,7 +56,7 @@ public class FeedItemsViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)application).getFeedRepository();
+        repo = FeedRepository.getInstance(application);
         feedId = -1;
     }
 

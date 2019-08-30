@@ -75,7 +75,7 @@ public class FeedDownloaderWorker extends Worker
     public Result doWork()
     {
         engine = TorrentEngine.getInstance(getApplicationContext());
-        repo = ((MainApplication)getApplicationContext()).getFeedRepository();
+        repo = FeedRepository.getInstance(getApplicationContext());
         pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
 
         Data data = getInputData();

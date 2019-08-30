@@ -149,7 +149,7 @@ public class TorrentSessionImpl extends SessionManager
     public TorrentSessionImpl(@NonNull Context appContext)
     {
         this.appContext = appContext;
-        repo = ((MainApplication)appContext).getTorrentRepository();
+        repo = TorrentRepository.getInstance(appContext);
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
     }
