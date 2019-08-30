@@ -31,7 +31,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
@@ -124,7 +123,6 @@ public class TorrentEngine
         pref = SettingsManager.getInstance(appContext).getPreferences();
         notifier = TorrentNotifier.getInstance(appContext);
         session = new TorrentSessionImpl(appContext);
-        session.init();
         session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));
         session.addListener(engineListener);
 

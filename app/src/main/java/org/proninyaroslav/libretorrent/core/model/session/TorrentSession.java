@@ -118,8 +118,6 @@ public interface TorrentSession
 
     boolean isPeXEnabled();
 
-    void init();
-
     void start();
 
     void stop();

@@ -31,7 +31,6 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FeedParser;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;

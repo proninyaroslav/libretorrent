@@ -67,14 +67,12 @@ import org.libtorrent4j.swig.tcp_endpoint_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
-import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.IPFilterParser;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.filesystem.LibTorrentSafAdapter;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -152,14 +150,6 @@ public class TorrentSessionImpl extends SessionManager
         repo = TorrentRepository.getInstance(appContext);
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
-    }
-
-    @Override
-    public void init()
-    {
-        LibTorrentSafAdapter adapter = new LibTorrentSafAdapter(appContext);
-        adapter.swigReleaseOwnership();
-        libtorrent.set_posix_wrapper(adapter);
     }
 
     @Override
