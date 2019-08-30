@@ -968,7 +968,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     }
 
     @VisibleForTesting
-    static String getFileIndicesBep53(org.libtorrent4j.Priority[] priorities)
+    public static String getFileIndicesBep53(org.libtorrent4j.Priority[] priorities)
     {
         ArrayList<String> buf = new ArrayList<>();
         int startIndex = -1;
