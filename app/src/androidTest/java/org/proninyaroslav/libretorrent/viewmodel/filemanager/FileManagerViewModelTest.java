@@ -25,7 +25,7 @@ import android.util.Log;
 import org.junit.Before;
 import org.junit.Test;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerViewModel;
 
@@ -46,7 +46,7 @@ public class FileManagerViewModelTest extends AbstractTest
     {
         super.init();
 
-        config = new FileManagerConfig(FileSystemFacade.getUserDirPath(),
+        config = new FileManagerConfig(FileSystemFacadeImpl.getUserDirPath(),
                 null, FileManagerConfig.DIR_CHOOSER_MODE);
         viewModel = new FileManagerViewModel(context, config);
     }
@@ -55,7 +55,7 @@ public class FileManagerViewModelTest extends AbstractTest
     public void testOpenDirectory()
     {
         try {
-            viewModel.jumpToDirectory(FileSystemFacade.getUserDirPath());
+            viewModel.jumpToDirectory(FileSystemFacadeImpl.getUserDirPath());
             viewModel.openDirectory("Android");
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
@@ -70,7 +70,7 @@ public class FileManagerViewModelTest extends AbstractTest
     public void testJumpToDirectory()
     {
         try {
-            viewModel.jumpToDirectory(FileSystemFacade.getUserDirPath() + "/Android");
+            viewModel.jumpToDirectory(FileSystemFacadeImpl.getUserDirPath() + "/Android");
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
             assertTrue(path.getPath().endsWith("Android"));
@@ -84,7 +84,7 @@ public class FileManagerViewModelTest extends AbstractTest
     public void testUpToParentDirectory()
     {
         try {
-            viewModel.jumpToDirectory(FileSystemFacade.getUserDirPath() + "/Android");
+            viewModel.jumpToDirectory(FileSystemFacadeImpl.getUserDirPath() + "/Android");
             viewModel.upToParentDirectory();
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
@@ -100,7 +100,7 @@ public class FileManagerViewModelTest extends AbstractTest
     {
         File f = null;
         try {
-            viewModel.jumpToDirectory(FileSystemFacade.getUserDirPath());
+            viewModel.jumpToDirectory(FileSystemFacadeImpl.getUserDirPath());
             viewModel.createFile("test.txt");
             Uri filePath = viewModel.getFileUri("test.txt");
             assertNotNull(filePath);
@@ -119,7 +119,7 @@ public class FileManagerViewModelTest extends AbstractTest
     public void testPermissionDenied()
     {
         try {
-            viewModel.jumpToDirectory(FileSystemFacade.getUserDirPath());
+            viewModel.jumpToDirectory(FileSystemFacadeImpl.getUserDirPath());
             viewModel.upToParentDirectory();
 
         } catch (SecurityException e) {

@@ -29,19 +29,19 @@ import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.core.net.ConnectivityManagerCompat;
 
-public class RealSystemFacade implements SystemFacade
+public class SystemFacadeImpl implements SystemFacade
 {
-    private Context context;
+    private Context appContext;
 
-    public RealSystemFacade(@NonNull Context context)
+    public SystemFacadeImpl(@NonNull Context appContext)
     {
-        this.context = context;
+        this.appContext = appContext;
     }
 
     @Override
     public NetworkInfo getActiveNetworkInfo()
     {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo();
     }
@@ -50,7 +50,7 @@ public class RealSystemFacade implements SystemFacade
     @Override
     public NetworkCapabilities getNetworkCapabilities()
     {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network network = cm.getActiveNetwork();
         if (network == null)
             return null;
@@ -61,7 +61,7 @@ public class RealSystemFacade implements SystemFacade
     @Override
     public boolean isActiveNetworkMetered()
     {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return ConnectivityManagerCompat.isActiveNetworkMetered(cm);
     }

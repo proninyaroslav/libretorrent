@@ -34,6 +34,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
@@ -77,6 +78,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private TorrentInfoProvider infoProvider;
     private TorrentEngine engine;
     private TorrentRepository repo;
+    private FileSystemFacade fs;
     private SharedPreferences pref;
     private CompositeDisposable disposable = new CompositeDisposable();
     public TorrentDetailsInfo info = new TorrentDetailsInfo();
@@ -96,6 +98,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         infoProvider = TorrentInfoProvider.getInstance(application);
         engine = TorrentEngine.getInstance(application);
         repo = TorrentRepository.getInstance(application);
+        fs = FacadeHelper.getFileSystemFacade(application);
         pref = SettingsManager.getInstance(application).getPreferences();
         paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
@@ -300,11 +303,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (torrent == null)
             return null;
 
-        Uri path = FileSystemFacade.getFileUri(getApplication(), relativePath, torrent.downloadPath);
+        Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
         if (path == null)
             return null;
 
-        if (FileSystemFacade.isFileSystemPath(path))
+        if (fs.isFileSystemPath(path))
             path = FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(path.getPath()));
@@ -445,7 +448,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (bencode == null)
             throw new IOException("Cannot read bencode");
 
-        FileSystemFacade.write(getApplication(), bencode, destFile);
+        fs.write(bencode, destFile);
     }
 
     public void setSpeedLimit(int uploadSpeedLimit, int downloadSpeedLimit)
@@ -515,8 +518,8 @@ public class DetailTorrentViewModel extends AndroidViewModel
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
                 if (dirPath != null) {
-                    info.setStorageFreeSpace(FileSystemFacade.getDirAvailableBytes(getApplication(), dirPath));
-                    info.setDirName(FileSystemFacade.getDirName(getApplication(), dirPath));
+                    info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                    info.setDirName(fs.getDirName(dirPath));
                 }
             }
 

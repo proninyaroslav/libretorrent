@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 
@@ -126,8 +127,9 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
             });
 
             itemView.setEnabled(item.isEnabled());
+            FileSystemFacade fs = FacadeHelper.getFileSystemFacade(context);
             if (item.isEnabled()) {
-                if (highlightFileTypes != null && highlightFileTypes.contains(FileSystemFacade.getExtension(item.getName()))) {
+                if (highlightFileTypes != null && highlightFileTypes.contains(fs.getExtension(item.getName()))) {
                     fileName.setTextColor(ContextCompat.getColor(context, R.color.accent));
                 } else {
                     TypedArray a = context.obtainStyledAttributes(new TypedValue().data,

@@ -43,6 +43,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonSyntaxException;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -258,7 +259,8 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     private void backupFeedsChooseDialog()
     {
         Intent i = new Intent(this, FileManagerDialog.class);
-        FileManagerConfig config = new FileManagerConfig(FileSystemFacade.getUserDirPath(),
+        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(getApplicationContext());
+        FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
         config.fileName = "Feeds-" + new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss")
@@ -273,7 +275,8 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     private void restoreFeedsChooseDialog()
     {
         Intent i = new Intent(this, FileManagerDialog.class);
-        FileManagerConfig config = new FileManagerConfig(FileSystemFacade.getUserDirPath(),
+        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(getApplicationContext());
+        FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 getString(R.string.feeds_backup_selection_dialog_title),
                 FileManagerConfig.FILE_CHOOSER_MODE);
         config.highlightFileTypes = new ArrayList<>();

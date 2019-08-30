@@ -32,6 +32,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
@@ -49,7 +50,8 @@ public class FileManagerViewModel extends ViewModel
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
     private Context appContext;
-    SharedPreferences pref;
+    private FileSystemFacade fs;
+    private SharedPreferences pref;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();
@@ -61,12 +63,13 @@ public class FileManagerViewModel extends ViewModel
     {
         this.appContext = appContext;
         this.config = config;
+        this.fs = FacadeHelper.getFileSystemFacade(appContext);
         pref = SettingsManager.getInstance(appContext).getPreferences();
 
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
             startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
-                                      SettingsManager.Default.fileManagerLastDir);
+                                      SettingsManager.Default.fileManagerLastDir(appContext));
 
             if (startDir != null) {
                 File dir = new File(startDir);
@@ -74,9 +77,9 @@ public class FileManagerViewModel extends ViewModel
                         dir.canRead() :
                         dir.canWrite();
                 if (!(dir.exists() && accessMode))
-                    startDir = FileSystemFacade.getDefaultDownloadPath();
+                    startDir = fs.getDefaultDownloadPath();
             } else {
-                startDir = FileSystemFacade.getDefaultDownloadPath();
+                startDir = fs.getDefaultDownloadPath();
             }
 
         } else {
@@ -222,11 +225,11 @@ public class FileManagerViewModel extends ViewModel
     private String appendExtension(String fileName)
     {
         String extension = null;
-        if (TextUtils.isEmpty(FileSystemFacade.getExtension(fileName)))
+        if (TextUtils.isEmpty(fs.getExtension(fileName)))
             extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
 
         if (extension != null && !fileName.endsWith(extension))
-            fileName += FileSystemFacade.EXTENSION_SEPARATOR + extension;
+            fileName += fs.getExtensionSeparator() + extension;
 
         return fileName;
     }
@@ -236,7 +239,7 @@ public class FileManagerViewModel extends ViewModel
         if (TextUtils.isEmpty(fileName))
             fileName = config.fileName;
 
-        fileName = appendExtension(FileSystemFacade.buildValidFatFilename(fileName));
+        fileName = appendExtension(fs.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
         if (!f.getParentFile().canWrite())

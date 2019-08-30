@@ -31,6 +31,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
@@ -53,6 +54,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
     private MutableLiveData<Integer> buildProgress = new MutableLiveData<>();
     public Throwable errorReport;
     private TorrentEngine engine;
+    private FileSystemFacade fs;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     public static class BuildState
@@ -94,6 +96,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         super(application);
 
         engine = TorrentEngine.getInstance(application);
+        fs = FacadeHelper.getFileSystemFacade(application);
         mutableParams.getSeedPath().addOnPropertyChangedCallback(dirPathCallback);
         state.setValue(new BuildState(BuildState.Status.UNKNOWN, null));
         buildProgress.setValue(0);
@@ -162,7 +165,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             throw new IllegalArgumentException("Save path is null");
 
         /* TODO: SAF support */
-        if (!FileSystemFacade.isFileSystemPath(seedPath))
+        if (!fs.isFileSystemPath(seedPath))
             throw new IllegalArgumentException("SAF doesn't supported");
 
         return new TorrentBuilder(getApplication())
@@ -192,7 +195,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         Uri savePath = mutableParams.getSavePath();
         if (savePath != null) {
             try {
-                FileSystemFacade.write(getApplication(), bencode, savePath);
+                fs.write(bencode, savePath);
 
             } catch (IOException e) {
                 onBuildError(e);
@@ -209,7 +212,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         Uri savePath = mutableParams.getSavePath();
         if (savePath != null) {
             try {
-                FileSystemFacade.deleteFile(getApplication(), savePath);
+                fs.deleteFile(savePath);
 
             } catch (IOException eio) {
                 /* Ignore */
@@ -337,7 +340,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             if (seedPath == null)
                 return;
 
-            mutableParams.setSeedPathName(FileSystemFacade.getDirName(getApplication(), seedPath));
+            mutableParams.setSeedPathName(fs.getDirName(seedPath));
         }
     };
 }

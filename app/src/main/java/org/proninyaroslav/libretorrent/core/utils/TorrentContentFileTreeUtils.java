@@ -19,12 +19,12 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileTree;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -79,7 +79,7 @@ public class TorrentContentFileTreeUtils
                 parentTree = root;
             }
 
-            String[] nodes = FileSystemFacade.parsePath(path);
+            String[] nodes = path.split(File.separator);
             /*
              * Remove last node (file) from previous path.
              * Example:

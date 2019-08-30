@@ -39,6 +39,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.NoFilesSelectedException;
@@ -82,6 +83,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
     private MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
     private TorrentRepository repo;
+    private FileSystemFacade fs;
     private TorrentEngine engine;
     private SharedPreferences pref;
     private TorrentDecodeTask decodeTask;
@@ -128,6 +130,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         super(application);
 
         repo = TorrentRepository.getInstance(application);
+        fs = FacadeHelper.getFileSystemFacade(application);
         pref = SettingsManager.getInstance(application).getPreferences();
         engine = TorrentEngine.getInstance(getApplication());
 
@@ -137,8 +140,8 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         /* Init download dir */
         String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
-                                     SettingsManager.Default.saveTorrentFilesIn);
-        mutableParams.getDirPath().set(Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
+                                     SettingsManager.Default.saveTorrentFilesIn(getApplication()));
+        mutableParams.getDirPath().set(Uri.parse(fs.normalizeFileSystemPath(path)));
     }
 
     public LiveData<DecodeState> getDecodeState()
@@ -190,7 +193,8 @@ public class AddTorrentViewModel extends AndroidViewModel
         @Override
         protected Throwable doInBackground(Uri... params)
         {
-            if (viewModel.get() == null || isCancelled())
+            AddTorrentViewModel v = viewModel.get();
+            if (v == null || isCancelled())
                 return null;
 
             Uri uri = params[0];
@@ -198,37 +202,37 @@ public class AddTorrentViewModel extends AndroidViewModel
                 switch (uri.getScheme()) {
                     case Utils.FILE_PREFIX:
                     case Utils.CONTENT_PREFIX:
-                        viewModel.get().mutableParams.setSource(uri.toString());
-                        viewModel.get().decodeState.postValue(
+                        v.mutableParams.setSource(uri.toString());
+                        v.decodeState.postValue(
                                 new DecodeState(AddTorrentViewModel.Status.DECODE_TORRENT_FILE));
                         break;
                     case Utils.MAGNET_PREFIX:
-                        viewModel.get().mutableParams.setSource(uri.toString());
-                        viewModel.get().decodeState.postValue(
+                        v.mutableParams.setSource(uri.toString());
+                        v.decodeState.postValue(
                                 new DecodeState(AddTorrentViewModel.Status.FETCHING_MAGNET));
-                        viewModel.get().mutableParams.setFromMagnet(true);
+                        v.mutableParams.setFromMagnet(true);
 
-                        Pair<MagnetInfo, Single<TorrentMetaInfo>> res = viewModel.get().engine.fetchMagnet(uri.toString());
+                        Pair<MagnetInfo, Single<TorrentMetaInfo>> res = v.engine.fetchMagnet(uri.toString());
                         MagnetInfo magnetInfo = res.first;
                         if (magnetInfo != null && !isCancelled()) {
-                            viewModel.get().info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));
-                            viewModel.get().observeFetchedMetadata(res.second);
+                            v.info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));
+                            v.observeFetchedMetadata(res.second);
 
                             if (magnetInfo.getFilePriorities() != null)
-                                viewModel.get().magnetPriorities = new ArrayList<>(magnetInfo.getFilePriorities());
+                                v.magnetPriorities = new ArrayList<>(magnetInfo.getFilePriorities());
                         }
                         break;
                     case Utils.HTTP_PREFIX:
                     case Utils.HTTPS_PREFIX:
-                        viewModel.get().decodeState.postValue(new DecodeState(AddTorrentViewModel.Status.FETCHING_HTTP));
+                        v.decodeState.postValue(new DecodeState(AddTorrentViewModel.Status.FETCHING_HTTP));
 
-                        File httpTmp = FileSystemFacade.makeTempFile(viewModel.get().getApplication(), ".torrent");
-                        byte[] response = Utils.fetchHttpUrl(viewModel.get().getApplication(), uri.toString());
+                        File httpTmp = v.fs.makeTempFile(".torrent");
+                        byte[] response = Utils.fetchHttpUrl(v.getApplication(), uri.toString());
                         org.apache.commons.io.FileUtils.writeByteArrayToFile(httpTmp, response);
 
                         if (httpTmp.exists() && !isCancelled()) {
-                            viewModel.get().mutableParams.setSource(
-                                    FileSystemFacade.normalizeFileSystemPath(httpTmp.getAbsolutePath()));
+                            v.mutableParams.setSource(
+                                    v.fs.normalizeFileSystemPath(httpTmp.getAbsolutePath()));
                         } else {
                             return new IllegalArgumentException("Unknown path to the torrent file");
                         }
@@ -238,8 +242,8 @@ public class AddTorrentViewModel extends AndroidViewModel
                         throw new IllegalArgumentException("Invalid scheme");
                 }
 
-                String tmpSource = viewModel.get().mutableParams.getSource();
-                boolean fromMagnet = viewModel.get().mutableParams.isFromMagnet();
+                String tmpSource = v.mutableParams.getSource();
+                boolean fromMagnet = v.mutableParams.isFromMagnet();
                 if (tmpSource != null && !fromMagnet && !isCancelled())
                     readTorrentFile(Uri.parse(tmpSource));
 
@@ -252,12 +256,16 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         private void readTorrentFile(Uri uri) throws IOException, DecodeException
         {
-            ContentResolver contentResolver = viewModel.get().getApplication().getContentResolver();
+            AddTorrentViewModel v = viewModel.get();
+            if (v == null || isCancelled())
+                return;
+
+            ContentResolver contentResolver = v.getApplication().getContentResolver();
             try (ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(uri, "r")) {
                 FileDescriptor outFd = outPfd.getFileDescriptor();
 
                 try (FileInputStream is = new FileInputStream(outFd)) {
-                    viewModel.get().info.set(new TorrentMetaInfo(is));
+                    v.info.set(new TorrentMetaInfo(is));
                 }
             } catch (FileNotFoundException e) {
                 throw new FileNotFoundException(uri.toString()  + ": " + e.getMessage());
@@ -267,25 +275,26 @@ public class AddTorrentViewModel extends AndroidViewModel
         @Override
         protected void onPostExecute(Throwable e)
         {
-            if (viewModel.get() == null)
+            AddTorrentViewModel v = viewModel.get();
+            if (v == null || isCancelled())
                 return;
 
             if (e != null) {
-                viewModel.get().decodeState.postValue(new DecodeState(AddTorrentViewModel.Status.ERROR, e));
+                v.decodeState.postValue(new DecodeState(AddTorrentViewModel.Status.ERROR, e));
                 return;
             }
 
-            DecodeState prevState = viewModel.get().decodeState.getValue();
+            DecodeState prevState = v.decodeState.getValue();
             if (prevState == null)
                 return;
 
             switch (prevState.status) {
                 case DECODE_TORRENT_FILE:
-                    viewModel.get().decodeState.postValue(
+                    v.decodeState.postValue(
                             new DecodeState(AddTorrentViewModel.Status.DECODE_TORRENT_COMPLETED));
                     break;
                 case FETCHING_HTTP:
-                    viewModel.get().decodeState.postValue(
+                    v.decodeState.postValue(
                             new DecodeState(AddTorrentViewModel.Status.FETCHING_HTTP_COMPLETED));
                     break;
             }
@@ -326,8 +335,8 @@ public class AddTorrentViewModel extends AndroidViewModel
             if (dirPath == null)
                 return;
 
-            mutableParams.setStorageFreeSpace(FileSystemFacade.getDirAvailableBytes(getApplication(), dirPath));
-            mutableParams.setDirName(FileSystemFacade.getDirName(getApplication(), dirPath));
+            mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+            mutableParams.setDirName(fs.getDirName(dirPath));
         }
     };
 

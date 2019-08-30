@@ -45,7 +45,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityFilemanagerDialogBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
@@ -486,7 +486,8 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void openHomeDirectory()
     {
-        String path = FileSystemFacade.getUserDirPath();
+        String path = FacadeHelper.getFileSystemFacade(getApplicationContext())
+                .getUserDirPath();
         if (!TextUtils.isEmpty(path)) {
             try {
                 viewModel.jumpToDirectory(path);

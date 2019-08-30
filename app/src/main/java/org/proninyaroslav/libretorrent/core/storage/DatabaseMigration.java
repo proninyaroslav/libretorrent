@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
@@ -126,7 +127,7 @@ public class DatabaseMigration
             try {
                 File fastResumeFile = new File(dataDir, DataModelBefore5.TORRENT_RESUME_FILE_NAME);
                 if (!fastResumeFile.exists()) {
-                    backupTorrent(new File(dataDir, DataModelBefore5.TORRENT_FILE_NAME));
+                    backupTorrent(appContext, new File(dataDir, DataModelBefore5.TORRENT_FILE_NAME));
                     continue;
                 }
 
@@ -136,7 +137,7 @@ public class DatabaseMigration
                 db.fastResumeDao().add(fastResume);
 
             } catch (Exception e) {
-                backupTorrent(new File(dataDir, DataModelBefore5.TORRENT_FILE_NAME));
+                backupTorrent(appContext, new File(dataDir, DataModelBefore5.TORRENT_FILE_NAME));
 
             } finally {
                 try {
@@ -160,13 +161,17 @@ public class DatabaseMigration
 
     private static boolean torrentDataExists(Context context, String id)
     {
-        return FileSystemFacade.isStorageReadable() &&
-                new File(context.getExternalFilesDir(null), id).exists();
+        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(context);
+        File f = new File(context.getExternalFilesDir(null), id);
+
+        return fs.isStorageReadable() && f.exists();
     }
 
     private static File findTorrentDataDir(Context context, String id)
     {
-        if (FileSystemFacade.isStorageReadable()) {
+        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(context);
+
+        if (fs.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null), id);
             if (dataDir.exists())
                 return dataDir;
@@ -175,12 +180,12 @@ public class DatabaseMigration
         return null;
     }
 
-    private static void backupTorrent(File torrent)
+    private static void backupTorrent(Context context, File torrent)
     {
         if (!torrent.exists())
             return;
 
-        String userDir = FileSystemFacade.getUserDirPath();
+        String userDir = FacadeHelper.getFileSystemFacade(context).getUserDirPath();
         if (userDir == null)
             return;
 

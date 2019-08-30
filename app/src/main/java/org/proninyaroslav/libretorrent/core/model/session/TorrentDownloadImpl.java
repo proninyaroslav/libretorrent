@@ -57,6 +57,7 @@ import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
@@ -128,6 +129,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     private TorrentHandle th;
     private String id;
     private TorrentRepository repo;
+    private FileSystemFacade fs;
     private final Queue<TorrentEngineListener> listeners;
     private CompositeDisposable disposables = new CompositeDisposable();
     private InnerListener listener;
@@ -149,6 +151,7 @@ public class TorrentDownloadImpl implements TorrentDownload
         this.appContext = appContext;
         this.id = id;
         repo = TorrentRepository.getInstance(appContext);
+        fs = FacadeHelper.getFileSystemFacade(appContext);
         this.sessionManager = sessionManager;
         this.autoManaged = autoManaged;
         this.listeners = listeners;
@@ -387,7 +390,7 @@ public class TorrentDownloadImpl implements TorrentDownload
             int maxSize = 2 * 1024 * 1024;
             if (0 < size && size <= maxSize) {
                 TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
-                long availableBytes = FileSystemFacade.getDirAvailableBytes(appContext, torrent.downloadPath);
+                long availableBytes = fs.getDirAvailableBytes(torrent.downloadPath);
                 if (availableBytes < info.torrentSize)
                     throw new FreeSpaceException("Not enough free space: "
                             + availableBytes + " free, but torrent size is " + info.torrentSize);
@@ -440,7 +443,7 @@ public class TorrentDownloadImpl implements TorrentDownload
         sessionManager.removeListener(listener);
         if (partsFile != null) {
             try {
-                FileSystemFacade.deleteFile(appContext, partsFile);
+                fs.deleteFile(partsFile);
 
             } catch (FileNotFoundException e) {
                 /* Ignore */
@@ -686,7 +689,7 @@ public class TorrentDownloadImpl implements TorrentDownload
         if (incompleteFiles != null) {
             for (Uri path : incompleteFiles) {
                 try {
-                    if (!FileSystemFacade.deleteFile(appContext, path))
+                    if (!fs.deleteFile(path))
                         Log.w(TAG, "Can't delete file " + path);
                 } catch (Exception e) {
                     Log.w(TAG, "Can't delete file " + path + ", ex: " + e.getMessage());
@@ -708,19 +711,19 @@ public class TorrentDownloadImpl implements TorrentDownload
 
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
             TorrentInfo ti = th.torrentFile();
-            FileStorage fs = ti.files();
+            FileStorage fileStorage = ti.files();
             Uri prefix = torrent.downloadPath;
 
             for (int i = 0; i < progress.length; i++) {
-                String filePath = fs.filePath(i);
-                long fileSize = fs.fileSize(i);
+                String filePath = fileStorage.filePath(i);
+                long fileSize = fileStorage.fileSize(i);
                 if (progress[i] < fileSize) {
                     /* Lets see if indeed the file is incomplete */
-                    Uri path = FileSystemFacade.getFileUri(appContext, filePath, prefix);
+                    Uri path = fs.getFileUri(filePath, prefix);
                     if (path == null)
                         continue;
 
-                    if (FileSystemFacade.lastModified(appContext, path) >= torrent.dateAdded)
+                    if (fs.lastModified(path) >= torrent.dateAdded)
                         /* We have a file modified (supposedly) by this transfer */
                         s.add(path);
                 }
@@ -1082,7 +1085,7 @@ public class TorrentDownloadImpl implements TorrentDownload
 
         notifyListeners((listener) -> listener.onTorrentMoving(id));
 
-        String pathStr = FileSystemFacade.makeFileSystemPath(appContext, path);
+        String pathStr = fs.makeFileSystemPath(path);
         try {
             th.moveStorage(pathStr, MoveFlags.ALWAYS_REPLACE_FILES);
 
@@ -1145,7 +1148,7 @@ public class TorrentDownloadImpl implements TorrentDownload
         if (torrent == null)
             return null;
 
-        return FileSystemFacade.getFileUri(appContext, torrent.downloadPath, "." + ti.infoHash() + ".parts");
+        return fs.getFileUri(torrent.downloadPath, "." + ti.infoHash() + ".parts");
     }
 
     @Override

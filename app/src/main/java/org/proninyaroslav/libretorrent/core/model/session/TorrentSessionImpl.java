@@ -68,6 +68,7 @@ import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
@@ -142,11 +143,13 @@ public class TorrentSessionImpl extends SessionManager
     private ReentrantLock syncMagnet = new ReentrantLock();
     private CompositeDisposable disposables = new CompositeDisposable();
     private TorrentRepository repo;
+    private FileSystemFacade fs;
 
     public TorrentSessionImpl(@NonNull Context appContext)
     {
         this.appContext = appContext;
         repo = TorrentRepository.getInstance(appContext);
+        fs = FacadeHelper.getFileSystemFacade(appContext);
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
     }
@@ -249,7 +252,7 @@ public class TorrentSessionImpl extends SessionManager
             throw e;
         } finally {
             if (removeFile && !params.fromMagnet)
-                FileSystemFacade.deleteFile(appContext, Uri.parse(params.source));
+                fs.deleteFile(Uri.parse(params.source));
         }
 
         return torrent;
@@ -266,7 +269,7 @@ public class TorrentSessionImpl extends SessionManager
 
         addTorrentsList.add(params.sha1hash);
 
-        String path = FileSystemFacade.makeFileSystemPath(appContext, params.downloadPath);
+        String path = fs.makeFileSystemPath(params.downloadPath);
         File saveDir = new File(path);
         if (torrent.isDownloadingMetadata()) {
             download(params.source, saveDir, params.addPaused);
@@ -330,7 +333,7 @@ public class TorrentSessionImpl extends SessionManager
             if (torrent == null || torrentTasks.containsKey(torrent.id))
                 continue;
 
-            String path = FileSystemFacade.makeFileSystemPath(appContext, torrent.downloadPath);
+            String path = fs.makeFileSystemPath(torrent.downloadPath);
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
             if (torrent.isDownloadingMetadata())
                 loadTask.putMagnet(torrent.getMagnet(), new File(path),

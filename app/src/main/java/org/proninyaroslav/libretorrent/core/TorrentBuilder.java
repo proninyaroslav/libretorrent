@@ -25,7 +25,6 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Pair;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -75,7 +74,8 @@ public class TorrentBuilder
 
     public TorrentBuilder setSeedPath(Uri path)
     {
-        String seedPathStr = FileSystemFacade.makeFileSystemPath(context, path);
+        String seedPathStr = FacadeHelper.getFileSystemFacade(context)
+                .makeFileSystemPath(path);
         builder.path(new File(seedPathStr));
 
         return this;

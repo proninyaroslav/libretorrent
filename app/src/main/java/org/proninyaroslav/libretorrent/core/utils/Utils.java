@@ -48,7 +48,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -58,6 +57,7 @@ import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
@@ -67,7 +67,6 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
-import org.proninyaroslav.libretorrent.core.system.RealSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
@@ -113,22 +112,6 @@ public class Utils
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
 
-    private static SystemFacade systemFacade;
-
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
-    {
-        if (systemFacade == null)
-            systemFacade = new RealSystemFacade(context);
-
-        return systemFacade;
-    }
-
-    @VisibleForTesting
-    public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
-    {
-        Utils.systemFacade = systemFacade;
-    }
-
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
      */
@@ -168,7 +151,7 @@ public class Utils
 
     public static boolean checkConnectivity(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
         NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
@@ -176,7 +159,7 @@ public class Utils
 
     public static boolean isNetworkTypeAllowed(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
 
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
@@ -223,7 +206,7 @@ public class Utils
 
     public static boolean isMetered(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -236,7 +219,7 @@ public class Utils
 
     public static boolean isRoaming(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -826,11 +809,13 @@ public class Utils
     {
         SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
         String path = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
-                                     SettingsManager.Default.saveTorrentsIn);
+                                     SettingsManager.Default.saveTorrentsIn(appContext));
 
-        path = (TextUtils.isEmpty(path) ? FileSystemFacade.getDefaultDownloadPath() : path);
+        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(appContext);
 
-        return (path == null ? null : Uri.parse(FileSystemFacade.normalizeFileSystemPath(path)));
+        path = (TextUtils.isEmpty(path) ? fs.getDefaultDownloadPath() : path);
+
+        return (path == null ? null : Uri.parse(fs.normalizeFileSystemPath(path)));
     }
 
     /*

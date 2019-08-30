@@ -33,6 +33,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
@@ -47,6 +48,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
 
     private static final int DOWNLOAD_DIR_CHOOSE_REQUEST = 1;
 
+    private FileSystemFacade fs;
     /* Preference that is associated with the current dir selection dialog */
     private String dirChooserBindPref;
 
@@ -67,16 +69,19 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
 
         Context context = getActivity().getApplicationContext();
+        fs = FacadeHelper.getFileSystemFacade(context);
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         String keySaveTorrentsIn = getString(R.string.pref_key_save_torrents_in);
         Preference saveTorrentsIn = findPreference(keySaveTorrentsIn);
         if (saveTorrentsIn != null) {
-            String path = pref.getString(keySaveTorrentsIn, SettingsManager.Default.saveTorrentsIn);
-            saveTorrentsIn.setSummary(FileSystemFacade.getDirName(context, Uri.parse(path)));
+            String path = pref.getString(keySaveTorrentsIn,
+                    SettingsManager.Default.saveTorrentsIn(context));
+            saveTorrentsIn.setSummary(fs.getDirName(Uri.parse(path)));
             saveTorrentsIn.setOnPreferenceClickListener((preference) -> {
                 dirChooserBindPref = getString(R.string.pref_key_save_torrents_in);
-                dirChooseDialog(pref.getString(dirChooserBindPref, SettingsManager.Default.saveTorrentsIn));
+                dirChooseDialog(pref.getString(dirChooserBindPref,
+                        SettingsManager.Default.saveTorrentsIn(context)));
 
                 return true;
             });
@@ -91,11 +96,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         String keyMoveAfterDownloadIn = getString(R.string.pref_key_move_after_download_in);
         Preference moveAfterDownloadIn = findPreference(keyMoveAfterDownloadIn);
         if (moveAfterDownloadIn != null) {
-            String path = pref.getString(keyMoveAfterDownloadIn, SettingsManager.Default.moveAfterDownloadIn);
-            moveAfterDownloadIn.setSummary(FileSystemFacade.getDirName(context, Uri.parse(path)));
+            String path = pref.getString(keyMoveAfterDownloadIn,
+                    SettingsManager.Default.moveAfterDownloadIn(context));
+            moveAfterDownloadIn.setSummary(fs.getDirName(Uri.parse(path)));
             moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
                 dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
-                dirChooseDialog(pref.getString(dirChooserBindPref, SettingsManager.Default.moveAfterDownloadIn));
+                dirChooseDialog(pref.getString(dirChooserBindPref,
+                        SettingsManager.Default.moveAfterDownloadIn(context)));
 
                 return true;
             });
@@ -110,11 +117,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         String keySaveTorrentFilesIn = getString(R.string.pref_key_save_torrent_files_in);
         Preference saveTorrentFilesIn = findPreference(keySaveTorrentFilesIn);
         if (saveTorrentFilesIn != null) {
-            String path = pref.getString(keySaveTorrentFilesIn, SettingsManager.Default.saveTorrentFilesIn);
-            saveTorrentFilesIn.setSummary(FileSystemFacade.getDirName(context, Uri.parse(path)));
+            String path = pref.getString(keySaveTorrentFilesIn,
+                    SettingsManager.Default.saveTorrentFilesIn(context));
+            saveTorrentFilesIn.setSummary(fs.getDirName(Uri.parse(path)));
             saveTorrentFilesIn.setOnPreferenceClickListener((preference) -> {
                 dirChooserBindPref = getString(R.string.pref_key_save_torrent_files_in);
-                dirChooseDialog(pref.getString(dirChooserBindPref, SettingsManager.Default.saveTorrentFilesIn));
+                dirChooseDialog(pref.getString(dirChooserBindPref,
+                        SettingsManager.Default.saveTorrentFilesIn(context)));
 
                 return true;
             });
@@ -128,11 +137,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         String keyDirToWatch = getString(R.string.pref_key_dir_to_watch);
         Preference dirToWatch = findPreference(keyDirToWatch);
         if (dirToWatch != null) {
-            String path = pref.getString(keyDirToWatch, SettingsManager.Default.dirToWatch);
-            dirToWatch.setSummary(FileSystemFacade.getDirName(context, Uri.parse(path)));
+            String path = pref.getString(keyDirToWatch,
+                    SettingsManager.Default.dirToWatch(context));
+            dirToWatch.setSummary(fs.getDirName(Uri.parse(path)));
             dirToWatch.setOnPreferenceClickListener((Preference preference) -> {
                 dirChooserBindPref = getString(R.string.pref_key_dir_to_watch);
-                dirChooseDialog(pref.getString(dirChooserBindPref, SettingsManager.Default.dirToWatch), true);
+                dirChooseDialog(pref.getString(dirChooserBindPref,
+                        SettingsManager.Default.dirToWatch(context)), true);
 
                 return true;
             });
@@ -163,7 +174,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         Uri uri = Uri.parse(path);
         Intent i = new Intent(getActivity(), FileManagerDialog.class);
         FileManagerConfig config = new FileManagerConfig(
-                (FileSystemFacade.isFileSystemPath(uri) ? uri.getPath() : null),
+                (fs.isFileSystemPath(uri) ? uri.getPath() : null),
                 null,
                 FileManagerConfig.DIR_CHOOSER_MODE);
         /* TODO: SAF support */
@@ -188,7 +199,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
 
             Preference p = findPreference(dirChooserBindPref);
             if (p != null)
-                p.setSummary(FileSystemFacade.getDirName(getActivity(), path));
+                p.setSummary(fs.getDirName(path));
         }
     }
 }

@@ -30,8 +30,8 @@ import org.apache.commons.io.LineIterator;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.ip_filter;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -106,9 +106,9 @@ public class IPFilterParser
      * Parser for eMule ip filter in DAT format
      */
 
-    public static boolean parseDATFilterFile(Context context, Uri file, ip_filter filter)
+    private static boolean parseDATFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (!FileSystemFacade.fileExists(context, file))
+        if (!FacadeHelper.getFileSystemFacade(context).fileExists(file))
             return false;
 
         long lineNum = 0;
@@ -223,9 +223,9 @@ public class IPFilterParser
      * Parser for PeerGuardian ip filter in p2p format
      */
 
-    public static boolean parseP2PFilterFile(Context context, Uri file, ip_filter filter)
+    private static boolean parseP2PFilterFile(Context context, Uri file, ip_filter filter)
     {
-        if (!FileSystemFacade.fileExists(context, file))
+        if (!FacadeHelper.getFileSystemFacade(context).fileExists(file))
             return false;
 
         long lineNum = 0;

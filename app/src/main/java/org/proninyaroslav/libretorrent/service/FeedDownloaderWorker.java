@@ -30,6 +30,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
@@ -145,13 +146,14 @@ public class FeedDownloaderWorker extends Worker
                 Log.e(TAG, "Invalid torrent: " + Log.getStackTraceString(e));
                 return null;
             }
-            if (FileSystemFacade.getDirAvailableBytes(getApplicationContext(), downloadPath) < info.torrentSize) {
+            FileSystemFacade fs = FacadeHelper.getFileSystemFacade(getApplicationContext());
+            if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {
                 Log.e(TAG, "Not enough free space for " + info.torrentName);
                 return null;
             }
             File tmp;
             try {
-                tmp = FileSystemFacade.makeTempFile(getApplicationContext(), ".torrent");
+                tmp = fs.makeTempFile(".torrent");
                 org.apache.commons.io.FileUtils.writeByteArrayToFile(tmp, response);
 
             } catch (Exception e) {

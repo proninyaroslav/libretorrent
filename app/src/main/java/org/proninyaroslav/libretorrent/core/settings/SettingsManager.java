@@ -28,7 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
+import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 
 public class SettingsManager
@@ -41,9 +42,11 @@ public class SettingsManager
         public static final boolean playSoundNotify = true;
         public static final boolean ledIndicatorNotify = true;
         public static final boolean vibrationNotify = true;
-        public static int theme(Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
-        public static int ledIndicatorColorNotify(Context context) { return ContextCompat.getColor(context, R.color.primary); }
-        public static int funcButton(Context context) { return Integer.parseInt(context.getString(R.string.pref_function_button_pause_value)); }
+        public static int theme(@NonNull Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
+        public static int ledIndicatorColorNotify(@NonNull Context context)
+        {
+            return ContextCompat.getColor(context, R.color.primary);
+        }
         /* Behavior settings */
         public static final boolean autostart = false;
         public static final boolean keepAlive = true;
@@ -67,16 +70,31 @@ public class SettingsManager
         public static final boolean encryptOutConnections = true;
         public static final boolean enableIpFiltering = false;
         public static final String ipFilteringFile = null;
-        public static int encryptMode(Context context) { return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value)); }
+        public static int encryptMode(@NonNull Context context)
+        {
+            return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value));
+        }
         public static final boolean showNatErrors = false;
         /* Storage settings */
-        public static final String saveTorrentsIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
+        public static final String saveTorrentsIn(@NonNull Context context)
+        {
+            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+        }
         public static final boolean moveAfterDownload = false;
-        public static final String moveAfterDownloadIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
+        public static final String moveAfterDownloadIn(@NonNull Context context)
+        {
+            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+        }
         public static final boolean saveTorrentFiles = false;
-        public static final String saveTorrentFilesIn = "file://" + FileSystemFacade.getDefaultDownloadPath();
+        public static final String saveTorrentFilesIn(@NonNull Context context)
+        {
+            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+        }
         public static final boolean watchDir = false;
-        public static final String dirToWatch = "file://" + FileSystemFacade.getDefaultDownloadPath();
+        public static final String dirToWatch(@NonNull Context context)
+        {
+            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+        }
         /* Limitations settings */
         public static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
         public static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
@@ -100,7 +118,10 @@ public class SettingsManager
         public static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
         public static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
         /* Filemanager settings */
-        public static final String fileManagerLastDir = FileSystemFacade.getDefaultDownloadPath();
+        public static final String fileManagerLastDir(@NonNull Context context)
+        {
+            return FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+        }
         /* Scheduling settings */
         public static final boolean enableSchedulingStart = false;
         public static final boolean enableSchedulingShutdown = false;

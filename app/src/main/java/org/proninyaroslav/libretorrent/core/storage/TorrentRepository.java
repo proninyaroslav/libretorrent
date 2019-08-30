@@ -23,7 +23,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 
@@ -130,7 +130,7 @@ public class TorrentRepository
 
     public String getSessionFile(@NonNull Context context)
     {
-        if (FileSystemFacade.isStorageReadable()) {
+        if (FacadeHelper.getFileSystemFacade(context).isStorageReadable()) {
             String dataDir = context.getExternalFilesDir(null).getAbsolutePath();
             File session = new File(dataDir, TorrentRepository.FileDataModel.TORRENT_SESSION_FILE);
 
@@ -148,7 +148,7 @@ public class TorrentRepository
 
     private String getTorrentDataDir(Context context, String id)
     {
-        if (FileSystemFacade.isStorageReadable()) {
+        if (FacadeHelper.getFileSystemFacade(context).isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null), id);
             if (dataDir.exists()) {
                 return dataDir.getAbsolutePath();
@@ -167,7 +167,7 @@ public class TorrentRepository
 
     private String makeTorrentDataDir(Context context, String name)
     {
-        if (!FileSystemFacade.isStorageWritable())
+        if (!FacadeHelper.getFileSystemFacade(context).isStorageWritable())
             return null;
 
         String dataDir = context.getExternalFilesDir(null).getAbsolutePath();
