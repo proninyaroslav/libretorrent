@@ -35,6 +35,7 @@ import androidx.work.WorkRequest;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.service.FeedFetcherWorker;
 
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class FeedViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = FeedRepository.getInstance(application);
+        repo = RepositoryHelper.getFeedRepository(application);
     }
 
     @Override
@@ -132,12 +133,12 @@ public class FeedViewModel extends AndroidViewModel
 
     public void saveFeedsSync(@NonNull Uri file) throws IOException
     {
-        repo.serializeAllFeeds(getApplication(), file);
+        repo.serializeAllFeeds(file);
     }
 
     public long[] restoreFeedsSync(@NonNull Uri file) throws IOException
     {
-        List<FeedChannel> feeds = repo.deserializeFeeds(getApplication(), file);
+        List<FeedChannel> feeds = repo.deserializeFeeds(file);
 
         return repo.addFeeds(feeds);
     }

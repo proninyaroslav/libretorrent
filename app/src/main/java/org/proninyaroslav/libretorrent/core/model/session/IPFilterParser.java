@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -30,8 +29,8 @@ import org.apache.commons.io.LineIterator;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.ip_filter;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -50,13 +49,15 @@ public class IPFilterParser
     private static final String TAG = IPFilterParser.class.getSimpleName();
 
     private Uri path;
+    private FileSystemFacade fs;
 
-    public IPFilterParser(@NonNull Uri path)
+    public IPFilterParser(@NonNull Uri path, @NonNull FileSystemFacade fs)
     {
         this.path = path;
+        this.fs = fs;
     }
 
-    public Single<ip_filter> parse(@NonNull Context context)
+    public Single<ip_filter> parse()
     {
         return Single.create((emitter) -> {
             Log.d(TAG, "Start parsing IP filter file");
@@ -65,9 +66,9 @@ public class IPFilterParser
 
             String pathStr = path.toString();
             if (pathStr.contains(".dat"))
-                success = parseDATFilterFile(context, path, filter);
+                success = parseDATFilterFile(path, filter);
             else if (pathStr.contains(".p2p"))
-                success = parseP2PFilterFile(context, path, filter);
+                success = parseP2PFilterFile(path, filter);
 
             Log.d(TAG, "Completed parsing IP filter file, is success = " + success);
             if (!emitter.isDisposed()) {
@@ -84,7 +85,7 @@ public class IPFilterParser
      * We need to remove them because Boost.Asio fail to parse them.
      */
 
-    private static String cleanupIPAddress(String ip)
+    private String cleanupIPAddress(String ip)
     {
         if (ip == null)
             return null;
@@ -106,17 +107,17 @@ public class IPFilterParser
      * Parser for eMule ip filter in DAT format
      */
 
-    private static boolean parseDATFilterFile(Context context, Uri file, ip_filter filter)
+    private boolean parseDATFilterFile(Uri file, ip_filter filter)
     {
-        if (!FacadeHelper.getFileSystemFacade(context).fileExists(file))
+        if (!fs.fileExists(file))
             return false;
 
         long lineNum = 0;
         long badLineNum = 0;
         FileInputStream is = null;
         LineIterator it = null;
-        try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
-            FileDescriptor outFd = w.open(context, "r");
+        try (FileDescriptorWrapper w = fs.getFD(file)) {
+            FileDescriptor outFd = w.open("r");
             is = new FileInputStream(outFd);
             it = IOUtils.lineIterator(is, "UTF-8");
 
@@ -223,17 +224,17 @@ public class IPFilterParser
      * Parser for PeerGuardian ip filter in p2p format
      */
 
-    private static boolean parseP2PFilterFile(Context context, Uri file, ip_filter filter)
+    private boolean parseP2PFilterFile(Uri file, ip_filter filter)
     {
-        if (!FacadeHelper.getFileSystemFacade(context).fileExists(file))
+        if (!fs.fileExists(file))
             return false;
 
         long lineNum = 0;
         long badLineNum = 0;
         FileInputStream is = null;
         LineIterator it = null;
-        try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
-            FileDescriptor outFd = w.open(context, "r");
+        try (FileDescriptorWrapper w = fs.getFD(file)) {
+            FileDescriptor outFd = w.open("r");
             is = new FileInputStream(outFd);
             it = IOUtils.lineIterator(is, "UTF-8");
 

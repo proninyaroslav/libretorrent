@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.filesystem;
+package org.proninyaroslav.libretorrent.core.system.filesystem;
 
 import android.annotation.TargetApi;
 import android.net.Uri;
@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 public interface FileSystemFacade
 {
+    FileDescriptorWrapper getFD(@NonNull Uri path);
+
     String getExtensionSeparator();
 
     @Nullable

@@ -39,11 +39,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.NoFilesSelectedException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -53,7 +51,10 @@ import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -129,8 +130,8 @@ public class AddTorrentViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = TorrentRepository.getInstance(application);
-        fs = FacadeHelper.getFileSystemFacade(application);
+        repo = RepositoryHelper.getTorrentRepository(application);
+        fs = SystemFacadeHelper.getFileSystemFacade(application);
         pref = SettingsManager.getInstance(application).getPreferences();
         engine = TorrentEngine.getInstance(getApplication());
 

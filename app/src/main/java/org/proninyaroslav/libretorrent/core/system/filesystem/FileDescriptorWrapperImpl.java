@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.filesystem;
+package org.proninyaroslav.libretorrent.core.system.filesystem;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -26,25 +26,25 @@ import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
 
-import java.io.Closeable;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class FileDescriptorWrapper implements Closeable
+public class FileDescriptorWrapperImpl implements FileDescriptorWrapper
 {
+    private ContentResolver contentResolver;
     private Uri path;
     private ParcelFileDescriptor pfd;
 
-    public FileDescriptorWrapper(@NonNull Uri path)
+    public FileDescriptorWrapperImpl(@NonNull Context appContext, @NonNull Uri path)
     {
+        contentResolver = appContext.getContentResolver();
         this.path = path;
     }
 
-    public FileDescriptor open(@NonNull Context context,
-                               @NonNull String mode) throws FileNotFoundException
+    @Override
+    public FileDescriptor open(@NonNull String mode) throws FileNotFoundException
     {
-        ContentResolver contentResolver = context.getContentResolver();
         pfd = contentResolver.openFileDescriptor(path, mode);
 
         return (pfd == null ? null : pfd.getFileDescriptor());

@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.filesystem;
+package org.proninyaroslav.libretorrent.core.system.filesystem;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -58,6 +58,12 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     public FileSystemFacadeImpl(@NonNull Context appContext)
     {
         this.appContext = appContext;
+    }
+
+    @Override
+    public FileDescriptorWrapper getFD(@NonNull Uri path)
+    {
+        return new FileDescriptorWrapperImpl(appContext, path);
     }
 
     @Override
@@ -267,11 +273,11 @@ public class FileSystemFacadeImpl implements FileSystemFacade
                          @NonNull Uri dest) throws IOException
     {
 
-        try (FileDescriptorWrapper wSrc = new FileDescriptorWrapper(src);
-             FileDescriptorWrapper wDest = new FileDescriptorWrapper(dest)) {
+        try (FileDescriptorWrapper wSrc = getFD(src);
+             FileDescriptorWrapper wDest = getFD(dest)) {
 
-            try (FileInputStream fin = new FileInputStream(wSrc.open(appContext, "r"));
-                 FileOutputStream fout = new FileOutputStream(wDest.open(appContext, "rw"))) {
+            try (FileInputStream fin = new FileInputStream(wSrc.open("r"));
+                 FileOutputStream fout = new FileOutputStream(wDest.open("rw"))) {
                 IOUtils.copy(fin, fout);
             }
         }
@@ -327,8 +333,8 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     public void write(@NonNull byte[] data,
                       @NonNull Uri destFile) throws IOException
     {
-        try (FileDescriptorWrapper w = new FileDescriptorWrapper(destFile)) {
-            try (FileOutputStream fout = new FileOutputStream(w.open(appContext, "rw"))) {
+        try (FileDescriptorWrapper w = getFD(destFile)) {
+            try (FileOutputStream fout = new FileOutputStream(w.open("rw"))) {
                 IOUtils.write(data, fout);
             }
         }
@@ -339,8 +345,8 @@ public class FileSystemFacadeImpl implements FileSystemFacade
                       @NonNull Charset charset,
                       @NonNull Uri destFile) throws IOException
     {
-        try (FileDescriptorWrapper w = new FileDescriptorWrapper(destFile)) {
-            try (FileOutputStream fout = new FileOutputStream(w.open(appContext, "rw"))) {
+        try (FileDescriptorWrapper w = getFD(destFile)) {
+            try (FileOutputStream fout = new FileOutputStream(w.open("rw"))) {
                 IOUtils.write(data, fout, charset);
             }
         }
@@ -396,8 +402,8 @@ public class FileSystemFacadeImpl implements FileSystemFacade
         if (isSafPath(dir)) {
             SafFileSystem fs = SafFileSystem.getInstance(appContext);
             Uri dirPath = fs.makeSafRootDir(dir);
-            try (FileDescriptorWrapper w = new FileDescriptorWrapper(dirPath)) {
-                availableBytes = getAvailableBytes(w.open(appContext, "r"));
+            try (FileDescriptorWrapper w = getFD(dirPath)) {
+                availableBytes = getAvailableBytes(w.open("r"));
 
             } catch (IllegalArgumentException | IOException e) {
                 Log.e(TAG, Log.getStackTraceString(e));

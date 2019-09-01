@@ -59,6 +59,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.service.TorrentService;
@@ -598,7 +599,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         if (dialog != null) {
             TextView versionTextView = dialog.findViewById(R.id.about_version);
             TextView descriptionTextView = dialog.findViewById(R.id.about_description);
-            String versionName = Utils.getAppVersionName(this);
+            String versionName = SystemFacadeHelper.getSystemFacade(getApplicationContext())
+                    .getAppVersionName();
             if (versionName != null)
                 versionTextView.setText(versionName);
             descriptionTextView.setText(Html.fromHtml(getString(R.string.about_description)));

@@ -31,11 +31,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -96,7 +96,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         super(application);
 
         engine = TorrentEngine.getInstance(application);
-        fs = FacadeHelper.getFileSystemFacade(application);
+        fs = SystemFacadeHelper.getFileSystemFacade(application);
         mutableParams.getSeedPath().addOnPropertyChangedCallback(dirPathCallback);
         state.setValue(new BuildState(BuildState.Status.UNKNOWN, null));
         buildProgress.setValue(0);
@@ -236,7 +236,8 @@ public class CreateTorrentViewModel extends AndroidViewModel
     {
         Context context = getApplication();
         String creator = context.getString(R.string.app_name);
-        String versionName = Utils.getAppVersionName(context);
+        String versionName = SystemFacadeHelper.getSystemFacade(context)
+                .getAppVersionName();
         if (versionName == null)
             return creator;
 

@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -37,15 +39,15 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
 
 public class FakeSystemFacade implements SystemFacade
 {
-    public Context context;
+    public Context appContext;
     public boolean isRoaming;
     public boolean isMetered;
     public int activeNetworkType = ConnectivityManager.TYPE_MOBILE;
     public NetworkInfo.DetailedState connectionState = NetworkInfo.DetailedState.CONNECTED;
 
-    public FakeSystemFacade(@NonNull Context context)
+    public FakeSystemFacade(@NonNull Context appContext)
     {
-        this.context = context;
+        this.appContext = appContext;
     }
 
     @Override
@@ -106,5 +108,19 @@ public class FakeSystemFacade implements SystemFacade
     public boolean isActiveNetworkMetered()
     {
         return isMetered;
+    }
+
+    @Override
+    public String getAppVersionName()
+    {
+        try {
+            PackageInfo info = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            /* Ignore */
+        }
+
+        return null;
     }
 }

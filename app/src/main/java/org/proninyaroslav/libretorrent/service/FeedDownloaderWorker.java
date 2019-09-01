@@ -30,10 +30,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -42,6 +40,9 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -75,7 +76,7 @@ public class FeedDownloaderWorker extends Worker
     public Result doWork()
     {
         engine = TorrentEngine.getInstance(getApplicationContext());
-        repo = FeedRepository.getInstance(getApplicationContext());
+        repo = RepositoryHelper.getFeedRepository(getApplicationContext());
         pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
 
         Data data = getInputData();
@@ -146,7 +147,7 @@ public class FeedDownloaderWorker extends Worker
                 Log.e(TAG, "Invalid torrent: " + Log.getStackTraceString(e));
                 return null;
             }
-            FileSystemFacade fs = FacadeHelper.getFileSystemFacade(getApplicationContext());
+            FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
             if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {
                 Log.e(TAG, "Not enough free space for " + info.torrentName);
                 return null;

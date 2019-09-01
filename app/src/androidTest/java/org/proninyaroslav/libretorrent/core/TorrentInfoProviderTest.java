@@ -9,7 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
@@ -44,7 +45,7 @@ public class TorrentInfoProviderTest extends AbstractTest
     {
         super.init();
 
-        dir = Uri.parse("file://" + FileSystemFacadeImpl.getDefaultDownloadPath());
+        dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 new Priority[]{Priority.DEFAULT}, dir,
@@ -208,7 +209,7 @@ public class TorrentInfoProviderTest extends AbstractTest
 
     private String downloadTorrent(String url)
     {
-        File tmp = FileSystemFacadeImpl.makeTempFile(context, ".torrent");
+        File tmp = fs.makeTempFile(".torrent");
         try {
             byte[] response = Utils.fetchHttpUrl(context, url);
             org.apache.commons.io.FileUtils.writeByteArrayToFile(tmp, response);

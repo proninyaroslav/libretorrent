@@ -37,6 +37,7 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -75,7 +76,7 @@ public class FeedFetcherWorker extends Worker
     public Result doWork()
     {
         context = getApplicationContext();
-        repo = FeedRepository.getInstance(context);
+        repo = RepositoryHelper.getFeedRepository(context);
         pref = SettingsManager.getInstance(context).getPreferences();
 
         long keepTime = pref.getLong(context.getString(R.string.pref_key_feed_keep_items_time),
@@ -247,7 +248,7 @@ public class FeedFetcherWorker extends Worker
                 .setInputData(data)
                 .build();
 
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(context).enqueue(work);
     }
 
     private boolean isMatch(FeedItem item, String filter, boolean isRegex)
@@ -268,7 +269,7 @@ public class FeedFetcherWorker extends Worker
 
             return pattern.matcher(item.title).matches();
         } else {
-            String[] words = filter.split(FeedRepository.FILTER_SEPARATOR);
+            String[] words = filter.split(repo.getFilterSeparator());
             for (String word : words)
                 if (item.title.toLowerCase().contains(word.toLowerCase().trim()))
                     return true;

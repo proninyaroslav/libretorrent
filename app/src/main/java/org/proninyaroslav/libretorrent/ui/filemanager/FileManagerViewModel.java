@@ -32,10 +32,10 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class FileManagerViewModel extends ViewModel
     {
         this.appContext = appContext;
         this.config = config;
-        this.fs = FacadeHelper.getFileSystemFacade(appContext);
+        this.fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = SettingsManager.getInstance(appContext).getPreferences();
 
         String path = config.path;

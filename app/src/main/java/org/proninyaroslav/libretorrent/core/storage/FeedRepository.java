@@ -19,186 +19,68 @@
 
 package org.proninyaroslav.libretorrent.core.storage;
 
-import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-public class FeedRepository
+public interface FeedRepository
 {
-    @SuppressWarnings("unused")
-    private static final String TAG = FeedRepository.class.getSimpleName();
+    String getSerializeFileFormat();
 
-    public static final String SERIALIZE_FILE_FORMAT = "json";
-    public static final String SERIALIZE_MIME_TYPE = "application/json";
-    public static final String FILTER_SEPARATOR = "\\|";
+    String getSerializeMimeType();
 
-    private static FeedRepository INSTANCE;
-    private AppDatabase db;
+    String getFilterSeparator();
 
-    public static FeedRepository getInstance(@NonNull AppDatabase db)
-    {
-        if (INSTANCE == null) {
-            synchronized (FeedRepository.class) {
-                if (INSTANCE == null)
-                    INSTANCE = new FeedRepository(db);
-            }
-        }
-        return INSTANCE;
-    }
+    long addFeed(@NonNull FeedChannel channel);
 
-    public static FeedRepository getInstance(@NonNull Context appContext)
-    {
-        if (INSTANCE == null) {
-            synchronized (FeedRepository.class) {
-                if (INSTANCE == null)
-                    INSTANCE = new FeedRepository(AppDatabase.getInstance(appContext));
-            }
-        }
-        return INSTANCE;
-    }
+    long[] addFeeds(@NonNull List<FeedChannel> feeds);
 
-    private FeedRepository(AppDatabase db)
-    {
-        this.db = db;
-    }
+    int updateFeed(@NonNull FeedChannel channel);
 
-    public long addFeed(@NonNull FeedChannel channel)
-    {
-        return db.feedDao().addFeed(channel);
-    }
+    void deleteFeed(@NonNull FeedChannel channel);
 
-    public long[] addFeeds(@NonNull List<FeedChannel> feeds)
-    {
-        return db.feedDao().addFeeds(feeds);
-    }
+    void deleteFeeds(@NonNull List<FeedChannel> feeds);
 
-    public int updateFeed(@NonNull FeedChannel channel)
-    {
-        return db.feedDao().updateFeed(channel);
-    }
+    FeedChannel getFeedById(long id);
 
-    public void deleteFeed(@NonNull FeedChannel channel)
-    {
-        db.feedDao().deleteFeed(channel);
-    }
+    Single<FeedChannel> getFeedByIdSingle(long id);
 
-    public void deleteFeeds(@NonNull List<FeedChannel> feeds)
-    {
-        db.feedDao().deleteFeeds(feeds);
-    }
+    Flowable<List<FeedChannel>> observeAllFeeds();
 
-    public FeedChannel getFeedById(long id)
-    {
-        return db.feedDao().getFeedById(id);
-    }
+    List<FeedChannel> getAllFeeds();
 
-    public Single<FeedChannel> getFeedByIdSingle(long id)
-    {
-        return db.feedDao().getFeedByIdSingle(id);
-    }
+    Single<List<FeedChannel>> getAllFeedsSingle();
 
-    public Flowable<List<FeedChannel>> observeAllFeeds()
-    {
-        return db.feedDao().observeAllFeeds();
-    }
+    void serializeAllFeeds(@NonNull Uri file) throws IOException;
 
-    public List<FeedChannel> getAllFeeds()
-    {
-        return db.feedDao().getAllFeeds();
-    }
+    List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException;
 
-    public Single<List<FeedChannel>> getAllFeedsSingle()
-    {
-        return db.feedDao().getAllFeedsSingle();
-    }
+    void addItems(@NonNull List<FeedItem> items);
 
-    public void serializeAllFeeds(@NonNull Context context, @NonNull Uri file) throws IOException
-    {
-        FacadeHelper.getFileSystemFacade(context)
-                .write(new Gson().toJson(getAllFeeds()), Charset.forName("UTF-8"), file);
-    }
+    void deleteItemsOlderThan(long keepDateBorderTime);
 
-    public List<FeedChannel> deserializeFeeds(@NonNull Context context, @NonNull Uri file) throws IOException
-    {
-        List<FeedChannel> feeds;
-        ContentResolver resolver = context.getContentResolver();
-        ParcelFileDescriptor fd = resolver.openFileDescriptor(file, "rw");
+    void markAsRead(@NonNull String itemId);
 
-        try (FileInputStream fin = new FileInputStream(fd.getFileDescriptor());
-             InputStreamReader reader = new InputStreamReader(fin, Charset.forName("UTF-8"))) {
-            feeds = new Gson().fromJson(reader, new TypeToken<ArrayList<FeedChannel>>(){}.getType());
-        }
+    void markAsUnread(@NonNull String itemId);
 
-        return feeds;
-    }
+    void markAsReadByFeedId(List<Long> feedId);
 
-    public void addItems(@NonNull List<FeedItem> items)
-    {
-        db.feedDao().addItems(items);
-    }
+    Flowable<List<FeedItem>> observeItemsByFeedId(long feedId);
 
-    public void deleteItemsOlderThan(long keepDateBorderTime)
-    {
-        db.feedDao().deleteItemsOlderThan(keepDateBorderTime);
-    }
+    Single<List<FeedItem>> getItemsByFeedIdSingle(long feedId);
 
-    public void markAsRead(@NonNull String itemId)
-    {
-        db.feedDao().markAsRead(itemId);
-    }
+    List<String> getItemsIdByFeedId(long feedId);
 
-    public void markAsUnread(@NonNull String itemId)
-    {
-        db.feedDao().markAsUnread(itemId);
-    }
+    List<String> findItemsExistingTitles(@NonNull List<String> titles);
 
-    public void markAsReadByFeedId(List<Long> feedId)
-    {
-        db.feedDao().markAsReadByFeedId(feedId);
-    }
-
-    public Flowable<List<FeedItem>> observeItemsByFeedId(long feedId)
-    {
-        return db.feedDao().observeItemsByFeedId(feedId);
-    }
-
-    public Single<List<FeedItem>> getItemsByFeedIdSingle(long feedId)
-    {
-        return db.feedDao().getItemsByFeedIdSingle(feedId);
-    }
-
-    public List<String> getItemsIdByFeedId(long feedId)
-    {
-        return db.feedDao().getItemsIdByFeedId(feedId);
-    }
-
-    public List<String> findItemsExistingTitles(@NonNull List<String> titles)
-    {
-        return db.feedDao().findItemsExistingTitles(titles);
-    }
-
-    public List<FeedItem> getItemsById(@NonNull String... itemsId)
-    {
-        return db.feedDao().getItemsById(itemsId);
-    }
+    List<FeedItem> getItemsById(@NonNull String... itemsId);
 }

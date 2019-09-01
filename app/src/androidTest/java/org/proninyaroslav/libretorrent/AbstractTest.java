@@ -29,7 +29,11 @@ import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.FeedRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.storage.TorrentRepositoryImpl;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
@@ -48,6 +52,7 @@ public class AbstractTest
     protected TorrentInfoProvider stateProvider;
     protected TorrentRepository torrentRepo;
     protected FeedRepository feedRepo;
+    protected FileSystemFacade fs;
 
     @Before
     public void init()
@@ -57,10 +62,11 @@ public class AbstractTest
                 AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        torrentRepo = TorrentRepository.getInstance(db);
-        feedRepo = FeedRepository.getInstance(db);
+        torrentRepo = new TorrentRepositoryImpl(context, db);
+        feedRepo = new FeedRepositoryImpl(context, db);
         engine = TorrentEngine.getInstance(context);
         stateProvider = TorrentInfoProvider.getInstance(engine);
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
     }
 
     @After

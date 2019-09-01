@@ -25,10 +25,10 @@ import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,7 +161,7 @@ public class DatabaseMigration
 
     private static boolean torrentDataExists(Context context, String id)
     {
-        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(context);
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
         File f = new File(context.getExternalFilesDir(null), id);
 
         return fs.isStorageReadable() && f.exists();
@@ -169,7 +169,7 @@ public class DatabaseMigration
 
     private static File findTorrentDataDir(Context context, String id)
     {
-        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(context);
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
 
         if (fs.isStorageReadable()) {
             File dataDir = new File(context.getExternalFilesDir(null), id);
@@ -185,7 +185,7 @@ public class DatabaseMigration
         if (!torrent.exists())
             return;
 
-        String userDir = FacadeHelper.getFileSystemFacade(context).getUserDirPath();
+        String userDir = SystemFacadeHelper.getFileSystemFacade(context).getUserDirPath();
         if (userDir == null)
             return;
 

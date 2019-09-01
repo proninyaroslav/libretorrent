@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -67,12 +66,8 @@ import org.libtorrent4j.swig.tcp_endpoint_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -83,6 +78,9 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.system.SystemFacade;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -129,7 +127,6 @@ public class TorrentSessionImpl extends SessionManager
     private static final String PEER_FINGERPRINT = "Lr"; /* called peer id */
     private static final String USER_AGENT = "LibreTorrent %s";
 
-    private Context appContext;
     private InnerListener innerListener;
     private ConcurrentLinkedQueue<TorrentEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private SessionSettings settings = new SessionSettings();
@@ -144,12 +141,15 @@ public class TorrentSessionImpl extends SessionManager
     private CompositeDisposable disposables = new CompositeDisposable();
     private TorrentRepository repo;
     private FileSystemFacade fs;
+    private SystemFacade system;
 
-    public TorrentSessionImpl(@NonNull Context appContext)
+    public TorrentSessionImpl(@NonNull TorrentRepository repo,
+                              @NonNull FileSystemFacade fs,
+                              @NonNull SystemFacade system)
     {
-        this.appContext = appContext;
-        repo = TorrentRepository.getInstance(appContext);
-        fs = FacadeHelper.getFileSystemFacade(appContext);
+        this.repo = repo;
+        this.fs = fs;
+        this.system = system;
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
     }
@@ -231,8 +231,8 @@ public class TorrentSessionImpl extends SessionManager
              * has already been created and nothing is known about the received data
              */
             if (params.filePriorities.length == 0) {
-                try (FileDescriptorWrapper w = new FileDescriptorWrapper(Uri.parse(params.source))) {
-                    FileDescriptor outFd = w.open(appContext, "r");
+                try (FileDescriptorWrapper w = fs.getFD(Uri.parse(params.source))) {
+                    FileDescriptor outFd = w.open("r");
                     try (FileInputStream is = new FileInputStream(outFd)) {
                         TorrentMetaInfo info = new TorrentMetaInfo(is);
                         params.filePriorities = new Priority[info.fileCount];
@@ -288,8 +288,8 @@ public class TorrentSessionImpl extends SessionManager
                     params.addPaused,
                     null);
         } else {
-            try (FileDescriptorWrapper w = new FileDescriptorWrapper(Uri.parse(params.source))) {
-                FileDescriptor fd = w.open(appContext, "r");
+            try (FileDescriptorWrapper w = fs.getFD(Uri.parse(params.source))) {
+                FileDescriptor fd = w.open("r");
                 try (FileInputStream fin = new FileInputStream(fd)) {
                     FileChannel chan = fin.getChannel();
 
@@ -566,8 +566,8 @@ public class TorrentSessionImpl extends SessionManager
         if (swig() == null)
             return;
 
-        IPFilterParser parser = new IPFilterParser(path);
-        disposables.add(parser.parse(appContext)
+        IPFilterParser parser = new IPFilterParser(path, fs);
+        disposables.add(parser.parse()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((filter) -> {
@@ -771,7 +771,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
 
-        String versionName = Utils.getAppVersionName(appContext);
+        String versionName = system.getAppVersionName();
         if (versionName != null) {
             int[] version = Utils.getVersionComponents(versionName);
 
@@ -899,12 +899,7 @@ public class TorrentSessionImpl extends SessionManager
                 }
                 case LISTEN_FAILED: {
                     ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
-                    String fmt = appContext.getString(R.string.listen_failed_error);
-                    listener.onSessionError(String.format(fmt,
-                            listenFailedAlert.address(),
-                            listenFailedAlert.port(),
-                            listenFailedAlert.socketType(),
-                            Utils.getErrorMsg(listenFailedAlert.error())));
+                    listener.onSessionError(Utils.getErrorMsg(listenFailedAlert.error()));
                     break;
                 }
                 case PORTMAP_ERROR: {
@@ -957,7 +952,7 @@ public class TorrentSessionImpl extends SessionManager
     private SessionParams loadSettings()
     {
         try {
-            String sessionPath = repo.getSessionFile(appContext);
+            String sessionPath = repo.getSessionFile();
             if (sessionPath == null)
                 return new SessionParams(defaultSettingsPack());
 
@@ -996,7 +991,7 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         try {
-            repo.saveSession(appContext, saveState());
+            repo.saveSession(saveState());
 
         } catch (Exception e) {
             Log.e(TAG, "Error saving session state: ");
@@ -1125,7 +1120,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private TorrentDownload newTask(TorrentHandle th, String id)
     {
-        TorrentDownload task = new TorrentDownloadImpl(appContext, this, listeners,
+        TorrentDownload task = new TorrentDownloadImpl(this, repo, fs, listeners,
                 id, th, settings.autoManaged);
         task.setMaxConnections(settings.connectionsLimitPerTorrent);
         task.setMaxUploads(settings.uploadsLimitPerTorrent);

@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -57,10 +56,8 @@ import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
@@ -68,6 +65,8 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
@@ -151,7 +150,7 @@ public class Utils
 
     public static boolean checkConnectivity(@NonNull Context context)
     {
-        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
         NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
@@ -159,7 +158,7 @@ public class Utils
 
     public static boolean isNetworkTypeAllowed(@NonNull Context context)
     {
-        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
@@ -206,7 +205,7 @@ public class Utils
 
     public static boolean isMetered(@NonNull Context context)
     {
-        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -219,7 +218,7 @@ public class Utils
 
     public static boolean isRoaming(@NonNull Context context)
     {
-        SystemFacade systemFacade = FacadeHelper.getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -665,19 +664,6 @@ public class Utils
         return response[0];
     }
 
-    public static String getAppVersionName(@NonNull Context context)
-    {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-
-            return info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            /* Ignore */
-        }
-
-        return null;
-    }
-
     /*
      * Without additional information (e.g -DEBUG)
      */
@@ -811,7 +797,7 @@ public class Utils
         String path = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
                                      SettingsManager.Default.saveTorrentsIn(appContext));
 
-        FileSystemFacade fs = FacadeHelper.getFileSystemFacade(appContext);
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
 
         path = (TextUtils.isEmpty(path) ? fs.getDefaultDownloadPath() : path);
 

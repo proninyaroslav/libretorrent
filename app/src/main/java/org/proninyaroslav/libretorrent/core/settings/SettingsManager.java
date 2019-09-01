@@ -28,9 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 
 public class SettingsManager
 {
@@ -78,22 +77,22 @@ public class SettingsManager
         /* Storage settings */
         public static final String saveTorrentsIn(@NonNull Context context)
         {
-            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+            return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         public static final boolean moveAfterDownload = false;
         public static final String moveAfterDownloadIn(@NonNull Context context)
         {
-            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+            return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         public static final boolean saveTorrentFiles = false;
         public static final String saveTorrentFilesIn(@NonNull Context context)
         {
-            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+            return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         public static final boolean watchDir = false;
         public static final String dirToWatch(@NonNull Context context)
         {
-            return "file://" + FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+            return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         /* Limitations settings */
         public static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
@@ -120,7 +119,7 @@ public class SettingsManager
         /* Filemanager settings */
         public static final String fileManagerLastDir(@NonNull Context context)
         {
-            return FacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
+            return SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         /* Scheduling settings */
         public static final boolean enableSchedulingStart = false;

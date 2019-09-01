@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -57,10 +56,8 @@ import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
@@ -73,6 +70,7 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -124,7 +122,6 @@ public class TorrentDownloadImpl implements TorrentDownload
             AlertType.FILE_ERROR.swig()
     };
 
-    private Context appContext;
     private SessionManager sessionManager;
     private TorrentHandle th;
     private String id;
@@ -141,17 +138,17 @@ public class TorrentDownloadImpl implements TorrentDownload
     private boolean autoManaged;
     private long lastProgressUpdateTime = 0;
 
-    public TorrentDownloadImpl(Context appContext,
-                               SessionManager sessionManager,
+    public TorrentDownloadImpl(SessionManager sessionManager,
+                               TorrentRepository repo,
+                               FileSystemFacade fs,
                                final Queue<TorrentEngineListener> listeners,
                                String id,
                                TorrentHandle handle,
                                boolean autoManaged)
     {
-        this.appContext = appContext;
         this.id = id;
-        repo = TorrentRepository.getInstance(appContext);
-        fs = FacadeHelper.getFileSystemFacade(appContext);
+        this.repo = repo;
+        this.fs = fs;
         this.sessionManager = sessionManager;
         this.autoManaged = autoManaged;
         this.listeners = listeners;

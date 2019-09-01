@@ -32,13 +32,16 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -69,6 +72,14 @@ public class DatabaseMigrationTest
     private static final String feedName = "Example";
     private static final String feedFilter = "Example Item 1";
 
+    private FileSystemFacade fs;
+
+    @Before
+    public void init()
+    {
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
+    }
+
     @Test
     public void testMigration4to5_Torrent() throws IOException
     {
@@ -87,7 +98,7 @@ public class DatabaseMigrationTest
         ContentValues values1 = new ContentValues();
         values1.put("torrent_id", torrentHash);
         values1.put("name", torrentName);
-        values1.put("path_to_download", FileSystemFacadeImpl.getDefaultDownloadPath());
+        values1.put("path_to_download", fs.getDefaultDownloadPath());
         values1.put("file_priorities", 0);
         values1.put("is_paused", true); /* It's not imported from old db */
         values1.put("downloading_metadata", false);
@@ -98,7 +109,7 @@ public class DatabaseMigrationTest
         ContentValues values2 = new ContentValues();
         values2.put("torrent_id", magnetHash);
         values2.put("name", magnetHash);
-        values2.put("path_to_download", FileSystemFacadeImpl.getDefaultDownloadPath());
+        values2.put("path_to_download", fs.getDefaultDownloadPath());
         values2.put("file_priorities", 0);
         values2.put("downloading_metadata", true);
         values2.put("path_to_torrent", magnet);
@@ -125,7 +136,7 @@ public class DatabaseMigrationTest
 
         assertEquals(torrentHash, torrent1.id);
         assertEquals(torrentName, torrent1.name);
-        assertEquals("file://" + FileSystemFacadeImpl.getDefaultDownloadPath(), torrent1.downloadPath.toString());
+        assertEquals("file://" + fs.getDefaultDownloadPath(), torrent1.downloadPath.toString());
         assertFalse(torrent1.manuallyPaused); /* It's not imported from old db */
         assertFalse(torrent1.downloadingMetadata);
         assertNull(torrent1.getMagnet());
@@ -140,7 +151,7 @@ public class DatabaseMigrationTest
 
         assertEquals(magnetHash, torrent2.id);
         assertEquals(magnetHash, torrent2.name);
-        assertEquals("file://" + FileSystemFacadeImpl.getDefaultDownloadPath(), torrent2.downloadPath.toString());
+        assertEquals("file://" + fs.getDefaultDownloadPath(), torrent2.downloadPath.toString());
         assertTrue(torrent2.downloadingMetadata);
         assertEquals(magnet, torrent2.getMagnet());
     }

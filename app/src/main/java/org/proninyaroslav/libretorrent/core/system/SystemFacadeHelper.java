@@ -17,19 +17,16 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.system;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacadeImpl;
-import org.proninyaroslav.libretorrent.core.system.SystemFacade;
-import org.proninyaroslav.libretorrent.core.system.SystemFacadeImpl;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacadeImpl;
 
-public class FacadeHelper
+public class SystemFacadeHelper
 {
     private static SystemFacade systemFacade;
     private static FileSystemFacade fileSystemFacade;
@@ -42,23 +39,11 @@ public class FacadeHelper
         return systemFacade;
     }
 
-    @VisibleForTesting
-    public synchronized static void setFileSystemFacade(@NonNull SystemFacade systemFacade)
-    {
-        FacadeHelper.systemFacade = systemFacade;
-    }
-
     public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
     {
         if (fileSystemFacade == null)
             fileSystemFacade = new FileSystemFacadeImpl(appContext);
 
         return fileSystemFacade;
-    }
-
-    @VisibleForTesting
-    public synchronized static void setFileSystemFacade(@NonNull FileSystemFacade fileSystemFacade)
-    {
-        FacadeHelper.fileSystemFacade = fileSystemFacade;
     }
 }

@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core.system;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -64,5 +66,19 @@ public class SystemFacadeImpl implements SystemFacade
         ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return ConnectivityManagerCompat.isActiveNetworkMetered(cm);
+    }
+
+    @Override
+    public String getAppVersionName()
+    {
+        try {
+            PackageInfo info = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            /* Ignore */
+        }
+
+        return null;
     }
 }

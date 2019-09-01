@@ -33,9 +33,9 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 
@@ -69,7 +69,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
 
         Context context = getActivity().getApplicationContext();
-        fs = FacadeHelper.getFileSystemFacade(context);
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         String keySaveTorrentsIn = getString(R.string.pref_key_save_torrents_in);

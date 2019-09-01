@@ -32,14 +32,11 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.FacadeHelper;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
-import org.proninyaroslav.libretorrent.core.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
@@ -59,7 +56,11 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receiver.PowerReceiver;
@@ -121,11 +122,13 @@ public class TorrentEngine
     private TorrentEngine(@NonNull Context appContext)
     {
         this.appContext = appContext;
-        repo = TorrentRepository.getInstance(appContext);
-        fs = FacadeHelper.getFileSystemFacade(appContext);
+        repo = RepositoryHelper.getTorrentRepository(appContext);
+        fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = SettingsManager.getInstance(appContext).getPreferences();
         notifier = TorrentNotifier.getInstance(appContext);
-        session = new TorrentSessionImpl(appContext);
+        session = new TorrentSessionImpl(repo,
+                fs,
+                SystemFacadeHelper.getSystemFacade(appContext));
         session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));
         session.addListener(engineListener);
 
@@ -220,8 +223,8 @@ public class TorrentEngine
             Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
 
             TorrentMetaInfo info = null;
-            try (FileDescriptorWrapper w = new FileDescriptorWrapper(file)) {
-                FileDescriptor outFd = w.open(appContext, "r");
+            try (FileDescriptorWrapper w = fs.getFD(file)) {
+                FileDescriptor outFd = w.open("r");
 
                 try(FileInputStream is = new FileInputStream(outFd)) {
                     info = new TorrentMetaInfo(is);

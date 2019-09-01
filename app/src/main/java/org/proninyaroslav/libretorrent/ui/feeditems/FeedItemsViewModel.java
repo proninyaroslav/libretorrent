@@ -31,6 +31,7 @@ import androidx.work.WorkRequest;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.service.FeedFetcherWorker;
 
 import java.util.Collections;
@@ -55,7 +56,7 @@ public class FeedItemsViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = FeedRepository.getInstance(application);
+        repo = RepositoryHelper.getFeedRepository(application);
         feedId = -1;
     }
 
