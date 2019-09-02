@@ -22,9 +22,11 @@ package org.proninyaroslav.libretorrent.ui.filemanager;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -46,6 +48,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityFilemanagerDialogBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
@@ -98,6 +101,7 @@ public class FileManagerDialog extends AppCompatActivity
     private ErrorReportDialog errorReportDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private SharedPreferences pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -112,8 +116,12 @@ public class FileManagerDialog extends AppCompatActivity
             finish();
         }
 
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
         FileManagerViewModelFactory factory = new FileManagerViewModelFactory(this.getApplicationContext(),
-                intent.getParcelableExtra(TAG_CONFIG));
+                intent.getParcelableExtra(TAG_CONFIG), startDir);
         viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
@@ -424,7 +432,7 @@ public class FileManagerDialog extends AppCompatActivity
 
         } else if (item.getType() == FileManagerNode.Type.FILE &&
                 viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
-            viewModel.saveCurDirectoryPath();
+            saveCurDirectoryPath();
             returnFileUri(item.getName());
         }
     }
@@ -433,6 +441,17 @@ public class FileManagerDialog extends AppCompatActivity
     {
         binding.swipeContainer.setRefreshing(true);
         viewModel.refreshCurDirectory();
+    }
+
+    public void saveCurDirectoryPath()
+    {
+        String path = viewModel.curDir.get();
+        if (path == null)
+            return;
+
+        String keyFileManagerLastDir = getString(R.string.pref_key_filemanager_last_dir);
+        if (!pref.getString(keyFileManagerLastDir, "").equals(path))
+            pref.edit().putString(keyFileManagerLastDir, path).apply();
     }
 
     @Override
@@ -473,7 +492,7 @@ public class FileManagerDialog extends AppCompatActivity
                 openHomeDirectory();
                 break;
             case R.id.filemanager_ok_menu:
-                viewModel.saveCurDirectoryPath();
+                saveCurDirectoryPath();
                 if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
                     createFile(false);
                 else

@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -56,9 +55,10 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemA
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
@@ -272,9 +272,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     {
         super.onDestroy();
 
-        SharedPreferences pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
-        if (isFinishing() && !pref.getBoolean(getString(R.string.pref_key_keep_alive),
-                                              SettingsManager.Default.keepAlive))
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        if (isFinishing() && !pref.keepAlive())
             shutdown();
     }
 

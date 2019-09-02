@@ -18,6 +18,7 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_torrent_finish_notify"
             android:title="@string/pref_torrent_finish_notify_title"
-            android:summary="@string/pref_torrent_finish_notify_summary" />
+            android:summary="@string/pref_torrent_finish_notify_summary"
+            android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

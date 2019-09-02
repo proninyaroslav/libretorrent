@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Pair;
 
@@ -33,7 +32,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
@@ -50,8 +49,7 @@ import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFi
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
@@ -80,7 +78,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private TorrentEngine engine;
     private TorrentRepository repo;
     private FileSystemFacade fs;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private CompositeDisposable disposable = new CompositeDisposable();
     public TorrentDetailsInfo info = new TorrentDetailsInfo();
     public TorrentDetailsMutableParams mutableParams = new TorrentDetailsMutableParams();
@@ -100,7 +98,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         engine = TorrentEngine.getInstance(application);
         repo = RepositoryHelper.getTorrentRepository(application);
         fs = SystemFacadeHelper.getFileSystemFacade(application);
-        pref = SettingsManager.getInstance(application).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(application);
         paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
         info.addOnPropertyChangedCallback(infoCallback);
@@ -370,10 +368,8 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
     public String getStreamUrl(int fileIndex)
     {
-        String hostname = pref.getString(getApplication().getString(R.string.pref_key_streaming_hostname),
-                                         SettingsManager.Default.streamingHostname);
-        int port = pref.getInt(getApplication().getString(R.string.pref_key_streaming_port),
-                               SettingsManager.Default.streamingPort);
+        String hostname = pref.streamingHostname();
+        int port = pref.streamingPort();
 
         return TorrentStreamServer.makeStreamUrl(hostname, port, torrentId, fileIndex);
     }

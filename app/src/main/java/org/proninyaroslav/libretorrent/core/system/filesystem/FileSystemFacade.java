@@ -107,7 +107,7 @@ public interface FileSystemFacade
 
     String buildValidFatFilename(String name);
 
-    String normalizeFileSystemPath(@NonNull String path);
+    String normalizeFileSystemPath(String path);
 
     String getDirName(@NonNull Uri dir);
 }

@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.core.model;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
@@ -32,6 +31,7 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
@@ -55,8 +55,7 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
@@ -97,7 +96,7 @@ public class TorrentEngine
     private TorrentSession session;
     private TorrentStreamServer torrentStreamServer;
     private TorrentRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private TorrentNotifier notifier;
     private CompositeDisposable disposables = new CompositeDisposable();
     private TorrentFileObserver fileObserver;
@@ -124,17 +123,18 @@ public class TorrentEngine
         this.appContext = appContext;
         repo = RepositoryHelper.getTorrentRepository(appContext);
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(appContext);
         notifier = TorrentNotifier.getInstance(appContext);
         session = new TorrentSessionImpl(repo,
                 fs,
                 SystemFacadeHelper.getSystemFacade(appContext));
-        session.setSettings(SettingsManager.getInstance(appContext).readSessionSettings(appContext));
+        session.setSettings(pref.readSessionSettings());
         session.addListener(engineListener);
 
         switchConnectionReceiver();
         switchPowerReceiver();
-        pref.registerOnSharedPreferenceChangeListener(sharedPrefListener);
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe(this::handleSettingsChanged));
     }
 
     public void start()
@@ -810,12 +810,9 @@ public class TorrentEngine
 
     private void switchPowerReceiver()
     {
-        boolean batteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_battery_control),
-                SettingsManager.Default.batteryControl);
-        boolean customBatteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_custom_battery_control),
-                SettingsManager.Default.customBatteryControl);
-        boolean onlyCharging = pref.getBoolean(appContext.getString(R.string.pref_key_download_and_upload_only_when_charging),
-                SettingsManager.Default.onlyCharging);
+        boolean batteryControl = pref.batteryControl();
+        boolean customBatteryControl = pref.customBatteryControl();
+        boolean onlyCharging = pref.onlyCharging();
 
         try {
             appContext.unregisterReceiver(powerReceiver);
@@ -835,10 +832,8 @@ public class TorrentEngine
 
     private void switchConnectionReceiver()
     {
-        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
-                SettingsManager.Default.unmeteredConnectionsOnly);
-        boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
-                SettingsManager.Default.enableRoaming);
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
+        boolean roaming = pref.enableRoaming();
 
         try {
             appContext.unregisterReceiver(connectionReceiver);
@@ -852,18 +847,12 @@ public class TorrentEngine
 
     private boolean checkPauseTorrents()
     {
-        boolean batteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_battery_control),
-                SettingsManager.Default.batteryControl);
-        boolean customBatteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_custom_battery_control),
-                SettingsManager.Default.customBatteryControl);
-        int customBatteryControlValue = pref.getInt(appContext.getString(R.string.pref_key_custom_battery_control_value),
-                Utils.getDefaultBatteryLowLevel());
-        boolean onlyCharging = pref.getBoolean(appContext.getString(R.string.pref_key_download_and_upload_only_when_charging),
-                SettingsManager.Default.onlyCharging);
-        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
-                SettingsManager.Default.unmeteredConnectionsOnly);
-        boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
-                SettingsManager.Default.enableRoaming);
+        boolean batteryControl = pref.batteryControl();
+        boolean customBatteryControl = pref.customBatteryControl();
+        int customBatteryControlValue = pref.customBatteryControlValue();
+        boolean onlyCharging = pref.onlyCharging();
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
+        boolean roaming = pref.enableRoaming();
 
         boolean stop = false;
         if (roaming)
@@ -882,37 +871,29 @@ public class TorrentEngine
 
     private void initSession()
     {
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
-                            SettingsManager.Default.useRandomPort)) {
+        if (pref.useRandomPort()) {
             setRandomPortRange();
         } else {
-            int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
-                                        SettingsManager.Default.portRangeFirst);
-            int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
-                                         SettingsManager.Default.portRangeSecond);
+            int portFirst = pref.portRangeFirst();
+            int portSecond = pref.portRangeSecond();
             session.setPortRange(portFirst, portSecond);
         }
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_proxy_changed),
-                SettingsManager.Default.proxyChanged)) {
-            pref.edit().putBoolean(appContext.getString(R.string.pref_key_proxy_changed), false).apply();
+        if (pref.proxyChanged()) {
+            pref.proxyChanged(false);
             setProxy();
         }
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_ip_filtering),
-                SettingsManager.Default.enableIpFiltering)) {
-            String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
-                                         SettingsManager.Default.ipFilteringFile);
+        if (pref.enableIpFiltering()) {
+            String path = pref.ipFilteringFile();
             if (path != null)
-                session.enableIpFilter(Uri.parse(fs.normalizeFileSystemPath(path)));
+                session.enableIpFilter(Uri.parse(path));
         }
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_watch_dir),
-                SettingsManager.Default.watchDir))
+        if (pref.watchDir())
             startWatchDir();
 
-        boolean enableStreaming = pref.getBoolean(appContext.getString(R.string.pref_key_streaming_enable),
-                                                  SettingsManager.Default.enableStreaming);
+        boolean enableStreaming = pref.enableStreaming();
         if (enableStreaming)
             startStreamingServer();
     }
@@ -921,10 +902,8 @@ public class TorrentEngine
     {
         stopStreamingServer();
 
-        String hostname = pref.getString(appContext.getString(R.string.pref_key_streaming_hostname),
-                                         SettingsManager.Default.streamingHostname);
-        int port = pref.getInt(appContext.getString(R.string.pref_key_streaming_port),
-                               SettingsManager.Default.streamingPort);
+        String hostname = pref.streamingHostname();
+        int port = pref.streamingPort();
 
         torrentStreamServer = new TorrentStreamServer(hostname, port);
         try {
@@ -956,41 +935,33 @@ public class TorrentEngine
     private void setProxy()
     {
         ProxySettingsPack proxy = new ProxySettingsPack();
-        ProxySettingsPack.ProxyType type = ProxySettingsPack.ProxyType.fromValue(
-                pref.getInt(appContext.getString(R.string.pref_key_proxy_type),
-                        SettingsManager.Default.proxyType));
+
+        ProxySettingsPack.ProxyType type = ProxySettingsPack.ProxyType.fromValue(pref.proxyType());
         proxy.setType(type);
         if (type == ProxySettingsPack.ProxyType.NONE)
             session.setProxy(proxy);
-        proxy.setAddress(pref.getString(appContext.getString(R.string.pref_key_proxy_address),
-                SettingsManager.Default.proxyAddress));
-        proxy.setPort(pref.getInt(appContext.getString(R.string.pref_key_proxy_port),
-                SettingsManager.Default.proxyPort));
-        proxy.setProxyPeersToo(pref.getBoolean(appContext.getString(R.string.pref_key_proxy_peers_too),
-                SettingsManager.Default.proxyPeersToo));
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_proxy_requires_auth),
-                SettingsManager.Default.proxyRequiresAuth)) {
-            proxy.setLogin(pref.getString(appContext.getString(R.string.pref_key_proxy_login),
-                    SettingsManager.Default.proxyLogin));
-            proxy.setPassword(pref.getString(appContext.getString(R.string.pref_key_proxy_password),
-                    SettingsManager.Default.proxyPassword));
+
+        proxy.setAddress(pref.proxyAddress());
+        proxy.setPort(pref.proxyPort());
+        proxy.setProxyPeersToo(pref.proxyPeersToo());
+
+        if (pref.proxyRequiresAuth()) {
+            proxy.setLogin(pref.proxyLogin());
+            proxy.setPassword(pref.proxyPassword());
         }
+
         session.setProxy(proxy);
     }
 
     private SessionSettings.EncryptMode getEncryptMode()
     {
-        int modeVal = pref.getInt(appContext.getString(R.string.pref_key_enc_mode),
-                                  SettingsManager.Default.encryptMode(appContext));
-
-        return SessionSettings.EncryptMode.fromValue(modeVal);
+        return SessionSettings.EncryptMode.fromValue(pref.encryptMode());
     }
 
     private void startWatchDir()
     {
-        String dir = pref.getString(appContext.getString(R.string.pref_key_dir_to_watch),
-                                    SettingsManager.Default.dirToWatch(appContext));
-        Uri uri = Uri.parse(fs.normalizeFileSystemPath(dir));
+        String dir = pref.dirToWatch();
+        Uri uri = Uri.parse(dir);
         /* TODO: SAF support */
         if (fs.isSafPath(uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
@@ -1047,19 +1018,18 @@ public class TorrentEngine
     {
         Priority[] priorities = new Priority[info.fileCount];
         Arrays.fill(priorities, Priority.DEFAULT);
-        String downloadPath = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
-                                             SettingsManager.Default.saveTorrentsIn(appContext));
+        Uri downloadPath = Uri.parse(pref.saveTorrentsIn());
 
         AddTorrentParams params = new AddTorrentParams(file.toString(),
                 false,
                 info.sha1Hash,
                 info.torrentName,
                 priorities,
-                Uri.parse(fs.normalizeFileSystemPath(downloadPath)),
+                downloadPath,
                 false,
                 false);
 
-        if (fs.getDirAvailableBytes(Uri.parse(downloadPath)) < info.torrentSize)
+        if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize)
             throw new FreeSpaceException();
 
         return addTorrentSync(params, false);
@@ -1095,10 +1065,8 @@ public class TorrentEngine
     private void setRandomPortRange()
     {
         Pair<Integer, Integer> range = session.getRandomRangePort();
-        pref.edit()
-                .putInt(appContext.getString(R.string.pref_key_port_range_first), range.first)
-                .putInt(appContext.getString(R.string.pref_key_port_range_second), range.second)
-                .apply();
+        pref.portRangeFirst(range.first);
+        pref.portRangeSecond(range.second);
     }
 
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
@@ -1111,14 +1079,9 @@ public class TorrentEngine
         @Override
         public void onTorrentAdded(@NonNull String id)
         {
-            boolean saveTorrentFile = pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
-                                                      SettingsManager.Default.saveTorrentFiles);
-            if (saveTorrentFile) {
-                Torrent torrent = repo.getTorrentById(id);
-                String savePath = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
-                                                 torrent.downloadPath.toString());
-                saveTorrentFileIn(torrent, Uri.parse(fs.normalizeFileSystemPath(savePath)));
-            }
+            if (pref.saveTorrentFiles())
+                saveTorrentFileIn(repo.getTorrentById(id),
+                        Uri.parse(pref.saveTorrentFilesIn()));
 
             if (checkPauseTorrents()) {
                 disposables.add(Completable.fromRunnable(() -> {
@@ -1157,12 +1120,9 @@ public class TorrentEngine
                     .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
                                 notifier.makeTorrentFinishedNotify(torrent);
-
-                                if (pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
-                                                    SettingsManager.Default.moveAfterDownload)) {
+                                if (pref.moveAfterDownload()) {
                                     String curPath = torrent.downloadPath.toString();
-                                    String newPath = pref.getString(appContext.getString(R.string.pref_key_move_after_download_in), curPath);
-                                    newPath = fs.normalizeFileSystemPath(newPath);
+                                    String newPath = pref.moveAfterDownloadIn();
 
                                     if (!curPath.equals(newPath)) {
                                         ChangeableParams params = new ChangeableParams();
@@ -1250,8 +1210,7 @@ public class TorrentEngine
         public void onNatError(@NonNull String errorMsg)
         {
             Log.e(TAG, "NAT error: " + errorMsg);
-            if (pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
-                                SettingsManager.Default.showNatErrors))
+            if (pref.showNatErrors())
                 notifier.makeNatErrorNotify(errorMsg);
         }
 
@@ -1291,12 +1250,8 @@ public class TorrentEngine
                     .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
                                 if (err == null) {
-                                    if (pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
-                                                        SettingsManager.Default.saveTorrentFiles)) {
-                                        String path = pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
-                                                                     torrent.downloadPath.toString());
-                                        saveTorrentFileIn(torrent, Uri.parse(fs.normalizeFileSystemPath(path)));
-                                    }
+                                    if (pref.saveTorrentFiles())
+                                        saveTorrentFileIn(torrent, Uri.parse(pref.saveTorrentFilesIn()));
 
                                 } else if (err instanceof FreeSpaceException) {
                                     notifier.makeTorrentErrorNotify(torrent.name, appContext.getString(R.string.error_free_space));
@@ -1322,10 +1277,11 @@ public class TorrentEngine
         }
     };
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPrefListener = (sharedPreferences, key) -> {
+    private void handleSettingsChanged(String key)
+    {
         boolean reschedule = false;
 
-        if (key.equals(appContext.getString(R.string.pref_key_umnetered_connections_only)) ||
+        if (key.equals(appContext.getString(R.string.pref_key_unmetered_connections_only)) ||
             key.equals(appContext.getString(R.string.pref_key_enable_roaming))) {
             reschedule = true;
             switchConnectionReceiver();
@@ -1341,69 +1297,64 @@ public class TorrentEngine
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_download_speed))) {
             SessionSettings s = session.getSettings();
-            s.downloadRateLimit = pref.getInt(key, SettingsManager.Default.maxDownloadSpeedLimit);
+            s.downloadRateLimit = pref.maxDownloadSpeedLimit();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_upload_speed))) {
             SessionSettings s = session.getSettings();
-            s.uploadRateLimit = pref.getInt(key, SettingsManager.Default.maxUploadSpeedLimit);
+            s.uploadRateLimit = pref.maxUploadSpeedLimit();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_connections))) {
             SessionSettings s = session.getSettings();
-            s.connectionsLimit = pref.getInt(key, SettingsManager.Default.maxConnections);
+            s.connectionsLimit = pref.maxConnections();
             s.maxPeerListSize = s.connectionsLimit;
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_connections_per_torrent))) {
-            session.setMaxConnectionsPerTorrent(pref.getInt(key, SettingsManager.Default.maxConnectionsPerTorrent));
+            session.setMaxConnectionsPerTorrent(pref.maxConnectionsPerTorrent());
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_uploads_per_torrent))) {
-            session.setMaxUploadsPerTorrent(pref.getInt(key, SettingsManager.Default.maxUploadsPerTorrent));
+            session.setMaxUploadsPerTorrent(pref.maxUploadsPerTorrent());
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_downloads))) {
             SessionSettings s = session.getSettings();
-            s.activeDownloads = pref.getInt(key, SettingsManager.Default.maxActiveDownloads);
+            s.activeDownloads = pref.maxActiveDownloads();
             session.setSettings(s);
             
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_uploads))) {
             SessionSettings s = session.getSettings();
-            s.activeSeeds = pref.getInt(key, SettingsManager.Default.maxActiveUploads);
+            s.activeSeeds = pref.maxActiveUploads();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_torrents))) {
             SessionSettings s = session.getSettings();
-            s.activeLimit = pref.getInt(key, SettingsManager.Default.maxActiveTorrents);
+            s.activeLimit = pref.maxActiveTorrents();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_dht))) {
             SessionSettings s = session.getSettings();
-            s.dhtEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_dht),
-                                           SettingsManager.Default.enableDht);
+            s.dhtEnabled = pref.enableDht();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_lsd))) {
             SessionSettings s = session.getSettings();
-            s.lsdEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_lsd),
-                                           SettingsManager.Default.enableLsd);
+            s.lsdEnabled = pref.enableLsd();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_utp))) {
             SessionSettings s = session.getSettings();
-            s.utpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_utp),
-                                           SettingsManager.Default.enableUtp);
+            s.utpEnabled = pref.enableUtp();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_upnp))) {
             SessionSettings s = session.getSettings();
-            s.upnpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_upnp),
-                                            SettingsManager.Default.enableUpnp);
+            s.upnpEnabled = pref.enableUpnp();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_natpmp))) {
             SessionSettings s = session.getSettings();
-            s.natPmpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_natpmp),
-                                              SettingsManager.Default.enableNatPmp);
+            s.natPmpEnabled = pref.enableNatPmp();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_mode))) {
@@ -1414,8 +1365,7 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_in_connections))) {
             SessionSettings s = session.getSettings();
             SessionSettings.EncryptMode state = SessionSettings.EncryptMode.DISABLED;
-            s.encryptInConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_in_connections),
-                                                     SettingsManager.Default.encryptInConnections);
+            s.encryptInConnections = pref.encryptInConnections();
             if (s.encryptInConnections) {
                 state = getEncryptMode();
             }
@@ -1425,8 +1375,7 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_enc_out_connections))) {
             SessionSettings s = session.getSettings();
             SessionSettings.EncryptMode state = SessionSettings.EncryptMode.DISABLED;
-            s.encryptOutConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_out_connections),
-                                                      SettingsManager.Default.encryptOutConnections);
+            s.encryptOutConnections = pref.encryptOutConnections();
             if (s.encryptOutConnections) {
                 state = getEncryptMode();
             }
@@ -1434,45 +1383,37 @@ public class TorrentEngine
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_use_random_port))) {
-            if (pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
-                                SettingsManager.Default.useRandomPort)) {
+            if (pref.useRandomPort()) {
                 setRandomPortRange();
 
             } else {
-                int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
-                                            SettingsManager.Default.portRangeFirst);
-                int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
-                                             SettingsManager.Default.portRangeSecond);
+                int portFirst = pref.portRangeFirst();
+                int portSecond = pref.portRangeSecond();
                 session.setPortRange(portFirst, portSecond);
             }
 
         } else if (key.equals(appContext.getString(R.string.pref_key_port_range_first)) ||
                    key.equals(appContext.getString(R.string.pref_key_port_range_second))) {
-            int portFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
-                                        SettingsManager.Default.portRangeFirst);
-            int portSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
-                                         SettingsManager.Default.portRangeSecond);
+            int portFirst = pref.portRangeFirst();
+            int portSecond = pref.portRangeSecond();
             session.setPortRange(portFirst, portSecond);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_ip_filtering))) {
-            if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_ip_filtering),
-                                SettingsManager.Default.enableIpFiltering)) {
-                String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
-                                             SettingsManager.Default.ipFilteringFile);
+            if (pref.enableIpFiltering()) {
+                String path = pref.ipFilteringFile();
                 if (path != null)
-                    session.enableIpFilter(Uri.parse(fs.normalizeFileSystemPath(path)));
+                    session.enableIpFilter(Uri.parse(path));
             } else {
                 session.disableIpFilter();
             }
 
         } else if (key.equals(appContext.getString(R.string.pref_key_ip_filtering_file))) {
-            String path = pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
-                                         SettingsManager.Default.ipFilteringFile);
+            String path = pref.ipFilteringFile();
             if (path != null)
-                session.enableIpFilter(Uri.parse(fs.normalizeFileSystemPath(path)));
+                session.enableIpFilter(Uri.parse(path));
 
         } else if (key.equals(appContext.getString(R.string.pref_key_apply_proxy))) {
-            pref.edit().putBoolean(appContext.getString(R.string.pref_key_proxy_changed), false).apply();
+            pref.proxyChanged(false);
             setProxy();
             Toast.makeText(appContext,
                     R.string.proxy_settings_applied,
@@ -1480,10 +1421,10 @@ public class TorrentEngine
                     .show();
 
         } else if (key.equals(appContext.getString(R.string.pref_key_auto_manage))) {
-            session.setAutoManaged(pref.getBoolean(key, SettingsManager.Default.autoManage));
+            session.setAutoManaged(pref.autoManage());
 
         } else if (key.equals(appContext.getString(R.string.pref_key_watch_dir))) {
-            if (pref.getBoolean(appContext.getString(R.string.pref_key_watch_dir), SettingsManager.Default.watchDir))
+            if (pref.watchDir())
                 startWatchDir();
             else
                 stopWatchDir();
@@ -1493,7 +1434,7 @@ public class TorrentEngine
             startWatchDir();
 
         } else if (key.equals(appContext.getString(R.string.pref_key_streaming_enable))) {
-            if (pref.getBoolean(key, SettingsManager.Default.enableStreaming))
+            if (pref.enableStreaming())
                 startStreamingServer();
             else
                 stopStreamingServer();

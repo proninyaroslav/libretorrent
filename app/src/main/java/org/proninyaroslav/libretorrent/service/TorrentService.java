@@ -24,7 +24,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -38,13 +37,14 @@ import androidx.core.app.NotificationCompat;
 
 import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
@@ -52,6 +52,7 @@ import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -70,9 +71,10 @@ public class TorrentService extends Service
     private boolean isNetworkOnline = false;
     private TorrentInfoProvider stateProvider;
     private TorrentEngine engine;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
     private Thread shutdownThread;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     @Nullable
     @Override
@@ -91,12 +93,12 @@ public class TorrentService extends Service
                 stopService();
             }
         };
-        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
-        pref.registerOnSharedPreferenceChangeListener(sharedPreferenceListener);
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe(this::handleSettingsChanged));
 
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
-        setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
-                                        SettingsManager.Default.cpuDoNotSleep));
+        setKeepCpuAwake(pref.cpuDoNotSleep());
 
         engine = TorrentEngine.getInstance(getApplicationContext());
         engine.addListener(engineListener);
@@ -127,7 +129,7 @@ public class TorrentService extends Service
 
     private void stopService()
     {
-        pref.unregisterOnSharedPreferenceChangeListener(sharedPreferenceListener);
+        disposables.clear();
         stopUpdateForegroundNotify();
         engine.removeListener(engineListener);
         if (engine != null)
@@ -191,8 +193,7 @@ public class TorrentService extends Service
 
     private void checkShutdown()
     {
-        if (pref.getBoolean(getString(R.string.pref_key_shutdown_downloads_complete),
-                            SettingsManager.Default.shutdownDownloadsComplete) && engine.isTorrentsFinished())
+        if (pref.shutdownDownloadsComplete() && engine.isTorrentsFinished())
             shutdown();
     }
 
@@ -222,9 +223,10 @@ public class TorrentService extends Service
         }
     };
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceListener = (sharedPreferences, key) -> {
+    private void handleSettingsChanged(String key)
+    {
         if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
-            setKeepCpuAwake(sharedPreferences.getBoolean(key, SettingsManager.Default.cpuDoNotSleep));
+            setKeepCpuAwake(pref.cpuDoNotSleep());
     };
 
     private void startUpdateForegroundNotify()

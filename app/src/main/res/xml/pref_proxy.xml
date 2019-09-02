@@ -23,12 +23,14 @@
     <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_peers_too"
         android:title="@string/pref_proxy_peers_too_title"
-        android:summary="@string/pref_proxy_peers_too_summary" />
+        android:summary="@string/pref_proxy_peers_too_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_requires_auth"
         android:title="@string/pref_proxy_requires_auth_title"
-        android:summary="@string/pref_proxy_requires_auth_summary" />
+        android:summary="@string/pref_proxy_requires_auth_summary"
+        android:persistent="false" />
 
     <EditTextPreference
         android:key="@string/pref_key_proxy_login"

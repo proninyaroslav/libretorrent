@@ -29,11 +29,15 @@ public class FileManagerViewModelFactory extends ViewModelProvider.NewInstanceFa
 {
     private final Context context;
     private final FileManagerConfig config;
+    private final String startDir;
 
-    public FileManagerViewModelFactory(@NonNull Context context, FileManagerConfig config)
+    public FileManagerViewModelFactory(@NonNull Context context,
+                                       FileManagerConfig config,
+                                       String startDir)
     {
         this.context = context;
         this.config = config;
+        this.startDir = startDir;
     }
 
     @NonNull
@@ -41,7 +45,7 @@ public class FileManagerViewModelFactory extends ViewModelProvider.NewInstanceFa
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass)
     {
         if (modelClass.isAssignableFrom(FileManagerViewModel.class))
-            return (T)new FileManagerViewModel(context, config);
+            return (T)new FileManagerViewModel(context, config, startDir);
 
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

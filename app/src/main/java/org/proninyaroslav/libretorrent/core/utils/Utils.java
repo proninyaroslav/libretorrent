@@ -38,6 +38,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -57,11 +58,12 @@ import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
@@ -160,11 +162,9 @@ public class Utils
     {
         SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-        boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
-                                                SettingsManager.Default.enableRoaming);
-        boolean unmeteredOnly = pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
-                                                SettingsManager.Default.unmeteredConnectionsOnly);
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean enableRoaming = pref.enableRoaming();
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
 
         boolean noUnmeteredOnly;
         boolean noRoaming;
@@ -396,9 +396,7 @@ public class Utils
 
     public static int getThemePreference(@NonNull Context context)
     {
-        return SettingsManager.getInstance(context)
-                .getPreferences().getInt(context.getString(R.string.pref_key_theme),
-                                         SettingsManager.Default.theme(context));
+        return RepositoryHelper.getSettingsRepository(context).theme();
     }
     
     public static boolean isDarkTheme(@NonNull Context context)
@@ -455,12 +453,10 @@ public class Utils
 
     public static TorrentSorting getTorrentSorting(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
 
-        String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
-                                       SettingsManager.Default.sortTorrentBy);
-        String direction = pref.getString(context.getString(R.string.pref_key_sort_torrent_direction),
-                                          SettingsManager.Default.sortTorrentDirection);
+        String column = pref.sortTorrentBy();
+        String direction = pref.sortTorrentDirection();
 
         return new TorrentSorting(TorrentSorting.SortingColumns.fromValue(column),
                 TorrentSorting.Direction.fromValue(direction));
@@ -477,16 +473,16 @@ public class Utils
      * TODO: delete after some releases
      */
     @Deprecated
-    public static void migrateTray2SharedPreferences(@NonNull Context context)
+    public static void migrateTray2SharedPreferences(@NonNull Context appContext)
     {
         final String TAG = "tray2shared";
         final String migrate_key = "tray2shared_migrated";
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(appContext);
 
         if (pref.getBoolean(migrate_key, false))
             return;
 
-        File dbFile = context.getDatabasePath("tray.db");
+        File dbFile = appContext.getDatabasePath("tray.db");
         if (dbFile == null || !dbFile.exists()) {
             Log.w(TAG, "Database not found");
             pref.edit().putBoolean(migrate_key, true).apply();
@@ -498,7 +494,7 @@ public class Utils
             db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
         } catch (Exception e) {
             Log.e(TAG, "Couldn't open database: " + Log.getStackTraceString(e));
-            context.deleteDatabase("tray");
+            appContext.deleteDatabase("tray");
             pref.edit().putBoolean(migrate_key, true).apply();
 
             return;
@@ -538,7 +534,7 @@ public class Utils
             Log.e(TAG, Log.getStackTraceString(e));
         } finally {
             c.close();
-            context.deleteDatabase("tray.db");
+            appContext.deleteDatabase("tray.db");
             edit.putBoolean(migrate_key, true);
             edit.apply();
         }
@@ -560,13 +556,10 @@ public class Utils
 
     public static void enableBootReceiver(@NonNull Context context, boolean enable)
     {
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                                                  SettingsManager.Default.enableSchedulingStart);
-        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                                                 SettingsManager.Default.enableSchedulingShutdown);
-        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                                            SettingsManager.Default.autostart);
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean schedulingStart = pref.enableSchedulingStart();
+        boolean schedulingStop = pref.enableSchedulingShutdown();
+        boolean autostart = pref.autostart();
         int flag = (!(enable || schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
@@ -577,13 +570,10 @@ public class Utils
 
     public static void enableBootReceiverIfNeeded(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                                                  SettingsManager.Default.enableSchedulingStart);
-        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                                                 SettingsManager.Default.enableSchedulingShutdown);
-        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                                            SettingsManager.Default.autostart);
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean schedulingStart = pref.enableSchedulingStart();
+        boolean schedulingStop = pref.enableSchedulingShutdown();
+        boolean autostart = pref.autostart();
         int flag = (!(schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
@@ -793,9 +783,8 @@ public class Utils
 
     public static Uri getTorrentDownloadPath(@NonNull Context appContext)
     {
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
-        String path = pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
-                                     SettingsManager.Default.saveTorrentsIn(appContext));
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
+        String path = pref.saveTorrentsIn();
 
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
 
@@ -816,23 +805,18 @@ public class Utils
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             return;
 
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_play_sound_notify),
-                SettingsManager.Default.playSoundNotify)) {
-            Uri sound = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_notify_sound),
-                    SettingsManager.Default.notifySound));
+        if (pref.playSoundNotify()) {
+            Uri sound = Uri.parse(pref.notifySound());
             builder.setSound(sound);
         }
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_vibration_notify),
-                SettingsManager.Default.vibrationNotify))
+        if (pref.vibrationNotify())
             builder.setVibrate(new long[] {1000}); /* ms */
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_led_indicator_notify),
-                SettingsManager.Default.ledIndicatorNotify)) {
-            int color = pref.getInt(appContext.getString(R.string.pref_key_led_indicator_color_notify),
-                    SettingsManager.Default.ledIndicatorColorNotify(appContext));
+        if (pref.ledIndicatorNotify()) {
+            int color = pref.ledIndicatorColorNotify();
             builder.setLights(color, 1000, 1000); /* ms */
         }
     }

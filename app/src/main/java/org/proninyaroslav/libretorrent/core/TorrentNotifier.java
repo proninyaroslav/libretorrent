@@ -27,7 +27,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -36,7 +35,7 @@ import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class TorrentNotifier
 
     private Context appContext;
     private NotificationManager notifyManager;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
 
     public static TorrentNotifier getInstance(@NonNull Context appContext)
     {
@@ -76,7 +75,7 @@ public class TorrentNotifier
     {
         this.appContext = appContext;
         notifyManager = (NotificationManager)appContext.getSystemService(NOTIFICATION_SERVICE);
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(appContext);
     }
 
     public void makeNotifyChans()
@@ -211,8 +210,7 @@ public class TorrentNotifier
 
     public void makeTorrentFinishedNotify(@NonNull Torrent torrent)
     {
-        if (!pref.getBoolean(appContext.getString(R.string.pref_key_torrent_finish_notify),
-                             SettingsManager.Default.torrentFinishNotify))
+        if (!pref.torrentFinishNotify())
             return;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,

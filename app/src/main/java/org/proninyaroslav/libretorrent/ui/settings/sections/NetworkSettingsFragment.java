@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.ui.settings.sections;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -42,8 +41,9 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
@@ -69,6 +69,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
+    private SettingsRepository pref;
 
     public static NetworkSettingsFragment newInstance()
     {
@@ -104,33 +105,42 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getInstance(activity.getApplicationContext())
-                .getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
         String keyEnableDht = getString(R.string.pref_key_enable_dht);
         SwitchPreferenceCompat enableDht = findPreference(keyEnableDht);
-        if (enableDht != null)
-            enableDht.setChecked(pref.getBoolean(keyEnableDht, SettingsManager.Default.enableDht));
+        if (enableDht != null) {
+            enableDht.setChecked(pref.enableDht());
+            bindOnPreferenceChangeListener(enableDht);
+        }
 
         String keyEnableLsd = getString(R.string.pref_key_enable_lsd);
         SwitchPreferenceCompat enableLsd = findPreference(keyEnableLsd);
-        if (enableLsd != null)
-            enableLsd.setChecked(pref.getBoolean(keyEnableLsd, SettingsManager.Default.enableLsd));
+        if (enableLsd != null) {
+            enableLsd.setChecked(pref.enableLsd());
+            bindOnPreferenceChangeListener(enableLsd);
+        }
 
         String keyEnableUtp = getString(R.string.pref_key_enable_utp);
         SwitchPreferenceCompat enableUtp = findPreference(keyEnableUtp);
-        if (enableUtp != null)
-            enableUtp.setChecked(pref.getBoolean(keyEnableUtp, SettingsManager.Default.enableUtp));
+        if (enableUtp != null) {
+            enableUtp.setChecked(pref.enableUtp());
+            bindOnPreferenceChangeListener(enableUtp);
+        }
 
         String keyEnableUpnp = getString(R.string.pref_key_enable_upnp);
         SwitchPreferenceCompat enableUpnp = findPreference(keyEnableUpnp);
-        if (enableUpnp != null)
-            enableUpnp.setChecked(pref.getBoolean(keyEnableUpnp, SettingsManager.Default.enableUpnp));
+        if (enableUpnp != null) {
+            enableUpnp.setChecked(pref.enableUpnp());
+            bindOnPreferenceChangeListener(enableUpnp);
+        }
 
         String keyEnableNatpmp = getString(R.string.pref_key_enable_natpmp);
         SwitchPreferenceCompat enableNatpmp = findPreference(keyEnableNatpmp);
-        if (enableNatpmp != null)
-            enableNatpmp.setChecked(pref.getBoolean(keyEnableNatpmp, SettingsManager.Default.enableNatPmp));
+        if (enableNatpmp != null) {
+            enableNatpmp.setChecked(pref.enableNatPmp());
+            bindOnPreferenceChangeListener(enableNatpmp);
+        }
 
         String keyRandomPort = getString(R.string.pref_key_use_random_port);
         SwitchPreferenceCompat randomPort = findPreference(keyRandomPort);
@@ -139,7 +149,8 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                     SessionSettings.DEFAULT_PORT_RANGE_FIRST,
                     SessionSettings.DEFAULT_PORT_RANGE_SECOND - 10));
             randomPort.setDisableDependentsState(true);
-            randomPort.setChecked(pref.getBoolean(keyRandomPort, SettingsManager.Default.useRandomPort));
+            randomPort.setChecked(pref.useRandomPort());
+            bindOnPreferenceChangeListener(randomPort);
         }
 
         InputFilter[] portFilter = new InputFilter[]{ new InputFilterMinMax(0, 65535) };
@@ -147,7 +158,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         String keyPortStart = getString(R.string.pref_key_port_range_first);
         EditTextPreference portStart = findPreference(keyPortStart);
         if (portStart != null) {
-            String value = Integer.toString(pref.getInt(keyPortStart, SettingsManager.Default.portRangeFirst));
+            String value = Integer.toString(pref.portRangeFirst());
             portStart.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
             portStart.setSummary(value);
             portStart.setText(value);
@@ -157,7 +168,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         String keyPortEnd = getString(R.string.pref_key_port_range_second);
         EditTextPreference portEnd = findPreference(keyPortEnd);
         if (portEnd != null) {
-            String value = Integer.toString(pref.getInt(keyPortEnd, SettingsManager.Default.portRangeSecond));
+            String value = Integer.toString(pref.portRangeSecond());
             portEnd.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
             portEnd.setSummary(value);
             portEnd.setText(value);
@@ -168,7 +179,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         String keyEncryptMode = getString(R.string.pref_key_enc_mode);
         ListPreference encryptMode = findPreference(keyEncryptMode);
-        int type = pref.getInt(keyEncryptMode, SettingsManager.Default.encryptMode(activity));
+        int type = pref.encryptMode();
         if (encryptMode != null) {
             encryptMode.setValueIndex(type);
             String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
@@ -180,23 +191,25 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             SwitchPreferenceCompat encryptInConnections = findPreference(keyEncryptInConnections);
             if (encryptInConnections != null) {
                 encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptInConnections.setChecked(pref.getBoolean(keyEncryptInConnections,
-                                                SettingsManager.Default.encryptInConnections));
+                encryptInConnections.setChecked(pref.encryptInConnections());
+                bindOnPreferenceChangeListener(encryptInConnections);
             }
 
             String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
             SwitchPreferenceCompat encryptOutConnections = findPreference(keyEncryptOutConnections);
             if (encryptOutConnections != null) {
                 encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptOutConnections.setChecked(pref.getBoolean(keyEncryptOutConnections,
-                                                 SettingsManager.Default.encryptOutConnections));
+                encryptOutConnections.setChecked(pref.encryptOutConnections());
+                bindOnPreferenceChangeListener(encryptOutConnections);
             }
         }
 
         String keyIpFilter = getString(R.string.pref_key_enable_ip_filtering);
         SwitchPreferenceCompat ipFilter = findPreference(keyIpFilter);
-        if (ipFilter != null)
-            ipFilter.setChecked(pref.getBoolean(keyIpFilter, SettingsManager.Default.enableIpFiltering));
+        if (ipFilter != null) {
+            ipFilter.setChecked(pref.enableIpFiltering());
+            bindOnPreferenceChangeListener(ipFilter);
+        }
 
         String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
         Preference ipFilterFile = findPreference(keyIpFilterFile);
@@ -210,8 +223,10 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         String keyShowNatErrors = getString(R.string.pref_key_show_nat_errors);
         SwitchPreferenceCompat showNatErrors = findPreference(keyShowNatErrors);
-        if (showNatErrors != null)
-            showNatErrors.setChecked(pref.getBoolean(keyShowNatErrors, SettingsManager.Default.showNatErrors));
+        if (showNatErrors != null) {
+            showNatErrors.setChecked(pref.showNatErrors());
+            bindOnPreferenceChangeListener(showNatErrors);
+        }
 
         Preference proxy = findPreference(getString(R.string.pref_key_proxy_settings));
         if (proxy != null) {
@@ -259,26 +274,23 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getInstance(activity.getApplicationContext())
-                .getPreferences();
-
         if (preference.getKey().equals(getString(R.string.pref_key_port_range_first))) {
             int value = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
             if (!TextUtils.isEmpty((String)newValue))
                 value = Integer.parseInt((String)newValue);
-            pref.edit().putInt(preference.getKey(), value).apply();
+            pref.portRangeFirst(value);
             preference.setSummary(Integer.toString(value));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_port_range_second))) {
             int value = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
             if (!TextUtils.isEmpty((String)newValue))
                 value = Integer.parseInt((String)newValue);
-            pref.edit().putInt(preference.getKey(), value).apply();
+            pref.portRangeSecond(value);
             preference.setSummary(Integer.toString(value));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
             int type = Integer.parseInt((String) newValue);
-            pref.edit().putInt(preference.getKey(), type).apply();
+            pref.encryptMode(type);
             String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
             preference.setSummary(typesName[type]);
 
@@ -297,6 +309,36 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
                 encryptOutConnections.setChecked(enableAdvancedEncryptSettings);
             }
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_dht))) {
+            pref.enableDht((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_lsd))) {
+            pref.enableLsd((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_utp))) {
+            pref.enableUtp((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_upnp))) {
+            pref.enableUpnp((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_natpmp))) {
+            pref.enableNatPmp((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_show_nat_errors))) {
+            pref.showNatErrors((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_use_random_port))) {
+            pref.useRandomPort((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_in_connections))) {
+            pref.encryptInConnections((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_out_connections))) {
+            pref.encryptOutConnections((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
+            pref.enableIpFiltering((boolean)newValue);
         }
 
         return true;
@@ -332,10 +374,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             if (path == null)
                 return;
 
-            SharedPreferences pref = SettingsManager.getInstance(activity.getApplicationContext())
-                    .getPreferences();
-            pref.edit().putString(getString(R.string.pref_key_ip_filtering_file), path.toString())
-                    .apply();
+            pref.ipFilteringFile(path.toString());
         }
     }
 }

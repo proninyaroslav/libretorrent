@@ -23,7 +23,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -34,8 +33,8 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.receiver.SchedulerReceiver;
 
 import java.util.Calendar;
@@ -127,14 +126,12 @@ public class Scheduler
 
     private static Constraints getRefreshFeedsConstraints(Context appContext)
     {
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
 
         NetworkType netType = NetworkType.CONNECTED;
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
-                                                 SettingsManager.Default.autoRefreshEnableRoaming))
+        if (pref.autoRefreshFeedsEnableRoaming())
             netType = NetworkType.NOT_ROAMING;
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only),
-                            SettingsManager.Default.autoRefreshUnmeteredConnectionsOnly))
+        if (pref.autoRefreshFeedsUnmeteredConnectionsOnly())
             netType = NetworkType.UNMETERED;
 
         return new Constraints.Builder()

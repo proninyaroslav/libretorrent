@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 
 import android.app.Application;
 import android.content.ContentResolver;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -38,7 +37,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.NoFilesSelectedException;
@@ -50,8 +49,7 @@ import org.proninyaroslav.libretorrent.core.model.data.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
@@ -86,7 +84,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     private TorrentRepository repo;
     private FileSystemFacade fs;
     private TorrentEngine engine;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private TorrentDecodeTask decodeTask;
     /* BEP53 standard. Optional field */
     private ArrayList<Priority> magnetPriorities;
@@ -132,7 +130,7 @@ public class AddTorrentViewModel extends AndroidViewModel
 
         repo = RepositoryHelper.getTorrentRepository(application);
         fs = SystemFacadeHelper.getFileSystemFacade(application);
-        pref = SettingsManager.getInstance(application).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(application);
         engine = TorrentEngine.getInstance(getApplication());
 
         info.addOnPropertyChangedCallback(infoCallback);
@@ -140,8 +138,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         decodeState.setValue(new DecodeState(Status.UNKNOWN));
 
         /* Init download dir */
-        String path = pref.getString(application.getString(R.string.pref_key_save_torrents_in),
-                                     SettingsManager.Default.saveTorrentFilesIn(getApplication()));
+        String path = pref.saveTorrentFilesIn();
         mutableParams.getDirPath().set(Uri.parse(fs.normalizeFileSystemPath(path)));
     }
 

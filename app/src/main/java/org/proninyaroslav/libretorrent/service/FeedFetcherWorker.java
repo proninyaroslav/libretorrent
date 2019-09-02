@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.service;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -31,13 +30,12 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.FeedParser;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -64,7 +62,7 @@ public class FeedFetcherWorker extends Worker
 
     private Context context;
     private FeedRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
 
     public FeedFetcherWorker(@NonNull Context context, @NonNull WorkerParameters params)
     {
@@ -77,10 +75,9 @@ public class FeedFetcherWorker extends Worker
     {
         context = getApplicationContext();
         repo = RepositoryHelper.getFeedRepository(context);
-        pref = SettingsManager.getInstance(context).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(context);
 
-        long keepTime = pref.getLong(context.getString(R.string.pref_key_feed_keep_items_time),
-                                     SettingsManager.Default.feedItemKeepTime);
+        long keepTime = pref.feedItemKeepTime();
         long keepDateBorderTime = (keepTime > 0 ? System.currentTimeMillis() - keepTime : 0);
 
         deleteOldItems(keepDateBorderTime);
@@ -169,9 +166,7 @@ public class FeedFetcherWorker extends Worker
 
         filterItems(id, items, acceptMinDate);
 
-        boolean removeDuplicates = pref.getBoolean(context.getString(R.string.pref_key_feed_remove_duplicates),
-                                                   SettingsManager.Default.feedRemoveDuplicates);
-        if (removeDuplicates)
+        if (pref.feedRemoveDuplicates())
             filterItemDuplicates(items);
 
         repo.addItems(items);

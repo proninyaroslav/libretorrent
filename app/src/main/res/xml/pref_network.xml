@@ -9,36 +9,43 @@
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_dht"
         android:title="@string/pref_enable_dht_title"
-        android:summary="@string/pref_enable_dht_summary" />
+        android:summary="@string/pref_enable_dht_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_lsd"
         android:title="@string/pref_enable_lsd_title"
-        android:summary="@string/pref_enable_lsd_summary" />
+        android:summary="@string/pref_enable_lsd_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_utp"
         android:title="@string/pref_enable_utp_title"
-        android:summary="@string/pref_enable_utp_summary" />
+        android:summary="@string/pref_enable_utp_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_upnp"
-        android:title="@string/pref_enable_upnp_title" />
+        android:title="@string/pref_enable_upnp_title"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_natpmp"
-        android:title="@string/pref_enable_natpmp_title" />
+        android:title="@string/pref_enable_natpmp_title"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_show_nat_errors"
-        android:title="@string/pref_show_nat_errors" />
+        android:title="@string/pref_show_nat_errors"
+        android:persistent="false" />
 
     <PreferenceCategory
         android:title="@string/pref_port_settings_category">
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_use_random_port"
-            android:title="@string/pref_use_random_port_title" />
+            android:title="@string/pref_use_random_port_title"
+            android:persistent="false" />
 
         <PreferenceCategory
             android:title="@string/pref_port_range_title"
@@ -70,11 +77,13 @@
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_enc_in_connections"
-            android:title="@string/pref_enc_in_connections_title" />
+            android:title="@string/pref_enc_in_connections_title"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_enc_out_connections"
-            android:title="@string/pref_enc_out_connections_title" />
+            android:title="@string/pref_enc_out_connections_title"
+            android:persistent="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -83,7 +92,8 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_enable_ip_filtering"
             android:title="@string/pref_enable_ip_filtering_title"
-            android:summary="@string/pref_enable_ip_filtering_summary" />
+            android:summary="@string/pref_enable_ip_filtering_summary"
+            android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_ip_filtering_file"

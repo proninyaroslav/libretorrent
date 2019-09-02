@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui.settings.sections;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.preference.ListPreference;
@@ -30,7 +29,8 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.service.Scheduler;
 
 public class FeedSettingsFragment extends PreferenceFragmentCompat
@@ -38,6 +38,8 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
 {
     @SuppressWarnings("unused")
     private static final String TAG = FeedSettingsFragment.class.getSimpleName();
+
+    private SettingsRepository pref;
 
     public static FeedSettingsFragment newInstance()
     {
@@ -52,20 +54,19 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
         String keyAutoRefresh = getString(R.string.pref_key_feed_auto_refresh);
         SwitchPreferenceCompat autoRefresh = findPreference(keyAutoRefresh);
         if (autoRefresh != null) {
-            autoRefresh.setChecked(pref.getBoolean(keyAutoRefresh, SettingsManager.Default.autoRefreshFeeds));
+            autoRefresh.setChecked(pref.autoRefreshFeeds());
             bindOnPreferenceChangeListener(autoRefresh);
         }
 
         String keyRefreshInterval = getString(R.string.pref_key_feed_refresh_interval);
         ListPreference refreshInterval = findPreference(keyRefreshInterval);
         if (refreshInterval != null) {
-            String interval = Long.toString(pref.getLong(keyRefreshInterval, SettingsManager.Default.refreshFeedsInterval));
+            String interval = Long.toString(pref.refreshFeedsInterval());
             int intervalIndex = refreshInterval.findIndexOfValue(interval);
             if (intervalIndex >= 0) {
                 refreshInterval.setValueIndex(intervalIndex);
@@ -76,18 +77,22 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
 
         String keyUnmeteredOnly = getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only);
         SwitchPreferenceCompat unmeteredOnly = findPreference(keyUnmeteredOnly);
-        if (unmeteredOnly != null)
-            unmeteredOnly.setChecked(pref.getBoolean(keyUnmeteredOnly, SettingsManager.Default.autoRefreshUnmeteredConnectionsOnly));
+        if (unmeteredOnly != null) {
+            unmeteredOnly.setChecked(pref.autoRefreshFeedsUnmeteredConnectionsOnly());
+            bindOnPreferenceChangeListener(unmeteredOnly);
+        }
 
         String keyRoaming = getString(R.string.pref_key_feed_auto_refresh_enable_roaming);
         SwitchPreferenceCompat roaming = findPreference(keyRoaming);
-        if (roaming != null)
-            roaming.setChecked(pref.getBoolean(keyRoaming, SettingsManager.Default.autoRefreshEnableRoaming));
+        if (roaming != null) {
+            roaming.setChecked(pref.autoRefreshFeedsEnableRoaming());
+            bindOnPreferenceChangeListener(roaming);
+        }
 
         String keyKeepTime = getString(R.string.pref_key_feed_keep_items_time);
         ListPreference keepTime = findPreference(keyKeepTime);
         if (keepTime != null) {
-            String time = Long.toString(pref.getLong(keyKeepTime, SettingsManager.Default.feedItemKeepTime));
+            String time = Long.toString(pref.feedItemKeepTime());
             int timeIndex = keepTime.findIndexOfValue(time);
             if (timeIndex >= 0) {
                 keepTime.setValueIndex(timeIndex);
@@ -98,8 +103,10 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
 
         String keyStartTorrents = getString(R.string.pref_key_feed_start_torrents);
         SwitchPreferenceCompat startTorrents = findPreference(keyStartTorrents);
-        if (startTorrents != null)
-            startTorrents.setChecked(pref.getBoolean(keyStartTorrents, SettingsManager.Default.feedStartTorrents));
+        if (startTorrents != null) {
+            startTorrents.setChecked(pref.feedStartTorrents());
+            bindOnPreferenceChangeListener(startTorrents);
+        }
     }
 
     @Override
@@ -117,12 +124,12 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
         Context context = getActivity().getApplicationContext();
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
         if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh))) {
+            pref.autoRefreshFeeds((boolean)newValue);
+
             if ((boolean)newValue) {
-                long interval = pref.getLong(getString(R.string.pref_key_feed_refresh_interval),
-                                             SettingsManager.Default.refreshFeedsInterval);
+                long interval = pref.refreshFeedsInterval();
                 Scheduler.runPeriodicalRefreshFeeds(context, interval);
             } else {
                 Scheduler.cancelPeriodicalRefreshFeeds(context);
@@ -131,7 +138,7 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_refresh_interval))) {
             ListPreference refreshPreference = (ListPreference)preference;
             long interval = Long.parseLong((String)newValue);
-            pref.edit().putLong(getString(R.string.pref_key_feed_refresh_interval), interval).apply();
+            pref.refreshFeedsInterval(interval);
             int index = refreshPreference.findIndexOfValue((String)newValue);
             if (index >= 0)
                 refreshPreference.setSummary(refreshPreference.getEntries()[index]);
@@ -140,10 +147,19 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_keep_items_time))) {
             ListPreference keepTimePreference = (ListPreference)preference;
             long keepTime = Long.parseLong((String)newValue);
-            pref.edit().putLong(getString(R.string.pref_key_feed_keep_items_time), keepTime).apply();
+            pref.feedItemKeepTime(keepTime);
             int index = keepTimePreference.findIndexOfValue((String)newValue);
             if (index >= 0)
                 keepTimePreference.setSummary(keepTimePreference.getEntries()[index]);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only))) {
+            pref.autoRefreshFeedsUnmeteredConnectionsOnly((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh_enable_roaming))) {
+            pref.autoRefreshFeedsEnableRoaming((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_start_torrents))) {
+            pref.feedStartTorrents((boolean)newValue);
         }
 
         return true;

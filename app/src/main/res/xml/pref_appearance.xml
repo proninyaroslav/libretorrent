@@ -18,30 +18,35 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_torrent_finish_notify"
             android:title="@string/pref_torrent_finish_notify_title"
-            android:summary="@string/pref_torrent_finish_notify_summary" />
+            android:summary="@string/pref_torrent_finish_notify_summary"
+            android:persistent="false" />
 
         <PreferenceCategory>
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_play_sound_notify"
-                android:title="@string/pref_play_sound_notify_title" />
+                android:title="@string/pref_play_sound_notify_title"
+                android:persistent="false" />
 
             <Preference
                 android:key="@string/pref_key_notify_sound"
                 android:title="@string/pref_notify_sound_title"
-                android:dependency="@string/pref_key_play_sound_notify" />
+                android:dependency="@string/pref_key_play_sound_notify"/>
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_led_indicator_notify"
-                android:title="@string/pref_led_indicator_notify_title" />
+                android:title="@string/pref_led_indicator_notify_title"
+                android:persistent="false" />
 
             <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
                 android:key="@string/pref_key_led_indicator_color_notify"
                 android:title="@string/pref_led_indicator_color_notify_title"
-                android:dependency="@string/pref_key_led_indicator_notify" />
+                android:dependency="@string/pref_key_led_indicator_notify"
+                android:persistent="false" />
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_vibration_notify"
-                android:title="@string/pref_vibration_notify_title" />
+                android:title="@string/pref_vibration_notify_title"
+                android:persistent="false" />
         </PreferenceCategory>
     </PreferenceCategory>
 </PreferenceScreen>

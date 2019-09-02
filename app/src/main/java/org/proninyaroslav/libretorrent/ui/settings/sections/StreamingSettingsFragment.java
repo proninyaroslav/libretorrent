@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.settings.sections;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -32,13 +31,16 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 
 public class StreamingSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = StreamingSettingsFragment.class.getSimpleName();
+
+    private SettingsRepository pref;
 
     public static StreamingSettingsFragment newInstance()
     {
@@ -53,18 +55,19 @@ public class StreamingSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
         String keyEnable = getString(R.string.pref_key_streaming_enable);
         SwitchPreferenceCompat enable = findPreference(keyEnable);
-        if (enable != null)
-            enable.setChecked(pref.getBoolean(keyEnable, SettingsManager.Default.enableStreaming));
+        if (enable != null) {
+            enable.setChecked(pref.enableStreaming());
+            bindOnPreferenceChangeListener(enable);
+        }
 
         String keyHostname = getString(R.string.pref_key_streaming_hostname);
         EditTextPreference hostname = findPreference(keyHostname);
         if (hostname != null) {
-            String addressValue = pref.getString(keyHostname, SettingsManager.Default.streamingHostname);
+            String addressValue = pref.streamingHostname();
             hostname.setText(addressValue);
             hostname.setSummary(addressValue);
             bindOnPreferenceChangeListener(hostname);
@@ -74,7 +77,7 @@ public class StreamingSettingsFragment extends PreferenceFragmentCompat
         EditTextPreference port = findPreference(keyPort);
         if (port != null) {
             InputFilter[] portFilter = new InputFilter[]{new InputFilterMinMax(0, 65535)};
-            int portNumber = pref.getInt(keyPort, SettingsManager.Default.streamingPort);
+            int portNumber = pref.streamingPort();
             String portValue = Integer.toString(portNumber);
             port.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
             port.setSummary(portValue);
@@ -97,20 +100,19 @@ public class StreamingSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
-
         if (preference.getKey().equals(getString(R.string.pref_key_streaming_hostname))) {
-            pref.edit().putString(preference.getKey(), (String)newValue).apply();
+            pref.streamingHostname((String)newValue);
             preference.setSummary((String)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_streaming_port))) {
-            int value = SettingsManager.Default.streamingPort;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String)newValue)) {
+                int value = Integer.parseInt((String) newValue);
+                pref.streamingPort(value);
+                preference.setSummary(Integer.toString(value));
+            }
 
-            pref.edit().putInt(preference.getKey(), value).apply();
-            preference.setSummary(Integer.toString(value));
+        } else if (preference.getKey().equals(getString(R.string.pref_key_streaming_enable))) {
+            pref.enableStreaming((boolean)newValue);
         }
 
         return true;

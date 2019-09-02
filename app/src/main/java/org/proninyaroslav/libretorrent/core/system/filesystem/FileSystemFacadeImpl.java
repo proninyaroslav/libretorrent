@@ -590,9 +590,9 @@ public class FileSystemFacadeImpl implements FileSystemFacade
      */
 
     @Override
-    public String normalizeFileSystemPath(@NonNull String path)
+    public String normalizeFileSystemPath(String path)
     {
-        return (path.startsWith("file://") ? path : "file://" + path);
+        return (TextUtils.isEmpty(path) || path.startsWith("file://") ? path : "file://" + path);
     }
 
     /*

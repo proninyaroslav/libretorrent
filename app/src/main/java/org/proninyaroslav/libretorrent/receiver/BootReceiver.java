@@ -22,10 +22,9 @@ package org.proninyaroslav.libretorrent.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
 import org.proninyaroslav.libretorrent.service.TorrentService;
@@ -43,30 +42,22 @@ public class BootReceiver extends BroadcastReceiver
             return;
 
         Context appContext = context.getApplicationContext();
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             initScheduling(context, pref);
 
-            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart) &&
-                pref.getBoolean(context.getString(R.string.pref_key_keep_alive), SettingsManager.Default.keepAlive))
+            if (pref.autostart() && pref.keepAlive())
                 Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
         }
     }
 
-    private void initScheduling(Context appContext, SharedPreferences pref)
+    private void initScheduling(Context appContext, SettingsRepository pref)
     {
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start),
-                            SettingsManager.Default.enableSchedulingStart)) {
-            int time = pref.getInt(appContext.getString(R.string.pref_key_scheduling_start_time),
-                                   SettingsManager.Default.schedulingStartTime);
-            Scheduler.setStartAppAlarm(appContext, time);
-        }
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown),
-                            SettingsManager.Default.enableSchedulingShutdown)) {
-            int time = pref.getInt(appContext.getString(R.string.pref_key_scheduling_shutdown_time),
-                                   SettingsManager.Default.schedulingShutdownTime);
-            Scheduler.setStopAppAlarm(appContext, time);
-        }
+        if (pref.enableSchedulingStart())
+            Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime());
+
+        if (pref.enableSchedulingShutdown())
+            Scheduler.setStopAppAlarm(appContext, pref.schedulingShutdownTime());
     }
 }

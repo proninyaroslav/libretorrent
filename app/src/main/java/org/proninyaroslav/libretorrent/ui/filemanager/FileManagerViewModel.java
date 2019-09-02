@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -31,9 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
@@ -51,7 +48,6 @@ public class FileManagerViewModel extends ViewModel
 
     private Context appContext;
     private FileSystemFacade fs;
-    private SharedPreferences pref;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();
@@ -59,18 +55,15 @@ public class FileManagerViewModel extends ViewModel
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
     public Exception errorReport;
 
-    public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config)
+    public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config, String startDir)
     {
         this.appContext = appContext;
         this.config = config;
         this.fs = SystemFacadeHelper.getFileSystemFacade(appContext);
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        this.startDir = startDir;
 
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
-            startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
-                                      SettingsManager.Default.fileManagerLastDir(appContext));
-
             if (startDir != null) {
                 File dir = new File(startDir);
                 boolean accessMode = config.showMode == FileManagerConfig.FILE_CHOOSER_MODE ?
@@ -199,17 +192,6 @@ public class FileManagerViewModel extends ViewModel
         }
 
         updateCurDir(dir.getParent());
-    }
-
-    public void saveCurDirectoryPath()
-    {
-        String path = curDir.get();
-        if (path == null)
-            return;
-
-        String keyFileManagerLastDir = appContext.getString(R.string.pref_key_filemanager_last_dir);
-        if (!pref.getString(keyFileManagerLastDir, "").equals(path))
-            pref.edit().putString(keyFileManagerLastDir, path).apply();
     }
 
     public boolean fileExists(String fileName)

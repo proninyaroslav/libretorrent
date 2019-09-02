@@ -29,9 +29,9 @@ import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.service.FeedFetcherWorker;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

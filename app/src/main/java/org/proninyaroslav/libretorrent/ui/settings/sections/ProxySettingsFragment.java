@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.settings.sections;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
@@ -39,7 +40,8 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 
 public class ProxySettingsFragment extends PreferenceFragmentCompat
         implements
@@ -48,6 +50,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     @SuppressWarnings("unused")
     private static final String TAG = ProxySettingsFragment.class.getSimpleName();
 
+    private SettingsRepository pref;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton saveChangesButton;
     private boolean proxyChanged = false;
@@ -88,15 +91,14 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
         boolean enableAdvancedSettings;
 
         String keyProxyType = getString(R.string.pref_key_proxy_type);
         ListPreference proxyType = findPreference(keyProxyType);
         if (proxyType != null) {
-            int type = pref.getInt(keyProxyType, SettingsManager.Default.proxyType);
+            int type = pref.proxyType();
             proxyType.setValueIndex(type);
             String[] typesName = getResources().getStringArray(R.array.pref_proxy_type_entries);
             proxyType.setSummary(typesName[type]);
@@ -107,7 +109,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             EditTextPreference address = findPreference(keyAddress);
             if (address != null) {
                 address.setEnabled(enableAdvancedSettings);
-                String addressValue = pref.getString(keyAddress, SettingsManager.Default.proxyAddress);
+                String addressValue = pref.proxyAddress();
                 address.setText(addressValue);
                 address.setSummary(addressValue);
                 bindOnPreferenceChangeListener(address);
@@ -119,7 +121,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
                 port.setEnabled(enableAdvancedSettings);
                 InputFilter[] portFilter =
                         new InputFilter[]{new InputFilterMinMax(0, 65535)};
-                int portNumber = pref.getInt(keyPort, SettingsManager.Default.proxyPort);
+                int portNumber = pref.proxyPort();
                 String portValue = Integer.toString(portNumber);
                 port.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
                 port.setSummary(portValue);
@@ -131,21 +133,23 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             SwitchPreferenceCompat proxyPeersToo = findPreference(keyProxyPeersToo);
             if (proxyPeersToo != null) {
                 proxyPeersToo.setEnabled(enableAdvancedSettings);
-                proxyPeersToo.setChecked(pref.getBoolean(keyProxyPeersToo, SettingsManager.Default.proxyPeersToo));
+                proxyPeersToo.setChecked(pref.proxyPeersToo());
+                bindOnPreferenceChangeListener(proxyPeersToo);
             }
 
             String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
             SwitchPreferenceCompat requiresAuth = findPreference(keyRequiresAuth);
             if (requiresAuth != null) {
                 requiresAuth.setEnabled(enableAdvancedSettings);
-                requiresAuth.setChecked(pref.getBoolean(keyRequiresAuth, SettingsManager.Default.proxyRequiresAuth));
+                requiresAuth.setChecked(pref.proxyRequiresAuth());
+                bindOnPreferenceChangeListener(requiresAuth);
             }
         }
 
         String keyLogin = getString(R.string.pref_key_proxy_login);
         EditTextPreference login = findPreference(keyLogin);
         if (login != null) {
-            String loginValue = pref.getString(keyLogin, SettingsManager.Default.proxyLogin);
+            String loginValue = pref.proxyLogin();
             login.setText(loginValue);
             login.setSummary(loginValue);
             bindOnPreferenceChangeListener(login);
@@ -154,7 +158,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         String keyPassword = getString(R.string.pref_key_proxy_password);
         EditTextPreference password = findPreference(keyPassword);
         if (password != null) {
-            String passwordValue = pref.getString(keyPassword, SettingsManager.Default.proxyPassword);
+            String passwordValue = pref.proxyPassword();
             password.setText(passwordValue);
             password.setOnBindEditTextListener((editText) -> {
                 password.setSummary(editText
@@ -165,8 +169,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         }
     }
 
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
@@ -174,8 +176,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         saveChangesButton.show();
         saveChangesButton.setOnClickListener((v) -> {
-            SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                    .getPreferences();
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             /* Value change is tracked in TorrentService */
             pref.edit().putBoolean(getString(R.string.pref_key_apply_proxy), true).apply();
             proxyChanged = false;
@@ -219,12 +220,9 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
-
         if (preference.getKey().equals(getString(R.string.pref_key_proxy_type))) {
             int type = Integer.parseInt((String)newValue);
-            pref.edit().putInt(preference.getKey(), type).apply();
+            pref.proxyType(type);
             String[] typesName = getResources().getStringArray(R.array.pref_proxy_type_entries);
             preference.setSummary(typesName[type]);
 
@@ -232,30 +230,39 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             enableOrDisablePreferences(enableAdvancedSettings);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_port))) {
-            int value = SettingsManager.Default.proxyPort;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String)newValue)) {
+                int value = Integer.parseInt((String) newValue);
+                pref.proxyPort(value);
+                preference.setSummary(Integer.toString(value));
+            }
 
-            pref.edit().putInt(preference.getKey(), value).apply();
-            preference.setSummary(Integer.toString(value));
+        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_address))) {
+            pref.proxyAddress((String)newValue);
+            preference.setSummary((String)newValue);
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_address)) ||
-                preference.getKey().equals(getString(R.string.pref_key_proxy_login))) {
-            pref.edit().putString(preference.getKey(), (String)newValue).apply();
-            preference.setSummary((String) newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_login))) {
+            pref.proxyLogin((String)newValue);
+            preference.setSummary((String)newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_password))) {
-            pref.edit().putString(preference.getKey(), (String)newValue).apply();
+           pref.proxyPassword((String)newValue);
             ((EditTextPreference)preference).setOnBindEditTextListener((editText) -> {
                 preference.setSummary(editText
                         .getTransformationMethod()
                         .getTransformation((String)newValue, editText).toString());
             });
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_peers_too))) {
+            pref.proxyPeersToo((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_requires_auth))) {
+            pref.proxyRequiresAuth((boolean)newValue);
         }
 
         if (!proxyChanged) {
             proxyChanged = true;
-            pref.edit().putBoolean(getString(R.string.pref_key_proxy_changed), true).apply();
+            SharedPreferences localPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            localPref.edit().putBoolean(getString(R.string.pref_key_proxy_changed), true).apply();
         }
 
         return true;

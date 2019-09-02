@@ -2,19 +2,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_umnetered_connections_only"
+        android:key="@string/pref_key_unmetered_connections_only"
         android:title="@string/pref_umnetered_connections_only_title"
-        android:summary="@string/pref_umnetered_connections_only_summary" />
+        android:summary="@string/pref_umnetered_connections_only_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_roaming"
         android:title="@string/pref_enable_roaming_title"
-        android:summary="@string/pref_enable_roaming_summary" />
+        android:summary="@string/pref_enable_roaming_summary"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_autostart"
         android:title="@string/pref_autostart_title"
-        android:summary="@string/pref_autostart_summary" />
+        android:summary="@string/pref_autostart_summary"
+        android:persistent="false" />
 
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
@@ -22,37 +25,46 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_keep_alive"
             android:title="@string/pref_keep_alive_title"
-            android:summary="@string/pref_keep_alive_summary" />
+            android:summary="@string/pref_keep_alive_summary"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_shutdown_downloads_complete"
             android:title="@string/pref_shutdown_downloads_complete_title"
-            android:summary="@string/pref_shutdown_downloads_complete_summary" />
+            android:summary="@string/pref_shutdown_downloads_complete_summary"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_cpu_do_not_sleep"
             android:title="@string/pref_cpu_do_not_sleep_title"
-            android:summary="@string/pref_cpu_do_not_sleep_summary" />
+            android:summary="@string/pref_cpu_do_not_sleep_summary"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_download_and_upload_only_when_charging"
             android:title="@string/pref_download_and_upload_only_when_charging_title"
             android:summary="@string/pref_download_and_upload_only_when_charging_summary"
-            android:disableDependentsState="true"/>
+            android:disableDependentsState="true"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_battery_control"
             android:title="@string/pref_battery_control_title"
             android:summary="@string/pref_battery_control_summary"
-            android:dependency="@string/pref_key_download_and_upload_only_when_charging" />
+            android:dependency="@string/pref_key_download_and_upload_only_when_charging"
+            android:persistent="false" />
+
         <SwitchPreferenceCompat
             android:key="@string/pref_key_custom_battery_control"
             android:title="@string/pref_custom_battery_control_title"
             android:summary="@string/pref_custom_battery_control_summary"
-            android:dependency="@string/pref_key_battery_control" />
+            android:dependency="@string/pref_key_battery_control"
+            android:persistent="false" />
+
         <SeekBarPreference
             android:key="@string/pref_key_custom_battery_control_value"
             android:title="@string/pref_custom_battery_control_value_title"
-            android:dependency="@string/pref_key_custom_battery_control" />
+            android:dependency="@string/pref_key_custom_battery_control"
+            android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

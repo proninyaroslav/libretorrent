@@ -22,11 +22,10 @@ package org.proninyaroslav.libretorrent.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
 import org.proninyaroslav.libretorrent.service.TorrentService;
@@ -47,7 +46,7 @@ public class SchedulerReceiver extends BroadcastReceiver
             return;
 
         Context appContext = context.getApplicationContext();
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
 
         switch (intent.getAction()) {
             case SCHEDULER_WORK_START_APP: {
@@ -61,24 +60,18 @@ public class SchedulerReceiver extends BroadcastReceiver
         }
     }
 
-    private void onStartApp(Context appContext, SharedPreferences pref)
+    private void onStartApp(Context appContext, SettingsRepository pref)
     {
-        if (!pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start),
-                             SettingsManager.Default.enableSchedulingStart))
+        if (!pref.enableSchedulingStart())
             return;
 
-        boolean oneshot = pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_run_only_once),
-                                          SettingsManager.Default.schedulingRunOnlyOnce);
+        boolean oneshot = pref.schedulingRunOnlyOnce();
         if (oneshot) {
-            pref.edit().putBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start), false)
-                    .apply();
+            pref.enableSchedulingStart(false);
         } else {
-            Scheduler.setStartAppAlarm(appContext,
-                    pref.getInt(appContext.getString(R.string.pref_key_scheduling_start_time),
-                                SettingsManager.Default.schedulingStartTime));
+            Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime());
         }
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_switch_wifi),
-                            SettingsManager.Default.schedulingSwitchWiFi))
+        if (pref.schedulingSwitchWiFi())
             ((WifiManager)appContext.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 
@@ -86,29 +79,23 @@ public class SchedulerReceiver extends BroadcastReceiver
         Utils.enableBootReceiverIfNeeded(appContext);
     }
 
-    private void onStopApp(Context appContext, SharedPreferences pref)
+    private void onStopApp(Context appContext, SettingsRepository pref)
     {
-        if (!pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown),
-                             SettingsManager.Default.enableSchedulingShutdown))
+        if (!pref.enableSchedulingShutdown())
             return;
 
-        boolean oneshot = pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_run_only_once),
-                                          SettingsManager.Default.schedulingRunOnlyOnce);
+        boolean oneshot = pref.schedulingRunOnlyOnce();
         if (oneshot) {
-            pref.edit().putBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown), false)
-                    .apply();
+            pref.enableSchedulingShutdown(false);
         } else {
-            Scheduler.setStartAppAlarm(appContext,
-                    pref.getInt(appContext.getString(R.string.pref_key_scheduling_shutdown_time),
-                                SettingsManager.Default.schedulingShutdownTime));
+            Scheduler.setStartAppAlarm(appContext, pref.schedulingShutdownTime());
         }
 
         Intent i = new Intent(appContext, TorrentService.class);
         i.setAction(TorrentService.ACTION_SHUTDOWN);
         Utils.startServiceBackground(appContext, i);
 
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_switch_wifi),
-                            SettingsManager.Default.schedulingSwitchWiFi))
+        if (pref.schedulingSwitchWiFi())
             ((WifiManager)appContext.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(false);
 

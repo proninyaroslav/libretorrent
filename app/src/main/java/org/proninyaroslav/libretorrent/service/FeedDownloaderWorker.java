@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.service;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
@@ -29,7 +28,7 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
@@ -38,9 +37,8 @@ import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
-import org.proninyaroslav.libretorrent.core.storage.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -64,7 +62,7 @@ public class FeedDownloaderWorker extends Worker
 
     private TorrentEngine engine;
     private FeedRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
 
     public FeedDownloaderWorker(@NonNull Context context, @NonNull WorkerParameters params)
     {
@@ -77,7 +75,7 @@ public class FeedDownloaderWorker extends Worker
     {
         engine = TorrentEngine.getInstance(getApplicationContext());
         repo = RepositoryHelper.getFeedRepository(getApplicationContext());
-        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
 
         Data data = getInputData();
         String action = data.getString(TAG_ACTION);
@@ -170,8 +168,7 @@ public class FeedDownloaderWorker extends Worker
 
         return new AddTorrentParams(source, isMagnet, sha1hash, name,
                 priorities, downloadPath, false,
-                !pref.getBoolean(getApplicationContext().getString(R.string.pref_key_feed_start_torrents),
-                                 SettingsManager.Default.feedStartTorrents));
+                !pref.feedStartTorrents());
     }
 
     private Result addTorrents(ArrayList<AddTorrentParams> paramsList)
