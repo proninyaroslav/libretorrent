@@ -13,9 +13,7 @@
     <string name="delete">Delete</string>
     <string name="deleting">Deleting</string>
     <string name="select_all">Select all</string>
-    <string name="apply">Apply</string>
     <string name="save">Save</string>
-    <string name="install">Install</string>
     <string name="search">Search</string>
     <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -26,9 +24,6 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">By ascending</string>
-    <string name="sort_by_descending">By descending</string>
-    <string name="sorting">Sorting</string>
     <string name="def">Default</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="link">Link</string>
@@ -49,11 +44,6 @@
     <string name="filters">Filters</string>
 
     <!-- Main window -->
-    <string name="main_empty_torrent_list">No torrents</string>
-    <string name="spinner_all_torrents">All</string>
-    <string name="spinner_downloading_torrents">Downloading</string>
-    <string name="spinner_downloaded_torrents">Downloaded</string>
-    <string name="spinner_downloading_metadata_torrents">Downloading metadata</string>
     <string name="delete_torrent_with_downloaded_files">Delete with downloaded files</string>
     <string name="delete_selected_torrent">Delete the selected torrent? This operation cannot be undone</string>
     <string name="delete_selected_torrents">Delete the selected torrents? This operation cannot be undone</string>
@@ -73,17 +63,7 @@
     <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
-    <string name="settings_apply_after_reboot">Settings will be applied after restarting the app</string>
     <string name="about">About</string>
-    <string-array name="sort_torrent_by">
-        <item>Without sorting</item>
-        <item>Name</item>
-        <item>Date added</item>
-        <item>Size</item>
-        <item>Progress</item>
-        <item>ETA</item>
-        <item>Peers</item>
-    </string-array>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
@@ -127,7 +107,6 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent error</string>
     <string name="error_template">Error: %1$s</string>
-    <string name="torrent_does_not_exists_error">torrent doesn\'t exists</string>
     <string name="restore_torrent_error">unable to restore torrent from previous session</string>
     <string name="session_error_title">Session error</string>
     <!-- ip_address:port, type (error: error_msg)-->
@@ -143,8 +122,7 @@
     <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
-    <string name="torrent_added_notify">Torrent added</string>
-    
+
     <!-- Torrent list item -->
 
     <!-- downloaded/total (percent) -->
@@ -173,10 +151,6 @@
     <string name="error_io_torrent">Error reading the torrent file</string>
     <string name="error_fetch_link">Failed to fetch data from the link</string>
     <string name="error_invalid_link_or_path">Invalid link or path to the torrent</string>
-    <string name="decode_torrent_progress_title">Loading</string>
-    <string name="decode_torrent_default_message">Please wait&#8230;</string>
-    <string name="decode_torrent_fetch_magnet_message">Fetching data from magnet link. Please wait&#8230;</string>
-    <string name="decode_torrent_downloading_torrent_message">Downloading torrent file. Please wait&#8230;</string>
     <string name="error_add_torrent">Failed to add the torrent</string>
     <string name="error_file_not_found_add_torrent">Failed to add the torrent. Maybe the torrent file is moved, or deleted</string>
     <string name="error_io_add_torrent">Unable to add the torrent. I/O error</string>
@@ -211,20 +185,15 @@
     <string name="torrent_file_chooser_title">Torrent selection</string>
     <string name="dialog_new_folder_title">New folder</string>
     <string name="error_dialog_new_folder">Unable to create a new folder</string>
-    <string name="error_perm_write_in_folder">Unable to use selected folder to download. Please select another folder</string>
     <string name="error_open_dir">Unable to open the folder</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
     <string name="save_file">Save file</string>
     <string name="file_name">File name</string>
     <string name="error_file_exists">File already exists</string>
     <string name="file_name_is_empty">File name cannot be empty</string>
     <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
@@ -267,7 +236,6 @@
     <string name="torrent_trackers">Trackers</string>
     <string name="tracker_state_working">Working</string>
     <string name="tracker_state_not_working">Not working</string>
-    <string name="tracker_state_error" formatted="false">Error: %1$s</string>
     <string name="tracker_state_updating">Updating&#8230;</string>
     <string name="tracker_state_not_contacted">Not contacted yet</string>
     <string name="share_tracker_url">Share URL</string>
@@ -323,8 +291,6 @@
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
     <string name="feed_use_regex">Use regular expression</string>
-    <string name="import_feed_channels">Import channels</string>
-    <string name="export_feed_channels">Export channels</string>
     <string name="backup_feed_channels">Save backup</string>
     <string name="restore_feed_channels_backup">Restore backup</string>
     <string name="feed_last_update_template" formatted="false">Updated: %1$s</string>
@@ -340,17 +306,11 @@
     <string name="mark_as_read">Mark as read</string>
     <string name="mark_as_unread">Mark as unread</string>
     <string name="feed_item_list_empty">No articles</string>
-    <string name="feed_items">Articles</string>
-    <string name="export_feeds_successfully" formatted="false">Channels saved successfully: %1$s</string>
-    <string name="import_feeds_successfully" formatted="false">Channels imported successfully</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_import_feeds">Failed to import channels</string>
-    <string name="error_export_feeds">Failed to export channels</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
     <string name="feed_item_open_article_url">Open article</string>
-    <string name="feeds_file_selection_dialog_title">Select a file with channels</string>
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">Invalid format</string>
     <string name="feed_do_not_download_immediately">Do not download immediately</string>
@@ -386,13 +346,11 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url" formatted="false">Invalid URL: %1$s</string>
-    <string name="file_or_folder_not_found">Selected file or folder not found</string>
     <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
     <string name="error_create_torrent">Unable to create torrent</string>
     <string name="skip_files">Skip files</string>
     <string name="skip_files_hint">Enter file names separated by \"|\"</string>
     <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="folder_to_save_not_found">Selected folder to save not found</string>
     <string name="torrent_saved_to" formatted="false">Torrent saved to %1$s</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
@@ -431,7 +389,6 @@
     <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_max_uploads_per_torrent_summary">Minimum number of slots - 2</string>
     <string name="pref_auto_manage_title">Auto manage</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 without limit</string>
@@ -451,17 +408,9 @@
     <string name="pref_led_indicator_notify_title">LED indicator</string>
     <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
     <string name="pref_vibration_notify_title">Vibration</string>
-    <string name="pref_foreground_notification_category">Foreground notification</string>
-    <string name="pref_function_button_title">Function button</string>
-    <string-array name="pref_function_button_entries">
-        <item>Pause/resume torrents</item>
-        <item>Add torrent</item>
-    </string-array>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Run the app after start device</string>
-    <string name="pref_wifi_only_title">Wi-Fi only</string>
-    <string name="pref_wifi_only_summary">Download and upload only if Wi-Fi is connected</string>
     <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
@@ -494,7 +443,6 @@
     <string name="pref_port_settings_category">Port settings</string>
     <string name="pref_use_random_port_title">Use random port</string>
     <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_title">Port</string>
     <string name="pref_port_range_title">Port range</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>
@@ -524,7 +472,6 @@
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Also use for peer connections</string>
     <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_force_proxy_title">Disable connections not supported by proxies</string>
     <string name="pref_proxy_requires_auth_title">Requires authorization</string>
     <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
     <string name="pref_proxy_login_title">Login</string>
@@ -550,7 +497,6 @@
         <item>12 hours</item>
         <item>1 day</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">Wi-Fi only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>

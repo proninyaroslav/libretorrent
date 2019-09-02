@@ -13,18 +13,13 @@
     <string name="delete">Удалить</string>
     <string name="deleting">Удаление</string>
     <string name="select_all">Выбрать всё</string>
-    <string name="apply">Применить</string>
     <string name="save">Сохранить</string>
-    <string name="install">Установить</string>
     <string name="search">Поиск</string>
     <string name="not_available">Н/Д</string>
     <string name="elapsed_time_format_d_h_mm">%1$d д. %2$d ч. %3$d м</string>
     <string name="elapsed_time_format_h_mm_ss">%1$d ч. %2$d м. %3$d с</string>
     <string name="elapsed_time_format_mm_ss">%1$d м. %2$d с</string>
     <string name="elapsed_time_format_ss">%1$d с</string>
-    <string name="sort_by_ascending">По возрастанию</string>
-    <string name="sort_by_descending">По убыванию</string>
-    <string name="sorting">Сортировка</string>
     <string name="def">По умолчанию</string>
     <string name="foreground_notification">Уведомление переднего плана</string>
     <string name="link">Ссылка</string>
@@ -45,11 +40,6 @@
     <string name="filters">Filters</string>
     
     <!-- Main window -->
-    <string name="main_empty_torrent_list">Нет торрентов</string>
-    <string name="spinner_all_torrents">Все</string>
-    <string name="spinner_downloading_torrents">Загружаются</string>
-    <string name="spinner_downloaded_torrents">Загруженные</string>
-    <string name="spinner_downloading_metadata_torrents">Загрузка метаданных</string>
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
     <string name="delete_selected_torrent">Удалить выбранный торрент? Данная операция не может быть отменена</string>
     <string name="delete_selected_torrents">Удалить выбранные торренты? Данная операция не может быть отменена</string>
@@ -69,17 +59,7 @@
     <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
     <string name="theme_settings_apply_after_reboot">Настройки темы будут применены после перезапуска приложения</string>
-    <string name="settings_apply_after_reboot">Настройки будут применены после перезапуска приложения</string>
     <string name="about">О программе</string>
-    <string-array name="sort_torrent_by">
-        <item>Без сортировки</item>
-        <item>Имя</item>
-        <item>Дата добавления</item>
-        <item>Размер</item>
-        <item>Прогресс</item>
-        <item>Расчётное время</item>
-        <item>Пиры</item>
-    </string-array>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
@@ -119,7 +99,6 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Ошибка торрента</string>
     <string name="error_template">Ошибка: %1$s</string>
-    <string name="torrent_does_not_exists_error">торрент не существует</string>
     <string name="restore_torrent_error">не удалось восстановить торрент из предыдущей сессии</string>
     <string name="session_error_title">Ошибка сессии</string>
     <string name="nat_error_title">Ошибка NAT</string>
@@ -134,7 +113,6 @@
     <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
-    <string name="torrent_added_notify">Торрент добавлен</string>
 
     <!-- Torrent list item -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
@@ -159,10 +137,6 @@
     <string name="error_io_torrent">Ошибка чтения торрент-файла</string>
     <string name="error_fetch_link">Не удалось получить данные из ссылки</string>
     <string name="error_invalid_link_or_path">Неверная ссылка или путь до торрента</string>
-    <string name="decode_torrent_progress_title">Загрузка</string>
-    <string name="decode_torrent_default_message">Пожалуйста, подождите&#8230;</string>
-    <string name="decode_torrent_fetch_magnet_message">Получение данных из magnet-ссылки. Пожалуйста, подождите&#8230;</string>
-    <string name="decode_torrent_downloading_torrent_message">Загрузка торрент файла. Пожалуйста, подождите&#8230;</string>
     <string name="error_add_torrent">Не удалось добавить торрент</string>
     <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Возможно торрент-файл перемещён или удалён</string>
     <string name="error_io_add_torrent">Невозможно добавить торрент. Ошибка ввода/вывода</string>
@@ -197,20 +171,15 @@
     <string name="torrent_file_chooser_title">Выбор торрента</string>
     <string name="dialog_new_folder_title">Новая папка</string>
     <string name="error_dialog_new_folder">Невозможно создать новую папку</string>
-    <string name="error_perm_write_in_folder">Невозможно использовать выбранную папку для загрузки. Пожалуйста, выберите другую папку</string>
     <string name="error_open_dir">Невозможно открыть папку</string>
     <string name="home_directory">Домой</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Внутреннее хранилище</string>
-    <string name="external_storage_name" formatted="false">Внешнее хранилище %1$d</string>
     <string name="permission_denied">Доступ запрещён</string>
     <string name="save_file">Сохранить файл</string>
     <string name="file_name">Имя файла</string>
     <string name="error_file_exists">Файл уже существует</string>
     <string name="file_name_is_empty">Имя файла не может быть пустым</string>
     <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
@@ -248,7 +217,6 @@
     <string name="torrent_trackers">Трекеры</string>
     <string name="tracker_state_working">Работает</string>
     <string name="tracker_state_not_working">Не работает</string>
-    <string name="tracker_state_error" formatted="false">Ошибка: %1$s</string>
     <string name="tracker_state_updating">Обновление&#8230;</string>
     <string name="tracker_state_not_contacted">Соединения пока что нет</string>
     <string name="share_tracker_url">Поделиться URL</string>
@@ -303,8 +271,6 @@
     <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
     <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
-    <string name="import_feed_channels">Импорт каналов</string>
-    <string name="export_feed_channels">Экспорт каналов</string>
     <string name="feed_last_update_template" formatted="false">Обновлено: %1$s</string>
     <string name="feed_last_update_never">никогда</string>
     <string name="error_cannot_add_channel">Невозможно добавить канал</string>
@@ -315,13 +281,7 @@
     <string name="link_copied_to_clipboard">Ссылка скопирована в буфер обмена</string>
     <string name="mark_as_read">Отметить как прочитанное</string>
     <string name="feed_item_list_empty">Нет статей</string>
-    <string name="feed_items">Статьи</string>
-    <string name="export_feeds_successfully" formatted="false">Каналы успешно сохранены: %1$s</string>
-    <string name="import_feeds_successfully" formatted="false">Каналы успешно импортированы</string>
-    <string name="error_import_feeds">Не удалось импортировать каналы</string>
-    <string name="error_export_feeds">Не удалось экспортировать каналы</string>
     <string name="feed_item_open_article_url">Открыть статью</string>
-    <string name="feeds_file_selection_dialog_title">Выбрать файл с каналами</string>
     <string name="error_import_invalid_format">Неверный формат</string>
     <string name="feed_do_not_download_immediately">Не скачивать сразу</string>
     <string name="backup_feed_channels">Save backup</string>
@@ -363,13 +323,11 @@
         <item>32 Мб</item>
     </string-array>
     <string name="invalid_url" formatted="false">Неверный URL: %1$s</string>
-    <string name="file_or_folder_not_found">Выбранный файл или папка не существует</string>
     <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром</string>
     <string name="error_create_torrent">Невозможно создать торрент</string>
     <string name="skip_files">Пропустить файлы</string>
     <string name="skip_files_hint">Введите имена файлов, разделённые символов \"|\"</string>
     <string name="select_folder_to_save">Выберите папку для сохранения</string>
-    <string name="folder_to_save_not_found">Выбранная папка для сохранения не существует</string>
     <string name="torrent_saved_to" formatted="false">Торрент сохранён в %1$s</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
@@ -411,7 +369,6 @@
     <string name="pref_max_connections_per_torrent_title">Максимальное количество соединений на торрент</string>
     <string name="pref_max_connections_per_torrent_summary">Минимальное количество соединений - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Максимальное количество слотов отдачи на торрент</string>
-    <string name="pref_max_uploads_per_torrent_summary">Минимальное количество слотов - 2</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
     <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. Включение этой опции может замедлить паузу/возобновление</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 без ограничений</string>
@@ -431,19 +388,11 @@
     <string name="pref_led_indicator_notify_title">LED индикатор</string>
     <string name="pref_led_indicator_color_notify_title">Цвет LED индикатора</string>
     <string name="pref_vibration_notify_title">Вибросигнал</string>
-    <string name="pref_foreground_notification_category">Уведомление переднего плана</string>
-    <string name="pref_function_button_title">Функциональная кнопка</string>
-    <string-array name="pref_function_button_entries">
-        <item>Приостановить/возобновить торренты</item>
-        <item>Добавить торрент</item>
-    </string-array>
     <!-- Behavior settings -->
     <string name="pref_keep_alive_title">Работать в фоне</string>
     <string name="pref_keep_alive_summary">Если включено, приложение остаётся работать в фоновом режиме. Завершение после окончания загрузок по-прежнему выполняется</string>
     <string name="pref_autostart_title">Автозапуск</string>
     <string name="pref_autostart_summary">Запускать приложение после включения устройства</string>
-    <string name="pref_wifi_only_title">Только Wi-Fi</string>
-    <string name="pref_wifi_only_summary">Скачивать и раздавать только если включён Wi-Fi</string>
     <string name="pref_power_management_category">Управление питанием</string>
     <string name="pref_shutdown_downloads_complete_title">Завершить после окончания загрузок</string>
     <string name="pref_shutdown_downloads_complete_summary">Если включено, то приложение завершит свою работу после окончания всех загрузок</string>
@@ -473,7 +422,6 @@
     <string name="pref_enable_natpmp_title">Включить NAT-PMP</string>
     <string name="pref_port_settings_category">Настройка порта</string>
     <string name="pref_use_random_port_title">Использовать случайный порт</string>
-    <string name="pref_port_title">Порт</string>
     <string name="pref_encryption_category">Шифрование</string>
     <string name="pref_enc_mode_title">Режим шифрования</string>
     <string-array name="pref_enc_mode_entries">
@@ -504,7 +452,6 @@
     <string name="pref_proxy_port_title">Порт</string>
     <string name="pref_proxy_peers_too_title">Также использовать для соединения с пирами</string>
     <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами</string>
-    <string name="pref_force_proxy_title">Отключить соединения, неподдерживаемые прокси</string>
     <string name="pref_proxy_requires_auth_title">Требуется авторизация</string>
     <string name="pref_proxy_requires_auth_summary">Внимание: пароль хранится в незашифрованном виде</string>
     <string name="pref_proxy_login_title">Логин</string>
@@ -530,7 +477,6 @@
         <item>12 часов</item>
         <item>1 день</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">Только Wi-Fi</string>
     <string name="pref_feed_keep_items_time_title">Хранить статьи</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 день</item>

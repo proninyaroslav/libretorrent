@@ -122,25 +122,9 @@
         <item name="android:textIsSelectable">true</item>
     </style>
 
-    <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:divider">@null</item>
-    </style>
-
-    <style name="BaseTheme.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
-        <item name="android:background">@color/action_mode</item>
-        <item name="android:titleTextStyle">@color/text_primary_inverse</item>
-    </style>
-
     <style name="BaseTheme.EmptyView" parent="@style/TextAppearance.AppCompat.Display1">
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="Widget.MorphButton" parent="@android:style/Widget.Holo.Button.Small">
-        <item name="vc_startDrawable">@null</item>
-        <item name="vc_endDrawable">@null</item>
-        <item name="vc_autoStartAnimation">false</item>
     </style>
 
     <style name="BaseTheme.Settings" parent="BaseTheme">

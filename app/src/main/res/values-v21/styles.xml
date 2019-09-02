@@ -21,18 +21,6 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
-    <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:divider">@null</item>
-        <item name="android:overlapAnchor">true</item>
-    </style>
-
-    <style name="Widget.MorphButton" parent="Widget.AppCompat.Button.Small">
-        <item name="vc_startDrawable">@null</item>
-        <item name="vc_endDrawable">@null</item>
-        <item name="vc_autoStartAnimation">false</item>
-    </style>
-
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

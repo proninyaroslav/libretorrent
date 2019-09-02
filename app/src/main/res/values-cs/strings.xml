@@ -13,9 +13,7 @@
     <string name="delete">Smazat</string>
     <string name="deleting">Mazání</string>
     <string name="select_all">Vybrat vše</string>
-    <string name="apply">Potvrdit</string>
     <string name="save">Uložit</string>
-    <string name="install">Nainstalovat</string>
     <string name="search">Hledat</string>
     <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -26,9 +24,6 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">Vzestupně</string>
-    <string name="sort_by_descending">Sestupně</string>
-    <string name="sorting">Řazení</string>
     <string name="def">Standardní</string>
     <string name="foreground_notification">Popředí notifikací</string>
     <string name="link">Odkaz</string>
@@ -49,11 +44,6 @@
     <string name="filters">Filters</string>
 
     <!-- Main window -->
-    <string name="main_empty_torrent_list">Žádný torrent</string>
-    <string name="spinner_all_torrents">Všechny</string>
-    <string name="spinner_downloading_torrents">Stahované</string>
-    <string name="spinner_downloaded_torrents">Stažené</string>
-    <string name="spinner_downloading_metadata_torrents">Stažení metadat</string>
     <string name="delete_torrent_with_downloaded_files">Smazat torrent + data</string>
     <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operae nemůže být vrácena</string>
     <string name="delete_selected_torrents">Smazat vybrané torrenty? Tato operace nemůže být vrácena</string>
@@ -73,17 +63,7 @@
     <string name="proxy_settings_applied">Nastavení proxy serveru bylo úspěsně uloženo</string>
     <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
-    <string name="settings_apply_after_reboot">Nastavení bude použito po restartování aplikace</string>
     <string name="about">O aplikaci</string>
-    <string-array name="sort_torrent_by">
-        <item>Bez řazení</item>
-        <item>Jméno</item>
-        <item>Datum přidáno</item>
-        <item>Velikost</item>
-        <item>Pokrok</item>
-        <item>ETA</item>
-        <item>Peery</item>
-    </string-array>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
@@ -127,7 +107,6 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Chyba torrentu</string>
     <string name="error_template">Chyba: %1$s</string>
-    <string name="torrent_does_not_exists_error">Torrent neexistuje</string>
     <string name="restore_torrent_error">nelze obnovit torrent z předchozí relace</string>
     <string name="session_error_title">Chyba relace</string>
     <string name="nat_error_title">Chyba NAT</string>
@@ -142,7 +121,6 @@
     <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
-    <string name="torrent_added_notify">Torrent přidán</string>
 
     <!-- Torrent list item -->
 
@@ -168,10 +146,6 @@
     <string name="error_io_torrent">Chyba čtení torrent souboru</string>
     <string name="error_fetch_link">Selhalo získání dat z odkazu</string>
     <string name="error_invalid_link_or_path">Nesprávný odkaz nebo cesta k torrentu</string>
-    <string name="decode_torrent_progress_title">Načítání</string>
-    <string name="decode_torrent_default_message">Prosím čekejte&#8230;</string>
-    <string name="decode_torrent_fetch_magnet_message">Získávám data z magnet odkazu. Prosím čekejte&#8230;</string>
-    <string name="decode_torrent_downloading_torrent_message">Stahuji data torrentu. prosím čekejte&#8230;</string>
     <string name="error_add_torrent">Selhalo přidání torrentu</string>
     <string name="error_file_not_found_add_torrent">Selhalo přidání torrentu. Možnná je soubor torrentu přesunut nebo smazán</string>
     <string name="error_io_add_torrent">Nemožné přidat torrent. I/O chyba</string>
@@ -206,20 +180,15 @@
     <string name="torrent_file_chooser_title">Volba torrentu</string>
     <string name="dialog_new_folder_title">Nová složka</string>
     <string name="error_dialog_new_folder">Nemožné vytvořit novou složku</string>
-    <string name="error_perm_write_in_folder">Nemožné použít vybranou složku. Vyberte prosím jinou složku.</string>
     <string name="error_open_dir">Nemožné otevřít složku</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Interní uložiště</string>
-    <string name="external_storage_name" formatted="false">Externí uložiště %1$d</string>
     <string name="permission_denied">Přístup odepřen</string>
     <string name="save_file">Uložení souboru</string>
     <string name="file_name">Jméno souboru</string>
     <string name="error_file_exists">Soubor již existuje</string>
     <string name="file_name_is_empty">Jméno souboru nesmí být prázdný</string>
     <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
@@ -266,7 +235,6 @@
     <string name="torrent_trackers">Trackeři</string>
     <string name="tracker_state_working">Pracující</string>
     <string name="tracker_state_not_working">Nepracující</string>
-    <string name="tracker_state_error" formatted="false">Chyba: %1$s</string>
     <string name="tracker_state_updating">Aktualizování&#8230;</string>
     <string name="tracker_state_not_contacted">Ještě nekontaktováno</string>
     <string name="share_tracker_url">Sdílet URL</string>
@@ -322,8 +290,6 @@
     <string name="feed_filter_prompt">Zadejte slova (oddělené znakem \"|\"), z nichž jedna musí být v názvu nebo zadejte regulární výraz. Torrenty budou přidány, pouze pokud tento filtr odpovídá názvu torrentu</string>
     <string name="feed_auto_download">Stáhnout nové torrenty automaticky</string>
     <string name="feed_use_regex">Používejte regulární výraz</string>
-    <string name="import_feed_channels">Importovat kanály</string>
-    <string name="export_feed_channels">Exportovat kanály</string>
     <string name="feed_last_update_template" formatted="false">Aktualizováno: %1$s</string>
     <string name="feed_last_update_never">nikdy</string>
     <string name="error_cannot_add_channel">Kanál nelze přidat</string>
@@ -334,13 +300,7 @@
     <string name="link_copied_to_clipboard">Odkaz zkopírován do schránky</string>
     <string name="mark_as_read">Označit jako přečtené</string>
     <string name="feed_item_list_empty">Žádné články</string>
-    <string name="feed_items">Články</string>
-    <string name="export_feeds_successfully" formatted="false">Kanály byly úspěšně uloženy: %1$s</string>
-    <string name="import_feeds_successfully" formatted="false">Kanály byly úspěšně importovány</string>
-    <string name="error_import_feeds">Nepodařilo se importovat kanály</string>
-    <string name="error_export_feeds">Nepodařilo se exportovat kanály</string>
     <string name="feed_item_open_article_url">Otevřený článek</string>
-    <string name="feeds_file_selection_dialog_title">Vyberte soubor s kanály</string>
     <string name="error_import_invalid_format">Nesprávný formát</string>
     <string name="feed_do_not_download_immediately">Nestahovat okamžitě</string>
     <string name="backup_feed_channels">Save backup</string>
@@ -382,13 +342,11 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url" formatted="false">Neplatná URL: %1$s</string>
-    <string name="file_or_folder_not_found">Vybraný soubor nebo složka nebyly nalezeny</string>
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny soubory jsou vyloučeny filtrem</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
     <string name="skip_files">Přeskočit soubory</string>
     <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\" </string>
     <string name="select_folder_to_save">Vyberte složku pro uložení</string>
-    <string name="folder_to_save_not_found">Vybrán složku pro uložení nebyl nalezen</string>
     <string name="torrent_saved_to" formatted="false">Torrent uložen do %1$s</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
@@ -430,7 +388,6 @@
     <string name="pref_max_connections_per_torrent_title">Maximální počet připojení na torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Minimální počet připojení - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maximální počet odběrných míst pro torrent</string>
-    <string name="pref_max_uploads_per_torrent_summary">Minimální počet slotů - 2</string>
     <string name="pref_auto_manage_title">Automaticky spravovat</string>
     <string name="pref_auto_manage_summary">Torrent může být v každém okamžiku obnoven nebo automaticky pokračovat. Povolení této možnosti může zpomalit pozastavení/pokračovat</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 bez limitu</string>
@@ -450,12 +407,6 @@
     <string name="pref_led_indicator_notify_title">LED indikátor</string>
     <string name="pref_led_indicator_color_notify_title">Barva indikátoru LED</string>
     <string name="pref_vibration_notify_title">Vibrace</string>
-    <string name="pref_foreground_notification_category">Popředí notifikací</string>
-    <string name="pref_function_button_title">Funkční tlačítko</string>
-    <string-array name="pref_function_button_entries">
-        <item>Pozastavit/pokrařovat torrenty</item>
-        <item>Přidat torrent</item>
-    </string-array>
     <!-- Behavior settings -->
     <string name="pref_custom_battery_control_title">Vlastní procento baterie</string>
     <string name="pref_custom_battery_control_value_title">Procento kontroly baterie</string>
@@ -465,8 +416,6 @@
     <string name="pref_keep_alive_summary">Je-li tato funkce povolena, aplikace zůstane na pozadí spuštěna. Vypnutí při dokončení stahování je stále respektováno</string>
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Spustit aplikaci po spuštění systému</string>
-    <string name="pref_wifi_only_title">Pouze Wi-Fi</string>
-    <string name="pref_wifi_only_summary">Stažení a nahrávání pouze v případě připojení Wi-Fi</string>
     <string name="pref_power_management_category">Správa napájení</string>
     <string name="pref_shutdown_downloads_complete_title">Vypnout po dokončení stahování</string>
     <string name="pref_shutdown_downloads_complete_summary">Pokud zapnuto, aplikace se vypne po dokončení všech stahování</string>
@@ -492,7 +441,6 @@
     <string name="pref_enable_natpmp_title">Povolit NAT-PMP</string>
     <string name="pref_port_settings_category">Nastavení portu</string>
     <string name="pref_use_random_port_title">Použít náhodný port</string>
-    <string name="pref_port_title">Port</string>
     <string name="pref_encryption_category">Šifrování</string>
     <string name="pref_enc_mode_title">Mód šifrování</string>
     <string-array name="pref_enc_mode_entries">
@@ -523,7 +471,6 @@
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Použít také pro připojování peerů</string>
     <string name="pref_proxy_peers_too_summary">Proxy bude použita k propojení s trackerem, peery a web seedy.</string>
-    <string name="pref_force_proxy_title">Zrušit připojení nepodporovaná proxy</string>
     <string name="pref_proxy_requires_auth_title">Požaduje autorizaci</string>
     <string name="pref_proxy_requires_auth_summary">Varování: heslo není šifrované</string>
     <string name="pref_proxy_login_title">Přihlášení</string>
@@ -549,7 +496,6 @@
         <item>12 hodin</item>
         <item>1 den</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">Pouze Wi-Fi</string>
     <string name="pref_feed_keep_items_time_title">Uchovávejte články</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 den</item>

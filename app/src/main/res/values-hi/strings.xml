@@ -13,9 +13,7 @@
     <string name="delete">हटाना</string>
     <string name="deleting">हटाया जा रहा है</string>
     <string name="select_all">सभी का चयन करे</string>
-    <string name="apply">लागू करें</string>
     <string name="save">बचाना</string>
-    <string name="install">इंस्टॉल करें</string>
     <string name="search">खोज</string>
     <string name="not_available">उपलब्ध नहीं है</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -26,9 +24,6 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">चढ़कर</string>
-    <string name="sort_by_descending">उतर कर</string>
-    <string name="sorting">छंटाई</string>
     <string name="def">चूक</string>
     <string name="foreground_notification">अग्रभूमि अधिसूचना</string>
     <string name="link">संपर्क</string>
@@ -49,11 +44,6 @@
     <string name="filters">Filters</string>
 
     <!-- Main window -->
-    <string name="main_empty_torrent_list">कोई धार नहीं</string>
-    <string name="spinner_all_torrents">सब</string>
-    <string name="spinner_downloading_torrents">डाउनलोड कर रहा है</string>
-    <string name="spinner_downloaded_torrents">डाउनलोड किया</string>
-    <string name="spinner_downloading_metadata_torrents">तत्व आंकड़े डाउन लोड हो रहे हैं</string>
     <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
     <string name="delete_selected_torrent">चयनित धार हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
     <string name="delete_selected_torrents">चयनित टॉरेंट हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
@@ -73,17 +63,7 @@
     <string name="proxy_settings_applied">प्रॉक्सी सर्वर सेटिंग्स सफलतापूर्वक लागू हुईं</string>
     <string name="proxy_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद प्रॉक्सी सर्वर सेटिंग्स लागू की जाएंगी</string>
     <string name="theme_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद थीम सेटिंग्स लागू की जाएंगी</string>
-    <string name="settings_apply_after_reboot">ऐप को पुनरारंभ करने के बाद सेटिंग्स लागू की जाएंगी</string>
     <string name="about">के बारे में</string>
-    <string-array name="sort_torrent_by">
-        <item>बिना छँटे</item>
-        <item>नाम</item>
-        <item>तारीख संकलित हुई</item>
-        <item>आकार</item>
-        <item>प्रगति</item>
-        <item>ईटीए</item>
-        <item>साथियों</item>
-    </string-array>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
@@ -127,7 +107,6 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">टोरेंट की त्रुटि</string>
     <string name="error_template">त्रुटि: %1$s</string>
- <string name="torrent_does_not_exists_error">टोरेंट नहीं करता मौजूद है</string>
     <string name="restore_torrent_error">पिछले सत्र से धार बहाल करने में असमर्थ</string>
     <string name="session_error_title">सत्र त्रुटि</string>
     <string name="nat_error_title">NAT त्रुटि</string>
@@ -142,7 +121,6 @@
     <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
-    <string name="torrent_added_notify">धार गयी</string>
 
     <!-- Torrent list item -->
 
@@ -172,10 +150,6 @@
     <string name="error_io_torrent">धार फ़ाइल को पढ़ने में त्रुटि</string>
     <string name="error_fetch_link">लिंक से डेटा लाने में विफल</string>
     <string name="error_invalid_link_or_path">धार के लिए अमान्य लिंक या पथ</string>
-    <string name="decode_torrent_progress_title">लोड हो रहा है</string>
-    <string name="decode_torrent_default_message">कृपया प्रतीक्षा करें&#8230;</string>
-    <string name="decode_torrent_fetch_magnet_message">चुंबक  लिंक से डेटा प्राप्त करना। कृपया प्रतीक्षा करें&#8230;</string>
-    <string name="decode_torrent_downloading_torrent_message">धार फ़ाइल डाउनलोड करना। कृपया प्रतीक्षा करें&#8230;</string>
     <string name="error_add_torrent">धार जोड़ने में विफल</string>
     <string name="error_file_not_found_add_torrent">धार जोड़ने में विफल। हो सकता है कि टोरेंट फ़ाइल को स्थानांतरित या हटा दिया गया हो</string>
     <string name="error_io_add_torrent">धार जोड़ने में असमर्थ। I / O त्रुटि</string>
@@ -210,20 +184,15 @@
     <string name="torrent_file_chooser_title">धार चयन</string>
     <string name="dialog_new_folder_title">नया फोल्डर</string>
     <string name="error_dialog_new_folder">एक नया फ़ोल्डर बनाने में असमर्थ</string>
-    <string name="error_perm_write_in_folder">डाउनलोड करने के लिए चयनित फ़ोल्डर का उपयोग करने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करें</string>
     <string name="error_open_dir">फ़ोल्डर को खोलने में असमर्थ</string>
     <string name="home_directory">होम</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">आंतरिक स्टोरेज</string>
-    <string formatted="false" name="external_storage_name">बाहरी भंडारण% 1 $ d</string>
     <string name="permission_denied">अनुमति नहीं मिली</string>
     <string name="save_file">फाइल सुरक्षित करें</string>
     <string name="file_name">फ़ाइल का नाम</string>
     <string name="error_file_exists">फ़ाइल पहले से ही मौजूद है</string>
     <string name="file_name_is_empty">फ़ाइल का नाम रिक्त नहीं हो सकता</string>
     <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
@@ -267,7 +236,6 @@
     <string name="torrent_trackers">ट्रैकर्स</string>
     <string name="tracker_state_working">काम कर रहे</string>
     <string name="tracker_state_not_working">काम नहीं कर रहा</string>
-    <string formatted="false" name="tracker_state_error">त्रुटि: %1$s</string>
     <string name="tracker_state_updating">अद्यतन कर रहा है &#8230;</string>
     <string name="tracker_state_not_contacted">अभी तक संपर्क नहीं किया गया</string>
     <string name="share_tracker_url">शेयर यूआरएल</string>
@@ -323,8 +291,6 @@
     <string name="feed_filter_prompt">शब्दों को दर्ज करें (\"|\" से अलग), जिनमें से एक नाम होना चाहिए या नियमित अभिव्यक्ति दर्ज करें। टॉरेंट तभी जोड़े जाएंगे जब यह फ़िल्टर टोरेंट नाम से मेल खाएगा</string>
     <string name="feed_auto_download">स्वचालित रूप से नए टॉरेंट डाउनलोड करें</string>
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
-    <string name="import_feed_channels">आयात चैनल</string>
-    <string name="export_feed_channels">चैनल निर्यात करें</string>
     <string formatted="false" name="feed_last_update_template">अपडेट किया गया:% 1 $ s</string>
     <string name="feed_last_update_never">कभी नहीँ</string>
     <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
@@ -335,13 +301,7 @@
     <string name="link_copied_to_clipboard">लिंक को क्लिपबोर्ड पर कॉपी किया गया</string>
     <string name="mark_as_read">पढ़े हुए का चिह्न</string>
     <string name="feed_item_list_empty">कोई लेख नहीं</string>
-    <string name="feed_items">सामग्री</string>
-    <string formatted="false" name="export_feeds_successfully">चैनल सफलतापूर्वक सहेजे गए:% 1 $ s</string>
-    <string formatted="false" name="import_feeds_successfully">चैनल सफलतापूर्वक आयात किए गए</string>
-    <string name="error_import_feeds">चैनलों को आयात करने में विफल</string>
-    <string name="error_export_feeds">चैनल निर्यात करने में विफल</string>
     <string name="feed_item_open_article_url">लेख खोलें</string>
-    <string name="feeds_file_selection_dialog_title">चैनलों के साथ एक फ़ाइल का चयन करें</string>
     <string name="error_import_invalid_format">अवैध प्रारूप</string>
     <string name="feed_do_not_download_immediately">तुरंत डाउनलोड न करें</string>
     <string name="backup_feed_channels">Save backup</string>
@@ -383,13 +343,11 @@
         <item>32 MiB</item>
     </string-array>
     <string formatted="false" name="invalid_url">अमान्य URL: %1$s</string>
-    <string name="file_or_folder_not_found">चयनित फ़ाइल या फ़ोल्डर नहीं मिला</string>
     <string name="folder_is_empty">चयनित फ़ोल्डर खाली है या सभी फ़ाइलों को फ़िल्टर द्वारा बाहर रखा गया है</string>
     <string name="error_create_torrent">धार बनाने में असमर्थ</string>
     <string name="skip_files">फ़ाइलें छोड़ें</string>
     <string name="skip_files_hint">\"|\" द्वारा अलग किए गए फ़ाइल नाम दर्ज करें</string>
     <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
-    <string name="folder_to_save_not_found">सहेजने के लिए चयनित फ़ोल्डर नहीं मिला</string>
     <string formatted="false" name="torrent_saved_to">टोरेंट ने %1$s पर सहेजा</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
@@ -431,7 +389,6 @@
     <string name="pref_max_connections_per_torrent_title">प्रति टॉरेंट की अधिकतम संख्या</string>
     <string name="pref_max_connections_per_torrent_summary">कनेक्शन की न्यूनतम संख्या - 2</string>
     <string name="pref_max_uploads_per_torrent_title">प्रति टोरेंट पर अधिकतम अपलोड स्लॉट</string>
-    <string name="pref_max_uploads_per_torrent_summary">स्लॉट की न्यूनतम संख्या - 2</string>
     <string name="pref_auto_manage_title">ऑटो का प्रबंधन</string>
     <string name="pref_auto_manage_summary">किसी भी बिंदु पर स्वचालित रूप से धार को फिर से शुरू या रोका जा सकता है। इस विकल्प को सक्षम करने से ठहराव / फिर से शुरू हो सकता है</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 बिना सीमा के</string>
@@ -451,18 +408,10 @@
     <string name="pref_led_indicator_notify_title">एलईडी सूचक</string>
     <string name="pref_led_indicator_color_notify_title">एलईडी संकेतक रंग</string>
     <string name="pref_vibration_notify_title">कंपन</string>
-    <string name="pref_foreground_notification_category">अग्रभूमि अधिसूचना</string>
-    <string name="pref_function_button_title">फंक्शन बटन</string>
-    <string-array name="pref_function_button_entries">
-        <item>टॉरेंट को रोकें / फिर से शुरू करें</item>
-        <item>धार जोड़ें</item>
-    </string-array>
 
     <!-- Behavior settings -->
     <string name="pref_autostart_title">ऑटो स्टार्ट</string>
     <string name="pref_autostart_summary">स्टार्ट डिवाइस के बाद ऐप को रन करें</string>
-    <string name="pref_wifi_only_title">केवल वाई - फाई</string>
-    <string name="pref_wifi_only_summary">डाउनलोड और अपलोड केवल अगर वाई-फाई जुड़ा हुआ है</string>
     <string name="pref_power_management_category">ऊर्जा प्रबंधन</string>
     <string name="pref_keep_alive_title">जिंदा रहो</string>
     <string name="pref_keep_alive_summary">यदि सक्षम है, तो एप्लिकेशन पृष्ठभूमि में चलता रहेगा। जब डाउनलोड पूरा हो जाता है तब भी शटडाउन का सम्मान किया जाता है</string>
@@ -494,7 +443,6 @@
     <string name="pref_enable_natpmp_title">NAT-PMP सक्षम करें</string>
     <string name="pref_port_settings_category">पोर्ट सेटिंग्स</string>
     <string name="pref_use_random_port_title">यादृच्छिक पोर्ट का उपयोग करें</string>
-    <string name="pref_port_title">बंदरगाह</string>
     <string name="pref_encryption_category">एन्क्रिप्शन</string>
     <string name="pref_enc_mode_title">एन्क्रिप्शन प्रणाली</string>
     <string-array name="pref_enc_mode_entries">
@@ -525,7 +473,6 @@
     <string name="pref_proxy_port_title">बंदरगाह</string>
     <string name="pref_proxy_peers_too_title">सहकर्मी कनेक्शन के लिए भी उपयोग करें</string>
     <string name="pref_proxy_peers_too_summary">प्रॉक्सी का उपयोग ट्रैकर्स, साथियों और वेब बीजों के साथ जुड़ने के लिए किया जाएगा</string>
-    <string name="pref_force_proxy_title">प्रॉक्सी द्वारा समर्थित नहीं कनेक्शन अक्षम करें</string>
     <string name="pref_proxy_requires_auth_title">प्राधिकरण की आवश्यकता है</string>
     <string name="pref_proxy_requires_auth_summary">चेतावनी: पासवर्ड अनएन्क्रिप्टेड सहेजा जाता है</string>
     <string name="pref_proxy_login_title">लॉग इन करें</string>
@@ -551,7 +498,6 @@
         <item>12 घंटे</item>
         <item>एक दिन</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">केवल वाई - फाई</string>
     <string name="pref_feed_keep_items_time_title">लेख रखें</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>एक दिन</item>

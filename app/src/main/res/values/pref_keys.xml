@@ -52,7 +52,6 @@
     <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value</string>
     <string name="pref_key_unmetered_connections_only" translatable="false">pref_key_wifi_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
-    <string name="pref_key_foreground_notify_func_button" translatable="false">pref_key_foreground_notify_func_button</string>
     <!-- Network settings -->
     <string name="pref_key_enable_dht" translatable="false">pref_key_enable_dht</string>
     <string name="pref_key_enable_lsd" translatable="false">pref_key_enable_lsd</string>

@@ -2,15 +2,12 @@
 <resources>
     <color name="primary">#673AB7</color>
     <color name="primary_dark">#512DA8</color>
-    <color name="primary_light">#D1C4E9</color>
     <color name="gray_dark">#727272</color>
     <color name="gray">#E0E0E0</color>
-    <color name="gray_light">#EEEEEE</color>
     <color name="divider">#E0E0E0</color>
     <color name="divider_dark">#424242</color>
     <color name="accent">#FF4081</color>
     <color name="accent_dark">#C2185B</color>
-    <color name="accent_light">#FCE4EC</color>
     <color name="background">#FFFFFF</color>
     <color name="background_dark">#303030</color>
     <color name="background_blank">#EDEDED</color>
@@ -19,7 +16,6 @@
     <color name="background_dialog_dark">#424242</color>
     <color name="cur_open_torrent_indicator">#FCE4EC</color>
     <color name="cur_open_torrent_indicator_dark">#51353E</color>
-    <color name="file_manager_highlight">@color/accent</color>
     <color name="text_primary">#DE000000</color>
     <color name="text_secondary">#9E9E9E</color>
     <color name="text_primary_inverse">#FFFFFF</color>
@@ -31,7 +27,5 @@
     <color name="error">#D50000</color>
     <color name="ok">#00C853</color>
     <color name="pieces_cell">#BDBDBD</color>
-    <color name="fab_menu_shadow">#66000000</color>
-    <color name="fab_menu_label_normal">#333333</color>
     <color name="black">#000000</color>
 </resources>
