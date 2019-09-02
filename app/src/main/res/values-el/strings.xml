@@ -36,6 +36,17 @@
     <string name="refresh">Φρεσκάρω</string>
     <string name="edit">Επεξεργασία</string>
     <string name="menu">Μενού</string>
+    <string name="open_navigation_drawer">Open navigation drawer</string>
+    <string name="close_navigation_drawer">Close navigation drawer</string>
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
+    <string name="finished">Finished</string>
+    <string name="pause_all">Pause all</string>
+    <string name="resume_all">Resume all</string>
+    <string name="all">All</string>
+    <string name="details">Details</string>
+    <string name="stats">Stats</string>
+    <string name="filters">Filters</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">Κανένα torrent</string>
@@ -73,6 +84,32 @@
         <item>Χρόνος που απομένει</item>
         <item>Ομότιμοι χρήστες</item>
     </string-array>
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_downloading">Downloading</string>
+    <string name="drawer_status_downloaded">Downloaded</string>
+    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting_name">Name</string>
+    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added_today">Today</string>
+    <string name="drawer_date_added_yesterday">Yesterday</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added_year">Year</string>
 
     <!-- Foreground notification -->
 
@@ -93,20 +130,16 @@
     <string name="torrent_does_not_exists_error">torrent δεν υπάρχει</string>
     <string name="restore_torrent_error">δεν είναι δυνατή η επαναφορά torrent από προηγούμενη περίοδο λειτουργίας</string>
     <string name="session_error_title">Σφάλμα περιόδου σύνδεσης</string>
-    <!-- ip_address:port, type (error: error_msg)-->
-    <string name="listen_failed_error" formatted="false">Δεν ήταν δυνατή η ακρόαση %1$s:%2$d, πληκτρολογήστε: %3$s (σφάλμα: %4$s)</string>
     <string name="nat_error_title">Σφάλμα NAT</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Το torrent κατέβηκε</string>
 
     <!-- Torrents move notification -->
-    <string name="torrents_move_notify_title" formatted="false">Γίνεται μετακίνηση torrents (%1$d/%2$d)</string>
-    <string name="torrents_move_content">Παρακαλώ περιμένετε&#8230;</string>
-    <string name="torrents_moved_title">Τα torrents μετακινήθηκαν</string>
-    <string name="torrents_moved_content" formatted="false">Επιτυχώς: %1$d; Απέτυχε: %2$d</string>
-    <string name="torrents_move_inbox_successfully">Επιτυχώς:</string>
-    <string name="torrents_move_inbox_failed">Απέτυχε:</string>
+    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
     <string name="torrent_added_notify">Torrent пροστέθηκε</string>
@@ -150,6 +183,8 @@
     <string name="files_size" formatted="false">Επιλέχθηκαν %1$s από %2$s</string>
     <string name="start_torrent">Εκκίνηση torrent</string>
     <string name="file_is_too_large_error">Το αρχείο είναι πολύ μεγάλο</string>
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="error_empty_name">Please enter name</string>
 
     <!-- Torrent info -->
     <string name="torrent_info">Πληροφορίες</string>
@@ -183,6 +218,11 @@
     <string name="file_name">Ονομα αρχείου</string>
     <string name="error_file_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="file_name_is_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
+    <string name="system_manager">System manager</string>
+    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
 
     <!-- Error dialog -->
     <string name="report">Αναφορά</string>
@@ -263,6 +303,7 @@
     <string name="share_stream_url">Μοιραστείτε το stream URL</string>
     <string name="magnet_include_file_priorities">Συμπεριλάβετε προτεραιότητες αρχείου;</string>
     <string name="magnet_more_about_bep53">Περισσότερες πληροφορίες: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">No trackers</string>
 
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>
@@ -302,6 +343,16 @@
     <string name="feeds_file_selection_dialog_title">Επιλέξτε ένα αρχείο με κανάλια</string>
     <string name="error_import_invalid_format">Ακυρη μορφή</string>
     <string name="feed_do_not_download_immediately">Μην κάνετε λήψη αμέσως</string>
+    <string name="backup_feed_channels">Save backup</string>
+    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="error_cannot_edit_channel">Cannot edit channel</string>
+    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="mark_as_unread">Mark as unread</string>
+    <string name="backup_feeds_successfully">Channels saved successfully</string>
+    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
+    <string name="error_backup_feeds">Failed to save channels</string>
+    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
 
     <!-- Create torrent dialog -->
     <string name="create_torrent">Δημιουργία torrent</string>
@@ -339,6 +390,11 @@
     <string name="select_folder_to_save">Επιλέξτε το φάκελο για να αποθηκεύσετε</string>
     <string name="folder_to_save_not_found">Επιλεγμένα φάκελο για να αποθηκεύσετε δεν βρέθηκε</string>
     <string name="torrent_saved_to" formatted="false">Torrent αποθηκεύονται σε %1$s</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
+    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="unable_to_open_file">Unable to open selected file</string>
+    <string name="unable_to_create_file">Unable to create file</string>
 
     <!-- Settings -->
     
@@ -420,6 +476,10 @@
     <string name="pref_download_and_upload_only_when_charging_summary">Αν ενεργοποιηθεί, θα γίνεται λήψη/μεταφόρτωση των torrents μόνο σε κατάσταση φόρτισης. Όλα τα torrents θα σταματούν όταν δεν είναι συνδεδεμένος ο φορτιστής.</string>
     <string name="pref_battery_control_title">Έλεγχος μπαταρίας</string>
     <string name="pref_battery_control_summary" formatted="false">Όλα τα torrents θα σταματήσουν αν το επίπεδο της μπαταρίας κατέβει κάτω από %1$d%%. Το όριο δεν εφαρμόζεται την ώρα της φόρτισης.</string>
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ρυθμίσεις μεσολαβητή</string>
     <string name="pref_enable_dht_title">Ενεργοποίηση DHT</string>
@@ -447,6 +507,10 @@
     <string name="pref_enable_ip_filtering_summary">Η χρήση φίλτρου IP αυξάνει την απαιτούμενη μνήμη. Ανάλογα με το μέγεθος του αρχείου, το φίλτρο μπορεί να πάρει λίγη ώρα για να εφαρμοστεί κατά την εκκίνηση.</string>
     <string name="pref_ip_filtering_file_title">Διαδρομή σε αρχείο φίλτρου (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Εμφάνιση σφαλμάτων NAT</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_start_title">Start</string>
+    <string name="pref_port_range_end_title">End</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
     <string-array name="pref_proxy_type_entries">
@@ -500,6 +564,9 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Εκτελέστε torrents</string>
     <string name="pref_feed_start_torrents_summary">Εκτελέστε torrents μετά την προσθήκη</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Ενεργοποίηση streaming</string>
     <string name="pref_streaming_enable_summary">Streaming σας επιτρέπει να κατεβάζετε μεμονωμένα αρχεία από ένα torrent χρησιμοποιώντας ένα πρόγραμμα περιήγησης ή ένα media player χρησιμοποιώντας URL HTTP</string>
@@ -509,7 +576,9 @@
 
     <!-- About dialog -->
     <string name="about_title">Σχετικά με το LibreTorrent</string>
-    <string name="about_website">Περισσότερες πληροφορίες και επίσης να βοηθήσει το έργο: https://gitlab.com/proninyaroslav/libretorrent</string>
-    <string name="about_description">Το LibreTorrent είναι ένας ελεύθερος πελάτης torrent για Android 4+, βασισμένο στο libtorrent (πακέτο για Java: libtorrent4j https://github.com/aldenml/libtorrent4j). \n\nΤο LibreTorrent είναι ελεύθερο λογισμικό και διατίθεται υπό τους όρους της Γενικής Άδειας Δημόσιας Χρήσης GNU, έκδοση 3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    Περισσότερες πληροφορίες και επίσης να βοηθήσει το έργο: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    Το LibreTorrent είναι ένας ελεύθερος πελάτης torrent για Android 4+, βασισμένο στο libtorrent (πακέτο για Java: <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
+    Το LibreTorrent είναι ελεύθερο λογισμικό και διατίθεται υπό τους όρους <a href="http://www.gnu.org/copyleft/gpl.html">της Γενικής Άδειας Δημόσιας Χρήσης GNU, έκδοση 3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Αρχείο αλλαγών</string>
 </resources>

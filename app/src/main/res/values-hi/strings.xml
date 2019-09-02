@@ -36,6 +36,17 @@
     <string name="refresh">ताज़ा करना</string>
     <string name="edit">संपादित करें</string>
     <string name="menu">मेन्यू</string>
+    <string name="open_navigation_drawer">Open navigation drawer</string>
+    <string name="close_navigation_drawer">Close navigation drawer</string>
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
+    <string name="finished">Finished</string>
+    <string name="pause_all">Pause all</string>
+    <string name="resume_all">Resume all</string>
+    <string name="all">All</string>
+    <string name="details">Details</string>
+    <string name="stats">Stats</string>
+    <string name="filters">Filters</string>
 
     <!-- Main window -->
     <string name="main_empty_torrent_list">कोई धार नहीं</string>
@@ -73,6 +84,32 @@
         <item>ईटीए</item>
         <item>साथियों</item>
     </string-array>
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_downloading">Downloading</string>
+    <string name="drawer_status_downloaded">Downloaded</string>
+    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting_name">Name</string>
+    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added_today">Today</string>
+    <string name="drawer_date_added_yesterday">Yesterday</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added_year">Year</string>
 
     <!-- Foreground notification -->
 
@@ -93,20 +130,16 @@
  <string name="torrent_does_not_exists_error">टोरेंट नहीं करता मौजूद है</string>
     <string name="restore_torrent_error">पिछले सत्र से धार बहाल करने में असमर्थ</string>
     <string name="session_error_title">सत्र त्रुटि</string>
-    <!-- ip_address:port, type (error: error_msg)-->
-    <string name="listen_failed_error" formatted="false">सुन नहीं सका %1$s:%2$d, प्रकार: %3$s (त्रुटि: %4$s)</string>
     <string name="nat_error_title">NAT त्रुटि</string>
 
     <!-- Finish notification -->
     <string name="torrent_finished_notify">धार समाप्त हो गई</string>
 
     <!-- Torrents move notification -->
-    <string name="torrents_move_notify_title" formatted="false">चलती धार (%1$d/%2$d)</string>
-    <string name="torrents_move_content">कृपया प्रतीक्षा करें&#8230;</string>
-    <string name="torrents_moved_title">टोरेंट हिल गए</string>
-    <string name="torrents_moved_content" formatted="false">सफलतापूर्वक: %1$d; अनुत्तीर्ण होना: %2$d</string>
-    <string name="torrents_move_inbox_successfully">सफलतापूर्वक:</string>
-    <string name="torrents_move_inbox_failed">अनुत्तीर्ण होना:</string>
+    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_move_fail">Could not move torrent</string>
 
     <!-- Added notification -->
     <string name="torrent_added_notify">धार गयी</string>
@@ -152,8 +185,10 @@
     <string name="free_space" formatted="false">%1$s मुक्त</string>
     <string name="error_free_space">चयनित फ़ाइलों को डाउनलोड करने के लिए चयनित पथ पर पर्याप्त खाली स्थान नहीं है</string>
     <string name="files_size" formatted="false">चयनित %1$s से बाहर %2$s</string>
-  <string name="start_torrent">धार शुरू करो</string>
+    <string name="start_torrent">धार शुरू करो</string>
     <string name="file_is_too_large_error">फ़ाइल बहुत बड़ी है</string>
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="error_empty_name">Please enter name</string>
 
     <!-- Torrent info -->
 <string name="torrent_info">जानकारी</string>
@@ -187,6 +222,11 @@
     <string name="file_name">फ़ाइल का नाम</string>
     <string name="error_file_exists">फ़ाइल पहले से ही मौजूद है</string>
     <string name="file_name_is_empty">फ़ाइल का नाम रिक्त नहीं हो सकता</string>
+    <string name="system_manager">System manager</string>
+    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
 
 
     <!-- Error dialog -->
@@ -264,9 +304,10 @@
     <string name="share_stream_url">शेयर स्ट्रीम यूआरएल</string>
     <string name="magnet_include_file_priorities">फ़ाइल प्राथमिकताएं शामिल करें?</string>
     <string name="magnet_more_about_bep53">अधिक जानकारी: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">No trackers</string>
 
     <!-- Send text to clipboard -->
-  <string name="send_text_to_clipboard">प्रतिलिपि</string>
+    <string name="send_text_to_clipboard">प्रतिलिपि</string>
     <string name="text_copied_to_clipboard">क्लिपबोर्ड पर पाठ कॉपी किया गया</string>
 
     <!-- Error report -->
@@ -274,7 +315,7 @@
     <string name="error_comment_prompt">आप यहां अतिरिक्त जानकारी और टिप्पणियां जोड़ सकते हैं:</string>
 
     <!-- Feeds -->
-      <string name="feed">आरएसएस</string>
+    <string name="feed">आरएसएस</string>
     <string name="feed_channel_list_empty">कोई चैनल नहीं</string>
     <string name="select_or_add_feed_channel">RSS / Atom चैनल चुनें या जोड़ें</string>
     <string name="add_feed_channel">चैनल जोड़ें</string>
@@ -303,6 +344,16 @@
     <string name="feeds_file_selection_dialog_title">चैनलों के साथ एक फ़ाइल का चयन करें</string>
     <string name="error_import_invalid_format">अवैध प्रारूप</string>
     <string name="feed_do_not_download_immediately">तुरंत डाउनलोड न करें</string>
+    <string name="backup_feed_channels">Save backup</string>
+    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="error_cannot_edit_channel">Cannot edit channel</string>
+    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="mark_as_unread">Mark as unread</string>
+    <string name="backup_feeds_successfully">Channels saved successfully</string>
+    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
+    <string name="error_backup_feeds">Failed to save channels</string>
+    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
 
     <!-- Create torrent dialog -->
      <string name="create_torrent">धार पैदा करो</string>
@@ -340,6 +391,11 @@
     <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
     <string name="folder_to_save_not_found">सहेजने के लिए चयनित फ़ोल्डर नहीं मिला</string>
     <string formatted="false" name="torrent_saved_to">टोरेंट ने %1$s पर सहेजा</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
+    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="unable_to_open_file">Unable to open selected file</string>
+    <string name="unable_to_create_file">Unable to create file</string>
 
     <!-- Settings -->
 
@@ -403,7 +459,7 @@
     </string-array>
 
     <!-- Behavior settings -->
-<string name="pref_autostart_title">ऑटो स्टार्ट</string>
+    <string name="pref_autostart_title">ऑटो स्टार्ट</string>
     <string name="pref_autostart_summary">स्टार्ट डिवाइस के बाद ऐप को रन करें</string>
     <string name="pref_wifi_only_title">केवल वाई - फाई</string>
     <string name="pref_wifi_only_summary">डाउनलोड और अपलोड केवल अगर वाई-फाई जुड़ा हुआ है</string>
@@ -422,6 +478,10 @@
     <string formatted="false" name="pref_battery_control_summary">यदि बैटरी स्तर% 1 $ d %% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
     <string formatted="false" name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1 $ d %% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
     <string formatted="false" name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>
     <string name="pref_enable_dht_title">DHT को सक्षम करें</string>
@@ -449,6 +509,10 @@
     <string name="pref_enable_ip_filtering_summary">IP फ़िल्टरिंग के उपयोग से मेमोरी का उपयोग बढ़ता है। फ़ाइल आकार के आधार पर, फ़िल्टर को स्टार्टअप पर लागू होने में कुछ समय लग सकता है</string>
     <string name="pref_ip_filtering_file_title">फ़ाइल को फ़िल्टर करने का पथ (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT त्रुटियों को दिखाएं</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_start_title">Start</string>
+    <string name="pref_port_range_end_title">End</string>
     <!-- Proxy settings -->
    <string name="pref_proxy_type_title">प्रॉक्सी प्रकार</string>
     <string-array name="pref_proxy_type_entries">
@@ -502,6 +566,9 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">दौड़ो धार</string>
     <string name="pref_feed_start_torrents_summary">जोड़ने के बाद टॉरेंट चलाएं</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">स्ट्रीमिंग सक्षम करें</string>
     <string name="pref_streaming_enable_summary">स्ट्रीमिंग आपको HTTP यूआरएल का उपयोग करके ब्राउज़र या मीडिया प्लेयर का उपयोग करके एक टोरेंट से व्यक्तिगत फ़ाइलों को डाउनलोड करने की अनुमति देता है</string>
@@ -511,7 +578,9 @@
 
     <!-- About dialog -->
       <string name="about_title">LibreTorrent के बारे में</string>
-    <string name="about_website">अधिक जानकारी https://gitlab.com/proninyaroslav/libretorrent पर उपलब्ध है</string>
-    <string name="about_description">LibreTorrent एक फ्री है जैसा कि एंड्रॉइड 4 के लिए फ्रीडम टोरेंट क्लाइंट में है, जो कि libtorrent पर आधारित है। \ n \ nLibreTorrent मुफ्त सॉफ्टवेयर है</string>
+    <string name="about_description"><![CDATA[
+    अधिक जानकारी और परियोजना को मदद करने के लिए <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent एंड्रॉइड 4+ के लिए फ्रीडम टोरेंट क्लाइंट में एक फ्री है, जो कि libtorrent (Java आवरण <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) लिब पर आधारित है।।<br><br>
+    LibreTorrent मुफ्त सॉफ्टवेयर है, जो <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> की शर्तों के तहत जारी किया गया है]]></string>
     <string name="about_changelog">बदलाव का</string>
 </resources>
