@@ -32,6 +32,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
@@ -49,9 +50,7 @@ android {
             universalApk true
         }
     }
-
     project.ext.versionCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
-
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             output.versionCodeOverride =
@@ -68,15 +67,10 @@ android {
         enabled = true
     }
 
+    testOptions.unitTests.includeAndroidResources = true
+
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-    }
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        url "https://jitpack.io"
     }
 }
 
@@ -101,15 +95,16 @@ dependencies {
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-beta03"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
-    implementation "com.google.android.material:material:1.1.0-alpha08"
+    implementation "com.google.android.material:material:1.1.0-alpha09"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.work:work-runtime:2.1.0"
+    implementation "androidx.work:work-runtime:2.2.0"
+    implementation "androidx.multidex:multidex:2.0.1"
 
     /* ReactiveX */
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
@@ -118,14 +113,6 @@ dependencies {
     /* ACRA */
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
-
-    /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
-    implementation "commons-io:commons-io:2.5"
-    implementation "com.google.code.gson:gson:2.8.5"
-    implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
-    implementation "com.github.aakira:expandable-layout:1.6.0@aar"
-    implementation "uk.co.markormesher:android-fab:2.5.0"
-    implementation "net.java.dev.jna:jna:4.5.2@aar"
 
     /* libtorrent wrapper */
     implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
@@ -139,5 +126,10 @@ dependencies {
     implementation "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0"
     implementation "com.github.anthonynsimon:jurl:v0.4.2"
     implementation "com.jaredrummler:colorpicker:1.1.0"
-    implementation "androidx.multidex:multidex:2.0.1"
+    /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
+    implementation "commons-io:commons-io:2.5"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
+    implementation "uk.co.markormesher:android-fab:2.5.0"
+    implementation "net.java.dev.jna:jna:4.5.2@aar"
 }
