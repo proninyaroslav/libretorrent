@@ -626,6 +626,8 @@ public class FileManagerDialog extends AppCompatActivity
             case SAF_OPEN_FILE_TREE_REQUEST_CODE:
             case SAF_CREATE_FILE_REQUEST_CODE:
             case SAF_OPEN_FILE_REQUEST_CODE:
+                viewModel.takeSafPermissions(data);
+
                 Intent i = new Intent();
                 i.setData(data.getData());
                 setResult(RESULT_OK, i);
