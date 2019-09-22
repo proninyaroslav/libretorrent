@@ -138,8 +138,8 @@ public class AddTorrentViewModel extends AndroidViewModel
         decodeState.setValue(new DecodeState(Status.UNKNOWN));
 
         /* Init download dir */
-        String path = pref.saveTorrentFilesIn();
-        mutableParams.getDirPath().set(Uri.parse(fs.normalizeFileSystemPath(path)));
+        String path = pref.saveTorrentsIn();
+        mutableParams.getDirPath().set(Uri.parse(path));
     }
 
     public LiveData<DecodeState> getDecodeState()
