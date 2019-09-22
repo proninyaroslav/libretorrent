@@ -68,6 +68,7 @@ Current languages:
  - Hindi *(thanks Lino Joseph)*
  - Malayalam *(thanks Lino Joseph)*
  - Tamil *(thanks Lino Joseph)*
+ - Japanese *(thanks mamarama9904)*
 
 Contributors
 ---

@@ -42,7 +42,6 @@
     <string name="details">Details</string>
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
-
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Slett sammen med nedlastede filer</string>
     <string name="delete_selected_torrent">Slett valgt torrent? Dette kan ikke angres</string>
@@ -90,9 +89,7 @@
     <string name="drawer_date_added_week">Week</string>
     <string name="drawer_date_added_month">Month</string>
     <string name="drawer_date_added_year">Year</string>
-
     <!-- Foreground notification -->
-
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
@@ -103,27 +100,22 @@
     <string name="app_running_in_the_background">LibreTorrent kjører i bakgrunnen</string>
     <string name="network_online">Nettverksstatus: Tilkoblet</string>
     <string name="network_offline">Nettverksstatus: Frakoblet</string>
-
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent feil</string>
     <string name="error_template">Feil: %1$s</string>
     <string name="restore_torrent_error">kan ikke gjenopprette torrent fra forrige økt</string>
     <string name="session_error_title">Session feil</string>
+    <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT feil</string>
-
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent fullført</string>
-
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
     <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <string name="torrent_move_fail">Could not move torrent</string>
-
     <!-- Added notification -->
-
     <!-- Torrent list item -->
-
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
@@ -139,11 +131,9 @@
     <string name="torrent_status_checking">Sjekker</string>
     <string name="torrent_status_finished">Fullført</string>
     <string name="torrent_status_downloading_metadata">Laster ned metadata</string>
-
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
     <string name="perm_denied_warning">Uten denne tilgangen kan ikke programmet lagre torrentfiler i minne. Programmet vil ikke virke ordentlig. Er du sikker på at du vil nekte denne tilgangen?</string>
-
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske fila er skadet eller har feil format?</string>
@@ -163,7 +153,6 @@
     <string name="file_is_too_large_error">Filen er for stor</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
-
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Filer</string>
@@ -177,7 +166,6 @@
     <string name="torrent_created_in_program">Opprettet i program</string>
     <string name="sequential_download">Sekvensiell nedlasting</string>
     <string name="enable_sequential_download">Skru på sekvensiell nedlasting</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Mappevalg</string>
     <string name="file_chooser_title">Filvalg</string>
@@ -196,13 +184,10 @@
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
-
     <!-- Error dialog -->
     <string name="report">Innrapporter</string>
     <string name="more_details">Ytterligere detaljer</string>
-
     <!-- Detail torrent dialog -->
-
     <!-- priority • total -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
@@ -272,15 +257,12 @@
     <string name="magnet_include_file_priorities">Inkluder filprioriteter?</string>
     <string name="magnet_more_about_bep53">Mer informasjon: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No trackers</string>
-
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopier</string>
     <string name="text_copied_to_clipboard">Tekst kopiert til utklippstavle</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">En feil inntraff. Du kan sende feilrapporten til utviklerne</string>
     <string name="error_comment_prompt">Legg til evt. ekstra informasjon og kommentarer her:</string>
-
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Ingen kanaler</string>
@@ -290,36 +272,38 @@
     <string name="feed_filter_prompt">Skriv inn ordene (skilt med \"|\" symbol), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
     <string name="feed_auto_download">Last ned nye torrenter automatisk</string>
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
+    <string name="backup_feed_channels">Save backup</string>
+    <string name="restore_feed_channels_backup">Restore backup</string>
     <string name="feed_last_update_template" formatted="false">Oppdatert: %1$s</string>
     <string name="feed_last_update_never">aldri</string>
     <string name="error_cannot_add_channel">Kan ikke legge til kanal</string>
+    <string name="error_cannot_edit_channel">Cannot edit channel</string>
+    <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="delete_selected_channel">Slett den valgte kanalen?</string>
     <string name="delete_selected_channels">Slett de valgte kanalene?</string>
     <string name="edit_feed_channel">Rediger kanal</string>
     <string name="link_copied_to_clipboard">Lenke kopiert til utklippstavlen</string>
     <string name="mark_as_read">Merk som lest</string>
-    <string name="feed_item_list_empty">Ingen artikler</string>
-    <string name="feed_item_open_article_url">Åpne artikkelen</string>
-    <string name="error_import_invalid_format">Ugyldig format</string>
-    <string name="feed_do_not_download_immediately">Ikke last ned umiddelbart</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="mark_as_unread">Mark as unread</string>
+    <string name="feed_item_list_empty">Ingen artikler</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="feed_item_open_article_url">Åpne artikkelen</string>
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
-
+    <string name="error_import_invalid_format">Ugyldig format</string>
+    <string name="feed_do_not_download_immediately">Ikke last ned umiddelbart</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Lag torrent</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">Fil eller mappe for deling</string>
     <string name="tracker_urls">Sporer-nettadresser</string>
     <string name="web_seed_urls">Nettdeleradresse</string>
     <string name="comments">Kommentarer</string>
+    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
+    <string name="web_seed_urls_hint">(optional) One per line</string>
     <string name="optional_hint">(valgfritt)</string>
     <string name="piece_size">Delstørrelse</string>
     <string name="create_torrent_options">Alternativer</string>
@@ -348,14 +332,9 @@
     <string name="skip_files_hint">Skriv inn filnavn skilt med \"|\" symbol</string>
     <string name="select_folder_to_save">Velg mappen til lagre</string>
     <string name="torrent_saved_to" formatted="false">Torrent lagret til %1$s</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
-
     <!-- Settings -->
-    
     <!-- Headers -->
     <string name="pref_header_appearance">Utseende</string>
     <string name="pref_header_behavior">Oppførsel</string>
@@ -408,15 +387,16 @@
     <string name="pref_led_indicator_color_notify_title">Farge på LED-indikator</string>
     <string name="pref_vibration_notify_title">Vibrasjon</string>
     <!-- Behavior settings -->
-    <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
-    <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Aktivering av dette vil ignorere standard %1$d%% grensen</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Hvis du angir et tilpasset batteriprosent for søknaden, vil det ha en negativ innvirkning på batteriets levetid mens nedlastinger oppstår. Er du sikker på at du vil aktivere dette?</string>
-    <string name="pref_keep_alive_title">Arbeid i bakgrunnen</string>
-    <string name="pref_keep_alive_summary">Hvis aktivert, fortsetter programmet å kjøre i bakgrunnen. Nedleggelse når nedlastinger er fullført, respekteres fortsatt</string>
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <string name="pref_power_management_category">Strømstyring</string>
+    <string name="pref_keep_alive_title">Arbeid i bakgrunnen</string>
+    <string name="pref_keep_alive_summary">Hvis aktivert, fortsetter programmet å kjøre i bakgrunnen. Nedleggelse når nedlastinger er fullført, respekteres fortsatt</string>
     <string name="pref_shutdown_downloads_complete_title">Slå av etter at nedlastinger fullføres</string>
     <string name="pref_shutdown_downloads_complete_summary">Hvis påskrudd vil programmet bli lukket etter at alt på nedlasting har blitt overført</string>
     <string name="pref_cpu_do_not_sleep_title">Hold CPU aktiv</string>
@@ -424,11 +404,11 @@
     <string name="pref_download_and_upload_only_when_charging_title">Bare last opp og ned når tilkobet lader</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Hvis påskrudd, vil torrenter bare bli overført mens en lader er koblet til. Alle torrenter vil settes på pause når enheten går på batteri</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
+    <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
+    <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
     <string name="pref_battery_control_summary" formatted="false">Alle torrenter vil bli satt på pause hvis batterinivået går under %1$d%%. Vel å merke ikke med lader tilkoblet</string>
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Aktivering av dette vil ignorere standard %1$d%% grensen</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Hvis du angir et tilpasset batteriprosent for søknaden, vil det ha en negativ innvirkning på batteriets levetid mens nedlastinger oppstår. Er du sikker på at du vil aktivere dette?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Mellomtjener-innstillinger</string>
     <string name="pref_enable_dht_title">Skru på DHT</string>
@@ -441,6 +421,10 @@
     <string name="pref_enable_natpmp_title">Skru på NAT-PMP</string>
     <string name="pref_port_settings_category">Port-innstillinger</string>
     <string name="pref_use_random_port_title">Bruk tilfeldig port</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_start_title">Start</string>
+    <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">Kryptering</string>
     <string name="pref_enc_mode_title">Krypteringsmodus</string>
     <string-array name="pref_enc_mode_entries">
@@ -455,10 +439,6 @@
     <string name="pref_enable_ip_filtering_summary">Bruk av IP-filtrering øker minnebruken. Avhengig av filstørrelsen, kan det hende det tar litt tid å legge det til ved oppstart</string>
     <string name="pref_ip_filtering_file_title">Sti til filter-fil (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Vis NAT-feil</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
     <string-array name="pref_proxy_type_entries">
@@ -496,6 +476,10 @@
         <item>12 timer</item>
         <item>1 dag</item>
     </string-array>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <string name="pref_feed_keep_items_time_title">Hold artikler</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 dag</item>
@@ -510,9 +494,6 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Kjør torrenter</string>
     <string name="pref_feed_start_torrents_summary">Kjør torrenter etter å ha lagt til</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
@@ -521,11 +502,9 @@
     <string name="pref_streaming_hostname">Vertsnavn </string>
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Valgte port eller vertsnavn for streaming er opptatt eller feil. Vennligst reparer det</string>
-
     <!-- About dialog -->
     <string name="about_title">Om LibreTorrent</string>
-    <string name="about_description"><![CDATA[
-    Mer informasjon og også for å hjelpe prosjektet: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    <string name="about_description"><![CDATA[    Mer informasjon og også for å hjelpe prosjektet: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent er fri programave-torrentklient for Android 4+, basert på libtorrent (Java-omslag libtorrent4j <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent er fri programvare. gitt ut med <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Endringslogg</string>
