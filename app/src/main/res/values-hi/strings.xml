@@ -515,6 +515,8 @@
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">स्ट्रीमिंग सक्षम करें</string>
     <string name="pref_streaming_enable_summary">स्ट्रीमिंग आपको HTTP यूआरएल का उपयोग करके ब्राउज़र या मीडिया प्लेयर का उपयोग करके एक टोरेंट से व्यक्तिगत फ़ाइलों को डाउनलोड करने की अनुमति देता है</string>

@@ -514,6 +514,8 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Run torrents</string>
     <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
+    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Enable streaming</string>
     <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>

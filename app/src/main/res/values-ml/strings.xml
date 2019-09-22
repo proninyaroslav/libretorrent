@@ -514,6 +514,8 @@
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">സ്ട്രീമിംഗ് പ്രാപ്തമാക്കുക</string>
     <string name="pref_streaming_enable_summary">എച്ച്ടിടിപി യുആർഎൽ ഉപയോഗിച്ച് ബ്രൌസർ അല്ലെങ്കിൽ മീഡിയ പ്ലെയർ ഉപയോഗിച്ച് ഓരോ ഫയലുകളും ഡൌൺലോഡ് ചെയ്യാൻ സ്ട്രീമിംഗ് നിങ്ങളെ അനുവദിക്കുന്നു</string>

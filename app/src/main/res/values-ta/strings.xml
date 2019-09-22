@@ -514,6 +514,8 @@
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">ஸ்ட்ரீமிங்கை இயக்கு</string>
     <string name="pref_streaming_enable_summary">HTTP URL களைப் பயன்படுத்தி ஒரு உலாவி அல்லது மீடியா பிளேயரைப் பயன்படுத்தி ஒரு டாரண்ட்டிலிருந்து தனிப்பட்ட கோப்புகளை பதிவிறக்க ஸ்ட்ரீமிங் அனுமதிக்கிறது</string>

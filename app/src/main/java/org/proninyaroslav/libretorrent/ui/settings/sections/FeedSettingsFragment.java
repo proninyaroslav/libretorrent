@@ -107,6 +107,13 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
             startTorrents.setChecked(pref.feedStartTorrents());
             bindOnPreferenceChangeListener(startTorrents);
         }
+
+        String keyRemoveDuplicates = getString(R.string.pref_key_feed_remove_duplicates);
+        SwitchPreferenceCompat removeDuplicates = findPreference(keyRemoveDuplicates);
+        if (removeDuplicates != null) {
+            removeDuplicates.setChecked(pref.feedRemoveDuplicates());
+            bindOnPreferenceChangeListener(removeDuplicates);
+        }
     }
 
     @Override
@@ -160,6 +167,9 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_start_torrents))) {
             pref.feedStartTorrents((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_remove_duplicates))) {
+            pref.feedRemoveDuplicates((boolean)newValue);
         }
 
         return true;

@@ -44,4 +44,10 @@
         android:title="@string/pref_feed_start_torrents_title"
         android:summary="@string/pref_feed_start_torrents_summary"
         android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_feed_remove_duplicates"
+        android:title="@string/pref_feed_remove_duplicates_title"
+        android:summary="@string/pref_feed_remove_duplicates_summary"
+        android:persistent="false" />
 </PreferenceScreen>
