@@ -395,6 +395,8 @@ public class TorrentSessionImpl extends SessionManager
                 }
 
                 if (add) {
+                    magnets.add(strHash);
+
                     if (TextUtils.isEmpty(p.getName()))
                         p.setName(strHash);
                     torrent_flags_t flags = p.getFlags();
@@ -405,6 +407,8 @@ public class TorrentSessionImpl extends SessionManager
 
                     error_code ec = new error_code();
                     th = swig().add_torrent(p, ec);
+                    if (!th.is_valid() || ec.failed())
+                        magnets.remove(strHash);
                     th.resume();
                 }
 
@@ -418,9 +422,6 @@ public class TorrentSessionImpl extends SessionManager
 
             throw new Exception(e);
         }
-
-        if (th.is_valid() && add)
-            magnets.add(strHash);
 
         return new org.libtorrent4j.AddTorrentParams(p);
     }
