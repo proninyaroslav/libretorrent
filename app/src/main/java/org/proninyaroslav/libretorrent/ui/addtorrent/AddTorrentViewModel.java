@@ -445,6 +445,7 @@ public class AddTorrentViewModel extends AndroidViewModel
             return false;
 
         boolean fromMagnet = mutableParams.isFromMagnet();
+        DecodeState state = decodeState.getValue();
 
         String source = mutableParams.getSource();
         if (source == null)
@@ -459,7 +460,11 @@ public class AddTorrentViewModel extends AndroidViewModel
             return false;
 
         Set<Integer> selectedFiles = getSelectedFileIndexes();
-        if (!fromMagnet) {
+        if (state != null &&
+            (state.status == Status.DECODE_TORRENT_COMPLETED ||
+            state.status == Status.FETCHING_MAGNET_COMPLETED ||
+            state.status == Status.FETCHING_HTTP_COMPLETED))
+        {
             if (selectedFiles.isEmpty())
                 throw new NoFilesSelectedException();
 
@@ -478,7 +483,7 @@ public class AddTorrentViewModel extends AndroidViewModel
             }
         }
 
-        AddTorrentParams params = new AddTorrentParams(source, fromMagnet,downloadInfo.sha1Hash,
+        AddTorrentParams params = new AddTorrentParams(source, fromMagnet, downloadInfo.sha1Hash,
                 name, priorities, dirPath,
                 mutableParams.isSequentialDownload(),
                 !mutableParams.isStartAfterAdd());
@@ -514,8 +519,9 @@ public class AddTorrentViewModel extends AndroidViewModel
             return false;
 
         long storageFreeSpace = mutableParams.getStorageFreeSpace();
+        long treeFreeSpace = fileTree.selectedFileSize();
 
-        return storageFreeSpace == -1 || storageFreeSpace >= fileTree.selectedFileSize();
+        return storageFreeSpace == -1 || storageFreeSpace >= treeFreeSpace;
     }
 
     public void finish()
