@@ -27,6 +27,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -225,8 +226,35 @@ public class TorrentNotifier
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             builder.setCategory(Notification.CATEGORY_STATUS);
 
-        Utils.applyLegacyNotifySettings(appContext, builder);
+        applyLegacyNotifySettings(builder);
 
         notifyManager.notify(torrent.id.hashCode(), builder.build());
+    }
+
+    /*
+     * Starting with the version of Android 8.0,
+     * setting notifications from the app preferences isn't working,
+     * you can change them only in the settings of Android 8.0
+     */
+
+    private void applyLegacyNotifySettings(NotificationCompat.Builder builder)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            return;
+
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
+
+        if (pref.playSoundNotify()) {
+            Uri sound = Uri.parse(pref.notifySound());
+            builder.setSound(sound);
+        }
+
+        if (pref.vibrationNotify())
+            builder.setVibrate(new long[] {1000}); /* ms */
+
+        if (pref.ledIndicatorNotify()) {
+            int color = pref.ledIndicatorColorNotify();
+            builder.setLights(color, 1000, 1000); /* ms */
+        }
     }
 }

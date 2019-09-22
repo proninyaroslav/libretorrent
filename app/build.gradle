@@ -75,7 +75,7 @@ android {
 }
 
 def LIBTORRENT4J_VERSION='1.2.1.0'
-def ROOM_VERSION = "2.1.0"
+def ROOM_VERSION = "2.2.0-rc01"
 def ACRA_VERSION = "5.4.0"
 
 dependencies {
@@ -93,13 +93,13 @@ dependencies {
     }
 
     /* AndroidX libraries */
-    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta03"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-beta04"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
-    implementation "com.google.android.material:material:1.1.0-alpha09"
+    implementation "com.google.android.material:material:1.1.0-alpha10"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
@@ -107,7 +107,7 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 
     /* ReactiveX */
-    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
 
     /* ACRA */

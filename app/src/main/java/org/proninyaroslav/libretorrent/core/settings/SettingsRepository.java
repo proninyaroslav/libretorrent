@@ -267,25 +267,13 @@ public interface SettingsRepository
 
     void proxyLogin(String val);
 
-    public String proxyPassword();
+    String proxyPassword();
 
     void proxyPassword(String val);
 
-    public boolean proxyChanged();
+    boolean proxyChanged();
 
     void proxyChanged(boolean val);
-
-    /*
-     * Sorting settings
-     */
-
-    String sortTorrentBy();
-
-    void sortTorrentBy(String val);
-
-    String sortTorrentDirection();
-
-    void sortTorrentDirection(String val);
 
     /*
      * Scheduling settings

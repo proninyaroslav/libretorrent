@@ -42,106 +42,106 @@ public class SettingsRepositoryImpl implements SettingsRepository
     private static class Default
     {
         /* Appearance settings */
-        public static final String notifySound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
-        public static final boolean torrentFinishNotify = true;
-        public static final boolean playSoundNotify = true;
-        public static final boolean ledIndicatorNotify = true;
-        public static final boolean vibrationNotify = true;
-        public static int theme(@NonNull Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
-        public static int ledIndicatorColorNotify(@NonNull Context context)
+        static final String notifySound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
+        static final boolean torrentFinishNotify = true;
+        static final boolean playSoundNotify = true;
+        static final boolean ledIndicatorNotify = true;
+        static final boolean vibrationNotify = true;
+        static int theme(@NonNull Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
+        static int ledIndicatorColorNotify(@NonNull Context context)
         {
             return ContextCompat.getColor(context, R.color.primary);
         }
         /* Behavior settings */
-        public static final boolean autostart = false;
-        public static final boolean keepAlive = true;
-        public static final boolean shutdownDownloadsComplete = false;
-        public static final boolean cpuDoNotSleep = false;
-        public static final boolean onlyCharging = false;
-        public static final boolean batteryControl = false;
-        public static final boolean customBatteryControl = false;
-        public static final int customBatteryControlValue = Utils.getDefaultBatteryLowLevel();
-        public static final boolean unmeteredConnectionsOnly = false;
-        public static final boolean enableRoaming = true;
+        static final boolean autostart = false;
+        static final boolean keepAlive = true;
+        static final boolean shutdownDownloadsComplete = false;
+        static final boolean cpuDoNotSleep = false;
+        static final boolean onlyCharging = false;
+        static final boolean batteryControl = false;
+        static final boolean customBatteryControl = false;
+        static final int customBatteryControlValue = Utils.getDefaultBatteryLowLevel();
+        static final boolean unmeteredConnectionsOnly = false;
+        static final boolean enableRoaming = true;
         /* Network settings */
-        public static final int portRangeFirst = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
-        public static final int portRangeSecond = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
-        public static final boolean enableDht = true;
-        public static final boolean enableLsd = true;
-        public static final boolean enableUtp = true;
-        public static final boolean enableUpnp = true;
-        public static final boolean enableNatPmp = true;
-        public static final boolean useRandomPort = true;
-        public static final boolean encryptInConnections = true;
-        public static final boolean encryptOutConnections = true;
-        public static final boolean enableIpFiltering = false;
-        public static final String ipFilteringFile = null;
-        public static int encryptMode(@NonNull Context context)
+        static final int portRangeFirst = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
+        static final int portRangeSecond = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
+        static final boolean enableDht = true;
+        static final boolean enableLsd = true;
+        static final boolean enableUtp = true;
+        static final boolean enableUpnp = true;
+        static final boolean enableNatPmp = true;
+        static final boolean useRandomPort = true;
+        static final boolean encryptInConnections = true;
+        static final boolean encryptOutConnections = true;
+        static final boolean enableIpFiltering = false;
+        static final String ipFilteringFile = null;
+        static int encryptMode(@NonNull Context context)
         {
             return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value));
         }
-        public static final boolean showNatErrors = false;
+        static final boolean showNatErrors = false;
         /* Storage settings */
-        public static final String saveTorrentsIn(@NonNull Context context)
+        static String saveTorrentsIn(@NonNull Context context)
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
-        public static final boolean moveAfterDownload = false;
-        public static final String moveAfterDownloadIn(@NonNull Context context)
+        static final boolean moveAfterDownload = false;
+        static String moveAfterDownloadIn(@NonNull Context context)
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
-        public static final boolean saveTorrentFiles = false;
-        public static final String saveTorrentFilesIn(@NonNull Context context)
+        static final boolean saveTorrentFiles = false;
+        static String saveTorrentFilesIn(@NonNull Context context)
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
-        public static final boolean watchDir = false;
-        public static final String dirToWatch(@NonNull Context context)
+        static final boolean watchDir = false;
+        static String dirToWatch(@NonNull Context context)
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         /* Limitations settings */
-        public static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
-        public static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
-        public static final int maxConnections = SessionSettings.DEFAULT_CONNECTIONS_LIMIT;
-        public static final int maxConnectionsPerTorrent = SessionSettings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
-        public static final int maxUploadsPerTorrent = SessionSettings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
-        public static final int maxActiveUploads = SessionSettings.DEFAULT_ACTIVE_SEEDS;
-        public static final int maxActiveDownloads = SessionSettings.DEFAULT_ACTIVE_DOWNLOADS;
-        public static final int maxActiveTorrents = SessionSettings.DEFAULT_ACTIVE_LIMIT;
-        public static final boolean autoManage = false;
+        static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
+        static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
+        static final int maxConnections = SessionSettings.DEFAULT_CONNECTIONS_LIMIT;
+        static final int maxConnectionsPerTorrent = SessionSettings.DEFAULT_CONNECTIONS_LIMIT_PER_TORRENT;
+        static final int maxUploadsPerTorrent = SessionSettings.DEFAULT_UPLOADS_LIMIT_PER_TORRENT;
+        static final int maxActiveUploads = SessionSettings.DEFAULT_ACTIVE_SEEDS;
+        static final int maxActiveDownloads = SessionSettings.DEFAULT_ACTIVE_DOWNLOADS;
+        static final int maxActiveTorrents = SessionSettings.DEFAULT_ACTIVE_LIMIT;
+        static final boolean autoManage = false;
         /* Proxy settings */
-        public static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();
-        public static final String proxyAddress = "";
-        public static final int proxyPort = ProxySettingsPack.DEFAULT_PROXY_PORT;
-        public static final boolean proxyPeersToo = true;
-        public static final boolean proxyRequiresAuth = false;
-        public static final String proxyLogin = "";
-        public static final String proxyPassword = "";
-        public static final boolean proxyChanged = false;
+        static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();
+        static final String proxyAddress = "";
+        static final int proxyPort = ProxySettingsPack.DEFAULT_PROXY_PORT;
+        static final boolean proxyPeersToo = true;
+        static final boolean proxyRequiresAuth = false;
+        static final String proxyLogin = "";
+        static final String proxyPassword = "";
+        static final boolean proxyChanged = false;
         /* Sorting settings */
-        public static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
-        public static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
+        static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
+        static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
         /* Scheduling settings */
-        public static final boolean enableSchedulingStart = false;
-        public static final boolean enableSchedulingShutdown = false;
-        public static final int schedulingStartTime = 540; /* 9:00 am in minutes*/
-        public static final int schedulingShutdownTime = 1260; /* 9:00 pm in minutes */
-        public static final boolean schedulingRunOnlyOnce = false;
-        public static final boolean schedulingSwitchWiFi = false;
+        static final boolean enableSchedulingStart = false;
+        static final boolean enableSchedulingShutdown = false;
+        static final int schedulingStartTime = 540; /* 9:00 am in minutes*/
+        static final int schedulingShutdownTime = 1260; /* 9:00 pm in minutes */
+        static final boolean schedulingRunOnlyOnce = false;
+        static final boolean schedulingSwitchWiFi = false;
         /* Feed settings */
-        public static final long feedItemKeepTime = 4 * 86400000L; /* 4 days */
-        public static final boolean autoRefreshFeeds = false;
-        public static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
-        public static final boolean autoRefreshFeedsUnmeteredConnectionsOnly = false;
-        public static final boolean autoRefreshFeedsEnableRoaming = true;
-        public static final boolean feedStartTorrents = true;
-        public static final boolean feedRemoveDuplicates = true;
+        static final long feedItemKeepTime = 4 * 86400000L; /* 4 days */
+        static final boolean autoRefreshFeeds = false;
+        static final long refreshFeedsInterval = 2 * 3600000L; /* 2 hours */
+        static final boolean autoRefreshFeedsUnmeteredConnectionsOnly = false;
+        static final boolean autoRefreshFeedsEnableRoaming = true;
+        static final boolean feedStartTorrents = true;
+        static final boolean feedRemoveDuplicates = true;
         /* Streaming settings */
-        public static final boolean enableStreaming = true;
-        public static final String streamingHostname = "127.0.0.1";
-        public static final int streamingPort = 8800;
+        static final boolean enableStreaming = true;
+        static final String streamingHostname = "127.0.0.1";
+        static final int streamingPort = 8800;
     }
 
     private Context appContext;
@@ -746,7 +746,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     @Override
     public String saveTorrentFilesIn()
     {
-        return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
+        return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
                 Default.saveTorrentFilesIn(appContext)));
     }
 
@@ -1040,36 +1040,6 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_proxy_password), val)
-                .apply();
-    }
-
-    @Override
-    public String sortTorrentBy()
-    {
-        return pref.getString(appContext.getString(R.string.pref_key_sort_torrent_by),
-                Default.sortTorrentBy);
-    }
-
-    @Override
-    public void sortTorrentBy(String val)
-    {
-        pref.edit()
-                .putString(appContext.getString(R.string.pref_key_sort_torrent_by), val)
-                .apply();
-    }
-
-    @Override
-    public String sortTorrentDirection()
-    {
-        return pref.getString(appContext.getString(R.string.pref_key_sort_torrent_direction),
-                Default.sortTorrentDirection);
-    }
-
-    @Override
-    public void sortTorrentDirection(String val)
-    {
-        pref.edit()
-                .putString(appContext.getString(R.string.pref_key_sort_torrent_direction), val)
                 .apply();
     }
 

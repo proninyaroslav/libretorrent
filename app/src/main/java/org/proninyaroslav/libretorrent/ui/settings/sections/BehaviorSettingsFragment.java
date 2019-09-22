@@ -126,7 +126,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             customBatteryControlValue.setValue(pref.customBatteryControlValue());
             customBatteryControlValue.setMin(10);
             customBatteryControlValue.setMax(90);
-            bindOnPreferenceChangeListener(customBatteryControl);
+            bindOnPreferenceChangeListener(customBatteryControlValue);
         }
 
         String keyUmneteredOnly = getString(R.string.pref_key_unmetered_connections_only);

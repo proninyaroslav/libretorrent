@@ -398,16 +398,6 @@ public class Utils
     {
         return RepositoryHelper.getSettingsRepository(context).theme();
     }
-    
-    public static boolean isDarkTheme(@NonNull Context context)
-    {
-        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
-    }
-    
-    public static boolean isBlackTheme(@NonNull Context context)
-    {
-        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
-    }
 
     public static int getAppTheme(@NonNull Context context)
     {
@@ -449,17 +439,6 @@ public class Utils
             return R.style.BaseTheme_Settings_Black;
 
         return R.style.BaseTheme_Settings;
-    }
-
-    public static TorrentSorting getTorrentSorting(@NonNull Context context)
-    {
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
-
-        String column = pref.sortTorrentBy();
-        String direction = pref.sortTorrentDirection();
-
-        return new TorrentSorting(TorrentSorting.SortingColumns.fromValue(column),
-                TorrentSorting.Direction.fromValue(direction));
     }
 
     public static boolean checkStoragePermission(@NonNull Context context)
@@ -791,34 +770,6 @@ public class Utils
         path = (TextUtils.isEmpty(path) ? fs.getDefaultDownloadPath() : path);
 
         return (path == null ? null : Uri.parse(fs.normalizeFileSystemPath(path)));
-    }
-
-    /*
-     * Starting with the version of Android 8.0,
-     * setting notifications from the app preferences isn't working,
-     * you can change them only in the settings of Android 8.0
-     */
-
-    public static void applyLegacyNotifySettings(@NonNull Context appContext,
-                                                 @NonNull NotificationCompat.Builder builder)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            return;
-
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
-
-        if (pref.playSoundNotify()) {
-            Uri sound = Uri.parse(pref.notifySound());
-            builder.setSound(sound);
-        }
-
-        if (pref.vibrationNotify())
-            builder.setVibrate(new long[] {1000}); /* ms */
-
-        if (pref.ledIndicatorNotify()) {
-            int color = pref.ledIndicatorColorNotify();
-            builder.setLights(color, 1000, 1000); /* ms */
-        }
     }
 
     public static void setTextViewStyle(@NonNull Context context,

@@ -443,7 +443,7 @@ public class FileManagerDialog extends AppCompatActivity
         viewModel.refreshCurDirectory();
     }
 
-    public void saveCurDirectoryPath()
+    private void saveCurDirectoryPath()
     {
         String path = viewModel.curDir.get();
         if (path == null)
