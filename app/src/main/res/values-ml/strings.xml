@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">ഫയൽ വളരെ വലുതാണ്</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">വിവരം</string>
     <string name="torrent_files">ഫയലുകൾ</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">സൃഷ്ടിച്ചു</string>
     <string name="torrent_created_in_program">പ്രോഗ്രാമിൽ സൃഷ്ടിച്ചു</string>
     <string name="sequential_download">തുടർച്ചയായ ഡൗൺലോഡ്</string>
-    <string name="enable_sequential_download">തുടർച്ചയായ ഡൗൺലോഡ് പ്രവർത്തനക്ഷമമാക്കുക</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">ഫോൾഡർ തിരഞ്ഞെടുക്കൽ</string>
     <string name="file_chooser_title">ഫയൽ തിരഞ്ഞെടുക്കൽ</string>

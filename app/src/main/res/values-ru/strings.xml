@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Файл слишком большой</string>
     <string name="unable_to_open_folder">Не удается открыть выбранную папку. Пожалуйста, попробуйте выбрать другую папку</string>
     <string name="error_empty_name">Пожалуйста, введите имя</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Информация</string>
     <string name="torrent_files">Файлы</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Создан</string>
     <string name="torrent_created_in_program">Создан в программе</string>
     <string name="sequential_download">Последовательная загрузка</string>
-    <string name="enable_sequential_download">Включить последовательную загрузку</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Выбор папки</string>
     <string name="file_chooser_title">Выбор файла</string>

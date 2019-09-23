@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Το αρχείο είναι πολύ μεγάλο</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Πληροφορίες</string>
     <string name="torrent_files">Αρχεία</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Δημιουργήθηκε</string>
     <string name="torrent_created_in_program">Δημιουργήθηκε σε πρόγραμμα</string>
     <string name="sequential_download">Διαδοχική λήψη</string>
-    <string name="enable_sequential_download">Ενεργοποίηση διαδοχικής λήψης</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Επιλογή φακέλου</string>
     <string name="file_chooser_title">Επιλογή αρχείου</string>

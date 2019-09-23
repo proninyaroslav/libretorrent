@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Soubor je příliš velký</string>
     <string name="unable_to_open_folder">Nelze otevřít vybranou složku. Zkuste vybrat jinou složku</string>
     <string name="error_empty_name">Prosím, zadejte název</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Soubory</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Vytvořeno</string>
     <string name="torrent_created_in_program">Vytvořeno v programu</string>
     <string name="sequential_download">Sekvenční stahování</string>
-    <string name="enable_sequential_download">Povolit sekvenční stahování</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Výběr složky</string>
     <string name="file_chooser_title">Výběr souboru</string>

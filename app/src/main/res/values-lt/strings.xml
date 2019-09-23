@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Failas per didelis</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>
     <string name="torrent_files">Failai</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Sukurtas</string>
     <string name="torrent_created_in_program">Sukurtas programoje</string>
     <string name="sequential_download">Nuoseklus atsisiuntimas</string>
-    <string name="enable_sequential_download">Įgalinti nuoseklųjį atsisiuntimą</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Aplanko pasirinkimas</string>
     <string name="file_chooser_title">Failo pasirinkimas</string>

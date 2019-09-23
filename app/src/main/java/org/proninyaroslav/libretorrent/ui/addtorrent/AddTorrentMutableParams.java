@@ -40,6 +40,7 @@ public class AddTorrentMutableParams extends BaseObservable
     private long storageFreeSpace = -1;
     private boolean sequentialDownload;
     private boolean startAfterAdd = true;
+    private boolean ignoreFreeSpace = false;
 
     public String getSource()
     {
@@ -126,6 +127,18 @@ public class AddTorrentMutableParams extends BaseObservable
         notifyPropertyChanged(BR.startAfterAdd);
     }
 
+    @Bindable
+    public boolean isIgnoreFreeSpace()
+    {
+        return ignoreFreeSpace;
+    }
+
+    public void setIgnoreFreeSpace(boolean ignoreFreeSpace)
+    {
+        this.ignoreFreeSpace = ignoreFreeSpace;
+        notifyPropertyChanged(BR.ignoreFreeSpace);
+    }
+
     @Override
     public String toString()
     {
@@ -133,9 +146,12 @@ public class AddTorrentMutableParams extends BaseObservable
                 "source='" + source + '\'' +
                 ", fromMagnet=" + fromMagnet +
                 ", name='" + name + '\'' +
-                ", dirPath='" + dirPath + '\'' +
+                ", dirPath=" + dirPath +
+                ", dirName='" + dirName + '\'' +
+                ", storageFreeSpace=" + storageFreeSpace +
                 ", sequentialDownload=" + sequentialDownload +
                 ", startAfterAdd=" + startAfterAdd +
+                ", ignoreFreeSpace=" + ignoreFreeSpace +
                 '}';
     }
 }

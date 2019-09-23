@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">கோப்பு மிகவும் பெரியது</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">தகவல்</string>
     <string name="torrent_files">கோப்புகள்</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">உருவாக்கப்பட்டது</string>
     <string name="torrent_created_in_program">நிரலில் உருவாக்கப்பட்டது</string>
     <string name="sequential_download">தொடர்ச்சியான பதிவிறக்க</string>
-    <string name="enable_sequential_download">தொடர்ச்சியான பதிவிறக்கத்தை இயக்கு</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">அடைவு தேர்வு</string>
     <string name="file_chooser_title">கோப்பு தேர்வு</string>

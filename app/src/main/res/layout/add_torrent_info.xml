@@ -86,71 +86,41 @@
                 android:src="@drawable/ic_folder_grey600_24dp" />
         </RelativeLayout>
 
-        <LinearLayout
+        <com.google.android.material.internal.FlowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:showDividers="middle"
-            android:divider="?attr/divider">
+            app:itemSpacing="8dp"
+            android:padding="16dp">
 
-            <LinearLayout
+            <CheckBox
+                android:id="@+id/sequential_download"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/sequential_download"
+                android:checked="@={viewModel.mutableParams.sequentialDownload}" />
+
+            <CheckBox
+                android:id="@+id/start_torrent"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/start_torrent"
+                android:checked="@={viewModel.mutableParams.startAfterAdd}"/>
+
+            <CheckBox
+                android:id="@+id/ignore_free_space"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sequential_download"
-                    style="@style/BaseTheme.HeaderText" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
-                        android:id="@+id/sequential_download"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:text="@string/enable_sequential_download"
-                        android:checked="@={viewModel.mutableParams.sequentialDownload}" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/start_torrent"
-                    style="@style/BaseTheme.HeaderText" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
-                        android:id="@+id/start_torrent"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:text="@string/start_torrent"
-                        android:checked="@={viewModel.mutableParams.startAfterAdd}"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/ignore_free_space"
+                android:checked="@={viewModel.mutableParams.ignoreFreeSpace}" />
+        </com.google.android.material.internal.FlowLayout>
 
         <LinearLayout
             android:id="@+id/layout_size_and_count"

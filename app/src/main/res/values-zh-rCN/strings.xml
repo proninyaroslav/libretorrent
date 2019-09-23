@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">文件太大了</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">详情</string>
     <string name="torrent_files">文件</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">文件创建日期</string>
     <string name="torrent_created_in_program">文件创建工具</string>
     <string name="sequential_download">顺序下载</string>
-    <string name="enable_sequential_download">启用顺序下载</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">选择文件夹</string>
     <string name="file_chooser_title">选择文件</string>

@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Fișierul este prea mare</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informații</string>
     <string name="torrent_files">Fișiere</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Torrent creat</string>
     <string name="torrent_created_in_program">Torrent creat în program</string>
     <string name="sequential_download">Descărcare secvențială</string>
-    <string name="enable_sequential_download">Activează descărcarea secvențială</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Selectare folder</string>
     <string name="file_chooser_title">Selectare fișier</string>

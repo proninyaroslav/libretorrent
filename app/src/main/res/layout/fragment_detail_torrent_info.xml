@@ -91,17 +91,11 @@
                     android:src="@drawable/ic_folder_grey600_24dp" />
             </RelativeLayout>
 
-            <LinearLayout
+            <com.google.android.material.internal.FlowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                app:itemSpacing="8dp"
                 android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sequential_download"
-                    style="@style/BaseTheme.HeaderText" />
 
                 <CheckBox
                     android:id="@+id/sequential_download"
@@ -110,9 +104,9 @@
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:text="@string/enable_sequential_download"
+                    android:text="@string/sequential_download"
                     android:checked="@={viewModel.mutableParams.sequentialDownload}" />
-            </LinearLayout>
+            </com.google.android.material.internal.FlowLayout>
 
             <LinearLayout
                 android:id="@+id/layout_torrent_size_and_count"

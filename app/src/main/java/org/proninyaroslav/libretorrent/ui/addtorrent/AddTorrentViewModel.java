@@ -459,8 +459,9 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (TextUtils.isEmpty(name))
             return false;
 
+        boolean ignoreFreeSpace = mutableParams.isIgnoreFreeSpace();
         Set<Integer> selectedFiles = getSelectedFileIndexes();
-        if (state != null &&
+        if (!ignoreFreeSpace && state != null &&
             (state.status == Status.DECODE_TORRENT_COMPLETED ||
             state.status == Status.FETCHING_MAGNET_COMPLETED ||
             state.status == Status.FETCHING_HTTP_COMPLETED))

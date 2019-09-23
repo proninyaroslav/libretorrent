@@ -153,6 +153,7 @@
     <string name="file_is_too_large_error">Le fichier est trop grand</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Détails</string>
     <string name="torrent_files">Fichiers</string>
@@ -165,7 +166,6 @@
     <string name="torrent_create_date">Créé</string>
     <string name="torrent_created_in_program">Créé avec</string>
     <string name="sequential_download">Téléchargement séquentiel</string>
-    <string name="enable_sequential_download">Activer le téléchargement séquentiel</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Sélection de dossier</string>
     <string name="file_chooser_title">Sélection de fichier</string>
