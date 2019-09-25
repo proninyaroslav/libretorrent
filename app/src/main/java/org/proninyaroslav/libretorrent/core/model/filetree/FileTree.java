@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.data.filetree;
+package org.proninyaroslav.libretorrent.core.model.filetree;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

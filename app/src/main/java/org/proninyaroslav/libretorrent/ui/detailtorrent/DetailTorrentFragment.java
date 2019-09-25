@@ -34,7 +34,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.util.Pair;
+import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;

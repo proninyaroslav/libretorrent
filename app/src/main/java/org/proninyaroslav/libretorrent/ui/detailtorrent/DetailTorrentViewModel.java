@@ -22,10 +22,10 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+import androidx.core.util.Pair;
 import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
@@ -43,9 +43,9 @@ import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FilePriority;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
+import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
@@ -53,7 +53,6 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 
 import java.io.File;
@@ -61,8 +60,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -85,7 +84,9 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
     public Throwable errorReport;
 
+    private ReentrantLock syncBuildFileTree = new ReentrantLock();
     public TorrentContentFileTree fileTree;
+    private TorrentContentFileTree[] treeLeaves;
     private BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private TorrentContentFileTree curDir;
@@ -131,6 +132,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
         paramsChanged.setValue(false);
         fileTree = null;
+        treeLeaves = null;
     }
 
     public LiveData<Boolean> getParamsChanged()
@@ -285,8 +287,9 @@ public class DetailTorrentViewModel extends AndroidViewModel
             return;
 
         mutableParams.setPrioritiesChanged(true);
-        node.select((selected ? TorrentContentFileTree.SelectState.SELECTED :
-                TorrentContentFileTree.SelectState.UNSELECTED));
+        node.select((selected ?
+                TorrentContentFileTree.SelectState.SELECTED :
+                TorrentContentFileTree.SelectState.UNSELECTED), true);
     }
 
     public Uri getFilePath(@NonNull String name)
@@ -363,7 +366,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
                     if (!fileNames.isEmpty())
                         mutableParams.setPrioritiesChanged(true);
                 })
-                .subscribe((file) -> file.setPriority(priority)));
+                .subscribe((file) -> file.setPriority(priority, true)));
     }
 
     public String getStreamUrl(int fileIndex)
@@ -477,13 +480,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
     private Priority[] getFilePriorities()
     {
-        List<TorrentContentFileTree> files = TorrentContentFileTreeUtils.getFiles(fileTree);
-        if (files == null)
+        if (treeLeaves == null)
             return null;
 
-        Priority[] priorities = new Priority[files.size()];
-        for (TorrentContentFileTree file : files)
-            if (file != null && (file.getIndex() >= 0 && file.getIndex() < files.size()))
+        Priority[] priorities = new Priority[treeLeaves.length];
+        for (TorrentContentFileTree file : treeLeaves)
+            if (file != null && (file.getIndex() >= 0 && file.getIndex() < treeLeaves.length))
                 priorities[file.getIndex()] = file.getFilePriority().getPriority();
 
         return priorities;
@@ -562,44 +564,54 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
     private void makeFileTree()
     {
-        if (fileTree != null)
-            return;
+        try {
+            syncBuildFileTree.lock();
 
-        TorrentMetaInfo metaInfo = info.getMetaInfo();
-        if (metaInfo == null)
-            return;
-        List<BencodeFileItem> files = metaInfo.fileList;
-        if (files.isEmpty())
-            return;
-        Torrent torrent = info.getTorrent();
-        TorrentInfo ti = info.getTorrentInfo();
-        if (torrent == null || ti == null || ti.filePriorities.length != metaInfo.fileCount)
-            return;
+            if (fileTree != null)
+                return;
 
-        ArrayList<FilePriority> priorities = new ArrayList<>();
-        for (Priority p : ti.filePriorities)
-            priorities.add(new FilePriority(p));
+            TorrentMetaInfo metaInfo = info.getMetaInfo();
+            if (metaInfo == null)
+                return;
+            List<BencodeFileItem> files = metaInfo.fileList;
+            if (files.isEmpty())
+                return;
+            Torrent torrent = info.getTorrent();
+            TorrentInfo ti = info.getTorrentInfo();
+            if (torrent == null || ti == null || ti.filePriorities.length != metaInfo.fileCount)
+                return;
 
-        TorrentContentFileTree fileTree = TorrentContentFileTreeUtils.buildFileTree(files);
-        FileTreeDepthFirstSearch<TorrentContentFileTree> search = new FileTreeDepthFirstSearch<>();
-        /* Set priority for selected files */
-        for (int i = 0; i < files.size(); i++) {
-            if (priorities.get(i).getType() != FilePriority.Type.IGNORE) {
+            ArrayList<FilePriority> priorities = new ArrayList<>();
+            for (Priority p : ti.filePriorities)
+                priorities.add(new FilePriority(p));
+
+            Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
+            TorrentContentFileTree fileTree = res.first;
+            treeLeaves = res.second;
+
+            /* Set priority for selected files */
+            for (int i = 0; i < files.size(); i++) {
                 BencodeFileItem f = files.get(i);
-
-                TorrentContentFileTree file = search.find(fileTree, f.getIndex());
+                TorrentContentFileTree file = treeLeaves[f.getIndex()];
                 if (file != null) {
-                    file.setPriority(priorities.get(i));
-                    /*
-                     * Disable the ability to select the file
-                     * because it's being downloaded/download
-                     */
-                    file.select(TorrentContentFileTree.SelectState.DISABLED);
+                    FilePriority p = priorities.get(i);
+                    if (p.getType() == FilePriority.Type.IGNORE) {
+                        file.setPriority(p, false);
+                    } else {
+                        /*
+                         * Disable the ability to select the file
+                         * because it's being downloaded/download
+                         */
+                        file.setPriorityAndDisable(p, false);
+                    }
                 }
             }
-        }
 
-        this.fileTree = fileTree;
+            this.fileTree = fileTree;
+
+        } finally {
+            syncBuildFileTree.unlock();
+        }
     }
 
     private void updateFiles(long[] receivedBytes, double[] availability)
@@ -608,17 +620,16 @@ public class DetailTorrentViewModel extends AndroidViewModel
             if (fileTree == null)
                 return;
 
-            Map<Integer, TorrentContentFileTree> files = TorrentContentFileTreeUtils.getFilesAsMap(fileTree);
             if (receivedBytes != null) {
                 for (int i = 0; i < receivedBytes.length; i++) {
-                    TorrentContentFileTree file = files.get(i);
+                    TorrentContentFileTree file = treeLeaves[i];
                     if (file != null)
                         file.setReceivedBytes(receivedBytes[i]);
                 }
             }
             if (availability != null) {
                 for (int i = 0; i < availability.length; i++) {
-                    TorrentContentFileTree file = files.get(i);
+                    TorrentContentFileTree file = treeLeaves[i];
                     if (file != null)
                         file.setAvailability(availability[i]);
                 }
@@ -642,12 +653,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
     public void disableSelectedFiles()
     {
-        List<TorrentContentFileTree> files = TorrentContentFileTreeUtils.getFiles(fileTree);
-        if (files == null)
+        if (treeLeaves == null)
             return;
 
-        for (TorrentContentFileTree file : files)
+        for (TorrentContentFileTree file : treeLeaves)
             if (file != null && file.getSelectState() == TorrentContentFileTree.SelectState.SELECTED)
-                file.select(TorrentContentFileTree.SelectState.DISABLED);
+                file.select(TorrentContentFileTree.SelectState.DISABLED, true);
     }
 }

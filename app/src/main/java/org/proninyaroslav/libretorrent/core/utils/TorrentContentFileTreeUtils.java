@@ -19,16 +19,17 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileTree;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import androidx.core.util.Pair;
+
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /*
  * The static class for create and using TorrentContentFileTree objects.
@@ -38,10 +39,15 @@ import java.util.Map;
 
 public class TorrentContentFileTreeUtils
 {
-    public static TorrentContentFileTree buildFileTree(List<BencodeFileItem> files)
+    /*
+     * Returns tree and its files
+     */
+
+    public static Pair<TorrentContentFileTree, TorrentContentFileTree[]> buildFileTree(List<BencodeFileItem> files)
     {
         TorrentContentFileTree root = new TorrentContentFileTree(FileTree.ROOT, 0L, FileNode.Type.DIR);
         TorrentContentFileTree parentTree = root;
+        TorrentContentFileTree[] leaves = new TorrentContentFileTree[files.size()];
         /* It allows reduce the number of iterations on the paths with equal beginnings */
         String prevPath = "";
         List<BencodeFileItem> filesCopy = new ArrayList<>(files);
@@ -92,10 +98,12 @@ public class TorrentContentFileTreeUtils
             /* Iterates path nodes */
             for (int i = 0; i < nodes.length; i++) {
                 if (!parentTree.contains(nodes[i])) {
+                    TorrentContentFileTree leaf = makeObject(file.getIndex(), nodes[i],
+                                                            file.getSize(), parentTree,
+                                                            i == (nodes.length - 1));
+                    leaves[file.getIndex()] = leaf;
                     /* The last leaf item is a file */
-                    parentTree.addChild(makeObject(file.getIndex(), nodes[i],
-                                                   file.getSize(), parentTree,
-                                                   i == (nodes.length - 1)));
+                    parentTree.addChild(leaf);
                 }
 
                 TorrentContentFileTree nextParent = parentTree.getChild(nodes[i]);
@@ -105,7 +113,7 @@ public class TorrentContentFileTreeUtils
             }
         }
 
-        return root;
+        return Pair.create(root, leaves);
     }
 
     private static TorrentContentFileTree makeObject(int index, String name,
@@ -115,15 +123,5 @@ public class TorrentContentFileTreeUtils
         return (isFile ?
                 new TorrentContentFileTree(index, name, size, FileNode.Type.FILE, parent) :
                 new TorrentContentFileTree(name, 0L, FileNode.Type.DIR, parent));
-    }
-
-    public static List<TorrentContentFileTree> getFiles(TorrentContentFileTree node)
-    {
-        return new FileTreeDepthFirstSearch<TorrentContentFileTree>().getLeaves(node);
-    }
-
-    public static Map<Integer, TorrentContentFileTree> getFilesAsMap(TorrentContentFileTree node)
-    {
-        return new FileTreeDepthFirstSearch<TorrentContentFileTree>().getLeavesAsMap(node);
     }
 }

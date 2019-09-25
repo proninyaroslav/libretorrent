@@ -23,11 +23,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-import android.util.Pair;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.proninyaroslav.libretorrent.R;
@@ -649,6 +649,9 @@ public class TorrentEngine
             return null;
 
         Torrent torrent = repo.getTorrentById(id);
+        if (torrent == null)
+            return null;
+
         int[] piecesAvail = task.getPiecesAvailability();
 
         return new AdvancedTorrentInfo(

@@ -25,8 +25,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FilePriority;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
+import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.ui.FileItem;
 
 public class TorrentContentFileItem extends FileItem

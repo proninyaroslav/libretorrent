@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.ui.filemanager;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 
 /*
  * The class encapsulates a node and properties, that determine whether he is a file or directory.

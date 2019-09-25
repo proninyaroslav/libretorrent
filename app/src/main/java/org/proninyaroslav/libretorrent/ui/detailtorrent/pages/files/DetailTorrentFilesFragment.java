@@ -51,9 +51,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.BencodeFileTree;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FilePriority;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
+import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentFilesBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;

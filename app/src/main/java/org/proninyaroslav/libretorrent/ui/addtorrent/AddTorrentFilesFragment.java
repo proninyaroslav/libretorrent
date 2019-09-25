@@ -36,7 +36,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentFilesBinding;
 
 import io.reactivex.Flowable;

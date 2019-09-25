@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core;
 
 import android.net.Uri;
 import android.util.Log;
-import android.util.Pair;
+import androidx.core.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;

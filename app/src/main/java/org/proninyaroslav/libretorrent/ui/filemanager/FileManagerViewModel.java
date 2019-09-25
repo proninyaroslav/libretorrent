@@ -32,7 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 

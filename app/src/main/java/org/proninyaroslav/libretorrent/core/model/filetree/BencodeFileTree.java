@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.data.filetree;
+package org.proninyaroslav.libretorrent.core.model.filetree;
 
 import java.io.Serializable;
 
@@ -28,6 +28,7 @@ import java.io.Serializable;
 public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serializable
 {
     private boolean selected = false;
+    private long numChangedChildren = 0;
 
     public BencodeFileTree(String name, long size, int type)
     {
@@ -49,39 +50,56 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
         return selected;
     }
 
-    public void select(boolean check)
+    /*
+     * By default, a parent is updated only when all
+     * children are updated, for performance reasons.
+     * You can override this with the `forceUpdateParent` option
+     */
+
+    public void select(boolean check, boolean forceUpdateParent)
+    {
+        doSelect(check, true, forceUpdateParent);
+    }
+
+    private void doSelect(boolean check, boolean updateParent, boolean forceUpdateParent)
     {
         selected = check;
 
         /* Sending select change event up the parent */
-        if (parent != null && parent.selected != check)
-            parent.onChildSelectChange();
+        if (updateParent && parent != null)
+            parent.onChildSelectChange(forceUpdateParent);
 
         /* Sending select change event down the tree */
         if (getChildrenCount() != 0)
             for (BencodeFileTree node : children.values())
                 if (node.selected != check)
-                    node.select(check);
+                    node.doSelect(check, false, forceUpdateParent);
     }
 
     /*
      * Sending select change events up the tree.
      */
 
-    private synchronized void onChildSelectChange()
+    private synchronized void onChildSelectChange(boolean forceUpdateParent)
     {
-        if (children.size() != 0) {
+        ++numChangedChildren;
+
+        boolean allChildrenChanged = numChangedChildren == children.size();
+        if (allChildrenChanged)
+            numChangedChildren = 0;
+
+        if (children.size() != 0 && (forceUpdateParent || allChildrenChanged)) {
             long childrenCheckNum = 0;
             for (BencodeFileTree child : children.values())
                 if (child.selected)
                     ++childrenCheckNum;
             /* Uncheck parent only if don't left selected children nodes */
             selected = childrenCheckNum > 0;
-        }
 
-        /* Sending select change event up the parent */
-        if (parent != null && parent.selected != selected)
-            parent.onChildSelectChange();
+            /* Sending select change event up the parent */
+            if (parent != null)
+                parent.onChildSelectChange(forceUpdateParent);
+        }
     }
 
     public long selectedFileSize()

@@ -20,9 +20,9 @@
 package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.net.Uri;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;

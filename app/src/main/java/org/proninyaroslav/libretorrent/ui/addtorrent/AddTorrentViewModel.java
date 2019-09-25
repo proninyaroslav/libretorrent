@@ -27,10 +27,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.collection.ArraySet;
+import androidx.core.util.Pair;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
@@ -45,8 +45,8 @@ import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.BencodeFileTree;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
@@ -54,7 +54,6 @@ import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
-import org.proninyaroslav.libretorrent.core.utils.FileTreeDepthFirstSearch;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -91,6 +90,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     private CompositeDisposable disposable = new CompositeDisposable();
 
     public BencodeFileTree fileTree;
+    private BencodeFileTree[] treeLeaves;
     public BehaviorSubject<List<BencodeFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private BencodeFileTree curDir;
@@ -350,21 +350,23 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (files.isEmpty())
             return;
 
-        fileTree = BencodeFileTreeUtils.buildFileTree(files);
+        Pair<BencodeFileTree, BencodeFileTree[]> res = BencodeFileTreeUtils.buildFileTree(files);
+        this.fileTree = res.first;
+        this.treeLeaves = res.second;
 
         if (magnetPriorities == null || magnetPriorities.size() == 0) {
-            fileTree.select(true);
+            fileTree.select(true, false);
 
         } else {
-            FileTreeDepthFirstSearch<BencodeFileTree> search = new FileTreeDepthFirstSearch<>();
             /* Select files that have non-IGNORE priority (see BEP35 standard) */
-            long n = (magnetPriorities.size() > files.size() ? files.size() : magnetPriorities.size());
-            for (int i = 0; i < n; i++) {
-                if (magnetPriorities.get(i) == Priority.IGNORE)
-                    continue;
-                BencodeFileTree file = search.find(fileTree, i);
-                if (file != null)
-                    file.select(true);
+            for (int i = 0; i < files.size(); i++) {
+                BencodeFileTree file = treeLeaves[i];
+                if (file != null) {
+                    Priority p = (i >= magnetPriorities.size() ?
+                                  Priority.IGNORE :
+                                  magnetPriorities.get(i));
+                    file.select(p != Priority.IGNORE, false);
+                }
             }
         }
 
@@ -414,7 +416,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (node == null)
             return;
 
-        node.select(selected);
+        node.select(selected, true);
     }
 
 
@@ -426,12 +428,11 @@ public class AddTorrentViewModel extends AndroidViewModel
 
     private Set<Integer> getSelectedFileIndexes()
     {
-        if (fileTree == null)
+        if (fileTree == null || treeLeaves == null)
             return new HashSet<>();
 
-        List<BencodeFileTree> files = BencodeFileTreeUtils.getFiles(fileTree);
         Set<Integer> indexes = new ArraySet<>();
-        for (BencodeFileTree file : files)
+        for (BencodeFileTree file : treeLeaves)
             if (file.isSelected())
                 indexes.add(file.getIndex());
 

@@ -40,7 +40,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.TorrentContentFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentContentFileBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;

@@ -22,7 +22,7 @@ package org.proninyaroslav.libretorrent.core.model.session;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
+import androidx.core.util.Pair;
 
 import androidx.annotation.NonNull;
 

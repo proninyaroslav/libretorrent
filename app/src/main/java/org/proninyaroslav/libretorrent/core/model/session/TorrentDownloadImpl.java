@@ -23,7 +23,7 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
+import androidx.core.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;

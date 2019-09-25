@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,7 +17,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.data.filetree;
+package org.proninyaroslav.libretorrent.core.model.filetree;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -27,6 +29,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     private FilePriority priority = new FilePriority(FilePriority.Type.IGNORE);
     private long receivedBytes = 0L;
     private double availability = -1;
+    private long numChangedChildren = 0;
 
     public enum SelectState
     {
@@ -56,42 +59,6 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         return priority;
     }
 
-    public void setPriority(FilePriority priority)
-    {
-        this.priority = priority;
-
-        if (priority.getType() == FilePriority.Type.IGNORE && selected == SelectState.SELECTED)
-            select(SelectState.UNSELECTED);
-        else if (priority.getType() != FilePriority.Type.IGNORE && selected == SelectState.UNSELECTED)
-            select(SelectState.SELECTED);
-
-        /* Sending priority change event up the tree */
-        if (parent != null && parent.priority.getType() != priority.getType())
-            parent.onChildPriorityChanged(priority);
-
-        /* Sending priority change event down the tree */
-        if (children.size() != 0)
-            for (TorrentContentFileTree node : children.values())
-                if (node.priority.getType() != priority.getType())
-                    node.setPriority(priority);
-    }
-
-    private synchronized void onChildPriorityChanged(FilePriority priority)
-    {
-        if (children.size() != 0) {
-            boolean isMixedPriority = false;
-            for (TorrentContentFileTree child : children.values())
-                if (child.priority.getType() != priority.getType())
-                    isMixedPriority = true;
-
-            this.priority = (isMixedPriority ? new FilePriority(FilePriority.Type.MIXED) : priority);
-        }
-
-        /* Sending priority change event up the parent */
-        if (parent != null && parent.priority.getType() != priority.getType())
-            parent.onChildPriorityChanged(priority);
-    }
-
     public long getReceivedBytes()
     {
         if (children.size() != 0) {
@@ -113,52 +80,115 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         return selected;
     }
 
-    public void select(SelectState select)
-    {
-        selected = select;
-
-        if (selected == SelectState.SELECTED && priority.getType() == FilePriority.Type.IGNORE)
-            setPriority(new FilePriority(FilePriority.Type.NORMAL));
-        else if (selected == SelectState.UNSELECTED && priority.getType() != FilePriority.Type.IGNORE)
-            setPriority(new FilePriority(FilePriority.Type.IGNORE));
-
-        /* Sending select change event up the parent */
-        if (parent != null && parent.selected != select)
-            parent.onChildSelectChange();
-
-        /* Sending select change event down the tree */
-        if (children.size() != 0)
-            for (TorrentContentFileTree node : children.values())
-                if (node.selected != select)
-                    node.select(select);
-    }
-
     /*
-     * Sending select change events up the tree.
+     * By default, a parent is updated only when all
+     * children are updated, for performance reasons.
+     * You can override this with the `forceUpdateParent` option
      */
 
-    private synchronized void onChildSelectChange()
+    public void setPriority(@NonNull FilePriority priority,
+                            boolean forceUpdateParent)
     {
+        SelectState select = (priority.getType() == FilePriority.Type.IGNORE ?
+                SelectState.UNSELECTED :
+                null);
+        changePriorityAndSelect(priority, select, true, forceUpdateParent);
+    }
+
+    public void setPriorityAndDisable(@NonNull FilePriority priority,
+                                      boolean forceUpdateParent)
+    {
+        changePriorityAndSelect(priority, SelectState.DISABLED, true, forceUpdateParent);
+    }
+
+    public void select(@NonNull SelectState select, boolean forceUpdateParent)
+    {
+        changePriorityAndSelect(null, select, true, forceUpdateParent);
+    }
+
+    private void changePriorityAndSelect(FilePriority p,
+                                         SelectState select,
+                                         boolean updateParent,
+                                         boolean forceUpdateParent)
+    {
+        if (p != null) {
+            priority = p;
+
+            if (p.getType() == FilePriority.Type.MIXED)
+                selected = SelectState.DISABLED;
+            else if (p.getType() == FilePriority.Type.IGNORE && selected == SelectState.SELECTED)
+                selected = SelectState.UNSELECTED;
+            else if (p.getType() != FilePriority.Type.IGNORE && selected == SelectState.UNSELECTED)
+                selected = SelectState.SELECTED;
+        }
+
+        if (select != null) {
+            selected = select;
+
+            if (selected == SelectState.SELECTED && priority.getType() == FilePriority.Type.IGNORE)
+                priority = new FilePriority(FilePriority.Type.NORMAL);
+            else if (selected == SelectState.UNSELECTED && priority.getType() != FilePriority.Type.IGNORE)
+                priority = new FilePriority(FilePriority.Type.IGNORE);
+        }
+
+        /* Sending change event up the tree */
+        if (updateParent && parent != null)
+            parent.onChangePriorityAndSelect(p, select, forceUpdateParent);
+
+        /* Sending change event down the tree */
         if (children.size() != 0) {
+            for (TorrentContentFileTree node : children.values()) {
+                if (p != null && node.priority.getType() != p.getType() ||
+                    select != null && node.selected != select)
+                {
+                    node.changePriorityAndSelect(p, select, false, forceUpdateParent);
+                }
+            }
+        }
+    }
+
+    private synchronized void onChangePriorityAndSelect(FilePriority p,
+                                                        SelectState select,
+                                                        boolean forceUpdateParent)
+    {
+        ++numChangedChildren;
+
+        boolean allChildrenChanged = numChangedChildren == children.size();
+        if (allChildrenChanged)
+            numChangedChildren = 0;
+
+        if (children.size() != 0 && (forceUpdateParent || allChildrenChanged)) {
+            boolean isMixedPriority = false;
             long childrenSelectedNum = 0, childrenDisabledNum = 0;
 
             for (TorrentContentFileTree child : children.values()) {
+                if (p == null)
+                    p = child.getFilePriority();
+
+                if (child.priority.getType() != p.getType()) {
+                    isMixedPriority = true;
+                    break;
+                }
+
                 if (child.selected == SelectState.SELECTED)
                     ++childrenSelectedNum;
                 else if (child.selected == SelectState.DISABLED)
                     ++childrenDisabledNum;
             }
 
-            if (childrenDisabledNum > 0)
+            if (p != null)
+                priority = (isMixedPriority ? new FilePriority(FilePriority.Type.MIXED) : p);
+
+            if (isMixedPriority || childrenDisabledNum > 0)
                 selected = SelectState.DISABLED;
             else
                 /* Unselect parent only if don't left selected children nodes */
                 selected = (childrenSelectedNum > 0 ? SelectState.SELECTED : SelectState.UNSELECTED);
-        }
 
-        /* Sending select change event up the parent */
-        if (parent != null && parent.selected != selected)
-            parent.onChildSelectChange();
+            /* Sending change event up the tree */
+            if (parent != null)
+                parent.onChangePriorityAndSelect(priority, selected, forceUpdateParent);
+        }
     }
 
     public long selectedFileSize()

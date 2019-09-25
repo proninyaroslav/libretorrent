@@ -23,7 +23,7 @@ import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.model.data.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.ui.FileItem;
 
 public class DownloadableFileItem extends FileItem

@@ -36,7 +36,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.data.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
 
