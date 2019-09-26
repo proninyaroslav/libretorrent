@@ -1039,7 +1039,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public void proxyChanged(boolean val)
     {
         pref.edit()
-                .putBoolean(appContext.getString(R.string.pref_key_proxy_password), val)
+                .putBoolean(appContext.getString(R.string.pref_key_proxy_changed), val)
                 .apply();
     }
 
