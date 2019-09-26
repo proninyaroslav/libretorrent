@@ -926,7 +926,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     @Override
     public int proxyType()
     {
-        return pref.getInt(appContext.getString(R.string.pref_key_max_active_torrents),
+        return pref.getInt(appContext.getString(R.string.pref_key_proxy_type),
                 Default.proxyType);
     }
 
