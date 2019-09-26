@@ -31,11 +31,13 @@
             android:text="@string/feed_channel_list_empty"
             style="@style/BaseTheme.EmptyView" />
 
-        <uk.co.markormesher.android_fab.FloatingActionButton
-            android:id="@+id/add_channel_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:buttonBackgroundColour="@color/accent"
-            app:buttonIcon="@drawable/ic_add_white_36dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_add_white_36dp"
+            android:focusable="true" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

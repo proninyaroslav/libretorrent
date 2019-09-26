@@ -183,7 +183,7 @@ public class FeedFragment extends Fragment
         binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(() -> viewModel.refreshAllFeeds());
 
-        binding.addChannelButton.setOnClickListener((v) ->
+        binding.addChannel.setOnClickListener((v) ->
                 startActivity(new Intent(activity, AddFeedActivity.class)));
 
         FragmentManager fm = getFragmentManager();

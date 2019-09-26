@@ -14,7 +14,10 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/background">
+        android:background="?attr/background"
+        android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"> <!-- Need for padding -->
 
         <LinearLayout
             android:orientation="vertical"
