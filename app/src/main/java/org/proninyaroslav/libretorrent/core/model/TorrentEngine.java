@@ -53,7 +53,6 @@ import org.proninyaroslav.libretorrent.core.model.session.TorrentSessionImpl;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentInputStream;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
-import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
@@ -884,6 +883,7 @@ public class TorrentEngine
 
         if (pref.proxyChanged()) {
             pref.proxyChanged(false);
+            pref.applyProxy(false);
             setProxy();
         }
 
@@ -937,23 +937,17 @@ public class TorrentEngine
 
     private void setProxy()
     {
-        ProxySettingsPack proxy = new ProxySettingsPack();
+        SessionSettings s = session.getSettings();
 
-        ProxySettingsPack.ProxyType type = ProxySettingsPack.ProxyType.fromValue(pref.proxyType());
-        proxy.setType(type);
-        if (type == ProxySettingsPack.ProxyType.NONE)
-            session.setProxy(proxy);
+        s.proxyType = SessionSettings.ProxyType.fromValue(pref.proxyType());
+        s.proxyAddress = pref.proxyAddress();
+        s.proxyPort = pref.proxyPort();
+        s.proxyPeersToo = pref.proxyPeersToo();
+        s.proxyRequiresAuth = pref.proxyRequiresAuth();
+        s.proxyLogin = pref.proxyLogin();
+        s.proxyPassword = pref.proxyPassword();
 
-        proxy.setAddress(pref.proxyAddress());
-        proxy.setPort(pref.proxyPort());
-        proxy.setProxyPeersToo(pref.proxyPeersToo());
-
-        if (pref.proxyRequiresAuth()) {
-            proxy.setLogin(pref.proxyLogin());
-            proxy.setPassword(pref.proxyPassword());
-        }
-
-        session.setProxy(proxy);
+        session.setSettings(s);
     }
 
     private SessionSettings.EncryptMode getEncryptMode()
@@ -1416,12 +1410,15 @@ public class TorrentEngine
                 session.enableIpFilter(Uri.parse(path));
 
         } else if (key.equals(appContext.getString(R.string.pref_key_apply_proxy))) {
-            pref.proxyChanged(false);
-            setProxy();
-            Toast.makeText(appContext,
-                    R.string.proxy_settings_applied,
-                    Toast.LENGTH_SHORT)
-                    .show();
+            if (pref.applyProxy()) {
+                pref.applyProxy(false);
+                pref.proxyChanged(false);
+                setProxy();
+                Toast.makeText(appContext,
+                        R.string.proxy_settings_applied,
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
 
         } else if (key.equals(appContext.getString(R.string.pref_key_auto_manage))) {
             session.setAutoManaged(pref.autoManage());

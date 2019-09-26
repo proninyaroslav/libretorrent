@@ -112,14 +112,15 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final int maxActiveTorrents = SessionSettings.DEFAULT_ACTIVE_LIMIT;
         static final boolean autoManage = false;
         /* Proxy settings */
-        static final int proxyType = ProxySettingsPack.ProxyType.NONE.value();
-        static final String proxyAddress = "";
-        static final int proxyPort = ProxySettingsPack.DEFAULT_PROXY_PORT;
-        static final boolean proxyPeersToo = true;
-        static final boolean proxyRequiresAuth = false;
-        static final String proxyLogin = "";
-        static final String proxyPassword = "";
+        static final int proxyType = SessionSettings.DEFAULT_PROXY_TYPE.value();
+        static final String proxyAddress = SessionSettings.DEFAULT_PROXY_ADDRESS;
+        static final int proxyPort = SessionSettings.DEFAULT_PROXY_PORT;
+        static final boolean proxyPeersToo = SessionSettings.DEFAULT_PROXY_PEERS_TOO;
+        static final boolean proxyRequiresAuth = SessionSettings.DEFAULT_PROXY_REQUIRES_AUTH;
+        static final String proxyLogin = SessionSettings.DEFAULT_PROXY_LOGIN;
+        static final String proxyPassword = SessionSettings.DEFAULT_PROXY_PASSWORD;
         static final boolean proxyChanged = false;
+        static final boolean applyProxy = false;
         /* Sorting settings */
         static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
         static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
@@ -181,38 +182,32 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public SessionSettings readSessionSettings()
     {
         SessionSettings settings = new SessionSettings();
-        settings.downloadRateLimit = pref.getInt(appContext.getString(R.string.pref_key_max_download_speed),
-                                                 Default.maxDownloadSpeedLimit);
-        settings.uploadRateLimit = pref.getInt(appContext.getString(R.string.pref_key_max_upload_speed),
-                                               Default.maxUploadSpeedLimit);
-        settings.connectionsLimit = pref.getInt(appContext.getString(R.string.pref_key_max_connections),
-                                                Default.maxConnections);
-        settings.connectionsLimitPerTorrent = pref.getInt(appContext.getString(R.string.pref_key_max_connections_per_torrent),
-                                                          Default.maxConnectionsPerTorrent);
-        settings.uploadsLimitPerTorrent = pref.getInt(appContext.getString(R.string.pref_key_max_uploads_per_torrent),
-                                                      Default.maxUploadsPerTorrent);
-        settings.activeDownloads = pref.getInt(appContext.getString(R.string.pref_key_max_active_downloads),
-                                               Default.maxActiveDownloads);
-        settings.activeSeeds = pref.getInt(appContext.getString(R.string.pref_key_max_active_uploads),
-                                           Default.maxActiveUploads);
-        settings.activeLimit = pref.getInt(appContext.getString(R.string.pref_key_max_active_torrents),
-                                           Default.maxActiveTorrents);
-        settings.portRangeFirst = pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
-                                              Default.portRangeFirst);
-        settings.portRangeSecond = pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
-                                               Default.portRangeSecond);
-        settings.dhtEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_dht), Default.enableDht);
-        settings.lsdEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_lsd), Default.enableLsd);
-        settings.utpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_utp), Default.enableUtp);
-        settings.upnpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_upnp), Default.enableUpnp);
-        settings.natPmpEnabled = pref.getBoolean(appContext.getString(R.string.pref_key_enable_natpmp), Default.enableNatPmp);
-        settings.encryptInConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_in_connections),
-                                                        Default.encryptInConnections);
-        settings.encryptOutConnections = pref.getBoolean(appContext.getString(R.string.pref_key_enc_out_connections),
-                                                         Default.encryptOutConnections);
-        int modeVal = pref.getInt(appContext.getString(R.string.pref_key_enc_mode), Default.encryptMode(appContext));
-        settings.encryptMode = SessionSettings.EncryptMode.fromValue(modeVal);
-        settings.autoManaged = pref.getBoolean(appContext.getString(R.string.pref_key_auto_manage), Default.autoManage);
+        settings.uploadRateLimit = maxUploadSpeedLimit();
+        settings.connectionsLimit = maxConnections();
+        settings.connectionsLimitPerTorrent = maxConnectionsPerTorrent();
+        settings.uploadsLimitPerTorrent = maxUploadsPerTorrent();
+        settings.activeDownloads = maxActiveDownloads();
+        settings.activeSeeds = maxActiveUploads();
+        settings.activeLimit = maxActiveTorrents();
+        settings.portRangeFirst = portRangeFirst();
+        settings.portRangeSecond = portRangeSecond();
+        settings.dhtEnabled = enableDht();
+        settings.lsdEnabled = enableLsd();
+        settings.utpEnabled = enableUtp();
+        settings.upnpEnabled = enableUpnp();
+        settings.natPmpEnabled = enableNatPmp();
+        settings.encryptInConnections = encryptInConnections();
+        settings.encryptOutConnections = encryptOutConnections();
+        settings.encryptMode = SessionSettings.EncryptMode.fromValue(encryptMode());
+        settings.autoManaged = autoManage();
+
+        settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
+        settings.proxyAddress = proxyAddress();
+        settings.proxyPort = proxyPort();
+        settings.proxyPeersToo = proxyPeersToo();
+        settings.proxyRequiresAuth = proxyRequiresAuth();
+        settings.proxyLogin = proxyLogin();
+        settings.proxyPassword = proxyPassword();
 
         return settings;
     }
@@ -1040,6 +1035,21 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_proxy_changed), val)
+                .apply();
+    }
+
+    @Override
+    public boolean applyProxy()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_apply_proxy),
+                Default.applyProxy);
+    }
+
+    @Override
+    public void applyProxy(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_apply_proxy), val)
                 .apply();
     }
 

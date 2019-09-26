@@ -19,9 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.settings.sections;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
@@ -176,9 +174,8 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         saveChangesButton.show();
         saveChangesButton.setOnClickListener((v) -> {
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             /* Value change is tracked in TorrentService */
-            pref.edit().putBoolean(getString(R.string.pref_key_apply_proxy), true).apply();
+            pref.applyProxy(true);
             proxyChanged = false;
         });
     }
@@ -261,8 +258,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         if (!proxyChanged) {
             proxyChanged = true;
-            SharedPreferences localPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            localPref.edit().putBoolean(getString(R.string.pref_key_proxy_changed), true).apply();
+            pref.proxyChanged(true);
         }
 
         return true;

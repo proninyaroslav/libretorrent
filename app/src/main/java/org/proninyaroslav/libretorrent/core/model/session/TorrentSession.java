@@ -30,7 +30,6 @@ import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
-import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 
 import java.io.File;
@@ -92,8 +91,6 @@ public interface TorrentSession
 
     void disableIpFilter();
 
-    void setProxy(@NonNull ProxySettingsPack proxy);
-
     boolean isLSDEnabled();
 
     void pauseAll();
@@ -109,10 +106,6 @@ public interface TorrentSession
     void setMaxUploadsPerTorrent(int uploads);
 
     void setAutoManaged(boolean autoManaged);
-
-    ProxySettingsPack getProxy();
-
-    void disableProxy();
 
     boolean isDHTEnabled();
 

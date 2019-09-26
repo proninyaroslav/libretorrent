@@ -275,6 +275,10 @@ public interface SettingsRepository
 
     void proxyChanged(boolean val);
 
+    boolean applyProxy();
+
+    void applyProxy(boolean val);
+
     /*
      * Scheduling settings
      */

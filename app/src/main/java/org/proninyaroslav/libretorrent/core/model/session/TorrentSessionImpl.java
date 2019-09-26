@@ -75,7 +75,6 @@ import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.settings.ProxySettingsPack;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
@@ -594,38 +593,6 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setProxy(@NonNull ProxySettingsPack proxy)
-    {
-        if (swig() == null || proxy.getType() == ProxySettingsPack.ProxyType.NONE)
-            return;
-
-        SettingsPack sp = settings();
-        settings_pack.proxy_type_t type = settings_pack.proxy_type_t.none;
-        switch (proxy.getType()) {
-            case SOCKS4:
-                type = settings_pack.proxy_type_t.socks4;
-                break;
-            case SOCKS5:
-                type = (TextUtils.isEmpty(proxy.getAddress()) ? settings_pack.proxy_type_t.socks5 :
-                        settings_pack.proxy_type_t.socks5_pw);
-                break;
-            case HTTP:
-                type = (TextUtils.isEmpty(proxy.getAddress()) ? settings_pack.proxy_type_t.http :
-                        settings_pack.proxy_type_t.http_pw);
-                break;
-        }
-
-        sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), type.swigValue());
-        sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), proxy.getPort());
-        sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), proxy.getAddress());
-        sp.setString(settings_pack.string_types.proxy_username.swigValue(), proxy.getLogin());
-        sp.setString(settings_pack.string_types.proxy_password.swigValue(), proxy.getPassword());
-        sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), proxy.isProxyPeersToo());
-
-        applySettingsPack(sp);
-    }
-
-    @Override
     public boolean isLSDEnabled()
     {
         return swig() != null && settings().broadcastLSD();
@@ -699,44 +666,6 @@ public class TorrentSessionImpl extends SessionManager
         settings.autoManaged = autoManaged;
         for (TorrentDownload task : torrentTasks.values())
             task.setAutoManaged(autoManaged);
-    }
-
-    @Override
-    public ProxySettingsPack getProxy()
-    {
-        if (swig() == null)
-            return null;
-
-        ProxySettingsPack proxy = new ProxySettingsPack();
-        SettingsPack sp = settings();
-        if (sp == null)
-            return null;
-
-        ProxySettingsPack.ProxyType type;
-        String swigType = sp.getString(settings_pack.int_types.proxy_type.swigValue());
-
-        type = ProxySettingsPack.ProxyType.NONE;
-        if (swigType.equals(settings_pack.proxy_type_t.socks4.toString()))
-            type = ProxySettingsPack.ProxyType.SOCKS4;
-        else if (swigType.equals(settings_pack.proxy_type_t.socks5.toString()))
-            type = ProxySettingsPack.ProxyType.SOCKS5;
-        else if (swigType.equals(settings_pack.proxy_type_t.http.toString()))
-            type = ProxySettingsPack.ProxyType.HTTP;
-
-        proxy.setType(type);
-        proxy.setPort(sp.getInteger(settings_pack.int_types.proxy_port.swigValue()));
-        proxy.setAddress(sp.getString(settings_pack.string_types.proxy_hostname.swigValue()));
-        proxy.setLogin(sp.getString(settings_pack.string_types.proxy_username.swigValue()));
-        proxy.setPassword(sp.getString(settings_pack.string_types.proxy_password.swigValue()));
-        proxy.setProxyPeersToo(sp.getBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue()));
-
-        return proxy;
-    }
-
-    @Override
-    public void disableProxy()
-    {
-        setProxy(new ProxySettingsPack());
     }
 
     @Override
@@ -1042,6 +971,18 @@ public class TorrentSessionImpl extends SessionManager
         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), encryptMode);
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
+
+        int proxyType = convertProxyType(settings.proxyType);
+        sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);
+        if (settings.proxyType != SessionSettings.ProxyType.NONE) {
+            sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), settings.proxyPort);
+            sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), settings.proxyAddress);
+            if (settings.proxyRequiresAuth) {
+                sp.setString(settings_pack.string_types.proxy_username.swigValue(), settings.proxyLogin);
+                sp.setString(settings_pack.string_types.proxy_password.swigValue(), settings.proxyPassword);
+            }
+            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), settings.proxyPeersToo);
+        }
     }
 
     private int convertEncryptMode(SessionSettings.EncryptMode mode)
@@ -1053,6 +994,22 @@ public class TorrentSessionImpl extends SessionManager
                 return settings_pack.enc_policy.pe_forced.swigValue();
             default:
                 return settings_pack.enc_policy.pe_disabled.swigValue();
+        }
+    }
+
+    private int convertProxyType(SessionSettings.ProxyType mode)
+    {
+        switch (mode) {
+            case NONE:
+                return settings_pack.proxy_type_t.none.swigValue();
+            case SOCKS4:
+                return settings_pack.proxy_type_t.socks4.swigValue();
+            case SOCKS5:
+                return settings_pack.proxy_type_t.socks5.swigValue();
+            case HTTP:
+                return settings_pack.proxy_type_t.http.swigValue();
+            default:
+                return settings_pack.proxy_type_t.none.swigValue();
         }
     }
 

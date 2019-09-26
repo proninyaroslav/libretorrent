@@ -46,6 +46,13 @@ public class SessionSettings
     public static final String DEFAULT_INETADDRESS = "0.0.0.0";
     public static final int DEFAULT_PORT_RANGE_FIRST = 37000;
     public static final int DEFAULT_PORT_RANGE_SECOND = 57010;
+    public static final ProxyType DEFAULT_PROXY_TYPE = ProxyType.NONE;
+    public static final String DEFAULT_PROXY_ADDRESS = "";
+    public static final int DEFAULT_PROXY_PORT = 8080;
+    public static final boolean DEFAULT_PROXY_PEERS_TOO = true;
+    public static final boolean DEFAULT_PROXY_REQUIRES_AUTH = false;
+    public static final String DEFAULT_PROXY_LOGIN = "";
+    public static final String DEFAULT_PROXY_PASSWORD = "";
 
     public int cacheSize = DEFAULT_CACHE_SIZE;
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
@@ -71,6 +78,13 @@ public class SessionSettings
     public EncryptMode encryptMode = DEFAULT_ENCRYPT_MODE;
     public boolean autoManaged = DEFAULT_AUTO_MANAGED;
     public String inetAddress = DEFAULT_INETADDRESS;
+    public ProxyType proxyType = DEFAULT_PROXY_TYPE;
+    public String proxyAddress = DEFAULT_PROXY_ADDRESS;
+    public int proxyPort = DEFAULT_PROXY_PORT;
+    public boolean proxyPeersToo = DEFAULT_PROXY_PEERS_TOO;
+    public boolean proxyRequiresAuth = DEFAULT_PROXY_REQUIRES_AUTH;
+    public String proxyLogin = DEFAULT_PROXY_LOGIN;
+    public String proxyPassword = DEFAULT_PROXY_PASSWORD;
 
     public enum EncryptMode
     {
@@ -100,6 +114,38 @@ public class SessionSettings
                     return ev;
             }
             throw new IllegalArgumentException("Invalid value");
+        }
+    }
+
+    public enum ProxyType
+    {
+        NONE(0),
+        SOCKS4(1),
+        SOCKS5(2),
+        HTTP(3);
+
+        private final int value;
+
+        ProxyType(int value)
+        {
+            this.value = value;
+        }
+
+        public static ProxyType fromValue(int value)
+        {
+            ProxyType[] enumValues = ProxyType.class.getEnumConstants();
+            for (ProxyType ev : enumValues) {
+                if (ev.value() == value) {
+                    return ev;
+                }
+            }
+
+            return NONE;
+        }
+
+        public int value()
+        {
+            return value;
         }
     }
 }
