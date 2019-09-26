@@ -972,7 +972,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
 
-        int proxyType = convertProxyType(settings.proxyType);
+        int proxyType = convertProxyType(settings.proxyType, settings.proxyRequiresAuth);
         sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);
         if (settings.proxyType != SessionSettings.ProxyType.NONE) {
             sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), settings.proxyPort);
@@ -997,7 +997,7 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private int convertProxyType(SessionSettings.ProxyType mode)
+    private int convertProxyType(SessionSettings.ProxyType mode, boolean authRequired)
     {
         switch (mode) {
             case NONE:
@@ -1005,9 +1005,13 @@ public class TorrentSessionImpl extends SessionManager
             case SOCKS4:
                 return settings_pack.proxy_type_t.socks4.swigValue();
             case SOCKS5:
-                return settings_pack.proxy_type_t.socks5.swigValue();
+                return (authRequired ?
+                        settings_pack.proxy_type_t.socks5_pw.swigValue() :
+                        settings_pack.proxy_type_t.socks5.swigValue());
             case HTTP:
-                return settings_pack.proxy_type_t.http.swigValue();
+                return (authRequired ?
+                        settings_pack.proxy_type_t.http_pw.swigValue() :
+                        settings_pack.proxy_type_t.http.swigValue());
             default:
                 return settings_pack.proxy_type_t.none.swigValue();
         }
