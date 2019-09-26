@@ -290,6 +290,8 @@ public class DetailTorrentViewModel extends AndroidViewModel
         node.select((selected ?
                 TorrentContentFileTree.SelectState.SELECTED :
                 TorrentContentFileTree.SelectState.UNSELECTED), true);
+
+        updateChildren();
     }
 
     public Uri getFilePath(@NonNull String name)
@@ -366,7 +368,10 @@ public class DetailTorrentViewModel extends AndroidViewModel
                     if (!fileNames.isEmpty())
                         mutableParams.setPrioritiesChanged(true);
                 })
-                .subscribe((file) -> file.setPriority(priority, true)));
+                .subscribe((file) -> {
+                    file.setPriority(priority, true);
+                    updateChildren();
+                }));
     }
 
     public String getStreamUrl(int fileIndex)
@@ -656,8 +661,15 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (treeLeaves == null)
             return;
 
-        for (TorrentContentFileTree file : treeLeaves)
-            if (file != null && file.getSelectState() == TorrentContentFileTree.SelectState.SELECTED)
+        boolean changed = false;
+        for (TorrentContentFileTree file : treeLeaves) {
+            if (file != null && file.getSelectState() == TorrentContentFileTree.SelectState.SELECTED) {
+                changed = true;
                 file.select(TorrentContentFileTree.SelectState.DISABLED, true);
+            }
+        }
+
+        if (changed)
+            updateChildren();
     }
 }
