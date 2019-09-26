@@ -440,7 +440,7 @@
     <string name="pref_ip_filtering_file_title">Pfad zum Anzeigefilter (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT-Fehler anzeigen</string>
     <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">If you are using I2P, a VPN or a proxy, it might make sense to enable anonymous mode. If enabled, the app tries to hide its identity to a certain degree. The peer-ID will no longer include the app fingerprint. The user-agent will be reset to an empty string. It will also try to not leak other identifying information, such as your local listen port, your IP etc.</string>
+    <string name="pref_anonymous_mode_summary">If you are using I2P, it might make sense to enable anonymous mode as well. The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). Since no incoming connections are accepted, NAT-PMP, UPnP, DHT and local peer discovery are turned off when this option is enabled.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxytyp</string>
     <string-array name="pref_proxy_type_entries">
