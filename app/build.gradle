@@ -83,7 +83,7 @@ dependencies {
 
     /* Testing */
     testImplementation "junit:junit:4.12"
-    testImplementation "org.robolectric:robolectric:4.0.2"
+    testImplementation "org.robolectric:robolectric:4.3"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
@@ -131,5 +131,5 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
     implementation "uk.co.markormesher:android-fab:2.5.0"
-    implementation "net.java.dev.jna:jna:4.5.2@aar"
+    implementation "net.java.dev.jna:jna:5.4.0@aar"
 }
