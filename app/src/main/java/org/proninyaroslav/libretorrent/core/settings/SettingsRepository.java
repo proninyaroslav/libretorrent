@@ -167,6 +167,10 @@ public interface SettingsRepository
 
     void showNatErrors(boolean val);
 
+    boolean anonymousMode();
+
+    void anonymousMode(boolean val);
+
     /*
      * Storage settings
      */

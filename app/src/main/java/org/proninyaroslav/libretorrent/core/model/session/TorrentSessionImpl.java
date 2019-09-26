@@ -957,7 +957,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.tickInterval(settings.tickInterval);
         sp.inactivityTimeout(settings.inactivityTimeout);
         sp.connectionsLimit(settings.connectionsLimit);
-        sp.setString(settings_pack.string_types.listen_interfaces.swigValue(), getIface());
+        sp.listenInterfaces(getIface());
         sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
         sp.enableDht(settings.dhtEnabled);
@@ -971,6 +971,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), encryptMode);
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
+        sp.anonymousMode(settings.anonymousMode);
 
         int proxyType = convertProxyType(settings.proxyType, settings.proxyRequiresAuth);
         sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);

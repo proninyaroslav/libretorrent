@@ -7,6 +7,12 @@
         android:persistent="false" />
 
     <SwitchPreferenceCompat
+        android:key="@string/pref_key_anonymous_mode"
+        android:title="@string/pref_anonymous_mode_title"
+        android:summary="@string/pref_anonymous_mode_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_dht"
         android:title="@string/pref_enable_dht_title"
         android:summary="@string/pref_enable_dht_summary"

@@ -53,6 +53,7 @@ public class SessionSettings
     public static final boolean DEFAULT_PROXY_REQUIRES_AUTH = false;
     public static final String DEFAULT_PROXY_LOGIN = "";
     public static final String DEFAULT_PROXY_PASSWORD = "";
+    public static final boolean DEFAULT_ANONYMOUS_MODE = false;
 
     public int cacheSize = DEFAULT_CACHE_SIZE;
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
@@ -85,6 +86,7 @@ public class SessionSettings
     public boolean proxyRequiresAuth = DEFAULT_PROXY_REQUIRES_AUTH;
     public String proxyLogin = DEFAULT_PROXY_LOGIN;
     public String proxyPassword = DEFAULT_PROXY_PASSWORD;
+    public boolean anonymousMode = DEFAULT_ANONYMOUS_MODE;
 
     public enum EncryptMode
     {

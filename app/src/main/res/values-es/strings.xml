@@ -439,6 +439,8 @@
     <string name="pref_enable_ip_filtering_summary">Usar el filtrado IP incrementa el uso de memoria. Dependiendo del tamaño del fichero, el filtro puede tardar algún tiempo en ser aplicado al inicio</string>
     <string name="pref_ip_filtering_file_title">Ruta al fichero de filtro (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Mostrar errores NAT</string>
+    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_summary">If you are using I2P, a VPN or a proxy, it might make sense to enable anonymous mode. If enabled, the app tries to hide its identity to a certain degree. The peer-ID will no longer include the app fingerprint. The user-agent will be reset to an empty string. It will also try to not leak other identifying information, such as your local listen port, your IP etc.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
     <string-array name="pref_proxy_type_entries">

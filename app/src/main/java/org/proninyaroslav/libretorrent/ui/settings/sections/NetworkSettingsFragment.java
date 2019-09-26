@@ -242,6 +242,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 return true;
             });
         }
+
+        String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
+        SwitchPreferenceCompat anonymousMode = findPreference(keyAnonymousMode);
+        if (anonymousMode != null) {
+            anonymousMode.setChecked(pref.anonymousMode());
+            bindOnPreferenceChangeListener(anonymousMode);
+        }
     }
 
     @Override
@@ -339,6 +346,9 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
             pref.enableIpFiltering((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_anonymous_mode))) {
+            pref.anonymousMode((boolean)newValue);
         }
 
         return true;

@@ -1442,6 +1442,11 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_streaming_port)) ||
                 key.equals(appContext.getString(R.string.pref_key_streaming_hostname))) {
             startStreamingServer();
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_anonymous_mode))) {
+            SessionSettings s = session.getSettings();
+            s.anonymousMode = pref.anonymousMode();
+            session.setSettings(s);
         }
 
         if (reschedule)

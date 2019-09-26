@@ -439,6 +439,8 @@
     <string name="pref_enable_ip_filtering_summary">ഐപി ഫിൽറ്ററിംഗ് ഉപയോഗിക്കുന്നത് മെമ്മറി ഉപയോഗം വർദ്ധിപ്പിക്കുന്നു. ഫയൽ വലുപ്പം അടിസ്ഥാനമാക്കി, ആരംഭത്തിൽ ഫിൽറ്റർ ചെയ്യാൻ കുറച്ച് സമയമെടുത്തേക്കാം</string>
     <string name="pref_ip_filtering_file_title">ഫയൽ ഫിൽട്ടർ ചെയ്യുന്നതിനുള്ള പാത്ത് (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT പിശകുകൾ കാണിക്കുക</string>
+    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_summary">If you are using I2P, a VPN or a proxy, it might make sense to enable anonymous mode. If enabled, the app tries to hide its identity to a certain degree. The peer-ID will no longer include the app fingerprint. The user-agent will be reset to an empty string. It will also try to not leak other identifying information, such as your local listen port, your IP etc.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">പ്രോക്സി തരം</string>
     <string-array name="pref_proxy_type_entries">

@@ -439,6 +439,8 @@
     <string name="pref_enable_ip_filtering_summary">IP फ़िल्टरिंग के उपयोग से मेमोरी का उपयोग बढ़ता है। फ़ाइल आकार के आधार पर, फ़िल्टर को स्टार्टअप पर लागू होने में कुछ समय लग सकता है</string>
     <string name="pref_ip_filtering_file_title">फ़ाइल को फ़िल्टर करने का पथ (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT त्रुटियों को दिखाएं</string>
+    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_summary">If you are using I2P, a VPN or a proxy, it might make sense to enable anonymous mode. If enabled, the app tries to hide its identity to a certain degree. The peer-ID will no longer include the app fingerprint. The user-agent will be reset to an empty string. It will also try to not leak other identifying information, such as your local listen port, your IP etc.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">प्रॉक्सी प्रकार</string>
     <string-array name="pref_proxy_type_entries">

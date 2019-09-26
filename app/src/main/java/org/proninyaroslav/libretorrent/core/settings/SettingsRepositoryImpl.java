@@ -101,6 +101,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+        static final boolean anonymousMode = SessionSettings.DEFAULT_ANONYMOUS_MODE;
         /* Limitations settings */
         static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
         static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
@@ -200,6 +201,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.encryptOutConnections = encryptOutConnections();
         settings.encryptMode = SessionSettings.EncryptMode.fromValue(encryptMode());
         settings.autoManaged = autoManage();
+        settings.anonymousMode = anonymousMode();
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
@@ -900,6 +902,21 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_active_torrents), val)
+                .apply();
+    }
+
+    @Override
+    public boolean anonymousMode()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_anonymous_mode),
+                Default.anonymousMode);
+    }
+
+    @Override
+    public void anonymousMode(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_anonymous_mode), val)
                 .apply();
     }
 

@@ -439,6 +439,8 @@
     <string name="pref_enable_ip_filtering_summary">Naudojant IP filtravimą padidėja atminties naudojimas. Priklausomai nuo failo dydžio, filtravimo parodymas užtrunka kol būna įgalinamas pajungiant</string>
     <string name="pref_ip_filtering_file_title">Kelias iki rodymofiltro failo (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Rodyti NAT klaidas</string>
+    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_summary">If you are using I2P, a VPN or a proxy, it might make sense to enable anonymous mode. If enabled, the app tries to hide its identity to a certain degree. The peer-ID will no longer include the app fingerprint. The user-agent will be reset to an empty string. It will also try to not leak other identifying information, such as your local listen port, your IP etc.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Įgaliotojo serverio tipas</string>
     <string-array name="pref_proxy_type_entries">
