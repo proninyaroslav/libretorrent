@@ -93,6 +93,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -139,7 +140,7 @@ public class TorrentSessionImpl extends SessionManager
     private ExecutorService loadTorrentsExec;
     private HashMap<String, TorrentDownload> torrentTasks = new HashMap<>();
     /* Wait list for non added magnets */
-    private ArrayList<String> magnets = new ArrayList<>();
+    private HashSet<String> magnets = new HashSet<>();
     private ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
     private ArrayList<String> addTorrentsList = new ArrayList<>();
     private ReentrantLock syncMagnet = new ReentrantLock();
@@ -278,8 +279,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException
     {
-        if (magnets.contains(id))
-            cancelFetchMagnet(id);
+        cancelFetchMagnet(id);
 
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
@@ -823,7 +823,7 @@ public class TorrentSessionImpl extends SessionManager
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
-                    handleMetadata(((MetadataReceivedAlert) alert));
+                    handleMetadata(((MetadataReceivedAlert)alert));
                     break;
                 case TORRENT_REMOVED:
                     torrentTasks.remove(((TorrentRemovedAlert)alert).infoHash().toHex());

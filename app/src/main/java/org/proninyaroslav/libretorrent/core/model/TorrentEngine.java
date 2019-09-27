@@ -205,7 +205,7 @@ public class TorrentEngine
     }
 
     public void addTorrents(@NonNull List<AddTorrentParams> paramsList,
-                           boolean removeFile)
+                            boolean removeFile)
     {
         Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
 

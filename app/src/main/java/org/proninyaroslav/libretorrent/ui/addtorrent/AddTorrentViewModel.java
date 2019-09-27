@@ -540,8 +540,6 @@ public class AddTorrentViewModel extends AndroidViewModel
         if (infoVal == null)
             return;
 
-        DecodeState state = decodeState.getValue();
-        if (state != null && state.status == Status.FETCHING_MAGNET)
-            engine.cancelFetchMagnet(infoVal.sha1Hash);
+        engine.cancelFetchMagnet(infoVal.sha1Hash);
     }
 }
