@@ -378,8 +378,9 @@ public class TorrentDownloadImpl implements TorrentDownload
     private void handleMetadata(MetadataReceivedAlert alert)
     {
         Exception[] err = new Exception[1];
+        Torrent torrent = null;
         try {
-            Torrent torrent = repo.getTorrentById(id);
+            torrent = repo.getTorrentById(id);
             if (torrent == null)
                 throw new NullPointerException(id + " doesn't exists");
 
@@ -399,20 +400,22 @@ public class TorrentDownloadImpl implements TorrentDownload
                 torrent.name = alert.torrentName();
             }
 
-            torrent.setMagnetUri(null);
-            repo.updateTorrent(torrent);
-
         } catch (Exception e) {
             err[0] = e;
-            Torrent torrent = repo.getTorrentById(id);
-            if (torrent != null) {
+            torrent = repo.getTorrentById(id);
+            if (torrent != null)
                 torrent.error = e.toString();
-                repo.updateTorrent(torrent);
-            }
             pause();
             notifyListeners((listener) ->
                     listener.onTorrentError(id, e.getMessage()));
+
+        } finally {
+            if (torrent != null) {
+                torrent.setMagnetUri(null);
+                repo.updateTorrent(torrent);
+            }
         }
+
         notifyListeners((listener) ->
                 listener.onTorrentMetadataLoaded(id, err[0]));
     }

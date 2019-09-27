@@ -189,7 +189,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 case DECODE_TORRENT_FILE:
                 case FETCHING_HTTP:
                 case FETCHING_MAGNET:
-                    onStartDecode();
+                    onStartDecode(state.status == AddTorrentViewModel.Status.DECODE_TORRENT_FILE);
                     break;
                 case FETCHING_HTTP_COMPLETED:
                 case DECODE_TORRENT_COMPLETED:
@@ -201,10 +201,10 @@ public class AddTorrentActivity extends AppCompatActivity
         });
     }
 
-    private void onStartDecode()
+    private void onStartDecode(boolean isTorrentFile)
     {
         binding.progress.setVisibility(View.VISIBLE);
-        showAddButton = false;
+        showAddButton = !isTorrentFile;
         invalidateOptionsMenu();
     }
 
