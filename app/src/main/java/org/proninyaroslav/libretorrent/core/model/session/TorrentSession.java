@@ -35,9 +35,12 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.EnumSet;
 
 public interface TorrentSession
 {
+    void setAllowedLogTypes(EnumSet<SessionLogType> types);
+
     void addListener(TorrentEngineListener listener);
 
     void removeListener(TorrentEngineListener listener);

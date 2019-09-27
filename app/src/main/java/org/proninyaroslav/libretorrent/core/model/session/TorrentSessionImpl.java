@@ -22,9 +22,9 @@ package org.proninyaroslav.libretorrent.core.model.session;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import androidx.core.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AlertListener;
@@ -91,6 +91,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,7 +119,12 @@ public class TorrentSessionImpl extends SessionManager
             AlertType.TORRENT_REMOVED.swig(),
             AlertType.SESSION_ERROR.swig(),
             AlertType.PORTMAP_ERROR.swig(),
-            AlertType.LISTEN_FAILED.swig()
+            AlertType.LISTEN_FAILED.swig(),
+            AlertType.LOG.swig(),
+            AlertType.DHT_LOG.swig(),
+            AlertType.PEER_LOG.swig(),
+            AlertType.PORTMAP_LOG.swig(),
+            AlertType.TORRENT_LOG.swig()
     };
 
     /* Base unit in KiB. Used for create torrent */
@@ -141,16 +147,29 @@ public class TorrentSessionImpl extends SessionManager
     private TorrentRepository repo;
     private FileSystemFacade fs;
     private SystemFacade system;
+    private boolean enableLogging;
+    private SessionLogger sessionLogger;
 
     public TorrentSessionImpl(@NonNull TorrentRepository repo,
                               @NonNull FileSystemFacade fs,
-                              @NonNull SystemFacade system)
+                              @NonNull SystemFacade system,
+                              boolean enableLogging)
     {
+        super(enableLogging);
+
+        this.enableLogging = enableLogging;
+        this.sessionLogger = new SessionLogger();
         this.repo = repo;
         this.fs = fs;
         this.system = system;
         innerListener = new InnerListener();
         loadTorrentsExec = Executors.newCachedThreadPool();
+    }
+
+    @Override
+    public void setAllowedLogTypes(EnumSet<SessionLogType> types)
+    {
+        sessionLogger.setAllowedLogTypes(types);
     }
 
     @Override
@@ -811,6 +830,10 @@ public class TorrentSessionImpl extends SessionManager
                     break;
                 default:
                     checkError(alert);
+                    if (enableLogging) {
+                        notifyListeners((listener) ->
+                                listener.onSessionLogMsg(sessionLogger.makeLogMsg(alert)));
+                    }
                     break;
             }
         }
@@ -841,6 +864,15 @@ public class TorrentSessionImpl extends SessionManager
                 }
             }
         });
+    }
+
+    private void checkLogging(Alert<?> alert)
+    {
+    }
+
+    private void printLog(String msg)
+    {
+        Log.i(TAG, msg);
     }
 
     private void handleMetadata(MetadataReceivedAlert metadataAlert)

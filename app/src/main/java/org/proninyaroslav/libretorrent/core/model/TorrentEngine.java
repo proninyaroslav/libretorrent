@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.proninyaroslav.libretorrent.BuildConfig;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
@@ -47,6 +48,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
+import org.proninyaroslav.libretorrent.core.model.session.SessionLogMsg;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSession;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSessionImpl;
@@ -126,7 +128,10 @@ public class TorrentEngine
         notifier = TorrentNotifier.getInstance(appContext);
         session = new TorrentSessionImpl(repo,
                 fs,
-                SystemFacadeHelper.getSystemFacade(appContext));
+                SystemFacadeHelper.getSystemFacade(appContext),
+                BuildConfig.SESSION_LOGGING);
+        if (BuildConfig.SESSION_LOGGING)
+            session.setAllowedLogTypes(BuildConfig.SESSION_LOG_TYPES);
         session.setSettings(pref.readSessionSettings());
         session.addListener(engineListener);
 
@@ -1271,6 +1276,13 @@ public class TorrentEngine
                 }).subscribeOn(Schedulers.io())
                         .subscribe());
             }
+        }
+
+        @Override
+        public void onSessionLogMsg(@Nullable SessionLogMsg message)
+        {
+            if (message != null)
+                Log.i(TAG, "[" + message.getType().name() + "]" + message.getLogMessage());
         }
     };
 

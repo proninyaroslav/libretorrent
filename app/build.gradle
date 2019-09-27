@@ -1,5 +1,25 @@
 apply plugin: 'com.android.application'
 
+private static void setSessionLogTypeProperty(buildType, sessionLogFlags) {
+    buildType.buildConfigField("java.util.EnumSet<org.proninyaroslav.libretorrent.core.model.session.SessionLogType>",
+            "SESSION_LOG_TYPES",
+            sessionLogTypesAsString(sessionLogFlags))
+}
+
+private static String sessionLogTypesAsString(sessionLogFlags) {
+    if (sessionLogFlags == null || sessionLogFlags.isEmpty())
+        return "null"
+
+    def flagsStr = "java.util.EnumSet.of(";
+    sessionLogFlags.eachWithIndex{ item, index ->
+        flagsStr += "org.proninyaroslav.libretorrent.core.model.session.SessionLogType." + item
+        if (index + 1 != sessionLogFlags.size()) {
+            flagsStr += ", "
+        }
+    }
+    return flagsStr + ")"
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -27,18 +47,33 @@ android {
         }
     }
 
+    /* Enable or disable logging in build types */
+    def SESSION_LOGGING = "SESSION_LOGGING"
+
+    /* Can be changed. It's meant to be used for troubleshooting and debugging */
+    setSessionLogTypeProperty(defaultConfig, [
+            "SESSION_LOG",
+//            "DHT_LOG",
+//            "PEER_LOG",
+//            "PORTMAP_LOG",
+//            "TORRENT_LOG"
+    ])
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField("boolean", SESSION_LOGGING, "false")
         }
 
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
-
             testCoverageEnabled true
             debuggable true
+
+            buildConfigField("boolean", SESSION_LOGGING, "true")
         }
     }
 
