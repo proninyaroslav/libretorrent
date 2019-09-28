@@ -153,7 +153,7 @@
     <string name="file_is_too_large_error">Soubor je příliš velký</string>
     <string name="unable_to_open_folder">Nelze otevřít vybranou složku. Zkuste vybrat jinou složku</string>
     <string name="error_empty_name">Prosím, zadejte název</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="ignore_free_space">Ignorovat velikost volného místa</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Soubory</string>
@@ -496,8 +496,8 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Spustit torrenty</string>
     <string name="pref_feed_start_torrents_summary">Spustit torrenty po přidání</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_title">Odstranit duplikáty</string>
+    <string name="pref_feed_remove_duplicates_summary">Zkontroluje název nově stažené položky a přeskočí ji, pokud již jedna se stejným názvem existuje</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Zapnout streamování</string>
     <string name="pref_streaming_enable_summary">Streamování umožňuje stahovat jednotlivé soubory z torrentu pomocí prohlížeče nebo přehrávače médií použitím URL adres HTTP</string>
