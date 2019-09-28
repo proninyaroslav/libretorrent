@@ -55,7 +55,7 @@ public abstract class TorrentEngineListener
 
     public void onRestoreSessionError(@NonNull String id) {}
 
-    public void onTorrentError(@NonNull String id, String errorMsg) {}
+    public void onTorrentError(@NonNull String id, Exception e) {}
 
     public void onSessionError(@NonNull String errorMsg) {}
 

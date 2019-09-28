@@ -156,7 +156,7 @@ public class TorrentInfoProvider
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch ( Exception e) {
+                    } catch (Exception e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
@@ -168,7 +168,7 @@ public class TorrentInfoProvider
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch ( Exception e) {
+                    } catch (Exception e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
@@ -180,21 +180,21 @@ public class TorrentInfoProvider
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch ( Exception e) {
+                    } catch (Exception e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
                 }
 
                 @Override
-                public void onTorrentError(@NonNull String torrentId, String errorMsg)
+                public void onTorrentError(@NonNull String torrentId, Exception e)
                 {
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch ( Exception e) {
+                    } catch (Exception ex) {
                         if (!emitter.isCancelled())
-                            emitter.onError(e);
+                            emitter.onError(ex);
                     }
                 }
             };
@@ -260,7 +260,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onTorrentError(@NonNull String torrentId, String errorMsg)
+                public void onTorrentError(@NonNull String torrentId, Exception e)
                 {
                     handleInfo.run();
                 }

@@ -334,7 +334,7 @@ public class TorrentDownloadImpl implements TorrentDownload
         }
 
         notifyListeners((listener) ->
-                listener.onTorrentError(id, errorMsg));
+                listener.onTorrentError(id, new Exception(errorMsg)));
     }
 
     private String getErrorMsg(Alert<?> alert)
@@ -390,8 +390,7 @@ public class TorrentDownloadImpl implements TorrentDownload
                 TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
                 long availableBytes = fs.getDirAvailableBytes(torrent.downloadPath);
                 if (availableBytes < info.torrentSize)
-                    throw new FreeSpaceException("Not enough free space: "
-                            + availableBytes + " free, but torrent size is " + info.torrentSize);
+                    throw new FreeSpaceException("Not enough free space");
             }
 
             /* Skip if default name is changed */
@@ -407,7 +406,7 @@ public class TorrentDownloadImpl implements TorrentDownload
                 torrent.error = e.toString();
             pause();
             notifyListeners((listener) ->
-                    listener.onTorrentError(id, e.getMessage()));
+                    listener.onTorrentError(id, e));
 
         } finally {
             if (torrent != null) {
