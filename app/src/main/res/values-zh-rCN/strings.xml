@@ -31,17 +31,17 @@
     <string name="refresh">刷新</string>
     <string name="edit">编辑</string>
     <string name="menu">菜单</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
-    <string name="file">File</string>
-    <string name="folder">Folder</string>
-    <string name="finished">Finished</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
-    <string name="details">Details</string>
-    <string name="stats">Stats</string>
-    <string name="filters">Filters</string>
+    <string name="open_navigation_drawer">打开导航抽屉</string>
+    <string name="close_navigation_drawer">关闭导航抽屉</string>
+    <string name="file">文件</string>
+    <string name="folder">文件夹</string>
+    <string name="finished">完成</string>
+    <string name="pause_all">暂停所有</string>
+    <string name="resume_all">恢复所有</string>
+    <string name="all">所有</string>
+    <string name="details">详细</string>
+    <string name="stats">统计</string>
+    <string name="filters">过滤器</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选择的 torrent？此操作无法撤销。</string>
@@ -64,31 +64,31 @@
     <string name="theme_settings_apply_after_reboot">重新启动应用程序后，将应用主题设置</string>
     <string name="about">关于</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes" formatted="false">DHT节点：%1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">监听端口: %1$s</string>
     <!-- Status -->
-    <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status">状态</string>
+    <string name="drawer_status_downloading">下载</string>
+    <string name="drawer_status_downloaded">下载</string>
+    <string name="drawer_status_downloading_metadata">下载元数据</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_size">Size</string>
-    <string name="drawer_sorting_progress">Progress</string>
-    <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <string name="drawer_sorting">排序</string>
+    <string name="drawer_sorting_name">名称</string>
+    <string name="drawer_sorting_date_added">添加日期</string>
+    <string name="drawer_sorting_size">大小</string>
+    <string name="drawer_sorting_progress">进度</string>
+    <string name="drawer_sorting_ETA">预计完成时间</string>
+    <string name="drawer_sorting_peers">对等端</string>
+    <string name="drawer_sorting_no_sorting">不排序</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added">添加日期</string>
+    <string name="drawer_date_added_today">今天</string>
+    <string name="drawer_date_added_yesterday">昨天</string>
+    <string name="drawer_date_added_week">星期</string>
+    <string name="drawer_date_added_month">月</string>
+    <string name="drawer_date_added_year">年</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -110,10 +110,10 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">torrent 已完成</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_moving_title">洪流</string>
+    <string name="torrent_moving_content" formatted="false">正在移动%1$s，请稍候</string>
+    <string name="torrent_move_success">Torrent移动成功</string>
+    <string name="torrent_move_fail">无法移动Torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -151,9 +151,9 @@
     <string name="files_size" formatted="false">已选文件大小 %1$s ，torrent 文件总大小 %2$s</string>
     <string name="start_torrent">开始 torrent</string>
     <string name="file_is_too_large_error">文件太大了</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="error_empty_name">Please enter name</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="unable_to_open_folder">无法打开选定的文件夹，请尝试选择其他文件夹</string>
+    <string name="error_empty_name">请输入名称</string>
+    <string name="ignore_free_space">忽略可用空间大小</string>
     <!-- Torrent info -->
     <string name="torrent_info">详情</string>
     <string name="torrent_files">文件</string>
@@ -180,10 +180,10 @@
     <string name="file_name">文件名</string>
     <string name="error_file_exists">文件已经存在</string>
     <string name="file_name_is_empty">文件名不能为空</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="system_manager">系统管理员</string>
+    <string name="system_file_manager_not_found">找不到系统文件管理器</string>
     <string name="replace_file">Replace file</string>
-    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
+    <string name="device_does_not_support_this_feature">您的设备不支持此功能</string>
     <!-- Error dialog -->
     <string name="report">反馈</string>
     <string name="more_details">更多细节</string>
@@ -272,27 +272,27 @@
     <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用\"|\"隔开，其中之一必须包含在 torrent 名称中）。只有当这个过滤器与 torrent 名称相匹配时，才会添加种子</string>
     <string name="feed_auto_download">自动下载新的torrent</string>
     <string name="feed_use_regex">使用正则表达式</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="backup_feed_channels">保存备份</string>
+    <string name="restore_feed_channels_backup">还原备份</string>
     <string name="feed_last_update_template" formatted="false">上次更新: %1$s</string>
     <string name="feed_last_update_never">从未更新</string>
     <string name="error_cannot_add_channel">无法添加频道</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="error_cannot_edit_channel">无法编辑频道</string>
+    <string name="error_cannot_delete_channel">无法删除频道</string>
     <string name="copy_link">复制链接</string>
     <string name="delete_selected_channel">删除选中频道？</string>
     <string name="delete_selected_channels">删除选中的多个频道？</string>
     <string name="edit_feed_channel">编辑频道</string>
     <string name="link_copied_to_clipboard">链接已复制到剪贴板</string>
     <string name="mark_as_read">标为已读</string>
-    <string name="mark_as_unread">Mark as unread</string>
+    <string name="mark_as_unread">标记为未读</string>
     <string name="feed_item_list_empty">没有文章</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="backup_feeds_successfully">频道已成功保存</string>
+    <string name="restore_feeds_backup_successfully">频道恢复成功</string>
+    <string name="error_backup_feeds">保存频道失败</string>
+    <string name="error_restore_feeds_backup">恢复频道失败</string>
     <string name="feed_item_open_article_url">打开文章</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
+    <string name="feeds_backup_selection_dialog_title">选择备份文件</string>
     <string name="error_import_invalid_format">无效格式</string>
     <string name="feed_do_not_download_immediately">不立即下载</string>
     <!-- Create torrent dialog -->
@@ -302,8 +302,8 @@
     <string name="tracker_urls">追踪链接</string>
     <string name="web_seed_urls">种子链接</string>
     <string name="comments">评论</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="tracker_urls_hint">（可选）按优先级每行输入一个跟踪器</string>
+    <string name="web_seed_urls_hint">（可选）每行一个</string>
     <string name="optional_hint">（可选）</string>
     <string name="piece_size">区块大小</string>
     <string name="create_torrent_options">选项</string>
@@ -332,8 +332,8 @@
     <string name="skip_files_hint">输入文件名，多个名称中间用\"|\"隔开</string>
     <string name="select_folder_to_save">选择保存文件夹</string>
     <string name="torrent_saved_to" formatted="false">torrent 保存至 %1$s</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_open_file">无法打开所选文件</string>
+    <string name="unable_to_create_file">无法创建文件</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
@@ -390,10 +390,10 @@
     <string name="pref_autostart_title">开机启动</string>
     <string name="pref_autostart_summary">当设备开机后自动开启应用程序</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_umnetered_connections_only_title">仅限于未计量的连接</string>
+    <string name="pref_umnetered_connections_only_summary">仅通过非计量连接下载（例如，Wi-Fi或以太网）</string>
+    <string name="pref_enable_roaming_title">启用漫游</string>
+    <string name="pref_enable_roaming_summary">仅在设备不漫游时下载</string>
     <string name="pref_power_management_category">电源管理</string>
     <string name="pref_keep_alive_title">保持活动</string>
     <string name="pref_keep_alive_summary">若启用，此应用将在后台继续运行。注：下载完成后退出应用选项依旧有效。</string>
@@ -421,10 +421,10 @@
     <string name="pref_enable_natpmp_title">开启 NAT-PMP</string>
     <string name="pref_port_settings_category">端口设置</string>
     <string name="pref_use_random_port_title">使用一个随机的端口号</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
+    <string name="pref_use_random_port_summarty" formatted="false">在范围内随机设置起始端口[%1$d、%2$d]，并将结束端口设置为first+10</string>
+    <string name="pref_port_range_title">端口范围</string>
+    <string name="pref_port_range_start_title">开始</string>
+    <string name="pref_port_range_end_title">结束</string>
     <string name="pref_encryption_category">加密</string>
     <string name="pref_enc_mode_title">加密模式</string>
     <string-array name="pref_enc_mode_entries">
@@ -479,9 +479,9 @@
         <item>1 天</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">仅限于未计量的连接</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">仅通过未计量的连接刷新（例如，Wi-Fi或以太网）</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">启用漫游</string>
     <string name="pref_feed_keep_items_time_title">保留文章</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 天</item>
@@ -497,7 +497,7 @@
     <string name="pref_feed_start_torrents_title">运行 torrent</string>
     <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
     <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_summary">检查新下载的项目的标题，当有相同标题的一个已经出现时跳过</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">启用流媒体功能</string>
     <string name="pref_streaming_enable_summary">流媒体允许通过浏览器或媒体播放器中输入的 HTTP 地址从 torrent 中下载一个或多个单独文件</string>
@@ -511,3 +511,4 @@
     LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3)</a>条款发布的免费软件]]></string>
     <string name="about_changelog">更新日志</string>
 </resources>
+
