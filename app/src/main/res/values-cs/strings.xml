@@ -439,8 +439,8 @@
     <string name="pref_enable_ip_filtering_summary">Použití filtrování IP se zvyšuje využití paměti. V závislosti na velikosti souboru může trvat určitý čas, než bude filtr použit při spuštění</string>
     <string name="pref_ip_filtering_file_title">Cesta k souboru filtru (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Zobrazit NAT chyby</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_anonymous_mode_title">Povolit anonymní režim</string>
+    <string name="pref_anonymous_mode_summary">Aplikace se do určité míry snaží skrýt svou identitu. Uživatelský agent bude resetován na prázdný řetězec (kromě soukromých torrentů). Trackery budou použity, pouze pokud používají proxy server. Sokety pro posluchače jsou uzavřeny a příchozí připojení budou přijímána pouze prostřednictvím proxy serveru SOCKS5 nebo I2P (pokud je nastaven proxy server a je spuštěn na stejném počítači jako proxy server trackeru). NAT-PMP, UPnP, DHT a lokální peery budou vypnuty</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ proxy</string>
     <string-array name="pref_proxy_type_entries">

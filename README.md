@@ -62,13 +62,14 @@ Current languages:
  - Brazilian Portuguese *(thanks Wolfterro)*
  - French *(thanks Valentin Orient)*
  - Greek *(thanks Spyros3000)*
- - Czech *(thanks HarryPhoon)*
+ - Czech *(thanks HarryPhoon, novas78)*
  - Norwegian Bokmål *(thanks comradekingu)*
  - Romanian *(thanks georgenetu)*
  - Hindi *(thanks Lino Joseph)*
  - Malayalam *(thanks Lino Joseph)*
  - Tamil *(thanks Lino Joseph)*
  - Japanese *(thanks mamarama9904)*
+ - Turkish *(thanks oersen)*
 
 Contributors
 ---
