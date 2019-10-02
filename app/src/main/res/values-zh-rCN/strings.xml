@@ -86,9 +86,9 @@
     <string name="drawer_date_added">添加日期</string>
     <string name="drawer_date_added_today">今天</string>
     <string name="drawer_date_added_yesterday">昨天</string>
-    <string name="drawer_date_added_week">星期</string>
-    <string name="drawer_date_added_month">月份</string>
-    <string name="drawer_date_added_year">年份</string>
+    <string name="drawer_date_added_week">今个星期</string>
+    <string name="drawer_date_added_month">今个月</string>
+    <string name="drawer_date_added_year">今年</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -130,7 +130,7 @@
     <string name="torrent_status_stopped">已停止</string>
     <string name="torrent_status_checking">检查中</string>
     <string name="torrent_status_finished">已完成</string>
-    <string name="torrent_status_downloading_metadata">下载元数据</string>
+    <string name="torrent_status_downloading_metadata">下载元数据中</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">获取权限失败</string>
     <string name="perm_denied_warning">应用程序没有这个权限将无法保存内存中的种子文件。应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
@@ -205,9 +205,9 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">已下载</string>
     <string name="torrent_ETA">剩余时间</string>
-    <string name="torrent_seeds">种子</string>
+    <string name="torrent_seeds">做种人数</string>
     <string name="torrent_peers">用户</string>
-    <string name="torrent_leechers">不完整种子</string>
+    <string name="torrent_leechers">下载人数</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template" formatted="false">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
@@ -256,7 +256,7 @@
     <string name="share_stream_url">分享流媒体链接</string>
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
+    <string name="tracker_list_empty">没有跟踪器</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>
@@ -379,8 +379,8 @@
         <item>黑色</item>
     </string-array>
     <string name="pref_notification_category">通知设置</string>
-    <string name="pref_torrent_finish_notify_title">torrent 完成时通知</string>
-    <string name="pref_torrent_finish_notify_summary">torrent 下载完成后显示通知</string>
+    <string name="pref_torrent_finish_notify_title">种子完成时通知</string>
+    <string name="pref_torrent_finish_notify_summary">种子下载完成后显示通知</string>
     <string name="pref_play_sound_notify_title">播放提示音</string>
     <string name="pref_notify_sound_title">通知提示音</string>
     <string name="pref_led_indicator_notify_title">LED 指示灯</string>
@@ -402,11 +402,11 @@
     <string name="pref_cpu_do_not_sleep_title">保持 CPU 唤醒</string>
     <string name="pref_cpu_do_not_sleep_summary">启用此选项将增加电池使用量。如果屏幕关闭时下载速度降低，请使用此选项。</string>
     <string name="pref_download_and_upload_only_when_charging_title">仅在充电时下载和上传</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">如果启用，torrent 将仅在充电时下载/上传。当没有连接到充电器时，所有的 torrent 都将暂停。</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">如果启用，种子将仅在充电时下载/上传。当没有连接到充电器时，所有的 种子都将暂停。</string>
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_custom_battery_control_title">自定义电量百分比</string>
     <string name="pref_custom_battery_control_value_title">电量百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有 torrent 都将暂停。此规则充电时无效。</string>
+    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有种子都将暂停。此规则充电时无效。</string>
     <string name="pref_custom_battery_control_summary" formatted="false">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
     <!-- Network settings -->
@@ -432,15 +432,15 @@
         <item>要求加密</item>
         <item>禁用加密</item>
     </string-array>
-    <string name="pref_enc_in_connections_title">入站连接</string>
-    <string name="pref_enc_out_connections_title">出站连接</string>
+    <string name="pref_enc_in_connections_title">传入连接</string>
+    <string name="pref_enc_out_connections_title">传出连接</string>
     <string name="pref_ip_filtering_category">IP 过滤</string>
     <string name="pref_enable_ip_filtering_title">开启 IP 过滤</string>
     <string name="pref_enable_ip_filtering_summary">使用 IP 过滤会增加内存使用。根据文件大小，过滤器可能需要一些时间才能在启动时应用。</string>
     <string name="pref_ip_filtering_file_title">过滤规则文件路径 （.dat ，.p2p ）</string>
     <string name="pref_show_nat_errors">显示NAT错误</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_anonymous_mode_title">启用匿名模式</string>
+    <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用跟踪器。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与跟踪器代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
