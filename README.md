@@ -60,7 +60,7 @@ Current languages:
  - Polish *(thanks Azaradel)*
  - Spanish *(thanks ed10vi)*
  - Brazilian Portuguese *(thanks Wolfterro)*
- - French *(thanks Valentin Orient)*
+ - French *(thanks Valentin Orient, boby23)*
  - Greek *(thanks Spyros3000)*
  - Czech *(thanks HarryPhoon, novas78)*
  - Norwegian Bokmål *(thanks comradekingu)*
@@ -70,6 +70,8 @@ Current languages:
  - Tamil *(thanks Lino Joseph)*
  - Japanese *(thanks mamarama9904)*
  - Turkish *(thanks oersen)*
+ - Azerbaijani *(thanks Khan27)*
+ - Serbian (Cyrillic) *(thanks veles330)*
 
 Contributors
 ---
