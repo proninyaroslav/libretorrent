@@ -110,7 +110,7 @@ android {
 }
 
 def LIBTORRENT4J_VERSION='1.2.1.0'
-def ROOM_VERSION = "2.2.0-rc01"
+def ROOM_VERSION = "2.2.1"
 def ACRA_VERSION = "5.4.0"
 
 dependencies {
@@ -122,18 +122,18 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation ("androidx.room:room-testing:2.1.0") {
+    androidTestImplementation ("androidx.room:room-testing:2.2.1") {
         /* The fix for dependency conflict with uk.co.markormesher:android-fab */
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     }
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta04"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-rc01"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
-    implementation "com.google.android.material:material:1.1.0-alpha10"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02"
+    implementation "com.google.android.material:material:1.2.0-alpha01"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"

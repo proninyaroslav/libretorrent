@@ -41,7 +41,6 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;

@@ -71,7 +71,6 @@ public class AddTorrentActivity extends AppCompatActivity
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
 
     public static final String TAG_URI = "uri";
-    public static final String TAG_ADD_TORRENT_PARAMS = "add_torrent_params";
 
     private static final String TAG_ERR_REPORT_DIALOG = "io_err_report_dialog";
     private static final String TAG_DECODE_EXCEPT_DIALOG = "decode_except_dialog";
