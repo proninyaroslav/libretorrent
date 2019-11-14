@@ -53,10 +53,10 @@ android {
     /* Can be changed. It's meant to be used for troubleshooting and debugging */
     setSessionLogTypeProperty(defaultConfig, [
             "SESSION_LOG",
-//            "DHT_LOG",
-//            "PEER_LOG",
+            "DHT_LOG",
+            "PEER_LOG",
 //            "PORTMAP_LOG",
-//            "TORRENT_LOG"
+            "TORRENT_LOG"
     ])
 
     buildTypes {

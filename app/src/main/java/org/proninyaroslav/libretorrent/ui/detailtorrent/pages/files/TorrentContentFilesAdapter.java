@@ -144,7 +144,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
     {
         private ItemTorrentContentFileBinding binding;
         /* For selection support */
-        private ItemDetails details = new ItemDetails();
+        private TorrentContentFileItem selectionKey;
         private boolean isSelected;
 
         public ViewHolder(ItemTorrentContentFileBinding binding)
@@ -159,8 +159,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
         {
             Context context = itemView.getContext();
 
-            details.adapterPosition = getAdapterPosition();
-            details.selectionKey = item;
+            selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
                     R.attr.defaultSelectRect,
@@ -265,7 +264,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
         @Override
         public ItemDetails getItemDetails()
         {
-            return details;
+            return new ItemDetails(selectionKey, getAdapterPosition());
         }
     }
 
@@ -282,9 +281,9 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
 
     public static final class KeyProvider extends ItemKeyProvider<TorrentContentFileItem>
     {
-        Selectable<TorrentContentFileItem> selectable;
+        private Selectable<TorrentContentFileItem> selectable;
 
-        public KeyProvider(Selectable<TorrentContentFileItem> selectable)
+        KeyProvider(Selectable<TorrentContentFileItem> selectable)
         {
             super(SCOPE_MAPPED);
 
@@ -307,8 +306,14 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<TorrentContentFileItem>
     {
-        public TorrentContentFileItem selectionKey;
-        public int adapterPosition;
+        private TorrentContentFileItem selectionKey;
+        private int adapterPosition;
+
+        ItemDetails(TorrentContentFileItem selectionKey, int adapterPosition)
+        {
+            this.selectionKey = selectionKey;
+            this.adapterPosition = adapterPosition;
+        }
 
         @Nullable
         @Override
@@ -328,7 +333,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
     {
         private final RecyclerView recyclerView;
 
-        public ItemLookup(RecyclerView recyclerView)
+        ItemLookup(RecyclerView recyclerView)
         {
             this.recyclerView = recyclerView;
         }

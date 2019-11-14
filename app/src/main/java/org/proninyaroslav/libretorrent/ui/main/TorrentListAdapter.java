@@ -154,7 +154,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         private AnimatedVectorDrawableCompat pauseToPlayAnim;
         private AnimatedVectorDrawableCompat currAnim;
         /* For selection support */
-        private ItemDetails details = new ItemDetails();
+        private TorrentListItem selectionKey;
         private boolean isSelected;
 
         ViewHolder(ItemTorrentListBinding binding)
@@ -170,8 +170,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         void bind(TorrentListItem item, boolean isOpened, ClickListener listener)
         {
             Context context = itemView.getContext();
-            details.adapterPosition = getAdapterPosition();
-            details.selectionKey = item;
+            selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
                     R.attr.defaultSelectRect,
@@ -296,7 +295,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         @Override
         public ItemDetails getItemDetails()
         {
-            return details;
+            return new ItemDetails(selectionKey, getAdapterPosition());
         }
 
         void setPauseButtonState(boolean isPause)
@@ -339,9 +338,9 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
     public static final class KeyProvider extends ItemKeyProvider<TorrentListItem>
     {
-        Selectable<TorrentListItem> selectable;
+        private Selectable<TorrentListItem> selectable;
 
-        public KeyProvider(Selectable<TorrentListItem> selectable)
+        KeyProvider(Selectable<TorrentListItem> selectable)
         {
             super(SCOPE_MAPPED);
 
@@ -364,8 +363,14 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<TorrentListItem>
     {
-        public TorrentListItem selectionKey;
-        public int adapterPosition;
+        private TorrentListItem selectionKey;
+        private int adapterPosition;
+
+        ItemDetails(TorrentListItem selectionKey, int adapterPosition)
+        {
+            this.selectionKey = selectionKey;
+            this.adapterPosition = adapterPosition;
+        }
 
         @Nullable
         @Override
@@ -385,7 +390,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     {
         private final RecyclerView recyclerView;
 
-        public ItemLookup(RecyclerView recyclerView)
+        ItemLookup(RecyclerView recyclerView)
         {
             this.recyclerView = recyclerView;
         }

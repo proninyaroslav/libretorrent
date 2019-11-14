@@ -186,7 +186,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
     {
         private ItemFeedChannelListBinding binding;
         /* For selection support */
-        private ItemDetails details = new ItemDetails();
+        private FeedChannelItem selectionKey;
         private boolean isSelected;
 
         public ViewHolder(ItemFeedChannelListBinding binding)
@@ -200,8 +200,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
         {
             Context context = itemView.getContext();
 
-            details.adapterPosition = getAdapterPosition();
-            details.selectionKey = item;
+            selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
                     R.attr.defaultSelectRect,
@@ -276,7 +275,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
         @Override
         public ItemDetails getItemDetails()
         {
-            return details;
+            return new ItemDetails(selectionKey, getAdapterPosition());
         }
     }
 
@@ -286,9 +285,9 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
 
     public static final class KeyProvider extends ItemKeyProvider<FeedChannelItem>
     {
-        Selectable<FeedChannelItem> selectable;
+        private Selectable<FeedChannelItem> selectable;
 
-        public KeyProvider(Selectable<FeedChannelItem> selectable)
+        KeyProvider(Selectable<FeedChannelItem> selectable)
         {
             super(SCOPE_MAPPED);
 
@@ -311,8 +310,14 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<FeedChannelItem>
     {
-        public FeedChannelItem selectionKey;
-        public int adapterPosition;
+        private FeedChannelItem selectionKey;
+        private int adapterPosition;
+
+        ItemDetails(FeedChannelItem selectionKey, int adapterPosition)
+        {
+            this.selectionKey = selectionKey;
+            this.adapterPosition = adapterPosition;
+        }
 
         @Nullable
         @Override
@@ -332,7 +337,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
     {
         private final RecyclerView recyclerView;
 
-        public ItemLookup(RecyclerView recyclerView)
+        ItemLookup(RecyclerView recyclerView)
         {
             this.recyclerView = recyclerView;
         }

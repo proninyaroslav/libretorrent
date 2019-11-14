@@ -140,7 +140,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
     {
         private ItemTrackersListBinding binding;
         /* For selection support */
-        private ItemDetails details = new ItemDetails();
+        private TrackerItem selectionKey;
         private boolean isSelected;
 
         public ViewHolder(ItemTrackersListBinding binding)
@@ -154,8 +154,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
         {
             Context context = itemView.getContext();
 
-            details.adapterPosition = getAdapterPosition();
-            details.selectionKey = item;
+            selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
                     R.attr.defaultSelectRect,
@@ -209,7 +208,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
         @Override
         public ItemDetails getItemDetails()
         {
-            return details;
+            return new ItemDetails(selectionKey, getAdapterPosition());
         }
     }
 
@@ -219,9 +218,9 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
 
     public static final class KeyProvider extends ItemKeyProvider<TrackerItem>
     {
-        Selectable<TrackerItem> selectable;
+        private Selectable<TrackerItem> selectable;
 
-        public KeyProvider(Selectable<TrackerItem> selectable)
+        KeyProvider(Selectable<TrackerItem> selectable)
         {
             super(SCOPE_MAPPED);
 
@@ -244,8 +243,14 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<TrackerItem>
     {
-        public TrackerItem selectionKey;
-        public int adapterPosition;
+        private TrackerItem selectionKey;
+        private int adapterPosition;
+
+        ItemDetails(TrackerItem selectionKey, int adapterPosition)
+        {
+            this.selectionKey = selectionKey;
+            this.adapterPosition = adapterPosition;
+        }
 
         @Nullable
         @Override
@@ -265,7 +270,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
     {
         private final RecyclerView recyclerView;
 
-        public ItemLookup(RecyclerView recyclerView)
+        ItemLookup(RecyclerView recyclerView)
         {
             this.recyclerView = recyclerView;
         }
