@@ -163,8 +163,8 @@ dependencies {
     implementation "com.jaredrummler:colorpicker:1.1.0"
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
     implementation "commons-io:commons-io:2.5"
-    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
     implementation "uk.co.markormesher:android-fab:2.5.0"
-    implementation "net.java.dev.jna:jna:5.4.0@aar"
+    implementation "net.java.dev.jna:jna:5.5.0@aar"
 }
