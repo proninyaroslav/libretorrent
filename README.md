@@ -2,9 +2,9 @@
 
 LibreTorrent
 =====================
-[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
-[<img alt="Get it on F-Droid" height="80" src="https://f-droid.org/badge/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
-[<img alt="Get it on AFH" height="80" width="207" src="https://www.androidfilehost.com/images/afh.png">](https://www.androidfilehost.com/?w=files&flid=246723)
+[<img alt="Get it on Google Play" height="80" src="http://axet.gitlab.io/badges/googleplay-removed.svg">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
+[<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
+[<img alt="Get it on AFH" height="80" width="207" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=246723)
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
 **Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
