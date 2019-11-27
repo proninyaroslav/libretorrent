@@ -42,6 +42,7 @@
     <string name="details">विवरण</string>
     <string name="stats">आँकड़े</string>
     <string name="filters">फिल्टर</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
     <string name="delete_selected_torrent">चयनित धार हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>

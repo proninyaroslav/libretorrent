@@ -42,6 +42,7 @@
     <string name="details">Təfsilatlar</string>
     <string name="stats">Statistikalar</string>
     <string name="filters">Filtrlər</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Endirilmiş faylları da sil</string>
     <string name="delete_selected_torrent">Seçilmiş torrent silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>

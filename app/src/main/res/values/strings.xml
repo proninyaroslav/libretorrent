@@ -42,6 +42,7 @@
     <string name="details">Details</string>
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
+    <string name="apply">Apply</string>
 
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Delete with downloaded files</string>

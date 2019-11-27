@@ -42,6 +42,7 @@
     <string name="details">Podrobnosti</string>
     <string name="stats">Statistiky</string>
     <string name="filters">Filtry</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Smazat se staženými soubory</string>
     <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operace nemůže být vrácena</string>

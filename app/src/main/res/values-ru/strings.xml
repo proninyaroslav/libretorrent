@@ -42,6 +42,7 @@
     <string name="details">Подробности</string>
     <string name="stats">Статистика</string>
     <string name="filters">Фильтры</string>
+    <string name="apply">Применить</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
     <string name="delete_selected_torrent">Удалить выбранный торрент? Данная операция не может быть отменена</string>

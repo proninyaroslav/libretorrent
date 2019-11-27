@@ -42,6 +42,7 @@
     <string name="details">Детаљи</string>
     <string name="stats">Статистике</string>
     <string name="filters">Филтери</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Избриши са преузетим фајловима</string>
     <string name="delete_selected_torrent">Избриши изабрани торент? Ова операција не може бити повраћена</string>

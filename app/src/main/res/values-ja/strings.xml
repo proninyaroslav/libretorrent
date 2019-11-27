@@ -42,6 +42,7 @@
     <string name="details">詳細</string>
     <string name="stats">統計情報</string>
     <string name="filters">フィルター</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">全てのダウンロード済みファイルを削除</string>
     <string name="delete_selected_torrent">選択したトレントを削除しますか? この操作は元に戻せません。</string>

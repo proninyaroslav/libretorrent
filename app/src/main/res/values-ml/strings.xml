@@ -42,6 +42,7 @@
     <string name="details">Details</string>
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ഡൌൺലോഡ് ചെയ്ത ഫയലുകൾ ഇല്ലാതാക്കുക</string>
     <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>

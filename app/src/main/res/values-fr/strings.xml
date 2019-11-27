@@ -42,6 +42,7 @@
     <string name="details">Détails</string>
     <string name="stats">Stats</string>
     <string name="filters">Filtres</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
     <string name="delete_selected_torrent">Supprimer ce Torrent? Cette action ne pourra pas être annulée</string>

@@ -42,6 +42,7 @@
     <string name="details">Detalhes</string>
     <string name="stats">Status</string>
     <string name="filters">Filtros</string>
+    <string name="apply">Apply</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Deletar com arquivos baixados</string>
     <string name="delete_selected_torrent">Deletar o torrent selecionado? Esta operação não pode ser desfeita</string>
