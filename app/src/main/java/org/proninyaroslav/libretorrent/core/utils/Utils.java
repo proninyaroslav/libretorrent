@@ -435,13 +435,13 @@ public class Utils
         int theme = getThemePreference(context);
 
         if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.BaseTheme_Settings;
+            return R.style.AppTheme_Settings;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.BaseTheme_Settings_Dark;
+            return R.style.AppTheme_Settings_Dark;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.BaseTheme_Settings_Black;
+            return R.style.AppTheme_Settings_Black;
 
-        return R.style.BaseTheme_Settings;
+        return R.style.AppTheme_Settings;
     }
 
     public static boolean checkStoragePermission(@NonNull Context context)

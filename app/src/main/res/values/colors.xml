@@ -25,10 +25,8 @@
     <color name="text_primary">#DE000000</color>
     <color name="text_secondary">#9E9E9E</color>
     <color name="text_primary_inverse">#FFFFFF</color>
-    <color name="text_secondary_inverse">#9E9E9E</color>
     <color name="action_mode">#757575</color>
     <color name="action_mode_dark">#272727</color>
-    <color name="action_mode_black">#000000</color>
     <color name="selectable">#EDE7F6</color>
     <color name="selectable_dark">#23183B</color>
     <color name="selectable_drawer">#EDE7F6</color>
