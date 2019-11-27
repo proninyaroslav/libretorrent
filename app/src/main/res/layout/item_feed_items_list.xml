@@ -21,13 +21,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <TextView
                 android:id="@+id/pub_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/smallText" />
+                android:textAppearance="@style/TextCaption" />
         </LinearLayout>
 
         <ImageButton

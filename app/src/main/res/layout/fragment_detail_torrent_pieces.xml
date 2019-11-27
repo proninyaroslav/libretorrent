@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="org.proninyaroslav.libretorrent.core.utils.BindingAdapterUtils" />
@@ -37,14 +38,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/torrent_pieces"
-                    style="@style/BaseTheme.HeaderText" />
+                    style="@style/TitleText" />
 
                 <TextView
                     android:id="@+id/pieces_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{BindingAdapterUtils.formatPiecesInfo(context, viewModel.info.advancedInfo.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
-                    style="@style/BaseTheme.TorrentInfoText" />
+                    style="@style/TextAppearance.MaterialComponents.Body1" />
             </LinearLayout>
 
             <androidx.core.widget.ContentLoadingProgressBar
@@ -67,12 +68,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/piece_map"
-                    style="@style/BaseTheme.HeaderText" />
+                    style="@style/TitleText" />
 
                 <org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.PiecesView
                     android:id="@+id/piece_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:pieces_cellColor="?attr/pieceCellColor" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

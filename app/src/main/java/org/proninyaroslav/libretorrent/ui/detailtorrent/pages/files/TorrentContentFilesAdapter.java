@@ -162,7 +162,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                    R.attr.defaultSelectRect,
+                    R.attr.selectableColor,
                     R.attr.defaultRectRipple
             });
             Drawable d;

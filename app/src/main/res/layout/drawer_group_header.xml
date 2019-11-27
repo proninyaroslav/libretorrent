@@ -9,4 +9,4 @@
     android:focusable="true"
     app:expansion_expanded="false"
     app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-    android:background="?attr/defaultRectRipple" />
+    android:background="?attr/dialogRectRipple" />

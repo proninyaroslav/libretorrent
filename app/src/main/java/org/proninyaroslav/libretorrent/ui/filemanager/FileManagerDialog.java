@@ -184,7 +184,6 @@ public class FileManagerDialog extends AppCompatActivity
         adapter = new FileManagerAdapter(viewModel.config.highlightFileTypes, this);
         binding.fileList.setAdapter(adapter);
 
-        binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
     }
 

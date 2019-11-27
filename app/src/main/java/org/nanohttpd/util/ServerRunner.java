@@ -33,11 +33,11 @@ package org.nanohttpd.util;
  * #L%
  */
 
+import org.nanohttpd.protocols.http.NanoHTTPD;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.nanohttpd.protocols.http.NanoHTTPD;
 
 public class ServerRunner {
 

@@ -71,7 +71,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toLeftOf="@id/file_chooser_button"
-                        android:background="?attr/defaultRoundRipple"
+                        android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
                         android:padding="8dp"
                         android:src="@drawable/ic_folder_grey600_24dp" />
@@ -84,7 +84,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_alignParentRight="true"
                         android:padding="8dp"
-                        android:background="?attr/defaultRoundRipple"
+                        android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
                         android:src="@drawable/ic_file_grey600_24dp" />
                 </RelativeLayout>
@@ -99,38 +99,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/create_torrent_options"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <com.google.android.material.internal.FlowLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:itemSpacing="8dp">
 
                         <CheckBox
                             android:id="@+id/start_seeding"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:text="@string/option_start_seeding"
-                            android:checked="@={viewModel.mutableParams.startSeeding}" />
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.mutableParams.startSeeding}"
+                            android:text="@string/option_start_seeding" />
 
                         <CheckBox
                             android:id="@+id/private_torrent"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:text="@string/option_private_torrent"
-                            android:checked="@={viewModel.mutableParams.privateTorrent}" />
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.mutableParams.privateTorrent}"
+                            android:text="@string/option_private_torrent" />
 
                         <CheckBox
                             android:id="@+id/optimize_alignment"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:text="@string/option_optimize_alignment"
-                            android:checked="@={viewModel.mutableParams.optimizeAlignment}" />
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.mutableParams.optimizeAlignment}"
+                            android:text="@string/option_optimize_alignment" />
                     </com.google.android.material.internal.FlowLayout>
                 </LinearLayout>
 
@@ -144,7 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/skip_files"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_skip_files"
@@ -173,7 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tracker_urls"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tracker_urls"
@@ -201,7 +196,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/web_seed_urls"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_web_seed_urls"
@@ -229,7 +224,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/piece_size"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <Spinner
                         android:id="@+id/pieces_size"
@@ -237,7 +232,8 @@
                         android:layout_height="match_parent"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
-                        android:entries="@array/piece_size_entries" />
+                        android:entries="@array/piece_size_entries"
+                        style="?attr/popupTheme" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,7 +245,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/comments"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_comments"

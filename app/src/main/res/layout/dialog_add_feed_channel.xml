@@ -56,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textColor="?android:attr/textColorPrimary"
                 android:text="@string/feed_auto_download"
                 android:checked="@={viewModel.mutableParams.autoDownload}"/>
 
@@ -65,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textColor="?android:attr/textColorPrimary"
                 android:enabled="@{viewModel.mutableParams.autoDownload}"
                 android:visibility="@{viewModel.mode == AddFeedViewModel.Mode.ADD ? View.VISIBLE : View.GONE}"
                 android:text="@string/feed_do_not_download_immediately"
@@ -105,16 +103,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
                         android:paddingBottom="16dp"
                         android:text="@string/feed_filter_prompt"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
                     <View
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/gray" />
+                        android:background="?attr/divider" />
                 </RelativeLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
@@ -124,7 +123,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:enabled="@{viewModel.mutableParams.autoDownload}"
-                android:textColor="?android:attr/textColorPrimary"
                 android:text="@string/feed_use_regex"
                 android:checked="@={viewModel.mutableParams.regexFilter}"/>
         </LinearLayout>

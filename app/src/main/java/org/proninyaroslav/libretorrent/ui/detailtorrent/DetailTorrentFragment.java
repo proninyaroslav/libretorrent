@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import androidx.core.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +48,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -649,11 +651,13 @@ public class DetailTorrentFragment extends Fragment
         int curLineStartIndex = 0;
         for (String s : strings) {
             if (!Utils.isValidTrackerUrl(s) && field.getText() != null) {
+                TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.colorError});
                 /* Select invalid url */
-                field.getText().setSpan(new ForegroundColorSpan(ContextCompat.getColor(activity.getApplicationContext(), R.color.error)),
+                field.getText().setSpan(new ForegroundColorSpan(a.getColor(0, 0)),
                         curLineStartIndex,
                         curLineStartIndex + s.length(),
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                a.recycle();
 
                 valid = false;
             }

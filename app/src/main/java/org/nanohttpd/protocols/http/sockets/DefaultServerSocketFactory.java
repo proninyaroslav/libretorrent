@@ -33,10 +33,10 @@ package org.nanohttpd.protocols.http.sockets;
  * #L%
  */
 
+import org.nanohttpd.util.IFactoryThrowing;
+
 import java.io.IOException;
 import java.net.ServerSocket;
-
-import org.nanohttpd.util.IFactoryThrowing;
 
 /**
  * Creates a normal ServerSocket for TCP connections

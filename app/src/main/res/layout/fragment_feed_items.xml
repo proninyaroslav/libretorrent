@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/toolbarColor"
                 app:layout_scrollFlags="enterAlways"
                 android:transitionName="actionBar"
                 app:popupTheme="?attr/popupTheme"
@@ -25,7 +25,7 @@
                 android:focusable="true" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,13 +38,13 @@
                 android:layout_below="@id/app_bar"
                 android:scrollbars="vertical"
                 android:focusable="true" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout>
 
         <TextView
             android:id="@+id/empty_view_feed_items"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/feed_item_list_empty"
-            style="@style/BaseTheme.EmptyView" />
+            style="@style/EmptyView" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

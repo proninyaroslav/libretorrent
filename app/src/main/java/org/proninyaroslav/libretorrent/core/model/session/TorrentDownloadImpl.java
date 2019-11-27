@@ -23,12 +23,11 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
-import androidx.core.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
 
-import org.jetbrains.annotations.NotNull;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.ErrorCode;
@@ -611,7 +610,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void prioritizeFiles(@NotNull Priority[] priorities)
+    public void prioritizeFiles(@NonNull Priority[] priorities)
     {
         if (!th.isValid())
             return;
@@ -906,7 +905,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void replaceTrackers(@NotNull Set<String> trackers)
+    public void replaceTrackers(@NonNull Set<String> trackers)
     {
         List<AnnounceEntry> urls = new ArrayList<>(trackers.size());
         for (String url : trackers)
@@ -916,7 +915,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void addTrackers(@NotNull Set<String> trackers)
+    public void addTrackers(@NonNull Set<String> trackers)
     {
         for (String url : trackers) {
             if (url == null)
@@ -927,7 +926,7 @@ public class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void addWebSeeds(@NotNull List<String> urls)
+    public void addWebSeeds(@NonNull List<String> urls)
     {
         for (String url : urls) {
             if (url == null)
@@ -1414,7 +1413,7 @@ public class TorrentDownloadImpl implements TorrentDownload
      */
 
     @Override
-    public void setInterestedPieces(@NotNull TorrentStream stream, int startPiece, int numPieces)
+    public void setInterestedPieces(@NonNull TorrentStream stream, int startPiece, int numPieces)
     {
         if (startPiece < 0 || numPieces < 0)
             return;

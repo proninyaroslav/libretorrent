@@ -18,7 +18,7 @@
             android:paddingBottom="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <ProgressBar
             android:id="@+id/progress"

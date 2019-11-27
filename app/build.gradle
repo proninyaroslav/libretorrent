@@ -165,6 +165,6 @@ dependencies {
     implementation "commons-io:commons-io:2.5"
     implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
-    implementation "uk.co.markormesher:android-fab:2.5.0"
+    implementation "com.leinardi.android:speed-dial:3.1.1"
     implementation "net.java.dev.jna:jna:5.5.0@aar"
 }

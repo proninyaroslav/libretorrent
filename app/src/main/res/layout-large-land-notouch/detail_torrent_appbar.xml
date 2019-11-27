@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/toolbarColor"
                 app:layout_scrollFlags="enterAlways"
                 android:transitionName="actionBar"
                 app:popupTheme="?attr/popupTheme"
@@ -28,12 +28,9 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginRight="72dp"
                 android:layout_marginLeft="72dp"
-                app:tabMode="scrollable"
-                app:tabMaxWidth="0dp"
-                app:tabGravity="fill"
-                android:elevation="@dimen/toolbar_elevation"
                 android:focusable="true"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+                app:tabMode="scrollable"
+                style="?attr/tabLayoutTheme" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </layout>

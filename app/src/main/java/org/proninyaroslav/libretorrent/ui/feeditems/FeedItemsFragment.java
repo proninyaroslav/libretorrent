@@ -167,7 +167,6 @@ public class FeedItemsFragment extends Fragment
         adapter = new FeedItemsAdapter(this);
         binding.feedItemsList.setAdapter(adapter);
 
-        binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(() -> viewModel.refreshChannel());
     }
 

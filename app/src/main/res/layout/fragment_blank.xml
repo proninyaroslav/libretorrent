@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/toolbarColor" />
 
     <TextView
         android:id="@+id/blank_text"

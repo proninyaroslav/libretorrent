@@ -33,6 +33,10 @@ package org.nanohttpd.protocols.http.response;
  * #L%
  */
 
+import org.nanohttpd.protocols.http.NanoHTTPD;
+import org.nanohttpd.protocols.http.content.ContentType;
+import org.nanohttpd.protocols.http.request.Method;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -55,10 +59,6 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
-
-import org.nanohttpd.protocols.http.NanoHTTPD;
-import org.nanohttpd.protocols.http.content.ContentType;
-import org.nanohttpd.protocols.http.request.Method;
 
 /**
  * HTTP response. Return one of these from serve().

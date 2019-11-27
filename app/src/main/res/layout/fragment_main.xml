@@ -22,13 +22,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/torrent_list_empty"
-            style="@style/BaseTheme.EmptyView" />
+            style="@style/EmptyView" />
 
-        <uk.co.markormesher.android_fab.FloatingActionButton
-            android:id="@+id/fab_button"
+        <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+            android:id="@+id/fab_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:buttonBackgroundColour="@color/accent"
-            app:buttonIcon="@drawable/ic_add_white_36dp" />
+            android:background="?attr/speedDialOverlayColor" />
+
+        <org.proninyaroslav.libretorrent.ui.customviews.ThemedSpeedDialView
+            android:id="@+id/fab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            app:sdMainFabClosedSrc="@drawable/ic_add_36dp"
+            app:sdMainFabAnimationRotateAngle="135"
+            app:sdOverlayLayout="@id/fab_overlay" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

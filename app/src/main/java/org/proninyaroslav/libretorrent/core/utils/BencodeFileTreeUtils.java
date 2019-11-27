@@ -21,10 +21,10 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import androidx.core.util.Pair;
 
+import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileTree;
-import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 
 import java.io.File;
 import java.util.ArrayList;

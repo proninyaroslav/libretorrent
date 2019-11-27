@@ -36,14 +36,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/torrent_speed"
-                    style="@style/BaseTheme.HeaderText" />
+                    style="@style/TitleText" />
 
                 <TextView
                     android:id="@+id/speed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{BindingAdapterUtils.formatSpeed(context, viewModel.info.torrentInfo.uploadSpeed, viewModel.info.torrentInfo.downloadSpeed)}"
-                    style="@style/BaseTheme.TorrentInfoText" />
+                    style="@style/TextAppearance.MaterialComponents.Body1" />
             </LinearLayout>
 
             <LinearLayout
@@ -64,14 +64,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_seeds"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/seeds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{@string/torrent_peers_template(viewModel.info.advancedInfo.seeds, viewModel.info.advancedInfo.totalSeeds)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,14 +85,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_leechers"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/leechers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{@string/torrent_peers_template(viewModel.info.leechers, viewModel.info.totalLeechers)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -114,14 +114,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_downloaded"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/downloading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.torrentInfo.receivedBytes, viewModel.info.torrentInfo.totalBytes, viewModel.info.torrentInfo.progress)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -135,14 +135,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_ETA"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/ETA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{BindingAdapterUtils.formatETA(context, viewModel.info.torrentInfo.ETA)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -164,14 +164,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_uploaded"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/uploaded"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:fileSize="@{viewModel.info.torrentInfo.uploadedBytes}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -185,14 +185,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_share_ratio"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/share_ratio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:floatNum="@{viewModel.info.advancedInfo.shareRatio}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -214,14 +214,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_active_time"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/active_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.activeTime)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -235,14 +235,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_seeding_time"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/seeding_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.seedingTime)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -264,14 +264,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_pieces"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/pieces"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{BindingAdapterUtils.formatPieces(context, viewModel.info.advancedInfo.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -285,14 +285,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_availability"
-                        style="@style/BaseTheme.HeaderText" />
+                        style="@style/TitleText" />
 
                     <TextView
                         android:id="@+id/availability"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:floatNum="@{viewModel.info.advancedInfo.availability}"
-                        style="@style/BaseTheme.TorrentInfoText" />
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

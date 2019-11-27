@@ -157,15 +157,16 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
             selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                    R.attr.defaultSelectRect,
-                    R.attr.defaultRectRipple
+                    R.attr.selectableColor,
+                    R.attr.defaultRectRipple,
+                    R.attr.colorError,
+                    R.attr.colorOk
             });
 
             if (isSelected)
                 Utils.setBackground(itemView, a.getDrawable(0));
             else
                 Utils.setBackground(itemView, a.getDrawable(1));
-            a.recycle();
 
             binding.url.setText(item.url);
 
@@ -193,11 +194,13 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
             }
 
             if (item.status == TrackerInfo.Status.WORKING)
-                binding.status.setTextColor(ContextCompat.getColor(context, R.color.ok));
+                binding.status.setTextColor(a.getColor(3, 0));
             else if (item.status == TrackerInfo.Status.NOT_WORKING)
-                binding.status.setTextColor(ContextCompat.getColor(context, R.color.error));
+                binding.status.setTextColor(a.getColor(2, 0));
             else
                 binding.status.setTextColor(ContextCompat.getColor(context, R.color.text_secondary));
+
+            a.recycle();
         }
 
         private void setSelected(boolean isSelected)

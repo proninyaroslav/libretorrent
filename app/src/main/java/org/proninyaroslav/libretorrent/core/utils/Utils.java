@@ -46,10 +46,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -120,9 +121,11 @@ public class Utils
     public static void colorizeProgressBar(@NonNull Context context,
                                            @NonNull ProgressBar progress)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
-                                                          android.graphics.PorterDuff.Mode.SRC_IN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        progress.getProgressDrawable().setColorFilter(getAttributeColor(context, R.attr.colorSecondary),
+                android.graphics.PorterDuff.Mode.SRC_IN);
     }
 
     /*
@@ -735,8 +738,8 @@ public class Utils
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             return;
 
-        int color = (mode ? R.color.action_mode_dark : R.color.primary_dark);
-        activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, color));
+        int attr = (mode ? R.attr.actionModeBackground : R.attr.statusBarColor);
+        activity.getWindow().setStatusBarColor(getAttributeColor(activity, attr));
     }
 
     public static int getAttributeColor(@NonNull Context context, int attributeId)
@@ -780,6 +783,14 @@ public class Utils
             textView.setTextAppearance(context, resId);
         else
             textView.setTextAppearance(resId);
+    }
+
+    public static Drawable getVectorDrawable(@NonNull Activity activity, @DrawableRes int resId)
+    {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return VectorDrawableCompat.create(activity.getResources(), resId, activity.getTheme());
+        else
+            return activity.getResources().getDrawable(resId, activity.getTheme());
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,14 +22,14 @@
                 android:scrollbars="vertical"
                 android:focusable="true"
                 android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout>
 
         <TextView
             android:id="@+id/empty_view_feeds"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/feed_channel_list_empty"
-            style="@style/BaseTheme.EmptyView" />
+            style="@style/EmptyView" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_channel"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_add_white_36dp"
+            app:srcCompat="@drawable/ic_add_36dp"
             android:focusable="true" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

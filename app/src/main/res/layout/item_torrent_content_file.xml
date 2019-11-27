@@ -35,7 +35,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:maxLines="2"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <ProgressBar
                     android:id="@+id/progress"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:maxLines="2"
-                    android:textAppearance="?attr/smallText" />
+                    android:textAppearance="@style/TextCaption" />
             </LinearLayout>
         </LinearLayout>
 

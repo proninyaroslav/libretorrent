@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemState;
@@ -232,17 +231,15 @@ public class DrawerExpandableAdapter extends AbstractExpandableItemAdapter<
             if (item.iconResId != -1)
                 icon.setImageResource(item.iconResId);
 
-            if (group.isItemSelected(item.id)) {
-                itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_item));
-            } else {
-                TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                        R.attr.defaultRectRipple
-                });
-                Drawable d = a.getDrawable(0);
-                if (d != null)
-                    Utils.setBackground(itemView, d);
-                a.recycle();
-            }
+            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
+                    R.attr.selectableDrawer,
+                    R.attr.dialogRectRipple
+            });
+            int colorIdx = (group.isItemSelected(item.id) ? 0 : 1);
+            Drawable d = a.getDrawable(colorIdx);
+            if (d != null)
+                Utils.setBackground(itemView, d);
+            a.recycle();
         }
     }
 

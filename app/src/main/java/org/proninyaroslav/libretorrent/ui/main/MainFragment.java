@@ -39,13 +39,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -60,8 +58,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
 
-import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -81,8 +79,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import uk.co.markormesher.android_fab.SpeedDialMenuAdapter;
-import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
 /*
  * The list of torrents.
@@ -91,6 +87,15 @@ import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 public class MainFragment extends Fragment
         implements TorrentListAdapter.ClickListener
 {
+//    /*
+//     * In Android 4.x, there is an issue about selector of vector drawable XML.
+//     * Need to add the following snippet in Activity classes
+//     * https://stackoverflow.com/questions/36741036/android-selector-drawable-with-vectordrawables-srccompat/38012842#38012842
+//     */
+//    static {
+//        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+//    }
+
     @SuppressWarnings("unused")
     private static final String TAG = MainFragment.class.getSimpleName();
 
@@ -216,9 +221,7 @@ public class MainFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         adapter.setSelectionTracker(selectionTracker);
 
-        binding.fabButton.setContentCoverColour(Utils.getAttributeColor(activity, R.attr.background));
-        binding.fabButton.getContentCoverView().getBackground().setAlpha(128);
-        binding.fabButton.setSpeedDialMenuAdapter(fabAdapter);
+        initFabSpeedDial();
 
         FragmentManager fm = getFragmentManager();
         if (fm != null) {
@@ -450,82 +453,46 @@ public class MainFragment extends Fragment
         return true;
     }
 
-    private final SpeedDialMenuAdapter fabAdapter = new SpeedDialMenuAdapter()
+    private void initFabSpeedDial()
     {
-        @Override
-        public int getCount()
-        {
-            return fabItems.length;
-        }
-
-        @NotNull
-        @Override
-        public SpeedDialMenuItem getMenuItem(@NotNull Context context, int position)
-        {
-            if (position < 0 || position >= fabItems.length)
-                throw new IllegalArgumentException("Invalid position: " + position);
-
-            FabItem item = fabItems[position];
-            switch (item) {
-                case ADD_LINK:
-                    return new SpeedDialMenuItem(context,
-                            R.drawable.ic_link_white_18dp,
-                            R.string.add_link);
-                case OPEN_FILE:
-                    return new SpeedDialMenuItem(context,
-                            R.drawable.ic_file_white_18dp,
-                            R.string.open_file);
-                case CREATE_TORRENT:
-                    return new SpeedDialMenuItem(context,
-                            R.drawable.ic_mode_edit_white_18dp,
-                            R.string.create_torrent);
-                default:
-                    throw new IllegalArgumentException("Invalid item: " + item);
-            }
-        }
-
-        @Override
-        public boolean onMenuItemClick(int position)
-        {
-            if (position < 0 || position >= fabItems.length)
-                return false;
-
-            FabItem item = fabItems[position];
-            switch (item) {
-                case ADD_LINK:
+        binding.fabButton.setOnActionSelectedListener((item) -> {
+            switch (item.getId()) {
+                case R.id.main_fab_add_link:
                     addLinkDialog();
                     break;
-                case OPEN_FILE:
+                case R.id.main_fab_open_file:
                     openTorrentFileDialog();
                     break;
-                case CREATE_TORRENT:
+                case R.id.main_fab_create_torrent:
                     createTorrentDialog();
                     break;
                 default:
                     return false;
             }
 
+            binding.fabButton.close();
+
             return true;
-        }
+        });
 
-        @Override
-        public void onPrepareItemLabel(@NotNull Context context, int position, @NotNull TextView label)
-        {
-            label.setTextAppearance(context, R.style.TextAppearance_MaterialComponents_Subtitle2);
-        }
+        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
+                R.id.main_fab_create_torrent,
+                R.drawable.ic_mode_edit_18dp)
+                .setLabel(R.string.create_torrent)
+                .create());
 
-        @Override
-        public int getBackgroundColour(int position)
-        {
-            return ContextCompat.getColor(activity, R.color.accent);
-        }
+        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
+                R.id.main_fab_open_file,
+                R.drawable.ic_file_18dp)
+                .setLabel(R.string.open_file)
+                .create());
 
-        @Override
-        public float fabRotationDegrees()
-        {
-            return 45f;
-        }
-    };
+        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
+                R.id.main_fab_add_link,
+                R.drawable.ic_link_18dp)
+                .setLabel(R.string.add_link)
+                .create());
+    }
 
     private void setActionModeTitle(int itemCount)
     {

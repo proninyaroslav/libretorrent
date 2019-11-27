@@ -180,7 +180,6 @@ public class FeedFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         adapter.setSelectionTracker(selectionTracker);
 
-        binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(() -> viewModel.refreshAllFeeds());
 
         binding.addChannel.setOnClickListener((v) ->

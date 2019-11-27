@@ -25,9 +25,8 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="200dp"
                 android:layout_marginRight="200dp"
-                card_view:cardBackgroundColor="?attr/background"
-                card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="2dp">
+                card_view:cardCornerRadius="4dp"
+                card_view:cardBackgroundColor="?attr/foreground">
 
                 <include
                     layout="@layout/add_torrent_info"

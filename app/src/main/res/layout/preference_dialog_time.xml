@@ -7,4 +7,4 @@
     android:layout_height="match_parent"
     android:paddingBottom="18dp"
     android:paddingTop="18dp"
-    android:theme="@style/BaseTheme.Settings" />
+    android:theme="@style/AppTheme.Settings" />

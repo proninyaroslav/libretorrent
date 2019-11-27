@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.settings;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class SettingsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         setTheme(Utils.getSettingsTheme(getApplicationContext()));
+        /* A workaround for the bug with android:statusBarColor attribute */
+        colorizeStatusBar();
         super.onCreate(savedInstanceState);
 
         viewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
@@ -72,5 +75,13 @@ public class SettingsActivity extends AppCompatActivity
         }
 
         return true;
+    }
+
+    private void colorizeStatusBar()
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        getWindow().setStatusBarColor(Utils.getAttributeColor(this, R.attr.statusBarColor));
     }
 }

@@ -203,7 +203,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
             selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                    R.attr.defaultSelectRect,
+                    R.attr.selectableColor,
                     R.attr.defaultRectRipple
             });
             Drawable d;
@@ -249,22 +249,12 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
                 binding.error.setVisibility(View.GONE);
             }
 
-            if (isOpened) {
-                if (!isSelected) {
-                    a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
-                    d = a.getDrawable(0);
-                    if (d != null)
-                        Utils.setBackground(itemView, d);
-                    a.recycle();
-                }
-                d = ContextCompat.getDrawable(context, R.color.accent);
-                if (d != null)
-                    Utils.setBackground(binding.indicatorCurOpenFeed, d);
-            } else {
+            if (isOpened)
+                d = ContextCompat.getDrawable(context, R.color.primary_light);
+            else
                 d = ContextCompat.getDrawable(context, android.R.color.transparent);
-                if (d != null)
-                    Utils.setBackground(binding.indicatorCurOpenFeed, d);
-            }
+            if (d != null)
+                Utils.setBackground(binding.indicatorCurOpenFeed, d);
         }
 
         private void setSelected(boolean isSelected)

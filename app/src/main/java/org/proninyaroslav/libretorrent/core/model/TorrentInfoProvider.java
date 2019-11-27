@@ -24,7 +24,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
@@ -163,7 +162,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onTorrentPaused(@NotNull String torrentId)
+                public void onTorrentPaused(@NonNull String torrentId)
                 {
                     try {
                         handleEvent.accept(torrentId);
@@ -242,7 +241,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onTorrentPaused(@NotNull String torrentId)
+                public void onTorrentPaused(@NonNull String torrentId)
                 {
                     handleInfo.run();
                 }

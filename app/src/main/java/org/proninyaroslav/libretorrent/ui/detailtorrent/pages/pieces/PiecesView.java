@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,12 +20,14 @@
 package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -52,28 +54,36 @@ public class PiecesView extends View
     Paint empty = new Paint();
     Paint complete = new Paint();
 
-    public PiecesView(Context context, AttributeSet attrs)
+    public PiecesView(@NonNull Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
-        create();
+        create(context, attrs);
     }
 
-    public PiecesView(Context context, AttributeSet attrs, int defStyleAttr)
+    public PiecesView(@NonNull Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
 
-        create();
+        create(context, attrs);
     }
 
-    void create()
+    void create(Context context, AttributeSet attrs)
     {
         cellSize = Utils.dpToPx(getContext(), CELL_SIZE_DP);
         borderSize = Utils.dpToPx(getContext(), BORDER_SIZE_DP);
         stepSize = cellSize + borderSize;
 
-        empty.setColor(ContextCompat.getColor(getContext(), R.color.pieces_cell));
-        complete.setColor(ContextCompat.getColor(getContext(), R.color.accent));
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PiecesView);
+            int color = a.getColor(R.styleable.PiecesView_pieces_cellColor, 0);
+            empty.setColor(color);
+            a.recycle();
+        }
+
+        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] { R.attr.colorSecondary });
+        complete.setColor(a.getColor(0, 0));
+        a.recycle();
     }
 
     public void setPieces(boolean[] pieces)

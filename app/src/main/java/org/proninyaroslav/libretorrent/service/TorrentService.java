@@ -35,7 +35,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import org.jetbrains.annotations.NotNull;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentNotifier;
@@ -211,7 +210,7 @@ public class TorrentService extends Service
         }
 
         @Override
-        public void onParamsApplied(@NotNull String id, Throwable e)
+        public void onParamsApplied(@NonNull String id, Throwable e)
         {
             checkShutdown();
         }

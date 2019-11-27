@@ -187,13 +187,13 @@ public class TorrentEngineTest extends AbstractTest
             }
 
             @Override
-            public void onApplyingParams(@NotNull String id)
+            public void onApplyingParams(@NonNull String id)
             {
                 applying.set(true);
             }
 
             @Override
-            public void onParamsApplied(@NotNull String id, Throwable e)
+            public void onParamsApplied(@NonNull String id, Throwable e)
             {
                 if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;
@@ -244,13 +244,13 @@ public class TorrentEngineTest extends AbstractTest
             }
 
             @Override
-            public void onApplyingParams(@NotNull String id)
+            public void onApplyingParams(@NonNull String id)
             {
                 applying.set(true);
             }
 
             @Override
-            public void onTorrentMoved(@NotNull String id, boolean success)
+            public void onTorrentMoved(@NonNull String id, boolean success)
             {
                 if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;
@@ -261,7 +261,7 @@ public class TorrentEngineTest extends AbstractTest
             }
 
             @Override
-            public void onParamsApplied(@NotNull String id, Throwable e)
+            public void onParamsApplied(@NonNull String id, Throwable e)
             {
                 if (!TorrentEngineTest.this.params.sha1hash.equals(id))
                     return;

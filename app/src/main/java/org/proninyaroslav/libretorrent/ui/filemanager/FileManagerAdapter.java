@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +38,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -130,7 +130,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
             FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
             if (item.isEnabled()) {
                 if (highlightFileTypes != null && highlightFileTypes.contains(fs.getExtension(item.getName()))) {
-                    fileName.setTextColor(ContextCompat.getColor(context, R.color.accent));
+                    fileName.setTextColor(Utils.getAttributeColor(context, R.attr.colorSecondary));
                 } else {
                     TypedArray a = context.obtainStyledAttributes(new TypedValue().data,
                             new int[]{ android.R.attr.textColorPrimary });

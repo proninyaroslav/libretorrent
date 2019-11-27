@@ -6,7 +6,7 @@
     android:paddingStart="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:background="?attr/defaultRectRipple">
+    android:background="?attr/dialogRectRipple">
 
     <ImageView
         android:id="@+id/icon"

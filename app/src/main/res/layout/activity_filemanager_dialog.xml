@@ -35,7 +35,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/primary"
+                android:background="?attr/toolbarColor"
                 android:focusable="true"
                 android:minHeight="?attr/actionBarSize"
                 android:transitionName="actionBar"
@@ -46,7 +46,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/primary"
+                android:background="?attr/toolbarColor"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -61,11 +61,11 @@
                     android:paddingRight="16dp"
                     android:text="@{viewModel.curDir}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/text_primary_inverse" />
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,10 +83,9 @@
                 android:scrollbars="vertical"
                 android:focusable="true"
                 android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout>
 
-        <!-- TODO: change to com.google.android.material.button.MaterialButton -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/open_system_filemanager_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +94,9 @@
             android:layout_marginTop="135dp"
             android:layout_gravity="top|start"
             android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
-            app:backgroundTint="@color/accent"
+            android:textColor="?attr/colorOnSecondary"
+            app:backgroundTint="?attr/colorSecondary"
+            app:iconTint="?attr/colorOnSecondary"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp"
             android:focusable="true" />
@@ -108,7 +109,7 @@
             android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}"
             app:layout_anchor="@id/bottom_bar"
             app:layout_anchorGravity="top|right"
-            app:srcCompat="@drawable/ic_add_white_36dp"
+            app:srcCompat="@drawable/ic_add_36dp"
             android:focusable="true" />
 
         <FrameLayout

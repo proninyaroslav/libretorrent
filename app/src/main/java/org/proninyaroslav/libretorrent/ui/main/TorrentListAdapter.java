@@ -173,7 +173,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             selectionKey = item;
 
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                    R.attr.defaultSelectRect,
+                    R.attr.selectableColor,
                     R.attr.defaultRectRipple
             });
             Drawable d;
@@ -269,22 +269,12 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
                 binding.error.setVisibility(View.GONE);
             }
 
-            if (isOpened) {
-                if (!isSelected) {
-                    a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.curOpenTorrentIndicator });
-                    d = a.getDrawable(0);
-                    if (d != null)
-                        Utils.setBackground(itemView, d);
-                    a.recycle();
-                }
-                d = ContextCompat.getDrawable(context, R.color.accent);
-                if (d != null)
-                    Utils.setBackground(binding.indicatorCurOpenTorrent, d);
-            } else {
+            if (isOpened)
+                d = ContextCompat.getDrawable(context, R.color.primary_light);
+            else
                 d = ContextCompat.getDrawable(context, android.R.color.transparent);
-                if (d != null)
-                    Utils.setBackground(binding.indicatorCurOpenTorrent, d);
-            }
+            if (d != null)
+                Utils.setBackground(binding.indicatorCurOpenTorrent, d);
         }
 
         private void setSelected(boolean isSelected)
