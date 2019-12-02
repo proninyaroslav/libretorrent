@@ -971,9 +971,6 @@ public class TorrentSessionImpl extends SessionManager
         sp.sendBufferWatermark(sendBufferWatermark / 2);
         /* TODO: settings */
 //        sp.seedingOutgoingConnections(false);
-        sp.cacheSize(256);
-        sp.tickInterval(1000);
-        sp.inactivityTimeout(60);
         settingsToSettingsPack(settings, sp);
 
         return sp;
