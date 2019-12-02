@@ -59,8 +59,8 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receiver.PowerReceiver;
@@ -965,7 +965,7 @@ public class TorrentEngine
         String dir = pref.dirToWatch();
         Uri uri = Uri.parse(dir);
         /* TODO: SAF support */
-        if (fs.isSafPath(uri))
+        if (Utils.isSafPath(appContext, uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
         dir = uri.getPath();
 

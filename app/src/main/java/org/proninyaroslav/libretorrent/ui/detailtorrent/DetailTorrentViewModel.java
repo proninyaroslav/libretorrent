@@ -52,8 +52,9 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -311,7 +312,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (path == null)
             return null;
 
-        if (fs.isFileSystemPath(path))
+        if (Utils.isFileSystemPath(path))
             path = FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(path.getPath()));

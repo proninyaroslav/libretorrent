@@ -30,7 +30,7 @@ import androidx.core.content.ContextCompat;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import io.reactivex.BackpressureStrategy;

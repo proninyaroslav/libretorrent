@@ -19,29 +19,25 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import java.io.FileDescriptor;
+
+public class FakeFileDescriptorWrapper implements FileDescriptorWrapper
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
+    private FileDescriptor fd;
 
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
+    public FakeFileDescriptorWrapper(FileDescriptor fd)
     {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
+        this.fd = fd;
     }
 
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
+    @Override
+    public FileDescriptor open(@NonNull String mode)
     {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(appContext,
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
+        return fd;
     }
+
+    @Override
+    public void close() { }
 }

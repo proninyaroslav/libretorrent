@@ -35,7 +35,8 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 
@@ -186,7 +187,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     private void dirChooseDialog(Uri path, boolean disableSystemFileManager)
     {
         String dirPath = null;
-        if (path != null && fs.isFileSystemPath(path))
+        if (path != null && Utils.isFileSystemPath(path))
             dirPath = path.getPath();
 
         Intent i = new Intent(getActivity(), FileManagerDialog.class);

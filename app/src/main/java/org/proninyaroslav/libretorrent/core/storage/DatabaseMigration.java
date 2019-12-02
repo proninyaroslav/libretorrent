@@ -28,7 +28,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;

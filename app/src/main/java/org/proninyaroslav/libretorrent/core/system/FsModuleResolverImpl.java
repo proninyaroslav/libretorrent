@@ -20,28 +20,33 @@
 package org.proninyaroslav.libretorrent.core.system;
 
 import android.content.Context;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+
+class FsModuleResolverImpl implements FsModuleResolver
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
+    private Context appContext;
+    private SafFsModule safModule;
+    private DefaultFsModule defaultModule;
 
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
+    public FsModuleResolverImpl(@NonNull Context appContext)
     {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
+        this.appContext = appContext;
+        this.safModule = new SafFsModule(appContext);
+        this.defaultModule = new DefaultFsModule(appContext);
     }
 
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
+    @Override
+    public FsModule resolveFsByUri(@NonNull Uri uri)
     {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(appContext,
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
+        if (Utils.isSafPath(appContext, uri))
+            return safModule;
+        else if (Utils.isFileSystemPath(uri))
+            return defaultModule;
+        else
+            throw new IllegalArgumentException("Cannot resolve file system for the given uri: " + uri);
     }
 }

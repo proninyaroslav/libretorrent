@@ -35,7 +35,7 @@ import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -165,7 +165,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             throw new IllegalArgumentException("Save path is null");
 
         /* TODO: SAF support */
-        if (!fs.isFileSystemPath(seedPath))
+        if (!Utils.isFileSystemPath(seedPath))
             throw new IllegalArgumentException("SAF doesn't supported");
 
         return new TorrentBuilder(getApplication())

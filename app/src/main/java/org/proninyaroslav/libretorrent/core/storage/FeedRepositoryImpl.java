@@ -30,8 +30,8 @@ import com.google.gson.reflect.TypeToken;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
 import java.io.FileInputStream;
 import java.io.IOException;

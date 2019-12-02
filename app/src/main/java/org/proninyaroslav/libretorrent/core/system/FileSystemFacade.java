@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.system.filesystem;
+package org.proninyaroslav.libretorrent.core.system;
 
 import android.annotation.TargetApi;
 import android.net.Uri;
@@ -41,14 +41,8 @@ public interface FileSystemFacade
     @Nullable
     String getDefaultDownloadPath();
 
-    String altExtStoragePath();
-
     @Nullable
     String getUserDirPath();
-
-    boolean isSafPath(@NonNull Uri path);
-
-    boolean isFileSystemPath(@NonNull Uri path);
 
     boolean deleteFile(@NonNull Uri path) throws FileNotFoundException;
 
@@ -60,17 +54,11 @@ public interface FileSystemFacade
 
     boolean fileExists(@NonNull Uri filePath);
 
-    boolean fileExists(@NonNull Uri dir,
-                       @NonNull String relativePath);
-
     long lastModified(@NonNull Uri filePath);
 
     boolean isStorageWritable();
 
     boolean isStorageReadable();
-
-    void copyFile(@NonNull Uri src,
-                  @NonNull Uri dest) throws IOException;
 
     Uri createFile(@NonNull Uri dir,
                    @NonNull String fileName,
@@ -88,16 +76,11 @@ public interface FileSystemFacade
     String makeFileSystemPath(@NonNull Uri uri,
                               String relativePath);
 
-    @TargetApi(21)
-    long getAvailableBytes(@NonNull FileDescriptor fd) throws IOException;
-
     long getDirAvailableBytes(@NonNull Uri dir);
 
     File getTempDir();
 
     void cleanTempDir() throws IOException;
-
-    ArrayList<String> getStorageList();
 
     File makeTempFile(@NonNull String postfix);
 

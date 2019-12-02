@@ -17,16 +17,11 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.system.filesystem;
+package org.proninyaroslav.libretorrent.core.system;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.os.StatFs;
-import android.system.Os;
-import android.system.StructStatVfs;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -36,16 +31,13 @@ import androidx.annotation.Nullable;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.UUID;
 
-public class FileSystemFacadeImpl implements FileSystemFacade
+class FileSystemFacadeImpl implements FileSystemFacade
 {
     @SuppressWarnings("unused")
     private static final String TAG = FileSystemFacadeImpl.class.getSimpleName();
@@ -54,16 +46,21 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     private static final String TEMP_DIR = "temp";
 
     private Context appContext;
+    private FsModuleResolver fsResolver;
 
-    public FileSystemFacadeImpl(@NonNull Context appContext)
+    public FileSystemFacadeImpl(@NonNull Context appContext,
+                                @NonNull FsModuleResolver fsResolver)
     {
         this.appContext = appContext;
+        this.fsResolver = fsResolver;
     }
 
     @Override
     public FileDescriptorWrapper getFD(@NonNull Uri path)
     {
-        return new FileDescriptorWrapperImpl(appContext, path);
+        FsModule fsModule = fsResolver.resolveFsByUri(path);
+
+        return fsModule.openFD(path);
     }
 
     @Override
@@ -91,20 +88,6 @@ public class FileSystemFacadeImpl implements FileSystemFacade
             return dir.mkdirs() ? path : null;
     }
 
-    @Override
-    public String altExtStoragePath()
-    {
-        File extdir = new File("/storage/sdcard1");
-        String path = "";
-        if (extdir.exists() && extdir.isDirectory()) {
-            File[] contents = extdir.listFiles();
-            if (contents != null && contents.length > 0) {
-                path = extdir.toString();
-            }
-        }
-        return path;
-    }
-
     /*
      * Return the primary shared/external storage directory.
      */
@@ -122,43 +105,12 @@ public class FileSystemFacadeImpl implements FileSystemFacade
             return dir.mkdirs() ? path : null;
     }
 
-    /*
-     * Return true if the uri is a SAF path
-     */
-
-    @Override
-    public boolean isSafPath(@NonNull Uri path)
-    {
-        return SafFileSystem.getInstance(appContext).isSafPath(path);
-    }
-
-    /*
-     * Return true if the uri is a simple filesystem path
-     */
-
-    @Override
-    public boolean isFileSystemPath(@NonNull Uri path)
-    {
-        String scheme = path.getScheme();
-        if (scheme == null)
-            throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
-
-        return scheme.equals("file");
-    }
-
     @Override
     public boolean deleteFile(@NonNull Uri path) throws FileNotFoundException
     {
-        if (isFileSystemPath(path)) {
-            String fileSystemPath = path.getPath();
-            if (fileSystemPath == null)
-                return false;
-            return new File(fileSystemPath).delete();
+        FsModule fsModule = fsResolver.resolveFsByUri(path);
 
-        } else {
-            SafFileSystem fs = SafFileSystem.getInstance(appContext);
-            return fs.delete(path);
-        }
+        return fsModule.delete(path);
     }
 
     /*
@@ -169,15 +121,17 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     public Uri getFileUri(@NonNull Uri dir,
                           @NonNull String fileName)
     {
-        if (isFileSystemPath(dir)) {
-            File f = new File(dir.getPath(), fileName);
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
-            return (f.exists() ? Uri.fromFile(f) : null);
+        Uri path = null;
+        try {
+            path = fsModule.getFileUri(dir, fileName, false);
 
-        } else {
-            return SafFileSystem.getInstance(appContext)
-                    .getFileUri(dir, fileName, false);
+        } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
+
+        return path;
     }
 
     /*
@@ -189,53 +143,25 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     public Uri getFileUri(@NonNull String relativePath,
                           @NonNull Uri dir)
     {
-        if (isFileSystemPath(dir)) {
-            File f = new File(dir.getPath() + File.separator + relativePath);
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
-            return (f.exists() ? Uri.fromFile(f) : null);
-
-        } else {
-            return SafFileSystem.getInstance(appContext)
-                    .getFileUri(new SafFileSystem.FakePath(dir, relativePath), false);
-        }
+        return fsModule.getFileUri(relativePath, dir);
     }
 
     @Override
     public boolean fileExists(@NonNull Uri filePath)
     {
-        if (isFileSystemPath(filePath)) {
-            return new File(filePath.getPath()).exists();
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
-        } else {
-            return SafFileSystem.getInstance(appContext).exists(filePath);
-        }
-    }
-
-    @Override
-    public boolean fileExists(@NonNull Uri dir,
-                              @NonNull String relativePath)
-    {
-        if (isFileSystemPath(dir)) {
-            return new File(dir.getPath(), relativePath).exists();
-
-        } else {
-            return SafFileSystem.getInstance(appContext)
-                    .exists(new SafFileSystem.FakePath(dir, relativePath));
-        }
+        return fsModule.fileExists(filePath);
     }
 
     @Override
     public long lastModified(@NonNull Uri filePath)
     {
-        if (isFileSystemPath(filePath)) {
-            return new File(filePath.getPath()).lastModified();
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
-        } else {
-            SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext)
-                    .stat(filePath);
-
-            return (stat == null ? -1 : stat.lastModified);
-        }
+        return fsModule.lastModified(filePath);
     }
 
     /*
@@ -264,30 +190,8 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     /*
-     * src - an existing file to copy
-     * dest - the new file
-     */
-
-    @Override
-    public void copyFile(@NonNull Uri src,
-                         @NonNull Uri dest) throws IOException
-    {
-
-        try (FileDescriptorWrapper wSrc = getFD(src);
-             FileDescriptorWrapper wDest = getFD(dest)) {
-
-            try (FileInputStream fin = new FileInputStream(wSrc.open("r"));
-                 FileOutputStream fout = new FileOutputStream(wDest.open("rw"))) {
-                IOUtils.copy(fin, fout);
-            }
-        }
-    }
-
-    /*
      * Returns Uri of created file.
-     * Note: if replace == false, doesn't replace file if it exists and returns its Uri.
-     *       Storage Access Framework can change the name after creating the file
-     *       (e.g. extension), please check it after returning.
+     * Note: if replace == false, doesn't replace file if it exists and returns its Uri
      */
 
     @Override
@@ -295,37 +199,20 @@ public class FileSystemFacadeImpl implements FileSystemFacade
                           @NonNull String fileName,
                           boolean replace) throws IOException
     {
-        if (isFileSystemPath(dir)) {
-            File f = new File(dir.getPath(), fileName);
-            try {
-                if (f.exists()) {
-                    if (!replace)
-                        return Uri.fromFile(f);
-                    else if (!f.delete())
-                        return null;
-                }
-                if (!f.createNewFile())
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
+        try {
+            Uri path = fsModule.getFileUri(dir, fileName, false);
+            if (path != null) {
+                if (!replace)
+                    return path;
+                else if (!fsModule.delete(path))
                     return null;
-
-            } catch (IOException | SecurityException e) {
-                throw new IOException(e);
             }
 
-            return Uri.fromFile(f);
+            return fsModule.getFileUri(dir, fileName, true);
 
-        } else {
-            SafFileSystem fs = SafFileSystem.getInstance(appContext);
-            Uri path = fs.getFileUri(dir, fileName, false);
-            if (replace && path != null) {
-                if (!fs.delete(path))
-                    return null;
-                path = fs.getFileUri(dir, fileName, true);
-            }
-
-            if (path == null)
-                throw new IOException("Unable to create file {name=" + fileName + ", dir=" + dir + "}");
-
-            return path;
+        } catch (SecurityException e) {
+            throw new IOException(e);
         }
     }
 
@@ -367,65 +254,28 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     public String makeFileSystemPath(@NonNull Uri uri,
                                      String relativePath)
     {
-        if (isSafPath(uri))
-            return new SafFileSystem.FakePath(uri, (relativePath == null ? "" : relativePath))
-                    .toString();
-        else
-            return uri.getPath();
+        FsModule fsModule = fsResolver.resolveFsByUri(uri);
+
+        return fsModule.makeFileSystemPath(uri, relativePath);
     }
 
     /*
      * Return the number of bytes that are free on the file system
-     * backing the given FileDescriptor
-     *
-     * TODO: maybe there is analog for KitKat?
+     * backing the given Uri
      */
-
-    @Override
-    @TargetApi(21)
-    public long getAvailableBytes(@NonNull FileDescriptor fd) throws IOException
-    {
-        try {
-            StructStatVfs stat = Os.fstatvfs(fd);
-
-            return stat.f_bavail * stat.f_bsize;
-        } catch (Exception e) {
-            throw new IOException(e);
-        }
-    }
 
     @Override
     public long getDirAvailableBytes(@NonNull Uri dir)
     {
         long availableBytes = -1;
 
-        if (isSafPath(dir)) {
-            SafFileSystem fs = SafFileSystem.getInstance(appContext);
-            Uri dirPath = fs.makeSafRootDir(dir);
-            try (FileDescriptorWrapper w = getFD(dirPath)) {
-                availableBytes = getAvailableBytes(w.open("r"));
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
+        try {
+            availableBytes = fsModule.getDirAvailableBytes(dir);
 
-            } catch (IllegalArgumentException | IOException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                return availableBytes;
-            }
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            try {
-                File file = new File(dir.getPath());
-                availableBytes = file.getUsableSpace();
-
-            } catch (Exception e) {
-                /* This provides invalid space on some devices */
-                try {
-                    StatFs stat = new StatFs(dir.getPath());
-
-                    availableBytes = stat.getAvailableBytes();
-                } catch (Exception ee) {
-                    Log.e(TAG, Log.getStackTraceString(e));
-                    return availableBytes;
-                }
-            }
+        } catch (IllegalArgumentException | IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return availableBytes;
         }
 
         return availableBytes;
@@ -450,45 +300,6 @@ public class FileSystemFacadeImpl implements FileSystemFacade
             throw new FileNotFoundException("Temp dir not found");
 
         org.apache.commons.io.FileUtils.cleanDirectory(tmpDir);
-    }
-
-    /*
-     * Returns all shared/external storage devices where the application can place files it owns.
-     * For Android below 4.4 returns only primary storage (standard download path).
-     */
-
-    @Override
-    public ArrayList<String> getStorageList()
-    {
-        ArrayList<String> storages = new ArrayList<>();
-        storages.add(Environment.getExternalStorageDirectory().getAbsolutePath());
-
-        String altPath = altExtStoragePath();
-        if (TextUtils.isEmpty(altPath))
-            storages.add(altPath);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            /*
-             * First volume returned by getExternalFilesDirs is always primary storage,
-             * or emulated. Further entries, if they exist, will be secondary or external SD,
-             * see http://www.doubleencore.com/2014/03/android-external-storage/
-             */
-            File[] filesDirs = appContext.getExternalFilesDirs(null);
-
-            if (filesDirs != null) {
-                /* Skip primary storage */
-                for (int i = 1; i < filesDirs.length; i++) {
-                    if (filesDirs[i] != null) {
-                        if (filesDirs[i].exists())
-                            storages.add(filesDirs[i].getAbsolutePath());
-                        else
-                            Log.w(TAG, "Unexpected external storage: " + filesDirs[i].getAbsolutePath());
-                    }
-                }
-            }
-        }
-
-        return storages;
     }
 
     @Override
@@ -607,11 +418,8 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     @Override
     public String getDirName(@NonNull Uri dir)
     {
-        if (isFileSystemPath(dir))
-            return dir.getPath();
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
-        SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).statSafRoot(dir);
-
-        return (stat == null || stat.name == null ? dir.getPath() : stat.name);
+        return fsModule.getDirName(dir);
     }
 }

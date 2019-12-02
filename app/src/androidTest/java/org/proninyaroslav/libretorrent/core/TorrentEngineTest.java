@@ -28,12 +28,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.*;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacadeImpl;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
@@ -80,7 +78,7 @@ public class TorrentEngineTest extends AbstractTest
                 new Priority[]{Priority.DEFAULT}, dir,
                 false, false);
 
-        params = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
+        params2 = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
                 torrentHash2, torrentName2,
                 new Priority[]{Priority.DEFAULT}, dir,
                 false, false);

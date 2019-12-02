@@ -19,29 +19,19 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
-import android.content.Context;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import java.util.List;
+
+public class FakeFsModuleResolver implements FsModuleResolver
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
+    public List<String> existsFileNames;
 
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
+    @Override
+    public FsModule resolveFsByUri(@NonNull Uri uri)
     {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
-    }
-
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
-    {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(appContext,
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
+        return new FakeFsModule(existsFileNames);
     }
 }

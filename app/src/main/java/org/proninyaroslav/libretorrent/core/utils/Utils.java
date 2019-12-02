@@ -67,9 +67,10 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
+import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
@@ -785,12 +786,18 @@ public class Utils
             textView.setTextAppearance(resId);
     }
 
-    public static Drawable getVectorDrawable(@NonNull Activity activity, @DrawableRes int resId)
+    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path)
     {
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return VectorDrawableCompat.create(activity.getResources(), resId, activity.getTheme());
-        else
-            return activity.getResources().getDrawable(resId, activity.getTheme());
+        return SafFileSystem.getInstance(appContext).isSafPath(path);
+    }
+
+    public static boolean isFileSystemPath(@NonNull Uri path)
+    {
+        String scheme = path.getScheme();
+        if (scheme == null)
+            throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
+
+        return scheme.equals("file");
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

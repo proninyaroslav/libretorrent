@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core;
+package org.proninyaroslav.libretorrent.core.system;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -29,7 +29,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
-import org.proninyaroslav.libretorrent.core.system.filesystem.SafFileSystem;
+import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 

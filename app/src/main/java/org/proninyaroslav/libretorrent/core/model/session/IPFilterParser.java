@@ -29,8 +29,8 @@ import org.apache.commons.io.LineIterator;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.ip_filter;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileDescriptorWrapper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;

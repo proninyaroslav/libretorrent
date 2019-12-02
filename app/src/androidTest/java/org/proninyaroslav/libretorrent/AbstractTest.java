@@ -33,7 +33,7 @@ import org.proninyaroslav.libretorrent.core.storage.FeedRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.filesystem.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;

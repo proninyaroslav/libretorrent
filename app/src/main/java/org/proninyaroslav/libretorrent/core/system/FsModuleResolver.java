@@ -17,15 +17,17 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.system.filesystem;
+package org.proninyaroslav.libretorrent.core.system;
+
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import java.io.Closeable;
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
+/*
+ * An FsModule provider.
+ */
 
-public interface FileDescriptorWrapper extends Closeable
+interface FsModuleResolver
 {
-    FileDescriptor open(@NonNull String mode) throws FileNotFoundException;
+    FsModule resolveFsByUri(@NonNull Uri uri);
 }

@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.system.filesystem;
+package org.proninyaroslav.libretorrent.core.system;
 
 import android.content.Context;
 import android.util.Log;
