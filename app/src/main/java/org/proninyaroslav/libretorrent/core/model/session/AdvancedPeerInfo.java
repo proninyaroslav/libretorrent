@@ -27,7 +27,7 @@ import org.libtorrent4j.swig.peer_info;
  * Extension of org.libtorrent4j.PeerInfo class with additional information
  */
 
-class AdvancedPeerInfo extends PeerInfo
+public class AdvancedPeerInfo extends PeerInfo
 {
     protected int port;
     protected PieceIndexBitfield pieces;
