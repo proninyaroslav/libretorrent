@@ -88,7 +88,7 @@ import io.reactivex.disposables.CompositeDisposable;
  * This class encapsulate one stream with running torrent.
  */
 
-public class TorrentDownloadImpl implements TorrentDownload
+class TorrentDownloadImpl implements TorrentDownload
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentDownload.class.getSimpleName();

@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 
-public class PriorityConverter
+class PriorityConverter
 {
     private static final SparseArray<org.libtorrent4j.Priority> PRIOR_TO_LIB_PRIOR = new SparseArray<>();
     static {

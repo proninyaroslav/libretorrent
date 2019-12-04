@@ -43,7 +43,7 @@ import io.reactivex.Single;
  * Parser of blacklist IP addresses in DAT and P2P formats.
  */
 
-public class IPFilterParser
+class IPFilterParser
 {
     @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
