@@ -866,15 +866,6 @@ public class TorrentSessionImpl extends SessionManager
         });
     }
 
-    private void checkLogging(Alert<?> alert)
-    {
-    }
-
-    private void printLog(String msg)
-    {
-        Log.i(TAG, msg);
-    }
-
     private void handleMetadata(MetadataReceivedAlert metadataAlert)
     {
         if (swig() == null)
