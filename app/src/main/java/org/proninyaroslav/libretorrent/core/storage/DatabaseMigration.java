@@ -34,22 +34,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class DatabaseMigration
+class DatabaseMigration
 {
 
-    public static final class DataModelBefore5
+    static final class DataModelBefore5
     {
-        public static final String TORRENT_FILE_NAME = "torrent";
-        public static final String TORRENT_RESUME_FILE_NAME = "fastresume";
-        public static final String TORRENT_SESSION_FILE = "session";
+        static final String TORRENT_FILE_NAME = "torrent";
+        static final String TORRENT_RESUME_FILE_NAME = "fastresume";
+        static final String TORRENT_SESSION_FILE = "session";
     }
 
-    public static Migration[] getMigrations()
+    static Migration[] getMigrations()
     {
-        return new Migration[]{MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5};
+        return new Migration[] {
+                MIGRATION_1_2,
+                MIGRATION_2_3,
+                MIGRATION_3_4,
+                MIGRATION_4_5,
+                MIGRATION_5_6
+        };
     }
 
-    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
@@ -58,7 +64,7 @@ public class DatabaseMigration
         }
     };
 
-    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
@@ -67,7 +73,7 @@ public class DatabaseMigration
         }
     };
 
-    public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
@@ -79,7 +85,7 @@ public class DatabaseMigration
      * Migration from old database to Room.
      */
 
-    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
@@ -107,13 +113,22 @@ public class DatabaseMigration
         }
     };
 
-    public static void advancedMigrationTo5(@NonNull Context appContext, @NonNull AppDatabase db)
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database)
+        {
+            /* Torrent.VISIBILITY_VISIBLE_NOTIFY_FINISHED */
+            database.execSQL("ALTER TABLE `Torrent` ADD COLUMN `visibility` INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    static void advancedMigrationTo5(@NonNull Context appContext, @NonNull AppDatabase db)
     {
         copyFastResumeData(appContext, db);
         removeSessionFile(appContext);
     }
 
-    public static void copyFastResumeData(Context appContext, AppDatabase db)
+    static void copyFastResumeData(Context appContext, AppDatabase db)
     {
         List<Torrent> torrents = db.torrentDao().getAllTorrents();
         for (Torrent torrent : torrents) {

@@ -210,7 +210,7 @@ public class TorrentNotifier
 
     public void makeTorrentFinishedNotify(@NonNull Torrent torrent)
     {
-        if (!pref.torrentFinishNotify())
+        if (!pref.torrentFinishNotify() || torrent.visibility == Torrent.VISIBILITY_HIDDEN)
             return;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,

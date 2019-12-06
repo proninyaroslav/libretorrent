@@ -46,7 +46,7 @@ import io.reactivex.schedulers.Schedulers;
         FastResume.class,
         FeedChannel.class,
         FeedItem.class},
-        version = 5)
+        version = 6)
 @TypeConverters({UriConverter.class})
 
 public abstract class AppDatabase extends RoomDatabase

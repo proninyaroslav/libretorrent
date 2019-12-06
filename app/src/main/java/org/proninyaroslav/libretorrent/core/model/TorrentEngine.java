@@ -1071,6 +1071,16 @@ public class TorrentEngine
         pref.portRangeSecond(range.second);
     }
 
+    /*
+     * Disable notifications for torrent
+     */
+
+    private void markAsHiddenSync(Torrent torrent)
+    {
+        torrent.visibility = Torrent.VISIBILITY_HIDDEN;
+        repo.updateTorrent(torrent);
+    }
+
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
         @Override
         public void onSessionStarted()
@@ -1122,6 +1132,9 @@ public class TorrentEngine
                     .filter((torrent) -> torrent != null)
                     .subscribe((torrent) -> {
                                 notifier.makeTorrentFinishedNotify(torrent);
+                                if (torrent.visibility != Torrent.VISIBILITY_HIDDEN)
+                                    markAsHiddenSync(torrent);
+
                                 if (pref.moveAfterDownload()) {
                                     String curPath = torrent.downloadPath.toString();
                                     String newPath = pref.moveAfterDownloadIn();

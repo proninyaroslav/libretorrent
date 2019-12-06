@@ -38,6 +38,15 @@ import java.util.Date;
 @Entity
 public class Torrent implements Parcelable
 {
+    /*
+     * This torrent is visible and shows in the notifications after completion
+     */
+    public static final int VISIBILITY_VISIBLE_NOTIFY_FINISHED = 0;
+    /*
+     * This torrent doesn't show in the notifications
+     */
+    public static final int VISIBILITY_HIDDEN = 1;
+
     /* Usually torrent SHA-1 hash */
     @NonNull
     @PrimaryKey
@@ -55,6 +64,7 @@ public class Torrent implements Parcelable
      */
     private String magnet;
     public boolean downloadingMetadata = false;
+    public int visibility = VISIBILITY_VISIBLE_NOTIFY_FINISHED;
 
     @Ignore
     public Torrent(@NonNull String id,
@@ -93,6 +103,7 @@ public class Torrent implements Parcelable
         dateAdded = source.readLong();
         error = source.readString();
         manuallyPaused = source.readByte() != 0;
+        visibility = source.readInt();
     }
 
     public boolean isDownloadingMetadata()
@@ -128,6 +139,7 @@ public class Torrent implements Parcelable
         dest.writeLong(dateAdded);
         dest.writeString(error);
         dest.writeByte((byte)(manuallyPaused ? 1 : 0));
+        dest.writeInt(visibility);
     }
 
     public static final Creator<Torrent> CREATOR =
@@ -170,6 +182,7 @@ public class Torrent implements Parcelable
                 ", manuallyPaused=" + manuallyPaused +
                 ", magnet='" + magnet + '\'' +
                 ", downloadingMetadata=" + downloadingMetadata +
+                ", visibility=" + visibility +
                 '}';
     }
 }
