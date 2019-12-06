@@ -348,7 +348,7 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         for (Torrent torrent : repo.getAllTorrents()) {
-            if (torrent == null || torrentTasks.containsKey(torrent.id))
+            if (torrent == null || isTorrentAlreadyRunning(torrent.id))
                 continue;
 
             String path = fs.makeFileSystemPath(torrent.downloadPath);
@@ -1141,6 +1141,11 @@ public class TorrentSessionImpl extends SessionManager
             loadTorrentsExec.execute(task);
     }
 
+    private boolean isTorrentAlreadyRunning(String torrentId)
+    {
+        return torrentTasks.containsKey(torrentId) || addTorrentsList.contains(torrentId);
+    }
+
     private final class LoadTorrentTask implements Runnable
     {
         private String torrentId;
@@ -1166,7 +1171,7 @@ public class TorrentSessionImpl extends SessionManager
         public void run()
         {
             try {
-                if (torrentTasks.containsKey(torrentId))
+                if (isTorrentAlreadyRunning(torrentId))
                     return;
 
                 if (isMagnet)
