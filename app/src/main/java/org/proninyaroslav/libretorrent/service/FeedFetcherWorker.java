@@ -193,7 +193,7 @@ public class FeedFetcherWorker extends Worker
         while (it.hasNext()) {
             FeedItem item = it.next();
             /* Also filtering the items that we already have in db */
-            if (item != null && (item.pubDate <= acceptMinDate || existingItemsId.contains(item.id)))
+            if (item != null && (item.pubDate > 0 && item.pubDate <= acceptMinDate || existingItemsId.contains(item.id)))
                 it.remove();
         }
     }
