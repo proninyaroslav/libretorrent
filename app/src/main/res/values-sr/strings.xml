@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Изабери резервну копију</string>
     <string name="error_import_invalid_format">Неправилан формат</string>
     <string name="feed_do_not_download_immediately">Де преузимај одмах</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Направи торент</string>
     <string name="creating_torrent_progress">Креирање торента, молимо сачекати&#8230;</string>

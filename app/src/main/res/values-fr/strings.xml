@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Sélectionner le fichier de sauvegarde</string>
     <string name="error_import_invalid_format">Format invalide</string>
     <string name="feed_do_not_download_immediately">Ne pas télécharger immédiatement</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Créer un torrent</string>
     <string name="creating_torrent_progress">Création du torrent, veuillez patienter&#8230;</string>

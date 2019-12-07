@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">Ακυρη μορφή</string>
     <string name="feed_do_not_download_immediately">Μην κάνετε λήψη αμέσως</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Δημιουργία torrent</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>

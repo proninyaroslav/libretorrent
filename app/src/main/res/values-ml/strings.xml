@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">അസാധുവായ ഫോർമാറ്റ്</string>
     <string name="feed_do_not_download_immediately">ഉടൻ ഡൗൺലോഡുചെയ്യരുത്</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">ടോറന്റ് സൃഷ്ടിക്കുക</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>

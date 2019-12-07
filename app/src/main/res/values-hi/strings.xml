@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">अवैध प्रारूप</string>
     <string name="feed_do_not_download_immediately">तुरंत डाउनलोड न करें</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">धार पैदा करो</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>

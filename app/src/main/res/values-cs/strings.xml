@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Vyberte záložní soubor</string>
     <string name="error_import_invalid_format">Neplatný formát</string>
     <string name="feed_do_not_download_immediately">Nestahovat okamžitě</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Vytvořit torrent</string>
     <string name="creating_torrent_progress">Vytváření torrentu, čekejte prosím&#8230;</string>

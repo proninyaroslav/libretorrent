@@ -25,6 +25,7 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -44,6 +45,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -264,7 +267,6 @@ public class FeedItemsFragment extends Fragment
     @Override
     public void onItemClicked(@NonNull FeedItemsListItem item)
     {
-        viewModel.markAsRead(item.id);
         openDownloadUrl(item);
     }
 
@@ -273,7 +275,6 @@ public class FeedItemsFragment extends Fragment
     {
         switch (menuId) {
             case R.id.open_article_menu:
-                viewModel.markAsRead(item.id);
                 openArticle(item);
                 break;
             case R.id.mark_as_read_menu:
@@ -287,6 +288,16 @@ public class FeedItemsFragment extends Fragment
 
     private void openArticle(FeedItemsListItem item)
     {
+        if (TextUtils.isEmpty(item.articleUrl)) {
+            Snackbar.make(binding.coordinatorLayout,
+                    R.string.feed_item_url_not_found,
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+
+        viewModel.markAsRead(item.id);
+
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(item.articleUrl));
         startActivity(i);
@@ -294,8 +305,15 @@ public class FeedItemsFragment extends Fragment
 
     private void openDownloadUrl(FeedItemsListItem item)
     {
-        if (item == null)
+        if (TextUtils.isEmpty(item.downloadUrl)) {
+            Snackbar.make(binding.coordinatorLayout,
+                    R.string.feed_item_url_not_found,
+                    Snackbar.LENGTH_SHORT)
+                    .show();
             return;
+        }
+
+        viewModel.markAsRead(item.id);
 
         Intent i = new Intent(activity, AddTorrentActivity.class);
         i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(item.downloadUrl));

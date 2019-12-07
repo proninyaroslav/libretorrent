@@ -296,6 +296,7 @@
     <string name="feeds_backup_selection_dialog_title">Yedekleme dosyası seç</string>
     <string name="error_import_invalid_format">Geçersiz format</string>
     <string name="feed_do_not_download_immediately">Hemen indirme</string>
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent oluştur</string>
     <string name="creating_torrent_progress">Torrent oluşturuluyor, lütfen bekleyin&#8230;</string>
