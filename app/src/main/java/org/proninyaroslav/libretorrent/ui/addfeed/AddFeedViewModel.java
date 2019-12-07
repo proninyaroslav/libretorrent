@@ -197,6 +197,6 @@ public class AddFeedViewModel extends AndroidViewModel
                 .setInputData(data)
                 .build();
 
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(getApplication()).enqueue(work);
     }
 }

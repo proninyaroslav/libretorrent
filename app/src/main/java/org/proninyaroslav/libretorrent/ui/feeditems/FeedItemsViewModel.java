@@ -139,9 +139,9 @@ public class FeedItemsViewModel extends AndroidViewModel
     {
         refreshStatus.onNext(true);
 
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(getApplication()).enqueue(work);
 
-        WorkManager.getInstance().getWorkInfoByIdLiveData(work.getId())
+        WorkManager.getInstance(getApplication()).getWorkInfoByIdLiveData(work.getId())
                 .observeForever(this::observeWorkResult);
     }
 
@@ -149,7 +149,7 @@ public class FeedItemsViewModel extends AndroidViewModel
     {
         boolean finished = info.getState().isFinished();
         if (finished)
-            WorkManager.getInstance().getWorkInfoByIdLiveData(info.getId())
+            WorkManager.getInstance(getApplication()).getWorkInfoByIdLiveData(info.getId())
                     .removeObserver(this::observeWorkResult);
 
         refreshStatus.onNext(!finished);
