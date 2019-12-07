@@ -94,7 +94,7 @@ public class FeedParser
             String downloadUrl = articleUrl;
 
             /* Find url with torrent/magnet */
-            if (!isMagnetOrTorrent(downloadUrl)) {
+            if (downloadUrl != null && !isMagnetOrTorrent(downloadUrl)) {
                 String found = findDownloadUrl(item);
                 if (found != null)
                     /* Or article url if there are no other options */
