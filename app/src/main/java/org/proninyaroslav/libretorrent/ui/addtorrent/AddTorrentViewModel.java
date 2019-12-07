@@ -80,7 +80,6 @@ public class AddTorrentViewModel extends AndroidViewModel
     public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
     public ObservableField<TorrentMetaInfo> info = new ObservableField<>();
     private MutableLiveData<DecodeState> decodeState = new MutableLiveData<>();
-    private TorrentRepository repo;
     private FileSystemFacade fs;
     private TorrentEngine engine;
     private SettingsRepository pref;
@@ -128,7 +127,6 @@ public class AddTorrentViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = RepositoryHelper.getTorrentRepository(application);
         fs = SystemFacadeHelper.getFileSystemFacade(application);
         pref = RepositoryHelper.getSettingsRepository(application);
         engine = TorrentEngine.getInstance(getApplication());
@@ -318,9 +316,7 @@ public class AddTorrentViewModel extends AndroidViewModel
             if (downloadInfo == null)
                 return;
 
-            String name = mutableParams.getName();
-            if (name == null || name.equals(downloadInfo.sha1Hash))
-                mutableParams.setName(downloadInfo.torrentName);
+            mutableParams.setName(downloadInfo.torrentName);
         }
     };
 
