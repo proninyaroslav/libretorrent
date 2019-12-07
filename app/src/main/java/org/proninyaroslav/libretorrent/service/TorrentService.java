@@ -49,6 +49,7 @@ import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -61,6 +62,7 @@ public class TorrentService extends Service
     private static final String TAG = TorrentService.class.getSimpleName();
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
+    private static final int FOREGROUND_NOTIFY_UPDATE_DELAY = 1000; /* ms */
     public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_SHUTDOWN";
 
     private boolean isAlreadyRunning;
@@ -236,6 +238,7 @@ public class TorrentService extends Service
         foregroundDisposable = stateProvider.observeInfoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .delay(FOREGROUND_NOTIFY_UPDATE_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(this::updateForegroundNotify,
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
