@@ -192,12 +192,22 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
 
             binding.name.setText(item.name);
 
-            if (item.isFile)
-                binding.icon.setImageResource(R.drawable.ic_file_grey600_24dp);
-            else
-                binding.icon.setImageResource(R.drawable.ic_folder_grey600_24dp);
+            boolean isParentDir = item.name.equals(TorrentContentFileTree.PARENT_DIR);
 
-            if (item.name.equals(TorrentContentFileTree.PARENT_DIR)) {
+            if (item.isFile) {
+                binding.icon.setImageResource(R.drawable.ic_file_grey600_24dp);
+                binding.icon.setContentDescription(context.getString(R.string.file));
+            } else {
+                if (isParentDir) {
+                    binding.icon.setImageResource(R.drawable.ic_arrow_up_bold_grey600_24dp);
+                    binding.icon.setContentDescription(context.getString(R.string.parent_folder));
+                } else {
+                    binding.icon.setImageResource(R.drawable.ic_folder_grey600_24dp);
+                    binding.icon.setContentDescription(context.getString(R.string.folder));
+                }
+            }
+
+            if (isParentDir) {
                 binding.selected.setVisibility(View.GONE);
                 binding.status.setVisibility(View.GONE);
                 binding.progress.setVisibility(View.GONE);

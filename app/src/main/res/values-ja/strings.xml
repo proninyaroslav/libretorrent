@@ -185,6 +185,7 @@
     <string name="system_file_manager_not_found">システムファイルマネージャーが見つかりません</string>
     <string name="replace_file">ファイルを置き換え</string>
     <string name="device_does_not_support_this_feature">この端末では当該機能をサポートしていません</string>
+    <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">報告</string>
     <string name="more_details">詳細</string>

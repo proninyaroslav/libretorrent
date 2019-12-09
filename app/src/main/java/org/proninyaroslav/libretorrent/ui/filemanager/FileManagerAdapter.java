@@ -148,8 +148,13 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
             fileName.setText(item.getName());
 
             if (item.getType() == FileNode.Type.DIR) {
-                fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
-                fileIcon.setContentDescription(context.getString(R.string.folder));
+                if (item.getName().equals(FileManagerNode.PARENT_DIR)) {
+                    fileIcon.setImageResource(R.drawable.ic_arrow_up_bold_grey600_24dp);
+                    fileIcon.setContentDescription(context.getString(R.string.parent_folder));
+                } else {
+                    fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
+                    fileIcon.setContentDescription(context.getString(R.string.folder));
+                }
 
             } else if (item.getType() == FileNode.Type.FILE) {
                 fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);

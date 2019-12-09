@@ -185,6 +185,7 @@
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
+    <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">Raportează</string>
     <string name="more_details">Mai multe detalii</string>

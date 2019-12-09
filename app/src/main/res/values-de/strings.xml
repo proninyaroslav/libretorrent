@@ -185,6 +185,7 @@
     <string name="system_file_manager_not_found">Datei-Manager des Systems nicht gefunden</string>
     <string name="replace_file">Datei ersetzen</string>
     <string name="device_does_not_support_this_feature">Dein Gerät unterstützt diese Funktion nicht</string>
+    <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">Fehlerbericht</string>
     <string name="more_details">Weitere Details</string>

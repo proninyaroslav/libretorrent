@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
@@ -40,6 +41,11 @@ public class MainApplication extends MultiDexApplication
 {
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
+
+    static {
+        /* Vector Drawable support in ImageView for API < 21 */
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override
     public void onCreate()
