@@ -88,20 +88,23 @@ class Rss2Item extends BaseItem {
     }
 
     @Override
-    public Enclosure getEnclosure()
+    public List<Enclosure> getEnclosures()
     {
-        Element enclosure = getElement(ENCLOSURE);
-        if (enclosure == null)
-            return null;
+        ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
+        List<Element> enclosuresElem = getElementList(ENCLOSURE);
 
-        Attributes attr = enclosure.getAttributes();
-        String url = attr.getValue("url");
-        String type = attr.getValue("type");
-        String lengthStr = attr.getValue("length");
-        long length = 0;
-        if (lengthStr != null)
-            length = Long.parseLong(lengthStr);
+        for (Element enclosure : enclosuresElem) {
+            Attributes attr = enclosure.getAttributes();
+            String url = attr.getValue("url");
+            String type = attr.getValue("type");
+            String lengthStr = attr.getValue("length");
+            long length = 0;
+            if (lengthStr != null)
+                length = Long.parseLong(lengthStr);
 
-        return new Enclosure(url, type, length);
+            enclosures.add(new Enclosure(url, type, length));
+        }
+
+        return enclosures;
     }
 }

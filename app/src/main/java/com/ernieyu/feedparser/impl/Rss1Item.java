@@ -1,5 +1,6 @@
 package com.ernieyu.feedparser.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -82,20 +83,23 @@ class Rss1Item extends BaseItem {
     }
 
     @Override
-    public Enclosure getEnclosure()
+    public List<Enclosure> getEnclosures()
     {
-        Element enclosure = getElement(ENCLOSURE);
-        if (enclosure == null)
-            return null;
+        ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
+        List<Element> enclosuresElem = getElementList(ENCLOSURE);
 
-        Attributes attr = enclosure.getAttributes();
-        String url = attr.getValue("rdf:resource");
-        String type = attr.getValue("enc:type");
-        String lengthStr = attr.getValue("enc:length");
-        long length = 0;
-        if (lengthStr != null)
-            length = Long.parseLong(lengthStr);
+        for (Element enclosure : enclosuresElem) {
+            Attributes attr = enclosure.getAttributes();
+            String url = attr.getValue("rdf:resource");
+            String type = attr.getValue("enc:type");
+            String lengthStr = attr.getValue("enc:length");
+            long length = 0;
+            if (lengthStr != null)
+                length = Long.parseLong(lengthStr);
 
-        return new Enclosure(url, type, length);
+            enclosures.add(new Enclosure(url, type, length));
+        }
+
+        return enclosures;
     }
 }

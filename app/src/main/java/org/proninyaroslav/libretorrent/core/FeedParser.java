@@ -150,15 +150,15 @@ public class FeedParser
 
     private String watchEnclosure(Item item)
     {
-        Enclosure enclosure = item.getEnclosure();
-        String url;
-        if (enclosure == null)
-            return null;
-        url = enclosure.getUrl();
+        for (Enclosure enclosure : item.getEnclosures()) {
+            if (enclosure == null)
+                continue;
 
-        String type = enclosure.getType();
-        if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
-            return url;
+            String url = enclosure.getUrl();
+            String type = enclosure.getType();
+            if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
+                return url;
+        }
 
         return null;
     }

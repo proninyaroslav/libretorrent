@@ -94,24 +94,27 @@ class AtomItem extends BaseItem {
     }
 
     @Override
-    public Enclosure getEnclosure()
+    public List<Enclosure> getEnclosures()
     {
-        Element link = getElement(LINK);
-        if (link == null)
-            return null;
+        ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
+        List<Element> links = getElementList(LINK);
 
-        Attributes attr = link.getAttributes();
-        String rel = attr.getValue("rel");
-        if (rel == null || !rel.equalsIgnoreCase("enclosure"))
-            return null;
+        for (Element link : links) {
+            Attributes attr = link.getAttributes();
+            String rel = attr.getValue("rel");
+            if (rel == null || !rel.equalsIgnoreCase("enclosure"))
+                continue;
 
-        String url = attr.getValue("href");
-        String type = attr.getValue("type");
-        String lengthStr = attr.getValue("length");
-        long length = 0;
-        if (lengthStr != null)
-            length = Long.parseLong(lengthStr);
+            String url = attr.getValue("href");
+            String type = attr.getValue("type");
+            String lengthStr = attr.getValue("length");
+            long length = 0;
+            if (lengthStr != null)
+                length = Long.parseLong(lengthStr);
 
-        return new Enclosure(url, type, length);
+            enclosures.add(new Enclosure(url, type, length));
+        }
+
+        return enclosures;
     }
 }

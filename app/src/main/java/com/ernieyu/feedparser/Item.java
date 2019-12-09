@@ -50,9 +50,9 @@ public interface Item extends Element {
 
 
     /**
-     * Returns enclosure
+     * Returns list of enclosures
      */
-    public Enclosure getEnclosure();
+    public List<Enclosure> getEnclosures();
     
     /**
      * Indicates whether the specified object is equal to this Item based on
