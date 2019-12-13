@@ -5,12 +5,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.ernieyu.feedparser.Enclosure;
+import com.ernieyu.feedparser.*;
+import com.ernieyu.feedparser.mediarss.MediaRss;
 import org.xml.sax.Attributes;
-
-import com.ernieyu.feedparser.Element;
-import com.ernieyu.feedparser.FeedType;
-import com.ernieyu.feedparser.FeedUtils;
 
 /**
  * Item implementation for RSS 1.0 feeds.
@@ -45,9 +42,14 @@ class Rss1Item extends BaseItem {
     }
 
     @Override
-    public String getLink() {
-        Element link = getElement(LINK);
-        return (link != null) ? link.getContent() : null;
+    public List<String> getLinks() {
+        ArrayList<String> links = new ArrayList<String>();
+        List<Element> elements = getElementList(LINK);
+        for (Element element : elements) {
+            links.add(element.getContent());
+        }
+
+        return links;
     }
 
     @Override
@@ -83,8 +85,7 @@ class Rss1Item extends BaseItem {
     }
 
     @Override
-    public List<Enclosure> getEnclosures()
-    {
+    public List<Enclosure> getEnclosures() {
         ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
         List<Element> enclosuresElem = getElementList(ENCLOSURE);
 
@@ -101,5 +102,23 @@ class Rss1Item extends BaseItem {
         }
 
         return enclosures;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public MediaRss getMediaRss() {
+        return null;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public EzRssTorrentItem getEzRssTorrentItem() {
+        return null;
     }
 }

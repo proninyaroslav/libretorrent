@@ -52,6 +52,27 @@ public class Enclosure {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Enclosure enclosure = (Enclosure) o;
+
+		if (length != enclosure.length) return false;
+		if (url != null ? !url.equals(enclosure.url) : enclosure.url != null)
+			return false;
+		return type != null ? type.equals(enclosure.type) : enclosure.type == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = url != null ? url.hashCode() : 0;
+		result = 31 * result + (type != null ? type.hashCode() : 0);
+		result = 31 * result + (int) (length ^ (length >>> 32));
+		return result;
+	}
+
+	@Override
 	public String toString() {
 		return "Enclosure{" +
 			"url='" + url + '\'' +

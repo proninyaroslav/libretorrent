@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ernieyu.feedparser.Enclosure;
+import com.ernieyu.feedparser.*;
+import com.ernieyu.feedparser.mediarss.MediaRss;
 import org.xml.sax.Attributes;
-
-import com.ernieyu.feedparser.Element;
-import com.ernieyu.feedparser.FeedType;
-import com.ernieyu.feedparser.FeedUtils;
 
 /**
  * Item implementation for Atom feeds.
@@ -46,9 +43,14 @@ class AtomItem extends BaseItem {
     }
 
     @Override
-    public String getLink() {
-        Element link = getElement(LINK);
-        return (link != null) ? link.getAttributes().getValue("href") : null;
+    public List<String> getLinks() {
+        ArrayList<String> links = new ArrayList<String>();
+        List<Element> elements = getElementList(LINK);
+        for (Element element : elements) {
+            links.add(element.getAttributes().getValue("href"));
+        }
+
+        return links;
     }
 
     @Override
@@ -94,8 +96,7 @@ class AtomItem extends BaseItem {
     }
 
     @Override
-    public List<Enclosure> getEnclosures()
-    {
+    public List<Enclosure> getEnclosures() {
         ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
         List<Element> links = getElementList(LINK);
 
@@ -116,5 +117,23 @@ class AtomItem extends BaseItem {
         }
 
         return enclosures;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public MediaRss getMediaRss() {
+        return null;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public EzRssTorrentItem getEzRssTorrentItem() {
+        return null;
     }
 }

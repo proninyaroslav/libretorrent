@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser;
 
+import com.ernieyu.feedparser.mediarss.MediaRss;
+
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +21,9 @@ public interface Item extends Element {
     public String getTitle();
 
     /**
-     * Convenience method to retrieve the link.
+     * Convenience method to retrieve the list of links.
      */
-    public String getLink();
+    public List<String> getLinks();
 
     /**
      * Convenience method to retrieve the description.
@@ -53,6 +55,16 @@ public interface Item extends Element {
      * Returns list of enclosures
      */
     public List<Enclosure> getEnclosures();
+
+    /**
+     * Returns the MediaRSS elements of this item, if supported, or null otherwise
+     */
+    public MediaRss getMediaRss();
+
+    /**
+     * Returns the EzRSS element of this item, if supported, or null otherwise
+     */
+    public EzRssTorrentItem getEzRssTorrentItem();
     
     /**
      * Indicates whether the specified object is equal to this Item based on

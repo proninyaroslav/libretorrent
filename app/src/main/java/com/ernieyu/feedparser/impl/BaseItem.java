@@ -5,6 +5,9 @@ import org.xml.sax.Attributes;
 import com.ernieyu.feedparser.FeedUtils;
 import com.ernieyu.feedparser.Item;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Base class for feed items.
  */
@@ -25,9 +28,17 @@ abstract class BaseItem extends BaseElement implements Item {
      */
     private String getUniqueId() {
         String id = getGuid();
-        if (id == null) id = getLink();
-        if (id == null) id = getTitle();
-        if (id == null) id = getDescription();
+        if (id == null) {
+            List<String> links = getLinks();
+            if (links.size() == 1)
+                id = links.get(0);
+        }
+        if (id == null) {
+            id = getTitle();
+        }
+        if (id == null) {
+            id = getDescription();
+        }
         return id;
     }
 

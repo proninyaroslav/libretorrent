@@ -2,6 +2,7 @@ package com.ernieyu.feedparser.impl;
 
 import java.util.Stack;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -112,7 +113,12 @@ class FeedHandler extends DefaultHandler {
         
         // Save content in current element.
         BaseElement currentElement = elementStack.pop();
-        currentElement.setContent(buffer.toString());
+        String content = buffer.toString();
+        // If contains ampersand, unescape escaped symbols
+        if (content.contains("&")) {
+            content = StringEscapeUtils.unescapeXml(content);
+        }
+        currentElement.setContent(content);
         
         // Add current element to its parent.
         if (!elementStack.empty()) {
@@ -121,6 +127,6 @@ class FeedHandler extends DefaultHandler {
         }
 
         // Clear content buffer.
-        buffer.delete(0, buffer.length());    
+        buffer.delete(0, buffer.length());
     }
 }
