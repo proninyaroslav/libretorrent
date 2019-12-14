@@ -786,6 +786,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     protected void onBeforeStop()
     {
+        disposables.clear();
         saveAllResumeData();
         /* Handles must be destructed before the session is destructed */
         torrentTasks.clear();

@@ -127,7 +127,6 @@ class TorrentDownloadImpl implements TorrentDownload
     private TorrentRepository repo;
     private FileSystemFacade fs;
     private final Queue<TorrentEngineListener> listeners;
-    private CompositeDisposable disposables = new CompositeDisposable();
     private InnerListener listener;
     private Set<Uri> incompleteFilesToRemove;
     private Uri partsFile;
@@ -434,7 +433,6 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void torrentRemoved()
     {
-        disposables.clear();
         notifyListeners((listener) ->
                 listener.onTorrentRemoved(id));
 
