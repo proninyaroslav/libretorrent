@@ -581,9 +581,6 @@ public class TorrentEngine
 
     public TorrentInfo makeInfoSync(@NonNull String id)
     {
-        if (!isRunning())
-            return null;
-
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
             return null;
@@ -626,9 +623,6 @@ public class TorrentEngine
     public List<TorrentInfo> makeInfoListSync()
     {
         ArrayList<TorrentInfo> stateList = new ArrayList<>();
-
-        if (!isRunning())
-            return stateList;
 
         for (Torrent torrent : repo.getAllTorrents()) {
             if (torrent == null)
