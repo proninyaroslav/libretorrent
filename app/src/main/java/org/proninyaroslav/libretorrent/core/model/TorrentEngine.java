@@ -34,7 +34,6 @@ import org.proninyaroslav.libretorrent.BuildConfig;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
-import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
@@ -48,6 +47,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
+import org.proninyaroslav.libretorrent.core.model.session.SessionInitParams;
 import org.proninyaroslav.libretorrent.core.model.session.SessionLogMsg;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSession;
@@ -58,13 +58,14 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.ConnectionReceiver;
 import org.proninyaroslav.libretorrent.receiver.PowerReceiver;
 import org.proninyaroslav.libretorrent.service.TorrentService;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -145,8 +146,37 @@ public class TorrentEngine
     {
         if (isRunning())
             return;
+        
+        session.startWithParams(makeSessionInitParams());
+    }
+    
+    private SessionInitParams makeSessionInitParams()
+    {
+        SessionInitParams initParams = new SessionInitParams();
 
-        session.start();
+        if (pref.useRandomPort()) {
+            Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
+            initParams.portRangeFirst = range.first;
+            initParams.portRangeSecond = range.second;
+        } else {
+            initParams.portRangeFirst = pref.portRangeFirst();
+            initParams.portRangeSecond = pref.portRangeSecond();
+        }
+
+        if (pref.proxyChanged()) {
+            pref.proxyChanged(false);
+            pref.applyProxy(false);
+
+            initParams.proxyType = SessionSettings.ProxyType.fromValue(pref.proxyType());
+            initParams.proxyAddress = pref.proxyAddress();
+            initParams.proxyPort = pref.proxyPort();
+            initParams.proxyPeersToo = pref.proxyPeersToo();
+            initParams.proxyRequiresAuth = pref.proxyRequiresAuth();
+            initParams.proxyLogin = pref.proxyLogin();
+            initParams.proxyPassword = pref.proxyPassword();
+        }
+        
+        return initParams;
     }
 
     public void stop()
@@ -870,22 +900,8 @@ public class TorrentEngine
         return stop;
     }
 
-    private void initSession()
+    private void handleOnSessionStarted()
     {
-        if (pref.useRandomPort()) {
-            setRandomPortRange();
-        } else {
-            int portFirst = pref.portRangeFirst();
-            int portSecond = pref.portRangeSecond();
-            session.setPortRange(portFirst, portSecond);
-        }
-
-        if (pref.proxyChanged()) {
-            pref.proxyChanged(false);
-            pref.applyProxy(false);
-            setProxy();
-        }
-
         if (pref.enableIpFiltering()) {
             String path = pref.ipFilteringFile();
             if (path != null)
@@ -1060,9 +1076,8 @@ public class TorrentEngine
 
     private void setRandomPortRange()
     {
-        Pair<Integer, Integer> range = session.getRandomRangePort();
-        pref.portRangeFirst(range.first);
-        pref.portRangeSecond(range.second);
+        Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
+        session.setPortRange(range.first, range.second);
     }
 
     /*
@@ -1079,7 +1094,7 @@ public class TorrentEngine
         @Override
         public void onSessionStarted()
         {
-            initSession();
+            handleOnSessionStarted();
         }
 
         @Override

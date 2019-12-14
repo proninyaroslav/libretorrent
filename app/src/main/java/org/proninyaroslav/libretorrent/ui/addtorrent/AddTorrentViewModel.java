@@ -50,9 +50,8 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
-import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 

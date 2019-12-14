@@ -19,18 +19,15 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
-import android.annotation.TargetApi;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 public interface FileSystemFacade
 {

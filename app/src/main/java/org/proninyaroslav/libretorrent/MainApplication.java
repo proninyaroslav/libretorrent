@@ -27,10 +27,10 @@ import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraMailSender;
 import org.libtorrent4j.swig.libtorrent;
-import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.LibTorrentSafAdapter;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
 @AcraCore(buildConfigClass = BuildConfig.class)

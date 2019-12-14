@@ -22,7 +22,7 @@ package org.proninyaroslav.libretorrent.core.model.session;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
+import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
@@ -88,8 +88,6 @@ public interface TorrentSession
 
     void setPortRange(int portFirst, int portSecond);
 
-    Pair<Integer, Integer> getRandomRangePort();
-
     void enableIpFilter(@NonNull Uri path);
 
     void disableIpFilter();
@@ -115,6 +113,8 @@ public interface TorrentSession
     boolean isPeXEnabled();
 
     void start();
+
+    void startWithParams(@Nullable SessionInitParams startParams);
 
     void stop();
 

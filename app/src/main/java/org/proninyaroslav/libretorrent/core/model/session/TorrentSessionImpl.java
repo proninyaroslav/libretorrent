@@ -24,7 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
+import androidx.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AlertListener;
@@ -77,9 +77,9 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
-import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
@@ -97,7 +97,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
@@ -566,19 +565,6 @@ public class TorrentSessionImpl extends SessionManager
         applySettings(settings);
     }
 
-    /*
-     * Get the first port in range [37000, 57000] and the second `first` + 10
-     */
-
-    @Override
-    public Pair<Integer, Integer> getRandomRangePort()
-    {
-        int port = SessionSettings.DEFAULT_PORT_RANGE_FIRST + new Random().nextInt(
-                SessionSettings.DEFAULT_PORT_RANGE_SECOND - 10 - SessionSettings.DEFAULT_PORT_RANGE_FIRST);
-
-        return new Pair<>(port , port + 10);
-    }
-
     @Override
     public void enableIpFilter(@NonNull Uri path)
     {
@@ -705,6 +691,12 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void start()
     {
+        startWithParams(null);
+    }
+
+    @Override
+    public void startWithParams(@Nullable SessionInitParams initParams)
+    {
         SessionParams params = loadSettings();
         settings_pack sp = params.settings().swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
@@ -712,13 +704,6 @@ public class TorrentSessionImpl extends SessionManager
         sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), 0);
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), 5000);
         sp.set_bool(settings_pack.bool_types.upnp_ignore_nonrouters.swigValue(), true);
-
-        Pair<Integer, Integer> portRange = getRandomRangePort();
-        settings.portRangeFirst = portRange.first;
-        settings.portRangeSecond = portRange.second;
-        sp.set_str(settings_pack.string_types.listen_interfaces.swigValue(), getIface());
-        sp.set_int(settings_pack.int_types.max_retry_port_bind.swigValue(),
-                settings.portRangeSecond - settings.portRangeFirst);
 
         String versionName = system.getAppVersionName();
         if (versionName != null) {
@@ -735,7 +720,31 @@ public class TorrentSessionImpl extends SessionManager
             Log.i(TAG, "User agent: " + sp.get_str(settings_pack.string_types.user_agent.swigValue()));
         }
 
+        if (initParams != null)
+            initParamsToSettingsPack(initParams, params.settings());
+
         super.start(params);
+    }
+
+    private void initParamsToSettingsPack(SessionInitParams initParams, SettingsPack sp)
+    {
+        if (initParams.portRangeFirst != -1 && initParams.portRangeSecond != -1) {
+            sp.listenInterfaces(getIface(settings.inetAddress, initParams.portRangeFirst));
+            sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
+                    initParams.portRangeSecond - initParams.portRangeFirst);
+        }
+
+        int proxyType = convertProxyType(initParams.proxyType, initParams.proxyRequiresAuth);
+        sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);
+        if (initParams.proxyType != SessionSettings.ProxyType.NONE) {
+            sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), initParams.proxyPort);
+            sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), initParams.proxyAddress);
+            if (initParams.proxyRequiresAuth) {
+                sp.setString(settings_pack.string_types.proxy_username.swigValue(), initParams.proxyLogin);
+                sp.setString(settings_pack.string_types.proxy_password.swigValue(), initParams.proxyPassword);
+            }
+            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), initParams.proxyPeersToo);
+        }
     }
 
     @Override
@@ -977,7 +986,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.tickInterval(settings.tickInterval);
         sp.inactivityTimeout(settings.inactivityTimeout);
         sp.connectionsLimit(settings.connectionsLimit);
-        sp.listenInterfaces(getIface());
+        sp.listenInterfaces(getIface(settings.inetAddress, settings.portRangeFirst));
         sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
         sp.enableDht(settings.dhtEnabled);
@@ -1040,20 +1049,23 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private String getIface()
+    private String getIface(String inetAddress, int portRangeFirst)
     {
-        String iface = settings.inetAddress;
-        if (iface.equals(SessionSettings.DEFAULT_INETADDRESS)) {
+        String iface;
+        if (inetAddress.equals(SessionSettings.DEFAULT_INETADDRESS)) {
             iface = "0.0.0.0:%1$d,[::]:%1$d";
+
         } else {
             /* IPv6 test */
-            if (iface.contains(":")) {
-                iface = "[" + iface + "]";
-            }
+            if (inetAddress.contains(":"))
+                iface = "[" + inetAddress + "]";
+            else
+                iface = inetAddress;
+
             iface = iface + ":%1$d";
         }
 
-        return String.format(iface, settings.portRangeFirst);
+        return String.format(iface, portRangeFirst);
     }
 
     private void applySettingsPack(SettingsPack sp)

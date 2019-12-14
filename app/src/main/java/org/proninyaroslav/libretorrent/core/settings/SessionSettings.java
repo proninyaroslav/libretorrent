@@ -19,6 +19,11 @@
 
 package org.proninyaroslav.libretorrent.core.settings;
 
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
+
+import java.util.Random;
+
 public class SessionSettings
 {
     public static final int DEFAULT_CACHE_SIZE = 256;
@@ -149,5 +154,18 @@ public class SessionSettings
         {
             return value;
         }
+    }
+
+    /*
+     * Get the first port in range [37000, 57000] and the second `first` + 10
+     */
+
+    @NonNull
+    public static Pair<Integer, Integer> getRandomRangePort()
+    {
+        int port = DEFAULT_PORT_RANGE_FIRST + new Random().nextInt(
+                DEFAULT_PORT_RANGE_SECOND - 10 - DEFAULT_PORT_RANGE_FIRST);
+
+        return new Pair<>(port , port + 10);
     }
 }

@@ -37,7 +37,6 @@ import androidx.core.app.NotificationCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
-import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -46,6 +45,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 import java.util.List;

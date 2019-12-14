@@ -46,11 +46,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -67,10 +65,10 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
