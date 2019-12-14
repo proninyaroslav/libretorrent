@@ -184,6 +184,7 @@ public class TorrentEngine
         if (!isRunning())
             return;
 
+        disposables.clear();
         stopWatchDir();
         stopStreamingServer();
         session.stop();
