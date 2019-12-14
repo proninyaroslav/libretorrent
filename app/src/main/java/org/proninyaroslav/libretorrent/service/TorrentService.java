@@ -87,13 +87,7 @@ public class TorrentService extends Service
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        shutdownThread = new Thread() {
-            @Override
-            public void run()
-            {
-                stopService();
-            }
-        };
+        shutdownThread = new Thread(this::stopService);
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
