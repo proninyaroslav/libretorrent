@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent veikia foniniame rėžime</string>
     <string name="network_online">Tinklo būklė: Prisijungęs</string>
     <string name="network_offline">Tinklo būklė: Atsijungęs</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrento klaida</string>
     <string name="error_template">Klaida: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">പശ്ചാത്തലത്തിൽ പ്രവർത്തിപ്പിക്കുന്ന LibreTorrent</string>
     <string name="network_online">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓൺലൈനിൽ</string>
     <string name="network_offline">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓഫ്ലൈൻ</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">ടോറന്റ് പിശക്</string>
     <string name="error_template">Error: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent działa w tle</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Błąd torrenta</string>
     <string name="error_template">Błąd: %1$s</string>

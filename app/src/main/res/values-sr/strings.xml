@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent ради у позадини</string>
     <string name="network_online">Статус мреже: Онлајн</string>
     <string name="network_offline">Статус мреже: Офлајн</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Грешка торента</string>
     <string name="error_template">Грешка: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">Το LibreTorrent τρέχει στο παρασκήνιο</string>
     <string name="network_online">Κατάσταση δικτύου: Σε σύνδεση</string>
     <string name="network_offline">Κατάσταση δικτύου: Εκτός σύνδεσης</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Σφάλμα torrent</string>
     <string name="error_template">Σφάλμα: %1$s</string>

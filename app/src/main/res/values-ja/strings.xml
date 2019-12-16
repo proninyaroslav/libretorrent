@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">バックグラウンドで LibreTorrent を動作し続ける</string>
     <string name="network_online">ネットワークステータス: オンライン</string>
     <string name="network_offline">ネットワークステータス: オフライン</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">トレントエラー</string>
     <string name="error_template">エラー: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent पृष्ठभूमि में चल रहा है</string>
     <string name="network_online">नेटवर्क स्थिति: ऑनलाइन</string>
     <string name="network_offline">नेटवर्क स्थिति: ऑफ़लाइन</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">टोरेंट की त्रुटि</string>
     <string name="error_template">त्रुटि: %1$s</string>

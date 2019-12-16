@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
     <string name="network_offline">Stav sítě: Offline</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Chyba torrentu</string>
     <string name="error_template">Chyba: %1$s</string>

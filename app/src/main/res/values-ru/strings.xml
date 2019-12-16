@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent запущен в фоне</string>
     <string name="network_online">Статус сети: Онлайн</string>
     <string name="network_offline">Статус сети: Оффлайн</string>
+    <string name="notify_shutting_down">Завершение работы&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Ошибка торрента</string>
     <string name="error_template">Ошибка: %1$s</string>

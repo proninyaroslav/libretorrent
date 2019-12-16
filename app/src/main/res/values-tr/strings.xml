@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent arka planda çalışıyor</string>
     <string name="network_online">Ağ durumu: Çevrimiçi</string>
     <string name="network_offline">Ağ durumu: Çevrimdışı</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent hatası</string>
     <string name="error_template">Hata: %1$s</string>

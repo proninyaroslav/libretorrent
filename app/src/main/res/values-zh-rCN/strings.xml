@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
     <string name="network_online">网络状态：在线</string>
     <string name="network_offline">网络状态：离线</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">种子错误</string>
     <string name="error_template">错误: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent running in the background</string>
     <string name="network_online">Network status: Online</string>
     <string name="network_offline">Network status: Offline</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent error</string>
     <string name="error_template">Error: %1$s</string>

@@ -101,6 +101,7 @@
     <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Eroare torrent</string>
     <string name="error_template">Eroare: %1$s</string>

@@ -48,6 +48,7 @@ import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -76,6 +77,7 @@ public class TorrentService extends Service
     private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
     private CompositeDisposable disposables = new CompositeDisposable();
+    private boolean shuttingDown = false;
 
     @Nullable
     @Override
@@ -124,8 +126,11 @@ public class TorrentService extends Service
 
     private void stopEngine()
     {
-        if (engine != null)
+        if (engine != null) {
+            shuttingDown = true;
+            forceUpdateForeground();
             engine.stop();
+        }
     }
 
     private void stopService()
@@ -232,7 +237,7 @@ public class TorrentService extends Service
     {
         if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
             setKeepCpuAwake(pref.cpuDoNotSleep());
-    };
+    }
 
     private void startUpdateForegroundNotify()
     {
@@ -247,6 +252,15 @@ public class TorrentService extends Service
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
+    }
+
+    private void forceUpdateForeground()
+    {
+        disposables.add(Completable.fromRunnable(() -> {
+                    updateForegroundNotify(Collections.emptyList());
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 
     private void stopUpdateForegroundNotify()
@@ -296,13 +310,20 @@ public class TorrentService extends Service
 
         isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
 
-        foregroundNotify.setContentText((isNetworkOnline ?
-                getString(R.string.network_online) :
-                getString(R.string.network_offline)));
-        if (stateList.isEmpty())
+        if (shuttingDown) {
+            String shuttingDownStr = getString(R.string.notify_shutting_down);
             foregroundNotify.setStyle(null);
-        else
-            foregroundNotify.setStyle(makeDetailNotifyInboxStyle(stateList));
+            foregroundNotify.setTicker(shuttingDownStr);
+            foregroundNotify.setContentTitle(shuttingDownStr);
+        } else {
+            foregroundNotify.setContentText((isNetworkOnline ?
+                    getString(R.string.network_online) :
+                    getString(R.string.network_offline)));
+            if (stateList.isEmpty())
+                foregroundNotify.setStyle(null);
+            else
+                foregroundNotify.setStyle(makeDetailNotifyInboxStyle(stateList));
+        }
         /* Disallow killing the service process by system */
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
