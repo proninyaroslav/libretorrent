@@ -51,6 +51,7 @@ import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -74,7 +75,6 @@ public class TorrentService extends Service
     private TorrentEngine engine;
     private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
-    private Thread shutdownThread;
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Nullable
@@ -87,7 +87,6 @@ public class TorrentService extends Service
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        shutdownThread = new Thread(this::stopService);
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
@@ -118,23 +117,28 @@ public class TorrentService extends Service
 
     private void shutdown()
     {
-        if (shutdownThread != null && !shutdownThread.isAlive())
-            shutdownThread.start();
+        disposables.add(Completable.fromRunnable(this::stopEngine)
+                .subscribeOn(Schedulers.computation())
+                .subscribe());
+    }
+
+    private void stopEngine()
+    {
+        if (engine != null)
+            engine.stop();
     }
 
     private void stopService()
     {
         disposables.clear();
-        stopUpdateForegroundNotify();
         engine.removeListener(engineListener);
-        if (engine != null)
-            engine.stop();
-        isAlreadyRunning = false;
         stateProvider = null;
         engine = null;
         pref = null;
+        stopUpdateForegroundNotify();
         setKeepCpuAwake(false);
 
+        isAlreadyRunning = false;
         stopForeground(true);
         stopSelf();
     }
@@ -215,6 +219,12 @@ public class TorrentService extends Service
         public void onTorrentRemoved(@NonNull String id)
         {
             checkShutdown();
+        }
+
+        @Override
+        public void onSessionStopped()
+        {
+            stopService();
         }
     };
 

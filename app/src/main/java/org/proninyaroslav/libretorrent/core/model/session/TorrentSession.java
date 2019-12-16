@@ -116,7 +116,7 @@ public interface TorrentSession
 
     void startWithParams(@Nullable SessionInitParams startParams);
 
-    void stop();
+    void requestStop();
 
     boolean isRunning();
 

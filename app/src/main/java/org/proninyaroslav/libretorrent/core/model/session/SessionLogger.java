@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.libtorrent4j.alerts.Alert;
@@ -41,9 +40,9 @@ class SessionLogger
         allowedLogTypes = EnumSet.allOf(SessionLogType.class);
     }
 
-    void setAllowedLogTypes(@NonNull EnumSet<SessionLogType> types)
+    void setAllowedLogTypes(@Nullable EnumSet<SessionLogType> types)
     {
-        allowedLogTypes = types;
+        allowedLogTypes = (types == null ? EnumSet.noneOf(SessionLogType.class) : types);
     }
 
     @Nullable

@@ -32,7 +32,6 @@ import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +42,8 @@ import java.util.Set;
 public interface TorrentDownload
 {
     String getTorrentId();
+
+    void stop();
 
     void pause();
 
@@ -89,8 +90,6 @@ public interface TorrentDownload
     int getTotalSeeds();
 
     void requestTrackerAnnounce();
-
-    void requestTrackerScrape();
 
     Set<String> getTrackersUrl();
 
@@ -172,8 +171,6 @@ public interface TorrentDownload
 
     void readPiece(int pieceIndex);
 
-    File getFile(int fileIndex);
-
     void setInterestedPieces(@NonNull TorrentStream stream, int startPiece, int numPieces);
 
     TorrentStream getStream(int fileIndex);
@@ -183,6 +180,8 @@ public interface TorrentDownload
     boolean isDuringChangeParams();
 
     boolean isValid();
+
+    boolean isStopped();
 
     Priority[] getFilePriorities();
 

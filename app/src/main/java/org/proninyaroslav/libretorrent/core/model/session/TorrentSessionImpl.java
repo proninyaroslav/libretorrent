@@ -99,10 +99,15 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -116,7 +121,6 @@ public class TorrentSessionImpl extends SessionManager
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.ADD_TORRENT.swig(),
             AlertType.METADATA_RECEIVED.swig(),
-            AlertType.TORRENT_REMOVED.swig(),
             AlertType.SESSION_ERROR.swig(),
             AlertType.PORTMAP_ERROR.swig(),
             AlertType.LISTEN_FAILED.swig(),
@@ -149,6 +153,7 @@ public class TorrentSessionImpl extends SessionManager
     private SystemFacade system;
     private boolean enableLogging;
     private SessionLogger sessionLogger;
+    private boolean stopRequested;
 
     public TorrentSessionImpl(@NonNull TorrentRepository repo,
                               @NonNull FileSystemFacade fs,
@@ -157,6 +162,7 @@ public class TorrentSessionImpl extends SessionManager
     {
         super(enableLogging);
 
+        this.stopRequested = false;
         this.enableLogging = enableLogging;
         this.sessionLogger = new SessionLogger();
         this.repo = repo;
@@ -167,7 +173,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setAllowedLogTypes(EnumSet<SessionLogType> types)
+    public void setAllowedLogTypes(@Nullable EnumSet<SessionLogType> types)
     {
         sessionLogger.setAllowedLogTypes(types);
     }
@@ -221,10 +227,18 @@ public class TorrentSessionImpl extends SessionManager
         loadedMagnets.remove(hash);
     }
 
+    private boolean operationNotAllowed()
+    {
+        return swig() == null || stopRequested;
+    }
+
     @Override
     public Torrent addTorrent(@NonNull AddTorrentParams params,
                               boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
+        if (operationNotAllowed())
+            return null;
+
         Torrent torrent = new Torrent(params.sha1hash, params.downloadPath, params.name,
                 params.addPaused, System.currentTimeMillis());
 
@@ -278,6 +292,9 @@ public class TorrentSessionImpl extends SessionManager
 
     private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException
     {
+        if (operationNotAllowed())
+            return;
+
         cancelFetchMagnet(id);
 
         Torrent torrent = repo.getTorrentById(id);
@@ -324,7 +341,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void deleteTorrent(@NonNull String id, boolean withFiles)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         TorrentDownload task = getTask(id);
@@ -343,7 +360,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void restoreTorrents()
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         for (Torrent torrent : repo.getAllTorrents()) {
@@ -364,7 +381,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public MagnetInfo fetchMagnet(@NonNull String uri) throws Exception
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return null;
 
         org.libtorrent4j.AddTorrentParams params = parseMagnetUri(uri);
@@ -389,6 +406,9 @@ public class TorrentSessionImpl extends SessionManager
 
     private org.libtorrent4j.AddTorrentParams fetchMagnet(org.libtorrent4j.AddTorrentParams params) throws Exception
     {
+        if (operationNotAllowed())
+            return null;
+
         add_torrent_params p = params.swig();
 
         p.set_disabled_storage();
@@ -457,7 +477,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void cancelFetchMagnet(@NonNull String infoHash)
     {
-        if (swig() == null || !magnets.contains(infoHash))
+        if (operationNotAllowed() || !magnets.contains(infoHash))
             return;
 
         magnets.remove(infoHash);
@@ -468,7 +488,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void mergeTorrent(String id, AddTorrentParams params, byte[] bencode)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         TorrentDownload task = torrentTasks.get(id);
@@ -557,7 +577,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void setPortRange(int portFirst, int portSecond)
     {
-        if (swig() == null || portFirst == -1 || portSecond == -1)
+        if (operationNotAllowed() || portFirst == -1 || portSecond == -1)
             return;
 
         settings.portRangeFirst = portFirst;
@@ -568,7 +588,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void enableIpFilter(@NonNull Uri path)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         IPFilterParser parser = new IPFilterParser(path, fs);
@@ -591,7 +611,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void disableIpFilter()
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         swig().set_ip_filter(new ip_filter());
@@ -606,6 +626,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void pauseAll()
     {
+        if (operationNotAllowed())
+            return;
+
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
@@ -616,6 +639,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void resumeAll()
     {
+        if (operationNotAllowed())
+            return;
+
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
@@ -626,6 +652,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void pauseAllManually()
     {
+        if (operationNotAllowed())
+            return;
+
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
@@ -636,6 +665,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void resumeAllManually()
     {
+        if (operationNotAllowed())
+            return;
+
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
                 continue;
@@ -646,6 +678,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void setMaxConnectionsPerTorrent(int connections)
     {
+        if (operationNotAllowed())
+            return;
+
         settings.connectionsLimitPerTorrent = connections;
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
@@ -657,6 +692,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void setMaxUploadsPerTorrent(int uploads)
     {
+        if (operationNotAllowed())
+            return;
+
         settings.uploadsLimitPerTorrent = uploads;
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null)
@@ -668,6 +706,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void setAutoManaged(boolean autoManaged)
     {
+        if (operationNotAllowed())
+            return;
+
         settings.autoManaged = autoManaged;
         for (TorrentDownload task : torrentTasks.values())
             task.setAutoManaged(autoManaged);
@@ -691,6 +732,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void start()
     {
+        if (isRunning())
+            return;
+
         startWithParams(null);
     }
 
@@ -748,9 +792,33 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void stop()
+    public void requestStop()
     {
-        super.stop();
+        if (stopRequested)
+            return;
+
+        stopRequested = true;
+        stopTasks();
+    }
+
+    private void stopTasks()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null)
+                continue;
+
+            task.stop();
+        }
+
+        /* Handles must be destructed before the session is destructed */
+        torrentTasks.clear();
+        checkStop();
+    }
+
+    private void checkStop()
+    {
+        if (stopRequested && torrentTasks.isEmpty() && addTorrentsList.isEmpty())
+            super.stop();
     }
 
     @Override
@@ -774,6 +842,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     protected void onBeforeStart()
     {
+        addListener(torrentTaskListener);
         addListener(innerListener);
     }
 
@@ -781,19 +850,24 @@ public class TorrentSessionImpl extends SessionManager
     protected void onAfterStart()
     {
         notifyListeners(TorrentEngineListener::onSessionStarted);
+        saveSettings();
     }
 
     @Override
     protected void onBeforeStop()
     {
         disposables.clear();
-        saveAllResumeData();
-        /* Handles must be destructed before the session is destructed */
-        torrentTasks.clear();
         magnets.clear();
         loadedMagnets.clear();
+        removeListener(torrentTaskListener);
         removeListener(innerListener);
-        saveSettings();
+    }
+
+    @Override
+    protected void onAfterStop()
+    {
+        notifyListeners(TorrentEngineListener::onSessionStopped);
+        stopRequested = false;
     }
 
     @Override
@@ -801,6 +875,14 @@ public class TorrentSessionImpl extends SessionManager
     {
         saveSettings();
     }
+
+    private final TorrentEngineListener torrentTaskListener = new TorrentEngineListener() {
+        @Override
+        public void onTorrentRemoved(@NonNull String id)
+        {
+            torrentTasks.remove(id);
+        }
+    };
 
     private final class InnerListener implements AlertListener
     {
@@ -830,13 +912,11 @@ public class TorrentSessionImpl extends SessionManager
                         notifyListeners((listener) ->
                                 listener.onTorrentLoaded(hash));
                     addTorrentsList.remove(hash);
+                    checkStop();
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
                     handleMetadata(((MetadataReceivedAlert)alert));
-                    break;
-                case TORRENT_REMOVED:
-                    torrentTasks.remove(((TorrentRemovedAlert)alert).infoHash().toHex());
                     break;
                 default:
                     checkError(alert);
@@ -878,9 +958,6 @@ public class TorrentSessionImpl extends SessionManager
 
     private void handleMetadata(MetadataReceivedAlert metadataAlert)
     {
-        if (swig() == null)
-            return;
-
         TorrentHandle th = metadataAlert.handle();
         String hash = th.infoHash().toHex();
         if (!magnets.contains(hash))
@@ -950,7 +1027,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void saveSettings()
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         try {
@@ -1071,7 +1148,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void applySettingsPack(SettingsPack sp)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         applySettings(sp);
@@ -1080,7 +1157,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void applySettings(SessionSettings settings)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         SettingsPack sp = settings();
@@ -1088,17 +1165,11 @@ public class TorrentSessionImpl extends SessionManager
         applySettingsPack(sp);
     }
 
-    private void saveAllResumeData()
-    {
-        for (TorrentDownload task : torrentTasks.values()) {
-            if (task == null)
-                continue;
-            task.saveResumeData(true);
-        }
-    }
-
     private byte[] createTorrent(add_torrent_params params, torrent_info ti)
     {
+        if (operationNotAllowed())
+            return null;
+
         create_torrent ct = new create_torrent(ti);
 
         string_vector v = params.get_url_seeds();
@@ -1139,7 +1210,14 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private void runNextLoadTorrentTask() {
+    private void runNextLoadTorrentTask()
+    {
+        if (operationNotAllowed()) {
+            restoreTorrentsQueue.clear();
+
+            return;
+        }
+
         LoadTorrentTask task = null;
         try {
             if (!restoreTorrentsQueue.isEmpty())
@@ -1217,7 +1295,7 @@ public class TorrentSessionImpl extends SessionManager
                           Priority[] priorities, boolean sequentialDownload,
                           boolean paused, List<TcpEndpoint> peers)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         if (!ti.isValid())
@@ -1285,7 +1363,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void download(@NonNull String magnetUri, File saveDir, boolean paused)
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         error_code ec = new error_code();
@@ -1319,7 +1397,7 @@ public class TorrentSessionImpl extends SessionManager
 
     private void restoreDownload(String id) throws IOException
     {
-        if (swig() == null)
+        if (operationNotAllowed())
             return;
 
         FastResume fastResume = repo.getFastResumeById(id);
@@ -1341,6 +1419,10 @@ public class TorrentSessionImpl extends SessionManager
             flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         p.setFlags(flags);
+
+        /* After reading the metadata some time may have passed */
+        if (operationNotAllowed())
+            return;
 
         swig().async_add_torrent(p);
     }

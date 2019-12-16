@@ -82,7 +82,7 @@ import java.util.Locale;
 import java.util.Queue;
 import java.util.Set;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.Completable;
 
 /*
  * This class encapsulate one stream with running torrent.
@@ -126,15 +126,16 @@ class TorrentDownloadImpl implements TorrentDownload
     private String id;
     private TorrentRepository repo;
     private FileSystemFacade fs;
-    private final Queue<TorrentEngineListener> listeners;
+    private Queue<TorrentEngineListener> listeners;
     private InnerListener listener;
     private Set<Uri> incompleteFilesToRemove;
     private Uri partsFile;
     private long lastSaveResumeTime;
     private String name;
-    private ChangeParamsState changeState = new ChangeParamsState();
+    private ChangeParamsState changeParamsState = new ChangeParamsState();
     private boolean autoManaged;
     private long lastProgressUpdateTime = 0;
+    private boolean stopped;
 
     public TorrentDownloadImpl(SessionManager sessionManager,
                                TorrentRepository repo,
@@ -144,6 +145,7 @@ class TorrentDownloadImpl implements TorrentDownload
                                TorrentHandle handle,
                                boolean autoManaged)
     {
+        this.stopped = false;
         this.id = id;
         this.repo = repo;
         this.fs = fs;
@@ -177,30 +179,15 @@ class TorrentDownloadImpl implements TorrentDownload
         }
     }
 
+    private boolean operationNotAllowed()
+    {
+        return !th.isValid() || stopped;
+    }
+
     private class ChangeParamsState
     {
-        private boolean applyingParams;
-        private boolean moving;
-
-        public void setMoving(boolean moving)
-        {
-            this.moving = moving;
-        }
-
-        public boolean isMoving()
-        {
-            return moving;
-        }
-
-        public void setApplyingParams(boolean applyingParams)
-        {
-            this.applyingParams = applyingParams;
-        }
-
-        public boolean isApplyingParams()
-        {
-            return applyingParams;
-        }
+        public boolean applyingParams;
+        public boolean moving;
 
         public boolean isDuringChange()
         {
@@ -286,11 +273,11 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void onStorageMoved(boolean success)
     {
-        boolean moved = changeState.isMoving();
-        changeState.setMoving(false);
+        boolean moved = changeParamsState.moving;
+        changeParamsState.moving = false;
 
         notifyListeners((listener) -> listener.onTorrentMoved(id, success));
-        if (moved && !changeState.isDuringChange())
+        if (moved && !changeParamsState.applyingParams)
             notifyListeners((listener) -> listener.onParamsApplied(id, null));
 
         saveResumeData(true);
@@ -436,7 +423,8 @@ class TorrentDownloadImpl implements TorrentDownload
         notifyListeners((listener) ->
                 listener.onTorrentRemoved(id));
 
-        sessionManager.removeListener(listener);
+        stop();
+
         if (partsFile != null) {
             try {
                 fs.deleteFile(partsFile);
@@ -475,9 +463,6 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void serializeResumeData(SaveResumeDataAlert alert)
     {
-        if (!th.isValid())
-            return;
-
         try {
             byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
             repo.addFastResume(new FastResume(id, Vectors.byte_vector2bytes(data)));
@@ -495,9 +480,18 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
+    public void stop()
+    {
+        if (!stopped)
+            stopped = true;
+
+        sessionManager.removeListener(listener);
+    }
+
+    @Override
     public void pause()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
 
         doPause();
@@ -506,7 +500,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void resume()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
 
         Torrent torrent = repo.getTorrentById(id);
@@ -519,7 +513,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void pauseManually()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
 
         Torrent torrent = repo.getTorrentById(id);
@@ -535,7 +529,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void resumeManually()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
 
         Torrent torrent = repo.getTorrentById(id);
@@ -550,6 +544,9 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void doPause()
     {
+        if (operationNotAllowed())
+            return;
+
         th.unsetFlags(TorrentFlags.AUTO_MANAGED);
         th.pause();
         saveResumeData(true);
@@ -557,6 +554,9 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void doResume()
     {
+        if (operationNotAllowed())
+            return;
+
         if (autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
         else
@@ -568,7 +568,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void setAutoManaged(boolean autoManaged)
     {
-        if (isPaused())
+        if (operationNotAllowed() || isPaused())
             return;
 
         this.autoManaged = autoManaged;
@@ -582,13 +582,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isAutoManaged()
     {
-        return th.isValid() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).nonZero();
+        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).nonZero();
     }
 
     @Override
     public int getProgress()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return 0;
 
         TorrentStatus ts = th.status();
@@ -610,7 +610,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void prioritizeFiles(@NonNull Priority[] priorities)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
 
         TorrentInfo ti = th.torrentFile();
@@ -639,7 +639,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getSize()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return 0;
 
         TorrentInfo info = th.torrentFile();
@@ -650,13 +650,17 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getDownloadSpeed()
     {
-        return (!th.isValid() || isFinished() || isPaused() || isSeeding()) ? 0 : th.status().downloadPayloadRate();
+        return operationNotAllowed() || isFinished() || isPaused() || isSeeding() ?
+                0 :
+                th.status().downloadPayloadRate();
     }
 
     @Override
     public long getUploadSpeed()
     {
-        return (!th.isValid() || (isFinished() && !isSeeding()) || isPaused()) ? 0 : th.status().uploadPayloadRate();
+        return operationNotAllowed() || isFinished() && !isSeeding() || isPaused() ?
+                0 :
+                th.status().uploadPayloadRate();
     }
 
     @Override
@@ -668,7 +672,7 @@ class TorrentDownloadImpl implements TorrentDownload
             incompleteFilesToRemove = getIncompleteFiles(torrent);
         }
 
-        if (th.isValid()) {
+        if (!operationNotAllowed()) {
             if (withFiles)
                 sessionManager.remove(th, SessionHandle.DELETE_FILES);
             else
@@ -682,14 +686,15 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void finalCleanup(Set<Uri> incompleteFiles)
     {
-        if (incompleteFiles != null) {
-            for (Uri path : incompleteFiles) {
-                try {
-                    if (!fs.deleteFile(path))
-                        Log.w(TAG, "Can't delete file " + path);
-                } catch (Exception e) {
-                    Log.w(TAG, "Can't delete file " + path + ", ex: " + e.getMessage());
-                }
+        if (incompleteFiles == null)
+            return;
+
+        for (Uri path : incompleteFiles) {
+            try {
+                if (!fs.deleteFile(path))
+                    Log.w(TAG, "Can't delete file " + path);
+            } catch (Exception e) {
+                Log.w(TAG, "Can't delete file " + path + ", ex: " + e.getMessage());
             }
         }
     }
@@ -702,7 +707,7 @@ class TorrentDownloadImpl implements TorrentDownload
             return s;
 
         try {
-            if (!th.isValid())
+            if (operationNotAllowed())
                 return s;
 
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
@@ -735,13 +740,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getActiveTime()
     {
-        return th.isValid() ? th.status().activeDuration() / 1000L : 0;
+        return operationNotAllowed() ? 0 : th.status().activeDuration() / 1000L;
     }
 
     @Override
     public long getSeedingTime()
     {
-        return th.isValid() ? th.status().seedingDuration() / 1000L : 0;
+        return operationNotAllowed() ? 0 : th.status().seedingDuration() / 1000L;
     }
 
     /*
@@ -753,13 +758,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getReceivedBytes()
     {
-        return th.isValid() ? th.status().totalPayloadDownload() : 0;
+        return operationNotAllowed() ? 0 : th.status().totalPayloadDownload();
     }
 
     @Override
     public long getTotalReceivedBytes()
     {
-        return th.isValid() ? th.status().allTimeDownload() : 0;
+        return operationNotAllowed() ? 0 : th.status().allTimeDownload();
     }
 
     /*
@@ -771,31 +776,31 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getSentBytes()
     {
-        return th.isValid() ? th.status().totalPayloadUpload() : 0;
+        return operationNotAllowed() ? 0 : th.status().totalPayloadUpload();
     }
 
     @Override
     public long getTotalSentBytes()
     {
-        return th.isValid() ? th.status().allTimeUpload() : 0;
+        return operationNotAllowed() ? 0 : th.status().allTimeUpload();
     }
 
     @Override
     public int getConnectedPeers()
     {
-        return th.isValid() ? th.status().numPeers() : 0;
+        return operationNotAllowed() ? 0 : th.status().numPeers();
     }
 
     @Override
     public int getConnectedSeeds()
     {
-        return th.isValid() ? th.status().numSeeds() : 0;
+        return operationNotAllowed() ? 0 : th.status().numSeeds();
     }
 
     @Override
     public int getTotalPeers()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return 0;
 
         TorrentStatus ts = th.status();
@@ -807,25 +812,22 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int getTotalSeeds()
     {
-        return th.isValid() ? th.status().listSeeds() : 0;
+        return operationNotAllowed() ? 0 : th.status().listSeeds();
     }
 
     @Override
     public void requestTrackerAnnounce()
     {
-        th.forceReannounce();
-    }
+        if (operationNotAllowed())
+            return;
 
-    @Override
-    public void requestTrackerScrape()
-    {
-        th.scrapeTracker();
+        th.forceReannounce();
     }
 
     @Override
     public Set<String> getTrackersUrl()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new HashSet<>();
 
         List<AnnounceEntry> trackers = th.trackers();
@@ -840,7 +842,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public List<TrackerInfo> getTrackerInfoList()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new ArrayList<>();
 
         List<AnnounceEntry> trackers = th.trackers();
@@ -855,7 +857,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public List<PeerInfo> getPeerInfoList()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new ArrayList<>();
 
         ArrayList<PeerInfo> infoList = new ArrayList<>();
@@ -899,7 +901,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getTotalWanted()
     {
-        return th.isValid() ? th.status().totalWanted() : 0;
+        return operationNotAllowed() ? 0 : th.status().totalWanted();
     }
 
     @Override
@@ -908,6 +910,9 @@ class TorrentDownloadImpl implements TorrentDownload
         List<AnnounceEntry> urls = new ArrayList<>(trackers.size());
         for (String url : trackers)
             urls.add(new AnnounceEntry(url));
+
+        if (operationNotAllowed())
+            return;
         th.replaceTrackers(urls);
         saveResumeData(true);
     }
@@ -915,6 +920,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void addTrackers(@NonNull Set<String> trackers)
     {
+        if (operationNotAllowed())
+            return;
+
         for (String url : trackers) {
             if (url == null)
                 continue;
@@ -926,6 +934,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void addWebSeeds(@NonNull List<String> urls)
     {
+        if (operationNotAllowed())
+            return;
+
         for (String url : urls) {
             if (url == null)
                 continue;
@@ -937,7 +948,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean[] pieces()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new boolean[0];
 
         PieceIndexBitfield bitfield = th.status(TorrentHandle.QUERY_PIECES).pieces();
@@ -951,7 +962,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public String makeMagnet(boolean includePriorities)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return null;
 
         String uri = th.makeMagnetUri();
@@ -1009,6 +1020,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void setSequentialDownload(boolean sequential)
     {
+        if (operationNotAllowed())
+            return;
+
         if (sequential)
             th.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
         else
@@ -1029,7 +1043,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getETA()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return 0;
         if (getStateCode() != TorrentStateCode.DOWNLOADING)
             return 0;
@@ -1051,12 +1065,20 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public TorrentMetaInfo getTorrentMetaInfo() throws DecodeException
     {
+        if (operationNotAllowed())
+            return null;
+
         TorrentInfo ti = th.torrentFile();
         TorrentMetaInfo info;
-        if (ti != null)
+        if (ti != null) {
             info = new TorrentMetaInfo(ti);
-        else
-            info = new TorrentMetaInfo(getTorrentName(), getInfoHash());
+        } else {
+            String hash = getInfoHash();
+            String name = getTorrentName();
+            if (hash == null || name == null)
+                return null;
+            info = new TorrentMetaInfo(name, hash);
+        }
 
         return info;
     }
@@ -1094,7 +1116,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long[] getFilesReceivedBytes()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return null;
 
         return th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
@@ -1103,19 +1125,22 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void forceRecheck()
     {
+        if (operationNotAllowed())
+            return;
+
         th.forceRecheck();
     }
 
     @Override
     public int getNumDownloadedPieces()
     {
-        return th.isValid() ? th.status().numPieces() : 0;
+        return operationNotAllowed() ? 0 : th.status().numPieces();
     }
 
     @Override
     public double getShareRatio()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return 0;
 
         long uploaded = getTotalSentBytes();
@@ -1136,6 +1161,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public Uri getPartsFile()
     {
+        if (operationNotAllowed())
+            return null;
+
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
             return null;
@@ -1150,6 +1178,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void setDownloadSpeedLimit(int limit)
     {
+        if (operationNotAllowed())
+            return;
+
         th.setDownloadLimit(limit);
         saveResumeData(true);
     }
@@ -1157,12 +1188,15 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int getDownloadSpeedLimit()
     {
-        return th.isValid() ? th.getDownloadLimit() : 0;
+        return operationNotAllowed() ? 0 : th.getDownloadLimit();
     }
 
     @Override
     public void setUploadSpeedLimit(int limit)
     {
+        if (operationNotAllowed())
+            return;
+
         th.setUploadLimit(limit);
         saveResumeData(true);
     }
@@ -1170,13 +1204,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int getUploadSpeedLimit()
     {
-        return th.isValid() ? th.getUploadLimit() : 0;
+        return operationNotAllowed() ? 0 : th.getUploadLimit();
     }
 
     @Override
     public String getInfoHash()
     {
-        return th.infoHash().toString();
+        return operationNotAllowed() ? null : th.infoHash().toString();
     }
 
     @Override
@@ -1205,6 +1239,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
         TorrentStatus.State stateCode = status.state();
         switch (stateCode) {
+            case CHECKING_RESUME_DATA:
             case CHECKING_FILES:
                 return TorrentStateCode.CHECKING;
             case DOWNLOADING_METADATA:
@@ -1217,10 +1252,6 @@ class TorrentDownloadImpl implements TorrentDownload
                 return TorrentStateCode.SEEDING;
             case ALLOCATING:
                 return TorrentStateCode.ALLOCATING;
-            case CHECKING_RESUME_DATA:
-                return TorrentStateCode.CHECKING;
-            case UNKNOWN:
-                return TorrentStateCode.UNKNOWN;
             default:
                 return TorrentStateCode.UNKNOWN;
         }
@@ -1229,7 +1260,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isPaused()
     {
-        return th.isValid() && (isPaused(th.status(true)) ||
+        return !operationNotAllowed() && (isPaused(th.status(true)) ||
                 sessionManager.isPaused() || !sessionManager.isRunning());
     }
 
@@ -1241,13 +1272,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isSeeding()
     {
-        return th.isValid() && th.status().isSeeding();
+        return !operationNotAllowed() && th.status().isSeeding();
     }
 
     @Override
     public boolean isFinished()
     {
-        return th.isValid() && th.status().isFinished();
+        return !operationNotAllowed() && th.status().isFinished();
     }
 
     @Override
@@ -1259,13 +1290,13 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isSequentialDownload()
     {
-        return th.isValid() && th.status().flags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
+        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
     }
 
     @Override
     public void setMaxConnections(int connections)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
         th.swig().set_max_connections(connections);
     }
@@ -1273,7 +1304,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int getMaxConnections()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return -1;
 
         return th.swig().max_connections();
@@ -1282,7 +1313,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void setMaxUploads(int uploads)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return;
         th.swig().set_max_uploads(uploads);
     }
@@ -1290,7 +1321,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int getMaxUploads()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return -1;
 
         return th.swig().max_uploads();
@@ -1318,7 +1349,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public double[] getFilesAvailability(int[] piecesAvailability)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new double[0];
 
         TorrentInfo ti = th.torrentFile();
@@ -1352,7 +1383,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public int[] getPiecesAvailability()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new int[0];
 
         PieceIndexBitfield pieces = th.status(TorrentHandle.QUERY_PIECES).pieces();
@@ -1373,7 +1404,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private Pair<Integer, Integer> getFilePieces(TorrentInfo ti, int fileIndex)
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return null;
 
         if (fileIndex < 0 || fileIndex >= ti.numFiles())
@@ -1389,19 +1420,16 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean havePiece(int pieceIndex)
     {
-        return th.havePiece(pieceIndex);
+        return !operationNotAllowed() && th.havePiece(pieceIndex);
     }
 
     @Override
     public void readPiece(int pieceIndex)
     {
-        th.readPiece(pieceIndex);
-    }
+        if (operationNotAllowed())
+            return;
 
-    @Override
-    public File getFile(int fileIndex)
-    {
-        return new File(th.savePath() + "/" + th.torrentFile().files().filePath(fileIndex));
+        th.readPiece(pieceIndex);
     }
 
     /*
@@ -1425,7 +1453,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 int preloadPieces = PRELOAD_PIECES_COUNT;
                 for (int p = piece; p <= stream.lastFilePiece; p++) {
                     /* Set max priority to first found piece that is not confirmed finished */
-                    if (!th.havePiece(p)) {
+                    if (!operationNotAllowed() && !th.havePiece(p)) {
                         th.piecePriority(p, org.libtorrent4j.Priority.TOP_PRIORITY);
                         th.setPieceDeadline(p, DEFAULT_PIECE_DEADLINE);
                         preloadPieces--;
@@ -1435,7 +1463,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 }
 
             } else {
-                if (!th.havePiece(piece)) {
+                if (!operationNotAllowed() && !th.havePiece(piece)) {
                     th.piecePriority(piece, org.libtorrent4j.Priority.TOP_PRIORITY);
                     th.setPieceDeadline(piece, DEFAULT_PIECE_DEADLINE);
                 }
@@ -1446,6 +1474,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public TorrentStream getStream(int fileIndex)
     {
+        if (operationNotAllowed())
+            return null;
+
         TorrentInfo ti = th.torrentFile();
         FileStorage fs = ti.files();
         Pair<Integer, Integer> filePieces = getFilePieces(ti, fileIndex);
@@ -1462,11 +1493,11 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public synchronized void applyParams(@NonNull ChangeableParams params)
     {
-        if (changeState.isDuringChange())
+        if (changeParamsState.applyingParams || changeParamsState.moving)
             return;
 
-        changeState.setApplyingParams(true);
-        changeState.setMoving(params.dirPath != null);
+        changeParamsState.applyingParams = true;
+        changeParamsState.moving = params.dirPath != null;
 
         notifyListeners((listener) -> listener.onApplyingParams(id));
 
@@ -1487,8 +1518,8 @@ class TorrentDownloadImpl implements TorrentDownload
         } catch (Throwable e) {
             err[0] = e;
         } finally {
-            changeState.setApplyingParams(false);
-            if (!changeState.isMoving())
+            changeParamsState.applyingParams = false;
+            if (!changeParamsState.moving)
                 notifyListeners((listener) -> listener.onParamsApplied(id, err[0]));
         }
     }
@@ -1496,7 +1527,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isDuringChangeParams()
     {
-        return changeState.isDuringChange();
+        return changeParamsState.isDuringChange();
     }
 
     @Override
@@ -1506,9 +1537,15 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
+    public boolean isStopped()
+    {
+        return stopped;
+    }
+
+    @Override
     public Priority[] getFilePriorities()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return new Priority[0];
 
         return PriorityConverter.convert(th.filePriorities());
@@ -1517,7 +1554,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public byte[] getBencode()
     {
-        if (!th.isValid())
+        if (operationNotAllowed())
             return null;
 
         TorrentInfo ti = th.torrentFile();

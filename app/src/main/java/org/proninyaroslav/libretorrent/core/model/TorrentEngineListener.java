@@ -43,6 +43,8 @@ public abstract class TorrentEngineListener
 
     public void onSessionStarted() {}
 
+    public void onSessionStopped() {}
+
     public void onTorrentMoving(@NonNull String id) {}
 
     public void onTorrentMoved(@NonNull String id, boolean success) {}

@@ -187,7 +187,7 @@ public class TorrentEngine
         disposables.clear();
         stopWatchDir();
         stopStreamingServer();
-        session.stop();
+        session.requestStop();
         cleanTemp();
     }
 
@@ -622,7 +622,7 @@ public class TorrentEngine
     private TorrentInfo makeInfo(Torrent torrent)
     {
         TorrentDownload task = session.getTask(torrent.id);
-        if (task == null || !task.isValid())
+        if (task == null || !task.isValid() || task.isStopped())
             return new TorrentInfo(torrent.id,
                     torrent.name,
                     torrent.dateAdded,
