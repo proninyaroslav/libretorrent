@@ -31,7 +31,6 @@ import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
@@ -78,6 +77,7 @@ public class TorrentService extends Service
     private PowerManager.WakeLock wakeLock;
     private CompositeDisposable disposables = new CompositeDisposable();
     private boolean shuttingDown = false;
+    private DownloadsCompletedListener downloadsCompleted;
 
     @Nullable
     @Override
@@ -92,6 +92,17 @@ public class TorrentService extends Service
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
+
+        downloadsCompleted = new DownloadsCompletedListener(getApplicationContext());
+        disposables.add(downloadsCompleted.listen()
+                .subscribe(
+                        this::handleAutoShutdown,
+                        (err) -> {
+                            Log.e(TAG, "Auto shutdown service error: " +
+                                    Log.getStackTraceString(err));
+                            handleAutoShutdown();
+                        }
+                ));
 
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
         setKeepCpuAwake(pref.cpuDoNotSleep());
@@ -117,6 +128,12 @@ public class TorrentService extends Service
         Log.i(TAG, "Stop " + TAG);
     }
 
+    private void handleAutoShutdown()
+    {
+        if (pref.shutdownDownloadsComplete())
+            shutdown();
+    }
+
     private void shutdown()
     {
         disposables.add(Completable.fromRunnable(this::stopEngine)
@@ -136,6 +153,7 @@ public class TorrentService extends Service
     private void stopService()
     {
         disposables.clear();
+        downloadsCompleted = null;
         engine.removeListener(engineListener);
         stateProvider = null;
         engine = null;
@@ -195,35 +213,11 @@ public class TorrentService extends Service
         }
     }
 
-    private void checkShutdown()
-    {
-        if (pref.shutdownDownloadsComplete() && engine.isTorrentsFinished())
-            shutdown();
-    }
-
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
         @Override
         public void onSessionStarted()
         {
             engine.loadTorrents();
-        }
-
-        @Override
-        public void onTorrentFinished(@NonNull String id)
-        {
-            checkShutdown();
-        }
-
-        @Override
-        public void onParamsApplied(@NonNull String id, Throwable e)
-        {
-            checkShutdown();
-        }
-
-        @Override
-        public void onTorrentRemoved(@NonNull String id)
-        {
-            checkShutdown();
         }
 
         @Override

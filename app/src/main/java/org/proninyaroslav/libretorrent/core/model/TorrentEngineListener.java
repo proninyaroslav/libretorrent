@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.model.data.ReadPieceInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.session.SessionLogMsg;
 
 public abstract class TorrentEngineListener
@@ -31,7 +32,9 @@ public abstract class TorrentEngineListener
 
     public void onTorrentLoaded(@NonNull String id) {}
 
-    public void onTorrentStateChanged(@NonNull String id) {}
+    public void onTorrentStateChanged(@NonNull String id,
+                                      @NonNull TorrentStateCode prevState,
+                                      @NonNull TorrentStateCode curState) {}
 
     public void onTorrentFinished(@NonNull String id) {}
 

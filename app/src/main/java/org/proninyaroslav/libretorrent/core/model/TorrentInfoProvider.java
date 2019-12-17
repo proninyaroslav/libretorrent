@@ -28,6 +28,7 @@ import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 
 import java.util.Arrays;
@@ -150,7 +151,9 @@ public class TorrentInfoProvider
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentStateChanged(@NonNull String torrentId)
+                public void onTorrentStateChanged(@NonNull String torrentId,
+                                                  @NonNull TorrentStateCode prevState,
+                                                  @NonNull TorrentStateCode curState)
                 {
                     try {
                         handleEvent.accept(torrentId);
@@ -235,7 +238,9 @@ public class TorrentInfoProvider
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentStateChanged(@NonNull String torrentId)
+                public void onTorrentStateChanged(@NonNull String torrentId,
+                                                  @NonNull TorrentStateCode prevState,
+                                                  @NonNull TorrentStateCode curState)
                 {
                     handleInfo.run();
                 }

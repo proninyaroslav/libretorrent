@@ -43,7 +43,6 @@ import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
-import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
@@ -93,14 +92,6 @@ public class TorrentEngine
 {
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
-
-    private static List<TorrentStateCode> PROGRESS_STATES = Arrays.asList(
-            TorrentStateCode.DOWNLOADING,
-            TorrentStateCode.PAUSED,
-            TorrentStateCode.CHECKING,
-            TorrentStateCode.DOWNLOADING_METADATA,
-            TorrentStateCode.ALLOCATING
-    );
 
     private Context appContext;
     private TorrentSession session;
@@ -545,18 +536,6 @@ public class TorrentEngine
             return new boolean[0];
 
         return task.pieces();
-    }
-
-    public boolean isTorrentsFinished()
-    {
-        if (!isRunning())
-            return true;
-
-        for (TorrentDownload task : session.getTasks())
-            if (PROGRESS_STATES.contains(task.getStateCode()) || task.isDuringChangeParams())
-                return false;
-
-        return true;
     }
 
     public void pauseAll()

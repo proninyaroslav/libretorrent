@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.net.Uri;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -49,6 +48,7 @@ import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.PieceFinishedAlert;
 import org.libtorrent4j.alerts.ReadPieceAlert;
 import org.libtorrent4j.alerts.SaveResumeDataAlert;
+import org.libtorrent4j.alerts.StateChangedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
@@ -91,8 +91,6 @@ class TorrentDownloadImpl implements TorrentDownload
     private static final String TAG = TorrentDownload.class.getSimpleName();
 
     private static final long SAVE_RESUME_SYNC_TIME = 10000; /* ms */
-    /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
-    private static final long MIN_PROGRESS_TIME = 2000;
 
     private static final double MAX_RATIO = 9999.;
     /* For streaming */
@@ -100,13 +98,11 @@ class TorrentDownloadImpl implements TorrentDownload
     private static final int DEFAULT_PIECE_DEADLINE = 1000; /* ms */
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
-            AlertType.BLOCK_FINISHED.swig(),
             AlertType.STATE_CHANGED.swig(),
             AlertType.TORRENT_FINISHED.swig(),
             AlertType.TORRENT_REMOVED.swig(),
             AlertType.TORRENT_PAUSED.swig(),
             AlertType.TORRENT_RESUMED.swig(),
-            AlertType.STATS.swig(),
             AlertType.SAVE_RESUME_DATA.swig(),
             AlertType.STORAGE_MOVED.swig(),
             AlertType.STORAGE_MOVED_FAILED.swig(),
@@ -131,7 +127,6 @@ class TorrentDownloadImpl implements TorrentDownload
     private String name;
     private ChangeParamsState changeParamsState = new ChangeParamsState();
     private boolean autoManaged;
-    private long lastProgressUpdateTime = 0;
     private boolean stopped;
 
     public TorrentDownloadImpl(SessionManager sessionManager,
@@ -211,11 +206,12 @@ class TorrentDownloadImpl implements TorrentDownload
 
             AlertType type = alert.type();
             switch (type) {
-                case BLOCK_FINISHED:
-                    onBlockFinished();
                 case STATE_CHANGED:
+                    StateChangedAlert a = ((StateChangedAlert)alert);
                     notifyListeners((listener) ->
-                            listener.onTorrentStateChanged(id));
+                            listener.onTorrentStateChanged(id,
+                                    stateToStateCode(a.getPrevState()),
+                                    stateToStateCode(a.getState())));
                     break;
                 case TORRENT_FINISHED:
                     notifyListeners((listener) ->
@@ -234,10 +230,6 @@ class TorrentDownloadImpl implements TorrentDownload
 
                     notifyListeners((listener) ->
                             listener.onTorrentResumed(id));
-                    break;
-                case STATS:
-                    notifyListeners((listener) ->
-                            listener.onTorrentStateChanged(id));
                     break;
                 case SAVE_RESUME_DATA:
                     serializeResumeData((SaveResumeDataAlert)alert);
@@ -278,17 +270,6 @@ class TorrentDownloadImpl implements TorrentDownload
             notifyListeners((listener) -> listener.onParamsApplied(id, null));
 
         saveResumeData(true);
-    }
-
-    private void onBlockFinished()
-    {
-        long now = SystemClock.elapsedRealtime();
-        long timeDelta = now - lastProgressUpdateTime;
-        if (timeDelta > MIN_PROGRESS_TIME) {
-            lastProgressUpdateTime = now;
-            notifyListeners((listener) ->
-                    listener.onTorrentStateChanged(id));
-        }
     }
 
     private void resetTorrentError()
@@ -1234,8 +1215,12 @@ class TorrentDownloadImpl implements TorrentDownload
         if (!isPaused && status.isFinished())
             return TorrentStateCode.SEEDING;
 
-        TorrentStatus.State stateCode = status.state();
-        switch (stateCode) {
+       return stateToStateCode(status.state());
+    }
+
+    private TorrentStateCode stateToStateCode(TorrentStatus.State state)
+    {
+        switch (state) {
             case CHECKING_RESUME_DATA:
             case CHECKING_FILES:
                 return TorrentStateCode.CHECKING;
