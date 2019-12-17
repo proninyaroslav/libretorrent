@@ -72,7 +72,6 @@ import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,8 +80,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.Set;
-
-import io.reactivex.Completable;
 
 /*
  * This class encapsulate one stream with running torrent.

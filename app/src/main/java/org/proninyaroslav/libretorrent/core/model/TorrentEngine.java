@@ -94,6 +94,14 @@ public class TorrentEngine
     @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
+    private static List<TorrentStateCode> PROGRESS_STATES = Arrays.asList(
+            TorrentStateCode.DOWNLOADING,
+            TorrentStateCode.PAUSED,
+            TorrentStateCode.CHECKING,
+            TorrentStateCode.DOWNLOADING_METADATA,
+            TorrentStateCode.ALLOCATING
+    );
+
     private Context appContext;
     private TorrentSession session;
     private TorrentStreamServer torrentStreamServer;
@@ -544,14 +552,8 @@ public class TorrentEngine
         if (!isRunning())
             return true;
 
-        List<TorrentStateCode> inProgressStates = Arrays.asList(TorrentStateCode.DOWNLOADING,
-                TorrentStateCode.PAUSED,
-                TorrentStateCode.CHECKING,
-                TorrentStateCode.DOWNLOADING_METADATA,
-                TorrentStateCode.ALLOCATING);
-
         for (TorrentDownload task : session.getTasks())
-            if (inProgressStates.contains(task.getStateCode()) || task.isDuringChangeParams())
+            if (PROGRESS_STATES.contains(task.getStateCode()) || task.isDuringChangeParams())
                 return false;
 
         return true;
