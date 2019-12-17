@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.model.data.ReadPieceInfo;
+import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.session.SessionLogMsg;
 
@@ -75,4 +76,6 @@ public abstract class TorrentEngineListener
     public void onPieceFinished(@NonNull String id, int piece) {}
 
     public void onSessionLogMsg(@Nullable SessionLogMsg message) {}
+
+    public void onSessionStats(@NonNull SessionStats stats) {}
 }

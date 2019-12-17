@@ -54,7 +54,6 @@ public class TorrentInfoProvider
     private static final String TAG = TorrentInfoProvider.class.getSimpleName();
 
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
-    private static final int GET_SESSION_STATS_SYNC_TIME = 3000; /* ms */
 
     private static TorrentInfoProvider INSTANCE;
     private TorrentEngine engine;
@@ -199,6 +198,18 @@ public class TorrentInfoProvider
                             emitter.onError(ex);
                     }
                 }
+
+                @Override
+                public void onSessionStats(@NonNull SessionStats stats)
+                {
+                    try {
+                        handleEvent.accept(id);
+
+                    } catch (Exception ex) {
+                        if (!emitter.isCancelled())
+                            emitter.onError(ex);
+                    }
+                }
             };
 
             if (!emitter.isCancelled()) {
@@ -265,6 +276,12 @@ public class TorrentInfoProvider
 
                 @Override
                 public void onTorrentError(@NonNull String torrentId, Exception e)
+                {
+                    handleInfo.run();
+                }
+
+                @Override
+                public void onSessionStats(@NonNull SessionStats stats)
                 {
                     handleInfo.run();
                 }
@@ -471,33 +488,23 @@ public class TorrentInfoProvider
         return Flowable.create((emitter) -> {
             final AtomicReference<SessionStats> stats = new AtomicReference<>();
 
-            Disposable d = Observable.interval(GET_SESSION_STATS_SYNC_TIME, TimeUnit.MILLISECONDS)
-                    .subscribe((__) -> {
-                                SessionStats newStats = engine.makeSessionStats();
-                                SessionStats oldStats = stats.get();
-                                if (newStats != null && !newStats.equals(oldStats)) {
-                                    stats.set(newStats);
-                                    if (!emitter.isCancelled())
-                                        emitter.onNext(newStats);
-                                }
-                            },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting session stats error: " +
-                                        Log.getStackTraceString(t));
-                            });
+            TorrentEngineListener listener = new TorrentEngineListener() {
+                @Override
+                public void onSessionStats(@NonNull SessionStats newStats)
+                {
+                    SessionStats oldStats = stats.get();
+                    if (!newStats.equals(oldStats)) {
+                        stats.set(newStats);
+                        if (!emitter.isCancelled())
+                            emitter.onNext(newStats);
+                    }
+                }
+            };
 
             if (!emitter.isCancelled()) {
-                Thread t = new Thread(() -> {
-                    SessionStats s = engine.makeSessionStats();
-                    stats.set(s);
-                    if (!emitter.isCancelled()) {
-                        /* Emit once to avoid missing any data and also easy chaining */
-                        if (s != null)
-                            emitter.onNext(s);
-                        emitter.setDisposable(Disposables.fromAction(d::dispose));
-                    }
-                });
-                t.start();
+                engine.addListener(listener);
+                emitter.setDisposable(Disposables.fromAction(() ->
+                        engine.removeListener(listener)));
             }
 
         }, BackpressureStrategy.LATEST);

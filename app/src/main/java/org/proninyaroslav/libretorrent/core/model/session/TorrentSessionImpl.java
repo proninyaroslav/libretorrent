@@ -71,6 +71,7 @@ import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
+import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
@@ -122,7 +123,8 @@ public class TorrentSessionImpl extends SessionManager
             AlertType.DHT_LOG.swig(),
             AlertType.PEER_LOG.swig(),
             AlertType.PORTMAP_LOG.swig(),
-            AlertType.TORRENT_LOG.swig()
+            AlertType.TORRENT_LOG.swig(),
+            AlertType.STATS.swig()
     };
 
     /* Base unit in KiB. Used for create torrent */
@@ -912,6 +914,9 @@ public class TorrentSessionImpl extends SessionManager
                 case METADATA_RECEIVED:
                     handleMetadata(((MetadataReceivedAlert)alert));
                     break;
+                case STATS:
+                    handleStats();
+                    break;
                 default:
                     checkError(alert);
                     if (enableLogging) {
@@ -968,6 +973,21 @@ public class TorrentSessionImpl extends SessionManager
 
         notifyListeners((listener) ->
                 listener.onMagnetLoaded(hash, loadedMagnets.get(hash)));
+    }
+
+    private void handleStats()
+    {
+        if (operationNotAllowed())
+            return;
+
+        notifyListeners((listener) -> listener.onSessionStats(
+                new SessionStats(dhtNodes(),
+                        getTotalDownload(),
+                        getTotalUpload(),
+                        getDownloadSpeed(),
+                        getUploadSpeed(),
+                        getListenPort()))
+        );
     }
 
     private static String dhtBootstrapNodes()

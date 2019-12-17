@@ -41,7 +41,6 @@ import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
-import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
@@ -699,19 +698,6 @@ public class TorrentEngine
             return new ArrayList<>();
 
         return task.getPeerInfoList();
-    }
-
-    public SessionStats makeSessionStats()
-    {
-        if (!isRunning())
-            return null;
-
-        return new SessionStats(session.dhtNodes(),
-                session.getTotalDownload(),
-                session.getTotalUpload(),
-                session.getDownloadSpeed(),
-                session.getUploadSpeed(),
-                session.getListenPort());
     }
 
     public int getUploadSpeedLimit(@NonNull String id)
