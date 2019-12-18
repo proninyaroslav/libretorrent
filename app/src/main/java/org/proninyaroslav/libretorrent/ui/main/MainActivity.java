@@ -55,10 +55,8 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemA
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
-import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
@@ -272,9 +270,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     {
         super.onDestroy();
 
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
-        if (isFinishing() && !pref.keepAlive())
-            shutdown();
+        requestShutdownService();
     }
 
     private void subscribeAlertDialog()
@@ -567,7 +563,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 break;
             case R.id.shutdown_app_menu:
                 closeOptionsMenu();
-                shutdown();
+                shutdownService();
                 break;
         }
 
@@ -615,10 +611,18 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         startActivity(i);
     }
 
-    public void shutdown()
+    public void requestShutdownService()
     {
         Intent i = new Intent(getApplicationContext(), TorrentService.class);
-        i.setAction(TorrentService.ACTION_SHUTDOWN);
+        i.setAction(TorrentService.ACTION_REQUEST_SHUTDOWN);
+        startService(i);
+        finish();
+    }
+
+    public void shutdownService()
+    {
+        Intent i = new Intent(getApplicationContext(), TorrentService.class);
+        i.setAction(TorrentService.ACTION_FORCE_SHUTDOWN);
         startService(i);
         finish();
     }

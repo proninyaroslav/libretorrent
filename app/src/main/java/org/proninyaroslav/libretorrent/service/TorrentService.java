@@ -64,7 +64,9 @@ public class TorrentService extends Service
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
     private static final int FOREGROUND_NOTIFY_UPDATE_DELAY = 1000; /* ms */
-    public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_SHUTDOWN";
+    public static final String ACTION_FORCE_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_FORCE_SHUTDOWN";
+    /* Leaves the right to the service to decide whether to shutdown or not */
+    public static final String ACTION_REQUEST_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_REQUEST_SHUTDOWN";
 
     private boolean isAlreadyRunning;
     /* For the pause action button of foreground notify */
@@ -86,14 +88,22 @@ public class TorrentService extends Service
         return null;
     }
 
+    @Override
+    public void onCreate()
+    {
+        downloadsCompleted = new DownloadsCompletedListener(getApplicationContext());
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        engine = TorrentEngine.getInstance(getApplicationContext());
+        stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
+    }
+
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
 
-        downloadsCompleted = new DownloadsCompletedListener(getApplicationContext());
         disposables.add(downloadsCompleted.listen()
                 .subscribe(
                         this::handleAutoShutdown,
@@ -107,14 +117,11 @@ public class TorrentService extends Service
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
         setKeepCpuAwake(pref.cpuDoNotSleep());
 
-        engine = TorrentEngine.getInstance(getApplicationContext());
         engine.addListener(engineListener);
         if (engine.isRunning())
             engine.loadTorrents();
         else
             engine.start();
-
-        stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
 
         makeForegroundNotify();
         startUpdateForegroundNotify();
@@ -143,21 +150,18 @@ public class TorrentService extends Service
 
     private void stopEngine()
     {
-        if (engine != null) {
-            shuttingDown = true;
-            forceUpdateForeground();
-            engine.stop();
-        }
+        if (!engine.isRunning())
+            return;
+
+        shuttingDown = true;
+        forceUpdateForeground();
+        engine.stop();
     }
 
     private void stopService()
     {
         disposables.clear();
-        downloadsCompleted = null;
         engine.removeListener(engineListener);
-        stateProvider = null;
-        engine = null;
-        pref = null;
         stopUpdateForegroundNotify();
         setKeepCpuAwake(false);
 
@@ -169,28 +173,56 @@ public class TorrentService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        String action = null;
+        if (intent != null)
+            action = intent.getAction();
+
+        /* Handle shutdown actions before init service */
+        if (action != null) {
+            int ret = handleShutdownActions(action);
+            if (ret >= 0)
+                return ret;
+        }
+
         /* The first start */
         if (!isAlreadyRunning) {
             isAlreadyRunning = true;
             init();
         }
 
-        if (intent != null && intent.getAction() != null) {
-            switch (intent.getAction()) {
-                case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-                case ACTION_SHUTDOWN:
-                    shutdown();
-                    return START_NOT_STICKY;
-                case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
-                    engine.pauseAll();
-                    break;
-                case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
-                    engine.resumeAll();
-                    break;
-            }
-        }
+        if (action != null)
+            handleActions(action);
 
         return START_STICKY;
+    }
+
+    private int handleShutdownActions(String action)
+    {
+        switch (action) {
+            case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
+            case ACTION_FORCE_SHUTDOWN:
+                shutdown();
+                return START_NOT_STICKY;
+            case ACTION_REQUEST_SHUTDOWN:
+                if (isAlreadyRunning && pref.keepAlive())
+                    return START_STICKY;
+                shutdown();
+                return START_NOT_STICKY;
+        }
+
+        return -1;
+    }
+
+    private void handleActions(String action)
+    {
+        switch (action) {
+            case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
+                engine.pauseAll();
+                break;
+            case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
+                engine.resumeAll();
+                break;
+        }
     }
 
     private void setKeepCpuAwake(boolean enable)

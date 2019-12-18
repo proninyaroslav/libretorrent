@@ -92,7 +92,7 @@ public class SchedulerReceiver extends BroadcastReceiver
         }
 
         Intent i = new Intent(appContext, TorrentService.class);
-        i.setAction(TorrentService.ACTION_SHUTDOWN);
+        i.setAction(TorrentService.ACTION_FORCE_SHUTDOWN);
         Utils.startServiceBackground(appContext, i);
 
         if (pref.schedulingSwitchWiFi())
