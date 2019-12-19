@@ -35,6 +35,8 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import java.util.List;
 import java.util.Set;
 
+import io.reactivex.Completable;
+
 /*
  * An interface that represents one stream with running torrent.
  */
@@ -43,7 +45,7 @@ public interface TorrentDownload
 {
     String getTorrentId();
 
-    void stop();
+    Completable requestStop();
 
     void pause();
 
@@ -58,8 +60,6 @@ public interface TorrentDownload
     boolean isAutoManaged();
 
     int getProgress();
-
-    void prioritizeFiles(Priority[] priorities);
 
     long getSize();
 
@@ -109,17 +109,11 @@ public interface TorrentDownload
 
     String makeMagnet(boolean includePriorities);
 
-    void setSequentialDownload(boolean sequential);
-
-    void setTorrentName(@NonNull String name);
-
     long getETA();
 
     TorrentMetaInfo getTorrentMetaInfo() throws DecodeException;
 
     String getTorrentName();
-
-    void setDownloadPath(Uri path);
 
     long[] getFilesReceivedBytes();
 
@@ -176,8 +170,6 @@ public interface TorrentDownload
     TorrentStream getStream(int fileIndex);
 
     void applyParams(@NonNull ChangeableParams params);
-
-    boolean isDuringChangeParams();
 
     boolean isValid();
 

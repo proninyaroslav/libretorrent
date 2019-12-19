@@ -68,6 +68,7 @@ import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
@@ -103,6 +104,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -491,8 +494,10 @@ public class TorrentSessionImpl extends SessionManager
         if (task == null)
             return;
 
-        task.setSequentialDownload(params.sequentialDownload);
-        task.prioritizeFiles(params.filePriorities);
+        ChangeableParams changeableParams = new ChangeableParams();
+        changeableParams.sequentialDownload = params.sequentialDownload;
+        changeableParams.priorities = params.filePriorities;
+        task.applyParams(changeableParams);
 
         try {
             TorrentInfo ti = (bencode == null ?
@@ -799,13 +804,23 @@ public class TorrentSessionImpl extends SessionManager
 
     private void stopTasks()
     {
-        for (TorrentDownload task : torrentTasks.values()) {
-            if (task == null)
-                continue;
+        disposables.add(Observable.fromIterable(torrentTasks.values())
+                .filter((task) -> task != null)
+                .map(TorrentDownload::requestStop)
+                .toList()
+                .flatMapCompletable(Completable::merge) /* Wait for all torrents */
+                .subscribe(
+                        this::handleStoppingTasks,
+                        (err) -> {
+                            Log.e(TAG, "Error stopping torrents: " +
+                                    Log.getStackTraceString(err));
+                            handleStoppingTasks();
+                        }
+                ));
+    }
 
-            task.stop();
-        }
-
+    private void handleStoppingTasks()
+    {
         /* Handles must be destructed before the session is destructed */
         torrentTasks.clear();
         checkStop();

@@ -80,6 +80,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
+
+import io.reactivex.Completable;
+import io.reactivex.disposables.Disposable;
 
 /*
  * This class encapsulate one stream with running torrent.
@@ -91,7 +96,7 @@ class TorrentDownloadImpl implements TorrentDownload
     private static final String TAG = TorrentDownload.class.getSimpleName();
 
     private static final long SAVE_RESUME_SYNC_TIME = 10000; /* ms */
-
+    private static final long CRITICAL_WORK_WAIT_TIMEOUT = 30000; /* ms */
     private static final double MAX_RATIO = 9999.;
     /* For streaming */
     private final static int PRELOAD_PIECES_COUNT = 5;
@@ -125,9 +130,11 @@ class TorrentDownloadImpl implements TorrentDownload
     private Uri partsFile;
     private long lastSaveResumeTime;
     private String name;
-    private ChangeParamsState changeParamsState = new ChangeParamsState();
+    private TorrentCriticalWork criticalWork = new TorrentCriticalWork();
     private boolean autoManaged;
-    private boolean stopped;
+    private boolean stopRequested = false;
+    private boolean stopped = false;
+    private Completable stopEvent;
 
     public TorrentDownloadImpl(SessionManager sessionManager,
                                TorrentRepository repo,
@@ -137,7 +144,6 @@ class TorrentDownloadImpl implements TorrentDownload
                                TorrentHandle handle,
                                boolean autoManaged)
     {
-        this.stopped = false;
         this.id = id;
         this.repo = repo;
         this.fs = fs;
@@ -174,17 +180,6 @@ class TorrentDownloadImpl implements TorrentDownload
     private boolean operationNotAllowed()
     {
         return !th.isValid() || stopped;
-    }
-
-    private class ChangeParamsState
-    {
-        public boolean applyingParams;
-        public boolean moving;
-
-        public boolean isDuringChange()
-        {
-            return applyingParams || moving;
-        }
     }
 
     private final class InnerListener implements AlertListener
@@ -262,11 +257,11 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void onStorageMoved(boolean success)
     {
-        boolean moved = changeParamsState.moving;
-        changeParamsState.moving = false;
+        boolean moved = criticalWork.isMoving();
+        criticalWork.setMoving(false);
 
         notifyListeners((listener) -> listener.onTorrentMoved(id, success));
-        if (moved && !changeParamsState.applyingParams)
+        if (moved && !criticalWork.isApplyingParams())
             notifyListeners((listener) -> listener.onParamsApplied(id, null));
 
         saveResumeData(true);
@@ -401,7 +396,7 @@ class TorrentDownloadImpl implements TorrentDownload
         notifyListeners((listener) ->
                 listener.onTorrentRemoved(id));
 
-        stop();
+        forceStop();
 
         if (partsFile != null) {
             try {
@@ -430,12 +425,16 @@ class TorrentDownloadImpl implements TorrentDownload
             return;
 
         try {
-            if (th.isValid())
+            if (th.isValid()) {
+                criticalWork.setSaveResume(true);
                 th.saveResumeData(TorrentHandle.SAVE_INFO_DICT);
+            }
 
         } catch (Exception e) {
             Log.w(TAG, "Error triggering resume data of " + id + ":");
             Log.w(TAG, Log.getStackTraceString(e));
+
+            criticalWork.setSaveResume(false);
         }
     }
 
@@ -446,8 +445,10 @@ class TorrentDownloadImpl implements TorrentDownload
             repo.addFastResume(new FastResume(id, Vectors.byte_vector2bytes(data)));
 
         } catch (Throwable e) {
-            Log.e(TAG, "Error saving resume data of " + id + ":");
             Log.e(TAG, Log.getStackTraceString(e));
+
+        } finally {
+            criticalWork.setSaveResume(false);
         }
     }
 
@@ -458,12 +459,60 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void stop()
+    public Completable requestStop()
     {
-        if (!stopped)
-            stopped = true;
+        if (stopEvent != null && (stopRequested || stopped))
+            return stopEvent;
+
+        stopRequested = true;
+
+        /* Wait to complete critical works */
+        stopEvent = Completable.create((emitter) -> {
+            if (emitter.isDisposed())
+                return;
+
+            AtomicLong recentChangeTime = new AtomicLong(-1);
+            Disposable d = criticalWork.observeStateChanging()
+                    .timeout(CRITICAL_WORK_WAIT_TIMEOUT, TimeUnit.MILLISECONDS) /* Avoid infinite wait */
+                    .subscribe(
+                            (state) -> {
+                                if (state.changeTime < recentChangeTime.get())
+                                    return;
+                                recentChangeTime.set(state.changeTime);
+                                if (!(emitter.isDisposed() || state.isDuringChange())) {
+                                    doStop();
+                                    emitter.onComplete();
+                                }
+                            },
+                            (err) -> {
+                                Log.e(TAG, "Error waiting for critical work: "
+                                        + Log.getStackTraceString(err));
+                                if (!emitter.isDisposed()) {
+                                    doStop();
+                                    emitter.onComplete();
+                                }
+                            });
+            emitter.setDisposable(d);
+        });
+
+        return stopEvent;
+    }
+
+    private void forceStop()
+    {
+        stopRequested = true;
+        doStop();
+    }
+
+    private void doStop()
+    {
+        if (!stopRequested || stopped)
+            return;
 
         sessionManager.removeListener(listener);
+        stopRequested = false;
+        stopped = true;
+        stopEvent = null;
     }
 
     @Override
@@ -585,8 +634,7 @@ class TorrentDownloadImpl implements TorrentDownload
         return 0;
     }
 
-    @Override
-    public void prioritizeFiles(@NonNull Priority[] priorities)
+    private void prioritizeFiles(@NonNull Priority[] priorities)
     {
         if (operationNotAllowed())
             return;
@@ -995,8 +1043,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 String.format(Locale.ENGLISH, "%d-%d", startIndex, endIndex));
     }
 
-    @Override
-    public void setSequentialDownload(boolean sequential)
+    private void setSequentialDownload(boolean sequential)
     {
         if (operationNotAllowed())
             return;
@@ -1007,8 +1054,7 @@ class TorrentDownloadImpl implements TorrentDownload
             th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
     }
 
-    @Override
-    public void setTorrentName(@NonNull String name)
+    private void setTorrentName(@NonNull String name)
     {
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
@@ -1069,8 +1115,7 @@ class TorrentDownloadImpl implements TorrentDownload
         return (torrent == null ? null : torrent.name);
     }
 
-    @Override
-    public void setDownloadPath(Uri path)
+    private void setDownloadPath(Uri path)
     {
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
@@ -1475,11 +1520,11 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public synchronized void applyParams(@NonNull ChangeableParams params)
     {
-        if (changeParamsState.applyingParams || changeParamsState.moving)
+        if (criticalWork.isApplyingParams() || criticalWork.isMoving())
             return;
 
-        changeParamsState.applyingParams = true;
-        changeParamsState.moving = params.dirPath != null;
+        criticalWork.setApplyingParams(true);
+        criticalWork.setMoving(params.dirPath != null);
 
         notifyListeners((listener) -> listener.onApplyingParams(id));
 
@@ -1500,16 +1545,10 @@ class TorrentDownloadImpl implements TorrentDownload
         } catch (Throwable e) {
             err[0] = e;
         } finally {
-            changeParamsState.applyingParams = false;
-            if (!changeParamsState.moving)
+            criticalWork.setApplyingParams(false);
+            if (!criticalWork.isMoving())
                 notifyListeners((listener) -> listener.onParamsApplied(id, err[0]));
         }
-    }
-
-    @Override
-    public boolean isDuringChangeParams()
-    {
-        return changeParamsState.isDuringChange();
     }
 
     @Override
