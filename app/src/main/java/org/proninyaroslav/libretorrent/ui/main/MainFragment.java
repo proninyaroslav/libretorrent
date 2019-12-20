@@ -121,20 +121,6 @@ public class MainFragment extends Fragment
     private BaseAlertDialog deleteTorrentsDialog, addLinkDialog;
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private enum FabItem
-    {
-        ADD_LINK,
-        OPEN_FILE,
-        CREATE_TORRENT
-    }
-
-    /* Reverse order */
-    private FabItem[] fabItems = new FabItem[] {
-            FabItem.CREATE_TORRENT,
-            FabItem.OPEN_FILE,
-            FabItem.ADD_LINK
-    };
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
