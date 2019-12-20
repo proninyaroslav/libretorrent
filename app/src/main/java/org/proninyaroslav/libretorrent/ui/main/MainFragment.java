@@ -173,7 +173,7 @@ public class MainFragment extends Fragment
                 .withSelectionPredicate(SelectionPredicates.createSelectAnything())
                 .build();
 
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<TorrentListItem>() {
             @Override
             public void onSelectionChanged()
             {
