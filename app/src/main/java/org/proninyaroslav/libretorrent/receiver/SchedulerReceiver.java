@@ -25,10 +25,10 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
-import org.proninyaroslav.libretorrent.service.TorrentService;
 
 import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_START_APP;
 import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_STOP_APP;
@@ -75,7 +75,7 @@ public class SchedulerReceiver extends BroadcastReceiver
             ((WifiManager)appContext.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 
-        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+        TorrentEngine.getInstance(appContext).startAndLoadTorrents();
         Utils.enableBootReceiverIfNeeded(appContext);
     }
 
@@ -91,9 +91,7 @@ public class SchedulerReceiver extends BroadcastReceiver
             Scheduler.setStartAppAlarm(appContext, pref.schedulingShutdownTime());
         }
 
-        Intent i = new Intent(appContext, TorrentService.class);
-        i.setAction(TorrentService.ACTION_FORCE_SHUTDOWN);
-        Utils.startServiceBackground(appContext, i);
+        TorrentEngine.getInstance(appContext).forceStop();
 
         if (pref.schedulingSwitchWiFi())
             ((WifiManager)appContext.getApplicationContext()

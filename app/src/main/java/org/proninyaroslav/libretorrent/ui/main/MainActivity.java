@@ -60,7 +60,6 @@ import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
-import org.proninyaroslav.libretorrent.service.TorrentService;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.RequestPermissions;
@@ -137,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             permDialogIsShow = true;
             startActivity(new Intent(this, RequestPermissions.class));
         }
-
-        startService(new Intent(this, TorrentService.class));
 
         setContentView(R.layout.activity_main);
 
@@ -255,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         subscribeAlertDialog();
         subscribeMsgViewModel();
         subscribeSessionStats();
+        subscribeNeedLoadTorrents();
     }
 
     @Override
@@ -268,9 +266,10 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     @Override
     protected void onDestroy()
     {
-        super.onDestroy();
+        if (viewModel != null)
+            viewModel.requestStopEngine();
 
-        requestShutdownService();
+        super.onDestroy();
     }
 
     private void subscribeAlertDialog()
@@ -317,6 +316,14 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateSessionStats));
+    }
+
+    private void subscribeNeedLoadTorrents()
+    {
+        disposables.add(viewModel.observeNeedLoadTorrents()
+                .subscribeOn(Schedulers.io())
+                .filter((needLoad) -> needLoad)
+                .subscribe((needLoad) -> viewModel.startAndLoadTorrents()));
     }
 
     private void updateSessionStats(SessionStats stats)
@@ -563,7 +570,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 break;
             case R.id.shutdown_app_menu:
                 closeOptionsMenu();
-                shutdownService();
+                viewModel.stopEngine();
+                finish();
                 break;
         }
 
@@ -609,22 +617,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(getString(R.string.about_changelog_link)));
         startActivity(i);
-    }
-
-    public void requestShutdownService()
-    {
-        Intent i = new Intent(getApplicationContext(), TorrentService.class);
-        i.setAction(TorrentService.ACTION_REQUEST_SHUTDOWN);
-        startService(i);
-        finish();
-    }
-
-    public void shutdownService()
-    {
-        Intent i = new Intent(getApplicationContext(), TorrentService.class);
-        i.setAction(TorrentService.ACTION_FORCE_SHUTDOWN);
-        startService(i);
-        finish();
     }
 
     @Override

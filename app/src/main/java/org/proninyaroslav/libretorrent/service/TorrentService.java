@@ -50,6 +50,7 @@ import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -64,11 +65,9 @@ public class TorrentService extends Service
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
     private static final int FOREGROUND_NOTIFY_UPDATE_DELAY = 1000; /* ms */
-    public static final String ACTION_FORCE_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_FORCE_SHUTDOWN";
-    /* Leaves the right to the service to decide whether to shutdown or not */
-    public static final String ACTION_REQUEST_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_REQUEST_SHUTDOWN";
+    public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_SHUTDOWN";
 
-    private boolean isAlreadyRunning;
+    private AtomicBoolean isAlreadyRunning = new AtomicBoolean();
     /* For the pause action button of foreground notify */
     private NotificationCompat.Builder foregroundNotify;
     private Disposable foregroundDisposable;
@@ -79,7 +78,6 @@ public class TorrentService extends Service
     private PowerManager.WakeLock wakeLock;
     private CompositeDisposable disposables = new CompositeDisposable();
     private boolean shuttingDown = false;
-    private DownloadsCompletedListener downloadsCompleted;
 
     @Nullable
     @Override
@@ -91,7 +89,6 @@ public class TorrentService extends Service
     @Override
     public void onCreate()
     {
-        downloadsCompleted = new DownloadsCompletedListener(getApplicationContext());
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         engine = TorrentEngine.getInstance(getApplicationContext());
         stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
@@ -101,29 +98,16 @@ public class TorrentService extends Service
     {
         Log.i(TAG, "Start " + TAG);
 
+        makeForegroundNotify();
+
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
-
-        disposables.add(downloadsCompleted.listen()
-                .subscribe(
-                        this::handleAutoShutdown,
-                        (err) -> {
-                            Log.e(TAG, "Auto shutdown service error: " +
-                                    Log.getStackTraceString(err));
-                            handleAutoShutdown();
-                        }
-                ));
 
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
         setKeepCpuAwake(pref.cpuDoNotSleep());
 
         engine.addListener(engineListener);
-        if (engine.isRunning())
-            engine.loadTorrents();
-        else
-            engine.start();
 
-        makeForegroundNotify();
         startUpdateForegroundNotify();
     }
 
@@ -133,12 +117,6 @@ public class TorrentService extends Service
         super.onDestroy();
 
         Log.i(TAG, "Stop " + TAG);
-    }
-
-    private void handleAutoShutdown()
-    {
-        if (pref.shutdownDownloadsComplete())
-            shutdown();
     }
 
     private void shutdown()
@@ -155,7 +133,7 @@ public class TorrentService extends Service
 
         shuttingDown = true;
         forceUpdateForeground();
-        engine.stop();
+        engine.doStop();
     }
 
     private void stopService()
@@ -165,7 +143,7 @@ public class TorrentService extends Service
         stopUpdateForegroundNotify();
         setKeepCpuAwake(false);
 
-        isAlreadyRunning = false;
+        isAlreadyRunning.set(false);
         stopForeground(true);
         stopSelf();
     }
@@ -185,10 +163,8 @@ public class TorrentService extends Service
         }
 
         /* The first start */
-        if (!isAlreadyRunning) {
-            isAlreadyRunning = true;
+        if (isAlreadyRunning.compareAndSet(false, true))
             init();
-        }
 
         if (action != null)
             handleActions(action);
@@ -200,12 +176,7 @@ public class TorrentService extends Service
     {
         switch (action) {
             case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-            case ACTION_FORCE_SHUTDOWN:
-                shutdown();
-                return START_NOT_STICKY;
-            case ACTION_REQUEST_SHUTDOWN:
-                if (isAlreadyRunning && pref.keepAlive())
-                    return START_STICKY;
+            case ACTION_SHUTDOWN:
                 shutdown();
                 return START_NOT_STICKY;
         }
@@ -246,12 +217,6 @@ public class TorrentService extends Service
     }
 
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
-        @Override
-        public void onSessionStarted()
-        {
-            engine.loadTorrents();
-        }
-
         @Override
         public void onSessionStopped()
         {
@@ -306,17 +271,12 @@ public class TorrentService extends Service
         PendingIntent startupPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, startupIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
-
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
                 TorrentNotifier.FOREGROUND_NOTIFY_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
                 .setTicker(getString(R.string.app_running_in_the_background))
-                .setContentText((isNetworkOnline ?
-                        getString(R.string.network_online) :
-                        getString(R.string.network_offline)))
                 .setWhen(System.currentTimeMillis());
 
         foregroundNotify.addAction(makePauseAllAction());

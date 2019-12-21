@@ -34,7 +34,6 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.EnumSet;
 
 public interface TorrentSession
@@ -46,8 +45,6 @@ public interface TorrentSession
     void removeListener(TorrentEngineListener listener);
 
     TorrentDownload getTask(String id);
-
-    Collection<TorrentDownload> getTasks();
 
     void setSettings(@NonNull SessionSettings settings);
 
@@ -119,6 +116,8 @@ public interface TorrentSession
     void requestStop();
 
     boolean isRunning();
+
+    boolean isTorrentsRestored();
 
     long dhtNodes();
 

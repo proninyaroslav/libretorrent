@@ -24,10 +24,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
-import org.proninyaroslav.libretorrent.service.TorrentService;
 
 /*
  * The receiver for autostart service.
@@ -48,7 +47,7 @@ public class BootReceiver extends BroadcastReceiver
             initScheduling(context, pref);
 
             if (pref.autostart() && pref.keepAlive())
-                Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+                TorrentEngine.getInstance(appContext).startAndLoadTorrents();
         }
     }
 

@@ -38,10 +38,15 @@ import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class MainViewModel extends AndroidViewModel
@@ -53,6 +58,7 @@ public class MainViewModel extends AndroidViewModel
     private TorrentFilter statusFilter = TorrentFilterCollection.all();
     private TorrentFilter dateAddedFilter = TorrentFilterCollection.all();
     private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
+    private ExecutorService exec = Executors.newSingleThreadExecutor();
 
     private String searchQuery;
     private TorrentFilter searchFilter = (state) -> {
@@ -168,5 +174,62 @@ public class MainViewModel extends AndroidViewModel
     public void forceAnnounceTorrents(@NonNull List<String> ids)
     {
         engine.forceAnnounceTorrents(ids);
+    }
+
+    public Flowable<Boolean> observeNeedLoadTorrents()
+    {
+        return Flowable.create((emitter) -> {
+            if (emitter.isCancelled())
+                return;
+
+            Runnable emitLoop = () -> {
+                while (!Thread.interrupted()) {
+                    try {
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+
+                    if (emitter.isCancelled() || engine.isTorrentsLoaded())
+                        return;
+
+                    emitter.onNext(true);
+                }
+            };
+
+            Disposable d = stateProvider.observeSessionStartState()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe((isRunning) -> {
+                        if (emitter.isCancelled())
+                            return;
+
+                        if (!isRunning) {
+                            emitter.onNext(true);
+                            exec.submit(emitLoop);
+                        }
+                    });
+
+            if (!emitter.isCancelled()) {
+                emitter.onNext(!engine.isTorrentsLoaded());
+                emitter.setDisposable(d);
+            }
+
+        }, BackpressureStrategy.LATEST);
+    }
+
+    public void startAndLoadTorrents()
+    {
+        engine.startAndLoadTorrents();
+    }
+
+    public void requestStopEngine()
+    {
+        engine.requestStop();
+    }
+
+    public void stopEngine()
+    {
+        engine.forceStop();
     }
 }

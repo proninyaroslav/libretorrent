@@ -17,14 +17,10 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.service;
-
-import android.content.Context;
+package org.proninyaroslav.libretorrent.core.model;
 
 import androidx.annotation.NonNull;
 
-import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
-import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 
 import java.util.ArrayList;
@@ -41,9 +37,9 @@ class DownloadsCompletedListener
 {
     private TorrentEngine engine;
 
-    DownloadsCompletedListener(@NonNull Context appContext)
+    DownloadsCompletedListener(@NonNull TorrentEngine engine)
     {
-        engine = TorrentEngine.getInstance(appContext);
+        this.engine = engine;
     }
 
     public Completable listen()
@@ -58,12 +54,6 @@ class DownloadsCompletedListener
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onApplyingParams(@NonNull String id)
-                {
-                    torrentsInProgress.add(id);
-                }
-
-                @Override
                 public void onTorrentStateChanged(@NonNull String id,
                                                   @NonNull TorrentStateCode prevState,
                                                   @NonNull TorrentStateCode curState)
@@ -74,13 +64,6 @@ class DownloadsCompletedListener
 
                 @Override
                 public void onTorrentFinished(@NonNull String id)
-                {
-                    if (torrentsInProgress.remove(id))
-                        eventHandler.run();
-                }
-
-                @Override
-                public void onParamsApplied(@NonNull String id, Throwable e)
                 {
                     if (torrentsInProgress.remove(id))
                         eventHandler.run();

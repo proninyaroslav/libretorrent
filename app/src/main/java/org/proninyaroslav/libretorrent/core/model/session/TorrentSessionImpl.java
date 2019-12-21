@@ -153,6 +153,7 @@ public class TorrentSessionImpl extends SessionManager
     private boolean enableLogging;
     private SessionLogger sessionLogger;
     private boolean stopRequested;
+    private boolean torrentsRestored;
 
     public TorrentSessionImpl(@NonNull TorrentRepository repo,
                               @NonNull FileSystemFacade fs,
@@ -193,12 +194,6 @@ public class TorrentSessionImpl extends SessionManager
     public TorrentDownload getTask(String id)
     {
         return torrentTasks.get(id);
-    }
-
-    @Override
-    public Collection<TorrentDownload> getTasks()
-    {
-        return torrentTasks.values();
     }
 
     @Override
@@ -839,6 +834,12 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
+    public boolean isTorrentsRestored()
+    {
+        return torrentsRestored;
+    }
+
+    @Override
     public long dhtNodes()
     {
         return super.dhtNodes();
@@ -872,6 +873,7 @@ public class TorrentSessionImpl extends SessionManager
         loadedMagnets.clear();
         removeListener(torrentTaskListener);
         removeListener(innerListener);
+        torrentsRestored = false;
     }
 
     @Override
@@ -1249,7 +1251,9 @@ public class TorrentSessionImpl extends SessionManager
 
         LoadTorrentTask task = null;
         try {
-            if (!restoreTorrentsQueue.isEmpty())
+            if (restoreTorrentsQueue.isEmpty())
+                torrentsRestored = true;
+            else
                 task = restoreTorrentsQueue.poll();
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

@@ -103,6 +103,8 @@ public class TorrentEngine
     private PowerReceiver powerReceiver = new PowerReceiver();
     private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
     private FileSystemFacade fs;
+    private boolean needLoadTorrents;
+    private DownloadsCompletedListener downloadsCompleted;
 
     private static TorrentEngine INSTANCE;
 
@@ -138,6 +140,23 @@ public class TorrentEngine
         switchPowerReceiver();
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
+
+        downloadsCompleted = new DownloadsCompletedListener(this);
+        disposables.add(downloadsCompleted.listen()
+                .subscribe(
+                        this::handleAutoStop,
+                        (err) -> {
+                            Log.e(TAG, "Auto stop error: " +
+                                    Log.getStackTraceString(err));
+                            handleAutoStop();
+                        }
+                ));
+    }
+
+    private void handleAutoStop()
+    {
+        if (pref.shutdownDownloadsComplete())
+            forceStop();
     }
 
     public void start()
@@ -146,6 +165,19 @@ public class TorrentEngine
             return;
         
         session.startWithParams(makeSessionInitParams());
+    }
+
+    public void startAndLoadTorrents()
+    {
+        if (needLoadTorrents)
+            return;
+
+        if (isRunning()) {
+            loadTorrents();
+        } else {
+            needLoadTorrents = true;
+            start();
+        }
     }
     
     private SessionInitParams makeSessionInitParams()
@@ -177,11 +209,35 @@ public class TorrentEngine
         return initParams;
     }
 
-    public void stop()
+    /*
+     * Leaves the right to the engine to decide whether to shutdown or not
+     */
+
+    public void requestStop()
+    {
+        if (pref.keepAlive())
+            return;
+
+        forceStop();
+    }
+
+    public void forceStop()
+    {
+        Intent i = new Intent(appContext, TorrentService.class);
+        i.setAction(TorrentService.ACTION_SHUTDOWN);
+        Utils.startServiceBackground(appContext, i);
+    }
+
+    /*
+     * Only calls from TorrentService
+     */
+
+    public void doStop()
     {
         if (!isRunning())
             return;
 
+        needLoadTorrents = false;
         disposables.clear();
         stopWatchDir();
         stopStreamingServer();
@@ -192,6 +248,11 @@ public class TorrentEngine
     public boolean isRunning()
     {
         return session.isRunning();
+    }
+
+    public boolean isTorrentsLoaded()
+    {
+        return session.isTorrentsRestored();
     }
 
     public void addListener(TorrentEngineListener listener)
@@ -236,7 +297,8 @@ public class TorrentEngine
     public void addTorrents(@NonNull List<AddTorrentParams> paramsList,
                             boolean removeFile)
     {
-        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+        if (!(isRunning() && isTorrentsLoaded()))
+            startAndLoadTorrents();
 
         disposables.add(Observable.fromIterable(paramsList)
                 .subscribeOn(Schedulers.io())
@@ -253,7 +315,8 @@ public class TorrentEngine
     public void addTorrent(@NonNull Uri file)
     {
         disposables.add(Completable.fromRunnable(() -> {
-            Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+            if (!(isRunning() && isTorrentsLoaded()))
+                startAndLoadTorrents();
 
             TorrentMetaInfo info = null;
             try (FileDescriptorWrapper w = fs.getFD(file)) {
@@ -282,7 +345,8 @@ public class TorrentEngine
     public Torrent addTorrentSync(@NonNull AddTorrentParams params,
                                   boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
-        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+        if (!(isRunning() && isTorrentsLoaded()))
+            startAndLoadTorrents();
 
         return session.addTorrent(params, removeFile);
     }
@@ -882,6 +946,11 @@ public class TorrentEngine
         boolean enableStreaming = pref.enableStreaming();
         if (enableStreaming)
             startStreamingServer();
+
+        if (needLoadTorrents) {
+            needLoadTorrents = false;
+            loadTorrents();
+        }
     }
 
     private void startStreamingServer()
@@ -910,6 +979,8 @@ public class TorrentEngine
 
     public void loadTorrents()
     {
+        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
+
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())
                 session.restoreTorrents();
