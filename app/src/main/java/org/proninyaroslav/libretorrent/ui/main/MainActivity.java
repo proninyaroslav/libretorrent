@@ -169,7 +169,9 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(0);
         toolbar.inflateMenu(R.menu.main);
-        setSupportActionBar(toolbar);
+        searchView = (SearchView)toolbar.getMenu().findItem(R.id.search).getActionView();
+        initSearch();
+        toolbar.setOnMenuItemClickListener(this::onMenuItemSelected);
 
         if (drawerLayout != null) {
             toggle = new ActionBarDrawerToggle(this,
@@ -511,17 +513,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment)fragment : null);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
-        initSearch();
-
-        return true;
-    }
-
     private void initSearch()
     {
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -556,8 +547,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    private boolean onMenuItemSelected(MenuItem item)
     {
         switch (item.getItemId()) {
             case R.id.feed_menu:
