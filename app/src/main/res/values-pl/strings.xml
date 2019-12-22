@@ -43,6 +43,7 @@
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
     <string name="apply">Apply</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Usuń razem z pobranymi plikami</string>
     <string name="delete_selected_torrent">Usunąć wybrany torrent? Ta operacja nie może zostać odzczyniona</string>

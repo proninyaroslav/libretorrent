@@ -43,6 +43,7 @@
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
     <string name="apply">Apply</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Διαγραφή και των ληφθέντων αρχείων</string>
     <string name="delete_selected_torrent">Να γίνει διαγραφή του επιλεγμένου torrent; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>

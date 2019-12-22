@@ -24,12 +24,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -56,15 +52,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentMainBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.ui.addlink.AddLinkActivity;
 import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
@@ -87,15 +81,6 @@ import io.reactivex.schedulers.Schedulers;
 public class MainFragment extends Fragment
         implements TorrentListAdapter.ClickListener
 {
-//    /*
-//     * In Android 4.x, there is an issue about selector of vector drawable XML.
-//     * Need to add the following snippet in Activity classes
-//     * https://stackoverflow.com/questions/36741036/android-selector-drawable-with-vectordrawables-srccompat/38012842#38012842
-//     */
-//    static {
-//        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-//    }
-
     @SuppressWarnings("unused")
     private static final String TAG = MainFragment.class.getSimpleName();
 
@@ -104,7 +89,6 @@ public class MainFragment extends Fragment
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
     private static final String TAG_DELETE_TORRENTS_DIALOG = "delete_torrents_dialog";
-    private static final String TAG_ADD_LINK_DIALOG = "add_link_dialog";
     private static final String TAG_OPEN_FILE_ERROR_DIALOG = "open_file_error_dialog";
 
     private AppCompatActivity activity;
@@ -118,7 +102,7 @@ public class MainFragment extends Fragment
     private MainViewModel viewModel;
     private MsgMainViewModel msgViewModel;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private BaseAlertDialog deleteTorrentsDialog, addLinkDialog;
+    private BaseAlertDialog deleteTorrentsDialog;
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Nullable
@@ -208,12 +192,6 @@ public class MainFragment extends Fragment
         adapter.setSelectionTracker(selectionTracker);
 
         initFabSpeedDial();
-
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            deleteTorrentsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_TORRENTS_DIALOG);
-            addLinkDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_LINK_DIALOG);
-        }
 
         dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
 
@@ -326,20 +304,11 @@ public class MainFragment extends Fragment
                             if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
                                 deleteTorrents();
                                 deleteTorrentsDialog.dismiss();
-                            } else if (event.dialogTag.equals(TAG_ADD_LINK_DIALOG) && addLinkDialog != null) {
-                                addLink();
-                                addLinkDialog.dismiss();
                             }
                             break;
                         case NEGATIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null)
                                 deleteTorrentsDialog.dismiss();
-                            else if (event.dialogTag.equals(TAG_ADD_LINK_DIALOG) && addLinkDialog != null)
-                                addLinkDialog.dismiss();
-                            break;
-                        case DIALOG_SHOWN:
-                            if (event.dialogTag.equals(TAG_ADD_LINK_DIALOG) && addLinkDialog != null)
-                                initAddLinkDialog();
                             break;
                     }
                 });
@@ -554,19 +523,7 @@ public class MainFragment extends Fragment
 
     private void addLinkDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_ADD_LINK_DIALOG) == null) {
-            addLinkDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.dialog_add_link_title),
-                    null,
-                    R.layout.dialog_text_input,
-                    getString(R.string.ok),
-                    getString(R.string.cancel),
-                    null,
-                    false);
-
-            addLinkDialog.show(fm, TAG_ADD_LINK_DIALOG);
-        }
+        startActivity(new Intent(activity, AddLinkActivity.class));
     }
 
     private void openTorrentFileDialog()
@@ -602,99 +559,6 @@ public class MainFragment extends Fragment
     private void createTorrentDialog()
     {
         startActivity(new Intent(activity, CreateTorrentActivity.class));
-    }
-
-    private boolean checkUrlField(Editable link, TextInputLayout layoutLink)
-    {
-        if (link == null)
-            return false;
-
-        if (TextUtils.isEmpty(link)) {
-            layoutLink.setErrorEnabled(true);
-            layoutLink.setError(getString(R.string.error_empty_link));
-            layoutLink.requestFocus();
-
-            return false;
-        }
-
-        layoutLink.setErrorEnabled(false);
-        layoutLink.setError(null);
-
-        return true;
-    }
-
-    private void addLink()
-    {
-        Dialog dialog = addLinkDialog.getDialog();
-        if (dialog == null)
-            return;
-
-        TextInputEditText field = dialog.findViewById(R.id.text_input_dialog);
-        TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_text_input_dialog);
-        if (field == null || TextUtils.isEmpty(field.getText()) || fieldLayout == null)
-            return;
-        if (!checkUrlField(field.getText(), fieldLayout))
-            return;
-
-        String url;
-        try {
-            url = viewModel.normalizeUrl(field.getText().toString());
-
-        } catch (NormalizeUrlException e) {
-            fieldLayout.setErrorEnabled(true);
-            fieldLayout.setError(String.format(getString(R.string.invalid_url), e.getMessage()));
-            fieldLayout.requestFocus();
-
-            return;
-        }
-
-        Intent i = new Intent(activity, AddTorrentActivity.class);
-        i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(url));
-        startActivity(i);
-    }
-
-    private void initAddLinkDialog()
-    {
-        Dialog dialog = addLinkDialog.getDialog();
-        if (dialog == null)
-            return;
-
-        final TextInputEditText field = dialog.findViewById(R.id.text_input_dialog);
-        final TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_text_input_dialog);
-
-        /* Dismiss error label if user has changed the text */
-        if (field != null && fieldLayout != null) {
-            field.addTextChangedListener(new TextWatcher()
-            {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-                @Override
-                public void afterTextChanged(Editable s)
-                {
-                    fieldLayout.setErrorEnabled(false);
-                    fieldLayout.setError(null);
-                }
-            });
-        }
-
-        /* Inserting a link from the clipboard */
-        String clipboard = Utils.getClipboard(activity.getApplicationContext());
-        String url = null;
-        if (clipboard != null) {
-            String c = clipboard.toLowerCase();
-            if (c.startsWith(Utils.MAGNET_PREFIX) ||
-                c.startsWith(Utils.HTTP_PREFIX) ||
-                Utils.isHash(clipboard)) {
-                url = clipboard;
-            }
-
-            if (field != null && url != null)
-                field.setText(url);
-        }
     }
 
     private void deleteTorrents()

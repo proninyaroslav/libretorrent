@@ -79,7 +79,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -621,15 +620,6 @@ public class DetailTorrentFragment extends Fragment
                 }
             }
         });
-
-        /* Inserting links from the clipboard */
-        String clipboard = Utils.getClipboard(activity.getApplicationContext());
-        if (clipboard != null) {
-            disposables.add(Observable.fromArray(clipboard.split(Utils.getLineSeparator()))
-                    .filter(Utils::isValidTrackerUrl)
-                    .toList()
-                    .subscribe((urls) -> field.setText(TextUtils.join(Utils.getLineSeparator(), urls))));
-        }
     }
 
     private boolean checkAddTrackersField(List<String> strings,

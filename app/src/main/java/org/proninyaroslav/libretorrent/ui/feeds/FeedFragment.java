@@ -141,7 +141,7 @@ public class FeedFragment extends Fragment
                 .withSelectionPredicate(SelectionPredicates.createSelectAnything())
                 .build();
 
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<FeedChannelItem>() {
             @Override
             public void onSelectionChanged()
             {

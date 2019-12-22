@@ -43,6 +43,7 @@
     <string name="stats">Statistiken</string>
     <string name="filters">Filter</string>
     <string name="apply">Apply</string>
+    <string name="clipboard">Zwischenablage</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Mit heruntergeladenen Dateien löschen</string>
     <string name="delete_selected_torrent">Gewählten Torrent löschen? Dies kann nicht rückgängig gemacht werden</string>

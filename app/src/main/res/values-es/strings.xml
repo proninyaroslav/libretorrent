@@ -43,6 +43,7 @@
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
     <string name="apply">Apply</string>
+    <string name="clipboard">Portapapeles</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Borrar incluyendo archivos descargados</string>
     <string name="delete_selected_torrent">¿Borrar torrent seleccionado? La operación no se puede deshacer</string>

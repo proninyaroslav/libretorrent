@@ -313,17 +313,10 @@ public class Utils
             return System.getProperty("line.separator");
     }
 
-    /*
-     * Returns the first item from clipboard.
-     */
-
     @Nullable
-    public static String getClipboard(@NonNull Context context)
+    public static ClipData getClipData(@NonNull Context context)
     {
         ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
-        if (clipboard == null)
-            return null;
-
         if (!clipboard.hasPrimaryClip())
             return null;
 
@@ -331,11 +324,7 @@ public class Utils
         if (clip == null || clip.getItemCount() == 0)
             return null;
 
-        CharSequence text = clip.getItemAt(0).getText();
-        if (text == null)
-            return null;
-
-        return text.toString();
+        return clip;
     }
 
     public static void reportError(@NonNull Throwable error,

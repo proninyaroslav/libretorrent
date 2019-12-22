@@ -43,6 +43,7 @@
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
     <string name="apply">Apply</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Slett sammen med nedlastede filer</string>
     <string name="delete_selected_torrent">Slett valgt torrent? Dette kan ikke angres</string>

@@ -37,19 +37,39 @@
                     android:text="@={viewModel.mutableParams.name}" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_url"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/url"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textNoSuggestions"
-                    android:hint="@string/link"
-                    android:text="@={viewModel.mutableParams.url}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_toLeftOf="@id/clipboard_button">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textNoSuggestions"
+                        android:hint="@string/link"
+                        android:text="@={viewModel.mutableParams.url}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/clipboard_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="?attr/transparentRoundRipple"
+                    android:contentDescription="@string/clipboard"
+                    android:src="@drawable/ic_content_copy_grey600_48dp"
+                    android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+            </RelativeLayout>
 
             <CheckBox
                 android:id="@+id/auto_download"

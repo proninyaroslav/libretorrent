@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 
-import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
@@ -34,8 +33,6 @@ import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
-import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -150,20 +147,6 @@ public class MainViewModel extends AndroidViewModel
     public void deleteTorrents(@NonNull List<String> ids, boolean withFiles)
     {
         engine.deleteTorrents(ids, withFiles);
-    }
-
-    public String normalizeUrl(@NonNull String url) throws NormalizeUrlException
-    {
-        if (Utils.isHash(url)) {
-            url = Utils.normalizeMagnetHash(url);
-
-        } else if (!url.toLowerCase().startsWith(Utils.MAGNET_PREFIX)) {
-            NormalizeUrl.Options options = new NormalizeUrl.Options();
-            options.decode = false;
-            url = NormalizeUrl.normalize(url, options);
-        }
-
-        return url;
     }
 
     public void forceRecheckTorrents(@NonNull List<String> ids)

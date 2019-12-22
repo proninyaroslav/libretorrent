@@ -234,6 +234,11 @@
             android:name=".ui.createtorrent.CreateTorrentActivity"
             android:theme="@style/AppTheme.Translucent" />
 
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.addlink.AddLinkActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
         <service
             android:name=".service.TorrentService" />
 

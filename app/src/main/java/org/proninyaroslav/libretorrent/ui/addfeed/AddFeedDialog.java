@@ -20,7 +20,10 @@
 package org.proninyaroslav.libretorrent.ui.addfeed;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +52,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddFeedChannelBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
+import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -62,6 +66,7 @@ public class AddFeedDialog extends DialogFragment
     private static final String TAG_URI = "uri";
     private static final String TAG_FEED_ID = "feed_id";
     private static final String TAG_DELETE_FEED_DIALOG = "delete_feed_dialog";
+    private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -70,6 +75,8 @@ public class AddFeedDialog extends DialogFragment
     private CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog deleteFeedDialog;
+    private ClipboardDialog clipboardDialog;
+    private ClipboardDialog.SharedViewModel clipboardViewModel;
 
     public static AddFeedDialog newInstance(Uri uri)
     {
@@ -93,6 +100,24 @@ public class AddFeedDialog extends DialogFragment
         return frag;
     }
 
+    private void subscribeClipboardManager() {
+        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        clipboard.addPrimaryClipChangedListener(clipListener);
+    }
+
+    private void unsubscribeClipboardManager() {
+        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        clipboard.removePrimaryClipChangedListener(clipListener);
+    }
+
+    private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+
+    private void switchClipboardButton()
+    {
+        ClipData clip = Utils.getClipData(activity.getApplicationContext());
+        viewModel.showClipboardButton.set(clip != null);
+    }
+
     @Override
     public void onAttach(@NonNull Context context)
     {
@@ -109,10 +134,13 @@ public class AddFeedDialog extends DialogFragment
 
         viewModel = ViewModelProviders.of(activity).get(AddFeedViewModel.class);
         dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
 
         FragmentManager fm = getFragmentManager();
-        if (fm != null)
+        if (fm != null) {
             deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
+            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+        }
 
         long feedId = getArguments().getLong(TAG_FEED_ID, -1);
         Uri uri = getArguments().getParcelable(TAG_URI);
@@ -128,14 +156,6 @@ public class AddFeedDialog extends DialogFragment
             viewModel.initAddMode(uri);
         } else if (feedId != -1) {
             viewModel.initEditMode(feedId);
-        } else {
-            /* Inserting a link from the clipboard */
-            String clipboard = Utils.getClipboard(activity.getApplicationContext());
-            if (clipboard != null) {
-                String c = clipboard.toLowerCase();
-                if (c.startsWith(Utils.HTTP_PREFIX))
-                    viewModel.initAddMode(Uri.parse(clipboard));
-            }
         }
     }
 
@@ -164,6 +184,7 @@ public class AddFeedDialog extends DialogFragment
     {
         super.onStop();
 
+        unsubscribeClipboardManager();
         disposables.clear();
     }
 
@@ -173,6 +194,7 @@ public class AddFeedDialog extends DialogFragment
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeClipboardManager();
     }
 
     @NonNull
@@ -240,6 +262,8 @@ public class AddFeedDialog extends DialogFragment
             return false;
         });
 
+        binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
+
         initAlertDialog(binding.getRoot());
     }
 
@@ -276,6 +300,15 @@ public class AddFeedDialog extends DialogFragment
         });
     }
 
+    private void showClipboardDialog()
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
+            clipboardDialog = ClipboardDialog.newInstance();
+            clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
+        }
+    }
+
     private void subscribeAlertDialog()
     {
         Disposable d = dialogViewModel.observeEvents()
@@ -294,6 +327,20 @@ public class AddFeedDialog extends DialogFragment
                     }
                 });
         disposables.add(d);
+
+        d = clipboardViewModel.observeSelectedItem().subscribe((item) -> {
+            if (TAG_CLIPBOARD_DIALOG.equals(item.dialogTag))
+                handleUrlClipItem(item.str);
+        });
+        disposables.add(d);
+    }
+
+    private void handleUrlClipItem(String item)
+    {
+        if (TextUtils.isEmpty(item))
+            return;
+
+        viewModel.mutableParams.setUrl(item);
     }
 
     private void deleteFeedDialog()

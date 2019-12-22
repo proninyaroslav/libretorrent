@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
@@ -41,6 +42,7 @@ import io.reactivex.schedulers.Schedulers;
 public class AddFeedViewModel extends AndroidViewModel
 {
     public AddFeedMutableParams mutableParams = new AddFeedMutableParams();
+    public ObservableBoolean showClipboardButton = new ObservableBoolean();
     private Mode mode;
     private FeedRepository repo;
     private CompositeDisposable disposables = new CompositeDisposable();
