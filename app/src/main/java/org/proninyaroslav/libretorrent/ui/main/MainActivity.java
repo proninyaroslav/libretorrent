@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -164,9 +163,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         sessionListenPortStat = findViewById(R.id.session_listen_port_stat);
 
         toolbar.setTitle(R.string.app_name);
-        /* Disable elevation for portrait mode */
-        if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            toolbar.setElevation(0);
         toolbar.inflateMenu(R.menu.main);
         searchView = (SearchView)toolbar.getMenu().findItem(R.id.search).getActionView();
         initSearch();
