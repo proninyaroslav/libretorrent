@@ -42,7 +42,7 @@
     <string name="details">Ayrıntılar</string>
     <string name="stats">İstatistikler</string>
     <string name="filters">Filtreler</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Uygula</string>
     <string name="clipboard">Pano</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">İndirilen dosyalarla birlikte sil</string>
@@ -102,7 +102,7 @@
     <string name="app_running_in_the_background">LibreTorrent arka planda çalışıyor</string>
     <string name="network_online">Ağ durumu: Çevrimiçi</string>
     <string name="network_offline">Ağ durumu: Çevrimdışı</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Kapatılıyor&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent hatası</string>
     <string name="error_template">Hata: %1$s</string>
@@ -187,7 +187,7 @@
     <string name="system_file_manager_not_found">Sistem dosya yöneticisi bulunamadı</string>
     <string name="replace_file">Dosyayı değiştir</string>
     <string name="device_does_not_support_this_feature">Cihazınız bu özelliği desteklememektedir</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="parent_folder">Üst klasör</string>
     <!-- Error dialog -->
     <string name="report">Bildir</string>
     <string name="more_details">Daha fazla ayrıntı</string>
@@ -299,7 +299,7 @@
     <string name="feeds_backup_selection_dialog_title">Yedekleme dosyası seç</string>
     <string name="error_import_invalid_format">Geçersiz format</string>
     <string name="feed_do_not_download_immediately">Hemen indirme</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">URL bulunamadı</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent oluştur</string>
     <string name="creating_torrent_progress">Torrent oluşturuluyor, lütfen bekleyin&#8230;</string>
