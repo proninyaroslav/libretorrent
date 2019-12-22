@@ -110,6 +110,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         showBlankFragment();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.feed);
+        toolbar.inflateMenu(R.menu.feed);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener((v) -> finish());
         if (getSupportActionBar() != null)
@@ -233,7 +234,8 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.feed, menu);
+        toolbar.inflateMenu(R.menu.feed);
+        toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
 
         return true;
     }

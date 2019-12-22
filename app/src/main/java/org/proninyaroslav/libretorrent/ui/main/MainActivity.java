@@ -30,6 +30,7 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -164,9 +165,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
 
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.main);
-        searchView = (SearchView)toolbar.getMenu().findItem(R.id.search).getActionView();
-        initSearch();
-        toolbar.setOnMenuItemClickListener(this::onMenuItemSelected);
+        setSupportActionBar(toolbar);
 
         if (drawerLayout != null) {
             toggle = new ActionBarDrawerToggle(this,
@@ -508,6 +507,17 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment)fragment : null);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        toolbar.inflateMenu(R.menu.main);
+        searchView = (SearchView)toolbar.getMenu().findItem(R.id.search).getActionView();
+        initSearch();
+        toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
+
+        return true;
+    }
+
     private void initSearch()
     {
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -542,7 +552,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
 
-    private boolean onMenuItemSelected(MenuItem item)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId()) {
             case R.id.feed_menu:
