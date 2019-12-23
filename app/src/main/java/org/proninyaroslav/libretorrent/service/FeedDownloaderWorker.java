@@ -60,6 +60,8 @@ public class FeedDownloaderWorker extends Worker
     public static final String TAG_ACTION = "action";
     public static final String TAG_ITEM_ID_LIST = "item_id_list";
 
+    private static final long START_ENGINE_RETRY_TIME = 3000; /* ms */
+
     private TorrentEngine engine;
     private FeedRepository repo;
     private SettingsRepository pref;
@@ -182,7 +184,7 @@ public class FeedDownloaderWorker extends Worker
         /* TODO: maybe refactor */
         while (!engine.isRunning()) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(START_ENGINE_RETRY_TIME);
                 engine.start();
 
             } catch (InterruptedException e) {
