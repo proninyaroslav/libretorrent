@@ -106,6 +106,7 @@ public class TorrentService extends Service
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
         setKeepCpuAwake(pref.cpuDoNotSleep());
 
+        engine.doStart();
         engine.addListener(engineListener);
 
         startUpdateForegroundNotify();
@@ -128,9 +129,6 @@ public class TorrentService extends Service
 
     private void stopEngine()
     {
-        if (!engine.isRunning())
-            return;
-
         shuttingDown = true;
         forceUpdateForeground();
         engine.doStop();

@@ -183,7 +183,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 case UNKNOWN:
                     Uri uri = getUri();
                     if (uri != null)
-                        viewModel.startDecodeTask(uri);
+                        viewModel.startDecode(uri);
                     break;
                 case DECODE_TORRENT_FILE:
                 case FETCHING_HTTP:

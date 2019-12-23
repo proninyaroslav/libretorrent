@@ -30,6 +30,7 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         subscribeAlertDialog();
         subscribeMsgViewModel();
         subscribeSessionStats();
-        subscribeNeedLoadTorrents();
+        subscribeNeedStartEngine();
     }
 
     @Override
@@ -315,12 +316,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 .subscribe(this::updateSessionStats));
     }
 
-    private void subscribeNeedLoadTorrents()
+    private void subscribeNeedStartEngine()
     {
-        disposables.add(viewModel.observeNeedLoadTorrents()
+        disposables.add(viewModel.observeNeedStartEngine()
                 .subscribeOn(Schedulers.io())
-                .filter((needLoad) -> needLoad)
-                .subscribe((needLoad) -> viewModel.startAndLoadTorrents()));
+                .filter((needStart) -> needStart)
+                .subscribe((needStart) -> viewModel.startEngine()));
     }
 
     private void updateSessionStats(SessionStats stats)

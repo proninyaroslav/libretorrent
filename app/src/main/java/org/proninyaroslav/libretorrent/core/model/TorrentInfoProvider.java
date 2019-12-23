@@ -130,11 +130,6 @@ public class TorrentInfoProvider
         return makeSessionStatsFlowable();
     }
 
-    public Flowable<Boolean> observeSessionStartState()
-    {
-        return makeSessionStartState();
-    }
-
     private Flowable<TorrentInfo> makeInfoFlowable(String id)
     {
         return Flowable.create((emitter) -> {
@@ -503,34 +498,6 @@ public class TorrentInfoProvider
                         if (!emitter.isCancelled())
                             emitter.onNext(newStats);
                     }
-                }
-            };
-
-            if (!emitter.isCancelled()) {
-                engine.addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
-                        engine.removeListener(listener)));
-            }
-
-        }, BackpressureStrategy.LATEST);
-    }
-
-    private Flowable<Boolean> makeSessionStartState()
-    {
-        return Flowable.create((emitter) -> {
-            TorrentEngineListener listener = new TorrentEngineListener() {
-                @Override
-                public void onSessionStarted()
-                {
-                    if (!emitter.isCancelled())
-                        emitter.onNext(true);
-                }
-
-                @Override
-                public void onSessionStopped()
-                {
-                    if (!emitter.isCancelled())
-                        emitter.onNext(false);
                 }
             };
 

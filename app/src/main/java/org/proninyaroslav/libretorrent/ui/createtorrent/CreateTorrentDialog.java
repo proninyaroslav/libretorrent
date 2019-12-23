@@ -61,6 +61,7 @@ import java.io.IOException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentDialog extends DialogFragment
 {
@@ -372,10 +373,13 @@ public class CreateTorrentDialog extends DialogFragment
                     Toast.LENGTH_SHORT)
                     .show();
         }
-        if (viewModel.mutableParams.isStartSeeding())
-            viewModel.downloadTorrent();
-
-        finish(new Intent(), FragmentCallback.ResultCode.OK);
+        if (viewModel.mutableParams.isStartSeeding()) {
+            disposables.add(viewModel.downloadTorrent()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(() -> finish(new Intent(), FragmentCallback.ResultCode.OK)));
+        } else {
+            finish(new Intent(), FragmentCallback.ResultCode.OK);
+        }
     }
 
     private void openPathErrorDialog(boolean isFile)

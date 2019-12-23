@@ -47,7 +47,7 @@ public class BootReceiver extends BroadcastReceiver
             initScheduling(context, pref);
 
             if (pref.autostart() && pref.keepAlive())
-                TorrentEngine.getInstance(appContext).startAndLoadTorrents();
+                TorrentEngine.getInstance(appContext).start();
         }
     }
 

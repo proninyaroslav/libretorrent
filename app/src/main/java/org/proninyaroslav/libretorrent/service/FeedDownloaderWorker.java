@@ -176,6 +176,20 @@ public class FeedDownloaderWorker extends Worker
         if (paramsList == null || paramsList.isEmpty())
             return Result.failure();
 
+        if (!engine.isRunning())
+            engine.start();
+
+        /* TODO: maybe refactor */
+        while (!engine.isRunning()) {
+            try {
+                Thread.sleep(1000);
+                engine.start();
+
+            } catch (InterruptedException e) {
+                return Result.failure();
+            }
+        }
+
         engine.addTorrents(paramsList, true);
 
         return Result.success();

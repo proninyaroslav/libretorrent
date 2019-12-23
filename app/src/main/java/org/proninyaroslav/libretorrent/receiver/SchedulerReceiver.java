@@ -75,7 +75,7 @@ public class SchedulerReceiver extends BroadcastReceiver
             ((WifiManager)appContext.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 
-        TorrentEngine.getInstance(appContext).startAndLoadTorrents();
+        TorrentEngine.getInstance(appContext).start();
         Utils.enableBootReceiverIfNeeded(appContext);
     }
 

@@ -69,6 +69,8 @@ import java.util.Set;
 
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class AddTorrentViewModel extends AndroidViewModel
@@ -86,6 +88,7 @@ public class AddTorrentViewModel extends AndroidViewModel
     /* BEP53 standard. Optional field */
     private ArrayList<Priority> magnetPriorities;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private Disposable observeEngineRunning;
 
     public BencodeFileTree fileTree;
     private BencodeFileTree[] treeLeaves;
@@ -130,6 +133,11 @@ public class AddTorrentViewModel extends AndroidViewModel
         pref = RepositoryHelper.getSettingsRepository(application);
         engine = TorrentEngine.getInstance(getApplication());
 
+        disposable.add(engine.observeNeedStartEngine()
+                .subscribeOn(Schedulers.io())
+                .filter((needStart) -> needStart)
+                .subscribe((needStart) -> engine.start()));
+
         info.addOnPropertyChangedCallback(infoCallback);
         mutableParams.getDirPath().addOnPropertyChangedCallback(dirPathCallback);
         decodeState.setValue(new DecodeState(Status.UNKNOWN));
@@ -152,7 +160,23 @@ public class AddTorrentViewModel extends AndroidViewModel
         mutableParams.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);
     }
 
-    public void startDecodeTask(@NonNull Uri uri)
+    public void startDecode(@NonNull Uri uri)
+    {
+        if (observeEngineRunning != null && observeEngineRunning.isDisposed())
+            return;
+
+        observeEngineRunning = engine.observeEngineRunning()
+                .subscribeOn(Schedulers.io())
+                .subscribe((isRunning) -> {
+                    if (isRunning) {
+                        startDecodeTask(uri);
+                        if (observeEngineRunning != null)
+                            observeEngineRunning.dispose();
+                    }
+                });
+    }
+
+    public void startDecodeTask(Uri uri)
     {
         /*
          * The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.
@@ -208,6 +232,8 @@ public class AddTorrentViewModel extends AndroidViewModel
                         v.mutableParams.setFromMagnet(true);
 
                         Pair<MagnetInfo, Single<TorrentMetaInfo>> res = v.engine.fetchMagnet(uri.toString());
+                        if (res == null)
+                            break;
                         MagnetInfo magnetInfo = res.first;
                         if (magnetInfo != null && !isCancelled()) {
                             v.info.set(new TorrentMetaInfo(magnetInfo.getName(), magnetInfo.getSha1hash()));

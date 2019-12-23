@@ -44,7 +44,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentViewModel extends AndroidViewModel
@@ -55,7 +58,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
     public Throwable errorReport;
     private TorrentEngine engine;
     private FileSystemFacade fs;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public static class BuildState
     {
@@ -96,6 +99,11 @@ public class CreateTorrentViewModel extends AndroidViewModel
         super(application);
 
         engine = TorrentEngine.getInstance(application);
+        disposables.add(engine.observeNeedStartEngine()
+                .subscribeOn(Schedulers.io())
+                .filter((needStart) -> needStart)
+                .subscribe((needStart) -> engine.start()));
+
         fs = SystemFacadeHelper.getFileSystemFacade(application);
         mutableParams.getSeedPath().addOnPropertyChangedCallback(dirPathCallback);
         state.setValue(new BuildState(BuildState.Status.UNKNOWN, null));
@@ -108,7 +116,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         super.onCleared();
 
         mutableParams.getSeedPath().removeOnPropertyChangedCallback(dirPathCallback);
-        disposable.clear();
+        disposables.clear();
     }
 
     public LiveData<BuildState> getState()
@@ -144,12 +152,12 @@ public class CreateTorrentViewModel extends AndroidViewModel
         }
 
         resetPercentProgress();
-        disposable.add(builder.observeProgress()
+        disposables.add(builder.observeProgress()
                 .subscribeOn(Schedulers.io())
                 .filter((progress) -> progress != null)
                 .subscribe(this::makePercentProgress)
         );
-        disposable.add(builder.build()
+        disposables.add(builder.build()
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::onBuildSuccess, this::onBuildError)
         );
@@ -318,18 +326,33 @@ public class CreateTorrentViewModel extends AndroidViewModel
         return engine.getPieceSizeList()[index] * 1024;
     }
 
-    public void downloadTorrent()
+    public Completable downloadTorrent()
     {
         Uri savePath = mutableParams.getSavePath();
         if (savePath == null)
-            return;
+            return Completable.complete();
 
-        engine.addTorrent(savePath);
+        return Completable.create((emitter) -> {
+            if (emitter.isDisposed())
+                return;
+
+            Disposable d = engine.observeEngineRunning()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe((isRunning) -> {
+                        if (isRunning) {
+                            engine.addTorrent(savePath);
+                            if (!emitter.isDisposed())
+                                emitter.onComplete();
+                        }
+                    });
+
+            emitter.setDisposable(d);
+        });
     }
 
     public void finish()
     {
-        disposable.clear();
+        disposables.clear();
     }
 
     private Observable.OnPropertyChangedCallback dirPathCallback = new Observable.OnPropertyChangedCallback()

@@ -75,6 +75,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
@@ -84,6 +86,7 @@ import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.schedulers.Schedulers;
 
@@ -103,8 +106,8 @@ public class TorrentEngine
     private PowerReceiver powerReceiver = new PowerReceiver();
     private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
     private FileSystemFacade fs;
-    private boolean needLoadTorrents;
     private DownloadsCompletedListener downloadsCompleted;
+    private ExecutorService exec = Executors.newSingleThreadExecutor();
 
     private static TorrentEngine INSTANCE;
 
@@ -163,21 +166,94 @@ public class TorrentEngine
     {
         if (isRunning())
             return;
-        
-        session.startWithParams(makeSessionInitParams());
+
+        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
     }
 
-    public void startAndLoadTorrents()
+    public Flowable<Boolean> observeNeedStartEngine()
     {
-        if (needLoadTorrents)
+        return Flowable.create((emitter) -> {
+            if (emitter.isCancelled())
+                return;
+
+            Runnable emitLoop = () -> {
+                while (!Thread.interrupted()) {
+                    try {
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+
+                    if (emitter.isCancelled() || isRunning())
+                        return;
+
+                    emitter.onNext(true);
+                }
+            };
+
+            Disposable d = observeEngineRunning()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe((isRunning) -> {
+                        if (emitter.isCancelled())
+                            return;
+
+                        if (!isRunning) {
+                            emitter.onNext(true);
+                            exec.submit(emitLoop);
+                        }
+                    });
+
+            if (!emitter.isCancelled()) {
+                emitter.onNext(!isRunning());
+                emitter.setDisposable(d);
+            }
+
+        }, BackpressureStrategy.LATEST);
+    }
+
+    public Flowable<Boolean> observeEngineRunning()
+    {
+        return Flowable.create((emitter) -> {
+            if (emitter.isCancelled())
+                return;
+
+            TorrentEngineListener listener = new TorrentEngineListener() {
+
+                @Override
+                public void onSessionStarted()
+                {
+                    if (!emitter.isCancelled())
+                        emitter.onNext(true);
+                }
+
+                @Override
+                public void onSessionStopped()
+                {
+                    if (!emitter.isCancelled())
+                        emitter.onNext(false);
+                }
+            };
+
+            if (!emitter.isCancelled()) {
+                emitter.onNext(isRunning());
+                addListener(listener);
+                emitter.setDisposable(Disposables.fromAction(() -> removeListener(listener)));
+            }
+
+        }, BackpressureStrategy.LATEST);
+    }
+
+    /*
+     * Only calls from TorrentService
+     */
+
+    public void doStart()
+    {
+        if (isRunning())
             return;
 
-        if (isRunning()) {
-            loadTorrents();
-        } else {
-            needLoadTorrents = true;
-            start();
-        }
+        session.startWithParams(makeSessionInitParams());
     }
     
     private SessionInitParams makeSessionInitParams()
@@ -237,7 +313,6 @@ public class TorrentEngine
         if (!isRunning())
             return;
 
-        needLoadTorrents = false;
         disposables.clear();
         stopWatchDir();
         stopStreamingServer();
@@ -297,8 +372,8 @@ public class TorrentEngine
     public void addTorrents(@NonNull List<AddTorrentParams> paramsList,
                             boolean removeFile)
     {
-        if (!(isRunning() && isTorrentsLoaded()))
-            startAndLoadTorrents();
+        if (!isRunning())
+            return;
 
         disposables.add(Observable.fromIterable(paramsList)
                 .subscribeOn(Schedulers.io())
@@ -315,8 +390,8 @@ public class TorrentEngine
     public void addTorrent(@NonNull Uri file)
     {
         disposables.add(Completable.fromRunnable(() -> {
-            if (!(isRunning() && isTorrentsLoaded()))
-                startAndLoadTorrents();
+            if (!isRunning())
+                return;
 
             TorrentMetaInfo info = null;
             try (FileDescriptorWrapper w = fs.getFD(file)) {
@@ -345,14 +420,17 @@ public class TorrentEngine
     public Torrent addTorrentSync(@NonNull AddTorrentParams params,
                                   boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
     {
-        if (!(isRunning() && isTorrentsLoaded()))
-            startAndLoadTorrents();
+        if (!isRunning())
+            return null;
 
         return session.addTorrent(params, removeFile);
     }
 
     public Pair<MagnetInfo, Single<TorrentMetaInfo>> fetchMagnet(@NonNull String uri) throws Exception
     {
+        if (!isRunning())
+            return null;
+
         MagnetInfo info = session.fetchMagnet(uri);
         Single<TorrentMetaInfo> res = createFetchMagnetSingle(info.getSha1hash());
 
@@ -947,10 +1025,7 @@ public class TorrentEngine
         if (enableStreaming)
             startStreamingServer();
 
-        if (needLoadTorrents) {
-            needLoadTorrents = false;
-            loadTorrents();
-        }
+        loadTorrents();
     }
 
     private void startStreamingServer()
@@ -977,10 +1052,8 @@ public class TorrentEngine
         torrentStreamServer = null;
     }
 
-    public void loadTorrents()
+    private void loadTorrents()
     {
-        Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
-
         disposables.add(Completable.fromRunnable(() -> {
             if (isRunning())
                 session.restoreTorrents();
