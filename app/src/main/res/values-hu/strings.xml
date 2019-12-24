@@ -43,7 +43,7 @@
     <string name="stats">Statisztika</string>
     <string name="filters">Szűrők</string>
     <string name="apply">Alkamaz</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Vágólap</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
     <string name="delete_selected_torrent">Törlöd a kiválasztott torentet? Nem visszavonható művelet</string>
