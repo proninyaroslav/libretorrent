@@ -92,7 +92,6 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -139,7 +138,7 @@ public class TorrentSessionImpl extends SessionManager
     private SessionSettings settings = new SessionSettings();
     private Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
-    private HashMap<String, TorrentDownload> torrentTasks = new HashMap<>();
+    private ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
     /* Wait list for non added magnets */
     private HashSet<String> magnets = new HashSet<>();
     private ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
