@@ -263,6 +263,7 @@ public class AddFeedDialog extends DialogFragment
         });
 
         binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
+        switchClipboardButton();
 
         initAlertDialog(binding.getRoot());
     }
