@@ -44,13 +44,19 @@ class IPFilterImpl implements IPFilter
             throw new IPFilterException("Invalid first IP in range: " + first);
         ec.clear();
 
-        address lastAddr = address.from_string(last, ec);
-        if (ec.value() > 0)
-            throw new IPFilterException("Invalid last IP in range: " + last);
+        address lastAddr;
+        if (first.equals(last)) {
+            lastAddr = firstAddr;
 
-        if (firstAddr.is_v4() != lastAddr.is_v4() ||
-            firstAddr.is_v6() != lastAddr.is_v6())
-            throw new IPFilterException("IP range is malformed. One IP is IPv6 and the other is IPv4!");
+        } else {
+            lastAddr = address.from_string(last, ec);
+            if (ec.value() > 0)
+                throw new IPFilterException("Invalid last IP in range: " + last);
+
+            if (firstAddr.is_v4() != lastAddr.is_v4() ||
+                firstAddr.is_v6() != lastAddr.is_v6())
+                throw new IPFilterException("IP range is malformed. One IP is IPv6 and the other is IPv4!");
+        }
 
         filter.add_rule(firstAddr, lastAddr, ip_filter.access_flags.blocked.swigValue());
     }
