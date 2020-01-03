@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">Torrent கோப்பை திறக்க முடியவில்லை</string>
     <string name="open_file">கோப்பை திற</string>
     <string name="settings">அமைப்புகள்</string>
-    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை. ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது</string>
+    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது</string>
     <string name="ip_filter_add_success">IP வடிப்பான் வெற்றிகரமாக சேர்க்கப்பட்டது</string>
     <string name="proxy_settings_applied">பதிலாள் சேவையக அமைப்புகள் வெற்றிகரமாக பயன்படுத்தப்பட்டன</string>
     <string name="proxy_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பதிலாள் சேவையக அமைப்புகள் பயன்படுத்தப்படும்</string>

@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">Vybraný torrent nelze otevřít</string>
     <string name="open_file">Otevřít soubor</string>
     <string name="settings">Nastavení</string>
-    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr. Možná je soubor porušen nebo má nesprávný formát</string>
+    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát</string>
     <string name="ip_filter_add_success">IP filtr byl úspěšně přidán</string>
     <string name="proxy_settings_applied">Nastavení serveru proxy bylo úspěšně použito</string>
     <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>

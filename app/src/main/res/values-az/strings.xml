@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">Torrent faylı açıla bilmir</string>
     <string name="open_file">Faylı aç</string>
     <string name="settings">Tənzimləmələr</string>
-    <string name="ip_filter_add_error">IP filtri əlavə edilmədi. Fayl zədəli və ya doğru olmayan formatda ola bilər</string>
+    <string name="ip_filter_add_error">IP filtri əlavə edilmədi (%1$d uğursuz oldu). Fayl zədəli və ya doğru olmayan formatda ola bilər</string>
     <string name="ip_filter_add_success">IP filtr uğurla əlavə edildi</string>
     <string name="proxy_settings_applied">Proxy server tənzimləmələri uğurla tətbiq edildi</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server tənzimləmələri tətbiq yenidən başladıldıqdan sonra tətbiq ediləcək</string>

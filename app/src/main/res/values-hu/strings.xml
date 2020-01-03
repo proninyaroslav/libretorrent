@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">Nem tudom megnyitni a torrent fájlt</string>
     <string name="open_file">Fájl megnyitása</string>
     <string name="settings">Beállítások</string>
-    <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni. Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
+    <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
     <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
     <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után aktiválódnak</string>

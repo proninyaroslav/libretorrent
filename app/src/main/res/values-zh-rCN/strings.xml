@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">无法打开目标种子文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error">无法添加 IP 过滤器，可能文件已损坏或格式不正确。</string>
+    <string name="ip_filter_add_error">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确。</string>
     <string name="ip_filter_add_success">IP 过滤器添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>

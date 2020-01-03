@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">ടോറന്റ് ഫയൽ തുറക്കാൻ കഴിയുന്നില്ല</string>
     <string name="open_file">ഫയൽ തുറക്കുക</string>
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
-    <string name="ip_filter_add_error">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു. ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
+    <string name="ip_filter_add_error">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു) . ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
     <string name="ip_filter_add_success">IP ഫിൽട്ടർ വിജയകരമായി ചേർത്തു</string>
     <string name="proxy_settings_applied">പ്രോക്സി സെർവർ ക്രമീകരണം വിജയകരമായി പ്രയോഗിച്ചു</string>
     <string name="proxy_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചതിന് ശേഷം പ്രോക്സി സെർവർ ക്രമീകരണം പ്രയോഗിക്കപ്പെടും</string>

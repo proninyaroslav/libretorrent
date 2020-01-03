@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">Neįmanoma atidaryti torent failo</string>
     <string name="open_file">Atidaryti failą</string>
     <string name="settings">Nustatymai</string>
-    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro. Galbūt failas sugadintas arba yra netinkamo formato</string>
+    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro (%1$d nepavyko). Galbūt failas sugadintas arba yra netinkamo formato</string>
     <string name="ip_filter_add_success">IP filtras sėkmingai pridėtas</string>
     <string name="proxy_settings_applied">Įgaliotojo serverio nustatymai pritaikyti sėkmingai </string>
     <string name="proxy_settings_apply_after_reboot">Įgaliotojo serverio nustatymai bus pritaikty paleidus programėlę iš naujo</string>

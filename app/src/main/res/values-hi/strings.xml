@@ -59,7 +59,7 @@
     <string name="error_open_torrent_file">धार फ़ाइल खोलने में असमर्थ</string>
     <string name="open_file">खुली फाइल</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="ip_filter_add_error">IP फ़िल्टर जोड़ने में विफल। हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
+    <string name="ip_filter_add_error">IP फ़िल्टर जोड़ने में विफल (%1$d विफल रहा) । हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
     <string name="ip_filter_add_success">IP फ़िल्टर सफलतापूर्वक जोड़ा गया</string>
     <string name="proxy_settings_applied">प्रॉक्सी सर्वर सेटिंग्स सफलतापूर्वक लागू हुईं</string>
     <string name="proxy_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद प्रॉक्सी सर्वर सेटिंग्स लागू की जाएंगी</string>
