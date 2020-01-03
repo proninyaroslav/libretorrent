@@ -53,7 +53,7 @@ public abstract class TorrentEngineListener
 
     public void onTorrentMoved(@NonNull String id, boolean success) {}
 
-    public void onIpFilterParsed(boolean success) {}
+    public void onIpFilterParsed(int ruleCount) {}
 
     public void onMagnetLoaded(@NonNull String hash, byte[] bencode) {}
 

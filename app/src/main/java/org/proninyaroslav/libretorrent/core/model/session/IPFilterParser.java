@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,18 +26,12 @@ import androidx.annotation.NonNull;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
-import org.libtorrent4j.swig.address;
-import org.libtorrent4j.swig.error_code;
-import org.libtorrent4j.swig.ip_filter;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-
-import io.reactivex.Single;
+import java.io.InputStream;
 
 /*
  * Parser of blacklist IP addresses in DAT and P2P formats.
@@ -48,284 +42,251 @@ class IPFilterParser
     @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
 
-    private Uri path;
-    private FileSystemFacade fs;
+    private static final int MAX_LOGGED_ERRORS = 5;
 
-    public IPFilterParser(@NonNull Uri path, @NonNull FileSystemFacade fs)
+    private boolean logEnabled;
+
+    public IPFilterParser()
     {
-        this.path = path;
-        this.fs = fs;
+       logEnabled = true;
     }
 
-    public Single<ip_filter> parse()
+    public IPFilterParser(boolean logEnabled)
     {
-        return Single.create((emitter) -> {
-            Log.d(TAG, "Start parsing IP filter file");
-            ip_filter filter = new ip_filter();
-            boolean success = false;
-
-            String pathStr = path.toString();
-            if (pathStr.contains(".dat"))
-                success = parseDATFilterFile(path, filter);
-            else if (pathStr.contains(".p2p"))
-                success = parseP2PFilterFile(path, filter);
-
-            Log.d(TAG, "Completed parsing IP filter file, is success = " + success);
-            if (!emitter.isDisposed()) {
-                if (success)
-                    emitter.onSuccess(filter);
-                else
-                    emitter.onError(new IllegalStateException());
-            }
-        });
+        this.logEnabled = logEnabled;
     }
 
-    /*
-     * Emule .DAT files contain leading zeroes in IPv4 addresses eg 001.009.106.186.
-     * We need to remove them because Boost.Asio fail to parse them.
-     */
-
-    private String cleanupIPAddress(String ip)
+    public int parseFile(@NonNull Uri path, @NonNull FileSystemFacade fs, @NonNull IPFilter filter)
     {
-        if (ip == null)
-            return null;
+        int ruleCount = 0;
+        if (!fs.fileExists(path))
+            return ruleCount;
 
-        String cleanupIp = null;
+        Log.d(TAG, "Start parsing IP filter file");
 
-        try {
-            InetAddress address = InetAddress.getByName(ip);
-            cleanupIp = address.getHostAddress();
+        try (FileDescriptorWrapper w = fs.getFD(path);
+             FileInputStream is = new FileInputStream(w.open("r"))) {
 
-        } catch (Exception e) {
-            Log.e(TAG, "IP cleanup exception: " + Log.getStackTraceString(e));
+            String pathStr = path.toString().toLowerCase();
+            if (pathStr.contains("dat"))
+                ruleCount = parseDAT(is, filter);
+            else if (pathStr.contains("p2p"))
+                ruleCount = parseP2P(is, filter);
+
+        } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+
+            return ruleCount;
+
+        } finally {
+            Log.d(TAG, "Completed parsing IP filter file, is success = " + ruleCount);
         }
 
-        return cleanupIp;
+        return ruleCount;
     }
 
     /*
      * Parser for eMule ip filter in DAT format
      */
 
-    private boolean parseDATFilterFile(Uri file, ip_filter filter)
+    public int parseDAT(@NonNull InputStream is, @NonNull IPFilter filter)
     {
-        if (!fs.fileExists(file))
-            return false;
-
+        int ruleCount = 0;
         long lineNum = 0;
-        long badLineNum = 0;
-        FileInputStream is = null;
-        LineIterator it = null;
-        try (FileDescriptorWrapper w = fs.getFD(file)) {
-            FileDescriptor outFd = w.open("r");
-            is = new FileInputStream(outFd);
+        int parseErrorCount = 0;
+        LineIterator it;
+
+        try {
             it = IOUtils.lineIterator(is, "UTF-8");
-
-            while (it.hasNext()) {
-                ++lineNum;
-                String line = it.nextLine();
-
-                line = line.trim();
-                if (line.isEmpty())
-                    continue;
-
-                /* Ignoring commented lines */
-                if (line.startsWith("#") || line.startsWith("//"))
-                    continue;
-
-                /* Line should be split by commas */
-                String[] parts = line.split(",");
-                long elementNum = parts.length;
-
-                /* IP Range should be split by a dash */
-                String[] ips = parts[0].split("-");
-                if (ips.length != 2) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Line was " + line);
-                    ++badLineNum;
-                    continue;
-                }
-
-                String startIp = cleanupIPAddress(ips[0]);
-                if (startIp == null || startIp.isEmpty()) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Start IP of the range is malformated: " + ips[0]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                error_code error = new error_code();
-                address startAddr = address.from_string(startIp, error);
-                if (error.value() > 0) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Start IP of the range is malformated:" + ips[0]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                String endIp = cleanupIPAddress(ips[1]);
-                if (endIp == null || endIp.isEmpty()) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "End IP of the range is malformated: " + ips[1]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                address endAddr = address.from_string(endIp, error);
-                if (error.value() > 0) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "End IP of the range is malformated:" + ips[1]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                if (startAddr.is_v4() != endAddr.is_v4()) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "One IP is IPv4 and the other is IPv6!");
-                    ++badLineNum;
-                    continue;
-                }
-
-                /* Check if there is an access value (apparently not mandatory) */
-                int accessNum = 0;
-                if (elementNum > 1)
-                    /* There is possibly one */
-                    accessNum = Integer.parseInt(parts[1].trim());
-
-                /* Ignoring this rule because access value is too high */
-                if (accessNum > 127)
-                    continue;
-
-                try {
-                    filter.add_rule(startAddr, endAddr, ip_filter.access_flags.blocked.swigValue());
-
-                } catch (Exception e) {
-                    Log.w(TAG, "parseDATFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Line was " + line);
-                    ++badLineNum;
-                }
-            }
 
         } catch (IOException e) {
             Log.e(TAG, Log.getStackTraceString(e));
 
-            return false;
-
-        } finally {
-            if (it != null)
-                it.close();
-            IOUtils.closeQuietly(is);
+            return ruleCount;
         }
 
-        return badLineNum < lineNum;
+        while (it.hasNext()) {
+            lineNum++;
+
+            String line = it.nextLine();
+            line = line.trim();
+            if (line.isEmpty())
+                continue;
+
+            /* Ignoring commented lines */
+            if (line.startsWith("#") || line.startsWith("//"))
+                continue;
+
+            /* Line should be split by commas */
+            String[] parts = line.split(",");
+            /* Check if there is at least one item (ip range) */
+            if (parts.length == 0)
+                continue;
+
+            /* Check if there is an access value (apparently not mandatory) */
+            if (parts.length > 1) {
+                int accessNum = Integer.parseInt(parts[1].trim());
+                /* Ignoring this rule because access value is too high */
+                if (accessNum > 127)
+                    continue;
+            }
+
+            /* IP Range should be split by a dash */
+            String[] ips = parts[0].split("-");
+            if (ips.length != 2) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "DAT", "line " + lineNum + " is malformed. Line was " + line);
+                continue;
+            }
+
+            String startAddr = parseIpAddress(ips[0]);
+            if (startAddr == null) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "DAT", "line " + lineNum +
+                        " is malformed. Start IP of the range is invalid: " + ips[0]);
+                continue;
+            }
+
+            String endAddr = parseIpAddress(ips[1]);
+            if (endAddr == null) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "DAT", "line " + lineNum +
+                        " is malformed. End IP of the range is invalid: " + ips[1]);
+                continue;
+            }
+
+            try {
+                filter.addRange(startAddr, endAddr);
+                ruleCount++;
+
+            } catch (Exception e) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "DAT", "line " + lineNum +
+                        " is malformed. Line was " + line + ": " + e.getMessage());
+            }
+        }
+
+        return ruleCount;
     }
 
     /*
      * Parser for PeerGuardian ip filter in p2p format
      */
 
-    private boolean parseP2PFilterFile(Uri file, ip_filter filter)
+    public int parseP2P(@NonNull InputStream is, @NonNull IPFilter filter)
     {
-        if (!fs.fileExists(file))
-            return false;
-
+        int ruleCount = 0;
         long lineNum = 0;
-        long badLineNum = 0;
-        FileInputStream is = null;
-        LineIterator it = null;
-        try (FileDescriptorWrapper w = fs.getFD(file)) {
-            FileDescriptor outFd = w.open("r");
-            is = new FileInputStream(outFd);
+        int parseErrorCount = 0;
+        LineIterator it;
+
+        try {
             it = IOUtils.lineIterator(is, "UTF-8");
-
-            while (it.hasNext()) {
-                ++lineNum;
-                String line = it.nextLine();
-                line = line.trim();
-                if (line.isEmpty())
-                    continue;
-                /* Ignoring commented lines */
-                if (line.startsWith("#") || line.startsWith("//"))
-                    continue;
-
-                /* Line should be split by ':' */
-                String[] parts = line.split(":");
-                if (parts.length < 2) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    ++badLineNum;
-                    continue;
-                }
-
-                /* IP Range should be split by a dash */
-                String[] ips = parts[1].split("-");
-                if (ips.length != 2) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Line was " + line);
-                    ++badLineNum;
-                    continue;
-                }
-
-                String startIp = cleanupIPAddress(ips[0]);
-                if (startIp == null || startIp.isEmpty()) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Start IP of the range is malformated: " + ips[0]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                error_code error = new error_code();
-                address startAddr = address.from_string(startIp, error);
-                if (error.value() > 0) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Start IP of the range is malformated:" + ips[0]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                String endIp = cleanupIPAddress(ips[1]);
-                if (endIp == null || endIp.isEmpty()) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "End IP of the range is malformated: " + ips[1]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                address endAddr = address.from_string(endIp, error);
-                if (error.value() > 0) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "End IP of the range is malformated:" + ips[1]);
-                    ++badLineNum;
-                    continue;
-                }
-
-                if (startAddr.is_v4() != endAddr.is_v4()) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "One IP is IPv4 and the other is IPv6!");
-                    ++badLineNum;
-                    continue;
-                }
-
-                try {
-                    filter.add_rule(startAddr, endAddr, ip_filter.access_flags.blocked.swigValue());
-
-                } catch (Exception e) {
-                    Log.w(TAG, "parseP2PFilterFile: line " + lineNum + " is malformed.");
-                    Log.w(TAG, "Line was " + line);
-                    ++badLineNum;
-                }
-            }
 
         } catch (IOException e) {
             Log.e(TAG, Log.getStackTraceString(e));
 
-            return false;
-
-        } finally {
-            if (it != null)
-                it.close();
-            IOUtils.closeQuietly(is);
+            return ruleCount;
         }
 
-        return badLineNum < lineNum;
+        while (it.hasNext()) {
+            lineNum++;
+
+            String line = it.nextLine();
+            line = line.trim();
+            if (line.isEmpty())
+                continue;
+
+            /* Ignoring commented lines */
+            if (line.startsWith("#") || line.startsWith("//"))
+                continue;
+
+            /* Line should be split by ':' */
+            String[] parts = line.split(":");
+            if (parts.length < 2) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "P2P", "line " + lineNum + " is malformed");
+                continue;
+            }
+
+            /* IP Range should be split by a dash */
+            String[] ips = parts[1].split("-");
+            if (ips.length != 2) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "P2P", "line " + lineNum + " is malformed. Line was" + line);
+                continue;
+            }
+
+            String startAddr = parseIpAddress(ips[0]);
+            if (startAddr == null) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "P2P", "line " + lineNum +
+                        " is malformed. Start IP of the range is invalid: " + ips[0]);
+                continue;
+            }
+
+            String endAddr = parseIpAddress(ips[1]);
+            if (endAddr == null) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "P2P", "line " + lineNum +
+                        " is malformed. End IP of the range is invalid: " + ips[1]);
+                continue;
+            }
+
+            try {
+                filter.addRange(startAddr, endAddr);
+                ruleCount++;
+
+            } catch (Exception e) {
+                parseErrorCount++;
+                errLog(parseErrorCount, "P2P", "line " + lineNum +
+                        " is malformed. Line was " + line + ": " + e.getMessage());
+            }
+        }
+
+        return ruleCount;
+    }
+
+    private String parseIpAddress(String ip)
+    {
+        if (ip == null || ip.isEmpty())
+            return null;
+
+        String ipStr = ip.trim();
+        /*
+         * Emule .DAT files contain leading zeroes in IPv4 addresses eg 001.009.106.186.
+         * We need to remove them because Boost.Asio fail to parse them.
+         */
+        String[] octets = ipStr.split("\\.");
+        if (octets.length == 4) {
+            StringBuilder sb = new StringBuilder(octets[0].length());
+
+            for (int i = 0; i < octets.length; i++) {
+                String octet = octets[i];
+
+                if (octet.charAt(0) == '0' && octet.length() > 1) {
+                    sb.insert(0, octet);
+                    if (octet.charAt(1) == '0' && octet.length() > 2)
+                        sb.delete(0, 2);
+                    else
+                        sb.delete(0, 1);
+
+                    octets[i] = sb.toString();
+                    sb.setLength(0);
+                }
+            }
+
+            ipStr = octets[0] + "." + octets[1] + "." + octets[2] + "." + octets[3];
+        }
+
+        return ipStr;
+    }
+
+    private void errLog(int parseErrorCount, String prefix, String msg)
+    {
+        if (!logEnabled || parseErrorCount > MAX_LOGGED_ERRORS)
+            return;
+
+        Log.e(TAG, prefix + ": " + msg);
     }
 }

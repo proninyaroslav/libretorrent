@@ -104,9 +104,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class TorrentSessionImpl extends SessionManager
         implements TorrentSession
@@ -152,6 +150,7 @@ public class TorrentSessionImpl extends SessionManager
     private SessionLogger sessionLogger;
     private boolean stopRequested;
     private boolean torrentsRestored;
+    private Thread parseIpFilterThread;
 
     public TorrentSessionImpl(@NonNull TorrentRepository repo,
                               @NonNull FileSystemFacade fs,
@@ -585,21 +584,24 @@ public class TorrentSessionImpl extends SessionManager
         if (operationNotAllowed())
             return;
 
-        IPFilterParser parser = new IPFilterParser(path, fs);
-        disposables.add(parser.parse()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((filter) -> {
-                            if (swig() != null)
-                                swig().set_ip_filter(filter);
-                            notifyListeners((listener) ->
-                                    listener.onIpFilterParsed(true));
-                        },
-                        (Throwable t) -> {
-                            notifyListeners((listener) ->
-                                    listener.onIpFilterParsed(false));
-                        })
-        );
+        if (parseIpFilterThread != null && !parseIpFilterThread.isInterrupted())
+            parseIpFilterThread.interrupt();
+
+        parseIpFilterThread = new Thread(() -> {
+            if (operationNotAllowed() || Thread.interrupted())
+                return;
+
+            IPFilterImpl filter = new IPFilterImpl();
+            int ruleCount = new IPFilterParser().parseFile(path, fs, filter);
+            if (Thread.interrupted())
+                return;
+            if (ruleCount != 0 && swig() != null && !operationNotAllowed())
+                swig().set_ip_filter(filter.getFilter());
+
+            notifyListeners((listener) ->
+                    listener.onIpFilterParsed(ruleCount));
+        });
+        parseIpFilterThread.start();
     }
 
     @Override
@@ -607,6 +609,9 @@ public class TorrentSessionImpl extends SessionManager
     {
         if (operationNotAllowed())
             return;
+
+        if (parseIpFilterThread != null && !parseIpFilterThread.isInterrupted())
+            parseIpFilterThread.interrupt();
 
         swig().set_ip_filter(new ip_filter());
     }
@@ -867,6 +872,7 @@ public class TorrentSessionImpl extends SessionManager
     protected void onBeforeStop()
     {
         disposables.clear();
+        parseIpFilterThread = null;
         magnets.clear();
         loadedMagnets.clear();
         removeListener(torrentTaskListener);

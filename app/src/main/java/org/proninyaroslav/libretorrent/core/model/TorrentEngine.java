@@ -1327,13 +1327,19 @@ public class TorrentEngine
         }
 
         @Override
-        public void onIpFilterParsed(boolean success)
+        public void onIpFilterParsed(int ruleCount)
         {
-            Toast.makeText(appContext,
-                    (success ? appContext.getString(R.string.ip_filter_add_success) :
-                            appContext.getString(R.string.ip_filter_add_error)),
-                    Toast.LENGTH_LONG)
-                    .show();
+            disposables.add(Completable.fromRunnable(() -> {
+                        Toast.makeText(appContext,
+                                (ruleCount > 0 ?
+                                        appContext.getString(R.string.ip_filter_add_success) :
+                                        String.format(appContext.getString(R.string.ip_filter_add_error), ruleCount)),
+                                Toast.LENGTH_LONG)
+                                .show();
+                    })
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+            );
         }
 
         @Override
