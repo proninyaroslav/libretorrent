@@ -44,6 +44,8 @@ import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
@@ -70,6 +72,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
     private SettingsRepository pref;
+    private FileSystemFacade fs;
 
     public static NetworkSettingsFragment newInstance()
     {
@@ -105,7 +108,9 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        Context context = getActivity().getApplicationContext();
+        pref = RepositoryHelper.getSettingsRepository(context);
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
 
         String keyEnableDht = getString(R.string.pref_key_enable_dht);
         SwitchPreferenceCompat enableDht = findPreference(keyEnableDht);
@@ -214,6 +219,9 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
         Preference ipFilterFile = findPreference(keyIpFilterFile);
         if (ipFilterFile != null) {
+            String path = pref.ipFilteringFile();
+            if (path != null)
+                ipFilterFile.setSummary(fs.getDirName(Uri.parse(path)));
             ipFilterFile.setOnPreferenceClickListener((Preference preference) -> {
                 fileChooseDialog();
 
@@ -385,6 +393,11 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 return;
 
             pref.ipFilteringFile(path.toString());
+
+            String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
+            Preference ipFilterFile = findPreference(keyIpFilterFile);
+            if (ipFilterFile != null)
+                ipFilterFile.setSummary(fs.getDirName(path));
         }
     }
 }
