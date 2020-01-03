@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">OK</string>
+    <string name="ok">Bine</string>
     <string name="cancel">Anulare</string>
     <string name="yes">Da</string>
     <string name="no">Nu</string>
@@ -31,19 +31,19 @@
     <string name="refresh">Reîmprospăta</string>
     <string name="edit">Editați</string>
     <string name="menu">Meniul</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
-    <string name="file">File</string>
+    <string name="open_navigation_drawer">Deschide meniul de navigare</string>
+    <string name="close_navigation_drawer">Închide sertarul de navigare</string>
+    <string name="file">Fișier</string>
     <string name="folder">Folder</string>
-    <string name="finished">Finished</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
-    <string name="details">Details</string>
-    <string name="stats">Stats</string>
-    <string name="filters">Filters</string>
-    <string name="apply">Apply</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="finished">Finalizat</string>
+    <string name="pause_all">Întrerupe totul</string>
+    <string name="resume_all">Reia totul</string>
+    <string name="all">Toate</string>
+    <string name="details">Detalii</string>
+    <string name="stats">Statistici</string>
+    <string name="filters">Filtre</string>
+    <string name="apply">Aplică</string>
+    <string name="clipboard">Memoria temporară</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ștergeți împreună cu fișierele descărcate</string>
     <string name="delete_selected_torrent">Stergeți torrentul selectat? Această operație nu poate fi anulată</string>
@@ -66,31 +66,31 @@
     <string name="theme_settings_apply_after_reboot">Setările temei vor fi aplicate după repornirea aplicației</string>
     <string name="about">Despre</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes" formatted="false">DHT noduri: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">Ascultarea portului: %1$s</string>
     <!-- Status -->
-    <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status">Statut</string>
+    <string name="drawer_status_downloading">Se descarcă</string>
+    <string name="drawer_status_downloaded">Descărcat</string>
+    <string name="drawer_status_downloading_metadata">Se descarcă metadate</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_size">Size</string>
-    <string name="drawer_sorting_progress">Progress</string>
-    <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <string name="drawer_sorting">Sortare</string>
+    <string name="drawer_sorting_name">Nume</string>
+    <string name="drawer_sorting_date_added">Data adăugării</string>
+    <string name="drawer_sorting_size">Mărime</string>
+    <string name="drawer_sorting_progress">Progres</string>
+    <string name="drawer_sorting_ETA">Timp Rămas Estimat</string>
+    <string name="drawer_sorting_peers">Parteneri</string>
+    <string name="drawer_sorting_no_sorting">Fără sortare</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added">Data adăugării</string>
+    <string name="drawer_date_added_today">Azi</string>
+    <string name="drawer_date_added_yesterday">Ieri</string>
+    <string name="drawer_date_added_week">Săptămână</string>
+    <string name="drawer_date_added_month">Lună</string>
+    <string name="drawer_date_added_year">An</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \\u2022 %2$s \\u2022 \\u2193 %3$s/s \\u2022 %4$s</string>
@@ -102,7 +102,7 @@
     <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Se închide&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Eroare torrent</string>
     <string name="error_template">Eroare: %1$s</string>
@@ -113,10 +113,10 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finalizat</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_moving_title">Se mută torrent-ul</string>
+    <string name="torrent_moving_content" formatted="false">Se mută %1$s, vă rugăm să așteptați</string>
+    <string name="torrent_move_success">Torrent mișcat reușită</string>
+    <string name="torrent_move_fail">Nu s-a putut muta torrent-ul</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -128,7 +128,7 @@
     <!-- connected/total -->
     <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Descărcare</string>
-    <string name="torrent_status_seeding">Seeding</string>
+    <string name="torrent_status_seeding">Setează</string>
     <string name="torrent_status_paused">Pauză</string>
     <string name="torrent_status_stopped">Oprit</string>
     <string name="torrent_status_checking">Verificare</string>
@@ -154,9 +154,9 @@
     <string name="files_size" formatted="false">S-au selectat %1$s din %2$s</string>
     <string name="start_torrent">Pornește torrent</string>
     <string name="file_is_too_large_error">Fișierul este prea mare</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="error_empty_name">Please enter name</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="unable_to_open_folder">Nu se poate deschide folderul selectat. Încercați să selectați un alt folder</string>
+    <string name="error_empty_name">Te rog introduceți numele</string>
+    <string name="ignore_free_space">Ignorați dimensiunea spațiului liber</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informații</string>
     <string name="torrent_files">Fișiere</string>
@@ -164,7 +164,7 @@
     <string name="upload_torrent_into">Încărcare în</string>
     <string name="torrent_size">Mărime</string>
     <string name="torrent_file_count">Număr de fișiere</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Suma hash</string>
     <string name="torrent_comment">Comentariu</string>
     <string name="torrent_create_date">Torrent creat</string>
     <string name="torrent_created_in_program">Torrent creat în program</string>
@@ -183,11 +183,11 @@
     <string name="file_name">Nume de fișier</string>
     <string name="error_file_exists">Fisierul există deja</string>
     <string name="file_name_is_empty">Numele fișierului nu poate fi gol</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
-    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="system_manager">Manager de system</string>
+    <string name="system_file_manager_not_found">Manager de fișiere de sistem nu a fost găsit</string>
+    <string name="replace_file">Înlocuire fişierul</string>
+    <string name="device_does_not_support_this_feature">Dispozitivul dvs. nu acceptă această caracteristică</string>
+    <string name="parent_folder">Dosarul sursă</string>
     <!-- Error dialog -->
     <string name="report">Raportează</string>
     <string name="more_details">Mai multe detalii</string>
@@ -232,7 +232,7 @@
     <string name="add_trackers">Adaugă trackere</string>
     <string name="dialog_add_trackers">(Câte unul pe rând)</string>
     <string name="open_using">Deschide folosind</string>
-    <string name="peer_port" formatted="false">Port: %1$d</string>
+    <string name="peer_port" formatted="false">Portul: %1$d</string>
     <string name="peer_relevance" formatted="false">Relevanță: %1$.1f</string>
     <string name="peer_connection_type" formatted="false">Conexiune: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
@@ -260,7 +260,7 @@
     <string name="share_stream_url">Distribuiți URL-ul stream</string>
     <string name="magnet_include_file_priorities">Includeți priorități de fișiere?</string>
     <string name="magnet_more_about_bep53">Mai multe informatii: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
+    <string name="tracker_list_empty">Fără urmăritori</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiază</string>
     <string name="text_copied_to_clipboard">Text copiat în clipboard</string>
@@ -276,39 +276,39 @@
     <string name="feed_filter_prompt">Introduceți cuvintele (separate prin simbolul \"|\"), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
     <string name="feed_auto_download">Descarca torentele noi în mod automat</string>
     <string name="feed_use_regex">Utilizați expresii regulate</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="backup_feed_channels">Salvează rezervele</string>
+    <string name="restore_feed_channels_backup">Restabilire rezervele</string>
     <string name="feed_last_update_template" formatted="false">Actualizat: %1$s</string>
     <string name="feed_last_update_never">niciodată</string>
     <string name="error_cannot_add_channel">Canalul nu poate fi adăugat</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="error_cannot_edit_channel">Nu se poate edita canalul</string>
+    <string name="error_cannot_delete_channel">Nu se poate șterge canalul</string>
     <string name="copy_link">Copiază legătură</string>
     <string name="delete_selected_channel">Ștergeți canalul selectat?</string>
     <string name="delete_selected_channels">Ștergeți canalele selectate?</string>
     <string name="edit_feed_channel">Editați canalul</string>
     <string name="link_copied_to_clipboard">Linkul a fost copiat în clipboard</string>
     <string name="mark_as_read">Marcheaza ca citit</string>
-    <string name="mark_as_unread">Mark as unread</string>
+    <string name="mark_as_unread">Marchează mesajul ca necitit</string>
     <string name="feed_item_list_empty">Niciun articol</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="backup_feeds_successfully">Canalele a fost salvat</string>
+    <string name="restore_feeds_backup_successfully">Canalele au fost restaurate</string>
+    <string name="error_backup_feeds">Salvare canalelor a eșuat</string>
+    <string name="error_restore_feeds_backup">Restaurarea canalelor a eșuat</string>
     <string name="feed_item_open_article_url">Deschideți articolul</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
+    <string name="feeds_backup_selection_dialog_title">Selectează fișierul de rezervare</string>
     <string name="error_import_invalid_format">Format invalid</string>
     <string name="feed_do_not_download_immediately">Nu descărcați imediat</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">URL nu a fost găsit</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Creați torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">Se crează torrent-ul, vă rugăm așteptați&#8230;</string>
     <string name="file_or_folder_for_seeding">Fișier sau dosar pentru seeding</string>
     <string name="tracker_urls">URL-uri de urmărire</string>
     <string name="web_seed_urls">URL-uri de semințe Web</string>
     <string name="comments">Comentarii</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="tracker_urls_hint">(opțional) Tastează urmăritori unul pe linie în ordinea priorității</string>
+    <string name="web_seed_urls_hint">(opțional) Unu pe linie</string>
     <string name="optional_hint">(opțional)</string>
     <string name="piece_size">Dimensiune bucată</string>
     <string name="create_torrent_options">Opțiuni</string>
@@ -337,8 +337,8 @@
     <string name="skip_files_hint">Introduceți nume de fișiere separate prin simbolul \"|\"</string>
     <string name="select_folder_to_save">Selectați dosarul pentru a salva</string>
     <string name="torrent_saved_to" formatted="false">Torrent salvat la %1$s</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_open_file">Nu se poate deschide fișierul selectat</string>
+    <string name="unable_to_create_file">Nu se poate creea fișierul</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aspect</string>
@@ -348,7 +348,7 @@
     <string name="pref_header_network">Rețea</string>
     <string name="pref_header_scheduling">Programare</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming">Transmisiune</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salvează torrentele în</string>
     <string name="pref_move_after_download_title">Mută după download</string>
@@ -392,13 +392,13 @@
     <string name="pref_led_indicator_color_notify_title">Culoare indicator LED</string>
     <string name="pref_vibration_notify_title">Vibrare</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_title">Pornire automată</string>
     <string name="pref_autostart_summary">Rulează aplicația după pornirea dispozitivului</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_umnetered_connections_only_title">Doar conectări necontorizate</string>
+    <string name="pref_umnetered_connections_only_summary">Descărcați numai prin conexiuni neschimbate (de exemplu, Wi-Fi sau Ethernet)</string>
+    <string name="pref_enable_roaming_title">Activare roaming</string>
+    <string name="pref_enable_roaming_summary">Descărcați numai dacă dispozitivul nu este în roaming</string>
     <string name="pref_power_management_category">Management de consum</string>
     <string name="pref_keep_alive_title">Lucrați în fundal</string>
     <string name="pref_keep_alive_summary">Dacă este activată, aplicația va rămâne difuzată în fundal. Oprirea când descărcarea este completă este încă respectată</string>
@@ -426,10 +426,10 @@
     <string name="pref_enable_natpmp_title">Activează NAT-PMP</string>
     <string name="pref_port_settings_category">Setări port</string>
     <string name="pref_use_random_port_title">Folosește port aleatoriu</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Setează la întâmplare portul de pornire în intervalul [%1$d,%2$d] și portul final ca prim + 10</string>
+    <string name="pref_port_range_title">Interval de porturi</string>
+    <string name="pref_port_range_start_title">Începe</string>
+    <string name="pref_port_range_end_title">Termină</string>
     <string name="pref_encryption_category">Criptare</string>
     <string name="pref_enc_mode_title">Modul de criptare</string>
     <string-array name="pref_enc_mode_entries">
@@ -444,8 +444,8 @@
     <string name="pref_enable_ip_filtering_summary">Folosirea filtrării IP mărește utilizarea memoriei. În funcție de dimensiunea fișierului, poate trece ceva timp până când filtrul este aplicat la pornire</string>
     <string name="pref_ip_filtering_file_title">Calea către fișierul de filtrare (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Afișați erorile NAT</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_anonymous_mode_title">Activați modul anonim</string>
+    <string name="pref_anonymous_mode_summary">Aplicația încearcă să-și ascundă identitatea într-un anumit grad. Utilizatorul-agent va fi resetat la un șir gol (cu excepția torrent-urilor private). Trackerele vor fi utilizate numai dacă folosesc un server proxy. Soclurile de ascultare sunt închise, iar conexiunile primite vor fi acceptate doar printr-un proxy SOCKS5 sau I2P (dacă este configurat un proxy peer și este rulat pe aceeași mașină ca proxy-ul tracker). NAT-PMP, UPnP, DHT și descoperirea locală sunt dezactivate</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tip de proxy</string>
     <string-array name="pref_proxy_type_entries">
@@ -460,7 +460,7 @@
     <string name="pref_proxy_peers_too_summary">Proxy-ul va fi utilizat pentru conectarea cu trackere, parteneri și seed-uri web</string>
     <string name="pref_proxy_requires_auth_title">Necesită autorizare</string>
     <string name="pref_proxy_requires_auth_summary">Atenție: parola este salvată necriptat</string>
-    <string name="pref_proxy_login_title">Login</string>
+    <string name="pref_proxy_login_title">Autentificare</string>
     <string name="pref_proxy_password_title">Parolă</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Timp pornire</string>
@@ -484,9 +484,9 @@
         <item>1 zi</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Doar conectări necontorizate</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizați doar prin conexiuni nemodificate (de exemplu, Wi-Fi sau Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Activare roaming</string>
     <string name="pref_feed_keep_items_time_title">Păstrați articole</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 zi</item>
@@ -501,8 +501,8 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Rulați torrentele</string>
     <string name="pref_feed_start_torrents_summary">Rulați torrentele după adăugare</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_title">Elimina dublurilor</string>
+    <string name="pref_feed_remove_duplicates_summary">Verifică titlul articolului recent descărcat și sari atunci când unul cu același titlu este deja prezent</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Activați streamingul</string>
     <string name="pref_streaming_enable_summary">Streaming vă permite să descărcați fișiere individuale dintr-un torrent utilizând un browser sau un media player utilizând url-uri HTTP</string>
@@ -514,5 +514,5 @@
     <string name="about_description"><![CDATA[    Mai multe informatii și, de asemenea, pentru a ajuta proiectul: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent este un client gratuit (liber, deschis) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
     LibreTorrent este software gratuit, lansat sub termenii licenței <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog">Istoricul modificărilor</string>
 </resources>
