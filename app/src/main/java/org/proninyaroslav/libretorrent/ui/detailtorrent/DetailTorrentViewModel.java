@@ -524,7 +524,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
                 Uri dirPath = mutableParams.getDirPath();
                 if (dirPath != null) {
                     info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-                    info.setDirName(fs.getDirName(dirPath));
+                    info.setDirName(fs.getDirPath(dirPath));
                 }
             }
 

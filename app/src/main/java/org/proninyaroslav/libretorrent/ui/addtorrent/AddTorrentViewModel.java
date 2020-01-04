@@ -355,7 +355,7 @@ public class AddTorrentViewModel extends AndroidViewModel
                 return;
 
             mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-            mutableParams.setDirName(fs.getDirName(dirPath));
+            mutableParams.setDirName(fs.getDirPath(dirPath));
         }
     };
 

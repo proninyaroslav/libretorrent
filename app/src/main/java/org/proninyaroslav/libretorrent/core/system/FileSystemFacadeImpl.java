@@ -416,10 +416,23 @@ class FileSystemFacadeImpl implements FileSystemFacade
      */
 
     @Override
-    public String getDirName(@NonNull Uri dir)
+    public String getDirPath(@NonNull Uri dir)
     {
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
-        return fsModule.getDirName(dir);
+        return fsModule.getDirPath(dir);
+    }
+
+    /*
+     * Returns path if the file belongs to the filesystem,
+     * otherwise returns SAF name
+     */
+
+    @Override
+    public String getFilePath(@NonNull Uri filePath)
+    {
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
+
+        return fsModule.getFilePath(filePath);
     }
 }

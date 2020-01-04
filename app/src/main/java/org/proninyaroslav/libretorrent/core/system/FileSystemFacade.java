@@ -89,5 +89,7 @@ public interface FileSystemFacade
 
     String normalizeFileSystemPath(String path);
 
-    String getDirName(@NonNull Uri dir);
+    String getDirPath(@NonNull Uri dir);
+
+    String getFilePath(@NonNull Uri filePath);
 }

@@ -38,7 +38,13 @@ interface FsModule
      * Returns path (if present) or directory name
      */
 
-    String getDirName(@NonNull Uri dir);
+    String getDirPath(@NonNull Uri dir);
+
+    /*
+     * Returns path (if present) or file name
+     */
+
+    String getFilePath(@NonNull Uri filePath);
 
     /*
      * Returns Uri of the file by the given file name or

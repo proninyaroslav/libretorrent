@@ -146,7 +146,7 @@ public class FileSystemFacadeTest extends AbstractTest
     public void getDirName()
     {
         fsResolver.existsFileNames = Arrays.asList("bar");
-        assertEquals("bar", fakeFs.getDirName(Uri.parse("file///root/bar")));
+        assertEquals("bar", fakeFs.getDirPath(Uri.parse("file///root/bar")));
         fsResolver.existsFileNames = null;
     }
 

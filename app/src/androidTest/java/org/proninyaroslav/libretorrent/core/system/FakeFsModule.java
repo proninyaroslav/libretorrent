@@ -49,7 +49,7 @@ public class FakeFsModule implements FsModule
     }
 
     @Override
-    public String getDirName(@NonNull Uri dir)
+    public String getDirPath(@NonNull Uri dir)
     {
         String path = dir.getPath();
 
@@ -59,6 +59,19 @@ public class FakeFsModule implements FsModule
             return null;
 
         return dirName;
+    }
+
+    @Override
+    public String getFilePath(@NonNull Uri filePath)
+    {
+        String path = filePath.getPath();
+
+        String fileName = path.substring(path.lastIndexOf("/") + 1);
+
+        if (!existsFileNames.contains(fileName))
+            return null;
+
+        return fileName;
     }
 
     @Override

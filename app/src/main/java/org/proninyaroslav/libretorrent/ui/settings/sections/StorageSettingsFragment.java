@@ -80,7 +80,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.saveTorrentsIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                saveTorrentsIn.setSummary(fs.getDirName(uri));
+                saveTorrentsIn.setSummary(fs.getDirPath(uri));
                 saveTorrentsIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_save_torrents_in);
                     dirChooseDialog(uri);
@@ -103,7 +103,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.moveAfterDownloadIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                moveAfterDownloadIn.setSummary(fs.getDirName(uri));
+                moveAfterDownloadIn.setSummary(fs.getDirPath(uri));
                 moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
                     dirChooseDialog(uri);
@@ -126,7 +126,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.saveTorrentFilesIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                saveTorrentFilesIn.setSummary(fs.getDirName(uri));
+                saveTorrentFilesIn.setSummary(fs.getDirPath(uri));
                 saveTorrentFilesIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_save_torrent_files_in);
                     dirChooseDialog(uri);
@@ -149,7 +149,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.dirToWatch();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                dirToWatch.setSummary(fs.getDirName(uri));
+                dirToWatch.setSummary(fs.getDirPath(uri));
                 dirToWatch.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_dir_to_watch);
                     dirChooseDialog(uri, true);
@@ -226,7 +226,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
                 pref.saveTorrentsIn(path.toString());
             }
-            p.setSummary(fs.getDirName(path));
+            p.setSummary(fs.getDirPath(path));
         }
     }
 

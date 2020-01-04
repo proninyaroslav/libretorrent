@@ -45,7 +45,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -364,7 +363,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             if (seedPath == null)
                 return;
 
-            mutableParams.setSeedPathName(fs.getDirName(seedPath));
+            mutableParams.setSeedPathName(fs.getDirPath(seedPath));
         }
     };
 }

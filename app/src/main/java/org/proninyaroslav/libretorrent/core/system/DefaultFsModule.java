@@ -45,9 +45,15 @@ class DefaultFsModule implements FsModule
     }
 
     @Override
-    public String getDirName(@NonNull Uri dir)
+    public String getDirPath(@NonNull Uri dir)
     {
         return dir.getPath();
+    }
+
+    @Override
+    public String getFilePath(@NonNull Uri filePath)
+    {
+        return filePath.getPath();
     }
 
     @Override

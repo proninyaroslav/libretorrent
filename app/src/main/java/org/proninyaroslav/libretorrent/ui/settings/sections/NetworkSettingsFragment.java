@@ -221,7 +221,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         if (ipFilterFile != null) {
             String path = pref.ipFilteringFile();
             if (path != null)
-                ipFilterFile.setSummary(fs.getDirName(Uri.parse(path)));
+                ipFilterFile.setSummary(fs.getFilePath(Uri.parse(path)));
             ipFilterFile.setOnPreferenceClickListener((Preference preference) -> {
                 fileChooseDialog();
 
@@ -397,7 +397,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
             Preference ipFilterFile = findPreference(keyIpFilterFile);
             if (ipFilterFile != null)
-                ipFilterFile.setSummary(fs.getDirName(path));
+                ipFilterFile.setSummary(fs.getFilePath(path));
         }
     }
 }

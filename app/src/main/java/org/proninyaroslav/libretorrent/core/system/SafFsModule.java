@@ -52,11 +52,19 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public String getDirName(@NonNull Uri dir)
+    public String getDirPath(@NonNull Uri dir)
     {
         SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).statSafRoot(dir);
 
         return (stat == null || stat.name == null ? dir.getPath() : stat.name);
+    }
+
+    @Override
+    public String getFilePath(@NonNull Uri filePath)
+    {
+        SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).stat(filePath);
+
+        return (stat == null || stat.name == null ? filePath.getPath() : stat.name);
     }
 
     @Override
