@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,13 +22,10 @@ package org.proninyaroslav.libretorrent.core.storage;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
@@ -38,9 +35,6 @@ import org.proninyaroslav.libretorrent.core.storage.converter.UriConverter;
 import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
-
-import io.reactivex.Completable;
-import io.reactivex.schedulers.Schedulers;
 
 @Database(entities = {Torrent.class,
         FastResume.class,
@@ -61,16 +55,12 @@ public abstract class AppDatabase extends RoomDatabase
 
     public abstract FeedDao feedDao();
 
-    private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
-
     public static AppDatabase getInstance(@NonNull Context appContext)
     {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
-                if (INSTANCE == null) {
+                if (INSTANCE == null)
                     INSTANCE = buildDatabase(appContext);
-                    INSTANCE.updateDatabaseCreated(appContext);
-                }
             }
         }
 
@@ -80,49 +70,7 @@ public abstract class AppDatabase extends RoomDatabase
     private static AppDatabase buildDatabase(Context appContext)
     {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addCallback(new Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db)
-                    {
-                        super.onCreate(db);
-
-                        if (db.getVersion() == 5) {
-                            Completable.fromAction(() ->  {
-                                AppDatabase appDb = AppDatabase.getInstance(appContext);
-                                try {
-                                    DatabaseMigration.advancedMigrationTo5(appContext, appDb);
-
-                                } catch (Exception e) {
-                                    /* Ignore */
-                                }
-                                appDb.setDatabaseCreated();
-                            })
-                            .subscribeOn(Schedulers.io())
-                            .subscribe();
-                        }
-                    }
-                })
-                .addMigrations(DatabaseMigration.getMigrations())
+                .addMigrations(DatabaseMigration.getMigrations(appContext))
                 .build();
-    }
-
-    /*
-     * Check whether the database already exists and expose it via getDatabaseCreated()
-     */
-
-    private void updateDatabaseCreated(final Context context)
-    {
-        if (context.getDatabasePath(DATABASE_NAME).exists())
-            setDatabaseCreated();
-    }
-
-    private void setDatabaseCreated()
-    {
-        isDatabaseCreated.postValue(true);
-    }
-
-    public LiveData<Boolean> isDatabaseCreated()
-    {
-        return isDatabaseCreated;
     }
 }

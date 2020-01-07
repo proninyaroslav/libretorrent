@@ -85,10 +85,10 @@ public class DatabaseMigrationTest
         File dataDir1 = new File(context.getExternalFilesDir(null), torrentHash);
         if (!dataDir1.exists())
             assertTrue(dataDir1.mkdir());
-        File torrentFile1 = new File(dataDir1, DatabaseMigration.DataModelBefore5.TORRENT_FILE_NAME);
+        File torrentFile1 = new File(dataDir1, DatabaseMigration.RoomDatabaseMigration.OldDataModel.TORRENT_FILE_NAME);
         org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile1, downloadTorrent(torrentUrl));
 
-        File fastResumeFile1 = new File(dataDir1, DatabaseMigration.DataModelBefore5.TORRENT_RESUME_FILE_NAME);
+        File fastResumeFile1 = new File(dataDir1, DatabaseMigration.RoomDatabaseMigration.OldDataModel.TORRENT_RESUME_FILE_NAME);
         byte[] fastResumeData1 = org.apache.commons.io.FileUtils.readFileToByteArray(torrentFile1);
         org.apache.commons.io.FileUtils.writeByteArrayToFile(fastResumeFile1, fastResumeData1);
 
@@ -121,10 +121,9 @@ public class DatabaseMigrationTest
                 DatabaseMigration.MIGRATION_1_2,
                 DatabaseMigration.MIGRATION_2_3,
                 DatabaseMigration.MIGRATION_3_4,
-                DatabaseMigration.MIGRATION_4_5);
+                new DatabaseMigration.RoomDatabaseMigration(context));
 
         AppDatabase db = getMigratedRoomDatabase();
-        DatabaseMigration.advancedMigrationTo5(context, db);
 
         assertFalse(dataDir1.exists());
 
@@ -177,7 +176,7 @@ public class DatabaseMigrationTest
                 DatabaseMigration.MIGRATION_1_2,
                 DatabaseMigration.MIGRATION_2_3,
                 DatabaseMigration.MIGRATION_3_4,
-                DatabaseMigration.MIGRATION_4_5);
+                new DatabaseMigration.RoomDatabaseMigration(context));
 
         AppDatabase db = getMigratedRoomDatabase();
 
@@ -204,7 +203,7 @@ public class DatabaseMigrationTest
     {
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, TEST_DATABASE_NAME)
-                .addMigrations(DatabaseMigration.getMigrations())
+                .addMigrations(DatabaseMigration.getMigrations(context))
                 .build();
         /* Close the database and release any stream resources when the test finishes */
         helper.closeWhenFinished(db);

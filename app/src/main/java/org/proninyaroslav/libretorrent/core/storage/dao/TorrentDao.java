@@ -48,12 +48,6 @@ public interface TorrentDao
     void delete(Torrent torrent);
 
     @Query(QUERY_GET_ALL)
-    Flowable<List<Torrent>> observeAllTorrents();
-
-    @Query(QUERY_GET_ALL)
-    Single<List<Torrent>> getAllTorrentsSingle();
-
-    @Query(QUERY_GET_ALL)
     List<Torrent> getAllTorrents();
 
     @Query(QUERY_GET_BY_ID)

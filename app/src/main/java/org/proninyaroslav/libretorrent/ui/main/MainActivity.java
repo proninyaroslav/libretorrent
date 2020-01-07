@@ -30,7 +30,6 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
