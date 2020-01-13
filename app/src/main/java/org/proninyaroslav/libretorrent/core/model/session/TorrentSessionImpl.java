@@ -1419,6 +1419,9 @@ public class TorrentSessionImpl extends SessionManager
         if (saveDir != null)
             p.setSave_path(saveDir.getAbsolutePath());
 
+        if (TextUtils.isEmpty(p.getName()))
+            p.setName(info_hash.to_hex());
+
         torrent_flags_t flags = p.getFlags();
 
         flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());

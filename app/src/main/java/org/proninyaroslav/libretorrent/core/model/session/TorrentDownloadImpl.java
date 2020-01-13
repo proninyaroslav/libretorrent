@@ -82,6 +82,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.Completable;
 import io.reactivex.disposables.Disposable;
@@ -101,6 +102,7 @@ class TorrentDownloadImpl implements TorrentDownload
     /* For streaming */
     private final static int PRELOAD_PIECES_COUNT = 5;
     private static final int DEFAULT_PIECE_DEADLINE = 1000; /* ms */
+    private static final int MAX_METADATA_SIZE = 2 * 1024 * 1024;
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.STATE_CHANGED.swig(),
@@ -129,7 +131,7 @@ class TorrentDownloadImpl implements TorrentDownload
     private Set<Uri> incompleteFilesToRemove;
     private Uri partsFile;
     private long lastSaveResumeTime;
-    private String name;
+    private AtomicReference<String> name;
     private TorrentCriticalWork criticalWork = new TorrentCriticalWork();
     private boolean autoManaged;
     private boolean stopRequested = false;
@@ -151,7 +153,7 @@ class TorrentDownloadImpl implements TorrentDownload
         this.autoManaged = autoManaged;
         this.listeners = listeners;
         this.th = handle;
-        this.name = handle.name();
+        this.name = new AtomicReference<>(handle.name());
         partsFile = getPartsFile();
         listener = new InnerListener();
         sessionManager.addListener(listener);
@@ -336,39 +338,45 @@ class TorrentDownloadImpl implements TorrentDownload
     private void handleMetadata(MetadataReceivedAlert alert)
     {
         Exception[] err = new Exception[1];
-        Torrent torrent = null;
+        String newName = null;
+        Torrent torrent;
         try {
             torrent = repo.getTorrentById(id);
             if (torrent == null)
                 throw new NullPointerException(id + " doesn't exists");
 
             int size = alert.metadataSize();
-            int maxSize = 2 * 1024 * 1024;
-            if (0 < size && size <= maxSize) {
-                TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
-                long availableBytes = fs.getDirAvailableBytes(torrent.downloadPath);
-                if (availableBytes < info.torrentSize)
-                    throw new FreeSpaceException("Not enough free space");
-            }
+            if (size < 0 || size > MAX_METADATA_SIZE)
+                return;
+
+            TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
 
             /* Skip if default name is changed */
-            if (torrent.name.equals(name) || TextUtils.isEmpty(name)) {
-                name = alert.torrentName();
-                torrent.name = alert.torrentName();
+            String name = this.name.get();
+            if (info.sha1Hash.equals(name) || TextUtils.isEmpty(name)) {
+                this.name.set(info.torrentName);
+                newName = info.torrentName;
             }
+
+            long availableBytes = fs.getDirAvailableBytes(torrent.downloadPath);
+            if (availableBytes < info.torrentSize)
+                throw new FreeSpaceException("Not enough free space");
 
         } catch (Exception e) {
             err[0] = e;
-            torrent = repo.getTorrentById(id);
-            if (torrent != null)
-                torrent.error = e.toString();
             pause();
             notifyListeners((listener) ->
                     listener.onTorrentError(id, e));
 
         } finally {
+            torrent = repo.getTorrentById(id);
             if (torrent != null) {
                 torrent.setMagnetUri(null);
+                if (newName != null)
+                    torrent.name = newName;
+                if (err[0] != null)
+                    torrent.error = err[0].toString();
+
                 repo.updateTorrent(torrent);
             }
         }
