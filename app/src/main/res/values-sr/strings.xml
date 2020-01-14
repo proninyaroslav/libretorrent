@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Преузимање</string>
     <string name="drawer_status_downloaded">Преузето</string>
     <string name="drawer_status_downloading_metadata">Преузимање метаподатака</string>
+    <string name="drawer_status_error">Грешка</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Сортирање</string>
     <string name="drawer_sorting_name">Име</string>

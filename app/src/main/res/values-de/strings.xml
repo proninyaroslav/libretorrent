@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Lädt herunter</string>
     <string name="drawer_status_downloaded">Heruntergeladen</string>
     <string name="drawer_status_downloading_metadata">Metadaten werden heruntergeladen</string>
+    <string name="drawer_status_error">Fehler</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortierung</string>
     <string name="drawer_sorting_name">Name</string>

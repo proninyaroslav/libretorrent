@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">正在下载</string>
     <string name="drawer_status_downloaded">已下载</string>
     <string name="drawer_status_downloading_metadata">正在下载元数据</string>
+    <string name="drawer_status_error">错误</string>
     <!-- Sorting -->
     <string name="drawer_sorting">排序</string>
     <string name="drawer_sorting_name">名称</string>

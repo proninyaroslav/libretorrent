@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">ダウンロード中</string>
     <string name="drawer_status_downloaded">ダウンロード完了</string>
     <string name="drawer_status_downloading_metadata">メタデータのダウンロード</string>
+    <string name="drawer_status_error">エラー</string>
     <!-- Sorting -->
     <string name="drawer_sorting">並べ替え</string>
     <string name="drawer_sorting_name">名前</string>

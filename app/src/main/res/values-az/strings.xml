@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Endirilir</string>
     <string name="drawer_status_downloaded">Endirildi</string>
     <string name="drawer_status_downloading_metadata">Meta verilənlər endirilir</string>
+    <string name="drawer_status_error">Xəta</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sıralama</string>
     <string name="drawer_sorting_name">Ad</string>

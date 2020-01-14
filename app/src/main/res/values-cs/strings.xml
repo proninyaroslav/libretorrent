@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Stahování</string>
     <string name="drawer_status_downloaded">Staženo</string>
     <string name="drawer_status_downloading_metadata">Stahuji metadata</string>
+    <string name="drawer_status_error">Chyba</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Řazení</string>
     <string name="drawer_sorting_name">Název</string>

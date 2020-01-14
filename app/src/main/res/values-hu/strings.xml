@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Letöltés</string>
     <string name="drawer_status_downloaded">Letöltött</string>
     <string name="drawer_status_downloading_metadata">Metadata letöltése</string>
+    <string name="drawer_status_error">Hiba</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Rendezés</string>
     <string name="drawer_sorting_name">Név</string>

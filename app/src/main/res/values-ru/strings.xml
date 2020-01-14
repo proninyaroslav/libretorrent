@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Загрузка</string>
     <string name="drawer_status_downloaded">Загружено</string>
     <string name="drawer_status_downloading_metadata">Загрузка метаданных</string>
+    <string name="drawer_status_error">Ошибка</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Сортировка</string>
     <string name="drawer_sorting_name">Имя</string>

@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Λήψη</string>
     <string name="drawer_status_downloaded">Ληφθέντα</string>
     <string name="drawer_status_downloading_metadata">Λήψη μεταδεδομένων</string>
+    <string name="drawer_status_error">Σφάλμα</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Ταξινόμηση</string>
     <string name="drawer_sorting_name">Όνομα</string>

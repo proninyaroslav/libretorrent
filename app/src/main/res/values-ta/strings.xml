@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Downloading</string>
     <string name="drawer_status_downloaded">Downloaded</string>
     <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status_error">பிழை</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sorting</string>
     <string name="drawer_sorting_name">Name</string>

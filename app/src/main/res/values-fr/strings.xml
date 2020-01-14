@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Téléchargement</string>
     <string name="drawer_status_downloaded">Téléchargé</string>
     <string name="drawer_status_downloading_metadata">Téléchargement des métadonnées</string>
+    <string name="drawer_status_error">Erreur</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Tri</string>
     <string name="drawer_sorting_name">Name</string>

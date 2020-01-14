@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">Se descarcă</string>
     <string name="drawer_status_downloaded">Descărcat</string>
     <string name="drawer_status_downloading_metadata">Se descarcă metadate</string>
+    <string name="drawer_status_error">Eroare</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortare</string>
     <string name="drawer_sorting_name">Nume</string>

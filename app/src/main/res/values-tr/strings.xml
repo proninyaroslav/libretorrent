@@ -75,6 +75,7 @@
     <string name="drawer_status_downloading">İndiriliyor</string>
     <string name="drawer_status_downloaded">İndirildi</string>
     <string name="drawer_status_downloading_metadata">Meta veri indiriliyor</string>
+    <string name="drawer_status_error">Hata</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sıralama</string>
     <string name="drawer_sorting_name">Adı</string>
