@@ -36,7 +36,7 @@ public class TorrentFilterCollection
 
     public static TorrentFilter statusDownloaded()
     {
-        return (state) -> state.stateCode == TorrentStateCode.SEEDING;
+        return (state) -> state.stateCode == TorrentStateCode.SEEDING || state.progress == 100;
     }
 
     public static TorrentFilter statusDownloadingMetadata()
