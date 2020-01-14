@@ -44,6 +44,11 @@ public class TorrentFilterCollection
         return (state) -> state.stateCode == TorrentStateCode.DOWNLOADING_METADATA;
     }
 
+    public static TorrentFilter statusError()
+    {
+        return (state) -> state.error != null;
+    }
+
     public static TorrentFilter dateAddedToday()
     {
         return (state) -> {

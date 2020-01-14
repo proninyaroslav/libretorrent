@@ -820,6 +820,9 @@ public class Utils
                 R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_status_downloaded)));
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
                 R.drawable.ic_magnet_grey600_24dp, res.getString(R.string.drawer_status_downloading_metadata)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_error),
+                R.drawable.ic_error_grey600_24dp, res.getString(R.string.drawer_status_error)));
+
 
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
                 R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
@@ -914,6 +917,8 @@ public class Utils
             return TorrentFilterCollection.statusDownloaded();
         else if (itemId == res.getInteger(R.integer.drawer_status_downloading_metadata_id))
             return TorrentFilterCollection.statusDownloadingMetadata();
+        else if (itemId == res.getInteger(R.integer.drawer_status_error))
+            return TorrentFilterCollection.statusError();
         else
             return TorrentFilterCollection.all();
     }

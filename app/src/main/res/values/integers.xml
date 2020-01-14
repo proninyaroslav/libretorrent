@@ -9,6 +9,7 @@
     <integer name="drawer_status_downloading_id">1</integer>
     <integer name="drawer_status_downloaded_id">2</integer>
     <integer name="drawer_status_downloading_metadata_id">3</integer>
+    <integer name="drawer_status_error">4</integer>
     <!-- Sorting -->
     <integer name="drawer_sorting_id">2</integer>
     <integer name="drawer_sorting_date_added_asc_id">0</integer>
