@@ -42,12 +42,12 @@
     <string name="details">详细</string>
     <string name="stats">统计</string>
     <string name="filters">过滤器</string>
-    <string name="apply">Apply</string>
+    <string name="apply">应用</string>
     <string name="clipboard">剪贴板</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选择的种子？此操作无法撤销。</string>
-    <string name="delete_selected_torrents">删除所选择的所有种子？此操作无法撤销。</string>
+    <string name="delete_selected_torrents">删除所选择的所有种子？此操作无法撤销</string>
     <string name="force_recheck_torrent">强制重新效验文件</string>
     <string name="force_announce_torrent">强制发布</string>
     <string name="add_link">添加链接</string>
@@ -59,10 +59,10 @@
     <string name="error_open_torrent_file">无法打开目标种子文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确。</string>
+    <string name="ip_filter_add_error" formatted="false">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确。</string>
     <string name="ip_filter_add_success">IP 过滤器添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
-    <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置。</string>
+    <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置</string>
     <string name="theme_settings_apply_after_reboot">重新启动应用程序后，将应用主题设置</string>
     <string name="about">关于</string>
     <!-- Navigation drawer -->
@@ -102,7 +102,7 @@
     <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
     <string name="network_online">网络状态：在线</string>
     <string name="network_offline">网络状态：离线</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">关闭&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">种子错误</string>
     <string name="error_template">错误: %1$s</string>
@@ -161,7 +161,7 @@
     <string name="torrent_info">详情</string>
     <string name="torrent_files">文件</string>
     <string name="torrent_name">名称</string>
-    <string name="upload_torrent_into">下载至</string>
+    <string name="upload_torrent_into">下载到</string>
     <string name="torrent_size">文件大小</string>
     <string name="torrent_file_count">文件数量</string>
     <string name="torrent_hash_sum">Hash 特征值</string>
@@ -185,9 +185,9 @@
     <string name="file_name_is_empty">文件名不能为空</string>
     <string name="system_manager">系统管理员</string>
     <string name="system_file_manager_not_found">找不到系统文件管理器</string>
-    <string name="replace_file">Replace file</string>
+    <string name="replace_file">替换文件</string>
     <string name="device_does_not_support_this_feature">您的设备不支持此功能</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="parent_folder">上层文件夹</string>
     <!-- Error dialog -->
     <string name="report">反馈</string>
     <string name="more_details">更多细节</string>
@@ -195,7 +195,7 @@
     <!-- priority • total -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n可用性: %5$s</string>
     <string name="file_priority_normal">正常</string>
     <string name="file_priority_low">未下载</string>
     <string name="file_priority_high">高</string>
@@ -255,8 +255,8 @@
     <string name="upload_speed">上传速度</string>
     <string name="download_speed">下载速度</string>
     <string name="speed_limit_dialog">单位 KiB/s （0 - 无限大）</string>
-    <string name="torrent_added_date">已添加</string>
-    <string name="torrent_availability">可用度</string>
+    <string name="torrent_added_date">添加日期</string>
+    <string name="torrent_availability">可用性</string>
     <string name="share_stream_url">分享流媒体链接</string>
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
@@ -299,10 +299,10 @@
     <string name="feeds_backup_selection_dialog_title">选择备份文件</string>
     <string name="error_import_invalid_format">无效格式</string>
     <string name="feed_do_not_download_immediately">不立即下载</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">找不到URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建 torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">正在创建torrent，请稍候&amp;#8230；</string>
     <string name="file_or_folder_for_seeding">需要做种的文件或文件夹</string>
     <string name="tracker_urls">追踪链接</string>
     <string name="web_seed_urls">种子链接</string>
@@ -365,13 +365,13 @@
     <string name="pref_max_upload_speed_title">最大上传速度</string>
     <string name="pref_max_connections_title">最大链接数</string>
     <string name="pref_max_connections_summary">最小连接数 - 2</string>
-    <string name="pref_torrent_queueing_category">torrent 队列</string>
+    <string name="pref_torrent_queueing_category">种子队列</string>
     <string name="pref_max_active_uploads_title">最大上传数</string>
     <string name="pref_max_active_downloads_title">最大下载数</string>
-    <string name="pref_max_active_torrents_title">最大活动 torrent 数</string>
+    <string name="pref_max_active_torrents_title">最大活动种子数</string>
     <string name="pref_max_connections_per_torrent_title">每个种子最大连接数</string>
     <string name="pref_max_connections_per_torrent_summary">最小连接数 - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">每个种子最大上传槽数目</string>
+    <string name="pref_max_uploads_per_torrent_title">每个种子最大上传连接数</string>
     <string name="pref_auto_manage_title">自动管理</string>
     <string name="pref_auto_manage_summary">可在任何时候自动恢复或暂停 种子。注：启用该选项可能会减慢暂停/恢复的速度</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 无限大</string>
@@ -501,7 +501,7 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">运行 torrent</string>
     <string name="pref_feed_start_torrents_summary">添加后运行 torrent</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_title">删除重复项</string>
     <string name="pref_feed_remove_duplicates_summary">检查新下载的项目的标题，当有相同标题的一个已经出现时跳过</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">启用流媒体功能</string>
