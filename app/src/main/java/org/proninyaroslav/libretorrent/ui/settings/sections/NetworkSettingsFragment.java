@@ -40,7 +40,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
+import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
@@ -158,7 +158,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(randomPort);
         }
 
-        InputFilter[] portFilter = new InputFilter[]{ new InputFilterMinMax(0, 65535) };
+        InputFilter[] portFilter = new InputFilter[] { InputFilterRange.PORT_FILTER };
 
         String keyPortStart = getString(R.string.pref_key_port_range_first);
         EditTextPreference portStart = findPreference(keyPortStart);

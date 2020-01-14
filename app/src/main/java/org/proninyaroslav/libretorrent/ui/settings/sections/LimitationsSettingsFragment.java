@@ -30,7 +30,7 @@ import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
+import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
@@ -58,8 +58,18 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
 
         pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
-        InputFilter[] speedFilter = new InputFilter[]{ new InputFilterMinMax(0, Integer.MAX_VALUE) };
-        InputFilter[] queueingFilter = new InputFilter[]{ new InputFilterMinMax(-1, Integer.MAX_VALUE) };
+        InputFilter[] speedFilter = new InputFilter[] { InputFilterRange.UNSIGNED_INT };
+        InputFilter[] queueingFilter = new InputFilter[] {
+                new InputFilterRange.Builder()
+                        .setMin(-1)
+                        .setMax(Integer.MAX_VALUE)
+                        .build()
+        };
+        InputFilter[] maxFilter = new InputFilter[] {
+                new InputFilterRange.Builder()
+                        .setMax(Integer.MAX_VALUE)
+                        .build()
+        };
 
         String keyMaxDownloadSpeedLimit = getString(R.string.pref_key_max_download_speed);
         EditTextPreference maxDownloadSpeedLimit = findPreference(keyMaxDownloadSpeedLimit);
@@ -88,6 +98,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         if (maxConnections != null) {
             maxConnections.setDialogMessage(R.string.pref_max_connections_summary);
             String value = Integer.toString(pref.maxConnections());
+            maxConnections.setOnBindEditTextListener((editText) -> editText.setFilters(maxFilter));
             maxConnections.setSummary(value);
             maxConnections.setText(value);
             bindOnPreferenceChangeListener(maxConnections);
@@ -138,6 +149,7 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         if (maxConnectionsPerTorrent != null) {
             maxConnectionsPerTorrent.setDialogMessage(R.string.pref_max_connections_per_torrent_summary);
             String value = Integer.toString(pref.maxConnectionsPerTorrent());
+            maxConnectionsPerTorrent.setOnBindEditTextListener((editText) -> editText.setFilters(maxFilter));
             maxConnectionsPerTorrent.setSummary(value);
             maxConnectionsPerTorrent.setText(value);
             bindOnPreferenceChangeListener(maxConnectionsPerTorrent);

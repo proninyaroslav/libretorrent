@@ -37,7 +37,7 @@ import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
+import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 
@@ -117,8 +117,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             EditTextPreference port = findPreference(keyPort);
             if (port != null) {
                 port.setEnabled(enableAdvancedSettings);
-                InputFilter[] portFilter =
-                        new InputFilter[]{new InputFilterMinMax(0, 65535)};
+                InputFilter[] portFilter = new InputFilter[] { InputFilterRange.PORT_FILTER };
                 int portNumber = pref.proxyPort();
                 String portValue = Integer.toString(portNumber);
                 port.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));

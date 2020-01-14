@@ -60,7 +60,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.InputFilterMinMax;
+import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
@@ -713,8 +713,7 @@ public class DetailTorrentFragment extends Fragment
         TextInputEditText download = dialog.findViewById(R.id.download_limit);
 
         int minSpeedLimit = 0;
-        int maxSpeedLimit = Integer.MAX_VALUE;
-        InputFilter[] filter = new InputFilter[]{ new InputFilterMinMax(minSpeedLimit, maxSpeedLimit) };
+        InputFilter[] filter = new InputFilter[]{ InputFilterRange.UNSIGNED_INT };
 
         upload.setFilters(filter);
 
