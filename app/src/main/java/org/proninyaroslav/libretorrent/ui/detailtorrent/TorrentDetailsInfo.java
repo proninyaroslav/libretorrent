@@ -36,8 +36,6 @@ public class TorrentDetailsInfo extends BaseObservable
     private AdvancedTorrentInfo advancedInfo;
     private String dirName;
     private long storageFreeSpace = -1;
-    private int leechers;
-    private int totalLeechers;
 
     @Bindable
     public Torrent getTorrent()
@@ -111,30 +109,6 @@ public class TorrentDetailsInfo extends BaseObservable
         notifyPropertyChanged(BR.metaInfo);
     }
 
-    @Bindable
-    public int getLeechers()
-    {
-        return leechers;
-    }
-
-    public void setLeechers(int leechers)
-    {
-        this.leechers = leechers;
-        notifyPropertyChanged(BR.leechers);
-    }
-
-    @Bindable
-    public int getTotalLeechers()
-    {
-        return totalLeechers;
-    }
-
-    public void setTotalLeechers(int totalLeechers)
-    {
-        this.totalLeechers = totalLeechers;
-        notifyPropertyChanged(BR.totalLeechers);
-    }
-
     @Override
     public String toString()
     {
@@ -145,8 +119,6 @@ public class TorrentDetailsInfo extends BaseObservable
                 ", advancedInfo=" + advancedInfo +
                 ", dirName='" + dirName + '\'' +
                 ", storageFreeSpace=" + storageFreeSpace +
-                ", leechers=" + leechers +
-                ", totalLeechers=" + totalLeechers +
                 '}';
     }
 }

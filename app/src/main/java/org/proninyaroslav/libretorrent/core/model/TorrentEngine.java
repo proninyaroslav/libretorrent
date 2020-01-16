@@ -815,7 +815,9 @@ public class TorrentEngine
                 task.getActiveTime(),
                 task.getSeedingTime(),
                 task.getAvailability(piecesAvail),
-                task.getFilesAvailability(piecesAvail));
+                task.getFilesAvailability(piecesAvail),
+                task.getConnectedLeechers(),
+                task.getTotalLeechers());
     }
 
     public List<TrackerInfo> makeTrackerInfoList(@NonNull String id)

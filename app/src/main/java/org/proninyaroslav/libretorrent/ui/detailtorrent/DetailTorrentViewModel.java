@@ -200,8 +200,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
 
         info.setTorrent(torrent);
         info.setTorrentInfo(ti);
-        info.setLeechers(calcLeechers());
-        info.setTotalLeechers(calcTotalLeechers());
 
         if (firstUpdate)
             initMutableParams();
@@ -212,26 +210,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
     public void updateInfo(AdvancedTorrentInfo advancedInfo)
     {
         info.setAdvancedInfo(advancedInfo);
-    }
-
-    public int calcLeechers()
-    {
-        TorrentInfo ti = info.getTorrentInfo();
-        AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
-        if (ti == null || advancedInfo == null)
-            return 0;
-
-        return Math.abs(ti.peers - advancedInfo.seeds);
-    }
-
-    public int calcTotalLeechers()
-    {
-        TorrentInfo ti = info.getTorrentInfo();
-        AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
-        if (ti == null || advancedInfo == null)
-            return 0;
-
-        return ti.totalPeers - advancedInfo.totalSeeds;
     }
 
     /*

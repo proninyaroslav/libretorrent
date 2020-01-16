@@ -832,6 +832,17 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
+    public int getConnectedLeechers()
+    {
+        if (operationNotAllowed())
+            return 0;
+
+        TorrentStatus ts = th.status();
+
+        return ts.numPeers() - ts.numSeeds();
+    }
+
+    @Override
     public int getTotalPeers()
     {
         if (operationNotAllowed())
@@ -840,13 +851,31 @@ class TorrentDownloadImpl implements TorrentDownload
         TorrentStatus ts = th.status();
         int peers = ts.numComplete() + ts.numIncomplete();
 
-        return (peers > 0 ? peers : th.status().listPeers());
+        return (peers > 0 ? peers : ts.listPeers());
     }
 
     @Override
     public int getTotalSeeds()
     {
-        return operationNotAllowed() ? 0 : th.status().listSeeds();
+        if (operationNotAllowed())
+            return 0;
+
+        TorrentStatus ts = th.status();
+        int numComplete = ts.numComplete();
+
+        return (numComplete > 0 ? numComplete : ts.listSeeds());
+    }
+
+    @Override
+    public int getTotalLeechers()
+    {
+        if (operationNotAllowed())
+            return 0;
+
+        TorrentStatus ts = th.status();
+        int numIncomplete = ts.numIncomplete();
+
+        return (numIncomplete > 0 ? numIncomplete : ts.listPeers() - ts.listSeeds());
     }
 
     @Override

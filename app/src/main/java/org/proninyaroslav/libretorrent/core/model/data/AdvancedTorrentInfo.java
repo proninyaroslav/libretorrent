@@ -43,6 +43,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
     public long seedingTime = 0L;
     public double availability = 0.0;
     public double[] filesAvailability = new double[0];
+    public int leechers;
+    public int totalLeechers;
 
     public AdvancedTorrentInfo()
     {
@@ -52,7 +54,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
     public AdvancedTorrentInfo(String torrentId, long[] filesReceivedBytes,
                                int totalSeeds, int seeds, int downloadedPieces,
                                double shareRatio, long activeTime, long seedingTime,
-                               double availability, double[] filesAvailability)
+                               double availability, double[] filesAvailability,
+                               int leechers, int totalLeechers)
     {
         super(torrentId);
 
@@ -66,6 +69,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         this.seedingTime = seedingTime;
         this.availability = availability;
         this.filesAvailability = filesAvailability;
+        this.leechers = leechers;
+        this.totalLeechers = totalLeechers;
     }
 
     public AdvancedTorrentInfo(Parcel source)
@@ -82,6 +87,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         seedingTime = source.readLong();
         availability = source.readDouble();
         filesAvailability = source.createDoubleArray();
+        leechers = source.readInt();
+        totalLeechers = source.readInt();
     }
 
     @Override
@@ -105,6 +112,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         dest.writeLong(seedingTime);
         dest.writeDouble(availability);
         dest.writeDoubleArray(filesAvailability);
+        dest.writeInt(leechers);
+        dest.writeInt(totalLeechers);
     }
 
     public static final Parcelable.Creator<AdvancedTorrentInfo> CREATOR =
@@ -146,6 +155,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         long availabilityBits = Double.doubleToLongBits(availability);
         result = prime * result + (int) (availabilityBits ^ (availabilityBits >>> 32));
         result += Arrays.hashCode(filesAvailability);
+        result = prime * result + leechers;
+        result = prime * result + totalLeechers;
 
         return result;
     }
@@ -159,7 +170,7 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         if (o == this)
             return true;
 
-        AdvancedTorrentInfo state = (AdvancedTorrentInfo) o;
+        AdvancedTorrentInfo state = (AdvancedTorrentInfo)o;
 
         return (torrentId == null || torrentId.equals(state.torrentId)) &&
                 totalSeeds == state.totalSeeds &&
@@ -170,7 +181,9 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
                 activeTime == state.activeTime &&
                 seedingTime == state.seedingTime &&
                 availability == state.availability &&
-                Arrays.equals(filesAvailability, state.filesAvailability);
+                Arrays.equals(filesAvailability, state.filesAvailability) &&
+                leechers == state.leechers &&
+                totalLeechers == state.totalLeechers;
     }
 
     @Override
@@ -187,6 +200,8 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
                 ", seedingTime=" + seedingTime +
                 ", availability=" + availability +
                 ", filesAvailability=" + Arrays.toString(filesAvailability) +
+                ", leechers=" + leechers +
+                ", totalLeechers=" + totalLeechers +
                 '}';
     }
 }

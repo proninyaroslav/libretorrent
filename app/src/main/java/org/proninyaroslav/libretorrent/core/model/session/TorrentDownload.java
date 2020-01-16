@@ -85,9 +85,13 @@ public interface TorrentDownload
 
     int getConnectedSeeds();
 
+    int getConnectedLeechers();
+
     int getTotalPeers();
 
     int getTotalSeeds();
+
+    int getTotalLeechers();
 
     void requestTrackerAnnounce();
 

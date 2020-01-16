@@ -91,7 +91,7 @@
                         android:id="@+id/leechers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/torrent_peers_template(viewModel.info.leechers, viewModel.info.totalLeechers)}"
+                        android:text="@{@string/torrent_peers_template(viewModel.info.advancedInfo.leechers, viewModel.info.advancedInfo.totalLeechers)}"
                         style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
             </LinearLayout>
