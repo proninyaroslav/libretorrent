@@ -172,4 +172,14 @@ public class MainViewModel extends AndroidViewModel
     {
         engine.forceStop();
     }
+
+    public void pauseAll()
+    {
+        engine.pauseAll();
+    }
+
+    public void resumeAll()
+    {
+        engine.resumeAll();
+    }
 }

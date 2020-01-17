@@ -570,6 +570,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 viewModel.stopEngine();
                 finish();
                 break;
+            case R.id.pause_all_menu:
+                viewModel.pauseAll();
+                break;
+            case R.id.resume_all_menu:
+                viewModel.resumeAll();
+                break;
         }
 
         return true;
