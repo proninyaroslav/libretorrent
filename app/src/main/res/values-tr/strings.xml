@@ -44,6 +44,8 @@
     <string name="filters">Filtreler</string>
     <string name="apply">Uygula</string>
     <string name="clipboard">Pano</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">İndirilen dosyalarla birlikte sil</string>
     <string name="delete_selected_torrent">Seçili torrent silinsin mi? Bu işlem geri alınamaz</string>

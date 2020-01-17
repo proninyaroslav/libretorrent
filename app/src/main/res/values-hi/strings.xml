@@ -44,6 +44,8 @@
     <string name="filters">फिल्टर</string>
     <string name="apply">Apply</string>
     <string name="clipboard">Clipboard</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
     <string name="delete_selected_torrent">चयनित धार हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>

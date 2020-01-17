@@ -44,6 +44,8 @@
     <string name="filters">过滤器</string>
     <string name="apply">应用</string>
     <string name="clipboard">剪贴板</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选择的种子？此操作无法撤销。</string>

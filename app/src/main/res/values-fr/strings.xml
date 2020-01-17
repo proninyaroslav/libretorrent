@@ -44,6 +44,8 @@
     <string name="filters">Filtres</string>
     <string name="apply">Appliquer</string>
     <string name="clipboard">Presse-papier</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
     <string name="delete_selected_torrent">Supprimer ce Torrent? Cette action ne pourra pas être annulée</string>

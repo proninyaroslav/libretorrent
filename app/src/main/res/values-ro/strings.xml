@@ -44,6 +44,8 @@
     <string name="filters">Filtre</string>
     <string name="apply">Aplică</string>
     <string name="clipboard">Memoria temporară</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ștergeți împreună cu fișierele descărcate</string>
     <string name="delete_selected_torrent">Stergeți torrentul selectat? Această operație nu poate fi anulată</string>

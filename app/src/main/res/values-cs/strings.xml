@@ -44,6 +44,8 @@
     <string name="filters">Filtry</string>
     <string name="apply">Použít</string>
     <string name="clipboard">Schránka</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Smazat se staženými soubory</string>
     <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operace nemůže být vrácena</string>

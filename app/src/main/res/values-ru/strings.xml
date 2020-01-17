@@ -44,6 +44,8 @@
     <string name="filters">Фильтры</string>
     <string name="apply">Применить</string>
     <string name="clipboard">Буфер обмена</string>
+    <string name="switch_on">Вкл.</string>
+    <string name="switch_off">Выкл.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
     <string name="delete_selected_torrent">Удалить выбранный торрент? Данная операция не может быть отменена</string>

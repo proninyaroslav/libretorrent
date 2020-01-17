@@ -44,6 +44,8 @@
     <string name="filters">Szűrők</string>
     <string name="apply">Alkamaz</string>
     <string name="clipboard">Vágólap</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
     <string name="delete_selected_torrent">Törlöd a kiválasztott torentet? Nem visszavonható művelet</string>

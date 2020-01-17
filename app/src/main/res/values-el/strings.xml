@@ -44,6 +44,8 @@
     <string name="filters">Φίλτρα</string>
     <string name="apply">Εφαρμογή</string>
     <string name="clipboard">Πρόχειρο</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Διαγραφή και των ληφθέντων αρχείων</string>
     <string name="delete_selected_torrent">Να γίνει διαγραφή του επιλεγμένου torrent; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>

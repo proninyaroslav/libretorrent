@@ -44,6 +44,8 @@
     <string name="filters">Filtros</string>
     <string name="apply">Aplicar</string>
     <string name="clipboard">Portapapeles</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Borrar incluyendo archivos descargados</string>
     <string name="delete_selected_torrent">¿Borrar torrent seleccionado? La operación no se puede deshacer</string>
