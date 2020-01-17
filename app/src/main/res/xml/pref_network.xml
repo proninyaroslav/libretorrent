@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
     <Preference
         android:key="@string/pref_key_proxy_settings"
         android:title="@string/pref_proxy_settings_title"
         android:persistent="false" />
 
-    <SwitchPreferenceCompat
+    <Preference
         android:key="@string/pref_key_anonymous_mode"
         android:title="@string/pref_anonymous_mode_title"
-        android:summary="@string/pref_anonymous_mode_summary"
         android:persistent="false" />
 
     <SwitchPreferenceCompat

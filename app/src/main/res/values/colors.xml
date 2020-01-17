@@ -40,4 +40,5 @@
     <color name="speed_dial_overlay">#80FFFFFF</color>
     <color name="speed_dial_overlay_dark">#80121212</color>
     <color name="speed_dial_overlay_black">#80000000</color>
+    <color name="switchBar_off">#80868B</color>
 </resources>

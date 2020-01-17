@@ -22,4 +22,5 @@
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="padding_zero">0dp</dimen>
+    <dimen name="preference_icon_space">72dp</dimen>
 </resources>

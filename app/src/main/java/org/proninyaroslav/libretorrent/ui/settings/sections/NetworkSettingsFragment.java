@@ -68,6 +68,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     private static final String TAG = NetworkSettingsFragment.class.getSimpleName();
 
     private static final int FILE_CHOOSE_REQUEST = 1;
+    private static final int ANONYMOUS_MODE = 2;
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -238,7 +239,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         Preference proxy = findPreference(getString(R.string.pref_key_proxy_settings));
         if (proxy != null) {
-            proxy.setOnPreferenceClickListener((Preference preference) -> {
+            proxy.setOnPreferenceClickListener((preference) -> {
                 if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(ProxySettingsFragment.newInstance(),
                             getString(R.string.pref_proxy_settings_title));
@@ -252,10 +253,20 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         }
 
         String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
-        SwitchPreferenceCompat anonymousMode = findPreference(keyAnonymousMode);
+        Preference anonymousMode = findPreference(keyAnonymousMode);
         if (anonymousMode != null) {
-            anonymousMode.setChecked(pref.anonymousMode());
-            bindOnPreferenceChangeListener(anonymousMode);
+            anonymousMode.setSummary(pref.anonymousMode() ? R.string.switch_on : R.string.switch_off);
+            anonymousMode.setOnPreferenceClickListener((preference) -> {
+                if (Utils.isLargeScreenDevice(activity)) {
+                    setFragment(AnonymousModeSettingsFragment.newInstance(),
+                            getString(R.string.pref_anonymous_mode_title));
+                } else {
+                    startActivityForResult(AnonymousModeSettingsFragment.class,
+                            getString(R.string.pref_anonymous_mode_title), ANONYMOUS_MODE);
+                }
+
+                return true;
+            });
         }
     }
 
@@ -355,8 +366,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
             pref.enableIpFiltering((boolean)newValue);
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_anonymous_mode))) {
-            pref.anonymousMode((boolean)newValue);
         }
 
         return true;
@@ -384,6 +393,17 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         startActivity(i);
     }
 
+    private <F extends PreferenceFragmentCompat> void startActivityForResult(Class<F> fragment, String title, int requestCode)
+    {
+        Intent i = new Intent(getActivity(), PreferenceActivity.class);
+        PreferenceActivityConfig config = new PreferenceActivityConfig(
+                fragment.getSimpleName(),
+                title);
+
+        i.putExtra(PreferenceActivity.TAG_CONFIG, config);
+        startActivityForResult(i, requestCode);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -398,6 +418,12 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             Preference ipFilterFile = findPreference(keyIpFilterFile);
             if (ipFilterFile != null)
                 ipFilterFile.setSummary(fs.getFilePath(path));
+
+        } else if (requestCode == ANONYMOUS_MODE) {
+            String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
+            Preference anonymousMode = findPreference(keyAnonymousMode);
+            if (anonymousMode != null)
+                anonymousMode.setSummary(pref.anonymousMode() ? R.string.switch_on : R.string.switch_off);
         }
     }
 }

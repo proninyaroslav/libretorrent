@@ -284,4 +284,12 @@
     <style name="normalText">
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="SwitchBar">
+        <item name="colorSwitchThumbNormal">?attr/colorOnSecondary</item>
+        <item name="colorControlActivated">?attr/colorOnSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+    </style>
 </resources>

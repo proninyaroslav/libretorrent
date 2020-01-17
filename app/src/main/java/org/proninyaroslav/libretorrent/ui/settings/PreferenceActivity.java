@@ -30,6 +30,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.settings.sections.AnonymousModeSettingsFragment;
 import org.proninyaroslav.libretorrent.ui.settings.sections.AppearanceSettingsFragment;
 import org.proninyaroslav.libretorrent.ui.settings.sections.BehaviorSettingsFragment;
 import org.proninyaroslav.libretorrent.ui.settings.sections.FeedSettingsFragment;
@@ -107,6 +108,8 @@ public class PreferenceActivity extends AppCompatActivity
                 return (F)NetworkSettingsFragment.newInstance();
             else if (fragment.equals(ProxySettingsFragment.class.getSimpleName()))
                 return (F)ProxySettingsFragment.newInstance();
+            else if (fragment.equals(AnonymousModeSettingsFragment.class.getSimpleName()))
+                return (F) AnonymousModeSettingsFragment.newInstance();
             else if (fragment.equals(SchedulingSettingsFragment.class.getSimpleName()))
                 return (F)SchedulingSettingsFragment.newInstance();
             else if (fragment.equals(FeedSettingsFragment.class.getSimpleName()))
