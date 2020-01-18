@@ -33,7 +33,10 @@ import androidx.work.WorkManager;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.FeedFetcherWorker;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -78,6 +81,18 @@ public class AddFeedViewModel extends AndroidViewModel
         mode = Mode.ADD;
         /* TODO: files support */
         mutableParams.setUrl(uri.toString());
+    }
+
+    public void initAddModeFromClipboard()
+    {
+        List<CharSequence> clipboard = Utils.getClipboardText(getApplication());
+        if (clipboard.isEmpty())
+            return;
+
+        String firstItem = clipboard.get(0).toString();
+        String c = firstItem.toLowerCase();
+        if (c.startsWith(Utils.HTTP_PREFIX))
+            initAddMode(Uri.parse(firstItem));
     }
 
     public void initEditMode(long feedId)

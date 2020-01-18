@@ -19,19 +19,44 @@
 
 package org.proninyaroslav.libretorrent.ui.addlink;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-public class AddLinkViewModel extends ViewModel
+import java.util.List;
+
+public class AddLinkViewModel extends AndroidViewModel
 {
     public ObservableBoolean showClipboardButton = new ObservableBoolean();
     public ObservableField<String> link = new ObservableField<>();
+
+    public AddLinkViewModel(@NonNull Application application)
+    {
+        super(application);
+    }
+
+    void initLinkFromClipboard()
+    {
+        List<CharSequence> clipboard = Utils.getClipboardText(getApplication());
+        if (clipboard.isEmpty())
+            return;
+
+        String firstItem = clipboard.get(0).toString();
+        String c = firstItem.toLowerCase();
+        if (c.startsWith(Utils.MAGNET_PREFIX) ||
+            c.startsWith(Utils.HTTP_PREFIX) ||
+            Utils.isHash(firstItem))
+        {
+            link.set(firstItem);
+        }
+    }
 
     String normalizeUrl(@NonNull String link) throws NormalizeUrlException
     {

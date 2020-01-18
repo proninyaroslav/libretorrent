@@ -327,6 +327,24 @@ public class Utils
         return clip;
     }
 
+    public static List<CharSequence> getClipboardText(@NonNull Context context)
+    {
+        ArrayList<CharSequence> clipboardText = new ArrayList<>();
+
+        ClipData clip = Utils.getClipData(context);
+        if (clip == null)
+            return clipboardText;
+
+        for (int i = 0; i < clip.getItemCount(); i++) {
+            CharSequence item = clip.getItemAt(i).getText();
+            if (item == null)
+                continue;
+            clipboardText.add(item);
+        }
+
+        return clipboardText;
+    }
+
     public static void reportError(@NonNull Throwable error,
                                    String comment)
     {

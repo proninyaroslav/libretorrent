@@ -17,7 +17,6 @@
 package org.proninyaroslav.libretorrent.ui;
 
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -32,7 +31,7 @@ import androidx.lifecycle.ViewModelProviders;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -111,7 +110,7 @@ public class ClipboardDialog extends DialogFragment
                 .setTitle(R.string.clipboard)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
-        ArrayList<CharSequence> clipboardText = getClipboardText();
+        List<CharSequence> clipboardText = Utils.getClipboardText(activity.getApplicationContext());
         adapter = new ArrayAdapter<>(activity, R.layout.item_clipboard_list);
         adapter.addAll(clipboardText);
 
@@ -122,23 +121,5 @@ public class ClipboardDialog extends DialogFragment
         });
 
         return dialogBuilder.create();
-    }
-
-    private ArrayList<CharSequence> getClipboardText()
-    {
-        ArrayList<CharSequence> clipboardText = new ArrayList<CharSequence>();
-
-        ClipData clip = Utils.getClipData(activity.getApplicationContext());
-        if (clip == null)
-            return clipboardText;
-
-        for (int i = 0; i < clip.getItemCount(); i++) {
-            CharSequence item = clip.getItemAt(i).getText();
-            if (item == null)
-                continue;
-            clipboardText.add(item);
-        }
-
-        return clipboardText;
     }
 }

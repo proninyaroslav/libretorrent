@@ -152,11 +152,12 @@ public class AddFeedDialog extends DialogFragment
 
     private void initParams(Uri uri, long feedId)
     {
-        if (uri != null) {
+        if (uri != null)
             viewModel.initAddMode(uri);
-        } else if (feedId != -1) {
+        else if (feedId != -1)
             viewModel.initEditMode(feedId);
-        }
+        else
+            viewModel.initAddModeFromClipboard();
     }
 
     @Override

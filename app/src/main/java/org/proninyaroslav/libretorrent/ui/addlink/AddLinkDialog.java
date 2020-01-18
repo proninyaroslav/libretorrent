@@ -213,6 +213,7 @@ public class AddLinkDialog extends DialogFragment
 
         binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
         switchClipboardButton();
+        viewModel.initLinkFromClipboard();
 
         initAlertDialog(binding.getRoot());
     }
