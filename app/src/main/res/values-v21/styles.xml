@@ -6,10 +6,12 @@
 
     <style name="AppTheme.Dark" parent="BaseTheme.Dark">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Black" parent="BaseTheme.Black">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Translucent" parent="BaseTheme.Translucent">
@@ -18,10 +20,12 @@
 
     <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Settings" parent="BaseTheme.Settings">
@@ -30,10 +34,12 @@
 
     <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black">
         <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Launcher" parent="BaseTheme.Launcher">
