@@ -631,12 +631,11 @@ class TorrentDownloadImpl implements TorrentDownload
             return 0;
 
         float fp = ts.progress();
-        TorrentStatus.State state = ts.state();
-        if (Float.compare(fp, 1f) == 0 && state != TorrentStatus.State.CHECKING_FILES)
+        if (Float.compare(fp, 1f) == 0)
             return 100;
 
-        int p = (int) (fp * 100);
-        if (p > 0 && state != TorrentStatus.State.CHECKING_FILES)
+        int p = (int)(fp * 100);
+        if (p > 0)
             return Math.min(p, 100);
 
         return 0;
@@ -655,14 +654,7 @@ class TorrentDownloadImpl implements TorrentDownload
         if (torrent == null)
             return;
 
-        org.libtorrent4j.Priority[] p;
-        if (priorities == null) {
-            /* Did they just add the entire torrent (therefore not selecting any priorities) */
-            p = org.libtorrent4j.Priority.array(org.libtorrent4j.Priority.DEFAULT, ti.numFiles());
-        } else {
-            p = PriorityConverter.convert(priorities);
-        }
-
+        org.libtorrent4j.Priority[] p = PriorityConverter.convert(priorities);
         /* Priorities for all files, priorities list for some selected files not supported */
         if (ti.numFiles() != p.length)
             return;
