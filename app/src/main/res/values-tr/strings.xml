@@ -44,8 +44,8 @@
     <string name="filters">Filtreler</string>
     <string name="apply">Uygula</string>
     <string name="clipboard">Pano</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Aç</string>
+    <string name="switch_off">Kapat</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">İndirilen dosyalarla birlikte sil</string>
     <string name="delete_selected_torrent">Seçili torrent silinsin mi? Bu işlem geri alınamaz</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Torrent dosyası açılamıyor</string>
     <string name="open_file">Dosya aç</string>
     <string name="settings">Ayarlar</string>
-    <string name="ip_filter_add_error">IP filtresi eklenemedi (%1$d başarısız oldu). Belki dosya bozuktur ya da yanlış bir formata sahiptir</string>
+    <string name="ip_filter_add_error" formatted="false">IP filtresi eklenemedi (%1$d başarısız oldu). Belki dosya bozuktur ya da yanlış bir formata sahiptir</string>
     <string name="ip_filter_add_success">IP filtresi başarıyla eklendi</string>
     <string name="proxy_settings_applied">Proxy sunucu ayarları başarıyla uygulandı</string>
     <string name="proxy_settings_apply_after_reboot">Proxy sunucu ayarları, uygulama yeniden başlatıldıktan sonra uygulanacak</string>
@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Dosya önceliklerini dahil et?</string>
     <string name="magnet_more_about_bep53">Daha fazla bilgi: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Takipçi yok</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Metin panoya kopyalandı</string>

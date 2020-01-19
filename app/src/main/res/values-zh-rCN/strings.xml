@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">没有跟踪器</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>

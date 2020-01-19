@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
     <string name="magnet_more_about_bep53">Больше информации: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
+    <string name="edit_torrent_name">Редактировать имя торрента</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
     <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>

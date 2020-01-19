@@ -44,8 +44,8 @@
     <string name="filters">Szűrők</string>
     <string name="apply">Alkamaz</string>
     <string name="clipboard">Vágólap</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Be</string>
+    <string name="switch_off">Ki</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
     <string name="delete_selected_torrent">Törlöd a kiválasztott torentet? Nem visszavonható művelet</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Nem tudom megnyitni a torrent fájlt</string>
     <string name="open_file">Fájl megnyitása</string>
     <string name="settings">Beállítások</string>
-    <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
+    <string name="ip_filter_add_error" formatted="false">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
     <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
     <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után aktiválódnak</string>
@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Beleértve a fájl prioritásokat?</string>
     <string name="magnet_more_about_bep53">További információ: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Nincs tracker</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Másol</string>
     <string name="text_copied_to_clipboard">Szöveg másolva a vágólapra</string>

@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Uwzględnij priorytety plików?</string>
     <string name="magnet_more_about_bep53">Więcej informacji: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No trackers</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopiuj</string>
     <string name="text_copied_to_clipboard">Tekst skopiowano do schowka</string>

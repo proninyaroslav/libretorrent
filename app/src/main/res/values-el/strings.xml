@@ -44,8 +44,8 @@
     <string name="filters">Φίλτρα</string>
     <string name="apply">Εφαρμογή</string>
     <string name="clipboard">Πρόχειρο</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Ενεργό</string>
+    <string name="switch_off">Ανενεργό</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Διαγραφή και των ληφθέντων αρχείων</string>
     <string name="delete_selected_torrent">Να γίνει διαγραφή του επιλεγμένου torrent; Η διαδικασία δεν μπορεί να αναιρεθεί.</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Το άνοιγμα του αρχείου torrent είναι αδύνατο</string>
     <string name="open_file">Άνοιγμα αρχείου</string>
     <string name="settings">Ρυθμίσεις</string>
-    <string name="ip_filter_add_error">Η προσθήκη του φίλτρου IP απέτυχε (%1$d απέτυχε). Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή</string>
+    <string name="ip_filter_add_error" formatted="false">Η προσθήκη του φίλτρου IP απέτυχε (%1$d απέτυχε). Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή</string>
     <string name="ip_filter_add_success">Το φίλτρο IP προστέθηκε με επιτυχία</string>
     <string name="proxy_settings_applied">Οι ρυθμίσεις του διακομιστή μεσολάβησης εφαρμόστηκαν επιτυχώς</string>
     <string name="proxy_settings_apply_after_reboot">Οι ρυθμίσεις των διακομιστών μεσολάβησης θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Συμπεριλάβετε προτεραιότητες αρχείου;</string>
     <string name="magnet_more_about_bep53">Περισσότερες πληροφορίες: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Χωρίς trackers</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>
     <string name="text_copied_to_clipboard">Το κείμενο αντιγράφτηκε στο πρόχειρο</string>

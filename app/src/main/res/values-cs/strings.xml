@@ -44,8 +44,8 @@
     <string name="filters">Filtry</string>
     <string name="apply">Použít</string>
     <string name="clipboard">Schránka</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Zap.</string>
+    <string name="switch_off">Vyp.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Smazat se staženými soubory</string>
     <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operace nemůže být vrácena</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Vybraný torrent nelze otevřít</string>
     <string name="open_file">Otevřít soubor</string>
     <string name="settings">Nastavení</string>
-    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát</string>
+    <string name="ip_filter_add_error" formatted="false">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát</string>
     <string name="ip_filter_add_success">IP filtr byl úspěšně přidán</string>
     <string name="proxy_settings_applied">Nastavení serveru proxy bylo úspěšně použito</string>
     <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>
@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">Zahrnout priority souborů?</string>
     <string name="magnet_more_about_bep53">Další informace: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Žádné sledovače</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>
     <string name="text_copied_to_clipboard">Text zkopírován do schránky</string>

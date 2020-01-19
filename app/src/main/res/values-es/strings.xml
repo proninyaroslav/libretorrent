@@ -44,8 +44,8 @@
     <string name="filters">Filtros</string>
     <string name="apply">Aplicar</string>
     <string name="clipboard">Portapapeles</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Encender</string>
+    <string name="switch_off">Apagar</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Borrar incluyendo archivos descargados</string>
     <string name="delete_selected_torrent">¿Borrar torrent seleccionado? La operación no se puede deshacer</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">No se pudo abrir el archivo torrent</string>
     <string name="open_file">Abrir archivo</string>
     <string name="settings">Ajustes</string>
-    <string name="ip_filter_add_error">Error al añadir el filtro de IP (%1$d falló). Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
+    <string name="ip_filter_add_error" formatted="false">Error al añadir el filtro de IP (%1$d falló). Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
     <string name="ip_filter_add_success">Filtro de IP añadido correctamente</string>
     <string name="proxy_settings_applied">Ajustes del servidor proxy aplicados correctamente</string>
     <string name="proxy_settings_apply_after_reboot">Los ajustes del servidor proxy serán aplicados tras reiniciar la aplicación</string>
@@ -264,6 +264,7 @@
     <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos?</string>
     <string name="magnet_more_about_bep53">Más información: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Sin rastreadores</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Texto copiado al portapapeles</string>
