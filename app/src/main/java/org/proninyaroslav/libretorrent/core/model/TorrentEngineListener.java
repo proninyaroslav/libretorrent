@@ -67,10 +67,6 @@ public abstract class TorrentEngineListener
 
     public void onNatError(@NonNull String errorMsg) {}
 
-    public void onApplyingParams(@NonNull String id) {}
-
-    public void onParamsApplied(@NonNull String id, Throwable e) {}
-    
     public void onReadPiece(@NonNull String id, ReadPieceInfo info) {}
 
     public void onPieceFinished(@NonNull String id, int piece) {}

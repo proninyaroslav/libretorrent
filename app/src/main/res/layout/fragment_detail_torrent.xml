@@ -18,15 +18,5 @@
             android:layout_below="@id/app_bar"
             android:background="?attr/backgroundBlank"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/save_changes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_save_white_24dp"
-            android:visibility="gone"
-            android:focusable="true" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

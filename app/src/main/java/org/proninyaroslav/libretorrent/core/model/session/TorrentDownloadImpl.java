@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -57,7 +57,6 @@ import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
@@ -259,12 +258,8 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void onStorageMoved(boolean success)
     {
-        boolean moved = criticalWork.isMoving();
         criticalWork.setMoving(false);
-
         notifyListeners((listener) -> listener.onTorrentMoved(id, success));
-        if (moved && !criticalWork.isApplyingParams())
-            notifyListeners((listener) -> listener.onParamsApplied(id, null));
 
         saveResumeData(true);
     }
@@ -641,7 +636,8 @@ class TorrentDownloadImpl implements TorrentDownload
         return 0;
     }
 
-    private void prioritizeFiles(@NonNull Priority[] priorities)
+    @Override
+    public void prioritizeFiles(@NonNull Priority[] priorities)
     {
         if (operationNotAllowed())
             return;
@@ -1072,7 +1068,8 @@ class TorrentDownloadImpl implements TorrentDownload
                 String.format(Locale.ENGLISH, "%d-%d", startIndex, endIndex));
     }
 
-    private void setSequentialDownload(boolean sequential)
+    @Override
+    public void setSequentialDownload(boolean sequential)
     {
         if (operationNotAllowed())
             return;
@@ -1083,7 +1080,8 @@ class TorrentDownloadImpl implements TorrentDownload
             th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
     }
 
-    private void setTorrentName(@NonNull String name)
+    @Override
+    public void setTorrentName(@NonNull String name)
     {
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
@@ -1144,8 +1142,11 @@ class TorrentDownloadImpl implements TorrentDownload
         return (torrent == null ? null : torrent.name);
     }
 
-    private void setDownloadPath(Uri path)
+    @Override
+    public synchronized void setDownloadPath(@NonNull Uri path)
     {
+        criticalWork.setMoving(true);
+
         Torrent torrent = repo.getTorrentById(id);
         if (torrent == null)
             return;
@@ -1544,40 +1545,6 @@ class TorrentDownloadImpl implements TorrentDownload
                                  fs.fileOffset(fileIndex), fs.fileSize(fileIndex),
                                  ti.pieceSize(filePieces.second));
 
-    }
-
-    @Override
-    public synchronized void applyParams(@NonNull ChangeableParams params)
-    {
-        if (criticalWork.isApplyingParams() || criticalWork.isMoving())
-            return;
-
-        criticalWork.setApplyingParams(true);
-        criticalWork.setMoving(params.dirPath != null);
-
-        notifyListeners((listener) -> listener.onApplyingParams(id));
-
-        Throwable[] err = new Throwable[1];
-        try {
-            if (params.sequentialDownload != null)
-                setSequentialDownload(params.sequentialDownload);
-
-            if (!TextUtils.isEmpty(params.name))
-                setTorrentName(params.name);
-
-            if (params.dirPath != null)
-                setDownloadPath(params.dirPath);
-
-            if (params.priorities != null)
-                prioritizeFiles(params.priorities);
-
-        } catch (Throwable e) {
-            err[0] = e;
-        } finally {
-            criticalWork.setApplyingParams(false);
-            if (!criticalWork.isMoving())
-                notifyListeners((listener) -> listener.onParamsApplied(id, err[0]));
-        }
     }
 
     @Override

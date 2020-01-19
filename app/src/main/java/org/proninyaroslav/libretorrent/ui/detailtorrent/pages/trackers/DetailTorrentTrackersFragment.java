@@ -184,7 +184,7 @@ public class DetailTorrentTrackersFragment extends Fragment
                 .withSelectionPredicate(SelectionPredicates.createSelectAnything())
                 .build();
 
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<TrackerItem>() {
             @Override
             public void onSelectionChanged()
             {

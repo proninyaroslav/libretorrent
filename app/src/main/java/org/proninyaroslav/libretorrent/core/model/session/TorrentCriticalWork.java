@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,21 +29,18 @@ class TorrentCriticalWork
 {
     public enum Type
     {
-        APPLYING_PARAMS,
         MOVING,
         SAVE_RESUME
     }
 
     public class State
     {
-        public boolean applyingParams;
         public boolean moving;
         public boolean saveResume;
         public long changeTime;
 
-        public State(boolean applyingParams, boolean moving, boolean saveResume, long changeTime)
+        public State(boolean moving, boolean saveResume, long changeTime)
         {
-            this.applyingParams = applyingParams;
             this.moving = moving;
             this.saveResume = saveResume;
             this.changeTime = changeTime;
@@ -51,27 +48,15 @@ class TorrentCriticalWork
 
         public boolean isDuringChange()
         {
-            return applyingParams || moving || saveResume;
+            return moving || saveResume;
         }
     }
 
     private ExecutorService exec = Executors.newFixedThreadPool(2);
-    private boolean applyingParams;
     private boolean moving;
     private int saveResume;
     private BehaviorSubject<State> stateChangedEvent =
-            BehaviorSubject.createDefault(new State(false, false, false, System.currentTimeMillis()));
-
-    public boolean isApplyingParams()
-    {
-        return applyingParams;
-    }
-
-    public void setApplyingParams(boolean applyingParams)
-    {
-        this.applyingParams = applyingParams;
-        emitChangedEvent();
-    }
+            BehaviorSubject.createDefault(new State(false, false, System.currentTimeMillis()));
 
     public boolean isMoving()
     {
@@ -107,7 +92,7 @@ class TorrentCriticalWork
     {
         exec.submit(() -> {
             stateChangedEvent.onNext(
-                    new State(applyingParams, moving, saveResume > 0, System.currentTimeMillis()));
+                    new State(moving, saveResume > 0, System.currentTimeMillis()));
         });
     }
 }

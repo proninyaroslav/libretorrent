@@ -184,14 +184,6 @@ public class DetailTorrentFragment extends Fragment
         binding.appbar.tabLayout.setupWithViewPager(binding.fragmentViewpager);
         binding.fragmentViewpager.setCurrentItem(currentFragPos);
 
-        binding.saveChanges.setOnClickListener((v) -> applyChangedParams());
-        viewModel.getParamsChanged().observe(this, (changed) -> {
-            if (changed)
-                binding.saveChanges.show();
-            else
-                binding.saveChanges.hide();
-        });
-
         FragmentManager fm = getSupportFragmentManager();
         deleteTorrentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
         errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG);
@@ -209,6 +201,7 @@ public class DetailTorrentFragment extends Fragment
         subscribeTorrentInfo();
         subscribeAlertDialog();
         subscribeMsgViewModel();
+        subscribeFreeSpaceError();
     }
 
     @Override
@@ -265,6 +258,13 @@ public class DetailTorrentFragment extends Fragment
                 .subscribe((inActionMode) -> {
                     setTabLayoutColor((inActionMode ? R.color.action_mode : R.color.primary));
                 }));
+    }
+
+    private void subscribeFreeSpaceError()
+    {
+        disposables.add(viewModel.observeFreeSpaceError()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(__ -> showFreeSpaceErrorToast()));
     }
 
     private void subscribeAlertDialog()
@@ -372,16 +372,6 @@ public class DetailTorrentFragment extends Fragment
         @Override
         public void onPageScrollStateChanged(int state) {}
     };
-
-    private void applyChangedParams()
-    {
-        try {
-            viewModel.applyChangedParams();
-
-        } catch (FreeSpaceException e) {
-            showFreeSpaceErrorToast();
-        }
-    }
 
     private void showFreeSpaceErrorToast()
     {

@@ -699,13 +699,57 @@ public class TorrentEngine
           .subscribe());
     }
 
-    public void changeParams(@NonNull String id,
-                             @NonNull ChangeableParams params)
+    public void setTorrentName(@NonNull String id, @NonNull String name)
     {
         disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning())
+                return;
+
             TorrentDownload task = session.getTask(id);
             if (task != null)
-                task.applyParams(params);
+                task.setTorrentName(name);
+
+        }).subscribeOn(Schedulers.io())
+          .subscribe());
+    }
+
+    public void setDownloadPath(@NonNull String id, @NonNull Uri path)
+    {
+        disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning())
+                return;
+
+            TorrentDownload task = session.getTask(id);
+            if (task != null)
+                task.setDownloadPath(path);
+
+        }).subscribeOn(Schedulers.io())
+          .subscribe());
+    }
+
+    public void setSequentialDownload(@NonNull String id, boolean sequential)
+    {
+        disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning())
+                return;
+
+            TorrentDownload task = session.getTask(id);
+            if (task != null)
+                task.setSequentialDownload(sequential);
+
+        }).subscribeOn(Schedulers.io())
+          .subscribe());
+    }
+
+    public void prioritizeFiles(@NonNull String id, @NonNull Priority[] priorities)
+    {
+        disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning())
+                return;
+
+            TorrentDownload task = session.getTask(id);
+            if (task != null)
+                task.prioritizeFiles(priorities);
 
         }).subscribeOn(Schedulers.io())
           .subscribe());
@@ -1262,14 +1306,8 @@ public class TorrentEngine
                                     String curPath = torrent.downloadPath.toString();
                                     String newPath = pref.moveAfterDownloadIn();
 
-                                    if (!curPath.equals(newPath)) {
-                                        ChangeableParams params = new ChangeableParams();
-                                        params.dirPath = Uri.parse(newPath);
-
-                                        TorrentDownload task = session.getTask(id);
-                                        if (task != null)
-                                            task.applyParams(params);
-                                    }
+                                    if (!curPath.equals(newPath))
+                                        setDownloadPath(id, Uri.parse(newPath));
                                 }
                             },
                             (Throwable t) -> {

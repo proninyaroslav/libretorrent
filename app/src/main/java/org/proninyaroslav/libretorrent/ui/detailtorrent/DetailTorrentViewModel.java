@@ -30,11 +30,8 @@ import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
-import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
-import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -70,6 +67,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 
 public class DetailTorrentViewModel extends AndroidViewModel
 {
@@ -82,7 +80,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private CompositeDisposable disposable = new CompositeDisposable();
     public TorrentDetailsInfo info = new TorrentDetailsInfo();
     public TorrentDetailsMutableParams mutableParams = new TorrentDetailsMutableParams();
-    private MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
+    private PublishSubject<Boolean> freeSpaceError = PublishSubject.create();
     public Throwable errorReport;
 
     private ReentrantLock syncBuildFileTree = new ReentrantLock();
@@ -101,7 +99,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
         repo = RepositoryHelper.getTorrentRepository(application);
         fs = SystemFacadeHelper.getFileSystemFacade(application);
         pref = RepositoryHelper.getSettingsRepository(application);
-        paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
         info.addOnPropertyChangedCallback(infoCallback);
     }
@@ -131,14 +128,13 @@ public class DetailTorrentViewModel extends AndroidViewModel
         mutableParams.removeOnPropertyChangedCallback(mutableParamsCallback);
         mutableParams = new TorrentDetailsMutableParams();
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
-        paramsChanged.setValue(false);
         fileTree = null;
         treeLeaves = null;
     }
 
-    public LiveData<Boolean> getParamsChanged()
+    public io.reactivex.Observable<Boolean> observeFreeSpaceError()
     {
-        return paramsChanged;
+        return freeSpaceError;
     }
 
     public io.reactivex.Observable<List<TorrentContentFileTree>> getDirChildren()
@@ -265,12 +261,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (node.getSelectState() == TorrentContentFileTree.SelectState.DISABLED)
             return;
 
-        mutableParams.setPrioritiesChanged(true);
         node.select((selected ?
                 TorrentContentFileTree.SelectState.SELECTED :
                 TorrentContentFileTree.SelectState.UNSELECTED), true);
 
         updateChildren();
+        mutableParams.setPrioritiesChanged(true);
     }
 
     public Uri getFilePath(@NonNull String name)
@@ -343,13 +339,10 @@ public class DetailTorrentViewModel extends AndroidViewModel
         disposable.add(io.reactivex.Observable.fromIterable(fileNames)
                 .map((fileName) -> curDir.getChild(fileName))
                 .filter((file) -> file != null)
-                .doAfterTerminate(() -> {
-                    if (!fileNames.isEmpty())
-                        mutableParams.setPrioritiesChanged(true);
-                })
                 .subscribe((file) -> {
                     file.setPriority(priority, true);
                     updateChildren();
+                    mutableParams.setPrioritiesChanged(true);
                 }));
     }
 
@@ -406,21 +399,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return engine.getDownloadSpeedLimit(torrentId);
     }
 
-    public void applyChangedParams() throws FreeSpaceException
-    {
-        if (!checkFreeSpace())
-            throw new FreeSpaceException();
-
-        Torrent torrent = info.getTorrent();
-        TorrentInfo ti = info.getTorrentInfo();
-        if (torrent == null || ti == null)
-            return;
-
-        paramsChanged.setValue(false);
-        disableSelectedFiles();
-        engine.changeParams(torrentId, makeParams(ti, torrent));
-    }
-
     public String makeMagnet(boolean includePriorities)
     {
         return engine.makeMagnet(torrentId, includePriorities);
@@ -439,27 +417,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
     {
         engine.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
         engine.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
-    }
-
-    private ChangeableParams makeParams(TorrentInfo info, Torrent torrent)
-    {
-        ChangeableParams params = new ChangeableParams();
-
-        String name = mutableParams.getName();
-        Uri dirPath = mutableParams.getDirPath();
-        boolean sequential = mutableParams.isSequentialDownload();
-        boolean prioritiesChanged = mutableParams.isPrioritiesChanged();
-
-        if (!torrent.name.equals(name))
-            params.name = name;
-        if (!torrent.downloadPath.equals(dirPath))
-            params.dirPath = dirPath;
-        if (info.sequentialDownload != sequential)
-            params.sequentialDownload = sequential;
-        if (prioritiesChanged)
-            params.priorities = getFilePriorities();
-
-        return params;
     }
 
     private Priority[] getFilePriorities()
@@ -506,7 +463,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
                 }
             }
 
-            checkParamsChanged();
+            checkParamsChanged(propertyId);
         }
     };
 
@@ -523,19 +480,45 @@ public class DetailTorrentViewModel extends AndroidViewModel
         }
     };
 
-    private void checkParamsChanged()
+    private void checkParamsChanged(int propertyId)
     {
         Torrent torrent = info.getTorrent();
         TorrentInfo ti = info.getTorrentInfo();
         if (torrent == null || ti == null)
             return;
 
-        boolean changed = !torrent.name.equals(mutableParams.getName()) ||
-                !torrent.downloadPath.equals(mutableParams.getDirPath()) ||
-                ti.sequentialDownload != mutableParams.isSequentialDownload() ||
-                mutableParams.isPrioritiesChanged();
+        switch (propertyId) {
+            case BR.name:
+                String name = mutableParams.getName();
+                if (name != null && !torrent.name.equals(name))
+                    engine.setTorrentName(torrentId, name);
 
-        paramsChanged.setValue(changed);
+                break;
+            case BR.dirPath:
+                Uri dirPath = mutableParams.getDirPath();
+                if (dirPath != null && !torrent.downloadPath.equals(dirPath))
+                    engine.setDownloadPath(torrentId, dirPath);
+
+                break;
+            case BR.sequentialDownload:
+                boolean sequential = mutableParams.isSequentialDownload();
+                if (ti.sequentialDownload != sequential)
+                    engine.setSequentialDownload(torrentId, sequential);
+
+                break;
+            case BR.prioritiesChanged:
+                if (mutableParams.isPrioritiesChanged()) {
+                    Priority[] priorities = getFilePriorities();
+                    if (priorities != null) {
+                        if (!checkFreeSpace())
+                            freeSpaceError.onNext(true);
+                        disableSelectedFiles();
+                        engine.prioritizeFiles(torrentId, priorities);
+                    }
+                }
+
+                break;
+        }
     }
 
     private void startMakeFileTree()

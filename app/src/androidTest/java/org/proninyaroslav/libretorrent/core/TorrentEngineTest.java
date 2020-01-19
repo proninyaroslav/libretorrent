@@ -36,7 +36,6 @@ import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
-import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;

@@ -243,7 +243,7 @@ public class DetailTorrentFilesFragment extends Fragment
                 })
                 .build();
 
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<TorrentContentFileItem>() {
             @Override
             public void onSelectionChanged()
             {

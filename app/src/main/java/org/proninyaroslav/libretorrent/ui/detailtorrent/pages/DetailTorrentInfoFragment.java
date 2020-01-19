@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.ui.detailtorrent.pages;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,12 +39,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /*
  * The fragment for displaying torrent metainformation,
@@ -56,12 +64,16 @@ public class DetailTorrentInfoFragment extends Fragment
     private static final String TAG = DetailTorrentInfoFragment.class.getSimpleName();
 
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
+    private static final String TAG_EDIT_NAME_DIALOG = "edit_name_dialog";
 
     private static final int DIR_CHOOSER_REQUEST = 1;
 
     private AppCompatActivity activity;
     private DetailTorrentViewModel viewModel;
     private FragmentDetailTorrentInfoBinding binding;
+    private BaseAlertDialog editNameDialog;
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public static DetailTorrentInfoFragment newInstance()
     {
@@ -99,23 +111,14 @@ public class DetailTorrentInfoFragment extends Fragment
             activity = (AppCompatActivity)getActivity();
 
         viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
         binding.setViewModel(viewModel);
 
+        FragmentManager fm = getSupportFragmentManager();
+        editNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG);
+
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
-        binding.name.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-                checkNameField(s);
-            }
-        });
+        binding.editNameButton.setOnClickListener((v) -> showEditNameDialog());
     }
 
     private void showChooseDirDialog()
@@ -128,6 +131,52 @@ public class DetailTorrentInfoFragment extends Fragment
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
         startActivityForResult(i, DIR_CHOOSER_REQUEST);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (!event.dialogTag.equals(TAG_EDIT_NAME_DIALOG) || editNameDialog == null)
+                        return;
+                    switch (event.type) {
+                        case DIALOG_SHOWN:
+                            initEditNameDialog();
+                            break;
+                        case POSITIVE_BUTTON_CLICKED:
+                            Dialog dialog = editNameDialog.getDialog();
+                            if (dialog != null) {
+                                TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
+                                TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input_dialog);
+                                Editable e = editText.getText();
+                                if (checkNameField(e, layoutEditText)) {
+                                    viewModel.mutableParams.setName(e.toString());
+                                    editNameDialog.dismiss();
+                                }
+                            }
+                            break;
+                        case NEGATIVE_BUTTON_CLICKED:
+                            editNameDialog.dismiss();
+                            break;
+                    }
+                });
+        disposables.add(d);
     }
 
     @Override
@@ -161,17 +210,69 @@ public class DetailTorrentInfoFragment extends Fragment
         }
     }
 
-    private void checkNameField(Editable s)
+    private boolean checkNameField(Editable s, TextInputLayout layoutEditText)
     {
         if (TextUtils.isEmpty(s)) {
-            binding.layoutName.setErrorEnabled(true);
-            binding.layoutName.setError(getString(R.string.error_field_required));
-            binding.layoutName.requestFocus();
+            layoutEditText.setErrorEnabled(true);
+            layoutEditText.setError(getString(R.string.error_field_required));
+            layoutEditText.requestFocus();
+
+            return false;
 
         } else {
-            binding.layoutName.setErrorEnabled(false);
-            binding.layoutName.setError(null);
+            layoutEditText.setErrorEnabled(false);
+            layoutEditText.setError(null);
+
+            return true;
         }
+    }
+
+    private void showEditNameDialog()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG) == null) {
+            editNameDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.edit_torrent_name),
+                    null,
+                    R.layout.dialog_text_input,
+                    getString(R.string.ok),
+                    getString(R.string.cancel),
+                    null,
+                    false);
+
+            editNameDialog.show(fm, TAG_EDIT_NAME_DIALOG);
+        }
+    }
+
+    private void initEditNameDialog()
+    {
+        Dialog dialog = editNameDialog.getDialog();
+        if (dialog == null)
+            return;
+
+        TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
+        TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input_dialog);
+
+        if (!TextUtils.isEmpty(editText.getText()))
+            return;
+
+        String name = viewModel.mutableParams.getName();
+        if (name != null)
+            editText.setText(name);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                checkNameField(s, layoutEditText);
+            }
+        });
     }
 
     /*

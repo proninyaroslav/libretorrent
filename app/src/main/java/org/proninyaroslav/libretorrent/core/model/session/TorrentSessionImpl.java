@@ -68,7 +68,6 @@ import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
-import org.proninyaroslav.libretorrent.core.model.ChangeableParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
@@ -486,10 +485,9 @@ public class TorrentSessionImpl extends SessionManager
         if (task == null)
             return;
 
-        ChangeableParams changeableParams = new ChangeableParams();
-        changeableParams.sequentialDownload = params.sequentialDownload;
-        changeableParams.priorities = params.filePriorities;
-        task.applyParams(changeableParams);
+        task.setSequentialDownload(params.sequentialDownload);
+        if (params.filePriorities != null)
+            task.prioritizeFiles(params.filePriorities);
 
         try {
             TorrentInfo ti = (bencode == null ?
