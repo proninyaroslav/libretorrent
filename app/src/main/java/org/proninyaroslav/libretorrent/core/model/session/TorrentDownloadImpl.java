@@ -42,6 +42,7 @@ import org.libtorrent4j.TorrentStatus;
 import org.libtorrent4j.Vectors;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.FastresumeRejectedAlert;
 import org.libtorrent4j.alerts.FileErrorAlert;
 import org.libtorrent4j.alerts.MetadataFailedAlert;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
@@ -117,7 +118,8 @@ class TorrentDownloadImpl implements TorrentDownload
             AlertType.READ_PIECE.swig(),
             AlertType.TORRENT_ERROR.swig(),
             AlertType.METADATA_FAILED.swig(),
-            AlertType.FILE_ERROR.swig()
+            AlertType.FILE_ERROR.swig(),
+            AlertType.FASTRESUME_REJECTED.swig(),
     };
 
     private SessionManager sessionManager;
@@ -323,6 +325,12 @@ class TorrentDownloadImpl implements TorrentDownload
                 if (error.isError())
                     errorMsg = "[" + filename + "] " +
                             Utils.getErrorMsg(error);
+                break;
+            } case FASTRESUME_REJECTED: {
+                FastresumeRejectedAlert resumeRejectedAlert = (FastresumeRejectedAlert)alert;
+                ErrorCode error = resumeRejectedAlert.error();
+                if (error.isError())
+                    errorMsg = Utils.getErrorMsg(error);
                 break;
             }
         }
