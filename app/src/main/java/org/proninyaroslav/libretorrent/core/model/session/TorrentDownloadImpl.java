@@ -51,9 +51,11 @@ import org.libtorrent4j.alerts.ReadPieceAlert;
 import org.libtorrent4j.alerts.SaveResumeDataAlert;
 import org.libtorrent4j.alerts.StateChangedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
+import org.libtorrent4j.alerts.TorrentCheckedAlert;
 import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
+import org.libtorrent4j.swig.libtorrent_errors;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
@@ -120,6 +122,7 @@ class TorrentDownloadImpl implements TorrentDownload
             AlertType.METADATA_FAILED.swig(),
             AlertType.FILE_ERROR.swig(),
             AlertType.FASTRESUME_REJECTED.swig(),
+            AlertType.TORRENT_CHECKED.swig(),
     };
 
     private SessionManager sessionManager;
@@ -138,6 +141,8 @@ class TorrentDownloadImpl implements TorrentDownload
     private boolean stopRequested = false;
     private boolean stopped = false;
     private Completable stopEvent;
+    private boolean resumeDataRejected;
+    private boolean hasMissingFiles;
 
     public TorrentDownloadImpl(SessionManager sessionManager,
                                TorrentRepository repo,
@@ -212,9 +217,7 @@ class TorrentDownloadImpl implements TorrentDownload
                                     stateToStateCode(a.getState())));
                     break;
                 case TORRENT_FINISHED:
-                    notifyListeners((listener) ->
-                            listener.onTorrentFinished(id));
-                    saveResumeData(true);
+                    handleTorrentFinished();
                     break;
                 case TORRENT_REMOVED:
                     torrentRemoved();
@@ -230,6 +233,7 @@ class TorrentDownloadImpl implements TorrentDownload
                             listener.onTorrentResumed(id));
                     break;
                 case SAVE_RESUME_DATA:
+                    resumeDataRejected = false;
                     serializeResumeData((SaveResumeDataAlert)alert);
                     break;
                 case STORAGE_MOVED:
@@ -251,6 +255,8 @@ class TorrentDownloadImpl implements TorrentDownload
                 case READ_PIECE:
                     handleReadPiece((ReadPieceAlert)alert);
                     break;
+                case TORRENT_CHECKED:
+                    handleTorrentChecked();
                 default:
                     checkError(alert);
                     break;
@@ -280,6 +286,14 @@ class TorrentDownloadImpl implements TorrentDownload
     {
         String errorMsg = getErrorMsg(alert);
 
+        if (alert.type() == AlertType.FASTRESUME_REJECTED) {
+            resumeDataRejected = true;
+            if (((FastresumeRejectedAlert)alert).error().value() ==
+                    libtorrent_errors.mismatching_file_size.swigValue()) {
+                hasMissingFiles = true;
+            }
+        }
+
         if (errorMsg != null) {
             Log.e(TAG, "Torrent " + id + ": " + errorMsg);
             Torrent torrent = repo.getTorrentById(id);
@@ -287,7 +301,11 @@ class TorrentDownloadImpl implements TorrentDownload
                 torrent.error = errorMsg;
                 repo.updateTorrent(torrent);
             }
-            pause();
+
+            if (resumeDataRejected)
+                forceRecheck();
+            else
+                pause();
         }
 
         notifyListeners((listener) ->
@@ -329,8 +347,12 @@ class TorrentDownloadImpl implements TorrentDownload
             } case FASTRESUME_REJECTED: {
                 FastresumeRejectedAlert resumeRejectedAlert = (FastresumeRejectedAlert)alert;
                 ErrorCode error = resumeRejectedAlert.error();
-                if (error.isError())
-                    errorMsg = Utils.getErrorMsg(error);
+                if (error.isError()) {
+                    if (error.value() == libtorrent_errors.mismatching_file_size.swigValue())
+                        errorMsg = "file sizes mismatch";
+                    else
+                        errorMsg = "fast resume data was rejected, reason: " + Utils.getErrorMsg(error);
+                }
                 break;
             }
         }
@@ -418,6 +440,21 @@ class TorrentDownloadImpl implements TorrentDownload
             }
         }
         finalCleanup(incompleteFilesToRemove);
+    }
+
+    private void handleTorrentChecked()
+    {
+        if (resumeDataRejected && !hasMissingFiles)
+            saveResumeData(true);
+    }
+
+    private void handleTorrentFinished()
+    {
+        hasMissingFiles = false;
+
+        notifyListeners((listener) ->
+                listener.onTorrentFinished(id));
+        saveResumeData(true);
     }
 
     /*
@@ -594,6 +631,11 @@ class TorrentDownloadImpl implements TorrentDownload
     {
         if (operationNotAllowed())
             return;
+
+        if (hasMissingFiles) {
+            hasMissingFiles = false;
+            forceRecheck();
+        }
 
         if (autoManaged)
             th.setFlags(TorrentFlags.AUTO_MANAGED);
