@@ -51,7 +51,6 @@ import org.libtorrent4j.alerts.ReadPieceAlert;
 import org.libtorrent4j.alerts.SaveResumeDataAlert;
 import org.libtorrent4j.alerts.StateChangedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
-import org.libtorrent4j.alerts.TorrentCheckedAlert;
 import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.byte_vector;
@@ -233,7 +232,6 @@ class TorrentDownloadImpl implements TorrentDownload
                             listener.onTorrentResumed(id));
                     break;
                 case SAVE_RESUME_DATA:
-                    resumeDataRejected = false;
                     serializeResumeData((SaveResumeDataAlert)alert);
                     break;
                 case STORAGE_MOVED:
@@ -302,10 +300,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 repo.updateTorrent(torrent);
             }
 
-            if (resumeDataRejected)
-                forceRecheck();
-            else
-                pause();
+            pause();
         }
 
         notifyListeners((listener) ->
@@ -1627,5 +1622,11 @@ class TorrentDownloadImpl implements TorrentDownload
         TorrentInfo ti = th.torrentFile();
 
         return (ti == null ? null : ti.bencode());
+    }
+
+    @Override
+    public boolean isHasMissingFiles()
+    {
+        return hasMissingFiles;
     }
 }
