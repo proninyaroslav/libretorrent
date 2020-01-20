@@ -950,27 +950,34 @@ public class TorrentSessionImpl extends SessionManager
     private void checkError(Alert<?> alert)
     {
         notifyListeners((listener) -> {
+            String msg = null;
             switch (alert.type()) {
                 case SESSION_ERROR: {
                     SessionErrorAlert sessionErrorAlert = (SessionErrorAlert)alert;
                     ErrorCode error = sessionErrorAlert.error();
-                    if (error.isError())
-                        listener.onSessionError(Utils.getErrorMsg(error));
+                    msg = SessionErrors.getErrorMsg(error);
+                    if (!SessionErrors.isNonCritical(error))
+                        listener.onSessionError(msg);
                     break;
                 }
                 case LISTEN_FAILED: {
                     ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
-                    listener.onSessionError(Utils.getErrorMsg(listenFailedAlert.error()));
+                    msg = SessionErrors.getErrorMsg(listenFailedAlert.error());
+                    listener.onSessionError(msg);
                     break;
                 }
                 case PORTMAP_ERROR: {
                     PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert)alert;
                     ErrorCode error = portmapErrorAlert.error();
-                    if (error.isError())
-                        listener.onNatError(Utils.getErrorMsg(error));
+                    msg = SessionErrors.getErrorMsg(error);
+                    if (!SessionErrors.isNonCritical(error))
+                        listener.onNatError(msg);
                     break;
                 }
             }
+
+            if (msg != null)
+                Log.e(TAG, "Session error: " + msg);
         });
     }
 

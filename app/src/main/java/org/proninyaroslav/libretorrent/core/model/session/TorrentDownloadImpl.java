@@ -282,7 +282,9 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private void checkError(Alert<?> alert)
     {
-        String errorMsg = getErrorMsg(alert);
+        Pair<String, Boolean> res = getErrorMsg(alert);
+        String errorMsg = res.first;
+        boolean isNonCritical = res.second;
 
         if (alert.type() == AlertType.FASTRESUME_REJECTED) {
             resumeDataRejected = true;
@@ -294,6 +296,13 @@ class TorrentDownloadImpl implements TorrentDownload
 
         if (errorMsg != null) {
             Log.e(TAG, "Torrent " + id + ": " + errorMsg);
+
+            if (isNonCritical) {
+                resume();
+
+                return;
+            }
+
             Torrent torrent = repo.getTorrentById(id);
             if (torrent != null) {
                 torrent.error = errorMsg;
@@ -307,9 +316,10 @@ class TorrentDownloadImpl implements TorrentDownload
                 listener.onTorrentError(id, new Exception(errorMsg)));
     }
 
-    private String getErrorMsg(Alert<?> alert)
+    private Pair<String, Boolean> getErrorMsg(Alert<?> alert)
     {
         String errorMsg = null;
+        boolean isNonCritical = false;
         switch (alert.type()) {
             case TORRENT_ERROR: {
                 TorrentErrorAlert errorAlert = (TorrentErrorAlert)alert;
@@ -320,24 +330,28 @@ class TorrentDownloadImpl implements TorrentDownload
                             errorAlert.filename().lastIndexOf("/") + 1);
                     if (errorAlert.filename() != null)
                         sb.append("[").append(filename).append("] ");
-                    sb.append(Utils.getErrorMsg(error));
+                    sb.append(SessionErrors.getErrorMsg(error));
                     errorMsg = sb.toString();
+
+                    isNonCritical = SessionErrors.isNonCritical(error);
                 }
                 break;
             } case METADATA_FAILED: {
                 MetadataFailedAlert metadataFailedAlert = (MetadataFailedAlert)alert;
                 ErrorCode error = metadataFailedAlert.getError();
                 if (error.isError())
-                    errorMsg = Utils.getErrorMsg(error);
+                    errorMsg = SessionErrors.getErrorMsg(error);
                 break;
             } case FILE_ERROR: {
                 FileErrorAlert fileErrorAlert = (FileErrorAlert)alert;
                 ErrorCode error = fileErrorAlert.error();
                 String filename = fileErrorAlert.filename().substring(
                         fileErrorAlert.filename().lastIndexOf("/") + 1);
-                if (error.isError())
+                if (error.isError()) {
                     errorMsg = "[" + filename + "] " +
-                            Utils.getErrorMsg(error);
+                            SessionErrors.getErrorMsg(error);
+                    isNonCritical = SessionErrors.isNonCritical(error);
+                }
                 break;
             } case FASTRESUME_REJECTED: {
                 FastresumeRejectedAlert resumeRejectedAlert = (FastresumeRejectedAlert)alert;
@@ -346,13 +360,13 @@ class TorrentDownloadImpl implements TorrentDownload
                     if (error.value() == libtorrent_errors.mismatching_file_size.swigValue())
                         errorMsg = "file sizes mismatch";
                     else
-                        errorMsg = "fast resume data was rejected, reason: " + Utils.getErrorMsg(error);
+                        errorMsg = "fast resume data was rejected, reason: " + SessionErrors.getErrorMsg(error);
                 }
                 break;
             }
         }
 
-        return errorMsg;
+        return Pair.create(errorMsg, isNonCritical);
     }
 
     private void handleMetadata(MetadataReceivedAlert alert)
