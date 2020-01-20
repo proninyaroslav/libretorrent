@@ -195,5 +195,5 @@ public interface TorrentDownload
 
     void saveResumeData(boolean force);
 
-    boolean isHasMissingFiles();
+    boolean hasMissingFiles();
 }

@@ -1137,6 +1137,8 @@ class TorrentDownloadImpl implements TorrentDownload
             th.setFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
         else
             th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+
+        saveResumeData(true);
     }
 
     @Override
@@ -1639,7 +1641,7 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public boolean isHasMissingFiles()
+    public boolean hasMissingFiles()
     {
         return hasMissingFiles;
     }

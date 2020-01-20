@@ -795,6 +795,7 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         stopRequested = true;
+        saveAllResumeData();
         stopTasks();
     }
 
@@ -826,6 +827,15 @@ public class TorrentSessionImpl extends SessionManager
     {
         if (stopRequested && torrentTasks.isEmpty() && addTorrentsList.isEmpty())
             super.stop();
+    }
+
+    private void saveAllResumeData()
+    {
+        for (TorrentDownload task : torrentTasks.values()) {
+            if (task == null || task.hasMissingFiles())
+                continue;
+            task.saveResumeData(false);
+        }
     }
 
     @Override

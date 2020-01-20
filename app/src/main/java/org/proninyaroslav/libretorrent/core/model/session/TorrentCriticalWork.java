@@ -63,7 +63,7 @@ class TorrentCriticalWork
         return moving;
     }
 
-    public void setMoving(boolean moving)
+    public synchronized void setMoving(boolean moving)
     {
         this.moving = moving;
         emitChangedEvent();
@@ -74,7 +74,7 @@ class TorrentCriticalWork
         return saveResume > 0;
     }
 
-    public void setSaveResume(boolean saveResume)
+    public synchronized void setSaveResume(boolean saveResume)
     {
         if (saveResume)
             ++this.saveResume;
