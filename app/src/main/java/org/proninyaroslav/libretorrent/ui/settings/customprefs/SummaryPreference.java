@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.settings.customprefs;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
@@ -33,6 +34,8 @@ import org.proninyaroslav.libretorrent.R;
 
 public class SummaryPreference extends Preference
 {
+    private TextView summaryView;
+
     public SummaryPreference(Context context)
     {
         this(context, null);
@@ -53,6 +56,7 @@ public class SummaryPreference extends Preference
     {
         super(context, attrs, defStyleAttr, defStyleRes);
 
+        setLayoutResource(R.layout.preference_summary);
         /* Icon stub */
         setIcon(android.R.color.transparent);
     }
@@ -62,8 +66,28 @@ public class SummaryPreference extends Preference
     {
         super.onBindViewHolder(holder);
 
+        summaryView = (TextView)holder.findViewById(R.id.summary);
+
         /* Disable click */
         holder.itemView.setClickable(false);
         holder.itemView.setFocusable(false);
+
+        summaryView.setText(getSummary());
+    }
+
+    @Override
+    public void setSummary(CharSequence summary)
+    {
+        super.setSummary(summary);
+
+        summaryView.setText(summary);
+    }
+
+    @Override
+    public void setSummary(int summaryResId)
+    {
+        super.setSummary(summaryResId);
+
+        summaryView.setText(summaryResId);
     }
 }
