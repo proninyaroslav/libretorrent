@@ -44,7 +44,7 @@ class SessionErrors
 
     static boolean isNonCritical(@NonNull ErrorCode error)
     {
-        if (error.isError())
+        if (!error.isError())
             return true;
 
         for (Error nonCriticalError : errors) {

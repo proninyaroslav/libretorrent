@@ -348,7 +348,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 String filename = fileErrorAlert.filename().substring(
                         fileErrorAlert.filename().lastIndexOf("/") + 1);
                 if (error.isError()) {
-                    errorMsg = "[" + filename + "] " +
+                    errorMsg = "[" + fileErrorAlert.operation() + "][" + filename + "] " +
                             SessionErrors.getErrorMsg(error);
                     isNonCritical = SessionErrors.isNonCritical(error);
                 }
