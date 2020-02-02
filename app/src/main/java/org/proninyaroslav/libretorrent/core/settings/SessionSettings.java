@@ -62,7 +62,7 @@ public class SessionSettings
     public static final String DEFAULT_PROXY_PASSWORD = "";
     public static final boolean DEFAULT_ANONYMOUS_MODE = false;
     public static final boolean DEFAULT_LOGGING = BuildConfig.SESSION_LOGGING;
-    public static final int DEFAULT_MAX_LOG_SIZE = 100000;
+    public static final int DEFAULT_MAX_LOG_SIZE = 10000;
     public static final boolean DEFAULT_LOG_SESSION_FILTER = false;
     public static final boolean DEFAULT_LOG_DHT_FILTER = true;
     public static final boolean DEFAULT_LOG_PEER_FILTER = true;
