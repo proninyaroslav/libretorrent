@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityLogBinding;
 import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
@@ -52,6 +53,7 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class LogActivity extends AppCompatActivity
+    implements LogAdapter.ClickListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = LogActivity.class.getSimpleName();
@@ -113,7 +115,7 @@ public class LogActivity extends AppCompatActivity
         binding.logList.setItemAnimator(null);
         binding.logList.setLayoutAnimation(null);
 
-        adapter = new LogAdapter();
+        adapter = new LogAdapter(this);
         binding.logList.setAdapter(adapter);
 
         viewModel.observeLog().observe(this, (entries) ->
@@ -460,5 +462,16 @@ public class LogActivity extends AppCompatActivity
             layoutManager.scrollToPosition(adapter.getItemCount() - 1);
         else
             layoutManager.scrollToPositionWithOffset(scrollPosition, 0);
+    }
+
+    @Override
+    public void onItemClicked(@NonNull LogEntry entry)
+    {
+        if (viewModel.copyLogEntryToClipboard(entry)) {
+            Snackbar.make(binding.coordinatorLayout,
+                    R.string.text_copied_to_clipboard,
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

@@ -34,9 +34,13 @@ import org.proninyaroslav.libretorrent.databinding.ItemLogListBinding;
 
 class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
 {
-    LogAdapter()
+    private ClickListener listener;
+
+    LogAdapter(ClickListener listener)
     {
         super(diffCallback);
+
+        this.listener = listener;
     }
 
     @NonNull
@@ -57,7 +61,7 @@ class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
     {
         LogEntry entry = getItem(position);
         if (entry != null)
-            holder.bind(entry);
+            holder.bind(entry, listener);
     }
 
     private static final DiffUtil.ItemCallback<LogEntry> diffCallback = new DiffUtil.ItemCallback<LogEntry>()
@@ -77,6 +81,11 @@ class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
         }
     };
 
+    public interface ClickListener
+    {
+        void onItemClicked(@NonNull LogEntry entry);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private ItemLogListBinding binding;
@@ -88,8 +97,13 @@ class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
             this.binding = binding;
         }
 
-        void bind(LogEntry entry)
+        void bind(@NonNull LogEntry entry, ClickListener listener)
         {
+            itemView.setOnClickListener((v) -> {
+                if (listener != null)
+                    listener.onItemClicked(entry);
+            });
+
             binding.tag.setText(entry.getTag());
             binding.msg.setText(entry.getMsg());
             binding.timeStamp.setText(entry.getTimeStampAsString());

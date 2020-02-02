@@ -19,7 +19,10 @@
 
 package org.proninyaroslav.libretorrent.ui.log;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -207,5 +210,18 @@ public class LogViewModel extends AndroidViewModel
                 .build();
 
         WorkManager.getInstance(getApplication()).enqueue(request);
+    }
+
+    boolean copyLogEntryToClipboard(@NonNull LogEntry entry)
+    {
+        ClipboardManager clipboard = (ClipboardManager)getApplication().getSystemService(Activity.CLIPBOARD_SERVICE);
+        if (clipboard == null)
+            return false;
+
+        ClipData clip;
+        clip = ClipData.newPlainText("Log entry", entry.toString());
+        clipboard.setPrimaryClip(clip);
+
+        return true;
     }
 }
