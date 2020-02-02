@@ -343,6 +343,22 @@
     <string name="torrent_saved_to" formatted="false">Торрент сохранён в %1$s</string>
     <string name="unable_to_open_file">Невозможно открыть выбранный файл</string>
     <string name="unable_to_create_file">Невозможно создать файл</string>
+    <!-- Log -->
+    <string name="log_journal">Журнал</string>
+    <string name="journal_list_empty">Нет записей</string>
+    <string name="journal_start_recording">Начать запись</string>
+    <string name="journal_stop_recording">Остановить запись</string>
+    <string name="journal_started_recording">Запись начата</string>
+    <string name="journal_filter_session_log">Лог сессии</string>
+    <string name="journal_filter_dht_log">Лог DHT</string>
+    <string name="journal_filter_peer_log">Лог пиров</string>
+    <string name="journal_filter_portmap_log">Лог UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Торрент лог</string>
+    <string name="journal_save_log_failed">Не удалось сохранить лог</string>
+    <string name="journal_save_log_success" formatted="false">Лог успешно сохранён: %1$s</string>
+    <string name="pref_journal_save_log_to">Сохранить лог в</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Максимальное количество хранимых записей журнала</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Внешний вид</string>

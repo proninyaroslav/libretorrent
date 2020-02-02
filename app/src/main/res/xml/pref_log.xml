@@ -3,7 +3,7 @@
 
     <EditTextPreference
         android:key="@string/pref_key_max_log_size"
-        android:title="@string/pref_journal_max_stored_logs"
+        android:title="@string/pref_journal_max_stored_entries"
         android:inputType="numberDecimal"
         android:persistent="false" />
 </PreferenceScreen>

@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">无法打开目标种子文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error" formatted="false">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确。</string>
+    <string name="ip_filter_add_error" formatted="false">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确</string>
     <string name="ip_filter_add_success">IP 过滤器添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置</string>
@@ -142,14 +142,14 @@
     <string name="perm_denied_warning">应用程序没有这个权限将无法保存内存中的种子文件。应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">添加种子</string>
-    <string name="error_decode_torrent">torrent 文件解码失败。可能文件已损坏或格式不正确。</string>
+    <string name="error_decode_torrent">torrent 文件解码失败。可能文件已损坏或格式不正确</string>
     <string name="error_io_torrent">读取种子文件时出错</string>
     <string name="error_fetch_link">无法从链接中提取数据</string>
     <string name="error_invalid_link_or_path">无效的链接或路径无效</string>
     <string name="error_add_torrent">添加 torrent 失败</string>
-    <string name="error_file_not_found_add_torrent">无法添加种子 。可能是种子文件已被移动或删除。</string>
-    <string name="error_io_add_torrent">无法添加种子 。I/O 异常。</string>
-    <string name="torrent_exist">种子已经存在。种子将进行合并。</string>
+    <string name="error_file_not_found_add_torrent">无法添加种子 。可能是种子文件已被移动或删除</string>
+    <string name="error_io_add_torrent">无法添加种子 。I/O 异常</string>
+    <string name="torrent_exist">种子已经存在。种子将进行合并</string>
     <string name="error_field_required">必填</string>
     <string name="error_no_files_selected">尚未选择文件</string>
     <string name="free_space" formatted="false">剩余空间 %1$s</string>
@@ -264,7 +264,6 @@
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">没有跟踪器</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>
@@ -343,6 +342,22 @@
     <string name="torrent_saved_to" formatted="false">torrent 保存至 %1$s</string>
     <string name="unable_to_open_file">无法打开所选文件</string>
     <string name="unable_to_create_file">无法创建文件</string>
+    <!-- Log -->
+    <string name="log_journal">Journal</string>
+    <string name="journal_list_empty">No entries</string>
+    <string name="journal_start_recording">Start recording</string>
+    <string name="journal_stop_recording">Stop recording</string>
+    <string name="journal_started_recording">Started recording</string>
+    <string name="journal_filter_session_log">Session log</string>
+    <string name="journal_filter_dht_log">DHT log</string>
+    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
+    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_save_log_failed">Failed to save log</string>
+    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="pref_journal_save_log_to">Save log to</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
@@ -361,7 +376,7 @@
     <string name="pref_save_torrent_files_summary">下载开始时保存种子文件</string>
     <string name="pref_save_torrent_files_in_title">保存 torrent 文件至</string>
     <string name="pref_watch_dir_title">监测目录</string>
-    <string name="pref_watch_dir_summary">APP 会监测指定目录内以 .torrent 扩展名结尾的文件并把它们加入下载队列。加入下载后这些文件将被删除。</string>
+    <string name="pref_watch_dir_summary">APP 会监测指定目录内以 .torrent 扩展名结尾的文件并把它们加入下载队列。加入下载后这些文件将被删除</string>
     <string name="pref_dir_to_watch_title">要监测的目录</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">下载速度</string>
@@ -405,27 +420,27 @@
     <string name="pref_enable_roaming_summary">仅在设备不漫游时下载</string>
     <string name="pref_power_management_category">电源管理</string>
     <string name="pref_keep_alive_title">保持活动</string>
-    <string name="pref_keep_alive_summary">若启用，此应用将在后台继续运行。注：下载完成后退出应用选项依旧有效。</string>
+    <string name="pref_keep_alive_summary">若启用，此应用将在后台继续运行。注：下载完成后退出应用选项依旧有效</string>
     <string name="pref_shutdown_downloads_complete_title">下载完成后退出</string>
-    <string name="pref_shutdown_downloads_complete_summary">如果启用，应用程序将在所有下载完成后退出。</string>
+    <string name="pref_shutdown_downloads_complete_summary">如果启用，应用程序将在所有下载完成后退出</string>
     <string name="pref_cpu_do_not_sleep_title">保持 CPU 唤醒</string>
-    <string name="pref_cpu_do_not_sleep_summary">启用此选项将增加电池使用量。如果屏幕关闭时下载速度降低，请使用此选项。</string>
+    <string name="pref_cpu_do_not_sleep_summary">启用此选项将增加电池使用量。如果屏幕关闭时下载速度降低，请使用此选项</string>
     <string name="pref_download_and_upload_only_when_charging_title">仅在充电时下载和上传</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">如果启用，种子将仅在充电时下载/上传。当没有连接到充电器时，所有的 种子都将暂停。</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">如果启用，种子将仅在充电时下载/上传。当没有连接到充电器时，所有的 种子都将暂停</string>
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_custom_battery_control_title">自定义电量百分比</string>
     <string name="pref_custom_battery_control_value_title">电量百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有种子都将暂停。此规则充电时无效。</string>
+    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有种子都将暂停。此规则充电时无效</string>
     <string name="pref_custom_battery_control_summary" formatted="false">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>
-    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用追踪器便能找到彼此。启用此选项将增加电池使用量。</string>
+    <string name="pref_enable_dht_summary">允许 torrent 客户端无需使用追踪器便能找到彼此。启用此选项将增加电池使用量</string>
     <string name="pref_enable_lsd_title">开启 LSD</string>
-    <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度减少流量。</string>
+    <string name="pref_enable_lsd_summary">支持本地 torrent 最小显著性差异，旨在最大限度减少流量</string>
     <string name="pref_enable_utp_title">开启 μTP</string>
-    <string name="pref_enable_utp_summary">旨在减轻传统种子的 TCP 传输中潜在低延迟和其他拥塞控制问题，同时提供可靠的有序传输。</string>
+    <string name="pref_enable_utp_summary">旨在减轻传统种子的 TCP 传输中潜在低延迟和其他拥塞控制问题，同时提供可靠的有序传输</string>
     <string name="pref_enable_upnp_title">开启 UPnP</string>
     <string name="pref_enable_natpmp_title">开启 NAT-PMP</string>
     <string name="pref_port_settings_category">端口设置</string>
@@ -445,7 +460,7 @@
     <string name="pref_enc_out_connections_title">传出连接</string>
     <string name="pref_ip_filtering_category">IP 过滤</string>
     <string name="pref_enable_ip_filtering_title">开启 IP 过滤</string>
-    <string name="pref_enable_ip_filtering_summary">使用 IP 过滤会增加内存使用。根据文件大小，过滤器可能需要一些时间才能在启动时应用。</string>
+    <string name="pref_enable_ip_filtering_summary">使用 IP 过滤会增加内存使用。根据文件大小，过滤器可能需要一些时间才能在启动时应用</string>
     <string name="pref_ip_filtering_file_title">过滤规则文件路径 （.dat ，.p2p ）</string>
     <string name="pref_show_nat_errors">显示NAT错误</string>
     <string name="pref_anonymous_mode_title">启用匿名模式</string>
@@ -512,7 +527,7 @@
     <string name="pref_streaming_enable_summary">流媒体允许通过浏览器或媒体播放器中输入的 HTTP 地址从 torrent 中下载一个或多个单独文件</string>
     <string name="pref_streaming_hostname">主机名</string>
     <string name="pref_streaming_port">端口</string>
-    <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它。</string>
+    <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它</string>
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
     <string name="about_description"><![CDATA[    想了解更多信息并帮助项目发展？请浏览 <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>

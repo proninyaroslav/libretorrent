@@ -42,10 +42,10 @@
     <string name="details">Təfsilatlar</string>
     <string name="stats">Statistikalar</string>
     <string name="filters">Filtrlər</string>
-    <string name="apply">Apply</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="apply">Tətbiq et</string>
+    <string name="clipboard">Lövhə</string>
+    <string name="switch_on">Aç</string>
+    <string name="switch_off">Bağla</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Endirilmiş faylları da sil</string>
     <string name="delete_selected_torrent">Seçilmiş torrent silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Torrent faylı açıla bilmir</string>
     <string name="open_file">Faylı aç</string>
     <string name="settings">Tənzimləmələr</string>
-    <string name="ip_filter_add_error">IP filtri əlavə edilmədi (%1$d uğursuz oldu). Fayl zədəli və ya doğru olmayan formatda ola bilər</string>
+    <string name="ip_filter_add_error" formatted="false">IP filtri əlavə edilmədi (%1$d uğursuz oldu). Fayl zədəli və ya doğru olmayan formatda ola bilər</string>
     <string name="ip_filter_add_success">IP filtr uğurla əlavə edildi</string>
     <string name="proxy_settings_applied">Proxy server tənzimləmələri uğurla tətbiq edildi</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server tənzimləmələri tətbiq yenidən başladıldıqdan sonra tətbiq ediləcək</string>
@@ -105,7 +105,7 @@
     <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
     <string name="network_offline">Şəbəkə vəziyyəti: Xətdən kənar</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Söndürülür&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent xətası</string>
     <string name="error_template">Xəta: %1$s</string>
@@ -142,7 +142,7 @@
     <string name="perm_denied_warning">Bu icazə olmadan tətbiq torrent fayllarını yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent əlavə et</string>
-    <string name="error_decode_torrent">Failed decoding torrent file. Maybe the file is corrupted or has an incorrect format</string>
+    <string name="error_decode_torrent">Torrent faylının şifrəsi açılmadı. Bəlkə fayl xarabdır və ya yalnış formatdadır</string>
     <string name="error_io_torrent">Torrent faylının oxunma xətası</string>
     <string name="error_fetch_link">Bağlantıdan verilənlərin alınma xətası</string>
     <string name="error_invalid_link_or_path">Etibarsız torrent bağlantısı və ya yolu</string>
@@ -190,7 +190,7 @@
     <string name="system_file_manager_not_found">Sistem fayl idarəçisi tapılmadı</string>
     <string name="replace_file">Faylı əvəz et</string>
     <string name="device_does_not_support_this_feature">Cihazınız bu xüsusiyyəti dəstəkləmir</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="parent_folder">Üst qovluq</string>
     <!-- Error dialog -->
     <string name="report">Xəbər ver</string>
     <string name="more_details">Daha çox təfsilat</string>
@@ -214,7 +214,7 @@
     <string name="torrent_ETA">Təxmini Bitmə Vaxtı</string>
     <string name="torrent_seeds">Ortaq</string>
     <string name="torrent_peers">Cütlər</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_leechers">Sömürücülər</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Qarşıya yükləndi</string>
@@ -261,64 +261,64 @@
     <string name="torrent_added_date">Əlavə edildi</string>
     <string name="torrent_availability">Mövcudluq</string>
     <string name="share_stream_url">Stream URL-ni paylaş</string>
-    <string name="magnet_include_file_priorities">Include file priorities?</string>
-    <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="magnet_include_file_priorities">Fayl prioritetləri daxil edilsin?</string>
+    <string name="magnet_more_about_bep53">Daha çox məlumat: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">İzləyici yoxdur</string>
+    <string name="edit_torrent_name">Torrent adına düzəliş et</string>
     <!-- Send text to clipboard -->
-    <string name="send_text_to_clipboard">Copy</string>
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="send_text_to_clipboard">Kopyala</string>
+    <string name="text_copied_to_clipboard">Mətn lövhəyə kopyalandı</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">Tətbiq xətası baş verdi. Hesabatı tərtibatçılara göndərə bilərsiz</string>
+    <string name="error_comment_prompt">Əlavə məlumat və rəyi burada əlavə edə bilərsiniz:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_channel_list_empty">No channels</string>
-    <string name="select_or_add_feed_channel">Select or add an RSS/Atom channel</string>
-    <string name="add_feed_channel">Add channel</string>
-    <string name="feed_name">Name (optional)</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="feed_use_regex">Use regular expression</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="feed_last_update_template" formatted="false">Updated: %1$s</string>
-    <string name="feed_last_update_never">never</string>
-    <string name="error_cannot_add_channel">Cannot add channel</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
-    <string name="copy_link">Copy link</string>
-    <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="delete_selected_channels">Delete the selected channels?</string>
-    <string name="edit_feed_channel">Edit channel</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
-    <string name="mark_as_read">Mark as read</string>
-    <string name="mark_as_unread">Mark as unread</string>
-    <string name="feed_item_list_empty">No articles</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
-    <string name="feed_item_open_article_url">Open article</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
-    <string name="error_import_invalid_format">Invalid format</string>
-    <string name="feed_do_not_download_immediately">Do not download immediately</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_channel_list_empty">Kanal yoxdur</string>
+    <string name="select_or_add_feed_channel">Bir RSS/Atom kanalı seç və ya əlavə et</string>
+    <string name="add_feed_channel">Kanal əlavə et</string>
+    <string name="feed_name">Ad (ixtiyari)</string>
+    <string name="feed_filter_prompt">Bir dənəsi adda olacaq formada sözləri daxil edin (\"|\" ilə ayrılmış), ya da müntəzəm ifadə daxil edin. Torrentlər yalnız bu filtr torrent adı ilə uyğunlaşsa əlavə ediləcək</string>
+    <string name="feed_auto_download">Yeni torrentləri avtomatik endir</string>
+    <string name="feed_use_regex">Müntəzəm ifadə istifadə et</string>
+    <string name="backup_feed_channels">Nüsxələməni saxla</string>
+    <string name="restore_feed_channels_backup">Nüsxələməni bərpa et</string>
+    <string name="feed_last_update_template" formatted="false">Yeniləndi: %1$s</string>
+    <string name="feed_last_update_never">heç vaxt</string>
+    <string name="error_cannot_add_channel">Kanal əlavə edilə bilmir</string>
+    <string name="error_cannot_edit_channel">Kanala düzəliş edilə bilmir</string>
+    <string name="error_cannot_delete_channel">Kanal silinə bilmir</string>
+    <string name="copy_link">Bağlantını kopyala</string>
+    <string name="delete_selected_channel">Seçilmiş kanal silinsin?</string>
+    <string name="delete_selected_channels">Seçilmiş kanallar silinsin?</string>
+    <string name="edit_feed_channel">Kanala düzəliş et</string>
+    <string name="link_copied_to_clipboard">Bağlantı lövhəyə kopyalandı</string>
+    <string name="mark_as_read">Oxunmuş kimi işarələ</string>
+    <string name="mark_as_unread">Oxunmamış kimi işarələ</string>
+    <string name="feed_item_list_empty">Məqalə yoxdur</string>
+    <string name="backup_feeds_successfully">Kanallar uğurla saxlanıldı</string>
+    <string name="restore_feeds_backup_successfully">Kanallar uğurla bərpa edildi</string>
+    <string name="error_backup_feeds">Kanallar saxlanılmadı</string>
+    <string name="error_restore_feeds_backup">Kanallar bərpa edilmədi</string>
+    <string name="feed_item_open_article_url">Məqaləni aç</string>
+    <string name="feeds_backup_selection_dialog_title">Nüsxə faylını seç</string>
+    <string name="error_import_invalid_format">Etibarsız format</string>
+    <string name="feed_do_not_download_immediately">Dərhal endirmə</string>
+    <string name="feed_item_url_not_found">URL tapılmadı</string>
     <!-- Create torrent dialog -->
-    <string name="create_torrent">Create torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
-    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="tracker_urls">Tracker URLs</string>
-    <string name="web_seed_urls">Web seed URLs</string>
-    <string name="comments">Comments</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
-    <string name="optional_hint">(optional)</string>
-    <string name="piece_size">Piece size</string>
+    <string name="create_torrent">Torrent yarat</string>
+    <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
+    <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
+    <string name="tracker_urls">İzləyici URL-lər</string>
+    <string name="web_seed_urls">İnternet seed URL-ləri</string>
+    <string name="comments">Rəylər</string>
+    <string name="tracker_urls_hint">(ixtiyari) Prioritetə görə hər biri eyni sətirdə olmaq şərtiylə izləyiciləri daxil edin</string>
+    <string name="web_seed_urls_hint">(ixtiyari) Hər biri eyni sətirdə</string>
+    <string name="optional_hint">(ixtiyari)</string>
+    <string name="piece_size">Hissə ölçüsü</string>
     <string name="create_torrent_options">Seçimlər</string>
     <string name="option_start_seeding">Yükləməyə başla</string>
     <string name="option_private_torrent">Gizli torrent</string>
-    <string name="option_optimize_alignment">Optimize alignment</string>
+    <string name="option_optimize_alignment">Qruplaşmanı optimallaşdır</string>
     <string-array name="piece_size_entries">
         <item>Avtomatik</item>
         <item>16 KiB</item>
@@ -343,6 +343,22 @@
     <string name="torrent_saved_to" formatted="false">Torrent saxlanıldığı ünvan: %1$s</string>
     <string name="unable_to_open_file">Seçilmiş fayl açıla bilmədi</string>
     <string name="unable_to_create_file">Fayl yaradıla bilmədi</string>
+    <!-- Log -->
+    <string name="log_journal">Journal</string>
+    <string name="journal_list_empty">No entries</string>
+    <string name="journal_start_recording">Start recording</string>
+    <string name="journal_stop_recording">Stop recording</string>
+    <string name="journal_started_recording">Started recording</string>
+    <string name="journal_filter_session_log">Session log</string>
+    <string name="journal_filter_dht_log">DHT log</string>
+    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
+    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_save_log_failed">Failed to save log</string>
+    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="pref_journal_save_log_to">Save log to</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Görünüş</string>
@@ -371,61 +387,61 @@
     <string name="pref_max_connections_summary">Minimum bağlantı sayı - 2</string>
     <string name="pref_torrent_queueing_category">Torrent növbəsi</string>
     <string name="pref_max_active_uploads_title">Maksimum aktiv yükləmə</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_active_torrents_title">Maximum active torrents</string>
-    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_auto_manage_title">Auto manage</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
-    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 without limit</string>
+    <string name="pref_max_active_downloads_title">Maksimal aktiv endirmə</string>
+    <string name="pref_max_active_torrents_title">Maksimal aktiv torrent</string>
+    <string name="pref_max_connections_per_torrent_title">Hər torrent üçün maksimal bağlantı sayı</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimal bağlantı sayı - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Hər torrent üçün maksimal yükləmə slot sayı</string>
+    <string name="pref_auto_manage_title">Avtomatik idarə et</string>
+    <string name="pref_auto_manage_summary">Torrentlər istənilən nöqtədə dayandırıla və ya davam etdirilə bilər. BU seçimi fəallaşdırmaq dayandırma/davam etdirməni yavaşlada bilər</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 limitsiz</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category">Theme settings</string>
-    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_category">Tema tənzimləmələri</string>
+    <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
+        <item>Açıq</item>
+        <item>Tünd</item>
+        <item>Qara</item>
     </string-array>
-    <string name="pref_notification_category">Notification settings</string>
-    <string name="pref_torrent_finish_notify_title">Torrent finish notification</string>
-    <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
-    <string name="pref_play_sound_notify_title">Play sound</string>
-    <string name="pref_notify_sound_title">Notification sound</string>
-    <string name="pref_led_indicator_notify_title">LED indicator</string>
-    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
-    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="pref_notification_category">Bildiriş tənzimləmələri</string>
+    <string name="pref_torrent_finish_notify_title">Torrent bitirmə bildirişi</string>
+    <string name="pref_torrent_finish_notify_summary">Torrent endirmə bitəndə bil bildiriş göstər</string>
+    <string name="pref_play_sound_notify_title">Səs oynat</string>
+    <string name="pref_notify_sound_title">Bildiriş səsi</string>
+    <string name="pref_led_indicator_notify_title">LED göstərici</string>
+    <string name="pref_led_indicator_color_notify_title">LED göstərici rəngi</string>
+    <string name="pref_vibration_notify_title">Titrəmə</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_autostart_title">Avtomatik başlatma</string>
+    <string name="pref_autostart_summary">Cihaz başladılanda tətbiqi işlət</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_power_management_category">Power management</string>
-    <string name="pref_keep_alive_title">Keep alive</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
-    <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
-    <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
-    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
-    <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
-    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
-    <string name="pref_battery_control_summary" formatted="false">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_umnetered_connections_only_title">Yalnız wi-fi</string>
+    <string name="pref_umnetered_connections_only_summary">Yalnız Wi-Fi ilə endir</string>
+    <string name="pref_enable_roaming_title">Roaminqi fəallaşdır</string>
+    <string name="pref_enable_roaming_summary">Yalnız cihaz roaminqdə olmayanda endir</string>
+    <string name="pref_power_management_category">Enerji idarəetməsi</string>
+    <string name="pref_keep_alive_title">Davamlı işlə</string>
+    <string name="pref_keep_alive_summary">Fəallaşdırılsa, tətbiqetmə davamlı arxaplanda işləyəcək. Endirmələr tamamlansa da yenə söndürüləcək</string>
+    <string name="pref_shutdown_downloads_complete_title">Endirmə tamamlananda söndür</string>
+    <string name="pref_shutdown_downloads_complete_summary">Fəallaşdırılsa, tətbiq bütün endirmələr tamamlananda bağlanacaq</string>
+    <string name="pref_cpu_do_not_sleep_title">CPU-nu oyaq saxla</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batereya istifadəsini artırar. Ekran sönülü olanda endirmə sürəti azalırsa bu seçimi istifadə edin</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Yalnız batereya doldurularkən endir və yüklə</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Fəallaşdırılsa, torrentlər yalnız batereya doldurulanda endiriləcək/yüklənəcək. Batereya doldurma qurğusundan ayrılanda bütün torrentlərə fasilə verilər</string>
+    <string name="pref_battery_control_title">Batereyaya nəzarət</string>
+    <string name="pref_custom_battery_control_title">Xüsusi batereya faizi</string>
+    <string name="pref_custom_battery_control_value_title">Batereyaya nəzarət faizi</string>
+    <string name="pref_battery_control_summary" formatted="false">Batereya səviyyəsi %1$d%% altına düşəndə bütün torrentlərə fasilə verilər. Limit, batereya doldurulması zamanı tətbiq edilmir</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Batereya səviyyəsi müəyyən bir dəyərin altında olanda, endirmələrə fasilə vermək üçün özəl faiz tənzimləyin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
     <!-- Network settings -->
-    <string name="pref_proxy_settings_title">Proxy settings</string>
-    <string name="pref_enable_dht_title">Enable DHT</string>
-    <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
-    <string name="pref_enable_lsd_title">Enable LSD</string>
-    <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
-    <string name="pref_enable_utp_title">Enable μTP</string>
-    <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
+    <string name="pref_proxy_settings_title">Proxy tənzimləmələri</string>
+    <string name="pref_enable_dht_title">DHT-i fəallaşdır</string>
+    <string name="pref_enable_dht_summary">BitTorrent-müştərilərinin izləyici istifadə etmədən bir-birilərini tapmalarına icazə verər. Bunu fəallaşdırmaq batereya istifadəsini artırar</string>
+    <string name="pref_enable_lsd_title">LSD-ni fəallaşdır</string>
+    <string name="pref_enable_lsd_summary">Trafiki minimuma endirmək üçün, yerli BitTorrent cütlərinin kəşf edilməsini dəstəkləmək üçün dizayn edilib</string>
+    <string name="pref_enable_utp_title">μTP-ni fəallaşdır</string>
+    <string name="pref_enable_utp_summary">Etibarlı, müntəzəm çatdırılmanı təmin edərkən, TCP üzərindən şərti BitTorrent-də olan zəif gecikmə və digər tıxanma problemlərini azaltmaq üçün nəzərdə tutulmuşdur</string>
     <string name="pref_enable_upnp_title">UPnP-ni fəallaşdır</string>
     <string name="pref_enable_natpmp_title">NAT-PMP-ni fəallaşdır</string>
     <string name="pref_port_settings_category">Port tənzimləmələri</string>
@@ -449,7 +465,7 @@
     <string name="pref_ip_filtering_file_title">Filtr faylının yolu (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT xətalarını göstər</string>
     <string name="pref_anonymous_mode_title">Anonim rejimi fəallaşdır</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_anonymous_mode_summary">Tətbiqetmə, kimliyini müəyyən dərəcəyə qədər gizləməyə çalışar. İstifadəçi-agent boş string kimi sıfırlanacaqdır (gizli torrentlər istisna). İzləyicilər yalnız proxy server istifadə edəndə istifadə ediləcək. Dinləmə socket-ləri bağlanılar və gələn bağlantılar yalnız SOCKS5 və ya I2P proxy üzərindən qəbul ediləcək (əgər bir cüt proxy tənzimlənibsə və eyni maşında izləyici proxy kimi işləyirsə). NAT-PMP, UPnP, DHT və yerli cüt tapma söndürülər</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy növü</string>
     <string-array name="pref_proxy_type_entries">
@@ -461,29 +477,29 @@
     <string name="pref_proxy_address_title">Ünvan</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Həmçinin cüt bağlantılar üçün istifadə et</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
+    <string name="pref_proxy_peers_too_summary">Proxy izləyicilər, cütlər və internet seed-ləri ilə bağlantı qurmaq üçün istifadə ediləcək</string>
     <string name="pref_proxy_requires_auth_title">Səlahiyyət vermə tələb edir</string>
     <string name="pref_proxy_requires_auth_summary">Xəbərdarlıq: şifrə, şifrələnməmiş saxlanıldı</string>
     <string name="pref_proxy_login_title">Giriş</string>
     <string name="pref_proxy_password_title">Şifrə</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Başlama vaxtı</string>
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
-    <string name="pref_scheduling_run_only_once_title">Run only once</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <string name="pref_enable_scheduling_start_summary">Tətbiqi təyin edilən vaxtda başlat. Torrentlər son bağlanışdan əvvəlki vəziyyətinə görə işləyəcək</string>
+    <string name="pref_enable_scheduling_shutdown_title">Söndürmə vaxtı</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Tətbiqi göstərilən vaxtda söndür</string>
+    <string name="pref_scheduling_run_only_once_title">Yalnız bir dəfə işlət</string>
+    <string name="pref_scheduling_switch_wifi_title">Wi-Fi aç/bağla</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi, tətbiqetmə təyin edilmiş vaxtda başladılanda avtomatik olaraq fəallaşdırılır və tətbiq təyin edilən vaxtda bağlanılanda sıradan çıxardılar</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
-    <string name="pref_feed_refresh_interval_title">Refresh interval</string>
+    <string name="pref_feed_auto_refresh_title">Kanalları avtomatik təzələ</string>
+    <string name="pref_feed_auto_refresh_summary">Kanalları arxaplanda vaxtaşırı təzələ</string>
+    <string name="pref_feed_refresh_interval_title">Təzələmə aralığı</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>6 hours</item>
+        <item>15 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>1 saat</item>
+        <item>2 saat</item>
+        <item>6 saat</item>
         <item>12 saat</item>
         <item>1 gün</item>
     </string-array>
@@ -515,8 +531,8 @@
     <string name="pref_streaming_error">Streaming üçün seçilmiş host adı və port məşğuldur və ya doğru deyil. Zəhmət olmasa bunu düzəldin</string>
     <!-- About dialog -->
     <string name="about_title">LibreTorrent haqqında</string>
-    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description"><![CDATA[    Daha çox məlumat və həmçinin layihəyə kömək etmək üçün: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent, libtorrent kitabxanasına əsaslanan, Android 4+ üçün Azad bir torrent müştərisidir. (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
+    LibreTorrent ödənişsiz proqram təminatıdır, <a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimati Lisenziya v3 (GPLv3)</a> şərtləri altında yayımlanır]]></string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
 </resources>
