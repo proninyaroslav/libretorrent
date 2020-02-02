@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/log_menu">
+
+        <item android:id="@+id/pause_resume_log_menu"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_pause_white_24dp"
+            android:title="@string/pause_torrent" />
+
+        <item android:id="@+id/record_log_menu"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_record_white_24dp"
+            android:title="@string/journal_start_recording" />
+
+        <item android:id="@+id/save_log_menu"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_save_white_24dp"
+            android:title="@string/save" />
+
+        <item android:id="@+id/filter_log_menu"
+            app:showAsAction="never"
+            android:title="@string/filter" />
+
+        <item android:id="@+id/log_settings_menu"
+            app:showAsAction="never"
+            android:title="@string/settings" />
+    </group>
+</menu>

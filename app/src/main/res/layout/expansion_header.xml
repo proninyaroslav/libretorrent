@@ -19,5 +19,5 @@
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:contentDescription="@null"
-        android:src="@drawable/ic_arrow_down_gray_24dp" />
+        android:src="@drawable/ic_arrow_down_grey600_24dp" />
 </RelativeLayout>

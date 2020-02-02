@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core.settings;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
+
+import org.proninyaroslav.libretorrent.BuildConfig;
 
 import java.util.Random;
 
@@ -59,6 +61,14 @@ public class SessionSettings
     public static final String DEFAULT_PROXY_LOGIN = "";
     public static final String DEFAULT_PROXY_PASSWORD = "";
     public static final boolean DEFAULT_ANONYMOUS_MODE = false;
+    public static final boolean DEFAULT_LOGGING = BuildConfig.SESSION_LOGGING;
+    public static final int DEFAULT_MAX_LOG_SIZE = 100000;
+    public static final boolean DEFAULT_LOG_SESSION_FILTER = false;
+    public static final boolean DEFAULT_LOG_DHT_FILTER = true;
+    public static final boolean DEFAULT_LOG_PEER_FILTER = true;
+    public static final boolean DEFAULT_LOG_PORTMAP_FILTER = true;
+    public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
+
 
     public int cacheSize = DEFAULT_CACHE_SIZE;
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
@@ -92,6 +102,13 @@ public class SessionSettings
     public String proxyLogin = DEFAULT_PROXY_LOGIN;
     public String proxyPassword = DEFAULT_PROXY_PASSWORD;
     public boolean anonymousMode = DEFAULT_ANONYMOUS_MODE;
+    public boolean logging = DEFAULT_LOGGING;
+    public int maxLogSize = DEFAULT_MAX_LOG_SIZE;
+    public boolean logSessionFilter = DEFAULT_LOG_SESSION_FILTER;
+    public boolean logDhtFilter = DEFAULT_LOG_DHT_FILTER;
+    public boolean logPeerFilter = DEFAULT_LOG_PEER_FILTER;
+    public boolean logPortmapFilter = DEFAULT_LOG_PORTMAP_FILTER;
+    public boolean logTorrentFilter = DEFAULT_LOG_TORRENT_FILTER;
 
     public enum EncryptMode
     {

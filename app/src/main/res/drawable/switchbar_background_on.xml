@@ -3,5 +3,5 @@
     android:shape="rectangle">
 
     <solid
-        android:color="@color/accent" />
+        android:color="@color/primary_light" />
 </shape>

@@ -66,6 +66,7 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentFragment;
 import org.proninyaroslav.libretorrent.ui.feeds.FeedActivity;
+import org.proninyaroslav.libretorrent.ui.log.LogActivity;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerExpandableAdapter;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
@@ -576,6 +577,9 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             case R.id.resume_all_menu:
                 viewModel.resumeAll();
                 break;
+            case R.id.log_menu:
+                showLog();
+                break;
         }
 
         return true;
@@ -620,6 +624,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(getString(R.string.about_changelog_link)));
         startActivity(i);
+    }
+
+    private void showLog()
+    {
+        startActivity(new Intent(this, LogActivity.class));
     }
 
     @Override

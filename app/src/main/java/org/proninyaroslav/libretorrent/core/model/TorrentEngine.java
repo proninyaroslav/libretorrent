@@ -30,13 +30,14 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.proninyaroslav.libretorrent.BuildConfig;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.logger.LogEntry;
+import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
@@ -46,7 +47,6 @@ import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.session.SessionInitParams;
-import org.proninyaroslav.libretorrent.core.model.session.SessionLogMsg;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSession;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSessionImpl;
@@ -130,30 +130,12 @@ public class TorrentEngine
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
         notifier = TorrentNotifier.getInstance(appContext);
+        downloadsCompleted = new DownloadsCompletedListener(this);
         session = new TorrentSessionImpl(repo,
                 fs,
-                SystemFacadeHelper.getSystemFacade(appContext),
-                BuildConfig.SESSION_LOGGING);
-        if (BuildConfig.SESSION_LOGGING)
-            session.setAllowedLogTypes(BuildConfig.SESSION_LOG_TYPES);
+                SystemFacadeHelper.getSystemFacade(appContext));
         session.setSettings(pref.readSessionSettings());
         session.addListener(engineListener);
-
-        switchConnectionReceiver();
-        switchPowerReceiver();
-        disposables.add(pref.observeSettingsChanged()
-                .subscribe(this::handleSettingsChanged));
-
-        downloadsCompleted = new DownloadsCompletedListener(this);
-        disposables.add(downloadsCompleted.listen()
-                .subscribe(
-                        this::handleAutoStop,
-                        (err) -> {
-                            Log.e(TAG, "Auto stop error: " +
-                                    Log.getStackTraceString(err));
-                            handleAutoStop();
-                        }
-                ));
     }
 
     private void handleAutoStop()
@@ -253,7 +235,38 @@ public class TorrentEngine
         if (isRunning())
             return;
 
+        switchConnectionReceiver();
+        switchPowerReceiver();
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe(this::handleSettingsChanged));
+
+        disposables.add(downloadsCompleted.listen()
+                .subscribe(
+                        this::handleAutoStop,
+                        (err) -> {
+                            Log.e(TAG, "Auto stop error: " +
+                                    Log.getStackTraceString(err));
+                            handleAutoStop();
+                        }
+                ));
+
+        disposables.add(session.getLogger().observeDataSetChanged()
+                .subscribe((change) -> {
+                    if (change.reason == Logger.DataSetChange.Reason.NEW_ENTRIES && change.entries != null)
+                        printSessionLog(change.entries);
+                }));
+
         session.startWithParams(makeSessionInitParams());
+    }
+
+    private void printSessionLog(List<LogEntry> entries)
+    {
+        for (LogEntry entry : entries) {
+            if (entry == null)
+                continue;
+
+            Log.i(TAG, entry.toString());
+        }
     }
     
     private SessionInitParams makeSessionInitParams()
@@ -323,11 +336,6 @@ public class TorrentEngine
     public boolean isRunning()
     {
         return session.isRunning();
-    }
-
-    public boolean isTorrentsLoaded()
-    {
-        return session.isTorrentsRestored();
     }
 
     public void addListener(TorrentEngineListener listener)
@@ -965,6 +973,11 @@ public class TorrentEngine
         return session.getPieceSizeList();
     }
 
+    public Logger getSessionLogger()
+    {
+        return session.getLogger();
+    }
+
     private void saveTorrentFileIn(@NonNull Torrent torrent,
                                    @NonNull Uri saveDir)
     {
@@ -1457,13 +1470,6 @@ public class TorrentEngine
                         .subscribe());
             }
         }
-
-        @Override
-        public void onSessionLogMsg(@Nullable SessionLogMsg message)
-        {
-            if (message != null)
-                Log.i(TAG, "[" + message.getType().name() + "]" + message.getLogMessage());
-        }
     };
 
     private void handleSettingsChanged(String key)
@@ -1638,6 +1644,41 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_anonymous_mode))) {
             SessionSettings s = session.getSettings();
             s.anonymousMode = pref.anonymousMode();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_enable_logging))) {
+            SessionSettings s = session.getSettings();
+            s.logging = pref.logging();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_log_session_filter))) {
+            SessionSettings s = session.getSettings();
+            s.logSessionFilter = pref.logSessionFilter();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_log_dht_filter))) {
+            SessionSettings s = session.getSettings();
+            s.logDhtFilter = pref.logDhtFilter();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_log_peer_filter))) {
+            SessionSettings s = session.getSettings();
+            s.logPeerFilter = pref.logPeerFilter();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_log_portmap_filter))) {
+            SessionSettings s = session.getSettings();
+            s.logPortmapFilter = pref.logPortmapFilter();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_log_torrent_filter))) {
+            SessionSettings s = session.getSettings();
+            s.logTorrentFilter = pref.logTorrentFilter();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_max_log_size))) {
+            SessionSettings s = session.getSettings();
+            s.maxLogSize = pref.maxLogSize();
             session.setSettings(s);
         }
 

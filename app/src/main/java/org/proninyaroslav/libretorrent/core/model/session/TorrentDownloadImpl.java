@@ -71,7 +71,6 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -34,11 +35,10 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
 
 public interface TorrentSession
 {
-    void setAllowedLogTypes(EnumSet<SessionLogType> types);
+    Logger getLogger();
 
     void addListener(TorrentEngineListener listener);
 
@@ -116,8 +116,6 @@ public interface TorrentSession
     void requestStop();
 
     boolean isRunning();
-
-    boolean isTorrentsRestored();
 
     long dhtNodes();
 

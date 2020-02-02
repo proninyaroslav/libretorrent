@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,57 +19,184 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import androidx.annotation.Nullable;
-
 import org.libtorrent4j.alerts.Alert;
-import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.DhtLogAlert;
 import org.libtorrent4j.alerts.LogAlert;
 import org.libtorrent4j.alerts.PeerLogAlert;
 import org.libtorrent4j.alerts.PortmapLogAlert;
 import org.libtorrent4j.alerts.TorrentLogAlert;
+import org.proninyaroslav.libretorrent.core.logger.LogEntry;
+import org.proninyaroslav.libretorrent.core.logger.LogFilter;
+import org.proninyaroslav.libretorrent.core.logger.Logger;
 
-import java.util.EnumSet;
-
-class SessionLogger
+class SessionLogger extends Logger
 {
-    private EnumSet<SessionLogType> allowedLogTypes;
+    private static int nextLogEntryId = 0;
+
+    public enum SessionLogEntryType {
+        /*
+         * Posts some session events
+         */
+        SESSION_LOG,
+
+        /*
+         * Posts DHT events
+         */
+        DHT_LOG,
+
+        /*
+         * Posts events specific to a peer
+         */
+        PEER_LOG,
+
+        /*
+         * Posts informational events related to either
+         * UPnP or NAT-PMP
+         */
+        PORTMAP_LOG,
+
+        /*
+         * Posts torrent events
+         */
+        TORRENT_LOG,
+    }
+
+    public enum SessionLogFilter
+    {
+        SESSION((entry) -> entry == null || !entry.getTag().equals(SessionLogEntryType.SESSION_LOG.name())),
+
+        DHT((entry) -> entry == null || !entry.getTag().equals(SessionLogEntryType.DHT_LOG.name())),
+
+        PEER((entry) -> entry == null || !entry.getTag().equals(SessionLogEntryType.PEER_LOG.name())),
+
+        PORTMAP((entry) -> entry == null || !entry.getTag().equals(SessionLogEntryType.PORTMAP_LOG.name())),
+
+        TORRENT((entry) -> entry == null || !entry.getTag().equals(SessionLogEntryType.TORRENT_LOG.name()));
+
+        private final NewFilter filter;
+
+        SessionLogFilter(LogFilter filter)
+        {
+            this.filter = new NewFilter(name(), filter);
+        }
+
+        public NewFilter filter()
+        {
+            return filter;
+        }
+    }
+
+    public static class SessionFilterParams
+    {
+        final boolean filterSessionLog;
+        final boolean filterDhtLog;
+        final boolean filterPeerLog;
+        final boolean filterPortmapLog;
+        final boolean filterTorrentLog;
+
+        SessionFilterParams(boolean filterSessionLog,
+                            boolean filterDhtLog,
+                            boolean filterPeerLog,
+                            boolean filterPortmapLog,
+                            boolean filterTorrentLog)
+        {
+            this.filterSessionLog = filterSessionLog;
+            this.filterDhtLog = filterDhtLog;
+            this.filterPeerLog = filterPeerLog;
+            this.filterPortmapLog = filterPortmapLog;
+            this.filterTorrentLog = filterTorrentLog;
+        }
+    }
 
     SessionLogger()
     {
-        allowedLogTypes = EnumSet.allOf(SessionLogType.class);
+        /* Default stub */
+        super(1);
     }
 
-    void setAllowedLogTypes(@Nullable EnumSet<SessionLogType> types)
+    void send(Alert<?> alert)
     {
-        allowedLogTypes = (types == null ? EnumSet.noneOf(SessionLogType.class) : types);
-    }
+        long time = System.currentTimeMillis();
+        String msg;
+        LogEntry entry = null;
+        switch (alert.type()) {
+            case LOG:
+                entry = new LogEntry(nextLogEntryId++,
+                        SessionLogEntryType.SESSION_LOG.name(),
+                        ((LogAlert)alert).logMessage(),
+                        time);
+                break;
+            case DHT_LOG:
+                DhtLogAlert dhtLogAlert = (DhtLogAlert)alert;
+                msg = "[" + dhtLogAlert.module().name() + "] " + dhtLogAlert.logMessage();
+                entry = new LogEntry(nextLogEntryId++,
+                        SessionLogEntryType.DHT_LOG.name(),
+                        msg,
+                        time);
+                break;
+            case PEER_LOG:
+                PeerLogAlert peerLogAlert = (PeerLogAlert)alert;
 
-    @Nullable
-    SessionLogMsg makeLogMsg(Alert<?> alert)
-    {
-        AlertType t = alert.type();
-        if (t == AlertType.LOG && allowedLogTypes.contains(SessionLogType.SESSION_LOG)) {
-            return new SessionLogMsg(SessionLogType.SESSION_LOG, ((LogAlert)alert).logMessage());
+                msg = "[" + peerLogAlert.direction() + "] " +
+                        "[" + peerLogAlert.eventType() + "] " +
+                        peerLogAlert.logMessage();
 
-        } else if (t == AlertType.DHT_LOG && allowedLogTypes.contains(SessionLogType.DHT_LOG)) {
-            DhtLogAlert dhtLogAlert = (DhtLogAlert)alert;
-            String msg = "[" + dhtLogAlert.module().name() + "]" + dhtLogAlert.logMessage();
-            return new SessionLogMsg(SessionLogType.DHT_LOG, msg);
-
-        } else if (t == AlertType.PEER_LOG && allowedLogTypes.contains(SessionLogType.PEER_LOG)) {
-            return new SessionLogMsg(SessionLogType.PEER_LOG, ((PeerLogAlert)alert).logMessage());
-
-        } else if (t == AlertType.PORTMAP_LOG && allowedLogTypes.contains(SessionLogType.PORTMAP_LOG)) {
-            PortmapLogAlert portmapLogAlert = (PortmapLogAlert)alert;
-            String msg = "[" + portmapLogAlert.mapType().name() + "]" + portmapLogAlert.logMessage();
-            return new SessionLogMsg(SessionLogType.PORTMAP_LOG, msg);
-
-        } else if (t == AlertType.TORRENT_LOG && allowedLogTypes.contains(SessionLogType.TORRENT_LOG)) {
-            return new SessionLogMsg(SessionLogType.TORRENT_LOG, ((TorrentLogAlert)alert).logMessage());
-
-        } else {
-            return null;
+                entry = new LogEntry(nextLogEntryId++,
+                        SessionLogEntryType.PEER_LOG.name(),
+                        msg,
+                        time);
+                break;
+            case PORTMAP_LOG:
+                PortmapLogAlert portmapLogAlert = (PortmapLogAlert)alert;
+                msg = "[" + portmapLogAlert.mapType().name() + "] " + portmapLogAlert.logMessage();
+                entry = new LogEntry(nextLogEntryId++,
+                        SessionLogEntryType.PORTMAP_LOG.name(),
+                        msg,
+                        time);
+                break;
+            case TORRENT_LOG:
+                entry = new LogEntry(nextLogEntryId++,
+                        SessionLogEntryType.TORRENT_LOG.name(),
+                        ((TorrentLogAlert)alert).logMessage(),
+                        time);
+                break;
         }
+
+        if (entry != null)
+            send(entry);
+    }
+
+    void applyFilterParams(SessionFilterParams params)
+    {
+        Logger.NewFilter[] addFilters = new Logger.NewFilter[5];
+        String[] removeFilters = new String[5];
+
+        if (params.filterSessionLog)
+            addFilters[0] = SessionLogger.SessionLogFilter.SESSION.filter();
+        else
+            removeFilters[0] = SessionLogger.SessionLogFilter.SESSION.name();
+
+        if (params.filterDhtLog)
+            addFilters[1] = SessionLogger.SessionLogFilter.DHT.filter();
+        else
+            removeFilters[1] = SessionLogger.SessionLogFilter.DHT.name();
+
+        if (params.filterPeerLog)
+            addFilters[2] = SessionLogger.SessionLogFilter.PEER.filter();
+        else
+            removeFilters[2] = SessionLogger.SessionLogFilter.PEER.name();
+
+        if (params.filterPortmapLog)
+            addFilters[3] = SessionLogger.SessionLogFilter.PORTMAP.filter();
+        else
+            removeFilters[3] = SessionLogger.SessionLogFilter.PORTMAP.name();
+
+        if (params.filterTorrentLog)
+            addFilters[4] = SessionLogger.SessionLogFilter.TORRENT.filter();
+        else
+            removeFilters[4] = SessionLogger.SessionLogFilter.TORRENT.name();
+
+        removeFilter(removeFilters);
+        addFilter(addFilters);
     }
 }

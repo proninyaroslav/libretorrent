@@ -111,6 +111,7 @@ public class Utils
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
+    public static final String MIME_TEXT_PLAIN = "text/plain";
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).

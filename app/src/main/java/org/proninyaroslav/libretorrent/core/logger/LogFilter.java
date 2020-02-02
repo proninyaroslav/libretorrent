@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,33 +17,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.session;
+package org.proninyaroslav.libretorrent.core.logger;
 
-public enum SessionLogType
+public interface LogFilter
 {
-    /*
-     * Posts some session events
-     */
-    SESSION_LOG,
-
-    /*
-     * Posts DHT events
-     */
-    DHT_LOG,
-
-    /*
-     * Posts events specific to a peer
-     */
-    PEER_LOG,
-
-    /*
-     * Posts informational events related to either
-     * UPnP or NAT-PMP
-     */
-    PORTMAP_LOG,
-
-    /*
-     * Posts torrent events
-     */
-    TORRENT_LOG
+    boolean apply(LogEntry entry);
 }

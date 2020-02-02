@@ -23,12 +23,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceViewHolder;
 
 import com.takisoft.preferencex.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.ui.customviews.SwitchBar;
 
 /*
  * A preference with SwitchBar like in Android settings.
@@ -36,7 +36,7 @@ import org.proninyaroslav.libretorrent.R;
 
 public class SwitchBarPreference extends SwitchPreferenceCompat
 {
-    private SwitchCompat switchButton;
+    private SwitchBar switchButton;
 
     public SwitchBarPreference(Context context)
     {
@@ -66,7 +66,7 @@ public class SwitchBarPreference extends SwitchPreferenceCompat
     {
         super.onBindViewHolder(holder);
 
-        switchButton = (SwitchCompat)holder.findViewById(R.id.switchButton);
+        switchButton = (SwitchBar)holder.findViewById(R.id.switchButton);
 
         switchButton.setOnCheckedChangeListener(listener);
         switchButton.setChecked(isChecked());
@@ -85,7 +85,6 @@ public class SwitchBarPreference extends SwitchPreferenceCompat
                 return;
             }
 
-            switchButton.setText(isChecked ? R.string.switch_on : R.string.switch_off);
             setChecked(isChecked);
         }
     };

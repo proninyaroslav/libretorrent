@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -122,9 +121,6 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final String proxyPassword = SessionSettings.DEFAULT_PROXY_PASSWORD;
         static final boolean proxyChanged = false;
         static final boolean applyProxy = false;
-        /* Sorting settings */
-        static final String sortTorrentBy = TorrentSorting.SortingColumns.name.name();
-        static final String sortTorrentDirection = TorrentSorting.Direction.ASC.name();
         /* Scheduling settings */
         static final boolean enableSchedulingStart = false;
         static final boolean enableSchedulingShutdown = false;
@@ -144,6 +140,14 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean enableStreaming = true;
         static final String streamingHostname = "127.0.0.1";
         static final int streamingPort = 8800;
+        /* Logging settings */
+        static final boolean logging = SessionSettings.DEFAULT_LOGGING;
+        static final int maxLogSize = SessionSettings.DEFAULT_MAX_LOG_SIZE;
+        static final boolean logSessionFilter = SessionSettings.DEFAULT_LOG_SESSION_FILTER;
+        static final boolean logDhtFilter = SessionSettings.DEFAULT_LOG_DHT_FILTER;
+        static final boolean logPeerFilter = SessionSettings.DEFAULT_LOG_PEER_FILTER;
+        static final boolean logPortmapFilter = SessionSettings.DEFAULT_LOG_PORTMAP_FILTER;
+        static final boolean logTorrentFilter = SessionSettings.DEFAULT_LOG_TORRENT_FILTER;
     }
 
     private Context appContext;
@@ -210,6 +214,14 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.proxyRequiresAuth = proxyRequiresAuth();
         settings.proxyLogin = proxyLogin();
         settings.proxyPassword = proxyPassword();
+
+        settings.logging = logging();
+        settings.maxLogSize = maxLogSize();
+        settings.logSessionFilter = logSessionFilter();
+        settings.logDhtFilter = logDhtFilter();
+        settings.logPeerFilter = logPeerFilter();
+        settings.logPortmapFilter = logPortmapFilter();
+        settings.logTorrentFilter = logTorrentFilter();
 
         return settings;
     }
@@ -564,7 +576,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public boolean enableNatPmp()
     {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_natpmp),
-                Default.enableUpnp);
+                Default.enableNatPmp);
     }
 
     @Override
@@ -1307,6 +1319,111 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_streaming_port), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logging()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_enable_logging),
+                Default.logging);
+    }
+
+    @Override
+    public void logging(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_enable_logging), val)
+                .apply();
+    }
+
+    @Override
+    public int maxLogSize()
+    {
+        return pref.getInt(appContext.getString(R.string.pref_key_max_log_size),
+                Default.maxLogSize);
+    }
+
+    @Override
+    public void maxLogSize(int val)
+    {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_max_log_size), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logSessionFilter()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_log_session_filter),
+                Default.logSessionFilter);
+    }
+
+    @Override
+    public void logSessionFilter(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_log_session_filter), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logDhtFilter()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_log_dht_filter),
+                Default.logDhtFilter);
+    }
+
+    @Override
+    public void logDhtFilter(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_log_dht_filter), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logPeerFilter()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_log_peer_filter),
+                Default.logPeerFilter);
+    }
+
+    @Override
+    public void logPeerFilter(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_log_peer_filter), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logPortmapFilter()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_log_portmap_filter),
+                Default.logPortmapFilter);
+    }
+
+    @Override
+    public void logPortmapFilter(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_log_portmap_filter), val)
+                .apply();
+    }
+
+    @Override
+    public boolean logTorrentFilter()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_log_torrent_filter),
+                Default.logTorrentFilter);
+    }
+
+    @Override
+    public void logTorrentFilter(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_log_torrent_filter), val)
                 .apply();
     }
 }

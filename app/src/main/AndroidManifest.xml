@@ -239,6 +239,14 @@
             android:name=".ui.addlink.AddLinkActivity"
             android:theme="@style/AppTheme.Translucent" />
 
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.log.LogActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.log.LogSettingsActivity" />
+
         <service
             android:name=".service.TorrentService" />
 

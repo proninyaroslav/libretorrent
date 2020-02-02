@@ -358,4 +358,36 @@ public interface SettingsRepository
     int streamingPort();
 
     void streamingPort(int val);
+
+    /*
+     * Logging settings
+     */
+
+    boolean logging();
+
+    void logging(boolean val);
+
+    int maxLogSize();
+
+    void maxLogSize(int val);
+
+    boolean logSessionFilter();
+
+    void logSessionFilter(boolean val);
+
+    boolean logDhtFilter();
+
+    void logDhtFilter(boolean val);
+
+    boolean logPeerFilter();
+
+    void logPeerFilter(boolean val);
+
+    boolean logPortmapFilter();
+
+    void logPortmapFilter(boolean val);
+
+    boolean logTorrentFilter();
+
+    void logTorrentFilter(boolean val);
 }

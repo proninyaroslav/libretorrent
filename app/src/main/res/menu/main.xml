@@ -23,6 +23,9 @@
         android:icon="@drawable/ic_play_arrow_white_24dp"
         android:title="@string/resume_all" />
 
+    <item android:id="@+id/log_menu"
+        android:title="@string/log_journal" />
+
     <item android:id="@+id/settings_menu"
         android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/settings" />

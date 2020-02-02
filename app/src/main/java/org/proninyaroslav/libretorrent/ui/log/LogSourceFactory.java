@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,35 +17,27 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.session;
+package org.proninyaroslav.libretorrent.ui.log;
 
-public class SessionLogMsg
+import androidx.annotation.NonNull;
+import androidx.paging.DataSource;
+
+import org.proninyaroslav.libretorrent.core.logger.LogEntry;
+import org.proninyaroslav.libretorrent.core.logger.Logger;
+
+class LogSourceFactory extends LogDataSource.Factory<Integer, LogEntry>
 {
-    private SessionLogType type;
-    private String logMessage;
+    private Logger logger;
 
-    public SessionLogMsg(SessionLogType type, String logMessage)
+    public LogSourceFactory(@NonNull Logger logger)
     {
-        this.type = type;
-        this.logMessage = logMessage;
+        this.logger = logger;
     }
 
-    public SessionLogType getType()
-    {
-        return type;
-    }
-
-    public String getLogMessage()
-    {
-        return logMessage;
-    }
-
+    @NonNull
     @Override
-    public String toString()
+    public DataSource<Integer, LogEntry> create()
     {
-        return "SessionLogMsg{" +
-                "type=" + type +
-                ", logMessage='" + logMessage + '\'' +
-                '}';
+        return new LogDataSource(logger);
     }
 }

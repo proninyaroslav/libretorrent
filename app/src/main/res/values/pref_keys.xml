@@ -11,6 +11,15 @@
     <string name="drawer_time_is_expanded" translatable="false">drawer_time_is_expanded</string>
     <string name="drawer_time_selected_item" translatable="false">drawer_time_selected_item</string>
 
+    <!-- Logging -->
+    <string name="pref_key_enable_logging" translatable="false">pref_key_enable_logging</string>
+    <string name="pref_key_log_session_filter" translatable="false">pref_key_log_session_filter</string>
+    <string name="pref_key_log_dht_filter" translatable="false">pref_key_log_dht_filter</string>
+    <string name="pref_key_log_peer_filter" translatable="false">pref_key_log_peer_filter</string>
+    <string name="pref_key_log_portmap_filter" translatable="false">pref_key_log_portmap_filter</string>
+    <string name="pref_key_log_torrent_filter" translatable="false">pref_key_log_torrent_filter</string>
+    <string name="pref_key_max_log_size" translatable="false">pref_key_max_log_size</string>
+
     <!-- Filemanager -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
     <!-- Storage settings -->
