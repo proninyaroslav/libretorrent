@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,7 +32,6 @@ import org.proninyaroslav.libretorrent.ui.FileItem;
 public class TorrentContentFileItem extends FileItem
 {
     public FilePriority priority;
-    public TorrentContentFileTree.SelectState selectState;
     public long receivedBytes;
     public double availability;
 
@@ -41,7 +40,6 @@ public class TorrentContentFileItem extends FileItem
         super(tree.getIndex(), tree.getName(), tree.isFile(), tree.size());
 
         priority = tree.getFilePriority();
-        selectState = tree.getSelectState();
         receivedBytes = tree.getReceivedBytes();
         availability = tree.getAvailability();
     }
@@ -51,7 +49,6 @@ public class TorrentContentFileItem extends FileItem
         super(source);
 
         priority = (FilePriority)source.readSerializable();
-        selectState = (TorrentContentFileTree.SelectState)source.readSerializable();
         receivedBytes = source.readLong();
         availability = source.readDouble();
     }
@@ -68,7 +65,6 @@ public class TorrentContentFileItem extends FileItem
         super.writeToParcel(dest, flags);
 
         dest.writeSerializable(priority);
-        dest.writeSerializable(selectState);
         dest.writeLong(receivedBytes);
         dest.writeDouble(availability);
     }
@@ -96,8 +92,7 @@ public class TorrentContentFileItem extends FileItem
 
         TorrentContentFileItem item = (TorrentContentFileItem)o;
 
-        return selectState.equals(item.selectState) &&
-                priority.equals(item.priority) &&
+        return priority.equals(item.priority) &&
                 receivedBytes == item.receivedBytes &&
                 availability == item.availability;
     }

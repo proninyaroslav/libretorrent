@@ -374,7 +374,7 @@ public class TorrentContentFileTreeTest
         child[2].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
         child[4].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
 
-        assertEquals(child[0].size() + child[1].size() + child[3].size(), tree.selectedFileSize());
+        assertEquals(child[0].size() + child[1].size() + child[3].size(), tree.nonIgnoreFileSize());
     }
 
     @Test

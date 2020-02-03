@@ -40,6 +40,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentContentFileBinding;
@@ -178,16 +179,12 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
                 if (isSelected)
                     return;
 
-                if (item.isFile) {
-                    /* Check file if it clicked */
-                    binding.selected.performClick();
-                }
                 if (listener != null)
                     listener.onItemClicked(item);
             });
-            binding.selected.setOnClickListener((v) -> {
+            binding.priority.setOnClickListener((v) -> {
                 if (listener != null)
-                    listener.onItemCheckedChanged(item, binding.selected.isChecked());
+                    listener.onItemCheckedChanged(item, binding.priority.isChecked());
             });
 
             binding.name.setText(item.name);
@@ -208,11 +205,15 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             }
 
             if (isParentDir) {
-                binding.selected.setVisibility(View.GONE);
+                binding.priority.setVisibility(View.GONE);
                 binding.status.setVisibility(View.GONE);
                 binding.progress.setVisibility(View.GONE);
 
             } else {
+                binding.priority.setVisibility(View.VISIBLE);
+                binding.status.setVisibility(View.VISIBLE);
+                binding.progress.setVisibility(View.VISIBLE);
+
                 long totalBytes = item.size;
                 long receivedBytes = item.receivedBytes;
                 int progress = (receivedBytes == totalBytes ? 100 : (int)((receivedBytes * 100.0f) / totalBytes));
@@ -242,27 +243,12 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
                 else
                     availability =  String.format(Locale.getDefault(), "%.1f%%", (avail >= 1 ? 100 : avail * 100));
 
-                if (item.selectState == TorrentContentFileTree.SelectState.DISABLED) {
-                    binding.selected.setVisibility(View.GONE);
-                    binding.progress.setVisibility(View.VISIBLE);
+                binding.priority.setChecked(item.priority.getType() != FilePriority.Type.IGNORE);
+                binding.progress.setProgress(progress);
 
-                    String statusTemplate = context.getString(R.string.file_downloading_status_template);
-                    binding.status.setText(String.format(statusTemplate, priority,
-                            received, total, progress, availability));
-                    binding.progress.setProgress(progress);
-
-                } else {
-                    binding.selected.setVisibility(View.VISIBLE);
-                    binding.selected.setChecked(item.selectState ==
-                            TorrentContentFileTree.SelectState.SELECTED);
-
-                    String statusTemplate = context.getString(R.string.file_status_template);
-
-                    binding.status.setText(String.format(statusTemplate, priority, total));
-                    binding.progress.setVisibility(View.GONE);
-                }
-
-                binding.status.setVisibility(View.VISIBLE);
+                String statusTemplate = context.getString(R.string.file_downloading_status_template);
+                binding.status.setText(String.format(statusTemplate, priority,
+                        received, total, progress, availability));
             }
         }
 

@@ -59,7 +59,7 @@
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/selected"
+            android:id="@+id/priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

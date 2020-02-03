@@ -60,6 +60,8 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.MsgDetailTorrentViewModel;
 
+import java.util.Collections;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -294,7 +296,7 @@ public class DetailTorrentFilesFragment extends Fragment
 
         binding.filesSize.setText(String.format(getString(R.string.files_size),
                 Formatter.formatFileSize(activity.getApplicationContext(),
-                        viewModel.fileTree.selectedFileSize()),
+                        viewModel.fileTree.nonIgnoreFileSize()),
                 Formatter.formatFileSize(activity.getApplicationContext(),
                         viewModel.fileTree.size())));
     }
@@ -332,19 +334,17 @@ public class DetailTorrentFilesFragment extends Fragment
     {
         if (item.name.equals(BencodeFileTree.PARENT_DIR))
             viewModel.upToParentDirectory();
-
         else if (!item.isFile)
             viewModel.chooseDirectory(item.name);
-
-        else if (item.selectState.equals(TorrentContentFileTree.SelectState.DISABLED) &&
-                 item.receivedBytes == item.size)
+        else
             openFile(viewModel.getFilePath(item.name));
     }
 
     @Override
     public void onItemCheckedChanged(@NonNull TorrentContentFileItem item, boolean selected)
     {
-        viewModel.selectFile(item.name, selected);
+        viewModel.applyPriority(Collections.singletonList(item.name),
+                new FilePriority(selected ? FilePriority.Type.NORMAL : FilePriority.Type.IGNORE));
         updateFileSize();
     }
 

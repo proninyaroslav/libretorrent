@@ -251,23 +251,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return node != null && node.isFile();
     }
 
-    public void selectFile(@NonNull String name, boolean selected)
-    {
-        TorrentContentFileTree node = curDir.getChild(name);
-        if (node == null)
-            return;
-
-        if (node.getSelectState() == TorrentContentFileTree.SelectState.DISABLED)
-            return;
-
-        node.select((selected ?
-                TorrentContentFileTree.SelectState.SELECTED :
-                TorrentContentFileTree.SelectState.UNSELECTED), true);
-
-        updateChildren();
-        mutableParams.setPrioritiesChanged(true);
-    }
-
     public Uri getFilePath(@NonNull String name)
     {
         Context context = getApplication();
@@ -435,7 +418,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     {
         long storageFreeSpace = info.getStorageFreeSpace();
 
-        return storageFreeSpace == -1 || storageFreeSpace >= fileTree.selectedFileSize();
+        return storageFreeSpace == -1 || storageFreeSpace >= fileTree.nonIgnoreFileSize();
     }
 
     private void initMutableParams()
@@ -511,7 +494,6 @@ public class DetailTorrentViewModel extends AndroidViewModel
                     if (priorities != null) {
                         if (!checkFreeSpace())
                             freeSpaceError.onNext(true);
-                        disableSelectedFiles();
                         engine.prioritizeFiles(torrentId, priorities);
                     }
                 }
@@ -555,22 +537,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
             TorrentContentFileTree fileTree = res.first;
             treeLeaves = res.second;
 
-            /* Set priority for selected files */
+            /* Set priorities */
             for (int i = 0; i < files.size(); i++) {
                 BencodeFileItem f = files.get(i);
                 TorrentContentFileTree file = treeLeaves[f.getIndex()];
-                if (file != null) {
-                    FilePriority p = priorities.get(i);
-                    if (p.getType() == FilePriority.Type.IGNORE) {
-                        file.setPriority(p, false);
-                    } else {
-                        /*
-                         * Disable the ability to select the file
-                         * because it's being downloaded/download
-                         */
-                        file.setPriorityAndDisable(p, false);
-                    }
-                }
+                if (file != null)
+                    file.setPriority(priorities.get(i), false);
             }
 
             this.fileTree = fileTree;
@@ -615,22 +587,5 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private void updateChildren()
     {
         children.onNext(getChildren(curDir));
-    }
-
-    public void disableSelectedFiles()
-    {
-        if (treeLeaves == null)
-            return;
-
-        boolean changed = false;
-        for (TorrentContentFileTree file : treeLeaves) {
-            if (file != null && file.getSelectState() == TorrentContentFileTree.SelectState.SELECTED) {
-                changed = true;
-                file.select(TorrentContentFileTree.SelectState.DISABLED, true);
-            }
-        }
-
-        if (changed)
-            updateChildren();
     }
 }
