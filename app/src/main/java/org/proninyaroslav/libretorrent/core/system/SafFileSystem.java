@@ -194,7 +194,7 @@ public class SafFileSystem
         if (scheme == null)
             throw new IllegalArgumentException("Scheme of " + path + " is null");
 
-        return scheme.equals("content");
+        return scheme.equals(ContentResolver.SCHEME_CONTENT);
     }
 
     /*

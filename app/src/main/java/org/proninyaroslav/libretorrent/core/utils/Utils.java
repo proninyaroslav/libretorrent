@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -797,7 +798,7 @@ public class Utils
         if (scheme == null)
             throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
 
-        return scheme.equals("file");
+        return scheme.equals(ContentResolver.SCHEME_FILE);
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
