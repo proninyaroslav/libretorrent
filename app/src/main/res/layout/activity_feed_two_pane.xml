@@ -45,7 +45,7 @@
             android:background="?attr/divider" />
     </RelativeLayout>
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/feed_items_fragmentContainer"
         android:layout_width="0dp"
         android:layout_height="match_parent"

@@ -37,11 +37,10 @@
                 android:padding="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
-            <FrameLayout
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/detail_fragment_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </FrameLayout>
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
