@@ -45,7 +45,8 @@
                     android:id="@+id/layout_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/clipboard_button">
+                    android:layout_toLeftOf="@id/clipboard_button"
+                    android:layout_toStartOf="@id/clipboard_button">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/url"
@@ -68,7 +69,9 @@
                     android:background="?attr/transparentRoundRipple"
                     android:contentDescription="@string/clipboard"
                     android:src="@drawable/ic_content_copy_grey600_48dp"
-                    android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="8dp"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <CheckBox
@@ -102,7 +105,8 @@
                     android:inputType="text|textNoSuggestions"
                     android:enabled="@{viewModel.mutableParams.autoDownload}"
                     android:hint="@string/filter"
-                    android:text="@={viewModel.mutableParams.filter}" />
+                    android:text="@={viewModel.mutableParams.filter}"
+                    android:drawableEnd="@drawable/ic_help_grey600_24dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <net.cachapa.expandablelayout.ExpandableLayout

@@ -45,7 +45,8 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/relevance"
@@ -76,7 +77,8 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/up_down_speed"
@@ -107,7 +109,8 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/total_download_upload"

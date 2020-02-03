@@ -37,7 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -109,11 +109,12 @@ public class DetailTorrentInfoFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(DetailTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         binding.setViewModel(viewModel);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         editNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG);
 
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
@@ -152,7 +153,7 @@ public class DetailTorrentInfoFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_EDIT_NAME_DIALOG) || editNameDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_EDIT_NAME_DIALOG) || editNameDialog == null)
                         return;
                     switch (event.type) {
                         case DIALOG_SHOWN:
@@ -194,7 +195,10 @@ public class DetailTorrentInfoFragment extends Fragment
 
     private void showOpenDirErrorDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
             BaseAlertDialog openDirErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
@@ -228,7 +232,10 @@ public class DetailTorrentInfoFragment extends Fragment
 
     private void showEditNameDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG) == null) {
             editNameDialog = BaseAlertDialog.newInstance(
                     getString(R.string.edit_torrent_name),
@@ -272,15 +279,5 @@ public class DetailTorrentInfoFragment extends Fragment
                 checkNameField(s, layoutEditText);
             }
         });
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    private FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 }

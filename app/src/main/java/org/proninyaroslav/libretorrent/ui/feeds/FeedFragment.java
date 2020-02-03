@@ -40,7 +40,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -107,9 +107,10 @@ public class FeedFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(FeedViewModel.class);
-        msgViewModel = ViewModelProviders.of(activity).get(MsgFeedViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(FeedViewModel.class);
+        msgViewModel = provider.get(MsgFeedViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         adapter = new FeedChannelListAdapter(this);
         /*
@@ -185,9 +186,8 @@ public class FeedFragment extends Fragment
         binding.addChannel.setOnClickListener((v) ->
                 startActivity(new Intent(activity, AddFeedActivity.class)));
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            deleteFeedsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEEDS_DIALOG);
+        FragmentManager fm = getChildFragmentManager();
+        deleteFeedsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEEDS_DIALOG);
     }
 
     @Override
@@ -314,6 +314,9 @@ public class FeedFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_FEEDS_DIALOG) && deleteFeedsDialog != null) {
@@ -417,8 +420,11 @@ public class FeedFragment extends Fragment
 
     private void deleteFeedsDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DELETE_FEEDS_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DELETE_FEEDS_DIALOG) == null) {
             deleteFeedsDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
                     (selectionTracker.getSelection().size() > 1 ?

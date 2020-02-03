@@ -27,6 +27,8 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 
+import java.util.Arrays;
+
 public class AddTorrentParams implements Parcelable
 {
     /* File path or magnet link */
@@ -125,7 +127,7 @@ public class AddTorrentParams implements Parcelable
                 ", fromMagnet=" + fromMagnet +
                 ", sha1hash='" + sha1hash + '\'' +
                 ", name='" + name + '\'' +
-                ", filePriorities=" + filePriorities +
+                ", filePriorities=" + Arrays.toString(filePriorities) +
                 ", downloadPath=" + downloadPath +
                 ", sequentialDownload=" + sequentialDownload +
                 ", addPaused=" + addPaused +

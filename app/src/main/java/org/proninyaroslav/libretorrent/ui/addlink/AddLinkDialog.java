@@ -43,7 +43,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
@@ -168,8 +168,9 @@ public class AddLinkDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(activity).get(AddLinkViewModel.class);
-        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(AddLinkViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
     }
 
     @NonNull
@@ -179,9 +180,8 @@ public class AddLinkDialog extends DialogFragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+        FragmentManager fm = getChildFragmentManager();
+        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_link, null, false);
@@ -240,8 +240,11 @@ public class AddLinkDialog extends DialogFragment
 
     private void showClipboardDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
             clipboardDialog = ClipboardDialog.newInstance();
             clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
         }

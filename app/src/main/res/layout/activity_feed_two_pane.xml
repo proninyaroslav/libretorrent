@@ -18,7 +18,7 @@
         <include
             layout="@layout/toolbar" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             class="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
             android:id="@+id/feed_fragmentContainer"
             android:layout_width="match_parent"

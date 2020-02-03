@@ -18,7 +18,8 @@
             android:id="@+id/layout_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/clipboard_button">
+            android:layout_toLeftOf="@+id/clipboard_button"
+            android:layout_toStartOf="@+id/clipboard_button">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/link"
@@ -40,6 +41,8 @@
             android:background="?attr/transparentRoundRipple"
             android:contentDescription="@string/clipboard"
             android:src="@drawable/ic_content_copy_grey600_48dp"
-            android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}"
+            android:layout_marginStart="8dp"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </layout>

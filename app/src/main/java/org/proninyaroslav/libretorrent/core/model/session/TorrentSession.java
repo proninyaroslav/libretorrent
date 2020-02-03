@@ -83,8 +83,6 @@ public interface TorrentSession
 
     long getDhtNodes();
 
-    void setPortRange(int portFirst, int portSecond);
-
     void enableIpFilter(@NonNull Uri path);
 
     void disableIpFilter();

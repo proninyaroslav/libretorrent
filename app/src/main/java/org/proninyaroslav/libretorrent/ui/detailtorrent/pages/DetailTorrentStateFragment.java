@@ -30,8 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentStateBinding;
@@ -85,17 +84,7 @@ public class DetailTorrentStateFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(DetailTorrentViewModel.class);
         binding.setViewModel(viewModel);
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    private FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 }

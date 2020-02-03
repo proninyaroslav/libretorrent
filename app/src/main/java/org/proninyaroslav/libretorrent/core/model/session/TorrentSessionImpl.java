@@ -135,6 +135,7 @@ public class TorrentSessionImpl extends SessionManager
     private InnerListener innerListener;
     private ConcurrentLinkedQueue<TorrentEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private SessionSettings settings = new SessionSettings();
+    private ReentrantLock settingsLock = new ReentrantLock();
     private Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
     private ExecutorService loadTorrentsExec;
     private ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
@@ -193,14 +194,28 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public void setSettings(@NonNull SessionSettings settings)
     {
-        this.settings = settings;
-        applySettings(settings);
+        settingsLock.lock();
+
+        try {
+            this.settings = settings;
+            applySettings(settings);
+
+        } finally {
+            settingsLock.unlock();
+        }
     }
 
     @Override
     public SessionSettings getSettings()
     {
-        return settings;
+        settingsLock.lock();
+
+        try {
+            return new SessionSettings(settings);
+
+        } finally {
+            settingsLock.unlock();
+        }
     }
 
     @Override
@@ -561,17 +576,6 @@ public class TorrentSessionImpl extends SessionManager
     public long getDhtNodes()
     {
         return stats().dhtNodes();
-    }
-
-    @Override
-    public void setPortRange(int portFirst, int portSecond)
-    {
-        if (operationNotAllowed() || portFirst == -1 || portSecond == -1)
-            return;
-
-        settings.portRangeFirst = portFirst;
-        settings.portRangeSecond = portSecond;
-        applySettings(settings);
     }
 
     @Override

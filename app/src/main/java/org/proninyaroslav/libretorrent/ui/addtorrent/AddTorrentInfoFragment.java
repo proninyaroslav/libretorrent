@@ -36,7 +36,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
@@ -96,7 +96,7 @@ public class AddTorrentInfoFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(AddTorrentViewModel.class);
         binding.setViewModel(viewModel);
 
         binding.info.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
@@ -144,8 +144,11 @@ public class AddTorrentInfoFragment extends Fragment
 
     private void showOpenDirErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
             BaseAlertDialog openDirErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.unable_to_open_folder),

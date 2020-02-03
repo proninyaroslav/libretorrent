@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -96,7 +96,7 @@ public class ClipboardDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
     }
 
     @NonNull

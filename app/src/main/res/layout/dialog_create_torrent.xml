@@ -52,7 +52,8 @@
                         android:id="@+id/layout_file_or_dir_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/folder_chooser_button">
+                        android:layout_toLeftOf="@id/folder_chooser_button"
+                        android:layout_toStartOf="@id/folder_chooser_button">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/file_or_dir_path"
@@ -74,7 +75,9 @@
                         android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
                         android:padding="8dp"
-                        android:src="@drawable/ic_folder_grey600_24dp" />
+                        android:src="@drawable/ic_folder_grey600_24dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_toStartOf="@id/file_chooser_button" />
 
                     <ImageButton
                         android:id="@+id/file_chooser_button"
@@ -86,7 +89,9 @@
                         android:padding="8dp"
                         android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
-                        android:src="@drawable/ic_file_grey600_24dp" />
+                        android:src="@drawable/ic_file_grey600_24dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_alignParentEnd="true" />
                 </RelativeLayout>
 
                 <LinearLayout

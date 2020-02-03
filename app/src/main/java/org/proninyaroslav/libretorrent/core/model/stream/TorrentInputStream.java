@@ -177,7 +177,7 @@ public class TorrentInputStream extends InputStream
         return pieceSize - (int)(pieceEnd - pos);
     }
 
-    private void readFromCache(Piece piece, byte b[])
+    private void readFromCache(Piece piece, byte[] b)
     {
         System.arraycopy(cacheBuf, piece.readOffset, b,
                          piece.bufIndex, piece.readLength);

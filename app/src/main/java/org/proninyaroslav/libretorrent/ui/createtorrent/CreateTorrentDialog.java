@@ -43,7 +43,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -108,12 +108,12 @@ public class CreateTorrentDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(activity).get(CreateTorrentViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(CreateTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
+        FragmentManager fm = getChildFragmentManager();
+        errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
     }
 
     @Override
@@ -156,6 +156,9 @@ public class CreateTorrentDialog extends DialogFragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errReportDialog != null) {
@@ -384,8 +387,11 @@ public class CreateTorrentDialog extends DialogFragment
 
     private void openPathErrorDialog(boolean isFile)
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_ERROR_FOLDER_IS_EMPTY) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_ERROR_FOLDER_IS_EMPTY) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(isFile ? R.string.unable_to_open_file : R.string.unable_to_open_folder),
@@ -401,7 +407,10 @@ public class CreateTorrentDialog extends DialogFragment
 
     private void fileOrFolderNotFoundDialog(FileNotFoundException e)
     {
-        FragmentManager fm = getFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_FILE_OR_FOLDER_NOT_FOUND_ERROR_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
@@ -418,7 +427,10 @@ public class CreateTorrentDialog extends DialogFragment
 
     private void emptyFolderErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_OPEN_PATH_ERROR_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
@@ -437,7 +449,7 @@ public class CreateTorrentDialog extends DialogFragment
     {
         viewModel.errorReport = e;
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
             errReportDialog = ErrorReportDialog.newInstance(
                     getString(R.string.error),
@@ -450,7 +462,10 @@ public class CreateTorrentDialog extends DialogFragment
 
     private void createFileErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
             BaseAlertDialog createFileErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),

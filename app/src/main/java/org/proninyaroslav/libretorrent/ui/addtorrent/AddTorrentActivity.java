@@ -36,7 +36,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -103,11 +103,10 @@ public class AddTorrentActivity extends AppCompatActivity
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
-        viewModel = ViewModelProviders.of(this).get(AddTorrentViewModel.class);
-
+        ViewModelProvider provider = new ViewModelProvider(this);
+        viewModel = provider.get(AddTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
-
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
 
         initLayout();
         observeDecodeState();
@@ -139,7 +138,7 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null) {
+                if (event.dialogTag != null && event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null) {
                     Dialog dialog = errReportDialog.getDialog();
                     if (dialog != null) {
                         TextInputEditText editText = dialog.findViewById(R.id.comment);
@@ -153,7 +152,7 @@ public class AddTorrentActivity extends AppCompatActivity
                 finish();
                 break;
             case NEGATIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null)
+                if (event.dialogTag != null && event.dialogTag.equals(TAG_ERR_REPORT_DIALOG) && errReportDialog != null)
                     errReportDialog.dismiss();
                 finish();
                 break;

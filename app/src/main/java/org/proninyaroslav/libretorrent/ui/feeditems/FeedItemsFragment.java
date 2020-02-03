@@ -40,8 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -124,7 +123,7 @@ public class FeedItemsFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(FeedItemsViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(FeedItemsViewModel.class);
 
         /* Remove previous data if fragment changed */
         if (Utils.isTwoPane(activity))
@@ -344,16 +343,6 @@ public class FeedItemsFragment extends Fragment
         }
 
         return true;
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    public FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 
     public void onBackPressed()

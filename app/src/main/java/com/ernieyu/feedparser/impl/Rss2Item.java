@@ -6,9 +6,7 @@ import java.util.List;
 
 import com.ernieyu.feedparser.*;
 import com.ernieyu.feedparser.mediarss.MediaRss;
-import com.ernieyu.feedparser.mediarss.Content;
-import com.ernieyu.feedparser.mediarss.Hash;
-import com.ernieyu.feedparser.mediarss.PeerLink;
+
 import org.xml.sax.Attributes;
 
 /**

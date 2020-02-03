@@ -26,7 +26,7 @@ import android.text.Editable;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -58,7 +58,7 @@ public class ErrorReportActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         helper = new CrashReportDialogHelper(this, getIntent());
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);
         errDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERROR_DIALOG);
 
         if (errDialog == null) {
@@ -95,7 +95,7 @@ public class ErrorReportActivity extends AppCompatActivity
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
-        if (!event.dialogTag.equals(TAG_ERROR_DIALOG) || errDialog == null)
+        if (event.dialogTag == null || !event.dialogTag.equals(TAG_ERROR_DIALOG) || errDialog == null)
             return;
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:

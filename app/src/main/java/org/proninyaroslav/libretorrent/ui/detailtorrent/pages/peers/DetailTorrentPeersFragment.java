@@ -34,8 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -121,7 +120,7 @@ public class DetailTorrentPeersFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(DetailTorrentViewModel.class);
 
         layoutManager = new LinearLayoutManager(activity);
         binding.peerList.setLayoutManager(layoutManager);
@@ -201,15 +200,5 @@ public class DetailTorrentPeersFragment extends Fragment
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ip);
 
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    private FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 }

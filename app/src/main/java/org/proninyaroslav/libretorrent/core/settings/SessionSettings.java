@@ -110,6 +110,51 @@ public class SessionSettings
     public boolean logPortmapFilter = DEFAULT_LOG_PORTMAP_FILTER;
     public boolean logTorrentFilter = DEFAULT_LOG_TORRENT_FILTER;
 
+    public SessionSettings() {}
+
+    public SessionSettings(SessionSettings other)
+    {
+        this.cacheSize = other.cacheSize;
+        this.activeDownloads = other.activeDownloads;
+        this.activeSeeds = other.activeSeeds;
+        this.maxPeerListSize = other.maxPeerListSize;
+        this.tickInterval = other.tickInterval;
+        this.inactivityTimeout = other.inactivityTimeout;
+        this.connectionsLimit = other.connectionsLimit;
+        this.connectionsLimitPerTorrent = other.connectionsLimitPerTorrent;
+        this.uploadsLimitPerTorrent = other.uploadsLimitPerTorrent;
+        this.activeLimit = other.activeLimit;
+        this.portRangeFirst = other.portRangeFirst;
+        this.portRangeSecond = other.portRangeSecond;
+        this.downloadRateLimit = other.downloadRateLimit;
+        this.uploadRateLimit = other.uploadRateLimit;
+        this.dhtEnabled = other.dhtEnabled;
+        this.lsdEnabled = other.lsdEnabled;
+        this.utpEnabled = other.utpEnabled;
+        this.upnpEnabled = other.upnpEnabled;
+        this.natPmpEnabled = other.natPmpEnabled;
+        this.encryptInConnections = other.encryptInConnections;
+        this.encryptOutConnections = other.encryptOutConnections;
+        this.encryptMode = other.encryptMode;
+        this.autoManaged = other.autoManaged;
+        this.inetAddress = other.inetAddress;
+        this.proxyType = other.proxyType;
+        this.proxyAddress = other.proxyAddress;
+        this.proxyPort = other.proxyPort;
+        this.proxyPeersToo = other.proxyPeersToo;
+        this.proxyRequiresAuth = other.proxyRequiresAuth;
+        this.proxyLogin = other.proxyLogin;
+        this.proxyPassword = other.proxyPassword;
+        this.anonymousMode = other.anonymousMode;
+        this.logging = other.logging;
+        this.maxLogSize = other.maxLogSize;
+        this.logSessionFilter = other.logSessionFilter;
+        this.logDhtFilter = other.logDhtFilter;
+        this.logPeerFilter = other.logPeerFilter;
+        this.logPortmapFilter = other.logPortmapFilter;
+        this.logTorrentFilter = other.logTorrentFilter;
+    }
+
     public enum EncryptMode
     {
         ENABLED(0),

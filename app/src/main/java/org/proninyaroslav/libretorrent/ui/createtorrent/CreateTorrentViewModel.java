@@ -81,7 +81,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         {
             this.url = url;
         }
-    };
+    }
 
     public static class InvalidWebSeedException extends Exception
     {
@@ -91,7 +91,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         {
             this.url = url;
         }
-    };
+    }
 
     public CreateTorrentViewModel(@NonNull Application application)
     {

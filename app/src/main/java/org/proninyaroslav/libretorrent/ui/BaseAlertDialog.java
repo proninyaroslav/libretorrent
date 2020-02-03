@@ -30,7 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -79,10 +79,11 @@ public class BaseAlertDialog extends DialogFragment
 
     public static class Event
     {
+        @Nullable
         public String dialogTag;
         public EventType type;
 
-        public Event(String dialogTag, EventType type)
+        public Event(@Nullable String dialogTag, EventType type)
         {
             this.dialogTag = dialogTag;
             this.type = type;
@@ -116,7 +117,7 @@ public class BaseAlertDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
     }
 
     @NonNull

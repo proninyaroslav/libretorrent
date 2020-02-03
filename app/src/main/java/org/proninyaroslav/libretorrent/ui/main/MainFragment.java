@@ -43,7 +43,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -124,8 +124,10 @@ public class MainFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
-        msgViewModel = ViewModelProviders.of(activity).get(MsgMainViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(MainViewModel.class);
+        msgViewModel = provider.get(MsgMainViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         adapter = new TorrentListAdapter(this);
         /*
@@ -192,8 +194,6 @@ public class MainFragment extends Fragment
         adapter.setSelectionTracker(selectionTracker);
 
         initFabSpeedDial();
-
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
 
         Intent i = activity.getIntent();
         if (i != null && MainActivity.ACTION_ADD_TORRENT_SHORTCUT.equals(i.getAction())) {
@@ -299,6 +299,9 @@ public class MainFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
@@ -504,8 +507,11 @@ public class MainFragment extends Fragment
 
     private void deleteTorrentsDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DELETE_TORRENTS_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DELETE_TORRENTS_DIALOG) == null) {
             deleteTorrentsDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
                     (selectionTracker.getSelection().size() > 1 ?
@@ -541,8 +547,11 @@ public class MainFragment extends Fragment
 
     private void openFileErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_OPEN_FILE_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_OPEN_FILE_ERROR_DIALOG) == null) {
             BaseAlertDialog openFileErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.error_open_torrent_file),

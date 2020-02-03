@@ -1248,7 +1248,18 @@ public class TorrentEngine
     private void setRandomPortRange()
     {
         Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
-        session.setPortRange(range.first, range.second);
+        setPortRange(range.first, range.second);
+    }
+
+    private void setPortRange(int first, int second)
+    {
+        if (first == -1 || second == -1)
+            return;
+
+        SessionSettings settings = session.getSettings();
+        settings.portRangeFirst = first;
+        settings.portRangeSecond = second;
+        session.setSettings(settings);
     }
 
     /*
@@ -1584,14 +1595,14 @@ public class TorrentEngine
             } else {
                 int portFirst = pref.portRangeFirst();
                 int portSecond = pref.portRangeSecond();
-                session.setPortRange(portFirst, portSecond);
+                setPortRange(portFirst, portSecond);
             }
 
         } else if (key.equals(appContext.getString(R.string.pref_key_port_range_first)) ||
                    key.equals(appContext.getString(R.string.pref_key_port_range_second))) {
             int portFirst = pref.portRangeFirst();
             int portSecond = pref.portRangeSecond();
-            session.setPortRange(portFirst, portSecond);
+            setPortRange(portFirst, portSecond);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_ip_filtering))) {
             if (pref.enableIpFiltering()) {
@@ -1684,5 +1695,5 @@ public class TorrentEngine
 
         if (reschedule)
             rescheduleTorrents();
-    };
+    }
 }

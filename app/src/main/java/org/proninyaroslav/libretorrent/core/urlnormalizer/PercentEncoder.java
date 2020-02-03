@@ -67,9 +67,7 @@ final class PercentEncoder {
                 for (int j = 0; j < readBytes; j++) {
                     if (str.charAt(i) != '%') {
                         byte[] currentBuffer = new byte[j];
-                        for (int h = 0; h < j; h++) {
-                            currentBuffer[h] = buffer[h];
-                        }
+                        System.arraycopy(buffer, 0, currentBuffer, 0, j);
                         buffer = currentBuffer;
                         break;
                     }

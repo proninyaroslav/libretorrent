@@ -121,9 +121,9 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
         if (preference instanceof TimePreference) {
             dialogFragment = TimePreferenceDialogFragmentCompat.newInstance(preference.getKey());
         }
-        if (dialogFragment != null) {
+        if (dialogFragment != null && isAdded()) {
             dialogFragment.setTargetFragment(this, 0);
-            dialogFragment.show(this.getFragmentManager(), "android.support.v7.preference" +
+            dialogFragment.show(this.getParentFragmentManager(), "android.support.v7.preference" +
                     ".PreferenceFragment.DIALOG");
         } else {
             super.onDisplayPreferenceDialog(preference);

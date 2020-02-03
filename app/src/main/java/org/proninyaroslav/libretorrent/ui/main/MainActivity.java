@@ -44,7 +44,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -124,9 +124,10 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
         }
 
         infoProvider = TorrentInfoProvider.getInstance(getApplicationContext());
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        msgViewModel = ViewModelProviders.of(this).get(MsgMainViewModel.class);
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(this);
+        viewModel = provider.get(MainViewModel.class);
+        msgViewModel = provider.get(MsgMainViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         aboutDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         if (savedInstanceState != null)
@@ -274,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_ABOUT_DIALOG))
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_ABOUT_DIALOG))
                         return;
                     switch (event.type) {
                         case NEGATIVE_BUTTON_CLICKED:
@@ -445,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
                 .edit()
                 .putLong(prefKey, item.id)
                 .apply();
-    };
+    }
 
     private void cleanGarbageFragments()
     {

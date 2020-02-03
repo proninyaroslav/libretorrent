@@ -17,7 +17,7 @@
         android:showDividers="middle"
         android:divider="?attr/divider">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             class="org.proninyaroslav.libretorrent.ui.settings.SettingsFragment"
             android:id="@+id/settings_fragmentContainer"
             android:layout_width="0dp"

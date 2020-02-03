@@ -92,7 +92,7 @@ public class Response implements Closeable {
         public String put(String key, String value) {
             lowerCaseHeader.put(key == null ? key : key.toLowerCase(), value);
             return super.put(key, value);
-        };
+        }
     };
 
     /**
@@ -119,7 +119,7 @@ public class Response implements Closeable {
     private static enum GzipUsage {
         DEFAULT,
         ALWAYS,
-        NEVER;
+        NEVER
     }
 
     /**

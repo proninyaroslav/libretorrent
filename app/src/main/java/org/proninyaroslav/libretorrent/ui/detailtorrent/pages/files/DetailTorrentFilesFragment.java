@@ -41,7 +41,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.Selection;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -168,7 +168,7 @@ public class DetailTorrentFilesFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_PRIORITY_DIALOG) || priorityDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_PRIORITY_DIALOG) || priorityDialog == null)
                         return;
                     switch (event.type) {
                         case DIALOG_SHOWN:
@@ -194,10 +194,11 @@ public class DetailTorrentFilesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(DetailTorrentViewModel.class);
         binding.setViewModel(viewModel);
-        msgViewModel = ViewModelProviders.of(activity).get(MsgDetailTorrentViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        msgViewModel = provider.get(MsgDetailTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         layoutManager = new LinearLayoutManager(activity);
         binding.fileList.setLayoutManager(layoutManager);
@@ -282,7 +283,7 @@ public class DetailTorrentFilesFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         adapter.setSelectionTracker(selectionTracker);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         priorityDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_PRIORITY_DIALOG);
     }
 
@@ -408,7 +409,10 @@ public class DetailTorrentFilesFragment extends Fragment
 
     private void showPriorityDialog()
     {
-        FragmentManager fm  = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm  = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_PRIORITY_DIALOG) == null) {
             priorityDialog = BaseAlertDialog.newInstance(
                     getString(R.string.dialog_change_priority_title),
@@ -512,7 +516,7 @@ public class DetailTorrentFilesFragment extends Fragment
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "url");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, viewModel.getStreamUrl(fileIndex));
 
-        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));;
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
     private void openFile(Uri path)
@@ -526,15 +530,5 @@ public class DetailTorrentFilesFragment extends Fragment
         intent.setDataAndType(path, "*/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(intent, getString(R.string.open_using)));
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    public FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 }

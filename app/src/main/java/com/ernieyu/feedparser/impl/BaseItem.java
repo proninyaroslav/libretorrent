@@ -5,7 +5,6 @@ import org.xml.sax.Attributes;
 import com.ernieyu.feedparser.FeedUtils;
 import com.ernieyu.feedparser.Item;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

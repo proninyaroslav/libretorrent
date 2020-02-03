@@ -46,7 +46,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -132,15 +132,14 @@ public class AddFeedDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(activity).get(AddFeedViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
-        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(AddFeedViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
-            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
-        }
+        FragmentManager fm = getChildFragmentManager();
+        deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
+        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
 
         long feedId = getArguments().getLong(TAG_FEED_ID, -1);
         Uri uri = getArguments().getParcelable(TAG_URI);
@@ -304,8 +303,11 @@ public class AddFeedDialog extends DialogFragment
 
     private void showClipboardDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
             clipboardDialog = ClipboardDialog.newInstance();
             clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
         }
@@ -315,6 +317,9 @@ public class AddFeedDialog extends DialogFragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_FEED_DIALOG) && deleteFeedDialog != null) {
@@ -347,8 +352,11 @@ public class AddFeedDialog extends DialogFragment
 
     private void deleteFeedDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG) == null) {
             deleteFeedDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
                     getString(R.string.delete_selected_channel),

@@ -52,7 +52,7 @@ import androidx.core.util.Pair;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -155,12 +155,13 @@ public class DetailTorrentFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(DetailTorrentViewModel.class);
         /* Remove previous data if fragment changed */
         if (Utils.isTwoPane(activity))
             viewModel.clearData();
         viewModel.setTorrentId(torrentId);
-        msgViewModel = ViewModelProviders.of(activity).get(MsgDetailTorrentViewModel.class);
+        msgViewModel = provider.get(MsgDetailTorrentViewModel.class);
 
         if (Utils.isTwoPane(activity)) {
             binding.appbar.toolbar.inflateMenu(R.menu.detail_torrent);
@@ -177,19 +178,19 @@ public class DetailTorrentFragment extends Fragment
         }
         binding.appbar.toolbar.setNavigationOnClickListener((v) -> onBackPressed());
 
-        adapter = new DetailPagerAdapter(activity.getApplicationContext(), getSupportFragmentManager());
+        adapter = new DetailPagerAdapter(activity.getApplicationContext(), getChildFragmentManager());
         binding.fragmentViewpager.setAdapter(adapter);
         binding.fragmentViewpager.addOnPageChangeListener(viewPagerListener);
         binding.appbar.tabLayout.setupWithViewPager(binding.fragmentViewpager);
         binding.fragmentViewpager.setCurrentItem(currentFragPos);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         deleteTorrentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
         errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG);
         addTrackersDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG);
         speedLimitDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG);
 
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
     }
 
     @Override
@@ -270,6 +271,9 @@ public class DetailTorrentFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_TORRENT_DIALOG) && deleteTorrentDialog != null) {
@@ -457,7 +461,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void deleteTorrentDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG) == null) {
             deleteTorrentDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
@@ -474,7 +481,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void shareMagnetDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_MAGNET_INCLUDE_PRIOR_DIALOG) == null) {
             BaseAlertDialog shareMagnetDialog = BaseAlertDialog.newInstance(
                     getString(R.string.share_magnet),
@@ -491,7 +501,7 @@ public class DetailTorrentFragment extends Fragment
 
     private void addTrackersDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) == null) {
             addTrackersDialog = BaseAlertDialog.newInstance(
                     getString(R.string.add_trackers),
@@ -523,9 +533,12 @@ public class DetailTorrentFragment extends Fragment
 
     private void saveErrorTorrentFileDialog(Exception e)
     {
+        if (!isAdded())
+            return;
+
         viewModel.errorReport = e;
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG) == null) {
             errReportDialog = ErrorReportDialog.newInstance(
                     getString(R.string.error),
@@ -538,7 +551,10 @@ public class DetailTorrentFragment extends Fragment
 
     private void speedLimitDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) == null) {
             speedLimitDialog = BaseAlertDialog.newInstance(
                     getString(R.string.speed_limit_title),
@@ -761,16 +777,6 @@ public class DetailTorrentFragment extends Fragment
         } catch (IOException e) {
             saveErrorTorrentFileDialog(e);
         }
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    public FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 
     private void onBackPressed()

@@ -39,7 +39,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -150,9 +150,10 @@ public class DetailTorrentTrackersFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
-        msgViewModel = ViewModelProviders.of(activity).get(MsgDetailTorrentViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(DetailTorrentViewModel.class);
+        msgViewModel = provider.get(MsgDetailTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         layoutManager = new LinearLayoutManager(activity);
         binding.trackerList.setLayoutManager(layoutManager);
@@ -223,7 +224,7 @@ public class DetailTorrentTrackersFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         adapter.setSelectionTracker(selectionTracker);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         deleteTrackersDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG);
     }
 
@@ -272,7 +273,7 @@ public class DetailTorrentTrackersFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_DELETE_TRACKERS_DIALOG) || deleteTrackersDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_DELETE_TRACKERS_DIALOG) || deleteTrackersDialog == null)
                         return;
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
@@ -337,7 +338,10 @@ public class DetailTorrentTrackersFragment extends Fragment
 
     private void deleteTrackersDialog()
     {
-        FragmentManager fm = getSupportFragmentManager();
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_DELETE_TRACKERS_DIALOG) == null) {
             deleteTrackersDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
@@ -389,15 +393,5 @@ public class DetailTorrentTrackersFragment extends Fragment
 
                     startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
                 }));
-    }
-
-    /*
-     * Use only getChildFragmentManager() instead of getSupportFragmentManager(),
-     * to remove all nested fragments in two-pane interface mode
-     */
-
-    public FragmentManager getSupportFragmentManager()
-    {
-        return getChildFragmentManager();
     }
 }

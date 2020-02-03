@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -62,7 +62,7 @@ public class RequestPermissions extends AppCompatActivity
         setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);
         permDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_PERM_DIALOG);
 
         if (savedInstanceState != null)
@@ -95,7 +95,7 @@ public class RequestPermissions extends AppCompatActivity
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_PERM_DIALOG) || permDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_PERM_DIALOG) || permDialog == null)
                         return;
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
@@ -127,7 +127,7 @@ public class RequestPermissions extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults)
     {
         if (requestCode == REQUEST_EXTERNAL_STORAGE) {

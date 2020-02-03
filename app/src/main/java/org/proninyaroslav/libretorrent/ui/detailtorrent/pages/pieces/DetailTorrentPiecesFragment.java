@@ -30,7 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentPiecesBinding;
@@ -107,7 +107,7 @@ public class DetailTorrentPiecesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DetailTorrentViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(DetailTorrentViewModel.class);
         binding.setViewModel(viewModel);
     }
 

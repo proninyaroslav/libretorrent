@@ -37,7 +37,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonSyntaxException;
@@ -59,6 +59,7 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -93,9 +94,10 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(FeedViewModel.class);
-        msgViewModel = ViewModelProviders.of(this).get(MsgFeedViewModel.class);
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(this);
+        viewModel = provider.get(FeedViewModel.class);
+        msgViewModel = provider.get(MsgFeedViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         setContentView(R.layout.activity_feed);
         initLayout();
@@ -138,10 +140,13 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
+                    if (event.dialogTag == null)
+                        return;
+
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_BACKUP_FEEDS_ERROR_REPORT_DIALOG) &&
-                                    backupFeedsReportDialog!= null) {
+                                    backupFeedsReportDialog != null) {
                                 sendErrorReport(backupFeedsReportDialog.getDialog());
                                 backupFeedsReportDialog.dismiss();
 
@@ -265,7 +270,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
-        config.fileName = "Feeds-" + new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss")
+        config.fileName = "Feeds-" + new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
                 .format(new Date(System.currentTimeMillis())) +
                 "." + FeedRepositoryImpl.SERIALIZE_FILE_FORMAT;
         config.mimeType = FeedRepositoryImpl.SERIALIZE_MIME_TYPE;

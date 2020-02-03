@@ -25,16 +25,15 @@
             android:contentDescription="@string/pause_torrent"
             android:scaleType="fitXY"
             android:padding="6dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginStart="9dp" />
 
         <LinearLayout
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:orientation="vertical"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/pause">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name"
@@ -69,7 +68,8 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextCaption" />
+                    android:textAppearance="@style/TextCaption"
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/download_upload_speed"
@@ -99,7 +99,8 @@
                     android:gravity="center_vertical"
                     android:maxLines="2"
                     android:layout_weight="0.8"
-                    android:textAppearance="@style/TextCaption" />
+                    android:textAppearance="@style/TextCaption"
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/peers"
@@ -124,7 +125,8 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:textColor="?attr/colorError"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

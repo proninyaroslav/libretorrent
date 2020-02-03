@@ -73,7 +73,7 @@ public abstract class CharSequenceTranslator {
     public final void translate(final CharSequence input, final Writer out) throws IOException {
         if (out == null) {
             throw new IllegalArgumentException("The Writer must not be null");
-        };
+        }
         if (input == null) {
             return;
         }

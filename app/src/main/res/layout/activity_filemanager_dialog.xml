@@ -99,7 +99,8 @@
             app:iconTint="?attr/colorOnSecondary"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp"
-            android:focusable="true" />
+            android:focusable="true"
+            android:layout_marginStart="8dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_fab"

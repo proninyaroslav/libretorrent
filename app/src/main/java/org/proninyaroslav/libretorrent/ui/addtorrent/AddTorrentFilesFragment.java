@@ -32,7 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.proninyaroslav.libretorrent.R;
@@ -133,7 +133,7 @@ public class AddTorrentFilesFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(AddTorrentViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(AddTorrentViewModel.class);
         binding.setViewModel(viewModel);
 
         layoutManager = new LinearLayoutManager(activity);

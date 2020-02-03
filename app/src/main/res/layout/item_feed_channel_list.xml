@@ -19,7 +19,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="11dp">
 
             <TextView
                 android:id="@+id/name"
@@ -39,7 +40,8 @@
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/error"
@@ -50,7 +52,8 @@
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
                 android:textColor="?attr/colorError"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/last_update"
@@ -60,7 +63,8 @@
                 android:gravity="end"
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaption"
+                android:layout_marginEnd="8dp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

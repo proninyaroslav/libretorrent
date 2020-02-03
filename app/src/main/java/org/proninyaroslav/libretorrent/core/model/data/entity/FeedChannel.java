@@ -63,7 +63,7 @@ public class FeedChannel implements Parcelable
     }
 
     @Ignore
-    public FeedChannel(String url)
+    public FeedChannel(@NonNull String url)
     {
         this.url = url;
     }

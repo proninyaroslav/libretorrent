@@ -22,7 +22,7 @@ package org.proninyaroslav.libretorrent.ui.settings.sections;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -63,7 +63,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        dialogViewModel = ViewModelProviders.of(getActivity()).get(BaseAlertDialog.SharedViewModel.class);
+        dialogViewModel = new ViewModelProvider(getActivity()).get(BaseAlertDialog.SharedViewModel.class);
 
         pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
@@ -164,7 +164,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_CUSTOM_BATTERY_DIALOG))
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_CUSTOM_BATTERY_DIALOG))
                         return;
                     if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED)
                         disableCustomBatteryControl();
@@ -231,6 +231,9 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
     private void showCustomBatteryDialog()
     {
+        if (!isAdded())
+            return;
+
         FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_CUSTOM_BATTERY_DIALOG) == null) {
             BaseAlertDialog customBatteryDialog = BaseAlertDialog.newInstance(
