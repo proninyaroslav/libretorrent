@@ -76,8 +76,8 @@ final class PathResolver {
 
         List<String> result = new ArrayList<>();
 
-        for (int i = 0; i < parts.length; i++) {
-            switch (parts[i]) {
+        for (String part : parts) {
+            switch (part) {
                 case "":
                 case ".":
                     // Ignore
@@ -88,7 +88,7 @@ final class PathResolver {
                     }
                     break;
                 default:
-                    result.add(parts[i]);
+                    result.add(part);
                     break;
             }
         }
