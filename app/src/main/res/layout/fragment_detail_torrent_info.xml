@@ -29,7 +29,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:paddingRight="16dp"
                 android:paddingEnd="16dp">
 
@@ -58,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.mutableParams.name}"
                         android:textIsSelectable="true"
-                        style="@style/TextAppearance.MaterialComponents.Body1"/>
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
                 <ImageButton
@@ -78,7 +77,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:paddingRight="16dp"
                 android:paddingEnd="16dp">
 
