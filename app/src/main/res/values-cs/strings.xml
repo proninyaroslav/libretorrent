@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Zahrnout priority souborů?</string>
     <string name="magnet_more_about_bep53">Další informace: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Žádné sledovače</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Upravit název torrentu</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovat</string>
     <string name="text_copied_to_clipboard">Text zkopírován do schránky</string>
@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">Vybraný soubor nelze otevřít</string>
     <string name="unable_to_create_file">Soubor nelze vytvořit</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Deník</string>
+    <string name="journal_list_empty">Žádné položky</string>
+    <string name="journal_start_recording">Spustit nahrávání</string>
+    <string name="journal_stop_recording">Zastavit nahrávání</string>
+    <string name="journal_started_recording">Nahrávání spuštěno</string>
+    <string name="journal_filter_session_log">Protokol relace</string>
+    <string name="journal_filter_dht_log">Protokol DHT</string>
+    <string name="journal_filter_peer_log">Protokol Peer</string>
+    <string name="journal_filter_portmap_log">Protokol UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Protokol torrentu</string>
+    <string name="journal_save_log_failed">Nepodařilo se uložit protokol</string>
+    <string name="journal_save_log_success" formatted="false">Protokol úspěšně uložen: %1$s</string>
+    <string name="pref_journal_save_log_to">Uložit protokol do</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Maximální počet uložených položek deníku</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Vzhled</string>

@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Dosya önceliklerini dahil et?</string>
     <string name="magnet_more_about_bep53">Daha fazla bilgi: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Takipçi yok</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Torrent adını düzenle</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Metin panoya kopyalandı</string>
@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">Seçili dosya açılamadı</string>
     <string name="unable_to_create_file">Dosya oluşturulamadı</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Günlük</string>
+    <string name="journal_list_empty">Girdi yok</string>
+    <string name="journal_start_recording">Kaydetmeye başla</string>
+    <string name="journal_stop_recording">Kaydetmeyi durdur</string>
+    <string name="journal_started_recording">Kaydetme başlatıldı</string>
+    <string name="journal_filter_session_log">Oturum log kaydı</string>
+    <string name="journal_filter_dht_log">DHT log kaydı</string>
+    <string name="journal_filter_peer_log">Eş log kaydı</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log kaydı</string>
+    <string name="journal_filter_torrent_log">Torrent log kaydı</string>
+    <string name="journal_save_log_failed">Log kaydedilemedi</string>
+    <string name="journal_save_log_success" formatted="false">Log başarıyla kaydedildi: %1$s</string>
+    <string name="pref_journal_save_log_to">Log kayıt yeri</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Saklanan maksimum günlük girdisi</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Görünüm</string>

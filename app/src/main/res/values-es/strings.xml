@@ -136,7 +136,7 @@
     <string name="torrent_status_stopped">Detenido</string>
     <string name="torrent_status_checking">Comprobando</string>
     <string name="torrent_status_finished">Finalizado</string>
-    <string name="torrent_status_downloading_metadata">Descargando metadata</string>
+    <string name="torrent_status_downloading_metadata">Descargando metadatos</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
     <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los archivos torrent en la memoria. La aplicación no funcionará correctamente. ¿Estás seguro de que quieres denegar este permiso?</string>
@@ -263,8 +263,8 @@
     <string name="share_stream_url">Comparte la URL del stream</string>
     <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos?</string>
     <string name="magnet_more_about_bep53">Más información: https://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">Sin rastreadores</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="tracker_list_empty">No hay rastreadores</string>
+    <string name="edit_torrent_name">Editar nombre del torrent</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Texto copiado al portapapeles</string>
@@ -277,7 +277,7 @@
     <string name="select_or_add_feed_channel">Seleccione o añada un canal RSS/Atom</string>
     <string name="add_feed_channel">Añadir canal</string>
     <string name="feed_name">Nombre (opcional)</string>
-    <string name="feed_filter_prompt">Ingrese las palabras (separadas por \"|\"), una de las cuales debe estar en el nombre o ingresar la expresión regular. Los torrents se agregarán solo si este filtro coincide con el nombre del torrente</string>
+    <string name="feed_filter_prompt">Ingrese las palabras (separadas por \"|\"), una de las cuales debe estar en el nombre o ingresar la expresión regular. Los torrents se añadirán solo si este filtro coincide con el nombre del torrent</string>
     <string name="feed_auto_download">Descarga nuevos torrents automáticamente</string>
     <string name="feed_use_regex">Use expresión regular</string>
     <string name="backup_feed_channels">Guardar respaldo</string>
@@ -305,7 +305,7 @@
     <string name="feed_do_not_download_immediately">No descargar inmediatamente</string>
     <string name="feed_item_url_not_found">URL no encontrada</string>
     <!-- Create torrent dialog -->
-    <string name="create_torrent">Crear torrente</string>
+    <string name="create_torrent">Crear torrent</string>
     <string name="creating_torrent_progress">Creando torrent, espere por favor&#8230;</string>
     <string name="file_or_folder_for_seeding">Archivo o carpeta para sembrar</string>
     <string name="tracker_urls">URLs de rastreadores</string>
@@ -317,7 +317,7 @@
     <string name="piece_size">Tamaño de la pieza</string>
     <string name="create_torrent_options">Opciones</string>
     <string name="option_start_seeding">Comenzar a sembrar</string>
-    <string name="option_private_torrent">Torrente privado</string>
+    <string name="option_private_torrent">Torrent privado</string>
     <string name="option_optimize_alignment">Optimizar la alineación</string>
     <string-array name="piece_size_entries">
         <item>Automático</item>
@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">No se pudo abrir el archivo seleccionado</string>
     <string name="unable_to_create_file">No se pudo crear el archivo</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Diario</string>
+    <string name="journal_list_empty">No hay entradas</string>
+    <string name="journal_start_recording">Iniciar grabación</string>
+    <string name="journal_stop_recording">Detener grabación</string>
+    <string name="journal_started_recording">Grabación iniciada</string>
+    <string name="journal_filter_session_log">Registro de sesión</string>
+    <string name="journal_filter_dht_log">Registro de DHT</string>
+    <string name="journal_filter_peer_log">Registro de pares</string>
+    <string name="journal_filter_portmap_log">Registro de UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Registro de torrent</string>
+    <string name="journal_save_log_failed">Error al guardar el registro</string>
+    <string name="journal_save_log_success" formatted="false">Registro guardado correctamente: %1$s</string>
+    <string name="pref_journal_save_log_to">Guardar registro en</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Máximo de entradas almacenadas en el diario</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Apariencia</string>
@@ -381,19 +381,19 @@
     <string name="pref_dir_to_watch_title">Directorio para ver</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Velocidad</string>
-    <string name="pref_max_download_speed_title">Velocidad máxima de bajada</string>
+    <string name="pref_max_download_speed_title">Velocidad máxima de descarga</string>
     <string name="pref_max_upload_speed_title">Velocidad máxima de subida</string>
     <string name="pref_max_connections_title">Máximo número de conexiones</string>
     <string name="pref_max_connections_summary">Mínimo número de conexiones - 2</string>
     <string name="pref_torrent_queueing_category">Cola de torrents</string>
     <string name="pref_max_active_uploads_title">Máximo número de subidas activas</string>
-    <string name="pref_max_active_downloads_title">Máximo número de bajadas activas</string>
+    <string name="pref_max_active_downloads_title">Máximo número de descargas activas</string>
     <string name="pref_max_active_torrents_title">Máximo número de torrents activos</string>
-    <string name="pref_max_connections_per_torrent_title">Máximo número de conexiones por torrente</string>
+    <string name="pref_max_connections_per_torrent_title">Máximo número de conexiones por torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Mínimo número de conexiones - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Máximo número de ranuras de carga por torrente</string>
+    <string name="pref_max_uploads_per_torrent_title">Máximo número de ranuras de carga por torrent</string>
     <string name="pref_auto_manage_title">Administrar automáticamente</string>
-    <string name="pref_auto_manage_summary">El torrente puede reanudarse o pausarse automáticamente en cualquier punto. Habilitar esta opción puede ralentizar la pausa/reanudar</string>
+    <string name="pref_auto_manage_summary">El torrent puede reanudarse o pausarse automáticamente en cualquier punto. Habilitar esta opción puede ralentizar pausar/reanudar</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 sin límite</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ajustes de tema</string>
@@ -421,13 +421,13 @@
     <string name="pref_enable_roaming_summary">Descargar solo si el dispositivo no está en roaming</string>
     <string name="pref_power_management_category">Gestión de energía</string>
     <string name="pref_keep_alive_title">Trabajar en el fondo</string>
-    <string name="pref_keep_alive_summary">Si está habilitado, la aplicación seguirá ejecutándose en segundo plano. Cierre cuando todavía se respetan las descargas se respeta</string>
+    <string name="pref_keep_alive_summary">Si está habilitado, la aplicación seguirá funcionando en segundo plano. El apagado cuando se completan las descargas se respeta</string>
     <string name="pref_shutdown_downloads_complete_title">Salir al completar las descargas</string>
-    <string name="pref_shutdown_downloads_complete_summary">Si está activado, la aplicación se cerrará cuando todas las descargas hayan finalizado</string>
+    <string name="pref_shutdown_downloads_complete_summary">Si está habilitado, la aplicación se cerrará cuando se hayan completado todas las descargas</string>
     <string name="pref_cpu_do_not_sleep_title">Mantener CPU activa</string>
-    <string name="pref_cpu_do_not_sleep_summary">Activar esto incrementará el uso de batería. Usa esta opción si la velocidad de descarga se reduce cuando se apaga la pantalla</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Bajar y subir solo cuando se está cargando</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Si está activado, los torrents solo bajarán/subirán cuando se esté cargando. Todos los torrents serán pausados cuando no se esté conectado a un cargador</string>
+    <string name="pref_cpu_do_not_sleep_summary">Habilitar esto aumentará el uso de la batería. Use esta opción si la velocidad de descarga se reduce cuando se apaga la pantalla</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Descargar y subir solo cuando se está cargando</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Si está habilitado, los torrents se descargarán/subirán solo cuando se esté cargando. Todos los torrents serán pausados cuando no esté conectado a un cargador</string>
     <string name="pref_battery_control_title">Control de batería</string>
     <string name="pref_custom_battery_control_title">Porcentaje de batería personalizada</string>
     <string name="pref_custom_battery_control_value_title">Porcentaje de control de la batería</string>
@@ -484,7 +484,7 @@
     <string name="pref_proxy_password_title">Contraseña</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Hora de inicio</string>
-    <string name="pref_enable_scheduling_start_summary">Inicie la aplicación a la hora especificada. Los torrents funcionarán según su estado antes del último cierre</string>
+    <string name="pref_enable_scheduling_start_summary">Inicia la aplicación a la hora especificada. Los torrents funcionarán según su estado antes del último cierre</string>
     <string name="pref_enable_scheduling_shutdown_title">Tiempo de apagado</string>
     <string name="pref_enable_scheduling_shutdown_summary">Salir de la aplicación a la hora especificada</string>
     <string name="pref_scheduling_run_only_once_title">Corre solo una vez</string>
