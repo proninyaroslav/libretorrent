@@ -80,7 +80,7 @@ android {
     }
 }
 
-def LIBTORRENT4J_VERSION='1.2.2.0'
+def LIBTORRENT4J_VERSION='1.2.3.0'
 def ROOM_VERSION = "2.2.3"
 def ACRA_VERSION = "5.4.0"
 
