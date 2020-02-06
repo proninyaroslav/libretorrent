@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">Seçilmiş fayl açıla bilmədi</string>
     <string name="unable_to_create_file">Fayl yaradıla bilmədi</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Jurnal</string>
+    <string name="journal_list_empty">Giriş yoxdur</string>
+    <string name="journal_start_recording">Yazmağa başla</string>
+    <string name="journal_stop_recording">Yazmağı dayandır</string>
+    <string name="journal_started_recording">Yazmağa başlanıldı</string>
+    <string name="journal_filter_session_log">Seans jurnalı</string>
+    <string name="journal_filter_dht_log">DHT jurnalı</string>
+    <string name="journal_filter_peer_log">Cüt jurnalı</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP jurnalı</string>
+    <string name="journal_filter_torrent_log">Torrent jurnalı</string>
+    <string name="journal_save_log_failed">Jurnal saxlanılmadı</string>
+    <string name="journal_save_log_success" formatted="false">Jurnal uğurla saxlanıldı: %1$s</string>
+    <string name="pref_journal_save_log_to">Jurnal saxlama yeri</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Saxlanan maksimum jurnal girişi</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Görünüş</string>
