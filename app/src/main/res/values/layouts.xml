@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="activity_main" type="layout">@layout/activity_main_drawer</item>
+    <item name="activity_feed" type="layout">@layout/activity_feed_portrait</item>
+    <item name="activity_settings" type="layout">@layout/activity_settings_portrait</item>
+</resources>

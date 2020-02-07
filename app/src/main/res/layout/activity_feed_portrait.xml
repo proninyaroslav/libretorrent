@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.feeds.FeedActivity">
 
     <include
-        layout="@layout/statusbar_kitkat" />
+        layout="@layout/toolbar" />
 
-    <RelativeLayout
-        android:gravity="center"
-        android:fitsSystemWindows="true"
+    <androidx.fragment.app.FragmentContainerView
+        class="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
+        android:id="@+id/feed_fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <fragment
-            class="org.proninyaroslav.libretorrent.fragments.FeedFragment"
-            android:id="@+id/feed_fragmentContainer"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar" />
+</RelativeLayout>

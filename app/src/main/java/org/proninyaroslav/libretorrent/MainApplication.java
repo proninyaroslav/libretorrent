@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,31 +19,45 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.app.Application;
-import android.content.Context;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-import org.greenrobot.eventbus.EventBus;
+import org.acra.annotation.AcraCore;
+import org.acra.annotation.AcraDialog;
+import org.acra.annotation.AcraMailSender;
+import org.libtorrent4j.swig.libtorrent;
+import org.proninyaroslav.libretorrent.core.system.LibTorrentSafAdapter;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
+import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
-@ReportsCrashes(mailTo = "proninyaroslav@mail.ru",
-                mode = ReportingInteractionMode.DIALOG,
-                reportDialogClass = ErrorReportActivity.class)
+@AcraCore(buildConfigClass = BuildConfig.class)
+@AcraMailSender(mailTo = "proninyaroslav@mail.ru")
+@AcraDialog(reportDialogClass = ErrorReportActivity.class)
 
-public class MainApplication extends Application
+public class MainApplication extends MultiDexApplication
 {
     @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
 
+    static {
+        /* Vector Drawable support in ImageView for API < 21 */
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     @Override
-    protected void attachBaseContext(Context base)
+    public void onCreate()
     {
-        super.attachBaseContext(base);
+        super.onCreate();
 
         Utils.migrateTray2SharedPreferences(this);
         ACRA.init(this);
-        EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
+
+        LibTorrentSafAdapter adapter = new LibTorrentSafAdapter(this);
+        adapter.swigReleaseOwnership();
+        libtorrent.set_posix_wrapper(adapter);
+
+        TorrentNotifier.getInstance(this).makeNotifyChans();
     }
 }

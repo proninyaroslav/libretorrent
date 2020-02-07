@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="BaseTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
-        <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
     <style name="AppTheme.Dark" parent="BaseTheme.Dark">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Black" parent="BaseTheme.Black">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:divider">@null</item>
-        <item name="android:overlapAnchor">true</item>
+    <style name="AppTheme.Translucent" parent="BaseTheme.Translucent">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
-    <style name="Widget.MorphButton" parent="Widget.AppCompat.Button.Small">
-        <item name="vc_startDrawable">@null</item>
-        <item name="vc_endDrawable">@null</item>
-        <item name="vc_autoStartAnimation">false</item>
+    <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:background">@color/background_dialog</item>
-        <item name="background">@color/background</item>
+    <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Dialog.Dark" parent="Theme.AppCompat.Dialog">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:background">@color/background_dialog_dark</item>
-        <item name="background">@color/background_dark</item>
+    <style name="AppTheme.Settings" parent="BaseTheme.Settings">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+    </style>
+
+    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.Launcher" parent="BaseTheme.Launcher">
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 </resources>

@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="anim_duration">300</integer>
+
+    <!-- Navigation drawer -->
+    <!-- Status -->
+    <integer name="drawer_status_id">1</integer>
+    <integer name="drawer_status_all_id">0</integer>
+    <integer name="drawer_status_downloading_id">1</integer>
+    <integer name="drawer_status_downloaded_id">2</integer>
+    <integer name="drawer_status_downloading_metadata_id">3</integer>
+    <integer name="drawer_status_error">4</integer>
+    <!-- Sorting -->
+    <integer name="drawer_sorting_id">2</integer>
+    <integer name="drawer_sorting_date_added_asc_id">0</integer>
+    <integer name="drawer_sorting_date_added_desc_id">1</integer>
+    <integer name="drawer_sorting_size_asc_id">2</integer>
+    <integer name="drawer_sorting_size_desc_id">3</integer>
+    <integer name="drawer_sorting_name_asc_id">4</integer>
+    <integer name="drawer_sorting_name_desc_id">5</integer>
+    <integer name="drawer_sorting_progress_asc_id">6</integer>
+    <integer name="drawer_sorting_progress_desc_id">7</integer>
+    <integer name="drawer_sorting_ETA_asc_id">8</integer>
+    <integer name="drawer_sorting_ETA_desc_id">9</integer>
+    <integer name="drawer_sorting_peers_asc_id">10</integer>
+    <integer name="drawer_sorting_peers_desc_id">11</integer>
+    <integer name="drawer_sorting_no_sorting_id">12</integer>
+    <!-- Date added -->
+    <integer name="drawer_date_added_id">3</integer>
+    <integer name="drawer_date_added_all_id">0</integer>
+    <integer name="drawer_date_added_today_id">1</integer>
+    <integer name="drawer_date_added_yesterday_id">2</integer>
+    <integer name="drawer_date_added_week_id">3</integer>
+    <integer name="drawer_date_added_month_id">4</integer>
+    <integer name="drawer_date_added_year_id">5</integer>
 </resources>

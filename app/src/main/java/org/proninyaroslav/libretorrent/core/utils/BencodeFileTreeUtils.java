@@ -19,15 +19,17 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import org.proninyaroslav.libretorrent.core.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.filetree.BencodeFileTree;
-import org.proninyaroslav.libretorrent.core.filetree.FileNode;
-import org.proninyaroslav.libretorrent.core.filetree.FileTree;
+import androidx.core.util.Pair;
 
+import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileTree;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /*
  * The static class for create and using BencodeFileTree objects.
@@ -37,10 +39,15 @@ import java.util.Map;
 
 public class BencodeFileTreeUtils
 {
-    public static BencodeFileTree buildFileTree(List<BencodeFileItem> files)
+    /*
+     * Returns tree and its files
+     */
+
+    public static Pair<BencodeFileTree, BencodeFileTree[]> buildFileTree(List<BencodeFileItem> files)
     {
         BencodeFileTree root = new BencodeFileTree(FileTree.ROOT, 0L, FileNode.Type.DIR);
         BencodeFileTree parentTree = root;
+        BencodeFileTree[] leaves = new BencodeFileTree[files.size()];
         /* It allows reduce the number of iterations on the paths with equal beginnings */
         String prevPath = "";
         List<BencodeFileItem> filesCopy = new ArrayList<>(files);
@@ -78,7 +85,7 @@ public class BencodeFileTreeUtils
                 parentTree = root;
             }
 
-            String[] nodes = FileIOUtils.parsePath(path);
+            String[] nodes = path.split(File.separator);
             /*
              * Remove last node (file) from previous path.
              * Example:
@@ -92,9 +99,11 @@ public class BencodeFileTreeUtils
             for (int i = 0; i < nodes.length; i++) {
                 if (!parentTree.contains(nodes[i])) {
                     /* The last leaf item is a file */
-                    parentTree.addChild(makeObject(file.getIndex(), nodes[i],
-                                                   file.getSize(), parentTree,
-                                                   i == (nodes.length - 1)));
+                    BencodeFileTree leaf = makeObject(file.getIndex(), nodes[i],
+                                                    file.getSize(), parentTree,
+                                                    i == (nodes.length - 1));
+                    leaves[file.getIndex()] = leaf;
+                    parentTree.addChild(leaf);
                 }
 
                 BencodeFileTree nextParent = parentTree.getChild(nodes[i]);
@@ -104,7 +113,7 @@ public class BencodeFileTreeUtils
             }
         }
 
-        return root;
+        return Pair.create(root, leaves);
     }
 
     private static BencodeFileTree makeObject(int index, String name,
@@ -114,15 +123,5 @@ public class BencodeFileTreeUtils
         return (isFile ?
                 new BencodeFileTree(index, name, size, FileNode.Type.FILE, parent) :
                 new BencodeFileTree(name, 0L, FileNode.Type.DIR, parent));
-    }
-
-    public static List<BencodeFileTree> getFiles(BencodeFileTree node)
-    {
-        return new FileTreeDepthFirstSearch<BencodeFileTree>().getLeaves(node);
-    }
-
-    public static Map<Integer, BencodeFileTree> getFilesAsMap(BencodeFileTree node)
-    {
-        return new FileTreeDepthFirstSearch<BencodeFileTree>().getLeavesAsMap(node);
     }
 }

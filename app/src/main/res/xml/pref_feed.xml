@@ -7,7 +7,8 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_feed_auto_refresh"
             android:title="@string/pref_feed_auto_refresh_title"
-            android:summary="@string/pref_feed_auto_refresh_summary" />
+            android:summary="@string/pref_feed_auto_refresh_summary"
+            android:persistent="false" />
 
         <ListPreference
             android:key="@string/pref_key_feed_refresh_interval"
@@ -18,9 +19,17 @@
             android:persistent="false" />
 
         <SwitchPreferenceCompat
-            android:key="@string/pref_key_feed_auto_refresh_wifi_only"
-            android:title="@string/pref_feed_auto_refresh_wifi_only_title"
-            android:dependency="@string/pref_key_feed_auto_refresh" />
+            android:key="@string/pref_key_feed_auto_refresh_unmetered_connections_only"
+            android:title="@string/pref_feed_auto_refresh_unmetered_connections_only_title"
+            android:summary="@string/pref_feed_auto_refresh_unmetered_connections_only_summary"
+            android:dependency="@string/pref_key_feed_auto_refresh"
+            android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_feed_auto_refresh_enable_roaming"
+            android:title="@string/pref_feed_auto_refresh_enable_roaming_title"
+            android:dependency="@string/pref_key_feed_auto_refresh"
+            android:persistent="false" />
     </PreferenceCategory>
 
     <ListPreference
@@ -33,5 +42,12 @@
     <SwitchPreferenceCompat
         android:key="@string/pref_key_feed_start_torrents"
         android:title="@string/pref_feed_start_torrents_title"
-        android:summary="@string/pref_feed_start_torrents_summary" />
+        android:summary="@string/pref_feed_start_torrents_summary"
+        android:persistent="false" />
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_feed_remove_duplicates"
+        android:title="@string/pref_feed_remove_duplicates_title"
+        android:summary="@string/pref_feed_remove_duplicates_summary"
+        android:persistent="false" />
 </PreferenceScreen>

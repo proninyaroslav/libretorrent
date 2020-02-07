@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
-import org.proninyaroslav.libretorrent.adapters.TorrentListItem;
+import org.proninyaroslav.libretorrent.ui.main.TorrentListItem;
 
 import java.util.Comparator;
 
@@ -30,6 +30,11 @@ public class TorrentSortingComparator implements Comparator<TorrentListItem>
     public TorrentSortingComparator(TorrentSorting sorting)
     {
         this.sorting = sorting;
+    }
+
+    public TorrentSorting getSorting()
+    {
+        return sorting;
     }
 
     @Override

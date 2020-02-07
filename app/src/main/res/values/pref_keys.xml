@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main activity local preferences -->
+    <!-- Status -->
+    <string name="drawer_status_is_expanded" translatable="false">drawer_status_is_expanded</string>
+    <string name="drawer_status_selected_item" translatable="false">drawer_status_selected_item</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting_is_expanded" translatable="false">drawer_sorting_is_expanded</string>
+    <string name="drawer_sorting_selected_item" translatable="false">drawer_sorting_selected_item</string>
+    <!-- Time -->
+    <string name="drawer_time_is_expanded" translatable="false">drawer_time_is_expanded</string>
+    <string name="drawer_time_selected_item" translatable="false">drawer_time_selected_item</string>
+
+    <!-- Logging -->
+    <string name="pref_key_enable_logging" translatable="false">pref_key_enable_logging</string>
+    <string name="pref_key_log_session_filter" translatable="false">pref_key_log_session_filter</string>
+    <string name="pref_key_log_dht_filter" translatable="false">pref_key_log_dht_filter</string>
+    <string name="pref_key_log_peer_filter" translatable="false">pref_key_log_peer_filter</string>
+    <string name="pref_key_log_portmap_filter" translatable="false">pref_key_log_portmap_filter</string>
+    <string name="pref_key_log_torrent_filter" translatable="false">pref_key_log_torrent_filter</string>
+    <string name="pref_key_max_log_size" translatable="false">pref_key_max_log_size</string>
+
     <!-- Filemanager -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
-    <!-- Sorting -->
-    <string name="pref_key_sort_torrent_by" translatable="false">pref_key_sort_torrent_by</string>
-    <string name="pref_key_sort_torrent_direction" translatable="false">pref_key_sort_torrent_direction</string>
     <!-- Storage settings -->
     <string name="pref_key_save_torrents_in" translatable="false">pref_key_save_torrents_in</string>
     <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
@@ -39,8 +56,8 @@
     <string name="pref_key_battery_control" translatable="false">pref_key_battery_control</string>
     <string name="pref_key_custom_battery_control" translatable="false">pref_key_custom_battery_control</string>
     <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value</string>
-    <string name="pref_key_wifi_only" translatable="false">pref_key_wifi_only</string>
-    <string name="pref_key_foreground_notify_func_button" translatable="false">pref_key_foreground_notify_func_button</string>
+    <string name="pref_key_unmetered_connections_only" translatable="false">pref_key_wifi_only</string>
+    <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <!-- Network settings -->
     <string name="pref_key_enable_dht" translatable="false">pref_key_enable_dht</string>
     <string name="pref_key_enable_lsd" translatable="false">pref_key_enable_lsd</string>
@@ -48,7 +65,8 @@
     <string name="pref_key_enable_upnp" translatable="false">pref_key_enable_upnp</string>
     <string name="pref_key_enable_natpmp" translatable="false">pref_key_enable_natpmp</string>
     <string name="pref_key_use_random_port" translatable="false">pref_use_key_random_port</string>
-    <string name="pref_key_port" translatable="false">pref_key_port</string>
+    <string name="pref_key_port_range_first" translatable="false">pref_key_port_range_first</string>
+    <string name="pref_key_port_range_second" translatable="false">pref_key_port_range_second</string>
     <string name="pref_key_enc_mode" translatable="false">pref_key_enc_mode</string>
     <string name="pref_key_enc_in_connections" translatable="false">pref_key_enc_in_connections</string>
     <string name="pref_key_enc_out_connections" translatable="false">pref_key_enc_out_connections</string>
@@ -56,6 +74,7 @@
     <string name="pref_key_ip_filtering_file" translatable="false">pref_key_ip_filtering_file</string>
     <string name="pref_key_proxy_settings" translatable="false">pref_key_proxy_settings</string>
     <string name="pref_key_show_nat_errors" translatable="false">pref_key_show_nat_errors</string>
+    <string name="pref_key_anonymous_mode" translatable="false">pref_key_anonymous_mode</string>
     <!-- Proxy settings -->
     <string name="pref_key_proxy_type" translatable="false">pref_key_proxy_type</string>
     <string name="pref_key_proxy_address" translatable="false">pref_key_proxy_address</string>
@@ -76,9 +95,11 @@
     <!-- Feed settings -->
     <string name="pref_key_feed_auto_refresh" translatable="false">pref_key_feed_auto_refresh</string>
     <string name="pref_key_feed_refresh_interval" translatable="false">pref_key_feed_refresh_interval</string>
-    <string name="pref_key_feed_auto_refresh_wifi_only" translatable="false">pref_key_feed_auto_refresh_wifi_only</string>
+    <string name="pref_key_feed_auto_refresh_unmetered_connections_only" translatable="false">pref_key_feed_auto_refresh_wifi_only</string>
+    <string name="pref_key_feed_auto_refresh_enable_roaming" translatable="false">pref_key_feed_auto_refresh_enable_roaming</string>
     <string name="pref_key_feed_keep_items_time" translatable="false">pref_key_feed_keep_items_time</string>
     <string name="pref_key_feed_start_torrents" translatable="false">pref_key_feed_start_torrents</string>
+    <string name="pref_key_feed_remove_duplicates" translatable="false">pref_key_feed_remove_duplicates</string>
     <!-- Streaming settings -->
     <string name="pref_key_streaming_enable" translatable="false">pref_key_streaming_enable</string>
     <string name="pref_key_streaming_hostname" translatable="false">pref_key_streaming_hostname</string>

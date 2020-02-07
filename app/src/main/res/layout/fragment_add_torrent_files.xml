@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/background">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/files_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_alignParentTop="true"
-        android:textAppearance="?attr/smallText" />
+    <data>
+        <import type="android.view.View"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/file_list"
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_below="@id/files_size" />
-</RelativeLayout>
+        android:background="?attr/background">
+
+        <LinearLayout
+            android:id="@+id/status_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}" >
+
+            <TextView
+                android:id="@+id/free_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextCaption"
+                app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
+                app:formatFileSize="@{@string/free_space}" />
+
+            <TextView
+                android:id="@+id/files_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextCaption" />
+        </LinearLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/init_progress"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.info.fileCount == 0 ? View.VISIBLE : View.GONE}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/file_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_below="@id/status_string"
+            android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}" />
+    </RelativeLayout>
+</layout>

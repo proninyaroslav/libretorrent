@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:baselineAligned="false"
+    tools:context=".ui.feeds.FeedActivity">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="2">
+
+        <include
+            layout="@layout/toolbar" />
+
+        <androidx.fragment.app.FragmentContainerView
+            class="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
+            android:id="@+id/feed_fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <!-- Fake divider -->
+        <View
+            android:id="@+id/toolbar_divider"
+            android:layout_width="1dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/toolbarColor" />
+
+        <View
+            android:id="@+id/content_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_divider"
+            android:background="?attr/divider" />
+    </RelativeLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/feed_items_fragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4" />
+</LinearLayout>

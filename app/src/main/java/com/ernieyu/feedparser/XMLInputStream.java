@@ -34,7 +34,7 @@ public class XMLInputStream extends FilterInputStream {
             pushBack.append(s);
             return s.length();
         } catch (IOException ex) {
-            /* Ignore */;
+            /* Ignore */
         }
         return 0;
     }

@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string-array name="sort_direction_values" translatable="false">
-        <item>asc</item>
-        <item>desc</item>
-    </string-array>
 
     <!-- Main window -->
-    <string-array name="sort_torrent_values" translatable="false">
-        <item>none</item>
-        <item>name</item>
-        <item>dateAdded</item>
-        <item>size</item>
-        <item>progress</item>
-        <item>ETA</item>
-        <item>peers</item>
-    </string-array>
 
     <!-- Appearance settings -->
     <string name="pref_theme_light_value" translatable="false">0</string>
@@ -25,12 +12,6 @@
         <item>@string/pref_theme_light_value</item>
         <item>@string/pref_theme_dark_value</item>
         <item>@string/pref_theme_black_value</item>
-    </string-array>
-    <string name="pref_function_button_pause_value" translatable="false">0</string>
-    <string name="pref_function_button_add_value" translatable="false">1</string>
-    <string-array name="pref_function_button_entries_value" translatable="false">
-        <item>@string/pref_function_button_pause_value</item>
-        <item>@string/pref_function_button_add_value</item>
     </string-array>
     <!-- Behavior settings -->
     <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
@@ -54,7 +35,6 @@
     </string-array>
     <!-- Feed settings -->
     <string-array name="pref_feed_refresh_intervals_values" translatable="false">
-        <item>300000</item>
         <item>900000</item>
         <item>1800000</item>
         <item>3600000</item>

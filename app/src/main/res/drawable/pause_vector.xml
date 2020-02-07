@@ -11,9 +11,9 @@
 
     <path
         android:name="v"
-        android:fillColor="#FFFFFF"
+        android:fillColor="?attr/colorOnSecondary"
         android:pathData="@string/path_pause"
 
-        app:vc_fillColor="#FFFFFF"
+        app:vc_fillColor="?attr/colorOnSecondary"
         app:vc_pathData="@string/path_pause"/>
 </vector>

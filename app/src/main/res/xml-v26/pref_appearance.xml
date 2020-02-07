@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_theme_category">
+
+        <ListPreference
+            android:key="@string/pref_key_theme"
+            android:title="@string/pref_theme_title"
+            android:entries="@array/pref_theme_entries"
+            android:entryValues="@array/pref_theme_entries_value"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_notification_category">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_torrent_finish_notify"
+            android:title="@string/pref_torrent_finish_notify_title"
+            android:summary="@string/pref_torrent_finish_notify_summary"
+            android:persistent="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

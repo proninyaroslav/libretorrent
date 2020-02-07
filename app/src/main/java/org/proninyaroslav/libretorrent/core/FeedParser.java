@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,15 +20,22 @@
 package org.proninyaroslav.libretorrent.core;
 
 import android.content.Context;
+import android.text.TextUtils;
 
-import com.ernieyu.feedparser.Element;
+import androidx.annotation.NonNull;
+
 import com.ernieyu.feedparser.Enclosure;
+import com.ernieyu.feedparser.EzRssTorrentItem;
 import com.ernieyu.feedparser.Feed;
 import com.ernieyu.feedparser.FeedParserFactory;
 import com.ernieyu.feedparser.Item;
+import com.ernieyu.feedparser.mediarss.Content;
+import com.ernieyu.feedparser.mediarss.Hash;
+import com.ernieyu.feedparser.mediarss.MediaRss;
 
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.xml.sax.Attributes;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -49,15 +56,15 @@ import java.util.List;
 
 public class FeedParser
 {
-    private String feedUrl;
+    private FeedChannel feedChannel;
     private Feed feed;
 
-    public FeedParser(Context context, String feedUrl) throws Exception
+    public FeedParser(@NonNull Context context, @NonNull FeedChannel feedChannel) throws Exception
     {
-        this.feedUrl = feedUrl;
+        this.feedChannel = feedChannel;
         ByteArrayInputStream bsStream = null;
         try {
-            byte[] response = Utils.fetchHttpUrl(context, feedUrl);
+            byte[] response = Utils.fetchHttpUrl(context, feedChannel.url);
             if (response == null)
                 return;
             bsStream = new ByteArrayInputStream(response);
@@ -82,32 +89,53 @@ public class FeedParser
     public List<FeedItem> getItems()
     {
         List<FeedItem> items = new ArrayList<>();
-        if (feedUrl == null || feed == null)
+        if (feed == null)
             return items;
 
         for (Item item : feed.getItemList()) {
-            String articleUrl = item.getLink();
-            String downloadUrl = articleUrl;
+            List<String> links = item.getLinks();
+            String articleUrl = getFirstNotNullLink(links);
+            String downloadUrl = watchDownloadableLink(links);
 
             /* Find url with torrent/magnet */
-            if (!isMagnetOrTorrent(downloadUrl)) {
-                String found = findDownloadUrl(item);
-                if (found != null)
-                    /* Or article url if there are no other options */
-                    downloadUrl = found;
-            }
+            if (downloadUrl == null)
+                downloadUrl = findDownloadUrl(item);
 
             Date pubDate = item.getPubDate();
             long pubDateTime = 0;
             if (pubDate != null)
                 pubDateTime = pubDate.getTime();
 
-            FeedItem feedItem = new FeedItem(feedUrl, downloadUrl, articleUrl, item.getTitle(), pubDateTime);
-            feedItem.setFetchDate(System.currentTimeMillis());
+            FeedItem feedItem = new FeedItem(feedChannel.id, downloadUrl,
+                    articleUrl, item.getTitle(), pubDateTime);
+            feedItem.fetchDate = System.currentTimeMillis();
             items.add(feedItem);
         }
 
         return items;
+    }
+
+    private String getFirstNotNullLink(List<String> links)
+    {
+        for (String link : links) {
+            if (!TextUtils.isEmpty(link))
+                return link;
+        }
+
+        return null;
+    }
+
+    private String watchDownloadableLink(List<String> links)
+    {
+        for (String link : links) {
+            if (link == null)
+                continue;
+
+            if (isMagnetOrTorrent(link))
+                return link;
+        }
+
+        return null;
     }
 
     private String findDownloadUrl(Item item)
@@ -120,6 +148,10 @@ public class FeedParser
         if (enclosureUrl != null)
             return enclosureUrl;
 
+        String infoHash = watchTorrentInfoHash(item);
+        if (infoHash != null)
+            return infoHash;
+
         String mediaContentUrl = watchMediaContent(item);
         if (mediaContentUrl != null)
             return mediaContentUrl;
@@ -127,14 +159,6 @@ public class FeedParser
         String guid = watchGuid(item);
         if (guid != null)
             return guid;
-
-        String mediaHash = watchMediaHash(item);
-        if (mediaHash != null)
-            return mediaHash;
-
-        String infoHash = watchTorrentInfoHash(item);
-        if (infoHash != null)
-            return infoHash;
 
         return null;
     }
@@ -146,15 +170,15 @@ public class FeedParser
 
     private String watchEnclosure(Item item)
     {
-        Enclosure enclosure = item.getEnclosure();
-        String url;
-        if (enclosure == null)
-            return null;
-        url = enclosure.getUrl();
+        for (Enclosure enclosure : item.getEnclosures()) {
+            if (enclosure == null)
+                continue;
 
-        String type = enclosure.getType();
-        if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
-            return url;
+            String url = enclosure.getUrl();
+            String type = enclosure.getType();
+            if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
+                return url;
+        }
 
         return null;
     }
@@ -166,19 +190,24 @@ public class FeedParser
 
     private String watchMediaContent(Item item)
     {
-        Element mediaContent = item.getElement("content");
-        if (mediaContent == null)
+        MediaRss media = item.getMediaRss();
+        if (media == null)
             return null;
 
-        Attributes attr = mediaContent.getAttributes();
-        String url = attr.getValue("url");
-        if (url == null)
-            return null;
-        String type = attr.getValue("type");
-        if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
-            return url;
+        List<Content> contentList = media.getContent();
+        for (Content content : contentList) {
+            if (content == null)
+                continue;
 
-        return null;
+            String url = content.getUrl();
+            if (url == null)
+                return watchMediaHash(media);
+            String type = content.getType();
+            if (isMagnetOrTorrent(url) || (type != null && type.equals(Utils.MIME_TORRENT)))
+                return url;
+        }
+
+        return watchMediaHash(media);
     }
 
     /*
@@ -186,19 +215,18 @@ public class FeedParser
      * <media:hash algo="sha1">8c056e06fbc16d2a2be79cefbf3e4ddc15396abe</media:hash>
      */
 
-    private String watchMediaHash(Item item)
+    private String watchMediaHash(MediaRss media)
     {
-        Element mediaHash = item.getElement("hash");
-        if (mediaHash == null)
-            return null;
-
-        Attributes attr = mediaHash.getAttributes();
-        String hash = mediaHash.getContent();
+        Hash hash = media.getHash();
         if (hash == null)
             return null;
-        String algo = attr.getValue("algo");
-        if (Utils.isHash(hash) && algo != null && algo.equalsIgnoreCase("sha1"))
-            return Utils.normalizeMagnetHash(hash);
+
+        String hashStr = hash.getValue();
+        if (hashStr == null)
+            return null;
+        String algo = hash.getAlgorithm();
+        if (Utils.isHash(hashStr) && algo != null && algo.equalsIgnoreCase("sha1"))
+            return Utils.normalizeMagnetHash(hashStr);
 
         return null;
     }
@@ -210,13 +238,11 @@ public class FeedParser
 
     private String watchTorrentInfoHash(Item item)
     {
-        Element infoHash = item.getElement("infoHash");
-        if (infoHash == null)
-            return null;
+        EzRssTorrentItem torrentItem = item.getEzRssTorrentItem();
 
-        String hash = infoHash.getContent();
-        if (hash != null && Utils.isHash(hash))
-            return Utils.normalizeMagnetHash(hash);
+        String infoHash = torrentItem.getInfoHash();
+        if (infoHash != null && Utils.isHash(infoHash))
+            return Utils.normalizeMagnetHash(infoHash);
 
         return null;
     }
@@ -228,11 +254,7 @@ public class FeedParser
 
     private String watchGuid(Item item)
     {
-        Element guid = item.getElement("guid");
-        if (guid == null)
-            return null;
-
-        String url = guid.getContent();
+        String url = item.getGuid();
         if (url != null && isMagnetOrTorrent(url))
             return url;
 

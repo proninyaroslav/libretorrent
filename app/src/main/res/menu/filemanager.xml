@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/filemanager_home_menu"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_home_white_24dp"
         android:title="@string/home_directory" />
 
     <item android:id="@+id/filemanager_ok_menu"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_done_white_24dp"
         android:title="@string/ok" />
 </menu>

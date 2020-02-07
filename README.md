@@ -59,16 +59,21 @@ Current languages:
  - Lithuanian *(thanks techwebpd)*
  - Chinese *(thanks yanglw, Xu Eric and Tan Yongle)*
  - Polish *(thanks Azaradel)*
- - Spanish *(thanks ed10vi)*
+ - Spanish *(thanks ed10vi, MS-PC)*
  - Brazilian Portuguese *(thanks Wolfterro)*
- - French *(thanks Valentin Orient)*
- - Greek *(thanks Spyros3000)*
- - Czech *(thanks HarryPhoon)*
+ - French *(thanks Valentin Orient, boby23)*
+ - Greek *(thanks Spyros3000, skyhirules)*
+ - Czech *(thanks HarryPhoon, novas78)*
  - Norwegian Bokmål *(thanks comradekingu)*
- - Romanian *(thanks georgenetu)*
+ - Romanian *(thanks georgenetu, Silviu200530)*
  - Hindi *(thanks Lino Joseph)*
  - Malayalam *(thanks Lino Joseph)*
  - Tamil *(thanks Lino Joseph)*
+ - Japanese *(thanks mamarama9904)*
+ - Turkish *(thanks oersen)*
+ - Azerbaijani *(thanks Khan27)*
+ - Serbian (Cyrillic) *(thanks veles330)*
+ - Hungarian *(thanks Ephyx)*
 
 Contributors
 ---

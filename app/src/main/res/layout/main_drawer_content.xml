@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/filters_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="@string/filters" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/drawer_items_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:focusable="true" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="?attr/divider" />
+
+        <TextView
+            android:id="@+id/stats_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="@string/stats" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/listen_port_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ethernet_grey600_24dp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/session_listen_port_stat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/listen_port_icon"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_toEndOf="@id/listen_port_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/dht_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_wan_grey600_24dp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/session_dht_nodes_stat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/dht_icon"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_toEndOf="@id/dht_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/download_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_download_grey600_24dp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/session_download_stat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/download_icon"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_toEndOf="@id/download_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/upload_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_upload_grey600_24dp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/session_upload_stat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/upload_icon"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_toEndOf="@id/upload_icon" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

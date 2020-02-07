@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.proninyaroslav.libretorrent"
     android:installLocation="auto">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -34,21 +33,28 @@
         android:fullBackupContent="true"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.main.MainActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
         </activity>
 
         <activity
             android:label="@string/app_name"
-            android:name=".AddTorrentActivity"
-            android:windowSoftInputMode="stateHidden">
+            android:exported="true"
+            android:name=".ui.addtorrent.AddTorrentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -121,13 +127,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".dialogs.filemanager.FileManagerDialog" />
+        <activity android:name=".ui.filemanager.FileManagerDialog" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".DetailTorrentActivity" />
+            android:name=".ui.detailtorrent.DetailTorrentActivity" />
 
-        <activity android:name=".SendTextToClipboard"
+        <activity android:name=".ui.SendTextToClipboard"
             android:label="@string/send_text_to_clipboard"
             android:icon="@drawable/ic_content_copy_grey600_48dp"
             android:theme="@android:style/Theme.NoDisplay">
@@ -141,10 +147,10 @@
         </activity>
 
         <activity
-            android:name=".RequestPermissions"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:name=".ui.RequestPermissions"
+            android:theme="@style/AppTheme.Translucent" />
 
-        <activity android:name=".settings.SettingsActivity"
+        <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -153,28 +159,39 @@
         </activity>
 
         <activity
-            android:name=".settings.PreferenceActivity" />
+            android:name=".ui.settings.PreferenceActivity" />
 
-        <activity
-            android:name="org.proninyaroslav.libretorrent.ErrorReportActivity"
-            android:theme="@style/AppTheme"
-            android:process=":error_report"
-            android:launchMode="singleInstance"
+        <activity android:name=".ui.errorreport.ErrorReportActivity"
+            android:theme="@style/AppTheme.Translucent"
+            android:process=":acra"
             android:excludeFromRecents="true"
-            android:finishOnTaskLaunch="true" />
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedActivity">
+            android:name=".ui.feeds.FeedActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.feeditems.FeedItemsActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.addfeed.AddFeedActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.Translucent">
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="http"  android:host="*" android:mimeType="*/*" />
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\.rss" />
@@ -183,6 +200,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="http" android:host="*" />
                 <data android:mimeType="text/xml" />
                 <data android:mimeType="application/rss+xml" />
@@ -193,6 +211,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="https" android:host="*" android:mimeType="*/*" />
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\.rss" />
@@ -201,6 +220,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
                 <data android:scheme="https" android:host="*" />
                 <data android:mimeType="text/xml" />
                 <data android:mimeType="application/rss+xml" />
@@ -211,26 +231,27 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".FeedItemsActivity" />
+            android:name=".ui.createtorrent.CreateTorrentActivity"
+            android:theme="@style/AppTheme.Translucent" />
 
         <activity
             android:label="@string/app_name"
-            android:name=".CreateTorrentActivity" />
+            android:name=".ui.addlink.AddLinkActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.log.LogActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.log.LogSettingsActivity" />
 
         <service
-            android:name=".services.TorrentTaskService"
-            android:stopWithTask="false" />
-
-        <service
-            android:name=".services.FeedFetcherService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <service
-            android:name=".services.FeedDownloaderService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:name=".service.TorrentService" />
 
         <receiver
-            android:name=".receivers.NotificationReceiver"
+            android:name=".receiver.NotificationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.proninyaroslav.libretorrent.receivers.NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP" />
@@ -239,7 +260,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.BootReceiver">
+            android:name=".receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -248,7 +269,7 @@
         </receiver>
 
         <receiver
-            android:name=".receivers.SchedulerReceiver" />
+            android:name=".receiver.SchedulerReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

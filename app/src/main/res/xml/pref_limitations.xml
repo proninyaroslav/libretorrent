@@ -41,7 +41,8 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_auto_manage"
             android:title="@string/pref_auto_manage_title"
-            android:summary="@string/pref_auto_manage_summary" />
+            android:summary="@string/pref_auto_manage_summary"
+            android:persistent="false" />
 
         <EditTextPreference
             android:key="@string/pref_key_max_active_downloads"

@@ -12,7 +12,8 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_watch_dir"
             android:title="@string/pref_watch_dir_title"
-            android:summary="@string/pref_watch_dir_summary" />
+            android:summary="@string/pref_watch_dir_summary"
+            android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_dir_to_watch"
@@ -26,7 +27,8 @@
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_move_after_download"
-            android:title="@string/pref_move_after_download_title" />
+            android:title="@string/pref_move_after_download_title"
+            android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_move_after_download_in"
@@ -41,7 +43,8 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_save_torrent_files"
             android:title="@string/pref_save_torrent_files_title"
-            android:summary="@string/pref_save_torrent_files_summary" />
+            android:summary="@string/pref_save_torrent_files_summary"
+            android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_save_torrent_files_in"

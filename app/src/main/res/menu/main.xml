@@ -13,13 +13,22 @@
         android:icon="@drawable/ic_rss_feed_white_24dp"
         android:title="@string/feed" />
 
+    <item android:id="@+id/pause_all_menu"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_pause_white_24dp"
+        android:title="@string/pause_all" />
+
+    <item android:id="@+id/resume_all_menu"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_play_arrow_white_24dp"
+        android:title="@string/resume_all" />
+
+    <item android:id="@+id/log_menu"
+        android:title="@string/log_journal" />
+
     <item android:id="@+id/settings_menu"
         android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/settings" />
-
-    <item android:id="@+id/sort_torrent_menu"
-        android:icon="@drawable/ic_sort_white_24dp"
-        android:title="@string/sorting" />
 
     <item android:id="@+id/about_menu"
         android:icon="@drawable/ic_info_white_24dp"

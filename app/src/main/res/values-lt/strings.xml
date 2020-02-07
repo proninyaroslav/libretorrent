@@ -13,9 +13,7 @@
     <string name="delete">Ištrinti</string>
     <string name="deleting">Trina</string>
     <string name="select_all">Pasirinkti viską</string>
-    <string name="apply">Pritaikyti</string>
     <string name="save">Išsaugoti</string>
-    <string name="install">Įdiegti</string>
     <string name="search">Ieškoti</string>
     <string name="not_available">Nėra</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -26,9 +24,6 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="sort_by_ascending">Pagal didėjančia</string>
-    <string name="sort_by_descending">Pagal mažėjančia</string>
-    <string name="sorting">Rūšiavimas</string>
     <string name="def">Numatytas</string>
     <string name="foreground_notification">Priekinio plano pranešimas</string>
     <string name="link">Nuoroda</string>
@@ -36,13 +31,22 @@
     <string name="refresh">Atnaujinti</string>
     <string name="edit">Redaguoti</string>
     <string name="menu">Meniu</string>
-
+    <string name="open_navigation_drawer">Open navigation drawer</string>
+    <string name="close_navigation_drawer">Close navigation drawer</string>
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
+    <string name="finished">Finished</string>
+    <string name="pause_all">Pause all</string>
+    <string name="resume_all">Resume all</string>
+    <string name="all">All</string>
+    <string name="details">Details</string>
+    <string name="stats">Stats</string>
+    <string name="filters">Filters</string>
+    <string name="apply">Apply</string>
+    <string name="clipboard">Clipboard</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <!-- Main window -->
-    <string name="main_empty_torrent_list">Nėra torentų</string>
-    <string name="spinner_all_torrents">Visi</string>
-    <string name="spinner_downloading_torrents">Parsiunčiami</string>
-    <string name="spinner_downloaded_torrents">Parsiųsti</string>
-    <string name="spinner_downloading_metadata_torrents">Metaduomenų parsiunčiami</string>
     <string name="delete_torrent_with_downloaded_files">Ištrinti su parsiųstais failais</string>
     <string name="delete_selected_torrent">Ištrinti pasirinktą torentą? Ši operacija negali būti atšaukta</string>
     <string name="delete_selected_torrents">Ištrinti pasirinktus torentus? Ši operacija negali būti atšaukta</string>
@@ -57,25 +61,40 @@
     <string name="error_open_torrent_file">Neįmanoma atidaryti torent failo</string>
     <string name="open_file">Atidaryti failą</string>
     <string name="settings">Nustatymai</string>
-    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro. Galbūt failas sugadintas arba yra netinkamo formato</string>
+    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro (%1$d nepavyko). Galbūt failas sugadintas arba yra netinkamo formato</string>
     <string name="ip_filter_add_success">IP filtras sėkmingai pridėtas</string>
     <string name="proxy_settings_applied">Įgaliotojo serverio nustatymai pritaikyti sėkmingai </string>
     <string name="proxy_settings_apply_after_reboot">Įgaliotojo serverio nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="theme_settings_apply_after_reboot">Temos nustatymai bus pritaikty paleidus programėlę iš naujo</string>
-    <string name="settings_apply_after_reboot">Nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="about">Apie</string>
-    <string-array name="sort_torrent_by">
-        <item>Be rūšiavimas</item>
-        <item>Vardas</item>
-        <item>Data pridėta</item>
-        <item>Dydis</item>
-        <item>Progresas</item>
-        <item>Atvykimo laikas</item>
-        <item>Bendraamžiai</item>
-    </string-array>
-
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_downloading">Downloading</string>
+    <string name="drawer_status_downloaded">Downloaded</string>
+    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status_error">Klaida</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting_name">Name</string>
+    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added_today">Today</string>
+    <string name="drawer_date_added_yesterday">Yesterday</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added_year">Year</string>
     <!-- Foreground notification -->
-
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
@@ -86,33 +105,23 @@
     <string name="app_running_in_the_background">LibreTorrent veikia foniniame rėžime</string>
     <string name="network_online">Tinklo būklė: Prisijungęs</string>
     <string name="network_offline">Tinklo būklė: Atsijungęs</string>
-
+    <string name="notify_shutting_down">Shutting down&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrento klaida</string>
     <string name="error_template">Klaida: %1$s</string>
-    <string name="torrent_does_not_exists_error">torrent neegzistuoja</string>
     <string name="restore_torrent_error">nepavyko atkurti torrent iš ankstesnio seanso</string>
     <string name="session_error_title">Klaida sesijos</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="listen_failed_error" formatted="false">Nepavyko klausytis %1$s:%2$d, įveskite: %3$s (klaida: %4$s)</string>
     <string name="nat_error_title">NAT klaidos</string>
-
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torentas baigtas siųsti</string>
-
     <!-- Torrents move notification -->
-    <string name="torrents_move_notify_title" formatted="false">Perkelia torentus (%1$d/%2$d)</string>
-    <string name="torrents_move_content">Prašome palaukti&#8230;</string>
-    <string name="torrents_moved_title">Torentai perkelti</string>
-    <string name="torrents_moved_content" formatted="false">Sėkmingų: %1$d; Nesėkmingų: %2$d</string>
-    <string name="torrents_move_inbox_successfully">Sėkmingai:</string>
-    <string name="torrents_move_inbox_failed">Nepavyko:</string>
-
+    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
-    <string name="torrent_added_notify">Torrent pridėta</string>
-
     <!-- Torrent list item -->
-
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
@@ -128,21 +137,15 @@
     <string name="torrent_status_checking">Tikrina</string>
     <string name="torrent_status_finished">Pabaigta</string>
     <string name="torrent_status_downloading_metadata">Metaduomenų parsiunčiami</string>
-
     <!-- Permission dialog -->
     <string name="perm_denied_title">Leidimas uždraustas</string>
     <string name="perm_denied_warning">Be šio leidimo programėlė negali išsaugoti torrent failų atmintyje. Programėlė neveiks tinkamai. Ar Jūs tikrai norite uždrausti šį leidimą?</string>
-
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Pridėti torentą</string>
     <string name="error_decode_torrent">Nepavyko dekoduoti torrent failo. Galbūt failas yra pažeistas arba netinkamo formato</string>
     <string name="error_io_torrent">Klaida nuskaitant torrent failą</string>
     <string name="error_fetch_link">Nepavyko pridėti duomenų iš nuorodos</string>
     <string name="error_invalid_link_or_path">Sugadinta nuoroda arba kelias iki torrento</string>
-    <string name="decode_torrent_progress_title">Krauna</string>
-    <string name="decode_torrent_default_message">Prašome palaukti&#8230;</string>
-    <string name="decode_torrent_fetch_magnet_message">Pridedami duomenys iš magnetinės nuorodos. Prašom palaukti&#8230;</string>
-    <string name="decode_torrent_downloading_torrent_message">Atsiunčiamas torrent failas. Prašom palaukti&#8230;</string>
     <string name="error_add_torrent">Nepavyko pridėti torrento</string>
     <string name="error_file_not_found_add_torrent">Nepavyko pridėti torrento. Galbūt torrent failas yra perkeltas arba ištrintas</string>
     <string name="error_io_add_torrent">Negalima pridti torrento. I/O klaida</string>
@@ -154,7 +157,9 @@
     <string name="files_size" formatted="false">Pasirinkti %1$s iš %2$s</string>
     <string name="start_torrent">Pradėti torentą</string>
     <string name="file_is_too_large_error">Failas per didelis</string>
-
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="error_empty_name">Please enter name</string>
+    <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informacija</string>
     <string name="torrent_files">Failai</string>
@@ -167,33 +172,29 @@
     <string name="torrent_create_date">Sukurtas</string>
     <string name="torrent_created_in_program">Sukurtas programoje</string>
     <string name="sequential_download">Nuoseklus atsisiuntimas</string>
-    <string name="enable_sequential_download">Įgalinti nuoseklųjį atsisiuntimą</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Aplanko pasirinkimas</string>
     <string name="file_chooser_title">Failo pasirinkimas</string>
     <string name="torrent_file_chooser_title">Torrento pasirinkimas</string>
     <string name="dialog_new_folder_title">Naujas aplankas</string>
     <string name="error_dialog_new_folder">Negalima sukurti naujo aplanko</string>
-    <string name="error_perm_write_in_folder">Negalima naudoti pasirinkto aplanko atsisiuntimui. Prašome pasirinkti kitą aplanką</string>
     <string name="error_open_dir">Negalima atidaryti aplanko</string>
     <string name="home_directory">Namai</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
     <string name="save_file">Išsaugoti failą</string>
     <string name="file_name">Failo pavadinimas</string>
     <string name="error_file_exists">Failas jau egzistuoja</string>
     <string name="file_name_is_empty">Failo vardas negali būti tuščias</string>
-
+    <string name="system_manager">System manager</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
+    <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
     <string name="more_details">Daugiau detalių</string>
-
     <!-- Detail torrent dialog -->
-
     <!-- priority • total -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
@@ -226,7 +227,6 @@
     <string name="torrent_trackers">Sekėjai</string>
     <string name="tracker_state_working">Veikiantys</string>
     <string name="tracker_state_not_working">Neveikiantys</string>
-    <string name="tracker_state_error" formatted="false">Klaida: %1$s</string>
     <string name="tracker_state_updating">Atnaujinama&#8230;</string>
     <string name="tracker_state_not_contacted">Dar nesusisiekta</string>
     <string name="share_tracker_url">Pasidalinti URL</string>
@@ -263,15 +263,14 @@
     <string name="share_stream_url">Dalytis stream URL</string>
     <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
     <string name="magnet_more_about_bep53">Daugiau informacijos: http://www.bittorrent.org/beps/bep_0053.html</string>
-
+    <string name="tracker_list_empty">No trackers</string>
+    <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>
     <string name="text_copied_to_clipboard">Tekstas nukopijuotas į iškarpinę</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">Įvyko programėlės klaida. Galite nusiųsti ataskaitą programėlės kūrėjams</string>
     <string name="error_comment_prompt">Čia galite pridėti papildomos informacijos ir komentarų:</string>
-
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Nėra kanalų</string>
@@ -281,34 +280,39 @@
     <string name="feed_filter_prompt">Įveskite žodžius (atskirti \"|\"), iš kurių vienas turi būti pavadinimas arba įvesti įprastinę išraišką. Torentai bus įtraukti tik tuo atveju, jei šis filtras atitinka torrento pavadinimą</string>
     <string name="feed_auto_download">Atsisiųskite naujus torrentus automatiškai</string>
     <string name="feed_use_regex">Naudokite įprastinę išraišką</string>
-    <string name="import_feed_channels">Importuoti kanalus</string>
-    <string name="export_feed_channels">Eksportuoti kanalus</string>
+    <string name="backup_feed_channels">Save backup</string>
+    <string name="restore_feed_channels_backup">Restore backup</string>
     <string name="feed_last_update_template" formatted="false">Atnaujinta: %1$s</string>
     <string name="feed_last_update_never">niekada</string>
     <string name="error_cannot_add_channel">Negalima pridėti kanalo</string>
+    <string name="error_cannot_edit_channel">Cannot edit channel</string>
+    <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="copy_link">Nukopijuoti nuorodą</string>
     <string name="delete_selected_channel">Ištrinti pasirinktą kanalą?</string>
     <string name="delete_selected_channels">Ištrinti pasirinktus kanalus?</string>
     <string name="edit_feed_channel">Redaguoti kanalą</string>
     <string name="link_copied_to_clipboard">Nuoroda nukopijuota į iškarpinę</string>
     <string name="mark_as_read">Žymėti kaip skaitytas</string>
+    <string name="mark_as_unread">Mark as unread</string>
     <string name="feed_item_list_empty">Nr straipsnių</string>
-    <string name="feed_items">Straipsniai</string>
-    <string name="export_feeds_successfully" formatted="false">Kanalai išsaugota sėkmingai: %1$s</string>
-    <string name="import_feeds_successfully" formatted="false">Kanalai sėkmingai importuoti</string>
-    <string name="error_import_feeds">Nepavyko importuoti kanalus</string>
-    <string name="error_export_feeds">Nepavyko eksportuoti kanalus</string>
+    <string name="backup_feeds_successfully">Channels saved successfully</string>
+    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
+    <string name="error_backup_feeds">Failed to save channels</string>
+    <string name="error_restore_feeds_backup">Failed to restore channels</string>
     <string name="feed_item_open_article_url">Atviras straipsnis</string>
-    <string name="feeds_file_selection_dialog_title">Pasirinkite failą su kanalais</string>
+    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">Netinkamas formatas</string>
     <string name="feed_do_not_download_immediately">Nedarykite atsisiųsti nedelsiant</string>
-
+    <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Sukurti torentą</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">Failas ar aplankas skleisti</string>
     <string name="tracker_urls">Seklių URL adresai</string>
     <string name="web_seed_urls">Saityno skleidimo URL adresai</string>
     <string name="comments">Komentarai</string>
+    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
+    <string name="web_seed_urls_hint">(optional) One per line</string>
     <string name="optional_hint">(oneprivaloma)</string>
     <string name="piece_size">Dalies dydis</string>
     <string name="create_torrent_options">Variantai</string>
@@ -331,17 +335,31 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url" formatted="false">Neteisingas URL: %1$s</string>
-    <string name="file_or_folder_not_found">Pasirinktas failas ar aplankas nerastas</string>
     <string name="folder_is_empty">Pasirinktas aplankas yra tuščias arba visi failai yra neįtraukiamos filtru</string>
     <string name="error_create_torrent">Nepavyko sukurti torrento</string>
     <string name="skip_files">Praleisti failus</string>
     <string name="skip_files_hint">Įveskite failų pavadinimus, atskirtus \"|\"</string>
     <string name="select_folder_to_save">Pasirinkite aplanką sutaupyti</string>
-    <string name="folder_to_save_not_found">Pasirinktas aplankas sutaupyti nerastas</string>
     <string name="torrent_saved_to" formatted="false">Torrent išsaugotas %1$s</string>
-
+    <string name="unable_to_open_file">Unable to open selected file</string>
+    <string name="unable_to_create_file">Unable to create file</string>
+    <!-- Log -->
+    <string name="log_journal">Journal</string>
+    <string name="journal_list_empty">No entries</string>
+    <string name="journal_start_recording">Start recording</string>
+    <string name="journal_stop_recording">Stop recording</string>
+    <string name="journal_started_recording">Started recording</string>
+    <string name="journal_filter_session_log">Session log</string>
+    <string name="journal_filter_dht_log">DHT log</string>
+    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
+    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_save_log_failed">Failed to save log</string>
+    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="pref_journal_save_log_to">Save log to</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
     <!-- Settings -->
-
     <!-- Headers -->
     <string name="pref_header_appearance">Aspetto</string>
     <string name="pref_header_behavior">Elgsena</string>
@@ -374,21 +392,10 @@
     <string name="pref_max_connections_per_torrent_title">Maksimalus prisijungimų skaičius vienam torrentui</string>
     <string name="pref_max_connections_per_torrent_summary">Minimalus prisijungimų skaičius - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maksimalus įkėlimo laiko tarpsnių skaičius vienam torrentui</string>
-    <string name="pref_max_uploads_per_torrent_summary">Minimalus laiko tarpsnių skaičius - 2</string>
     <string name="pref_auto_manage_title">Automatinis valdymas</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 be ribų</string>
-    <!-- Behavior settings -->
-    <string name="pref_custom_battery_control_title">Pasirinktinis akumuliatoriaus procentas</string>
-    <string name="pref_custom_battery_control_value_title">Akumuliatoriaus valdymo procentas</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Nustatykite pasirinktinį procentą, norėdami pristabdyti atsisiuntimą, jei baterija nukrenta žemiau nurodytos ribos. Įjungus tai bus ignoruojama numatytoji %1$d%% riba</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Nustatyti pasirinktinį baterijos procentą paraiškoje turės neigiamos įtakos baterija, o parsisiųsti įvyksta. Ar tikrai norite tai padaryti?</string>
-    <string name="pref_keep_alive_title">Darbas fone</string>
-    <string name="pref_keep_alive_summary">Jei įjungta, programa bus paleista fone. Išjungimas, kai atsisiuntimai užpildyti, vis tiek laikomasi</string>
-    <string name="pref_autostart_title">Automatinis paleidimas</string>
-    <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>
-    <string name="pref_wifi_only_title">Tik Wi-Fi</string>
-    <string name="pref_wifi_only_summary">Atsisiųskite ir įkelkite tik tada, kai prijungtas Wi-Fi</string>
+    <!-- Appearance settings -->
     <string name="pref_theme_category">Temos nustatymai</string>
     <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">
@@ -404,7 +411,17 @@
     <string name="pref_led_indicator_notify_title">LED indicatorius</string>
     <string name="pref_led_indicator_color_notify_title">LED indicatoriaus spalva</string>
     <string name="pref_vibration_notify_title">Vibracija</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Automatinis paleidimas</string>
+    <string name="pref_autostart_summary">Paleisti programėlę po įrenginio įjungimo</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <string name="pref_power_management_category">Įjungimo valdymas</string>
+    <string name="pref_keep_alive_title">Darbas fone</string>
+    <string name="pref_keep_alive_summary">Jei įjungta, programa bus paleista fone. Išjungimas, kai atsisiuntimai užpildyti, vis tiek laikomasi</string>
     <string name="pref_shutdown_downloads_complete_title">Išjungti, kai atsisiuntimai baigti</string>
     <string name="pref_shutdown_downloads_complete_summary">Jei įgalinta, programėlė išsijungs, kai atsisiuntimai bus baigti</string>
     <string name="pref_cpu_do_not_sleep_title">Laikyti CPU budrų</string>
@@ -412,13 +429,11 @@
     <string name="pref_download_and_upload_only_when_charging_title">Atsisiųsti ir išsiųsti tik kai įkraunama baterija</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Jei įgalinta, torrentai atsisiųs/išsisiųs tik kai baterija įkraunama. Visi torentai bus pristabdyti kai baterija nekraunama</string>
     <string name="pref_battery_control_title">Battery control</string>
+    <string name="pref_custom_battery_control_title">Pasirinktinis akumuliatoriaus procentas</string>
+    <string name="pref_custom_battery_control_value_title">Akumuliatoriaus valdymo procentas</string>
     <string name="pref_battery_control_summary" formatted="false">Visi torrentai bus pristabdyti, jei baterijos lygis nukris žemiau %1$d%%. Apribojimas netaikomas, kai baterija įkraunama</string>
-    <string name="pref_foreground_notification_category">Priekinio plano pranešimas</string>
-    <string name="pref_function_button_title">Funkcijos mygtukas</string>
-    <string-array name="pref_function_button_entries">
-        <item>Pauzė/tęsti torentus</item>
-        <item>Pridėti torentą</item>
-    </string-array>
+    <string name="pref_custom_battery_control_summary" formatted="false">Nustatykite pasirinktinį procentą, norėdami pristabdyti atsisiuntimą, jei baterija nukrenta žemiau nurodytos ribos. Įjungus tai bus ignoruojama numatytoji %1$d%% riba</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Nustatyti pasirinktinį baterijos procentą paraiškoje turės neigiamos įtakos baterija, o parsisiųsti įvyksta. Ar tikrai norite tai padaryti?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Įgaliotojo serverio nustatymai</string>
     <string name="pref_enable_dht_title">Įgalinti DHT</string>
@@ -431,7 +446,10 @@
     <string name="pref_enable_natpmp_title">Įgalinti NAT-PMP</string>
     <string name="pref_port_settings_category">Prievado nustatymai</string>
     <string name="pref_use_random_port_title">Naudoti atsitiktinį prievadą</string>
-    <string name="pref_port_title">Prievadas</string>
+    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_start_title">Start</string>
+    <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">Šifravimas</string>
     <string name="pref_enc_mode_title">Šifravimas režimas</string>
     <string-array name="pref_enc_mode_entries">
@@ -446,6 +464,8 @@
     <string name="pref_enable_ip_filtering_summary">Naudojant IP filtravimą padidėja atminties naudojimas. Priklausomai nuo failo dydžio, filtravimo parodymas užtrunka kol būna įgalinamas pajungiant</string>
     <string name="pref_ip_filtering_file_title">Kelias iki rodymofiltro failo (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Rodyti NAT klaidas</string>
+    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Įgaliotojo serverio tipas</string>
     <string-array name="pref_proxy_type_entries">
@@ -458,7 +478,6 @@
     <string name="pref_proxy_port_title">Prievadas</string>
     <string name="pref_proxy_peers_too_title">Taip pat naudokite peer sujungimams</string>
     <string name="pref_proxy_peers_too_summary">Įgaliotasis serveris bus naudojamas jungiantis su sekėjais, peerais ir žiniatinklio skleidėjais</string>
-    <string name="pref_force_proxy_title">Išjungti sujungimus nepalaikomus įgaliotųjų serverių</string>
     <string name="pref_proxy_requires_auth_title">Reikalauja leidimo</string>
     <string name="pref_proxy_requires_auth_summary">Įspėjimas: slaptažodis išsaugotas bet neužšifruotas</string>
     <string name="pref_proxy_login_title">Prisijungimas</string>
@@ -476,7 +495,6 @@
     <string name="pref_feed_auto_refresh_summary">Periodiškai atnaujinkite kanalus fone</string>
     <string name="pref_feed_refresh_interval_title">Atnaujinimo intervalas</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>5 minutės</item>
         <item>15 minučių</item>
         <item>30 minučių</item>
         <item>1 valandą</item>
@@ -485,7 +503,10 @@
         <item>12 valandų</item>
         <item>1 diena</item>
     </string-array>
-    <string name="pref_feed_auto_refresh_wifi_only_title">Tik Wi-Fi</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <string name="pref_feed_keep_items_time_title">Laikyti straipsniai</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 diena</item>
@@ -500,16 +521,18 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Paleisti torentus</string>
     <string name="pref_feed_start_torrents_summary">Paleiskite torentus po pridėjimo</string>
+    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Įgalinti streaming</string>
     <string name="pref_streaming_enable_summary">Streaming leidžia jums atsisiųsti atskirus failus iš torrent naudodami naršyklę arba medijos leistuvą naudojant HTTP URL</string>
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Prievadas</string>
     <string name="pref_streaming_error">Pasirinktas uostas ar prieglobos vardas yra užimtas arba neteisingas. Prašome ją išspręsti</string>
-
     <!-- About dialog -->
     <string name="about_title">Apie LibreTorrent</string>
-    <string name="about_website">Daugiau informacijos ir taip pat padėti projektą: https://gitlab.com/proninyaroslav/libretorrent</string>
-    <string name="about_description">LibreTorrent yra laisvas kaip pati laisvė torrentų klientas Android 4+, paremtas libtorrent (Java wrapper libtorrent4j https://github.com/aldenml/libtorrent4j) lib.\n\nLibreTorrent yra nemokama programa, išleista pagal GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[    Daugiau informacijos ir taip pat padėti projektą: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent yra laisvas kaip pati laisvė torrentų klientas Android 4+, paremtas libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
+    LibreTorrent yra nemokama programa, išleista pagal <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Pakeitimų žurnalas</string>
 </resources>

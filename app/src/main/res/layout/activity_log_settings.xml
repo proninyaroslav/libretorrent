@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.log.LogSettingsActivity">
+
+    <include
+        layout="@layout/toolbar" />
+
+    <androidx.fragment.app.FragmentContainerView
+        class="org.proninyaroslav.libretorrent.ui.log.LogSettingsFragment"
+        android:id="@+id/settings_fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar" />
+</RelativeLayout>

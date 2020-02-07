@@ -33,6 +33,10 @@ package org.nanohttpd.protocols.http.response;
  * #L%
  */
 
+import org.nanohttpd.protocols.http.NanoHTTPD;
+import org.nanohttpd.protocols.http.content.ContentType;
+import org.nanohttpd.protocols.http.request.Method;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -55,10 +59,6 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
-
-import org.nanohttpd.protocols.http.NanoHTTPD;
-import org.nanohttpd.protocols.http.content.ContentType;
-import org.nanohttpd.protocols.http.request.Method;
 
 /**
  * HTTP response. Return one of these from serve().
@@ -92,7 +92,7 @@ public class Response implements Closeable {
         public String put(String key, String value) {
             lowerCaseHeader.put(key == null ? key : key.toLowerCase(), value);
             return super.put(key, value);
-        };
+        }
     };
 
     /**
@@ -119,7 +119,7 @@ public class Response implements Closeable {
     private static enum GzipUsage {
         DEFAULT,
         ALWAYS,
-        NEVER;
+        NEVER
     }
 
     /**

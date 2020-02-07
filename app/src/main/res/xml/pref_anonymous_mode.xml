@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SwitchBarPreference
+        android:key="@string/pref_key_anonymous_mode"
+        android:summary="@string/pref_anonymous_mode_summary"
+        android:persistent="false" />
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SummaryPreference
+        android:summary="@string/pref_anonymous_mode_summary" />
+</PreferenceScreen>

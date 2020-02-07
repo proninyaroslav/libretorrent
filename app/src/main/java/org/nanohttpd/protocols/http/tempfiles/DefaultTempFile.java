@@ -33,12 +33,12 @@ package org.nanohttpd.protocols.http.tempfiles;
  * #L%
  */
 
+import org.nanohttpd.protocols.http.NanoHTTPD;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import org.nanohttpd.protocols.http.NanoHTTPD;
 
 /**
  * Default strategy for creating and cleaning up temporary files.

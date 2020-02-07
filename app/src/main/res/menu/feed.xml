@@ -7,11 +7,11 @@
         app:showAsAction="ifRoom"
         android:title="@string/refresh" />
 
-    <item android:id="@+id/import_feed_channels_menu"
+    <item android:id="@+id/backup_feed_channels_menu"
         app:showAsAction="never"
-        android:title="@string/import_feed_channels" />
+        android:title="@string/backup_feed_channels" />
 
-    <item android:id="@+id/export_feed_channels_menu"
+    <item android:id="@+id/restore_feed_channels_backup_menu"
         app:showAsAction="never"
-        android:title="@string/export_feed_channels" />
+        android:title="@string/restore_feed_channels_backup" />
 </menu>

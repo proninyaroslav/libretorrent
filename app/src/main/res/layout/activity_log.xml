@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.log.LogViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.log.LogActivity">
+
+        <include
+            layout="@layout/toolbar" />
+
+        <RelativeLayout
+            android:id="@+id/coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <org.proninyaroslav.libretorrent.ui.customviews.SwitchBar
+                android:id="@+id/enableLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:checked="@={viewModel.mutableParams.logging}" />
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/enableLog">
+
+                <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
+                    android:id="@+id/log_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:scrollbars="vertical" />
+
+                <TextView
+                    android:id="@+id/empty_view_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/journal_list_empty"
+                    style="@style/EmptyView" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="24dp"
+                    app:srcCompat="@drawable/ic_arrow_up_grey600_24dp"
+                    app:fabSize="mini"
+                    android:focusable="true"
+                    android:layout_marginEnd="16dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_arrow_down_grey600_24dp"
+                    app:fabSize="mini"
+                    android:focusable="true"
+                    android:layout_marginEnd="16dp" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

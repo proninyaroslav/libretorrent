@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/group_header"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:expansion_expanded="false"
+    app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+    android:background="?attr/dialogRectRipple" />

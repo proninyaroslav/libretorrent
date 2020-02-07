@@ -5,4 +5,12 @@
     <item android:id="@+id/open_article_menu"
         app:showAsAction="never"
         android:title="@string/feed_item_open_article_url" />
+
+    <item android:id="@+id/mark_as_read_menu"
+        app:showAsAction="never"
+        android:title="@string/mark_as_read" />
+
+    <item android:id="@+id/mark_as_unread_menu"
+        app:showAsAction="never"
+        android:title="@string/mark_as_unread" />
 </menu>

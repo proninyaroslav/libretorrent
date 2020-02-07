@@ -1,15 +1,13 @@
 package com.ernieyu.feedparser.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.ernieyu.feedparser.Enclosure;
+import com.ernieyu.feedparser.*;
+import com.ernieyu.feedparser.mediarss.MediaRss;
 import org.xml.sax.Attributes;
-
-import com.ernieyu.feedparser.Element;
-import com.ernieyu.feedparser.FeedType;
-import com.ernieyu.feedparser.FeedUtils;
 
 /**
  * Item implementation for RSS 1.0 feeds.
@@ -44,9 +42,14 @@ class Rss1Item extends BaseItem {
     }
 
     @Override
-    public String getLink() {
-        Element link = getElement(LINK);
-        return (link != null) ? link.getContent() : null;
+    public List<String> getLinks() {
+        ArrayList<String> links = new ArrayList<String>();
+        List<Element> elements = getElementList(LINK);
+        for (Element element : elements) {
+            links.add(element.getContent());
+        }
+
+        return links;
     }
 
     @Override
@@ -82,20 +85,40 @@ class Rss1Item extends BaseItem {
     }
 
     @Override
-    public Enclosure getEnclosure()
-    {
-        Element enclosure = getElement(ENCLOSURE);
-        if (enclosure == null)
-            return null;
+    public List<Enclosure> getEnclosures() {
+        ArrayList<Enclosure> enclosures = new ArrayList<Enclosure>();
+        List<Element> enclosuresElem = getElementList(ENCLOSURE);
 
-        Attributes attr = enclosure.getAttributes();
-        String url = attr.getValue("rdf:resource");
-        String type = attr.getValue("enc:type");
-        String lengthStr = attr.getValue("enc:length");
-        long length = 0;
-        if (lengthStr != null)
-            length = Long.parseLong(lengthStr);
+        for (Element enclosure : enclosuresElem) {
+            Attributes attr = enclosure.getAttributes();
+            String url = attr.getValue("rdf:resource");
+            String type = attr.getValue("enc:type");
+            String lengthStr = attr.getValue("enc:length");
+            long length = 0;
+            if (lengthStr != null)
+                length = Long.parseLong(lengthStr);
 
-        return new Enclosure(url, type, length);
+            enclosures.add(new Enclosure(url, type, length));
+        }
+
+        return enclosures;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public MediaRss getMediaRss() {
+        return null;
+    }
+
+    /**
+     * Not supported
+     */
+
+    @Override
+    public EzRssTorrentItem getEzRssTorrentItem() {
+        return null;
     }
 }

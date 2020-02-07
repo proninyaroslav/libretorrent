@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="dynamic_style_attrs">
-        <attr name="smallText" format="reference" />
         <attr name="background" format="reference" />
+        <attr name="foreground" format="reference" />
+        <attr name="toolbarColor" format="reference" />
         <attr name="backgroundBlank" format="reference" />
+        <attr name="backgroundDialog" format="reference" />
+        <attr name="statusBarColor" format="reference" />
         <attr name="popupTheme" format="reference" />
         <attr name="divider" format="reference" />
         <attr name="defaultRectRipple" format="reference" />
         <attr name="defaultRoundRipple" format="reference" />
-        <attr name="defaultSelectRect" format="reference" />
-        <attr name="curOpenTorrentIndicator" format="reference" />
+        <attr name="selectableColor" format="reference" />
+        <attr name="selectableDrawer" format="reference" />
         <attr name="transparentRoundRipple" format="reference" />
+        <attr name="dialogRectRipple" format="reference" />
+        <attr name="colorOk" format="reference" />
+        <attr name="pieceCellColor" format="reference" />
+        <attr name="tabLayoutTheme" format="reference" />
+        <attr name="speedDialOverlayColor" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpansionHeader">
+        <attr name="expansion_text" format="string" />
+        <attr name="expansion_expanded" format="boolean"/>
+        <attr name="expansion_textAppearance" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PiecesView">
+        <attr name="pieces_cellColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="LightColorView">

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/toolbarColor"
+            app:layout_scrollFlags="enterAlways"
+            android:transitionName="actionBar"
+            app:popupTheme="?attr/popupTheme"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            android:focusable="true" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:focusable="true"
+            app:tabMode="scrollable"
+            style="?attr/tabLayoutTheme" />
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

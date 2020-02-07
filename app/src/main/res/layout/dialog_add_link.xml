@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.addlink.AddLinkViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/min_width_dialog"
+        android:padding="@dimen/dialog_padding">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/clipboard_button"
+            android:layout_toStartOf="@+id/clipboard_button">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textNoSuggestions"
+                android:text="@={viewModel.link}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/clipboard_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
+            android:background="?attr/transparentRoundRipple"
+            android:contentDescription="@string/clipboard"
+            android:src="@drawable/ic_content_copy_grey600_48dp"
+            android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}"
+            android:layout_marginStart="8dp"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</layout>

@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/change_priority_menu"
-        android:icon="@drawable/ic_swap_vert_white_24dp"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom"
         android:title="@string/change_priority" />
 
     <item android:id="@+id/share_stream_url_menu"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom"
         android:title="@string/share_stream_url" />
 </menu>

@@ -1,292 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:showDividers="middle|end"
-    android:divider="?attr/divider"
-    android:focusableInTouchMode="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentViewModel" />
+    </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torrent_name"
-            style="@style/BaseTheme.HeaderText" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_torrent_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/torrent_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text|textNoSuggestions" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingRight="16dp">
+        android:layout_height="match_parent"
+        android:showDividers="middle|end"
+        android:divider="?attr/divider"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:layout_marginRight="48dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/upload_torrent_into"
-                style="@style/BaseTheme.HeaderText" />
-
-            <TextView
-                android:id="@+id/upload_torrent_into"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/BaseTheme.TorrentInfoText" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/folder_chooser_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/defaultRoundRipple"
-            android:contentDescription="@string/dir_chooser_title"
-            android:src="@drawable/ic_folder_grey600_24dp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        android:divider="?attr/divider">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/torrent_name"
+                style="@style/TitleText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textNoSuggestions"
+                    android:text="@={viewModel.mutableParams.name}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="16dp"
+            android:paddingEnd="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:layout_marginRight="48dp"
+                android:layout_marginEnd="48dp"
+                android:layout_alignParentStart="true"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_torrent_into"
+                    style="@style/TitleText" />
+
+                <TextView
+                    android:id="@+id/save_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.mutableParams.dirName}"
+                    style="@style/TextAppearance.MaterialComponents.Body1"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/folder_chooser_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/transparentRoundRipple"
+                android:contentDescription="@string/dir_chooser_title"
+                android:src="@drawable/ic_folder_grey600_24dp"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <com.google.android.material.internal.FlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemSpacing="8dp"
+            android:padding="16dp">
+
+            <CheckBox
+                android:id="@+id/sequential_download"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="@string/sequential_download"
-                style="@style/BaseTheme.HeaderText" />
+                android:checked="@={viewModel.mutableParams.sequentialDownload}" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:id="@+id/sequential_download"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:text="@string/enable_sequential_download" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
+            <CheckBox
+                android:id="@+id/start_torrent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="@string/start_torrent"
-                style="@style/BaseTheme.HeaderText" />
+                android:checked="@={viewModel.mutableParams.startAfterAdd}"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:id="@+id/start_torrent"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:text="@string/start_torrent" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_torrent_size_and_count"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        android:divider="?attr/divider">
+            <CheckBox
+                android:id="@+id/ignore_free_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ignore_free_space"
+                android:checked="@={viewModel.mutableParams.ignoreFreeSpace}" />
+        </com.google.android.material.internal.FlowLayout>
 
         <LinearLayout
+            android:id="@+id/layout_size_and_count"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/torrent_size"
-                style="@style/BaseTheme.HeaderText" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            android:divider="?attr/divider"
+            android:visibility="@{viewModel.info.torrentSize == 0 || viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/torrent_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_gravity="center_vertical"
-                    style="@style/BaseTheme.TorrentInfoText" />
+                    android:text="@string/torrent_size"
+                    style="@style/TitleText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_vertical"
+                        app:fileSize="@{viewModel.info.torrentSize}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                        android:id="@+id/free_space"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="@style/TextCaption"
+                        app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
+                        app:formatFileSize="@{@string/free_space}" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/free_space"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?attr/smallText" />
+                    android:text="@string/torrent_file_count"
+                    style="@style/TitleText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/file_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@{Integer.toString(viewModel.info.fileCount)}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/torrent_file_count"
-                style="@style/BaseTheme.HeaderText" />
+                android:text="@string/torrent_hash_sum"
+                style="@style/TitleText" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/hash_sum"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.info.sha1Hash}"
+                android:textIsSelectable="true"
+                style="@style/TextAppearance.MaterialComponents.Body1" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/torrent_file_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    style="@style/BaseTheme.TorrentInfoText" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_create_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="@{viewModel.info.creationDate == 0 ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/torrent_create_date"
+                style="@style/TitleText" />
+
+            <TextView
+                android:id="@+id/create_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:formatDate="@{viewModel.info.creationDate}"
+                style="@style/TextAppearance.MaterialComponents.Body1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_torrent_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.info.comment) ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/header_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/torrent_comment"
+                style="@style/TitleText" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:textIsSelectable="true"
+                android:text="@{viewModel.info.comment}"
+                style="@style/TextAppearance.MaterialComponents.Body1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_torrent_created_in_program"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="@{TextUtils.isEmpty(viewModel.info.createdBy) ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/header_torrent_created_in_program"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/torrent_created_in_program"
+                style="@style/TitleText" />
+
+            <TextView
+                android:id="@+id/torrent_created_in_program"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:text="@{viewModel.info.createdBy}"
+                style="@style/TextAppearance.MaterialComponents.Body1" />
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torrent_hash_sum"
-            style="@style/BaseTheme.HeaderText" />
-
-        <TextView
-            android:id="@+id/torrent_hash_sum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/BaseTheme.TorrentInfoText" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_torrent_create_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torrent_create_date"
-            style="@style/BaseTheme.HeaderText" />
-
-        <TextView
-            android:id="@+id/torrent_create_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/BaseTheme.TorrentInfoText" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_torrent_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/header_torrent_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torrent_comment"
-            style="@style/BaseTheme.HeaderText" />
-
-        <TextView
-            android:id="@+id/torrent_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="all"
-            android:linksClickable="true"
-            style="@style/BaseTheme.TorrentInfoText" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_torrent_created_in_program"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/header_torrent_created_in_program"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/torrent_created_in_program"
-            style="@style/BaseTheme.HeaderText" />
-
-        <TextView
-            android:id="@+id/torrent_created_in_program"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/BaseTheme.TorrentInfoText" />
-    </LinearLayout>
-</LinearLayout>
+</layout>

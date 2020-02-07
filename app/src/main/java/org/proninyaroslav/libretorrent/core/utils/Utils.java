@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,53 +24,75 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.libtorrent4j.FileStorage;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
+import org.libtorrent4j.FileStorage;
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.BencodeFileItem;
-import org.proninyaroslav.libretorrent.core.exceptions.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.HttpConnection;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
+import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
-import org.proninyaroslav.libretorrent.receivers.BootReceiver;
-import org.proninyaroslav.libretorrent.services.TorrentTaskService;
-import org.proninyaroslav.libretorrent.settings.SettingsManager;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
+import org.proninyaroslav.libretorrent.core.system.SystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.receiver.BootReceiver;
+import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
+import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.IDN;
 import java.nio.charset.Charset;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 /*
  * General utils.
@@ -89,43 +111,21 @@ public class Utils
     public static final String TRACKER_URL_PATTERN =
             "^(https?|udp)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
-    public static final int MAX_HTTP_REDIRECTION = 10;
     public static final String MIME_TORRENT = "application/x-bittorrent";
-
-    /*
-     * Colored status bar in KitKat.
-     */
-
-    public static void showColoredStatusBar_KitKat(Activity activity)
-    {
-        RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
-            statusBar.setVisibility(View.VISIBLE);
-    }
-
-    public static void showActionModeStatusBar(Activity activity, boolean mode)
-    {
-        int color = (mode ? R.color.action_mode_dark : R.color.primary_dark);
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
-            statusBar.setBackground(ContextCompat.getDrawable(activity, color));
-            statusBar.setVisibility(View.VISIBLE);
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, color));
-        }
-    }
+    public static final String MIME_TEXT_PLAIN = "text/plain";
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
      */
 
-    public static void colorizeProgressBar(Context context, ProgressBar progress)
+    public static void colorizeProgressBar(@NonNull Context context,
+                                           @NonNull ProgressBar progress)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
-                                                          android.graphics.PorterDuff.Mode.SRC_IN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        progress.getProgressDrawable().setColorFilter(getAttributeColor(context, R.attr.colorSecondary),
+                android.graphics.PorterDuff.Mode.SRC_IN);
     }
 
     /*
@@ -133,7 +133,7 @@ public class Utils
      * The order of addition in the list corresponds to the order of indexes in libtorrent4j.FileStorage
      */
 
-    public static ArrayList<BencodeFileItem> getFileList(FileStorage storage)
+    public static ArrayList<BencodeFileItem> getFileList(@NonNull FileStorage storage)
     {
         ArrayList<BencodeFileItem> files = new ArrayList<>();
         for (int i = 0; i < storage.numFiles(); i++) {
@@ -144,7 +144,8 @@ public class Utils
         return files;
     }
 
-    public static void setBackground(View v, Drawable d)
+    public static void setBackground(@NonNull View v,
+                                     @NonNull Drawable d)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
             v.setBackgroundDrawable(d);
@@ -152,27 +153,95 @@ public class Utils
             v.setBackground(d);
     }
 
-    /*
-     * Returns the checking result or throws an exception.
-     */
-
-    public static boolean checkNetworkConnection(Context context)
+    public static boolean checkConnectivity(@NonNull Context context)
     {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
+        NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
+    }
 
-        return activeNetwork.isConnectedOrConnecting();
+    public static boolean isNetworkTypeAllowed(@NonNull Context context)
+    {
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
+
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean enableRoaming = pref.enableRoaming();
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
+
+        boolean noUnmeteredOnly;
+        boolean noRoaming;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            /*
+             * Use ConnectivityManager#isActiveNetworkMetered() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
+             * since Android detection VPN as metered, including on Android 9, oddly enough.
+             * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
+             *
+             * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
+             */
+            boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                    !systemFacade.isActiveNetworkMetered();
+            noUnmeteredOnly = !unmeteredOnly || unmetered;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+            } else {
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+                noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
+            }
+
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            if (netInfo == null) {
+                noUnmeteredOnly = false;
+                noRoaming = false;
+            } else {
+                noUnmeteredOnly = !unmeteredOnly || !systemFacade.isActiveNetworkMetered();
+                noRoaming = !(enableRoaming && netInfo.isRoaming());
+            }
+        }
+
+        return noUnmeteredOnly && noRoaming;
+    }
+
+    public static boolean isMetered(@NonNull Context context)
+    {
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                                    systemFacade.isActiveNetworkMetered();
+        } else {
+            return systemFacade.isActiveNetworkMetered();
+        }
+    }
+
+    public static boolean isRoaming(@NonNull Context context)
+    {
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isRoaming();
+        }
     }
 
     /*
-     * Returns the link as "(http[s]|udp)://[www.]name.domain/...".
+     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
      */
 
-    public static String normalizeURL(String url)
+    public static String normalizeURL(@NonNull String url)
     {
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(UDP_PREFIX))
-            return HTTP_PREFIX + "://" + url;
+        url = IDN.toUnicode(url);
+
+        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX))
+            return HTTP_PREFIX + url;
         else
             return url;
     }
@@ -181,7 +250,7 @@ public class Utils
      * Returns the link as "magnet:?xt=urn:btih:hash".
      */
 
-    public static String normalizeMagnetHash(String hash)
+    public static String normalizeMagnetHash(@NonNull String hash)
     {
         return INFOHASH_PREFIX + hash;
     }
@@ -190,7 +259,7 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isTwoPane(Context context)
+    public static boolean isTwoPane(@NonNull Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
     }
@@ -201,7 +270,7 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isLargeScreenDevice(Context context)
+    public static boolean isLargeScreenDevice(@NonNull Context context)
     {
         return context.getResources().getBoolean(R.bool.isLargeScreenDevice);
     }
@@ -212,9 +281,9 @@ public class Utils
      * Returns false if the link is not valid.
      */
 
-    public static boolean isValidTrackerUrl(String url)
+    public static boolean isValidTrackerUrl(@NonNull String url)
     {
-        if (url == null || TextUtils.isEmpty(url))
+        if (TextUtils.isEmpty(url))
             return false;
 
         Pattern pattern = Pattern.compile(TRACKER_URL_PATTERN);
@@ -223,8 +292,8 @@ public class Utils
         return matcher.matches();
     }
 
-    public static boolean isHash(String hash) {
-        if (hash == null || TextUtils.isEmpty(hash))
+    public static boolean isHash(@NonNull String hash) {
+        if (TextUtils.isEmpty(hash))
             return false;
 
         Pattern pattern = Pattern.compile(HASH_PATTERN);
@@ -245,17 +314,10 @@ public class Utils
             return System.getProperty("line.separator");
     }
 
-    /*
-     * Returns the first item from clipboard.
-     */
-
     @Nullable
-    public static String getClipboard(Context context)
+    public static ClipData getClipData(@NonNull Context context)
     {
         ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
-        if (clipboard == null)
-            return null;
-
         if (!clipboard.hasPrimaryClip())
             return null;
 
@@ -263,29 +325,41 @@ public class Utils
         if (clip == null || clip.getItemCount() == 0)
             return null;
 
-        CharSequence text = clip.getItemAt(0).getText();
-        if (text == null)
-            return null;
-
-        return text.toString();
+        return clip;
     }
 
-    public static void reportError(Throwable error, String comment)
+    public static List<CharSequence> getClipboardText(@NonNull Context context)
     {
-        if (error == null)
-            return;
+        ArrayList<CharSequence> clipboardText = new ArrayList<>();
 
+        ClipData clip = Utils.getClipData(context);
+        if (clip == null)
+            return clipboardText;
+
+        for (int i = 0; i < clip.getItemCount(); i++) {
+            CharSequence item = clip.getItemAt(i).getText();
+            if (item == null)
+                continue;
+            clipboardText.add(item);
+        }
+
+        return clipboardText;
+    }
+
+    public static void reportError(@NonNull Throwable error,
+                                   String comment)
+    {
         if (comment != null)
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
 
         ACRA.getErrorReporter().handleSilentException(error);
     }
 
-    public static int dpToPx(Context context, float dp)
+    public static int dpToPx(@NonNull Context context, float dp)
     {
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp, context.getResources().getDisplayMetrics());
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                context.getResources().getDisplayMetrics());
     }
 
     public static int getDefaultBatteryLowLevel()
@@ -294,9 +368,11 @@ public class Utils
                 Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));
     }
 
-    public static float getBatteryLevel(Context context)
+    public static float getBatteryLevel(@NonNull Context context)
     {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (batteryIntent == null)
+            return 50.0f;
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
@@ -304,45 +380,36 @@ public class Utils
         if (level == -1 || scale == -1)
             return 50.0f;
 
-        return ((float) level / (float) scale) * 100.0f;
+        return ((float)level / (float)scale) * 100.0f;
     }
 
-    public static boolean isBatteryCharging(Context context)
+    public static boolean isBatteryCharging(@NonNull Context context)
     {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (batteryIntent == null)
+            return false;
         int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
         return status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
-    public static boolean isBatteryLow(Context context)
+    public static boolean isBatteryLow(@NonNull Context context)
     {
         return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
     }
 
-    public static boolean isBatteryBelowThreshold(Context context, int threshold)
+    public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold)
     {
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static int getThemePreference(Context context)
+    public static int getThemePreference(@NonNull Context context)
     {
-        return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
-                                                              SettingsManager.Default.theme(context));
-    }
-    
-    public static boolean isDarkTheme(Context context)
-    {
-        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_dark_value));
-    }
-    
-    public static boolean isBlackTheme(Context context)
-    {
-        return getThemePreference(context) == Integer.parseInt(context.getString(R.string.pref_theme_black_value));
+        return RepositoryHelper.getSettingsRepository(context).theme();
     }
 
-    public static int getAppTheme(Context context)
+    public static int getAppTheme(@NonNull Context context)
     {
         int theme = getThemePreference(context);
 
@@ -356,58 +423,38 @@ public class Utils
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(Context context)
+    public static int getTranslucentAppTheme(@NonNull Context appContext)
+    {
+        int theme = getThemePreference(appContext);
+
+        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
+            return R.style.AppTheme_Translucent;
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
+            return R.style.AppTheme_Translucent_Dark;
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
+            return R.style.AppTheme_Translucent_Black;
+
+        return R.style.AppTheme_Translucent;
+    }
+
+    public static int getSettingsTheme(@NonNull Context context)
     {
         int theme = getThemePreference(context);
 
         if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.Theme_AppCompat_Translucent;
+            return R.style.AppTheme_Settings;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.Theme_AppCompat_Translucent_Dark;
+            return R.style.AppTheme_Settings_Dark;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.Theme_AppCompat_Translucent_Black;
+            return R.style.AppTheme_Settings_Black;
 
-        return R.style.Theme_AppCompat_Translucent;
+        return R.style.AppTheme_Settings;
     }
 
-    public static int getSettingsTheme(Context context)
-    {
-        int theme = getThemePreference(context);
-
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.BaseTheme_Settings;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.BaseTheme_Settings_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.BaseTheme_Settings_Black;
-
-        return R.style.BaseTheme_Settings;
-    }
-
-    public static TorrentSorting getTorrentSorting(Context context)
-    {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
-
-        String column = pref.getString(context.getString(R.string.pref_key_sort_torrent_by),
-                                       SettingsManager.Default.sortTorrentBy);
-        String direction = pref.getString(context.getString(R.string.pref_key_sort_torrent_direction),
-                                          SettingsManager.Default.sortTorrentDirection);
-
-        return new TorrentSorting(TorrentSorting.SortingColumns.fromValue(column),
-                TorrentSorting.Direction.fromValue(direction));
-    }
-
-    public static boolean checkStoragePermission(Context context)
+    public static boolean checkStoragePermission(@NonNull Context context)
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    public static boolean isWifiEnabled(Context context)
-    {
-        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
-        return manager != null && manager.isWifiEnabled();
     }
 
     /*
@@ -415,16 +462,16 @@ public class Utils
      * TODO: delete after some releases
      */
     @Deprecated
-    public static void migrateTray2SharedPreferences(Context context)
+    public static void migrateTray2SharedPreferences(@NonNull Context appContext)
     {
         final String TAG = "tray2shared";
         final String migrate_key = "tray2shared_migrated";
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(appContext);
 
         if (pref.getBoolean(migrate_key, false))
             return;
 
-        File dbFile = context.getDatabasePath("tray.db");
+        File dbFile = appContext.getDatabasePath("tray.db");
         if (dbFile == null || !dbFile.exists()) {
             Log.w(TAG, "Database not found");
             pref.edit().putBoolean(migrate_key, true).apply();
@@ -436,7 +483,7 @@ public class Utils
             db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
         } catch (Exception e) {
             Log.e(TAG, "Couldn't open database: " + Log.getStackTraceString(e));
-            context.deleteDatabase("tray");
+            appContext.deleteDatabase("tray");
             pref.edit().putBoolean(migrate_key, true).apply();
 
             return;
@@ -476,7 +523,7 @@ public class Utils
             Log.e(TAG, Log.getStackTraceString(e));
         } finally {
             c.close();
-            context.deleteDatabase("tray.db");
+            appContext.deleteDatabase("tray.db");
             edit.putBoolean(migrate_key, true);
             edit.apply();
         }
@@ -488,29 +535,21 @@ public class Utils
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startTorrentServiceBackground(Context context, String action)
+    public static void startServiceBackground(@NonNull Context context, @NonNull Intent i)
     {
-        Intent i = new Intent(context, TorrentTaskService.class);
-        if (action != null)
-            i.setAction(action);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(i);
         else
             context.startService(i);
     }
 
-    public static void enableBootReceiver(Context context, boolean enable)
+    public static void enableBootReceiver(@NonNull Context context, boolean enable)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
-        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                                                  SettingsManager.Default.enableSchedulingStart);
-        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                                                 SettingsManager.Default.enableSchedulingShutdown);
-        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                                            SettingsManager.Default.autostart);
-        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
-                                                   SettingsManager.Default.autoRefreshFeeds);
-        int flag = (!(enable || schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean schedulingStart = pref.enableSchedulingStart();
+        boolean schedulingStop = pref.enableSchedulingShutdown();
+        boolean autostart = pref.autostart();
+        int flag = (!(enable || schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
@@ -518,18 +557,13 @@ public class Utils
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static void enableBootReceiverIfNeeded(Context context)
+    public static void enableBootReceiverIfNeeded(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
-        boolean schedulingStart = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_start),
-                SettingsManager.Default.enableSchedulingStart);
-        boolean schedulingStop = pref.getBoolean(context.getString(R.string.pref_key_enable_scheduling_shutdown),
-                SettingsManager.Default.enableSchedulingShutdown);
-        boolean autostart = pref.getBoolean(context.getString(R.string.pref_key_autostart),
-                SettingsManager.Default.autostart);
-        boolean autoRefreshFeeds = pref.getBoolean(context.getString(R.string.pref_key_feed_auto_refresh),
-                                                   SettingsManager.Default.autoRefreshFeeds);
-        int flag = (!(schedulingStart || schedulingStop || autostart || autoRefreshFeeds) ?
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean schedulingStart = pref.enableSchedulingStart();
+        boolean schedulingStop = pref.enableSchedulingShutdown();
+        boolean autostart = pref.autostart();
+        int flag = (!(schedulingStart || schedulingStop || autostart) ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         ComponentName bootReceiver = new ComponentName(context, BootReceiver.class);
@@ -537,85 +571,84 @@ public class Utils
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static byte[] fetchHttpUrl(Context context, String url) throws FetchLinkException
+    public static byte[] fetchHttpUrl(@NonNull Context context,
+                                      @NonNull String url) throws FetchLinkException
     {
-        byte[] response = null;
+        byte[][] response = new byte[1][];
 
-        if (!Utils.checkNetworkConnection(context))
+        if (!Utils.checkConnectivity(context))
             throw new FetchLinkException("No network connection");
 
         final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-        for (int i = 0; i < MAX_HTTP_REDIRECTION; i++) {
-            HttpURLConnection connection = null;
-            try {
-                connection = (HttpURLConnection)new URL(url).openConnection();
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    response = IOUtils.toByteArray(connection.getInputStream());
-
-                } else if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP ||
-                           responseCode == HttpURLConnection.HTTP_MOVED_PERM ||
-                           responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
-                    url = connection.getHeaderField("Location");
-                    Log.i("fetchHttpUrl", "Redirect to the new URL: " + url);
-                    connection.disconnect();
-
-                    continue;
-                } else {
-                    throw new FetchLinkException("Failed to fetch link, response code: " + responseCode);
-                }
-            } catch (Throwable e) {
-                errorArray.add(e);
-            } finally {
-                if (connection != null)
-                    connection.disconnect();
-            }
-            if (response == null && i + 1 == MAX_HTTP_REDIRECTION)
-                throw new FetchLinkException("Failed to fetch link, cyclic redirection");
-            break;
+        HttpConnection connection;
+        try {
+            connection = new HttpConnection(url);
+        } catch (Exception e) {
+            throw new FetchLinkException(e);
         }
+
+        connection.setListener(new HttpConnection.Listener() {
+            @Override
+            public void onConnectionCreated(HttpURLConnection conn)
+            {
+                /* Nothing */
+            }
+
+            @Override
+            public void onResponseHandle(HttpURLConnection conn, int code, String message)
+            {
+                if (code == HttpURLConnection.HTTP_OK) {
+                    try {
+                        response[0] = IOUtils.toByteArray(conn.getInputStream());
+
+                    } catch (IOException e) {
+                        errorArray.add(e);
+                    }
+                } else {
+                    errorArray.add(new FetchLinkException("Failed to fetch link, response code: " + code));
+                }
+            }
+
+            @Override
+            public void onMovedPermanently(String newUrl)
+            {
+                /* Nothing */
+            }
+
+            @Override
+            public void onIOException(IOException e)
+            {
+                errorArray.add(e);
+            }
+
+            @Override
+            public void onTooManyRedirects()
+            {
+                errorArray.add(new FetchLinkException("Too many redirects"));
+            }
+        });
+        connection.run();
 
         if (!errorArray.isEmpty()) {
             StringBuilder s = new StringBuilder();
-            for (Throwable e : errorArray)
-                s.append(e.getMessage().concat("\n"));
+            for (Throwable e : errorArray) {
+                String msg = e.getMessage();
+                if (msg != null)
+                    s.append(msg.concat("\n"));
+            }
 
             throw new FetchLinkException(s.toString());
         }
 
-        return response;
-    }
-
-    public static void setTextViewStyle(Context context, TextView textView, int resId)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            textView.setTextAppearance(context, resId);
-        else
-            textView.setTextAppearance(resId);
-    }
-
-    public static String getAppVersionName(Context context)
-    {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-
-            return info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            /* Ignore */
-        }
-
-        return null;
+        return response[0];
     }
 
     /*
      * Without additional information (e.g -DEBUG)
      */
 
-    public static String getAppVersionNumber(String versionName)
+    public static String getAppVersionNumber(@NonNull String versionName)
     {
-        if (versionName == null)
-            return null;
-
         int index = versionName.indexOf("-");
         if (index >= 0)
             versionName = versionName.substring(0, index);
@@ -627,11 +660,9 @@ public class Utils
      * Return version components in these format: [major, minor, revision]
      */
 
-    public static int[] getVersionComponents(String versionName)
+    public static int[] getVersionComponents(@NonNull String versionName)
     {
         int[] version = new int[3];
-        if (versionName == null)
-            return version;
 
         /* Discard additional information */
         versionName = getAppVersionNumber(versionName);
@@ -653,11 +684,8 @@ public class Utils
         return version;
     }
 
-    public static String makeSha1Hash(String s)
+    public static String makeSha1Hash(@NonNull String s)
     {
-        if (s == null)
-            return null;
-
         MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("SHA1");
@@ -673,5 +701,259 @@ public class Utils
         }
 
         return sha1.toString();
+    }
+
+    public static SSLContext getSSLContext() throws GeneralSecurityException
+    {
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        tmf.init((KeyStore)null);
+
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+        final X509TrustManager origTrustManager = (X509TrustManager)trustManagers[0];
+
+        TrustManager[] wrappedTrustManagers = new TrustManager[]{
+                new X509TrustManager() {
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers()
+                    {
+                        return origTrustManager.getAcceptedIssuers();
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException
+                    {
+                        origTrustManager.checkClientTrusted(certs, authType);
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException
+                    {
+                        origTrustManager.checkServerTrusted(certs, authType);
+                    }
+                }
+        };
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, wrappedTrustManagers, null);
+
+        return sslContext;
+    }
+
+    public static void showActionModeStatusBar(@NonNull Activity activity, boolean mode)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        int attr = (mode ? R.attr.actionModeBackground : R.attr.statusBarColor);
+        activity.getWindow().setStatusBarColor(getAttributeColor(activity, attr));
+    }
+
+    public static int getAttributeColor(@NonNull Context context, int attributeId)
+    {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+
+        } catch (Resources.NotFoundException e) {
+            return color;
+        }
+
+        return color;
+    }
+
+    /*
+     * Return path to the current torrent download directory.
+     * If the directory doesn't exist, the function creates it automatically
+     */
+
+    public static Uri getTorrentDownloadPath(@NonNull Context appContext)
+    {
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
+        String path = pref.saveTorrentsIn();
+
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
+
+        path = (TextUtils.isEmpty(path) ? fs.getDefaultDownloadPath() : path);
+
+        return (path == null ? null : Uri.parse(fs.normalizeFileSystemPath(path)));
+    }
+
+    public static void setTextViewStyle(@NonNull Context context,
+                                        @NonNull TextView textView,
+                                        int resId)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            textView.setTextAppearance(context, resId);
+        else
+            textView.setTextAppearance(resId);
+    }
+
+    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path)
+    {
+        return SafFileSystem.getInstance(appContext).isSafPath(path);
+    }
+
+    public static boolean isFileSystemPath(@NonNull Uri path)
+    {
+        String scheme = path.getScheme();
+        if (scheme == null)
+            throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
+
+        return scheme.equals(ContentResolver.SCHEME_FILE);
+    }
+
+    public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
+                                                             @NonNull SharedPreferences localPref)
+    {
+        Resources res = context.getResources();
+
+        ArrayList<DrawerGroup> groups = new ArrayList<>();
+
+        DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
+                res.getString(R.string.drawer_status),
+                localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), true));
+        status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
+                                            DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
+                res.getString(R.string.drawer_sorting),
+                localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
+                                             DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
+                res.getString(R.string.drawer_date_added),
+                localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
+        dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
+                                               DrawerGroup.DEFAULT_SELECTED_ID));
+
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_id),
+                R.drawable.ic_download_grey600_24dp, res.getString(R.string.drawer_status_downloading)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloaded_id),
+                R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_status_downloaded)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
+                R.drawable.ic_magnet_grey600_24dp, res.getString(R.string.drawer_status_downloading_metadata)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_error),
+                R.drawable.ic_error_grey600_24dp, res.getString(R.string.drawer_status_error)));
+
+
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
+                R.drawable.ic_sort_off_grey600_24dp, res.getString(R.string.drawer_sorting_no_sorting)));
+
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
+                R.drawable.ic_calendar_today_grey600_24dp, res.getString(R.string.drawer_date_added_today)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
+                R.drawable.ic_calendar_yesterday_grey600_24dp, res.getString(R.string.drawer_date_added_yesterday)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
+                R.drawable.ic_calendar_week_grey600_24dp, res.getString(R.string.drawer_date_added_week)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
+                R.drawable.ic_calendar_month_grey600_24dp, res.getString(R.string.drawer_date_added_month)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
+                R.drawable.ic_calendar_year_grey600_24dp, res.getString(R.string.drawer_date_added_year)));
+
+        groups.add(status);
+        groups.add(sorting);
+        groups.add(dateAdded);
+
+        return groups;
+    }
+
+    public static TorrentSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
+                                                                     long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_asc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_desc_id))
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.DESC));
+        else
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+    }
+
+    public static TorrentFilter getDrawerGroupStatusFilter(@NonNull Context context,
+                                                           long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_status_all_id))
+            return TorrentFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_id))
+            return TorrentFilterCollection.statusDownloading();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloaded_id))
+            return TorrentFilterCollection.statusDownloaded();
+        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_metadata_id))
+            return TorrentFilterCollection.statusDownloadingMetadata();
+        else if (itemId == res.getInteger(R.integer.drawer_status_error))
+            return TorrentFilterCollection.statusError();
+        else
+            return TorrentFilterCollection.all();
+    }
+
+    public static TorrentFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
+                                                              long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
+            return TorrentFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_today_id))
+            return TorrentFilterCollection.dateAddedToday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_yesterday_id))
+            return TorrentFilterCollection.dateAddedYesterday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_week_id))
+            return TorrentFilterCollection.dateAddedWeek();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_month_id))
+            return TorrentFilterCollection.dateAddedMonth();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_year_id))
+            return TorrentFilterCollection.dateAddedYear();
+        else
+            return TorrentFilterCollection.all();
     }
 }

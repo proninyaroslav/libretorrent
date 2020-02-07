@@ -12,7 +12,7 @@ import java.util.Locale;
 public class FeedUtils {
     /** Date format for Atom dates. */
     private static final DateFormat ATOM_DATE = 
-        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
     
     /** Date format for RSS 2.0 dates. */
     private static final DateFormat RSS2_DATE = 
