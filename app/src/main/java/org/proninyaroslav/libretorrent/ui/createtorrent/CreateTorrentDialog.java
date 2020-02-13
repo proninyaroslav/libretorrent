@@ -104,19 +104,6 @@ public class CreateTorrentDialog extends DialogFragment
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        ViewModelProvider provider = new ViewModelProvider(activity);
-        viewModel = provider.get(CreateTorrentViewModel.class);
-        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-
-        FragmentManager fm = getChildFragmentManager();
-        errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
-    }
-
-    @Override
     public void onResume()
     {
         super.onResume();
@@ -188,6 +175,13 @@ public class CreateTorrentDialog extends DialogFragment
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(CreateTorrentViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+
+        FragmentManager fm = getChildFragmentManager();
+        errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_create_torrent, null, false);

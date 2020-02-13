@@ -112,18 +112,12 @@ public class BaseAlertDialog extends DialogFragment
         return frag;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+
         Bundle args = getArguments();
         String title = args.getString(TAG_TITLE);
         String message = args.getString(TAG_MESSAGE);

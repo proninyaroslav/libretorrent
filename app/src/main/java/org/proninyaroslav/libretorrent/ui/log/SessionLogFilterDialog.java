@@ -87,20 +87,14 @@ public class SessionLogFilterDialog extends DialogFragment
         });
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        viewModel = new ViewModelProvider(activity).get(LogViewModel.class);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
+
+        viewModel = new ViewModelProvider(activity).get(LogViewModel.class);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_log_filter, null, false);
@@ -121,7 +115,7 @@ public class SessionLogFilterDialog extends DialogFragment
         alert = builder.create();
     }
 
-    public void onBackPressed()
+    private void onBackPressed()
     {
         alert.dismiss();
     }

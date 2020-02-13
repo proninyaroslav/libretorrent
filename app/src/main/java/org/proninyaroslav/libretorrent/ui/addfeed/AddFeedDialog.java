@@ -127,28 +127,6 @@ public class AddFeedDialog extends DialogFragment
             activity = (AppCompatActivity)context;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        ViewModelProvider provider = new ViewModelProvider(activity);
-        viewModel = provider.get(AddFeedViewModel.class);
-        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
-
-        FragmentManager fm = getChildFragmentManager();
-        deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
-        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
-
-        long feedId = getArguments().getLong(TAG_FEED_ID, -1);
-        Uri uri = getArguments().getParcelable(TAG_URI);
-        /* Clean */
-        getArguments().putLong(TAG_FEED_ID, -1);
-        getArguments().putParcelable(TAG_URI, null);
-        initParams(uri, feedId);
-    }
-
     private void initParams(Uri uri, long feedId)
     {
         if (uri != null)
@@ -203,6 +181,22 @@ public class AddFeedDialog extends DialogFragment
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(AddFeedViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
+
+        FragmentManager fm = getChildFragmentManager();
+        deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
+        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+
+        long feedId = getArguments().getLong(TAG_FEED_ID, -1);
+        Uri uri = getArguments().getParcelable(TAG_URI);
+        /* Clean */
+        getArguments().putLong(TAG_FEED_ID, -1);
+        getArguments().putParcelable(TAG_URI, null);
+        initParams(uri, feedId);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_feed_channel, null, false);

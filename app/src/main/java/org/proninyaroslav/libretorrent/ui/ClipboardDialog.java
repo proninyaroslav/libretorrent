@@ -91,20 +91,14 @@ public class ClipboardDialog extends DialogFragment
             activity = (AppCompatActivity)context;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
                 .setTitle(R.string.clipboard)

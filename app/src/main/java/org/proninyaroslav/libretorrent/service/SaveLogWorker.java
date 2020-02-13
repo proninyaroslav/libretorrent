@@ -47,7 +47,7 @@ public class SaveLogWorker extends Worker
     private static final String TAG = SaveLogWorker.class.getSimpleName();
 
     public static final String TAG_FILE_URI = "file_uri";
-    public  static final String TAG_RESUME_AFTER_SAVE = "resume_after_save";
+    public static final String TAG_RESUME_AFTER_SAVE = "resume_after_save";
 
     private Context appContext;
     private TorrentEngine engine;

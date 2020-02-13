@@ -163,22 +163,16 @@ public class AddLinkDialog extends DialogFragment
         viewModel.showClipboardButton.set(clip != null);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        ViewModelProvider provider = new ViewModelProvider(activity);
-        viewModel = provider.get(AddLinkViewModel.class);
-        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(AddLinkViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
         FragmentManager fm = getChildFragmentManager();
         clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
