@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Beleértve a fájl prioritásokat?</string>
     <string name="magnet_more_about_bep53">További információ: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Nincs tracker</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Torrent nevének módosítása</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Másol</string>
     <string name="text_copied_to_clipboard">Szöveg másolva a vágólapra</string>
@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">Nem tudom megnyitni a kiválasztott fájlt</string>
     <string name="unable_to_create_file">A fájl nem hozható létre</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Napló</string>
+    <string name="journal_list_empty">Nincs bejegyzés</string>
+    <string name="journal_start_recording">Felvétel indítása</string>
+    <string name="journal_stop_recording">Felvétel leállítása</string>
+    <string name="journal_started_recording">Felvétel elindítva</string>
+    <string name="journal_filter_session_log">Napló megjelenítése</string>
+    <string name="journal_filter_dht_log">DHT napló</string>
+    <string name="journal_filter_peer_log">Peer napló</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP napló</string>
+    <string name="journal_filter_torrent_log">Torrent napló</string>
+    <string name="journal_save_log_failed">Napló mentése nem sikerült</string>
+    <string name="journal_save_log_success" formatted="false">Napló sikeresen mentésre került:%1$s</string>
+    <string name="pref_journal_save_log_to">Napló mentése</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">A tárolt naplóbejegyzések maximális száma</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Megjelenés</string>

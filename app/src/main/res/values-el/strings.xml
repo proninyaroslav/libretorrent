@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Συμπεριλάβετε προτεραιότητες αρχείου;</string>
     <string name="magnet_more_about_bep53">Περισσότερες πληροφορίες: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Χωρίς trackers</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Επεξεργασία ονόματος torrent</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Αντιγραφή</string>
     <string name="text_copied_to_clipboard">Το κείμενο αντιγράφτηκε στο πρόχειρο</string>
@@ -344,21 +344,21 @@
     <string name="unable_to_open_file">Αδυναμία ανοίγματος του επιλεχθέντος αρχείου</string>
     <string name="unable_to_create_file">Αδυναμία δημιουργίας αρχείου</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Ημερολόγιο</string>
+    <string name="journal_list_empty">Καμία καταχώρηση</string>
+    <string name="journal_start_recording">Έναρξη καταγραφής</string>
+    <string name="journal_stop_recording">Τέλος καταγραφής</string>
+    <string name="journal_started_recording">Έναρξη καταγραφής</string>
+    <string name="journal_filter_session_log">Καταγραφή συνεδρίας</string>
+    <string name="journal_filter_dht_log">Καταγραφή DHT</string>
+    <string name="journal_filter_peer_log">Καταγραφή peers</string>
+    <string name="journal_filter_portmap_log">Καταγραφή UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Καταγραφή torrent</string>
+    <string name="journal_save_log_failed">Αποτυχία αποθήκευσης αρχείου καταγραφής</string>
+    <string name="journal_save_log_success" formatted="false">Επιτυχής αποθήκευση καταγραφής: %1$s</string>
+    <string name="pref_journal_save_log_to">Αποθήκευση καταγραφής σε</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Μέγιστος αριθμός αποθηκευμένων αρχείων καταγραφής</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Εμφάνιση</string>
