@@ -991,7 +991,9 @@ public class TorrentSessionImpl extends SessionManager
                 case LISTEN_FAILED: {
                     ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
                     msg = SessionErrors.getErrorMsg(listenFailedAlert.error());
-                    listener.onSessionError(msg);
+                    ErrorCode error = listenFailedAlert.error();
+                    if (!SessionErrors.isNonCritical(error))
+                        listener.onSessionError(msg);
                     break;
                 }
                 case PORTMAP_ERROR: {
