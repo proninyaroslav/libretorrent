@@ -306,8 +306,9 @@
     <string name="feed_item_url_not_found">找不到URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建BT种子</string>
-    <string name="creating_torrent_progress">正在创建种子，请稍候&amp;#8230；</string>
+    <string name="creating_torrent_progress">正在创建种子，请稍候&#8230;</string>
     <string name="file_or_folder_for_seeding">需要做种的文件或文件夹</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">请先选择需要做种的文件或文件夹</string>
     <string name="tracker_urls">tracker追踪器链接</string>
     <string name="web_seed_urls">种子链接</string>
     <string name="comments">评论</string>
