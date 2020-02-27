@@ -302,7 +302,15 @@ public class CreateTorrentDialog extends DialogFragment
 
             cancelButton.setOnClickListener((v) ->
                     finish(new Intent(), FragmentCallback.ResultCode.CANCEL));
-            addButton.setOnClickListener((v) -> choosePathToSaveDialog());
+            addButton.setOnClickListener((v) -> {
+                if(TextUtils.isEmpty(viewModel.mutableParams.getSeedPathName()) || "null".equals(viewModel.mutableParams.getSeedPathName())) {
+                    binding.layoutFileOrDirPath.setErrorEnabled(true);
+                    binding.layoutFileOrDirPath.setError(getText(R.string.error_please_select_file_or_folder_for_seeding_first));
+                }
+                else{
+                    choosePathToSaveDialog();
+                }
+            });
         });
     }
 
@@ -487,6 +495,9 @@ public class CreateTorrentDialog extends DialogFragment
                 return;
             }
 
+            binding.layoutFileOrDirPath.setErrorEnabled(false);
+            binding.layoutFileOrDirPath.setError(null);
+            
             viewModel.mutableParams.getSeedPath().set(data.getData());
 
         } else if (requestCode == CHOOSE_PATH_TO_SAVE_REQUEST) {
