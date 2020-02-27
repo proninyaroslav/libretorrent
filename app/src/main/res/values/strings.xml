@@ -328,6 +328,7 @@
     <string name="create_torrent">Create torrent</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Tracker URLs</string>
     <string name="web_seed_urls">Web seed URLs</string>
     <string name="comments">Comments</string>
