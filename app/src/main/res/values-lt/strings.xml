@@ -102,7 +102,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Atsiunčia: %1$d Iš viso: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent veikia foniniame rėžime</string>
+    <string name="app_running_in_the_background">%1$s %2$s veikia foniniame rėžime</string>
+    <string name="download_center">Download Center</string>
     <string name="network_online">Tinklo būklė: Prisijungęs</string>
     <string name="network_offline">Tinklo būklė: Atsijungęs</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>
@@ -308,6 +309,7 @@
     <string name="create_torrent">Sukurti torentą</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">Failas ar aplankas skleisti</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Seklių URL adresai</string>
     <string name="web_seed_urls">Saityno skleidimo URL adresai</string>
     <string name="comments">Komentarai</string>
