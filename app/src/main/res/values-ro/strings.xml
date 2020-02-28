@@ -102,7 +102,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \\u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Se descarcă: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
+    <string name="app_running_in_the_background">%1$s %2$s rulează în fundal</string>
+    <string name="download_center">Download Center</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
     <string name="notify_shutting_down">Se închide&#8230;</string>
@@ -308,6 +309,7 @@
     <string name="create_torrent">Creați torrent</string>
     <string name="creating_torrent_progress">Se crează torrent-ul, vă rugăm așteptați&#8230;</string>
     <string name="file_or_folder_for_seeding">Fișier sau dosar pentru seeding</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">URL-uri de urmărire</string>
     <string name="web_seed_urls">URL-uri de semințe Web</string>
     <string name="comments">Comentarii</string>
