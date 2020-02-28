@@ -102,7 +102,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">正在下载: %1$d 总计: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
+    <string name="app_running_in_the_background">%1$s%2$s正在后台运行</string>
+    <string name="download_center">上传下载中心</string>
     <string name="network_online">网络状态：在线</string>
     <string name="network_offline">网络状态：离线</string>
     <string name="notify_shutting_down">关闭&#8230;</string>
@@ -131,10 +132,10 @@
     <!-- connected/total -->
     <string name="peers_template" formatted="false">%1$d/%2$d</string>
     <string name="torrent_status_downloading">下载中</string>
-    <string name="torrent_status_seeding">播种中</string>
+    <string name="torrent_status_seeding">做种中</string>
     <string name="torrent_status_paused">已暂停</string>
     <string name="torrent_status_stopped">已停止</string>
-    <string name="torrent_status_checking">检查中</string>
+    <string name="torrent_status_checking">校验中</string>
     <string name="torrent_status_finished">已完成</string>
     <string name="torrent_status_downloading_metadata">下载元数据中</string>
     <!-- Permission dialog -->
@@ -224,15 +225,15 @@
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template" formatted="false">%1$d/%2$d （%3$s）</string>
-    <string name="torrent_trackers">追踪器</string>
+    <string name="torrent_trackers">Tracker</string>
     <string name="tracker_state_working">工作</string>
     <string name="tracker_state_not_working">不工作</string>
     <string name="tracker_state_updating">更新中&#8230;</string>
     <string name="tracker_state_not_contacted">尚未连接</string>
     <string name="share_tracker_url">分享链接</string>
-    <string name="delete_selected_tracker">删除所选追踪器？</string>
-    <string name="delete_selected_trackers">删除所选的所有追踪器？</string>
-    <string name="add_trackers">添加追踪器</string>
+    <string name="delete_selected_tracker">删除所选Tracker？</string>
+    <string name="delete_selected_trackers">删除所选的所有Tracker？</string>
+    <string name="add_trackers">添加Tracker</string>
     <string name="dialog_add_trackers">（每行一个）</string>
     <string name="open_using">打开文件</string>
     <string name="peer_port" formatted="false">端口: %1$d</string>
@@ -263,7 +264,7 @@
     <string name="share_stream_url">分享流媒体链接</string>
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">没有跟踪器</string>
+    <string name="tracker_list_empty">没有Tracker</string>
     <string name="edit_torrent_name">Edit torrent name</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
@@ -306,12 +307,13 @@
     <string name="feed_item_url_not_found">找不到URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建BT种子</string>
-    <string name="creating_torrent_progress">正在创建种子，请稍候&amp;#8230；</string>
+    <string name="creating_torrent_progress">正在创建种子，请稍候&#8230;</string>
     <string name="file_or_folder_for_seeding">需要做种的文件或文件夹</string>
-    <string name="tracker_urls">tracker追踪器链接</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">请先选择需要做种的文件或文件夹</string>
+    <string name="tracker_urls">Tracker链接</string>
     <string name="web_seed_urls">种子链接</string>
     <string name="comments">评论</string>
-    <string name="tracker_urls_hint">（可选）按优先级每行输入一个tracker跟踪器</string>
+    <string name="tracker_urls_hint">（可选）按优先级每行输入一个tracker</string>
     <string name="web_seed_urls_hint">（可选）每行一个</string>
     <string name="optional_hint">（可选）</string>
     <string name="piece_size">区块大小</string>
@@ -437,7 +439,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>
-    <string name="pref_enable_dht_summary">允许BT客户端无需使用追踪器便能找到彼此。启用此选项将增加电池使用量</string>
+    <string name="pref_enable_dht_summary">允许BT客户端无需使用Tracker便能找到彼此。启用此选项将增加电池使用量</string>
     <string name="pref_enable_lsd_title">开启 LSD</string>
     <string name="pref_enable_lsd_summary">支持本地其他BT用户最小显著性差异，旨在最大限度减少流量</string>
     <string name="pref_enable_utp_title">开启 μTP</string>
@@ -465,7 +467,7 @@
     <string name="pref_ip_filtering_file_title">过滤规则文件路径 （.dat ，.p2p ）</string>
     <string name="pref_show_nat_errors">显示NAT错误</string>
     <string name="pref_anonymous_mode_title">启用匿名模式</string>
-    <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用跟踪器。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与跟踪器代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
+    <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用Tracker。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与Tracker代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
@@ -477,7 +479,7 @@
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
     <string name="pref_proxy_peers_too_title">用于与用户的连接</string>
-    <string name="pref_proxy_peers_too_summary">代理服务器将用于与追踪器、用户和网页种子的连接</string>
+    <string name="pref_proxy_peers_too_summary">代理服务器将用于与Tracker、用户和网页种子的连接</string>
     <string name="pref_proxy_requires_auth_title">需要授权认证</string>
     <string name="pref_proxy_requires_auth_summary">警告：密码将以不加密的方式保存</string>
     <string name="pref_proxy_login_title">登录名</string>
@@ -535,4 +537,6 @@
     LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) 库。<br><br>
     LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3)</a>条款发布的免费软件]]></string>
     <string name="about_changelog">更新日志</string>
+
+
 </resources>
