@@ -74,6 +74,7 @@ Current languages:
  - Azerbaijani *(thanks Khan27)*
  - Serbian (Cyrillic) *(thanks veles330)*
  - Hungarian *(thanks Ephyx)*
+ - Korean *(thanks jjjhitel)*
 
 Contributors
 ---
