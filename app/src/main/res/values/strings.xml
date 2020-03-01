@@ -105,7 +105,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent running in the background</string>
+    <string name="app_running_in_the_background">%1$s %2$s running in the background</string>
+    <string name="download_center">Download Center</string>
     <string name="network_online">Network status: Online</string>
     <string name="network_offline">Network status: Offline</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>
@@ -328,6 +329,7 @@
     <string name="create_torrent">Create torrent</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Tracker URLs</string>
     <string name="web_seed_urls">Web seed URLs</string>
     <string name="comments">Comments</string>

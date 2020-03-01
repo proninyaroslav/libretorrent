@@ -102,7 +102,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Endirilir: %1$d Cəmi: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
+    <string name="app_running_in_the_background">%1$s %2$s arxaplanda işləyir</string>
+    <string name="download_center">Download Center</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
     <string name="network_offline">Şəbəkə vəziyyəti: Xətdən kənar</string>
     <string name="notify_shutting_down">Söndürülür&#8230;</string>
@@ -308,6 +309,7 @@
     <string name="create_torrent">Torrent yarat</string>
     <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
     <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">İzləyici URL-lər</string>
     <string name="web_seed_urls">İnternet seed URL-ləri</string>
     <string name="comments">Rəylər</string>

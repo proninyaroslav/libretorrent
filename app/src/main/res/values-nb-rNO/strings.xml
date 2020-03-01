@@ -102,7 +102,8 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Laster ned: %1$d Totalt: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent kjører i bakgrunnen</string>
+    <string name="app_running_in_the_background">%1$s %2$s kjører i bakgrunnen</string>
+    <string name="download_center">Download Center</string>
     <string name="network_online">Nettverksstatus: Tilkoblet</string>
     <string name="network_offline">Nettverksstatus: Frakoblet</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>
@@ -308,6 +309,7 @@
     <string name="create_torrent">Lag torrent</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">Fil eller mappe for deling</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Sporer-nettadresser</string>
     <string name="web_seed_urls">Nettdeleradresse</string>
     <string name="comments">Kommentarer</string>
