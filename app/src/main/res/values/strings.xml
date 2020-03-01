@@ -105,8 +105,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s running in the background</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent running in the background</string>
     <string name="network_online">Network status: Online</string>
     <string name="network_offline">Network status: Offline</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>

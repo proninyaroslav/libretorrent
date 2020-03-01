@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
-    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Peut-être que le fichier est corrompu ou a un format incorrect</string>
+    <string name="ip_filter_add_error" formatted="false">Impossible d\'ajouter le filtre IP (%1$d a échoué). Peut-être que le fichier est corrompu ou a un format incorrect</string>
     <string name="ip_filter_add_success">Le filtre IP a été ajouté avec succès</string>
     <string name="proxy_settings_applied">Paramètres du serveur proxy appliqués avec succès</string>
     <string name="proxy_settings_apply_after_reboot">Les paramètres du serveur proxy seront appliqués après le redémarrage de l\'application</string>
@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Téléchargement: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s fonctionne en arrière-plan</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent fonctionne en arrière-plan</string>
     <string name="network_online">État du réseau: En ligne</string>
     <string name="network_offline">État du réseau: Hors ligne</string>
     <string name="notify_shutting_down">Arrêt en cours&#8230;</string>
@@ -265,7 +264,7 @@
     <string name="magnet_include_file_priorities">Inclure les priorités de fichier?</string>
     <string name="magnet_more_about_bep53">Plus d\'information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aucun tracker</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Modifier le nom du torrent</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copier</string>
     <string name="text_copied_to_clipboard">Copier dans le presse-papiers</string>
@@ -347,20 +346,20 @@
     <string name="unable_to_create_file">Impossible de créer le fichier</string>
     <!-- Log -->
     <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_list_empty">Pas d\'entrées</string>
+    <string name="journal_start_recording">Lancer enregistrement</string>
+    <string name="journal_stop_recording">Arrêter l\'enregistrement</string>
+    <string name="journal_started_recording">Enregistrement commencé</string>
+    <string name="journal_filter_session_log">Journal de session</string>
+    <string name="journal_filter_dht_log">Journal DHT</string>
+    <string name="journal_filter_peer_log">Journal des pairs</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="journal_filter_torrent_log">Journal du torrent</string>
+    <string name="journal_save_log_failed">Échec de la sauvegarde du journal</string>
+    <string name="journal_save_log_success" formatted="false">Log enregistré avec succès : %1$s</string>
+    <string name="pref_journal_save_log_to">Sauvegarder les logs vers</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Nombre maximal d\'écritures de journal stockées</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Apparence</string>

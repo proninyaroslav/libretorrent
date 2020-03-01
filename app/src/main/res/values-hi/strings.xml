@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">धार फ़ाइल खोलने में असमर्थ</string>
     <string name="open_file">खुली फाइल</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="ip_filter_add_error">IP फ़िल्टर जोड़ने में विफल (%1$d विफल रहा) । हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
+    <string name="ip_filter_add_error" formatted="false">IP फ़िल्टर जोड़ने में विफल (%1$d विफल रहा) । हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
     <string name="ip_filter_add_success">IP फ़िल्टर सफलतापूर्वक जोड़ा गया</string>
     <string name="proxy_settings_applied">प्रॉक्सी सर्वर सेटिंग्स सफलतापूर्वक लागू हुईं</string>
     <string name="proxy_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद प्रॉक्सी सर्वर सेटिंग्स लागू की जाएंगी</string>
@@ -71,7 +71,7 @@
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -308,6 +308,7 @@
     <string name="create_torrent">धार पैदा करो</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">बोने के लिए फाइल या फोल्डर</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">ट्रैकर यूआरएल</string>
     <string name="web_seed_urls">वेब सीड यूआरएल</string>
     <string name="comments">टिप्पणियाँ</string>

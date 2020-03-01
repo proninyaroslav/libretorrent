@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">トレントファイルを開けません</string>
     <string name="open_file">ファイルを開く</string>
     <string name="settings">設定</string>
-    <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性があります。</string>
+    <string name="ip_filter_add_error" formatted="false">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性があります。</string>
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
     <string name="proxy_settings_applied">プロキシサーバ設定を適用しました</string>
     <string name="proxy_settings_apply_after_reboot">プロキシサーバ設定はアプリ再起動後に適用されます</string>
@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">ダウンロード中: %1$d 合計: %2$d</string>
-    <string name="app_running_in_the_background">バックグラウンドで %1$s %2$s を動作し続ける</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">バックグラウンドで LibreTorrent を動作し続ける</string>
     <string name="network_online">ネットワークステータス: オンライン</string>
     <string name="network_offline">ネットワークステータス: オフライン</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>

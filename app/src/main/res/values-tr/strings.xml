@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">İndirilen: %1$d Toplam: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s arka planda çalışıyor</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent arka planda çalışıyor</string>
     <string name="network_online">Ağ durumu: Çevrimiçi</string>
     <string name="network_offline">Ağ durumu: Çevrimdışı</string>
     <string name="notify_shutting_down">Kapatılıyor&#8230;</string>

@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Błąd przy otwieraniu pliku</string>
     <string name="open_file">Otwórz plik</string>
     <string name="settings">Ustawienia</string>
-    <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format</string>
+    <string name="ip_filter_add_error" formatted="false">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format</string>
     <string name="ip_filter_add_success">Filtr IP został pomyślnie dodany</string>
     <string name="proxy_settings_applied">Ustawienia serwera proxy wykonano pomyślnie</string>
     <string name="proxy_settings_apply_after_reboot">Ustawienia serwera proxy zostaną zaaplikowane po restarcie aplikacji</string>
@@ -71,7 +71,7 @@
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Pobieranie: %1$d Razem: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s działa w tle</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent działa w tle</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
     <string name="notify_shutting_down">Shutting down&#8230;</string>

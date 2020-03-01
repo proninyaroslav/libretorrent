@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Endirilir: %1$d Cəmi: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s arxaplanda işləyir</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
     <string name="network_offline">Şəbəkə vəziyyəti: Xətdən kənar</string>
     <string name="notify_shutting_down">Söndürülür&#8230;</string>

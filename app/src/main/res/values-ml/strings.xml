@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">ടോറന്റ് ഫയൽ തുറക്കാൻ കഴിയുന്നില്ല</string>
     <string name="open_file">ഫയൽ തുറക്കുക</string>
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
-    <string name="ip_filter_add_error">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു) . ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
+    <string name="ip_filter_add_error" formatted="false">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു). ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
     <string name="ip_filter_add_success">IP ഫിൽട്ടർ വിജയകരമായി ചേർത്തു</string>
     <string name="proxy_settings_applied">പ്രോക്സി സെർവർ ക്രമീകരണം വിജയകരമായി പ്രയോഗിച്ചു</string>
     <string name="proxy_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചതിന് ശേഷം പ്രോക്സി സെർവർ ക്രമീകരണം പ്രയോഗിക്കപ്പെടും</string>
@@ -71,7 +71,7 @@
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -308,6 +308,7 @@
     <string name="create_torrent">ടോറന്റ് സൃഷ്ടിക്കുക</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
     <string name="file_or_folder_for_seeding">വിതയ്ക്കുന്നതിന് ഫയൽ അല്ലെങ്കിൽ ഫോൾഡർ</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">ട്രാക്കർ URL കൾ</string>
     <string name="web_seed_urls">വെബ് സീഡ് URL കൾ</string>
     <string name="comments">അഭിപ്രായങ്ങൾ</string>

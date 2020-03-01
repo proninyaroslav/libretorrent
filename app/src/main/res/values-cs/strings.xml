@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Stahování: %1$d Celkem: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s běží na pozadí</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
     <string name="network_offline">Stav sítě: Offline</string>
     <string name="notify_shutting_down">Vypínání&#8230;</string>

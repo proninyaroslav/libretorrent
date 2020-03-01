@@ -46,7 +46,6 @@
     <string name="clipboard">클립보드</string>
     <string name="switch_on">켬</string>
     <string name="switch_off">끔</string>
-
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">다운로드한 파일과 함께 삭제</string>
     <string name="delete_selected_torrent">선택한 토렌트를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</string>
@@ -95,9 +94,7 @@
     <string name="drawer_date_added_week">주</string>
     <string name="drawer_date_added_month">월</string>
     <string name="drawer_date_added_year">년</string>
-
     <!-- Foreground notification -->
-
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/초 \u2022 %4$s</string>
     <!-- status • upload speed • name -->
@@ -109,7 +106,6 @@
     <string name="network_online">네트워크 상태: 온라인</string>
     <string name="network_offline">네트워크 상태: 오프라인</string>
     <string name="notify_shutting_down">종료 중&#8230;</string>
-
     <!-- Error notification -->
     <string name="torrent_error_notify_title">토렌트 오류</string>
     <string name="error_template">오류: %1$s</string>
@@ -117,20 +113,15 @@
     <string name="session_error_title">세션 오류</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT 오류</string>
-
     <!-- Finish notification -->
     <string name="torrent_finished_notify">토렌트 완료</string>
-
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">토렌트 이동 중</string>
     <string name="torrent_moving_content" formatted="false">%1$s를 이동 중입니다. 잠시만 기다리세요.</string>
     <string name="torrent_move_success">토렌트 이동 완료</string>
     <string name="torrent_move_fail">토렌트 이동 실패</string>
-
     <!-- Added notification -->
-
     <!-- Torrent list item -->
-
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
@@ -146,11 +137,9 @@
     <string name="torrent_status_checking">확인 중</string>
     <string name="torrent_status_finished">완료됨</string>
     <string name="torrent_status_downloading_metadata">메타데이터 다운로드 중</string>
-
     <!-- Permission dialog -->
     <string name="perm_denied_title">권한 거부됨</string>
     <string name="perm_denied_warning">이 권한 없이 앱이 메모리에 토렌트 파일을 저장할 수 없습니다. 앱이 정상적으로 작동하지 않습니다. 정말 이 권한을 부여하지 않을까요?</string>
-
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">토렌트 추가</string>
     <string name="error_decode_torrent">토렌트 파일 해독 실패. 손상된 파일이거나 올바르지 않은 형식입니다.</string>
@@ -171,7 +160,6 @@
     <string name="unable_to_open_folder">선택한 폴더를 열 수 없습니다. 다른 폴더를 선택하세요.</string>
     <string name="error_empty_name">이름을 입력하세요.</string>
     <string name="ignore_free_space">여유 공간 무시</string>
-
     <!-- Torrent info -->
     <string name="torrent_info">정보</string>
     <string name="torrent_files">파일</string>
@@ -184,7 +172,6 @@
     <string name="torrent_create_date">생성 날짜</string>
     <string name="torrent_created_in_program">생성 프로그램</string>
     <string name="sequential_download">순차 다운로드</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">폴더 선택</string>
     <string name="file_chooser_title">파일 선택</string>
@@ -204,13 +191,10 @@
     <string name="replace_file">파일 덮어쓰기</string>
     <string name="device_does_not_support_this_feature">이 기기에서 지원되지 않는 기능입니다.</string>
     <string name="parent_folder">상위 폴더</string>
-
     <!-- Error dialog -->
     <string name="report">보고</string>
     <string name="more_details">자세한 내용</string>
-
     <!-- Detail torrent dialog -->
-
     <!-- priority • total -->
     <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
@@ -281,15 +265,12 @@
     <string name="magnet_more_about_bep53">더 많은 정보: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">트래커 없음</string>
     <string name="edit_torrent_name">토렌트 이름 수정</string>
-
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">복사</string>
     <string name="text_copied_to_clipboard">클립보드로 복사됨</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">앱 오류가 발생했습니다. 버그 보고서를 개발자에게 보낼 수 있습니다.</string>
     <string name="error_comment_prompt">추가 정보 및 의견 입력:</string>
-
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">채널 없음</string>
@@ -323,11 +304,11 @@
     <string name="error_import_invalid_format">올바르지 않은 형식</string>
     <string name="feed_do_not_download_immediately">즉시 다운로드하지 않음</string>
     <string name="feed_item_url_not_found">URL을 찾을 수 없음</string>
-
     <!-- Create torrent dialog -->
     <string name="create_torrent">토렌트 생성</string>
     <string name="creating_torrent_progress">토렌트 생성 중입니다. 잠시만 기다리세요&#8230;</string>
     <string name="file_or_folder_for_seeding">배포할 파일이나 폴더</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">트래커 URL</string>
     <string name="web_seed_urls">웹 배포 URL</string>
     <string name="comments">의견</string>
@@ -363,7 +344,6 @@
     <string name="torrent_saved_to" formatted="false">토렌트가 %1$s에 저장되었습니다.</string>
     <string name="unable_to_open_file">선택한 파일을 열 수 없습니다.</string>
     <string name="unable_to_create_file">파일을 생성할 수 없습니다.</string>
-
     <!-- Log -->
     <string name="log_journal">저널</string>
     <string name="journal_list_empty">엔트리 없음</string>
@@ -380,9 +360,7 @@
     <string name="pref_journal_save_log_to">로그 저장 위치</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">최대 저장 저널 엔트리</string>
-
     <!-- Settings -->
-    
     <!-- Headers -->
     <string name="pref_header_appearance">모양</string>
     <string name="pref_header_behavior">행동</string>
@@ -552,11 +530,9 @@
     <string name="pref_streaming_hostname">호스트네임</string>
     <string name="pref_streaming_port">포트</string>
     <string name="pref_streaming_error">스트리밍으로 지정된 포트나 호스트네임이 사용중이거나 올바르지 않습니다. 해결 후 시도하세요.</string>
-
     <!-- About dialog -->
     <string name="about_title">LibreTorrent 정보</string>
-    <string name="about_description"><![CDATA[
-    더 많은 정보 및 프로젝트 돕기: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    <string name="about_description"><![CDATA[    더 많은 정보 및 프로젝트 돕기: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent는 libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) 라이브러리를 기반으로, 안드로이드 4 이상 버전을 지원하는 자유 토렌트 클라이언트이며 무료입니다. is a Free as in Freedom torrent client for Android 4+, based on <br><br>
     LibreTorrent는 무료 소프트웨어이며, <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 약관을 기반으로 합니다.]]></string>
     <string name="about_changelog">변경내역</string>

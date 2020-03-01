@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Невозможно открыть торрент-файл</string>
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
-    <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно файл повреждён или имеет неверный формат</string>
+    <string name="ip_filter_add_error" formatted="false">Не удалось добавить IP фильтр (не удалось %1$d). Возможно файл повреждён или имеет неверный формат</string>
     <string name="ip_filter_add_success">IP фильтр успешно добавлен</string>
     <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
     <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
@@ -308,6 +308,7 @@
     <string name="create_torrent">Создать торрент</string>
     <string name="creating_torrent_progress">Создание торрента, пожалуйста, подождите&#8230;</string>
     <string name="file_or_folder_for_seeding">Файл или папка для раздачи</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Пожалуйста, сначала выберите файл или папку для раздачи</string>
     <string name="tracker_urls">Адреса трекеров</string>
     <string name="web_seed_urls">Адреса веб-сидов</string>
     <string name="comments">Комментарии</string>

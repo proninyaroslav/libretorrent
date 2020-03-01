@@ -102,8 +102,7 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template" formatted="false">Descargando: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">%1$s %2$s está ejecutandose en segundo plano</string>
-    <string name="download_center">Download Center</string>
+    <string name="app_running_in_the_background">LibreTorrent está ejecutandose en segundo plano</string>
     <string name="network_online">Estado de la red: Conectado</string>
     <string name="network_offline">Estado de la red: Desconectado</string>
     <string name="notify_shutting_down">Saliendo&#8230;</string>

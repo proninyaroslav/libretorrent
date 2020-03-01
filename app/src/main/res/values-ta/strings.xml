@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Torrent கோப்பை திறக்க முடியவில்லை</string>
     <string name="open_file">கோப்பை திற</string>
     <string name="settings">அமைப்புகள்</string>
-    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது</string>
+    <string name="ip_filter_add_error" formatted="false">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது</string>
     <string name="ip_filter_add_success">IP வடிப்பான் வெற்றிகரமாக சேர்க்கப்பட்டது</string>
     <string name="proxy_settings_applied">பதிலாள் சேவையக அமைப்புகள் வெற்றிகரமாக பயன்படுத்தப்பட்டன</string>
     <string name="proxy_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பதிலாள் சேவையக அமைப்புகள் பயன்படுத்தப்படும்</string>
@@ -71,7 +71,7 @@
     <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listen port: %1$s</string>
+    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -307,6 +307,7 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent ஐ உருவாக்கவும்</string>
     <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="file_or_folder_for_seeding">விதைப்பதற்கு கோப்பு அல்லது அடைவு</string>
     <string name="tracker_urls">டிராக்கரின் URL கள்</string>
     <string name="web_seed_urls">வலை விதை URL கள்</string>
