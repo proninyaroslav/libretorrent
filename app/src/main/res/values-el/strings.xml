@@ -308,7 +308,7 @@
     <string name="create_torrent">Δημιουργία torrent</string>
     <string name="creating_torrent_progress">Δημιουργία torrent, περιμένετε&#8230;</string>
     <string name="file_or_folder_for_seeding">Αρχείο ή φάκελο για γίνεται διαμοιρασμός</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Επιλέξτε αρχείο ή φάκελο για διαμοιρασμό πρώτα</string>
     <string name="tracker_urls">URLs ιχνηλάτη</string>
     <string name="web_seed_urls">URLs διαμοιραστή ιστού</string>
     <string name="comments">Παρατηρήσεις</string>

@@ -308,7 +308,7 @@
     <string name="create_torrent">Torrent készítése</string>
     <string name="creating_torrent_progress">Torrent létrehozása, kérlek várj&#8230;</string>
     <string name="file_or_folder_for_seeding">Fájl vagy könyvtár a seedeléshez</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Először válassz egy fájlt vagy mappát a seedeléshez</string>
     <string name="tracker_urls">Tracker URL-ek</string>
     <string name="web_seed_urls">Webes seed URL-ek</string>
     <string name="comments">Megjegyzések</string>

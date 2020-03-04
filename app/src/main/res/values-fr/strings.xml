@@ -308,7 +308,7 @@
     <string name="create_torrent">Créer un torrent</string>
     <string name="creating_torrent_progress">Création du torrent, veuillez patienter&#8230;</string>
     <string name="file_or_folder_for_seeding">Fichier ou dossier pour l\'ensemencement</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Veuillez d\'abord sélectionner un fichier ou un dossier pour le seeding</string>
     <string name="tracker_urls">URLs des trackers</string>
     <string name="web_seed_urls">URLs de graine Web</string>
     <string name="comments">Commentaires</string>

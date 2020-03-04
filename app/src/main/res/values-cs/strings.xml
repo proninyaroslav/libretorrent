@@ -308,7 +308,7 @@
     <string name="create_torrent">Vytvořit torrent</string>
     <string name="creating_torrent_progress">Vytváření torrentu, čekejte prosím&#8230;</string>
     <string name="file_or_folder_for_seeding">Soubor nebo složka pro seedování</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Nejprve vyberte soubor nebo složku pro seedování</string>
     <string name="tracker_urls">URL Trackeru:</string>
     <string name="web_seed_urls">URL webových seedů</string>
     <string name="comments">Komentáře</string>
