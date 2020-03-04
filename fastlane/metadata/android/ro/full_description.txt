@@ -1,0 +1,22 @@
+# Caracteristici
+
+* DHT, PeX, criptare, LSD, UPnP, NAT * PMP, µTP
+* Filtrare IP (dat de eMule și PeerGuardian)
+* Posibilitatea de a regla fin (setările rețelei, administrarea energiei, controlul bateriei, setările UI etc.)
+* Suporta torrente cu un număr mare de fișiere și fișiere mari
+* HTTP \ S și suportul link-urilor magnet
+* Suport proxy pentru urmăritori și colegi
+* Abilitatea de a muta fișiere în timpul descărcării
+* Posibilitatea de a muta automat fișierele într-un alt director sau către o unitate externă la sfârșitul descărcării
+* Abilitatea de a specifica prioritățile fișierului și folderului
+* Abilitatea de a selecta care fișiere sunt pentru descărcare
+* Abilitatea de a descărca secvențial
+* Design Material
+* Tematică Întunecată și Neagră
+* Tabletă UI optimizată
+* Programare
+* manager RSS
+* Suport Android TV
+* Abilitate de a creea torrent-uri
+* Transmiterea fișierelor selectate
+* Și mai multe

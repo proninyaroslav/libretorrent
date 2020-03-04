@@ -1,0 +1,22 @@
+# Özellikler
+
+* DHT, PeX, şifreleme, LSD, UPnP, NAT*PMP, µTP
+* IP filtreleme (eMule dat ve PeerGuardian)
+* İnce ayar yapabilme (ağ ayarları, güç yönetimi, pil kontrolü, kullanıcı arayüzü ayarları vb.)
+* Çok sayıda ve büyük ebatta dosya içeren torrentleri destekler
+* HTTP\S ve magnet link desteği
+Takipçiler ve eşler için proxy desteği
+* İndirme esnasında dosyaları taşıyabilme
+* İndirme sonunda dosyaların otomatik olarak başka bir dizine veya harici bir sürücüye taşınabilmesi
+* Dosya ve klasör önceliklerini belirleyebilme
+* Hangi dosyaları indireceğinizi seçebilme
+* Sıralı olarak indirebilme
+• Material Dizayn
+* Koyu ve Siyah tema
+* Tablet için optimize edilmiş kullanıcı arayüzü
+* Zamanlama
+* RSS yöneticisi
+* Android TV desteği
+* Torrent oluşturabilme
+* Seçilen dosyaları stream edebilme
+* Ve daha fazlası

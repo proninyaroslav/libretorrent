@@ -1,0 +1,22 @@
+# Xüsusiyyətlər
+
+* DHT, PeX, şifrələmə, LSD, UPnP, NAT*PMP, µTP
+* IP filtrləmə (eMule dat və PeerGuardian)
+* Yaxşı kökləmə bacarığı (şəbəkə tənzimləmələri, enerjini idarəetmə, batereyaya nəzarət, İİ tənzimləmələri və s.)
+* Çox sayda və böyük həcmdəki faylları ehtiva edən torrentlər dəstəklənir
+* HTTP\S və magnet bağlantı dəstəyi
+* İzləyicilər və cütlər üçün proxy dəstəyi
+* Endirmə zamanı faylları köçürmə
+* Endirmənin sonunda faylların avtomatik olaraq başqa kataloqa və ya xarici sürücüyə köçürülə bilməsi
+* Fayl və qovluq prioritetlərini müəyyənləşdirə bilmə
+* Hansı faylları endirəcəyinizi seçə bilmə
+* Növbəli olaraq endirə bilmə
+* Material Dizayn
+* Tünd və Qara tema
+* Planşet üçün optimizasiya edilmiş İİ
+* Planlama
+* RSS meneceri
+* Android TV dəstəyi
+* Torrent yarada bilmə
+* Seçilmiş faylları stream edə bilmə
+* Və daha çoxu

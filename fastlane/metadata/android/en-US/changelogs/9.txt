@@ -1,0 +1,19 @@
+* Added:
+    - RSS manager
+    - Ability to create torrents
+    - Scheduling
+    - Android TV support
+    - Android P support
+    - More improve magnet naming
+    - Expand proxy port range to 65535
+    - Allow resume torrents manually if enabled power/Wi-Fi settings
+    - Minor changes
+* Bugfixing:
+    - Peer cache list limit
+    - Displayed total peers number
+    - Crash after double shutdown
+    - Check torrent size after change priority
+    - Minor bugfixes
+* Moving source code to GitLab
+* Reduce size by splitting APK for each architecture (F-Droid is not yet supported)
+* Update to jlibtorrent 1.2.0.18-RC10

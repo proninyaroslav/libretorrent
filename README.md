@@ -1,3 +1,5 @@
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/libretorrent/localized.svg)](https://crowdin.com/project/libretorrent)
+[![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/14421/badge.svg">](https://scan.coverity.com/projects/proninyaroslav-libretorrent)
 
 LibreTorrent
@@ -7,6 +9,7 @@ LibreTorrent
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
+
 **Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
 
 LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper [libtorrent4j](https://github.com/aldenml/libtorrent4j)) lib.
@@ -51,30 +54,30 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
 Translations
 ---
 
-Current languages:
+You can help translate the app here: [https://crowdin.com/project/libretorrent](https://crowdin.com/project/libretorrent)
 
- - English
- - Russian
- - German *(thanks vanitasvitae)*
- - Lithuanian *(thanks techwebpd)*
- - Chinese *(thanks yanglw, Xu Eric and Tan Yongle)*
- - Polish *(thanks Azaradel)*
- - Spanish *(thanks ed10vi, MS-PC)*
- - Brazilian Portuguese *(thanks Wolfterro)*
- - French *(thanks Valentin Orient, boby23)*
- - Greek *(thanks Spyros3000, skyhirules)*
- - Czech *(thanks HarryPhoon, novas78)*
- - Norwegian Bokmål *(thanks comradekingu)*
- - Romanian *(thanks georgenetu, Silviu200530)*
- - Hindi *(thanks Lino Joseph)*
- - Malayalam *(thanks Lino Joseph)*
- - Tamil *(thanks Lino Joseph)*
- - Japanese *(thanks mamarama9904)*
- - Turkish *(thanks oersen)*
- - Azerbaijani *(thanks Khan27)*
- - Serbian (Cyrillic) *(thanks veles330)*
- - Hungarian *(thanks Ephyx)*
- - Korean *(thanks jjjhitel)*
+ - **Azerbaijani** *(thanks Khan27)*
+ - **Brazilian Portuguese** *(thanks Wolfterro)*
+ - **Chinese** *(thanks yanglw, Xu Eric and Tan Yongle)*
+ - **Czech** *(thanks HarryPhoon, novas78)*
+ - **English**
+ - **French** *(thanks Valentin Orient, boby23)*
+ - **German** *(thanks vanitasvitae)*
+ - **Greek** *(thanks Spyros3000, skyhirules)*
+ - **Hindi** *(thanks Lino Joseph)*
+ - **Hungarian** *(thanks Ephyx)*
+ - **Japanese** *(thanks mamarama9904)*
+ - **Korean** *(thanks jjjhitel)*
+ - **Lithuanian** *(thanks techwebpd)*
+ - **Malayalam** *(thanks Lino Joseph)*
+ - **Norwegian Bokmål** *(thanks comradekingu)*
+ - **Polish** *(thanks Azaradel)*
+ - **Romanian** *(thanks georgenetu, Silviu200530)*
+ - **Russian**
+ - **Serbian (Cyrillic)** *(thanks veles330)*
+ - **Spanish** *(thanks ed10vi, MS-PC)*
+ - **Tamil** *(thanks Lino Joseph)*
+ - **Turkish** *(thanks oersen)*
 
 Contributors
 ---
@@ -84,10 +87,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 Screenshots
 ---
 
-![phone](/doc/screenshots/phone.png) ![phone dark](/doc/screenshots/phone_dark.png) ![rss](/doc/screenshots/rss.png) ![create torrent](/doc/screenshots/create_torrent.png) ![tablet](/doc/screenshots/tablet.png)
+![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![rss](/art/screenshots/rss.png) ![create torrent](/art/screenshots/create_torrent.png) ![session log](/art/screenshots/session_log.png) ![tablet](/art/screenshots/tablet.png)
 
 License
 ---
+[![Large GPLv3 logo with “Free as in Freedom”](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
     Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
     This file is part of LibreTorrent.

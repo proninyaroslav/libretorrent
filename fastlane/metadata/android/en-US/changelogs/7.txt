@@ -1,0 +1,16 @@
+* Bugfixing:
+   - downloading magnet links
+   - connectivity check
+   - option to download and upload only while charging
+   - limitation options
+   - autostart on Android 8+
+   - saving active and seeding time
+   - minor fixes
+* Added:
+   - black theme (e.g. for OLED devices)
+   - custom battery percentage for battery control option
+   - keep alive option
+   - availability info for each torrent and file
+   - add infohash directly to the Add Link field
+   - peers info in main window
+* Update to jlibtorrent 1.2.0.16
