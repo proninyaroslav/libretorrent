@@ -78,6 +78,10 @@ android {
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 def LIBTORRENT4J_VERSION='1.2.3.0'
