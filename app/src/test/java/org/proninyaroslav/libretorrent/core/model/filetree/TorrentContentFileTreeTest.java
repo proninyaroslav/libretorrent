@@ -58,7 +58,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(child[0]);
         assertTrue(child[0].isFile());
         assertEquals("file1.txt", child[0].getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[0].getSelectState());
         assertEquals(files.get(0).getIndex(), child[0].getIndex());
         assertEquals(files.get(0).getSize(), child[0].size());
         assertEquals("foo/dir1/file1.txt/", child[0].getPath());
@@ -69,7 +68,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(child[1]);
         assertTrue(child[1].isFile());
         assertEquals("file2.txt", child[1].getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getSelectState());
         assertEquals(files.get(1).getIndex(), child[1].getIndex());
         assertEquals(files.get(1).getSize(), child[1].size());
         assertEquals("foo/dir1/file2.txt/", child[1].getPath());
@@ -81,7 +79,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(child[2]);
         assertTrue(child[2].isFile());
         assertEquals("file1.txt", child[2].getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[2].getSelectState());
         assertEquals(files.get(2).getIndex(), child[2].getIndex());
         assertEquals(files.get(2).getSize(), child[2].size());
         assertEquals("foo/dir2/file1.txt/", child[2].getPath());
@@ -92,7 +89,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(child[3]);
         assertTrue(child[3].isFile());
         assertEquals("file2.txt", child[3].getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[3].getSelectState());
         assertEquals(files.get(3).getIndex(), child[3].getIndex());
         assertEquals(files.get(3).getSize(), child[3].size());
         assertEquals("foo/dir2/file2.txt/", child[3].getPath());
@@ -103,7 +99,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(child[4]);
         assertTrue(child[4].isFile());
         assertEquals("file.txt", child[4].getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[4].getSelectState());
         assertEquals(files.get(4).getIndex(), child[4].getIndex());
         assertEquals(files.get(4).getSize(), child[4].size());
         assertEquals("foo/file.txt/", child[4].getPath());
@@ -116,7 +111,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(parent0);
         assertFalse(parent0.isFile());
         assertEquals("dir1", parent0.getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, parent0.getSelectState());
         assertEquals(-1, parent0.getIndex());
         assertEquals(child[0].size() + child[1].size(), parent0.size());
         assertTrue(parent0.contains(child[0].getName()));
@@ -134,7 +128,6 @@ public class TorrentContentFileTreeTest
         assertNotNull(parent2);
         assertFalse(parent2.isFile());
         assertEquals("dir2", parent2.getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, parent2.getSelectState());
         assertEquals(-1, parent2.getIndex());
         assertEquals(child[2].size() + child[3].size(), parent2.size());
         assertTrue(parent2.contains(child[2].getName()));
@@ -155,7 +148,6 @@ public class TorrentContentFileTreeTest
         assertEquals(foo, parent2.getParent());
         assertEquals(foo, child[4].getParent());
         assertEquals("foo", foo.getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, foo.getSelectState());
         assertEquals(-1, foo.getIndex());
         assertEquals(parent0.size() + parent2.size() + child[4].size(), foo.size());
         assertTrue(foo.contains(parent0.getName()));
@@ -172,7 +164,6 @@ public class TorrentContentFileTreeTest
         assertFalse(root.isFile());
         assertEquals(root, foo.getParent());
         assertEquals("/", root.getName());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, root.getSelectState());
         assertEquals(-1, root.getIndex());
         assertEquals(foo.size(), root.size());
         assertTrue(root.contains(foo.getName()));
@@ -200,27 +191,16 @@ public class TorrentContentFileTreeTest
         assertEquals(FilePriority.Type.NORMAL, child[4].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[3].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[4].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getParent().getSelectState());
 
         child[0].setPriority(new FilePriority(Priority.IGNORE), true);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[0].getSelectState());
+        assertEquals(FilePriority.Type.IGNORE, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.MIXED, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, child[0].getParent().getSelectState());
         assertEquals(FilePriority.Type.MIXED, tree.getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, tree.getSelectState());
 
         child[1].setPriority(new FilePriority(Priority.IGNORE), true);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getSelectState());
+        assertEquals(FilePriority.Type.IGNORE, child[1].getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getParent().getSelectState());
         assertEquals(FilePriority.Type.MIXED, tree.getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, tree.getSelectState());
     }
 
     @Test
@@ -241,34 +221,22 @@ public class TorrentContentFileTreeTest
         assertEquals(FilePriority.Type.NORMAL, child[4].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[3].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[4].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getParent().getSelectState());
 
         child[0].setPriority(new FilePriority(Priority.IGNORE), false);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[0].getSelectState());
+        assertEquals(FilePriority.Type.IGNORE, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
         assertEquals(FilePriority.Type.NORMAL, tree.getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, tree.getSelectState());
 
         child[1].setPriority(new FilePriority(Priority.IGNORE), false);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getSelectState());
+        assertEquals(FilePriority.Type.IGNORE, child[1].getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getParent().getSelectState());
         assertEquals(FilePriority.Type.NORMAL, tree.getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, tree.getSelectState());
 
         child[2].setPriority(new FilePriority(Priority.IGNORE), false);
         child[3].setPriority(new FilePriority(Priority.IGNORE), false);
         child[4].setPriority(new FilePriority(Priority.IGNORE), false);
         assertEquals(FilePriority.Type.IGNORE, child[2].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, tree.getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, tree.getSelectState());
     }
 
     @Test
@@ -281,14 +249,7 @@ public class TorrentContentFileTreeTest
         assertNotNull(child);
         assertEquals(files.size(), child.length);
 
-        tree.select(TorrentContentFileTree.SelectState.SELECTED, true);
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[3].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[4].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getParent().getSelectState());
+        tree.setPriority(new FilePriority(FilePriority.Type.NORMAL), true);
         assertEquals(FilePriority.Type.NORMAL, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[1].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getFilePriority().getType());
@@ -297,18 +258,14 @@ public class TorrentContentFileTreeTest
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getParent().getFilePriority().getType());
 
-        child[0].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, child[0].getParent().getSelectState());
+        child[0].setPriority(new FilePriority(FilePriority.Type.IGNORE), true);
+        assertEquals(FilePriority.Type.IGNORE, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.MIXED, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, tree.getSelectState());
         assertEquals(FilePriority.Type.MIXED, tree.getFilePriority().getType());
 
-        child[1].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getParent().getSelectState());
+        child[1].setPriority(new FilePriority(FilePriority.Type.IGNORE), true);
+        assertEquals(FilePriority.Type.IGNORE, child[1].getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.DISABLED, tree.getSelectState());
         assertEquals(FilePriority.Type.MIXED, tree.getFilePriority().getType());
     }
 
@@ -322,14 +279,7 @@ public class TorrentContentFileTreeTest
         assertNotNull(child);
         assertEquals(files.size(), child.length);
 
-        tree.select(TorrentContentFileTree.SelectState.SELECTED, false);
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[3].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[4].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[2].getParent().getSelectState());
+        tree.setPriority(new FilePriority(FilePriority.Type.NORMAL), false);
         assertEquals(FilePriority.Type.NORMAL, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[1].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getFilePriority().getType());
@@ -338,24 +288,20 @@ public class TorrentContentFileTreeTest
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[2].getParent().getFilePriority().getType());
 
-        child[0].select(TorrentContentFileTree.SelectState.UNSELECTED, false);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[0].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, child[0].getParent().getSelectState());
+        child[0].setPriority(new FilePriority(FilePriority.Type.IGNORE), false);
+        assertEquals(FilePriority.Type.IGNORE, child[0].getFilePriority().getType());
         assertEquals(FilePriority.Type.NORMAL, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, tree.getSelectState());
         assertEquals(FilePriority.Type.NORMAL, tree.getFilePriority().getType());
 
-        child[1].select(TorrentContentFileTree.SelectState.UNSELECTED, false);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getSelectState());
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, child[1].getParent().getSelectState());
+        child[1].setPriority(new FilePriority(FilePriority.Type.IGNORE), false);
+        assertEquals(FilePriority.Type.IGNORE, child[1].getFilePriority().getType());
+        assertEquals(FilePriority.Type.IGNORE, child[1].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, child[0].getParent().getFilePriority().getType());
-        assertEquals(TorrentContentFileTree.SelectState.SELECTED, tree.getSelectState());
         assertEquals(FilePriority.Type.NORMAL, tree.getFilePriority().getType());
 
-        child[2].select(TorrentContentFileTree.SelectState.UNSELECTED, false);
-        child[3].select(TorrentContentFileTree.SelectState.UNSELECTED, false);
-        child[4].select(TorrentContentFileTree.SelectState.UNSELECTED, false);
-        assertEquals(TorrentContentFileTree.SelectState.UNSELECTED, tree.getSelectState());
+        child[2].setPriority(new FilePriority(FilePriority.Type.IGNORE), false);
+        child[3].setPriority(new FilePriority(FilePriority.Type.IGNORE), false);
+        child[4].setPriority(new FilePriority(FilePriority.Type.IGNORE), false);
         assertEquals(FilePriority.Type.IGNORE, child[2].getParent().getFilePriority().getType());
         assertEquals(FilePriority.Type.IGNORE, tree.getFilePriority().getType());
     }
@@ -370,9 +316,9 @@ public class TorrentContentFileTreeTest
         assertNotNull(child);
         assertEquals(files.size(), child.length);
 
-        tree.select(TorrentContentFileTree.SelectState.SELECTED, true);
-        child[2].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
-        child[4].select(TorrentContentFileTree.SelectState.UNSELECTED, true);
+        tree.setPriority(new FilePriority(FilePriority.Type.NORMAL), true);
+        child[2].setPriority(new FilePriority(FilePriority.Type.IGNORE), true);
+        child[4].setPriority(new FilePriority(FilePriority.Type.IGNORE), true);
 
         assertEquals(child[0].size() + child[1].size() + child[3].size(), tree.nonIgnoreFileSize());
     }
@@ -409,7 +355,7 @@ public class TorrentContentFileTreeTest
         assertNotNull(child);
         assertEquals(files.size(), child.length);
 
-        tree.select(TorrentContentFileTree.SelectState.SELECTED, true);
+        tree.setPriority(new FilePriority(FilePriority.Type.NORMAL), true);
 
         child[0].setReceivedBytes(0);
         child[0].setAvailability(1);
