@@ -20,7 +20,7 @@ Coverity:
   - curl -o /tmp/cov-analysis-linux64.tgz https://scan.coverity.com/download/linux64
     --form project=$COVERITY_SCAN_PROJECT_NAME --form token=$COVERITY_SCAN_TOKEN
   - tar xfz /tmp/cov-analysis-linux64.tgz
-  - cov-analysis-linux64-*/bin/cov-build --dir cov-int ./gradlew build
+  - cov-analysis-linux64-*/bin/cov-build --dir cov-int ./gradlew assemble
   - tar cfz cov-int.tar.gz cov-int
   - curl https://scan.coverity.com/builds?project=$COVERITY_SCAN_PROJECT_NAME
     --form token=$COVERITY_SCAN_TOKEN --form email=$GITLAB_USER_EMAIL
