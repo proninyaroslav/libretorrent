@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -62,6 +63,7 @@ public class LibTorrentSafAdapter extends posix_wrapper
         return ret;
     }
 
+    @SuppressLint("SdCardPath")
     @Override
     public int stat(String path, posix_stat_t buf)
     {

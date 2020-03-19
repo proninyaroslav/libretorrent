@@ -432,7 +432,7 @@
     <string name="pref_battery_control_title">Control baterie</string>
     <string name="pref_custom_battery_control_title">Personalizate procentual al bateriei</string>
     <string name="pref_custom_battery_control_value_title">Procentul de control al bateriei</string>
-    <string name="pref_battery_control_summary" formatted="false">Toate torrentele vor fi</string>
+    <string name="pref_battery_control_summary" formatted="false">Toate torrentele vor fi %1$d%%</string>
     <string name="pref_custom_battery_control_summary" formatted="false">Stabiliți un procent personalizat pentru a întrerupe descărcările dacă bateria scade sub pragul dat. Activarea acestui lucru va ignora pragul implicit de %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setarea unui procent de baterie personalizat pentru aplicație va avea un impact negativ asupra duratei de viață a bateriei în timp ce descărcările apar. Sigur doriți să activați acest lucru?</string>
     <!-- Network settings -->

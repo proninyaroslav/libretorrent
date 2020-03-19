@@ -282,7 +282,7 @@
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
     <string name="backup_feed_channels">Save backup</string>
     <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="feed_last_update_template" formatted="false">अपडेट किया गया:% 1 $ s</string>
+    <string name="feed_last_update_template" formatted="false">अपडेट किया गया:%1$s</string>
     <string name="feed_last_update_never">कभी नहीँ</string>
     <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
     <string name="error_cannot_edit_channel">Cannot edit channel</string>
@@ -432,8 +432,8 @@
     <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
     <string name="pref_custom_battery_control_title">कस्टम बैटरी प्रतिशत</string>
     <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
-    <string name="pref_battery_control_summary" formatted="false">यदि बैटरी स्तर% 1 $ d %% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1 $ d %% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
+    <string name="pref_battery_control_summary" formatted="false">यदि बैटरी स्तर% 1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>

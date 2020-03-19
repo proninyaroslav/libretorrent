@@ -85,7 +85,7 @@ android {
 }
 
 def LIBTORRENT4J_VERSION='1.2.3.0'
-def ROOM_VERSION = "2.2.4"
+def ROOM_VERSION = "2.2.5"
 def ACRA_VERSION = "5.5.0"
 
 dependencies {
@@ -105,14 +105,14 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     implementation "com.google.android.material:material:1.2.0-alpha05"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.work:work-runtime:2.3.2"
+    implementation "androidx.work:work-runtime:2.3.4"
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation "androidx.paging:paging-runtime:2.1.1"
+    implementation "androidx.paging:paging-runtime:2.1.2"
 
     /* ReactiveX */
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
