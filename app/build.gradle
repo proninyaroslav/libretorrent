@@ -87,6 +87,7 @@ android {
 def LIBTORRENT4J_VERSION='1.2.3.0'
 def ROOM_VERSION = "2.2.5"
 def ACRA_VERSION = "5.5.0"
+def DAGGER_VERSION = "2.27"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -98,6 +99,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
+    androidTestImplementation "com.google.dagger:dagger:$DAGGER_VERSION"
+    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.1.0"
