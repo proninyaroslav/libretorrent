@@ -316,8 +316,6 @@ public class TorrentService extends Service
     {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        String titleTemplate = getString(R.string.torrent_count_notify_template);
-
         int downloadingCount = 0;
 
         for (TorrentInfo state : stateList) {
@@ -329,8 +327,7 @@ public class TorrentService extends Service
 
             if (code == TorrentStateCode.DOWNLOADING) {
                 ++downloadingCount;
-                template =  getString(R.string.downloading_torrent_notify_template);
-                inboxStyle.addLine(String.format(template,
+                inboxStyle.addLine(getString(R.string.downloading_torrent_notify_template,
                         state.progress,
                         (state.ETA == -1) ? Utils.INFINITY_SYMBOL :
                                 DateUtils.formatElapsedTime(state.ETA),
@@ -338,8 +335,7 @@ public class TorrentService extends Service
                         state.name));
 
             } else if (code == TorrentStateCode.SEEDING) {
-                template = getString(R.string.seeding_torrent_notify_template);
-                inboxStyle.addLine(String.format(template,
+                inboxStyle.addLine(getString(R.string.seeding_torrent_notify_template,
                         getString(R.string.torrent_status_seeding),
                         Formatter.formatFileSize(this, state.uploadSpeed),
                         state.name));
@@ -359,14 +355,11 @@ public class TorrentService extends Service
                     case DOWNLOADING_METADATA:
                         stateString = getString(R.string.torrent_status_downloading_metadata);
                 }
-
-                template = getString(R.string.other_torrent_notify_template);
-                inboxStyle.addLine(String.format(template, stateString, state.name));
+                inboxStyle.addLine(getString(R.string.other_torrent_notify_template, stateString, state.name));
             }
         }
 
-        inboxStyle.setBigContentTitle(String.format(
-                titleTemplate,
+        inboxStyle.setBigContentTitle(getString(R.string.torrent_count_notify_template,
                 downloadingCount,
                 stateList.size()));
 

@@ -121,7 +121,7 @@ public class SaveLogWorker extends Worker
     private void showSuccessToast(String fileName)
     {
         handler.post(() -> Toast.makeText(appContext,
-                String.format(appContext.getString(R.string.journal_save_log_success), fileName),
+                appContext.getString(R.string.journal_save_log_success, fileName),
                 Toast.LENGTH_LONG)
                 .show()
         );

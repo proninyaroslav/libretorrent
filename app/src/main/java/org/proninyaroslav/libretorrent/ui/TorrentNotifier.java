@@ -109,7 +109,7 @@ public class TorrentNotifier
                 .setColor(ContextCompat.getColor(appContext, R.color.primary))
                 .setContentTitle(name)
                 .setTicker(appContext.getString(R.string.torrent_error_notify_title))
-                .setContentText(String.format(appContext.getString(R.string.error_template), message))
+                .setContentText(appContext.getString(R.string.error_template, message))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
@@ -163,7 +163,7 @@ public class TorrentNotifier
                 .setColor(ContextCompat.getColor(appContext, R.color.primary))
                 .setContentTitle(appContext.getString(R.string.session_error_title))
                 .setTicker(appContext.getString(R.string.session_error_title))
-                .setContentText(String.format(appContext.getString(R.string.error_template), message))
+                .setContentText(appContext.getString(R.string.error_template, message))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
@@ -181,7 +181,7 @@ public class TorrentNotifier
                 .setColor(ContextCompat.getColor(appContext, R.color.primary))
                 .setContentTitle(appContext.getString(R.string.nat_error_title))
                 .setTicker(appContext.getString(R.string.nat_error_title))
-                .setContentText(String.format(appContext.getString(R.string.error_template), message))
+                .setContentText(appContext.getString(R.string.error_template, message))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
@@ -199,7 +199,7 @@ public class TorrentNotifier
                 .setColor(ContextCompat.getColor(appContext, R.color.primary))
                 .setContentTitle(name)
                 .setTicker(appContext.getString(R.string.torrent_moving_title))
-                .setContentText(String.format(appContext.getString(R.string.torrent_moving_content), name))
+                .setContentText(appContext.getString(R.string.torrent_moving_content, name))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 

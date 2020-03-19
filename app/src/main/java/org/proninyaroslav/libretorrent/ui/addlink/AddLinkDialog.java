@@ -253,11 +253,12 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         try {
-            s = viewModel.normalizeUrl(s);
+            if (s != null)
+                s = viewModel.normalizeUrl(s);
 
         } catch (NormalizeUrlException e) {
             binding.layoutLink.setErrorEnabled(true);
-            binding.layoutLink.setError(String.format(getString(R.string.invalid_url), e.getMessage()));
+            binding.layoutLink.setError(getString(R.string.invalid_url, e.getMessage()));
             binding.layoutLink.requestFocus();
 
             return;

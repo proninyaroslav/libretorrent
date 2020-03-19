@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">无法打开目标种子文件</string>
     <string name="open_file">打开BT种子</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error" formatted="false">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确</string>
+    <string name="ip_filter_add_error">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确</string>
     <string name="ip_filter_add_success">IP 过滤器添加成功</string>
     <string name="proxy_settings_applied">代理设置应用成功</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序后，将应用代理设置</string>
     <string name="theme_settings_apply_after_reboot">重新启动应用程序后，将应用主题设置</string>
     <string name="about">关于</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT节点：%1$d</string>
+    <string name="session_stats_dht_nodes">DHT节点：%1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">监听端口: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">监听端口: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">状态</string>
     <string name="drawer_status_downloading">正在下载</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">今年</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">正在下载: %1$d 总计: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">正在下载: %1$d 总计: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent 正在后台运行</string>
     <string name="network_online">网络状态：在线</string>
     <string name="network_offline">网络状态：离线</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">种子已完成</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">种子</string>
-    <string name="torrent_moving_content" formatted="false">正在移动%1$s，请稍候</string>
+    <string name="torrent_moving_content">正在移动%1$s，请稍候</string>
     <string name="torrent_move_success">种子移动成功</string>
     <string name="torrent_move_fail">无法移动Torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s （%3$d%%）</string>
+    <string name="download_counter_template">%1$s/%2$s （%3$d%%）</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">下载中</string>
     <string name="torrent_status_seeding">做种中</string>
     <string name="torrent_status_paused">已暂停</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">种子已经存在。种子将进行合并</string>
     <string name="error_field_required">必填</string>
     <string name="error_no_files_selected">尚未选择文件</string>
-    <string name="free_space" formatted="false">剩余空间 %1$s</string>
+    <string name="free_space">剩余空间 %1$s</string>
     <string name="error_free_space">所选目录没有足够的可用空间用以下载所选文件</string>
-    <string name="files_size" formatted="false">已选文件大小 %1$s ，torrent 文件总大小 %2$s</string>
+    <string name="files_size">已选文件大小 %1$s ，torrent 文件总大小 %2$s</string>
     <string name="start_torrent">开始 torrent</string>
     <string name="file_is_too_large_error">文件太大了</string>
     <string name="unable_to_open_folder">无法打开选定的文件夹，请尝试选择其他文件夹</string>
@@ -196,7 +196,7 @@
     <string name="more_details">更多细节</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n可用性: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n可用性: %5$s</string>
     <string name="file_priority_normal">正常</string>
     <string name="file_priority_low">未下载</string>
     <string name="file_priority_high">高</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">用户</string>
     <string name="torrent_leechers">下载人数</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d （%2$d）</string>
+    <string name="torrent_peers_template">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
     <string name="torrent_share_ratio">分享率</string>
     <string name="torrent_active_time">活跃时间</string>
     <string name="torrent_seeding_time">播种时间</string>
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d （%3$s）</string>
+    <string name="torrent_pieces_template">%1$d/%2$d （%3$s）</string>
     <string name="torrent_trackers">Tracker</string>
     <string name="tracker_state_working">工作</string>
     <string name="tracker_state_not_working">不工作</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">添加Tracker</string>
     <string name="dialog_add_trackers">（每行一个）</string>
     <string name="open_using">打开文件</string>
-    <string name="peer_port" formatted="false">端口: %1$d</string>
-    <string name="peer_relevance" formatted="false">关联度: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">协议: %1$s</string>
+    <string name="peer_port">端口: %1$d</string>
+    <string name="peer_relevance">关联度: %1$.1f</string>
+    <string name="peer_connection_type">协议: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">客户端: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">客户端: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">使用正则表达式</string>
     <string name="backup_feed_channels">保存备份</string>
     <string name="restore_feed_channels_backup">还原备份</string>
-    <string name="feed_last_update_template" formatted="false">上次更新: %1$s</string>
+    <string name="feed_last_update_template">上次更新: %1$s</string>
     <string name="feed_last_update_never">从未更新</string>
     <string name="error_cannot_add_channel">无法添加频道</string>
     <string name="error_cannot_edit_channel">无法编辑频道</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">无效链接: %1$s</string>
+    <string name="invalid_url">无效链接: %1$s</string>
     <string name="folder_is_empty">选中文件夹为空或过滤器排除了所有文件</string>
     <string name="error_create_torrent">无法创建 torrent</string>
     <string name="skip_files">跳过文件</string>
     <string name="skip_files_hint">输入文件名，多个名称中间用\"|\"隔开</string>
     <string name="select_folder_to_save">选择保存文件夹</string>
-    <string name="torrent_saved_to" formatted="false">torrent 保存至 %1$s</string>
+    <string name="torrent_saved_to">torrent 保存至 %1$s</string>
     <string name="unable_to_open_file">无法打开所选文件</string>
     <string name="unable_to_create_file">无法创建文件</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP / NAT-PMP日志</string>
     <string name="journal_filter_torrent_log">种子日志</string>
     <string name="journal_save_log_failed">无法保存日志</string>
-    <string name="journal_save_log_success" formatted="false">已成功保存日志：%1$s</string>
+    <string name="journal_save_log_success">已成功保存日志：%1$s</string>
     <string name="pref_journal_save_log_to">将日志保存到</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">最大存储日志条目</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_custom_battery_control_title">自定义电量百分比</string>
     <string name="pref_custom_battery_control_value_title">电量百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">当电池电量低于 %1$d%% 时，所有种子都将暂停。此规则充电时无效</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值 (%1$d%%)</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
+    <string name="pref_battery_control_summary">当电池电量低于 %1$d%% 时，所有种子都将暂停。此规则充电时无效</string>
+    <string name="pref_custom_battery_control_summary">若电量降至指定百分比以下将暂停下载。注：启用该选项将忽略默认阈值 (%1$d%%)</string>
+    <string name="pref_custom_battery_control_dialog_summary">下载发生时设置自定义电量百分比将对电池寿命产生负面影响. 确认启用该选项？</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">开启 DHT</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">开启 NAT-PMP</string>
     <string name="pref_port_settings_category">端口设置</string>
     <string name="pref_use_random_port_title">使用一个随机的端口号</string>
-    <string name="pref_use_random_port_summarty" formatted="false">在范围内随机设置起始端口[%1$d、%2$d]，并将结束端口设置为first+10</string>
+    <string name="pref_use_random_port_summarty">在范围内随机设置起始端口[%1$d、%2$d]，并将结束端口设置为first+10</string>
     <string name="pref_port_range_title">端口范围</string>
     <string name="pref_port_range_start_title">开始</string>
     <string name="pref_port_range_end_title">结束</string>

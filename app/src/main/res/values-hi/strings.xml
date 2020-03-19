@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">धार फ़ाइल खोलने में असमर्थ</string>
     <string name="open_file">खुली फाइल</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="ip_filter_add_error" formatted="false">IP फ़िल्टर जोड़ने में विफल (%1$d विफल रहा) । हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
+    <string name="ip_filter_add_error">IP फ़िल्टर जोड़ने में विफल (%1$d विफल रहा) । हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
     <string name="ip_filter_add_success">IP फ़िल्टर सफलतापूर्वक जोड़ा गया</string>
     <string name="proxy_settings_applied">प्रॉक्सी सर्वर सेटिंग्स सफलतापूर्वक लागू हुईं</string>
     <string name="proxy_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद प्रॉक्सी सर्वर सेटिंग्स लागू की जाएंगी</string>
     <string name="theme_settings_apply_after_reboot">एप्लिकेशन को पुनरारंभ करने के बाद थीम सेटिंग्स लागू की जाएंगी</string>
     <string name="about">के बारे में</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Year</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">डाउनलोड कर रहा है: %1$d Total: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">डाउनलोड कर रहा है: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent पृष्ठभूमि में चल रहा है</string>
     <string name="network_online">नेटवर्क स्थिति: ऑनलाइन</string>
     <string name="network_offline">नेटवर्क स्थिति: ऑफ़लाइन</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">धार समाप्त हो गई</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_moving_content">Moving %1$s, please wait</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">डाउनलोड कर रहा है</string>
     <string name="torrent_status_seeding">बीज बोने की क्रिया</string>
     <string name="torrent_status_paused">रोके गए</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">धार पहले से मौजूद है। मर्जों को मर्ज कर दिया गया</string>
     <string name="error_field_required">यह फ़ील्ड आवश्यक है</string>
     <string name="error_no_files_selected">कोई फ़ाइल चयनित नहीं है</string>
-    <string name="free_space" formatted="false">%1$s मुक्त</string>
+    <string name="free_space">%1$s मुक्त</string>
     <string name="error_free_space">चयनित फ़ाइलों को डाउनलोड करने के लिए चयनित पथ पर पर्याप्त खाली स्थान नहीं है</string>
-    <string name="files_size" formatted="false">चयनित %1$s से बाहर %2$s</string>
+    <string name="files_size">चयनित %1$s से बाहर %2$s</string>
     <string name="start_torrent">धार शुरू करो</string>
     <string name="file_is_too_large_error">फ़ाइल बहुत बड़ी है</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
@@ -196,7 +196,7 @@
     <string name="more_details">अधिक जानकारी</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nउपयोगिता: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nउपयोगिता: %5$s</string>
     <string name="file_priority_normal">साधारण</string>
     <string name="file_priority_low">नज़रअंदाज़ करना</string>
     <string name="file_priority_high">उच्च</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">साथियों</string>
     <string name="torrent_leechers">leechers</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">अपलोड की गई</string>
     <string name="torrent_share_ratio">शेयर अनुपात</string>
     <string name="torrent_active_time">सक्रिय समय</string>
     <string name="torrent_seeding_time">सीडिंग का समय</string>
     <string name="torrent_pieces">टुकड़े</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">ट्रैकर्स</string>
     <string name="tracker_state_working">काम कर रहे</string>
     <string name="tracker_state_not_working">काम नहीं कर रहा</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">ट्रैकर्स जोड़ें</string>
     <string name="dialog_add_trackers">(प्रति पंक्ति एक)</string>
     <string name="open_using">का उपयोग कर खोलें</string>
-    <string name="peer_port" formatted="false">पोर्ट: %1$d</string>
-    <string name="peer_relevance" formatted="false">प्रासंगिकता   :  %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">कनेक्शन: %1$s</string>
+    <string name="peer_port">पोर्ट: %1$d</string>
+    <string name="peer_relevance">प्रासंगिकता   :  %1$.1f</string>
+    <string name="peer_connection_type">कनेक्शन: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">ग्राहक: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">ग्राहक: %1$s</string>
     <string name="peer_connection_type_bittorrent">बीटी</string>
     <string name="peer_connection_type_web">वेब</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
     <string name="backup_feed_channels">Save backup</string>
     <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="feed_last_update_template" formatted="false">अपडेट किया गया:%1$s</string>
+    <string name="feed_last_update_template">अपडेट किया गया:%1$s</string>
     <string name="feed_last_update_never">कभी नहीँ</string>
     <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
     <string name="error_cannot_edit_channel">Cannot edit channel</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">अमान्य URL: %1$s</string>
+    <string name="invalid_url">अमान्य URL: %1$s</string>
     <string name="folder_is_empty">चयनित फ़ोल्डर खाली है या सभी फ़ाइलों को फ़िल्टर द्वारा बाहर रखा गया है</string>
     <string name="error_create_torrent">धार बनाने में असमर्थ</string>
     <string name="skip_files">फ़ाइलें छोड़ें</string>
     <string name="skip_files_hint">\"|\" द्वारा अलग किए गए फ़ाइल नाम दर्ज करें</string>
     <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
-    <string name="torrent_saved_to" formatted="false">टोरेंट ने %1$s पर सहेजा</string>
+    <string name="torrent_saved_to">टोरेंट ने %1$s पर सहेजा</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
     <string name="pref_custom_battery_control_title">कस्टम बैटरी प्रतिशत</string>
     <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
-    <string name="pref_battery_control_summary" formatted="false">यदि बैटरी स्तर% 1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <string name="pref_battery_control_summary">यदि बैटरी स्तर% 1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
+    <string name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>
     <string name="pref_enable_dht_title">DHT को सक्षम करें</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP सक्षम करें</string>
     <string name="pref_port_settings_category">पोर्ट सेटिंग्स</string>
     <string name="pref_use_random_port_title">यादृच्छिक पोर्ट का उपयोग करें</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_title">Port range</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>

@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Torrent dosyası açılamıyor</string>
     <string name="open_file">Dosya aç</string>
     <string name="settings">Ayarlar</string>
-    <string name="ip_filter_add_error" formatted="false">IP filtresi eklenemedi (%1$d başarısız oldu). Belki dosya bozuktur ya da yanlış bir formata sahiptir</string>
+    <string name="ip_filter_add_error">IP filtresi eklenemedi (%1$d başarısız oldu). Belki dosya bozuktur ya da yanlış bir formata sahiptir</string>
     <string name="ip_filter_add_success">IP filtresi başarıyla eklendi</string>
     <string name="proxy_settings_applied">Proxy sunucu ayarları başarıyla uygulandı</string>
     <string name="proxy_settings_apply_after_reboot">Proxy sunucu ayarları, uygulama yeniden başlatıldıktan sonra uygulanacak</string>
     <string name="theme_settings_apply_after_reboot">Tema ayarları, uygulama yeniden başlatıldıktan sonra uygulanacak</string>
     <string name="about">Hakkında</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT düğümleri: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT düğümleri: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Dinleme portu: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Dinleme portu: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Durum</string>
     <string name="drawer_status_downloading">İndiriliyor</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Yıl</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">İndirilen: %1$d Toplam: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">İndirilen: %1$d Toplam: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent arka planda çalışıyor</string>
     <string name="network_online">Ağ durumu: Çevrimiçi</string>
     <string name="network_offline">Ağ durumu: Çevrimdışı</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent tamamlandı</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Torrent taşınıyor</string>
-    <string name="torrent_moving_content" formatted="false">%1$s taşınıyor, lütfen bekleyin</string>
+    <string name="torrent_moving_content">%1$s taşınıyor, lütfen bekleyin</string>
     <string name="torrent_move_success">Torrent başarıyla taşındı</string>
     <string name="torrent_move_fail">Torrent taşınamadı</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">İndiriliyor</string>
     <string name="torrent_status_seeding">Yükleniyor</string>
     <string name="torrent_status_paused">Duraklatıldı</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Torrent zaten mevcut. Torrentler birleştirildi</string>
     <string name="error_field_required">Bu alan gereklidir</string>
     <string name="error_no_files_selected">Hiçbir dosya seçilmedi</string>
-    <string name="free_space" formatted="false">%1$s boş</string>
+    <string name="free_space">%1$s boş</string>
     <string name="error_free_space">Seçilen dosyaları indirmek için seçili yolda yeterli boş alan yok</string>
-    <string name="files_size" formatted="false">%2$s taneden %1$s tane seçildi</string>
+    <string name="files_size">%2$s taneden %1$s tane seçildi</string>
     <string name="start_torrent">Torrenti başlat</string>
     <string name="file_is_too_large_error">Dosya çok büyük</string>
     <string name="unable_to_open_folder">Seçilen klasör açılamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
@@ -196,7 +196,7 @@
     <string name="more_details">Daha fazla ayrıntı</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nKullanılabilirlik: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nKullanılabilirlik: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Yoksay</string>
     <string name="file_priority_high">Yüksek</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">Eşler</string>
     <string name="torrent_leechers">Sömürgenler</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Karşıya yüklendi</string>
     <string name="torrent_share_ratio">Paylaşım oranı</string>
     <string name="torrent_active_time">Aktif zamanı</string>
     <string name="torrent_seeding_time">Yükleme zamanı</string>
     <string name="torrent_pieces">Parçalar</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Takipçiler</string>
     <string name="tracker_state_working">Çalışıyor</string>
     <string name="tracker_state_not_working">Çalışmıyor</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">Takipçi ekle</string>
     <string name="dialog_add_trackers">(Her biri ayrı satırda)</string>
     <string name="open_using">Kullanarak aç</string>
-    <string name="peer_port" formatted="false">Port: %1$d</string>
-    <string name="peer_relevance" formatted="false">İlgi: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Bağlantı: %1$s</string>
+    <string name="peer_port">Port: %1$d</string>
+    <string name="peer_relevance">İlgi: %1$.1f</string>
+    <string name="peer_connection_type">Bağlantı: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">İstemci: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">İstemci: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">Düzenli ifade kullan</string>
     <string name="backup_feed_channels">Yedeklemeyi kaydet</string>
     <string name="restore_feed_channels_backup">Yedeklemeyi geri yükle</string>
-    <string name="feed_last_update_template" formatted="false">Güncellendi: %1$s</string>
+    <string name="feed_last_update_template">Güncellendi: %1$s</string>
     <string name="feed_last_update_never">hiçbir zaman</string>
     <string name="error_cannot_add_channel">Kanal eklenemiyor</string>
     <string name="error_cannot_edit_channel">Kanal düzenlenemiyor</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Geçersiz URL: %1$s</string>
+    <string name="invalid_url">Geçersiz URL: %1$s</string>
     <string name="folder_is_empty">Seçili klasör boş ya da tüm dosyalar filtre tarafından hariç tutuldu</string>
     <string name="error_create_torrent">Torrent oluşturulamadı</string>
     <string name="skip_files">Dosyaları atla</string>
     <string name="skip_files_hint">\"|\" ile ayrılmış dosya adlarını girin</string>
     <string name="select_folder_to_save">Kaydedilecek klasörü seçin</string>
-    <string name="torrent_saved_to" formatted="false">Torrent şuraya kaydedildi: %1$s</string>
+    <string name="torrent_saved_to">Torrent şuraya kaydedildi: %1$s</string>
     <string name="unable_to_open_file">Seçili dosya açılamadı</string>
     <string name="unable_to_create_file">Dosya oluşturulamadı</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log kaydı</string>
     <string name="journal_filter_torrent_log">Torrent log kaydı</string>
     <string name="journal_save_log_failed">Log kaydedilemedi</string>
-    <string name="journal_save_log_success" formatted="false">Log başarıyla kaydedildi: %1$s</string>
+    <string name="journal_save_log_success">Log başarıyla kaydedildi: %1$s</string>
     <string name="pref_journal_save_log_to">Log kayıt yeri</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Saklanan maksimum günlük girdisi</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">Pil kontrolü</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
     <string name="pref_custom_battery_control_value_title">Pil kontrol yüzdesi</string>
-    <string name="pref_battery_control_summary" formatted="false">Pil seviyesi %1$d%% altına düşerse tüm torrentler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Pil seviyesi belirli bir eşiğin altındaysa, indirmeleri duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">İndirmeler gerçekleşirken uygulama için dikkate alınacak özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Bunu etkinleştirmek istediğinize emin misin?</string>
+    <string name="pref_battery_control_summary">Pil seviyesi %1$d%% altına düşerse tüm torrentler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
+    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altındaysa, indirmeleri duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
+    <string name="pref_custom_battery_control_dialog_summary">İndirmeler gerçekleşirken uygulama için dikkate alınacak özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Bunu etkinleştirmek istediğinize emin misin?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy ayarları</string>
     <string name="pref_enable_dht_title">DHT\'yi etkinleştir</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP\'yi etkinleştir</string>
     <string name="pref_port_settings_category">Port ayarları</string>
     <string name="pref_use_random_port_title">Rasgele port kullan</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Başlatma portunu [%1$d, %2$d] aralığında rasgele ve bitiş portunu birinci + 10 olarak ayarlar</string>
+    <string name="pref_use_random_port_summarty">Başlatma portunu [%1$d, %2$d] aralığında rasgele ve bitiş portunu birinci + 10 olarak ayarlar</string>
     <string name="pref_port_range_title">Port aralığı</string>
     <string name="pref_port_range_start_title">Başlangıç</string>
     <string name="pref_port_range_end_title">Bitiş</string>

@@ -246,8 +246,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
                 binding.priority.setChecked(item.priority.getType() != FilePriority.Type.IGNORE);
                 binding.progress.setProgress(progress);
 
-                String statusTemplate = context.getString(R.string.file_downloading_status_template);
-                binding.status.setText(String.format(statusTemplate, priority,
+                binding.status.setText(context.getString(R.string.file_downloading_status_template, priority,
                         received, total, progress, availability));
             }
         }

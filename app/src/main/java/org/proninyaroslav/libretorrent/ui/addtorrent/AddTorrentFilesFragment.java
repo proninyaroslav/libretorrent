@@ -147,7 +147,7 @@ public class AddTorrentFilesFragment extends Fragment
         if (viewModel.fileTree == null)
             return;
 
-        binding.filesSize.setText(String.format(getString(R.string.files_size),
+        binding.filesSize.setText(getString(R.string.files_size,
                 Formatter.formatFileSize(activity.getApplicationContext(),
                         viewModel.fileTree.selectedFileSize()),
                 Formatter.formatFileSize(activity.getApplicationContext(),

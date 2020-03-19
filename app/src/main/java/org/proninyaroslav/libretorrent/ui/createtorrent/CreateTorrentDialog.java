@@ -347,13 +347,13 @@ public class CreateTorrentDialog extends DialogFragment
 
         if (err instanceof CreateTorrentViewModel.InvalidTrackerException) {
             binding.layoutTrackerUrls.setErrorEnabled(true);
-            binding.layoutTrackerUrls.setError(String.format(getString(R.string.invalid_url),
+            binding.layoutTrackerUrls.setError(getString(R.string.invalid_url,
                     ((CreateTorrentViewModel.InvalidTrackerException)err).url));
             binding.layoutTrackerUrls.requestFocus();
 
         } else if (err instanceof CreateTorrentViewModel.InvalidWebSeedException) {
             binding.layoutWebSeedUrls.setErrorEnabled(true);
-            binding.layoutWebSeedUrls.setError(String.format(getString(R.string.invalid_url),
+            binding.layoutWebSeedUrls.setError(getString(R.string.invalid_url,
                     ((CreateTorrentViewModel.InvalidWebSeedException)err).url));
             binding.layoutWebSeedUrls.requestFocus();
 
@@ -375,7 +375,7 @@ public class CreateTorrentDialog extends DialogFragment
         Uri savePath = viewModel.mutableParams.getSavePath();
         if (savePath != null) {
             Toast.makeText(activity.getApplicationContext(),
-                    String.format(getString(R.string.torrent_saved_to), savePath.getPath()),
+                    getString(R.string.torrent_saved_to, savePath.getPath()),
                     Toast.LENGTH_SHORT)
                     .show();
         }

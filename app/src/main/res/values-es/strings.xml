@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">No se pudo abrir el archivo torrent</string>
     <string name="open_file">Abrir archivo</string>
     <string name="settings">Ajustes</string>
-    <string name="ip_filter_add_error" formatted="false">Error al añadir el filtro de IP (%1$d falló). Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
+    <string name="ip_filter_add_error">Error al añadir el filtro de IP (%1$d falló). Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
     <string name="ip_filter_add_success">Filtro de IP añadido correctamente</string>
     <string name="proxy_settings_applied">Ajustes del servidor proxy aplicados correctamente</string>
     <string name="proxy_settings_apply_after_reboot">Los ajustes del servidor proxy serán aplicados tras reiniciar la aplicación</string>
     <string name="theme_settings_apply_after_reboot">Los ajustes del tema serán aplicados tras reiniciar la aplicación</string>
     <string name="about">Acerca de&#8230;</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">Nodos DHT: %1$d</string>
+    <string name="session_stats_dht_nodes">Nodos DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Puerto de escucha: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Puerto de escucha: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Estado</string>
     <string name="drawer_status_downloading">Descargando</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Año</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Descargando: %1$d Total: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Descargando: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent está ejecutandose en segundo plano</string>
     <string name="network_online">Estado de la red: Conectado</string>
     <string name="network_offline">Estado de la red: Desconectado</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent finalizado</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Movimiento torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moviendo %1$s, espere por favor</string>
+    <string name="torrent_moving_content">Moviendo %1$s, espere por favor</string>
     <string name="torrent_move_success">Torrent movido correctamente</string>
     <string name="torrent_move_fail">No se pudo mover el torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Descargando</string>
     <string name="torrent_status_seeding">Sembrando</string>
     <string name="torrent_status_paused">Pausado</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">El torrent ya existe. Los torrent fueron mezclados</string>
     <string name="error_field_required">Este campo es obligatorio</string>
     <string name="error_no_files_selected">Ningún archivo seleccionado</string>
-    <string name="free_space" formatted="false">%1$s libre</string>
+    <string name="free_space">%1$s libre</string>
     <string name="error_free_space">No hay suficiente espacio libre en la ruta seleccionada para descargar los archivos seleccionados</string>
-    <string name="files_size" formatted="false">Seleccionados %1$s de %2$s</string>
+    <string name="files_size">Seleccionados %1$s de %2$s</string>
     <string name="start_torrent">Iniciar torrent</string>
     <string name="file_is_too_large_error">El archivo es demasiado grande</string>
     <string name="unable_to_open_folder">No se pudo abrir la carpeta seleccionada. Intenta seleccionar otra carpeta</string>
@@ -196,7 +196,7 @@
     <string name="more_details">Más detalles</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilidad: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilidad: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorar</string>
     <string name="file_priority_high">Alta</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">Pares</string>
     <string name="torrent_leechers">Sanguijuelas</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Subido</string>
     <string name="torrent_share_ratio">Ratio de compartición</string>
     <string name="torrent_active_time">Tiempo activo</string>
     <string name="torrent_seeding_time">Tiempo sembrando</string>
     <string name="torrent_pieces">Partes</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Rastreadores</string>
     <string name="tracker_state_working">Funcionando</string>
     <string name="tracker_state_not_working">No funciona</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">Añadir rastreadores</string>
     <string name="dialog_add_trackers">(uno por línea)</string>
     <string name="open_using">Abrir usando</string>
-    <string name="peer_port" formatted="false">Puerto: %1$d</string>
-    <string name="peer_relevance" formatted="false">Relevancia: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Conexión: %1$s</string>
+    <string name="peer_port">Puerto: %1$d</string>
+    <string name="peer_relevance">Relevancia: %1$.1f</string>
+    <string name="peer_connection_type">Conexión: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Cliente: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Cliente: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">Use expresión regular</string>
     <string name="backup_feed_channels">Guardar respaldo</string>
     <string name="restore_feed_channels_backup">Restaurar respaldo</string>
-    <string name="feed_last_update_template" formatted="false">Actualizado: %1$s</string>
+    <string name="feed_last_update_template">Actualizado: %1$s</string>
     <string name="feed_last_update_never">nunca</string>
     <string name="error_cannot_add_channel">No se pudo añadir el canal</string>
     <string name="error_cannot_edit_channel">No se pudo editar el canal</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">URL invalida: %1$s</string>
+    <string name="invalid_url">URL invalida: %1$s</string>
     <string name="folder_is_empty">La carpeta seleccionada está vacía o todos los archivos están excluidos por filtro</string>
     <string name="error_create_torrent">No se pudo crear el torrent</string>
     <string name="skip_files">Omitir archivos</string>
     <string name="skip_files_hint">Ingrese los nombres de los archivos separados por \"|\"</string>
     <string name="select_folder_to_save">Seleccione la carpeta para guardar</string>
-    <string name="torrent_saved_to" formatted="false">Torrent guardado en %1$s</string>
+    <string name="torrent_saved_to">Torrent guardado en %1$s</string>
     <string name="unable_to_open_file">No se pudo abrir el archivo seleccionado</string>
     <string name="unable_to_create_file">No se pudo crear el archivo</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">Registro de UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Registro de torrent</string>
     <string name="journal_save_log_failed">Error al guardar el registro</string>
-    <string name="journal_save_log_success" formatted="false">Registro guardado correctamente: %1$s</string>
+    <string name="journal_save_log_success">Registro guardado correctamente: %1$s</string>
     <string name="pref_journal_save_log_to">Guardar registro en</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Máximo de entradas almacenadas en el diario</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">Control de batería</string>
     <string name="pref_custom_battery_control_title">Porcentaje de batería personalizada</string>
     <string name="pref_custom_battery_control_value_title">Porcentaje de control de la batería</string>
-    <string name="pref_battery_control_summary" formatted="false">Todos los torrents serán pausados si en nivel de batería baja del %1$d%%. El límite no se aplica cuando se está cargando</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Establezca un porcentaje personalizado para pausar las descargas en si la batería cae por debajo del umbral especificado. Habilitar esto ignorará el umbral predeterminado del %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Establecer un porcentaje de batería personalizado para la aplicación tendrá un impacto negativo en la duración de la batería mientras se realizan las descargas. ¿Seguro que quieres habilitar esto?</string>
+    <string name="pref_battery_control_summary">Todos los torrents serán pausados si en nivel de batería baja del %1$d%%. El límite no se aplica cuando se está cargando</string>
+    <string name="pref_custom_battery_control_summary">Establezca un porcentaje personalizado para pausar las descargas en si la batería cae por debajo del umbral especificado. Habilitar esto ignorará el umbral predeterminado del %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Establecer un porcentaje de batería personalizado para la aplicación tendrá un impacto negativo en la duración de la batería mientras se realizan las descargas. ¿Seguro que quieres habilitar esto?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ajustes del proxy</string>
     <string name="pref_enable_dht_title">Habilitar DHT</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Habilitar NAT-PMP</string>
     <string name="pref_port_settings_category">Ajustes del puerto</string>
     <string name="pref_use_random_port_title">Usar puerto aleatorio</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Establece el puerto de inicio de forma aleatoria en el rango [%1$d, %2$d] y el puerto final como primero + 10</string>
+    <string name="pref_use_random_port_summarty">Establece el puerto de inicio de forma aleatoria en el rango [%1$d, %2$d] y el puerto final como primero + 10</string>
     <string name="pref_port_range_title">Rango de puertos</string>
     <string name="pref_port_range_start_title">Inicio</string>
     <string name="pref_port_range_end_title">Final</string>

@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Nu s-a putut deschide fișierul torrent</string>
     <string name="open_file">Deschide fișier</string>
     <string name="settings">Setări</string>
-    <string name="ip_filter_add_error" formatted="false">Nu s-a putut adăuga IP filtru (%1$d a eșuat). Este posibil ca fișierul să fie corupt sau să aibă un format incorect</string>
+    <string name="ip_filter_add_error">Nu s-a putut adăuga IP filtru (%1$d a eșuat). Este posibil ca fișierul să fie corupt sau să aibă un format incorect</string>
     <string name="ip_filter_add_success">Filtrul IP a fost adăugat cu succes</string>
     <string name="proxy_settings_applied">Setări server proxy aplicate cu succes</string>
     <string name="proxy_settings_apply_after_reboot">Setările serverului proxy vor fi aplicate după repornirea aplicației</string>
     <string name="theme_settings_apply_after_reboot">Setările temei vor fi aplicate după repornirea aplicației</string>
     <string name="about">Despre</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT noduri: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT noduri: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Ascultarea portului: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Ascultarea portului: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Statut</string>
     <string name="drawer_status_downloading">Se descarcă</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">An</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \\u2022 %2$s \\u2022 \\u2193 %3$s/s \\u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \\u2022 %2$s \\u2022 \\u2193 %3$s/s \\u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \\u2022 \\u2191 %2$s/s \\u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \\u2022 \\u2191 %2$s/s \\u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \\u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Se descarcă: %1$d Total: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \\u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Se descarcă: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent finalizat</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Se mută torrent-ul</string>
-    <string name="torrent_moving_content" formatted="false">Se mută %1$s, vă rugăm să așteptați</string>
+    <string name="torrent_moving_content">Se mută %1$s, vă rugăm să așteptați</string>
     <string name="torrent_move_success">Torrent mișcat reușită</string>
     <string name="torrent_move_fail">Nu s-a putut muta torrent-ul</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\\u2193 %1$s/s | \\u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\\u2193 %1$s/s | \\u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Descărcare</string>
     <string name="torrent_status_seeding">Setează</string>
     <string name="torrent_status_paused">Pauză</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Torrentul deja există. Torrentele vor fi unite</string>
     <string name="error_field_required">Acest câmp este obligatoriu</string>
     <string name="error_no_files_selected">Niciun fișier selectat</string>
-    <string name="free_space" formatted="false">%1$s liber</string>
+    <string name="free_space">%1$s liber</string>
     <string name="error_free_space">Nu este destul spațiu liber pe calea selectată pentru a descărca fișierele selectate</string>
-    <string name="files_size" formatted="false">S-au selectat %1$s din %2$s</string>
+    <string name="files_size">S-au selectat %1$s din %2$s</string>
     <string name="start_torrent">Pornește torrent</string>
     <string name="file_is_too_large_error">Fișierul este prea mare</string>
     <string name="unable_to_open_folder">Nu se poate deschide folderul selectat. Încercați să selectați un alt folder</string>
@@ -196,7 +196,7 @@
     <string name="more_details">Mai multe detalii</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilitate: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilitate: %5$s</string>
     <string name="file_priority_normal">Normală</string>
     <string name="file_priority_low">Ignoră</string>
     <string name="file_priority_high">Înaltă</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">Parteneri</string>
     <string name="torrent_leechers">Leecheri</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Încărcat</string>
     <string name="torrent_share_ratio">Raport distribuire</string>
     <string name="torrent_active_time">Timp de activitate</string>
     <string name="torrent_seeding_time">Timp de seed</string>
     <string name="torrent_pieces">Părți</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Trackere</string>
     <string name="tracker_state_working">Funcționează</string>
     <string name="tracker_state_not_working">Nu funcționează</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">Adaugă trackere</string>
     <string name="dialog_add_trackers">(Câte unul pe rând)</string>
     <string name="open_using">Deschide folosind</string>
-    <string name="peer_port" formatted="false">Portul: %1$d</string>
-    <string name="peer_relevance" formatted="false">Relevanță: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Conexiune: %1$s</string>
+    <string name="peer_port">Portul: %1$d</string>
+    <string name="peer_relevance">Relevanță: %1$.1f</string>
+    <string name="peer_connection_type">Conexiune: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\\u2193 %1$s \\u2022 \\u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Client: %1$s</string>
+    <string name="peer_total_download_upload">\\u2193 %1$s \\u2022 \\u2191 %2$s</string>
+    <string name="peer_client">Client: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">Utilizați expresii regulate</string>
     <string name="backup_feed_channels">Salvează rezervele</string>
     <string name="restore_feed_channels_backup">Restabilire rezervele</string>
-    <string name="feed_last_update_template" formatted="false">Actualizat: %1$s</string>
+    <string name="feed_last_update_template">Actualizat: %1$s</string>
     <string name="feed_last_update_never">niciodată</string>
     <string name="error_cannot_add_channel">Canalul nu poate fi adăugat</string>
     <string name="error_cannot_edit_channel">Nu se poate edita canalul</string>
@@ -333,13 +333,13 @@
         <item>16 MiO</item>
         <item>32 MiO</item>
     </string-array>
-    <string name="invalid_url" formatted="false">URL invalid: %1$s</string>
+    <string name="invalid_url">URL invalid: %1$s</string>
     <string name="folder_is_empty">Dosarul selectat este gol sau toate fișierele sunt excluse prin filtru</string>
     <string name="error_create_torrent">Imposibil de creat torrent</string>
     <string name="skip_files">Ignorați fișierele</string>
     <string name="skip_files_hint">Introduceți nume de fișiere separate prin simbolul \"|\"</string>
     <string name="select_folder_to_save">Selectați dosarul pentru a salva</string>
-    <string name="torrent_saved_to" formatted="false">Torrent salvat la %1$s</string>
+    <string name="torrent_saved_to">Torrent salvat la %1$s</string>
     <string name="unable_to_open_file">Nu se poate deschide fișierul selectat</string>
     <string name="unable_to_create_file">Nu se poate creea fișierul</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">Control baterie</string>
     <string name="pref_custom_battery_control_title">Personalizate procentual al bateriei</string>
     <string name="pref_custom_battery_control_value_title">Procentul de control al bateriei</string>
-    <string name="pref_battery_control_summary" formatted="false">Toate torrentele vor fi %1$d%%</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Stabiliți un procent personalizat pentru a întrerupe descărcările dacă bateria scade sub pragul dat. Activarea acestui lucru va ignora pragul implicit de %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setarea unui procent de baterie personalizat pentru aplicație va avea un impact negativ asupra duratei de viață a bateriei în timp ce descărcările apar. Sigur doriți să activați acest lucru?</string>
+    <string name="pref_battery_control_summary">Toate torrentele vor fi %1$d%%</string>
+    <string name="pref_custom_battery_control_summary">Stabiliți un procent personalizat pentru a întrerupe descărcările dacă bateria scade sub pragul dat. Activarea acestui lucru va ignora pragul implicit de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setarea unui procent de baterie personalizat pentru aplicație va avea un impact negativ asupra duratei de viață a bateriei în timp ce descărcările apar. Sigur doriți să activați acest lucru?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Setări proxy</string>
     <string name="pref_enable_dht_title">Activează DHT</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Activează NAT-PMP</string>
     <string name="pref_port_settings_category">Setări port</string>
     <string name="pref_use_random_port_title">Folosește port aleatoriu</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Setează la întâmplare portul de pornire în intervalul [%1$d,%2$d] și portul final ca prim + 10</string>
+    <string name="pref_use_random_port_summarty">Setează la întâmplare portul de pornire în intervalul [%1$d,%2$d] și portul final ca prim + 10</string>
     <string name="pref_port_range_title">Interval de porturi</string>
     <string name="pref_port_range_start_title">Începe</string>
     <string name="pref_port_range_end_title">Termină</string>

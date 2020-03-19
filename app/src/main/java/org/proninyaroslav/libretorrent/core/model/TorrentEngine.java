@@ -1397,7 +1397,7 @@ public class TorrentEngine
                         Toast.makeText(appContext,
                                 (ruleCount > 0 ?
                                         appContext.getString(R.string.ip_filter_add_success) :
-                                        String.format(appContext.getString(R.string.ip_filter_add_error), ruleCount)),
+                                        appContext.getString(R.string.ip_filter_add_error, ruleCount)),
                                 Toast.LENGTH_LONG)
                                 .show();
                     })

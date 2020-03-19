@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Неуспешно отварање торент фајла</string>
     <string name="open_file">Отвори фајл</string>
     <string name="settings">Подешавања</string>
-    <string name="ip_filter_add_error" formatted="false">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или има погрешан формат</string>
+    <string name="ip_filter_add_error">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или има погрешан формат</string>
     <string name="ip_filter_add_success">IP филтер је успешно додат</string>
     <string name="proxy_settings_applied">Подешавања прокси сервера су успешно сачувана</string>
     <string name="proxy_settings_apply_after_reboot">Подешавања прокси сервера ће бити сачувана након рестартовања апликације</string>
     <string name="theme_settings_apply_after_reboot">Подешавања теме ће бити сачувана након рестартовања апликације</string>
     <string name="about">О нама</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT чворови: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT чворови: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Порт слушања: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Порт слушања: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Статус</string>
     <string name="drawer_status_downloading">Преузимање</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Година</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Преузимање: %1$d Укупно: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Преузимање: %1$d Укупно: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent ради у позадини</string>
     <string name="network_online">Статус мреже: Онлајн</string>
     <string name="network_offline">Статус мреже: Офлајн</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Торент је завршен</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Премештање торента</string>
-    <string name="torrent_moving_content" formatted="false">Премештање %1$s, молимо сачекајте</string>
+    <string name="torrent_moving_content">Премештање %1$s, молимо сачекајте</string>
     <string name="torrent_move_success">Торент успешно премештен</string>
     <string name="torrent_move_fail">Неуспешно премештање торента</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Преузимање</string>
     <string name="torrent_status_seeding">Слање</string>
     <string name="torrent_status_paused">Паузирано</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Торент већ постоји. Торенти су спојени</string>
     <string name="error_field_required">Ово поље је обавезно</string>
     <string name="error_no_files_selected">Нема одабраних фајлова</string>
-    <string name="free_space" formatted="false">%1$s слободно</string>
+    <string name="free_space">%1$s слободно</string>
     <string name="error_free_space">Нема довољно слободне меморије на изабраној локацији за преузимање изабраних фајлова</string>
-    <string name="files_size" formatted="false">Изабрано %1$s од %2$s</string>
+    <string name="files_size">Изабрано %1$s од %2$s</string>
     <string name="start_torrent">Започни торент</string>
     <string name="file_is_too_large_error">Фајл је превелики</string>
     <string name="unable_to_open_folder">Неуспешно отварање изабраног фолдера. Молимо пробајте неки други фолдер</string>
@@ -196,7 +196,7 @@
     <string name="more_details">Детаљније</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступност: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступност: %5$s</string>
     <string name="file_priority_normal">Нормалан</string>
     <string name="file_priority_low">Игнорисан</string>
     <string name="file_priority_high">Висок</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">Пирови</string>
     <string name="torrent_leechers">Личери</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Послато</string>
     <string name="torrent_share_ratio">Однос дељења</string>
     <string name="torrent_active_time">Активно време</string>
     <string name="torrent_seeding_time">Време слања</string>
     <string name="torrent_pieces">Делови</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Трагачи</string>
     <string name="tracker_state_working">Ради</string>
     <string name="tracker_state_not_working">Не ради</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">Додај трагаче</string>
     <string name="dialog_add_trackers">(Један по реду)</string>
     <string name="open_using">Отвори помоћу</string>
-    <string name="peer_port" formatted="false">Порт: %1$d</string>
-    <string name="peer_relevance" formatted="false">Релевантност: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Конекција: %1$s</string>
+    <string name="peer_port">Порт: %1$d</string>
+    <string name="peer_relevance">Релевантност: %1$.1f</string>
+    <string name="peer_connection_type">Конекција: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Клијент: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Клијент: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Веб</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">Користи регуларне изразе</string>
     <string name="backup_feed_channels">Сачувај резервну копију</string>
     <string name="restore_feed_channels_backup">Повратити резервну копију</string>
-    <string name="feed_last_update_template" formatted="false">Ажурирано: %1$s</string>
+    <string name="feed_last_update_template">Ажурирано: %1$s</string>
     <string name="feed_last_update_never">никад</string>
     <string name="error_cannot_add_channel">Није могуће додати канал</string>
     <string name="error_cannot_edit_channel">Није могуће изменити канал</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Невалидан URL: %1$s</string>
+    <string name="invalid_url">Невалидан URL: %1$s</string>
     <string name="folder_is_empty">Изабрани фолдер је празан или су сви фајлови игнорисани због филтера</string>
     <string name="error_create_torrent">Неуспешно креирање торента</string>
     <string name="skip_files">Прескочи фајлове</string>
     <string name="skip_files_hint">Унеси имена фајлова раздвојених са \"|\"</string>
     <string name="select_folder_to_save">Изабери фолдер за преузимање</string>
-    <string name="torrent_saved_to" formatted="false">Торент сачуван у %1$s</string>
+    <string name="torrent_saved_to">Торент сачуван у %1$s</string>
     <string name="unable_to_open_file">Неуспешно отварање изабраних фајлова</string>
     <string name="unable_to_create_file">Неуспешно креирање фајла</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">Контрола батерије</string>
     <string name="pref_custom_battery_control_title">Задат проценат батерије</string>
     <string name="pref_custom_battery_control_value_title">Проценат контроле батерије</string>
-    <string name="pref_battery_control_summary" formatted="false">Сви торенти ће бити паузирани када ниво батерије оде испод %1$d%%. Ограничење не важи ако је уређај на пуњачу</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Постави проценат на којем ће се преузимања паузирати када батерија падне испод прага. Паљење овога ће игнорисати уобичајени %1$d%% праг</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Постављање процента батерије који апликација треба да прати ће имати негативан утицај на трајање батерије док се преузимање врши. Да ли сигурно желите упалити ово?</string>
+    <string name="pref_battery_control_summary">Сви торенти ће бити паузирани када ниво батерије оде испод %1$d%%. Ограничење не важи ако је уређај на пуњачу</string>
+    <string name="pref_custom_battery_control_summary">Постави проценат на којем ће се преузимања паузирати када батерија падне испод прага. Паљење овога ће игнорисати уобичајени %1$d%% праг</string>
+    <string name="pref_custom_battery_control_dialog_summary">Постављање процента батерије који апликација треба да прати ће имати негативан утицај на трајање батерије док се преузимање врши. Да ли сигурно желите упалити ово?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Подешавање проксија</string>
     <string name="pref_enable_dht_title">Укључи DHT</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Укључи NAT-PMP</string>
     <string name="pref_port_settings_category">Порт подешавања</string>
     <string name="pref_use_random_port_title">Користи насумичан порт</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Поставља почетни порт насумичну у распону [%1$d, %2$d] а крајњи порт као први + 10</string>
+    <string name="pref_use_random_port_summarty">Поставља почетни порт насумичну у распону [%1$d, %2$d] а крајњи порт као први + 10</string>
     <string name="pref_port_range_title">Распон портова</string>
     <string name="pref_port_range_start_title">Почетак</string>
     <string name="pref_port_range_end_title">Крај</string>

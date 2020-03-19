@@ -151,7 +151,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         String keyRandomPort = getString(R.string.pref_key_use_random_port);
         SwitchPreferenceCompat randomPort = findPreference(keyRandomPort);
         if (randomPort != null) {
-            randomPort.setSummary(String.format(getString(R.string.pref_use_random_port_summarty),
+            randomPort.setSummary(getString(R.string.pref_use_random_port_summarty,
                     SessionSettings.DEFAULT_PORT_RANGE_FIRST,
                     SessionSettings.DEFAULT_PORT_RANGE_SECOND - 10));
             randomPort.setDisableDependentsState(true);

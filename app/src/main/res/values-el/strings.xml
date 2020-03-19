@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Το άνοιγμα του αρχείου torrent είναι αδύνατο</string>
     <string name="open_file">Άνοιγμα αρχείου</string>
     <string name="settings">Ρυθμίσεις</string>
-    <string name="ip_filter_add_error" formatted="false">Η προσθήκη του φίλτρου IP απέτυχε (%1$d απέτυχε). Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή</string>
+    <string name="ip_filter_add_error">Η προσθήκη του φίλτρου IP απέτυχε (%1$d απέτυχε). Ίσως το αρχείο είναι κατεστραμμένο ή έχει λανθασμένη μορφή</string>
     <string name="ip_filter_add_success">Το φίλτρο IP προστέθηκε με επιτυχία</string>
     <string name="proxy_settings_applied">Οι ρυθμίσεις του διακομιστή μεσολάβησης εφαρμόστηκαν επιτυχώς</string>
     <string name="proxy_settings_apply_after_reboot">Οι ρυθμίσεις των διακομιστών μεσολάβησης θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="theme_settings_apply_after_reboot">Οι ρυθμίσεις των θεμάτων θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
     <string name="about">Σχετικά</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">Κόμβοι DHT: %1$d</string>
+    <string name="session_stats_dht_nodes">Κόμβοι DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Θύρα ακρόασης: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Θύρα ακρόασης: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Κατάσταση</string>
     <string name="drawer_status_downloading">Λήψη</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Έτος</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Γίνεται λήψη: %1$d Συνολικά: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Γίνεται λήψη: %1$d Συνολικά: %2$d</string>
     <string name="app_running_in_the_background">Το LibreTorrent τρέχει στο παρασκήνιο</string>
     <string name="network_online">Κατάσταση δικτύου: Σε σύνδεση</string>
     <string name="network_offline">Κατάσταση δικτύου: Εκτός σύνδεσης</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Το torrent κατέβηκε</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Μετακίνηση torrent</string>
-    <string name="torrent_moving_content" formatted="false">Μετακίνηση %1$s, περιμένετε.</string>
+    <string name="torrent_moving_content">Μετακίνηση %1$s, περιμένετε.</string>
     <string name="torrent_move_success">Το torrent μετακινήθηκε επιτυχώς</string>
     <string name="torrent_move_fail">Αδυναμία μετακίνησης torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Γίνεται λήψη</string>
     <string name="torrent_status_seeding">Γίνεται διαμοιρασμός</string>
     <string name="torrent_status_paused">Παύση</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Το torrent υπάρχει ήδη. Τα torrents συμπτύχθηκαν.</string>
     <string name="error_field_required">Το πεδίο είναι απαραίτητο</string>
     <string name="error_no_files_selected">Δεν επιλέχθηκαν αρχεία</string>
-    <string name="free_space" formatted="false">%1$s ελεύθερα</string>
+    <string name="free_space">%1$s ελεύθερα</string>
     <string name="error_free_space">Δεν υπάρχει αρκετός ελεύθερος χώρος στην επιλεγμένη διαδρομή για να γίνει λήψη των επιλεγμένων αρχείων</string>
-    <string name="files_size" formatted="false">Επιλέχθηκαν %1$s από %2$s</string>
+    <string name="files_size">Επιλέχθηκαν %1$s από %2$s</string>
     <string name="start_torrent">Εκκίνηση torrent</string>
     <string name="file_is_too_large_error">Το αρχείο είναι πολύ μεγάλο</string>
     <string name="unable_to_open_folder">Αδυναμία ανοίγματος φακέλου. Επιλέξτε άλλο φάκελο.</string>
@@ -196,7 +196,7 @@
     <string name="more_details">Περισσότερες λεπτομέρειες</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nΔιαθεσιμότητα: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nΔιαθεσιμότητα: %5$s</string>
     <string name="file_priority_normal">Κανονική</string>
     <string name="file_priority_low">Αγνόηση</string>
     <string name="file_priority_high">Υψηλή</string>
@@ -214,14 +214,14 @@
     <string name="torrent_peers">Ομότιμοι χρήστες</string>
     <string name="torrent_leechers">Αποδέκτες</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Ανεβασμένα</string>
     <string name="torrent_share_ratio">Αναλογία</string>
     <string name="torrent_active_time">Ενεργός χρόνος</string>
     <string name="torrent_seeding_time">Χρόνος διαμοιρασμού</string>
     <string name="torrent_pieces">Κομμάτια</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Ιχνηλάτες</string>
     <string name="tracker_state_working">Λειτουργεί</string>
     <string name="tracker_state_not_working">Δεν λειτουργεί</string>
@@ -233,12 +233,12 @@
     <string name="add_trackers">Προσθήκη ιχνηλατών</string>
     <string name="dialog_add_trackers">(Ένα ανά γραμμή)</string>
     <string name="open_using">Άνοιγμα με χρήση</string>
-    <string name="peer_port" formatted="false">Θύρα: %1$d</string>
-    <string name="peer_relevance" formatted="false">Συνάφεια: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Σύνδεση: %1$s</string>
+    <string name="peer_port">Θύρα: %1$d</string>
+    <string name="peer_relevance">Συνάφεια: %1$.1f</string>
+    <string name="peer_connection_type">Σύνδεση: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Πελάτης: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Πελάτης: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Διαδίκτυο</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -280,7 +280,7 @@
     <string name="feed_use_regex">Χρησιμοποιήστε κανονική έκφραση</string>
     <string name="backup_feed_channels">Αποθήκευση αντιγράφου ασφαλείας</string>
     <string name="restore_feed_channels_backup">Επαναφορά αντιγράφου ασφαλείας</string>
-    <string name="feed_last_update_template" formatted="false">Ενημερώθηκε: %1$s</string>
+    <string name="feed_last_update_template">Ενημερώθηκε: %1$s</string>
     <string name="feed_last_update_never">ποτέ</string>
     <string name="error_cannot_add_channel">Δεν είναι δυνατή η προσθήκη καναλιού</string>
     <string name="error_cannot_edit_channel">Αδυναμία επεξεργασίας καναλιού</string>
@@ -333,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Μη έγκυρη διεύθυνση URL: %1$s</string>
+    <string name="invalid_url">Μη έγκυρη διεύθυνση URL: %1$s</string>
     <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο</string>
     <string name="error_create_torrent">Δεν είναι δυνατή η δημιουργία torrent</string>
     <string name="skip_files">Παράλειψη αρχείων</string>
     <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων που χωρίζονται από \"|\"</string>
     <string name="select_folder_to_save">Επιλέξτε το φάκελο για να αποθηκεύσετε</string>
-    <string name="torrent_saved_to" formatted="false">Torrent αποθηκεύονται σε %1$s</string>
+    <string name="torrent_saved_to">Torrent αποθηκεύονται σε %1$s</string>
     <string name="unable_to_open_file">Αδυναμία ανοίγματος του επιλεχθέντος αρχείου</string>
     <string name="unable_to_create_file">Αδυναμία δημιουργίας αρχείου</string>
     <!-- Log -->
@@ -354,7 +354,7 @@
     <string name="journal_filter_portmap_log">Καταγραφή UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Καταγραφή torrent</string>
     <string name="journal_save_log_failed">Αποτυχία αποθήκευσης αρχείου καταγραφής</string>
-    <string name="journal_save_log_success" formatted="false">Επιτυχής αποθήκευση καταγραφής: %1$s</string>
+    <string name="journal_save_log_success">Επιτυχής αποθήκευση καταγραφής: %1$s</string>
     <string name="pref_journal_save_log_to">Αποθήκευση καταγραφής σε</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Μέγιστος αριθμός αποθηκευμένων αρχείων καταγραφής</string>
@@ -430,9 +430,9 @@
     <string name="pref_battery_control_title">Έλεγχος μπαταρίας</string>
     <string name="pref_custom_battery_control_title">Προσαρμοσμένο ποσοστό μπαταρίας</string>
     <string name="pref_custom_battery_control_value_title">Ποσοστό ελέγχου μπαταρίας</string>
-    <string name="pref_battery_control_summary" formatted="false">Όλα τα torrents θα σταματήσουν αν το επίπεδο της μπαταρίας κατέβει κάτω από %1$d%%. Το όριο δεν εφαρμόζεται την ώρα της φόρτισης.</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Ορίστε ένα προσαρμοσμένο ποσοστό για να κάνετε παύση λήψεων σε αν η μπαταρία πέσει κάτω από το συγκεκριμένο όριο. Με την ενεργοποίηση αυτής θα αγνοηθεί το προεπιλεγμένο όριο %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Ρύθμιση ένα ποσοστό προσαρμοσμένο μπαταρία για την αίτηση θα έχει αρνητικό αντίκτυπο στην διάρκεια ζωής της μπαταρίας, ενώ οι λήψεις που συμβαίνουν. Είστε βέβαιοι ότι θέλετε να το ενεργοποιήσετε;</string>
+    <string name="pref_battery_control_summary">Όλα τα torrents θα σταματήσουν αν το επίπεδο της μπαταρίας κατέβει κάτω από %1$d%%. Το όριο δεν εφαρμόζεται την ώρα της φόρτισης.</string>
+    <string name="pref_custom_battery_control_summary">Ορίστε ένα προσαρμοσμένο ποσοστό για να κάνετε παύση λήψεων σε αν η μπαταρία πέσει κάτω από το συγκεκριμένο όριο. Με την ενεργοποίηση αυτής θα αγνοηθεί το προεπιλεγμένο όριο %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Ρύθμιση ένα ποσοστό προσαρμοσμένο μπαταρία για την αίτηση θα έχει αρνητικό αντίκτυπο στην διάρκεια ζωής της μπαταρίας, ενώ οι λήψεις που συμβαίνουν. Είστε βέβαιοι ότι θέλετε να το ενεργοποιήσετε;</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ρυθμίσεις μεσολαβητή</string>
     <string name="pref_enable_dht_title">Ενεργοποίηση DHT</string>
@@ -445,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Ενεργοποίηση NAT-PMP</string>
     <string name="pref_port_settings_category">Ρυθμίσεις θύρας</string>
     <string name="pref_use_random_port_title">Χρήση τυχαίας θύρας</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Ορίζει τη θύρα εκκίνησης τυχαία στο εύρος [%1$d, %2$d] και τη θύρα τερματισμού, ως την εκκίνησης+10</string>
+    <string name="pref_use_random_port_summarty">Ορίζει τη θύρα εκκίνησης τυχαία στο εύρος [%1$d, %2$d] και τη θύρα τερματισμού, ως την εκκίνησης+10</string>
     <string name="pref_port_range_title">Εύρος θύρας</string>
     <string name="pref_port_range_start_title">Έναρξη</string>
     <string name="pref_port_range_end_title">Τέλος</string>
