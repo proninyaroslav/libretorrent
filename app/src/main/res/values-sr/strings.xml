@@ -195,8 +195,6 @@
     <string name="report">Пријави</string>
     <string name="more_details">Детаљније</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s\u2022%2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
     <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступност: %5$s</string>
     <string name="file_priority_normal">Нормалан</string>
