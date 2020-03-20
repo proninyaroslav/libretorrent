@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Kunne ikke åpne torrent-fil</string>
     <string name="open_file">Åpne fil</string>
     <string name="settings">Innstillinger</string>
-    <string name="ip_filter_add_error" formatted="false">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje fila er skadet eller har feil format</string>
+    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje fila er skadet eller har feil format</string>
     <string name="ip_filter_add_success">IP-filteret ble lagt til</string>
     <string name="proxy_settings_applied">Mellomtjenerinnstillinger lagt til</string>
     <string name="proxy_settings_apply_after_reboot">Nye mellomtjenerinnstillinger vil trå i kraft ved neste oppstart av programmet</string>
     <string name="theme_settings_apply_after_reboot">Nye draktinnstillinger vil komme til syne ved neste oppstart av programmet</string>
     <string name="about">Om</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Year</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Laster ned: %1$d Totalt: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Laster ned: %1$d Totalt: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent kjører i bakgrunnen</string>
     <string name="network_online">Nettverksstatus: Tilkoblet</string>
     <string name="network_offline">Nettverksstatus: Frakoblet</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent fullført</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_moving_content">Moving %1$s, please wait</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Laster ned</string>
     <string name="torrent_status_seeding">Deler</string>
     <string name="torrent_status_paused">Pauset</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Torrenten finnes allerede. Torrenten ble flettet</string>
     <string name="error_field_required">Dette er et påkrevd felt</string>
     <string name="error_no_files_selected">Ingen filer valgt</string>
-    <string name="free_space" formatted="false">%1$s ledig</string>
+    <string name="free_space">%1$s ledig</string>
     <string name="error_free_space">Det finnes ikke nok ledig plass i valgt sti til nedlasting av valgte filer</string>
-    <string name="files_size" formatted="false">Valgte %1$s av %2$s</string>
+    <string name="files_size">Valgte %1$s av %2$s</string>
     <string name="start_torrent">Start torrent</string>
     <string name="file_is_too_large_error">Filen er for stor</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
@@ -195,10 +195,8 @@
     <string name="report">Innrapporter</string>
     <string name="more_details">Ytterligere detaljer</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nTilgjengelighet: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nTilgjengelighet: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorer</string>
     <string name="file_priority_high">Høy</string>
@@ -216,14 +214,14 @@
     <string name="torrent_peers">Likemenn</string>
     <string name="torrent_leechers">Sankere</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Opplastet</string>
     <string name="torrent_share_ratio">Delingsforhold</string>
     <string name="torrent_active_time">Tid aktiv</string>
     <string name="torrent_seeding_time">Delingstid</string>
     <string name="torrent_pieces">Deler</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Sporere</string>
     <string name="tracker_state_working">Arbeider</string>
     <string name="tracker_state_not_working">Arbeider ikke</string>
@@ -235,12 +233,12 @@
     <string name="add_trackers">Legg til sporer</string>
     <string name="dialog_add_trackers">(Én per linje)</string>
     <string name="open_using">Åpne med</string>
-    <string name="peer_port" formatted="false">Port: %1$d</string>
-    <string name="peer_relevance" formatted="false">Betydning: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Tilkobling: %1$s</string>
+    <string name="peer_port">Port: %1$d</string>
+    <string name="peer_relevance">Betydning: %1$.1f</string>
+    <string name="peer_connection_type">Tilkobling: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Klient: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Vev</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -282,7 +280,7 @@
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
     <string name="backup_feed_channels">Save backup</string>
     <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="feed_last_update_template" formatted="false">Oppdatert: %1$s</string>
+    <string name="feed_last_update_template">Oppdatert: %1$s</string>
     <string name="feed_last_update_never">aldri</string>
     <string name="error_cannot_add_channel">Kan ikke legge til kanal</string>
     <string name="error_cannot_edit_channel">Cannot edit channel</string>
@@ -335,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Ugyldig URL: %1$s</string>
+    <string name="invalid_url">Ugyldig URL: %1$s</string>
     <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter</string>
     <string name="error_create_torrent">Kan ikke lage torrent</string>
     <string name="skip_files">Hopp over filer</string>
     <string name="skip_files_hint">Skriv inn filnavn skilt med \"|\" symbol</string>
     <string name="select_folder_to_save">Velg mappen til lagre</string>
-    <string name="torrent_saved_to" formatted="false">Torrent lagret til %1$s</string>
+    <string name="torrent_saved_to">Torrent lagret til %1$s</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
@@ -356,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
@@ -432,9 +430,9 @@
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
     <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
-    <string name="pref_battery_control_summary" formatted="false">Alle torrenter vil bli satt på pause hvis batterinivået går under %1$d%%. Vel å merke ikke med lader tilkoblet</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Aktivering av dette vil ignorere standard %1$d%% grensen</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Hvis du angir et tilpasset batteriprosent for søknaden, vil det ha en negativ innvirkning på batteriets levetid mens nedlastinger oppstår. Er du sikker på at du vil aktivere dette?</string>
+    <string name="pref_battery_control_summary">Alle torrenter vil bli satt på pause hvis batterinivået går under %1$d%%. Vel å merke ikke med lader tilkoblet</string>
+    <string name="pref_custom_battery_control_summary">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Aktivering av dette vil ignorere standard %1$d%% grensen</string>
+    <string name="pref_custom_battery_control_dialog_summary">Hvis du angir et tilpasset batteriprosent for søknaden, vil det ha en negativ innvirkning på batteriets levetid mens nedlastinger oppstår. Er du sikker på at du vil aktivere dette?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Mellomtjener-innstillinger</string>
     <string name="pref_enable_dht_title">Skru på DHT</string>
@@ -447,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Skru på NAT-PMP</string>
     <string name="pref_port_settings_category">Port-innstillinger</string>
     <string name="pref_use_random_port_title">Bruk tilfeldig port</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_title">Port range</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>

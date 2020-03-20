@@ -233,14 +233,13 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
                 binding.name.setText(item.name);
             }
 
-            String lastUpdateTemplate = context.getString(R.string.feed_last_update_template);
             String date;
             if (item.lastUpdate == 0)
                 date = context.getString(R.string.feed_last_update_never);
             else
                 date = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
                         .format(new Date(item.lastUpdate));
-            binding.lastUpdate.setText(String.format(lastUpdateTemplate, date));
+            binding.lastUpdate.setText(context.getString(R.string.feed_last_update_template, date));
 
             if (item.fetchError != null) {
                 binding.error.setVisibility(View.VISIBLE);

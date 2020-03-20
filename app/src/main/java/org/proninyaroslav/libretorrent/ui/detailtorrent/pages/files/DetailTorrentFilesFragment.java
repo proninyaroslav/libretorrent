@@ -294,7 +294,7 @@ public class DetailTorrentFilesFragment extends Fragment
         if (viewModel.fileTree == null)
             return;
 
-        binding.filesSize.setText(String.format(getString(R.string.files_size),
+        binding.filesSize.setText(getString(R.string.files_size,
                 Formatter.formatFileSize(activity.getApplicationContext(),
                         viewModel.fileTree.nonIgnoreFileSize()),
                 Formatter.formatFileSize(activity.getApplicationContext(),

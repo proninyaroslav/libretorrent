@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">ടോറന്റ് ഫയൽ തുറക്കാൻ കഴിയുന്നില്ല</string>
     <string name="open_file">ഫയൽ തുറക്കുക</string>
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
-    <string name="ip_filter_add_error" formatted="false">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു). ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
+    <string name="ip_filter_add_error">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു). ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
     <string name="ip_filter_add_success">IP ഫിൽട്ടർ വിജയകരമായി ചേർത്തു</string>
     <string name="proxy_settings_applied">പ്രോക്സി സെർവർ ക്രമീകരണം വിജയകരമായി പ്രയോഗിച്ചു</string>
     <string name="proxy_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചതിന് ശേഷം പ്രോക്സി സെർവർ ക്രമീകരണം പ്രയോഗിക്കപ്പെടും</string>
     <string name="theme_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചശേഷം തീം ക്രമീകരണങ്ങൾ പ്രയോഗിക്കും</string>
     <string name="about">കുറിച്ച്</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Listening port: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Year</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Downloading: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">പശ്ചാത്തലത്തിൽ പ്രവർത്തിപ്പിക്കുന്ന LibreTorrent</string>
     <string name="network_online">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓൺലൈനിൽ</string>
     <string name="network_offline">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓഫ്ലൈൻ</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">ടോറന്റ് പൂർത്തിയായി</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content" formatted="false">Moving %1$s, please wait</string>
+    <string name="torrent_moving_content">Moving %1$s, please wait</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">ഡൗൺലോഡുചെയ്യുന്നു</string>
     <string name="torrent_status_seeding">വിത്തും</string>
     <string name="torrent_status_paused">താൽക്കാലികമായി നിർത്തി</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">ടോറന്റ് ഇതിനകം നിലവിലുണ്ട്. ടർട്രുകൾ ലയിപ്പിച്ചു</string>
     <string name="error_field_required">ഈ ഫീൽഡ് പൂരിപ്പിക്കേണ്ടതുണ്ട്</string>
     <string name="error_no_files_selected">ഫയലുകളൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല</string>
-    <string name="free_space" formatted="false">%1$s free</string>
+    <string name="free_space">%1$s free</string>
     <string name="error_free_space">തിരഞ്ഞെടുത്ത ഫയലുകൾ ഡൌൺലോഡ് ചെയ്യാനായി ആവശ്യമായ പാടുകളിൽ മതിയായ ഇടമില്ല</string>
-    <string name="files_size" formatted="false">Selected %1$s out of %2$s</string>
+    <string name="files_size">Selected %1$s out of %2$s</string>
     <string name="start_torrent">ടോറന്റ് ആരംഭിക്കുക</string>
     <string name="file_is_too_large_error">ഫയൽ വളരെ വലുതാണ്</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
@@ -195,10 +195,8 @@
     <string name="report">റിപ്പോർട്ട് ചെയ്യുക</string>
     <string name="more_details">കൂടുതൽ വിശദാംശങ്ങൾ</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
     <string name="file_priority_normal">സാധാരണ</string>
     <string name="file_priority_low">അവഗണിക്കുക</string>
     <string name="file_priority_high">ഉയർന്ന</string>
@@ -216,14 +214,14 @@
     <string name="torrent_peers">സമപ്രായക്കാർ</string>
     <string name="torrent_leechers">Leechers</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">അപ്ലോഡുചെയ്തു</string>
     <string name="torrent_share_ratio">അനുപാതം പങ്കിടുക</string>
     <string name="torrent_active_time">സജീവ സമയം</string>
     <string name="torrent_seeding_time">വിത്ത് സമയം</string>
     <string name="torrent_pieces">പീസ്സ്</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">ട്രാക്കറുകൾ</string>
     <string name="tracker_state_working">പ്രവർത്തിക്കുന്നു</string>
     <string name="tracker_state_not_working">പ്രവർത്തിക്കുന്നില്ല</string>
@@ -235,12 +233,12 @@
     <string name="add_trackers">ട്രാക്കറുകൾ ചേർക്കുക</string>
     <string name="dialog_add_trackers">(ഓരോ വരിയിലും)</string>
     <string name="open_using">ഉപയോഗിച്ച് തുറക്കുക</string>
-    <string name="peer_port" formatted="false">തുറമുഖം: %1$d</string>
-    <string name="peer_relevance" formatted="false">പ്രാധാന്യം: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">കണക്ഷൻ: %1$s</string>
+    <string name="peer_port">തുറമുഖം: %1$d</string>
+    <string name="peer_relevance">പ്രാധാന്യം: %1$.1f</string>
+    <string name="peer_connection_type">കണക്ഷൻ: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">കക്ഷി: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">കക്ഷി: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -282,7 +280,7 @@
     <string name="feed_use_regex">റെഗുലർ എക്സ്പ്രഷൻ ഉപയോഗിക്കുക</string>
     <string name="backup_feed_channels">Save backup</string>
     <string name="restore_feed_channels_backup">Restore backup</string>
-    <string name="feed_last_update_template" formatted="false">അപ്ഡേറ്റുചെയ്തു: %1$s</string>
+    <string name="feed_last_update_template">അപ്ഡേറ്റുചെയ്തു: %1$s</string>
     <string name="feed_last_update_never">ഒരിക്കലും</string>
     <string name="error_cannot_add_channel">ചാനൽ ചേർക്കാൻ കഴിയില്ല</string>
     <string name="error_cannot_edit_channel">Cannot edit channel</string>
@@ -335,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">URL അസാധുവാണ്: %1$s</string>
+    <string name="invalid_url">URL അസാധുവാണ്: %1$s</string>
     <string name="folder_is_empty">തിരഞ്ഞെടുത്ത ഫോൾഡർ ശൂന്യമാണ് അല്ലെങ്കിൽ എല്ലാ ഫയലുകളും ഫിൽറ്റർ മുഖേന ഒഴിവാക്കിയിരിക്കുന്നു</string>
     <string name="error_create_torrent">ടോറന്റ് സൃഷ്ടിക്കാനായില്ല</string>
     <string name="skip_files">ഫയലുകൾ ഒഴിവാക്കുക</string>
     <string name="skip_files_hint">\"|\" ഉപയോഗിച്ച് വേർതിരിച്ച ഫയൽ നാമങ്ങൾ രേഖപ്പെടുത്തുക</string>
     <string name="select_folder_to_save">സംരക്ഷിക്കാൻ ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
-    <string name="torrent_saved_to" formatted="false">%1$s എന്നതിൽ ടോറന്റ് സംരക്ഷിച്ചു</string>
+    <string name="torrent_saved_to">%1$s എന്നതിൽ ടോറന്റ് സംരക്ഷിച്ചു</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
@@ -356,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success" formatted="false">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
@@ -432,9 +430,9 @@
     <string name="pref_battery_control_title">ബാറ്ററി നിയന്ത്രണം</string>
     <string name="pref_custom_battery_control_title">ഇഷ്ടാനുസൃത ബാറ്ററി ശതമാനം</string>
     <string name="pref_custom_battery_control_value_title">ബാറ്ററി നിയന്ത്രണം ശതമാനം</string>
-    <string name="pref_battery_control_summary" formatted="false">ബാറ്ററി ലെവലിൽ% 1$d%% താഴെ പോകുമ്പോൾ എല്ലാ വേഗതകളും താൽക്കാലികമായി നിർത്തും. ചാർജ്ജുചെയ്യുന്ന സമയത്ത് പരിധി ബാധകമല്ല</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">ബാറ്ററി തന്നിരിക്കുന്ന പരിധിക്ക് താഴെയാണെങ്കിൽ ഡൌൺലോഡുകൾ താൽക്കാലികമായി നിർത്തുന്നതിന് ഇഷ്ടാനുസൃത ശതമാനം സജ്ജമാക്കുക. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നത് സ്ഥിരസ്ഥിതി% 1 $ d %% ത്രെഷോൾഡ് അവഗണിക്കും</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">ഡൌൺലോഡുകൾ നടക്കുമ്പോൾ ആപ്ലിക്കേഷനായി ഇച്ഛാനുസൃത ബാറ്ററി ശതമാനം സജ്ജമാക്കുന്നതിന് ബാറ്ററി ലൈഫിൽ പ്രതികൂല സ്വാധീനം ഉണ്ടാകും. ഇത് പ്രവർത്തനക്ഷമമാക്കണമെന്ന് തീർച്ചയാണോ?</string>
+    <string name="pref_battery_control_summary">ബാറ്ററി ലെവലിൽ% 1$d%% താഴെ പോകുമ്പോൾ എല്ലാ വേഗതകളും താൽക്കാലികമായി നിർത്തും. ചാർജ്ജുചെയ്യുന്ന സമയത്ത് പരിധി ബാധകമല്ല</string>
+    <string name="pref_custom_battery_control_summary">ബാറ്ററി തന്നിരിക്കുന്ന പരിധിക്ക് താഴെയാണെങ്കിൽ ഡൌൺലോഡുകൾ താൽക്കാലികമായി നിർത്തുന്നതിന് ഇഷ്ടാനുസൃത ശതമാനം സജ്ജമാക്കുക. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നത് സ്ഥിരസ്ഥിതി% 1$d%% ത്രെഷോൾഡ് അവഗണിക്കും</string>
+    <string name="pref_custom_battery_control_dialog_summary">ഡൌൺലോഡുകൾ നടക്കുമ്പോൾ ആപ്ലിക്കേഷനായി ഇച്ഛാനുസൃത ബാറ്ററി ശതമാനം സജ്ജമാക്കുന്നതിന് ബാറ്ററി ലൈഫിൽ പ്രതികൂല സ്വാധീനം ഉണ്ടാകും. ഇത് പ്രവർത്തനക്ഷമമാക്കണമെന്ന് തീർച്ചയാണോ?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">പ്രോക്സി ക്രമീകരണങ്ങൾ</string>
     <string name="pref_enable_dht_title">DHT പ്രവർത്തനക്ഷമമാക്കുക</string>
@@ -447,7 +445,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP പ്രവർത്തനക്ഷമമാക്കുക</string>
     <string name="pref_port_settings_category">പോർട്ട് ക്രമീകരണങ്ങൾ</string>
     <string name="pref_use_random_port_title">റാൻഡം പോർട്ട് ഉപയോഗിക്കുക</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_title">Port range</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>

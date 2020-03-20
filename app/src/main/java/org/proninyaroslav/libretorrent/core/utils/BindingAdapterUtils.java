@@ -49,12 +49,6 @@ public class BindingAdapterUtils
         view.setText((formatFileSize == null ? sizeStr : String.format(formatFileSize, sizeStr)));
     }
 
-    @BindingAdapter("colorFilter")
-    public static void setColorFilter(@NonNull ImageView view, int colorFilter)
-    {
-        view.getDrawable().setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN);
-    }
-
     @BindingAdapter({"formatDate"})
     public static void formatDate(@NonNull TextView view, long date)
     {
@@ -67,7 +61,7 @@ public class BindingAdapterUtils
                                         long total,
                                         int progress)
     {
-        return String.format(context.getString(R.string.download_counter_template),
+        return context.getString(R.string.download_counter_template,
                 Formatter.formatFileSize(context, (progress == 100 ? total : downloaded)),
                 Formatter.formatFileSize(context, total),
                 progress);
@@ -92,7 +86,7 @@ public class BindingAdapterUtils
                                       int numPieces,
                                       int pieceLength)
     {
-        return String.format(context.getString(R.string.torrent_pieces_template),
+        return context.getString(R.string.torrent_pieces_template,
                 downloadedPieces,
                 numPieces,
                 Formatter.formatFileSize(context, pieceLength));
@@ -102,7 +96,7 @@ public class BindingAdapterUtils
                                      long uploadSpeed,
                                      long downloadSpeed)
     {
-        return String.format(context.getString(R.string.download_upload_speed_template),
+        return context.getString(R.string.download_upload_speed_template,
                 Formatter.formatFileSize(context, downloadSpeed),
                 Formatter.formatFileSize(context, uploadSpeed));
     }
@@ -114,7 +108,7 @@ public class BindingAdapterUtils
     {
         String pieceLengthStr = Formatter.formatFileSize(context, pieceLength);
 
-        return String.format(context.getString(R.string.torrent_pieces_template),
+        return context.getString(R.string.torrent_pieces_template,
                 downloadedPieces, allPiecesCount, pieceLengthStr);
     }
 }

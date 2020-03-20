@@ -233,7 +233,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             }
             binding.status.setText(statusString);
 
-            String counterTemplate = context.getString(R.string.download_counter_ETA_template);
             String totalBytes = Formatter.formatFileSize(context, item.totalBytes);
             String receivedBytes;
             String ETA;
@@ -249,22 +248,19 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             else
                 receivedBytes = Formatter.formatFileSize(context, item.receivedBytes);
 
-            binding.downloadCounter.setText(String.format(counterTemplate, receivedBytes, totalBytes,
+            binding.downloadCounter.setText(context.getString(R.string.download_counter_ETA_template, receivedBytes, totalBytes,
                     (item.totalBytes == 0 ? 0 : item.progress), ETA));
 
-            String speedTemplate = context.getString(R.string.download_upload_speed_template);
             String downloadSpeed = Formatter.formatFileSize(context, item.downloadSpeed);
             String uploadSpeed = Formatter.formatFileSize(context, item.uploadSpeed);
-            binding.downloadUploadSpeed.setText(String.format(speedTemplate, downloadSpeed, uploadSpeed));
+            binding.downloadUploadSpeed.setText(context.getString(R.string.download_upload_speed_template, downloadSpeed, uploadSpeed));
 
-            String peersTemplate = context.getString(R.string.peers_template);
-            binding.peers.setText(String.format(peersTemplate, item.peers, item.totalPeers));
+            binding.peers.setText(context.getString(R.string.peers_template, item.peers, item.totalPeers));
             setPauseButtonState(item.stateCode == TorrentStateCode.PAUSED);
 
             if (item.error != null) {
                 binding.error.setVisibility(View.VISIBLE);
-                String errorTemplate = context.getString(R.string.error_template);
-                binding.error.setText(String.format(errorTemplate, item.error));
+                binding.error.setText(context.getString(R.string.error_template, item.error));
             } else {
                 binding.error.setVisibility(View.GONE);
             }

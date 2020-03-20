@@ -1,0 +1,10 @@
+* Bugfixing
+* Added:
+   - External storage support
+   - Launcher shortcuts (for Android 7.1)
+   - Allow move app to adoptable storage
+* Added new translations:
+   - Brazilian Portuguese
+   - French
+   - Greek
+* Update to jlibtorrent 1.2.0.6

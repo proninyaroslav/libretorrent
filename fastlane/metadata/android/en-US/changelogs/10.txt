@@ -1,0 +1,24 @@
+* Added:
+    - Streaming support (currently without DLNA).
+      Streaming allows you to download and share individual files
+      from a torrent (e.g VLC or browser).
+      Just make a long press on the file and copy stream url
+    - Support for torrents with a large files number
+    - BEP53 support. More about it:
+      http://www.bittorrent.org/beps/bep_0053.html
+    - Show errors for each torrent
+    - "Do not download immediately option" for feeds
+    - Own BitTorrent fingerprint ("Lr")
+    - Battery usage warning for DHT option
+* Bugfixing:
+    - Settings and permission dialog themes
+    - Magnet adding
+    - Export big feed list
+    - Comments and trackers list in create torrent dialog
+    - Torrent name fetching from magnet
+    - Support ampersand (&) in feeds
+    - Minor bugfixes
+* Big update of Chinese translation
+* Java 8 support
+* Migrate to libtorrent4j (fork of frostwire-jlibtorrent)
+  https://github.com/aldenml/libtorrent4j

@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Vybraný torrent nelze otevřít</string>
     <string name="open_file">Otevřít soubor</string>
     <string name="settings">Nastavení</string>
-    <string name="ip_filter_add_error" formatted="false">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát</string>
+    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát</string>
     <string name="ip_filter_add_success">IP filtr byl úspěšně přidán</string>
     <string name="proxy_settings_applied">Nastavení serveru proxy bylo úspěšně použito</string>
     <string name="proxy_settings_apply_after_reboot">Nastavení proxy serveru bude použito po restartování aplikace</string>
     <string name="theme_settings_apply_after_reboot">Nastavení motivu bude použito po restartování aplikace</string>
     <string name="about">O aplikaci</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DTH uzly: %1$d</string>
+    <string name="session_stats_dht_nodes">DTH uzly: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Port posluchače: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Port posluchače: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Stav</string>
     <string name="drawer_status_downloading">Stahování</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Rok</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Stahování: %1$d Celkem: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Stahování: %1$d Celkem: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
     <string name="network_offline">Stav sítě: Offline</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent dokončen</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Přesouvání torrentu</string>
-    <string name="torrent_moving_content" formatted="false">Přesouvám %1$s, čekejte prosím</string>
+    <string name="torrent_moving_content">Přesouvám %1$s, čekejte prosím</string>
     <string name="torrent_move_success">Torrent byla úspěšně přesunut</string>
     <string name="torrent_move_fail">Nepodařilo se přesunout torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Stahování</string>
     <string name="torrent_status_seeding">Seedování</string>
     <string name="torrent_status_paused">Pozastaveno</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">Torrent již existuje. Torrenty byly sloučeny</string>
     <string name="error_field_required">Toto pole je povinné</string>
     <string name="error_no_files_selected">Nebyly vybrány žádné soubory</string>
-    <string name="free_space" formatted="false">%1$s volné</string>
+    <string name="free_space">%1$s volné</string>
     <string name="error_free_space">Na vybrané cestě není dostatek volného místa pro stažení vybraných souborů</string>
-    <string name="files_size" formatted="false">Vybráno %1$s z %2$s</string>
+    <string name="files_size">Vybráno %1$s z %2$s</string>
     <string name="start_torrent">Spustit torrent</string>
     <string name="file_is_too_large_error">Soubor je příliš velký</string>
     <string name="unable_to_open_folder">Nelze otevřít vybranou složku. Zkuste vybrat jinou složku</string>
@@ -195,10 +195,8 @@
     <string name="report">Nahlásit</string>
     <string name="more_details">Více informací</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDostupnost: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDostupnost: %5$s</string>
     <string name="file_priority_normal">Normální</string>
     <string name="file_priority_low">Ignorovat</string>
     <string name="file_priority_high">Vysoká</string>
@@ -216,14 +214,14 @@
     <string name="torrent_peers">Peery</string>
     <string name="torrent_leechers">Leecheři</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Nahráno</string>
     <string name="torrent_share_ratio">Poměr sdílení</string>
     <string name="torrent_active_time">Aktivní čas</string>
     <string name="torrent_seeding_time">Seedovací čas</string>
     <string name="torrent_pieces">Části</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Trackeři</string>
     <string name="tracker_state_working">Pracuje</string>
     <string name="tracker_state_not_working">Nepracuje</string>
@@ -235,12 +233,12 @@
     <string name="add_trackers">Přidat trackery</string>
     <string name="dialog_add_trackers">(Jeden na řádek)</string>
     <string name="open_using">Otevřít pomocí</string>
-    <string name="peer_port" formatted="false">Port: %1$d</string>
-    <string name="peer_relevance" formatted="false">Relevance: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Připojení: %1$s</string>
+    <string name="peer_port">Port: %1$d</string>
+    <string name="peer_relevance">Relevance: %1$.1f</string>
+    <string name="peer_connection_type">Připojení: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Klient: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -282,7 +280,7 @@
     <string name="feed_use_regex">Použít regulární výraz</string>
     <string name="backup_feed_channels">Uložit zálohu</string>
     <string name="restore_feed_channels_backup">Obnovit zálohu</string>
-    <string name="feed_last_update_template" formatted="false">Aktualizováno: %1$s</string>
+    <string name="feed_last_update_template">Aktualizováno: %1$s</string>
     <string name="feed_last_update_never">nikdy</string>
     <string name="error_cannot_add_channel">Kanál nelze přidat</string>
     <string name="error_cannot_edit_channel">Kanál nelze upravit</string>
@@ -335,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Neplatná URL: %1$s</string>
+    <string name="invalid_url">Neplatná URL: %1$s</string>
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny soubory jsou vyloučeny filtrem</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
     <string name="skip_files">Přeskočit soubory</string>
     <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\" </string>
     <string name="select_folder_to_save">Vyberte složku pro uložení</string>
-    <string name="torrent_saved_to" formatted="false">Torrent uložen do %1$s</string>
+    <string name="torrent_saved_to">Torrent uložen do %1$s</string>
     <string name="unable_to_open_file">Vybraný soubor nelze otevřít</string>
     <string name="unable_to_create_file">Soubor nelze vytvořit</string>
     <!-- Log -->
@@ -356,7 +354,7 @@
     <string name="journal_filter_portmap_log">Protokol UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Protokol torrentu</string>
     <string name="journal_save_log_failed">Nepodařilo se uložit protokol</string>
-    <string name="journal_save_log_success" formatted="false">Protokol úspěšně uložen: %1$s</string>
+    <string name="journal_save_log_success">Protokol úspěšně uložen: %1$s</string>
     <string name="pref_journal_save_log_to">Uložit protokol do</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximální počet uložených položek deníku</string>
@@ -432,9 +430,9 @@
     <string name="pref_battery_control_title">Kontrola stavu baterie</string>
     <string name="pref_custom_battery_control_title">Vlastní stav baterie v procentech</string>
     <string name="pref_custom_battery_control_value_title">Procenta kontroly stavu baterie</string>
-    <string name="pref_battery_control_summary" formatted="false">Všechny torrenty budou pozastavena, pokud úroveň baterie klesne pod %1$d%%. Limit neplatí v době při nabíjení</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Chcete-li pozastavit stahování v případě, že baterie klesne pod danou prahovou hodnotu, nastavte vlastní procento. Povolením této možnosti bude ignorována výchozí prahová hodnota %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Nastavení vlastního procenta baterie bude mít negativní vliv na životnost baterie při stahování. Opravdu to chcete povolit?</string>
+    <string name="pref_battery_control_summary">Všechny torrenty budou pozastavena, pokud úroveň baterie klesne pod %1$d%%. Limit neplatí v době při nabíjení</string>
+    <string name="pref_custom_battery_control_summary">Chcete-li pozastavit stahování v případě, že baterie klesne pod danou prahovou hodnotu, nastavte vlastní procento. Povolením této možnosti bude ignorována výchozí prahová hodnota %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Nastavení vlastního procenta baterie bude mít negativní vliv na životnost baterie při stahování. Opravdu to chcete povolit?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Nastavení Proxy</string>
     <string name="pref_enable_dht_title">Povolit DHT</string>
@@ -447,7 +445,7 @@
     <string name="pref_enable_natpmp_title">Povolit NAT-PMP</string>
     <string name="pref_port_settings_category">Nastavení portu</string>
     <string name="pref_use_random_port_title">Použít náhodný port</string>
-    <string name="pref_use_random_port_summarty" formatted="false">Nastaví počáteční port náhodně v rozsahu [%1$d, %2$d] a koncový port jako první + 10</string>
+    <string name="pref_use_random_port_summarty">Nastaví počáteční port náhodně v rozsahu [%1$d, %2$d] a koncový port jako první + 10</string>
     <string name="pref_port_range_title">Rozsah portů</string>
     <string name="pref_port_range_start_title">Začátek</string>
     <string name="pref_port_range_end_title">Konec</string>

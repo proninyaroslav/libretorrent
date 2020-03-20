@@ -1,0 +1,22 @@
+# Características
+
+* DHT, PeX, cifrado, LSD, UPnP, NAT*PMP, µTP
+* Filtrado de IP (eMule dat y PeerGuardian)
+* Capacidad para ajustar (ajustes de red, gestión de energía, control de batería, ajustes de la interfaz, etc.)
+* Soporte para torrents con gran cantidad de archivos y archivos grandes
+* Soporte para HTTP\S y enlaces magnet
+* Soporte para proxy en trackers y pares
+* Habilidad para mover archivos durante la descarga
+* Habilidad para mover archivos automáticamente a otro directorio o a una unidad externa al final de la descarga
+* Habilidad para especificar prioridades de archivo y carpeta
+* Habilidad para seleccionar los archivos a descargar
+* Habilidad para descargar secuencialmente
+* Material Design
+* Tema oscuro y negro
+* Interfaz optimizada para tabletas
+* Programación
+* Administrador RSS
+* Soporte para Android TV
+* Habilidad para crear torrents
+* Streaming de cualquier archivo seleccionado
+* Y mucho más

@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">Nem tudom megnyitni a torrent fájlt</string>
     <string name="open_file">Fájl megnyitása</string>
     <string name="settings">Beállítások</string>
-    <string name="ip_filter_add_error" formatted="false">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
+    <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
     <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
     <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után aktiválódnak</string>
     <string name="theme_settings_apply_after_reboot">A téma beállítások a következő újraindítás után aktiválódnak</string>
     <string name="about">Névjegy</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port" formatted="false">Kapcsolati port: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Kapcsolati port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Státusz</string>
     <string name="drawer_status_downloading">Letöltés</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">Év</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">Letöltés: %1$d Összes: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Letöltés: %1$d Összes: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent a háttérben fut</string>
     <string name="network_online">Hálózati státusz: Élő</string>
     <string name="network_offline">Hálózati státusz: Szétkapcsolt</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">Torrent elkészült</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Torrent mozgatása</string>
-    <string name="torrent_moving_content" formatted="false">Mozgatom a %1$s-t, kérlek várj</string>
+    <string name="torrent_moving_content">Mozgatom a %1$s-t, kérlek várj</string>
     <string name="torrent_move_success">Torrent sikeresen átmozgatva</string>
     <string name="torrent_move_fail">Nem sikerült átmozgatni a torrentet</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Letöltés</string>
     <string name="torrent_status_seeding">Seedelés</string>
     <string name="torrent_status_paused">Szüneteltetve</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">A torrent már létezik. Torrenteket egyesítették</string>
     <string name="error_field_required">Ez egy kötelező mező</string>
     <string name="error_no_files_selected">Nincs fájl kiválasztva</string>
-    <string name="free_space" formatted="false">%1$s szabad</string>
+    <string name="free_space">%1$s szabad</string>
     <string name="error_free_space">Nem áll rendelekezésre elég szabad hely a kiválasztott helyen, hogy oda letöltsd a torrentet</string>
-    <string name="files_size" formatted="false">A kiválasztott %1$s tobb mint %2$s</string>
+    <string name="files_size">A kiválasztott %1$s tobb mint %2$s</string>
     <string name="start_torrent">Torrent indítása</string>
     <string name="file_is_too_large_error">Túl nagy a fájl</string>
     <string name="unable_to_open_folder">Nem választható ki a könyvtár. Kérlek válassz másikat</string>
@@ -195,10 +195,8 @@
     <string name="report">Jelentés</string>
     <string name="more_details">További részletek</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nElérhetőség: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nElérhetőség: %5$s</string>
     <string name="file_priority_normal">Normál</string>
     <string name="file_priority_low">Kihagyás</string>
     <string name="file_priority_high">Magas</string>
@@ -216,14 +214,14 @@
     <string name="torrent_peers">Peerek</string>
     <string name="torrent_leechers">Letöltők</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Feltöltött</string>
     <string name="torrent_share_ratio">Megosztási arány</string>
     <string name="torrent_active_time">Aktív idő</string>
     <string name="torrent_seeding_time">Visszatöltési idő</string>
     <string name="torrent_pieces">Darabok</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Tracker-ek</string>
     <string name="tracker_state_working">Folyamatban</string>
     <string name="tracker_state_not_working">Nincs folyamatban</string>
@@ -235,12 +233,12 @@
     <string name="add_trackers">Tracker hozzáadása</string>
     <string name="dialog_add_trackers">(Soronként egy)</string>
     <string name="open_using">Megnyitás</string>
-    <string name="peer_port" formatted="false">Port: %1$d</string>
-    <string name="peer_relevance" formatted="false">Előfordulás: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">Kapcsolat: %1$s</string>
+    <string name="peer_port">Port: %1$d</string>
+    <string name="peer_relevance">Előfordulás: %1$.1f</string>
+    <string name="peer_connection_type">Kapcsolat: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">Kliens: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Kliens: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -282,7 +280,7 @@
     <string name="feed_use_regex">Reguláris kifejezés használata</string>
     <string name="backup_feed_channels">Biztonsági másolat mentése</string>
     <string name="restore_feed_channels_backup">Mentés visszatöltése</string>
-    <string name="feed_last_update_template" formatted="false">Frissítve: %1$s</string>
+    <string name="feed_last_update_template">Frissítve: %1$s</string>
     <string name="feed_last_update_never">soha</string>
     <string name="error_cannot_add_channel">Nem tudok csatornát létrehozni</string>
     <string name="error_cannot_edit_channel">Nem tudom a csatornát javítani</string>
@@ -335,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">Hibás URL: %1$s</string>
+    <string name="invalid_url">Hibás URL: %1$s</string>
     <string name="folder_is_empty">A kiválasztott könyvtár üres vagy minden fájl ki van zárva a szűrőben</string>
     <string name="error_create_torrent">Nem sikerült létrehozni a torrentet</string>
     <string name="skip_files">A fájl kihagyása</string>
     <string name="skip_files_hint">Írd be a fájl nevét (\"|\" elválasztással)</string>
     <string name="select_folder_to_save">Válaszd ki a könyvtárt a mentéshez</string>
-    <string name="torrent_saved_to" formatted="false">A torrent mentve ide: %1$s</string>
+    <string name="torrent_saved_to">A torrent mentve ide: %1$s</string>
     <string name="unable_to_open_file">Nem tudom megnyitni a kiválasztott fájlt</string>
     <string name="unable_to_create_file">A fájl nem hozható létre</string>
     <!-- Log -->
@@ -356,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP napló</string>
     <string name="journal_filter_torrent_log">Torrent napló</string>
     <string name="journal_save_log_failed">Napló mentése nem sikerült</string>
-    <string name="journal_save_log_success" formatted="false">Napló sikeresen mentésre került:%1$s</string>
+    <string name="journal_save_log_success">Napló sikeresen mentésre került:%1$s</string>
     <string name="pref_journal_save_log_to">Napló mentése</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">A tárolt naplóbejegyzések maximális száma</string>
@@ -432,9 +430,9 @@
     <string name="pref_battery_control_title">Akkumulátor vezérlése</string>
     <string name="pref_custom_battery_control_title">Egyéni akkumulátor százalék</string>
     <string name="pref_custom_battery_control_value_title">Akkumlátor kontrol százalék</string>
-    <string name="pref_battery_control_summary" formatted="false">Az összes torrent szüneteltetésre kerül, ha az akkumulátor töltöttségi szintje a %1$d%% alá csökken. A korlátozás nem vonatkozik a töltés idején</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Állítson be egy egyéni százalékot a letöltések szüneteltetésére. Ha az akkumulátor az adott küszöb alá esik a letöltések megállnak. Ennek engedélyezésével figyelmen kívül hagyja az alapértelmezett %1$d%% küszöböt</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Az egyéni akkumulátor százalékos arányának beállítása negatív hatással lesz az akkumulátor élettartamára a letöltések során. Biztosan engedélyezni szeretné ezt?</string>
+    <string name="pref_battery_control_summary">Az összes torrent szüneteltetésre kerül, ha az akkumulátor töltöttségi szintje a %1$d%% alá csökken. A korlátozás nem vonatkozik a töltés idején</string>
+    <string name="pref_custom_battery_control_summary">Állítson be egy egyéni százalékot a letöltések szüneteltetésére. Ha az akkumulátor az adott küszöb alá esik a letöltések megállnak. Ennek engedélyezésével figyelmen kívül hagyja az alapértelmezett %1$d%% küszöböt</string>
+    <string name="pref_custom_battery_control_dialog_summary">Az egyéni akkumulátor százalékos arányának beállítása negatív hatással lesz az akkumulátor élettartamára a letöltések során. Biztosan engedélyezni szeretné ezt?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy beállítások</string>
     <string name="pref_enable_dht_title">DHT engedélyezése</string>
@@ -447,7 +445,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP engedélyezése</string>
     <string name="pref_port_settings_category">Port beállítások</string>
     <string name="pref_use_random_port_title">Véletlenszerű port használat</string>
-    <string name="pref_use_random_port_summarty" formatted="false">A kezdőportot véletlenszerűen állítja be a [%1$d, %2$d], a végport pedig az első + 10 tartományba</string>
+    <string name="pref_use_random_port_summarty">A kezdőportot véletlenszerűen állítja be a [%1$d, %2$d], a végport pedig az első + 10 tartományba</string>
     <string name="pref_port_range_title">Port tartomány</string>
     <string name="pref_port_range_start_title">Kezdő</string>
     <string name="pref_port_range_end_title">Befejező</string>

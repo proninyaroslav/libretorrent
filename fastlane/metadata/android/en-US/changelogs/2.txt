@@ -1,0 +1,6 @@
+* Bugfixing
+* Removed Tor (by popular demand)
+* Added new translations:
+   - German
+   - Lithuanian
+* Set 65534 as maximum port

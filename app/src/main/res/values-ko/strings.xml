@@ -61,17 +61,17 @@
     <string name="error_open_torrent_file">토렌트 파일을 열 수 없습니다.</string>
     <string name="open_file">파일 열기</string>
     <string name="settings">설정</string>
-    <string name="ip_filter_add_error" formatted="false">IP 필터 추가에 실패했습니다 (%1$d개 실패). 파일이 손상되거나 올바르지 않은 형식일 수 있습니다.</string>
+    <string name="ip_filter_add_error">IP 필터 추가에 실패했습니다 (%1$d개 실패). 파일이 손상되거나 올바르지 않은 형식일 수 있습니다.</string>
     <string name="ip_filter_add_success">IP 필터가 추가되었습니다.</string>
     <string name="proxy_settings_applied">프록시 서버 설정이 적용되었습니다.</string>
     <string name="proxy_settings_apply_after_reboot">앱을 다시 시작한 후 프록시 서버 설정이 적용됩니다.</string>
     <string name="theme_settings_apply_after_reboot">앱을 다시 시작한 후 테마 설정이 적용됩니다.</string>
     <string name="about">정보</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes" formatted="false">DHT 노드: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT 노드: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload" formatted="false">%1$s \u2022 %2$s/초</string>
-    <string name="session_stats_listen_port" formatted="false">열린 포트: %1$s</string>
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/초</string>
+    <string name="session_stats_listen_port">열린 포트: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">상태</string>
     <string name="drawer_status_downloading">다운로드 중</string>
@@ -96,12 +96,12 @@
     <string name="drawer_date_added_year">년</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template" formatted="false">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/초 \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/초 \u2022 %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template" formatted="false">%1$s \u2022 \u2191 %2$s/초 \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/초 \u2022 %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template" formatted="false">다운로드 중: %1$d 전체: %2$d</string>
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">다운로드 중: %1$d 전체: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent가 백그라운드에서 실행 중입니다.</string>
     <string name="network_online">네트워크 상태: 온라인</string>
     <string name="network_offline">네트워크 상태: 오프라인</string>
@@ -117,19 +117,19 @@
     <string name="torrent_finished_notify">토렌트 완료</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">토렌트 이동 중</string>
-    <string name="torrent_moving_content" formatted="false">%1$s를 이동 중입니다. 잠시만 기다리세요.</string>
+    <string name="torrent_moving_content">%1$s를 이동 중입니다. 잠시만 기다리세요.</string>
     <string name="torrent_move_success">토렌트 이동 완료</string>
     <string name="torrent_move_fail">토렌트 이동 실패</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
-    <string name="download_counter_template" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template" formatted="false">\u2193 %1$s/초 | \u2191 %2$s/초</string>
+    <string name="download_upload_speed_template">\u2193 %1$s/초 | \u2191 %2$s/초</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template" formatted="false">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
-    <string name="peers_template" formatted="false">%1$d/%2$d</string>
+    <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">다운로드 중</string>
     <string name="torrent_status_seeding">배포 중</string>
     <string name="torrent_status_paused">일시 중지됨</string>
@@ -152,9 +152,9 @@
     <string name="torrent_exist">이미 존재하는 토렌트입니다. 토렌트가 병합됩니다.</string>
     <string name="error_field_required">이 영역은 필수입니다.</string>
     <string name="error_no_files_selected">선택한 파일 없음</string>
-    <string name="free_space" formatted="false">%1$s 여유</string>
+    <string name="free_space">%1$s 여유</string>
     <string name="error_free_space">선택한 파일을 다운로드할 경로에 남은 공간이 충분하지 않습니다.</string>
-    <string name="files_size" formatted="false">%2$s 중 %1$s 선택</string>
+    <string name="files_size">%2$s 중 %1$s 선택</string>
     <string name="start_torrent">토렌트 시작</string>
     <string name="file_is_too_large_error">파일이 너무 큽니다.</string>
     <string name="unable_to_open_folder">선택한 폴더를 열 수 없습니다. 다른 폴더를 선택하세요.</string>
@@ -195,10 +195,8 @@
     <string name="report">보고</string>
     <string name="more_details">자세한 내용</string>
     <!-- Detail torrent dialog -->
-    <!-- priority • total -->
-    <string name="file_status_template" formatted="false">%1$s \u2022 %2$s</string>
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template" formatted="false">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n가용성: %5$s</string>
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n가용성: %5$s</string>
     <string name="file_priority_normal">보통</string>
     <string name="file_priority_low">무시</string>
     <string name="file_priority_high">높음</string>
@@ -216,14 +214,14 @@
     <string name="torrent_peers">피어</string>
     <string name="torrent_leechers">리처</string>
     <!-- connected (total) -->
-    <string name="torrent_peers_template" formatted="false">%1$d (%2$d)</string>
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">업로드됨</string>
     <string name="torrent_share_ratio">분담 비율</string>
     <string name="torrent_active_time">활성 시간</string>
     <string name="torrent_seeding_time">배포 시간</string>
     <string name="torrent_pieces">조각</string>
     <!-- downloaded/total (piece length) -->
-    <string name="torrent_pieces_template" formatted="false">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">트래커</string>
     <string name="tracker_state_working">작동됨</string>
     <string name="tracker_state_not_working">작동 안 됨</string>
@@ -235,12 +233,12 @@
     <string name="add_trackers">트래커 추가</string>
     <string name="dialog_add_trackers">(줄마다 하나씩)</string>
     <string name="open_using">열기 수단</string>
-    <string name="peer_port" formatted="false">포트: %1$d</string>
-    <string name="peer_relevance" formatted="false">관련성: %1$.1f</string>
-    <string name="peer_connection_type" formatted="false">연결: %1$s</string>
+    <string name="peer_port">포트: %1$d</string>
+    <string name="peer_relevance">관련성: %1$.1f</string>
+    <string name="peer_connection_type">연결: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload" formatted="false">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client" formatted="false">클라이언트: %1$s</string>
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">클라이언트: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">웹</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -282,7 +280,7 @@
     <string name="feed_use_regex">일반적인 표현 사용</string>
     <string name="backup_feed_channels">백업 저장</string>
     <string name="restore_feed_channels_backup">백업 복구</string>
-    <string name="feed_last_update_template" formatted="false">업데이트됨: %1$s</string>
+    <string name="feed_last_update_template">업데이트됨: %1$s</string>
     <string name="feed_last_update_never">never</string>
     <string name="error_cannot_add_channel">채널을 추가할 수 없음</string>
     <string name="error_cannot_edit_channel">채널을 편집할 수 없음</string>
@@ -335,13 +333,13 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url" formatted="false">유효하지 않은 URL: %1$s</string>
+    <string name="invalid_url">유효하지 않은 URL: %1$s</string>
     <string name="folder_is_empty">선택한 폴더가 비어있거나 모든 파일이 필터링되었습니다.</string>
     <string name="error_create_torrent">토렌트 생성 실패</string>
     <string name="skip_files">파일 건너뛰기</string>
     <string name="skip_files_hint">파일 이름을 \"|\"로 구분해서 입력하세요.</string>
     <string name="select_folder_to_save">저장할 폴더를 선택하세요.</string>
-    <string name="torrent_saved_to" formatted="false">토렌트가 %1$s에 저장되었습니다.</string>
+    <string name="torrent_saved_to">토렌트가 %1$s에 저장되었습니다.</string>
     <string name="unable_to_open_file">선택한 파일을 열 수 없습니다.</string>
     <string name="unable_to_create_file">파일을 생성할 수 없습니다.</string>
     <!-- Log -->
@@ -356,7 +354,7 @@
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP 로그</string>
     <string name="journal_filter_torrent_log">토렌트 로그</string>
     <string name="journal_save_log_failed">로그 저장 실패</string>
-    <string name="journal_save_log_success" formatted="false">로그 저장됨: %1$s</string>
+    <string name="journal_save_log_success">로그 저장됨: %1$s</string>
     <string name="pref_journal_save_log_to">로그 저장 위치</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">최대 저장 저널 엔트리</string>
@@ -432,9 +430,9 @@
     <string name="pref_battery_control_title">절전 모드</string>
     <string name="pref_custom_battery_control_title">절전 모드 설정</string>
     <string name="pref_custom_battery_control_value_title">절전 모드 기준</string>
-    <string name="pref_battery_control_summary" formatted="false">배터리 잔여량이 %1$d%% 미만이 될 경우 모든 토렌트를 일시 중지합니다. 충전 시에는 적용되지 않습니다.</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">다운로드를 일시 중지할 잔여량 기준을 설정합니다. 설정 시 기본값 %1$d%%을 무시합니다.</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">배터리 잔여량 설정 시 다운로드 중 배터리 수명에 부정적인 영향을 끼칠 수 있습니다. 활성화할까요?</string>
+    <string name="pref_battery_control_summary">배터리 잔여량이 %1$d%% 미만이 될 경우 모든 토렌트를 일시 중지합니다. 충전 시에는 적용되지 않습니다.</string>
+    <string name="pref_custom_battery_control_summary">다운로드를 일시 중지할 잔여량 기준을 설정합니다. 설정 시 기본값 %1$d%%을 무시합니다.</string>
+    <string name="pref_custom_battery_control_dialog_summary">배터리 잔여량 설정 시 다운로드 중 배터리 수명에 부정적인 영향을 끼칠 수 있습니다. 활성화할까요?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">프록시 설정</string>
     <string name="pref_enable_dht_title">DHT 활성화</string>
@@ -447,7 +445,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP 활성화</string>
     <string name="pref_port_settings_category">포트 설정</string>
     <string name="pref_use_random_port_title">무작위 포트 사용</string>
-    <string name="pref_use_random_port_summarty" formatted="false">[%1$d, %2$d] 범위 안에서 시작 포트를 무작위로 정하고, 이에 10을 더해 끝 포트로 정합니다.</string>
+    <string name="pref_use_random_port_summarty">[%1$d, %2$d] 범위 안에서 시작 포트를 무작위로 정하고, 이에 10을 더해 끝 포트로 정합니다.</string>
     <string name="pref_port_range_title">포트 범위</string>
     <string name="pref_port_range_start_title">시작</string>
     <string name="pref_port_range_end_title">끝</string>

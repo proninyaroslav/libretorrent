@@ -1,0 +1,22 @@
+# Funkce
+
+* DHT, PeX, šifrování, LSD, UPnP, NAT*PMP, µTP
+* Filtrování IP (eMule dat a PeerGuardian)
+* Schopnost doladit (nastavení sítě, řízení spotřeby, ovládání baterie, nastavení UI, atd.)
+* Podporuje torrenty s velkým počtem souborů a velkými soubory
+* Podpora HTTP\S a magnet odkazů
+* Podpora proxy pro trackery a peery
+* Schopnost přesouvat soubory během stahování
+* Schopnost automatického přesouvání souborů do jiného adresáře nebo na externí disk na konci stahování
+* Schopnost specifikovat priority souboru a složky
+* Schopnost vybrat soubory, které chcete stáhnout
+* Schopnost postupného stahování
+* Material design
+* Tmavý a černý motiv
+* UI optimalizováno pro tablet
+* Plánování
+* Správce RSS
+* Podpora Android TV
+* Schopnost vytvářet torrenty
+* Streamování vybraných souborů
+* A další

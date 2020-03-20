@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.settings.sections;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
@@ -58,6 +59,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         return fragment;
     }
 
+    @SuppressLint("StringFormatMatches")
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -105,7 +107,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         String keyBatteryControl = getString(R.string.pref_key_battery_control);
         SwitchPreferenceCompat batteryControl = findPreference(keyBatteryControl);
         if (batteryControl != null) {
-            batteryControl.setSummary(String.format(getString(R.string.pref_battery_control_summary),
+            batteryControl.setSummary(getString(R.string.pref_battery_control_summary,
                     Utils.getDefaultBatteryLowLevel()));
             batteryControl.setChecked(pref.batteryControl());
             bindOnPreferenceChangeListener(batteryControl);
@@ -114,7 +116,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         String keyCustomBatteryControl = getString(R.string.pref_key_custom_battery_control);
         SwitchPreferenceCompat customBatteryControl = findPreference(keyCustomBatteryControl);
         if (customBatteryControl != null) {
-            customBatteryControl.setSummary(String.format(getString(R.string.pref_custom_battery_control_summary),
+            customBatteryControl.setSummary(getString(R.string.pref_custom_battery_control_summary,
                     Utils.getDefaultBatteryLowLevel()));
             customBatteryControl.setChecked(pref.customBatteryControl());
             bindOnPreferenceChangeListener(customBatteryControl);

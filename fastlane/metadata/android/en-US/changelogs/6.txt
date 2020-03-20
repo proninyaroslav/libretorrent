@@ -1,0 +1,17 @@
+* Bugfixing:
+   - opening torrent files from notify in some browsers
+   - pause magnets with some trackers
+   - laucher shortcut
+   - download on the URLs with square brackets
+   - port randomize
+   - restore settings if data dir is deleted
+   - minor fixes
+* Added:
+   - Android 8.1 support (NOTE: at this time, starting with the version of Android 8.0, setting notifications from the app preferences is not working, you can changethem only in the settings of Android 8.0.)
+   - ability to save torrent file automatically
+   - Wi-Fi only option
+   - new limitations options
+   - possible to select between add and pause button in foreground notify
+   - watch directory option
+   - notify if blocklist is loaded correctly
+* Update to jlibtorrent 1.2.0.15-RC2

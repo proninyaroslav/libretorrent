@@ -146,13 +146,10 @@ public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewH
             binding.ip.setText(item.ip);
             binding.progress.setProgress(item.progress);
 
-            String portTemplate = context.getString(R.string.peer_port);
-            binding.port.setText(String.format(portTemplate, item.port));
+            binding.port.setText(context.getString(R.string.peer_port, item.port));
 
-            String relevanceTemplate = context.getString(R.string.peer_relevance);
-            binding.relevance.setText(String.format(relevanceTemplate, item.relevance));
+            binding.relevance.setText(context.getString(R.string.peer_relevance, item.relevance));
 
-            String connectionTemplate = context.getString(R.string.peer_connection_type);
             String connectionType = "";
             switch (item.connectionType) {
                 case PeerInfo.ConnectionType.BITTORRENT:
@@ -165,20 +162,17 @@ public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewH
                     connectionType = context.getString(R.string.peer_connection_type_utp);
                     break;
             }
-            binding.connectionType.setText(String.format(connectionTemplate, connectionType));
+            binding.connectionType.setText(context.getString(R.string.peer_connection_type, connectionType));
 
-            String speedTemplate = context.getString(R.string.download_upload_speed_template);
             String downSpeed = Formatter.formatFileSize(context, item.downSpeed);
             String upSpeed = Formatter.formatFileSize(context, item.upSpeed);
-            binding.upDownSpeed.setText(String.format(speedTemplate, downSpeed, upSpeed));
+            binding.upDownSpeed.setText(context.getString(R.string.download_upload_speed_template, downSpeed, upSpeed));
 
-            String clientTemplate = context.getString(R.string.peer_client);
-            binding.client.setText(String.format(clientTemplate, item.client));
+            binding.client.setText(context.getString(R.string.peer_client, item.client));
 
-            String downloadUploadTemplate = context.getString(R.string.peer_total_download_upload);
             String upload = Formatter.formatFileSize(context, item.totalUpload);
             String download = Formatter.formatFileSize(context, item.totalDownload);
-            binding.totalDownloadUpload.setText(String.format(downloadUploadTemplate, download, upload));
+            binding.totalDownloadUpload.setText(context.getString(R.string.peer_total_download_upload, download, upload));
         }
     }
 }

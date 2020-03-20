@@ -213,16 +213,13 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
 
         drawerItemManager.attachRecyclerView(drawerItemsList);
 
-        sessionDhtNodesStat.setText(String.format(getString(R.string.session_stats_dht_nodes), 0));
-        String downloadUploadFmt = getString(R.string.session_stats_download_upload);
-        sessionDownloadStat.setText(String.format(downloadUploadFmt,
+        sessionDhtNodesStat.setText(getString(R.string.session_stats_dht_nodes, 0));
+        String downloadUploadFmt = getString(R.string.session_stats_download_upload,
                 Formatter.formatFileSize(this, 0),
-                Formatter.formatFileSize(this, 0)));
-        sessionUploadStat.setText(String.format(downloadUploadFmt,
-                Formatter.formatFileSize(this, 0),
-                Formatter.formatFileSize(this, 0)));
-        String listenPortFmt = getString(R.string.session_stats_listen_port);
-        sessionListenPortStat.setText(String.format(listenPortFmt,
+                Formatter.formatFileSize(this, 0));
+        sessionDownloadStat.setText(downloadUploadFmt);
+        sessionUploadStat.setText(downloadUploadFmt);
+        sessionListenPortStat.setText(getString(R.string.session_stats_listen_port,
                 getString(R.string.not_available)));
     }
 
@@ -343,18 +340,14 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             listenPort = stats.listenPort;
         }
 
-        sessionDhtNodesStat.setText(String.format(getString(R.string.session_stats_dht_nodes),
-                dhtNodes));
-
-        String downloadUploadFmt = getString(R.string.session_stats_download_upload);
-        sessionDownloadStat.setText(String.format(downloadUploadFmt,
+        sessionDhtNodesStat.setText(getString(R.string.session_stats_dht_nodes, dhtNodes));
+        sessionDownloadStat.setText(getString(R.string.session_stats_download_upload,
                 Formatter.formatFileSize(this, totalDownload),
                 Formatter.formatFileSize(this, downloadSpeed)));
-        sessionUploadStat.setText(String.format(downloadUploadFmt,
+        sessionUploadStat.setText(getString(R.string.session_stats_download_upload,
                 Formatter.formatFileSize(this, totalUpload),
                 Formatter.formatFileSize(this, uploadSpeed)));
-        String listenPortFmt = getString(R.string.session_stats_listen_port);
-        sessionListenPortStat.setText(String.format(listenPortFmt,
+        sessionListenPortStat.setText(getString(R.string.session_stats_listen_port,
                 listenPort <= 0 ?
                         getString(R.string.not_available) :
                         Integer.toString(listenPort)));
@@ -399,9 +392,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
             } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
                 viewModel.setSort(Utils.getDrawerGroupItemSorting(this, group.getSelectedItemId()), false);
             } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
-                viewModel.setDateAddedFilter(
-                        Utils.getDrawerGroupDateAddedFilter(this, group.getSelectedItemId()), false);
-
+                viewModel.setDateAddedFilter(Utils.getDrawerGroupDateAddedFilter(this, group.getSelectedItemId()), false);
             }
 
             applyExpandState(group, pos);

@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.feeds;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -440,6 +441,7 @@ public class FeedFragment extends Fragment
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private void selectAllFeeds()
     {
         int n = adapter.getItemCount();
