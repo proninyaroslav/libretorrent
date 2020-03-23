@@ -58,6 +58,8 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.addfeed.AddFeedActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
 
+import java.util.Iterator;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -476,7 +478,11 @@ public class FeedFragment extends Fragment
         MutableSelection<FeedChannelItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
-        if (viewModel.copyFeedUrlToClipboard(selections.iterator().next())) {
+        Iterator<FeedChannelItem> it = selections.iterator();
+        if (!it.hasNext())
+            return;
+
+        if (viewModel.copyFeedUrlToClipboard(it.next())) {
           Toast.makeText(activity,
                   R.string.link_copied_to_clipboard,
                   Toast.LENGTH_SHORT)
@@ -502,9 +508,13 @@ public class FeedFragment extends Fragment
         MutableSelection<FeedChannelItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
+        Iterator<FeedChannelItem> it = selections.iterator();
+        if (!it.hasNext())
+            return;
+
         Intent i = new Intent(activity, AddFeedActivity.class);
         i.setAction(AddFeedActivity.ACTION_EDIT_FEED);
-        i.putExtra(AddFeedActivity.TAG_FEED_ID, selections.iterator().next().id);
+        i.putExtra(AddFeedActivity.TAG_FEED_ID, it.next().id);
         startActivity(i);
     }
 

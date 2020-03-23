@@ -61,6 +61,7 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.MsgDetailTorrentViewModel;
 
 import java.util.Collections;
+import java.util.Iterator;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -364,7 +365,8 @@ public class DetailTorrentFilesFragment extends Fragment
             Selection<TorrentContentFileItem> selection = selectionTracker.getSelection();
             if (selection.size() != 1)
                 return true;
-            if (!viewModel.isFile(selection.iterator().next().name))
+            Iterator<TorrentContentFileItem> it = selection.iterator();
+            if (it.hasNext() && !viewModel.isFile(it.next().name))
                 return true;
 
             shareStreamUrl.setVisible(true);
@@ -509,7 +511,10 @@ public class DetailTorrentFilesFragment extends Fragment
         MutableSelection<TorrentContentFileItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
-        int fileIndex = selections.iterator().next().index;
+        Iterator<TorrentContentFileItem> it = selections.iterator();
+        if (!it.hasNext())
+            return;
+        int fileIndex = it.next().index;
 
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
