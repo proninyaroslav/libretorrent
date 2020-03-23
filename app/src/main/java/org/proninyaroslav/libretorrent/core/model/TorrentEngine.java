@@ -462,7 +462,7 @@ public class TorrentEngine
 
                         if (!emitter.isDisposed()) {
                             if (bencode == null)
-                                emitter.onError(new NullPointerException());
+                                emitter.onError(new IOException(new NullPointerException("bencode is null")));
                             else
                                 sendInfoToEmitter(emitter, bencode);
                         }

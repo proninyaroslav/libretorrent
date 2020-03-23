@@ -324,12 +324,12 @@ public class AddTorrentViewModel extends AndroidViewModel
 
     private void observeFetchedMetadata(Single<TorrentMetaInfo> single)
     {
-        disposable.add(single
-                .subscribe((downloadInfo) -> {
+        disposable.add(single.subscribe(
+                (downloadInfo) -> {
                     info.set(downloadInfo);
-                    decodeState.postValue(
-                            new DecodeState(AddTorrentViewModel.Status.FETCHING_MAGNET_COMPLETED));
-                }));
+                    decodeState.postValue(new DecodeState(Status.FETCHING_MAGNET_COMPLETED));
+                },
+                (e) -> decodeState.postValue(new DecodeState(Status.ERROR, e))));
     }
 
     private Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback()
