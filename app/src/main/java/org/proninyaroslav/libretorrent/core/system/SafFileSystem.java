@@ -65,7 +65,7 @@ public class SafFileSystem
 
     private static final int CACHE_MAX_SIZE = 1000;
 
-    private static SafFileSystem INSTANCE;
+    private static volatile SafFileSystem INSTANCE;
     private Context appContext;
     private static final LruCache<String, DocumentFile> CACHE = new LruCache<>(CACHE_MAX_SIZE);
 

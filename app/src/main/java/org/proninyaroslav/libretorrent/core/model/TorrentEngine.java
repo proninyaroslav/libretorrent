@@ -109,7 +109,7 @@ public class TorrentEngine
     private DownloadsCompletedListener downloadsCompleted;
     private ExecutorService exec = Executors.newSingleThreadExecutor();
 
-    private static TorrentEngine INSTANCE;
+    private static volatile TorrentEngine INSTANCE;
 
     public static TorrentEngine getInstance(@NonNull Context appContext)
     {
