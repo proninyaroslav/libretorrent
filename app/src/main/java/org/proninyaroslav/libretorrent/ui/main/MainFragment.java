@@ -207,10 +207,10 @@ public class MainFragment extends Fragment
     private void showAddTorrentMenu()
     {
         /* Show add torrent menu after window is displayed */
-        activity.getWindow().findViewById(android.R.id.content).post(() -> {
-            View v = activity.getWindow().findViewById(android.R.id.content);
-            if (v == null)
-                return;
+        View v = activity.getWindow().findViewById(android.R.id.content);
+        if (v == null)
+            return;
+        v.post(() -> {
             registerForContextMenu(v);
             activity.openContextMenu(v);
             unregisterForContextMenu(v);
