@@ -239,6 +239,8 @@ public class FeedParser
     private String watchTorrentInfoHash(Item item)
     {
         EzRssTorrentItem torrentItem = item.getEzRssTorrentItem();
+        if (torrentItem == null)
+            return null;
 
         String infoHash = torrentItem.getInfoHash();
         if (infoHash != null && Utils.isHash(infoHash))

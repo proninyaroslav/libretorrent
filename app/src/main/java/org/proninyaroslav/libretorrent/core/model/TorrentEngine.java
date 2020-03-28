@@ -440,6 +440,8 @@ public class TorrentEngine
             return null;
 
         MagnetInfo info = session.fetchMagnet(uri);
+        if (info == null)
+            return null;
         Single<TorrentMetaInfo> res = createFetchMagnetSingle(info.getSha1hash());
 
         return Pair.create(info, res);

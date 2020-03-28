@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.nanohttpd.protocols.http.response.Response.newFixedLengthResponse;
 import static org.nanohttpd.protocols.http.response.Status.BAD_REQUEST;
@@ -127,6 +128,9 @@ public class TorrentStreamServer extends NanoHTTPD
 
     public Response handleTorrent(IHTTPSession httpSession)
     {
+        if (engine == null)
+            return newFixedLengthResponse(NOT_FOUND, "", "");
+
         if (!httpSession.getUri().equals("/stream"))
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
@@ -134,14 +138,14 @@ public class TorrentStreamServer extends NanoHTTPD
         if (params.size() < 2)
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
-        String torrentId = params.get("torrent").get(0);
+        String torrentId = Objects.requireNonNull(params.get("torrent")).get(0);
 
         int fileIndex;
         TorrentStream stream;
         try {
-            fileIndex = Integer.parseInt(params.get("file").get(0));
+            fileIndex = Integer.parseInt(Objects.requireNonNull(params.get("file")).get(0));
             stream = engine.getStream(torrentId, fileIndex);
-            if (engine == null)
+            if (stream == null)
                 return newFixedLengthResponse(NOT_FOUND, "", "");
 
         } catch (Exception e) {

@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -208,6 +209,8 @@ public class MainFragment extends Fragment
         /* Show add torrent menu after window is displayed */
         activity.getWindow().findViewById(android.R.id.content).post(() -> {
             View v = activity.getWindow().findViewById(android.R.id.content);
+            if (v == null)
+                return;
             registerForContextMenu(v);
             activity.openContextMenu(v);
             unregisterForContextMenu(v);
@@ -590,6 +593,7 @@ public class MainFragment extends Fragment
             actionMode.finish();
     }
 
+    @SuppressLint("RestrictedApi")
     private void selectAllTorrents()
     {
         int n = adapter.getItemCount();

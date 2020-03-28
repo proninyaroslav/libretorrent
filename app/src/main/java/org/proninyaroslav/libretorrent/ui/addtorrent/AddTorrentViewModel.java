@@ -283,8 +283,10 @@ public class AddTorrentViewModel extends AndroidViewModel
 
             ContentResolver contentResolver = v.getApplication().getContentResolver();
             try (ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(uri, "r")) {
+                if (outPfd == null) {
+                    throw new IOException("ParcelFileDescriptor is null");
+                }
                 FileDescriptor outFd = outPfd.getFileDescriptor();
-
                 try (FileInputStream is = new FileInputStream(outFd)) {
                     v.info.set(new TorrentMetaInfo(is));
                 }
