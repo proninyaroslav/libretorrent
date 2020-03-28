@@ -112,7 +112,7 @@ class Rss2Feed extends BaseElement implements Feed {
         // Get element list for items.
         Element channel = getElement(CHANNEL);
         if (channel == null) {
-            return null;
+            return new ArrayList<Item>();
         }
         List<Element> elementList = channel.getElementList(ITEM);
         List<Item> itemList = new ArrayList<Item>();
