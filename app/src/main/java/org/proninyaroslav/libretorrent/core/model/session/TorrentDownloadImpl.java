@@ -254,6 +254,7 @@ class TorrentDownloadImpl implements TorrentDownload
                     break;
                 case TORRENT_CHECKED:
                     handleTorrentChecked();
+                    break;
                 default:
                     checkError(alert);
                     break;
@@ -792,6 +793,8 @@ class TorrentDownloadImpl implements TorrentDownload
 
             long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
             TorrentInfo ti = th.torrentFile();
+            if (ti == null)
+                return s;
             FileStorage fileStorage = ti.files();
             Uri prefix = torrent.downloadPath;
 
@@ -1595,6 +1598,8 @@ class TorrentDownloadImpl implements TorrentDownload
             return null;
 
         TorrentInfo ti = th.torrentFile();
+        if (ti == null)
+            return null;
         FileStorage fs = ti.files();
         Pair<Integer, Integer> filePieces = getFilePieces(ti, fileIndex);
         if (filePieces == null)

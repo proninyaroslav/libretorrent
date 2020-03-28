@@ -388,12 +388,14 @@ public class TorrentSessionImpl extends SessionManager
             return null;
 
         org.libtorrent4j.AddTorrentParams params = parseMagnetUri(uri);
-        org.libtorrent4j.AddTorrentParams res_params = fetchMagnet(params);
+        org.libtorrent4j.AddTorrentParams resParams = fetchMagnet(params);
+        if (resParams == null)
+            return null;
 
-        List<Priority> priorities = Arrays.asList(PriorityConverter.convert(res_params.filePriorities()));
+        List<Priority> priorities = Arrays.asList(PriorityConverter.convert(resParams.filePriorities()));
 
-        return new MagnetInfo(uri, res_params.infoHash().toHex(),
-                res_params.name(), priorities);
+        return new MagnetInfo(uri, resParams.infoHash().toHex(),
+                resParams.name(), priorities);
     }
 
     @Override
@@ -416,6 +418,8 @@ public class TorrentSessionImpl extends SessionManager
 
         p.set_disabled_storage();
         sha1_hash hash = p.getInfo_hash();
+        if (hash == null)
+            return null;
         String strHash = hash.to_hex();
         torrent_handle th = null;
         boolean add = false;
@@ -427,7 +431,9 @@ public class TorrentSessionImpl extends SessionManager
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
                     torrent_info ti = th.torrent_file_ptr();
-                    loadedMagnets.put(hash.to_hex(), createTorrent(p, ti));
+                    byte[] b = createTorrent(p, ti);
+                    if (b != null)
+                        loadedMagnets.put(hash.to_hex(), b);
                     notifyListeners((listener) ->
                             listener.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null));
                 } else {
@@ -619,7 +625,8 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public boolean isLSDEnabled()
     {
-        return swig() != null && settings().broadcastLSD();
+        SettingsPack sp = settings();
+        return swig() != null && sp != null && sp.broadcastLSD();
     }
 
     @Override
@@ -716,9 +723,9 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public boolean isDHTEnabled()
     {
-        SettingsPack settingsPack = settings();
+        SettingsPack sp = settings();
 
-        return settingsPack != null && settingsPack.enableDht();
+        return sp != null && sp.enableDht();
     }
 
     @Override
@@ -741,7 +748,12 @@ public class TorrentSessionImpl extends SessionManager
     public void startWithParams(@Nullable SessionInitParams initParams)
     {
         SessionParams params = loadSettings();
-        settings_pack sp = params.settings().swig();
+        SettingsPack settingsPack = params.settings();
+        if (settingsPack == null) {
+            super.start(params);
+            return;
+        }
+        settings_pack sp = settingsPack.swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
         sp.set_bool(settings_pack.bool_types.enable_ip_notifier.swigValue(), false);
         sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), 0);
@@ -874,6 +886,8 @@ public class TorrentSessionImpl extends SessionManager
          */
         if (settings.logging) {
             SettingsPack sp = settings();
+            if (sp == null)
+                return;
             sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), getAlertMask(settings).to_int());
             applySettingsPack(sp);
 
@@ -1402,7 +1416,8 @@ public class TorrentSessionImpl extends SessionManager
                           Priority[] priorities, boolean sequentialDownload,
                           boolean paused, List<TcpEndpoint> peers)
     {
-        download(new TorrentInfo(bencode), saveDir, priorities, sequentialDownload, paused, peers);
+        download((bencode == null ? null : new TorrentInfo(bencode)),
+                saveDir, priorities, sequentialDownload, paused, peers);
     }
 
     private void download(TorrentInfo ti, File saveDir,
@@ -1412,6 +1427,8 @@ public class TorrentSessionImpl extends SessionManager
         if (operationNotAllowed())
             return;
 
+        if (ti == null)
+            throw new IllegalArgumentException("Torrent info is null");
         if (!ti.isValid())
             throw new IllegalArgumentException("Torrent info not valid");
 
@@ -1487,6 +1504,8 @@ public class TorrentSessionImpl extends SessionManager
             throw new IllegalArgumentException(ec.message());
 
         sha1_hash info_hash = p.getInfo_hash();
+        if (info_hash == null)
+            return;
         torrent_handle th = swig().find_torrent(info_hash);
         if (th != null && th.is_valid()) {
             /* Found a download with the same hash */

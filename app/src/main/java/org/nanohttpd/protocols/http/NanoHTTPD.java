@@ -265,9 +265,10 @@ public abstract class NanoHTTPD {
      * certificate and passphrase
      */
     public static SSLServerSocketFactory makeSSLSocketFactory(String keyAndTrustStoreClasspathPath, char[] passphrase) throws IOException {
+        InputStream keystoreStream = null;
         try {
             KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-            InputStream keystoreStream = NanoHTTPD.class.getResourceAsStream(keyAndTrustStoreClasspathPath);
+            keystoreStream = NanoHTTPD.class.getResourceAsStream(keyAndTrustStoreClasspathPath);
 
             if (keystoreStream == null) {
                 throw new IOException("Unable to load keystore from classpath: " + keyAndTrustStoreClasspathPath);
@@ -279,6 +280,10 @@ public abstract class NanoHTTPD {
             return makeSSLSocketFactory(keystore, keyManagerFactory);
         } catch (Exception e) {
             throw new IOException(e.getMessage());
+        } finally {
+            if (keystoreStream != null) {
+                keystoreStream.close();
+            }
         }
     }
 

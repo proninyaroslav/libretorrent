@@ -55,7 +55,7 @@ public class TorrentInfoProvider
 
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
 
-    private static TorrentInfoProvider INSTANCE;
+    private static volatile TorrentInfoProvider INSTANCE;
     private TorrentEngine engine;
 
     public static TorrentInfoProvider getInstance(@NonNull TorrentEngine engine)

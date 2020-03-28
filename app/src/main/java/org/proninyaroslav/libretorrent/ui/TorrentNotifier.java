@@ -55,7 +55,7 @@ public class TorrentNotifier
     private static final int SESSION_ERROR_NOTIFICATION_ID = 1;
     private static final int NAT_ERROR_NOTIFICATION_ID = 2;
 
-    private static TorrentNotifier INSTANCE;
+    private static volatile TorrentNotifier INSTANCE;
 
     private Context appContext;
     private NotificationManager notifyManager;

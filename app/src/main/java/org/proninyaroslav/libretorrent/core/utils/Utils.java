@@ -523,6 +523,7 @@ public class Utils
             Log.e(TAG, Log.getStackTraceString(e));
         } finally {
             c.close();
+            db.close();
             appContext.deleteDatabase("tray.db");
             edit.putBoolean(migrate_key, true);
             edit.apply();

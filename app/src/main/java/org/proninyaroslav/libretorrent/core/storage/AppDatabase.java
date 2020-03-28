@@ -47,7 +47,7 @@ public abstract class AppDatabase extends RoomDatabase
 {
     private static final String DATABASE_NAME = "libretorrent.db";
 
-    private static AppDatabase INSTANCE;
+    private static volatile AppDatabase INSTANCE;
 
     public abstract TorrentDao torrentDao();
 

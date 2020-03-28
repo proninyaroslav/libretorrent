@@ -109,7 +109,7 @@ public class TorrentEngine
     private DownloadsCompletedListener downloadsCompleted;
     private ExecutorService exec = Executors.newSingleThreadExecutor();
 
-    private static TorrentEngine INSTANCE;
+    private static volatile TorrentEngine INSTANCE;
 
     public static TorrentEngine getInstance(@NonNull Context appContext)
     {
@@ -440,6 +440,8 @@ public class TorrentEngine
             return null;
 
         MagnetInfo info = session.fetchMagnet(uri);
+        if (info == null)
+            return null;
         Single<TorrentMetaInfo> res = createFetchMagnetSingle(info.getSha1hash());
 
         return Pair.create(info, res);
@@ -462,7 +464,7 @@ public class TorrentEngine
 
                         if (!emitter.isDisposed()) {
                             if (bencode == null)
-                                emitter.onError(new NullPointerException());
+                                emitter.onError(new IOException(new NullPointerException("bencode is null")));
                             else
                                 sendInfoToEmitter(emitter, bencode);
                         }

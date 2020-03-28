@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -109,8 +110,8 @@ class IPFilterParser
             lineNum++;
 
             String line = it.nextLine();
-            line = line.trim();
-            if (line.isEmpty())
+            line = (line == null ? null : line.trim());
+            if (line == null || line.isEmpty())
                 continue;
 
             /* Ignoring commented lines */
@@ -193,8 +194,8 @@ class IPFilterParser
             lineNum++;
 
             String line = it.nextLine();
-            line = line.trim();
-            if (line.isEmpty())
+            line = (line == null ? null : line.trim());
+            if (line == null || line.isEmpty())
                 continue;
 
             /* Ignoring commented lines */

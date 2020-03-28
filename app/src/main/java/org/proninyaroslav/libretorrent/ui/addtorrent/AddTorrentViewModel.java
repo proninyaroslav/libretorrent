@@ -283,8 +283,10 @@ public class AddTorrentViewModel extends AndroidViewModel
 
             ContentResolver contentResolver = v.getApplication().getContentResolver();
             try (ParcelFileDescriptor outPfd = contentResolver.openFileDescriptor(uri, "r")) {
+                if (outPfd == null) {
+                    throw new IOException("ParcelFileDescriptor is null");
+                }
                 FileDescriptor outFd = outPfd.getFileDescriptor();
-
                 try (FileInputStream is = new FileInputStream(outFd)) {
                     v.info.set(new TorrentMetaInfo(is));
                 }
@@ -324,12 +326,12 @@ public class AddTorrentViewModel extends AndroidViewModel
 
     private void observeFetchedMetadata(Single<TorrentMetaInfo> single)
     {
-        disposable.add(single
-                .subscribe((downloadInfo) -> {
+        disposable.add(single.subscribe(
+                (downloadInfo) -> {
                     info.set(downloadInfo);
-                    decodeState.postValue(
-                            new DecodeState(AddTorrentViewModel.Status.FETCHING_MAGNET_COMPLETED));
-                }));
+                    decodeState.postValue(new DecodeState(Status.FETCHING_MAGNET_COMPLETED));
+                },
+                (e) -> decodeState.postValue(new DecodeState(Status.ERROR, e))));
     }
 
     private Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback()

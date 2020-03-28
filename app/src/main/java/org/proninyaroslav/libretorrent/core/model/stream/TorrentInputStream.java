@@ -433,39 +433,45 @@ public class TorrentInputStream extends InputStream
         notifyAll();
     }
 
-    private synchronized void readPiece(ReadPieceInfo info)
+    private void readPiece(ReadPieceInfo info)
     {
-        if (readSession == null)
-            return;
+        lock.lock();
+        try {
+            if (readSession == null)
+                return;
 
-        Piece piece = null;
-        for (Piece p : readSession.piecesForReading) {
-            if (p.index == info.piece) {
-                piece = p;
-                break;
-            }
-        }
-        if (readSession.countLatch > 0 && piece != null && readSession.buf != null) {
-            try {
-                if (info.err != null) {
-                    TorrentDownload task = session.getTask(stream.torrentId);
-                    if (task != null)
-                        task.resume();
-                    return;
+            Piece piece = null;
+            for (Piece p : readSession.piecesForReading) {
+                if (p.index == info.piece) {
+                    piece = p;
+                    break;
                 }
-                Pointer ptr = new Pointer(info.bufferPtr);
-                if (piece.cache) {
-                    cacheBuf = new byte[info.size];
-                    ptr.read(0, cacheBuf, 0, info.size);
-                    cachePieceIndex = piece.index;
-                    readFromCache(piece, readSession.buf);
-                } else {
-                    ptr.read(piece.readOffset, readSession.buf, piece.bufIndex, piece.readLength);
-                }
-            } finally {
-                --readSession.countLatch;
-                notifyAll();
             }
+            if (readSession.countLatch > 0 && piece != null && readSession.buf != null) {
+                try {
+                    if (info.err != null) {
+                        TorrentDownload task = session.getTask(stream.torrentId);
+                        if (task != null)
+                            task.resume();
+                        return;
+                    }
+                    Pointer ptr = new Pointer(info.bufferPtr);
+                    if (piece.cache) {
+                        cacheBuf = new byte[info.size];
+                        ptr.read(0, cacheBuf, 0, info.size);
+                        cachePieceIndex = piece.index;
+                        readFromCache(piece, readSession.buf);
+                    } else {
+                        ptr.read(piece.readOffset, readSession.buf, piece.bufIndex, piece.readLength);
+                    }
+                } finally {
+                    --readSession.countLatch;
+                    notifyAll();
+                }
+            }
+
+        } finally {
+            lock.unlock();
         }
     }
 }
