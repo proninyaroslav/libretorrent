@@ -254,6 +254,7 @@ class TorrentDownloadImpl implements TorrentDownload
                     break;
                 case TORRENT_CHECKED:
                     handleTorrentChecked();
+                    break;
                 default:
                     checkError(alert);
                     break;
