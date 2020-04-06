@@ -101,14 +101,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Testing */
-    testImplementation "junit:junit:4.12"
-    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.robolectric:robolectric:4.3.1"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
     androidTestImplementation "com.google.dagger:dagger:$DAGGER_VERSION"
-    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
+    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc6"
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.1.0"
