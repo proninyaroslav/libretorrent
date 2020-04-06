@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
-        minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
+        minSdkVersion 15 /* Officially support for Android version below 7.0 is dropped libtorrent4j */
         targetSdkVersion 28
         versionCode 15
         /*
@@ -92,7 +92,7 @@ tasks.withType(Test) {
     }
 }
 
-def LIBTORRENT4J_VERSION='1.2.3.0'
+def LIBTORRENT4J_VERSION='1.3.0-alpha-5'
 def ROOM_VERSION = "2.2.5"
 def ACRA_VERSION = "5.5.0"
 def DAGGER_VERSION = "2.27"
@@ -101,14 +101,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Testing */
-    testImplementation "junit:junit:4.12"
-    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
     androidTestImplementation "com.google.dagger:dagger:$DAGGER_VERSION"
-    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
+    testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.1.0"

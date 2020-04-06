@@ -87,8 +87,6 @@ public interface TorrentSession
 
     void disableIpFilter();
 
-    boolean isLSDEnabled();
-
     void pauseAll();
 
     void resumeAll();

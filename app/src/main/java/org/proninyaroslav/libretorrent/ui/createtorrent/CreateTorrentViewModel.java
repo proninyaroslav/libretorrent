@@ -183,7 +183,6 @@ public class CreateTorrentViewModel extends AndroidViewModel
                 .setAsPrivate(mutableParams.isPrivateTorrent())
                 .setCreator(makeCreator())
                 .setComment(mutableParams.getComments())
-                .setOptimizeAlignment(mutableParams.isOptimizeAlignment())
                 .setFileNameFilter((fileName) -> {
                     List<String> skipFilesList = decodeSkipFilesList();
                     if (skipFilesList.isEmpty())

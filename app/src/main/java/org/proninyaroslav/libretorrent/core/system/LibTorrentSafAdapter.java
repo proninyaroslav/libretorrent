@@ -45,7 +45,7 @@ public class LibTorrentSafAdapter extends posix_wrapper
     @Override
     public int open(String path, int flags, int mode)
     {
-        Log.d(TAG, "[open] path=" + path);
+//        Log.d(TAG, "[open] path=" + path);
 
         if (!SafFileSystem.FakePath.isFakePath(path))
             return super.open(path, flags, mode);
@@ -67,7 +67,7 @@ public class LibTorrentSafAdapter extends posix_wrapper
     @Override
     public int stat(String path, posix_stat_t buf)
     {
-        Log.d(TAG, "[stat] path=" + path);
+//        Log.d(TAG, "[stat] path=" + path);
 
         if (!SafFileSystem.FakePath.isFakePath(path))
             return super.stat(path, buf);
@@ -101,7 +101,7 @@ public class LibTorrentSafAdapter extends posix_wrapper
     @Override
     public int mkdir(String path, int mode)
     {
-        Log.d(TAG, "[mkdir] path=" + path);
+//        Log.d(TAG, "[mkdir] path=" + path);
 
         if (!SafFileSystem.FakePath.isFakePath(path))
             return super.mkdir(path, mode);
@@ -119,14 +119,10 @@ public class LibTorrentSafAdapter extends posix_wrapper
         return ret;
     }
 
-    /*
-     * TODO: currently doesn't work, see https://github.com/aldenml/libtorrent4j/issues/45
-     */
-
     @Override
     public int remove(String path)
     {
-        Log.d(TAG, "[remove] path=" + path);
+//        Log.d(TAG, "[remove] path=" + path);
 
         if (!SafFileSystem.FakePath.isFakePath(path))
             return super.remove(path);
@@ -148,5 +144,14 @@ public class LibTorrentSafAdapter extends posix_wrapper
         }
 
         return ret;
+    }
+
+    /*
+     * TODO: must be implemented for torrent creation
+     */
+    @Override
+    public long opendir(String name) {
+//        Log.d(TAG, "[opendir] name=" + name);
+        return super.opendir(name);
     }
 }

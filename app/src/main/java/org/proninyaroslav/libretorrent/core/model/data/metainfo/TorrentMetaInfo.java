@@ -98,7 +98,7 @@ public class TorrentMetaInfo implements Parcelable
     private void getMetaInfo(TorrentInfo info)
     {
         torrentName = info.name();
-        sha1Hash = info.infoHash().toHex();
+        sha1Hash = info.infoHash().getBest().toHex();
         comment = info.comment();
         createdBy = info.creator();
         /* Correct convert UNIX time (time_t) */

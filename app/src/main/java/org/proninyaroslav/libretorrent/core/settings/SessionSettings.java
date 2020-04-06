@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class SessionSettings
 {
-    public static final int DEFAULT_CACHE_SIZE = 256;
     public static final int DEFAULT_ACTIVE_DOWNLOADS = 4;
     public static final int DEFAULT_ACTIVE_SEEDS = 4;
     public static final int DEFAULT_MAX_PEER_LIST_SIZE = 200;
@@ -70,7 +69,6 @@ public class SessionSettings
     public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
 
 
-    public int cacheSize = DEFAULT_CACHE_SIZE;
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
     public int maxPeerListSize = DEFAULT_MAX_PEER_LIST_SIZE;
@@ -114,7 +112,6 @@ public class SessionSettings
 
     public SessionSettings(SessionSettings other)
     {
-        this.cacheSize = other.cacheSize;
         this.activeDownloads = other.activeDownloads;
         this.activeSeeds = other.activeSeeds;
         this.maxPeerListSize = other.maxPeerListSize;

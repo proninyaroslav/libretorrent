@@ -134,23 +134,6 @@ public class TorrentBuilder
         return this;
     }
 
-    /*
-     * This will insert pad files to align the files to piece boundaries, for
-     * optimized disk-I/O. This will minimize the number of bytes of pad-
-     * files, to keep the impact down for clients that don't support
-     * them
-     */
-
-    public TorrentBuilder setOptimizeAlignment(boolean optimizeAlignment)
-    {
-        if (optimizeAlignment)
-            builder.flags(builder.flags().or_(org.libtorrent4j.TorrentBuilder.OPTIMIZE_ALIGNMENT));
-        else
-            builder.flags(builder.flags().and_(org.libtorrent4j.TorrentBuilder.OPTIMIZE_ALIGNMENT.inv()));
-
-        return this;
-    }
-
     public TorrentBuilder setFileNameFilter(Predicate<String> fileNameFilter)
     {
         this.fileNameFilter = fileNameFilter;
