@@ -56,6 +56,8 @@ public class ErrorReportDialog extends BaseAlertDialog
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
+        super.onCreateDialog(savedInstanceState);
+
         Bundle args = getArguments();
         String title = args.getString(TAG_TITLE);
         String message = args.getString(TAG_MESSAGE);
