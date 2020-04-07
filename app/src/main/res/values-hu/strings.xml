@@ -36,8 +36,8 @@
     <string name="file">Fájl</string>
     <string name="folder">Könyvtár</string>
     <string name="finished">Befejezett</string>
-    <string name="pause_all">Mind megállít</string>
-    <string name="resume_all">Mind elindít</string>
+    <string name="pause_all">Az összes szüneteltetése</string>
+    <string name="resume_all">Az összes folytatása</string>
     <string name="all">Összes</string>
     <string name="details">Részletek</string>
     <string name="stats">Statisztika</string>
@@ -48,8 +48,8 @@
     <string name="switch_off">Ki</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
-    <string name="delete_selected_torrent">Törlöd a kiválasztott torentet? Nem visszavonható művelet</string>
-    <string name="delete_selected_torrents">Törlöd a kiválasztott torrenteket? Nem visszavonható művelet</string>
+    <string name="delete_selected_torrent">Törlöd a kiválasztott torrentet? A művelet nem vonható vissza</string>
+    <string name="delete_selected_torrents">Törlöd a kiválasztott torrenteket? A művelet nem vonható vissza</string>
     <string name="force_recheck_torrent">Adatok erőltetett újraellenőrzése</string>
     <string name="force_announce_torrent">Erőltetett újrakapcsolódás</string>
     <string name="add_link">Hivatkozás hozzáadása</string>
@@ -64,11 +64,11 @@
     <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
     <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után aktiválódnak</string>
-    <string name="theme_settings_apply_after_reboot">A téma beállítások a következő újraindítás után aktiválódnak</string>
+    <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után lépnek életbe</string>
+    <string name="theme_settings_apply_after_reboot">A téma beállításai a következő újraindítás után aktiválódnak</string>
     <string name="about">Névjegy</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT-csomópontok: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <string name="session_stats_listen_port">Kapcsolati port: %1$s</string>
@@ -88,7 +88,7 @@
     <string name="drawer_sorting_peers">Peerek</string>
     <string name="drawer_sorting_no_sorting">Rendezés nélkül</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Dátum rendezés</string>
+    <string name="drawer_date_added">Hozzáadás dátuma</string>
     <string name="drawer_date_added_today">Ma</string>
     <string name="drawer_date_added_yesterday">Tegnap</string>
     <string name="drawer_date_added_week">Hét</string>

@@ -66,6 +66,7 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Greek** *(thanks Spyros3000, skyhirules)*
  - **Hindi** *(thanks Lino Joseph)*
  - **Hungarian** *(thanks Ephyx)*
+ - **Italian** *(thanks Gabrielelulo2)*
  - **Japanese** *(thanks mamarama9904)*
  - **Korean** *(thanks jjjhitel)*
  - **Lithuanian** *(thanks techwebpd)*
