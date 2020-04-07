@@ -464,6 +464,8 @@
     <string name="pref_show_nat_errors">Показывать ошибки NAT</string>
     <string name="pref_anonymous_mode_title">Включить анонимный режим</string>
     <string name="pref_anonymous_mode_summary">Приложение пытается скрыть свою личность в определённой степени. User-agent будет сброшен в пустую строку (кроме приватных торрентов). Трекеры будут использоваться только если они используют прокси-сервер. Сокеты прослушивания закрыты, и входящие соединения будут приниматься только через прокси-сервер SOCKS5 или I2P (если одноранговый прокси-сервер настроен и работает на той же машине, что и прокси-сервер трекера). NAT-PMP, UPnP, DHT и обнаружение локального узла отключены</string>
+    <string name="pref_seeding_outgoing_connections_title">Включить исходящие соединения для сидов</string>
+    <string name="pref_seeding_outgoing_connections_summary">Определяет, должны ли раздающие торренты пытаться установить исходящие соединения или нет. Это может быть отключено в очень специфических ситуациях, когда стоимость исходящих соединений высока</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип прокси</string>
     <string-array name="pref_proxy_type_entries">

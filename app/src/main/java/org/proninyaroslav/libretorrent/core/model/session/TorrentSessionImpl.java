@@ -1123,8 +1123,6 @@ public class TorrentSessionImpl extends SessionManager
         sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
         int sendBufferWatermark = sp.sendBufferWatermark();
         sp.sendBufferWatermark(sendBufferWatermark / 2);
-        /* TODO: settings */
-//        sp.seedingOutgoingConnections(false);
         settingsToSettingsPack(settings, sp);
 
         return sp;
@@ -1154,6 +1152,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
         sp.anonymousMode(settings.anonymousMode);
+        sp.seedingOutgoingConnections(settings.seedingOutgoingConnections);
         sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), getAlertMask(settings).to_int());
 
         applyProxy(settings, sp);

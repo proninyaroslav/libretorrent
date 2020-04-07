@@ -464,6 +464,8 @@
     <string name="pref_show_nat_errors">NAT 오류 표시</string>
     <string name="pref_anonymous_mode_title">익명 모드 활성화</string>
     <string name="pref_anonymous_mode_summary">앱이 정체를 숨기기 위한 시도를 합니다. (프라이빗 토렌트 제외) 유저 에이전트를 공백으로 표시합니다. 프록시 서버 경유 트래커만 연결합니다. 열린 소켓이 닫히며, (피어 프록시가 설정되었고 트래커 프록시와 같은 방식으로 구동될 경우) 들어오는 연결은 SOCKS5 또는 I2P 프록시를 통해서만 수용됩니다. NAT-PMP, UPnP, DHT, 인근 피어 찾기가 꺼집니다.</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">프록시 유형</string>
     <string-array name="pref_proxy_type_entries">

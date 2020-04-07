@@ -171,6 +171,10 @@ public interface SettingsRepository
 
     void anonymousMode(boolean val);
 
+    boolean seedingOutgoingConnections();
+
+    void seedingOutgoingConnections(boolean val);
+
     /*
      * Storage settings
      */

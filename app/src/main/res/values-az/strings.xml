@@ -464,6 +464,8 @@
     <string name="pref_show_nat_errors">NAT xətalarını göstər</string>
     <string name="pref_anonymous_mode_title">Anonim rejimi fəallaşdır</string>
     <string name="pref_anonymous_mode_summary">Tətbiqetmə, kimliyini müəyyən dərəcəyə qədər gizləməyə çalışar. İstifadəçi-agent boş string kimi sıfırlanacaqdır (gizli torrentlər istisna). İzləyicilər yalnız proxy server istifadə edəndə istifadə ediləcək. Dinləmə socket-ləri bağlanılar və gələn bağlantılar yalnız SOCKS5 və ya I2P proxy üzərindən qəbul ediləcək (əgər bir cüt proxy tənzimlənibsə və eyni maşında izləyici proxy kimi işləyirsə). NAT-PMP, UPnP, DHT və yerli cüt tapma söndürülər</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy növü</string>
     <string-array name="pref_proxy_type_entries">

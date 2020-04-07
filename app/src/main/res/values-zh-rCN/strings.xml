@@ -464,6 +464,8 @@
     <string name="pref_show_nat_errors">显示NAT错误</string>
     <string name="pref_anonymous_mode_title">启用匿名模式</string>
     <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用Tracker。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与Tracker代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
