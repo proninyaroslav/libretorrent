@@ -1659,6 +1659,11 @@ public class TorrentEngine
             s.anonymousMode = pref.anonymousMode();
             session.setSettings(s);
 
+        } else if (key.equals(appContext.getString(R.string.pref_key_seeding_outgoing_connections))) {
+            SessionSettings s = session.getSettings();
+            s.seedingOutgoingConnections = pref.seedingOutgoingConnections();
+            session.setSettings(s);
+
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_logging))) {
             SessionSettings s = session.getSettings();
             s.logging = pref.logging();

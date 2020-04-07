@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">Zobrazit NAT chyby</string>
     <string name="pref_anonymous_mode_title">Povolit anonymní režim</string>
     <string name="pref_anonymous_mode_summary">Aplikace se do určité míry snaží skrýt svou identitu. Uživatelský agent bude resetován na prázdný řetězec (kromě soukromých torrentů). Trackery budou použity, pouze pokud používají proxy server. Sokety pro posluchače jsou uzavřeny a příchozí připojení budou přijímána pouze prostřednictvím proxy serveru SOCKS5 nebo I2P (pokud je nastaven proxy server a je spuštěn na stejném počítači jako proxy server trackeru). NAT-PMP, UPnP, DHT a lokální peery budou vypnuty</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ proxy</string>
     <string-array name="pref_proxy_type_entries">

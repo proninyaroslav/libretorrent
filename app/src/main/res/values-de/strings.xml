@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">NAT-Fehler anzeigen</string>
     <string name="pref_anonymous_mode_title">Anonymen Modus aktivieren</string>
     <string name="pref_anonymous_mode_summary">Die App versucht, Ihre Identität bis zu einem gewissen Grad zu verbergen. Der User-Agent wird auf eine leere Zeichenkette zurückgesetzt (außer bei privaten Torrents). Tracker werden nur verwendet, wenn Sie einen Proxy-Server verwenden. Die Listen-Sockets sind geschlossen und eingehende Verbindungen werden nur über einen SOCKS5 oder I2P Proxy akzeptiert (wenn ein Peer-Proxy eingerichtet ist und auf derselben Maschine wie der Tracker-Proxy ausgeführt wird). NAT-PMP, UPnP, DHT und lokale Peer Discovery sind deaktiviert.</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxytyp</string>
     <string-array name="pref_proxy_type_entries">

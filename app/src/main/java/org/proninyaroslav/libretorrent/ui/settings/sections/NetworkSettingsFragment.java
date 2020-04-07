@@ -268,6 +268,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                 return true;
             });
         }
+
+        String keySeedingOutgoingConn = getString(R.string.pref_key_seeding_outgoing_connections);
+        SwitchPreferenceCompat seedingOutgoingConn = findPreference(keySeedingOutgoingConn);
+        if (seedingOutgoingConn != null) {
+            seedingOutgoingConn.setChecked(pref.seedingOutgoingConnections());
+            bindOnPreferenceChangeListener(seedingOutgoingConn);
+        }
     }
 
     @Override
@@ -366,6 +373,8 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
             pref.enableIpFiltering((boolean)newValue);
 
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_seeding_outgoing_connections))) {
+            pref.seedingOutgoingConnections((boolean)newValue);
         }
 
         return true;

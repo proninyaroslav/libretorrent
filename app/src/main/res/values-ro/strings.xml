@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">Afișați erorile NAT</string>
     <string name="pref_anonymous_mode_title">Activați modul anonim</string>
     <string name="pref_anonymous_mode_summary">Aplicația încearcă să-și ascundă identitatea într-un anumit grad. Utilizatorul-agent va fi resetat la un șir gol (cu excepția torrent-urilor private). Trackerele vor fi utilizate numai dacă folosesc un server proxy. Soclurile de ascultare sunt închise, iar conexiunile primite vor fi acceptate doar printr-un proxy SOCKS5 sau I2P (dacă este configurat un proxy peer și este rulat pe aceeași mașină ca proxy-ul tracker). NAT-PMP, UPnP, DHT și descoperirea locală sunt dezactivate</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tip de proxy</string>
     <string-array name="pref_proxy_type_entries">

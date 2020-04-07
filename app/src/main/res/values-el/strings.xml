@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">Εμφάνιση σφαλμάτων NAT</string>
     <string name="pref_anonymous_mode_title">Ενεργοποίηση ανώνυμης κατάστασης</string>
     <string name="pref_anonymous_mode_summary">Η εφαρμογή προσπαθεί να κρύψει την ταυτότητα της σε ένα βαθμό. Ο user-agent θα αντικατασταθεί με κενό (εκτός των ιδιωτικών torrents). Οι trackers θα χρησιμοποιούνται μόνο αν χρησιμοποιούν proxy server. Τα NAT-PMP, UPnP, DHT και οι τοπικές συνδέσεις απενεργοποιούνται.</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
     <string-array name="pref_proxy_type_entries">

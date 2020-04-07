@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">NAT hibák mutatása</string>
     <string name="pref_anonymous_mode_title">Anoním mód engedélyezése</string>
     <string name="pref_anonymous_mode_summary">Az alkalmazás bizonyos mértékig megpróbálja elrejteni identitását. A felhasználói ügynök visszaáll egy üres karakterláncra (kivéve a privát torrenteket). A nyomkövetőket csak akkor használják, ha proxykiszolgálót használnak. A figyelőcsatlakozók zárva vannak, és a bejövő kapcsolatok csak SOCKS5 vagy I2P proxy segítségével fogadhatók el (ha peer proxy van beállítva, és ugyanazon a gépen fut, mint a tracker proxy). A NAT-PMP, UPnP, DHT és a helyi peer keresés ki van kapcsolva</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy típus</string>
     <string-array name="pref_proxy_type_entries">

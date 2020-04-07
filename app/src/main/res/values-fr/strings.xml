@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">Afficher les erreurs NAT</string>
     <string name="pref_anonymous_mode_title">Activer le mode anonyme</string>
     <string name="pref_anonymous_mode_summary">L\'application tente de cacher son identité dans un certain degré. Le user-agent sera réinitialisé à une chaîne vide (sauf pour les torrents privés). Les Trackers ne seront utilisés que s\'ils utilisent un serveur proxy. Les sockets d\'écoute sont fermées, et les connexions entrantes seront acceptées par un proxy SOCKS5 ou I2P (si un proxy pair est configuré et est exécuté sur la même machine que le proxy tracker). NAT-PMP, UPnP, DHT et la découverte locale des pairs sont désactivées</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Type de proxy</string>
     <string-array name="pref_proxy_type_entries">

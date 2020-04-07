@@ -43,6 +43,12 @@
         android:title="@string/pref_show_nat_errors"
         android:persistent="false" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_seeding_outgoing_connections"
+        android:title="@string/pref_seeding_outgoing_connections_title"
+        android:summary="@string/pref_seeding_outgoing_connections_summary"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:title="@string/pref_port_settings_category">
 

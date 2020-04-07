@@ -465,6 +465,8 @@
     <string name="pref_show_nat_errors">Покажи NAT грешке</string>
     <string name="pref_anonymous_mode_title">Укључи анонимни мод</string>
     <string name="pref_anonymous_mode_summary">Апликација покушава да донекле сакрије свој идентитет. Кориснички агент ће бити ресетован на празну реч (осим приватних торента). Трагачи ће се користити само ако користе прокси сервер. Слушајући сокети су затворени, а долазне конекције ће бити прихваћене само кроз SOCKS5 или I2P прокси (ако је прокси подешен и активан на истој машини као трагачки прокси). NAT-PMP, UPnP, DHT и тражење локалних пирова су угашени</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип проксија</string>
     <string-array name="pref_proxy_type_entries">
