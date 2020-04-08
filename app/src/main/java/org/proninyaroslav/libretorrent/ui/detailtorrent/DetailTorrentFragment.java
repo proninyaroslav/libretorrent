@@ -75,6 +75,7 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -293,7 +294,6 @@ public class DetailTorrentFragment extends Fragment
                                 }
                             } else if (event.dialogTag.equals(TAG_ADD_TRACKERS_DIALOG) && addTrackersDialog != null) {
                                 addTrackers(false);
-                                addTrackersDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_SPEED_LIMIT_DIALOG) && speedLimitDialog != null) {
                                 setSpeedLimit();
                                 speedLimitDialog.dismiss();
@@ -308,7 +308,6 @@ public class DetailTorrentFragment extends Fragment
                                 errReportDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_ADD_TRACKERS_DIALOG) && addTrackersDialog != null) {
                                 addTrackers(true);
-                                addTrackersDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_SPEED_LIMIT_DIALOG) && speedLimitDialog != null) {
                                 speedLimitDialog.dismiss();
                             }
@@ -682,7 +681,7 @@ public class DetailTorrentFragment extends Fragment
         TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_multiline_text_input_dialog);
 
         Editable editable = field.getText();
-        if (TextUtils.isEmpty(editable))
+        if (editable == null)
             return;
 
         String text = editable.toString();
@@ -690,22 +689,27 @@ public class DetailTorrentFragment extends Fragment
 
         NormalizeUrl.Options options = new NormalizeUrl.Options();
         options.decode = false;
-        for (int i = 0; i < urls.size(); i++) {
+        List<String> normalizedUrls = new ArrayList<>(urls.size());
+        for (String url : urls) {
+            if (TextUtils.isEmpty(url))
+                continue;
             try {
-                urls.set(i, NormalizeUrl.normalize(urls.get(i), options));
+                normalizedUrls.add(NormalizeUrl.normalize(url, options));
 
             } catch (NormalizeUrlException e) {
                 /* Ignore */
             }
         }
 
-        if (!checkAddTrackersField(urls, fieldLayout, field))
+        if (checkAddTrackersField(normalizedUrls, fieldLayout, field))
+            addTrackersDialog.dismiss();
+        else
             return;
 
         if (replace)
-            viewModel.replaceTrackers(urls);
+            viewModel.replaceTrackers(normalizedUrls);
         else
-            viewModel.addTrackers(urls);
+            viewModel.addTrackers(normalizedUrls);
     }
 
     private void initSpeedLimitDialog()
