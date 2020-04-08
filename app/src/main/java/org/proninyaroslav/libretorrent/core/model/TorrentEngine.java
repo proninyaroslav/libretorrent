@@ -809,7 +809,7 @@ public class TorrentEngine
                     torrent.name,
                     task.getStateCode(),
                     task.getProgress(),
-                    task.getTotalReceivedBytes(),
+                    task.getReceivedBytes(),
                     task.getTotalSentBytes(),
                     task.getTotalWanted(),
                     task.getDownloadSpeed(),

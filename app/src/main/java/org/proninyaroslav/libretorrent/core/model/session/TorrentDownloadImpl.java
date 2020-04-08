@@ -833,34 +833,10 @@ class TorrentDownloadImpl implements TorrentDownload
         return operationNotAllowed() ? 0 : th.status().seedingDuration() / 1000L;
     }
 
-    /*
-     * Counts the amount of bytes received this session, but only
-     * the actual payload data (i.e the interesting data), these counters
-     * ignore any protocol overhead.
-     */
-
     @Override
     public long getReceivedBytes()
     {
-        return operationNotAllowed() ? 0 : th.status().totalPayloadDownload();
-    }
-
-    @Override
-    public long getTotalReceivedBytes()
-    {
-        return operationNotAllowed() ? 0 : th.status().allTimeDownload();
-    }
-
-    /*
-     * Counts the amount of bytes send this session, but only
-     * the actual payload data (i.e the interesting data), these counters
-     * ignore any protocol overhead.
-     */
-
-    @Override
-    public long getSentBytes()
-    {
-        return operationNotAllowed() ? 0 : th.status().totalPayloadUpload();
+        return operationNotAllowed() ? 0 : th.status().totalDone();
     }
 
     @Override
@@ -1265,17 +1241,18 @@ class TorrentDownloadImpl implements TorrentDownload
         if (operationNotAllowed())
             return 0;
 
-        long uploaded = getTotalSentBytes();
-        long allTimeReceived = getTotalReceivedBytes();
-        long totalDone = th.status().totalDone();
+        TorrentStatus ts = th.status();
+        long allTimeUpload = ts.allTimeUpload();
+        long allTimeDownload = ts.allTimeDownload();
+        long totalDone = ts.totalDone();
         /*
          * Special case for a seeder who lost its stats,
          * also assume nobody will import a 99% done torrent
          */
-        long downloaded = (allTimeReceived < totalDone * 0.01 ? totalDone : allTimeReceived);
+        long downloaded = (allTimeDownload < totalDone * 0.01 ? totalDone : allTimeDownload);
         if (downloaded == 0)
-            return (uploaded == 0 ? 0.0 : MAX_RATIO);
-        double ratio = (double) uploaded / (double) downloaded;
+            return (allTimeUpload == 0 ? 0.0 : MAX_RATIO);
+        double ratio = (double)allTimeUpload / (double)downloaded;
 
         return Math.min(ratio, MAX_RATIO);
     }
