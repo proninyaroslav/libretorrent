@@ -331,6 +331,8 @@ public class DetailTorrentFragment extends Fragment
     {
         Torrent torrent = info.first;
         TorrentInfo ti = info.second;
+        TorrentInfo oldTi = viewModel.info.getTorrentInfo();
+        boolean alreadyPaused = oldTi != null && oldTi.stateCode == TorrentStateCode.PAUSED;
 
         viewModel.updateInfo(torrent, ti);
 
@@ -341,7 +343,7 @@ public class DetailTorrentFragment extends Fragment
             activity.invalidateOptionsMenu();
         downloadingMetadata = torrent.downloadingMetadata;
 
-        if (ti.stateCode == TorrentStateCode.PAUSED) {
+        if (ti.stateCode == TorrentStateCode.PAUSED || alreadyPaused) {
             /* Redraw pause/resume menu */
             if (Utils.isTwoPane(activity))
                 prepareOptionsMenu(binding.appbar.toolbar.getMenu());
