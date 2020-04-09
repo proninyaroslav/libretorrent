@@ -464,8 +464,8 @@
     <string name="pref_show_nat_errors">Mostrar errores NAT</string>
     <string name="pref_anonymous_mode_title">Habilitar modo anónimo</string>
     <string name="pref_anonymous_mode_summary">La aplicación trata de ocultar tu identidad hasta cierto punto. El user-agent se restablecerá a una cadena vacía (excepto para los torrents privados). Los rastreadores solo se usarán si están usando un servidor proxy. Los sockets de escucha están cerrados, y las conexiones entrantes solo serán aceptadas a través de un proxy SOCKS5 o I2P (si se configura un proxy de pares y se ejecuta en la misma máquina que el proxy del rastreador). NAT-PMP, UPnP, DHT y el descubrimiento de pares locales están desactivados</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Habilitar conexiones salientes para semillas</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determina si los torrents de siembra deberían intentar realizar conexiones salientes o no. Puede deshabilitarse en situaciones muy específicas donde el costo de hacer conexiones salientes es alto</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
     <string-array name="pref_proxy_type_entries">
