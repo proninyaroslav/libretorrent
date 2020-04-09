@@ -201,7 +201,6 @@ public class TorrentEngine
                 return;
 
             TorrentEngineListener listener = new TorrentEngineListener() {
-
                 @Override
                 public void onSessionStarted()
                 {
