@@ -818,8 +818,9 @@ public class Utils
         DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
                 res.getString(R.string.drawer_sorting),
                 localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        final long DEFAULT_SORTING_ITEM = 1;
         sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                                             DrawerGroup.DEFAULT_SELECTED_ID));
+                                             DEFAULT_SORTING_ITEM));
 
         DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
                 res.getString(R.string.drawer_date_added),
