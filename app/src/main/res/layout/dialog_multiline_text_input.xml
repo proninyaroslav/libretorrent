@@ -18,7 +18,6 @@
             android:gravity="top|start"
             android:inputType="textMultiLine|textNoSuggestions"
             android:lines="5"
-            android:scrollbars="vertical|horizontal"
-            android:background="@android:color/transparent"/>
+            android:scrollbars="vertical|horizontal" />
     </com.google.android.material.textfield.TextInputLayout>
 </FrameLayout>
