@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2017, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -50,9 +50,9 @@ public class TorrentSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.compare(item2.totalBytes, item1.totalBytes);
-                else
                     return Long.compare(item1.totalBytes, item2.totalBytes);
+                else
+                    return Long.compare(item2.totalBytes, item1.totalBytes);
             }
         },
         progress {
@@ -61,9 +61,9 @@ public class TorrentSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Integer.compare(item2.progress, item1.progress);
-                else
                     return Integer.compare(item1.progress, item2.progress);
+                else
+                    return Integer.compare(item2.progress, item1.progress);
             }
         },
         ETA {
@@ -72,9 +72,9 @@ public class TorrentSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.compare(item2.ETA, item1.ETA);
-                else
                     return Long.compare(item1.ETA, item2.ETA);
+                else
+                    return Long.compare(item2.ETA, item1.ETA);
             }
         },
         peers {
@@ -83,9 +83,9 @@ public class TorrentSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Integer.compare(item2.peers, item1.peers);
-                else
                     return Integer.compare(item1.peers, item2.peers);
+                else
+                    return Integer.compare(item2.peers, item1.peers);
             }
         },
         dateAdded {
@@ -94,22 +94,11 @@ public class TorrentSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.compare(item2.dateAdded, item1.dateAdded);
-                else
                     return Long.compare(item1.dateAdded, item2.dateAdded);
+                else
+                    return Long.compare(item2.dateAdded, item1.dateAdded);
             }
         };
-
-        public static String[] valuesToStringArray()
-        {
-            SortingColumns[] values = SortingColumns.class.getEnumConstants();
-            String[] arr = new String[values.length];
-
-            for (int i = 0; i < values.length; i++)
-                arr[i] = values[i].toString();
-
-            return arr;
-        }
 
         public static SortingColumns fromValue(String value)
         {
@@ -124,10 +113,5 @@ public class TorrentSorting extends BaseSorting
     public TorrentSorting(SortingColumns columnName, Direction direction)
     {
         super(columnName.name(), direction);
-    }
-
-    public TorrentSorting()
-    {
-        this(SortingColumns.name , Direction.DESC);
     }
 }
