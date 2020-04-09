@@ -149,6 +149,7 @@ public class TorrentSessionImpl extends SessionManager
     private FileSystemFacade fs;
     private SystemFacade system;
     private SessionLogger sessionLogger;
+    private boolean started;
     private boolean stopRequested;
     private Thread parseIpFilterThread;
 
@@ -159,6 +160,7 @@ public class TorrentSessionImpl extends SessionManager
         super(false);
 
         this.stopRequested = false;
+        this.started = false;
         this.sessionLogger = new SessionLogger();
         this.repo = repo;
         this.fs = fs;
@@ -855,7 +857,7 @@ public class TorrentSessionImpl extends SessionManager
     @Override
     public boolean isRunning()
     {
-        return super.isRunning();
+        return super.isRunning() && started;
     }
 
     @Override
@@ -894,8 +896,12 @@ public class TorrentSessionImpl extends SessionManager
             enableSessionLogger(true);
         }
 
-        notifyListeners(TorrentEngineListener::onSessionStarted);
         saveSettings();
+        started = true;
+        disposables.add(Completable.fromRunnable(() ->
+                notifyListeners(TorrentEngineListener::onSessionStarted))
+                .subscribeOn(Schedulers.io())
+                .subscribe());
     }
 
     private void enableSessionLogger(boolean enable)
@@ -914,6 +920,7 @@ public class TorrentSessionImpl extends SessionManager
     protected void onBeforeStop()
     {
         disposables.clear();
+        started = false;
         enableSessionLogger(false);
         parseIpFilterThread = null;
         magnets.clear();
