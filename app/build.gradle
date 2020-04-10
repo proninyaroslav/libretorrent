@@ -6,12 +6,12 @@ android {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
         targetSdkVersion 28
-        versionCode 15
+        versionCode 16
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName "2.0-beta04"
+        versionName "2.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
