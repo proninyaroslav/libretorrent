@@ -53,7 +53,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
-import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentFilesBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
@@ -340,7 +339,7 @@ public class DetailTorrentFilesFragment extends Fragment
         } else {
             disposables.add(viewModel.getFilePath(item.name)
                     .subscribeOn(Schedulers.io())
-                    .subscribe(this::openFile));
+                    .subscribe((path) -> openFile(item.name, path)));
         }
     }
 
@@ -527,16 +526,11 @@ public class DetailTorrentFilesFragment extends Fragment
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
-    private void openFile(Uri path)
+    private void openFile(String fileName, Uri path)
     {
-        if (path == null)
+        if (fileName == null || path == null)
             return;
 
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        /* Give user a choice than to open file (without determining MIME type) */
-        intent.setDataAndType(path, "*/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(intent, getString(R.string.open_using)));
+        startActivity(viewModel.makeOpenFileIntent(fileName, path));
     }
 }
