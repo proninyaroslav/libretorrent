@@ -76,15 +76,6 @@ public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, 
         holder.bind(getItem(position), clickListener);
     }
 
-    @Override
-    public void submitList(@Nullable List<DownloadableFileItem> list)
-    {
-        if (list != null)
-            Collections.sort(list);
-
-        super.submitList(list);
-    }
-
     public static final DiffUtil.ItemCallback<DownloadableFileItem> diffCallback = new DiffUtil.ItemCallback<DownloadableFileItem>()
     {
         @Override
