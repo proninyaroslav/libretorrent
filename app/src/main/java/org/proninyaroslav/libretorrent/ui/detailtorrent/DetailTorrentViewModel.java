@@ -62,6 +62,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -251,7 +252,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return node != null && node.isFile();
     }
 
-    public Uri getFilePath(@NonNull String name)
+    public Single<Uri> getFilePath(@NonNull String name)
     {
         Context context = getApplication();
         TorrentContentFileTree node = curDir.getChild(name);
@@ -264,16 +265,18 @@ public class DetailTorrentViewModel extends AndroidViewModel
         if (torrent == null)
             return null;
 
-        Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
-        if (path == null)
-            return null;
+       return Single.fromCallable(() -> {
+           Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
+           if (path == null)
+               return null;
 
-        if (Utils.isFileSystemPath(path))
-            path = FileProvider.getUriForFile(context,
-                    context.getPackageName() + ".provider",
-                    new File(path.getPath()));
+           if (Utils.isFileSystemPath(path))
+               path = FileProvider.getUriForFile(context,
+                       context.getPackageName() + ".provider",
+                       new File(path.getPath()));
 
-        return path;
+           return path;
+       });
     }
 
     /*

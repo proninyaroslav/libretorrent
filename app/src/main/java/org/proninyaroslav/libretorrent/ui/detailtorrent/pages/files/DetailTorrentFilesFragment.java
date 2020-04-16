@@ -333,12 +333,15 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public void onItemClicked(@NonNull TorrentContentFileItem item)
     {
-        if (item.name.equals(BencodeFileTree.PARENT_DIR))
+        if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
             viewModel.upToParentDirectory();
-        else if (!item.isFile)
+        } else if (!item.isFile) {
             viewModel.chooseDirectory(item.name);
-        else
-            openFile(viewModel.getFilePath(item.name));
+        } else {
+            disposables.add(viewModel.getFilePath(item.name)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(this::openFile));
+        }
     }
 
     @Override
