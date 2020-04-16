@@ -689,6 +689,11 @@ public class DetailTorrentFragment extends Fragment
         String text = editable.toString();
         List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
 
+        if (checkAddTrackersField(urls, fieldLayout, field))
+            addTrackersDialog.dismiss();
+        else
+            return;
+
         NormalizeUrl.Options options = new NormalizeUrl.Options();
         options.decode = false;
         List<String> normalizedUrls = new ArrayList<>(urls.size());
@@ -702,11 +707,6 @@ public class DetailTorrentFragment extends Fragment
                 /* Ignore */
             }
         }
-
-        if (checkAddTrackersField(normalizedUrls, fieldLayout, field))
-            addTrackersDialog.dismiss();
-        else
-            return;
 
         if (replace)
             viewModel.replaceTrackers(normalizedUrls);
