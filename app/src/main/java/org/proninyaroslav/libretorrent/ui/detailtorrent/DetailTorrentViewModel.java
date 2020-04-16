@@ -21,7 +21,9 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -30,6 +32,7 @@ import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 
+import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -402,6 +405,22 @@ public class DetailTorrentViewModel extends AndroidViewModel
     {
         engine.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
         engine.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
+    }
+
+    public Intent makeOpenFileIntent(@NonNull String fileName, @NonNull Uri path)
+    {
+        String extension = fs.getExtension(fileName);
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        /* If MIME type is unknown, give user a choice than to open file */
+        if (mimeType == null)
+            mimeType = "*/*";
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(path, mimeType);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        return Intent.createChooser(intent, getApplication().getString(R.string.open_using));
     }
 
     private Priority[] getFilePriorities()
