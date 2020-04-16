@@ -36,7 +36,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:maxLines="2"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <TextView

@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:ellipsize="end"
-            android:maxLines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <ProgressBar
