@@ -461,10 +461,15 @@ public class DetailTorrentViewModel extends AndroidViewModel
         {
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
-                if (dirPath != null) {
+                if (dirPath == null)
+                    return;
+
+                disposable.add(Completable.fromRunnable(() -> {
                     info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
                     info.setDirName(fs.getDirPath(dirPath));
-                }
+                })
+                 .subscribeOn(Schedulers.io())
+                 .subscribe());
             }
 
             checkParamsChanged(propertyId);

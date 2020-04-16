@@ -67,6 +67,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -356,8 +357,12 @@ public class AddTorrentViewModel extends AndroidViewModel
             if (dirPath == null)
                 return;
 
-            mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-            mutableParams.setDirName(fs.getDirPath(dirPath));
+            disposable.add(Completable.fromRunnable(() -> {
+                mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                mutableParams.setDirName(fs.getDirPath(dirPath));
+            })
+            .subscribeOn(Schedulers.io())
+            .subscribe());
         }
     };
 
