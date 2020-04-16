@@ -92,6 +92,8 @@ public class TorrentService extends Service
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         engine = TorrentEngine.getInstance(getApplicationContext());
         stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
+
+        makeForegroundNotify();
     }
 
     private void init()
