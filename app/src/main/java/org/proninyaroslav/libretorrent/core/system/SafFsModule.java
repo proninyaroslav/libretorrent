@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -152,5 +152,11 @@ class SafFsModule implements FsModule
     {
         return new SafFileSystem.FakePath(uri, (relativePath == null ? "" : relativePath))
                 .toString();
+    }
+
+    @Override
+    public Uri getParentDirUri(@NonNull Uri filePath)
+    {
+        return SafFileSystem.getInstance(appContext).getParentDirUri(filePath);
     }
 }

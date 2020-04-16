@@ -435,4 +435,12 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
         return fsModule.getFilePath(filePath);
     }
+
+    @Override
+    public Uri getParentDirUri(@NonNull Uri filePath)
+    {
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
+
+        return fsModule.getParentDirUri(filePath);
+    }
 }

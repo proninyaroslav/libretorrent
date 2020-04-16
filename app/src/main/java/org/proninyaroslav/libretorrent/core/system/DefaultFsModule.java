@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -125,5 +125,13 @@ class DefaultFsModule implements FsModule
     public String makeFileSystemPath(@NonNull Uri uri, String relativePath)
     {
         return uri.getPath();
+    }
+
+    @Override
+    public Uri getParentDirUri(@NonNull Uri filePath)
+    {
+        File parent = new File(filePath.getPath()).getParentFile();
+
+        return (parent.exists() ? Uri.fromFile(parent) : null);
     }
 }
