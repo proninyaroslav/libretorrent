@@ -33,6 +33,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
+import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -327,10 +328,21 @@ public class CreateTorrentViewModel extends AndroidViewModel
 
     public Completable downloadTorrent()
     {
-        Uri savePath = mutableParams.getSavePath();
-        if (savePath == null)
+        /* Use seed path parent; otherwise use save torrent file path */
+        Uri savePath;
+        Uri seedPath = mutableParams.getSeedPath().get();
+        if (seedPath != null) {
+            savePath = fs.getParentDirUri(seedPath);
+            if (savePath == null)
+                savePath = mutableParams.getSavePath();
+        } else {
+            savePath = mutableParams.getSavePath();
+        }
+        Uri torrentFilePath = mutableParams.getSavePath();
+        if (savePath == null || torrentFilePath == null)
             return Completable.complete();
 
+        Uri path = savePath;
         return Completable.create((emitter) -> {
             if (emitter.isDisposed())
                 return;
@@ -339,7 +351,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
                     .subscribeOn(Schedulers.io())
                     .subscribe((isRunning) -> {
                         if (isRunning) {
-                            engine.addTorrent(savePath);
+                            engine.addTorrent(torrentFilePath, path);
                             if (!emitter.isDisposed())
                                 emitter.onComplete();
                         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -81,4 +81,6 @@ interface FsModule
      */
 
     String makeFileSystemPath(@NonNull Uri uri, String relativePath);
+
+    Uri getParentDirUri(@NonNull Uri filePath);
 }

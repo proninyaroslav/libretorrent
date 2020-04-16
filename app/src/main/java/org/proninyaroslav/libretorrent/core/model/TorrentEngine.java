@@ -396,6 +396,11 @@ public class TorrentEngine
 
     public void addTorrent(@NonNull Uri file)
     {
+        addTorrent(file, null);
+    }
+
+    public void addTorrent(@NonNull Uri file, @Nullable Uri savePath)
+    {
         disposables.add(Completable.fromRunnable(() -> {
             if (!isRunning())
                 return;
@@ -410,14 +415,14 @@ public class TorrentEngine
                 } catch (Exception e) {
                     throw new DecodeException(e);
                 }
-                addTorrentSync(file, info);
+                addTorrentSync(file, info, savePath);
 
             } catch (Exception e) {
                 handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
             }
 
         }).subscribeOn(Schedulers.io())
-          .subscribe());
+                .subscribe());
     }
 
     /*
@@ -1197,12 +1202,12 @@ public class TorrentEngine
         }
     }
 
-    private Torrent addTorrentSync(Uri file, TorrentMetaInfo info)
+    private Torrent addTorrentSync(Uri file, TorrentMetaInfo info, Uri savePath)
             throws IOException, FreeSpaceException, TorrentAlreadyExistsException, DecodeException
     {
         Priority[] priorities = new Priority[info.fileCount];
         Arrays.fill(priorities, Priority.DEFAULT);
-        Uri downloadPath = Uri.parse(pref.saveTorrentsIn());
+        Uri downloadPath = (savePath == null ? Uri.parse(pref.saveTorrentsIn()) : savePath);
 
         AddTorrentParams params = new AddTorrentParams(file.toString(),
                 false,

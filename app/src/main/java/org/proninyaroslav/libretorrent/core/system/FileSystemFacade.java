@@ -92,4 +92,6 @@ public interface FileSystemFacade
     String getDirPath(@NonNull Uri dir);
 
     String getFilePath(@NonNull Uri filePath);
+
+    Uri getParentDirUri(@NonNull Uri filePath);
 }
