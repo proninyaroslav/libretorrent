@@ -95,15 +95,6 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
     }
 
     @Override
-    public void submitList(@Nullable List<TorrentContentFileItem> list)
-    {
-        if (list != null)
-            Collections.sort(list);
-
-        super.submitList(list);
-    }
-
-    @Override
     public TorrentContentFileItem getItemKey(int position)
     {
         if (position < 0 || position >= getCurrentList().size())
