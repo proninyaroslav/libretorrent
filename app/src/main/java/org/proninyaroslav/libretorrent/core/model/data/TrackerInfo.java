@@ -58,14 +58,8 @@ public class TrackerInfo extends AbstractInfoParcel
         url = entry.url();
         tier = entry.tier();
 
-        List<AnnounceEndpoint> endpoints = null;
-        try {
-            endpoints = entry.endpoints();
-        } catch (IndexOutOfBoundsException e) {
-            /* TODO: remove temp solution after libtorrent4j 1.3.0 */
-        }
-
-        if (endpoints == null || endpoints.size() == 0) {
+        List<AnnounceEndpoint> endpoints = entry.endpoints();
+        if (endpoints.size() == 0) {
             status = Status.NOT_WORKING;
             message = "";
         } else {
