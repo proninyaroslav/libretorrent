@@ -58,11 +58,18 @@ public class TrackerInfo extends AbstractInfoParcel
         url = entry.url();
         tier = entry.tier();
 
-        if (entry.endpoints().size() == 0) {
+        List<AnnounceEndpoint> endpoints = null;
+        try {
+            endpoints = entry.endpoints();
+        } catch (IndexOutOfBoundsException e) {
+            /* TODO: remove temp solution after libtorrent4j 1.3.0 */
+        }
+
+        if (endpoints == null || endpoints.size() == 0) {
             status = Status.NOT_WORKING;
             message = "";
         } else {
-            AnnounceInfohash bestEndpoint = getBestEndpoint(entry.endpoints());
+            AnnounceInfohash bestEndpoint = getBestEndpoint(endpoints);
             message = bestEndpoint.message();
             status = makeStatus(entry, bestEndpoint);
         }
