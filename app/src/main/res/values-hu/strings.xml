@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Csatorna hozzáadása</string>
     <string name="feed_name">Név (nem kötelező)</string>
     <string name="feed_filter_prompt">Írd be a szavakat (\"|\" elválasztással), amelynek egyikének a névben kell lennie, vagy be kell írnia a reguláris kifejezést. A torrentek csak akkor kerülnek hozzáadásra, ha ez a szűrő megegyezik a torrent nevével</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Új torrentek letöltése automatikusan</string>
     <string name="feed_use_regex">Reguláris kifejezés használata</string>
     <string name="backup_feed_channels">Biztonsági másolat mentése</string>

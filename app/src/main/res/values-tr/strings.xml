@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Kanal ekle</string>
     <string name="feed_name">Adı (isteğe bağlı)</string>
     <string name="feed_filter_prompt">Bir tanesi isimde olacak şekilde sözcükleri girin (\"|\" ile ayrılmış), ya da düzenli ifade girin. Torrentler yalnızca bu filtre torrent adıyla eşleşirse eklenecektir</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Yeni torrentleri otomatik olarak indir</string>
     <string name="feed_use_regex">Düzenli ifade kullan</string>
     <string name="backup_feed_channels">Yedeklemeyi kaydet</string>

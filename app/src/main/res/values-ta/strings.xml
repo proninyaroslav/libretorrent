@@ -276,6 +276,7 @@
     <string name="add_feed_channel">சேனலைச் சேர்க்கவும்</string>
     <string name="feed_name">பெயர் (விருப்பம்)</string>
     <string name="feed_filter_prompt">வார்த்தைகளை உள்ளிடுக (\"|\" என பிரிக்கப்பட்டது), அதில் ஒன்று ஒன்று அல்லது வழக்கமான வெளிப்பாடு உள்ளிட வேண்டும். இந்த வடிகட்டல் டொரண்ட் பெயருடன் பொருந்தும் என்றால் மட்டுமே டோரண்ட்ஸ் சேர்க்கப்படும்</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">புதிய டொரண்ட்ஸ் தானாகவே பதிவிறக்கவும்</string>
     <string name="feed_use_regex">வழக்கமான வெளிப்பாட்டை பயன்படுத்தவும்</string>
     <string name="backup_feed_channels">Save backup</string>

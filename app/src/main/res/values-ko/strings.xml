@@ -276,6 +276,7 @@
     <string name="add_feed_channel">채널 추가</string>
     <string name="feed_name">이름 (선택)</string>
     <string name="feed_filter_prompt">(\"|\"로 구분해서) 이름이나 표준 표현으로 단어를 입력하세요. 필터가 찾은 이름의 토렌트만 추가됩니다.</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">새 토렌트 자동 다운로드</string>
     <string name="feed_use_regex">일반적인 표현 사용</string>
     <string name="backup_feed_channels">백업 저장</string>

@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_help_grey600_24dp"
-                    android:inputType="text|textNoSuggestions"
+                    android:inputType="textMultiLine|textNoSuggestions"
                     android:enabled="@{viewModel.mutableParams.autoDownload}"
                     android:hint="@string/filter"
                     android:text="@={viewModel.mutableParams.filter}"
@@ -118,16 +118,24 @@
                 app:el_parallax="0"
                 app:el_expanded="false">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="16dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/feed_filter_prompt_one_per_line"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
                         android:text="@string/feed_filter_prompt"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
@@ -136,9 +144,8 @@
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
                         android:background="?attr/divider" />
-                </RelativeLayout>
+                </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
             <CheckBox

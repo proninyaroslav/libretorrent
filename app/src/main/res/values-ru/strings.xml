@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Добавить канал</string>
     <string name="feed_name">Имя (необязательно)</string>
     <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
+    <string name="feed_filter_prompt_one_per_line">Введите фильтры по одному в строке.</string>
     <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
     <string name="backup_feed_channels">Сохранить резервную копию</string>

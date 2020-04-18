@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Kanal əlavə et</string>
     <string name="feed_name">Ad (ixtiyari)</string>
     <string name="feed_filter_prompt">Bir dənəsi adda olacaq formada sözləri daxil edin (\"|\" ilə ayrılmış), ya da müntəzəm ifadə daxil edin. Torrentlər yalnız bu filtr torrent adı ilə uyğunlaşsa əlavə ediləcək</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Yeni torrentləri avtomatik endir</string>
     <string name="feed_use_regex">Müntəzəm ifadə istifadə et</string>
     <string name="backup_feed_channels">Nüsxələməni saxla</string>

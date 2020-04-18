@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Přidat kanál</string>
     <string name="feed_name">Název (volitelný)</string>
     <string name="feed_filter_prompt">Zadejte slova (oddělené znakem \"|\"), z nichž jeden musí být v názvu nebo zadejte regulární výraz. Torrenty budou přidány, pouze pokud tento filtr odpovídá názvu torrentu</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Stáhnout nové torrenty automaticky</string>
     <string name="feed_use_regex">Použít regulární výraz</string>
     <string name="backup_feed_channels">Uložit zálohu</string>

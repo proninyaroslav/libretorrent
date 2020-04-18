@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Adicionar canal</string>
     <string name="feed_name">Nome (opcional)</string>
     <string name="feed_filter_prompt">Digite as palavras (separadas pelo símbolo \"|\"), uma das quais deve estar no nome ou inserir uma expressão regular. Torrents serão adicionados somente se este filtro corresponder ao nome do torrent</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Baixe novos torrents automaticamente</string>
     <string name="feed_use_regex">Use expressão regular</string>
     <string name="backup_feed_channels">Save backup</string>
