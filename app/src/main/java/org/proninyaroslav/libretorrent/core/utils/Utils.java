@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -113,6 +113,7 @@ public class Utils
     public static final String HASH_PATTERN = "\\b[0-9a-fA-F]{5,40}\\b";
     public static final String MIME_TORRENT = "application/x-bittorrent";
     public static final String MIME_TEXT_PLAIN = "text/plain";
+    public static final String NEWLINE_PATTERN = "\\r\\n|\\r|\\n";
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).

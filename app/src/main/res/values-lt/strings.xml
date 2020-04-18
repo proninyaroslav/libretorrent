@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Pridėti kanalą</string>
     <string name="feed_name">Pavadinimas (neprivaloma)</string>
     <string name="feed_filter_prompt">Įveskite žodžius (atskirti \"|\"), iš kurių vienas turi būti pavadinimas arba įvesti įprastinę išraišką. Torentai bus įtraukti tik tuo atveju, jei šis filtras atitinka torrento pavadinimą</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Atsisiųskite naujus torrentus automatiškai</string>
     <string name="feed_use_regex">Naudokite įprastinę išraišką</string>
     <string name="backup_feed_channels">Save backup</string>

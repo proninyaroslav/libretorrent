@@ -276,6 +276,7 @@
     <string name="add_feed_channel">添加频道</string>
     <string name="feed_name">频道名 （可选）</string>
     <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用\"|\"隔开，其中之一必须包含在种子名称中）。只有当这个过滤器与种子名称相匹配时，才会添加种子下载</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">自动下载新的种子</string>
     <string name="feed_use_regex">使用正则表达式</string>
     <string name="backup_feed_channels">保存备份</string>

@@ -276,6 +276,7 @@
     <string name="add_feed_channel">चैनल जोड़ें</string>
     <string name="feed_name">नाम: (वैकल्पिक)</string>
     <string name="feed_filter_prompt">शब्दों को दर्ज करें (\"|\" से अलग), जिनमें से एक नाम होना चाहिए या नियमित अभिव्यक्ति दर्ज करें। टॉरेंट तभी जोड़े जाएंगे जब यह फ़िल्टर टोरेंट नाम से मेल खाएगा</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">स्वचालित रूप से नए टॉरेंट डाउनलोड करें</string>
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
     <string name="backup_feed_channels">Save backup</string>

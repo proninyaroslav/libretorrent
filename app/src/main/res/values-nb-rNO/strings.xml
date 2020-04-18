@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Legg til kanal</string>
     <string name="feed_name">Navn (valgfritt)</string>
     <string name="feed_filter_prompt">Skriv inn ordene (skilt med \"|\" symbol), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Last ned nye torrenter automatisk</string>
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
     <string name="backup_feed_channels">Save backup</string>

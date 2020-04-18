@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Додај канал</string>
     <string name="feed_name">Име (опционо)</string>
     <string name="feed_filter_prompt">Унеси речи (раздвојене са\"|\"), једна од којих мора бити у имену или регуларан израз. Торент ће бити додат само ако се овај филтер поклапа са именом торента</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Аутоматски преузимај нове торенте</string>
     <string name="feed_use_regex">Користи регуларне изразе</string>
     <string name="backup_feed_channels">Сачувај резервну копију</string>

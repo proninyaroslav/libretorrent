@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Add channel</string>
     <string name="feed_name">പേര് (ഓപ്ഷണൽ)</string>
     <string name="feed_filter_prompt">വാക്കുകളിൽ (\"|\" വേർതിരിച്ചിരിക്കുന്നു) നൽകുക, അതിലൊന്നിൽ പേരിനായിരിക്കണം അല്ലെങ്കിൽ റെഗുലർ എക്സ്പ്രഷൻ നൽകുക. ഈ ഫിൽറ്റർ ടോറന്റ് പേരുമായി പൊരുത്തപ്പെടുന്നെങ്കിൽ മാത്രമേ സ്പർശന ചേർക്കും</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">പുതിയ ടോറന്റുകളെ സ്വപ്രേരിതമായി ഡൗൺലോഡ് ചെയ്യുക</string>
     <string name="feed_use_regex">റെഗുലർ എക്സ്പ്രഷൻ ഉപയോഗിക്കുക</string>
     <string name="backup_feed_channels">Save backup</string>

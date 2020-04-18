@@ -44,6 +44,7 @@ public class FeedChannel implements Parcelable
     public String name;
     public long lastUpdate;
     public boolean autoDownload = false;
+    /* One filter per line */
     public String filter;
     public boolean isRegexFilter = false;
     public String fetchError;

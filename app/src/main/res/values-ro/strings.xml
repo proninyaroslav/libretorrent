@@ -276,6 +276,7 @@
     <string name="add_feed_channel">Adăugați un canal</string>
     <string name="feed_name">Nume (opțional)</string>
     <string name="feed_filter_prompt">Introduceți cuvintele (separate prin simbolul \"|\"), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Descarca torentele noi în mod automat</string>
     <string name="feed_use_regex">Utilizați expresii regulate</string>
     <string name="backup_feed_channels">Salvează rezervele</string>
