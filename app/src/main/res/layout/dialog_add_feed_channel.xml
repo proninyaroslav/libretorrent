@@ -95,18 +95,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:enabled="@{viewModel.mutableParams.autoDownload}"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_help_grey600_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_help_grey600_24dp"
                     android:inputType="textMultiLine|textNoSuggestions"
-                    android:enabled="@{viewModel.mutableParams.autoDownload}"
                     android:hint="@string/filter"
-                    android:text="@={viewModel.mutableParams.filter}"
-                    android:drawableEnd="@drawable/ic_help_grey600_24dp" />
+                    android:text="@={viewModel.mutableParams.filter}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <net.cachapa.expandablelayout.ExpandableLayout
