@@ -276,7 +276,7 @@
     <string name="add_feed_channel">Προσθήκη καναλιού</string>
     <string name="feed_name">Ονομα (προαιρετικό)</string>
     <string name="feed_filter_prompt">Καταχωρίστε τις λέξεις (διαχωρισμένες με \"|\"), μία από τις οποίες πρέπει να είναι στο όνομα ή να εισάγετε κανονική έκφραση. Τα torrents θα προστεθούν μόνο αν αυτό το φίλτρο ταιριάζει με το όνομα torrent</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Εισάγετε τα φίλτρα ένα ανά γραμμή.</string>
     <string name="feed_auto_download">Κατεβάστε τα νέα torrents αυτόματα</string>
     <string name="feed_use_regex">Χρησιμοποιήστε κανονική έκφραση</string>
     <string name="backup_feed_channels">Αποθήκευση αντιγράφου ασφαλείας</string>

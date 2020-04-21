@@ -58,7 +58,10 @@ Translations
 You can help translate the app here: [https://crowdin.com/project/libretorrent](https://crowdin.com/project/libretorrent)
 
  - **Azerbaijani** *(thanks Khan27)*
+ - **Basque** *(thanks dabid)*
  - **Brazilian Portuguese** *(thanks Wolfterro)*
+ - **Catalan** *(thanks amontero)*
+ - **Chinese Traditional** *(thanks lzmxya)*
  - **Chinese** *(thanks yanglw, Xu Eric and Tan Yongle)*
  - **Czech** *(thanks HarryPhoon, novas78)*
  - **English**
@@ -67,7 +70,7 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Greek** *(thanks Spyros3000, skyhirules)*
  - **Hindi** *(thanks Lino Joseph)*
  - **Hungarian** *(thanks Ephyx)*
- - **Italian** *(thanks Gabrielelulo2)*
+ - **Italian** *(thanks Gabrielelulo2, GiovaGa)*
  - **Japanese** *(thanks mamarama9904)*
  - **Korean** *(thanks jjjhitel)*
  - **Lithuanian** *(thanks techwebpd)*
@@ -78,8 +81,10 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Russian**
  - **Serbian (Cyrillic)** *(thanks veles330)*
  - **Spanish** *(thanks ed10vi, MS-PC)*
+ - **Swedish** *(thanks JAMALDIN01)*
  - **Tamil** *(thanks Lino Joseph)*
  - **Turkish** *(thanks oersen)*
+ - **Ukrainian** *(thanks SensDeViata)*
 
 Contributors
 ---

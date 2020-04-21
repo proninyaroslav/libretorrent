@@ -1,0 +1,22 @@
+# Ezaugarriak
+
+* DHT, PeX, zifratua, LSD, UPnP, NAT*PMP, µTP
+* IP iragaztea (eMule dat eta PeerGuardian)
+* Konfiguragarria (sare-konfigurazioa, energia-administrazioa, bateriaren kontrola, erabiltzaile-interfazearen doikuntzak, etab.)
+* Fitxategi kopurua eta fitxategi tamaina handiak dituzten torrent-ak onartzen ditu
+* HTTP\S eta magnet loturen euskarria
+* Aztarnari eta pareetarako euskarri-proxya
+* Deskargatzean fitxategiak mugitzeko gaitasuna
+* Fitxategiak beste direktorio batera edo kanpoko unitate batera automatikoki mugitzeko gaitasuna, deskargaren amaieran
+* Artxiboaren eta karpetaren lehentasunak zehazteko gaitasuna
+* Zer fitxategi deskargatu hautatzeko gaitasuna
+* Modu sekuentzialean deskargatzeko gaitasuna
+* Material Design
+* Gai ilun eta beltza
+* Erabiltzaile-interfazea tablet-etan erabiltzeko optimizatua
+* Programazioa
+* RSS administratzailea
+* Android TV euskarria
+* Torrent-ak sortzeko gaitasuna
+* Hautatutako edozein fitxategi transmititzea
+* Eta gehiago
