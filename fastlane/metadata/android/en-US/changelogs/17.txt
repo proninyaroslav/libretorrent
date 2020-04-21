@@ -1,0 +1,17 @@
+* Added:
+    - Multiple filters support in the add feed dialog
+    - Displaying folders first in the file manager
+* Using the parent folder as the download folder for the created torrent
+* Improved dialog for opening downloaded files
+* Bugfixing:
+    - Crash on Android 4.x
+    - Adding trackers
+    - Cache settings, that affect download speed (may need to reinstall)
+    - Some ANR's
+* New translations (partially translated):
+    - Basque
+    - Catalan
+    - Chinese Traditional
+    - Swedish
+    - Ukrainian
+* Updated current translations

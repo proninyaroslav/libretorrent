@@ -6,12 +6,12 @@ android {
         applicationId "org.proninyaroslav.libretorrent"
         minSdkVersion 15 /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
         targetSdkVersion 28
-        versionCode 16
+        versionCode 17
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName "2.0"
+        versionName "2.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -115,8 +115,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
-    implementation "com.google.android.material:material:1.2.0-alpha05"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01"
+    implementation "com.google.android.material:material:1.2.0-alpha06"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
