@@ -218,7 +218,7 @@
     <string name="torrent_uploaded">已上传</string>
     <string name="torrent_share_ratio">分享率</string>
     <string name="torrent_active_time">活跃时间</string>
-    <string name="torrent_seeding_time">播种时间</string>
+    <string name="torrent_seeding_time">做种时间</string>
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d （%3$s）</string>
@@ -262,7 +262,7 @@
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">没有Tracker</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">编辑种子名称</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>
@@ -276,7 +276,7 @@
     <string name="add_feed_channel">添加频道</string>
     <string name="feed_name">频道名 （可选）</string>
     <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用\"|\"隔开，其中之一必须包含在种子名称中）。只有当这个过滤器与种子名称相匹配时，才会添加种子下载</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">每行输入一个过滤器。</string>
     <string name="feed_auto_download">自动下载新的种子</string>
     <string name="feed_use_regex">使用正则表达式</string>
     <string name="backup_feed_channels">保存备份</string>
@@ -316,7 +316,7 @@
     <string name="optional_hint">（可选）</string>
     <string name="piece_size">区块大小</string>
     <string name="create_torrent_options">选项</string>
-    <string name="option_start_seeding">开始播种</string>
+    <string name="option_start_seeding">开始做种</string>
     <string name="option_private_torrent">私有种子</string>
     <string name="option_optimize_alignment">优化队列</string>
     <string-array name="piece_size_entries">
@@ -466,8 +466,8 @@
     <string name="pref_show_nat_errors">显示NAT错误</string>
     <string name="pref_anonymous_mode_title">启用匿名模式</string>
     <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用Tracker。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与Tracker代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">启用种子传出连接</string>
+    <string name="pref_seeding_outgoing_connections_summary">决定做种的种子是否应该尝试建立传出连接。在外连成本高昂的特定情形下，可禁用该功能。</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
@@ -537,6 +537,4 @@
     LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) 库。<br><br>
     LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3)</a>条款发布的免费软件]]></string>
     <string name="about_changelog">更新日志</string>
-
-
 </resources>
