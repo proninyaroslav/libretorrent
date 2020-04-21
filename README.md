@@ -51,6 +51,7 @@ If you like LibreTorrent you can support author with these methods. If you have 
 in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
  - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
  - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
+ - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
 
 Translations
 ---
