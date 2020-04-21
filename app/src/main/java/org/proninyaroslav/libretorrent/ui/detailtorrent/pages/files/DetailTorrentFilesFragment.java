@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -339,7 +341,10 @@ public class DetailTorrentFilesFragment extends Fragment
         } else {
             disposables.add(viewModel.getFilePath(item.name)
                     .subscribeOn(Schedulers.io())
-                    .subscribe((path) -> openFile(item.name, path)));
+                    .subscribe(
+                            (path) -> openFile(item.name, path),
+                            this::handleOpenFileError
+                    ));
         }
     }
 
@@ -532,5 +537,14 @@ public class DetailTorrentFilesFragment extends Fragment
             return;
 
         startActivity(viewModel.makeOpenFileIntent(fileName, path));
+    }
+
+    private void handleOpenFileError(Throwable err)
+    {
+        Log.e(TAG, "Unable to open file: " + Log.getStackTraceString(err));
+        Toast.makeText(activity,
+                R.string.unable_to_open_file,
+                Toast.LENGTH_SHORT)
+                .show();
     }
 }

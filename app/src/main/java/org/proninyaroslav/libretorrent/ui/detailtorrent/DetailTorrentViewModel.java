@@ -56,6 +56,7 @@ import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -260,18 +261,18 @@ public class DetailTorrentViewModel extends AndroidViewModel
         Context context = getApplication();
         TorrentContentFileTree node = curDir.getChild(name);
         if (node == null)
-            return null;
+            return Single.error(new NullPointerException("node is null"));
 
         String relativePath = node.getPath();
 
         Torrent torrent = info.getTorrent();
         if (torrent == null)
-            return null;
+            return Single.error(new NullPointerException("torrent is null"));
 
        return Single.fromCallable(() -> {
            Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
            if (path == null)
-               return null;
+               throw new FileNotFoundException(torrent.downloadPath + relativePath);
 
            if (Utils.isFileSystemPath(path))
                path = FileProvider.getUriForFile(context,
