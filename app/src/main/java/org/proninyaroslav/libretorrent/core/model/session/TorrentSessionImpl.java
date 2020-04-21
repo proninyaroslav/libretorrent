@@ -1132,11 +1132,6 @@ public class TorrentSessionImpl extends SessionManager
     private SettingsPack defaultSettingsPack()
     {
         SettingsPack sp = new SettingsPack();
-
-        int maxQueuedDiskBytes = sp.maxQueuedDiskBytes();
-        sp.maxQueuedDiskBytes(maxQueuedDiskBytes / 2);
-        int sendBufferWatermark = sp.sendBufferWatermark();
-        sp.sendBufferWatermark(sendBufferWatermark / 2);
         settingsToSettingsPack(settings, sp);
 
         return sp;
@@ -1144,7 +1139,6 @@ public class TorrentSessionImpl extends SessionManager
 
     private void settingsToSettingsPack(SessionSettings settings, SettingsPack sp)
     {
-        sp.cacheSize(settings.cacheSize);
         sp.activeDownloads(settings.activeDownloads);
         sp.activeSeeds(settings.activeSeeds);
         sp.activeLimit(settings.activeLimit);
