@@ -208,9 +208,16 @@ public class FileManagerViewModel extends ViewModel
 
     private String appendExtension(String fileName)
     {
-        String extension = null;
-        if (TextUtils.isEmpty(fs.getExtension(fileName)))
-            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        String extension = fs.getExtension(fileName);
+
+        if (TextUtils.isEmpty(extension)) {
+            extension = mimeTypeMap.getExtensionFromMimeType(config.mimeType);
+        } else {
+            String mimeType = mimeTypeMap.getMimeTypeFromExtension(extension);
+            if (mimeType == null || !mimeType.equals(config.mimeType))
+                extension = mimeTypeMap.getExtensionFromMimeType(config.mimeType);
+        }
 
         if (extension != null && !fileName.endsWith(extension))
             fileName += fs.getExtensionSeparator() + extension;
