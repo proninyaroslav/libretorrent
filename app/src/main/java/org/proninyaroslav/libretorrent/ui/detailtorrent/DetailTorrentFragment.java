@@ -523,9 +523,7 @@ public class DetailTorrentFragment extends Fragment
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
-        TorrentInfo info = viewModel.info.getTorrentInfo();
-        if (info != null)
-            config.fileName = info.name;
+        config.fileName = viewModel.mutableParams.getName();
         config.mimeType = Utils.MIME_TORRENT;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
