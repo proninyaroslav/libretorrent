@@ -43,6 +43,7 @@
     </style>
 
     <style name="AppTheme.Launcher" parent="BaseTheme.Launcher">
-        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
     </style>
 </resources>
