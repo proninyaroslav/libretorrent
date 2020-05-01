@@ -341,6 +341,7 @@ public class DetailTorrentFilesFragment extends Fragment
         } else {
             disposables.add(viewModel.getFilePath(item.name)
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             (path) -> openFile(item.name, path),
                             this::handleOpenFileError
