@@ -188,8 +188,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         int type = pref.encryptMode();
         if (encryptMode != null) {
             encryptMode.setValueIndex(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
-            encryptMode.setSummary(typesName[type]);
             enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
             bindOnPreferenceChangeListener(encryptMode);
 
@@ -324,8 +322,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
             int type = Integer.parseInt((String) newValue);
             pref.encryptMode(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
-            preference.setSummary(typesName[type]);
 
             boolean enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
 

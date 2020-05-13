@@ -83,8 +83,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         if (theme != null) {
             int type = pref.theme();
             theme.setValueIndex(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
-            theme.setSummary(typesName[type]);
             bindOnPreferenceChangeListener(theme);
         }
 
@@ -203,8 +201,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
             int type = Integer.parseInt((String)newValue);
             pref.theme(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
-            preference.setSummary(typesName[type]);
 
             Snackbar.make(coordinatorLayout,
                     R.string.theme_settings_apply_after_reboot,

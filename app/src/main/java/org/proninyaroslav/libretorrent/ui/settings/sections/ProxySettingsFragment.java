@@ -98,8 +98,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         if (proxyType != null) {
             int type = pref.proxyType();
             proxyType.setValueIndex(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_proxy_type_entries);
-            proxyType.setSummary(typesName[type]);
             enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value));
             bindOnPreferenceChangeListener(proxyType);
 
@@ -219,8 +217,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         if (preference.getKey().equals(getString(R.string.pref_key_proxy_type))) {
             int type = Integer.parseInt((String)newValue);
             pref.proxyType(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_proxy_type_entries);
-            preference.setSummary(typesName[type]);
 
             boolean enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value));
             enableOrDisablePreferences(enableAdvancedSettings);

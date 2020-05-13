@@ -81,6 +81,7 @@
         <ListPreference
             android:key="@string/pref_key_enc_mode"
             android:title="@string/pref_enc_mode_title"
+            android:summary="%s"
             android:entries="@array/pref_enc_mode_entries"
             android:entryValues="@array/pref_enc_mode_entries_value"
             android:persistent="false" />

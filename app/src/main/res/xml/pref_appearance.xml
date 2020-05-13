@@ -7,6 +7,7 @@
         <ListPreference
             android:key="@string/pref_key_theme"
             android:title="@string/pref_theme_title"
+            android:summary="%s"
             android:entries="@array/pref_theme_entries"
             android:entryValues="@array/pref_theme_entries_value"
             android:persistent="false" />

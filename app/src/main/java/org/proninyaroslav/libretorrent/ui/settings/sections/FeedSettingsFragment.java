@@ -68,10 +68,8 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
         if (refreshInterval != null) {
             String interval = Long.toString(pref.refreshFeedsInterval());
             int intervalIndex = refreshInterval.findIndexOfValue(interval);
-            if (intervalIndex >= 0) {
+            if (intervalIndex >= 0)
                 refreshInterval.setValueIndex(intervalIndex);
-                refreshInterval.setSummary(refreshInterval.getEntries()[intervalIndex]);
-            }
             bindOnPreferenceChangeListener(refreshInterval);
         }
 
@@ -94,10 +92,8 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
         if (keepTime != null) {
             String time = Long.toString(pref.feedItemKeepTime());
             int timeIndex = keepTime.findIndexOfValue(time);
-            if (timeIndex >= 0) {
+            if (timeIndex >= 0)
                 keepTime.setValueIndex(timeIndex);
-                keepTime.setSummary(keepTime.getEntries()[timeIndex]);
-            }
             bindOnPreferenceChangeListener(keepTime);
         }
 
@@ -143,21 +139,13 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
             }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_refresh_interval))) {
-            ListPreference refreshPreference = (ListPreference)preference;
             long interval = Long.parseLong((String)newValue);
             pref.refreshFeedsInterval(interval);
-            int index = refreshPreference.findIndexOfValue((String)newValue);
-            if (index >= 0)
-                refreshPreference.setSummary(refreshPreference.getEntries()[index]);
             Scheduler.runPeriodicalRefreshFeeds(context, interval);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_keep_items_time))) {
-            ListPreference keepTimePreference = (ListPreference)preference;
             long keepTime = Long.parseLong((String)newValue);
             pref.feedItemKeepTime(keepTime);
-            int index = keepTimePreference.findIndexOfValue((String)newValue);
-            if (index >= 0)
-                keepTimePreference.setSummary(keepTimePreference.getEntries()[index]);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only))) {
             pref.autoRefreshFeedsUnmeteredConnectionsOnly((boolean)newValue);
