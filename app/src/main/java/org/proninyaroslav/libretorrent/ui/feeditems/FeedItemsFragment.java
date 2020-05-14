@@ -147,24 +147,10 @@ public class FeedItemsFragment extends Fragment
 
         layoutManager = new LinearLayoutManager(activity);
         binding.feedItemsList.setLayoutManager(layoutManager);
-        /*
-         * A RecyclerView by default creates another copy of the ViewHolder in order to
-         * fade the views into each other. This causes the problem because the old ViewHolder gets
-         * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
-         */
-        DefaultItemAnimator animator = new DefaultItemAnimator()
-        {
-            @Override
-            public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder)
-            {
-                return true;
-            }
-        };
         TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.divider });
-        binding.feedItemsList.setItemAnimator(animator);
         binding.feedItemsList.addItemDecoration(new RecyclerViewDividerDecoration(a.getDrawable(0)));
-        binding.feedItemsList.setEmptyView(activity.findViewById(R.id.empty_view_feed_items));
         a.recycle();
+        binding.feedItemsList.setEmptyView(binding.emptyViewFeedItems);
 
         adapter = new FeedItemsAdapter(this);
         binding.feedItemsList.setAdapter(adapter);
