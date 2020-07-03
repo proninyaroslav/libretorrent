@@ -63,17 +63,11 @@ class AddLinkDialog : DialogFragment() {
     override fun onResume() {
         super.onResume()
 
-        /* Back button handle */dialog!!.setOnKeyListener { dialog: DialogInterface?, keyCode: Int, event: KeyEvent ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.action != KeyEvent.ACTION_DOWN) {
-                    return@setOnKeyListener true
-                } else {
-                    onBackPressed()
-                    return@setOnKeyListener true
-                }
-            } else {
-                return@setOnKeyListener false
+        dialog?.setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                onBackPressed()
             }
+            keyCode == KeyEvent.KEYCODE_BACK
         }
     }
 
