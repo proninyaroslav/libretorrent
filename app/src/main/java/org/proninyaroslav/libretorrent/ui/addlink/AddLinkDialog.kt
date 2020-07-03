@@ -22,7 +22,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.ClipboardManager
 import android.content.ClipboardManager.OnPrimaryClipChangedListener
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -48,12 +47,28 @@ import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity
 
 class AddLinkDialog : DialogFragment() {
     private var alert: AlertDialog? = null
-    private var binding: DialogAddLinkBinding? = null
+    private lateinit var binding: DialogAddLinkBinding
     private var clipboardDialog: ClipboardDialog? = null
     private var clipboardViewModel: ClipboardDialog.SharedViewModel? = null
     private val disposables = CompositeDisposable()
 
     private val clipListener = OnPrimaryClipChangedListener { switchClipboardButton() }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val provider = ViewModelProvider(requireActivity())
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel::class.java)
+        val fm = childFragmentManager
+        clipboardDialog =
+            fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) as ClipboardDialog?
+        val i = LayoutInflater.from(requireContext())
+        binding = DataBindingUtil
+            .inflate<DialogAddLinkBinding>(i, R.layout.dialog_add_link, null, false)
+            .apply {
+                viewModel = provider.get(AddLinkViewModel::class.java)
+            }
+        initLayoutView()
+        return alert!!
+    }
 
     override fun onResume() {
         super.onResume()
@@ -88,7 +103,7 @@ class AddLinkDialog : DialogFragment() {
 
     private fun handleUrlClipItem(item: String) {
         if (TextUtils.isEmpty(item)) return
-        binding?.viewModel?.link?.set(item)
+        binding.viewModel?.link?.set(item)
     }
 
     private fun subscribeClipboardManager() {
@@ -105,66 +120,41 @@ class AddLinkDialog : DialogFragment() {
 
     private fun switchClipboardButton() {
         val clip = Utils.getClipData(requireContext().applicationContext)
-        binding?.viewModel?.showClipboardButton?.set(clip != null)
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val provider = ViewModelProvider(requireActivity())
-        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel::class.java)
-        val fm = childFragmentManager
-        clipboardDialog =
-            fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) as ClipboardDialog?
-        val i = LayoutInflater.from(requireContext())
-        binding = DataBindingUtil
-            .inflate<DialogAddLinkBinding>(i, R.layout.dialog_add_link, null, false)
-            .apply {
-                viewModel = provider.get(AddLinkViewModel::class.java)
-            }
-        initLayoutView()
-        return alert!!
+        binding.viewModel?.showClipboardButton?.set(clip != null)
     }
 
     private fun initLayoutView() {
         /* Dismiss error label if user has changed the text */
-        binding?.link?.addTextChangedListener(object : TextWatcher {
+        binding.link.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
 
             override fun afterTextChanged(s: Editable) {
-                binding!!.layoutLink.isErrorEnabled = false
-                binding!!.layoutLink.error = null
+                binding.layoutLink.isErrorEnabled = false
+                binding.layoutLink.error = null
             }
         })
-        binding!!.clipboardButton.setOnClickListener { v: View? -> showClipboardDialog() }
+        binding.clipboardButton.setOnClickListener { showClipboardDialog() }
         switchClipboardButton()
-        binding?.viewModel!!.initLinkFromClipboard()
-        initAlertDialog(binding!!.root)
+        binding.viewModel?.initLinkFromClipboard()
+        alert = initAlertDialog(binding.root)
     }
 
-    private fun initAlertDialog(view: View) {
-        val builder =
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.dialog_add_link_title)
-                .setPositiveButton(R.string.add, null)
-                .setNegativeButton(R.string.cancel, null)
-                .setView(view)
-        alert = builder.create()
-        alert!!.setCanceledOnTouchOutside(false)
-        alert!!.setOnShowListener { dialog: DialogInterface? ->
-            val addButton =
-                alert!!.getButton(AlertDialog.BUTTON_POSITIVE)
-            addButton.setOnClickListener { v: View? -> addLink() }
-            val cancelButton =
-                alert!!.getButton(AlertDialog.BUTTON_NEGATIVE)
-            cancelButton.setOnClickListener { v: View? ->
-                finish(
-                    Intent(),
-                    ResultCode.CANCEL
-                )
-            }
+    private fun initAlertDialog(view: View): AlertDialog {
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.dialog_add_link_title)
+            .setPositiveButton(R.string.add, null)
+            .setNegativeButton(R.string.cancel) { _, _ -> finish(Intent(), ResultCode.CANCEL) }
+            .setCancelable(false)
+            .setView(view)
+            .create()
+
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { addLink() }
         }
+        return alertDialog
     }
 
     private fun showClipboardDialog() {
@@ -177,15 +167,16 @@ class AddLinkDialog : DialogFragment() {
     }
 
     private fun addLink() {
-        var s = binding?.viewModel!!.link.get()
-        if (TextUtils.isEmpty(s)) return
-        if (!checkUrlField()) return
+        var s = binding.viewModel?.link?.get()
+        if (s.isNullOrEmpty() || !checkUrlField()) {
+            return
+        }
         try {
-            if (s != null) s = binding?.viewModel!!.normalizeUrl(s)
+            s = binding.viewModel!!.normalizeUrl(s)
         } catch (e: NormalizeUrlException) {
-            binding!!.layoutLink.isErrorEnabled = true
-            binding!!.layoutLink.error = getString(R.string.invalid_url, e.message)
-            binding!!.layoutLink.requestFocus()
+            binding.layoutLink.isErrorEnabled = true
+            binding.layoutLink.error = getString(R.string.invalid_url, e.message)
+            binding.layoutLink.requestFocus()
             return
         }
         val i = Intent(requireContext(), AddTorrentActivity::class.java)
@@ -195,14 +186,14 @@ class AddLinkDialog : DialogFragment() {
     }
 
     private fun checkUrlField(): Boolean {
-        if (TextUtils.isEmpty(binding!!.link.text)) {
-            binding!!.layoutLink.isErrorEnabled = true
-            binding!!.layoutLink.error = getString(R.string.error_empty_link)
-            binding!!.layoutLink.requestFocus()
+        if (TextUtils.isEmpty(binding.link.text)) {
+            binding.layoutLink.isErrorEnabled = true
+            binding.layoutLink.error = getString(R.string.error_empty_link)
+            binding.layoutLink.requestFocus()
             return false
         }
-        binding!!.layoutLink.isErrorEnabled = false
-        binding!!.layoutLink.error = null
+        binding.layoutLink.isErrorEnabled = false
+        binding.layoutLink.error = null
         return true
     }
 
