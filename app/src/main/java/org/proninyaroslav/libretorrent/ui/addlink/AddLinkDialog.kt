@@ -46,7 +46,6 @@ import org.proninyaroslav.libretorrent.ui.FragmentCallback.ResultCode
 import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity
 
 class AddLinkDialog : DialogFragment() {
-    private var alert: AlertDialog? = null
     private lateinit var binding: DialogAddLinkBinding
     private var clipboardDialog: ClipboardDialog? = null
     private var clipboardViewModel: ClipboardDialog.SharedViewModel? = null
@@ -66,8 +65,7 @@ class AddLinkDialog : DialogFragment() {
             .apply {
                 viewModel = provider.get(AddLinkViewModel::class.java)
             }
-        initLayoutView()
-        return alert!!
+        return initLayoutView()
     }
 
     override fun onResume() {
@@ -123,7 +121,7 @@ class AddLinkDialog : DialogFragment() {
         binding.viewModel?.showClipboardButton?.set(clip != null)
     }
 
-    private fun initLayoutView() {
+    private fun initLayoutView(): Dialog {
         /* Dismiss error label if user has changed the text */
         binding.link.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
@@ -139,14 +137,14 @@ class AddLinkDialog : DialogFragment() {
         binding.clipboardButton.setOnClickListener { showClipboardDialog() }
         switchClipboardButton()
         binding.viewModel?.initLinkFromClipboard()
-        alert = initAlertDialog(binding.root)
+        return initAlertDialog(binding.root)
     }
 
-    private fun initAlertDialog(view: View): AlertDialog {
+    private fun initAlertDialog(view: View): Dialog {
         val alertDialog = AlertDialog.Builder(requireContext())
             .setTitle(R.string.dialog_add_link_title)
             .setPositiveButton(R.string.add, null)
-            .setNegativeButton(R.string.cancel) { _, _ -> finish(Intent(), ResultCode.CANCEL) }
+            .setNegativeButton(R.string.cancel) { _, _ -> finish(ResultCode.CANCEL) }
             .setCancelable(false)
             .setView(view)
             .create()
@@ -167,43 +165,33 @@ class AddLinkDialog : DialogFragment() {
     }
 
     private fun addLink() {
-        var s = binding.viewModel?.link?.get()
-        if (s.isNullOrEmpty() || !checkUrlField()) {
+        val inputString = binding.viewModel?.link?.get()
+        if (inputString.isNullOrEmpty()) {
+            binding.layoutLink.isErrorEnabled = true
+            binding.layoutLink.error = getString(R.string.error_empty_link)
+            binding.layoutLink.requestFocus()
             return
         }
+        binding.layoutLink.isErrorEnabled = false
+        binding.layoutLink.error = null
         try {
-            s = binding.viewModel!!.normalizeUrl(s)
+            val normalizedUrl = binding.viewModel?.normalizeUrl(inputString) ?: return
+            Intent(requireContext(), AddTorrentActivity::class.java)
+                .putExtra(AddTorrentActivity.TAG_URI, Uri.parse(normalizedUrl))
+                .let(::startActivity)
+            finish(ResultCode.OK)
         } catch (e: NormalizeUrlException) {
             binding.layoutLink.isErrorEnabled = true
             binding.layoutLink.error = getString(R.string.invalid_url, e.message)
             binding.layoutLink.requestFocus()
-            return
         }
-        val i = Intent(requireContext(), AddTorrentActivity::class.java)
-        i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(s))
-        startActivity(i)
-        finish(Intent(), ResultCode.OK)
     }
 
-    private fun checkUrlField(): Boolean {
-        if (TextUtils.isEmpty(binding.link.text)) {
-            binding.layoutLink.isErrorEnabled = true
-            binding.layoutLink.error = getString(R.string.error_empty_link)
-            binding.layoutLink.requestFocus()
-            return false
-        }
-        binding.layoutLink.isErrorEnabled = false
-        binding.layoutLink.error = null
-        return true
-    }
+    fun onBackPressed() = finish(ResultCode.BACK)
 
-    fun onBackPressed() {
-        finish(Intent(), ResultCode.BACK)
-    }
-
-    private fun finish(intent: Intent, code: ResultCode) {
-        alert!!.dismiss()
-        (activity as? FragmentCallback)?.onFragmentFinished(this, intent, code)
+    private fun finish(code: ResultCode) {
+        dismiss()
+        (activity as? FragmentCallback)?.onFragmentFinished(this, Intent(), code)
     }
 
     companion object {
