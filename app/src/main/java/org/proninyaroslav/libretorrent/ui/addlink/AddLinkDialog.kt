@@ -52,7 +52,6 @@ class AddLinkDialog : DialogFragment() {
     private var alert: AlertDialog? = null
     private var activity: AppCompatActivity? = null
     private var binding: DialogAddLinkBinding? = null
-    private var viewModel: AddLinkViewModel? = null
     private var clipboardDialog: ClipboardDialog? = null
     private var clipboardViewModel: ClipboardDialog.SharedViewModel? = null
     private val disposables = CompositeDisposable()
@@ -102,7 +101,7 @@ class AddLinkDialog : DialogFragment() {
 
     private fun handleUrlClipItem(item: String) {
         if (TextUtils.isEmpty(item)) return
-        viewModel!!.link.set(item)
+        binding?.viewModel?.link?.set(item)
     }
 
     private fun subscribeClipboardManager() {
@@ -123,21 +122,23 @@ class AddLinkDialog : DialogFragment() {
     private fun switchClipboardButton() {
         val clip =
             Utils.getClipData(activity!!.applicationContext)
-        viewModel!!.showClipboardButton.set(clip != null)
+        binding?.viewModel?.showClipboardButton?.set(clip != null)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         if (activity == null) activity = getActivity() as AppCompatActivity?
         val provider = ViewModelProvider(activity!!)
-        viewModel = provider.get(AddLinkViewModel::class.java)
         clipboardViewModel =
             provider.get(ClipboardDialog.SharedViewModel::class.java)
         val fm = childFragmentManager
         clipboardDialog =
             fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) as ClipboardDialog?
         val i = LayoutInflater.from(activity)
-        binding = DataBindingUtil.inflate(i, R.layout.dialog_add_link, null, false)
-        binding.setViewModel(viewModel)
+        binding = DataBindingUtil
+            .inflate<DialogAddLinkBinding>(i, R.layout.dialog_add_link, null, false)
+            .apply {
+                viewModel = provider.get(AddLinkViewModel::class.java)
+            }
         initLayoutView()
         return alert!!
     }
@@ -168,7 +169,7 @@ class AddLinkDialog : DialogFragment() {
         })
         binding!!.clipboardButton.setOnClickListener { v: View? -> showClipboardDialog() }
         switchClipboardButton()
-        viewModel!!.initLinkFromClipboard()
+        binding?.viewModel!!.initLinkFromClipboard()
         initAlertDialog(binding!!.root)
     }
 
@@ -200,17 +201,17 @@ class AddLinkDialog : DialogFragment() {
         if (!isAdded) return
         val fm = childFragmentManager
         if (fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
-            clipboardDialog = ClipboardDialog.newInstance()
-            clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG)
+            clipboardDialog =
+                ClipboardDialog.newInstance().also { it.show(fm, TAG_CLIPBOARD_DIALOG) }
         }
     }
 
     private fun addLink() {
-        var s = viewModel!!.link.get()
+        var s = binding?.viewModel!!.link.get()
         if (TextUtils.isEmpty(s)) return
         if (!checkUrlField()) return
         try {
-            if (s != null) s = viewModel!!.normalizeUrl(s)
+            if (s != null) s = binding?.viewModel!!.normalizeUrl(s)
         } catch (e: NormalizeUrlException) {
             binding!!.layoutLink.isErrorEnabled = true
             binding!!.layoutLink.error = getString(R.string.invalid_url, e.message)
@@ -247,6 +248,8 @@ class AddLinkDialog : DialogFragment() {
     companion object {
         private val TAG = AddLinkDialog::class.java.simpleName
         private const val TAG_CLIPBOARD_DIALOG = "clipboard_dialog"
+
+        @JvmStatic
         fun newInstance(): AddLinkDialog {
             val frag = AddLinkDialog()
             val args = Bundle()
