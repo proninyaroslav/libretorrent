@@ -22,7 +22,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.ClipboardManager
 import android.content.ClipboardManager.OnPrimaryClipChangedListener
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -34,7 +33,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -50,15 +48,12 @@ import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity
 
 class AddLinkDialog : DialogFragment() {
     private var alert: AlertDialog? = null
-    private var activity: AppCompatActivity? = null
     private var binding: DialogAddLinkBinding? = null
     private var clipboardDialog: ClipboardDialog? = null
     private var clipboardViewModel: ClipboardDialog.SharedViewModel? = null
     private val disposables = CompositeDisposable()
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is AppCompatActivity) activity = context
-    }
+
+    private val clipListener = OnPrimaryClipChangedListener { switchClipboardButton() }
 
     override fun onResume() {
         super.onResume()
@@ -86,9 +81,7 @@ class AddLinkDialog : DialogFragment() {
     private fun subscribeAlertDialog() {
         val d =
             clipboardViewModel!!.observeSelectedItem().subscribe { item: ClipboardDialog.Item ->
-                if (TAG_CLIPBOARD_DIALOG == item.dialogTag) handleUrlClipItem(
-                    item.str
-                )
+                if (TAG_CLIPBOARD_DIALOG == item.dialogTag) handleUrlClipItem(item.str)
             }
         disposables.add(d)
     }
@@ -100,34 +93,28 @@ class AddLinkDialog : DialogFragment() {
 
     private fun subscribeClipboardManager() {
         val clipboard =
-            activity!!.getSystemService(Activity.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.addPrimaryClipChangedListener(clipListener)
+            requireContext().getSystemService(Activity.CLIPBOARD_SERVICE) as? ClipboardManager
+        clipboard?.addPrimaryClipChangedListener(clipListener)
     }
 
     private fun unsubscribeClipboardManager() {
         val clipboard =
-            activity!!.getSystemService(Activity.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.removePrimaryClipChangedListener(clipListener)
+            requireContext().getSystemService(Activity.CLIPBOARD_SERVICE) as? ClipboardManager
+        clipboard?.removePrimaryClipChangedListener(clipListener)
     }
 
-    private val clipListener =
-        OnPrimaryClipChangedListener { switchClipboardButton() }
-
     private fun switchClipboardButton() {
-        val clip =
-            Utils.getClipData(activity!!.applicationContext)
+        val clip = Utils.getClipData(requireContext().applicationContext)
         binding?.viewModel?.showClipboardButton?.set(clip != null)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        if (activity == null) activity = getActivity() as AppCompatActivity?
-        val provider = ViewModelProvider(activity!!)
-        clipboardViewModel =
-            provider.get(ClipboardDialog.SharedViewModel::class.java)
+        val provider = ViewModelProvider(requireActivity())
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel::class.java)
         val fm = childFragmentManager
         clipboardDialog =
             fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) as ClipboardDialog?
-        val i = LayoutInflater.from(activity)
+        val i = LayoutInflater.from(requireContext())
         binding = DataBindingUtil
             .inflate<DialogAddLinkBinding>(i, R.layout.dialog_add_link, null, false)
             .apply {
@@ -139,22 +126,11 @@ class AddLinkDialog : DialogFragment() {
 
     private fun initLayoutView() {
         /* Dismiss error label if user has changed the text */
-        binding!!.link.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
+        binding?.link?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
+                Unit
 
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
 
             override fun afterTextChanged(s: Editable) {
                 binding!!.layoutLink.isErrorEnabled = false
@@ -169,7 +145,7 @@ class AddLinkDialog : DialogFragment() {
 
     private fun initAlertDialog(view: View) {
         val builder =
-            AlertDialog.Builder(activity!!)
+            AlertDialog.Builder(requireContext())
                 .setTitle(R.string.dialog_add_link_title)
                 .setPositiveButton(R.string.add, null)
                 .setNegativeButton(R.string.cancel, null)
@@ -212,7 +188,7 @@ class AddLinkDialog : DialogFragment() {
             binding!!.layoutLink.requestFocus()
             return
         }
-        val i = Intent(activity, AddTorrentActivity::class.java)
+        val i = Intent(requireContext(), AddTorrentActivity::class.java)
         i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(s))
         startActivity(i)
         finish(Intent(), ResultCode.OK)
@@ -236,11 +212,10 @@ class AddLinkDialog : DialogFragment() {
 
     private fun finish(intent: Intent, code: ResultCode) {
         alert!!.dismiss()
-        (activity as FragmentCallback?)!!.onFragmentFinished(this, intent, code)
+        (activity as? FragmentCallback)?.onFragmentFinished(this, intent, code)
     }
 
     companion object {
-        private val TAG = AddLinkDialog::class.java.simpleName
         private const val TAG_CLIPBOARD_DIALOG = "clipboard_dialog"
 
         @JvmStatic
