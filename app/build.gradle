@@ -109,10 +109,10 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
-    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc6"
+    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc7"
 
     /* AndroidX libraries */
-    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.appcompat:appcompat:1.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-core:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
     implementation "androidx.multidex:multidex:2.0.1"
@@ -122,16 +122,16 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "androidx.work:work-runtime:2.3.4"
-    implementation "com.google.android.material:material:1.2.0-alpha06"
+    implementation "com.google.android.material:material:1.2.0"
 
     /* ReactiveX */
-    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.19"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     /* ACRA */
-    def ACRA_VERSION = "5.5.0"
+    def ACRA_VERSION = "5.7.0"
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
@@ -154,5 +154,5 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.takisoft.preferencex:preferencex:1.1.0"
     implementation "com.leinardi.android:speed-dial:3.1.1"
-    implementation "net.java.dev.jna:jna:5.5.0@aar"
+    implementation "net.java.dev.jna:jna:5.6.0@aar"
 }
