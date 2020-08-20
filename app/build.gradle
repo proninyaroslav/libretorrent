@@ -113,6 +113,7 @@ dependencies {
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "androidx.fragment:fragment:1.2.5"
     implementation "androidx.lifecycle:lifecycle-livedata-core:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
     implementation "androidx.multidex:multidex:2.0.1"
