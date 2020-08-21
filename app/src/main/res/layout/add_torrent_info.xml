@@ -87,7 +87,7 @@
                 android:layout_centerVertical="true"
                 android:background="?attr/transparentRoundRipple"
                 android:contentDescription="@string/dir_chooser_title"
-                android:src="@drawable/ic_folder_grey600_24dp"
+                app:srcCompat="@drawable/ic_folder_grey600_24dp"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
