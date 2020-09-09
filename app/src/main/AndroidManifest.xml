@@ -31,7 +31,8 @@
         android:supportsRtl="true"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"> <!-- TODO: remove after change targetSdkVersion to 30 -->
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">
