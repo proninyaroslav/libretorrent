@@ -79,6 +79,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -685,7 +686,11 @@ public class DetailTorrentFragment extends Fragment
             return;
 
         String text = editable.toString();
-        List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+
+        List<String> urls = Observable.fromArray(text.split(Utils.getLineSeparator()))
+                .filter((s) -> !s.isEmpty())
+                .toList()
+                .blockingGet();
 
         if (checkAddTrackersField(urls, fieldLayout, field))
             addTrackersDialog.dismiss();
