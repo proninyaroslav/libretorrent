@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -322,6 +323,9 @@ public class DetailTorrentTrackersFragment extends Fragment
                     shareUrl();
                     mode.finish();
                     break;
+                case R.id.select_all_trackers_menu:
+                    selectAllTrackers();
+                    break;
             }
 
             return true;
@@ -393,5 +397,15 @@ public class DetailTorrentTrackersFragment extends Fragment
 
                     startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
                 }));
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void selectAllTrackers()
+    {
+        int n = adapter.getItemCount();
+        if (n > 0) {
+            selectionTracker.startRange(0);
+            selectionTracker.extendRange(adapter.getItemCount() - 1);
+        }
     }
 }
