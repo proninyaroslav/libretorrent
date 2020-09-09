@@ -82,7 +82,9 @@ public class FileManagerViewModel extends ViewModel
         }
 
         try {
-            startDir = new File(startDir).getCanonicalPath();
+            if (startDir != null) {
+                startDir = new File(startDir).getCanonicalPath();
+            }
             updateCurDir(startDir);
 
         } catch (IOException e) {
