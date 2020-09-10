@@ -309,7 +309,7 @@ public class Utils
 
     public static String getLineSeparator()
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             return System.lineSeparator();
         else
             return System.getProperty("line.separator");

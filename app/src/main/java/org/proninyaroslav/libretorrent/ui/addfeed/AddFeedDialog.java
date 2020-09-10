@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -34,6 +35,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -108,6 +110,9 @@ public class AddFeedDialog extends DialogFragment
     }
 
     private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+
+    private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
+            (__) -> switchClipboardButton();
 
     private void switchClipboardButton()
     {
@@ -201,7 +206,19 @@ public class AddFeedDialog extends DialogFragment
 
         initLayoutView();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+            binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+
         return alert;
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+            binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+
+        super.onDestroyView();
     }
 
     private void initLayoutView()

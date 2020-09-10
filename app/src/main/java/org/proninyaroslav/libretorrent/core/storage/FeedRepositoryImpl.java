@@ -152,7 +152,7 @@ public class FeedRepositoryImpl implements FeedRepository
         List<FeedChannel> feeds;
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         try (FileDescriptorWrapper w = fs.getFD(file);
-             FileInputStream fin = new FileInputStream(w.open("rw"));
+             FileInputStream fin = new FileInputStream(w.open("r"));
              InputStreamReader reader = new InputStreamReader(fin, Charset.forName("UTF-8")))
         {
             feeds = new Gson()

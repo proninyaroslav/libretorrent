@@ -70,7 +70,7 @@
                     android:layout_gravity="bottom|end"
                     android:layout_marginBottom="16dp"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_arrow_down_grey600_24dp"
+                    app:srcCompat="@drawable/ic_arrow_down_grey600_24dp"
                     app:fabSize="mini"
                     android:focusable="true"
                     android:layout_marginEnd="16dp" />

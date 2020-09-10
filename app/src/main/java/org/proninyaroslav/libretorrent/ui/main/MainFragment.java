@@ -579,7 +579,8 @@ public class MainFragment extends Fragment
         if (dialog == null)
             return;
 
-        CheckBox withFiles = dialog.findViewById(R.id.delete_with_downloaded_files);
+        CheckBox withFilesCheckBox = dialog.findViewById(R.id.delete_with_downloaded_files);
+        boolean withFiles = withFilesCheckBox.isChecked();
 
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
@@ -587,7 +588,7 @@ public class MainFragment extends Fragment
         disposables.add(Observable.fromIterable(selections)
                 .map((selection -> selection.torrentId))
                 .toList()
-                .subscribe((ids) -> viewModel.deleteTorrents(ids, withFiles.isChecked())));
+                .subscribe((ids) -> viewModel.deleteTorrents(ids, withFiles)));
 
         if (actionMode != null)
             actionMode.finish();
