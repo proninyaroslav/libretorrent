@@ -318,7 +318,6 @@
     <string name="create_torrent_options">ഓപ്ഷനുകൾ</string>
     <string name="option_start_seeding">വിതയ്ക്കൽ ആരംഭിക്കുക</string>
     <string name="option_private_torrent">സ്വകാര്യ ടോറന്റ്</string>
-    <string name="option_optimize_alignment">വിന്യാസം ഒപ്റ്റിമൈസ് ചെയ്യുക</string>
     <string-array name="piece_size_entries">
         <item>യാന്ത്രികം</item>
         <item>16 KiB</item>

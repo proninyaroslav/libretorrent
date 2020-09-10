@@ -697,6 +697,11 @@ public class DetailTorrentFragment extends Fragment
         else
             return;
 
+        if (checkAddTrackersField(urls, fieldLayout, field))
+            addTrackersDialog.dismiss();
+        else
+            return;
+
         NormalizeUrl.Options options = new NormalizeUrl.Options();
         options.decode = false;
         List<String> normalizedUrls = new ArrayList<>(urls.size());

@@ -113,10 +113,6 @@ public class LibTorrentSafAdapter extends posix_wrapper
         return ret;
     }
 
-    /*
-     * TODO: currently doesn't work, see https://github.com/aldenml/libtorrent4j/issues/45
-     */
-
     @Override
     public int remove(String path)
     {
@@ -140,5 +136,13 @@ public class LibTorrentSafAdapter extends posix_wrapper
         }
 
         return ret;
+    }
+
+    /*
+     * TODO: must be implemented for torrent creation
+     */
+    @Override
+    public long opendir(String name) {
+        return super.opendir(name);
     }
 }

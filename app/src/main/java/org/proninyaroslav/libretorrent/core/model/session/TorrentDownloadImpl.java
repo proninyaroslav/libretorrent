@@ -53,6 +53,7 @@ import org.libtorrent4j.alerts.StateChangedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.announce_entry;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.libtorrent_errors;
 import org.libtorrent4j.swig.peer_info_vector;
@@ -671,7 +672,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isAutoManaged()
     {
-        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).nonZero();
+        return !operationNotAllowed() && th.status().flags().op_and(TorrentFlags.AUTO_MANAGED).op_bool();
     }
 
     @Override
@@ -791,7 +792,7 @@ class TorrentDownloadImpl implements TorrentDownload
             if (operationNotAllowed())
                 return s;
 
-            long[] progress = th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
+            long[] progress = th.fileProgress(torrent_handle.piece_granularity);
             TorrentInfo ti = th.torrentFile();
             if (ti == null)
                 return s;
@@ -996,8 +997,11 @@ class TorrentDownloadImpl implements TorrentDownload
     public void replaceTrackers(@NonNull Set<String> trackers)
     {
         List<AnnounceEntry> urls = new ArrayList<>(trackers.size());
-        for (String url : trackers)
-            urls.add(new AnnounceEntry(url));
+        for (String url : trackers) {
+            announce_entry e = new announce_entry();
+            e.setUrl(url);
+            urls.add(new AnnounceEntry(e));
+        }
 
         if (operationNotAllowed())
             return;
@@ -1014,7 +1018,9 @@ class TorrentDownloadImpl implements TorrentDownload
         for (String url : trackers) {
             if (url == null)
                 continue;
-            th.addTracker(new AnnounceEntry(url));
+            announce_entry e = new announce_entry();
+            e.setUrl(url);
+            th.addTracker(new AnnounceEntry(e));
         }
         saveResumeData(true);
     }
@@ -1208,7 +1214,7 @@ class TorrentDownloadImpl implements TorrentDownload
         if (operationNotAllowed())
             return null;
 
-        return th.fileProgress(TorrentHandle.FileProgressFlags.PIECE_GRANULARITY);
+        return th.fileProgress(torrent_handle.piece_granularity);
     }
 
     @Override
@@ -1360,7 +1366,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private boolean isPaused(TorrentStatus s)
     {
-        return s.flags().and_(TorrentFlags.PAUSED).nonZero();
+        return s.flags().op_and(TorrentFlags.PAUSED).op_bool();
     }
 
     @Override
@@ -1384,7 +1390,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isSequentialDownload()
     {
-        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).nonZero();
+        return !operationNotAllowed() && th.status().flags().op_and(TorrentFlags.SEQUENTIAL_DOWNLOAD).op_bool();
     }
 
     @Override

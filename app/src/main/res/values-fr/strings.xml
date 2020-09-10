@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Options</string>
     <string name="option_start_seeding">Commencez de partage</string>
     <string name="option_private_torrent">Torrent privé</string>
-    <string name="option_optimize_alignment">Optimiser l\'alignement</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

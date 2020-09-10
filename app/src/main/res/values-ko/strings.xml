@@ -318,7 +318,6 @@
     <string name="create_torrent_options">옵션</string>
     <string name="option_start_seeding">배포 시작</string>
     <string name="option_private_torrent">프라이빗 토렌트</string>
-    <string name="option_optimize_alignment">정렬 최적화</string>
     <string-array name="piece_size_entries">
         <item>자동</item>
         <item>16 KiB</item>

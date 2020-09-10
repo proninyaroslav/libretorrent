@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Beállítások</string>
     <string name="option_start_seeding">Seedelés indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
-    <string name="option_optimize_alignment">Igazítás optimalizása</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

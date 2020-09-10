@@ -318,7 +318,6 @@
     <string name="create_torrent_options">विकल्प</string>
     <string name="option_start_seeding">बीजारोपण शुरू करें</string>
     <string name="option_private_torrent">निजी धार</string>
-    <string name="option_optimize_alignment">संरेखण का अनुकूलन करें</string>
     <string-array name="piece_size_entries">
         <item>ऑटो</item>
         <item>16 कीबी</item>

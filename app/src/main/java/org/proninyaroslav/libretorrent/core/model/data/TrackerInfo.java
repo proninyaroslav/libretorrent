@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 
 import org.libtorrent4j.AnnounceEndpoint;
 import org.libtorrent4j.AnnounceEntry;
+import org.libtorrent4j.AnnounceInfohash;
 
 import java.util.List;
 
@@ -57,18 +58,12 @@ public class TrackerInfo extends AbstractInfoParcel
         url = entry.url();
         tier = entry.tier();
 
-        List<AnnounceEndpoint> endpoints = null;
-        try {
-            endpoints = entry.endpoints();
-        } catch (IndexOutOfBoundsException e) {
-            /* TODO: remove temp solution after libtorrent4j 1.3.0 */
-        }
-
-        if (endpoints == null || endpoints.size() == 0) {
+        List<AnnounceEndpoint> endpoints = entry.endpoints();
+        if (endpoints.size() == 0) {
             status = Status.NOT_WORKING;
             message = "";
         } else {
-            AnnounceEndpoint bestEndpoint = getBestEndpoint(endpoints);
+            AnnounceInfohash bestEndpoint = getBestEndpoint(endpoints);
             message = bestEndpoint.message();
             status = makeStatus(entry, bestEndpoint);
         }
@@ -84,30 +79,30 @@ public class TrackerInfo extends AbstractInfoParcel
         this.status = status;
     }
 
-    private int makeStatus(AnnounceEntry entry, AnnounceEndpoint endpoint)
+    private int makeStatus(AnnounceEntry entry, AnnounceInfohash infoHash)
     {
         if (entry == null)
             return Status.UNKNOWN;
 
-        if (entry.isVerified() && endpoint.isWorking())
+        if (entry.isVerified() && infoHash.isWorking())
             return Status.WORKING;
-        else if ((endpoint.fails() == 0) && endpoint.updating())
+        else if ((infoHash.fails() == 0) && infoHash.updating())
             return Status.UPDATING;
-        else if (endpoint.fails() == 0)
+        else if (infoHash.fails() == 0)
             return Status.NOT_CONTACTED;
         else
             return Status.NOT_WORKING;
     }
 
-    private AnnounceEndpoint getBestEndpoint(List<AnnounceEndpoint> endpoints)
+    private AnnounceInfohash getBestEndpoint(List<AnnounceEndpoint> endpoints)
     {
         if (endpoints.size() == 1)
-            return endpoints.get(0);
+            return endpoints.get(0).infohashV1();
 
-        AnnounceEndpoint bestEndpoint = endpoints.get(0);
+        AnnounceInfohash bestEndpoint = endpoints.get(0).infohashV1();
         for (int i = 0; i < endpoints.size(); i++)
-            if (endpoints.get(i).fails() < bestEndpoint.fails())
-                bestEndpoint = endpoints.get(i);
+            if (endpoints.get(i).infohashV1().fails() < bestEndpoint.fails())
+                bestEndpoint = endpoints.get(i).infohashV1();
 
         return bestEndpoint;
     }

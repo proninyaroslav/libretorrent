@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Variantai</string>
     <string name="option_start_seeding">Pradėti skleidimo</string>
     <string name="option_private_torrent">Privatus torentas</string>
-    <string name="option_optimize_alignment">Optimizuokite derinimą</string>
     <string-array name="piece_size_entries">
         <item>Nustatyti automatiškai</item>
         <item>16 KiB</item>

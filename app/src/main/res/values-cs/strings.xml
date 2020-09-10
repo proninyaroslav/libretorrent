@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Možnosti</string>
     <string name="option_start_seeding">Spustit seedování</string>
     <string name="option_private_torrent">Soukromý torrent</string>
-    <string name="option_optimize_alignment">Optimalizovat zarovnání</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

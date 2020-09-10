@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Opcje</string>
     <string name="option_start_seeding">Rozpocznij seedowanie</string>
     <string name="option_private_torrent">Prywatny torrent</string>
-    <string name="option_optimize_alignment">Zoptymalizuj wyrównanie</string>
     <string-array name="piece_size_entries">
         <item>Automatyczny</item>
         <item>16 KiB</item>

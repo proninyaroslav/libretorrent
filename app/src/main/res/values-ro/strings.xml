@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Opțiuni</string>
     <string name="option_start_seeding">Începeți seeding</string>
     <string name="option_private_torrent">Torrent privat</string>
-    <string name="option_optimize_alignment">Optimizați alinierea</string>
     <string-array name="piece_size_entries">
         <item>Automat</item>
         <item>16 KiO</item>

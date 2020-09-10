@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Опције</string>
     <string name="option_start_seeding">Започни слање</string>
     <string name="option_private_torrent">Приватан торент</string>
-    <string name="option_optimize_alignment">Оптимизуј поравнање</string>
     <string-array name="piece_size_entries">
         <item>Аутоматски</item>
         <item>16 KiB</item>

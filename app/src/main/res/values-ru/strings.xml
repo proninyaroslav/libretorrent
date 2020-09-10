@@ -318,7 +318,6 @@
     <string name="create_torrent_options">Опции</string>
     <string name="option_start_seeding">Начать раздачу</string>
     <string name="option_private_torrent">Приватный торрент</string>
-    <string name="option_optimize_alignment">Оптимизировать выравнивание</string>
     <string-array name="piece_size_entries">
         <item>Авто</item>
         <item>16 Кб</item>

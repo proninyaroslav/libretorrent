@@ -318,7 +318,6 @@
     <string name="create_torrent_options">选项</string>
     <string name="option_start_seeding">开始做种</string>
     <string name="option_private_torrent">私有种子</string>
-    <string name="option_optimize_alignment">优化队列</string>
     <string-array name="piece_size_entries">
         <item>自动</item>
         <item>16 KiB</item>

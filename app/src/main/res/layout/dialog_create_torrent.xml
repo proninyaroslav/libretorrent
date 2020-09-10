@@ -124,13 +124,6 @@
                             android:layout_height="wrap_content"
                             android:checked="@={viewModel.mutableParams.privateTorrent}"
                             android:text="@string/option_private_torrent" />
-
-                        <CheckBox
-                            android:id="@+id/optimize_alignment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="@={viewModel.mutableParams.optimizeAlignment}"
-                            android:text="@string/option_optimize_alignment" />
                     </com.google.android.material.internal.FlowLayout>
                 </LinearLayout>
 
