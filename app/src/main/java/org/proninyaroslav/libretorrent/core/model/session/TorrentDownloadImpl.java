@@ -1138,11 +1138,8 @@ class TorrentDownloadImpl implements TorrentDownload
         if (getStateCode() != TorrentStateCode.DOWNLOADING)
             return 0;
 
-        TorrentInfo ti = th.torrentFile();
-        if (ti == null)
-            return 0;
         TorrentStatus status = th.status();
-        long left = ti.totalSize() - status.totalDone();
+        long left = status.totalWanted() - status.totalWantedDone();
         long rate = status.downloadPayloadRate();
         if (left <= 0)
             return 0;
