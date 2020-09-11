@@ -23,6 +23,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
@@ -583,22 +584,29 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private void updateFiles(long[] receivedBytes, double[] availability)
     {
         disposable.add(Completable.fromRunnable(() -> {
-            if (fileTree == null)
-                return;
+            try {
+                syncBuildFileTree.lock();
 
-            if (receivedBytes != null) {
-                for (int i = 0; i < receivedBytes.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setReceivedBytes(receivedBytes[i]);
+                if (fileTree == null)
+                    return;
+
+                if (receivedBytes != null) {
+                    for (int i = 0; i < receivedBytes.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setReceivedBytes(receivedBytes[i]);
+                    }
                 }
-            }
-            if (availability != null) {
-                for (int i = 0; i < availability.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setAvailability(availability[i]);
+                if (availability != null) {
+                    for (int i = 0; i < availability.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setAvailability(availability[i]);
+                    }
                 }
+
+            } finally {
+                syncBuildFileTree.unlock();
             }
         })
         .subscribeOn(Schedulers.computation())
