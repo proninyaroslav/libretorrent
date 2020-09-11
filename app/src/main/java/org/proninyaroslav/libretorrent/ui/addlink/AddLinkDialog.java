@@ -39,7 +39,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -55,6 +54,7 @@ import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
 
+import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -145,6 +145,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         viewModel.link.set(item);
+        binding.link.postDelayed(this::addLink, 500);
     }
 
     private void subscribeClipboardManager() {
@@ -270,8 +271,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         try {
-            if (s != null)
-                s = viewModel.normalizeUrl(s);
+            s = viewModel.normalizeUrl(s);
 
         } catch (NormalizeUrlException e) {
             binding.layoutLink.setErrorEnabled(true);
