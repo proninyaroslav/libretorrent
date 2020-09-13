@@ -445,12 +445,16 @@ public class AddTorrentViewModel extends AndroidViewModel
             return;
 
         node.select(selected, true);
+        updateChildren();
     }
-
 
     private void updateCurDir(BencodeFileTree node)
     {
         curDir = node;
+        updateChildren();
+    }
+
+    private void updateChildren() {
         children.onNext(getChildren(curDir));
     }
 
