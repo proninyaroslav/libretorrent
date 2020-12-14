@@ -55,11 +55,13 @@ import org.libtorrent4j.alerts.TorrentErrorAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.announce_entry;
 import org.libtorrent4j.swig.byte_vector;
+import org.libtorrent4j.swig.libtorrent;
 import org.libtorrent4j.swig.libtorrent_errors;
 import org.libtorrent4j.swig.peer_info_vector;
 import org.libtorrent4j.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
@@ -158,7 +160,7 @@ class TorrentDownloadImpl implements TorrentDownload
         this.autoManaged = autoManaged;
         this.listeners = listeners;
         this.th = handle;
-        this.name = new AtomicReference<>(handle.name());
+        this.name = new AtomicReference<>(handle.getName());
         partsFile = getPartsFile();
         listener = new InnerListener();
         sessionManager.addListener(listener);
@@ -203,7 +205,7 @@ class TorrentDownloadImpl implements TorrentDownload
             if (!(alert instanceof TorrentAlert<?>))
                 return;
 
-            if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig()))
+            if (!((TorrentAlert<?>) alert).handle().swig().eq(th.swig()))
                 return;
 
             AlertType type = alert.type();
@@ -289,7 +291,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
         if (alert.type() == AlertType.FASTRESUME_REJECTED) {
             resumeDataRejected = true;
-            if (((FastresumeRejectedAlert)alert).error().value() ==
+            if (((FastresumeRejectedAlert)alert).error().getValue() ==
                     libtorrent_errors.mismatching_file_size.swigValue()) {
                 hasMissingFiles = true;
             }
@@ -358,7 +360,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 FastresumeRejectedAlert resumeRejectedAlert = (FastresumeRejectedAlert)alert;
                 ErrorCode error = resumeRejectedAlert.error();
                 if (error.isError()) {
-                    if (error.value() == libtorrent_errors.mismatching_file_size.swigValue())
+                    if (error.getValue() == libtorrent_errors.mismatching_file_size.swigValue())
                         errorMsg = "file sizes mismatch";
                     else
                         errorMsg = "fast resume data was rejected, reason: " + SessionErrors.getErrorMsg(error);
@@ -379,12 +381,13 @@ class TorrentDownloadImpl implements TorrentDownload
             torrent = repo.getTorrentById(id);
             if (torrent == null)
                 throw new NullPointerException(id + " doesn't exists");
-
-            int size = alert.metadataSize();
-            if (size < 0 || size > MAX_METADATA_SIZE)
+            TorrentHandle th = alert.handle();
+            TorrentInfo ti = th.torrentFile();
+            if (ti == null) {
                 return;
+            }
 
-            TorrentMetaInfo info = new TorrentMetaInfo(alert.torrentData());
+            TorrentMetaInfo info = new TorrentMetaInfo(ti.bencode());
 
             /* Skip if default name is changed */
             String name = this.name.get();
@@ -424,7 +427,7 @@ class TorrentDownloadImpl implements TorrentDownload
     {
         Exception err = null;
         if (alert.error().isError())
-            err = new Exception(alert.error().message());
+            err = new Exception(alert.error().getMessage());
         ReadPieceInfo info = new ReadPieceInfo(alert.piece(),
                 alert.size(),
                 alert.bufferPtr(),
@@ -444,8 +447,7 @@ class TorrentDownloadImpl implements TorrentDownload
         if (partsFile != null) {
             try {
                 fs.deleteFile(partsFile);
-
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | UnknownUriException e) {
                 /* Ignore */
             }
         }
@@ -499,7 +501,7 @@ class TorrentDownloadImpl implements TorrentDownload
     private void serializeResumeData(SaveResumeDataAlert alert)
     {
         try {
-            byte_vector data = add_torrent_params.write_resume_data(alert.params().swig()).bencode();
+            byte_vector data = libtorrent.write_resume_data(alert.params().swig()).bencode();
             repo.addFastResume(new FastResume(id, Vectors.byte_vector2bytes(data)));
 
         } catch (Throwable e) {
@@ -672,7 +674,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isAutoManaged()
     {
-        return !operationNotAllowed() && th.status().flags().op_and(TorrentFlags.AUTO_MANAGED).op_bool();
+        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.AUTO_MANAGED).non_zero();
     }
 
     @Override
@@ -1198,10 +1200,9 @@ class TorrentDownloadImpl implements TorrentDownload
 
         notifyListeners((listener) -> listener.onTorrentMoving(id));
 
-        String pathStr = fs.makeFileSystemPath(path);
         try {
+            String pathStr = fs.makeFileSystemPath(path);
             th.moveStorage(pathStr, MoveFlags.ALWAYS_REPLACE_FILES);
-
         } catch (Exception e) {
             Log.e(TAG, "Error changing save path: ");
             Log.e(TAG, Log.getStackTraceString(e));
@@ -1268,7 +1269,13 @@ class TorrentDownloadImpl implements TorrentDownload
         if (torrent == null)
             return null;
 
-        return fs.getFileUri(torrent.downloadPath, "." + ti.infoHash() + ".parts");
+        try {
+            return fs.getFileUri(torrent.downloadPath, "." + ti.infoHash() + ".parts");
+        } catch (Exception e) {
+            Log.e(TAG, "Error changing save path: ");
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
     }
 
     @Override
@@ -1350,8 +1357,6 @@ class TorrentDownloadImpl implements TorrentDownload
                 return TorrentStateCode.FINISHED;
             case SEEDING:
                 return TorrentStateCode.SEEDING;
-            case ALLOCATING:
-                return TorrentStateCode.ALLOCATING;
             default:
                 return TorrentStateCode.UNKNOWN;
         }
@@ -1366,7 +1371,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
     private boolean isPaused(TorrentStatus s)
     {
-        return s.flags().op_and(TorrentFlags.PAUSED).op_bool();
+        return s.flags().and_(TorrentFlags.PAUSED).non_zero();
     }
 
     @Override
@@ -1390,7 +1395,7 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public boolean isSequentialDownload()
     {
-        return !operationNotAllowed() && th.status().flags().op_and(TorrentFlags.SEQUENTIAL_DOWNLOAD).op_bool();
+        return !operationNotAllowed() && th.status().flags().and_(TorrentFlags.SEQUENTIAL_DOWNLOAD).non_zero();
     }
 
     @Override

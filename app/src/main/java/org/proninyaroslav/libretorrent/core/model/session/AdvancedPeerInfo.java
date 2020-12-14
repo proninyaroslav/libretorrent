@@ -39,7 +39,7 @@ public class AdvancedPeerInfo extends PeerInfo
 
         port = p.getIp().port();
         pieces = new PieceIndexBitfield(p.get_pieces());
-        isUtp = p.getFlags().op_and(peer_info.utp_socket).op_bool();
+        isUtp = p.getFlags().and_(peer_info.utp_socket).non_zero();
     }
 
     public int port()

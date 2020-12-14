@@ -62,6 +62,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
@@ -788,7 +789,7 @@ public class DetailTorrentFragment extends Fragment
                     Snackbar.LENGTH_SHORT)
                     .show();
 
-        } catch (IOException e) {
+        } catch (IOException | UnknownUriException e) {
             saveErrorTorrentFileDialog(e);
         }
     }

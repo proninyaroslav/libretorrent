@@ -23,6 +23,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -75,6 +77,9 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DetailTorrentViewModel extends AndroidViewModel
 {
+    @SuppressWarnings("unused")
+    private static final String TAG = DetailTorrentViewModel.class.getSimpleName();
+
     private String torrentId;
     private TorrentInfoProvider infoProvider;
     private TorrentEngine engine;
@@ -393,7 +398,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return engine.makeMagnet(torrentId, includePriorities);
     }
 
-    public void copyTorrentFile(@NonNull Uri destFile) throws IOException
+    public void copyTorrentFile(@NonNull Uri destFile) throws IOException, UnknownUriException
     {
         byte[] bencode = engine.getBencode(torrentId);
         if (bencode == null)
@@ -466,8 +471,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
                     return;
 
                 disposable.add(Completable.fromRunnable(() -> {
-                    info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-                    info.setDirName(fs.getDirPath(dirPath));
+                    try {
+                        info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                        info.setDirName(fs.getDirPath(dirPath));
+                    } catch (UnknownUriException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
                 })
                  .subscribeOn(Schedulers.io())
                  .subscribe());

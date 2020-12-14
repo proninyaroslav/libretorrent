@@ -76,8 +76,7 @@ interface FsModule
     long lastModified(@NonNull Uri filePath);
 
     /*
-     * If the uri is a file system path, returns the path as is,
-     * otherwise returns the path in `SafFileSystem` format
+     * If the uri is a file system path, returns the path as is
      */
 
     String makeFileSystemPath(@NonNull Uri uri, String relativePath);

@@ -25,6 +25,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Pair;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 
 import java.io.File;
@@ -73,7 +74,7 @@ public class TorrentBuilder
         builder = new org.libtorrent4j.TorrentBuilder();
     }
 
-    public TorrentBuilder setSeedPath(Uri path)
+    public TorrentBuilder setSeedPath(Uri path) throws UnknownUriException
     {
         String seedPathStr = SystemFacadeHelper.getFileSystemFacade(context)
                 .makeFileSystemPath(path);

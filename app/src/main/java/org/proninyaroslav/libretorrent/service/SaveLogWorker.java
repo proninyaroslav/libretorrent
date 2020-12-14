@@ -32,6 +32,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
@@ -96,7 +97,7 @@ public class SaveLogWorker extends Worker
 
             showSuccessToast(fs.getFilePath(filePath));
 
-        } catch (IOException e) {
+        } catch (IOException | UnknownUriException e) {
             Log.e(TAG, "Cannot save log: " + Log.getStackTraceString(e));
 
             return Result.failure();

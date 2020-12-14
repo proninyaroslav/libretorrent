@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,19 +17,10 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.system;
+package org.proninyaroslav.libretorrent.core.exception;
 
-import android.net.Uri;
-
-import androidx.annotation.NonNull;
-
-import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
-
-/*
- * An FsModule provider.
- */
-
-interface FsModuleResolver
-{
-    FsModule resolveFsByUri(@NonNull Uri uri) throws UnknownUriException;
+public class UnknownUriException extends Exception {
+    public UnknownUriException(String message) {
+        super(message);
+    }
 }

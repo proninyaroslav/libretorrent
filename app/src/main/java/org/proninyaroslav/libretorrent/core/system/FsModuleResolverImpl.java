@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,29 +24,26 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 class FsModuleResolverImpl implements FsModuleResolver
 {
     private Context appContext;
-    private SafFsModule safModule;
     private DefaultFsModule defaultModule;
 
     public FsModuleResolverImpl(@NonNull Context appContext)
     {
         this.appContext = appContext;
-        this.safModule = new SafFsModule(appContext);
         this.defaultModule = new DefaultFsModule(appContext);
     }
 
     @Override
-    public FsModule resolveFsByUri(@NonNull Uri uri)
+    public FsModule resolveFsByUri(@NonNull Uri uri) throws UnknownUriException
     {
-        if (Utils.isSafPath(appContext, uri))
-            return safModule;
-        else if (Utils.isFileSystemPath(uri))
+        if (Utils.isFileSystemPath(uri))
             return defaultModule;
         else
-            throw new IllegalArgumentException("Cannot resolve file system for the given uri: " + uri);
+            throw new UnknownUriException("Cannot resolve file system for the given uri: " + uri);
     }
 }

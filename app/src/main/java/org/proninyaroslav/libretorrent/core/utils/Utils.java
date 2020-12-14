@@ -66,7 +66,6 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
-import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
@@ -787,11 +786,6 @@ public class Utils
             textView.setTextAppearance(context, resId);
         else
             textView.setTextAppearance(resId);
-    }
-
-    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path)
-    {
-        return SafFileSystem.getInstance(appContext).isSafPath(path);
     }
 
     public static boolean isFileSystemPath(@NonNull Uri path)

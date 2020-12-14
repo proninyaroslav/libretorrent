@@ -31,9 +31,7 @@ public class CreateTorrentMutableParams extends BaseObservable
 {
     public static final String FILTER_SEPARATOR = "\\|";
 
-    /* SAF or filesystem storage */
     private ObservableField<Uri> seedPath = new ObservableField<>();
-    /* Equal with seedPath in case if the path is non-SAF path */
     private String seedPathName;
     private String skipFiles;
     private String trackerUrls;

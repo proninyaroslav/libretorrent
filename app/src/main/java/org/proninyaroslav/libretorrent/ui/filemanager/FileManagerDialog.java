@@ -125,8 +125,7 @@ public class FileManagerDialog extends AppCompatActivity
         viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
-        binding.setEnableSystemManagerButton(!viewModel.config.disableSystemFileManager &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+        binding.setEnableSystemManagerButton(false);
         binding.setViewModel(viewModel);
 
         FragmentManager fm = getSupportFragmentManager();

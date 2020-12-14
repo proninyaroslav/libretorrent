@@ -59,7 +59,6 @@ import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.int_vector;
 import org.libtorrent4j.swig.ip_filter;
 import org.libtorrent4j.swig.libtorrent;
-import org.libtorrent4j.swig.save_state_flags_t;
 import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
 import org.libtorrent4j.swig.sha1_hash;
@@ -70,6 +69,7 @@ import org.libtorrent4j.swig.torrent_handle;
 import org.libtorrent4j.swig.torrent_info;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -239,8 +239,14 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public Torrent addTorrent(@NonNull AddTorrentParams params,
-                              boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
+    public Torrent addTorrent(
+            @NonNull AddTorrentParams params,
+            boolean removeFile
+    ) throws
+            IOException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException
     {
         if (operationNotAllowed())
             return null;
@@ -289,14 +295,19 @@ public class TorrentSessionImpl extends SessionManager
             repo.deleteTorrent(torrent);
             throw e;
         } finally {
-            if (removeFile && !params.fromMagnet)
-                fs.deleteFile(Uri.parse(params.source));
+            if (removeFile && !params.fromMagnet) {
+                try {
+                    fs.deleteFile(Uri.parse(params.source));
+                } catch (UnknownUriException e) {
+                    // Ignore
+                }
+            }
         }
 
         return torrent;
     }
 
-    private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException
+    private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException, UnknownUriException
     {
         if (operationNotAllowed())
             return;
@@ -373,12 +384,21 @@ public class TorrentSessionImpl extends SessionManager
             if (torrent == null || isTorrentAlreadyRunning(torrent.id))
                 continue;
 
-            String path = fs.makeFileSystemPath(torrent.downloadPath);
+            String path = null;
+            try {
+                path = fs.makeFileSystemPath(torrent.downloadPath);
+            } catch (UnknownUriException e) {
+                Log.e(TAG, "Unable to restore torrent:");
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
             LoadTorrentTask loadTask = new LoadTorrentTask(torrent.id);
-            if (torrent.isDownloadingMetadata())
-                loadTask.putMagnet(torrent.getMagnet(), new File(path),
-                        torrent.manuallyPaused);
-
+            if (path != null && torrent.isDownloadingMetadata()) {
+                loadTask.putMagnet(
+                        torrent.getMagnet(),
+                        new File(path),
+                        torrent.manuallyPaused
+                );
+            }
             restoreTorrentsQueue.add(loadTask);
         }
         runNextLoadTorrentTask();
@@ -397,16 +417,16 @@ public class TorrentSessionImpl extends SessionManager
 
         List<Priority> priorities = Arrays.asList(PriorityConverter.convert(resParams.filePriorities()));
 
-        return new MagnetInfo(uri, resParams.infoHash().getBest().toHex(),
-                resParams.name(), priorities);
+        return new MagnetInfo(uri, resParams.getInfoHashes().getBest().toHex(),
+                resParams.getName(), priorities);
     }
 
     @Override
     public MagnetInfo parseMagnet(@NonNull String uri)
     {
         org.libtorrent4j.AddTorrentParams p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(uri);
-        String sha1hash = p.infoHash().getBest().toHex();
-        String name = (TextUtils.isEmpty(p.name()) ? sha1hash : p.name());
+        String sha1hash = p.getInfoHashes().getBest().toHex();
+        String name = (TextUtils.isEmpty(p.getName()) ? sha1hash : p.getName());
 
         return new MagnetInfo(uri, sha1hash, name,
                 Arrays.asList(PriorityConverter.convert(p.filePriorities())));
@@ -419,7 +439,7 @@ public class TorrentSessionImpl extends SessionManager
 
         add_torrent_params p = params.swig();
 
-        sha1_hash hash = p.getInfo_hash().get_best();
+        sha1_hash hash = p.getInfo_hashes().get_best();
         if (hash == null)
             return null;
         String strHash = hash.to_hex();
@@ -448,9 +468,9 @@ public class TorrentSessionImpl extends SessionManager
                     if (TextUtils.isEmpty(p.getName()))
                         p.setName(strHash);
                     torrent_flags_t flags = p.getFlags();
-                    flags = flags.op_and(TorrentFlags.AUTO_MANAGED.inv());
-                    flags = flags.op_or(TorrentFlags.UPLOAD_MODE);
-                    flags = flags.op_or(TorrentFlags.STOP_WHEN_READY);
+                    flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+                    flags = flags.or_(TorrentFlags.UPLOAD_MODE);
+                    flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
                     error_code ec = new error_code();
@@ -477,7 +497,7 @@ public class TorrentSessionImpl extends SessionManager
     private org.libtorrent4j.AddTorrentParams parseMagnetUri(String uri)
     {
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.parse_magnet_uri(uri, ec);
+        add_torrent_params p = libtorrent.parse_magnet_uri(uri, ec);
 
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
@@ -492,7 +512,7 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         magnets.remove(infoHash);
-        TorrentHandle th = find(new Sha1Hash(infoHash));
+        TorrentHandle th = find(Sha1Hash.parseHex(infoHash));
         if (th != null && th.isValid())
             remove(th, SessionHandle.DELETE_FILES);
     }
@@ -515,7 +535,7 @@ public class TorrentSessionImpl extends SessionManager
                     new TorrentInfo(new File(Uri.parse(params.source).getPath())) :
                     new TorrentInfo(bencode));
 
-            TorrentHandle th = find(new Sha1Hash(id));
+            TorrentHandle th = find(Sha1Hash.parseHex(id));
             if (th != null) {
                 for (AnnounceEntry tracker : ti.trackers())
                     th.addTracker(tracker);
@@ -720,7 +740,7 @@ public class TorrentSessionImpl extends SessionManager
     {
         SettingsPack sp = settings();
 
-        return sp != null && sp.enableDht();
+        return sp != null && sp.isEnableDht();
     }
 
     @Override
@@ -743,11 +763,7 @@ public class TorrentSessionImpl extends SessionManager
     public void startWithParams(@Nullable SessionInitParams initParams)
     {
         SessionParams params = loadSettings();
-        SettingsPack settingsPack = params.settings();
-        if (settingsPack == null) {
-            super.start(params);
-            return;
-        }
+        SettingsPack settingsPack = params.getSettings();
         settings_pack sp = settingsPack.swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
         sp.set_bool(settings_pack.bool_types.enable_ip_notifier.swigValue(), false);
@@ -770,7 +786,7 @@ public class TorrentSessionImpl extends SessionManager
         }
 
         if (initParams != null)
-            initParamsToSettingsPack(initParams, params.settings());
+            initParamsToSettingsPack(initParams, params.getSettings());
 
         super.start(params);
     }
@@ -956,10 +972,10 @@ public class TorrentSessionImpl extends SessionManager
             switch (alert.type()) {
                 case ADD_TORRENT:
                     TorrentAlert<?> torrentAlert = (TorrentAlert<?>)alert;
-                    TorrentHandle th = find(torrentAlert.handle().infoHash().getBest());
+                    TorrentHandle th = find(torrentAlert.handle().infoHash());
                     if (th == null)
                         break;
-                    String hash = th.infoHash().getBest().toHex();
+                    String hash = th.infoHash().toHex();
                     if (magnets.contains(hash))
                         break;
                     torrentTasks.put(hash, newTask(th, hash));
@@ -1027,17 +1043,13 @@ public class TorrentSessionImpl extends SessionManager
     private void handleMetadata(MetadataReceivedAlert metadataAlert)
     {
         TorrentHandle th = metadataAlert.handle();
-        String hash = th.infoHash().getBest().toHex();
+        String hash = th.infoHash().toHex();
         if (!magnets.contains(hash))
             return;
 
-        int size = metadataAlert.metadataSize();
-        int maxSize = 2 * 1024 * 1024;
-        byte[] bencode = null;
-        if (0 < size && size <= maxSize)
-            bencode = metadataAlert.torrentData(true);
-        if (bencode != null)
-            loadedMagnets.put(hash, bencode);
+        TorrentInfo ti = th.torrentFile();
+        if (ti != null)
+            loadedMagnets.put(hash, ti.bencode());
         remove(th, SessionHandle.DELETE_FILES);
 
         notifyListeners((listener) ->
@@ -1142,7 +1154,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.listenInterfaces(getIface(settings.inetAddress, settings.portRangeFirst));
         sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
-        sp.enableDht(settings.dhtEnabled);
+        sp.setEnableDht(settings.dhtEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), settings.lsdEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_incoming_utp.swigValue(), settings.utpEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_outgoing_utp.swigValue(), settings.utpEnabled);
@@ -1182,13 +1194,13 @@ public class TorrentSessionImpl extends SessionManager
         alert_category_t mask = alert.all_categories;
         if (!settings.logging) {
             alert_category_t log_mask = alert.session_log_notification;
-            log_mask = log_mask.op_or(alert.torrent_log_notification);
-            log_mask = log_mask.op_or(alert.peer_log_notification);
-            log_mask = log_mask.op_or(alert.dht_log_notification);
-            log_mask = log_mask.op_or(alert.port_mapping_log_notification);
-            log_mask = log_mask.op_or(alert.picker_log_notification);
+            log_mask = log_mask.or_(alert.torrent_log_notification);
+            log_mask = log_mask.or_(alert.peer_log_notification);
+            log_mask = log_mask.or_(alert.dht_log_notification);
+            log_mask = log_mask.or_(alert.port_mapping_log_notification);
+            log_mask = log_mask.or_(alert.picker_log_notification);
 
-            mask = mask.op_and(log_mask.inv());
+            mask = mask.and_(log_mask.inv());
         }
 
         return mask;
@@ -1293,12 +1305,12 @@ public class TorrentSessionImpl extends SessionManager
 
         create_torrent ct = new create_torrent(ti);
 
-        string_vector v = params.get_url_seeds();
+        string_vector v = params.getUrl_seeds();
         for (int i = 0; i < v.size(); i++)
             ct.add_url_seed(v.get(i));
 
-        string_vector trackers = params.get_trackers();
-        int_vector tiers = params.get_tracker_tiers();
+        string_vector trackers = params.getTrackers();
+        int_vector tiers = params.getTracker_tiers();
         for (int i = 0; i < trackers.size(); i++)
             ct.add_tracker(trackers.get(i), tiers.get(i));
 
@@ -1423,7 +1435,7 @@ public class TorrentSessionImpl extends SessionManager
         if (!ti.isValid())
             throw new IllegalArgumentException("Torrent info not valid");
 
-        torrent_handle th = swig().find_torrent(ti.swig().info_hash().get_best());
+        torrent_handle th = swig().find_torrent(ti.swig().info_hash());
         if (th != null && th.is_valid()) {
             /* Found a download with the same hash */
             return;
@@ -1455,27 +1467,27 @@ public class TorrentSessionImpl extends SessionManager
             for (TcpEndpoint endp : peers)
                 v.add(endp.swig());
 
-            p.set_peers(v);
+            p.setPeers(v);
         }
 
         torrent_flags_t flags = p.getFlags();
         /* Force saving resume data */
-        flags = flags.op_or(TorrentFlags.NEED_SAVE_RESUME);
+        flags = flags.or_(TorrentFlags.NEED_SAVE_RESUME);
 
         if (settings.autoManaged)
-            flags = flags.op_or(TorrentFlags.AUTO_MANAGED);
+            flags = flags.or_(TorrentFlags.AUTO_MANAGED);
         else
-            flags = flags.op_and(TorrentFlags.AUTO_MANAGED.inv());
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         if (sequentialDownload)
-            flags = flags.op_or(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+            flags = flags.or_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
         else
-            flags = flags.op_and(TorrentFlags.SEQUENTIAL_DOWNLOAD.inv());
+            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD.inv());
 
         if (paused)
-            flags = flags.op_or(TorrentFlags.PAUSED);
+            flags = flags.or_(TorrentFlags.PAUSED);
         else
-            flags = flags.op_and(TorrentFlags.PAUSED.inv());
+            flags = flags.and_(TorrentFlags.PAUSED.inv());
 
         p.setFlags(flags);
 
@@ -1489,12 +1501,12 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.parse_magnet_uri(magnetUri, ec);
+        add_torrent_params p = libtorrent.parse_magnet_uri(magnetUri, ec);
 
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
 
-        sha1_hash info_hash = p.getInfo_hash().get_best();
+        sha1_hash info_hash = p.getInfo_hashes().get_best();
         if (info_hash == null)
             return;
         torrent_handle th = swig().find_torrent(info_hash);
@@ -1511,11 +1523,11 @@ public class TorrentSessionImpl extends SessionManager
 
         torrent_flags_t flags = p.getFlags();
 
-        flags = flags.op_and(TorrentFlags.AUTO_MANAGED.inv());
+        flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
         if (paused)
-            flags = flags.op_or(TorrentFlags.PAUSED);
+            flags = flags.or_(TorrentFlags.PAUSED);
         else
-            flags = flags.op_and(TorrentFlags.PAUSED.inv());
+            flags = flags.and_(TorrentFlags.PAUSED.inv());
 
         p.setFlags(flags);
 
@@ -1532,18 +1544,26 @@ public class TorrentSessionImpl extends SessionManager
             throw new IOException("Fast resume data not found");
 
         error_code ec = new error_code();
-        add_torrent_params p = add_torrent_params.read_resume_data(Vectors.bytes2byte_vector(fastResume.data), ec);
+        byte_vector buffer = Vectors.bytes2byte_vector(fastResume.data);
+
+        bdecode_node n = new bdecode_node();
+        int ret = bdecode_node.bdecode(buffer, n, ec);
+        if (ret != 0)
+            throw new IllegalArgumentException("Can't decode data: " + ec.message());
+        ec.clear();
+
+        add_torrent_params p = libtorrent.read_resume_data(n, ec);
         if (ec.value() != 0)
             throw new IllegalArgumentException("Unable to read the resume data: " + ec.message());
 
         torrent_flags_t flags = p.getFlags();
         /* Disable force saving resume data, because they already have */
-        flags = flags.op_and(TorrentFlags.NEED_SAVE_RESUME.inv());
+        flags = flags.and_(TorrentFlags.NEED_SAVE_RESUME.inv());
 
         if (settings.autoManaged)
-            flags = flags.op_or(TorrentFlags.AUTO_MANAGED);
+            flags = flags.or_(TorrentFlags.AUTO_MANAGED);
         else
-            flags = flags.op_and(TorrentFlags.AUTO_MANAGED.inv());
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
 
         p.setFlags(flags);
 

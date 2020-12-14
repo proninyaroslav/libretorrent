@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
@@ -59,8 +60,13 @@ class IPFilterParser
     public int parseFile(@NonNull Uri path, @NonNull FileSystemFacade fs, @NonNull IPFilter filter)
     {
         int ruleCount = 0;
-        if (!fs.fileExists(path))
+        try {
+            if (!fs.fileExists(path))
+                return ruleCount;
+        } catch (UnknownUriException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
             return ruleCount;
+        }
 
         Log.d(TAG, "Start parsing IP filter file");
 
@@ -73,9 +79,8 @@ class IPFilterParser
             else if (pathStr.contains("p2p"))
                 ruleCount = parseP2P(is, filter);
 
-        } catch (IOException e) {
+        } catch (IOException | UnknownUriException e) {
             Log.e(TAG, Log.getStackTraceString(e));
-
             return ruleCount;
 
         } finally {

@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.collection.ArraySet;
@@ -41,6 +42,7 @@ import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.NoFilesSelectedException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -358,8 +360,12 @@ public class AddTorrentViewModel extends AndroidViewModel
                 return;
 
             disposable.add(Completable.fromRunnable(() -> {
-                mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-                mutableParams.setDirName(fs.getDirPath(dirPath));
+                try {
+                    mutableParams.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                    mutableParams.setDirName(fs.getDirPath(dirPath));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
             })
             .subscribeOn(Schedulers.io())
             .subscribe());
