@@ -82,7 +82,6 @@ import io.reactivex.schedulers.Schedulers;
 public class MainFragment extends Fragment
         implements TorrentListAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private static final int TORRENT_FILE_CHOOSE_REQUEST = 1;
@@ -402,13 +401,11 @@ public class MainFragment extends Fragment
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.add_link_menu:
-                addLinkDialog();
-                break;
-            case R.id.open_file_menu:
-                openTorrentFileDialog();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.add_link_menu) {
+            addLinkDialog();
+        } else if (itemId == R.id.open_file_menu) {
+            openTorrentFileDialog();
         }
 
         return true;
@@ -417,18 +414,15 @@ public class MainFragment extends Fragment
     private void initFabSpeedDial()
     {
         binding.fabButton.setOnActionSelectedListener((item) -> {
-            switch (item.getId()) {
-                case R.id.main_fab_add_link:
-                    addLinkDialog();
-                    break;
-                case R.id.main_fab_open_file:
-                    openTorrentFileDialog();
-                    break;
-                case R.id.main_fab_create_torrent:
-                    createTorrentDialog();
-                    break;
-                default:
-                    return false;
+            int id = item.getId();
+            if (id == R.id.main_fab_add_link) {
+                addLinkDialog();
+            } else if (id == R.id.main_fab_open_file) {
+                openTorrentFileDialog();
+            } else if (id == R.id.main_fab_create_torrent) {
+                createTorrentDialog();
+            } else {
+                return false;
             }
 
             binding.fabButton.close();
@@ -480,21 +474,17 @@ public class MainFragment extends Fragment
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.delete_torrent_menu:
-                    deleteTorrentsDialog();
-                    break;
-                case R.id.select_all_torrent_menu:
-                    selectAllTorrents();
-                    break;
-                case R.id.force_recheck_torrent_menu:
-                    forceRecheckTorrents();
-                    mode.finish();
-                    break;
-                case R.id.force_announce_torrent_menu:
-                    forceAnnounceTorrents();
-                    mode.finish();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.delete_torrent_menu) {
+                deleteTorrentsDialog();
+            } else if (itemId == R.id.select_all_torrent_menu) {
+                selectAllTorrents();
+            } else if (itemId == R.id.force_recheck_torrent_menu) {
+                forceRecheckTorrents();
+                mode.finish();
+            } else if (itemId == R.id.force_announce_torrent_menu) {
+                forceAnnounceTorrents();
+                mode.finish();
             }
 
             return true;

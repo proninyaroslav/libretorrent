@@ -48,8 +48,8 @@ class SessionErrors
             return true;
 
         for (Error nonCriticalError : errors) {
-            if (error.value() == nonCriticalError.errCode &&
-                nonCriticalError.errMsg.equalsIgnoreCase(error.message()))
+            if (error.getValue() == nonCriticalError.errCode &&
+                nonCriticalError.errMsg.equalsIgnoreCase(error.getMessage()))
                 return true;
         }
 
@@ -58,6 +58,6 @@ class SessionErrors
 
     static String getErrorMsg(ErrorCode error)
     {
-        return (error == null ? "" : error.message() + ", code " + error.value());
+        return (error == null ? "" : error.getMessage() + ", code " + error.getValue());
     }
 }

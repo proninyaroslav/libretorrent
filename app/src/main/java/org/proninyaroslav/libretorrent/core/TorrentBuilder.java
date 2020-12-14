@@ -25,6 +25,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Pair;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 
 import java.io.File;
@@ -73,7 +74,7 @@ public class TorrentBuilder
         builder = new org.libtorrent4j.TorrentBuilder();
     }
 
-    public TorrentBuilder setSeedPath(Uri path)
+    public TorrentBuilder setSeedPath(Uri path) throws UnknownUriException
     {
         String seedPathStr = SystemFacadeHelper.getFileSystemFacade(context)
                 .makeFileSystemPath(path);
@@ -130,23 +131,6 @@ public class TorrentBuilder
     public TorrentBuilder setComment(String comment)
     {
         builder.comment(comment);
-
-        return this;
-    }
-
-    /*
-     * This will insert pad files to align the files to piece boundaries, for
-     * optimized disk-I/O. This will minimize the number of bytes of pad-
-     * files, to keep the impact down for clients that don't support
-     * them
-     */
-
-    public TorrentBuilder setOptimizeAlignment(boolean optimizeAlignment)
-    {
-        if (optimizeAlignment)
-            builder.flags(builder.flags().or_(org.libtorrent4j.TorrentBuilder.OPTIMIZE_ALIGNMENT));
-        else
-            builder.flags(builder.flags().and_(org.libtorrent4j.TorrentBuilder.OPTIMIZE_ALIGNMENT.inv()));
 
         return this;
     }

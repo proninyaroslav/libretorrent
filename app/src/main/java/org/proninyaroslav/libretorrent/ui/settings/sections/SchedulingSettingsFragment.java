@@ -40,7 +40,6 @@ import org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreferenceDia
 public class SchedulingSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = SchedulingSettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

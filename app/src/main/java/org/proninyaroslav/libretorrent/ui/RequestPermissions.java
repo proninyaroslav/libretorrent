@@ -39,7 +39,6 @@ import io.reactivex.disposables.Disposable;
 
 public class RequestPermissions extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = RequestPermissions.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG = "perm_dialog";

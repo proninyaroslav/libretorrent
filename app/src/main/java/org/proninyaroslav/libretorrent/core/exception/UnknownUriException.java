@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,24 +17,10 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui;
+package org.proninyaroslav.libretorrent.core.exception;
 
-import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-/*
- * The basic callback interface with codes and functions, returned by fragments.
- */
-
-public interface FragmentCallback
-{
-    String TAG = FragmentCallback.class.getSimpleName();
-
-    enum ResultCode {
-        OK, CANCEL, BACK
+public class UnknownUriException extends Exception {
+    public UnknownUriException(String message) {
+        super(message);
     }
-
-    void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code);
 }

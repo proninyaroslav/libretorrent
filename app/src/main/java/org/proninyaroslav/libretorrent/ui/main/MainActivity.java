@@ -37,7 +37,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -82,7 +81,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements FragmentCallback
 {
-    @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
@@ -549,30 +547,23 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.feed_menu:
-                startActivity(new Intent(this, FeedActivity.class));
-                break;
-            case R.id.settings_menu:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-            case R.id.about_menu:
-                showAboutDialog();
-                break;
-            case R.id.shutdown_app_menu:
-                closeOptionsMenu();
-                viewModel.stopEngine();
-                finish();
-                break;
-            case R.id.pause_all_menu:
-                viewModel.pauseAll();
-                break;
-            case R.id.resume_all_menu:
-                viewModel.resumeAll();
-                break;
-            case R.id.log_menu:
-                showLog();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.feed_menu) {
+            startActivity(new Intent(this, FeedActivity.class));
+        } else if (itemId == R.id.settings_menu) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (itemId == R.id.about_menu) {
+            showAboutDialog();
+        } else if (itemId == R.id.shutdown_app_menu) {
+            closeOptionsMenu();
+            viewModel.stopEngine();
+            finish();
+        } else if (itemId == R.id.pause_all_menu) {
+            viewModel.pauseAll();
+        } else if (itemId == R.id.resume_all_menu) {
+            viewModel.resumeAll();
+        } else if (itemId == R.id.log_menu) {
+            showLog();
         }
 
         return true;

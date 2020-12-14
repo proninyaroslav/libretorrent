@@ -39,7 +39,6 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailTorrentActivity extends AppCompatActivity
         implements FragmentCallback
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentActivity.class.getSimpleName();
 
     public static final String TAG_TORRENT_ID = "torrent_id";

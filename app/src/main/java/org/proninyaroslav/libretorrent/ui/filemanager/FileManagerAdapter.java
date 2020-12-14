@@ -35,7 +35,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -50,7 +49,6 @@ import java.util.List;
 
 public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManagerAdapter.ViewHolder>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileManagerAdapter.class.getSimpleName();
 
     private ViewHolder.ClickListener clickListener;

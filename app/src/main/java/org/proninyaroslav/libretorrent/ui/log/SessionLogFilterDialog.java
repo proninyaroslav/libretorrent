@@ -28,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -40,7 +39,6 @@ import org.proninyaroslav.libretorrent.databinding.DialogLogFilterBinding;
 
 public class SessionLogFilterDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = SessionLogFilterDialog.class.getSimpleName();
 
     private AlertDialog alert;

@@ -23,11 +23,13 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
+
 /*
  * An FsModule provider.
  */
 
 interface FsModuleResolver
 {
-    FsModule resolveFsByUri(@NonNull Uri uri);
+    FsModule resolveFsByUri(@NonNull Uri uri) throws UnknownUriException;
 }

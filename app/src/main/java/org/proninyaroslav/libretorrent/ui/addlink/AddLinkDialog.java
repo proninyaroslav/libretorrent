@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,7 +38,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -60,7 +58,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddLinkDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddLinkDialog.class.getSimpleName();
 
     private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
@@ -145,6 +142,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         viewModel.link.set(item);
+        binding.link.postDelayed(this::addLink, 500);
     }
 
     private void subscribeClipboardManager() {
@@ -188,8 +186,7 @@ public class AddLinkDialog extends DialogFragment
 
         initLayoutView();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+        binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
 
         return alert;
     }
@@ -197,8 +194,7 @@ public class AddLinkDialog extends DialogFragment
     @Override
     public void onDestroyView()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+        binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
 
         super.onDestroyView();
     }
@@ -270,8 +266,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         try {
-            if (s != null)
-                s = viewModel.normalizeUrl(s);
+            s = viewModel.normalizeUrl(s);
 
         } catch (NormalizeUrlException e) {
             binding.layoutLink.setErrorEnabled(true);

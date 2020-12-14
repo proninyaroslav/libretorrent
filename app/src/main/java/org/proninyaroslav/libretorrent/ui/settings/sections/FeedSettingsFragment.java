@@ -36,7 +36,6 @@ import org.proninyaroslav.libretorrent.service.Scheduler;
 public class FeedSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedSettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

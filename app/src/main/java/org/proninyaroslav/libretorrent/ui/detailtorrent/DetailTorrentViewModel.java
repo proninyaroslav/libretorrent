@@ -23,6 +23,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -75,6 +77,8 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DetailTorrentViewModel extends AndroidViewModel
 {
+    private static final String TAG = DetailTorrentViewModel.class.getSimpleName();
+
     private String torrentId;
     private TorrentInfoProvider infoProvider;
     private TorrentEngine engine;
@@ -393,7 +397,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return engine.makeMagnet(torrentId, includePriorities);
     }
 
-    public void copyTorrentFile(@NonNull Uri destFile) throws IOException
+    public void copyTorrentFile(@NonNull Uri destFile) throws IOException, UnknownUriException
     {
         byte[] bencode = engine.getBencode(torrentId);
         if (bencode == null)
@@ -466,8 +470,12 @@ public class DetailTorrentViewModel extends AndroidViewModel
                     return;
 
                 disposable.add(Completable.fromRunnable(() -> {
-                    info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-                    info.setDirName(fs.getDirPath(dirPath));
+                    try {
+                        info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                        info.setDirName(fs.getDirPath(dirPath));
+                    } catch (UnknownUriException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
                 })
                  .subscribeOn(Schedulers.io())
                  .subscribe());
@@ -583,22 +591,29 @@ public class DetailTorrentViewModel extends AndroidViewModel
     private void updateFiles(long[] receivedBytes, double[] availability)
     {
         disposable.add(Completable.fromRunnable(() -> {
-            if (fileTree == null)
-                return;
+            try {
+                syncBuildFileTree.lock();
 
-            if (receivedBytes != null) {
-                for (int i = 0; i < receivedBytes.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setReceivedBytes(receivedBytes[i]);
+                if (fileTree == null)
+                    return;
+
+                if (receivedBytes != null) {
+                    for (int i = 0; i < receivedBytes.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setReceivedBytes(receivedBytes[i]);
+                    }
                 }
-            }
-            if (availability != null) {
-                for (int i = 0; i < availability.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setAvailability(availability[i]);
+                if (availability != null) {
+                    for (int i = 0; i < availability.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setAvailability(availability[i]);
+                    }
                 }
+
+            } finally {
+                syncBuildFileTree.unlock();
             }
         })
         .subscribeOn(Schedulers.computation())

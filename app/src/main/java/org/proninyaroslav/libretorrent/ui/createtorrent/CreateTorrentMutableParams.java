@@ -31,9 +31,7 @@ public class CreateTorrentMutableParams extends BaseObservable
 {
     public static final String FILTER_SEPARATOR = "\\|";
 
-    /* SAF or filesystem storage */
     private ObservableField<Uri> seedPath = new ObservableField<>();
-    /* Equal with seedPath in case if the path is non-SAF path */
     private String seedPathName;
     private String skipFiles;
     private String trackerUrls;
@@ -42,7 +40,6 @@ public class CreateTorrentMutableParams extends BaseObservable
     private String comments;
     private boolean startSeeding = false;
     private boolean privateTorrent = false;
-    private boolean optimizeAlignment = true;
     private Uri savePath;
 
     public ObservableField<Uri> getSeedPath()
@@ -147,18 +144,6 @@ public class CreateTorrentMutableParams extends BaseObservable
     }
 
     @Bindable
-    public boolean isOptimizeAlignment()
-    {
-        return optimizeAlignment;
-    }
-
-    public void setOptimizeAlignment(boolean optimizeAlignment)
-    {
-        this.optimizeAlignment = optimizeAlignment;
-        notifyPropertyChanged(BR.optimizeAlignment);
-    }
-
-    @Bindable
     public Uri getSavePath()
     {
         return savePath;
@@ -183,7 +168,6 @@ public class CreateTorrentMutableParams extends BaseObservable
                 ", comments='" + comments + '\'' +
                 ", startSeeding=" + startSeeding +
                 ", privateTorrent=" + privateTorrent +
-                ", optimizeAlignment=" + optimizeAlignment +
                 ", savePath=" + savePath +
                 '}';
     }

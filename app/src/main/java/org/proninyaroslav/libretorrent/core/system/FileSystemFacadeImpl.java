@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.io.IOUtils;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +40,6 @@ import java.util.UUID;
 
 class FileSystemFacadeImpl implements FileSystemFacade
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileSystemFacadeImpl.class.getSimpleName();
 
     private static final String EXTENSION_SEPARATOR = ".";
@@ -56,7 +56,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     @Override
-    public FileDescriptorWrapper getFD(@NonNull Uri path)
+    public FileDescriptorWrapper getFD(@NonNull Uri path) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(path);
 
@@ -106,7 +106,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     @Override
-    public boolean deleteFile(@NonNull Uri path) throws FileNotFoundException
+    public boolean deleteFile(@NonNull Uri path) throws FileNotFoundException, UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(path);
 
@@ -119,7 +119,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     @Override
     public Uri getFileUri(@NonNull Uri dir,
-                          @NonNull String fileName)
+                          @NonNull String fileName) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
@@ -141,7 +141,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     @Override
     public Uri getFileUri(@NonNull String relativePath,
-                          @NonNull Uri dir)
+                          @NonNull Uri dir) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
@@ -149,7 +149,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     @Override
-    public boolean fileExists(@NonNull Uri filePath)
+    public boolean fileExists(@NonNull Uri filePath) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
@@ -157,7 +157,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     @Override
-    public long lastModified(@NonNull Uri filePath)
+    public long lastModified(@NonNull Uri filePath) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
@@ -197,7 +197,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     @Override
     public Uri createFile(@NonNull Uri dir,
                           @NonNull String fileName,
-                          boolean replace) throws IOException
+                          boolean replace) throws IOException, UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
         try {
@@ -218,7 +218,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     @Override
     public void write(@NonNull byte[] data,
-                      @NonNull Uri destFile) throws IOException
+                      @NonNull Uri destFile) throws IOException, UnknownUriException
     {
         try (FileDescriptorWrapper w = getFD(destFile)) {
             try (FileOutputStream fout = new FileOutputStream(w.open("rw"))) {
@@ -230,7 +230,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     @Override
     public void write(@NonNull CharSequence data,
                       @NonNull Charset charset,
-                      @NonNull Uri destFile) throws IOException
+                      @NonNull Uri destFile) throws IOException, UnknownUriException
     {
         try (FileDescriptorWrapper w = getFD(destFile)) {
             try (FileOutputStream fout = new FileOutputStream(w.open("rw"))) {
@@ -240,19 +240,18 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     /*
-     * If the uri is a file system path, returns the path as is,
-     * otherwise returns the path in `SafFileSystem` format
+     * If the uri is a file system path, returns the path as is
      */
 
     @Override
-    public String makeFileSystemPath(@NonNull Uri uri)
+    public String makeFileSystemPath(@NonNull Uri uri) throws UnknownUriException
     {
         return makeFileSystemPath(uri, null);
     }
 
     @Override
     public String makeFileSystemPath(@NonNull Uri uri,
-                                     String relativePath)
+                                     String relativePath) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(uri);
 
@@ -265,7 +264,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
      */
 
     @Override
-    public long getDirAvailableBytes(@NonNull Uri dir)
+    public long getDirAvailableBytes(@NonNull Uri dir) throws UnknownUriException
     {
         long availableBytes = -1;
 
@@ -411,12 +410,11 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     /*
-     * Returns path if the directory belongs to the filesystem,
-     * otherwise returns SAF name
+     * Returns path if the directory belongs to the filesystem
      */
 
     @Override
-    public String getDirPath(@NonNull Uri dir)
+    public String getDirPath(@NonNull Uri dir) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
@@ -424,12 +422,11 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     /*
-     * Returns path if the file belongs to the filesystem,
-     * otherwise returns SAF name
+     * Returns path if the file belongs to the filesystem
      */
 
     @Override
-    public String getFilePath(@NonNull Uri filePath)
+    public String getFilePath(@NonNull Uri filePath) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
@@ -437,7 +434,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
     }
 
     @Override
-    public Uri getParentDirUri(@NonNull Uri filePath)
+    public Uri getParentDirUri(@NonNull Uri filePath) throws UnknownUriException
     {
         FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 

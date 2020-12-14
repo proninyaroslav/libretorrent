@@ -29,7 +29,6 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class LogSettingsActivity extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = LogSettingsActivity.class.getSimpleName();
 
     private Toolbar toolbar;

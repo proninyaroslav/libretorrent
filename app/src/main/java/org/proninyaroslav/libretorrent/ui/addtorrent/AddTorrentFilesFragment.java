@@ -52,7 +52,6 @@ public class AddTorrentFilesFragment extends Fragment
         implements
         DownloadableFilesAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddTorrentFilesFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";

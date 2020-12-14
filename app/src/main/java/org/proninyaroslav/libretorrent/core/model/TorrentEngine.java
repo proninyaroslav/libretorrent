@@ -36,6 +36,7 @@ import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -92,7 +93,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TorrentEngine
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
     private Context appContext;
@@ -429,8 +429,14 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public Torrent addTorrentSync(@NonNull AddTorrentParams params,
-                                  boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
+    public Torrent addTorrentSync(
+            @NonNull AddTorrentParams params,
+            boolean removeFile
+    ) throws
+            IOException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException
     {
         if (!isRunning())
             return null;
@@ -997,7 +1003,7 @@ public class TorrentEngine
         }
     }
 
-    private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException
+    private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException, UnknownUriException
     {
         byte[] bencode = getBencode(id);
         if (bencode == null)
@@ -1151,8 +1157,7 @@ public class TorrentEngine
     {
         String dir = pref.dirToWatch();
         Uri uri = Uri.parse(dir);
-        /* TODO: SAF support */
-        if (Utils.isSafPath(appContext, uri))
+        if (Utils.isFileSystemPath(uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
         dir = uri.getPath();
 
@@ -1203,7 +1208,11 @@ public class TorrentEngine
     }
 
     private Torrent addTorrentSync(Uri file, TorrentMetaInfo info, Uri savePath)
-            throws IOException, FreeSpaceException, TorrentAlreadyExistsException, DecodeException
+            throws IOException,
+            FreeSpaceException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException
     {
         Priority[] priorities = new Priority[info.fileCount];
         Arrays.fill(priorities, Priority.DEFAULT);

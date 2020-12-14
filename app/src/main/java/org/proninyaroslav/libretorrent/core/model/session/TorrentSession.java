@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
@@ -54,8 +55,14 @@ public interface TorrentSession
 
     void removeLoadedMagnet(String hash);
 
-    Torrent addTorrent(@NonNull AddTorrentParams params,
-                       boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException;
+    Torrent addTorrent(
+            @NonNull AddTorrentParams params,
+            boolean removeFile
+    ) throws
+            IOException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException;
 
     void deleteTorrent(@NonNull String id, boolean withFiles);
 
@@ -86,8 +93,6 @@ public interface TorrentSession
     void enableIpFilter(@NonNull Uri path);
 
     void disableIpFilter();
-
-    boolean isLSDEnabled();
 
     void pauseAll();
 

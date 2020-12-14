@@ -78,7 +78,6 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailTorrentFilesFragment extends Fragment
         implements TorrentContentFilesAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentFilesFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
@@ -395,14 +394,12 @@ public class DetailTorrentFilesFragment extends Fragment
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.change_priority_menu:
-                    showPriorityDialog();
-                    break;
-                case R.id.share_stream_url_menu:
-                    shareStreamUrl();
-                    mode.finish();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.change_priority_menu) {
+                showPriorityDialog();
+            } else if (itemId == R.id.share_stream_url_menu) {
+                shareStreamUrl();
+                mode.finish();
             }
 
             return true;
@@ -488,16 +485,12 @@ public class DetailTorrentFilesFragment extends Fragment
         int radioButtonId = group.getCheckedRadioButtonId();
 
         FilePriority.Type priorityType = null;
-        switch (radioButtonId) {
-            case R.id.dialog_priority_low:
-                priorityType = FilePriority.Type.IGNORE;
-                break;
-            case R.id.dialog_priority_normal:
-                priorityType = FilePriority.Type.NORMAL;
-                break;
-            case R.id.dialog_priority_high:
-                priorityType = FilePriority.Type.HIGH;
-                break;
+        if (radioButtonId == R.id.dialog_priority_low) {
+            priorityType = FilePriority.Type.IGNORE;
+        } else if (radioButtonId == R.id.dialog_priority_normal) {
+            priorityType = FilePriority.Type.NORMAL;
+        } else if (radioButtonId == R.id.dialog_priority_high) {
+            priorityType = FilePriority.Type.HIGH;
         }
         if (priorityType != null) {
             FilePriority priority = new FilePriority(priorityType);

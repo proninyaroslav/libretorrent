@@ -189,7 +189,6 @@
     <string name="system_manager">システムマネージャー</string>
     <string name="system_file_manager_not_found">システムファイルマネージャーが見つかりません</string>
     <string name="replace_file">ファイルを置き換え</string>
-    <string name="device_does_not_support_this_feature">この端末では当該機能をサポートしていません</string>
     <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">報告</string>
@@ -318,7 +317,6 @@
     <string name="create_torrent_options">Options</string>
     <string name="option_start_seeding">Start seeding</string>
     <string name="option_private_torrent">Private torrent</string>
-    <string name="option_optimize_alignment">Optimize alignment</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

@@ -31,6 +31,7 @@ import androidx.work.WorkerParameters;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
@@ -53,7 +54,6 @@ import java.util.Arrays;
 
 public class FeedDownloaderWorker extends Worker
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedDownloaderWorker.class.getSimpleName();
 
     public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.service.FeedDownloaderWorker.ACTION_DOWNLOAD_TORRENT_LIST";
@@ -148,7 +148,14 @@ public class FeedDownloaderWorker extends Worker
                 return null;
             }
             FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
-            if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {
+            long availableBytes;
+            try {
+                availableBytes = fs.getDirAvailableBytes(downloadPath);
+            } catch (UnknownUriException e) {
+                Log.e(TAG, "Unable to fetch torrent: " + Log.getStackTraceString(e));
+                return null;
+            }
+            if (availableBytes < info.torrentSize) {
                 Log.e(TAG, "Not enough free space for " + info.torrentName);
                 return null;
             }

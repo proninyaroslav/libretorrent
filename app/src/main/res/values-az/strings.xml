@@ -189,7 +189,6 @@
     <string name="system_manager">Sistem idarəçisi</string>
     <string name="system_file_manager_not_found">Sistem fayl idarəçisi tapılmadı</string>
     <string name="replace_file">Faylı əvəz et</string>
-    <string name="device_does_not_support_this_feature">Cihazınız bu xüsusiyyəti dəstəkləmir</string>
     <string name="parent_folder">Üst qovluq</string>
     <!-- Error dialog -->
     <string name="report">Xəbər ver</string>
@@ -318,7 +317,6 @@
     <string name="create_torrent_options">Seçimlər</string>
     <string name="option_start_seeding">Yükləməyə başla</string>
     <string name="option_private_torrent">Gizli torrent</string>
-    <string name="option_optimize_alignment">Qruplaşmanı optimallaşdır</string>
     <string-array name="piece_size_entries">
         <item>Avtomatik</item>
         <item>16 KiB</item>

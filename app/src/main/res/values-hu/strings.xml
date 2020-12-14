@@ -189,7 +189,6 @@
     <string name="system_manager">Rendszer menedzser</string>
     <string name="system_file_manager_not_found">Nincs rendszer fájl menedzser</string>
     <string name="replace_file">Fájl cseréje</string>
-    <string name="device_does_not_support_this_feature">Az eszközöd nem támogatja ezt a funkciót</string>
     <string name="parent_folder">Szülő könyvtár</string>
     <!-- Error dialog -->
     <string name="report">Jelentés</string>
@@ -318,7 +317,6 @@
     <string name="create_torrent_options">Beállítások</string>
     <string name="option_start_seeding">Seedelés indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
-    <string name="option_optimize_alignment">Igazítás optimalizása</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

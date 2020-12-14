@@ -189,7 +189,6 @@
     <string name="system_manager">Systémový správce</string>
     <string name="system_file_manager_not_found">Systémový správce souborů nebyl nalezen</string>
     <string name="replace_file">Nahradit soubor</string>
-    <string name="device_does_not_support_this_feature">Vaše zařízení tuto funkci nepodporuje</string>
     <string name="parent_folder">Nadřazená složka</string>
     <!-- Error dialog -->
     <string name="report">Nahlásit</string>
@@ -318,7 +317,6 @@
     <string name="create_torrent_options">Možnosti</string>
     <string name="option_start_seeding">Spustit seedování</string>
     <string name="option_private_torrent">Soukromý torrent</string>
-    <string name="option_optimize_alignment">Optimalizovat zarovnání</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>

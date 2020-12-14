@@ -9,9 +9,7 @@
         android:id="@+id/_expansion_header_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="16dp"
         android:gravity="center_vertical"
-        android:layout_toLeftOf="@id/_expansion_header_arrow"
         android:layout_toStartOf="@id/_expansion_header_arrow"
         android:layout_marginEnd="16dp" />
 
@@ -19,7 +17,6 @@
         android:id="@+id/_expansion_header_arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:contentDescription="@null"
         app:srcCompat="@drawable/ic_arrow_down_grey600_24dp"

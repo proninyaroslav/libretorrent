@@ -26,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -36,16 +35,12 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentDownloadableFileBinding;
 
-import java.util.Collections;
-import java.util.List;
-
 /*
  * The adapter for directory or file chooser dialog.
  */
 
 public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, DownloadableFilesAdapter.ViewHolder>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DownloadableFilesAdapter.class.getSimpleName();
 
     private ClickListener clickListener;

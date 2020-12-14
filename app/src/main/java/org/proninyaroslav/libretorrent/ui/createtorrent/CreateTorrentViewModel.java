@@ -23,6 +23,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -33,7 +34,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
-import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -52,6 +53,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentViewModel extends AndroidViewModel
 {
+    private static final String TAG = CreateTorrentViewModel.class.getSimpleName();
+
     public CreateTorrentMutableParams mutableParams = new CreateTorrentMutableParams();
     private MutableLiveData<BuildState> state = new MutableLiveData<>();
     private MutableLiveData<Integer> buildProgress = new MutableLiveData<>();
@@ -172,7 +175,6 @@ public class CreateTorrentViewModel extends AndroidViewModel
         if (savePath == null)
             throw new IllegalArgumentException("Save path is null");
 
-        /* TODO: SAF support */
         if (!Utils.isFileSystemPath(seedPath))
             throw new IllegalArgumentException("SAF doesn't supported");
 
@@ -184,7 +186,6 @@ public class CreateTorrentViewModel extends AndroidViewModel
                 .setAsPrivate(mutableParams.isPrivateTorrent())
                 .setCreator(makeCreator())
                 .setComment(mutableParams.getComments())
-                .setOptimizeAlignment(mutableParams.isOptimizeAlignment())
                 .setFileNameFilter((fileName) -> {
                     List<String> skipFilesList = decodeSkipFilesList();
                     if (skipFilesList.isEmpty())
@@ -205,7 +206,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
             try {
                 fs.write(bencode, savePath);
 
-            } catch (IOException e) {
+            } catch (IOException | UnknownUriException e) {
                 onBuildError(e);
 
                 return;
@@ -221,8 +222,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         if (savePath != null) {
             try {
                 fs.deleteFile(savePath);
-
-            } catch (IOException eio) {
+            } catch (IOException | UnknownUriException eio) {
                 /* Ignore */
             }
         }
@@ -326,8 +326,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         return engine.getPieceSizeList()[index] * 1024;
     }
 
-    public Completable downloadTorrent()
-    {
+    public Completable downloadTorrent() throws UnknownUriException {
         /* Use seed path parent; otherwise use save torrent file path */
         Uri savePath;
         Uri seedPath = mutableParams.getSeedPath().get();
@@ -374,8 +373,11 @@ public class CreateTorrentViewModel extends AndroidViewModel
             Uri seedPath = mutableParams.getSeedPath().get();
             if (seedPath == null)
                 return;
-
-            mutableParams.setSeedPathName(fs.getDirPath(seedPath));
+            try {
+                mutableParams.setSeedPathName(fs.getDirPath(seedPath));
+            } catch (UnknownUriException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
         }
     };
 }

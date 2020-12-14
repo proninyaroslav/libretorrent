@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -59,7 +58,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddFeedDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddFeedDialog.class.getSimpleName();
 
     private static final String TAG_URI = "uri";
@@ -206,8 +204,7 @@ public class AddFeedDialog extends DialogFragment
 
         initLayoutView();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+        binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
 
         return alert;
     }
@@ -215,8 +212,7 @@ public class AddFeedDialog extends DialogFragment
     @Override
     public void onDestroyView()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+        binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
 
         super.onDestroyView();
     }

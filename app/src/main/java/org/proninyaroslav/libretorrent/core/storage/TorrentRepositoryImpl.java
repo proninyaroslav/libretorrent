@@ -36,7 +36,6 @@ import io.reactivex.Single;
 
 public class TorrentRepositoryImpl implements TorrentRepository
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentRepositoryImpl.class.getSimpleName();
 
     private static final class FileDataModel

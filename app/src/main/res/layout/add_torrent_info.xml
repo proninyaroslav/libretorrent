@@ -48,18 +48,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingRight="16dp"
             android:paddingEnd="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:orientation="vertical"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:layout_marginRight="48dp"
                 android:layout_marginEnd="48dp"
                 android:layout_alignParentStart="true"
                 android:paddingStart="16dp">
@@ -83,7 +79,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/transparentRoundRipple"
                 android:contentDescription="@string/dir_chooser_title"

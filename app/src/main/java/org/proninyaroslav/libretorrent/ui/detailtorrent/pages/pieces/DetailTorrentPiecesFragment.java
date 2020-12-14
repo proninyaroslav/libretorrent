@@ -46,7 +46,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailTorrentPiecesFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentPiecesFragment.class.getSimpleName();
 
     private static final String TAG_SCROLL_POSITION = "scroll_position";

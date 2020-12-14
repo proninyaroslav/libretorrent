@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -33,6 +34,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -43,7 +45,6 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 public class StorageSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
 
     private static final String TAG_DIR_CHOOSER_BIND_PREF = "dir_chooser_bind_pref";
@@ -80,7 +81,11 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.saveTorrentsIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                saveTorrentsIn.setSummary(fs.getDirPath(uri));
+                try {
+                    saveTorrentsIn.setSummary(fs.getDirPath(uri));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
                 saveTorrentsIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_save_torrents_in);
                     dirChooseDialog(uri);
@@ -103,7 +108,11 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.moveAfterDownloadIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                moveAfterDownloadIn.setSummary(fs.getDirPath(uri));
+                try {
+                    moveAfterDownloadIn.setSummary(fs.getDirPath(uri));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
                 moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
                     dirChooseDialog(uri);
@@ -126,7 +135,11 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.saveTorrentFilesIn();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                saveTorrentFilesIn.setSummary(fs.getDirPath(uri));
+                try {
+                    saveTorrentFilesIn.setSummary(fs.getDirPath(uri));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
                 saveTorrentFilesIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_save_torrent_files_in);
                     dirChooseDialog(uri);
@@ -149,10 +162,14 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             String path = pref.dirToWatch();
             if (path != null) {
                 Uri uri = Uri.parse(path);
-                dirToWatch.setSummary(fs.getDirPath(uri));
+                try {
+                    dirToWatch.setSummary(fs.getDirPath(uri));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
                 dirToWatch.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_dir_to_watch);
-                    dirChooseDialog(uri, true);
+                    dirChooseDialog(uri);
 
                     return true;
                 });
@@ -181,11 +198,6 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
 
     private void dirChooseDialog(Uri path)
     {
-        dirChooseDialog(path, false);
-    }
-
-    private void dirChooseDialog(Uri path, boolean disableSystemFileManager)
-    {
         String dirPath = null;
         if (path != null && Utils.isFileSystemPath(path))
             dirPath = path.getPath();
@@ -194,8 +206,6 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         FileManagerConfig config = new FileManagerConfig(dirPath,
                 null,
                 FileManagerConfig.DIR_CHOOSER_MODE);
-        /* TODO: SAF support */
-        config.disableSystemFileManager = disableSystemFileManager;
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
 
         startActivityForResult(i, DOWNLOAD_DIR_CHOOSE_REQUEST);
@@ -226,7 +236,12 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
                 pref.saveTorrentsIn(path.toString());
             }
-            p.setSummary(fs.getDirPath(path));
+
+            try {
+                p.setSummary(fs.getDirPath(path));
+            } catch (UnknownUriException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
         }
     }
 

@@ -70,7 +70,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FeedActivity extends AppCompatActivity implements FragmentCallback
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedActivity.class.getSimpleName();
 
     private static final int BACKUP_FEEDS_CHOOSE_REQUEST = 1;
@@ -248,16 +247,13 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.refresh_feed_channel_menu:
-                viewModel.refreshAllFeeds();
-                break;
-            case R.id.backup_feed_channels_menu:
-                backupFeedsChooseDialog();
-                break;
-            case R.id.restore_feed_channels_backup_menu:
-                restoreFeedsChooseDialog();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.refresh_feed_channel_menu) {
+            viewModel.refreshAllFeeds();
+        } else if (itemId == R.id.backup_feed_channels_menu) {
+            backupFeedsChooseDialog();
+        } else if (itemId == R.id.restore_feed_channels_backup_menu) {
+            restoreFeedsChooseDialog();
         }
 
         return true;

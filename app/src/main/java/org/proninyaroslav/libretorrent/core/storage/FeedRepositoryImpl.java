@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
@@ -45,7 +46,6 @@ import io.reactivex.Single;
 
 public class FeedRepositoryImpl implements FeedRepository
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedRepositoryImpl.class.getSimpleName();
 
     public static final String SERIALIZE_FILE_FORMAT = "json";
@@ -140,14 +140,14 @@ public class FeedRepositoryImpl implements FeedRepository
     }
 
     @Override
-    public void serializeAllFeeds(@NonNull Uri file) throws IOException
+    public void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException
     {
         SystemFacadeHelper.getFileSystemFacade(appContext)
                 .write(new Gson().toJson(getAllFeeds()), Charset.forName("UTF-8"), file);
     }
 
     @Override
-    public List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException
+    public List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException, UnknownUriException
     {
         List<FeedChannel> feeds;
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);

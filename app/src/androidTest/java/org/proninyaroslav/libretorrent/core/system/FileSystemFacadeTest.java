@@ -28,6 +28,7 @@ import androidx.test.filters.MediumTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.proninyaroslav.libretorrent.AbstractTest;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void deleteFile()
+    public void deleteFile() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("test.txt");
         try {
@@ -78,7 +79,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getFileUri()
+    public void getFileUri() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("test.txt");
         assertEquals("file:///root/test.txt", fakeFs.getFileUri(dirUri, "test.txt").toString());
@@ -88,7 +89,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getFileUri_relativePath()
+    public void getFileUri_relativePath() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("bar.txt");
         assertEquals("file:///root/foo/bar.txt", fakeFs.getFileUri("foo/bar.txt", dirUri).toString());
@@ -98,7 +99,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void createFile()
+    public void createFile() throws UnknownUriException
     {
         try {
             fsResolver.existsFileNames = Arrays.asList("test.txt");
@@ -143,7 +144,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getDirName()
+    public void getDirName() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("bar");
         assertEquals("bar", fakeFs.getDirPath(Uri.parse("file///root/bar")));
@@ -151,7 +152,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void fileExists()
+    public void fileExists() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("test.txt");
         assertTrue(fakeFs.fileExists(Uri.parse("file///root/test.txt")));
@@ -161,7 +162,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void makeFileSystemPath()
+    public void makeFileSystemPath() throws UnknownUriException
     {
         fsResolver.existsFileNames = Arrays.asList("bar.txt");
         assertEquals("/root/foo/bar.txt", fakeFs.makeFileSystemPath(dirUri, "foo/bar.txt"));

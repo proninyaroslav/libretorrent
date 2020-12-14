@@ -38,7 +38,6 @@ import java.util.List;
 
 class DatabaseMigration
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DatabaseMigration.class.getSimpleName();
 
     static Migration[] getMigrations(@NonNull Context appContext)

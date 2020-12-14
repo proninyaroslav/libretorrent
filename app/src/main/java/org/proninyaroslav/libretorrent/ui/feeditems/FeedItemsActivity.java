@@ -34,7 +34,6 @@ import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 public class FeedItemsActivity extends AppCompatActivity
         implements FragmentCallback
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedItemsActivity.class.getSimpleName();
 
     public static final String TAG_FEED_ID = "feed_id";

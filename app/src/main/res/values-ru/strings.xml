@@ -189,7 +189,6 @@
     <string name="system_manager">Системный менеджер</string>
     <string name="system_file_manager_not_found">Системный файловый менеджер не найден</string>
     <string name="replace_file">Заменить файл</string>
-    <string name="device_does_not_support_this_feature">Ваше устройство не поддерживает данную функцию</string>
     <string name="parent_folder">Родительская папка</string>
     <!-- Error dialog -->
     <string name="report">Сообщить</string>
@@ -318,7 +317,6 @@
     <string name="create_torrent_options">Опции</string>
     <string name="option_start_seeding">Начать раздачу</string>
     <string name="option_private_torrent">Приватный торрент</string>
-    <string name="option_optimize_alignment">Оптимизировать выравнивание</string>
     <string-array name="piece_size_entries">
         <item>Авто</item>
         <item>16 Кб</item>

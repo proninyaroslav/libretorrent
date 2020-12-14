@@ -70,7 +70,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailTorrentTrackersFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentTrackersFragment.class.getSimpleName();
 
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
@@ -315,17 +314,14 @@ public class DetailTorrentTrackersFragment extends Fragment
         @Override
         public boolean onActionItemClicked(androidx.appcompat.view.ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.delete_tracker_url:
-                    deleteTrackersDialog();
-                    break;
-                case R.id.share_url_menu:
-                    shareUrl();
-                    mode.finish();
-                    break;
-                case R.id.select_all_trackers_menu:
-                    selectAllTrackers();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.delete_tracker_url) {
+                deleteTrackersDialog();
+            } else if (itemId == R.id.share_url_menu) {
+                shareUrl();
+                mode.finish();
+            } else if (itemId == R.id.select_all_trackers_menu) {
+                selectAllTrackers();
             }
 
             return true;

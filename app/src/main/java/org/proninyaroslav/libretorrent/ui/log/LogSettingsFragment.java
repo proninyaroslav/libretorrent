@@ -37,7 +37,6 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 public class LogSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = LogSettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

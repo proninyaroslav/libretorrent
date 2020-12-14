@@ -47,7 +47,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AppearanceSettingsFragment.class.getSimpleName();
 
     private static final int REQUEST_CODE_ALERT_RINGTONE = 1;

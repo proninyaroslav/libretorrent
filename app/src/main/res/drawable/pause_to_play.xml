@@ -4,5 +4,5 @@
 
     <target
         android:name="v"
-        android:animation="@anim/pause_to_play_path" />
+        android:animation="@animator/pause_to_play_path" />
 </animated-vector>

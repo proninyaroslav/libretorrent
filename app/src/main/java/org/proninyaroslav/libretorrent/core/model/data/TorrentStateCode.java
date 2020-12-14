@@ -56,13 +56,7 @@ public enum TorrentStateCode
      * still doesn't have the entire torrent. i.e. some pieces
      * are filtered and won't get downloaded.
      */
-    FINISHED(7),
-    /*
-     * If the torrent was started in full allocation mode, this
-     * indicates that the (disk) storage for the torrent is
-     * allocated.
-     */
-    ALLOCATING(8);
+    FINISHED(7);
 
     private final int value;
 

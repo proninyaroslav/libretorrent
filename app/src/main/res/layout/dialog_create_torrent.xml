@@ -52,7 +52,6 @@
                         android:id="@+id/layout_file_or_dir_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/folder_chooser_button"
                         android:layout_toStartOf="@id/folder_chooser_button">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -70,8 +69,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="8dp"
-                        android:layout_toLeftOf="@id/file_chooser_button"
                         android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
                         android:padding="8dp"
@@ -84,8 +81,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="8dp"
-                        android:layout_alignParentRight="true"
                         android:padding="8dp"
                         android:background="?attr/transparentRoundRipple"
                         android:contentDescription="@string/dir_chooser_title"
@@ -124,13 +119,6 @@
                             android:layout_height="wrap_content"
                             android:checked="@={viewModel.mutableParams.privateTorrent}"
                             android:text="@string/option_private_torrent" />
-
-                        <CheckBox
-                            android:id="@+id/optimize_alignment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="@={viewModel.mutableParams.optimizeAlignment}"
-                            android:text="@string/option_optimize_alignment" />
                     </com.google.android.material.internal.FlowLayout>
                 </LinearLayout>
 
