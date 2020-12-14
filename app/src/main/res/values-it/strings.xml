@@ -189,7 +189,6 @@
     <string name="system_manager">Gestore di sistema</string>
     <string name="system_file_manager_not_found">Gestore file di sistema non trovato</string>
     <string name="replace_file">Sostituisci file</string>
-    <string name="device_does_not_support_this_feature">Il dispositivo non supporta questa funzione</string>
     <string name="parent_folder">Cartella superiore</string>
     <!-- Error dialog -->
     <string name="report">Riporta</string>

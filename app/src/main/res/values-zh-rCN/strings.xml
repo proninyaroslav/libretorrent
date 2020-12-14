@@ -189,7 +189,6 @@
     <string name="system_manager">系统管理员</string>
     <string name="system_file_manager_not_found">找不到系统文件管理器</string>
     <string name="replace_file">替换文件</string>
-    <string name="device_does_not_support_this_feature">您的设备不支持此功能</string>
     <string name="parent_folder">上层文件夹</string>
     <!-- Error dialog -->
     <string name="report">反馈</string>

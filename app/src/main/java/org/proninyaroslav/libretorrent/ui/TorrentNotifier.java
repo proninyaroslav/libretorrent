@@ -45,7 +45,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TorrentNotifier
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentNotifier.class.getSimpleName();
 
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";

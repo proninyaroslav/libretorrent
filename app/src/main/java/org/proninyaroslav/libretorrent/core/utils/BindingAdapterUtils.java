@@ -20,9 +20,7 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.text.format.Formatter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

@@ -189,7 +189,6 @@
     <string name="system_manager">Sistem yöneticisi</string>
     <string name="system_file_manager_not_found">Sistem dosya yöneticisi bulunamadı</string>
     <string name="replace_file">Dosyayı değiştir</string>
-    <string name="device_does_not_support_this_feature">Cihazınız bu özelliği desteklememektedir</string>
     <string name="parent_folder">Üst klasör</string>
     <!-- Error dialog -->
     <string name="report">Bildir</string>

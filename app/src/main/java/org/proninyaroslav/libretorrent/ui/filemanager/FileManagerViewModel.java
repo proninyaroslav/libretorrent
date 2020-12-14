@@ -19,11 +19,11 @@
 
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -45,9 +45,9 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class FileManagerViewModel extends ViewModel
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
+    @SuppressLint("StaticFieldLeak")
     private Context appContext;
     private FileSystemFacade fs;
     public String startDir;
@@ -160,7 +160,7 @@ public class FileManagerViewModel extends ViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !dir.canRead())
+        else if (!dir.canRead())
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -172,7 +172,7 @@ public class FileManagerViewModel extends ViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !dir.canRead())
+        else if (!dir.canRead())
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -188,12 +188,9 @@ public class FileManagerViewModel extends ViewModel
         if (path == null)
             return;
         File dir = new File(path);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            File parentDir = dir.getParentFile();
-            if (!parentDir.canRead())
-                throw new SecurityException("Permission denied");
-        }
+        File parentDir = dir.getParentFile();
+        if (parentDir != null && !parentDir.canRead())
+            throw new SecurityException("Permission denied");
 
         updateCurDir(dir.getParent());
     }
@@ -278,9 +275,6 @@ public class FileManagerViewModel extends ViewModel
 
     public void takeSafPermissions(Intent data)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            return;
-
         ContentResolver resolver = appContext.getContentResolver();
 
         int takeFlags = data.getFlags() &

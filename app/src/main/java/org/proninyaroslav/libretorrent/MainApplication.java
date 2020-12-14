@@ -36,7 +36,6 @@ import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
 public class MainApplication extends MultiDexApplication
 {
-    @SuppressWarnings("unused")
     private static final String TAG = MainApplication.class.getSimpleName();
 
     static {

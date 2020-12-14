@@ -65,7 +65,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddTorrentActivity extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddTorrentActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
@@ -411,13 +410,11 @@ public class AddTorrentActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.add_torrent_dialog_add_menu:
-                addTorrent();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+        } else if (itemId == R.id.add_torrent_dialog_add_menu) {
+            addTorrent();
         }
 
         return true;

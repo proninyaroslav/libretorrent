@@ -43,7 +43,6 @@ import java.util.List;
 public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewHolder>
         implements Selectable<PeerItem>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = PeerListAdapter.class.getSimpleName();
 
     private ClickListener listener;

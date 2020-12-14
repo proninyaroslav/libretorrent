@@ -58,6 +58,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
     <style name="BaseTheme.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -105,6 +106,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
@@ -126,6 +129,8 @@
         <item name="toolbarColor">@android:color/black</item>
         <item name="statusBarColor">@android:color/black</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay_black</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
@@ -193,6 +198,7 @@
         <item name="android:windowAnimationStyle">@null</item>
 
         <item name="statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
     <style name="BaseTheme.Translucent.Dark" parent="BaseTheme.Dark">
@@ -203,6 +209,8 @@
         <item name="android:windowAnimationStyle">@null</item>
 
         <item name="statusBarColor">@color/background_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Translucent.Black" parent="BaseTheme.Black">
@@ -213,30 +221,39 @@
         <item name="android:windowAnimationStyle">@null</item>
 
         <item name="statusBarColor">@android:color/black</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Settings" parent="BaseTheme">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@color/background_dark</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@android:color/black</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Launcher" parent="BaseTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
 
         <item name="statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="BaseTheme.TabLayout.Dark" parent="Widget.MaterialComponents.TabLayout">

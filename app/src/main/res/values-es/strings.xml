@@ -189,7 +189,6 @@
     <string name="system_manager">Administrador del sistema</string>
     <string name="system_file_manager_not_found">Administrador de archivos del sistema no encontrado</string>
     <string name="replace_file">Reemplazar archivo</string>
-    <string name="device_does_not_support_this_feature">Su dispositivo no es compatible con esta característica</string>
     <string name="parent_folder">Carpeta raíz</string>
     <!-- Error dialog -->
     <string name="report">Reportar</string>

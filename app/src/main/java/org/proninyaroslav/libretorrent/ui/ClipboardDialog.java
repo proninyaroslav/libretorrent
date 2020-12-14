@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -38,7 +37,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public class ClipboardDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = ClipboardDialog.class.getSimpleName();
 
     private AppCompatActivity activity;

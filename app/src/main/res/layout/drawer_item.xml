@@ -16,7 +16,6 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="@null"
         android:layout_centerInParent="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -24,8 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_toRightOf="@id/icon"
-        android:layout_marginLeft="32dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_marginStart="32dp"
         android:layout_toEndOf="@id/icon" />

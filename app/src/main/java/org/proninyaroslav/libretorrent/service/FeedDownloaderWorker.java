@@ -54,7 +54,6 @@ import java.util.Arrays;
 
 public class FeedDownloaderWorker extends Worker
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedDownloaderWorker.class.getSimpleName();
 
     public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.service.FeedDownloaderWorker.ACTION_DOWNLOAD_TORRENT_LIST";

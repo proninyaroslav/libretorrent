@@ -189,7 +189,6 @@
     <string name="system_manager">Системски менаџер</string>
     <string name="system_file_manager_not_found">Системски фајл менаџер није пронађен</string>
     <string name="replace_file">Замени фајл</string>
-    <string name="device_does_not_support_this_feature">Ваш уређај не подржава ову функцију</string>
     <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">Пријави</string>

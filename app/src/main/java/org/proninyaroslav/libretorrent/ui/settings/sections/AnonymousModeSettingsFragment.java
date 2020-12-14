@@ -34,7 +34,6 @@ public class AnonymousModeSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AnonymousModeSettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

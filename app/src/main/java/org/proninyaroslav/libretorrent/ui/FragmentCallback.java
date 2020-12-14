@@ -30,7 +30,6 @@ import androidx.fragment.app.Fragment;
 
 public interface FragmentCallback
 {
-    @SuppressWarnings("unused")
     String TAG = FragmentCallback.class.getSimpleName();
 
     enum ResultCode {

@@ -23,8 +23,6 @@ import android.app.Application;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
@@ -78,7 +76,6 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class AddTorrentViewModel extends AndroidViewModel
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddTorrentViewModel.class.getSimpleName();
 
     public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
@@ -181,20 +178,8 @@ public class AddTorrentViewModel extends AndroidViewModel
 
     public void startDecodeTask(Uri uri)
     {
-        /*
-         * The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.
-         * http://developer.android.com/intl/ru/reference/android/os/AsyncTask.html
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            decodeTask = new TorrentDecodeTask(this);
-            decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
-        } else {
-            Handler handler = new Handler(getApplication().getMainLooper());
-            handler.post(() -> {
-                decodeTask = new TorrentDecodeTask(this);
-                decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
-            });
-        }
+        decodeTask = new TorrentDecodeTask(this);
+        decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
     }
 
     private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Throwable>

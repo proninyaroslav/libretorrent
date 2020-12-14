@@ -111,7 +111,6 @@ import io.reactivex.schedulers.Schedulers;
 public class TorrentSessionImpl extends SessionManager
         implements TorrentSession
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentSession.class.getSimpleName();
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {

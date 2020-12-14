@@ -189,7 +189,6 @@
     <string name="system_manager">Διαχειριστής συστήματος</string>
     <string name="system_file_manager_not_found">Δε βρέθηκε διαχειριστής αρχείων συστήματος</string>
     <string name="replace_file">Αντικατάσταση αρχείου</string>
-    <string name="device_does_not_support_this_feature">Η συσκευή σας δεν υποστηρίζει αυτήν τη λειτουργία</string>
     <string name="parent_folder">Γονικός φάκελος</string>
     <!-- Error dialog -->
     <string name="report">Αναφορά</string>

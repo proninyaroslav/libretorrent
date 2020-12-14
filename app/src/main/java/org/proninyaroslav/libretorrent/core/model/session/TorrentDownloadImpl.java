@@ -52,7 +52,6 @@ import org.libtorrent4j.alerts.SaveResumeDataAlert;
 import org.libtorrent4j.alerts.StateChangedAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.alerts.TorrentErrorAlert;
-import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.announce_entry;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.libtorrent;
@@ -96,7 +95,6 @@ import io.reactivex.disposables.Disposable;
 
 class TorrentDownloadImpl implements TorrentDownload
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentDownload.class.getSimpleName();
 
     private static final long SAVE_RESUME_SYNC_TIME = 10000; /* ms */

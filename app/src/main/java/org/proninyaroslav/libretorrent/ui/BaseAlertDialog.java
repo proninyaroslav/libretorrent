@@ -42,7 +42,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public class BaseAlertDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = BaseAlertDialog.class.getSimpleName();
 
     protected static final String TAG_TITLE = "title";

@@ -4,7 +4,6 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "org.proninyaroslav.libretorrent"
-        /* Officially Android Jelly Bean (< 4.4) support is dropped in libtorrent4j */
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 17

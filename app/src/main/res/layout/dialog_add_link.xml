@@ -18,7 +18,6 @@
             android:id="@+id/layout_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/clipboard_button"
             android:layout_toStartOf="@+id/clipboard_button">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -35,8 +34,6 @@
             android:layout_height="40dp"
             android:scaleType="fitCenter"
             android:layout_marginTop="12dp"
-            android:layout_marginLeft="8dp"
-            android:layout_alignParentRight="true"
             android:padding="8dp"
             android:background="?attr/transparentRoundRipple"
             android:contentDescription="@string/clipboard"

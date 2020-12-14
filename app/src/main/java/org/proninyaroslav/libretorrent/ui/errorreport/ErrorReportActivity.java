@@ -43,7 +43,6 @@ import io.reactivex.disposables.Disposable;
 
 public class ErrorReportActivity extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = ErrorReportActivity.class.getSimpleName();
 
     private static final String TAG_ERROR_DIALOG = "error_dialog";

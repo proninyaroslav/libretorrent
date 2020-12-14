@@ -67,7 +67,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = CreateTorrentDialog.class.getSimpleName();
 
     private static final String TAG_OPEN_PATH_ERROR_DIALOG = "open_path_error_dialog";

@@ -40,7 +40,6 @@ import java.io.InputStream;
 
 class IPFilterParser
 {
-    @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
 
     private static final int MAX_LOGGED_ERRORS = 5;

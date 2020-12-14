@@ -35,7 +35,6 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.TorrentBuilder;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
-import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -54,7 +53,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentViewModel extends AndroidViewModel
 {
-    @SuppressWarnings("unused")
     private static final String TAG = CreateTorrentViewModel.class.getSimpleName();
 
     public CreateTorrentMutableParams mutableParams = new CreateTorrentMutableParams();

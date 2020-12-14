@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -75,7 +74,6 @@ import io.reactivex.disposables.Disposable;
 public class FileManagerDialog extends AppCompatActivity
         implements FileManagerAdapter.ViewHolder.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileManagerDialog.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
@@ -204,9 +202,6 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void showSAFDialog()
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            return;
-
         String mimeType = viewModel.config.mimeType;
         Intent i;
         int requestCode;
@@ -223,13 +218,6 @@ public class FileManagerDialog extends AppCompatActivity
                 requestCode = SAF_CREATE_FILE_REQUEST_CODE;
                 break;
             case FileManagerConfig.DIR_CHOOSER_MODE:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    Snackbar.make(binding.coordinatorLayout,
-                            R.string.device_does_not_support_this_feature,
-                            Snackbar.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
                 i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                 requestCode = SAF_OPEN_FILE_TREE_REQUEST_CODE;
                 break;
@@ -485,20 +473,17 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.filemanager_home_menu:
-                openHomeDirectory();
-                break;
-            case R.id.filemanager_ok_menu:
-                saveCurDirectoryPath();
-                if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
-                    createFile(false);
-                else
-                    returnDirectoryUri();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.filemanager_home_menu) {
+            openHomeDirectory();
+        } else if (itemId == R.id.filemanager_ok_menu) {
+            saveCurDirectoryPath();
+            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
+                createFile(false);
+            else
+                returnDirectoryUri();
         }
 
         return true;

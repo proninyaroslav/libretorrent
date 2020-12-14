@@ -46,7 +46,6 @@ import io.reactivex.Single;
 
 public class FeedRepositoryImpl implements FeedRepository
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedRepositoryImpl.class.getSimpleName();
 
     public static final String SERIALIZE_FILE_FORMAT = "json";

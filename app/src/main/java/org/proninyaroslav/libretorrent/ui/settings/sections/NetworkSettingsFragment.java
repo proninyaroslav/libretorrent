@@ -66,7 +66,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = NetworkSettingsFragment.class.getSimpleName();
 
     private static final int FILE_CHOOSE_REQUEST = 1;

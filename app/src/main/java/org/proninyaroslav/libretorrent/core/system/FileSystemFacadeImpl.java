@@ -40,7 +40,6 @@ import java.util.UUID;
 
 class FileSystemFacadeImpl implements FileSystemFacade
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileSystemFacadeImpl.class.getSimpleName();
 
     private static final String EXTENSION_SEPARATOR = ".";

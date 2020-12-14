@@ -189,7 +189,6 @@
     <string name="system_manager">시스템 파일 관리자</string>
     <string name="system_file_manager_not_found">시스템 파일 관리자를 찾을 수 없습니다.</string>
     <string name="replace_file">파일 덮어쓰기</string>
-    <string name="device_does_not_support_this_feature">이 기기에서 지원되지 않는 기능입니다.</string>
     <string name="parent_folder">상위 폴더</string>
     <!-- Error dialog -->
     <string name="report">보고</string>

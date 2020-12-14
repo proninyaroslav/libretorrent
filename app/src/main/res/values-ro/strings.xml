@@ -189,7 +189,6 @@
     <string name="system_manager">Manager de system</string>
     <string name="system_file_manager_not_found">Manager de fișiere de sistem nu a fost găsit</string>
     <string name="replace_file">Înlocuire fişierul</string>
-    <string name="device_does_not_support_this_feature">Dispozitivul dvs. nu acceptă această caracteristică</string>
     <string name="parent_folder">Dosarul sursă</string>
     <!-- Error dialog -->
     <string name="report">Raportează</string>

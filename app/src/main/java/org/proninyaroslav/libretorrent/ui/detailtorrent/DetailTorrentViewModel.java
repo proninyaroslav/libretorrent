@@ -77,7 +77,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DetailTorrentViewModel extends AndroidViewModel
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentViewModel.class.getSimpleName();
 
     private String torrentId;

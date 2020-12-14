@@ -56,12 +56,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|end"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="24dp"
                     app:srcCompat="@drawable/ic_arrow_up_grey600_24dp"
                     app:fabSize="mini"
                     android:focusable="true"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp"
+                    tools:ignore="ContentDescription" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_down"
@@ -69,11 +69,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
                     app:srcCompat="@drawable/ic_arrow_down_grey600_24dp"
                     app:fabSize="mini"
                     android:focusable="true"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp"
+                    tools:ignore="ContentDescription" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </RelativeLayout>
     </RelativeLayout>

@@ -54,7 +54,6 @@ import static org.nanohttpd.protocols.http.response.Status.RANGE_NOT_SATISFIABLE
 
 public class TorrentStreamServer extends NanoHTTPD
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentStreamServer.class.getSimpleName();
 
     private static final String MIME_OCTET_STREAM = "application/octet-stream";

@@ -45,7 +45,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = ProxySettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

@@ -50,7 +50,6 @@ import io.reactivex.functions.Consumer;
 
 public class TorrentInfoProvider
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentInfoProvider.class.getSimpleName();
 
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */

@@ -44,7 +44,6 @@ import java.io.IOException;
 
 public class SaveLogWorker extends Worker
 {
-    @SuppressWarnings("unused")
     private static final String TAG = SaveLogWorker.class.getSimpleName();
 
     public static final String TAG_FILE_URI = "file_uri";

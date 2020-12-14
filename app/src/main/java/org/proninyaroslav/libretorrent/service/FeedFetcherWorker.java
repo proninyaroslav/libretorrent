@@ -50,7 +50,6 @@ import java.util.regex.PatternSyntaxException;
 
 public class FeedFetcherWorker extends Worker
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedFetcherWorker.class.getSimpleName();
 
     public static final String ACTION_FETCH_CHANNEL = "org.proninyaroslav.libretorrent.service.FeedFetcherWorker.ACTION_FETCH_CHANNEL";

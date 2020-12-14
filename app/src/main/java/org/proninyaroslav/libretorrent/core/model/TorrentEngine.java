@@ -93,7 +93,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TorrentEngine
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
     private Context appContext;

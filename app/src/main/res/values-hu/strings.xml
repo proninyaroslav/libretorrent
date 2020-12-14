@@ -189,7 +189,6 @@
     <string name="system_manager">Rendszer menedzser</string>
     <string name="system_file_manager_not_found">Nincs rendszer fájl menedzser</string>
     <string name="replace_file">Fájl cseréje</string>
-    <string name="device_does_not_support_this_feature">Az eszközöd nem támogatja ezt a funkciót</string>
     <string name="parent_folder">Szülő könyvtár</string>
     <!-- Error dialog -->
     <string name="report">Jelentés</string>

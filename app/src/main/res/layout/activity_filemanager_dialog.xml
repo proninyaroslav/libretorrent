@@ -89,7 +89,6 @@
             android:id="@+id/open_system_filemanager_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="@string/system_manager"
             android:layout_marginTop="135dp"
             android:layout_gravity="top|start"
@@ -111,6 +110,7 @@
             app:layout_anchor="@id/bottom_bar"
             app:layout_anchorGravity="top|right"
             app:srcCompat="@drawable/ic_add_36dp"
+            android:contentDescription="@string/add"
             android:focusable="true" />
 
         <FrameLayout

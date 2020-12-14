@@ -147,10 +147,7 @@ public class Utils
     public static void setBackground(@NonNull View v,
                                      @NonNull Drawable d)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-            v.setBackgroundDrawable(d);
-        else
-            v.setBackground(d);
+        v.setBackground(d);
     }
 
     public static boolean checkConnectivity(@NonNull Context context)
@@ -308,10 +305,7 @@ public class Utils
 
     public static String getLineSeparator()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            return System.lineSeparator();
-        else
-            return System.getProperty("line.separator");
+        return System.lineSeparator();
     }
 
     @Nullable
@@ -738,9 +732,6 @@ public class Utils
 
     public static void showActionModeStatusBar(@NonNull Activity activity, boolean mode)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            return;
-
         int attr = (mode ? R.attr.actionModeBackground : R.attr.statusBarColor);
         activity.getWindow().setStatusBarColor(getAttributeColor(activity, attr));
     }

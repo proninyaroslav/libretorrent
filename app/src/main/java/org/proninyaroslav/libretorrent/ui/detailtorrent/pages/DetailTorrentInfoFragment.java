@@ -59,7 +59,6 @@ import io.reactivex.disposables.Disposable;
 
 public class DetailTorrentInfoFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentInfoFragment.class.getSimpleName();
 
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";

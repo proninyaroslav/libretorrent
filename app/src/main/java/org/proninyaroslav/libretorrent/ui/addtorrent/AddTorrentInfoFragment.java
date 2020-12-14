@@ -51,7 +51,6 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 
 public class AddTorrentInfoFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddTorrentInfoFragment.class.getSimpleName();
 
     private static final int DIR_CHOOSER_REQUEST = 1;

@@ -189,7 +189,6 @@
     <string name="system_manager">Gestionnaire système</string>
     <string name="system_file_manager_not_found">Gestionnaire de fichiers système introuvable</string>
     <string name="replace_file">Remplacer le fichier</string>
-    <string name="device_does_not_support_this_feature">Votre appareil ne supporte pas cette fonctionnalité</string>
     <string name="parent_folder">Dossier parent</string>
     <!-- Error dialog -->
     <string name="report">Rapport</string>

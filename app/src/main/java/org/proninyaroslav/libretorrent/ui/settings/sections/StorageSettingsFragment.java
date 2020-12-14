@@ -45,7 +45,6 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 public class StorageSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
 
     private static final String TAG_DIR_CHOOSER_BIND_PREF = "dir_chooser_bind_pref";

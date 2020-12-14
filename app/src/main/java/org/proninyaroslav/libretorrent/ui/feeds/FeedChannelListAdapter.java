@@ -55,7 +55,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedChannelListAdapter.ViewHolder>
         implements Selectable<FeedChannelItem>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedChannelListAdapter.class.getSimpleName();
 
     private ClickListener listener;

@@ -43,7 +43,6 @@ import org.proninyaroslav.libretorrent.ui.settings.sections.StreamingSettingsFra
 
 public class PreferenceActivity extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = PreferenceActivity.class.getSimpleName();
 
     public static final String TAG_CONFIG = "config";
