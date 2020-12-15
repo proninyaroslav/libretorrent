@@ -37,6 +37,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
@@ -108,7 +109,7 @@ public class FileManagerDialog extends AppCompatActivity
      * Prevent call onItemSelected after set OnItemSelectedListener,
      * see http://stackoverflow.com/questions/21747917/undesired-onitemselected-calls/21751327#21751327
      */
-    private int spinnerPos = 0;
+    private int spinnerPos = -1;
     private FileManagerSpinnerAdapter storageAdapter;
 
     @Override
@@ -194,21 +195,27 @@ public class FileManagerDialog extends AppCompatActivity
 
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
 
+        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
         if (savedInstanceState != null) {
             spinnerPos = savedInstanceState.getInt(TAG_SPINNER_POS);
+        } else {
+            spinnerPos = getSpinnerPos(spinnerItems);
         }
 
         storageAdapter = new FileManagerSpinnerAdapter(this);
         storageAdapter.setTitle(viewModel.curDir.get());
-        storageAdapter.addItems(viewModel.getStorageList());
+        storageAdapter.addItems(spinnerItems);
         binding.storageSpinner.setAdapter(storageAdapter);
+        binding.storageSpinner.setTag(spinnerPos);
+        binding.storageSpinner.setSelection(spinnerPos);
         binding.storageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (spinnerPos == i) {
+                if (((Integer)binding.storageSpinner.getTag()) == i) {
                     return;
                 }
                 spinnerPos = i;
+                binding.storageSpinner.setTag(spinnerPos);
                 try {
                     viewModel.jumpToDirectory(storageAdapter.getItem(i));
 
@@ -404,13 +411,14 @@ public class FileManagerDialog extends AppCompatActivity
         super.onSaveInstanceState(outState);
     }
 
+
+
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState != null)
-            filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
+        filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
     }
 
     @Override
@@ -632,12 +640,27 @@ public class FileManagerDialog extends AppCompatActivity
         if (storageAdapter == null || adapter == null)
             return;
 
+        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
+        spinnerPos = getSpinnerPos(spinnerItems);
+        binding.storageSpinner.setSelection(spinnerPos);
+
         storageAdapter.clear();
-        storageAdapter.addItems(viewModel.getStorageList());
+        storageAdapter.addItems(spinnerItems);
         storageAdapter.setTitle(viewModel.curDir.get());
         storageAdapter.notifyDataSetChanged();
 
         viewModel.refreshCurDirectory();
+    }
+
+    private int getSpinnerPos(List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems) {
+        for (int i = 0; i < spinnerItems.size(); i++) {
+            String curDir = viewModel.curDir.get();
+            if (curDir != null && curDir.startsWith(spinnerItems.get(i).getStoragePath())) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /**
