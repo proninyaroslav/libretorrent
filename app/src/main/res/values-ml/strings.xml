@@ -181,6 +181,9 @@
     <string name="error_open_dir">ഫോൾഡർ തുറക്കാൻ കഴിയുന്നില്ല</string>
     <string name="home_directory">വീട്</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">അനുമതി നിഷേധിച്ചു</string>
     <string name="save_file">ഫയൽ സംരക്ഷിക്കുക</string>
     <string name="file_name">ഫയലിന്റെ പേര്</string>
