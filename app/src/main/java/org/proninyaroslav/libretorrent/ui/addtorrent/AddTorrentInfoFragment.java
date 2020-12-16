@@ -39,6 +39,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
+import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
@@ -119,9 +122,19 @@ public class AddTorrentInfoFragment extends Fragment
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
-        FileManagerConfig config = new FileManagerConfig(null,
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getContext());
+        String path;
+        try {
+            path = fs.getDirPath(viewModel.mutableParams.getDirPath().get());
+        } catch (UnknownUriException e) {
+            path = null;
+        }
+
+        FileManagerConfig config = new FileManagerConfig(
+                path,
                 getString(R.string.select_folder_to_save),
-                FileManagerConfig.DIR_CHOOSER_MODE);
+                FileManagerConfig.DIR_CHOOSER_MODE
+        );
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
         startActivityForResult(i, DIR_CHOOSER_REQUEST);
