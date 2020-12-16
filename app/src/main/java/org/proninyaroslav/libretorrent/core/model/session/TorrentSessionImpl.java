@@ -452,9 +452,11 @@ public class TorrentSessionImpl extends SessionManager
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
                     torrent_info ti = th.torrent_file_ptr();
-                    byte[] b = createTorrent(p, ti);
-                    if (b != null)
-                        loadedMagnets.put(hash.to_hex(), b);
+                    if (ti != null && ti.is_valid()) {
+                        byte[] b = createTorrent(p, ti);
+                        if (b != null)
+                            loadedMagnets.put(hash.to_hex(), b);
+                    }
                     notifyListeners((listener) ->
                             listener.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null));
                 } else {
