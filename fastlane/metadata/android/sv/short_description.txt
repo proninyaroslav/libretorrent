@@ -1,1 +1,1 @@
-LibreTorrent är en Fri som i Frihet torrent-klient för Android 4+, baserat på libtorrent. Ladda ner och dela filer direkt på din enhet
+LibreTorrent är en Fri som i Frihet torrent-klient för Android 5+, baserat på libtorrent. Ladda ner och dela filer direkt på din enhet

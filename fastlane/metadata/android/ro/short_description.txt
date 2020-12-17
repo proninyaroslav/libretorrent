@@ -1,1 +1,1 @@
-LibreTorrent este Gratis ca Libertatea clientului torrent pentru Android 4+, bazat pe libtorrent. Descărcați și partajați fișierele direct pe dispozitivul dvs.
+LibreTorrent este Gratis ca Libertatea clientului torrent pentru Android 5+, bazat pe libtorrent. Descărcați și partajați fișierele direct pe dispozitivul dvs.

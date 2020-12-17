@@ -1,1 +1,1 @@
-A LibreTorrent egy ingyenes, mint a Free as in Freedom torrent kliens az Android 4 és újabb verziókhoz, a libtorrent alapján. Töltse le és ossza meg fájljokat közvetlenül az eszközén
+A LibreTorrent egy ingyenes, szabad szoftver (FsF) torrent kliens az Android 5 és újabb verziókhoz, a libtorrent alapján. Töltse le és ossza meg fájljokat közvetlenül az eszközén

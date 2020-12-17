@@ -182,8 +182,8 @@
     <string name="home_directory">主页</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">内部存储</string>
+    <string name="external_storage_name" formatted="false">外部存储 %1$d</string>
     <string name="permission_denied">权限被拒</string>
     <string name="save_file">保存文件</string>
     <string name="file_name">文件名</string>

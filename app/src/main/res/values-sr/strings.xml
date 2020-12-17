@@ -44,8 +44,8 @@
     <string name="filters">Филтери</string>
     <string name="apply">Примени</string>
     <string name="clipboard">Клипборд</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Укључи</string>
+    <string name="switch_off">Искључи</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Избриши са преузетим фајловима</string>
     <string name="delete_selected_torrent">Избриши изабрани торент? Ова операција не може бити повраћена</string>
@@ -105,7 +105,7 @@
     <string name="app_running_in_the_background">LibreTorrent ради у позадини</string>
     <string name="network_online">Статус мреже: Онлајн</string>
     <string name="network_offline">Статус мреже: Офлајн</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Искључивање&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Грешка торента</string>
     <string name="error_template">Грешка: %1$s</string>
@@ -192,7 +192,7 @@
     <string name="system_manager">Системски менаџер</string>
     <string name="system_file_manager_not_found">Системски фајл менаџер није пронађен</string>
     <string name="replace_file">Замени фајл</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="parent_folder">Родитељски фолдер</string>
     <!-- Error dialog -->
     <string name="report">Пријави</string>
     <string name="more_details">Детаљније</string>
@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Задржи приоритете фајлова?</string>
     <string name="magnet_more_about_bep53">Више информација: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нема трагача</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Уреди име торента</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копирај</string>
     <string name="text_copied_to_clipboard">Текст копиран на клипборд</string>
@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Додај канал</string>
     <string name="feed_name">Име (опционо)</string>
     <string name="feed_filter_prompt">Унеси речи (раздвојене са\"|\"), једна од којих мора бити у имену или регуларан израз. Торент ће бити додат само ако се овај филтер поклапа са именом торента</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Унеси филтере један по реду.</string>
     <string name="feed_auto_download">Аутоматски преузимај нове торенте</string>
     <string name="feed_use_regex">Користи регуларне изразе</string>
     <string name="backup_feed_channels">Сачувај резервну копију</string>
@@ -304,12 +304,12 @@
     <string name="feeds_backup_selection_dialog_title">Изабери резервну копију</string>
     <string name="error_import_invalid_format">Неправилан формат</string>
     <string name="feed_do_not_download_immediately">Де преузимај одмах</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">URL није пронађен</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Направи торент</string>
     <string name="creating_torrent_progress">Креирање торента, молимо сачекати&#8230;</string>
     <string name="file_or_folder_for_seeding">Фајл или фолдер за слање</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Молимо прво изабери фајл или фолдер за сидовање</string>
     <string name="tracker_urls">URL пратиоца</string>
     <string name="web_seed_urls">URL веб слања</string>
     <string name="comments">Коментари</string>
@@ -345,21 +345,21 @@
     <string name="unable_to_open_file">Неуспешно отварање изабраних фајлова</string>
     <string name="unable_to_create_file">Неуспешно креирање фајла</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Журнал</string>
+    <string name="journal_list_empty">Нема уноса</string>
+    <string name="journal_start_recording">Започни снимање</string>
+    <string name="journal_stop_recording">Заустави снимање</string>
+    <string name="journal_started_recording">Снимање започето</string>
+    <string name="journal_filter_session_log">Записи сесије</string>
+    <string name="journal_filter_dht_log">DHT записи</string>
+    <string name="journal_filter_peer_log">Пир записи</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP записи</string>
+    <string name="journal_filter_torrent_log">Торент записи</string>
+    <string name="journal_save_log_failed">Неуспешно чување записа</string>
+    <string name="journal_save_log_success">Запис успешно сачуван: %1$s</string>
+    <string name="pref_journal_save_log_to">Сачувај запис у</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Максимално смештених записа у журналу</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Изглед</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">Покажи NAT грешке</string>
     <string name="pref_anonymous_mode_title">Укључи анонимни мод</string>
     <string name="pref_anonymous_mode_summary">Апликација покушава да донекле сакрије свој идентитет. Кориснички агент ће бити ресетован на празну реч (осим приватних торента). Трагачи ће се користити само ако користе прокси сервер. Слушајући сокети су затворени, а долазне конекције ће бити прихваћене само кроз SOCKS5 или I2P прокси (ако је прокси подешен и активан на истој машини као трагачки прокси). NAT-PMP, UPnP, DHT и тражење локалних пирова су угашени</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Дозволи излазне конекције за сидове</string>
+    <string name="pref_seeding_outgoing_connections_summary">Одређује да ли сидовање торента треба да покуша направити спољашње везе или не. Може се искључити у врло специфичним ситуацијама где је цена прављења спољашњих веза велика</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип проксија</string>
     <string-array name="pref_proxy_type_entries">

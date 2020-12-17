@@ -42,10 +42,10 @@
     <string name="details">Details</string>
     <string name="stats">Statistiken</string>
     <string name="filters">Filter</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Anwenden</string>
     <string name="clipboard">Zwischenablage</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">An</string>
+    <string name="switch_off">Aus</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Mit heruntergeladenen Dateien löschen</string>
     <string name="delete_selected_torrent">Gewählten Torrent löschen? Dies kann nicht rückgängig gemacht werden</string>
@@ -105,7 +105,7 @@
     <string name="app_running_in_the_background">LibreTorrent läuft im Hintergrund</string>
     <string name="network_online">Netzwerkstatus: Online</string>
     <string name="network_offline">Netzwerkstatus: Offline</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Wird heruntergefahren&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent Fehler</string>
     <string name="error_template">Fehler: %1$s</string>
@@ -192,7 +192,7 @@
     <string name="system_manager">System-Manager</string>
     <string name="system_file_manager_not_found">Datei-Manager des Systems nicht gefunden</string>
     <string name="replace_file">Datei ersetzen</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="parent_folder">Übergeordnetes Verzeichnis</string>
     <!-- Error dialog -->
     <string name="report">Fehlerbericht</string>
     <string name="more_details">Weitere Details</string>
@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Dateiprioritäten einbeziehen?</string>
     <string name="magnet_more_about_bep53">Mehr Informationen: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Keine Tracker</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Torrent-Name bearbeiten</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopieren</string>
     <string name="text_copied_to_clipboard">Text in Zwischenablage kopiert</string>
@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Kanal hinzufügen</string>
     <string name="feed_name">Name (wahlweise)</string>
     <string name="feed_filter_prompt">Geben Sie die Wörter ein (getrennt durch \"|\"), von denen einer im Namen sein muss oder einen regulären Ausdruck eingeben muss. Torrents werden nur hinzugefügt, wenn dieser Filter dem Torrentnamen entspricht</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Pro Zeile einen Filter eingeben.</string>
     <string name="feed_auto_download">Laden Sie neue Torrents automatisch herunter</string>
     <string name="feed_use_regex">Verwenden Sie regulären Ausdruck</string>
     <string name="backup_feed_channels">Backup speichern</string>
@@ -304,12 +304,12 @@
     <string name="feeds_backup_selection_dialog_title">Backup-Datei auswählen</string>
     <string name="error_import_invalid_format">Ungültiges Format</string>
     <string name="feed_do_not_download_immediately">Nicht sofort herunterladen</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">URL nicht gefunden</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Erstelle einen Torrent</string>
     <string name="creating_torrent_progress">Erstelle Torrent, bitte warten&#8230;</string>
     <string name="file_or_folder_for_seeding">Datei oder Ordner zum Seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Bitte wählen Sie zuerst eine Datei oder einen Ordner für das Seeding aus</string>
     <string name="tracker_urls">Tracker-URLs</string>
     <string name="web_seed_urls">Webseed-URLs</string>
     <string name="comments">Kommentar</string>
@@ -346,20 +346,20 @@
     <string name="unable_to_create_file">Datei kann nicht erstellt werden</string>
     <!-- Log -->
     <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
+    <string name="journal_list_empty">Keine Einträge</string>
+    <string name="journal_start_recording">Aufzeichnung starten</string>
+    <string name="journal_stop_recording">Aufzeichnung stoppen</string>
+    <string name="journal_started_recording">Aufzeichnung gestartet</string>
     <string name="journal_filter_session_log">Session log</string>
     <string name="journal_filter_dht_log">DHT log</string>
     <string name="journal_filter_peer_log">Peer log</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="journal_save_log_failed">Speichern von log fehlgeschlagen</string>
+    <string name="journal_save_log_success">Log erfolgreich gespeichert: %1$s</string>
+    <string name="pref_journal_save_log_to">Log speichern in</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Maximal gespeicherte Journaleinträge</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aussehen</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">NAT-Fehler anzeigen</string>
     <string name="pref_anonymous_mode_title">Anonymen Modus aktivieren</string>
     <string name="pref_anonymous_mode_summary">Die App versucht, Ihre Identität bis zu einem gewissen Grad zu verbergen. Der User-Agent wird auf eine leere Zeichenkette zurückgesetzt (außer bei privaten Torrents). Tracker werden nur verwendet, wenn Sie einen Proxy-Server verwenden. Die Listen-Sockets sind geschlossen und eingehende Verbindungen werden nur über einen SOCKS5 oder I2P Proxy akzeptiert (wenn ein Peer-Proxy eingerichtet ist und auf derselben Maschine wie der Tracker-Proxy ausgeführt wird). NAT-PMP, UPnP, DHT und lokale Peer Discovery sind deaktiviert.</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Ausgehende Verbindungen für Seeds aktivieren</string>
+    <string name="pref_seeding_outgoing_connections_summary">Legt fest, ob Seeding Torrents versuchen sollen, ausgehende Verbindungen herzustellen oder nicht. Es kann in sehr speziellen Situationen deaktiviert werden, wenn die Kosten für ausgehende Verbindungen hoch sind.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxytyp</string>
     <string-array name="pref_proxy_type_entries">

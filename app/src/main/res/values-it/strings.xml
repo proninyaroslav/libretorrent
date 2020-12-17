@@ -182,8 +182,8 @@
     <string name="home_directory">Home</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Memoria interna</string>
+    <string name="external_storage_name" formatted="false">Memoria esterna %1$d</string>
     <string name="permission_denied">Permesso negato</string>
     <string name="save_file">Salva file</string>
     <string name="file_name">Nome file</string>
@@ -225,8 +225,8 @@
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Tracker</string>
-    <string name="tracker_state_working">Working</string>
-    <string name="tracker_state_not_working">Not working</string>
+    <string name="tracker_state_working">Elaborazione in corso</string>
+    <string name="tracker_state_not_working">Non funziona</string>
     <string name="tracker_state_updating">Aggiornando&#8230;</string>
     <string name="tracker_state_not_contacted">Non ancora contattato</string>
     <string name="share_tracker_url">Condividi URL</string>
@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Aggiungi canale</string>
     <string name="feed_name">Nome (facoltativo)</string>
     <string name="feed_filter_prompt">Inserisci le parole (separate da \"|\"), una delle quali deve essere nel nome o inserire l\'espressione regolare. I torrent verranno aggiunti solo se questo filtro corrisponde al nome del torrent</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Inserisci un filtro per linea.</string>
     <string name="feed_auto_download">Scarica i nuovi torrent automaticamente</string>
     <string name="feed_use_regex">Usa un espressione regolare</string>
     <string name="backup_feed_channels">Salva backup</string>
@@ -335,58 +335,58 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url">Invalid URL: %1$s</string>
-    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files">Skip files</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="torrent_saved_to">Torrent saved to %1$s</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="invalid_url">URL non valido: %1$s</string>
+    <string name="folder_is_empty">La cartella selezionata è vuota o tutti i file sono esclusi dal filtro</string>
+    <string name="error_create_torrent">Impossibile creare un torrent</string>
+    <string name="skip_files">Salta file</string>
+    <string name="skip_files_hint">Inserisci i nomi separati da \"|\"</string>
+    <string name="select_folder_to_save">Seleziona la cartella per salvare</string>
+    <string name="torrent_saved_to">Torrent salvato in %1$s</string>
+    <string name="unable_to_open_file">Impossibile aprire il file selezionato</string>
+    <string name="unable_to_create_file">Impossibile creare il file</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Diario</string>
+    <string name="journal_list_empty">Nessuna voce</string>
+    <string name="journal_start_recording">Avvia la registrazione</string>
+    <string name="journal_stop_recording">Interrompi la registrazione</string>
+    <string name="journal_started_recording">Registrazione iniziata</string>
+    <string name="journal_filter_session_log">Log di sessione</string>
+    <string name="journal_filter_dht_log">Log DHT</string>
+    <string name="journal_filter_peer_log">Log dei peer</string>
+    <string name="journal_filter_portmap_log">Log UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Log del torrent</string>
+    <string name="journal_save_log_failed">Impossibile salvare il registro</string>
+    <string name="journal_save_log_success">Registro salvato con successo: %1$s</string>
+    <string name="pref_journal_save_log_to">Salva il log in</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Numero massimo di voci nel registro</string>
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_appearance">Appearance</string>
-    <string name="pref_header_behavior">Behavior</string>
-    <string name="pref_header_storage">Storage</string>
-    <string name="pref_header_limitations">Limitations</string>
-    <string name="pref_header_network">Network</string>
-    <string name="pref_header_scheduling">Scheduling</string>
+    <string name="pref_header_appearance">Aspetto</string>
+    <string name="pref_header_behavior">Comportamento</string>
+    <string name="pref_header_storage">Memoria</string>
+    <string name="pref_header_limitations">Limitazioni</string>
+    <string name="pref_header_network">Rete</string>
+    <string name="pref_header_scheduling">Pianificazione</string>
     <string name="pref_header_feed">RSS</string>
     <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Save torrents in</string>
-    <string name="pref_move_after_download_title">Move after download</string>
-    <string name="pref_move_after_download_in_title">Move after download in</string>
-    <string name="pref_save_torrent_files_title">Save .torrent files</string>
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_save_torrent_files_in_title">Save .torrent files in</string>
-    <string name="pref_watch_dir_title">Watch directory</string>
-    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
-    <string name="pref_dir_to_watch_title">Directory to watch</string>
+    <string name="pref_save_torrents_in_title">Salva i torrent in</string>
+    <string name="pref_move_after_download_title">Sposta dopo il download</string>
+    <string name="pref_move_after_download_in_title">Sposta dopo il download in</string>
+    <string name="pref_save_torrent_files_title">Salva i file .torrent</string>
+    <string name="pref_save_torrent_files_summary">Salva i file .torrent dopo l\'inizio del download</string>
+    <string name="pref_save_torrent_files_in_title">Salva file .torrent in</string>
+    <string name="pref_watch_dir_title">Monitora directory</string>
+    <string name="pref_watch_dir_summary">I file torrent (con estensione .torrent) vengono monitorati nella cartella specificata e aggiunti automaticamente. I file torrent vengono eliminati dopo l\'aggiunta</string>
+    <string name="pref_dir_to_watch_title">Directory da guardare</string>
     <!-- Limitations settings -->
-    <string name="pref_speed_category">Speed</string>
-    <string name="pref_max_download_speed_title">Maximum download speed</string>
-    <string name="pref_max_upload_speed_title">Maximum upload speed</string>
-    <string name="pref_max_connections_title">Maximum number of connections</string>
+    <string name="pref_speed_category">Velocità</string>
+    <string name="pref_max_download_speed_title">Massima velocità di download</string>
+    <string name="pref_max_upload_speed_title">Massima velocità di upload</string>
+    <string name="pref_max_connections_title">Numero massimo di connessioni</string>
     <string name="pref_max_connections_summary">Numero minimo di connessioni - 2</string>
-    <string name="pref_torrent_queueing_category">Torrent queueing</string>
+    <string name="pref_torrent_queueing_category">Coda torrent</string>
     <string name="pref_max_active_uploads_title">Numero massimo di upload attivi</string>
     <string name="pref_max_active_downloads_title">Numero massimo di download attivi</string>
     <string name="pref_max_active_torrents_title">Numero massimo di torrent attivi</string>
@@ -445,12 +445,12 @@
     <string name="pref_enable_utp_summary">È progettato per mitigare la latenza e altri problemi di controllo nella gestione riscontrati nel convenzionale BitTorrent su TCP, fornendo al contempo una consegna affidabile e ordinata</string>
     <string name="pref_enable_upnp_title">Abilita UPnP</string>
     <string name="pref_enable_natpmp_title">Abilita NAT-PMP</string>
-    <string name="pref_port_settings_category">Port settings</string>
+    <string name="pref_port_settings_category">Impostazioni porta</string>
     <string name="pref_use_random_port_title">Utilizza porta casuale</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
+    <string name="pref_use_random_port_summarty">Setta la porta d\'inizio casualmente nell\'intervallo [%1$d, %2$d] e la porta finale come prima + 10</string>
+    <string name="pref_port_range_title">Range porta</string>
+    <string name="pref_port_range_start_title">Avvia</string>
+    <string name="pref_port_range_end_title">Fine</string>
     <string name="pref_encryption_category">Crittografia</string>
     <string name="pref_enc_mode_title">Modalità di crittografia</string>
     <string-array name="pref_enc_mode_entries">
@@ -462,45 +462,45 @@
     <string name="pref_enc_out_connections_title">Connessioni in uscita</string>
     <string name="pref_ip_filtering_category">Filtraggio IP</string>
     <string name="pref_enable_ip_filtering_title">Abilita filtraggio IP</string>
-    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
-    <string name="pref_show_nat_errors">Show NAT errors</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_enable_ip_filtering_summary">Utilizzando l\'IP filtering l\'utilizzo della memoria aumenta. A seconda della dimensione del file, il filtro potrebbe impiegare un po\' di tempo per essere applicato durante l\'avvio</string>
+    <string name="pref_ip_filtering_file_title">Percorso per file filtro (.dati, .p2p)</string>
+    <string name="pref_show_nat_errors">Mostra errori NAT</string>
+    <string name="pref_anonymous_mode_title">Attiva modalità anonima</string>
+    <string name="pref_anonymous_mode_summary">L\'app prova a nascondere la propria identità. Lo user-agent sarà una stringa vuota (eccezion fatta per i torrent privati). I tracker verranno utilizzati solamente se stanno usando un server proxy. I socket di ascolto sono chiusi, e connessioni in entrata verranno accettate solamente se effettuate attraverso SOCKS5 o proxy I2P (se un proxy peer è impostato ed eseguito sulla stessa macchina del tracker proxy). NAT-PMP, UPnP, DHT e l\'individuazione dei peer locali sono disattivati</string>
+    <string name="pref_seeding_outgoing_connections_title">Abilita connessioni in uscita per i seed</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determina se i torrent in seed dovrebbero tentare di effettuare connessioni in uscita o meno. Può essere disabilitato in situazioni molto specifiche in cui il costo per realizzare i collegamenti in uscita è elevato</string>
     <!-- Proxy settings -->
-    <string name="pref_proxy_type_title">Proxy type</string>
+    <string name="pref_proxy_type_title">Tipo di proxy</string>
     <string-array name="pref_proxy_type_entries">
-        <item>(None)</item>
+        <item>(Nessuno)</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_address_title">Address</string>
-    <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_title">Also use for peer connections</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_proxy_requires_auth_title">Requires authorization</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
+    <string name="pref_proxy_address_title">Indirizzo</string>
+    <string name="pref_proxy_port_title">Porta</string>
+    <string name="pref_proxy_peers_too_title">Usa anche per le connessioni dei peer</string>
+    <string name="pref_proxy_peers_too_summary">Il proxy verrà utilizzato per la connessione con tracker, peer e web seed</string>
+    <string name="pref_proxy_requires_auth_title">Richiede l\'autorizzazione</string>
+    <string name="pref_proxy_requires_auth_summary">Attenzione: la password salvata non è crittografata</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_title">Start time</string>
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
-    <string name="pref_scheduling_run_only_once_title">Run only once</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <string name="pref_enable_scheduling_start_title">Orario di inizio</string>
+    <string name="pref_enable_scheduling_start_summary">Avvia l\'app all\'ora specificata. I torrent verranno eseguiti in base al loro stato prima dell\'ultimo spegnimento</string>
+    <string name="pref_enable_scheduling_shutdown_title">Tempo di spegnimento</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Spegnere l\'app al momento specificato</string>
+    <string name="pref_scheduling_run_only_once_title">Esegui solo una volta</string>
+    <string name="pref_scheduling_switch_wifi_title">Attiva/disattiva Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Il Wi-Fi viene attivato automaticamente quando l\'app viene avviata all\'ora programmata e viene disattivata dopo lo spegnimento all\'ora programmata</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
-    <string name="pref_feed_refresh_interval_title">Refresh interval</string>
+    <string name="pref_feed_auto_refresh_title">Aggiorna automaticamente i canali</string>
+    <string name="pref_feed_auto_refresh_summary">Aggiorna periodicamente i canali in background</string>
+    <string name="pref_feed_refresh_interval_title">Intervallo di aggiornamento</string>
     <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
+        <item>15 minuti</item>
+        <item>30 minuti</item>
+        <item>1 ora</item>
         <item>2 ore</item>
         <item>6 ore</item>
         <item>12 ore</item>
@@ -525,17 +525,17 @@
     <string name="pref_feed_start_torrents_title">Avvia i torrent</string>
     <string name="pref_feed_start_torrents_summary">Avvia i torrent dopo averli aggiunti</string>
     <string name="pref_feed_remove_duplicates_title">Rimuovi duplicati</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_summary">Controlla il titolo degli elementi appena scaricati e salta quando uno con lo stesso titolo è già presente</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Enable streaming</string>
-    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
-    <string name="pref_streaming_hostname">Hostname</string>
-    <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
+    <string name="pref_streaming_enable_title">Abilita streaming</string>
+    <string name="pref_streaming_enable_summary">Lo streaming consente di scaricare singoli file da un torrent utilizzando un browser o un lettore multimediale tramite un URL HTTP</string>
+    <string name="pref_streaming_hostname">Nome host</string>
+    <string name="pref_streaming_port">Porta</string>
+    <string name="pref_streaming_error">La porta o il nome host selezionato per lo streaming sono occupati o non sono corretti. Si prega di correggerlo</string>
     <!-- About dialog -->
-    <string name="about_title">About LibreTorrent</string>
-    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_title">Informazioni su LibreTorrent</string>
+    <string name="about_description"><![CDATA[    Ulteriori informazioni e link utili: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent è un client torrent libero ed open source per Android 4+, basato su libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
+    LibreTorrent è software libero, rilasciato sotto i termini della <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_changelog">Novità</string>
 </resources>

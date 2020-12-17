@@ -1,0 +1,1 @@
+LibreTorrent は libtorrent に基づいた Android 5+ 用の無料トレントクライアントです。 お使いの端末で直接ファイルをダウンロードして共有する

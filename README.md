@@ -49,7 +49,7 @@ If you like LibreTorrent you can support author with these methods. If you have 
 
  - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GWWYZSCKPAB2Q)
  - **Yandex Money**: `410011738561939`
- - **WebMoney**: 
+ - **WebMoney**:
      - **WMZ**: `Z335461926163`
      - **WMR**: `R151579576467`
  - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
@@ -63,8 +63,10 @@ Translations
 
 You can help translate the app here: [https://crowdin.com/project/libretorrent](https://crowdin.com/project/libretorrent)
 
+ - **Arabic** *(thanks xivaphro)*
  - **Azerbaijani** *(thanks Khan27)*
  - **Basque** *(thanks dabid)*
+ - **Bengali** *(thanks Oymate)*
  - **Brazilian Portuguese** *(thanks Wolfterro)*
  - **Catalan** *(thanks amontero)*
  - **Chinese Traditional** *(thanks lzmxya)*
@@ -76,15 +78,18 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Greek** *(thanks Spyros3000, skyhirules)*
  - **Hindi** *(thanks Lino Joseph)*
  - **Hungarian** *(thanks Ephyx)*
+ - **Indonesian** *(thanks ardumpl)*
  - **Italian** *(thanks Gabrielelulo2, GiovaGa)*
  - **Japanese** *(thanks mamarama9904)*
  - **Korean** *(thanks jjjhitel)*
  - **Lithuanian** *(thanks techwebpd)*
  - **Malayalam** *(thanks Lino Joseph)*
  - **Norwegian Bokmål** *(thanks comradekingu)*
+ - **Persian** *(thanks Reg3xp)*
  - **Polish** *(thanks Azaradel)*
  - **Romanian** *(thanks georgenetu, Silviu200530)*
  - **Russian**
+ - **Santali** *(thanks Rocky_734)*
  - **Serbian (Cyrillic)** *(thanks veles330)*
  - **Spanish** *(thanks ed10vi, MS-PC)*
  - **Swedish** *(thanks JAMALDIN01)*

@@ -44,8 +44,8 @@
     <string name="filters">Filtre</string>
     <string name="apply">Aplică</string>
     <string name="clipboard">Memoria temporară</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_on">Pe</string>
+    <string name="switch_off">Dezactivat</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ștergeți împreună cu fișierele descărcate</string>
     <string name="delete_selected_torrent">Stergeți torrentul selectat? Această operație nu poate fi anulată</string>
@@ -264,7 +264,7 @@
     <string name="magnet_include_file_priorities">Includeți priorități de fișiere?</string>
     <string name="magnet_more_about_bep53">Mai multe informatii: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Fără urmăritori</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">Editați numele torrentului</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiază</string>
     <string name="text_copied_to_clipboard">Text copiat în clipboard</string>
@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Adăugați un canal</string>
     <string name="feed_name">Nume (opțional)</string>
     <string name="feed_filter_prompt">Introduceți cuvintele (separate prin simbolul \"|\"), dintre care una trebuie să fie în nume sau să introduceți o expresie regulată. Torrentele vor fi adăugate numai dacă acest filtru se potrivește cu numele torrentului</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Introduceți filtre câte unul pe linie.</string>
     <string name="feed_auto_download">Descarca torentele noi în mod automat</string>
     <string name="feed_use_regex">Utilizați expresii regulate</string>
     <string name="backup_feed_channels">Salvează rezervele</string>
@@ -309,7 +309,7 @@
     <string name="create_torrent">Creați torrent</string>
     <string name="creating_torrent_progress">Se crează torrent-ul, vă rugăm așteptați&#8230;</string>
     <string name="file_or_folder_for_seeding">Fișier sau dosar pentru seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Vă rugăm să selectați mai întâi fișierul sau folderul pentru însămânțare</string>
     <string name="tracker_urls">URL-uri de urmărire</string>
     <string name="web_seed_urls">URL-uri de semințe Web</string>
     <string name="comments">Comentarii</string>
@@ -345,21 +345,21 @@
     <string name="unable_to_open_file">Nu se poate deschide fișierul selectat</string>
     <string name="unable_to_create_file">Nu se poate creea fișierul</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Jurnal</string>
+    <string name="journal_list_empty">Fără intrări</string>
+    <string name="journal_start_recording">Începe să înregistrezi</string>
+    <string name="journal_stop_recording">Opriți înregistrarea</string>
+    <string name="journal_started_recording">A început înregistrarea</string>
+    <string name="journal_filter_session_log">Jurnalul sesiunii</string>
+    <string name="journal_filter_dht_log">Jurnal DHT</string>
+    <string name="journal_filter_peer_log">Jurnal de la egal la egal</string>
+    <string name="journal_filter_portmap_log">Jurnal UPnP / NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Jurnal Torrent</string>
+    <string name="journal_save_log_failed">Salvarea jurnalului nu a reușit</string>
+    <string name="journal_save_log_success">Jurnal salvat cu succes:%1$s</string>
+    <string name="pref_journal_save_log_to">Salvați jurnalul în</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Intrări maxime stocate în jurnal</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aspect</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">Afișați erorile NAT</string>
     <string name="pref_anonymous_mode_title">Activați modul anonim</string>
     <string name="pref_anonymous_mode_summary">Aplicația încearcă să-și ascundă identitatea într-un anumit grad. Utilizatorul-agent va fi resetat la un șir gol (cu excepția torrent-urilor private). Trackerele vor fi utilizate numai dacă folosesc un server proxy. Soclurile de ascultare sunt închise, iar conexiunile primite vor fi acceptate doar printr-un proxy SOCKS5 sau I2P (dacă este configurat un proxy peer și este rulat pe aceeași mașină ca proxy-ul tracker). NAT-PMP, UPnP, DHT și descoperirea locală sunt dezactivate</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Activați conexiunile de ieșire pentru semințe</string>
+    <string name="pref_seeding_outgoing_connections_summary">Stabilește dacă însămânțarea torentelor ar trebui să încerce sau nu să facă conexiuni de ieșire. Poate fi dezactivat în situații foarte specifice în care costul conexiunilor de ieșire este ridicat</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tip de proxy</string>
     <string-array name="pref_proxy_type_entries">

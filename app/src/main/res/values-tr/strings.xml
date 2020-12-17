@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Kanal ekle</string>
     <string name="feed_name">Adı (isteğe bağlı)</string>
     <string name="feed_filter_prompt">Bir tanesi isimde olacak şekilde sözcükleri girin (\"|\" ile ayrılmış), ya da düzenli ifade girin. Torrentler yalnızca bu filtre torrent adıyla eşleşirse eklenecektir</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Her satıra bir filtre girin.</string>
     <string name="feed_auto_download">Yeni torrentleri otomatik olarak indir</string>
     <string name="feed_use_regex">Düzenli ifade kullan</string>
     <string name="backup_feed_channels">Yedeklemeyi kaydet</string>
@@ -309,7 +309,7 @@
     <string name="create_torrent">Torrent oluştur</string>
     <string name="creating_torrent_progress">Torrent oluşturuluyor, lütfen bekleyin&#8230;</string>
     <string name="file_or_folder_for_seeding">Yüklemek için dosya ya da klasör</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Lütfen önce tohumlama için dosya veya klasör seçin</string>
     <string name="tracker_urls">Takipçi URL\'leri</string>
     <string name="web_seed_urls">Web ortağı URL\'leri</string>
     <string name="comments">Yorumlar</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">NAT hatalarını göster</string>
     <string name="pref_anonymous_mode_title">Anonim modu etkinleştir</string>
     <string name="pref_anonymous_mode_summary">Uygulama kimliğini belirli bir dereceye kadar gizlemeye çalışır. Kullanıcı-aracısı boş string olarak resetlenecektir (özel torrentler için hariç). Takipçiler sadece proxy sunucu kullanıyorlarsa kullanılacaktır. Dinleme soketleri kapatılır, ve gelen bağlantılar sadece SOCKS5 ya da I2P proxy üzerinden kabul edilecektir (eğer bir eş proxy ayarlanmışsa ve aynı makinede takipçi proxy olarak çalışıyorsa). NAT-PMP, UPnP, DHT ve yerel eş bulma kapatılır</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Tohumlar için giden bağlantıları etkinleştirin</string>
+    <string name="pref_seeding_outgoing_connections_summary">Tohumlama torrentlerinin giden bağlantılar kurmaya çalışıp çalışmayacağını belirler. Giden bağlantı yapmanın maliyetinin yüksek olduğu çok özel durumlarda devre dışı bırakılabilir</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy türü</string>
     <string-array name="pref_proxy_type_entries">

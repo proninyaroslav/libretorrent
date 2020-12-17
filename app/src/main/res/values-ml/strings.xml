@@ -31,21 +31,21 @@
     <string name="refresh">പുതുക്കുക</string>
     <string name="edit">തിരുത്തുക</string>
     <string name="menu">മെനു</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
-    <string name="file">File</string>
-    <string name="folder">Folder</string>
-    <string name="finished">Finished</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
-    <string name="details">Details</string>
-    <string name="stats">Stats</string>
-    <string name="filters">Filters</string>
-    <string name="apply">Apply</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="open_navigation_drawer">നാവിഗേഷൻ ഡ്രോയർ തുറക്കുക</string>
+    <string name="close_navigation_drawer">നാവിഗേഷൻ ഡ്രോയർ അടയ്‌ക്കുക</string>
+    <string name="file">ഫയൽ</string>
+    <string name="folder">ഫോൾഡർ</string>
+    <string name="finished">പൂർത്തിയായി</string>
+    <string name="pause_all">എല്ലാം താൽക്കാലികമായി നിർത്തുക</string>
+    <string name="resume_all">എല്ലാം പുനരാരംഭിക്കുക</string>
+    <string name="all">എല്ലാം</string>
+    <string name="details">വിശദാംശങ്ങൾ</string>
+    <string name="stats">സ്ഥിതിവിവരക്കണക്കുകൾ</string>
+    <string name="filters">ഫിൽട്ടറുകൾ</string>
+    <string name="apply">പ്രയോഗിക്കുക</string>
+    <string name="clipboard">ക്ലിപ്പ്ബോർഡ്</string>
+    <string name="switch_on">ഓണ്‍</string>
+    <string name="switch_off">വേണ്ട</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ഡൌൺലോഡ് ചെയ്ത ഫയലുകൾ ഇല്ലാതാക്കുക</string>
     <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>
@@ -68,32 +68,32 @@
     <string name="theme_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചശേഷം തീം ക്രമീകരണങ്ങൾ പ്രയോഗിക്കും</string>
     <string name="about">കുറിച്ച്</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT നോഡുകൾ:%1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port">Listening port: %1$s</string>
+    <string name="session_stats_listen_port">ശ്രവിക്കുന്ന പോർട്ട്:%1$s</string>
     <!-- Status -->
-    <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status">പദവി</string>
+    <string name="drawer_status_downloading">ഡൗൺലോഡുചെയ്യുന്നു</string>
+    <string name="drawer_status_downloaded">ഡൗൺലോഡുചെയ്‌തു</string>
+    <string name="drawer_status_downloading_metadata">മെറ്റാഡാറ്റ ഡൗൺലോഡുചെയ്യുന്നു</string>
     <string name="drawer_status_error">പിശക്</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_size">Size</string>
-    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting">അടുക്കുന്നു</string>
+    <string name="drawer_sorting_name">പേര്</string>
+    <string name="drawer_sorting_date_added">തീയതി ചേർത്തു</string>
+    <string name="drawer_sorting_size">വലുപ്പം</string>
+    <string name="drawer_sorting_progress">പുരോഗതി</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <string name="drawer_sorting_peers">സമപ്രായക്കാർ</string>
+    <string name="drawer_sorting_no_sorting">തരംതിരിക്കൽ ഇല്ല</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added">തീയതി ചേർത്തു</string>
+    <string name="drawer_date_added_today">ഇന്ന്</string>
+    <string name="drawer_date_added_yesterday">ഇന്നലെ</string>
+    <string name="drawer_date_added_week">ആഴ്ച</string>
+    <string name="drawer_date_added_month">മാസം</string>
+    <string name="drawer_date_added_year">വർഷം</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -101,25 +101,25 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Downloading: %1$d Total: %2$d</string>
+    <string name="torrent_count_notify_template">ഡൗൺലോഡുചെയ്യുന്നു:%1$d ആകെ:%2$d</string>
     <string name="app_running_in_the_background">പശ്ചാത്തലത്തിൽ പ്രവർത്തിപ്പിക്കുന്ന LibreTorrent</string>
     <string name="network_online">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓൺലൈനിൽ</string>
     <string name="network_offline">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓഫ്ലൈൻ</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">അടച്ചുപൂട്ടുന്നു&#8230;</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">ടോറന്റ് പിശക്</string>
-    <string name="error_template">Error: %1$s</string>
+    <string name="error_template">പിശക്:%1$s</string>
     <string name="restore_torrent_error">മുമ്പത്തെ സെഷനിൽ നിന്നും ടോറന്റ് പുനഃസംഭരിക്കാൻ കഴിയുന്നില്ല</string>
     <string name="session_error_title">സെഷൻ പിശക്</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="nat_error_title">NAT error</string>
+    <string name="nat_error_title">NAT പിശക്</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">ടോറന്റ് പൂർത്തിയായി</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content">Moving %1$s, please wait</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_moving_title">ടോറന്റ് നീക്കുന്നു</string>
+    <string name="torrent_moving_content">%1$s നീക്കുന്നു, ദയവായി കാത്തിരിക്കുക</string>
+    <string name="torrent_move_success">ടോറന്റ് വിജയകരമായി നീക്കി</string>
+    <string name="torrent_move_fail">ടോറന്റ് നീക്കാൻ കഴിഞ്ഞില്ല</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -127,7 +127,7 @@
     <!-- ↓ download speed | ↑ upload speed -->
     <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s%2$s\u2022%3$d%4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">ഡൗൺലോഡുചെയ്യുന്നു</string>
@@ -152,14 +152,14 @@
     <string name="torrent_exist">ടോറന്റ് ഇതിനകം നിലവിലുണ്ട്. ടർട്രുകൾ ലയിപ്പിച്ചു</string>
     <string name="error_field_required">ഈ ഫീൽഡ് പൂരിപ്പിക്കേണ്ടതുണ്ട്</string>
     <string name="error_no_files_selected">ഫയലുകളൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല</string>
-    <string name="free_space">%1$s free</string>
+    <string name="free_space">%1$s ശൂന്യമാണ്</string>
     <string name="error_free_space">തിരഞ്ഞെടുത്ത ഫയലുകൾ ഡൌൺലോഡ് ചെയ്യാനായി ആവശ്യമായ പാടുകളിൽ മതിയായ ഇടമില്ല</string>
-    <string name="files_size">Selected %1$s out of %2$s</string>
+    <string name="files_size">%2$s ൽ %1$s തിരഞ്ഞെടുത്തു</string>
     <string name="start_torrent">ടോറന്റ് ആരംഭിക്കുക</string>
     <string name="file_is_too_large_error">ഫയൽ വളരെ വലുതാണ്</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="error_empty_name">Please enter name</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="unable_to_open_folder">തിരഞ്ഞെടുത്ത ഫോൾഡർ തുറക്കാനായില്ല. മറ്റൊരു ഫോൾഡർ തിരഞ്ഞെടുക്കാൻ ശ്രമിക്കുക</string>
+    <string name="error_empty_name">ദയവായി പേര് നൽകുക</string>
+    <string name="ignore_free_space">സ ജന്യ സ്പേസ് വലുപ്പം അവഗണിക്കുക</string>
     <!-- Torrent info -->
     <string name="torrent_info">വിവരം</string>
     <string name="torrent_files">ഫയലുകൾ</string>
@@ -189,16 +189,16 @@
     <string name="file_name">ഫയലിന്റെ പേര്</string>
     <string name="error_file_exists">ഫയൽ ഇതിനകം നിലവിലുണ്ട്</string>
     <string name="file_name_is_empty">ഫയലിന്റെ പേര് ശൂന്യമായിരിക്കരുത്</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="system_manager">സിസ്റ്റം മാനേജർ</string>
+    <string name="system_file_manager_not_found">സിസ്റ്റം ഫയൽ മാനേജർ കണ്ടെത്തിയില്ല</string>
+    <string name="replace_file">ഫയൽ മാറ്റിസ്ഥാപിക്കുക</string>
+    <string name="parent_folder">മാതൃ ഫോൾഡർ</string>
     <!-- Error dialog -->
     <string name="report">റിപ്പോർട്ട് ചെയ്യുക</string>
     <string name="more_details">കൂടുതൽ വിശദാംശങ്ങൾ</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template">%1$s\u2022%2$s%3$s\u2022%4$d\u2022ലഭ്യത%5$s</string>
     <string name="file_priority_normal">സാധാരണ</string>
     <string name="file_priority_low">അവഗണിക്കുക</string>
     <string name="file_priority_high">ഉയർന്ന</string>
@@ -214,7 +214,7 @@
     <string name="torrent_ETA">ETA</string>
     <string name="torrent_seeds">വിത്തുകൾ</string>
     <string name="torrent_peers">സമപ്രായക്കാർ</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_leechers">അട്ടകൾ</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">അപ്ലോഡുചെയ്തു</string>
@@ -242,7 +242,7 @@
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
     <string name="peer_client">കക്ഷി: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
-    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_web">വെബ്</string>
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">ഈ ടോൺ ഇതുവരെ ഏതെങ്കിലും സഹപാഠികളുമായി ബന്ധിപ്പിച്ചിട്ടില്ല</string>
     <string name="piece_map">പീസ്സ് മാപ്പ്</string>
@@ -263,8 +263,8 @@
     <string name="share_stream_url">സ്ട്രീം URL പങ്കിടുക</string>
     <string name="magnet_include_file_priorities">ഫയൽ മുൻഗണനകൾ ഉൾപ്പെടുത്തണോ?</string>
     <string name="magnet_more_about_bep53">കൂടുതൽ വിവരങ്ങൾ: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="tracker_list_empty">ട്രാക്കറുകളൊന്നുമില്ല</string>
+    <string name="edit_torrent_name">ടോറന്റ് പേര് എഡിറ്റുചെയ്യുക</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">പകർത്തുക</string>
     <string name="text_copied_to_clipboard">വാചകം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി</string>
@@ -275,46 +275,46 @@
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">ചാനലുകളൊന്നുമില്ല</string>
     <string name="select_or_add_feed_channel">ഒരു RSS/Atom ചാനല് തിരഞ്ഞെടുക്കുക അല്ലെങ്കില് ചേര്ക്കുക</string>
-    <string name="add_feed_channel">Add channel</string>
+    <string name="add_feed_channel">ചാനൽ ചേർക്കുക</string>
     <string name="feed_name">പേര് (ഓപ്ഷണൽ)</string>
     <string name="feed_filter_prompt">വാക്കുകളിൽ (\"|\" വേർതിരിച്ചിരിക്കുന്നു) നൽകുക, അതിലൊന്നിൽ പേരിനായിരിക്കണം അല്ലെങ്കിൽ റെഗുലർ എക്സ്പ്രഷൻ നൽകുക. ഈ ഫിൽറ്റർ ടോറന്റ് പേരുമായി പൊരുത്തപ്പെടുന്നെങ്കിൽ മാത്രമേ സ്പർശന ചേർക്കും</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">ഓരോ വരിയിലും ഒന്ന് ഫിൽട്ടറുകൾ നൽകുക.</string>
     <string name="feed_auto_download">പുതിയ ടോറന്റുകളെ സ്വപ്രേരിതമായി ഡൗൺലോഡ് ചെയ്യുക</string>
     <string name="feed_use_regex">റെഗുലർ എക്സ്പ്രഷൻ ഉപയോഗിക്കുക</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="backup_feed_channels">ബാക്കപ്പ് സംരക്ഷിക്കുക</string>
+    <string name="restore_feed_channels_backup">ബാക്കപ്പ് പുന ore സ്ഥാപിക്കുക</string>
     <string name="feed_last_update_template">അപ്ഡേറ്റുചെയ്തു: %1$s</string>
     <string name="feed_last_update_never">ഒരിക്കലും</string>
     <string name="error_cannot_add_channel">ചാനൽ ചേർക്കാൻ കഴിയില്ല</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="error_cannot_edit_channel">ചാനൽ എഡിറ്റുചെയ്യാൻ കഴിയില്ല</string>
+    <string name="error_cannot_delete_channel">ചാനൽ ഇല്ലാതാക്കാൻ കഴിയില്ല</string>
     <string name="copy_link">ലിങ്ക് പകർത്തുക</string>
     <string name="delete_selected_channel">തിരഞ്ഞെടുത്ത ചാനൽ ഇല്ലാതാക്കണോ?</string>
     <string name="delete_selected_channels">തിരഞ്ഞെടുത്ത ചാനലുകൾ ഇല്ലാതാക്കണോ?</string>
     <string name="edit_feed_channel">ചാനൽ എഡിറ്റുചെയ്യുക</string>
     <string name="link_copied_to_clipboard">ലിങ്ക് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി</string>
     <string name="mark_as_read">വായിച്ചതായി അടയാളപ്പെടുത്തുക</string>
-    <string name="mark_as_unread">Mark as unread</string>
+    <string name="mark_as_unread">വായിച്ചിട്ടില്ലെന്ന് അടയാളപ്പെടുത്തുക</string>
     <string name="feed_item_list_empty">ലേഖനങ്ങളില്ല</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="backup_feeds_successfully">ചാനലുകൾ വിജയകരമായി സംരക്ഷിച്ചു</string>
+    <string name="restore_feeds_backup_successfully">ചാനലുകൾ വിജയകരമായി പുന ored സ്ഥാപിച്ചു</string>
+    <string name="error_backup_feeds">ചാനലുകൾ സംരക്ഷിക്കുന്നതിൽ പരാജയപ്പെട്ടു</string>
+    <string name="error_restore_feeds_backup">ചാനലുകൾ പുന restore സ്ഥാപിക്കുന്നതിൽ പരാജയപ്പെട്ടു</string>
     <string name="feed_item_open_article_url">ലേഖനം തുറക്കുക</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
+    <string name="feeds_backup_selection_dialog_title">ബാക്കപ്പ് ഫയൽ തിരഞ്ഞെടുക്കുക</string>
     <string name="error_import_invalid_format">അസാധുവായ ഫോർമാറ്റ്</string>
     <string name="feed_do_not_download_immediately">ഉടൻ ഡൗൺലോഡുചെയ്യരുത്</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">URL കണ്ടെത്തിയില്ല</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">ടോറന്റ് സൃഷ്ടിക്കുക</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">ടോറന്റ് സൃഷ്ടിക്കുന്നു, ദയവായി കാത്തിരിക്കുക&#8230;</string>
     <string name="file_or_folder_for_seeding">വിതയ്ക്കുന്നതിന് ഫയൽ അല്ലെങ്കിൽ ഫോൾഡർ</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">ആദ്യം വിത്ത് പാകുന്നതിന് ഫയലോ ഫോൾഡറോ തിരഞ്ഞെടുക്കുക</string>
     <string name="tracker_urls">ട്രാക്കർ URL കൾ</string>
     <string name="web_seed_urls">വെബ് സീഡ് URL കൾ</string>
     <string name="comments">അഭിപ്രായങ്ങൾ</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="tracker_urls_hint">(ഓപ്ഷണൽ) മുൻ‌ഗണനാക്രമത്തിൽ ട്രാക്കറുകൾ ഓരോ വരിയിലും ഒന്ന് നൽകുക</string>
+    <string name="web_seed_urls_hint">(ഓപ്ഷണൽ) ഒരു വരിയിൽ ഒന്ന്</string>
     <string name="optional_hint">(ഓപ്ഷണൽ)</string>
     <string name="piece_size">പീസ് വലിപ്പം</string>
     <string name="create_torrent_options">ഓപ്ഷനുകൾ</string>
@@ -342,24 +342,24 @@
     <string name="skip_files_hint">\"|\" ഉപയോഗിച്ച് വേർതിരിച്ച ഫയൽ നാമങ്ങൾ രേഖപ്പെടുത്തുക</string>
     <string name="select_folder_to_save">സംരക്ഷിക്കാൻ ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
     <string name="torrent_saved_to">%1$s എന്നതിൽ ടോറന്റ് സംരക്ഷിച്ചു</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_open_file">തിരഞ്ഞെടുത്ത ഫയൽ തുറക്കാനായില്ല</string>
+    <string name="unable_to_create_file">ഫയൽ സൃഷ്ടിക്കാൻ കഴിയില്ല</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">ജേണൽ</string>
+    <string name="journal_list_empty">എൻ‌ട്രികളൊന്നുമില്ല</string>
+    <string name="journal_start_recording">റെക്കോർഡിംഗ് ആരംഭിക്കുക</string>
+    <string name="journal_stop_recording">റെക്കോർഡിംഗ് നിർത്തുക</string>
+    <string name="journal_started_recording">റെക്കോർഡിംഗ് ആരംഭിച്ചു</string>
+    <string name="journal_filter_session_log">സെഷൻ ലോഗ്</string>
+    <string name="journal_filter_dht_log">DHT ലോഗ്</string>
+    <string name="journal_filter_peer_log">പിയർ ലോഗ്</string>
+    <string name="journal_filter_portmap_log">UPnP / NAT-PMP ലോഗ്</string>
+    <string name="journal_filter_torrent_log">ടോറന്റ് ലോഗ്</string>
+    <string name="journal_save_log_failed">ലോഗ് സംരക്ഷിക്കുന്നതിൽ പരാജയപ്പെട്ടു</string>
+    <string name="journal_save_log_success">ലോഗ് വിജയകരമായി സംരക്ഷിച്ചു:%1$s</string>
+    <string name="pref_journal_save_log_to">ഇതിലേക്ക് ലോഗ് സംരക്ഷിക്കുക</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">സംഭരിച്ച പരമാവധി ജേണൽ എൻ‌ട്രികൾ</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">ദൃശ്യപരത</string>
@@ -386,7 +386,7 @@
     <string name="pref_max_upload_speed_title">പരമാവധി അപ്ലോഡ് വേഗത</string>
     <string name="pref_max_connections_title">പരമാവധി എണ്ണം കണക്ഷനുകൾ</string>
     <string name="pref_max_connections_summary">കണക്ഷനുകളുടെ മിനിമം എണ്ണം - 2</string>
-    <string name="pref_torrent_queueing_category">Torrent queueing</string>
+    <string name="pref_torrent_queueing_category">ടോറന്റ് ക്യൂയിംഗ്</string>
     <string name="pref_max_active_uploads_title">പരമാവധി സജീവ അപ്ലോഡുകൾ</string>
     <string name="pref_max_active_downloads_title">പരമാവധി സജീവ ഡൌൺലോഡുകൾ</string>
     <string name="pref_max_active_torrents_title">പരമാവധി സജീവ ടോറന്റുകൾ</string>
@@ -416,10 +416,10 @@
     <string name="pref_autostart_title">ഓട്ടോ സ്റ്റാർട്ട്</string>
     <string name="pref_autostart_summary">ഉപകരണം ആരംഭിച്ച ശേഷം അപ്ലിക്കേഷൻ പ്രവർത്തിപ്പിക്കുക</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_umnetered_connections_only_title">അളക്കാത്ത കണക്ഷനുകൾ മാത്രം</string>
+    <string name="pref_umnetered_connections_only_summary">അളക്കാത്ത കണക്ഷനുകളിൽ മാത്രം ഡൗൺലോഡുചെയ്യുക (ഉദാഹരണത്തിന്, Wi-Fi അല്ലെങ്കിൽ ഇഥർനെറ്റ്)</string>
+    <string name="pref_enable_roaming_title">റോമിംഗ് പ്രാപ്തമാക്കുക</string>
+    <string name="pref_enable_roaming_summary">ഉപകരണം റോമിംഗ് ചെയ്യുന്നില്ലെങ്കിൽ മാത്രം ഡൗൺലോഡുചെയ്യുക</string>
     <string name="pref_power_management_category">ഊർജ്ജനിയന്ത്രണം</string>
     <string name="pref_keep_alive_title">ജീവനോടെ</string>
     <string name="pref_keep_alive_summary">പ്രവർത്തനക്ഷമമാക്കിയെങ്കിൽ, പശ്ചാത്തലത്തിൽ അപ്ലിക്കേഷൻ പ്രവർത്തിക്കും. ഡൌൺലോഡുകൾ പൂർത്തിയാകുമ്പോൾ ഷട്ട് ഡൌൺലോഡ് ചെയ്യപ്പെടും</string>
@@ -447,10 +447,10 @@
     <string name="pref_enable_natpmp_title">NAT-PMP പ്രവർത്തനക്ഷമമാക്കുക</string>
     <string name="pref_port_settings_category">പോർട്ട് ക്രമീകരണങ്ങൾ</string>
     <string name="pref_use_random_port_title">റാൻഡം പോർട്ട് ഉപയോഗിക്കുക</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
+    <string name="pref_use_random_port_summarty">ആരംഭ പോർട്ട് ക്രമരഹിതമായി [%1$d,%2$d] ശ്രേണിയിലും അവസാന പോർട്ട് ആദ്യ + 10 ആയി സജ്ജമാക്കുന്നു</string>
+    <string name="pref_port_range_title">പോർട്ട് ശ്രേണി</string>
+    <string name="pref_port_range_start_title">ആരംഭിക്കുക</string>
+    <string name="pref_port_range_end_title">അവസാനിക്കുന്നു</string>
     <string name="pref_encryption_category">എൻക്രിപ്ഷൻ</string>
     <string name="pref_enc_mode_title">എൻക്രിപ്ഷൻ മോഡ്</string>
     <string-array name="pref_enc_mode_entries">
@@ -465,10 +465,10 @@
     <string name="pref_enable_ip_filtering_summary">ഐപി ഫിൽറ്ററിംഗ് ഉപയോഗിക്കുന്നത് മെമ്മറി ഉപയോഗം വർദ്ധിപ്പിക്കുന്നു. ഫയൽ വലുപ്പം അടിസ്ഥാനമാക്കി, ആരംഭത്തിൽ ഫിൽറ്റർ ചെയ്യാൻ കുറച്ച് സമയമെടുത്തേക്കാം</string>
     <string name="pref_ip_filtering_file_title">ഫയൽ ഫിൽട്ടർ ചെയ്യുന്നതിനുള്ള പാത്ത് (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT പിശകുകൾ കാണിക്കുക</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_anonymous_mode_title">അജ്ഞാത മോഡ് പ്രവർത്തനക്ഷമമാക്കുക</string>
+    <string name="pref_anonymous_mode_summary">അപ്ലിക്കേഷൻ അതിന്റെ ഐഡന്റിറ്റി ഒരു പരിധി വരെ മറയ്ക്കാൻ ശ്രമിക്കുന്നു. ഉപയോക്തൃ-ഏജന്റിനെ ശൂന്യമായ ഒരു സ്‌ട്രിംഗിലേക്ക് പുന reset സജ്ജീകരിക്കും (സ്വകാര്യ ടോറന്റുകൾ ഒഴികെ). ഒരു പ്രോക്സി സെർവർ ഉപയോഗിക്കുകയാണെങ്കിൽ മാത്രമേ ട്രാക്കറുകൾ ഉപയോഗിക്കൂ. ലിസൺ‌ സോക്കറ്റുകൾ‌ അടച്ചിരിക്കുന്നു, ഇൻ‌കമിംഗ് കണക്ഷനുകൾ‌ ഒരു SOCKS5 അല്ലെങ്കിൽ‌ I2P പ്രോക്സി വഴി മാത്രമേ സ്വീകരിക്കുകയുള്ളൂ (ഒരു പിയർ‌ പ്രോക്സി സജ്ജമാക്കി ട്രാക്കർ‌ പ്രോക്സി പോലെ അതേ മെഷീനിൽ‌ പ്രവർ‌ത്തിക്കുകയാണെങ്കിൽ‌). NAT-PMP, UPnP, DHT, ലോക്കൽ പിയർ കണ്ടെത്തൽ എന്നിവ ഓഫാക്കി</string>
+    <string name="pref_seeding_outgoing_connections_title">വിത്തുകൾക്കായി going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ പ്രവർത്തനക്ഷമമാക്കുക</string>
+    <string name="pref_seeding_outgoing_connections_summary">വിത്ത് വിതയ്ക്കുന്ന ടോറന്റുകൾ going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നടത്താൻ ശ്രമിക്കണോ വേണ്ടയോ എന്ന് നിർണ്ണയിക്കുന്നു. Going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നിർമ്മിക്കുന്നതിനുള്ള ചെലവ് ഉയർന്ന സാഹചര്യങ്ങളിൽ ഇത് അപ്രാപ്തമാക്കിയേക്കാം</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">പ്രോക്സി തരം</string>
     <string-array name="pref_proxy_type_entries">
@@ -484,7 +484,7 @@
     <string name="pref_proxy_requires_auth_title">അംഗീകാരം ആവശ്യമാണ്</string>
     <string name="pref_proxy_requires_auth_summary">മുന്നറിയിപ്പ്: രഹസ്യവാക്ക് സംരക്ഷിക്കുവാൻ പാടില്ല</string>
     <string name="pref_proxy_login_title">ലോഗിൻ</string>
-    <string name="pref_proxy_password_title">Password</string>
+    <string name="pref_proxy_password_title">പാസ്സ്‌വേർഡ്‌</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">ആരംഭ സമയം</string>
     <string name="pref_enable_scheduling_start_summary">നിർദ്ദിഷ്ട സമയത്ത് അപ്ലിക്കേഷൻ ആരംഭിക്കുക. അവസാന അടച്ചുപണിക്ക് മുൻപായി സംസ്ഥാനത്തിന്റെ കണക്കുകൾ പ്രക്ഷേപണം ചെയ്യും</string>
@@ -507,9 +507,9 @@
         <item>1 ദിവസം</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">അളക്കാത്ത കണക്ഷനുകൾ മാത്രം</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">അളക്കാത്ത കണക്ഷനുകളിലൂടെ മാത്രം പുതുക്കുക (ഉദാഹരണത്തിന്, Wi-Fi അല്ലെങ്കിൽ ഇഥർനെറ്റ്)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">റോമിംഗ് പ്രാപ്തമാക്കുക</string>
     <string name="pref_feed_keep_items_time_title">ലേഖനങ്ങൾ സൂക്ഷിക്കുക</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 ദിവസം</item>
@@ -524,8 +524,8 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">പ്രവാഹങ്ങൾ ഓടിക്കുക</string>
     <string name="pref_feed_start_torrents_summary">ചേർത്ത് ചേർത്ത് പ്രവർത്തിപ്പിക്കുക</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_title">തനിപ്പകർപ്പുകൾ നീക്കംചെയ്യുക</string>
+    <string name="pref_feed_remove_duplicates_summary">പുതുതായി ഡ download ൺ‌ലോഡുചെയ്‌ത ഇനത്തിന്റെ ശീർ‌ഷകം പരിശോധിക്കുകയും സമാന ശീർ‌ഷകമുള്ള ഒന്ന്‌ ഇതിനകം ഉള്ളപ്പോൾ‌ ഒഴിവാക്കുകയും ചെയ്യുന്നു</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">സ്ട്രീമിംഗ് പ്രാപ്തമാക്കുക</string>
     <string name="pref_streaming_enable_summary">എച്ച്ടിടിപി യുആർഎൽ ഉപയോഗിച്ച് ബ്രൌസർ അല്ലെങ്കിൽ മീഡിയ പ്ലെയർ ഉപയോഗിച്ച് ഓരോ ഫയലുകളും ഡൌൺലോഡ് ചെയ്യാൻ സ്ട്രീമിംഗ് നിങ്ങളെ അനുവദിക്കുന്നു</string>

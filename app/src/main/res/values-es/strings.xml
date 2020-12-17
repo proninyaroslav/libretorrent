@@ -53,10 +53,10 @@
     <string name="force_recheck_torrent">Forzar recomprobación</string>
     <string name="force_announce_torrent">Forzar anuncio</string>
     <string name="add_link">Añadir enlace</string>
-    <string name="dialog_add_link_title">Ingrese el valor infohash, enlace magnet o enlace HTTP/HTTPS</string>
+    <string name="dialog_add_link_title">Ingresa el valor infohash, enlace magnet o enlace HTTP/HTTPS</string>
     <string name="torrent_list_empty">No hay torrents</string>
     <string name="select_or_add_torrent">Seleccionar o añadir un torrent</string>
-    <string name="error_empty_link">Por favor ingrese un enlace</string>
+    <string name="error_empty_link">Por favor, ingresa un enlace</string>
     <string name="error_invalid_link">Enlace no válido</string>
     <string name="error_open_torrent_file">No se pudo abrir el archivo torrent</string>
     <string name="open_file">Abrir archivo</string>
@@ -139,7 +139,7 @@
     <string name="torrent_status_downloading_metadata">Descargando metadatos</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
-    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los archivos torrent en la memoria. La aplicación no funcionará correctamente. ¿Está seguro de que desea denegar este permiso?</string>
+    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los archivos torrent en la memoria. La aplicación no funcionará correctamente. ¿Está seguro de que desea negar este permiso?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Añadir torrent</string>
     <string name="error_decode_torrent">Error decodificando el archivo torrent. Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
@@ -158,7 +158,7 @@
     <string name="start_torrent">Iniciar torrent</string>
     <string name="file_is_too_large_error">El archivo es demasiado grande</string>
     <string name="unable_to_open_folder">No se pudo abrir la carpeta seleccionada. Intenta seleccionar otra carpeta</string>
-    <string name="error_empty_name">Por favor ingrese el nombre</string>
+    <string name="error_empty_name">Por favor, ingresa el nombre</string>
     <string name="ignore_free_space">Ignorar el tamaño del espacio libre</string>
     <!-- Torrent info -->
     <string name="torrent_info">Información</string>
@@ -277,8 +277,8 @@
     <string name="select_or_add_feed_channel">Seleccione o añada un canal RSS/Atom</string>
     <string name="add_feed_channel">Añadir canal</string>
     <string name="feed_name">Nombre (opcional)</string>
-    <string name="feed_filter_prompt">Ingrese las palabras (separadas por \"|\"), una de las cuales debe estar en el nombre o ingresar la expresión regular. Los torrents se añadirán solo si este filtro coincide con el nombre del torrent</string>
-    <string name="feed_filter_prompt_one_per_line">Ingrese los filtros, uno por línea.</string>
+    <string name="feed_filter_prompt">Ingresa las palabras (separadas por \"|\"), una de las cuales debe estar en el nombre o ingresa la expresión regular. Los torrents se añadirán solo si este filtro coincide con el nombre del torrent</string>
+    <string name="feed_filter_prompt_one_per_line">Ingresa los filtros, uno por línea.</string>
     <string name="feed_auto_download">Descarga nuevos torrents automáticamente</string>
     <string name="feed_use_regex">Use expresión regular</string>
     <string name="backup_feed_channels">Guardar respaldo</string>
@@ -309,11 +309,11 @@
     <string name="create_torrent">Crear torrent</string>
     <string name="creating_torrent_progress">Creando torrent, espere por favor&#8230;</string>
     <string name="file_or_folder_for_seeding">Archivo o carpeta para sembrar</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Por favor, primero seleccione el archivo o carpeta para sembrar</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Por favor, primero selecciona el archivo o carpeta para sembrar</string>
     <string name="tracker_urls">URLs de rastreadores</string>
     <string name="web_seed_urls">URLs de las semillas web</string>
     <string name="comments">Comentarios</string>
-    <string name="tracker_urls_hint">(opcional) ingrese los rastreadores uno por línea en orden de prioridad</string>
+    <string name="tracker_urls_hint">(opcional) ingresa los rastreadores uno por línea en orden de prioridad</string>
     <string name="web_seed_urls_hint">(opcional) uno por línea</string>
     <string name="optional_hint">(opcional)</string>
     <string name="piece_size">Tamaño de la pieza</string>

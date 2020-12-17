@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">OK</string>
+    <string name="ok">Ok</string>
     <string name="cancel">Anuluj</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
@@ -17,7 +17,7 @@
     <string name="search">Szukaj</string>
     <string name="not_available">Nie dotyczy</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d godz. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
     <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
     <!-- 1 m. 1 s -->
@@ -31,21 +31,21 @@
     <string name="refresh">Odświeżać</string>
     <string name="edit">Edytować</string>
     <string name="menu">Menu</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
-    <string name="file">File</string>
+    <string name="open_navigation_drawer">Otwórz menu nawigacji</string>
+    <string name="close_navigation_drawer">Zamknij menu nawigacji</string>
+    <string name="file">Plik</string>
     <string name="folder">Folder</string>
-    <string name="finished">Finished</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
-    <string name="details">Details</string>
-    <string name="stats">Stats</string>
-    <string name="filters">Filters</string>
-    <string name="apply">Apply</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="finished">Zakończone</string>
+    <string name="pause_all">Zapauzuj wszystko</string>
+    <string name="resume_all">Wznów wszystko</string>
+    <string name="all">Wszystko</string>
+    <string name="details">Szczegóły</string>
+    <string name="stats">Statystyki</string>
+    <string name="filters">Filtry</string>
+    <string name="apply">Zastosuj</string>
+    <string name="clipboard">Schowek</string>
+    <string name="switch_on">Wł.</string>
+    <string name="switch_off">Wył.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Usuń razem z pobranymi plikami</string>
     <string name="delete_selected_torrent">Usunąć wybrany torrent? Ta operacja nie może zostać odzczyniona</string>
@@ -71,29 +71,29 @@
     <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port">Listening port: %1$s</string>
+    <string name="session_stats_listen_port">Nasłuchiwanie portu: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status_downloading">Pobieranie</string>
+    <string name="drawer_status_downloaded">Pobrane</string>
+    <string name="drawer_status_downloading_metadata">Pobieranie metadanych</string>
     <string name="drawer_status_error">Błąd</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_size">Size</string>
-    <string name="drawer_sorting_progress">Progress</string>
-    <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <string name="drawer_sorting">Sortowanie</string>
+    <string name="drawer_sorting_name">Nazwa</string>
+    <string name="drawer_sorting_date_added">Data dodania</string>
+    <string name="drawer_sorting_size">Wielkość</string>
+    <string name="drawer_sorting_progress">Postęp</string>
+    <string name="drawer_sorting_ETA">Szacowany czas do końca</string>
+    <string name="drawer_sorting_peers">Peer\'ów</string>
+    <string name="drawer_sorting_no_sorting">Bez sortowania</string>
     <!-- Date added -->
     <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added_today">Dzisiaj</string>
+    <string name="drawer_date_added_yesterday">Wczoraj</string>
+    <string name="drawer_date_added_week">Tydzień</string>
+    <string name="drawer_date_added_month">Miesiąc</string>
+    <string name="drawer_date_added_year">Rok</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -105,7 +105,7 @@
     <string name="app_running_in_the_background">LibreTorrent działa w tle</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Wyłączanie...</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Błąd torrenta</string>
     <string name="error_template">Błąd: %1$s</string>
@@ -116,9 +116,9 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent ukończony</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content">Moving %1$s, please wait</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_moving_title">Przenoszenie torrenta</string>
+    <string name="torrent_moving_content">Przenoszenie %1$s, proszę czekać</string>
+    <string name="torrent_move_success">Torrent pomyślnie przeniesiony</string>
     <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -328,12 +328,12 @@
         <item>128 KiB</item>
         <item>256 KiB</item>
         <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
+        <item>1MiB</item>
+        <item>2MiB</item>
+        <item>4MiB</item>
+        <item>8MiB</item>
+        <item>16MiB</item>
+        <item>32MiB</item>
     </string-array>
     <string name="invalid_url">Nieprawidłowy URL: %1$s</string>
     <string name="folder_is_empty">Wybrany folder jest pusty lub wszystkie pliki są wykluczone przez filtr</string>
@@ -342,24 +342,24 @@
     <string name="skip_files_hint">Wprowadź nazwy plików oddzielone symbolem \"|\"</string>
     <string name="select_folder_to_save">Wybierz folder do zapisania</string>
     <string name="torrent_saved_to">Torrent zapisany w %1$s</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_open_file">Nie można otworzyć wybranego pliku</string>
+    <string name="unable_to_create_file">Nie można utworzyć pliku</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="log_journal">Dziennik</string>
+    <string name="journal_list_empty">Brak wpisów</string>
+    <string name="journal_start_recording">Rozpocznij nagrywanie</string>
+    <string name="journal_stop_recording">Zatrzymaj nagrywanie</string>
+    <string name="journal_started_recording">Rozpoczęto nagrywanie</string>
+    <string name="journal_filter_session_log">Dziennik sesji</string>
+    <string name="journal_filter_dht_log">Dziennik DHT</string>
+    <string name="journal_filter_peer_log">Rejestr Peer\'ów</string>
+    <string name="journal_filter_portmap_log">Dziennik UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Dziennik torrentów</string>
+    <string name="journal_save_log_failed">Nie udało się zapisać dziennika</string>
+    <string name="journal_save_log_success">Dziennik zapisany pomyślnie: %1$s</string>
+    <string name="pref_journal_save_log_to">Zapisz dziennik do</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries">Maksymalna ilość zapisów w dzienniku</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Wygląd</string>
@@ -369,7 +369,7 @@
     <string name="pref_header_network">Sieć</string>
     <string name="pref_header_scheduling">Planowanie</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming">Strumieniowanie</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Scieżka zapisu torrentów</string>
     <string name="pref_move_after_download_title">Przenieś po pobraniu jako</string>
@@ -413,13 +413,13 @@
     <string name="pref_led_indicator_color_notify_title">Kolor wskaźnika LED</string>
     <string name="pref_vibration_notify_title">Wibracje</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_title">Automatyczne uruchamianie</string>
     <string name="pref_autostart_summary">Uruchom aplikację po starcie urządzenia</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_enable_roaming_title">Włącz roaming</string>
+    <string name="pref_enable_roaming_summary">Pobierz tylko wtedy, gdy urządzenie nie jest w roamingu</string>
     <string name="pref_power_management_category">Zarządzanie poborem energii</string>
     <string name="pref_keep_alive_title">Pracuj w tle</string>
     <string name="pref_keep_alive_summary">Jeśli opcja jest włączona, aplikacja będzie nadal działać w tle. Wyłączenie po zakończeniu pobierania jest nadal przestrzegane</string>

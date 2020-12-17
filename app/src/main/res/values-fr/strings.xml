@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Ajouter une chaîne</string>
     <string name="feed_name">Nom (optionnel)</string>
     <string name="feed_filter_prompt">Entrez les mots (séparés par \"|\"), dont l\'un doit figurer dans le nom ou entrer une expression régulière. Les torrents ne seront ajoutés que si ce filtre correspond au nom du torrent</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Veuillez entrer un filtre par ligne.</string>
     <string name="feed_auto_download">Télécharger de nouveaux torrents automatiquement</string>
     <string name="feed_use_regex">Utiliser une expression régulière</string>
     <string name="backup_feed_channels">Conserver une sauvegarde</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">Afficher les erreurs NAT</string>
     <string name="pref_anonymous_mode_title">Activer le mode anonyme</string>
     <string name="pref_anonymous_mode_summary">L\'application tente de cacher son identité dans un certain degré. Le user-agent sera réinitialisé à une chaîne vide (sauf pour les torrents privés). Les Trackers ne seront utilisés que s\'ils utilisent un serveur proxy. Les sockets d\'écoute sont fermées, et les connexions entrantes seront acceptées par un proxy SOCKS5 ou I2P (si un proxy pair est configuré et est exécuté sur la même machine que le proxy tracker). NAT-PMP, UPnP, DHT et la découverte locale des pairs sont désactivées</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Activer les connexion sortantes pour l\'envoi</string>
+    <string name="pref_seeding_outgoing_connections_summary">Détermine si le torrents qui s\'envoient doivent essayer de faire des connexions sortantes ou non. Cela peut être désactivé dans des situations spécifiques où le coût pour les connexions sortantes est élevé</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Type de proxy</string>
     <string-array name="pref_proxy_type_entries">

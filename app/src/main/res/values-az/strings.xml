@@ -278,7 +278,7 @@
     <string name="add_feed_channel">Kanal əlavə et</string>
     <string name="feed_name">Ad (ixtiyari)</string>
     <string name="feed_filter_prompt">Bir dənəsi adda olacaq formada sözləri daxil edin (\"|\" ilə ayrılmış), ya da müntəzəm ifadə daxil edin. Torrentlər yalnız bu filtr torrent adı ilə uyğunlaşsa əlavə ediləcək</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Hər sətirə bir filtr daxil edin.</string>
     <string name="feed_auto_download">Yeni torrentləri avtomatik endir</string>
     <string name="feed_use_regex">Müntəzəm ifadə istifadə et</string>
     <string name="backup_feed_channels">Nüsxələməni saxla</string>
@@ -309,7 +309,7 @@
     <string name="create_torrent">Torrent yarat</string>
     <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
     <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Zəhmət olmasa yükləmədən əvvəl fayl və ya qovluğu seçin</string>
     <string name="tracker_urls">İzləyici URL-lər</string>
     <string name="web_seed_urls">İnternet seed URL-ləri</string>
     <string name="comments">Rəylər</string>
@@ -467,8 +467,8 @@
     <string name="pref_show_nat_errors">NAT xətalarını göstər</string>
     <string name="pref_anonymous_mode_title">Anonim rejimi fəallaşdır</string>
     <string name="pref_anonymous_mode_summary">Tətbiqetmə, kimliyini müəyyən dərəcəyə qədər gizləməyə çalışar. İstifadəçi-agent boş string kimi sıfırlanacaqdır (gizli torrentlər istisna). İzləyicilər yalnız proxy server istifadə edəndə istifadə ediləcək. Dinləmə socket-ləri bağlanılar və gələn bağlantılar yalnız SOCKS5 və ya I2P proxy üzərindən qəbul ediləcək (əgər bir cüt proxy tənzimlənibsə və eyni maşında izləyici proxy kimi işləyirsə). NAT-PMP, UPnP, DHT və yerli cüt tapma söndürülər</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Yükləmələr üçün gedən bağlantıları fəallaşdırın</string>
+    <string name="pref_seeding_outgoing_connections_summary">Yüklənən torrentləri gedən bağlantıya çevirmək üçün cəhd edib etməyəcəyini müəyyənləşdirər. Gedən bağlantıya çevirmənin haqqı yüksək olduğu xüsusi hallarda, bu özəllik sıradan çıxarıla bilər</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy növü</string>
     <string-array name="pref_proxy_type_entries">

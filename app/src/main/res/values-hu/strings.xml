@@ -182,8 +182,8 @@
     <string name="home_directory">Kezdőlap</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Belső tárhely</string>
+    <string name="external_storage_name" formatted="false">%1$d. külső tárhely</string>
     <string name="permission_denied">Engedély megtagadva</string>
     <string name="save_file">Fájl mentése</string>
     <string name="file_name">Fájlnév</string>

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">باشه</string>
+    <string name="cancel">لغو</string>
+    <string name="yes">بله</string>
+    <string name="no">نه</string>
+    <string name="error">خطا</string>
+    <string name="warning">هشدار</string>
+    <string name="shutdown">خاموش کردن</string>
+    <string name="replace">جایگزینی</string>
+    <string name="add">افزودن</string>
+    <string name="delete">حذف</string>
+    <string name="deleting">درحال حذف</string>
+    <string name="select_all">انتخاب همه</string>
+    <string name="save">ذخیره</string>
+    <string name="search">جستجو</string>
+    <string name="not_available">در دسترس نیست</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d روز. %2$d ساعت. %3$d دقیقه</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d ساعت. %2$d دقیقه. %3$d ثانیه</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d دقیقه. %2$d ثانیه</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d ثانیه</string>
+    <string name="def">پیش‌فرض</string>
+    <string name="foreground_notification">اعلان پیش‌زمینه</string>
+    <string name="link">پیوند</string>
+    <string name="filter">فیلتر</string>
+    <string name="refresh">نوسازی</string>
+    <string name="edit">ویرایش</string>
+    <string name="menu">فهرست</string>
+    <string name="open_navigation_drawer">بازکردن کشوی جهت‌یابی</string>
+    <string name="close_navigation_drawer">بستن کشوی جهت‌یابی</string>
+    <string name="file">پرونده</string>
+    <string name="folder">پوشه</string>
+    <string name="finished">به پایان رسید</string>
+    <string name="pause_all">توقف همه</string>
+    <string name="resume_all">ادامه‌ همه</string>
+    <string name="all">همه</string>
+    <string name="details">جزئیات</string>
+    <string name="stats">آمار</string>
+    <string name="filters">فیلترها</string>
+    <string name="apply">اعمال</string>
+    <string name="clipboard">کلیپ بورد</string>
+    <string name="switch_on">فعال</string>
+    <string name="switch_off">غیرفعال</string>
+    <!-- Main window -->
+    <string name="delete_torrent_with_downloaded_files">حذف با پرونده‌های بارگیری شده</string>
+    <string name="delete_selected_torrent">تورنت انتخاب شده حذف شود؟ این عملیات غیرقابل بازگشت است</string>
+    <string name="delete_selected_torrents">تورنت‌های انتخاب شده حذف شوند؟ این عملیات غیرقابل بازگشت است</string>
+    <string name="force_recheck_torrent">اجبار بررسی دوباره</string>
+    <string name="force_announce_torrent">اجبار اعلام</string>
+    <string name="add_link">افزودن پیوند</string>
+    <string name="dialog_add_link_title">مقدار infohash، پیوند مگنت، یا پیوند HTTP/HTTPS را وارد کنید</string>
+    <string name="torrent_list_empty">هیچ تورنتی نیست</string>
+    <string name="select_or_add_torrent">انتخاب یا افزودن تورنت</string>
+    <string name="error_empty_link">لطفا پیوند را وارد کنید</string>
+    <string name="error_invalid_link">پیوند نامعتبر است</string>
+    <string name="error_open_torrent_file">نمی‌توان پرونده تورنت را باز کرد</string>
+    <string name="open_file">بازکردن پرونده</string>
+    <string name="settings">تنظیمات</string>
+    <string name="ip_filter_add_error">فیلتر IP ناموفق بود (%1$d ناموفق‌بود). شاید پرونده خراب یا دارای قالب نادرست است</string>
+    <string name="ip_filter_add_success">فیلتر IP باموفقیت افزوده شد</string>
+    <string name="proxy_settings_applied">تنظیمات سرور پروکسی باموفقیت اعمال شدند</string>
+    <string name="proxy_settings_apply_after_reboot">تنظیمات سرور پروکسی بعد از راه‌اندازی دوباره برنامه بکارگرفته خواهند شد</string>
+    <string name="theme_settings_apply_after_reboot">تنظیمات پوسته بعد راه‌اندازی دوباره برنامه بکارگرفته خواهند شد</string>
+    <string name="about">درباره</string>
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes">گره‌های DHT: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">پورت شنود: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">آمار</string>
+    <string name="drawer_status_downloading">در حال بارگیری</string>
+    <string name="drawer_status_downloaded">بارگیری شد</string>
+    <string name="drawer_status_downloading_metadata">در حال بارگیری فراداده</string>
+    <string name="drawer_status_error">خطا</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">مرتب سازی</string>
+    <string name="drawer_sorting_name">نام</string>
+    <string name="drawer_sorting_date_added">تاریخ افزوده شدن</string>
+    <string name="drawer_sorting_size">اندازه‌</string>
+    <string name="drawer_sorting_progress">پیشرفت</string>
+    <string name="drawer_sorting_ETA">زمان تقریبی دریافت</string>
+    <string name="drawer_sorting_peers">همتا‌ها</string>
+    <string name="drawer_sorting_no_sorting">بدون مرتب سازی</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">تاریخ افزوده شدن</string>
+    <string name="drawer_date_added_today">امروز</string>
+    <string name="drawer_date_added_yesterday">دیروز</string>
+    <string name="drawer_date_added_week">هفته</string>
+    <string name="drawer_date_added_month">ماه</string>
+    <string name="drawer_date_added_year">سال</string>
+    <!-- Foreground notification -->
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">در حال بارگیری: %1$d مجموع: %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent در پس‌زمینه در حال اجرا است</string>
+    <string name="network_online">وضعیت شبکه: آنلاین</string>
+    <string name="network_offline">وضعیت شبکه: آفلاین</string>
+    <string name="notify_shutting_down">در حال خاموش شدن&#8230;</string>
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">خطای تورنت</string>
+    <string name="error_template">خطا: %1$s</string>
+    <string name="restore_torrent_error">نمی‌توان تورنت را از نشست قبل بازگردانی کرد</string>
+    <string name="session_error_title">خطای نشست</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="nat_error_title">خطای NAT</string>
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">تورنت به پایان رسید</string>
+    <!-- Torrents move notification -->
+    <string name="torrent_moving_title">در حال انتقال تورنت</string>
+    <string name="torrent_moving_content">در حال انتقال %1$s، لطفا صبر کنید</string>
+    <string name="torrent_move_success">تورنت با موفقیت منتقل شد</string>
+    <string name="torrent_move_fail">نمی‌توان تورنت را منتقل کرد</string>
+    <!-- Added notification -->
+    <!-- Torrent list item -->
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template">%1$d/%2$d</string>
+    <string name="torrent_status_downloading">در حال بارگیری</string>
+    <string name="torrent_status_seeding">در حال seed کردن</string>
+    <string name="torrent_status_paused">مکث شده</string>
+    <string name="torrent_status_stopped">متوقف شده</string>
+    <string name="torrent_status_checking">در حال بررسی</string>
+    <string name="torrent_status_finished">به پایان رسید</string>
+    <string name="torrent_status_downloading_metadata">در حال بارگیری فراداده</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">دسترسی رد شد</string>
+    <string name="perm_denied_warning">بدون این دسترسی برنامه نمی‌تواند پرونده‌های تورنت را در حافظه ذخیره کند. برنامه به‌درستی کار نخواهد کرد. آیا مطمئن هستید که می‌خواهید این مجوز را رد کنید؟</string>
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">افزودن تورنت</string>
+    <string name="error_decode_torrent">رمزگشایی پرونده تورنت ناموفق بود. شاید پرونده خراب یا دارای قالب نادرست است</string>
+    <string name="error_io_torrent">خطا در خواندن پرونده تورنت</string>
+    <string name="error_fetch_link">واکشی از پیوند ناموفق بود</string>
+    <string name="error_invalid_link_or_path">پیوند یا مسیر تورنت نامعتبر است</string>
+    <string name="error_add_torrent">افزودن تورنت ناموفق بود</string>
+    <string name="error_file_not_found_add_torrent">افزودن تورنت ناموفق بود. شاید پرونده تورنت منتقل، یا حذف شده است</string>
+    <string name="error_io_add_torrent">نمی‌توان تورنت را افزود. خطای ورودی/خروجی</string>
+    <string name="torrent_exist">تورنت از قبل وجود دارد. تورنت‌ها ادغام شدند</string>
+    <string name="error_field_required">این بخش الزامی است</string>
+    <string name="error_no_files_selected">هیچ پرونده‌ای انتخاب نشده</string>
+    <string name="free_space">%1$s آزاد است</string>
+    <string name="error_free_space">فضای کافی در مسیر انتخابی برای بارگیری پرونده‌ها وجود ندارد</string>
+    <string name="files_size">%1$s از %2$s انتخاب شد</string>
+    <string name="start_torrent">آغاز تورنت</string>
+    <string name="file_is_too_large_error">این پرونده بسیار بزرگ است</string>
+    <string name="unable_to_open_folder">نمی‌توان پوشه انتخابی را باز کرد. لطفا تلاش کنید پوشه دیگری را انتخاب کنید</string>
+    <string name="error_empty_name">لطفا نام را وارد کنید</string>
+    <string name="ignore_free_space">اندازه فضای خالی را نادیده بگیر</string>
+    <!-- Torrent info -->
+    <string name="torrent_info">اطلاعات</string>
+    <string name="torrent_files">پرونده‌ها</string>
+    <string name="torrent_name">نام</string>
+    <string name="upload_torrent_into">بارگذاری به</string>
+    <string name="torrent_size">اندازه‌</string>
+    <string name="torrent_file_count">شمار پرونده</string>
+    <string name="torrent_hash_sum">مجموع هش</string>
+    <string name="torrent_comment">توضیح</string>
+    <string name="torrent_create_date">تاریخ ایجاد</string>
+    <string name="torrent_created_in_program">ایجاد شده در برنامه</string>
+    <string name="sequential_download">بارگیری دنباله‌دار</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">انتخاب پوشه</string>
+    <string name="file_chooser_title">انتخاب پرونده</string>
+    <string name="torrent_file_chooser_title">انتخاب تورنت</string>
+    <string name="dialog_new_folder_title">پوشه جدید</string>
+    <string name="error_dialog_new_folder">نمی‌توان پوشه تازه ایجاد کرد</string>
+    <string name="error_open_dir">نمی‌توان پوشه را باز کرد</string>
+    <string name="home_directory">خانه</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="permission_denied">دسترسی رد شد</string>
+    <string name="save_file">ذخیره پرونده</string>
+    <string name="file_name">نام پرونده</string>
+    <string name="error_file_exists">پرونده از قبل وجود دارد</string>
+    <string name="file_name_is_empty">نام پرونده نمی‌تواند خالی باشد</string>
+    <string name="system_manager">مدیر سیستم</string>
+    <string name="system_file_manager_not_found">مدیر پرونده سیستم یافت نشد</string>
+    <string name="replace_file">جایگزینی پرونده</string>
+    <string name="parent_folder">پوشه منبع</string>
+    <!-- Error dialog -->
+    <string name="report">گزارش</string>
+    <string name="more_details">جزئیات بیشتر</string>
+    <!-- Detail torrent dialog -->
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nدسترس پذیری: %5$s</string>
+    <string name="file_priority_normal">متوسط</string>
+    <string name="file_priority_low">نادیده گرفتن</string>
+    <string name="file_priority_high">بالا</string>
+    <string name="file_priority_mixed">ترکیبی</string>
+    <string name="change_priority">اولويت</string>
+    <string name="dialog_change_priority_title">تغییر اولویت</string>
+    <string name="change_priority_low">پایین (نادیده‌گرفتن پرونده)</string>
+    <string name="change_priority_normal">متوسط</string>
+    <string name="change_priority_high">بالا</string>
+    <string name="torrent_state">وضعیت</string>
+    <string name="torrent_speed">سرعت</string>
+    <string name="torrent_downloaded">بارگیری شد</string>
+    <string name="torrent_ETA">زمان تقریبی دریافت</string>
+    <string name="torrent_seeds">Seedها</string>
+    <string name="torrent_peers">همتا‌ها</string>
+    <string name="torrent_leechers">لیچرها</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
+    <string name="torrent_uploaded">بارگزاری شد</string>
+    <string name="torrent_share_ratio">نرخ هم‌رسانی</string>
+    <string name="torrent_active_time">زمان فعال</string>
+    <string name="torrent_seeding_time">زمان seedکردن</string>
+    <string name="torrent_pieces">تکه‎‌ها</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">ردیاب‌ها</string>
+    <string name="tracker_state_working">مشغول</string>
+    <string name="tracker_state_not_working">بی‌کار</string>
+    <string name="tracker_state_updating">در حال به‌روزرسانی&#8230;</string>
+    <string name="tracker_state_not_contacted">هنوز تماسی ایجاد نشده</string>
+    <string name="share_tracker_url">هم‌رسانی پیوند</string>
+    <string name="delete_selected_tracker">ردیاب انتخابی حذف شود؟</string>
+    <string name="delete_selected_trackers">ردیاب‌های انتخابی حذف شوند؟</string>
+    <string name="add_trackers">افزودن ردیاب</string>
+    <string name="dialog_add_trackers">(یکی به‌ازای هر خط)</string>
+    <string name="open_using">بازکردن با</string>
+    <string name="peer_port">پورت: %1$d</string>
+    <string name="peer_relevance">ارتباط: %1$.1f</string>
+    <string name="peer_connection_type">اتصال: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">کارخواه: %1$s</string>
+    <string name="peer_connection_type_bittorrent">بیت تورنت</string>
+    <string name="peer_connection_type_web">وب</string>
+    <string name="peer_connection_type_utp">یوتورنت</string>
+    <string name="peer_list_empty">این تورنت هنوز به هیچ همتایی متصل نشده</string>
+    <string name="piece_map">نقشه تکه‌ها</string>
+    <string name="resume_torrent">ادامه</string>
+    <string name="pause_torrent">مکث</string>
+    <string name="share_magnet">هم‌رسانی مگنت</string>
+    <string name="save_torrent_file">ذخیره پرونده تورنت</string>
+    <string name="torrent_speed_limit">محدودیت سرعت</string>
+    <string name="share_via">هم‌رسانی با</string>
+    <string name="save_torrent_file_successfully">پرونده تورنت با موفقیت ذخیره شد</string>
+    <string name="error_save_torrent_file">ذخیره پرونده تورنت ناموفق بود</string>
+    <string name="speed_limit_title">حداکثر سرعت</string>
+    <string name="upload_speed">بارگذاری (آپلود)</string>
+    <string name="download_speed">بارگیری</string>
+    <string name="speed_limit_dialog">تنظیم سرعت به KiB/s (۰ - بدون محدودیت)</string>
+    <string name="torrent_added_date">افزوده شد</string>
+    <string name="torrent_availability">دسترس پذیری</string>
+    <string name="share_stream_url">هم‌رسانی نشانی جریان</string>
+    <string name="magnet_include_file_priorities">اولویت‌های پرونده نیز شامل شوند؟</string>
+    <string name="magnet_more_about_bep53">آگاهی بیشتر: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">بدون ردیاب</string>
+    <string name="edit_torrent_name">ویرایش نام تورنت</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">کپی</string>
+    <string name="text_copied_to_clipboard">متن در کلیپ‌بورد کپی شد</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">خطای برنامه رخ داد. شما می‌توانید گزارش را به توسعه‌دهندگان بفرستید</string>
+    <string name="error_comment_prompt">شما می‌توانید اطلاعات اضافی و توضیحات را اینجا اضافه کنید:</string>
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">بدون کانال</string>
+    <string name="select_or_add_feed_channel">انتخاب یا افزودن کانال RSS/Atom</string>
+    <string name="add_feed_channel">افزودن کانال</string>
+    <string name="feed_name">نام (اختیاری)</string>
+    <string name="feed_filter_prompt">واژه‌ها را وارد کنید (با \"|\" جدا شود)، یکی از آن‌ها باید در نام باشد یا عبارت منظم را وارد کنید. تورنت‌ها، تنها اگر این پالایش با نام تورنت مطابقت یابد، افزوده خواهند شد</string>
+    <string name="feed_filter_prompt_one_per_line">وارد کردن فیلتر یکی برای هر خط.</string>
+    <string name="feed_auto_download">تورنت‌های تازه را خودکار بارگیری کن</string>
+    <string name="feed_use_regex">از regular expression استفاده کن</string>
+    <string name="backup_feed_channels">ذخیره پشتیبان</string>
+    <string name="restore_feed_channels_backup">بازگردانی پشتیبان</string>
+    <string name="feed_last_update_template">به‌روزرسانی شد: %1$s</string>
+    <string name="feed_last_update_never">هرگز</string>
+    <string name="error_cannot_add_channel">نمی‌توان کانال را افزود</string>
+    <string name="error_cannot_edit_channel">نمی‌توان کانال را ویرایش کرد</string>
+    <string name="error_cannot_delete_channel">نمی‌توان کانال را حذف کرد</string>
+    <string name="copy_link">کپی پیوند</string>
+    <string name="delete_selected_channel">کانال انتخابی حذف شود؟</string>
+    <string name="delete_selected_channels">کانال‌های انتخابی حذف شوند؟</string>
+    <string name="edit_feed_channel">ویرایش کانال</string>
+    <string name="link_copied_to_clipboard">لینک در کلیپ‌بورد کپی شد</string>
+    <string name="mark_as_read">نشان به‌عنوان خوانده شده</string>
+    <string name="mark_as_unread">نشان به‌عنوان خوانده نشده</string>
+    <string name="feed_item_list_empty">بدون مورد</string>
+    <string name="backup_feeds_successfully">کانال‌ها با موفقیت ذخیره شدند</string>
+    <string name="restore_feeds_backup_successfully">کانال‌ها با موفقیت بازگردانی شدند</string>
+    <string name="error_backup_feeds">ذخیره کانال‌ها ناموفق بود</string>
+    <string name="error_restore_feeds_backup">بازگردانی کانال‌ها ناموفق بود</string>
+    <string name="feed_item_open_article_url">بازکردن مورد</string>
+    <string name="feeds_backup_selection_dialog_title">انتخاب پرونده پشتیبان</string>
+    <string name="error_import_invalid_format">قالب نامعتبر است</string>
+    <string name="feed_do_not_download_immediately">بی‌درنگ بارگیری نکن</string>
+    <string name="feed_item_url_not_found">پیوند یافت نشد</string>
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">ایجاد تورنت</string>
+    <string name="creating_torrent_progress">در حال ایجاد تورنت، لطفا منتظر باشید&#8230;</string>
+    <string name="file_or_folder_for_seeding">پرونده یا پوشه برای seed کردن</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">لطفا نخست پرونده یا پوشه‌ای را برای seed کردن انتخاب کنید</string>
+    <string name="tracker_urls">پیوندهای ردیاب</string>
+    <string name="web_seed_urls">پیوند seed وب</string>
+    <string name="comments">توضیحات</string>
+    <string name="tracker_urls_hint">(دلخواه) به‌ازای هر خط ردیاب‌ها را بر اساس اولویت وارد کنید</string>
+    <string name="web_seed_urls_hint">(دلخواه) یکی به‌ازای هر خط</string>
+    <string name="optional_hint">(دلخواه)</string>
+    <string name="piece_size">اندازه تکه</string>
+    <string name="create_torrent_options">گزینه‌ها</string>
+    <string name="option_start_seeding">آغاز seedکردن</string>
+    <string name="option_private_torrent">تورنت خصوصی</string>
+    <string-array name="piece_size_entries">
+        <item>خودکار</item>
+        <item>۱۶ KiB</item>
+        <item>۳۲ KiB</item>
+        <item>۶۴ KiB</item>
+        <item>۱۲۸ KiB</item>
+        <item>۲۵۶ KiB</item>
+        <item>۵۱۲ KiB</item>
+        <item>MiB ۱</item>
+        <item>MiB ۲</item>
+        <item>MiB ۴</item>
+        <item>۸ MiB</item>
+        <item>۱۶ MiB</item>
+        <item>۳۲ MiB</item>
+    </string-array>
+    <string name="invalid_url">پیوند نامعتبر: %1$s</string>
+    <string name="folder_is_empty">پوشه انتخاب شده، خالی است یا پرونده‌ها به‌وسیله فیلتر کنار گذاشته شده‌اند</string>
+    <string name="error_create_torrent">نمی‌توان تورنت را ایجاد کرد</string>
+    <string name="skip_files">رد شدن از پرونده‌ها</string>
+    <string name="skip_files_hint">نام‌ پرونده‌ها را وارد کنید که به‌وسیله \"|\" جدا شده‌اند</string>
+    <string name="select_folder_to_save">انتخاب پوشه برای ذخیره</string>
+    <string name="torrent_saved_to">تورنت ذخیره شد در %1$s</string>
+    <string name="unable_to_open_file">نمی‌توان پرونده انتخابی را باز کرد</string>
+    <string name="unable_to_create_file">نمی‌توان پرونده را ایجاد کرد</string>
+    <!-- Log -->
+    <string name="log_journal">گزارش رویداد</string>
+    <string name="journal_list_empty">بدون ورودی</string>
+    <string name="journal_start_recording">آغاز ضبط</string>
+    <string name="journal_stop_recording">پایان ضبط</string>
+    <string name="journal_started_recording">ضبط آغاز شد</string>
+    <string name="journal_filter_session_log">گزارش رویداد نشست</string>
+    <string name="journal_filter_dht_log">گزارش رویداد DHT</string>
+    <string name="journal_filter_peer_log">گزارش رویداد همتا</string>
+    <string name="journal_filter_portmap_log">گزارش رویداد UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">گزارش رویداد تورنت</string>
+    <string name="journal_save_log_failed">نمی‌توان گزارش رویداد را ذخیره کرد</string>
+    <string name="journal_save_log_success">گزارش باموفقیت ذخیره شد: %1$s</string>
+    <string name="pref_journal_save_log_to">ذخیره گزارش رویداد در</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">حداکثر ورودی‌های ذخیره شده گزارش رویداد</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">شمایل</string>
+    <string name="pref_header_behavior">رفتار</string>
+    <string name="pref_header_storage">محل ذخیره</string>
+    <string name="pref_header_limitations">محدودیت‌ها</string>
+    <string name="pref_header_network">شبکه</string>
+    <string name="pref_header_scheduling">زمان بندی</string>
+    <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">پخش آنلاین</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">ذخیره تورنت‌ها در</string>
+    <string name="pref_move_after_download_title">انتقال بعد از بارگیری</string>
+    <string name="pref_move_after_download_in_title">انتقال بعد از بارگیری در</string>
+    <string name="pref_save_torrent_files_title">ذخیره پرونده‌های torrent.</string>
+    <string name="pref_save_torrent_files_summary">ذخیره پرونده‌های .torrent بعد از آغاز بارگیری</string>
+    <string name="pref_save_torrent_files_in_title">ذخیره پرونده‌های .torrent در</string>
+    <string name="pref_watch_dir_title">دیدبانی فهرست راهنما</string>
+    <string name="pref_watch_dir_summary">پرونده‌های تورنت ( با پسوند .torrent) در فهرست راهنمای مشخص دیده شده به شیوه خودکار افزوده می‌شوند. پرونده‌های تورنت بعد از افزوده شدن، حذف می‌شوند</string>
+    <string name="pref_dir_to_watch_title">فهرست راهنما برای دیدبانی</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">سرعت</string>
+    <string name="pref_max_download_speed_title">بیشترین سرعت بارگیری</string>
+    <string name="pref_max_upload_speed_title">بیشترین سرعت بارگذاری</string>
+    <string name="pref_max_connections_title">بیشترین شمار اتصال‌ها</string>
+    <string name="pref_max_connections_summary">بیشترین شمار اتصال‌ها - ۲</string>
+    <string name="pref_torrent_queueing_category">صف بندی تورنت</string>
+    <string name="pref_max_active_uploads_title">بیشترین بارگذاری‌های فعال</string>
+    <string name="pref_max_active_downloads_title">بیشترین بارگیری‌های فعال</string>
+    <string name="pref_max_active_torrents_title">بیشترین تورنت‌های فعال</string>
+    <string name="pref_max_connections_per_torrent_title">بیشترین شمار اتصال‌ها به‌ازای هر تورنت</string>
+    <string name="pref_max_connections_per_torrent_summary">بیشترین شمار اتصال‌ها - ۲</string>
+    <string name="pref_max_uploads_per_torrent_title">بیشترین شمار فرجه بارگذاری به‌ازای هر تورنت</string>
+    <string name="pref_auto_manage_title">مدیریت خودکار</string>
+    <string name="pref_auto_manage_summary">تورنت در هر نقطه‌ای به طور خودکار مکث یا ادامه داده شود. فعال‌کردن این گزینه شاید سرعت مکث/ادامه را کاهش دهد</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">۱- بدون محدودیت</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">تنظیمات پوسته</string>
+    <string name="pref_theme_title">پوسته</string>
+    <string-array name="pref_theme_entries">
+        <item>روشن</item>
+        <item>تاریک</item>
+        <item>سیاه</item>
+    </string-array>
+    <string name="pref_notification_category">تنظیمات اعلان</string>
+    <string name="pref_torrent_finish_notify_title">اعلان پایان تورنت</string>
+    <string name="pref_torrent_finish_notify_summary">هنگامی که بارگیری یک تورنت به پایان می‌رسد یک اعلان نمایش بده</string>
+    <string name="pref_play_sound_notify_title">پخش صدا</string>
+    <string name="pref_notify_sound_title">صدای اعلان</string>
+    <string name="pref_led_indicator_notify_title">نشانگر LED</string>
+    <string name="pref_led_indicator_color_notify_title">رنگ نشانگر LED</string>
+    <string name="pref_vibration_notify_title">لرزش</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">شروع خودکار</string>
+    <string name="pref_autostart_summary">اجرای برنامه بعد از آغاز دستگاه</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">فقط اتصال‌های بدون محدودیت حجم</string>
+    <string name="pref_umnetered_connections_only_summary">تنها از اتصال‌های بدون محدودیت حجم بارگیری کن ( برای مثال، وای‌فای یا اترنت)</string>
+    <string name="pref_enable_roaming_title">فعال‌کردن رومینگ</string>
+    <string name="pref_enable_roaming_summary">تنها زمانی بارگیری کن که دستگاه رومینگ نمی‌کند</string>
+    <string name="pref_power_management_category">مدیریت نیرو</string>
+    <string name="pref_keep_alive_title">فعال نگه‌داشتن</string>
+    <string name="pref_keep_alive_summary">اگر فعال شود، برنامه در پس‌زمینه در حالت اجرا باقی خواهد ماند. حالت بستن هنگامی که بارگیری‌ها کامل شوند، هنوز هم اجرا خواهد شد</string>
+    <string name="pref_shutdown_downloads_complete_title">هنگامی که بارگیری‌ها کامل می‌شوند، خاموش شو</string>
+    <string name="pref_shutdown_downloads_complete_summary">اگر فعال باشد، برنامه هنگامی که همه بارگیری‌ها به پایان رسیدند، خاموش خواهد شد</string>
+    <string name="pref_cpu_do_not_sleep_title">بیدار نگه داشتن CPU</string>
+    <string name="pref_cpu_do_not_sleep_summary">فعال‌کردن این مصرف باتری را افزایش خواهد داد. اگر سرعت بارگیری هنگام خاموش شدن صفحه کاهش می‌یابد این گزینه را استفاده کنید</string>
+    <string name="pref_download_and_upload_only_when_charging_title">تنها هنگام شارژ، بارگیری و بارگذاری کن</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">اگر فعال شود، تورنت‌ها تنها هنگام شارژ بارگیری/بارگذاری خواهند شد. همه تورنت‌ها هنگامی که به شارژر متصل نباشد متوقف خواهند شد</string>
+    <string name="pref_battery_control_title">مهار باتری</string>
+    <string name="pref_custom_battery_control_title">درصد سفارشی باتری</string>
+    <string name="pref_custom_battery_control_value_title">درصد مهار باتری</string>
+    <string name="pref_battery_control_summary">اگر میزان باتری به زیر %1$d%% برسد، همه تورنت‌ها متوقف خواهند شد. محدودیت هنگام شارژ اعمال نمی‌شود</string>
+    <string name="pref_custom_battery_control_summary">تنظیم درصد سفارشی برای توقف بارگیری‌ها، هنگامی که درصد باتری به کمتر از آستانه داده شده کاهش می‌یابد.
+فعال‌سازی این موجب نادیده گرفتن آستانه پیش‌فرض %1$d%% خواهد شد</string>
+    <string name="pref_custom_battery_control_dialog_summary">تنظیم یک درصد سفارشی باتری برای اینکه برنامه هنگامی که بارگیری‌ها در حال انجام هستند مراقب آن باشد، روی عمر باتری تاثیر منفی خواهد گذاشت. آیا مطمئن هستید که می‌خواهید این گزینه را فعال کنید؟</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">تنظیمات پروکسی</string>
+    <string name="pref_enable_dht_title">فعال‌سازی DHT</string>
+    <string name="pref_enable_dht_summary">به کارخواه‌های BitTorrent اجازه می‌دهد که بدون استفاده از ردیاب یکدیگر را پیدا کنند. فعال‌سازی این باعث افزایش مصرف باتری خواهد شد</string>
+    <string name="pref_enable_lsd_title">فعال‌سازی LSD</string>
+    <string name="pref_enable_lsd_summary">با هدف به حداقل رساندن ترافیک، طراحی شده تا کشف همتاهای محلی BitTorrent را پشتیبانی کند</string>
+    <string name="pref_enable_utp_title">فعال‌سازی μTP</string>
+    <string name="pref_enable_utp_summary">این برای کاهش تأخیر ضعیف و سایر اشکال‌های مرسوم مربوط به کنترل تراکم موجود در BitTorrent روی TCP در نظر گرفته شده است ، که در عین حال تحویل قابل اطمینان و مرتب را فراهم می‌کند</string>
+    <string name="pref_enable_upnp_title">فعال‌سازی UPnP</string>
+    <string name="pref_enable_natpmp_title">فعال‌سازی NAT-PMP</string>
+    <string name="pref_port_settings_category">تنظیمات پورت</string>
+    <string name="pref_use_random_port_title">استفاده از پورت تصادفی</string>
+    <string name="pref_use_random_port_summarty">درگاه آغاز را به شیوه تصادفی در دامنه [%1$d, %2$d] و درگاه پایان را اولی + ۱۰ تنظیم خواهد کرد</string>
+    <string name="pref_port_range_title">دامنه پورت</string>
+    <string name="pref_port_range_start_title">آغاز</string>
+    <string name="pref_port_range_end_title">پایان</string>
+    <string name="pref_encryption_category">رمزنگاری</string>
+    <string name="pref_enc_mode_title">حالت رمزنگاری</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>برتری به رمزنگاری</item>
+        <item>الزام به رمزنگاری</item>
+        <item>غیرفعال کردن رمزنگاری</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">اتصال‌های ورودی</string>
+    <string name="pref_enc_out_connections_title">اتصال‌های خروجی</string>
+    <string name="pref_ip_filtering_category">فیلتر IP</string>
+    <string name="pref_enable_ip_filtering_title">فعال‌سازی فیلتر IP</string>
+    <string name="pref_enable_ip_filtering_summary">استفاده از پالایش IP مصرف حافظه را بالا می‌برد.
+بسته به اندازه پرونده، اعمال پالودن هنگام راه‌اندازی، کمی زمان ببرد</string>
+    <string name="pref_ip_filtering_file_title">مسیر به پرونده فیلتر (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">نمایش خطاهای NAT</string>
+    <string name="pref_anonymous_mode_title">فعال‌سازی حالت ناشناس</string>
+    <string name="pref_anonymous_mode_summary">این برنامه تلاش می کند هویت خود را تا حدی پنهان کند. نماینده کاربر به یک رشته خالی (به جز برای تورنت های خصوصی) تنظیم خواهد شد. ردیاب‌ها فقط در صورت استفاده از سرور پروکسی استفاده می شوند. سوکت‌های شنود بسته شده و اتصالات ورودی فقط از طریق پروکسی SOCKS5 یا I2P پذیرفته می شوند (اگر یک پروکسی همتا تنظیم شده باشد و در همان دستگاه به عنوان پروکسی ردیاب اجرا شود). NAT-PMP ، UPnP ، DHT و کشف همتاهای محلی خاموش می‌شوند</string>
+    <string name="pref_seeding_outgoing_connections_title">فعال‌سازی اتصال‌های برون‌رو برای seed‌ها</string>
+    <string name="pref_seeding_outgoing_connections_summary">تعیین می کند که آیا تورنت های seeding باید برای برقراری اتصالات خروجی تلاش کنند یا نه. ممکن است در شرایط بسیار خاص غیرفعال شود که هزینه برقراری اتصالات خروجی زیاد باشد</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">نوع پروکسی</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(هیچ‌کدام)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">نشانی‌</string>
+    <string name="pref_proxy_port_title">پورت</string>
+    <string name="pref_proxy_peers_too_title">همچنین برای اتصال‌های همتا استفاده کن</string>
+    <string name="pref_proxy_peers_too_summary">این پروکسی برای اتصال به ردیاب‌ها، همتا‌ها و seedهای وب استفاده خواهد شد</string>
+    <string name="pref_proxy_requires_auth_title">نیازمند اجازه</string>
+    <string name="pref_proxy_requires_auth_summary">هشدار: گذرواژه بدون رمزنگاری ذخیره می‌شود</string>
+    <string name="pref_proxy_login_title">ورود</string>
+    <string name="pref_proxy_password_title">گذرواژه</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">زمان آغاز</string>
+    <string name="pref_enable_scheduling_start_summary">برنامه را در زمانی مشخص آغاز کن. تورنت‌ها طبق حالت قبل از خاموش شدن خود اجرا خواهند شد</string>
+    <string name="pref_enable_scheduling_shutdown_title">زمان خاموش شدن</string>
+    <string name="pref_enable_scheduling_shutdown_summary">برنامه را در زمانی خاص خاموش کن</string>
+    <string name="pref_scheduling_run_only_once_title">تنها یک‌بار اجرا کن</string>
+    <string name="pref_scheduling_switch_wifi_title">فعال/غیرفعال‌کردن وای‌فای</string>
+    <string name="pref_scheduling_switch_wifi_summary">وای‌فای به طور خودکار هنگامی که برنامه در زمان برنامه‌ریزی شده اجرا شود، فعال و هنگامی که برنامه در زمان برنامه‌ریزی شده بسته شود، غیرفعال می‌شود</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">به‌طور خودکار کانال‌ها را نوسازی کن</string>
+    <string name="pref_feed_auto_refresh_summary">به‌طور دوره‌ای کانال‌ها را در پس‌زمینه نوسازی کن</string>
+    <string name="pref_feed_refresh_interval_title">فاصله نوسازی</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>۱۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۱ ساعت</item>
+        <item>۲ ساعت</item>
+        <item>۶ ساعت</item>
+        <item>۱۲ ساعت</item>
+        <item>۱ روز</item>
+    </string-array>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">تنها اتصال‌های بدون محدودیت حجم</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">تنها از راه اتصال‌های بدون محدودیت حجم (برای مثال، وای‌فای یا اترنت) نوسازی کن</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">فعال‌کردن رومینگ</string>
+    <string name="pref_feed_keep_items_time_title">موارد را نگه‌دار</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>۱ روز</item>
+        <item>۲ روز</item>
+        <item>۴ روز</item>
+        <item>۱ هفته</item>
+        <item>۲ هفته</item>
+        <item>۱ ماه</item>
+        <item>۲ ماه</item>
+        <item>۳ ماه</item>
+        <item>همیشه</item>
+    </string-array>
+    <string name="pref_feed_start_torrents_title">اجرای تورنت‌ها</string>
+    <string name="pref_feed_start_torrents_summary">اجرای تورنت‌ها بعد از افزودن</string>
+    <string name="pref_feed_remove_duplicates_title">حذف تکراری‌ها</string>
+    <string name="pref_feed_remove_duplicates_summary">عنوان موارد تازه بارگیری شده را بررسی می‌کند و هنگامی که یکی با همان عنوان در حال حاضر موجود است ، رد می‌شود</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">فعال کردن پخش آنلاين</string>
+    <string name="pref_streaming_enable_summary">پخش آنلاین به شما اجازه می‌دهد که پرونده‌های منحصر بفرد را از تورنت با استفاده از یک مرورگر یا پخش‌کننده رسانه به‌وسیله نشانی‌های HTTP بارگیری کنید</string>
+    <string name="pref_streaming_hostname">نام میزبان</string>
+    <string name="pref_streaming_port">پورت</string>
+    <string name="pref_streaming_error">پورت یا نام میزبان انتخابی برای پخش آنلاین مشغول یا نادرست است. لطفا آن را درست کنید</string>
+    <!-- About dialog -->
+    <string name="about_title">درباره LibreTorrent</string>
+    <string name="about_description"><![CDATA[    اطلاعات بیشتر و همچنین برای کمک به پروژه:  <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent  یک کارخواه آزاد بر اساس libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br> برای اندروید بالای 4 است
+    LibreTorrent یک نرم‌افزار آزاد،منتشر شده  تحت شرایط  <a href="http://www.gnu.org/copyleft/gpl.html">پروانه عمومی همگانی گنو نگارش 3 (GPLv3)</a> است]]></string>
+    <string name="about_changelog">گزارش دگرگونی</string>
+</resources>
