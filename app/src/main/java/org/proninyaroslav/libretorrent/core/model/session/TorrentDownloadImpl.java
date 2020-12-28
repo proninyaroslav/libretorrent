@@ -131,7 +131,6 @@ class TorrentDownloadImpl implements TorrentDownload
     private FileSystemFacade fs;
     private Queue<TorrentEngineListener> listeners;
     private InnerListener listener;
-    private Set<Uri> incompleteFilesToRemove;
     private Uri partsFile;
     private long lastSaveResumeTime;
     private AtomicReference<String> name;
@@ -449,7 +448,6 @@ class TorrentDownloadImpl implements TorrentDownload
                 /* Ignore */
             }
         }
-        finalCleanup(incompleteFilesToRemove);
     }
 
     private void handleTorrentChecked()
@@ -751,74 +749,14 @@ class TorrentDownloadImpl implements TorrentDownload
         Torrent torrent = repo.getTorrentById(id);
         if (torrent != null) {
             repo.deleteTorrent(torrent);
-            incompleteFilesToRemove = getIncompleteFiles(torrent);
         }
 
         if (!operationNotAllowed()) {
             if (withFiles)
                 sessionManager.remove(th, SessionHandle.DELETE_FILES);
             else
-                sessionManager.remove(th);
+                sessionManager.remove(th, SessionHandle.DELETE_PARTFILE);
         }
-    }
-
-    /*
-     * Deletes incomplete files.
-     */
-
-    private void finalCleanup(Set<Uri> incompleteFiles)
-    {
-        if (incompleteFiles == null)
-            return;
-
-        for (Uri path : incompleteFiles) {
-            try {
-                if (!fs.deleteFile(path))
-                    Log.w(TAG, "Can't delete file " + path);
-            } catch (Exception e) {
-                Log.w(TAG, "Can't delete file " + path + ", ex: " + e.getMessage());
-            }
-        }
-    }
-
-    private Set<Uri> getIncompleteFiles(Torrent torrent)
-    {
-        Set<Uri> s = new HashSet<>();
-
-        if (torrent.isDownloadingMetadata())
-            return s;
-
-        try {
-            if (operationNotAllowed())
-                return s;
-
-            long[] progress = th.fileProgress(torrent_handle.piece_granularity);
-            TorrentInfo ti = th.torrentFile();
-            if (ti == null)
-                return s;
-            FileStorage fileStorage = ti.files();
-            Uri prefix = torrent.downloadPath;
-
-            for (int i = 0; i < progress.length; i++) {
-                String filePath = fileStorage.filePath(i);
-                long fileSize = fileStorage.fileSize(i);
-                if (progress[i] < fileSize) {
-                    /* Lets see if indeed the file is incomplete */
-                    Uri path = fs.getFileUri(filePath, prefix);
-                    if (path == null)
-                        continue;
-
-                    if (fs.lastModified(path) >= torrent.dateAdded)
-                        /* We have a file modified (supposedly) by this transfer */
-                        s.add(path);
-                }
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error calculating the incomplete files set of " + id);
-        }
-
-        return s;
     }
 
     @Override
