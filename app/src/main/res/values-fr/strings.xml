@@ -182,8 +182,8 @@
     <string name="home_directory">Accueil</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Stockage interne</string>
+    <string name="external_storage_name" formatted="false">Stockage externe %1$d</string>
     <string name="permission_denied">Permission refusée</string>
     <string name="save_file">Enregistrer le fichier</string>
     <string name="file_name">Nom de fichier</string>

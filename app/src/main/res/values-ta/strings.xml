@@ -182,8 +182,8 @@
     <string name="home_directory">முகப்பு</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">உள் சேமிப்பு</string>
+    <string name="external_storage_name" formatted="false">வெளிப்புற சேமிப்பு %1$d</string>
     <string name="permission_denied">அனுமதி மறுக்கப்பட்டது</string>
     <string name="save_file">கோப்பை சேமி</string>
     <string name="file_name">கோப்பு பெயர்</string>

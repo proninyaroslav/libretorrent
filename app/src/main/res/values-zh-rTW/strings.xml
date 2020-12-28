@@ -182,7 +182,7 @@
     <string name="home_directory">根目錄</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
+    <string name="internal_storage_name">內部儲存空間</string>
     <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
     <string name="save_file">儲存檔案</string>

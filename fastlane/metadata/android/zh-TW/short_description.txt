@@ -1,0 +1,1 @@
+LibreTorrent 是一款基於 libtorrent 的自由的種子用戶端，支援 Android 5 以上的版本。 讓你直接在裝置上下載與分享檔案。

@@ -139,7 +139,7 @@
     <string name="torrent_status_downloading_metadata">Descargando metadatos</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
-    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los archivos torrent en la memoria. La aplicación no funcionará correctamente. ¿Está seguro de que desea negar este permiso?</string>
+    <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar los archivos torrent en la memoria. La aplicación no funcionará correctamente. ¿Estás seguro de que deseas denegar este permiso?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Añadir torrent</string>
     <string name="error_decode_torrent">Error decodificando el archivo torrent. Quizá el archivo esté corrupto o tenga un formato incorrecto</string>
@@ -182,8 +182,8 @@
     <string name="home_directory">Inicio</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Almacenamiento interno</string>
+    <string name="external_storage_name" formatted="false">Almacenamiento externo %1$d</string>
     <string name="permission_denied">Permiso denegado</string>
     <string name="save_file">Guardar archivo</string>
     <string name="file_name">Nombre del archivo</string>
@@ -434,7 +434,7 @@
     <string name="pref_custom_battery_control_value_title">Porcentaje de control de la batería</string>
     <string name="pref_battery_control_summary">Todos los torrents serán pausados si el nivel de la batería cae por debajo del %1$d%%. El límite no se aplica cuando se está cargando</string>
     <string name="pref_custom_battery_control_summary">Establezca un porcentaje personalizado para pausar las descargas en si la batería cae por debajo del umbral especificado. Habilitar esto ignorará el umbral predeterminado del %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary">Establecer un porcentaje de batería personalizado para la aplicación tendrá un impacto negativo en la duración de la batería mientras se realizan las descargas. ¿Está seguro de que desea habilitar esto?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Establecer un porcentaje de batería personalizado para la aplicación tendrá un impacto negativo en la duración de la batería mientras se realizan las descargas. ¿Estás seguro de que deseas habilitar esto?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ajustes del proxy</string>
     <string name="pref_enable_dht_title">Habilitar DHT</string>
