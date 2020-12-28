@@ -55,8 +55,8 @@ class TorrentCriticalWork
     }
 
     private ExecutorService exec = Executors.newFixedThreadPool(2);
-    private AtomicBoolean moving;
-    private AtomicInteger saveResume;
+    private AtomicBoolean moving = new AtomicBoolean();
+    private AtomicInteger saveResume = new AtomicInteger();
     private BehaviorSubject<State> stateChangedEvent =
             BehaviorSubject.createDefault(new State(false, false, System.currentTimeMillis()));
 
