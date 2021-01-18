@@ -22,6 +22,8 @@ package org.proninyaroslav.libretorrent.viewmodel.filemanager;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.proninyaroslav.libretorrent.AbstractTest;
@@ -47,7 +49,11 @@ public class FileManagerViewModelTest extends AbstractTest
 
         config = new FileManagerConfig(fs.getUserDirPath(),
                 null, FileManagerConfig.DIR_CHOOSER_MODE);
-        viewModel = new FileManagerViewModel(context, config, fs.getUserDirPath());
+        viewModel = new FileManagerViewModel(
+                ApplicationProvider.getApplicationContext(),
+                config,
+                fs.getUserDirPath()
+        );
     }
 
     @Test

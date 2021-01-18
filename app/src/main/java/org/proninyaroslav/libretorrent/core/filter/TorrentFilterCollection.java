@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,38 +19,34 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
+import androidx.annotation.NonNull;
+
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.utils.DateUtils;
 
-public class TorrentFilterCollection
-{
-    public static TorrentFilter all()
-    {
+public class TorrentFilterCollection {
+    public static TorrentFilter all() {
         return (state) -> true;
     }
 
-    public static TorrentFilter statusDownloading()
-    {
+    public static TorrentFilter statusDownloading() {
         return (state) -> state.stateCode == TorrentStateCode.DOWNLOADING;
     }
 
-    public static TorrentFilter statusDownloaded()
-    {
+    public static TorrentFilter statusDownloaded() {
         return (state) -> state.stateCode == TorrentStateCode.SEEDING || state.receivedBytes == state.totalBytes;
     }
 
-    public static TorrentFilter statusDownloadingMetadata()
-    {
+    public static TorrentFilter statusDownloadingMetadata() {
         return (state) -> state.stateCode == TorrentStateCode.DOWNLOADING_METADATA;
     }
 
-    public static TorrentFilter statusError()
-    {
+    public static TorrentFilter statusError() {
         return (state) -> state.error != null;
     }
 
-    public static TorrentFilter dateAddedToday()
-    {
+    public static TorrentFilter dateAddedToday() {
         return (state) -> {
             long dateAdded = state.dateAdded;
             long timeMillis = System.currentTimeMillis();
@@ -60,8 +56,7 @@ public class TorrentFilterCollection
         };
     }
 
-    public static TorrentFilter dateAddedYesterday()
-    {
+    public static TorrentFilter dateAddedYesterday() {
         return (state) -> {
             long dateAdded = state.dateAdded;
             long timeMillis = System.currentTimeMillis();
@@ -71,8 +66,7 @@ public class TorrentFilterCollection
         };
     }
 
-    public static TorrentFilter dateAddedWeek()
-    {
+    public static TorrentFilter dateAddedWeek() {
         return (state) -> {
             long dateAdded = state.dateAdded;
             long timeMillis = System.currentTimeMillis();
@@ -82,8 +76,7 @@ public class TorrentFilterCollection
         };
     }
 
-    public static TorrentFilter dateAddedMonth()
-    {
+    public static TorrentFilter dateAddedMonth() {
         return (state) -> {
             long dateAdded = state.dateAdded;
             long timeMillis = System.currentTimeMillis();
@@ -93,8 +86,7 @@ public class TorrentFilterCollection
         };
     }
 
-    public static TorrentFilter dateAddedYear()
-    {
+    public static TorrentFilter dateAddedYear() {
         return (state) -> {
             long dateAdded = state.dateAdded;
             long timeMillis = System.currentTimeMillis();
@@ -102,5 +94,13 @@ public class TorrentFilterCollection
             return dateAdded >= DateUtils.startOfYear(timeMillis) &&
                     dateAdded <= DateUtils.endOfYear(timeMillis);
         };
+    }
+
+    public static TorrentFilter tag(TagInfo tag) {
+        return (state) -> tag == null || state.tags.contains(tag);
+    }
+
+    public static TorrentFilter noTags() {
+        return (state) -> state.tags.isEmpty();
     }
 }

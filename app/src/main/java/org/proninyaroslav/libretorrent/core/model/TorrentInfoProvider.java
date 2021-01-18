@@ -24,12 +24,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +42,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Consumer;
@@ -48,89 +51,83 @@ import io.reactivex.functions.Consumer;
  * Provides runtime information about torrent, which isn't saved to the database.
  */
 
-public class TorrentInfoProvider
-{
+public class TorrentInfoProvider {
     private static final String TAG = TorrentInfoProvider.class.getSimpleName();
 
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
 
     private static volatile TorrentInfoProvider INSTANCE;
     private TorrentEngine engine;
+    private TagRepository tagRepo;
 
-    public static TorrentInfoProvider getInstance(@NonNull TorrentEngine engine)
-    {
+    public static TorrentInfoProvider getInstance(
+            @NonNull TorrentEngine engine,
+            @NonNull TagRepository tagRepo
+    ) {
         if (INSTANCE == null) {
             synchronized (TorrentInfoProvider.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new TorrentInfoProvider(engine);
+                    INSTANCE = new TorrentInfoProvider(engine, tagRepo);
             }
         }
         return INSTANCE;
     }
 
-    public static TorrentInfoProvider getInstance(@NonNull Context appContext)
-    {
+    public static TorrentInfoProvider getInstance(@NonNull Context appContext) {
         if (INSTANCE == null) {
             synchronized (TorrentInfoProvider.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new TorrentInfoProvider(TorrentEngine.getInstance(appContext));
+                    INSTANCE = new TorrentInfoProvider(
+                            TorrentEngine.getInstance(appContext),
+                            RepositoryHelper.getTagRepository(appContext)
+                    );
             }
         }
         return INSTANCE;
     }
 
-    private TorrentInfoProvider(TorrentEngine engine)
-    {
+    private TorrentInfoProvider(TorrentEngine engine, TagRepository tagRepo) {
         this.engine = engine;
+        this.tagRepo = tagRepo;
     }
 
-    public Flowable<TorrentInfo> observeInfo(@NonNull String id)
-    {
+    public Flowable<TorrentInfo> observeInfo(@NonNull String id) {
         return makeInfoFlowable(id);
     }
 
-    public Flowable<List<TorrentInfo>> observeInfoList()
-    {
+    public Flowable<List<TorrentInfo>> observeInfoList() {
         return makeInfoListFlowable();
     }
 
-    public Single<List<TorrentInfo>> getInfoListSingle()
-    {
+    public Single<List<TorrentInfo>> getInfoListSingle() {
         return makeInfoListSingle();
     }
 
-    public Flowable<AdvancedTorrentInfo> observeAdvancedInfo(@NonNull String id)
-    {
+    public Flowable<AdvancedTorrentInfo> observeAdvancedInfo(@NonNull String id) {
         return makeAdvancedInfoFlowable(id);
     }
 
-    public Flowable<List<TrackerInfo>> observeTrackersInfo(@NonNull String id)
-    {
+    public Flowable<List<TrackerInfo>> observeTrackersInfo(@NonNull String id) {
         return makeTrackersInfoFlowable(id);
     }
 
-    public Flowable<List<PeerInfo>> observePeersInfo(@NonNull String id)
-    {
+    public Flowable<List<PeerInfo>> observePeersInfo(@NonNull String id) {
         return makePeersInfoFlowable(id);
     }
 
-    public Flowable<boolean[]> observePiecesInfo(@NonNull String id)
-    {
+    public Flowable<boolean[]> observePiecesInfo(@NonNull String id) {
         return makePiecesFlowable(id);
     }
 
-    public Flowable<String> observeTorrentsDeleted()
-    {
+    public Flowable<String> observeTorrentsDeleted() {
         return makeTorrentsDeletedFlowable();
     }
 
-    public Flowable<SessionStats> observeSessionStats()
-    {
+    public Flowable<SessionStats> observeSessionStats() {
         return makeSessionStatsFlowable();
     }
 
-    private Flowable<TorrentInfo> makeInfoFlowable(String id)
-    {
+    private Flowable<TorrentInfo> makeInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
             final AtomicReference<TorrentInfo> info = new AtomicReference<>();
 
@@ -151,8 +148,7 @@ public class TorrentInfoProvider
                 @Override
                 public void onTorrentStateChanged(@NonNull String torrentId,
                                                   @NonNull TorrentStateCode prevState,
-                                                  @NonNull TorrentStateCode curState)
-                {
+                                                  @NonNull TorrentStateCode curState) {
                     try {
                         handleEvent.accept(torrentId);
 
@@ -163,8 +159,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onTorrentPaused(@NonNull String torrentId)
-                {
+                public void onTorrentPaused(@NonNull String torrentId) {
                     try {
                         handleEvent.accept(torrentId);
 
@@ -175,8 +170,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onRestoreSessionError(@NonNull String torrentId)
-                {
+                public void onRestoreSessionError(@NonNull String torrentId) {
                     try {
                         handleEvent.accept(torrentId);
 
@@ -187,8 +181,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onTorrentError(@NonNull String torrentId, Exception e)
-                {
+                public void onTorrentError(@NonNull String torrentId, Exception e) {
                     try {
                         handleEvent.accept(torrentId);
 
@@ -199,8 +192,7 @@ public class TorrentInfoProvider
                 }
 
                 @Override
-                public void onSessionStats(@NonNull SessionStats stats)
-                {
+                public void onSessionStats(@NonNull SessionStats stats) {
                     try {
                         handleEvent.accept(id);
 
@@ -220,8 +212,21 @@ public class TorrentInfoProvider
                         if (s != null)
                             emitter.onNext(s);
                         engine.addListener(listener);
-                        emitter.setDisposable(Disposables.fromAction(() ->
-                                engine.removeListener(listener)));
+                        CompositeDisposable disposables = new CompositeDisposable();
+                        disposables.add(Disposables.fromAction(() ->
+                                engine.removeListener(listener))
+                        );
+                        disposables.add(tagRepo.observeByTorrentId(id)
+                                .subscribe((__) -> {
+                                    try {
+                                        handleEvent.accept(id);
+                                    } catch (Exception ex) {
+                                        if (!emitter.isCancelled())
+                                            emitter.onError(ex);
+                                    }
+                                })
+                        );
+                        emitter.setDisposable(disposables);
                     }
                 });
                 t.start();
@@ -230,8 +235,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<TorrentInfo>> makeInfoListFlowable()
-    {
+    private Flowable<List<TorrentInfo>> makeInfoListFlowable() {
         return Flowable.create((emitter) -> {
             final AtomicReference<List<TorrentInfo>> infoList = new AtomicReference<>();
 
@@ -239,7 +243,7 @@ public class TorrentInfoProvider
                 List<TorrentInfo> newInfoList = engine.makeInfoListSync();
                 List<TorrentInfo> oldInfoList = infoList.get();
                 if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                    !oldInfoList.containsAll(newInfoList)) {
+                        !oldInfoList.containsAll(newInfoList)) {
                     infoList.set(newInfoList);
                     if (!emitter.isCancelled())
                         emitter.onNext(newInfoList);
@@ -250,38 +254,32 @@ public class TorrentInfoProvider
                 @Override
                 public void onTorrentStateChanged(@NonNull String torrentId,
                                                   @NonNull TorrentStateCode prevState,
-                                                  @NonNull TorrentStateCode curState)
-                {
+                                                  @NonNull TorrentStateCode curState) {
                     handleInfo.run();
                 }
 
                 @Override
-                public void onTorrentPaused(@NonNull String torrentId)
-                {
+                public void onTorrentPaused(@NonNull String torrentId) {
                     handleInfo.run();
                 }
 
                 @Override
-                public void onTorrentRemoved(@NonNull String torrentId)
-                {
+                public void onTorrentRemoved(@NonNull String torrentId) {
                     handleInfo.run();
                 }
 
                 @Override
-                public void onRestoreSessionError(@NonNull String torrentId)
-                {
+                public void onRestoreSessionError(@NonNull String torrentId) {
                     handleInfo.run();
                 }
 
                 @Override
-                public void onTorrentError(@NonNull String torrentId, Exception e)
-                {
+                public void onTorrentError(@NonNull String torrentId, Exception e) {
                     handleInfo.run();
                 }
 
                 @Override
-                public void onSessionStats(@NonNull SessionStats stats)
-                {
+                public void onSessionStats(@NonNull SessionStats stats) {
                     handleInfo.run();
                 }
             };
@@ -293,8 +291,14 @@ public class TorrentInfoProvider
                         /* Emit once to avoid missing any data and also easy chaining */
                         emitter.onNext(infoList.get());
                         engine.addListener(listener);
-                        emitter.setDisposable(Disposables.fromAction(() ->
-                                engine.removeListener(listener)));
+                        CompositeDisposable disposables = new CompositeDisposable();
+                        disposables.add(Disposables.fromAction(() ->
+                                engine.removeListener(listener))
+                        );
+                        disposables.add(tagRepo.observeAll()
+                                .subscribe((__) -> handleInfo.run())
+                        );
+                        emitter.setDisposable(disposables);
                     }
                 });
                 t.start();
@@ -303,8 +307,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Single<List<TorrentInfo>> makeInfoListSingle()
-    {
+    private Single<List<TorrentInfo>> makeInfoListSingle() {
         return Single.create((emitter) -> {
             if (!emitter.isDisposed()) {
                 Thread t = new Thread(() -> {
@@ -317,8 +320,7 @@ public class TorrentInfoProvider
         });
     }
 
-    private Flowable<AdvancedTorrentInfo> makeAdvancedInfoFlowable(String id)
-    {
+    private Flowable<AdvancedTorrentInfo> makeAdvancedInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
             final AtomicReference<AdvancedTorrentInfo> info = new AtomicReference<>();
 
@@ -354,8 +356,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<TrackerInfo>> makeTrackersInfoFlowable(String id)
-    {
+    private Flowable<List<TrackerInfo>> makeTrackersInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
             final AtomicReference<List<TrackerInfo>> infoList = new AtomicReference<>();
 
@@ -364,7 +365,7 @@ public class TorrentInfoProvider
                                 List<TrackerInfo> newInfoList = engine.makeTrackerInfoList(id);
                                 List<TrackerInfo> oldInfoList = infoList.get();
                                 if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                                    !oldInfoList.containsAll(newInfoList)) {
+                                        !oldInfoList.containsAll(newInfoList)) {
                                     infoList.set(newInfoList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newInfoList);
@@ -390,8 +391,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<PeerInfo>> makePeersInfoFlowable(String id)
-    {
+    private Flowable<List<PeerInfo>> makePeersInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
             final AtomicReference<List<PeerInfo>> infoList = new AtomicReference<>();
 
@@ -400,7 +400,7 @@ public class TorrentInfoProvider
                                 List<PeerInfo> newInfoList = engine.makePeerInfoList(id);
                                 List<PeerInfo> oldInfoList = infoList.get();
                                 if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                                    !oldInfoList.containsAll(newInfoList)) {
+                                        !oldInfoList.containsAll(newInfoList)) {
                                     infoList.set(newInfoList);
                                     if (!emitter.isCancelled())
                                         emitter.onNext(newInfoList);
@@ -426,8 +426,7 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<boolean[]> makePiecesFlowable(String id)
-    {
+    private Flowable<boolean[]> makePiecesFlowable(String id) {
         return Flowable.create((emitter) -> {
             final AtomicReference<boolean[]> infoList = new AtomicReference<>();
 
@@ -461,13 +460,11 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<String> makeTorrentsDeletedFlowable()
-    {
+    private Flowable<String> makeTorrentsDeletedFlowable() {
         return Flowable.create((emitter) -> {
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onTorrentRemoved(@NonNull String id)
-                {
+                public void onTorrentRemoved(@NonNull String id) {
                     if (!emitter.isCancelled())
                         emitter.onNext(id);
                 }
@@ -482,15 +479,13 @@ public class TorrentInfoProvider
         }, BackpressureStrategy.DROP);
     }
 
-    private Flowable<SessionStats> makeSessionStatsFlowable()
-    {
+    private Flowable<SessionStats> makeSessionStatsFlowable() {
         return Flowable.create((emitter) -> {
             final AtomicReference<SessionStats> stats = new AtomicReference<>();
 
             TorrentEngineListener listener = new TorrentEngineListener() {
                 @Override
-                public void onSessionStats(@NonNull SessionStats newStats)
-                {
+                public void onSessionStats(@NonNull SessionStats newStats) {
                     SessionStats oldStats = stats.get();
                     if (!newStats.equals(oldStats)) {
                         stats.set(newStats);

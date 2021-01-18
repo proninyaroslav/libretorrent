@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,33 +40,38 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
+import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 
 /*
  * The fragment for displaying torrent metainformation,
  * taken from bencode. Part of AddTorrentFragment.
  */
 
-public class AddTorrentInfoFragment extends Fragment
-{
+public class AddTorrentInfoFragment extends Fragment {
     private static final String TAG = AddTorrentInfoFragment.class.getSimpleName();
 
-    private static final int DIR_CHOOSER_REQUEST = 1;
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
 
     private AppCompatActivity activity;
     private AddTorrentViewModel viewModel;
     private FragmentAddTorrentInfoBinding binding;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
-    public static AddTorrentInfoFragment newInstance()
-    {
+    public static AddTorrentInfoFragment newInstance() {
         AddTorrentInfoFragment fragment = new AddTorrentInfoFragment();
 
         Bundle b = new Bundle();
@@ -74,55 +81,120 @@ public class AddTorrentInfoFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity) context;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_torrent_info, container, false);
 
         return binding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(activity).get(AddTorrentViewModel.class);
         binding.setViewModel(viewModel);
 
         binding.info.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
-        binding.info.name.addTextChangedListener(new TextWatcher()
-        {
+        binding.info.name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 checkNameField(s);
             }
         });
+        binding.info.tagsList.setListener(tagsListener);
     }
 
-    private void showChooseDirDialog()
-    {
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        subscribeTags();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    final ActivityResultLauncher<Intent> selectTag = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            (result) -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
+                    TagInfo tag = data.getParcelableExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG);
+                    if (tag != null) {
+                        viewModel.addTag(tag);
+                    }
+                }
+            }
+    );
+
+    final ActivityResultLauncher<Intent> chooseDir = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                if (result.getResultCode() != Activity.RESULT_OK) {
+                    return;
+                }
+                Intent data = result.getData();
+                if (data == null || data.getData() == null) {
+                    showOpenDirErrorDialog();
+                    return;
+                }
+                viewModel.mutableParams.getDirPath().set(data.getData());
+            });
+
+    private final TorrentTagsList.Listener tagsListener = new TorrentTagsList.Listener() {
+        @Override
+        public void onAddTagClick() {
+            disposables.add(Observable.fromIterable(viewModel.getCurrentTags())
+                    .map((tag) -> tag.id)
+                    .toList()
+                    .subscribe((ids) -> {
+                        Intent i = new Intent(activity, SelectTagActivity.class);
+                        i.putExtra(
+                                SelectTagActivity.TAG_EXCLUDE_TAGS_ID,
+                                ArrayUtils.toPrimitive(ids.toArray(new Long[0]))
+                        );
+                        selectTag.launch(i);
+                    })
+            );
+        }
+
+        @Override
+        public void onTagRemoved(@NonNull TagInfo info) {
+            viewModel.removeTag(info);
+        }
+    };
+
+    private void subscribeTags() {
+        disposables.add(viewModel.observeTags()
+                .subscribe(binding.info.tagsList::submit)
+        );
+    }
+
+    private void showChooseDirDialog() {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
-        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getContext());
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(
+                activity.getApplicationContext()
+        );
         String path;
         try {
             path = fs.getDirPath(viewModel.mutableParams.getDirPath().get());
@@ -137,25 +209,10 @@ public class AddTorrentInfoFragment extends Fragment
         );
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, DIR_CHOOSER_REQUEST);
+        chooseDir.launch(i);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        if (resultCode != DIR_CHOOSER_REQUEST && resultCode != Activity.RESULT_OK)
-            return;
-
-        if (data == null || data.getData() == null) {
-            showOpenDirErrorDialog();
-            return;
-        }
-
-        viewModel.mutableParams.getDirPath().set(data.getData());
-    }
-
-    private void showOpenDirErrorDialog()
-    {
+    private void showOpenDirErrorDialog() {
         if (!isAdded())
             return;
 
@@ -174,8 +231,7 @@ public class AddTorrentInfoFragment extends Fragment
         }
     }
 
-    private void checkNameField(Editable s)
-    {
+    private void checkNameField(Editable s) {
         if (TextUtils.isEmpty(s)) {
             binding.info.layoutName.setErrorEnabled(true);
             binding.info.layoutName.setError(getString(R.string.error_field_required));

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,8 +31,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -42,29 +43,35 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentInfoBinding;
+import org.proninyaroslav.libretorrent.service.Scheduler;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
+import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /*
  * The fragment for displaying torrent metainformation,
  * taken from bencode. Part of DetailTorrentFragment.
  */
 
-public class DetailTorrentInfoFragment extends Fragment
-{
+public class DetailTorrentInfoFragment extends Fragment {
     private static final String TAG = DetailTorrentInfoFragment.class.getSimpleName();
 
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
     private static final String TAG_EDIT_NAME_DIALOG = "edit_name_dialog";
-
-    private static final int DIR_CHOOSER_REQUEST = 1;
 
     private AppCompatActivity activity;
     private DetailTorrentViewModel viewModel;
@@ -73,8 +80,7 @@ public class DetailTorrentInfoFragment extends Fragment
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    public static DetailTorrentInfoFragment newInstance()
-    {
+    public static DetailTorrentInfoFragment newInstance() {
         DetailTorrentInfoFragment fragment = new DetailTorrentInfoFragment();
 
         Bundle args = new Bundle();
@@ -84,29 +90,16 @@ public class DetailTorrentInfoFragment extends Fragment
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity) context;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_torrent_info, container, false);
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        if (activity == null)
-            activity = (AppCompatActivity)getActivity();
 
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(DetailTorrentViewModel.class);
@@ -114,14 +107,84 @@ public class DetailTorrentInfoFragment extends Fragment
         binding.setViewModel(viewModel);
 
         FragmentManager fm = getChildFragmentManager();
-        editNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG);
+        editNameDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_EDIT_NAME_DIALOG);
 
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
         binding.editNameButton.setOnClickListener((v) -> showEditNameDialog());
+        binding.tagsList.setListener(tagsListener);
+
+        return binding.getRoot();
     }
 
-    private void showChooseDirDialog()
-    {
+    final ActivityResultLauncher<Intent> chooseDir = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            (result) -> {
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
+
+                Intent data = result.getData();
+                if (data == null || data.getData() == null) {
+                    showOpenDirErrorDialog();
+                    return;
+                }
+
+                viewModel.mutableParams.setDirPath(data.getData());
+            });
+
+    final ActivityResultLauncher<Intent> selectTag = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            (result) -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
+                    TagInfo tag = data.getParcelableExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG);
+                    if (tag != null) {
+                        disposables.add(viewModel.addTag(tag)
+                                .subscribeOn(Schedulers.io())
+                                .subscribe()
+                        );
+                    }
+                }
+            });
+
+    private final TorrentTagsList.Listener tagsListener = new TorrentTagsList.Listener() {
+        @Override
+        public void onAddTagClick() {
+            disposables.add(viewModel.getTags()
+                    .subscribeOn(Schedulers.io())
+                    .flatMap((tags) -> Observable.fromIterable(tags)
+                            .map((tag) -> tag.id)
+                            .toList()
+                    )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe((ids) -> {
+                        Intent i = new Intent(activity, SelectTagActivity.class);
+                        i.putExtra(
+                                SelectTagActivity.TAG_EXCLUDE_TAGS_ID,
+                                ArrayUtils.toPrimitive(ids.toArray(new Long[0]))
+                        );
+                        selectTag.launch(i);
+                    })
+            );
+        }
+
+        @Override
+        public void onTagRemoved(@NonNull TagInfo info) {
+            disposables.add(viewModel.removeTag(info)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
+            );
+        }
+    };
+
+    private void subscribeTags() {
+        disposables.add(viewModel.observeTags()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(binding.tagsList::submit)
+        );
+    }
+
+    private void showChooseDirDialog() {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
         FileManagerConfig config = new FileManagerConfig(null,
@@ -129,27 +192,25 @@ public class DetailTorrentInfoFragment extends Fragment
                 FileManagerConfig.DIR_CHOOSER_MODE);
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, DIR_CHOOSER_REQUEST);
+        chooseDir.launch(i);
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeTags();
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         disposables.clear();
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (event.dialogTag == null || !event.dialogTag.equals(TAG_EDIT_NAME_DIALOG) || editNameDialog == null)
@@ -178,22 +239,7 @@ public class DetailTorrentInfoFragment extends Fragment
         disposables.add(d);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        if (resultCode != DIR_CHOOSER_REQUEST && resultCode != Activity.RESULT_OK)
-            return;
-
-        if (data == null || data.getData() == null) {
-            showOpenDirErrorDialog();
-            return;
-        }
-
-        viewModel.mutableParams.setDirPath(data.getData());
-    }
-
-    private void showOpenDirErrorDialog()
-    {
+    private void showOpenDirErrorDialog() {
         if (!isAdded())
             return;
 
@@ -212,8 +258,7 @@ public class DetailTorrentInfoFragment extends Fragment
         }
     }
 
-    private boolean checkNameField(Editable s, TextInputLayout layoutEditText)
-    {
+    private boolean checkNameField(Editable s, TextInputLayout layoutEditText) {
         if (TextUtils.isEmpty(s)) {
             layoutEditText.setErrorEnabled(true);
             layoutEditText.setError(getString(R.string.error_field_required));
@@ -229,8 +274,7 @@ public class DetailTorrentInfoFragment extends Fragment
         }
     }
 
-    private void showEditNameDialog()
-    {
+    private void showEditNameDialog() {
         if (!isAdded())
             return;
 
@@ -249,8 +293,7 @@ public class DetailTorrentInfoFragment extends Fragment
         }
     }
 
-    private void initEditNameDialog()
-    {
+    private void initEditNameDialog() {
         Dialog dialog = editNameDialog.getDialog();
         if (dialog == null)
             return;
@@ -267,14 +310,15 @@ public class DetailTorrentInfoFragment extends Fragment
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 checkNameField(s, layoutEditText);
             }
         });

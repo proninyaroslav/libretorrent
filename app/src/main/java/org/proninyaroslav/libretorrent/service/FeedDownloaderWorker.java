@@ -175,9 +175,17 @@ public class FeedDownloaderWorker extends Worker
             source = Uri.fromFile(tmp).toString();
         }
 
-        return new AddTorrentParams(source, isMagnet, sha1hash, name,
-                priorities, downloadPath, false,
-                !pref.feedStartTorrents());
+        return new AddTorrentParams(
+                source,
+                isMagnet,
+                sha1hash,
+                name,
+                priorities,
+                downloadPath,
+                false,
+                !pref.feedStartTorrents(),
+                new ArrayList<>()
+        );
     }
 
     private Result addTorrents(ArrayList<AddTorrentParams> paramsList)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core.storage;
 import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 
 import java.io.IOException;
@@ -53,4 +54,10 @@ public interface TorrentRepository
     void saveSession(@NonNull byte[] data) throws IOException;
 
     String getSessionFile();
+
+    void replaceTags(@NonNull String torrentId, @NonNull List<TagInfo> tags);
+
+    void addTag(@NonNull String torrentId, @NonNull TagInfo tag);
+
+    void deleteTag(@NonNull String torrentId, @NonNull TagInfo tag);
 }

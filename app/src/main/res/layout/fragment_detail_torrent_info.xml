@@ -127,6 +127,24 @@
             </com.google.android.material.internal.FlowLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tags"
+                    style="@style/TitleText" />
+
+                <org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList
+                    android:id="@+id/tags_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/layout_torrent_size_and_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,6 +28,8 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepositoryImpl;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
+import org.proninyaroslav.libretorrent.core.storage.TagRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepositoryImpl;
 
@@ -36,6 +38,7 @@ public class RepositoryHelper
     private static FeedRepositoryImpl feedRepo;
     private static TorrentRepositoryImpl torrentRepo;
     private static SettingsRepositoryImpl settingsRepo;
+    private static TagRepository tagRepo;
 
     public synchronized static TorrentRepository getTorrentRepository(@NonNull Context appContext)
     {
@@ -61,5 +64,13 @@ public class RepositoryHelper
             settingsRepo = new SettingsRepositoryImpl(appContext);
 
         return settingsRepo;
+    }
+
+    public synchronized static TagRepository getTagRepository(@NonNull Context appContext)
+    {
+        if (tagRepo == null)
+            tagRepo = new TagRepositoryImpl(AppDatabase.getInstance(appContext));
+
+        return tagRepo;
     }
 }

@@ -31,8 +31,8 @@
         <attr name="pieces_cellColor" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="LightColorView">
-        <attr name="lightColor" format="color" />
+    <declare-styleable name="ColorView">
+        <attr name="color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="Theme">

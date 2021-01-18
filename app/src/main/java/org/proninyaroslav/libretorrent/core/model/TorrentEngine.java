@@ -45,6 +45,7 @@ import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.session.SessionInitParams;
@@ -56,6 +57,7 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -99,6 +101,7 @@ public class TorrentEngine
     private TorrentSession session;
     private TorrentStreamServer torrentStreamServer;
     private TorrentRepository repo;
+    private TagRepository tagRepo;
     private SettingsRepository pref;
     private TorrentNotifier notifier;
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -127,6 +130,7 @@ public class TorrentEngine
     {
         this.appContext = appContext;
         repo = RepositoryHelper.getTorrentRepository(appContext);
+        tagRepo = RepositoryHelper.getTagRepository(appContext);
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
         notifier = TorrentNotifier.getInstance(appContext);
@@ -796,24 +800,27 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public TorrentInfo makeInfoSync(@NonNull String id)
-    {
+    public TorrentInfo makeInfoSync(@NonNull String id) {
         Torrent torrent = repo.getTorrentById(id);
-        if (torrent == null)
+        if (torrent == null) {
             return null;
+        }
+        List<TagInfo> tags = tagRepo.getByTorrentId(id);
 
-        return makeInfo(torrent);
+        return makeInfo(torrent, tags);
     }
 
-    private TorrentInfo makeInfo(Torrent torrent)
-    {
+    private TorrentInfo makeInfo(Torrent torrent, List<TagInfo> tags) {
         TorrentDownload task = session.getTask(torrent.id);
-        if (task == null || !task.isValid() || task.isStopped())
-            return new TorrentInfo(torrent.id,
+        if (task == null || !task.isValid() || task.isStopped()) {
+            return new TorrentInfo(
+                    torrent.id,
                     torrent.name,
                     torrent.dateAdded,
-                    torrent.error);
-        else
+                    torrent.error,
+                    tags
+            );
+        } else {
             return new TorrentInfo(
                     torrent.id,
                     torrent.name,
@@ -830,21 +837,25 @@ public class TorrentEngine
                     task.getConnectedPeers(),
                     torrent.error,
                     task.isSequentialDownload(),
-                    task.getFilePriorities());
+                    task.getFilePriorities(),
+                    tags
+            );
+        }
     }
 
     /*
      * Do not run in the UI thread
      */
 
-    public List<TorrentInfo> makeInfoListSync()
-    {
+    public List<TorrentInfo> makeInfoListSync() {
         ArrayList<TorrentInfo> stateList = new ArrayList<>();
 
         for (Torrent torrent : repo.getAllTorrents()) {
-            if (torrent == null)
+            if (torrent == null) {
                 continue;
-            stateList.add(makeInfo(torrent));
+            }
+            List<TagInfo> tags = tagRepo.getByTorrentId(torrent.id);
+            stateList.add(makeInfo(torrent, tags));
         }
 
         return stateList;
@@ -1218,17 +1229,21 @@ public class TorrentEngine
         Arrays.fill(priorities, Priority.DEFAULT);
         Uri downloadPath = (savePath == null ? Uri.parse(pref.saveTorrentsIn()) : savePath);
 
-        AddTorrentParams params = new AddTorrentParams(file.toString(),
+        AddTorrentParams params = new AddTorrentParams(
+                file.toString(),
                 false,
                 info.sha1Hash,
                 info.torrentName,
                 priorities,
                 downloadPath,
                 false,
-                false);
+                false,
+                new ArrayList<>()
+        );
 
-        if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize)
+        if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {
             throw new FreeSpaceException();
+        }
 
         return addTorrentSync(params, false);
     }

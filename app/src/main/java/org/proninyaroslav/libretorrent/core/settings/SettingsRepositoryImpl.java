@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,10 +22,10 @@ package org.proninyaroslav.libretorrent.core.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;

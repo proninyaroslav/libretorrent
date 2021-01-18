@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -45,6 +45,7 @@ import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.data.MagnetInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
@@ -74,8 +75,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class AddTorrentViewModel extends AndroidViewModel
-{
+public class AddTorrentViewModel extends AndroidViewModel {
     private static final String TAG = AddTorrentViewModel.class.getSimpleName();
 
     public AddTorrentMutableParams mutableParams = new AddTorrentMutableParams();
@@ -97,8 +97,10 @@ public class AddTorrentViewModel extends AndroidViewModel
     private BencodeFileTree curDir;
     public Throwable errorReport;
 
-    public enum Status
-    {
+    private final ArrayList<TagInfo> tags = new ArrayList<>();
+    private final BehaviorSubject<List<TagInfo>> tagsSubject = BehaviorSubject.createDefault(tags);
+
+    public enum Status {
         UNKNOWN,
         DECODE_TORRENT_FILE,
         DECODE_TORRENT_COMPLETED,
@@ -109,24 +111,21 @@ public class AddTorrentViewModel extends AndroidViewModel
         ERROR
     }
 
-    public static class DecodeState
-    {
+    public static class DecodeState {
         public Status status;
         public Throwable error;
 
-        public DecodeState(Status status, Throwable error)
-        {
+        public DecodeState(Status status, Throwable error) {
             this.status = status;
             this.error = error;
         }
-        public DecodeState(Status status)
-        {
+
+        public DecodeState(Status status) {
             this(status, null);
         }
     }
 
-    public AddTorrentViewModel(@NonNull Application application)
-    {
+    public AddTorrentViewModel(@NonNull Application application) {
         super(application);
 
         fs = SystemFacadeHelper.getFileSystemFacade(application);
@@ -147,21 +146,36 @@ public class AddTorrentViewModel extends AndroidViewModel
         mutableParams.getDirPath().set(Uri.parse(path));
     }
 
-    public LiveData<DecodeState> getDecodeState()
-    {
+    public List<TagInfo> getCurrentTags() {
+        return tags;
+    }
+
+    public io.reactivex.Observable<List<TagInfo>> observeTags() {
+        return tagsSubject;
+    }
+
+    public void addTag(@NonNull TagInfo info) {
+        tags.add(info);
+        tagsSubject.onNext(tags);
+    }
+
+    public void removeTag(@NonNull TagInfo info) {
+        tags.remove(info);
+        tagsSubject.onNext(tags);
+    }
+
+    public LiveData<DecodeState> getDecodeState() {
         return decodeState;
     }
 
     @Override
-    protected void onCleared()
-    {
+    protected void onCleared() {
         disposable.clear();
         info.removeOnPropertyChangedCallback(infoCallback);
         mutableParams.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);
     }
 
-    public void startDecode(@NonNull Uri uri)
-    {
+    public void startDecode(@NonNull Uri uri) {
         if (observeEngineRunning != null && observeEngineRunning.isDisposed())
             return;
 
@@ -176,30 +190,25 @@ public class AddTorrentViewModel extends AndroidViewModel
                 });
     }
 
-    public void startDecodeTask(Uri uri)
-    {
+    public void startDecodeTask(Uri uri) {
         decodeTask = new TorrentDecodeTask(this);
         decodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
     }
 
-    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Throwable>
-    {
+    private static class TorrentDecodeTask extends AsyncTask<Uri, Void, Throwable> {
         private final WeakReference<AddTorrentViewModel> viewModel;
 
-        private TorrentDecodeTask(AddTorrentViewModel viewModel)
-        {
+        private TorrentDecodeTask(AddTorrentViewModel viewModel) {
             this.viewModel = new WeakReference<>(viewModel);
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             /* Nothing */
         }
 
         @Override
-        protected Throwable doInBackground(Uri... params)
-        {
+        protected Throwable doInBackground(Uri... params) {
             AddTorrentViewModel v = viewModel.get();
             if (v == null || isCancelled())
                 return null;
@@ -263,8 +272,7 @@ public class AddTorrentViewModel extends AndroidViewModel
             return null;
         }
 
-        private void readTorrentFile(Uri uri) throws IOException, DecodeException
-        {
+        private void readTorrentFile(Uri uri) throws IOException, DecodeException {
             AddTorrentViewModel v = viewModel.get();
             if (v == null || isCancelled())
                 return;
@@ -279,13 +287,12 @@ public class AddTorrentViewModel extends AndroidViewModel
                     v.info.set(new TorrentMetaInfo(is));
                 }
             } catch (FileNotFoundException e) {
-                throw new FileNotFoundException(uri.toString()  + ": " + e.getMessage());
+                throw new FileNotFoundException(uri.toString() + ": " + e.getMessage());
             }
         }
 
         @Override
-        protected void onPostExecute(Throwable e)
-        {
+        protected void onPostExecute(Throwable e) {
             AddTorrentViewModel v = viewModel.get();
             if (v == null || isCancelled())
                 return;
@@ -312,8 +319,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         }
     }
 
-    private void observeFetchedMetadata(Single<TorrentMetaInfo> single)
-    {
+    private void observeFetchedMetadata(Single<TorrentMetaInfo> single) {
         disposable.add(single.subscribe(
                 (downloadInfo) -> {
                     info.set(downloadInfo);
@@ -322,11 +328,9 @@ public class AddTorrentViewModel extends AndroidViewModel
                 (e) -> decodeState.postValue(new DecodeState(Status.ERROR, e))));
     }
 
-    private Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback()
-    {
+    private Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback() {
         @Override
-        public void onPropertyChanged(Observable sender, int propertyId)
-        {
+        public void onPropertyChanged(Observable sender, int propertyId) {
             TorrentMetaInfo downloadInfo = info.get();
             if (downloadInfo == null)
                 return;
@@ -335,11 +339,9 @@ public class AddTorrentViewModel extends AndroidViewModel
         }
     };
 
-    private Observable.OnPropertyChangedCallback dirPathCallback = new Observable.OnPropertyChangedCallback()
-    {
+    private Observable.OnPropertyChangedCallback dirPathCallback = new Observable.OnPropertyChangedCallback() {
         @Override
-        public void onPropertyChanged(Observable sender, int propertyId)
-        {
+        public void onPropertyChanged(Observable sender, int propertyId) {
             Uri dirPath = mutableParams.getDirPath().get();
             if (dirPath == null)
                 return;
@@ -352,13 +354,12 @@ public class AddTorrentViewModel extends AndroidViewModel
                     Log.e(TAG, Log.getStackTraceString(e));
                 }
             })
-            .subscribeOn(Schedulers.io())
-            .subscribe());
+                    .subscribeOn(Schedulers.io())
+                    .subscribe());
         }
     };
 
-    public void makeFileTree()
-    {
+    public void makeFileTree() {
         if (fileTree != null)
             return;
 
@@ -382,8 +383,8 @@ public class AddTorrentViewModel extends AndroidViewModel
                 BencodeFileTree file = treeLeaves[i];
                 if (file != null) {
                     Priority p = (i >= magnetPriorities.size() ?
-                                  Priority.IGNORE :
-                                  magnetPriorities.get(i));
+                            Priority.IGNORE :
+                            magnetPriorities.get(i));
                     file.select(p != Priority.IGNORE, false);
                 }
             }
@@ -397,13 +398,11 @@ public class AddTorrentViewModel extends AndroidViewModel
      * Navigate back to an upper directory.
      */
 
-    public void upToParentDirectory()
-    {
+    public void upToParentDirectory() {
         updateCurDir(curDir.getParent());
     }
 
-    public List<BencodeFileTree> getChildren(BencodeFileTree node)
-    {
+    public List<BencodeFileTree> getChildren(BencodeFileTree node) {
         List<BencodeFileTree> children = new ArrayList<>();
         if (node == null || node.isFile())
             return children;
@@ -417,8 +416,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         return children;
     }
 
-    public void chooseDirectory(@NonNull String name)
-    {
+    public void chooseDirectory(@NonNull String name) {
         BencodeFileTree node = curDir.getChild(name);
         if (node == null)
             return;
@@ -429,8 +427,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         updateCurDir(node);
     }
 
-    public void selectFile(@NonNull String name, boolean selected)
-    {
+    public void selectFile(@NonNull String name, boolean selected) {
         BencodeFileTree node = curDir.getChild(name);
         if (node == null)
             return;
@@ -439,8 +436,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         updateChildren();
     }
 
-    private void updateCurDir(BencodeFileTree node)
-    {
+    private void updateCurDir(BencodeFileTree node) {
         curDir = node;
         updateChildren();
     }
@@ -449,8 +445,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         children.onNext(getChildren(curDir));
     }
 
-    private Set<Integer> getSelectedFileIndexes()
-    {
+    private Set<Integer> getSelectedFileIndexes() {
         if (fileTree == null || treeLeaves == null)
             return new HashSet<>();
 
@@ -462,8 +457,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         return indexes;
     }
 
-    public boolean addTorrent() throws Exception
-    {
+    public boolean addTorrent() throws Exception {
         TorrentMetaInfo downloadInfo = info.get();
         if (downloadInfo == null)
             return false;
@@ -486,10 +480,9 @@ public class AddTorrentViewModel extends AndroidViewModel
         boolean ignoreFreeSpace = mutableParams.isIgnoreFreeSpace();
         Set<Integer> selectedFiles = getSelectedFileIndexes();
         if (!ignoreFreeSpace && state != null &&
-            (state.status == Status.DECODE_TORRENT_COMPLETED ||
-            state.status == Status.FETCHING_MAGNET_COMPLETED ||
-            state.status == Status.FETCHING_HTTP_COMPLETED))
-        {
+                (state.status == Status.DECODE_TORRENT_COMPLETED ||
+                        state.status == Status.FETCHING_MAGNET_COMPLETED ||
+                        state.status == Status.FETCHING_HTTP_COMPLETED)) {
             if (selectedFiles.isEmpty())
                 throw new NoFilesSelectedException();
 
@@ -508,16 +501,23 @@ public class AddTorrentViewModel extends AndroidViewModel
             }
         }
 
-        AddTorrentParams params = new AddTorrentParams(source, fromMagnet, downloadInfo.sha1Hash,
-                name, priorities, dirPath,
+        AddTorrentParams params = new AddTorrentParams(
+                source,
+                fromMagnet,
+                downloadInfo.sha1Hash,
+                name,
+                priorities,
+                dirPath,
                 mutableParams.isSequentialDownload(),
-                !mutableParams.isStartAfterAdd());
+                !mutableParams.isStartAfterAdd(),
+                tags
+        );
 
         /* TODO: maybe rewrite to WorkManager */
         /* Sync wait inserting */
         Exception[] err = new Exception[1];
         try {
-            Thread t = new Thread(() ->  {
+            Thread t = new Thread(() -> {
                 try {
                     engine.addTorrentSync(params, false);
 
@@ -538,8 +538,7 @@ public class AddTorrentViewModel extends AndroidViewModel
         return true;
     }
 
-    private boolean checkFreeSpace()
-    {
+    private boolean checkFreeSpace() {
         if (fileTree == null)
             return false;
 
@@ -549,16 +548,14 @@ public class AddTorrentViewModel extends AndroidViewModel
         return storageFreeSpace == -1 || storageFreeSpace >= treeFreeSpace;
     }
 
-    public void finish()
-    {
+    public void finish() {
         if (decodeTask != null)
             decodeTask.cancel(true);
 
         cancelFetchMagnet();
     }
 
-    private void cancelFetchMagnet()
-    {
+    private void cancelFetchMagnet() {
         TorrentMetaInfo infoVal = info.get();
         if (infoVal == null)
             return;

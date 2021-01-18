@@ -97,7 +97,7 @@
 
         <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/text_primary_inverse</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
         <item name="colorSecondary">@color/accent_light</item>
         <item name="colorSecondaryVariant">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/text_primary</item>

@@ -3,6 +3,8 @@
     <!-- Global string -->
 
     <!-- Main window -->
+    <string name="tag_empty_item" translatable="false">tag_empty_item</string>
+    <string name="tag_no_tags_item" translatable="false">tag_no_tags_item</string>
 
     <!-- Appearance settings -->
     <string name="pref_theme_light_value" translatable="false">0</string>

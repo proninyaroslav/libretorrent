@@ -10,6 +10,9 @@
     <!-- Time -->
     <string name="drawer_time_is_expanded" translatable="false">drawer_time_is_expanded</string>
     <string name="drawer_time_selected_item" translatable="false">drawer_time_selected_item</string>
+    <!-- Tags -->
+    <string name="drawer_tags_is_expanded" translatable="false">drawer_tags_is_expanded</string>
+    <string name="drawer_tags_selected_item" translatable="false">drawer_tags_selected_item</string>
 
     <!-- Logging -->
     <string name="pref_key_enable_logging" translatable="false">pref_key_enable_logging</string>

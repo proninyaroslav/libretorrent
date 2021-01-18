@@ -268,6 +268,9 @@ public class TorrentSessionImpl extends SessionManager
         }
 
         repo.addTorrent(torrent);
+        if (!params.tags.isEmpty()) {
+            repo.replaceTags(torrent.id, params.tags);
+        }
 
         if (!torrent.isDownloadingMetadata()) {
             /*

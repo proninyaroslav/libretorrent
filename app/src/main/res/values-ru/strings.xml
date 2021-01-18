@@ -94,6 +94,19 @@
     <string name="drawer_date_added_week">Неделя</string>
     <string name="drawer_date_added_month">Месяц</string>
     <string name="drawer_date_added_year">Год</string>
+    <!-- Tags -->
+    <string name="tags">Метки</string>
+    <string name="add_tag">Добавить метку</string>
+    <string name="edit_tag">Изменить метку</string>
+    <string name="tag_name">Имя метки</string>
+    <string name="tag_color">Цвет метки</string>
+    <string name="add_tag_failed">Не удалось добавить метку</string>
+    <string name="tag_deleting_failed">Не удалось удалить метку</string>
+    <string name="tag_already_exists">Метка с таким именем уже существует</string>
+    <string name="no_tags">Нет меток</string>
+    <string name="select_tag">Выбрать метку</string>
+    <string name="new_tag">Новая метка</string>
+    <string name="without_tags">Без меток</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/с \u2022 %4$s</string>

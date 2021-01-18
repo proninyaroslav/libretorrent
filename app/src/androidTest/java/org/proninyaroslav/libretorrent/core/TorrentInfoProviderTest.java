@@ -17,6 +17,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 
@@ -47,7 +48,7 @@ public class TorrentInfoProviderTest extends AbstractTest
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false);
+                false, false, new ArrayList<>());
     }
 
     @Test

@@ -41,6 +41,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -104,6 +105,10 @@ public class MainFragment extends Fragment
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog deleteTorrentsDialog;
     private CompositeDisposable disposables = new CompositeDisposable();
+
+    public CoordinatorLayout getCoordinatorLayout() {
+        return binding.mainCoordinatorLayout;
+    }
 
     @Nullable
     @Override

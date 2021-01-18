@@ -30,6 +30,8 @@ import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.storage.AppDatabase;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepositoryImpl;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
+import org.proninyaroslav.libretorrent.core.storage.TagRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepositoryImpl;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -53,6 +55,7 @@ public class AbstractTest
     protected TorrentRepository torrentRepo;
     protected FeedRepository feedRepo;
     protected FileSystemFacade fs;
+    protected TagRepository tagRepo;
 
     @Before
     public void init()
@@ -65,7 +68,8 @@ public class AbstractTest
         torrentRepo = new TorrentRepositoryImpl(context, db);
         feedRepo = new FeedRepositoryImpl(context, db);
         engine = TorrentEngine.getInstance(context);
-        stateProvider = TorrentInfoProvider.getInstance(engine);
+        tagRepo = new TagRepositoryImpl(db);
+        stateProvider = TorrentInfoProvider.getInstance(engine, tagRepo);
         fs = SystemFacadeHelper.getFileSystemFacade(context);
     }
 
