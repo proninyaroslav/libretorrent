@@ -257,7 +257,12 @@ public class DetailTorrentFragment extends Fragment
         disposables.add(msgViewModel.observeFragmentInActionMode()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((inActionMode) -> {
-                    setTabLayoutColor((inActionMode ? R.color.action_mode : R.color.primary));
+                    setTabLayoutColor(
+                            Utils.getAttributeColor(
+                                    activity,
+                                    inActionMode ? R.attr.actionModeBackground : R.attr.toolbarColor
+                            )
+                    );
                 }));
     }
 
@@ -352,14 +357,12 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void setTabLayoutColor(int colorId)
+    private void setTabLayoutColor(int color)
     {
         if (Utils.isTwoPane(activity))
             return;
 
-        Drawable d = ContextCompat.getDrawable(activity.getApplicationContext(), colorId);
-        if (d != null)
-            Utils.setBackground(binding.appbar.tabLayout, d);
+        binding.appbar.tabLayout.setBackgroundColor(color);
     }
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
