@@ -73,9 +73,9 @@ class IPFilterParser
              FileInputStream is = new FileInputStream(w.open("r"))) {
 
             String pathStr = path.toString().toLowerCase();
-            if (pathStr.contains("dat"))
+            if (pathStr.endsWith(".dat"))
                 ruleCount = parseDAT(is, filter);
-            else if (pathStr.contains("p2p"))
+            else if (pathStr.endsWith(".p2p"))
                 ruleCount = parseP2P(is, filter);
 
         } catch (IOException | UnknownUriException e) {
