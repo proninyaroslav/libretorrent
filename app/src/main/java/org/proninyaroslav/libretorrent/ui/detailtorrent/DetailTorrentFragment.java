@@ -756,8 +756,18 @@ public class DetailTorrentFragment extends Fragment
         if (TextUtils.isEmpty(uploadEditable) || TextUtils.isEmpty(uploadEditable))
             return;
 
-        int uploadSpeedLimit = Integer.parseInt(uploadEditable.toString()) * 1024;
-        int downloadSpeedLimit = Integer.parseInt(downloadEditable.toString()) * 1024;
+        int uploadSpeedLimit;
+        try {
+            uploadSpeedLimit = Integer.parseInt(uploadEditable.toString()) * 1024;
+        } catch (NumberFormatException e) {
+            uploadSpeedLimit = 0;
+        }
+        int downloadSpeedLimit;
+        try {
+            downloadSpeedLimit = Integer.parseInt(downloadEditable.toString()) * 1024;
+        } catch (NumberFormatException e) {
+            downloadSpeedLimit = 0;
+        }
         viewModel.setSpeedLimit(uploadSpeedLimit, downloadSpeedLimit);
     }
 
