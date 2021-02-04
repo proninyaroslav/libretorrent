@@ -94,19 +94,18 @@
     <string name="drawer_date_added_week">今个星期</string>
     <string name="drawer_date_added_month">今个月</string>
     <string name="drawer_date_added_year">今年</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="tags">标签</string>
+    <string name="add_tag">添加标签</string>
+    <string name="edit_tag">编辑标签</string>
+    <string name="tag_name">标签名称</string>
+    <string name="tag_color">标签颜色</string>
+    <string name="add_tag_failed">添加标签失败</string>
+    <string name="tag_deleting_failed">删除标签失败</string>
+    <string name="tag_already_exists">已经存在名称相同的标签</string>
+    <string name="no_tags">无标签</string>
+    <string name="select_tag">选择标签</string>
+    <string name="new_tag">新建标签</string>
+    <string name="without_tags">不含标签</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -547,8 +546,8 @@
     <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它</string>
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
-    <string name="about_description"><![CDATA[    想了解更多信息并帮助项目发展？请浏览 <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) 库。<br><br>
-    LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3)</a>条款发布的免费软件]]></string>
+    <string name="about_description"><![CDATA[    了解更多信息并帮助项目发展： <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent 是一个用于 Android 4+ 的自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>）库。<br><br>
+    LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3）</a>条款发布的自由软件]]></string>
     <string name="about_changelog">更新日志</string>
 </resources>

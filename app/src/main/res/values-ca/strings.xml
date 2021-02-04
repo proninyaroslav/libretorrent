@@ -81,32 +81,31 @@
     <!-- Sorting -->
     <string name="drawer_sorting">Ordre</string>
     <string name="drawer_sorting_name">Nom</string>
-    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_date_added">Data afegit</string>
     <string name="drawer_sorting_size">Mida</string>
     <string name="drawer_sorting_progress">Progrés</string>
     <string name="drawer_sorting_ETA">Temps estimat</string>
     <string name="drawer_sorting_peers">Parells</string>
     <string name="drawer_sorting_no_sorting">Sense ordre</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added">Data afegit</string>
     <string name="drawer_date_added_today">Avui</string>
     <string name="drawer_date_added_yesterday">Ahir</string>
     <string name="drawer_date_added_week">Setmana</string>
     <string name="drawer_date_added_month">Mes</string>
     <string name="drawer_date_added_year">Any</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
+    <string name="tags">Etiquetes</string>
+    <string name="add_tag">Afegeix etiqueta</string>
     <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
+    <string name="tag_name">Nom de l\'etiqueta</string>
+    <string name="tag_color">Color de l\'etiqueta</string>
+    <string name="add_tag_failed">No s\'ha pogut afegir l\'etiqueta</string>
+    <string name="tag_deleting_failed">No s\'ha pogut esborrar l\'etiqueta</string>
+    <string name="tag_already_exists">Ja hi ha una etiqueta amb aquest nom</string>
+    <string name="no_tags">No hi ha etiquetes</string>
     <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="new_tag">Nova etiqueta</string>
+    <string name="without_tags">Sense etiquetes</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -144,7 +143,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Downloading</string>
-    <string name="torrent_status_seeding">Seeding</string>
+    <string name="torrent_status_seeding">Sembrant</string>
     <string name="torrent_status_paused">En pausa</string>
     <string name="torrent_status_stopped">Aturat</string>
     <string name="torrent_status_checking">Comprovant</string>
@@ -168,7 +167,7 @@
     <string name="free_space">%1$s free</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
     <string name="files_size">Selected %1$s out of %2$s</string>
-    <string name="start_torrent">Start torrent</string>
+    <string name="start_torrent">Inicia torrent</string>
     <string name="file_is_too_large_error">File is too large</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">Please enter name</string>
@@ -176,7 +175,7 @@
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>
-    <string name="torrent_name">Name</string>
+    <string name="torrent_name">Nom</string>
     <string name="upload_torrent_into">Upload into</string>
     <string name="torrent_size">Mida</string>
     <string name="torrent_file_count">File count</string>
@@ -232,8 +231,8 @@
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Uploaded</string>
     <string name="torrent_share_ratio">Share ratio</string>
-    <string name="torrent_active_time">Active time</string>
-    <string name="torrent_seeding_time">Seeding time</string>
+    <string name="torrent_active_time">Temps actiu</string>
+    <string name="torrent_seeding_time">Temps sembrant</string>
     <string name="torrent_pieces">Pieces</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -245,8 +244,8 @@
     <string name="share_tracker_url">Share URL</string>
     <string name="delete_selected_tracker">Delete the selected tracker?</string>
     <string name="delete_selected_trackers">Delete the selected trackers?</string>
-    <string name="add_trackers">Add trackers</string>
-    <string name="dialog_add_trackers">(One per line)</string>
+    <string name="add_trackers">Afegeix rastrejadors</string>
+    <string name="dialog_add_trackers">(un per línia)</string>
     <string name="open_using">Open using</string>
     <string name="peer_port">Port: %1$d</string>
     <string name="peer_relevance">Relevance: %1$.1f</string>

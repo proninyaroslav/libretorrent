@@ -55,7 +55,7 @@
     <string name="add_link">Adaugă link</string>
     <string name="dialog_add_link_title">Introduceți link-ul magnet sau HTTP/HTTPS</string>
     <string name="torrent_list_empty">Niciun torrent</string>
-    <string name="select_or_add_torrent">Selectează sau adaugă torrent</string>
+    <string name="select_or_add_torrent">Selectează sau adaugă torent</string>
     <string name="error_empty_link">Vă rugăm introduceți un link</string>
     <string name="error_invalid_link">Link invalid</string>
     <string name="error_open_torrent_file">Nu s-a putut deschide fișierul torrent</string>
@@ -94,19 +94,18 @@
     <string name="drawer_date_added_week">Săptămână</string>
     <string name="drawer_date_added_month">Lună</string>
     <string name="drawer_date_added_year">An</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="tags">Etichete</string>
+    <string name="add_tag">Adaugă etichetă</string>
+    <string name="edit_tag">Editează etichetă</string>
+    <string name="tag_name">Nume etichetă</string>
+    <string name="tag_color">Culoare etichetă</string>
+    <string name="add_tag_failed">Adăugarea etichetei a eșuat</string>
+    <string name="tag_deleting_failed">Ștergerea etichetei a eșuat</string>
+    <string name="tag_already_exists">Eticheta cu același nume există deja</string>
+    <string name="no_tags">Nici o etichetă</string>
+    <string name="select_tag">Selectează etichetă</string>
+    <string name="new_tag">Etichetă nouă</string>
+    <string name="without_tags">Fără etichete</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \\u2022 %2$s \\u2022 \\u2193 %3$s/s \\u2022 %4$s</string>
@@ -195,8 +194,8 @@
     <string name="home_directory">Acasă</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Memorie internă</string>
+    <string name="external_storage_name" formatted="false">Memorie externă %1$d</string>
     <string name="permission_denied">Permisiune refuzată</string>
     <string name="save_file">Salveaza fisierul</string>
     <string name="file_name">Nume de fișier</string>
@@ -547,8 +546,8 @@
     <string name="pref_streaming_error">Portul sau numele gazdei selectate pentru streaming sunt ocupate sau incorecte. Fixați-l</string>
     <!-- About dialog -->
     <string name="about_title">Despre LibreTorrent</string>
-    <string name="about_description"><![CDATA[    Mai multe informatii și, de asemenea, pentru a ajuta proiectul: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent este un client gratuit (liber, deschis) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
-    LibreTorrent este software gratuit, lansat sub termenii licenței <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description"><![CDATA[Pentru mai multe informații și pentru a contribui la proiect accesați: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent este un client gratuit (open source) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
+    LibreTorrent este un software gratuit, lansat sub termenii licenței <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Istoricul modificărilor</string>
 </resources>

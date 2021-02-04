@@ -94,19 +94,18 @@
     <string name="drawer_date_added_week">Тиждень</string>
     <string name="drawer_date_added_month">Місяць</string>
     <string name="drawer_date_added_year">Рік</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="tags">Теґи</string>
+    <string name="add_tag">Додати теґ</string>
+    <string name="edit_tag">Редагувати теґ</string>
+    <string name="tag_name">Назва теґу</string>
+    <string name="tag_color">Колір теґу</string>
+    <string name="add_tag_failed">Не вдалося додати теґ</string>
+    <string name="tag_deleting_failed">Не вдалося видалити теґ</string>
+    <string name="tag_already_exists">Теґ з цією назвою вже існує</string>
+    <string name="no_tags">Немає теґів</string>
+    <string name="select_tag">Вибрати теґ</string>
+    <string name="new_tag">Новий теґ</string>
+    <string name="without_tags">Без теґів</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -195,8 +194,8 @@
     <string name="home_directory">Головна</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Внутрішня пам\'ять</string>
+    <string name="external_storage_name" formatted="false">Зовнішнє сховище даних %1$d</string>
     <string name="permission_denied">Відмовлено у доступі</string>
     <string name="save_file">Зберегти файл</string>
     <string name="file_name">Ім\'я файлу</string>
@@ -255,7 +254,7 @@
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
     <string name="peer_client">Клієнт: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
-    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_web">Веб</string>
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">Зараз цей торрент не пов\'язаний з жодним піром</string>
     <string name="piece_map">Карта частин</string>

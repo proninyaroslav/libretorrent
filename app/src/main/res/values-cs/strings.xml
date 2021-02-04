@@ -94,19 +94,18 @@
     <string name="drawer_date_added_week">Týden</string>
     <string name="drawer_date_added_month">Měsíc</string>
     <string name="drawer_date_added_year">Rok</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="tags">Štítky</string>
+    <string name="add_tag">Přidat štítek</string>
+    <string name="edit_tag">Upravit štítek</string>
+    <string name="tag_name">Název štítku</string>
+    <string name="tag_color">Barva štítku</string>
+    <string name="add_tag_failed">Nepodařilo se přidat štítek</string>
+    <string name="tag_deleting_failed">Nepodařilo se smazat štítek</string>
+    <string name="tag_already_exists">Štítek se stejným názvem již existuje</string>
+    <string name="no_tags">Žádné štítky</string>
+    <string name="select_tag">Vybrat štítek</string>
+    <string name="new_tag">Nový štítek</string>
+    <string name="without_tags">Bez štítků</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>

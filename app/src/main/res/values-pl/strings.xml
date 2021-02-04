@@ -68,7 +68,7 @@
     <string name="theme_settings_apply_after_reboot">Ustawienia tematu kolorystycznego aplikacji zostaną zaaplikowane po restarcie aplikacji</string>
     <string name="about">O aplikacji</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">Węzły DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <string name="session_stats_listen_port">Nasłuchiwanie portu: %1$s</string>
@@ -88,25 +88,24 @@
     <string name="drawer_sorting_peers">Peer\'ów</string>
     <string name="drawer_sorting_no_sorting">Bez sortowania</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added">Data dodania</string>
     <string name="drawer_date_added_today">Dzisiaj</string>
     <string name="drawer_date_added_yesterday">Wczoraj</string>
     <string name="drawer_date_added_week">Tydzień</string>
     <string name="drawer_date_added_month">Miesiąc</string>
     <string name="drawer_date_added_year">Rok</string>
-    <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="tags">Tagi</string>
+    <string name="add_tag">Dodaj tag</string>
+    <string name="edit_tag">Edytuj tag</string>
+    <string name="tag_name">Nazwa tagu</string>
+    <string name="tag_color">Kolor tagu</string>
+    <string name="add_tag_failed">Nie udało się dodać tagu</string>
+    <string name="tag_deleting_failed">Nie udało się usunąć tagu</string>
+    <string name="tag_already_exists">Tag o tej samej nazwie już istnieje</string>
+    <string name="no_tags">Brak tagów</string>
+    <string name="select_tag">Wybierz tag</string>
+    <string name="new_tag">Nowy tag</string>
+    <string name="without_tags">Bez tagów</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -132,7 +131,7 @@
     <string name="torrent_moving_title">Przenoszenie torrenta</string>
     <string name="torrent_moving_content">Przenoszenie %1$s, proszę czekać</string>
     <string name="torrent_move_success">Torrent pomyślnie przeniesiony</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_move_fail">Nie można przenieść torrentu</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -170,9 +169,9 @@
     <string name="files_size">Wybrano %1$s z %2$s</string>
     <string name="start_torrent">Uruchom torrent</string>
     <string name="file_is_too_large_error">Plik jest za duży</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="error_empty_name">Please enter name</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="unable_to_open_folder">Nie można otworzyć wybranego folderu. Spróbuj wybrać inny folder</string>
+    <string name="error_empty_name">Wprowadź nazwę</string>
+    <string name="ignore_free_space">Ignoruj rozmiar wolnego miejsca</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informacje</string>
     <string name="torrent_files">Pliki</string>
@@ -180,7 +179,7 @@
     <string name="upload_torrent_into">Wyślij do</string>
     <string name="torrent_size">Wielkość</string>
     <string name="torrent_file_count">Liczba plików</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Suma Hash</string>
     <string name="torrent_comment">Komentarze</string>
     <string name="torrent_create_date">Utworzono</string>
     <string name="torrent_created_in_program">Utworzony w programie</string>
@@ -195,17 +194,17 @@
     <string name="home_directory">Katalog główny</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Pamięć wewnętrzna</string>
+    <string name="external_storage_name" formatted="false">Pamięć zewnętrzna %1$d</string>
     <string name="permission_denied">Odmowa uprawnień</string>
     <string name="save_file">Zapisz plik</string>
     <string name="file_name">Nazwa pliku</string>
     <string name="error_file_exists">Plik już istnieje</string>
     <string name="file_name_is_empty">Nazwa pliku nie może być pusta</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="system_manager">Menedżer systemu</string>
+    <string name="system_file_manager_not_found">Nie znaleziono menedżera plików systemowych</string>
+    <string name="replace_file">Zastąp plik</string>
+    <string name="parent_folder">Folder nadrzędny</string>
     <!-- Error dialog -->
     <string name="report">Raportuj</string>
     <string name="more_details">Szczegóły</string>
@@ -255,7 +254,7 @@
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
     <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
-    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_web">Sieć</string>
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">Ten torrent nie miał połączenia z peer\'ami</string>
     <string name="piece_map">Mapa fragmentów</string>
@@ -276,8 +275,8 @@
     <string name="share_stream_url">Udostępnij adres URL strumienia</string>
     <string name="magnet_include_file_priorities">Uwzględnij priorytety plików?</string>
     <string name="magnet_more_about_bep53">Więcej informacji: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="tracker_list_empty">Brak trackerów</string>
+    <string name="edit_torrent_name">Edytuj nazwę torrenta</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopiuj</string>
     <string name="text_copied_to_clipboard">Tekst skopiowano do schowka</string>
@@ -291,43 +290,43 @@
     <string name="add_feed_channel">Dodaj kanał</string>
     <string name="feed_name">Nazwa (opcjonalnie)</string>
     <string name="feed_filter_prompt">Wprowadź słowa (oddzielone symbolem \"|\"), z których jeden musi znajdować się w nazwie lub wpisać wyrażenie regularne. Torrenty zostaną dodane tylko wtedy, gdy ten filtr pasuje do nazwy torrenta</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Wprowadź filtry po jednym na linię.</string>
     <string name="feed_auto_download">Pobierz nowe torrenty automatycznie</string>
     <string name="feed_use_regex">Użyj wyrażenia regularnego</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="backup_feed_channels">Zapisz kopię zapasową</string>
+    <string name="restore_feed_channels_backup">Przywróć kopię zapasową</string>
     <string name="feed_last_update_template">Zaktualizowano: %1$s</string>
     <string name="feed_last_update_never">nigdy</string>
     <string name="error_cannot_add_channel">Nie można dodać kanału</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="error_cannot_edit_channel">Nie można edytować kanału</string>
+    <string name="error_cannot_delete_channel">Nie można usunąć kanału</string>
     <string name="copy_link">Skopiuj link</string>
     <string name="delete_selected_channel">Usunąć wybrany kanał?</string>
     <string name="delete_selected_channels">Usunąć wybrane kanały?</string>
     <string name="edit_feed_channel">Edytuj kanał</string>
     <string name="link_copied_to_clipboard">Link skopiowany do schowka</string>
     <string name="mark_as_read">Oznacz jako przeczytane</string>
-    <string name="mark_as_unread">Mark as unread</string>
+    <string name="mark_as_unread">Oznacz jako nieprzeczytane</string>
     <string name="feed_item_list_empty">Brak artykułów</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="backup_feeds_successfully">Kanały zapisane pomyślnie</string>
+    <string name="restore_feeds_backup_successfully">Pomyślnie przywrócono kanały</string>
+    <string name="error_backup_feeds">Nie udało się zapisać kanałów</string>
+    <string name="error_restore_feeds_backup">Nie udało się przywrócić kanałów</string>
     <string name="feed_item_open_article_url">Otwórz artykuł</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
+    <string name="feeds_backup_selection_dialog_title">Wybierz plik kopii zapasowej</string>
     <string name="error_import_invalid_format">Niepoprawny format</string>
     <string name="feed_do_not_download_immediately">Nie pobieraj natychmiast</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found">Nie znaleziono adresu URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Utwórz torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">Tworzenie torrentu, proszę czekać&#8230;</string>
     <string name="file_or_folder_for_seeding">Plik lub folder do seedowanie</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Proszę najpierw wybrać plik lub folder do seedowania</string>
     <string name="tracker_urls">Adresy trackerów</string>
     <string name="web_seed_urls">Adresy źródła sieciowego</string>
     <string name="comments">Komentarze</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="tracker_urls_hint">(opcjonalne) Wprowadź trackery po jednym na linię w kolejności ważności</string>
+    <string name="web_seed_urls_hint">(opcjonalne) Jeden na linię</string>
     <string name="optional_hint">(opcjonalnie)</string>
     <string name="piece_size">Rozmiar części</string>
     <string name="create_torrent_options">Opcje</string>
@@ -429,8 +428,8 @@
     <string name="pref_autostart_title">Automatyczne uruchamianie</string>
     <string name="pref_autostart_summary">Uruchom aplikację po starcie urządzenia</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_umnetered_connections_only_title">Tylko przez Wi-Fi</string>
+    <string name="pref_umnetered_connections_only_summary">Pobieraj tylko poprzez Wi-Fi lub Ethernet</string>
     <string name="pref_enable_roaming_title">Włącz roaming</string>
     <string name="pref_enable_roaming_summary">Pobierz tylko wtedy, gdy urządzenie nie jest w roamingu</string>
     <string name="pref_power_management_category">Zarządzanie poborem energii</string>
@@ -460,10 +459,10 @@
     <string name="pref_enable_natpmp_title">Włacz NAT-PMP</string>
     <string name="pref_port_settings_category">Ustawienia portu</string>
     <string name="pref_use_random_port_title">Użyj losowego portu</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
+    <string name="pref_use_random_port_summarty">Ustawia port startowy losowo w zakresie [%1$d, %2$d] i port końcowy jako pierwszy + 10</string>
+    <string name="pref_port_range_title">Zakres portów</string>
+    <string name="pref_port_range_start_title">Rozpocznij</string>
+    <string name="pref_port_range_end_title">Zakończ</string>
     <string name="pref_encryption_category">Szyfrowanie</string>
     <string name="pref_enc_mode_title">Tryb szyfrowania</string>
     <string-array name="pref_enc_mode_entries">
@@ -478,14 +477,14 @@
     <string name="pref_enable_ip_filtering_summary">Użycie filtrowanie IP zwiększa zużycie pamięci. Zależnie od wielkości pliku, użycie filtra może spowodować dłuższy czas rozpoczęcia.</string>
     <string name="pref_ip_filtering_file_title">Scieżka do pliku filtrującego (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Pokaż błędy NAT</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_anonymous_mode_title">Włącz tryb anonimowy</string>
+    <string name="pref_anonymous_mode_summary">Aplikacja próbuje ukryć w pewnym stopniu swoją tożsamość. Agent użytkownika zostanie zresetowany do pustego ciągu znaków (z wyjątkiem prywatnych torrentów). Trackery będą używane tylko wtedy, gdy używają serwera proxy. Sockety nasłuchujące są zamknięte, i połączenia przychodzące będą akceptowane tylko przez proxy SOCKS5 lub I2P (jeśli serwer proxy peer jest skonfigurowany i jest uruchomiony na tym samym komputerze co serwer proxy). NAT-PMP, UPnP, DHT i lokalne odkrywanie peerów są wyłączone</string>
+    <string name="pref_seeding_outgoing_connections_title">Włącz połączenia wychodzące dla seedów</string>
+    <string name="pref_seeding_outgoing_connections_summary">Określa, czy seedowanie torrentów powinno próbować nawiązać połączenia wychodzące czy nie. Może być ona wyłączona w bardzo szczególnych sytuacjach, w których koszt tworzenia połączeń wychodzących jest wysoki</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ Proxy</string>
     <string-array name="pref_proxy_type_entries">
-        <item>(None)</item>
+        <item>(Brak)</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
@@ -496,7 +495,7 @@
     <string name="pref_proxy_peers_too_summary">Proxy zostanie użyte do połączeń z tracker\'ami, peer\'ami oraz seed\'ami</string>
     <string name="pref_proxy_requires_auth_title">Używaj autoryzacji</string>
     <string name="pref_proxy_requires_auth_summary">Uwaga! Hasło jest zapisywane w niezaszyfrowanym pliku! </string>
-    <string name="pref_proxy_login_title">Login</string>
+    <string name="pref_proxy_login_title">Logowanie</string>
     <string name="pref_proxy_password_title">Hasło</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Czas rozpoczęcia</string>
@@ -520,9 +519,9 @@
         <item>1 dzień</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Tylko przez Wi-Fi</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Odświerzaj tylko poprzez Wi-Fi lub Ethernet</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Włącz roaming</string>
     <string name="pref_feed_keep_items_time_title">Zachowaj artykuły</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 dzień</item>
@@ -537,8 +536,8 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Uruchom torrenty</string>
     <string name="pref_feed_start_torrents_summary">Uruchom torrenty po dodaniu</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_remove_duplicates_title">Usuń duplikaty</string>
+    <string name="pref_feed_remove_duplicates_summary">Sprawdza tytuł nowo pobranego elementu i go pomija, gdy element o tej samej nazwie jest już obecny</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Włącz streaming</string>
     <string name="pref_streaming_enable_summary">Streaming pozwala na pobranie pojedynczych plików z potoku przy użyciu przeglądarki lub odtwarzacza multimedialnego przy użyciu HTTP URL</string>
@@ -550,5 +549,5 @@
     <string name="about_description"><![CDATA[    Więcej informacji a także pomóc projekt: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent jest Wolnym klientem sieci Torrent dla urządzeń z Android 4 i nowszymi, opartym na libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent jest Wolnym oprogramowaniem wydanym na zasadach wyrażonych w  <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog">Dziennik zmian</string>
 </resources>
