@@ -1,0 +1,17 @@
+* Removed experimental system file manager support. This can break torrents that added in this way
+* Android 10 support
+* Dropped support for Android 4.x. 5.0 is the minimum supported version
+* Added:
+    - BitTorrent 2.0 support
+    - Tags
+    - Auto fetching links when paste from clipboard
+    - Adaptive shortcuts icons
+* Bugfixes
+* New translations:
+    - Arabic
+    - Bengali
+    - Indonesian
+    - Persian
+    - Santali
+* Updated current translations
+* libtorrent4j updated to 2.x version
