@@ -283,7 +283,7 @@ public class FileManagerViewModel extends AndroidViewModel
         for (File file : externals) {
             if (file != null && file.canRead() && !file.equals(external)) {
                 String absolutePath = file.getAbsolutePath();
-                int index = absolutePath.lastIndexOf("/Android/data");
+                int index = absolutePath.lastIndexOf("/external");
                 if (index >= 0) {
                     String path = absolutePath.substring(0, index);
                     try {
