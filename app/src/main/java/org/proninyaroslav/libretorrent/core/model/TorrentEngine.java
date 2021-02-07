@@ -1168,7 +1168,7 @@ public class TorrentEngine
     {
         String dir = pref.dirToWatch();
         Uri uri = Uri.parse(dir);
-        if (Utils.isFileSystemPath(uri))
+        if (!Utils.isFileSystemPath(uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
         dir = uri.getPath();
 
