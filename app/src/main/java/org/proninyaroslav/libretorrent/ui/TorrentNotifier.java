@@ -45,8 +45,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TorrentNotifier
 {
-    private static final String TAG = TorrentNotifier.class.getSimpleName();
-
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
     public static final String DEFAULT_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.DEFAULT_NOTIFY_CHAN_ID";
     public static final String FINISH_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FINISH_NOTIFY_CHAN_ID";
@@ -83,19 +81,33 @@ public class TorrentNotifier
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             return;
 
-        ArrayList<NotificationChannel> channels = new ArrayList<>();
-
-        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
+        NotificationChannel defaultChan = new NotificationChannel(
+                DEFAULT_NOTIFY_CHAN_ID,
                 appContext.getString(R.string.def),
-                NotificationManager.IMPORTANCE_DEFAULT));
-        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
+        defaultChan.setLightColor(ContextCompat.getColor(appContext, R.color.primary));
+
+        NotificationChannel foregroundChan = new NotificationChannel(
+                FOREGROUND_NOTIFY_CHAN_ID,
                 appContext.getString(R.string.foreground_notification),
-                NotificationManager.IMPORTANCE_LOW);
+                NotificationManager.IMPORTANCE_LOW
+        );
         foregroundChan.setShowBadge(false);
-        channels.add(foregroundChan);
-        channels.add(new NotificationChannel(FINISH_NOTIFY_CHAN_ID,
+
+        NotificationChannel finishChan = new NotificationChannel(
+                FINISH_NOTIFY_CHAN_ID,
                 appContext.getString(R.string.finished),
-                NotificationManager.IMPORTANCE_DEFAULT));
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
+        finishChan.enableLights(true);
+        finishChan.enableVibration(true);
+        finishChan.setLightColor(ContextCompat.getColor(appContext, R.color.primary));
+
+        ArrayList<NotificationChannel> channels = new ArrayList<>();
+        channels.add(defaultChan);
+        channels.add(foregroundChan);
+        channels.add(finishChan);
 
         notifyManager.createNotificationChannels(channels);
     }
