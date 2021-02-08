@@ -87,8 +87,10 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         String keyTorrentFinishNotify = getString(R.string.pref_key_torrent_finish_notify);
         SwitchPreferenceCompat torrentFinishNotify = findPreference(keyTorrentFinishNotify);
-        if (torrentFinishNotify != null)
+        if (torrentFinishNotify != null) {
             torrentFinishNotify.setChecked(pref.torrentFinishNotify());
+            bindOnPreferenceChangeListener(torrentFinishNotify);
+        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
