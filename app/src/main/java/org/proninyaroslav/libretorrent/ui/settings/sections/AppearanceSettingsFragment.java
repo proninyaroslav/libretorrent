@@ -47,7 +47,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AppearanceSettingsFragment.class.getSimpleName();
 
     private static final int REQUEST_CODE_ALERT_RINGTONE = 1;
@@ -83,15 +82,15 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         if (theme != null) {
             int type = pref.theme();
             theme.setValueIndex(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
-            theme.setSummary(typesName[type]);
             bindOnPreferenceChangeListener(theme);
         }
 
         String keyTorrentFinishNotify = getString(R.string.pref_key_torrent_finish_notify);
         SwitchPreferenceCompat torrentFinishNotify = findPreference(keyTorrentFinishNotify);
-        if (torrentFinishNotify != null)
+        if (torrentFinishNotify != null) {
             torrentFinishNotify.setChecked(pref.torrentFinishNotify());
+            bindOnPreferenceChangeListener(torrentFinishNotify);
+        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
@@ -203,8 +202,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
             int type = Integer.parseInt((String)newValue);
             pref.theme(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
-            preference.setSummary(typesName[type]);
 
             Snackbar.make(coordinatorLayout,
                     R.string.theme_settings_apply_after_reboot,

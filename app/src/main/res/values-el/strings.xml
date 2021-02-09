@@ -94,6 +94,18 @@
     <string name="drawer_date_added_week">Εβδομάδα</string>
     <string name="drawer_date_added_month">Μήνας</string>
     <string name="drawer_date_added_year">Έτος</string>
+    <string name="tags">Ετικέτες</string>
+    <string name="add_tag">Προσθήκη ετικέτας</string>
+    <string name="edit_tag">Επεξεργασία ετικέτας</string>
+    <string name="tag_name">Όνομα ετικέτας</string>
+    <string name="tag_color">Χρώμα ετικέτας</string>
+    <string name="add_tag_failed">Αποτυχία προσθήκης ετικέτας</string>
+    <string name="tag_deleting_failed">Αποτυχία διαγραφής ετικέτας</string>
+    <string name="tag_already_exists">Υπάρχει ήδη ετικέτα με το ίδιο όνομα</string>
+    <string name="no_tags">Χωρίς ετικέτες</string>
+    <string name="select_tag">Επιλογή ετικέτας</string>
+    <string name="new_tag">Νέα ετικέτα</string>
+    <string name="without_tags">Χωρίς ετικέτες</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +193,9 @@
     <string name="error_open_dir">Το άνοιγμα του φακέλου είναι αδύνατο</string>
     <string name="home_directory">Αρχή</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Εσωτερικός χώρος αποθήκευσης</string>
+    <string name="external_storage_name" formatted="false">Εξωτερική μνήμη %1$d</string>
     <string name="permission_denied">Άρνηση δικαιώματος</string>
     <string name="save_file">Αποθηκεύσετε το αρχείο</string>
     <string name="file_name">Ονομα αρχείου</string>
@@ -189,7 +204,6 @@
     <string name="system_manager">Διαχειριστής συστήματος</string>
     <string name="system_file_manager_not_found">Δε βρέθηκε διαχειριστής αρχείων συστήματος</string>
     <string name="replace_file">Αντικατάσταση αρχείου</string>
-    <string name="device_does_not_support_this_feature">Η συσκευή σας δεν υποστηρίζει αυτήν τη λειτουργία</string>
     <string name="parent_folder">Γονικός φάκελος</string>
     <!-- Error dialog -->
     <string name="report">Αναφορά</string>
@@ -271,11 +285,12 @@
     <string name="error_comment_prompt">Μπορείτε να προσθέσετε επιπλέον πληροφορίες και σχόλια εδώ:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_channel_list_empty">Δεν κανάλια</string>
+    <string name="feed_channel_list_empty">Δεν υπάρχουν κανάλια</string>
     <string name="select_or_add_feed_channel">Επιλέξτε ή προσθέστε ένα κανάλι RSS/Atom</string>
     <string name="add_feed_channel">Προσθήκη καναλιού</string>
     <string name="feed_name">Ονομα (προαιρετικό)</string>
     <string name="feed_filter_prompt">Καταχωρίστε τις λέξεις (διαχωρισμένες με \"|\"), μία από τις οποίες πρέπει να είναι στο όνομα ή να εισάγετε κανονική έκφραση. Τα torrents θα προστεθούν μόνο αν αυτό το φίλτρο ταιριάζει με το όνομα torrent</string>
+    <string name="feed_filter_prompt_one_per_line">Εισάγετε τα φίλτρα ένα ανά γραμμή.</string>
     <string name="feed_auto_download">Κατεβάστε τα νέα torrents αυτόματα</string>
     <string name="feed_use_regex">Χρησιμοποιήστε κανονική έκφραση</string>
     <string name="backup_feed_channels">Αποθήκευση αντιγράφου ασφαλείας</string>
@@ -317,7 +332,6 @@
     <string name="create_torrent_options">Επιλογές</string>
     <string name="option_start_seeding">Ξεκινήστε γίνεται διαμοιρασμός</string>
     <string name="option_private_torrent">Ιδιωτικό torrent</string>
-    <string name="option_optimize_alignment">Βελτιστοποιήστε την ευθυγράμμιση</string>
     <string-array name="piece_size_entries">
         <item>Αυτόματο</item>
         <item>16 KiB</item>
@@ -400,7 +414,7 @@
     <string-array name="pref_theme_entries">
         <item>Φωτεινό</item>
         <item>Σκοτεινό</item>
-        <item>Μαύρος</item>
+        <item>Μαύρο</item>
     </string-array>
     <string name="pref_notification_category">Ρυθμίσεις ειδοποίησης</string>
     <string name="pref_torrent_finish_notify_title">Ειδοποίηση τερματισμού torrent</string>
@@ -465,6 +479,8 @@
     <string name="pref_show_nat_errors">Εμφάνιση σφαλμάτων NAT</string>
     <string name="pref_anonymous_mode_title">Ενεργοποίηση ανώνυμης κατάστασης</string>
     <string name="pref_anonymous_mode_summary">Η εφαρμογή προσπαθεί να κρύψει την ταυτότητα της σε ένα βαθμό. Ο user-agent θα αντικατασταθεί με κενό (εκτός των ιδιωτικών torrents). Οι trackers θα χρησιμοποιούνται μόνο αν χρησιμοποιούν proxy server. Τα NAT-PMP, UPnP, DHT και οι τοπικές συνδέσεις απενεργοποιούνται.</string>
+    <string name="pref_seeding_outgoing_connections_title">Ενεργοποίηση εξερχομένων συνδέσεων για τα seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Καθορίζει αν τα torrents που κάνουν seeding θα επιχειρούν εξερχόμενες συνδέσεις ή όχι. Μπορεί να απενεργοποιηθεί σε περιπτώσεις που το κόστος τέτοιων συνδέσεων είναι υψηλό.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
     <string-array name="pref_proxy_type_entries">

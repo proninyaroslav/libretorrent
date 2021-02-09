@@ -23,6 +23,7 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 
@@ -60,9 +61,9 @@ public interface FeedRepository
 
     Single<List<FeedChannel>> getAllFeedsSingle();
 
-    void serializeAllFeeds(@NonNull Uri file) throws IOException;
+    void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException;
 
-    List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException;
+    List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException, UnknownUriException;
 
     void addItems(@NonNull List<FeedItem> items);
 

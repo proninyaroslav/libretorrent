@@ -20,13 +20,13 @@
 package org.proninyaroslav.libretorrent.core.model.session;
 
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 
@@ -40,7 +40,6 @@ import java.io.InputStream;
 
 class IPFilterParser
 {
-    @SuppressWarnings("unused")
     private static final String TAG = IPFilterParser.class.getSimpleName();
 
     private static final int MAX_LOGGED_ERRORS = 5;
@@ -60,8 +59,13 @@ class IPFilterParser
     public int parseFile(@NonNull Uri path, @NonNull FileSystemFacade fs, @NonNull IPFilter filter)
     {
         int ruleCount = 0;
-        if (!fs.fileExists(path))
+        try {
+            if (!fs.fileExists(path))
+                return ruleCount;
+        } catch (UnknownUriException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
             return ruleCount;
+        }
 
         Log.d(TAG, "Start parsing IP filter file");
 
@@ -69,14 +73,13 @@ class IPFilterParser
              FileInputStream is = new FileInputStream(w.open("r"))) {
 
             String pathStr = path.toString().toLowerCase();
-            if (pathStr.contains("dat"))
+            if (pathStr.endsWith(".dat"))
                 ruleCount = parseDAT(is, filter);
-            else if (pathStr.contains("p2p"))
+            else if (pathStr.endsWith(".p2p"))
                 ruleCount = parseP2P(is, filter);
 
-        } catch (IOException e) {
+        } catch (IOException | UnknownUriException e) {
             Log.e(TAG, Log.getStackTraceString(e));
-
             return ruleCount;
 
         } finally {
@@ -250,37 +253,11 @@ class IPFilterParser
 
     private String parseIpAddress(String ip)
     {
-        if (ip == null || ip.isEmpty())
+        if (ip == null || ip.isEmpty()) {
             return null;
-
-        String ipStr = ip.trim();
-        /*
-         * Emule .DAT files contain leading zeroes in IPv4 addresses eg 001.009.106.186.
-         * We need to remove them because Boost.Asio fail to parse them.
-         */
-        String[] octets = ipStr.split("\\.");
-        if (octets.length == 4) {
-            StringBuilder sb = new StringBuilder(octets[0].length());
-
-            for (int i = 0; i < octets.length; i++) {
-                String octet = octets[i];
-
-                if (octet.charAt(0) == '0' && octet.length() > 1) {
-                    sb.insert(0, octet);
-                    if (octet.charAt(1) == '0' && octet.length() > 2)
-                        sb.delete(0, 2);
-                    else
-                        sb.delete(0, 1);
-
-                    octets[i] = sb.toString();
-                    sb.setLength(0);
-                }
-            }
-
-            ipStr = octets[0] + "." + octets[1] + "." + octets[2] + "." + octets[3];
+        } else {
+            return ip.trim();
         }
-
-        return ipStr;
     }
 
     private void errLog(int parseErrorCount, String prefix, String msg)

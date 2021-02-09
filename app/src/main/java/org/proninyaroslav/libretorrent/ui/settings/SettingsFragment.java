@@ -45,7 +45,6 @@ import org.proninyaroslav.libretorrent.ui.settings.sections.StreamingSettingsFra
 
 public class SettingsFragment extends PreferenceFragmentCompat
 {
-    @SuppressWarnings("unused")
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
     private static final String AppearanceSettings = "AppearanceSettingsFragment";

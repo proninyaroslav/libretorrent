@@ -41,9 +41,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -64,7 +62,6 @@ import io.reactivex.schedulers.Schedulers;
 public class FeedItemsFragment extends Fragment
     implements FeedItemsAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedItemsFragment.class.getSimpleName();
 
     private static final String TAG_ITEMS_LIST_STATE = "items_list_state";
@@ -147,24 +144,10 @@ public class FeedItemsFragment extends Fragment
 
         layoutManager = new LinearLayoutManager(activity);
         binding.feedItemsList.setLayoutManager(layoutManager);
-        /*
-         * A RecyclerView by default creates another copy of the ViewHolder in order to
-         * fade the views into each other. This causes the problem because the old ViewHolder gets
-         * the payload but then the new one doesn't. So needs to explicitly tell it to reuse the old one.
-         */
-        DefaultItemAnimator animator = new DefaultItemAnimator()
-        {
-            @Override
-            public boolean canReuseUpdatedViewHolder(@NonNull RecyclerView.ViewHolder viewHolder)
-            {
-                return true;
-            }
-        };
         TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.divider });
-        binding.feedItemsList.setItemAnimator(animator);
         binding.feedItemsList.addItemDecoration(new RecyclerViewDividerDecoration(a.getDrawable(0)));
-        binding.feedItemsList.setEmptyView(activity.findViewById(R.id.empty_view_feed_items));
         a.recycle();
+        binding.feedItemsList.setEmptyView(binding.emptyViewFeedItems);
 
         adapter = new FeedItemsAdapter(this);
         binding.feedItemsList.setAdapter(adapter);
@@ -272,16 +255,12 @@ public class FeedItemsFragment extends Fragment
     @Override
     public void onItemMenuClicked(int menuId, @NonNull FeedItemsListItem item)
     {
-        switch (menuId) {
-            case R.id.open_article_menu:
-                openArticle(item);
-                break;
-            case R.id.mark_as_read_menu:
-                viewModel.markAsRead(item.id);
-                break;
-            case R.id.mark_as_unread_menu:
-                viewModel.markAsUnread(item.id);
-                break;
+        if (menuId == R.id.open_article_menu) {
+            openArticle(item);
+        } else if (menuId == R.id.mark_as_read_menu) {
+            viewModel.markAsRead(item.id);
+        } else if (menuId == R.id.mark_as_unread_menu) {
+            viewModel.markAsUnread(item.id);
         }
     }
 
@@ -330,16 +309,13 @@ public class FeedItemsFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem)
     {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.refresh_feed_channel_menu:
-                viewModel.refreshChannel();
-                break;
-            case R.id.mark_as_read_menu:
-                viewModel.markAllAsRead();
-                break;
+        int itemId = menuItem.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.refresh_feed_channel_menu) {
+            viewModel.refreshChannel();
+        } else if (itemId == R.id.mark_as_read_menu) {
+            viewModel.markAllAsRead();
         }
 
         return true;

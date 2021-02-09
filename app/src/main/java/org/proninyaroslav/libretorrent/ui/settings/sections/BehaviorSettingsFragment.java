@@ -42,7 +42,6 @@ import io.reactivex.disposables.Disposable;
 public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = BehaviorSettingsFragment.class.getSimpleName();
 
     private static final String TAG_CUSTOM_BATTERY_DIALOG = "custom_battery_dialog";

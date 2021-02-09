@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,7 +21,10 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -30,7 +33,9 @@ import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 
+import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -38,6 +43,7 @@ import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
@@ -46,6 +52,7 @@ import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -53,6 +60,7 @@ import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,35 +70,37 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
-public class DetailTorrentViewModel extends AndroidViewModel
-{
+public class DetailTorrentViewModel extends AndroidViewModel {
+    private static final String TAG = DetailTorrentViewModel.class.getSimpleName();
+
     private String torrentId;
-    private TorrentInfoProvider infoProvider;
-    private TorrentEngine engine;
-    private TorrentRepository repo;
-    private FileSystemFacade fs;
-    private SettingsRepository pref;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private final TorrentInfoProvider infoProvider;
+    private final TorrentEngine engine;
+    private final TorrentRepository repo;
+    private final FileSystemFacade fs;
+    private final SettingsRepository pref;
+    private final CompositeDisposable disposable = new CompositeDisposable();
     public TorrentDetailsInfo info = new TorrentDetailsInfo();
     public TorrentDetailsMutableParams mutableParams = new TorrentDetailsMutableParams();
-    private PublishSubject<Boolean> freeSpaceError = PublishSubject.create();
+    private final PublishSubject<Boolean> freeSpaceError = PublishSubject.create();
     public Throwable errorReport;
+    private final TagRepository tagRepo;
 
-    private ReentrantLock syncBuildFileTree = new ReentrantLock();
+    private final ReentrantLock syncBuildFileTree = new ReentrantLock();
     public TorrentContentFileTree fileTree;
     private TorrentContentFileTree[] treeLeaves;
-    private BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
+    private final BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private TorrentContentFileTree curDir;
 
-    public DetailTorrentViewModel(@NonNull Application application)
-    {
+    public DetailTorrentViewModel(@NonNull Application application) {
         super(application);
 
         infoProvider = TorrentInfoProvider.getInstance(application);
@@ -100,11 +110,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
         pref = RepositoryHelper.getSettingsRepository(application);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
         info.addOnPropertyChangedCallback(infoCallback);
+        tagRepo = RepositoryHelper.getTagRepository(application);
     }
 
     @Override
-    protected void onCleared()
-    {
+    protected void onCleared() {
         super.onCleared();
 
         disposable.clear();
@@ -112,13 +122,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
         info.removeOnPropertyChangedCallback(infoCallback);
     }
 
-    public void setTorrentId(@NonNull String id)
-    {
+    public void setTorrentId(@NonNull String id) {
         torrentId = id;
     }
 
-    public void clearData()
-    {
+    public void clearData() {
         disposable.clear();
         torrentId = null;
         info.removeOnPropertyChangedCallback(infoCallback);
@@ -131,66 +139,70 @@ public class DetailTorrentViewModel extends AndroidViewModel
         treeLeaves = null;
     }
 
-    public io.reactivex.Observable<Boolean> observeFreeSpaceError()
-    {
+    public Single<List<TagInfo>> getTags() {
+        return tagRepo.getByTorrentIdAsync(torrentId);
+    }
+
+    public Flowable<List<TagInfo>> observeTags() {
+        return tagRepo.observeByTorrentId(torrentId);
+    }
+
+    public Completable addTag(@NonNull TagInfo info) {
+        return Completable.fromRunnable(() -> repo.addTag(torrentId, info));
+    }
+
+    public Completable removeTag(@NonNull TagInfo info) {
+        return Completable.fromRunnable(() -> repo.deleteTag(torrentId, info));
+    }
+
+    public io.reactivex.Observable<Boolean> observeFreeSpaceError() {
         return freeSpaceError;
     }
 
-    public io.reactivex.Observable<List<TorrentContentFileTree>> getDirChildren()
-    {
+    public io.reactivex.Observable<List<TorrentContentFileTree>> getDirChildren() {
         return children;
     }
 
-    public Flowable<TorrentInfo> observeTorrentInfo()
-    {
+    public Flowable<TorrentInfo> observeTorrentInfo() {
         return infoProvider.observeInfo(torrentId);
     }
 
-    public Flowable<AdvancedTorrentInfo> observeAdvancedTorrentInfo()
-    {
+    public Flowable<AdvancedTorrentInfo> observeAdvancedTorrentInfo() {
         return infoProvider.observeAdvancedInfo(torrentId);
     }
 
-    public Flowable<Torrent> observeTorrent()
-    {
+    public Flowable<Torrent> observeTorrent() {
         return repo.observeTorrentById(torrentId);
     }
 
-    public Flowable<List<TrackerInfo>> observeTrackers()
-    {
+    public Flowable<List<TrackerInfo>> observeTrackers() {
         return infoProvider.observeTrackersInfo(torrentId);
     }
 
-    public Flowable<List<PeerInfo>> observePeers()
-    {
+    public Flowable<List<PeerInfo>> observePeers() {
         return infoProvider.observePeersInfo(torrentId);
     }
 
-    public Flowable<boolean[]> observePieces()
-    {
+    public Flowable<boolean[]> observePieces() {
         return infoProvider.observePiecesInfo(torrentId);
     }
 
-    public Flowable<Pair<Torrent, TorrentInfo>> observeTorrentInfoPair()
-    {
+    public Flowable<Pair<Torrent, TorrentInfo>> observeTorrentInfoPair() {
         return Flowable.combineLatest(observeTorrent(), observeTorrentInfo(), Pair::create);
     }
 
-    public Flowable<TorrentMetaInfo> observeTorrentMetaInfo()
-    {
+    public Flowable<TorrentMetaInfo> observeTorrentMetaInfo() {
         return engine.observeTorrentMetaInfo(torrentId);
     }
 
-    public void updateInfo(TorrentMetaInfo metaInfo)
-    {
+    public void updateInfo(TorrentMetaInfo metaInfo) {
         info.setMetaInfo(metaInfo);
 
         if (fileTree == null)
             startMakeFileTree();
     }
 
-    public void updateInfo(Torrent torrent, TorrentInfo ti)
-    {
+    public void updateInfo(Torrent torrent, TorrentInfo ti) {
         boolean firstUpdate = info.getTorrent() == null;
 
         info.setTorrent(torrent);
@@ -202,8 +214,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
             startMakeFileTree();
     }
 
-    public void updateInfo(AdvancedTorrentInfo advancedInfo)
-    {
+    public void updateInfo(AdvancedTorrentInfo advancedInfo) {
         info.setAdvancedInfo(advancedInfo);
     }
 
@@ -211,13 +222,11 @@ public class DetailTorrentViewModel extends AndroidViewModel
      * Navigate back to an upper directory.
      */
 
-    public void upToParentDirectory()
-    {
+    public void upToParentDirectory() {
         updateCurDir(curDir.getParent());
     }
 
-    public List<TorrentContentFileTree> getChildren(TorrentContentFileTree node)
-    {
+    public List<TorrentContentFileTree> getChildren(TorrentContentFileTree node) {
         List<TorrentContentFileTree> children = new ArrayList<>();
         if (node == null || node.isFile())
             return children;
@@ -232,8 +241,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return children;
     }
 
-    public void chooseDirectory(@NonNull String name)
-    {
+    public void chooseDirectory(@NonNull String name) {
         TorrentContentFileTree node = curDir.getChild(name);
         if (node == null)
             return;
@@ -244,36 +252,36 @@ public class DetailTorrentViewModel extends AndroidViewModel
         updateCurDir(node);
     }
 
-    public boolean isFile(@NonNull String name)
-    {
+    public boolean isFile(@NonNull String name) {
         TorrentContentFileTree node = curDir.getChild(name);
 
         return node != null && node.isFile();
     }
 
-    public Uri getFilePath(@NonNull String name)
-    {
+    public Single<Uri> getFilePath(@NonNull String name) {
         Context context = getApplication();
         TorrentContentFileTree node = curDir.getChild(name);
         if (node == null)
-            return null;
+            return Single.error(new NullPointerException("node is null"));
 
         String relativePath = node.getPath();
 
         Torrent torrent = info.getTorrent();
         if (torrent == null)
-            return null;
+            return Single.error(new NullPointerException("torrent is null"));
 
-        Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
-        if (path == null)
-            return null;
+        return Single.fromCallable(() -> {
+            Uri path = fs.getFileUri(relativePath, torrent.downloadPath);
+            if (path == null)
+                throw new FileNotFoundException(torrent.downloadPath + relativePath);
 
-        if (Utils.isFileSystemPath(path))
-            path = FileProvider.getUriForFile(context,
-                    context.getPackageName() + ".provider",
-                    new File(path.getPath()));
+            if (Utils.isFileSystemPath(path))
+                path = FileProvider.getUriForFile(context,
+                        context.getPackageName() + ".provider",
+                        new File(path.getPath()));
 
-        return path;
+            return path;
+        });
     }
 
     /*
@@ -282,8 +290,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
      * set priority type as MIXED, else return randomly selected priority
      */
 
-    public FilePriority getFilesPriority(@NonNull List<String> fileNames)
-    {
+    public FilePriority getFilesPriority(@NonNull List<String> fileNames) {
         List<FilePriority> priorities = new ArrayList<>();
         for (String name : fileNames) {
             TorrentContentFileTree file = curDir.getChild(name);
@@ -316,8 +323,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
     }
 
     public void applyPriority(@NonNull List<String> fileNames,
-                              @NonNull FilePriority priority)
-    {
+                              @NonNull FilePriority priority) {
         disposable.add(io.reactivex.Observable.fromIterable(fileNames)
                 .map((fileName) -> curDir.getChild(fileName))
                 .filter((file) -> file != null)
@@ -328,66 +334,54 @@ public class DetailTorrentViewModel extends AndroidViewModel
                 }));
     }
 
-    public String getStreamUrl(int fileIndex)
-    {
+    public String getStreamUrl(int fileIndex) {
         String hostname = pref.streamingHostname();
         int port = pref.streamingPort();
 
         return TorrentStreamServer.makeStreamUrl(hostname, port, torrentId, fileIndex);
     }
 
-    public void deleteTrackers(@NonNull List<String> urls)
-    {
+    public void deleteTrackers(@NonNull List<String> urls) {
         engine.deleteTrackers(torrentId, urls);
     }
 
-    public void replaceTrackers(@NonNull List<String> urls)
-    {
+    public void replaceTrackers(@NonNull List<String> urls) {
         engine.replaceTrackers(torrentId, urls);
     }
 
-    public void addTrackers(@NonNull List<String> urls)
-    {
+    public void addTrackers(@NonNull List<String> urls) {
         engine.addTrackers(torrentId, urls);
     }
 
-    public void pauseResumeTorrent()
-    {
+    public void pauseResumeTorrent() {
         engine.pauseResumeTorrent(torrentId);
     }
 
-    public void deleteTorrent(boolean withFiles)
-    {
+    public void deleteTorrent(boolean withFiles) {
         engine.deleteTorrents(Collections.singletonList(torrentId), withFiles);
     }
 
-    public void forceRecheckTorrent()
-    {
+    public void forceRecheckTorrent() {
         engine.forceRecheckTorrents(Collections.singletonList(torrentId));
     }
 
-    public void forceAnnounceTorrent()
-    {
+    public void forceAnnounceTorrent() {
         engine.forceAnnounceTorrents(Collections.singletonList(torrentId));
     }
 
-    public int getUploadSpeedLimit()
-    {
+    public int getUploadSpeedLimit() {
         return engine.getUploadSpeedLimit(torrentId);
     }
 
-    public int getDownloadSpeedLimit()
-    {
+    public int getDownloadSpeedLimit() {
         return engine.getDownloadSpeedLimit(torrentId);
     }
 
-    public String makeMagnet(boolean includePriorities)
-    {
+    public String makeMagnet(boolean includePriorities) {
         return engine.makeMagnet(torrentId, includePriorities);
     }
 
-    public void copyTorrentFile(@NonNull Uri destFile) throws IOException
-    {
+    public void copyTorrentFile(@NonNull Uri destFile) throws IOException, UnknownUriException {
         byte[] bencode = engine.getBencode(torrentId);
         if (bencode == null)
             throw new IOException("Cannot read bencode");
@@ -395,14 +389,27 @@ public class DetailTorrentViewModel extends AndroidViewModel
         fs.write(bencode, destFile);
     }
 
-    public void setSpeedLimit(int uploadSpeedLimit, int downloadSpeedLimit)
-    {
+    public void setSpeedLimit(int uploadSpeedLimit, int downloadSpeedLimit) {
         engine.setUploadSpeedLimit(torrentId, uploadSpeedLimit);
         engine.setDownloadSpeedLimit(torrentId, downloadSpeedLimit);
     }
 
-    private Priority[] getFilePriorities()
-    {
+    public Intent makeOpenFileIntent(@NonNull String fileName, @NonNull Uri path) {
+        String extension = fs.getExtension(fileName);
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        /* If MIME type is unknown, give user a choice than to open file */
+        if (mimeType == null)
+            mimeType = "*/*";
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(path, mimeType);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        return Intent.createChooser(intent, getApplication().getString(R.string.open_using));
+    }
+
+    private Priority[] getFilePriorities() {
         if (treeLeaves == null)
             return null;
 
@@ -414,15 +421,13 @@ public class DetailTorrentViewModel extends AndroidViewModel
         return priorities;
     }
 
-    private boolean checkFreeSpace()
-    {
+    private boolean checkFreeSpace() {
         long storageFreeSpace = info.getStorageFreeSpace();
 
         return storageFreeSpace == -1 || storageFreeSpace >= fileTree.nonIgnoreFileSize();
     }
 
-    private void initMutableParams()
-    {
+    private void initMutableParams() {
         Torrent torrent = info.getTorrent();
         if (torrent == null)
             return;
@@ -432,28 +437,33 @@ public class DetailTorrentViewModel extends AndroidViewModel
         mutableParams.setSequentialDownload(engine.isSequentialDownload(torrentId));
     }
 
-    private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback()
-    {
+    private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback() {
         @Override
-        public void onPropertyChanged(Observable sender, int propertyId)
-        {
+        public void onPropertyChanged(Observable sender, int propertyId) {
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
-                if (dirPath != null) {
-                    info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
-                    info.setDirName(fs.getDirPath(dirPath));
-                }
+                if (dirPath == null)
+                    return;
+
+                disposable.add(Completable.fromRunnable(() -> {
+                    try {
+                        info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                        info.setDirName(fs.getDirPath(dirPath));
+                    } catch (UnknownUriException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
+                })
+                        .subscribeOn(Schedulers.io())
+                        .subscribe());
             }
 
             checkParamsChanged(propertyId);
         }
     };
 
-    private final Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback()
-    {
+    private final Observable.OnPropertyChangedCallback infoCallback = new Observable.OnPropertyChangedCallback() {
         @Override
-        public void onPropertyChanged(Observable sender, int propertyId)
-        {
+        public void onPropertyChanged(Observable sender, int propertyId) {
             if (propertyId == BR.advancedInfo) {
                 AdvancedTorrentInfo advancedInfo = info.getAdvancedInfo();
                 if (advancedInfo != null)
@@ -462,8 +472,7 @@ public class DetailTorrentViewModel extends AndroidViewModel
         }
     };
 
-    private void checkParamsChanged(int propertyId)
-    {
+    private void checkParamsChanged(int propertyId) {
         Torrent torrent = info.getTorrent();
         TorrentInfo ti = info.getTorrentInfo();
         if (torrent == null || ti == null)
@@ -502,16 +511,14 @@ public class DetailTorrentViewModel extends AndroidViewModel
         }
     }
 
-    private void startMakeFileTree()
-    {
+    private void startMakeFileTree() {
         disposable.add(Completable.fromRunnable(this::makeFileTree)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> updateCurDir(fileTree)));
     }
 
-    private void makeFileTree()
-    {
+    private void makeFileTree() {
         try {
             syncBuildFileTree.lock();
 
@@ -552,40 +559,44 @@ public class DetailTorrentViewModel extends AndroidViewModel
         }
     }
 
-    private void updateFiles(long[] receivedBytes, double[] availability)
-    {
+    private void updateFiles(long[] receivedBytes, double[] availability) {
         disposable.add(Completable.fromRunnable(() -> {
-            if (fileTree == null)
-                return;
+            try {
+                syncBuildFileTree.lock();
 
-            if (receivedBytes != null) {
-                for (int i = 0; i < receivedBytes.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setReceivedBytes(receivedBytes[i]);
+                if (fileTree == null)
+                    return;
+
+                if (receivedBytes != null) {
+                    for (int i = 0; i < receivedBytes.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setReceivedBytes(receivedBytes[i]);
+                    }
                 }
-            }
-            if (availability != null) {
-                for (int i = 0; i < availability.length; i++) {
-                    TorrentContentFileTree file = treeLeaves[i];
-                    if (file != null)
-                        file.setAvailability(availability[i]);
+                if (availability != null) {
+                    for (int i = 0; i < availability.length; i++) {
+                        TorrentContentFileTree file = treeLeaves[i];
+                        if (file != null)
+                            file.setAvailability(availability[i]);
+                    }
                 }
+
+            } finally {
+                syncBuildFileTree.unlock();
             }
         })
-        .subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::updateChildren));
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateChildren));
     }
 
-    private void updateCurDir(TorrentContentFileTree node)
-    {
+    private void updateCurDir(TorrentContentFileTree node) {
         curDir = node;
         updateChildren();
     }
 
-    private void updateChildren()
-    {
+    private void updateChildren() {
         children.onNext(getChildren(curDir));
     }
 }

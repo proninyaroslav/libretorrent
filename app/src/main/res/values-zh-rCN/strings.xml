@@ -94,6 +94,18 @@
     <string name="drawer_date_added_week">今个星期</string>
     <string name="drawer_date_added_month">今个月</string>
     <string name="drawer_date_added_year">今年</string>
+    <string name="tags">标签</string>
+    <string name="add_tag">添加标签</string>
+    <string name="edit_tag">编辑标签</string>
+    <string name="tag_name">标签名称</string>
+    <string name="tag_color">标签颜色</string>
+    <string name="add_tag_failed">添加标签失败</string>
+    <string name="tag_deleting_failed">删除标签失败</string>
+    <string name="tag_already_exists">已经存在名称相同的标签</string>
+    <string name="no_tags">无标签</string>
+    <string name="select_tag">选择标签</string>
+    <string name="new_tag">新建标签</string>
+    <string name="without_tags">不含标签</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +193,9 @@
     <string name="error_open_dir">无法打开文件夹</string>
     <string name="home_directory">主页</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">内部存储</string>
+    <string name="external_storage_name" formatted="false">外部存储 %1$d</string>
     <string name="permission_denied">权限被拒</string>
     <string name="save_file">保存文件</string>
     <string name="file_name">文件名</string>
@@ -189,7 +204,6 @@
     <string name="system_manager">系统管理员</string>
     <string name="system_file_manager_not_found">找不到系统文件管理器</string>
     <string name="replace_file">替换文件</string>
-    <string name="device_does_not_support_this_feature">您的设备不支持此功能</string>
     <string name="parent_folder">上层文件夹</string>
     <!-- Error dialog -->
     <string name="report">反馈</string>
@@ -218,7 +232,7 @@
     <string name="torrent_uploaded">已上传</string>
     <string name="torrent_share_ratio">分享率</string>
     <string name="torrent_active_time">活跃时间</string>
-    <string name="torrent_seeding_time">播种时间</string>
+    <string name="torrent_seeding_time">做种时间</string>
     <string name="torrent_pieces">区块</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d （%3$s）</string>
@@ -262,7 +276,7 @@
     <string name="magnet_include_file_priorities">包含文件属性？</string>
     <string name="magnet_more_about_bep53">更多信息: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">没有Tracker</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name">编辑种子名称</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到黏贴板</string>
@@ -276,6 +290,7 @@
     <string name="add_feed_channel">添加频道</string>
     <string name="feed_name">频道名 （可选）</string>
     <string name="feed_filter_prompt">输入单词或正则表达式进行过滤 （注：多个单词间用\"|\"隔开，其中之一必须包含在种子名称中）。只有当这个过滤器与种子名称相匹配时，才会添加种子下载</string>
+    <string name="feed_filter_prompt_one_per_line">每行输入一个过滤器。</string>
     <string name="feed_auto_download">自动下载新的种子</string>
     <string name="feed_use_regex">使用正则表达式</string>
     <string name="backup_feed_channels">保存备份</string>
@@ -315,9 +330,8 @@
     <string name="optional_hint">（可选）</string>
     <string name="piece_size">区块大小</string>
     <string name="create_torrent_options">选项</string>
-    <string name="option_start_seeding">开始播种</string>
+    <string name="option_start_seeding">开始做种</string>
     <string name="option_private_torrent">私有种子</string>
-    <string name="option_optimize_alignment">优化队列</string>
     <string-array name="piece_size_entries">
         <item>自动</item>
         <item>16 KiB</item>
@@ -465,6 +479,8 @@
     <string name="pref_show_nat_errors">显示NAT错误</string>
     <string name="pref_anonymous_mode_title">启用匿名模式</string>
     <string name="pref_anonymous_mode_summary">该应用尝试在某种程度上隐藏其身份。 用户代理将重置为空字符串（私人种子除外）。仅在使用代理服务器时才使用Tracker。 监听套接字已关闭，并且传入连接将仅通过SOCKS5或I2P代理（如果设置了对等代理并且与Tracker代理在同一台计算机上运行）接受。 NAT-PMP，UPnP，DHT和本地对等端发现已关闭</string>
+    <string name="pref_seeding_outgoing_connections_title">启用种子传出连接</string>
+    <string name="pref_seeding_outgoing_connections_summary">决定做种的种子是否应该尝试建立传出连接。在外连成本高昂的特定情形下，可禁用该功能。</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
     <string-array name="pref_proxy_type_entries">
@@ -530,10 +546,8 @@
     <string name="pref_streaming_error">所选用于streaming的端口或主机名正忙或不正确。请修复它</string>
     <!-- About dialog -->
     <string name="about_title">关于 LibreTorrent</string>
-    <string name="about_description"><![CDATA[    想了解更多信息并帮助项目发展？请浏览 <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent 是一个支持 Android 4+ 的免费、自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) 库。<br><br>
-    LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3)</a>条款发布的免费软件]]></string>
+    <string name="about_description"><![CDATA[    了解更多信息并帮助项目发展： <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent 是一个用于 Android 4+ 的自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>）库。<br><br>
+    LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3）</a>条款发布的自由软件]]></string>
     <string name="about_changelog">更新日志</string>
-
-
 </resources>

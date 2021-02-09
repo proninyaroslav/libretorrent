@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,10 +22,10 @@ package org.proninyaroslav.libretorrent.core.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -101,6 +101,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         static final boolean anonymousMode = SessionSettings.DEFAULT_ANONYMOUS_MODE;
+        static final boolean seedingOutgoingConnections = SessionSettings.DEFAULT_SEEDING_OUTGOING_CONNECTIONS;
         /* Limitations settings */
         static final int maxDownloadSpeedLimit = SessionSettings.DEFAULT_DOWNLOAD_RATE_LIMIT;
         static final int maxUploadSpeedLimit = SessionSettings.DEFAULT_UPLOAD_RATE_LIMIT;
@@ -206,6 +207,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.encryptMode = SessionSettings.EncryptMode.fromValue(encryptMode());
         settings.autoManaged = autoManage();
         settings.anonymousMode = anonymousMode();
+        settings.seedingOutgoingConnections = seedingOutgoingConnections();
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
@@ -929,6 +931,21 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_anonymous_mode), val)
+                .apply();
+    }
+
+    @Override
+    public boolean seedingOutgoingConnections()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_seeding_outgoing_connections),
+                Default.seedingOutgoingConnections);
+    }
+
+    @Override
+    public void seedingOutgoingConnections(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_seeding_outgoing_connections), val)
                 .apply();
     }
 

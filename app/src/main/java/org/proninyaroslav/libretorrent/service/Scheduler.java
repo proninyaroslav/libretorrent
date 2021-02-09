@@ -95,9 +95,7 @@ public class Scheduler
         PendingIntent pi = PendingIntent.getBroadcast(appContext, workTag.hashCode(), intent, 0);
         AlarmManager am = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
         else
             am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);

@@ -70,7 +70,6 @@ import io.reactivex.schedulers.Schedulers;
 public class FeedFragment extends Fragment
         implements FeedChannelListAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedFragment.class.getSimpleName();
 
     private static final String TAG_FEED_LIST_STATE = "feed_list_state";
@@ -385,29 +384,23 @@ public class FeedFragment extends Fragment
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.delete_feed_channel_menu:
-                    deleteFeedsDialog();
-                    break;
-                case R.id.edit_feed_channel_menu:
-                    editChannel();
-                    mode.finish();
-                    break;
-                case R.id.copy_feed_channel_url_menu:
-                    copyChannelUrl();
-                    mode.finish();
-                    break;
-                case R.id.refresh_feed_channel_menu:
-                    refreshSelectedFeeds();
-                    mode.finish();
-                    break;
-                case R.id.select_all_channels_menu:
-                    selectAllFeeds();
-                    break;
-                case R.id.mark_as_read_menu:
-                    markAsReadFeeds();
-                    mode.finish();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.delete_feed_channel_menu) {
+                deleteFeedsDialog();
+            } else if (itemId == R.id.edit_feed_channel_menu) {
+                editChannel();
+                mode.finish();
+            } else if (itemId == R.id.copy_feed_channel_url_menu) {
+                copyChannelUrl();
+                mode.finish();
+            } else if (itemId == R.id.refresh_feed_channel_menu) {
+                refreshSelectedFeeds();
+                mode.finish();
+            } else if (itemId == R.id.select_all_channels_menu) {
+                selectAllFeeds();
+            } else if (itemId == R.id.mark_as_read_menu) {
+                markAsReadFeeds();
+                mode.finish();
             }
 
             return true;

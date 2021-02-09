@@ -62,6 +62,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
@@ -75,9 +76,10 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -85,7 +87,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailTorrentFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentFragment.class.getSimpleName();
 
     private static final int SAVE_TORRENT_FILE_CHOOSE_REQUEST = 1;
@@ -256,7 +257,12 @@ public class DetailTorrentFragment extends Fragment
         disposables.add(msgViewModel.observeFragmentInActionMode()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((inActionMode) -> {
-                    setTabLayoutColor((inActionMode ? R.color.action_mode : R.color.primary));
+                    setTabLayoutColor(
+                            Utils.getAttributeColor(
+                                    activity,
+                                    inActionMode ? R.attr.actionModeBackground : R.attr.toolbarColor
+                            )
+                    );
                 }));
     }
 
@@ -293,7 +299,6 @@ public class DetailTorrentFragment extends Fragment
                                 }
                             } else if (event.dialogTag.equals(TAG_ADD_TRACKERS_DIALOG) && addTrackersDialog != null) {
                                 addTrackers(false);
-                                addTrackersDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_SPEED_LIMIT_DIALOG) && speedLimitDialog != null) {
                                 setSpeedLimit();
                                 speedLimitDialog.dismiss();
@@ -308,7 +313,6 @@ public class DetailTorrentFragment extends Fragment
                                 errReportDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_ADD_TRACKERS_DIALOG) && addTrackersDialog != null) {
                                 addTrackers(true);
-                                addTrackersDialog.dismiss();
                             } else if (event.dialogTag.equals(TAG_SPEED_LIMIT_DIALOG) && speedLimitDialog != null) {
                                 speedLimitDialog.dismiss();
                             }
@@ -332,6 +336,8 @@ public class DetailTorrentFragment extends Fragment
     {
         Torrent torrent = info.first;
         TorrentInfo ti = info.second;
+        TorrentInfo oldTi = viewModel.info.getTorrentInfo();
+        boolean alreadyPaused = oldTi != null && oldTi.stateCode == TorrentStateCode.PAUSED;
 
         viewModel.updateInfo(torrent, ti);
 
@@ -342,7 +348,7 @@ public class DetailTorrentFragment extends Fragment
             activity.invalidateOptionsMenu();
         downloadingMetadata = torrent.downloadingMetadata;
 
-        if (ti.stateCode == TorrentStateCode.PAUSED) {
+        if (ti.stateCode == TorrentStateCode.PAUSED || alreadyPaused) {
             /* Redraw pause/resume menu */
             if (Utils.isTwoPane(activity))
                 prepareOptionsMenu(binding.appbar.toolbar.getMenu());
@@ -351,14 +357,12 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void setTabLayoutColor(int colorId)
+    private void setTabLayoutColor(int color)
     {
         if (Utils.isTwoPane(activity))
             return;
 
-        Drawable d = ContextCompat.getDrawable(activity.getApplicationContext(), colorId);
-        if (d != null)
-            Utils.setBackground(binding.appbar.tabLayout, d);
+        binding.appbar.tabLayout.setBackgroundColor(color);
     }
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
@@ -426,34 +430,25 @@ public class DetailTorrentFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.pause_resume_torrent_menu:
-                viewModel.pauseResumeTorrent();
-                break;
-            case R.id.delete_torrent_menu:
-                deleteTorrentDialog();
-                break;
-            case R.id.force_recheck_torrent_menu:
-                viewModel.forceRecheckTorrent();
-                break;
-            case R.id.force_announce_torrent_menu:
-                viewModel.forceAnnounceTorrent();
-                break;
-            case R.id.share_magnet_menu:
-                shareMagnetDialog();
-                break;
-            case R.id.save_torrent_file_menu:
-                torrentSaveChooseDialog();
-                break;
-            case R.id.add_trackers_menu:
-                addTrackersDialog();
-                break;
-            case R.id.torrent_speed_limit:
-                speedLimitDialog();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.pause_resume_torrent_menu) {
+            viewModel.pauseResumeTorrent();
+        } else if (itemId == R.id.delete_torrent_menu) {
+            deleteTorrentDialog();
+        } else if (itemId == R.id.force_recheck_torrent_menu) {
+            viewModel.forceRecheckTorrent();
+        } else if (itemId == R.id.force_announce_torrent_menu) {
+            viewModel.forceAnnounceTorrent();
+        } else if (itemId == R.id.share_magnet_menu) {
+            shareMagnetDialog();
+        } else if (itemId == R.id.save_torrent_file_menu) {
+            torrentSaveChooseDialog();
+        } else if (itemId == R.id.add_trackers_menu) {
+            addTrackersDialog();
+        } else if (itemId == R.id.torrent_speed_limit) {
+            speedLimitDialog();
         }
 
         return true;
@@ -522,9 +517,7 @@ public class DetailTorrentFragment extends Fragment
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
-        TorrentInfo info = viewModel.info.getTorrentInfo();
-        if (info != null)
-            config.fileName = info.name;
+        config.fileName = viewModel.mutableParams.getName();
         config.mimeType = Utils.MIME_TORRENT;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
@@ -682,30 +675,44 @@ public class DetailTorrentFragment extends Fragment
         TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_multiline_text_input_dialog);
 
         Editable editable = field.getText();
-        if (TextUtils.isEmpty(editable))
+        if (editable == null)
             return;
 
         String text = editable.toString();
-        List<String> urls = Arrays.asList(text.split(Utils.getLineSeparator()));
+
+        List<String> urls = Observable.fromArray(text.split(Utils.getLineSeparator()))
+                .filter((s) -> !s.isEmpty())
+                .toList()
+                .blockingGet();
+
+        if (checkAddTrackersField(urls, fieldLayout, field))
+            addTrackersDialog.dismiss();
+        else
+            return;
+
+        if (checkAddTrackersField(urls, fieldLayout, field))
+            addTrackersDialog.dismiss();
+        else
+            return;
 
         NormalizeUrl.Options options = new NormalizeUrl.Options();
         options.decode = false;
-        for (int i = 0; i < urls.size(); i++) {
+        List<String> normalizedUrls = new ArrayList<>(urls.size());
+        for (String url : urls) {
+            if (TextUtils.isEmpty(url))
+                continue;
             try {
-                urls.set(i, NormalizeUrl.normalize(urls.get(i), options));
+                normalizedUrls.add(NormalizeUrl.normalize(url, options));
 
             } catch (NormalizeUrlException e) {
                 /* Ignore */
             }
         }
 
-        if (!checkAddTrackersField(urls, fieldLayout, field))
-            return;
-
         if (replace)
-            viewModel.replaceTrackers(urls);
+            viewModel.replaceTrackers(normalizedUrls);
         else
-            viewModel.addTrackers(urls);
+            viewModel.addTrackers(normalizedUrls);
     }
 
     private void initSpeedLimitDialog()
@@ -749,8 +756,18 @@ public class DetailTorrentFragment extends Fragment
         if (TextUtils.isEmpty(uploadEditable) || TextUtils.isEmpty(uploadEditable))
             return;
 
-        int uploadSpeedLimit = Integer.parseInt(uploadEditable.toString()) * 1024;
-        int downloadSpeedLimit = Integer.parseInt(downloadEditable.toString()) * 1024;
+        int uploadSpeedLimit;
+        try {
+            uploadSpeedLimit = Integer.parseInt(uploadEditable.toString()) * 1024;
+        } catch (NumberFormatException e) {
+            uploadSpeedLimit = 0;
+        }
+        int downloadSpeedLimit;
+        try {
+            downloadSpeedLimit = Integer.parseInt(downloadEditable.toString()) * 1024;
+        } catch (NumberFormatException e) {
+            downloadSpeedLimit = 0;
+        }
         viewModel.setSpeedLimit(uploadSpeedLimit, downloadSpeedLimit);
     }
 
@@ -774,7 +791,7 @@ public class DetailTorrentFragment extends Fragment
                     Snackbar.LENGTH_SHORT)
                     .show();
 
-        } catch (IOException e) {
+        } catch (IOException | UnknownUriException e) {
             saveErrorTorrentFileDialog(e);
         }
     }

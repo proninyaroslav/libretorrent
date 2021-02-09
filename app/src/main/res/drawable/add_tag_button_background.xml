@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorOnSurface">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@drawable/add_tag_button_color" />
+            <size android:width="38dp" android:height="38dp" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_add_18"
+        android:top="6dp"
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp" />
+</ripple>

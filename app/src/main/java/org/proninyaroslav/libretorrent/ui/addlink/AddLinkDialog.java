@@ -34,10 +34,10 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -58,7 +58,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddLinkDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddLinkDialog.class.getSimpleName();
 
     private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
@@ -143,6 +142,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         viewModel.link.set(item);
+        binding.link.postDelayed(this::addLink, 500);
     }
 
     private void subscribeClipboardManager() {
@@ -156,6 +156,9 @@ public class AddLinkDialog extends DialogFragment
     }
 
     private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+
+    private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
+            (__) -> switchClipboardButton();
 
     private void switchClipboardButton()
     {
@@ -183,7 +186,17 @@ public class AddLinkDialog extends DialogFragment
 
         initLayoutView();
 
+        binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+
         return alert;
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+
+        super.onDestroyView();
     }
 
     private void initLayoutView()
@@ -253,8 +266,7 @@ public class AddLinkDialog extends DialogFragment
             return;
 
         try {
-            if (s != null)
-                s = viewModel.normalizeUrl(s);
+            s = viewModel.normalizeUrl(s);
 
         } catch (NormalizeUrlException e) {
             binding.layoutLink.setErrorEnabled(true);

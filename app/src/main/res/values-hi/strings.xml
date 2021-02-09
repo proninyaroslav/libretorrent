@@ -94,6 +94,19 @@
     <string name="drawer_date_added_week">Week</string>
     <string name="drawer_date_added_month">Month</string>
     <string name="drawer_date_added_year">Year</string>
+    <!-- Tags -->
+    <string name="tags">Tags</string>
+    <string name="add_tag">Add tag</string>
+    <string name="edit_tag">Edit tag</string>
+    <string name="tag_name">Tag name</string>
+    <string name="tag_color">Tag color</string>
+    <string name="add_tag_failed">Failed to add tag</string>
+    <string name="tag_deleting_failed">Failed to delete tag</string>
+    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="no_tags">No tags</string>
+    <string name="select_tag">Select tag</string>
+    <string name="new_tag">New tag</string>
+    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +194,9 @@
     <string name="error_open_dir">फ़ोल्डर को खोलने में असमर्थ</string>
     <string name="home_directory">होम</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">अनुमति नहीं मिली</string>
     <string name="save_file">फाइल सुरक्षित करें</string>
     <string name="file_name">फ़ाइल का नाम</string>
@@ -189,7 +205,6 @@
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
-    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
     <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->
     <string name="report">रिपोर्ट</string>
@@ -276,6 +291,7 @@
     <string name="add_feed_channel">चैनल जोड़ें</string>
     <string name="feed_name">नाम: (वैकल्पिक)</string>
     <string name="feed_filter_prompt">शब्दों को दर्ज करें (\"|\" से अलग), जिनमें से एक नाम होना चाहिए या नियमित अभिव्यक्ति दर्ज करें। टॉरेंट तभी जोड़े जाएंगे जब यह फ़िल्टर टोरेंट नाम से मेल खाएगा</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">स्वचालित रूप से नए टॉरेंट डाउनलोड करें</string>
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
     <string name="backup_feed_channels">Save backup</string>
@@ -317,7 +333,6 @@
     <string name="create_torrent_options">विकल्प</string>
     <string name="option_start_seeding">बीजारोपण शुरू करें</string>
     <string name="option_private_torrent">निजी धार</string>
-    <string name="option_optimize_alignment">संरेखण का अनुकूलन करें</string>
     <string-array name="piece_size_entries">
         <item>ऑटो</item>
         <item>16 कीबी</item>
@@ -465,6 +480,8 @@
     <string name="pref_show_nat_errors">NAT त्रुटियों को दिखाएं</string>
     <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
     <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">प्रॉक्सी प्रकार</string>
     <string-array name="pref_proxy_type_entries">

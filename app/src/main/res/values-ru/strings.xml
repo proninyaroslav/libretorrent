@@ -94,6 +94,19 @@
     <string name="drawer_date_added_week">Неделя</string>
     <string name="drawer_date_added_month">Месяц</string>
     <string name="drawer_date_added_year">Год</string>
+    <!-- Tags -->
+    <string name="tags">Метки</string>
+    <string name="add_tag">Добавить метку</string>
+    <string name="edit_tag">Изменить метку</string>
+    <string name="tag_name">Имя метки</string>
+    <string name="tag_color">Цвет метки</string>
+    <string name="add_tag_failed">Не удалось добавить метку</string>
+    <string name="tag_deleting_failed">Не удалось удалить метку</string>
+    <string name="tag_already_exists">Метка с таким именем уже существует</string>
+    <string name="no_tags">Нет меток</string>
+    <string name="select_tag">Выбрать метку</string>
+    <string name="new_tag">Новая метка</string>
+    <string name="without_tags">Без меток</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/с \u2022 %4$s</string>
@@ -181,6 +194,9 @@
     <string name="error_open_dir">Невозможно открыть папку</string>
     <string name="home_directory">Домой</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Внутреннее хранилище</string>
+    <string name="external_storage_name" formatted="false">Внещнее хранилище %1$d</string>
     <string name="permission_denied">Доступ запрещён</string>
     <string name="save_file">Сохранить файл</string>
     <string name="file_name">Имя файла</string>
@@ -189,7 +205,6 @@
     <string name="system_manager">Системный менеджер</string>
     <string name="system_file_manager_not_found">Системный файловый менеджер не найден</string>
     <string name="replace_file">Заменить файл</string>
-    <string name="device_does_not_support_this_feature">Ваше устройство не поддерживает данную функцию</string>
     <string name="parent_folder">Родительская папка</string>
     <!-- Error dialog -->
     <string name="report">Сообщить</string>
@@ -276,6 +291,7 @@
     <string name="add_feed_channel">Добавить канал</string>
     <string name="feed_name">Имя (необязательно)</string>
     <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
+    <string name="feed_filter_prompt_one_per_line">Введите фильтры по одному в строке.</string>
     <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
     <string name="backup_feed_channels">Сохранить резервную копию</string>
@@ -317,7 +333,6 @@
     <string name="create_torrent_options">Опции</string>
     <string name="option_start_seeding">Начать раздачу</string>
     <string name="option_private_torrent">Приватный торрент</string>
-    <string name="option_optimize_alignment">Оптимизировать выравнивание</string>
     <string-array name="piece_size_entries">
         <item>Авто</item>
         <item>16 Кб</item>
@@ -465,6 +480,8 @@
     <string name="pref_show_nat_errors">Показывать ошибки NAT</string>
     <string name="pref_anonymous_mode_title">Включить анонимный режим</string>
     <string name="pref_anonymous_mode_summary">Приложение пытается скрыть свою личность в определённой степени. User-agent будет сброшен в пустую строку (кроме приватных торрентов). Трекеры будут использоваться только если они используют прокси-сервер. Сокеты прослушивания закрыты, и входящие соединения будут приниматься только через прокси-сервер SOCKS5 или I2P (если одноранговый прокси-сервер настроен и работает на той же машине, что и прокси-сервер трекера). NAT-PMP, UPnP, DHT и обнаружение локального узла отключены</string>
+    <string name="pref_seeding_outgoing_connections_title">Включить исходящие соединения для сидов</string>
+    <string name="pref_seeding_outgoing_connections_summary">Определяет, должны ли раздающие торренты пытаться установить исходящие соединения или нет. Это может быть отключено в очень специфических ситуациях, когда стоимость исходящих соединений высока</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип прокси</string>
     <string-array name="pref_proxy_type_entries">

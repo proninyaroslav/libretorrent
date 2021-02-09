@@ -1,0 +1,25 @@
+* Added:
+    - Full support of external storage (SD cards, USB devices, etc.)
+      This is an experimental feature, bugs are possible.
+      For example, deleting downloaded files when deleting a torrent doesn't work
+    - Material Design 2.0
+    - Due to the change in data storage, already added torrents will be
+      imported automatically. In case of failure, backup of the torrent files
+      will be located in the "LibreTorrent_backup" folder of your home directory.
+    - Session journal
+    - "Remove duplicates" option in RSS settings
+    - "Ignore free space size" option in the add dialog
+    - "Anonymous mode" and "Outgoing connections for seeds" options in
+      Network settings
+    - Autosave changes in the torrent details window
+* Bugfixing and increasing stability
+* Improved support for torrents with a large number of files
+* New translations:
+    - Japanese
+    - Turkish
+    - Azerbaijani
+    - Serbian
+    - Hungarian
+    - Korean
+    - Italian
+* Update to libtorrent4j 1.2.3.0

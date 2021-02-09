@@ -49,6 +49,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogCreateTorrentBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
@@ -66,7 +67,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CreateTorrentDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = CreateTorrentDialog.class.getSimpleName();
 
     private static final String TAG_OPEN_PATH_ERROR_DIALOG = "open_path_error_dialog";
@@ -249,8 +249,6 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     null,
                     FileManagerConfig.FILE_CHOOSER_MODE);
-            /* TODO: SAF support */
-            config.disableSystemFileManager = true;
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             startActivityForResult(i, CHOOSE_FILE_REQUEST);
         });
@@ -261,8 +259,6 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     null,
                     FileManagerConfig.DIR_CHOOSER_MODE);
-            /* TODO: SAF support */
-            config.disableSystemFileManager = true;
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             startActivityForResult(i, CHOOSE_DIR_REQUEST);
         });
@@ -380,9 +376,16 @@ public class CreateTorrentDialog extends DialogFragment
                     .show();
         }
         if (viewModel.mutableParams.isStartSeeding()) {
-            disposables.add(viewModel.downloadTorrent()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(() -> finish(new Intent(), FragmentCallback.ResultCode.OK)));
+            try {
+                disposables.add(viewModel.downloadTorrent()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                () -> finish(new Intent(), FragmentCallback.ResultCode.OK),
+                                this::handleBuildError)
+                );
+            } catch (UnknownUriException e) {
+                handleBuildError(e);
+            }
         } else {
             finish(new Intent(), FragmentCallback.ResultCode.OK);
         }

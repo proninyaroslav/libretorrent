@@ -13,6 +13,7 @@
         <ListPreference
             android:key="@string/pref_key_feed_refresh_interval"
             android:title="@string/pref_feed_refresh_interval_title"
+            android:summary="%s"
             android:entries="@array/pref_feed_refresh_intervals_entries"
             android:entryValues="@array/pref_feed_refresh_intervals_values"
             android:dependency="@string/pref_key_feed_auto_refresh"
@@ -35,6 +36,7 @@
     <ListPreference
         android:key="@string/pref_key_feed_keep_items_time"
         android:title="@string/pref_feed_keep_items_time_title"
+        android:summary="%s"
         android:entries="@array/pref_feed_keep_items_time_entries"
         android:entryValues="@array/pref_feed_keep_items_time_entry_values"
         android:persistent="false" />

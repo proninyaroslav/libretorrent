@@ -94,6 +94,19 @@
     <string name="drawer_date_added_week">주</string>
     <string name="drawer_date_added_month">월</string>
     <string name="drawer_date_added_year">년</string>
+    <!-- Tags -->
+    <string name="tags">Tags</string>
+    <string name="add_tag">Add tag</string>
+    <string name="edit_tag">Edit tag</string>
+    <string name="tag_name">Tag name</string>
+    <string name="tag_color">Tag color</string>
+    <string name="add_tag_failed">Failed to add tag</string>
+    <string name="tag_deleting_failed">Failed to delete tag</string>
+    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="no_tags">No tags</string>
+    <string name="select_tag">Select tag</string>
+    <string name="new_tag">New tag</string>
+    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/초 \u2022 %4$s</string>
@@ -181,6 +194,9 @@
     <string name="error_open_dir">이 폴더를 열 수 없습니다.</string>
     <string name="home_directory">홈</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">권한 거부됨</string>
     <string name="save_file">파일 저장</string>
     <string name="file_name">파일 이름</string>
@@ -189,7 +205,6 @@
     <string name="system_manager">시스템 파일 관리자</string>
     <string name="system_file_manager_not_found">시스템 파일 관리자를 찾을 수 없습니다.</string>
     <string name="replace_file">파일 덮어쓰기</string>
-    <string name="device_does_not_support_this_feature">이 기기에서 지원되지 않는 기능입니다.</string>
     <string name="parent_folder">상위 폴더</string>
     <!-- Error dialog -->
     <string name="report">보고</string>
@@ -276,6 +291,7 @@
     <string name="add_feed_channel">채널 추가</string>
     <string name="feed_name">이름 (선택)</string>
     <string name="feed_filter_prompt">(\"|\"로 구분해서) 이름이나 표준 표현으로 단어를 입력하세요. 필터가 찾은 이름의 토렌트만 추가됩니다.</string>
+    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">새 토렌트 자동 다운로드</string>
     <string name="feed_use_regex">일반적인 표현 사용</string>
     <string name="backup_feed_channels">백업 저장</string>
@@ -317,7 +333,6 @@
     <string name="create_torrent_options">옵션</string>
     <string name="option_start_seeding">배포 시작</string>
     <string name="option_private_torrent">프라이빗 토렌트</string>
-    <string name="option_optimize_alignment">정렬 최적화</string>
     <string-array name="piece_size_entries">
         <item>자동</item>
         <item>16 KiB</item>
@@ -465,6 +480,8 @@
     <string name="pref_show_nat_errors">NAT 오류 표시</string>
     <string name="pref_anonymous_mode_title">익명 모드 활성화</string>
     <string name="pref_anonymous_mode_summary">앱이 정체를 숨기기 위한 시도를 합니다. (프라이빗 토렌트 제외) 유저 에이전트를 공백으로 표시합니다. 프록시 서버 경유 트래커만 연결합니다. 열린 소켓이 닫히며, (피어 프록시가 설정되었고 트래커 프록시와 같은 방식으로 구동될 경우) 들어오는 연결은 SOCKS5 또는 I2P 프록시를 통해서만 수용됩니다. NAT-PMP, UPnP, DHT, 인근 피어 찾기가 꺼집니다.</string>
+    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
+    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">프록시 유형</string>
     <string-array name="pref_proxy_type_entries">

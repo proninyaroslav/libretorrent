@@ -1,0 +1,1 @@
+LibreTorrent é um cliente torrent de software livre para Android 5+, baseado em libtorrent. Fazer download e compartilhar arquivos diretamente no seu dispositivo

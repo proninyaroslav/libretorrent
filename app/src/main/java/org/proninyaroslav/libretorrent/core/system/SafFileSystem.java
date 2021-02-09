@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,7 +36,7 @@ import androidx.documentfile.provider.DocumentFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/*
+/**
  * A class that representing a wrapper around SAF (Storage Access Framework) for
  * providing API for working with files that SAF provides by their Uri.
  * "SAF root" in this context means a tree Uri obtained by calling
@@ -527,5 +527,23 @@ public class SafFileSystem
         CACHE.put(cacheKey, currNode);
 
         return true;
+    }
+
+    @TargetApi(19)
+    public Uri getParentDirUri(@NonNull Uri filePath)
+    {
+        String cacheKey = filePath.toString();
+        DocumentFile f = CACHE.get(cacheKey);
+        if (f == null) {
+            f = DocumentFile.fromSingleUri(appContext, filePath);
+            if (f != null)
+                CACHE.put(cacheKey, f);
+        }
+        if (f == null)
+            return null;
+
+        DocumentFile parent = f.getParentFile();
+
+        return (parent == null || !parent.isDirectory() ? null : parent.getUri());
     }
 }

@@ -46,14 +46,11 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentContentFileBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileItem, TorrentContentFilesAdapter.ViewHolder>
     implements Selectable<TorrentContentFileItem>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentContentFilesAdapter.class.getSimpleName();
 
     private ClickListener listener;
@@ -92,15 +89,6 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             holder.setSelected(selectionTracker.isSelected(item));
 
         holder.bind(item, listener);
-    }
-
-    @Override
-    public void submitList(@Nullable List<TorrentContentFileItem> list)
-    {
-        if (list != null)
-            Collections.sort(list);
-
-        super.submitList(list);
     }
 
     @Override

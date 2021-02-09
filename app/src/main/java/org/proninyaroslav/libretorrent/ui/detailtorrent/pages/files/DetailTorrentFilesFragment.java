@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +55,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
-import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentFilesBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
@@ -77,7 +78,6 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailTorrentFilesFragment extends Fragment
         implements TorrentContentFilesAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentFilesFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
@@ -333,12 +333,19 @@ public class DetailTorrentFilesFragment extends Fragment
     @Override
     public void onItemClicked(@NonNull TorrentContentFileItem item)
     {
-        if (item.name.equals(BencodeFileTree.PARENT_DIR))
+        if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
             viewModel.upToParentDirectory();
-        else if (!item.isFile)
+        } else if (!item.isFile) {
             viewModel.chooseDirectory(item.name);
-        else
-            openFile(viewModel.getFilePath(item.name));
+        } else {
+            disposables.add(viewModel.getFilePath(item.name)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            (path) -> openFile(item.name, path),
+                            this::handleOpenFileError
+                    ));
+        }
     }
 
     @Override
@@ -387,14 +394,12 @@ public class DetailTorrentFilesFragment extends Fragment
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.change_priority_menu:
-                    showPriorityDialog();
-                    break;
-                case R.id.share_stream_url_menu:
-                    shareStreamUrl();
-                    mode.finish();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.change_priority_menu) {
+                showPriorityDialog();
+            } else if (itemId == R.id.share_stream_url_menu) {
+                shareStreamUrl();
+                mode.finish();
             }
 
             return true;
@@ -480,16 +485,12 @@ public class DetailTorrentFilesFragment extends Fragment
         int radioButtonId = group.getCheckedRadioButtonId();
 
         FilePriority.Type priorityType = null;
-        switch (radioButtonId) {
-            case R.id.dialog_priority_low:
-                priorityType = FilePriority.Type.IGNORE;
-                break;
-            case R.id.dialog_priority_normal:
-                priorityType = FilePriority.Type.NORMAL;
-                break;
-            case R.id.dialog_priority_high:
-                priorityType = FilePriority.Type.HIGH;
-                break;
+        if (radioButtonId == R.id.dialog_priority_low) {
+            priorityType = FilePriority.Type.IGNORE;
+        } else if (radioButtonId == R.id.dialog_priority_normal) {
+            priorityType = FilePriority.Type.NORMAL;
+        } else if (radioButtonId == R.id.dialog_priority_high) {
+            priorityType = FilePriority.Type.HIGH;
         }
         if (priorityType != null) {
             FilePriority priority = new FilePriority(priorityType);
@@ -524,16 +525,20 @@ public class DetailTorrentFilesFragment extends Fragment
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 
-    private void openFile(Uri path)
+    private void openFile(String fileName, Uri path)
     {
-        if (path == null)
+        if (fileName == null || path == null)
             return;
 
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        /* Give user a choice than to open file (without determining MIME type) */
-        intent.setDataAndType(path, "*/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(intent, getString(R.string.open_using)));
+        startActivity(viewModel.makeOpenFileIntent(fileName, path));
+    }
+
+    private void handleOpenFileError(Throwable err)
+    {
+        Log.e(TAG, "Unable to open file: " + Log.getStackTraceString(err));
+        Toast.makeText(activity,
+                R.string.unable_to_open_file,
+                Toast.LENGTH_SHORT)
+                .show();
     }
 }

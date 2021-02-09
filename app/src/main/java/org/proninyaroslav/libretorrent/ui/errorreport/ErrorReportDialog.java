@@ -30,7 +30,6 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 
 public class ErrorReportDialog extends BaseAlertDialog
 {
-    @SuppressWarnings("unused")
     private static final String TAG = ErrorReportDialog.class.getSimpleName();
 
     protected static final String TAG_DETAIL_ERROR = "detail_error";
@@ -56,6 +55,8 @@ public class ErrorReportDialog extends BaseAlertDialog
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
+        super.onCreateDialog(savedInstanceState);
+
         Bundle args = getArguments();
         String title = args.getString(TAG_TITLE);
         String message = args.getString(TAG_MESSAGE);

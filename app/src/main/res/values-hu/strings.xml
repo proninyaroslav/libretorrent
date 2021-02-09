@@ -36,8 +36,8 @@
     <string name="file">Fájl</string>
     <string name="folder">Könyvtár</string>
     <string name="finished">Befejezett</string>
-    <string name="pause_all">Mind megállít</string>
-    <string name="resume_all">Mind elindít</string>
+    <string name="pause_all">Az összes szüneteltetése</string>
+    <string name="resume_all">Az összes folytatása</string>
     <string name="all">Összes</string>
     <string name="details">Részletek</string>
     <string name="stats">Statisztika</string>
@@ -48,8 +48,8 @@
     <string name="switch_off">Ki</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
-    <string name="delete_selected_torrent">Törlöd a kiválasztott torentet? Nem visszavonható művelet</string>
-    <string name="delete_selected_torrents">Törlöd a kiválasztott torrenteket? Nem visszavonható művelet</string>
+    <string name="delete_selected_torrent">Törlöd a kiválasztott torrentet? A művelet nem vonható vissza</string>
+    <string name="delete_selected_torrents">Törlöd a kiválasztott torrenteket? A művelet nem vonható vissza</string>
     <string name="force_recheck_torrent">Adatok erőltetett újraellenőrzése</string>
     <string name="force_announce_torrent">Erőltetett újrakapcsolódás</string>
     <string name="add_link">Hivatkozás hozzáadása</string>
@@ -64,11 +64,11 @@
     <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
     <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után aktiválódnak</string>
-    <string name="theme_settings_apply_after_reboot">A téma beállítások a következő újraindítás után aktiválódnak</string>
+    <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után lépnek életbe</string>
+    <string name="theme_settings_apply_after_reboot">A téma beállításai a következő újraindítás után aktiválódnak</string>
     <string name="about">Névjegy</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT-csomópontok: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <string name="session_stats_listen_port">Kapcsolati port: %1$s</string>
@@ -88,12 +88,24 @@
     <string name="drawer_sorting_peers">Peerek</string>
     <string name="drawer_sorting_no_sorting">Rendezés nélkül</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Dátum rendezés</string>
+    <string name="drawer_date_added">Hozzáadás dátuma</string>
     <string name="drawer_date_added_today">Ma</string>
     <string name="drawer_date_added_yesterday">Tegnap</string>
     <string name="drawer_date_added_week">Hét</string>
     <string name="drawer_date_added_month">Hónap</string>
     <string name="drawer_date_added_year">Év</string>
+    <string name="tags">Címkék</string>
+    <string name="add_tag">Címke hozzáadása</string>
+    <string name="edit_tag">Címke szerkesztése</string>
+    <string name="tag_name">Címke neve</string>
+    <string name="tag_color">Címke színe</string>
+    <string name="add_tag_failed">A címke hozzáadása sikertelen</string>
+    <string name="tag_deleting_failed">A címke törlése sikertelen</string>
+    <string name="tag_already_exists">Már létezik ilyen nevű címke</string>
+    <string name="no_tags">Nincs címke</string>
+    <string name="select_tag">Címke kiválasztása</string>
+    <string name="new_tag">Új címke</string>
+    <string name="without_tags">Címkék nélkül</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +193,9 @@
     <string name="error_open_dir">Nem lehet a könyvtárat megnyitni</string>
     <string name="home_directory">Kezdőlap</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Belső tárhely</string>
+    <string name="external_storage_name" formatted="false">%1$d. külső tárhely</string>
     <string name="permission_denied">Engedély megtagadva</string>
     <string name="save_file">Fájl mentése</string>
     <string name="file_name">Fájlnév</string>
@@ -189,7 +204,6 @@
     <string name="system_manager">Rendszer menedzser</string>
     <string name="system_file_manager_not_found">Nincs rendszer fájl menedzser</string>
     <string name="replace_file">Fájl cseréje</string>
-    <string name="device_does_not_support_this_feature">Az eszközöd nem támogatja ezt a funkciót</string>
     <string name="parent_folder">Szülő könyvtár</string>
     <!-- Error dialog -->
     <string name="report">Jelentés</string>
@@ -276,6 +290,7 @@
     <string name="add_feed_channel">Csatorna hozzáadása</string>
     <string name="feed_name">Név (nem kötelező)</string>
     <string name="feed_filter_prompt">Írd be a szavakat (\"|\" elválasztással), amelynek egyikének a névben kell lennie, vagy be kell írnia a reguláris kifejezést. A torrentek csak akkor kerülnek hozzáadásra, ha ez a szűrő megegyezik a torrent nevével</string>
+    <string name="feed_filter_prompt_one_per_line">Írj be egy szűrőt soronként.</string>
     <string name="feed_auto_download">Új torrentek letöltése automatikusan</string>
     <string name="feed_use_regex">Reguláris kifejezés használata</string>
     <string name="backup_feed_channels">Biztonsági másolat mentése</string>
@@ -317,7 +332,6 @@
     <string name="create_torrent_options">Beállítások</string>
     <string name="option_start_seeding">Seedelés indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
-    <string name="option_optimize_alignment">Igazítás optimalizása</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>
@@ -465,6 +479,8 @@
     <string name="pref_show_nat_errors">NAT hibák mutatása</string>
     <string name="pref_anonymous_mode_title">Anoním mód engedélyezése</string>
     <string name="pref_anonymous_mode_summary">Az alkalmazás bizonyos mértékig megpróbálja elrejteni identitását. A felhasználói ügynök visszaáll egy üres karakterláncra (kivéve a privát torrenteket). A nyomkövetőket csak akkor használják, ha proxykiszolgálót használnak. A figyelőcsatlakozók zárva vannak, és a bejövő kapcsolatok csak SOCKS5 vagy I2P proxy segítségével fogadhatók el (ha peer proxy van beállítva, és ugyanazon a gépen fut, mint a tracker proxy). A NAT-PMP, UPnP, DHT és a helyi peer keresés ki van kapcsolva</string>
+    <string name="pref_seeding_outgoing_connections_title">Kimenő kapcsolatok engedélyezése a seedekhez</string>
+    <string name="pref_seeding_outgoing_connections_summary">Meghatározható, hogy a seedelt torrentek megpróbáljanak kimenő kapcsolatot létesíteni vagy ne. Ez kikapcsolható nagyon speciális helyzetekben, ahol a kimenő összeköttetések létrehozásának számossága magas</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy típus</string>
     <string-array name="pref_proxy_type_entries">

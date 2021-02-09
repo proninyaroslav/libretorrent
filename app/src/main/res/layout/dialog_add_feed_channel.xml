@@ -45,7 +45,6 @@
                     android:id="@+id/layout_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/clipboard_button"
                     android:layout_toStartOf="@id/clipboard_button">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -63,8 +62,6 @@
                     android:layout_height="40dp"
                     android:scaleType="fitCenter"
                     android:layout_marginTop="12dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_alignParentRight="true"
                     android:padding="8dp"
                     android:background="?attr/transparentRoundRipple"
                     android:contentDescription="@string/clipboard"
@@ -95,18 +92,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:enabled="@{viewModel.mutableParams.autoDownload}"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_help_grey600_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_help_grey600_24dp"
-                    android:inputType="text|textNoSuggestions"
-                    android:enabled="@{viewModel.mutableParams.autoDownload}"
+                    android:inputType="textMultiLine|textNoSuggestions"
                     android:hint="@string/filter"
-                    android:text="@={viewModel.mutableParams.filter}"
-                    android:drawableEnd="@drawable/ic_help_grey600_24dp" />
+                    android:text="@={viewModel.mutableParams.filter}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <net.cachapa.expandablelayout.ExpandableLayout
@@ -118,16 +115,24 @@
                 app:el_parallax="0"
                 app:el_expanded="false">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="16dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/feed_filter_prompt_one_per_line"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
                         android:text="@string/feed_filter_prompt"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
@@ -136,9 +141,8 @@
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
                         android:background="?attr/divider" />
-                </RelativeLayout>
+                </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
             <CheckBox

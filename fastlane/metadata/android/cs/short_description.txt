@@ -1,1 +1,1 @@
-LibreTorrent je bezplatný torrent klient pro Android 4+, založený na knihovně libtorrent. Stahujte a sdílejte soubory přímo ve vašem zařízení
+LibreTorrent je bezplatný torrent klient pro Android 5+, založený na knihovně libtorrent. Stahujte a sdílejte soubory přímo ve vašem zařízení

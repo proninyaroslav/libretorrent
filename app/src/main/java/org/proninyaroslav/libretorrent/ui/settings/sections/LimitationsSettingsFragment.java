@@ -38,7 +38,6 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = LimitationsSettingsFragment.class.getSimpleName();
 
     private SettingsRepository pref;

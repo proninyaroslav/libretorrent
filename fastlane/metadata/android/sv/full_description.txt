@@ -1,0 +1,22 @@
+Egenskaper
+
+* DHT, PeX, kryptering, LSD, UPnP, NAT*PMP, μTP
+* IP-filtrering (eMule dat och PeerGuardian)
+* Förmåga att finjustera (nätverksinställningar, strömhantering, batteristyrning, UI-inställningar, etc.)
+* Stödjer torrents med stort antal filer och stora filer
+* Stöd till HTTP\S och magnetlänkar
+* Stödjer proxy för trackers och peers
+* Förmåga att flytta filer samtidigt som nedladdning
+* Möjlighet till automatisk förflyttning av filer till en annan mapp eller till en extern enhet i slutet av nedladdning
+* Möjlighet att specificera fil- och mappprioriteringar
+* Möjlighet att välja vilka filer som ska laddas ner
+* Möjlighet att ladda ner sekventiellt
+* Material Design
+* Mörkt och svart tema
+* Optimerat surfplattegränssnitt
+* Schemaläggning
+* RSS-hanterare
+* Stöd för Android TV
+* Möjlighet att skapa torrents
+* Streaming av valfria filer
+* Och mer

@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -69,7 +70,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailTorrentTrackersFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentTrackersFragment.class.getSimpleName();
 
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
@@ -314,14 +314,14 @@ public class DetailTorrentTrackersFragment extends Fragment
         @Override
         public boolean onActionItemClicked(androidx.appcompat.view.ActionMode mode, MenuItem item)
         {
-            switch (item.getItemId()) {
-                case R.id.delete_tracker_url:
-                    deleteTrackersDialog();
-                    break;
-                case R.id.share_url_menu:
-                    shareUrl();
-                    mode.finish();
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.delete_tracker_url) {
+                deleteTrackersDialog();
+            } else if (itemId == R.id.share_url_menu) {
+                shareUrl();
+                mode.finish();
+            } else if (itemId == R.id.select_all_trackers_menu) {
+                selectAllTrackers();
             }
 
             return true;
@@ -393,5 +393,15 @@ public class DetailTorrentTrackersFragment extends Fragment
 
                     startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
                 }));
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void selectAllTrackers()
+    {
+        int n = adapter.getItemCount();
+        if (n > 0) {
+            selectionTracker.startRange(0);
+            selectionTracker.extendRange(adapter.getItemCount() - 1);
+        }
     }
 }

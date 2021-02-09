@@ -81,10 +81,6 @@ public interface TorrentDownload
 
     long getReceivedBytes();
 
-    long getTotalReceivedBytes();
-
-    long getSentBytes();
-
     long getTotalSentBytes();
 
     int getConnectedPeers();

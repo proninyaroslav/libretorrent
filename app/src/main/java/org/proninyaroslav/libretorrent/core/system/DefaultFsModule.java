@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.core.system;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.StatFs;
 
 import androidx.annotation.NonNull;
@@ -100,10 +99,7 @@ class DefaultFsModule implements FsModule
         } catch (Exception e) {
             /* This provides invalid space on some devices */
             StatFs stat = new StatFs(dir.getPath());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                availableBytes = stat.getAvailableBytes();
-            else
-                availableBytes = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+            availableBytes = stat.getAvailableBytes();
         }
 
         return availableBytes;
@@ -125,5 +121,13 @@ class DefaultFsModule implements FsModule
     public String makeFileSystemPath(@NonNull Uri uri, String relativePath)
     {
         return uri.getPath();
+    }
+
+    @Override
+    public Uri getParentDirUri(@NonNull Uri filePath)
+    {
+        File parent = new File(filePath.getPath()).getParentFile();
+
+        return (parent.exists() ? Uri.fromFile(parent) : null);
     }
 }

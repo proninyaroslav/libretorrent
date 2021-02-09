@@ -1,3 +1,73 @@
+Version 3.0 (2021-02-05)
+========================
+ * Removed experimental system file manager support. This can break torrents that added in this way
+ * Android 10 support
+ * Dropped support for Android 4.x. 5.0 is the minimum supported version
+ * Added:
+     - BitTorrent 2.0 support
+     - Tags
+     - Auto fetching when paste from clipboard
+     - Adaptive shortcuts icons
+ * Bugfixes
+ * New translations (partially translated):
+     - Arabic
+     - Bengali
+     - Indonesian
+     - Persian
+     - Santali
+ * Updated current translations
+ * libtorrent4j updated to 2.x version
+
+Version 2.1 (2020-04-21)
+========================
+
+ * Added:
+     - Multiple filters support in the add feed dialog
+     - Displaying folders first in the file manager
+ * Using the parent folder as the download folder for the created torrent
+ * Improved dialog for opening downloaded files
+ * Bugfixing:
+     - Crash on Android 4.x
+     - Adding trackers
+     - Cache settings, that affect download speed (may need to reinstall)
+     - Some ANR's
+ * New translations (partially translated):
+     - Basque
+     - Catalan
+     - Chinese Traditional
+     - Swedish
+     - Ukrainian
+ * Updated current translations
+
+Version 2.0 (2020-04-10)
+========================
+
+ * Added:
+     - Full support of external storage (SD cards, USB devices, etc.)
+       This is an experimental feature, bugs are possible.
+       For example, deleting downloaded files when deleting a torrent doesn't work
+     - Material Design 2.0
+     - Due to the change in data storage, already added torrents will be
+       imported automatically. In case of failure, backup of the torrent files
+       will be located in the "LibreTorrent_backup" folder of your home directory.
+     - Session journal
+     - "Remove duplicates" option in RSS settings
+     - "Ignore free space size" option in the add dialog
+     - "Anonymous mode" and "Outgoing connections for seeds" options in
+       Network settings
+     - Autosave changes in the torrent details window
+ * Bugfixing and increasing stability
+ * Improved support for torrents with a large number of files
+ * New translations:
+     - Japanese
+     - Turkish
+     - Azerbaijani
+     - Serbian
+     - Hungarian
+     - Korean
+     - Italian
+ * Update to libtorrent4j 1.2.3.0
+
 Version 1.9.1 (2018-12-06)
 ========================
 

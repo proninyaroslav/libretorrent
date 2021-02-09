@@ -36,6 +36,7 @@ import org.proninyaroslav.libretorrent.core.TorrentFileObserver;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
@@ -44,6 +45,7 @@ import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.session.SessionInitParams;
@@ -55,6 +57,7 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -92,13 +95,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TorrentEngine
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
     private Context appContext;
     private TorrentSession session;
     private TorrentStreamServer torrentStreamServer;
     private TorrentRepository repo;
+    private TagRepository tagRepo;
     private SettingsRepository pref;
     private TorrentNotifier notifier;
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -127,6 +130,7 @@ public class TorrentEngine
     {
         this.appContext = appContext;
         repo = RepositoryHelper.getTorrentRepository(appContext);
+        tagRepo = RepositoryHelper.getTagRepository(appContext);
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
         notifier = TorrentNotifier.getInstance(appContext);
@@ -201,7 +205,6 @@ public class TorrentEngine
                 return;
 
             TorrentEngineListener listener = new TorrentEngineListener() {
-
                 @Override
                 public void onSessionStarted()
                 {
@@ -397,6 +400,11 @@ public class TorrentEngine
 
     public void addTorrent(@NonNull Uri file)
     {
+        addTorrent(file, null);
+    }
+
+    public void addTorrent(@NonNull Uri file, @Nullable Uri savePath)
+    {
         disposables.add(Completable.fromRunnable(() -> {
             if (!isRunning())
                 return;
@@ -411,22 +419,28 @@ public class TorrentEngine
                 } catch (Exception e) {
                     throw new DecodeException(e);
                 }
-                addTorrentSync(file, info);
+                addTorrentSync(file, info, savePath);
 
             } catch (Exception e) {
                 handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
             }
 
         }).subscribeOn(Schedulers.io())
-          .subscribe());
+                .subscribe());
     }
 
     /*
      * Do not run in the UI thread
      */
 
-    public Torrent addTorrentSync(@NonNull AddTorrentParams params,
-                                  boolean removeFile) throws IOException, TorrentAlreadyExistsException, DecodeException
+    public Torrent addTorrentSync(
+            @NonNull AddTorrentParams params,
+            boolean removeFile
+    ) throws
+            IOException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException
     {
         if (!isRunning())
             return null;
@@ -786,30 +800,33 @@ public class TorrentEngine
      * Do not run in the UI thread
      */
 
-    public TorrentInfo makeInfoSync(@NonNull String id)
-    {
+    public TorrentInfo makeInfoSync(@NonNull String id) {
         Torrent torrent = repo.getTorrentById(id);
-        if (torrent == null)
+        if (torrent == null) {
             return null;
+        }
+        List<TagInfo> tags = tagRepo.getByTorrentId(id);
 
-        return makeInfo(torrent);
+        return makeInfo(torrent, tags);
     }
 
-    private TorrentInfo makeInfo(Torrent torrent)
-    {
+    private TorrentInfo makeInfo(Torrent torrent, List<TagInfo> tags) {
         TorrentDownload task = session.getTask(torrent.id);
-        if (task == null || !task.isValid() || task.isStopped())
-            return new TorrentInfo(torrent.id,
+        if (task == null || !task.isValid() || task.isStopped()) {
+            return new TorrentInfo(
+                    torrent.id,
                     torrent.name,
                     torrent.dateAdded,
-                    torrent.error);
-        else
+                    torrent.error,
+                    tags
+            );
+        } else {
             return new TorrentInfo(
                     torrent.id,
                     torrent.name,
                     task.getStateCode(),
                     task.getProgress(),
-                    task.getTotalReceivedBytes(),
+                    task.getReceivedBytes(),
                     task.getTotalSentBytes(),
                     task.getTotalWanted(),
                     task.getDownloadSpeed(),
@@ -820,21 +837,25 @@ public class TorrentEngine
                     task.getConnectedPeers(),
                     torrent.error,
                     task.isSequentialDownload(),
-                    task.getFilePriorities());
+                    task.getFilePriorities(),
+                    tags
+            );
+        }
     }
 
     /*
      * Do not run in the UI thread
      */
 
-    public List<TorrentInfo> makeInfoListSync()
-    {
+    public List<TorrentInfo> makeInfoListSync() {
         ArrayList<TorrentInfo> stateList = new ArrayList<>();
 
         for (Torrent torrent : repo.getAllTorrents()) {
-            if (torrent == null)
+            if (torrent == null) {
                 continue;
-            stateList.add(makeInfo(torrent));
+            }
+            List<TagInfo> tags = tagRepo.getByTorrentId(torrent.id);
+            stateList.add(makeInfo(torrent, tags));
         }
 
         return stateList;
@@ -993,7 +1014,7 @@ public class TorrentEngine
         }
     }
 
-    private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException
+    private boolean saveTorrentFile(String id, Uri destDir, String fileName) throws IOException, UnknownUriException
     {
         byte[] bencode = getBencode(id);
         if (bencode == null)
@@ -1147,8 +1168,7 @@ public class TorrentEngine
     {
         String dir = pref.dirToWatch();
         Uri uri = Uri.parse(dir);
-        /* TODO: SAF support */
-        if (Utils.isSafPath(appContext, uri))
+        if (!Utils.isFileSystemPath(uri))
             throw new IllegalArgumentException("SAF is not supported:" + uri);
         dir = uri.getPath();
 
@@ -1198,24 +1218,32 @@ public class TorrentEngine
         }
     }
 
-    private Torrent addTorrentSync(Uri file, TorrentMetaInfo info)
-            throws IOException, FreeSpaceException, TorrentAlreadyExistsException, DecodeException
+    private Torrent addTorrentSync(Uri file, TorrentMetaInfo info, Uri savePath)
+            throws IOException,
+            FreeSpaceException,
+            TorrentAlreadyExistsException,
+            DecodeException,
+            UnknownUriException
     {
         Priority[] priorities = new Priority[info.fileCount];
         Arrays.fill(priorities, Priority.DEFAULT);
-        Uri downloadPath = Uri.parse(pref.saveTorrentsIn());
+        Uri downloadPath = (savePath == null ? Uri.parse(pref.saveTorrentsIn()) : savePath);
 
-        AddTorrentParams params = new AddTorrentParams(file.toString(),
+        AddTorrentParams params = new AddTorrentParams(
+                file.toString(),
                 false,
                 info.sha1Hash,
                 info.torrentName,
                 priorities,
                 downloadPath,
                 false,
-                false);
+                false,
+                new ArrayList<>()
+        );
 
-        if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize)
+        if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {
             throw new FreeSpaceException();
+        }
 
         return addTorrentSync(params, false);
     }
@@ -1657,6 +1685,11 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_anonymous_mode))) {
             SessionSettings s = session.getSettings();
             s.anonymousMode = pref.anonymousMode();
+            session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_seeding_outgoing_connections))) {
+            SessionSettings s = session.getSettings();
+            s.seedingOutgoingConnections = pref.seedingOutgoingConnections();
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_enable_logging))) {

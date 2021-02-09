@@ -23,9 +23,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TorrentTagInfo;
 
 import java.util.List;
 
@@ -33,29 +35,43 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-public interface TorrentDao
-{
-    String QUERY_GET_ALL = "SELECT * FROM Torrent";
-    String QUERY_GET_BY_ID = "SELECT * FROM Torrent WHERE id = :id";
-
+public abstract class TorrentDao {
     @Insert
-    void add(Torrent torrent);
+    public abstract void add(Torrent torrent);
 
     @Update
-    void update(Torrent torrent);
+    public abstract void update(Torrent torrent);
 
     @Delete
-    void delete(Torrent torrent);
+    public abstract void delete(Torrent torrent);
 
-    @Query(QUERY_GET_ALL)
-    List<Torrent> getAllTorrents();
+    @Query("SELECT * FROM Torrent")
+    public abstract List<Torrent> getAllTorrents();
 
-    @Query(QUERY_GET_BY_ID)
-    Torrent getTorrentById(String id);
+    @Query("SELECT * FROM Torrent WHERE id = :id")
+    public abstract Torrent getTorrentById(String id);
 
-    @Query(QUERY_GET_BY_ID)
-    Single<Torrent> getTorrentByIdSingle(String id);
+    @Query("SELECT * FROM Torrent WHERE id = :id")
+    public abstract Single<Torrent> getTorrentByIdSingle(String id);
 
-    @Query(QUERY_GET_BY_ID)
-    Flowable<Torrent> observeTorrentById(String id);
+    @Query("SELECT * FROM Torrent WHERE id = :id")
+    public abstract Flowable<Torrent> observeTorrentById(String id);
+
+    @Insert
+    public abstract void addTags(List<TorrentTagInfo> infoList);
+
+    @Query("DELETE FROM TorrentTagInfo WHERE torrentId = :torrentId")
+    public abstract void deleteTagsByTorrentId(String torrentId);
+
+    @Transaction
+    public void replaceTags(String torrentId, List<TorrentTagInfo> infoList) {
+        deleteTagsByTorrentId(torrentId);
+        addTags(infoList);
+    }
+
+    @Insert
+    public abstract void addTag(TorrentTagInfo info);
+
+    @Delete
+    public abstract void deleteTag(TorrentTagInfo info);
 }

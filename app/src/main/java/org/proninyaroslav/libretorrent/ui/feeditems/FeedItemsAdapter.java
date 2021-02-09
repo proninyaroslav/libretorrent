@@ -49,7 +49,6 @@ import java.util.List;
 public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAdapter.ViewHolder>
         implements Selectable<FeedItemsListItem>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedItemsAdapter.class.getSimpleName();
 
     private ClickListener listener;

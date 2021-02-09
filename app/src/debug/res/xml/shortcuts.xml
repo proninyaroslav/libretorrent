@@ -5,10 +5,7 @@
 
     <shortcut
         android:enabled="true"
-        android:icon="@mipmap/ic_shortcut_add"
-        android:shortcutId="addTorrent"
-        android:shortcutLongLabel="@string/add_torrent_title"
-        android:shortcutShortLabel="@string/add_torrent_title">
+        android:icon="@mipmap/ic_shortcut_add">
         <intent
             android:action="org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT"
             android:targetClass="org.proninyaroslav.libretorrent.ui.main.MainActivity"
@@ -17,10 +14,7 @@
 
     <shortcut
         android:enabled="true"
-        android:icon="@mipmap/ic_shortcut_rss_feed"
-        android:shortcutId="addFeed"
-        android:shortcutLongLabel="@string/add_feed_channel"
-        android:shortcutShortLabel="@string/add_feed_channel">
+        android:icon="@mipmap/ic_shortcut_rss_feed">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedActivity"

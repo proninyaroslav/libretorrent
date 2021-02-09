@@ -7,9 +7,6 @@
         <variable
             name="viewModel"
             type="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerViewModel" />
-        <variable
-            name="enableSystemManagerButton"
-            type="java.lang.Boolean" />
         <import
             type="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig" />
         <import
@@ -43,26 +40,11 @@
                 android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
                 app:popupTheme="?attr/popupTheme" />
 
-            <HorizontalScrollView
+            <Spinner
+                android:id="@+id/storage_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/toolbarColor"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <TextView
-                    android:id="@+id/title_cur_folder_path"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:gravity="center|start"
-                    android:minHeight="?attr/actionBarSize"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text="@{viewModel.curDir}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/text_primary_inverse" />
-            </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                style="@style/AppTheme.Toolbar.Spinner" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout
@@ -76,7 +58,6 @@
                 android:id="@+id/file_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@{enableSystemManagerButton.booleanValue() ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
                 android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
                 android:clipToPadding="false"
                 android:background="?attr/background"
@@ -84,23 +65,6 @@
                 android:focusable="true"
                 android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
         </org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/open_system_filemanager_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="@string/system_manager"
-            android:layout_marginTop="135dp"
-            android:layout_gravity="top|start"
-            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
-            android:textColor="?attr/colorOnSecondary"
-            app:backgroundTint="?attr/colorSecondary"
-            app:iconTint="?attr/colorOnSecondary"
-            app:cornerRadius="16dp"
-            app:icon="@drawable/ic_folder_grey600_24dp"
-            android:focusable="true"
-            android:layout_marginStart="8dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_fab"
@@ -111,6 +75,7 @@
             app:layout_anchor="@id/bottom_bar"
             app:layout_anchorGravity="top|right"
             app:srcCompat="@drawable/ic_add_36dp"
+            android:contentDescription="@string/add"
             android:focusable="true" />
 
         <FrameLayout

@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">OK</string>
+    <string name="cancel">Скасувати</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="error">Помилка</string>
+    <string name="warning">Попередження</string>
+    <string name="shutdown">Вимкнути</string>
+    <string name="replace">Замінити</string>
+    <string name="add">Додати</string>
+    <string name="delete">Видалити</string>
+    <string name="deleting">Видалення</string>
+    <string name="select_all">Вибрати все</string>
+    <string name="save">Зберегти</string>
+    <string name="search">Пошук</string>
+    <string name="not_available">Н/Д</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d д. %2$d год. %3$d м</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d год. %2$d хв. %3$d сек</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d хв. %2$d сек</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d сек</string>
+    <string name="def">За замовчанням</string>
+    <string name="foreground_notification">Сповіщення переднього плану</string>
+    <string name="link">Посилання</string>
+    <string name="filter">Фільтр</string>
+    <string name="refresh">Оновити</string>
+    <string name="edit">Редагувати</string>
+    <string name="menu">Меню</string>
+    <string name="open_navigation_drawer">Відкрити панель навігації</string>
+    <string name="close_navigation_drawer">Закрити панель навігації</string>
+    <string name="file">Файл</string>
+    <string name="folder">Папка</string>
+    <string name="finished">Завершено</string>
+    <string name="pause_all">Призупинити всі</string>
+    <string name="resume_all">Відновити всі</string>
+    <string name="all">Всі</string>
+    <string name="details">Деталі</string>
+    <string name="stats">Статистика</string>
+    <string name="filters">Фільтри</string>
+    <string name="apply">Застосувати</string>
+    <string name="clipboard">Буфер обміну</string>
+    <string name="switch_on">Увімк.</string>
+    <string name="switch_off">Вимк.</string>
+    <!-- Main window -->
+    <string name="delete_torrent_with_downloaded_files">Видалити завантажені файли</string>
+    <string name="delete_selected_torrent">Видалити вибраний торрент? Цю операцію неможливо відмінити</string>
+    <string name="delete_selected_torrents">Видалити вибрані торренти? Цю операцію неможливо відмінити</string>
+    <string name="force_recheck_torrent">Примусово перевірити</string>
+    <string name="force_announce_torrent">Примусове анонсування</string>
+    <string name="add_link">Додати посилання</string>
+    <string name="dialog_add_link_title">Введіть magnet або HTTP/HTTPS посилання</string>
+    <string name="torrent_list_empty">Немає торрентів</string>
+    <string name="select_or_add_torrent">Виберіть або додайте торрент</string>
+    <string name="error_empty_link">Введіть посилання</string>
+    <string name="error_invalid_link">Невірне посилання</string>
+    <string name="error_open_torrent_file">Не вдалося відкрити .torrent файл</string>
+    <string name="open_file">Відкрити файл</string>
+    <string name="settings">Налаштування</string>
+    <string name="ip_filter_add_error">Не вдалося додати IP фільтр (не вдалося %1$d). Можливо, файл пошкоджений або має неправильний формат</string>
+    <string name="ip_filter_add_success">IP фільтр додано успішно</string>
+    <string name="proxy_settings_applied">Параметри проксі-сервера успішно застосовані</string>
+    <string name="proxy_settings_apply_after_reboot">Параметри проксі-сервера будуть застосовані після перезапуску додатка</string>
+    <string name="theme_settings_apply_after_reboot">Тема буде застосована після перезапуску додатка</string>
+    <string name="about">Про додаток</string>
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes">DHT вузли: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Прослуховуваний порт: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">Статус</string>
+    <string name="drawer_status_downloading">Завантаження</string>
+    <string name="drawer_status_downloaded">Завантажено</string>
+    <string name="drawer_status_downloading_metadata">Завантаження метаданих</string>
+    <string name="drawer_status_error">Помилка</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Сортування</string>
+    <string name="drawer_sorting_name">Ім’я</string>
+    <string name="drawer_sorting_date_added">Дата додавання</string>
+    <string name="drawer_sorting_size">Розмір</string>
+    <string name="drawer_sorting_progress">Прогрес</string>
+    <string name="drawer_sorting_ETA">Залишилося</string>
+    <string name="drawer_sorting_peers">Піри</string>
+    <string name="drawer_sorting_no_sorting">Немає сортування</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Дата додавання</string>
+    <string name="drawer_date_added_today">Сьогодні</string>
+    <string name="drawer_date_added_yesterday">Вчора</string>
+    <string name="drawer_date_added_week">Тиждень</string>
+    <string name="drawer_date_added_month">Місяць</string>
+    <string name="drawer_date_added_year">Рік</string>
+    <string name="tags">Теґи</string>
+    <string name="add_tag">Додати теґ</string>
+    <string name="edit_tag">Редагувати теґ</string>
+    <string name="tag_name">Назва теґу</string>
+    <string name="tag_color">Колір теґу</string>
+    <string name="add_tag_failed">Не вдалося додати теґ</string>
+    <string name="tag_deleting_failed">Не вдалося видалити теґ</string>
+    <string name="tag_already_exists">Теґ з цією назвою вже існує</string>
+    <string name="no_tags">Немає теґів</string>
+    <string name="select_tag">Вибрати теґ</string>
+    <string name="new_tag">Новий теґ</string>
+    <string name="without_tags">Без теґів</string>
+    <!-- Foreground notification -->
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Завантаження: %1$d Загалом: %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent працює у фоновому режимі</string>
+    <string name="network_online">Статус мережі: Онлайн</string>
+    <string name="network_offline">Статус мережі: Офлайн</string>
+    <string name="notify_shutting_down">Вимкнення&#8230;</string>
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Помилка торрента</string>
+    <string name="error_template">Помилка: %1$s</string>
+    <string name="restore_torrent_error">не вдалося відновити торрент з попередньої сесії</string>
+    <string name="session_error_title">Помилка сесії</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="nat_error_title">Помилка NAT</string>
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">Торрент завершено</string>
+    <!-- Torrents move notification -->
+    <string name="torrent_moving_title">Переміщення торрента</string>
+    <string name="torrent_moving_content">Переміщення %1$s, зачекайте</string>
+    <string name="torrent_move_success">Торрент успішно переміщено</string>
+    <string name="torrent_move_fail">Не вдалося перемістити торрент</string>
+    <!-- Added notification -->
+    <!-- Torrent list item -->
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template">%1$d/%2$d</string>
+    <string name="torrent_status_downloading">Завантажується</string>
+    <string name="torrent_status_seeding">Роздається</string>
+    <string name="torrent_status_paused">Пауза</string>
+    <string name="torrent_status_stopped">Зупинено</string>
+    <string name="torrent_status_checking">Перевірка</string>
+    <string name="torrent_status_finished">Завершено</string>
+    <string name="torrent_status_downloading_metadata">Завантаження метаданих</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Дозвіл відхилено</string>
+    <string name="perm_denied_warning">Без цього дозволу неможливо зберегти торрент-файли в пам\'яті. Додаток не буде працювати належним чином. Ви впевнені, що хочете заборонити цей дозвіл?</string>
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">Додати торрент</string>
+    <string name="error_decode_torrent">Помилка декодування торренту. Можливо, файл пошкоджений або має неправильний формат</string>
+    <string name="error_io_torrent">Помилка читання торрент-файлу</string>
+    <string name="error_fetch_link">Не вдалося отримати дані з посилання</string>
+    <string name="error_invalid_link_or_path">Невірне посилання або шлях до торента</string>
+    <string name="error_add_torrent">Не вдалося додати торрент</string>
+    <string name="error_file_not_found_add_torrent">Не вдалося додати торрент. Можливо, торрент-файл переміщено або видалено</string>
+    <string name="error_io_add_torrent">Не вдалося додати торрент. Помилка вводу/виводу</string>
+    <string name="torrent_exist">Торрент вже існує. Торренти були об\'єднані</string>
+    <string name="error_field_required">Це поле обов\'язкове для заповнення</string>
+    <string name="error_no_files_selected">Не вибрано жодного файлу</string>
+    <string name="free_space">%1$s вільно</string>
+    <string name="error_free_space">Не вистачає вільного місця на вибраному шляху для завантаження вибраних файлів</string>
+    <string name="files_size">Обрано %1$s з %2$s</string>
+    <string name="start_torrent">Запустити торрент</string>
+    <string name="file_is_too_large_error">Файл завеликий</string>
+    <string name="unable_to_open_folder">Не вдається відкрити вибрану папку. Будь ласка, спробуйте вибрати іншу папку</string>
+    <string name="error_empty_name">Будь ласка, введіть ім\'я</string>
+    <string name="ignore_free_space">Ігнорувати розмір вільного простору</string>
+    <!-- Torrent info -->
+    <string name="torrent_info">Інформація</string>
+    <string name="torrent_files">Файли</string>
+    <string name="torrent_name">Ім\'я</string>
+    <string name="upload_torrent_into">Завантажити в</string>
+    <string name="torrent_size">Розмір</string>
+    <string name="torrent_file_count">Кількість файлів</string>
+    <string name="torrent_hash_sum">Хеш сума</string>
+    <string name="torrent_comment">Коментар</string>
+    <string name="torrent_create_date">Створений</string>
+    <string name="torrent_created_in_program">Створено в програмі</string>
+    <string name="sequential_download">Послідовне завантаження</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Вибір папки</string>
+    <string name="file_chooser_title">Вибір файлу</string>
+    <string name="torrent_file_chooser_title">Вибір торрента</string>
+    <string name="dialog_new_folder_title">Нова папка</string>
+    <string name="error_dialog_new_folder">Не вдалося створити нову папку</string>
+    <string name="error_open_dir">Не вдалося відкрити папку</string>
+    <string name="home_directory">Головна</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Внутрішня пам\'ять</string>
+    <string name="external_storage_name" formatted="false">Зовнішнє сховище даних %1$d</string>
+    <string name="permission_denied">Відмовлено у доступі</string>
+    <string name="save_file">Зберегти файл</string>
+    <string name="file_name">Ім\'я файлу</string>
+    <string name="error_file_exists">Файл вже існує</string>
+    <string name="file_name_is_empty">Назва файлу не може бути порожньою</string>
+    <string name="system_manager">Менеджер системи</string>
+    <string name="system_file_manager_not_found">Системний файловий менеджер не знайдено</string>
+    <string name="replace_file">Замінити файл</string>
+    <string name="parent_folder">Батьківська папка</string>
+    <!-- Error dialog -->
+    <string name="report">Повідомити</string>
+    <string name="more_details">Детальніше</string>
+    <!-- Detail torrent dialog -->
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступність: %5$s</string>
+    <string name="file_priority_normal">Звичайний</string>
+    <string name="file_priority_low">Пропустити</string>
+    <string name="file_priority_high">Високий</string>
+    <string name="file_priority_mixed">Змішаний</string>
+    <string name="change_priority">Пріоритет</string>
+    <string name="dialog_change_priority_title">Змінити пріоритет</string>
+    <string name="change_priority_low">Низька (ігнорувати файл)</string>
+    <string name="change_priority_normal">Звичайний</string>
+    <string name="change_priority_high">Високий</string>
+    <string name="torrent_state">Стан</string>
+    <string name="torrent_speed">Швидкість</string>
+    <string name="torrent_downloaded">Завантажено</string>
+    <string name="torrent_ETA">Залишилося</string>
+    <string name="torrent_seeds">Сіди</string>
+    <string name="torrent_peers">Піри</string>
+    <string name="torrent_leechers">Лічери</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
+    <string name="torrent_uploaded">Відвантажено</string>
+    <string name="torrent_share_ratio">Коефіцієнт</string>
+    <string name="torrent_active_time">Активний</string>
+    <string name="torrent_seeding_time">Роздається</string>
+    <string name="torrent_pieces">Частини</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">Трекери</string>
+    <string name="tracker_state_working">Працює</string>
+    <string name="tracker_state_not_working">Не працює</string>
+    <string name="tracker_state_updating">Оновлення&#8230;</string>
+    <string name="tracker_state_not_contacted">З\'єднання поки що немає</string>
+    <string name="share_tracker_url">Поділитися посиланням</string>
+    <string name="delete_selected_tracker">Видалити вибраний трекер?</string>
+    <string name="delete_selected_trackers">Видалити вибрані трекери?</string>
+    <string name="add_trackers">Додати трекери</string>
+    <string name="dialog_add_trackers">(Один на рядок)</string>
+    <string name="open_using">Відкрити за допомогою</string>
+    <string name="peer_port">Порт: %1$d</string>
+    <string name="peer_relevance">Релевантність: %1$.1f</string>
+    <string name="peer_connection_type">З\'єднання: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Клієнт: %1$s</string>
+    <string name="peer_connection_type_bittorrent">BT</string>
+    <string name="peer_connection_type_web">Веб</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">Зараз цей торрент не пов\'язаний з жодним піром</string>
+    <string name="piece_map">Карта частин</string>
+    <string name="resume_torrent">Запустити</string>
+    <string name="pause_torrent">Пауза</string>
+    <string name="share_magnet">Поділитися magnet-посиланням</string>
+    <string name="save_torrent_file">Зберегти торрент файл</string>
+    <string name="torrent_speed_limit">Обмеження швидкості</string>
+    <string name="share_via">Поділитися через</string>
+    <string name="save_torrent_file_successfully">Торрент-файл успішно збережено</string>
+    <string name="error_save_torrent_file">Не вдалося зберегти торрент-файл</string>
+    <string name="speed_limit_title">Максимальна швидкість</string>
+    <string name="upload_speed">Віддача</string>
+    <string name="download_speed">Завантажується</string>
+    <string name="speed_limit_dialog">Встановіть швидкість в Кб/с (0 - без обмежень)</string>
+    <string name="torrent_added_date">Додано</string>
+    <string name="torrent_availability">Доступність</string>
+    <string name="share_stream_url">Поділитися URL стріму</string>
+    <string name="magnet_include_file_priorities">Увімкнути пріоритети файлів?</string>
+    <string name="magnet_more_about_bep53">Більше інформації: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">Немає трекерів</string>
+    <string name="edit_torrent_name">Редагувати ім\'я торрента</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Копіювати</string>
+    <string name="text_copied_to_clipboard">Текст скопійовано до буфера обміну</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">В застосунку сталася помилка. Ви можете надіслати звіт розробникам</string>
+    <string name="error_comment_prompt">Ви можете додати додаткову інформацію та коментарі тут:</string>
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Немає каналів</string>
+    <string name="select_or_add_feed_channel">Виберіть або додайте RSS/Atom канал</string>
+    <string name="add_feed_channel">Додати канал</string>
+    <string name="feed_name">Назва (необов\'язково)</string>
+    <string name="feed_filter_prompt">Введіть слова (розділені символом \"|\"), одне з яких має бути в імені або введіть регулярний вираз. Торренти будуть додані тільки в тому випадку, якщо фільтр відповідає імені торрента</string>
+    <string name="feed_filter_prompt_one_per_line">Введіть фільтри по одному в рядку.</string>
+    <string name="feed_auto_download">Автоматично завантажувати нові торренти</string>
+    <string name="feed_use_regex">Використовувати регулярний вираз</string>
+    <string name="backup_feed_channels">Зберегти резервну копію</string>
+    <string name="restore_feed_channels_backup">Відновити резервну копію</string>
+    <string name="feed_last_update_template">Оновлено: %1$s</string>
+    <string name="feed_last_update_never">ніколи</string>
+    <string name="error_cannot_add_channel">Неможливо додати канал</string>
+    <string name="error_cannot_edit_channel">Неможливо відредагувати канал</string>
+    <string name="error_cannot_delete_channel">Неможливо видалити канал</string>
+    <string name="copy_link">Скопіювати посилання</string>
+    <string name="delete_selected_channel">Видалити вибраний канал?</string>
+    <string name="delete_selected_channels">Видалити вибрані канали?</string>
+    <string name="edit_feed_channel">Редагувати канал</string>
+    <string name="link_copied_to_clipboard">Посилання скопійовано в буфер обміну</string>
+    <string name="mark_as_read">Позначити як прочитане</string>
+    <string name="mark_as_unread">Позначити як непрочитане</string>
+    <string name="feed_item_list_empty">Немає статей</string>
+    <string name="backup_feeds_successfully">Канали успішно збережені</string>
+    <string name="restore_feeds_backup_successfully">Канали успішно відновлені</string>
+    <string name="error_backup_feeds">Не вдалося зберегти канали</string>
+    <string name="error_restore_feeds_backup">Не вдалося відновити канали</string>
+    <string name="feed_item_open_article_url">Відкрити статтю</string>
+    <string name="feeds_backup_selection_dialog_title">Виберіть файл резервної копії</string>
+    <string name="error_import_invalid_format">Невірний формат</string>
+    <string name="feed_do_not_download_immediately">Не завантажувати відразу</string>
+    <string name="feed_item_url_not_found">URL не знайдено</string>
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Створити торрент</string>
+    <string name="creating_torrent_progress">Створення торренту, зачекайте&#8230;</string>
+    <string name="file_or_folder_for_seeding">Файл або папка для роздачі</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Будь ласка, спочатку виберіть файл або папку для роздачі</string>
+    <string name="tracker_urls">Адреси трекерів</string>
+    <string name="web_seed_urls">Адреси веб-сайтів</string>
+    <string name="comments">Коментарі</string>
+    <string name="tracker_urls_hint">(необов\'язково) Введіть трекери по одному в рядку в порядку пріоритету</string>
+    <string name="web_seed_urls_hint">(необов\'язково) По одному в рядку</string>
+    <string name="optional_hint">(опціонально)</string>
+    <string name="piece_size">Розмір частини</string>
+    <string name="create_torrent_options">Опції</string>
+    <string name="option_start_seeding">Почати роздачу</string>
+    <string name="option_private_torrent">Приватний торрент</string>
+    <string-array name="piece_size_entries">
+        <item>Авто</item>
+        <item>16 КіБ</item>
+        <item>32 КіБ</item>
+        <item>64 КіБ</item>
+        <item>128 КіБ</item>
+        <item>256 КіБ</item>
+        <item>512 КіБ</item>
+        <item>1 МіБ</item>
+        <item>2 МіБ</item>
+        <item>4 МіБ</item>
+        <item>8 МіБ</item>
+        <item>16 МіБ</item>
+        <item>32 МіБ</item>
+    </string-array>
+    <string name="invalid_url">Невірний URL: %1$s</string>
+    <string name="folder_is_empty">Вибрана папка порожня або всі файли виключені фільтром</string>
+    <string name="error_create_torrent">Неможливо створити торрент</string>
+    <string name="skip_files">Пропустити файли</string>
+    <string name="skip_files_hint">Введіть імена файлів, розділені символів \"|\"</string>
+    <string name="select_folder_to_save">Виберіть папку для збереження</string>
+    <string name="torrent_saved_to">Торрент збережений у %1$s</string>
+    <string name="unable_to_open_file">Неможливо відкрити вибраний файл</string>
+    <string name="unable_to_create_file">Неможливо створити файл</string>
+    <!-- Log -->
+    <string name="log_journal">Журнал</string>
+    <string name="journal_list_empty">Немає записів</string>
+    <string name="journal_start_recording">Почати запис</string>
+    <string name="journal_stop_recording">Зупинити запис</string>
+    <string name="journal_started_recording">Запис розпочато</string>
+    <string name="journal_filter_session_log">Логічне значення</string>
+    <string name="journal_filter_dht_log">Лог DHT</string>
+    <string name="journal_filter_peer_log">Лог пірів</string>
+    <string name="journal_filter_portmap_log">Лог UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Торрент лог</string>
+    <string name="journal_save_log_failed">Не вдалося зберегти лог</string>
+    <string name="journal_save_log_success">Лог успішно збережено: %1$s</string>
+    <string name="pref_journal_save_log_to">Зберегти лог в</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Максимальна кількість збережених записів журналу</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Зовнішній вигляд</string>
+    <string name="pref_header_behavior">Поведінка</string>
+    <string name="pref_header_storage">Сховище</string>
+    <string name="pref_header_limitations">Обмеження</string>
+    <string name="pref_header_network">Мережа</string>
+    <string name="pref_header_scheduling">Планувальник</string>
+    <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Стрімінг</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">Зберігати торренти в</string>
+    <string name="pref_move_after_download_title">Переміщати після завантаження</string>
+    <string name="pref_move_after_download_in_title">Переміщати після завантаження в</string>
+    <string name="pref_save_torrent_files_title">Зберігати .torrent файли</string>
+    <string name="pref_save_torrent_files_summary">Зберігати .torrent файли після початку завантаження</string>
+    <string name="pref_save_torrent_files_in_title">Зберігати .torrent файли в</string>
+    <string name="pref_watch_dir_title">Відстежувати директорію</string>
+    <string name="pref_watch_dir_summary">Торрент файли (з розширенням .torrent) відстежуються в зазначеному каталозі і автоматично додаються. Торрент файли видаляються після додавання</string>
+    <string name="pref_dir_to_watch_title">Директорія для відстеження</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">Швидкість</string>
+    <string name="pref_max_download_speed_title">Максимальна швидкість завантаження</string>
+    <string name="pref_max_upload_speed_title">Максимальна швидкість відвантаження</string>
+    <string name="pref_max_connections_title">Максимальна кількість з\'єднань</string>
+    <string name="pref_max_connections_summary">Мінімальна кількість з\'єднань - 2</string>
+    <string name="pref_torrent_queueing_category">Черговість торрентів</string>
+    <string name="pref_max_active_uploads_title">Максимальне число активних роздач</string>
+    <string name="pref_max_active_downloads_title">Максимальна кількість активних завантажень</string>
+    <string name="pref_max_active_torrents_title">Максимальна кількість активних торрентів</string>
+    <string name="pref_max_connections_per_torrent_title">Максимальна кількість з\'єднань на торрент</string>
+    <string name="pref_max_connections_per_torrent_summary">Мінімальна кількість з\'єднань - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Максимальна кількість слотів віддачі на торрент</string>
+    <string name="pref_auto_manage_title">Автоматичне керування</string>
+    <string name="pref_auto_manage_summary">Торрент може бути автоматично відновлений або припинений в будь-який момент. Увімкнення цієї опції може сповільнити паузу/відновлення</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 без обмежень</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Налаштування теми</string>
+    <string name="pref_theme_title">Тема</string>
+    <string-array name="pref_theme_entries">
+        <item>Світла</item>
+        <item>Темна</item>
+        <item>Чорна</item>
+    </string-array>
+    <string name="pref_notification_category">Налаштування сповіщень</string>
+    <string name="pref_torrent_finish_notify_title">Повідомлення про завершення завантаження торрента</string>
+    <string name="pref_torrent_finish_notify_summary">Показувати сповіщення, коли завантаження торрента завершено</string>
+    <string name="pref_play_sound_notify_title">Програвати звук</string>
+    <string name="pref_notify_sound_title">Звук сповіщення</string>
+    <string name="pref_led_indicator_notify_title">LED індикатор</string>
+    <string name="pref_led_indicator_color_notify_title">Колір LED індикатора</string>
+    <string name="pref_vibration_notify_title">Вібросигнал</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Автозапуск</string>
+    <string name="pref_autostart_summary">Запускати програму після ввімкнення пристрою</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Тільки безлімітні з\'єднання</string>
+    <string name="pref_umnetered_connections_only_summary">Завантаження тільки через безлімітні з\'єднання (наприклад, Wi-Fi або Ethernet)</string>
+    <string name="pref_enable_roaming_title">Увімкнути роумінг</string>
+    <string name="pref_enable_roaming_summary">Завантажувати тільки, якщо пристрій не в роумінгу</string>
+    <string name="pref_power_management_category">Керування живленням</string>
+    <string name="pref_keep_alive_title">Працювати в тлі</string>
+    <string name="pref_keep_alive_summary">Якщо увімкнено, застосунок залишається працювати у тлі. Завершення після закінчення завантажень все ще виконується</string>
+    <string name="pref_shutdown_downloads_complete_title">Завершити після закінчення завантажень</string>
+    <string name="pref_shutdown_downloads_complete_summary">Якщо ввімкнено, програма завершить роботу після завершення всіх завантажень</string>
+    <string name="pref_cpu_do_not_sleep_title">Не давати спати процесору</string>
+    <string name="pref_cpu_do_not_sleep_summary">Увімкнення цієї опції збільшить використання батареї. Використовуйте її, якщо швидкість завантаження знижується, коли екран вимкнений</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Завантаження і роздача тільки під час зарядки</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Якщо ввімкнено, торренти завантажуватимуться/роздаватимуться лише під час заряджання. Всі торренти будуть припинені, якщо пристрій не заряджається</string>
+    <string name="pref_battery_control_title">Контроль заряду акумулятора</string>
+    <string name="pref_custom_battery_control_title">Заданий відсоток акумулятора</string>
+    <string name="pref_custom_battery_control_value_title">Відсоток контролю акумулятора</string>
+    <string name="pref_battery_control_summary">Торренти будуть припинені, якщо рівень заряду акумулятора опуститися нижче %1$d%%. Обмеження не діє під час зарядки</string>
+    <string name="pref_custom_battery_control_summary">Встановлює відсоток для призупинення завантаження, якщо заряд акумулятора опуститься нижче заданого порогу. Увімкнення цього параметра ігноруватиме стандартний поріг %1$d%% </string>
+    <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного рівня заряду акумулятора для програми буде негативно позначатися на часу автономної роботи під час завантаження. Ви дійсно хочете включити це?</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">Налаштування проксі</string>
+    <string name="pref_enable_dht_title">Увімкнути DHT</string>
+    <string name="pref_enable_dht_summary">Дозволяє BitTorrent-клієнтам знайти один одного без використання трекера. Увімкнення цієї опції збільшить використання батареї</string>
+    <string name="pref_enable_lsd_title">Увімкнути LSD</string>
+    <string name="pref_enable_lsd_summary">Розроблений для отримання можливості виявлення локальних BitTorrent-пірів, і, отже, скорочення трафіку</string>
+    <string name="pref_enable_utp_title">Увімкнути μTP</string>
+    <string name="pref_enable_utp_summary">Призначений для пом\'якшення недостатньої затримки та інших питань управління перевантаженнями в звичайних торрентах з використанням TCP, забезпечуючи при цьому надійну передачу даних</string>
+    <string name="pref_enable_upnp_title">Увімкнути UPnP</string>
+    <string name="pref_enable_natpmp_title">Увімкнути NAT-PMP</string>
+    <string name="pref_port_settings_category">Налаштування порту</string>
+    <string name="pref_use_random_port_title">Використовувати випадковий порт</string>
+    <string name="pref_use_random_port_summarty">Встановлює початковий порт випадковим чином в діапазоні [%1$d, %2$d] і кінцевий порт як перший + 10</string>
+    <string name="pref_port_range_title">Діапазон портів</string>
+    <string name="pref_port_range_start_title">Початковий</string>
+    <string name="pref_port_range_end_title">Кінцевий</string>
+    <string name="pref_encryption_category">Шифрування</string>
+    <string name="pref_enc_mode_title">Режим шифрування</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Надавати перевагу шифруванню</item>
+        <item>Вимагати шифрування</item>
+        <item>Вимкнути шифрування</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">Вихідні з\'єднання</string>
+    <string name="pref_enc_out_connections_title">Вхідні з\'єднання</string>
+    <string name="pref_ip_filtering_category">IP фільтр</string>
+    <string name="pref_enable_ip_filtering_title">Увімкнути IP фільтр</string>
+    <string name="pref_enable_ip_filtering_summary">Використання IP фільтрації збільшує використання пам\'яті. Залежно від розміру файлу, застосування фільтра може зайняти деякий час при запуску програми</string>
+    <string name="pref_ip_filtering_file_title">Шлях до файлу фільтра (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Показувати помилки NAT</string>
+    <string name="pref_anonymous_mode_title">Увімкнути анонімний режим</string>
+    <string name="pref_anonymous_mode_summary">Застосунок намагається приховати свою особистість певною мірою. User-agent буде скинутий в порожній рядок (крім приватних торрентів). Трекери будуть використовуватися тільки якщо вони використовують проксі-сервер. Слухові розетки закриті, а вхідні з\'єднання будуть прийматися лише через проксі-сервер SOCKS5 або I2P (якщо одноранговий проксі-сервер налаштований і працює на тій же машині, що і проксі-сервер трекера). NAT-PMP, UPnP, DHT і виявлення локального вузла відключені</string>
+    <string name="pref_seeding_outgoing_connections_title">Увімкнути вихідні з\'єднання для сідів</string>
+    <string name="pref_seeding_outgoing_connections_summary">Визначає, чи повинні роздають торренти намагатися встановити вихідні з\'єднання чи ні. Це може бути відключено в дуже специфічних ситуаціях, коли вартість вихідних з\'єднань висока</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">Тип проксі</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(Нема)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">Адреса</string>
+    <string name="pref_proxy_port_title">Порт</string>
+    <string name="pref_proxy_peers_too_title">Також використовувати для з\'єднання з пірами</string>
+    <string name="pref_proxy_peers_too_summary">Проксі буде використовуватися для всіх з\'єднань з трекерами, пірами і сідами</string>
+    <string name="pref_proxy_requires_auth_title">Потрібна авторизація</string>
+    <string name="pref_proxy_requires_auth_summary">Увага: пароль зберігається в незашифрованому вигляді</string>
+    <string name="pref_proxy_login_title">Логін</string>
+    <string name="pref_proxy_password_title">Пароль</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Час запуску</string>
+    <string name="pref_enable_scheduling_start_summary">Запуск програми в заданий час. Завантаження і роздачі будуть продовжені з стану на момент останнього вимкнення</string>
+    <string name="pref_enable_scheduling_shutdown_title">Час зупинки</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Зупинка програми в заданий час</string>
+    <string name="pref_scheduling_run_only_once_title">Запустити лише один раз</string>
+    <string name="pref_scheduling_switch_wifi_title">Увімкнути/вимкнути Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi автоматично вмикається коли застосунок запущено в запланований час і вимикається коли застосунок зупинено в запланований час</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Автооновлення каналів</string>
+    <string name="pref_feed_auto_refresh_summary">Періодично оновлювати канали в тлі</string>
+    <string name="pref_feed_refresh_interval_title">Інтервал оновлення</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>15 хвилин</item>
+        <item>30 хвилин</item>
+        <item>1 година</item>
+        <item>2 години</item>
+        <item>6 годин</item>
+        <item>12 годин</item>
+        <item>1 день</item>
+    </string-array>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Тільки безлімітні з\'єднання</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Завантаження тільки через безлімітні з\'єднання (наприклад, Wi-Fi або Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Увімкнути роумінг</string>
+    <string name="pref_feed_keep_items_time_title">Зберігати статті</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 день</item>
+        <item>2 дні</item>
+        <item>4 дні</item>
+        <item>1 тиждень</item>
+        <item>2 тижні</item>
+        <item>1 місяць</item>
+        <item>2 місяці</item>
+        <item>3 місяці</item>
+        <item>Завжди</item>
+    </string-array>
+    <string name="pref_feed_start_torrents_title">Запускати торренти</string>
+    <string name="pref_feed_start_torrents_summary">Запускати торренти після додавання</string>
+    <string name="pref_feed_remove_duplicates_title">Вилучити дублікати</string>
+    <string name="pref_feed_remove_duplicates_summary">Перевіряє назву нещодавно завантаженого елемента і пропускає його, якщо елемент з такою ж назвою вже присутній</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Увімкнути стрімінг</string>
+    <string name="pref_streaming_enable_summary">Стрімінг дозволяє завантажувати окремий файли з торрента за допомогою браузера або медіаплеєра, використовуючи HTTP посилання</string>
+    <string name="pref_streaming_hostname">Ім\'я хоста</string>
+    <string name="pref_streaming_port">Порт</string>
+    <string name="pref_streaming_error">Вибраний порт або ім\'я хоста зайнято або некоректно. Будь ласка, виправте це</string>
+    <!-- About dialog -->
+    <string name="about_title">Про LibreTorrent</string>
+    <string name="about_description"><![CDATA[Більше інформації, а також допомога проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent - вільний торрент-клієнт для Android 4+, заснований на бібліотеці libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent є вільним програмним забезпеченням, випущеним у відповідності з умовами ліцензії, &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;Загальна публічна ліцензія GNU v3 (GPLv3)&lt;/a&gt;]]></string>
+    <string name="about_changelog">Зміни</string>
+</resources>

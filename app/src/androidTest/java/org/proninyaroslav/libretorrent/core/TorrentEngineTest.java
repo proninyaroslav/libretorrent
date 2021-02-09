@@ -43,6 +43,7 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -78,12 +79,12 @@ public class TorrentEngineTest extends AbstractTest
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false);
+                false, false, new ArrayList<>());
 
         params2 = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
                 torrentHash2, torrentName2,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false);
+                false, false, new ArrayList<>());
     }
 
     @Test
@@ -170,7 +171,7 @@ public class TorrentEngineTest extends AbstractTest
     @Test
     public void applyParamsTest()
     {
-        TorrentInfoProvider infoProvider = TorrentInfoProvider.getInstance(engine);
+        TorrentInfoProvider infoProvider = TorrentInfoProvider.getInstance(engine, tagRepo);
 
         CountDownLatch c = new CountDownLatch(1);
         AtomicBoolean applying = new AtomicBoolean();

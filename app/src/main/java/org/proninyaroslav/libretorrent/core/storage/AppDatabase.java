@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,17 +30,26 @@ import androidx.room.TypeConverters;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FastResume;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TorrentTagInfo;
 import org.proninyaroslav.libretorrent.core.storage.converter.UriConverter;
 import org.proninyaroslav.libretorrent.core.storage.dao.FastResumeDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.FeedDao;
+import org.proninyaroslav.libretorrent.core.storage.dao.TagInfoDao;
 import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
 
-@Database(entities = {Torrent.class,
-        FastResume.class,
-        FeedChannel.class,
-        FeedItem.class},
-        version = 6)
+@Database(
+        entities = {
+                Torrent.class,
+                FastResume.class,
+                FeedChannel.class,
+                FeedItem.class,
+                TagInfo.class,
+                TorrentTagInfo.class,
+        },
+        version = 7
+)
 @TypeConverters({UriConverter.class})
 
 public abstract class AppDatabase extends RoomDatabase
@@ -54,6 +63,8 @@ public abstract class AppDatabase extends RoomDatabase
     public abstract FastResumeDao fastResumeDao();
 
     public abstract FeedDao feedDao();
+
+    public abstract TagInfoDao tagInfoDao();
 
     public static AppDatabase getInstance(@NonNull Context appContext)
     {

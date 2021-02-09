@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -76,9 +76,10 @@ interface FsModule
     long lastModified(@NonNull Uri filePath);
 
     /*
-     * If the uri is a file system path, returns the path as is,
-     * otherwise returns the path in `SafFileSystem` format
+     * If the uri is a file system path, returns the path as is
      */
 
     String makeFileSystemPath(@NonNull Uri uri, String relativePath);
+
+    Uri getParentDirUri(@NonNull Uri filePath);
 }

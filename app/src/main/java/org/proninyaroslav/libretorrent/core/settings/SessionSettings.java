@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class SessionSettings
 {
-    public static final int DEFAULT_CACHE_SIZE = 256;
     public static final int DEFAULT_ACTIVE_DOWNLOADS = 4;
     public static final int DEFAULT_ACTIVE_SEEDS = 4;
     public static final int DEFAULT_MAX_PEER_LIST_SIZE = 200;
@@ -61,6 +60,7 @@ public class SessionSettings
     public static final String DEFAULT_PROXY_LOGIN = "";
     public static final String DEFAULT_PROXY_PASSWORD = "";
     public static final boolean DEFAULT_ANONYMOUS_MODE = false;
+    public static final boolean DEFAULT_SEEDING_OUTGOING_CONNECTIONS = true;
     public static final boolean DEFAULT_LOGGING = BuildConfig.SESSION_LOGGING;
     public static final int DEFAULT_MAX_LOG_SIZE = 10000;
     public static final boolean DEFAULT_LOG_SESSION_FILTER = false;
@@ -70,7 +70,6 @@ public class SessionSettings
     public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
 
 
-    public int cacheSize = DEFAULT_CACHE_SIZE;
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
     public int maxPeerListSize = DEFAULT_MAX_PEER_LIST_SIZE;
@@ -102,6 +101,7 @@ public class SessionSettings
     public String proxyLogin = DEFAULT_PROXY_LOGIN;
     public String proxyPassword = DEFAULT_PROXY_PASSWORD;
     public boolean anonymousMode = DEFAULT_ANONYMOUS_MODE;
+    public boolean seedingOutgoingConnections = DEFAULT_SEEDING_OUTGOING_CONNECTIONS;
     public boolean logging = DEFAULT_LOGGING;
     public int maxLogSize = DEFAULT_MAX_LOG_SIZE;
     public boolean logSessionFilter = DEFAULT_LOG_SESSION_FILTER;
@@ -114,7 +114,6 @@ public class SessionSettings
 
     public SessionSettings(SessionSettings other)
     {
-        this.cacheSize = other.cacheSize;
         this.activeDownloads = other.activeDownloads;
         this.activeSeeds = other.activeSeeds;
         this.maxPeerListSize = other.maxPeerListSize;
@@ -146,6 +145,7 @@ public class SessionSettings
         this.proxyLogin = other.proxyLogin;
         this.proxyPassword = other.proxyPassword;
         this.anonymousMode = other.anonymousMode;
+        this.seedingOutgoingConnections = other.seedingOutgoingConnections;
         this.logging = other.logging;
         this.maxLogSize = other.maxLogSize;
         this.logSessionFilter = other.logSessionFilter;

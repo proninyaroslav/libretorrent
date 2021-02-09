@@ -65,7 +65,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddTorrentActivity extends AppCompatActivity
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddTorrentActivity.class.getSimpleName();
 
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
@@ -280,20 +279,32 @@ public class AddTorrentActivity extends AppCompatActivity
         }
 
         Log.e(TAG, Log.getStackTraceString(e));
-        String message;
-        if (e instanceof FileNotFoundException)
-            message = getApplication().getString(R.string.error_file_not_found_add_torrent);
-        else if (e instanceof IOException)
-            message = getApplication().getString(R.string.error_io_add_torrent);
-        else
-            message = getApplication().getString(R.string.error_add_torrent);
-        showAddErrorDialog(message);
+        if (e instanceof FileNotFoundException) {
+            showAddErrorDialog(getApplication().getString(R.string.error_file_not_found_add_torrent), null);
+        } else if (e instanceof IOException) {
+            showAddErrorDialog(getApplication().getString(R.string.error_io_add_torrent), null);
+        } else {
+            showAddErrorDialog(getApplication().getString(R.string.error_add_torrent), e);
+        }
     }
 
-    private void showAddErrorDialog(String message)
+    private void showAddErrorDialog(String message, Throwable e)
     {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.findFragmentByTag(TAG_ADD_ERROR_DIALOG) == null) {
+        if (e != null) {
+            viewModel.errorReport = e;
+            if (fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG) == null) {
+                errReportDialog = ErrorReportDialog.newInstance(
+                        getString(R.string.error),
+                        message,
+                        Log.getStackTraceString(e)
+                );
+
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(errReportDialog, TAG_ERR_REPORT_DIALOG);
+                ft.commitAllowingStateLoss();
+            }
+        } else if (fm.findFragmentByTag(TAG_ADD_ERROR_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     message,
@@ -301,7 +312,8 @@ public class AddTorrentActivity extends AppCompatActivity
                     getString(R.string.ok),
                     null,
                     null,
-                    false);
+                    false
+                );
 
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(errDialog, TAG_ADD_ERROR_DIALOG);
@@ -411,13 +423,11 @@ public class AddTorrentActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.add_torrent_dialog_add_menu:
-                addTorrent();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+        } else if (itemId == R.id.add_torrent_dialog_add_menu) {
+            addTorrent();
         }
 
         return true;

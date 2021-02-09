@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,6 +36,7 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -49,7 +50,6 @@ import java.util.regex.PatternSyntaxException;
 
 public class FeedFetcherWorker extends Worker
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FeedFetcherWorker.class.getSimpleName();
 
     public static final String ACTION_FETCH_CHANNEL = "org.proninyaroslav.libretorrent.service.FeedFetcherWorker.ACTION_FETCH_CHANNEL";
@@ -246,28 +246,33 @@ public class FeedFetcherWorker extends Worker
         WorkManager.getInstance(context).enqueue(work);
     }
 
-    private boolean isMatch(FeedItem item, String filter, boolean isRegex)
+    private boolean isMatch(FeedItem item, String filters, boolean isRegex)
     {
-        if (filter == null || TextUtils.isEmpty(filter))
+        if (filters == null || TextUtils.isEmpty(filters))
             return true;
 
-        if (isRegex) {
-            Pattern pattern;
-            try {
-                pattern = Pattern.compile(filter);
+        for (String filter : filters.split(Utils.NEWLINE_PATTERN)) {
+            if (TextUtils.isEmpty(filter))
+                continue;
 
-            } catch (PatternSyntaxException e) {
-                /* TODO: maybe there is an option better? */
-                Log.e(TAG, "Invalid pattern: " + filter);
-                return true;
-            }
+            if (isRegex) {
+                Pattern pattern;
+                try {
+                    pattern = Pattern.compile(filter);
 
-            return pattern.matcher(item.title).matches();
-        } else {
-            String[] words = filter.split(repo.getFilterSeparator());
-            for (String word : words)
-                if (item.title.toLowerCase().contains(word.toLowerCase().trim()))
+                } catch (PatternSyntaxException e) {
+                    /* TODO: maybe there is an option better? */
+                    Log.e(TAG, "Invalid pattern: " + filter);
                     return true;
+                }
+
+                return pattern.matcher(item.title).matches();
+            } else {
+                String[] words = filter.split(repo.getFilterSeparator());
+                for (String word : words)
+                    if (item.title.toLowerCase().contains(word.toLowerCase().trim()))
+                        return true;
+            }
         }
 
         return false;

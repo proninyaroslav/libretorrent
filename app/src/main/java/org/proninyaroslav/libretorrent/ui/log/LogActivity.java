@@ -55,7 +55,6 @@ import io.reactivex.disposables.CompositeDisposable;
 public class LogActivity extends AppCompatActivity
     implements LogAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = LogActivity.class.getSimpleName();
 
     private static final String TAG_AUTO_SCROLL = "auto_scroll";
@@ -233,22 +232,17 @@ public class LogActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.pause_resume_log_menu:
-                pauseResumeLog();
-                break;
-            case R.id.record_log_menu:
-                toggleRecord();
-                break;
-            case R.id.save_log_menu:
-                saveLogPathChooseDialog();
-                break;
-            case R.id.filter_log_menu:
-                showFilterDialog();
-                break;
-            case R.id.log_settings_menu:
-                showLogSettings();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.pause_resume_log_menu) {
+            pauseResumeLog();
+        } else if (itemId == R.id.record_log_menu) {
+            toggleRecord();
+        } else if (itemId == R.id.save_log_menu) {
+            saveLogPathChooseDialog();
+        } else if (itemId == R.id.filter_log_menu) {
+            showFilterDialog();
+        } else if (itemId == R.id.log_settings_menu) {
+            showLogSettings();
         }
 
         return true;

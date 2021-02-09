@@ -56,7 +56,6 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailTorrentPeersFragment extends Fragment
     implements PeerListAdapter.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentPeersFragment.class.getSimpleName();
 
     private static final String TAG_LIST_TRACKER_STATE = "list_tracker_state";

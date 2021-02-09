@@ -10,6 +10,9 @@
     <!-- Time -->
     <string name="drawer_time_is_expanded" translatable="false">drawer_time_is_expanded</string>
     <string name="drawer_time_selected_item" translatable="false">drawer_time_selected_item</string>
+    <!-- Tags -->
+    <string name="drawer_tags_is_expanded" translatable="false">drawer_tags_is_expanded</string>
+    <string name="drawer_tags_selected_item" translatable="false">drawer_tags_selected_item</string>
 
     <!-- Logging -->
     <string name="pref_key_enable_logging" translatable="false">pref_key_enable_logging</string>
@@ -75,6 +78,7 @@
     <string name="pref_key_proxy_settings" translatable="false">pref_key_proxy_settings</string>
     <string name="pref_key_show_nat_errors" translatable="false">pref_key_show_nat_errors</string>
     <string name="pref_key_anonymous_mode" translatable="false">pref_key_anonymous_mode</string>
+    <string name="pref_key_seeding_outgoing_connections" translatable="false">pref_key_seeding_outgoing_connections</string>
     <!-- Proxy settings -->
     <string name="pref_key_proxy_type" translatable="false">pref_key_proxy_type</string>
     <string name="pref_key_proxy_address" translatable="false">pref_key_proxy_address</string>

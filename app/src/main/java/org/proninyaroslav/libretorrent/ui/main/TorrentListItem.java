@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,20 +28,31 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
  * Necessary for other behavior in case if item was selected (see SelectionTracker).
  */
 
-public class TorrentListItem extends TorrentInfo
-{
-    public TorrentListItem(@NonNull TorrentInfo state)
-    {
-        super(state.torrentId, state.name, state.stateCode, state.progress,
-              state.receivedBytes, state.uploadedBytes, state.totalBytes,
-              state.downloadSpeed, state.uploadSpeed, state.ETA, state.dateAdded,
-              state.totalPeers, state.peers, state.error, state.sequentialDownload,
-              state.filePriorities);
+public class TorrentListItem extends TorrentInfo {
+    public TorrentListItem(@NonNull TorrentInfo state) {
+        super(
+                state.torrentId,
+                state.name,
+                state.stateCode,
+                state.progress,
+                state.receivedBytes,
+                state.uploadedBytes,
+                state.totalBytes,
+                state.downloadSpeed,
+                state.uploadSpeed,
+                state.ETA,
+                state.dateAdded,
+                state.totalPeers,
+                state.peers,
+                state.error,
+                state.sequentialDownload,
+                state.filePriorities,
+                state.tags
+        );
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return torrentId.hashCode();
     }
 
@@ -49,8 +60,7 @@ public class TorrentListItem extends TorrentInfo
      * Compare objects by their content
      */
 
-    public boolean equalsContent(TorrentListItem item)
-    {
+    public boolean equalsContent(TorrentListItem item) {
         return super.equals(item);
     }
 
@@ -59,14 +69,13 @@ public class TorrentListItem extends TorrentInfo
      */
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (!(o instanceof TorrentListItem))
             return false;
 
         if (o == this)
             return true;
 
-        return torrentId.equals(((TorrentListItem)o).torrentId);
+        return torrentId.equals(((TorrentListItem) o).torrentId);
     }
 }

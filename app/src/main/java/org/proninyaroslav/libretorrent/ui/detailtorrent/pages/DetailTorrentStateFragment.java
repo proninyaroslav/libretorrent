@@ -42,7 +42,6 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 
 public class DetailTorrentStateFragment extends Fragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = DetailTorrentStateFragment.class.getSimpleName();
 
     private AppCompatActivity activity;

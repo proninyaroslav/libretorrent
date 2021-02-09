@@ -31,7 +31,8 @@
         android:supportsRtl="true"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"> <!-- TODO: remove after change targetSdkVersion to 30 -->
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -246,6 +247,16 @@
         <activity
             android:label="@string/app_name"
             android:name=".ui.log.LogSettingsActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.addtag.AddTagActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.tag.SelectTagActivity"
+            android:theme="@style/AppTheme.Translucent" />
 
         <service
             android:name=".service.TorrentService" />

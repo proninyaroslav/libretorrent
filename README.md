@@ -7,6 +7,8 @@ LibreTorrent
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
 [<img alt="Get it on AFH" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=246723)
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
+[<img alt="Get it on APKMirror" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/APKMirror/get-it-on-apkmirror.png">](https://www.apkmirror.com/apk/proninyaroslav/libretorrent)
+[<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
 
@@ -46,18 +48,27 @@ If you like LibreTorrent you can support author with these methods. If you have 
 
  - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GWWYZSCKPAB2Q)
  - **Yandex Money**: `410011738561939`
+ - **WebMoney**:
+     - **WMZ**: `Z335461926163`
+     - **WMR**: `R151579576467`
  - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
 in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
  - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
  - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
+ - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
 
 Translations
 ---
 
 You can help translate the app here: [https://crowdin.com/project/libretorrent](https://crowdin.com/project/libretorrent)
 
+ - **Arabic** *(thanks xivaphro)*
  - **Azerbaijani** *(thanks Khan27)*
+ - **Basque** *(thanks dabid)*
+ - **Bengali** *(thanks Oymate)*
  - **Brazilian Portuguese** *(thanks Wolfterro)*
+ - **Catalan** *(thanks amontero)*
+ - **Chinese Traditional** *(thanks lzmxya)*
  - **Chinese** *(thanks yanglw, Xu Eric and Tan Yongle)*
  - **Czech** *(thanks HarryPhoon, novas78)*
  - **English**
@@ -66,18 +77,24 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Greek** *(thanks Spyros3000, skyhirules)*
  - **Hindi** *(thanks Lino Joseph)*
  - **Hungarian** *(thanks Ephyx)*
+ - **Indonesian** *(thanks ardumpl)*
+ - **Italian** *(thanks Gabrielelulo2, GiovaGa)*
  - **Japanese** *(thanks mamarama9904)*
  - **Korean** *(thanks jjjhitel)*
  - **Lithuanian** *(thanks techwebpd)*
  - **Malayalam** *(thanks Lino Joseph)*
  - **Norwegian Bokmål** *(thanks comradekingu)*
+ - **Persian** *(thanks Reg3xp)*
  - **Polish** *(thanks Azaradel)*
  - **Romanian** *(thanks georgenetu, Silviu200530)*
  - **Russian**
+ - **Santali** *(thanks Rocky_734)*
  - **Serbian (Cyrillic)** *(thanks veles330)*
  - **Spanish** *(thanks ed10vi, MS-PC)*
+ - **Swedish** *(thanks JAMALDIN01)*
  - **Tamil** *(thanks Lino Joseph)*
  - **Turkish** *(thanks oersen)*
+ - **Ukrainian** *(thanks SensDeViata)*
 
 Contributors
 ---

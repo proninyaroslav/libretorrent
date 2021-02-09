@@ -94,6 +94,19 @@
     <string name="drawer_date_added_week">Həftə</string>
     <string name="drawer_date_added_month">Ay</string>
     <string name="drawer_date_added_year">İl</string>
+    <!-- Tags -->
+    <string name="tags">Tags</string>
+    <string name="add_tag">Add tag</string>
+    <string name="edit_tag">Edit tag</string>
+    <string name="tag_name">Tag name</string>
+    <string name="tag_color">Tag color</string>
+    <string name="add_tag_failed">Failed to add tag</string>
+    <string name="tag_deleting_failed">Failed to delete tag</string>
+    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="no_tags">No tags</string>
+    <string name="select_tag">Select tag</string>
+    <string name="new_tag">New tag</string>
+    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +194,9 @@
     <string name="error_open_dir">Qovluq açıla bilmədi</string>
     <string name="home_directory">Əsas qovluq</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Internal storage</string>
+    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">İcazə verilmədi</string>
     <string name="save_file">Faylı saxla</string>
     <string name="file_name">Fayl adı</string>
@@ -189,7 +205,6 @@
     <string name="system_manager">Sistem idarəçisi</string>
     <string name="system_file_manager_not_found">Sistem fayl idarəçisi tapılmadı</string>
     <string name="replace_file">Faylı əvəz et</string>
-    <string name="device_does_not_support_this_feature">Cihazınız bu xüsusiyyəti dəstəkləmir</string>
     <string name="parent_folder">Üst qovluq</string>
     <!-- Error dialog -->
     <string name="report">Xəbər ver</string>
@@ -276,6 +291,7 @@
     <string name="add_feed_channel">Kanal əlavə et</string>
     <string name="feed_name">Ad (ixtiyari)</string>
     <string name="feed_filter_prompt">Bir dənəsi adda olacaq formada sözləri daxil edin (\"|\" ilə ayrılmış), ya da müntəzəm ifadə daxil edin. Torrentlər yalnız bu filtr torrent adı ilə uyğunlaşsa əlavə ediləcək</string>
+    <string name="feed_filter_prompt_one_per_line">Hər sətirə bir filtr daxil edin.</string>
     <string name="feed_auto_download">Yeni torrentləri avtomatik endir</string>
     <string name="feed_use_regex">Müntəzəm ifadə istifadə et</string>
     <string name="backup_feed_channels">Nüsxələməni saxla</string>
@@ -306,7 +322,7 @@
     <string name="create_torrent">Torrent yarat</string>
     <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
     <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Zəhmət olmasa yükləmədən əvvəl fayl və ya qovluğu seçin</string>
     <string name="tracker_urls">İzləyici URL-lər</string>
     <string name="web_seed_urls">İnternet seed URL-ləri</string>
     <string name="comments">Rəylər</string>
@@ -317,7 +333,6 @@
     <string name="create_torrent_options">Seçimlər</string>
     <string name="option_start_seeding">Yükləməyə başla</string>
     <string name="option_private_torrent">Gizli torrent</string>
-    <string name="option_optimize_alignment">Qruplaşmanı optimallaşdır</string>
     <string-array name="piece_size_entries">
         <item>Avtomatik</item>
         <item>16 KiB</item>
@@ -465,6 +480,8 @@
     <string name="pref_show_nat_errors">NAT xətalarını göstər</string>
     <string name="pref_anonymous_mode_title">Anonim rejimi fəallaşdır</string>
     <string name="pref_anonymous_mode_summary">Tətbiqetmə, kimliyini müəyyən dərəcəyə qədər gizləməyə çalışar. İstifadəçi-agent boş string kimi sıfırlanacaqdır (gizli torrentlər istisna). İzləyicilər yalnız proxy server istifadə edəndə istifadə ediləcək. Dinləmə socket-ləri bağlanılar və gələn bağlantılar yalnız SOCKS5 və ya I2P proxy üzərindən qəbul ediləcək (əgər bir cüt proxy tənzimlənibsə və eyni maşında izləyici proxy kimi işləyirsə). NAT-PMP, UPnP, DHT və yerli cüt tapma söndürülər</string>
+    <string name="pref_seeding_outgoing_connections_title">Yükləmələr üçün gedən bağlantıları fəallaşdırın</string>
+    <string name="pref_seeding_outgoing_connections_summary">Yüklənən torrentləri gedən bağlantıya çevirmək üçün cəhd edib etməyəcəyini müəyyənləşdirər. Gedən bağlantıya çevirmənin haqqı yüksək olduğu xüsusi hallarda, bu özəllik sıradan çıxarıla bilər</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy növü</string>
     <string-array name="pref_proxy_type_entries">

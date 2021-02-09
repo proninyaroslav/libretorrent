@@ -1,0 +1,22 @@
+# Funkcje
+
+* DHT, PeX, szyfrowanie, LSD, UPnP, NAT*PMP, μTP
+* Filtrowanie IP (eMule dat i PeerGuardian)
+* Możliwość dostrojenia (ustawienia sieci, zarządzanie zasilaniem, regulacja baterii, ustawienia interfejsu itp.)
+* Wspiera torrenty z dużą ilością i wielkim rozmiarem plików
+* Obsługa łączy HTTP\S i magnet
+* Obsługa proxy dla trackerów i peerów
+* Możliwość przenoszenia plików podczas pobierania
+* Możliwość automatycznego przenoszenia plików do innego katalogu lub na inny dysk po zakończeniu pobierania
+* Możliwość określenia priorytetów pliku i folderu
+* Możliwość wyboru plików do pobrania
+* Możliwość pobierania sekwencyjnego
+* Material Design
+* Ciemny i czarny motyw
+* Interfejs zoptymalizowany pod tablety
+* Planowanie
+* Menedżer RSS
+* Wsparcie dla Android TV
+* Możliwość tworzenia torrentów
+* Strumieniowanie jakiegokolwiek z wybranych plików
+* I więcej

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -243,7 +243,7 @@ public class NormalizeUrl
             /* Ignore default ports */
             Integer port = DEFAULT_PORT_LIST.get(protocol);
             if (port != null)
-                host = host.replaceFirst(":" + port, "");
+                host = host.replaceFirst(":" + port + "$", "");
 
             if (options.removeWWW && host.matches("www\\.([a-z\\-\\d]{2,63})\\.([a-z.]{2,5})$")) {
                 /*
@@ -339,15 +339,22 @@ public class NormalizeUrl
 
         String[] pairs = query.split("&");
         for (String pair : pairs) {
-            String[] parts = pair.split("=");
-            if (parts.length > 0 && !parts[0].isEmpty()) {
-                Collection<String> existing = queryPairs.get(parts[0]);
+            /* Ignore nested query string in the value of the pair, if one exists */
+            int equalPos = pair.indexOf('=');
+            if (equalPos <= 0)
+                continue;
+
+            String key = pair.substring(0, equalPos);
+            String value = pair.substring(equalPos + 1);
+
+            if (!key.isEmpty()) {
+                Collection<String> existing = queryPairs.get(key);
                 if (existing == null)
                     existing = new ArrayList<>();
 
-                if (parts.length == 2)
-                    existing.add(parts[1]);
-                queryPairs.put(parts[0], existing);
+                if (!value.isEmpty())
+                    existing.add(value);
+                queryPairs.put(key, existing);
             }
         }
 

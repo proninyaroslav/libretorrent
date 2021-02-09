@@ -60,7 +60,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TorrentService extends Service
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TorrentService.class.getSimpleName();
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
@@ -92,6 +91,8 @@ public class TorrentService extends Service
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         engine = TorrentEngine.getInstance(getApplicationContext());
         stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
+
+        makeForegroundNotify();
     }
 
     private void init()

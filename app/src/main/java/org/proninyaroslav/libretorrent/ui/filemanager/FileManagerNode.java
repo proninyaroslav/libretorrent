@@ -77,6 +77,11 @@ public class FileManagerNode implements FileNode<FileManagerNode>
         this.enabled = enabled;
     }
 
+    public boolean isDirectory()
+    {
+        return nodeType == Type.DIR;
+    }
+
     @Override
     public int compareTo(@NonNull FileManagerNode another)
     {

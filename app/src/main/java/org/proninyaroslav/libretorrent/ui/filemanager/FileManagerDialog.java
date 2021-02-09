@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2018, 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,26 +20,30 @@
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -55,6 +59,9 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -62,20 +69,17 @@ import io.reactivex.disposables.Disposable;
 /*
  * The simple dialog for navigation and select directory.
  *
- * Returns Uri that represent filesystem path (file:// scheme) or
- * Storage Access Framework (SAF) path (content:// scheme) if a system file manager was open.
+ * Returns Uri that represent filesystem path (file:// scheme).
  *
  * For different show modes returns the following values:
- *  - FILE_CHOOSER_MODE: Uri of the selected file (filesystem or SAF)
+ *  - FILE_CHOOSER_MODE: Uri of the selected file
  *  - DIR_CHOOSER_MODE: Uri of the selected folder
- *                      (filesystem or SAF; SAF requires Android API >= 21)
- *  - SAVE_FILE_MODE: Uri of the created file (filesystem or SAF)
+ *  - SAVE_FILE_MODE: Uri of the created file
  */
 
 public class FileManagerDialog extends AppCompatActivity
         implements FileManagerAdapter.ViewHolder.ClickListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileManagerDialog.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
@@ -84,9 +88,7 @@ public class FileManagerDialog extends AppCompatActivity
     private static final String TAG_ERROR_OPEN_DIR_DIALOG = "error_open_dir_dialog";
     private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
     private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
-    private static final int SAF_CREATE_FILE_REQUEST_CODE = 1;
-    private static final int SAF_OPEN_FILE_REQUEST_CODE = 2;
-    private static final int SAF_OPEN_FILE_TREE_REQUEST_CODE = 3;
+    private static final String TAG_SPINNER_POS = "spinner_pos";
 
     public static final String TAG_CONFIG = "config";
 
@@ -102,6 +104,13 @@ public class FileManagerDialog extends AppCompatActivity
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
     private SharedPreferences pref;
+    private MediaReceiver mediaReceiver = new MediaReceiver(this);
+    /*
+     * Prevent call onItemSelected after set OnItemSelectedListener,
+     * see http://stackoverflow.com/questions/21747917/undesired-onitemselected-calls/21751327#21751327
+     */
+    private int spinnerPos = -1;
+    private FileManagerSpinnerAdapter storageAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -120,13 +129,14 @@ public class FileManagerDialog extends AppCompatActivity
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
-        FileManagerViewModelFactory factory = new FileManagerViewModelFactory(this.getApplicationContext(),
-                intent.getParcelableExtra(TAG_CONFIG), startDir);
+        FileManagerViewModelFactory factory = new FileManagerViewModelFactory(
+                this.getApplication(),
+                intent.getParcelableExtra(TAG_CONFIG),
+                startDir
+        );
         viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
-        binding.setEnableSystemManagerButton(!viewModel.config.disableSystemFileManager &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         binding.setViewModel(viewModel);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -157,7 +167,6 @@ public class FileManagerDialog extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.addFab.setOnClickListener((v) -> showInputNameDialog());
-        binding.openSystemFilemanagerFab.setOnClickListener((v) -> showSAFDialog());
 
         if (savedInstanceState == null)
             binding.fileName.setText(viewModel.config.fileName);
@@ -185,6 +194,41 @@ public class FileManagerDialog extends AppCompatActivity
         binding.fileList.setAdapter(adapter);
 
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
+
+        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
+        if (savedInstanceState != null) {
+            spinnerPos = savedInstanceState.getInt(TAG_SPINNER_POS);
+        } else {
+            spinnerPos = getSpinnerPos(spinnerItems);
+        }
+
+        storageAdapter = new FileManagerSpinnerAdapter(this);
+        storageAdapter.setTitle(viewModel.curDir.get());
+        storageAdapter.addItems(spinnerItems);
+        binding.storageSpinner.setAdapter(storageAdapter);
+        binding.storageSpinner.setTag(spinnerPos);
+        binding.storageSpinner.setSelection(spinnerPos);
+        binding.storageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (((Integer)binding.storageSpinner.getTag()) == i) {
+                    return;
+                }
+                spinnerPos = i;
+                binding.storageSpinner.setTag(spinnerPos);
+                try {
+                    viewModel.jumpToDirectory(storageAdapter.getItem(i));
+
+                } catch (SecurityException e) {
+                    permissionDeniedToast();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        registerMediaReceiver();
     }
 
     private void showInputNameDialog()
@@ -203,60 +247,11 @@ public class FileManagerDialog extends AppCompatActivity
         }
     }
 
-    private void showSAFDialog()
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            return;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        String mimeType = viewModel.config.mimeType;
-        Intent i;
-        int requestCode;
-
-        switch (viewModel.config.showMode) {
-            case FileManagerConfig.SAVE_FILE_MODE:
-                if (!checkFileNameField())
-                    return;
-
-                i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType(mimeType == null ? "application/octet-stream" : mimeType);
-                i.putExtra(Intent.EXTRA_TITLE, binding.fileName.getText().toString());
-                requestCode = SAF_CREATE_FILE_REQUEST_CODE;
-                break;
-            case FileManagerConfig.DIR_CHOOSER_MODE:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    Snackbar.make(binding.coordinatorLayout,
-                            R.string.device_does_not_support_this_feature,
-                            Snackbar.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-                i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                requestCode = SAF_OPEN_FILE_TREE_REQUEST_CODE;
-                break;
-            case FileManagerConfig.FILE_CHOOSER_MODE:
-                i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType(mimeType == null ? "*/*" : mimeType);
-                requestCode = SAF_OPEN_FILE_REQUEST_CODE;
-                break;
-            default:
-                return;
-        }
-
-        i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
-                Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-
-        try {
-            startActivityForResult(i, requestCode);
-
-        } catch (ActivityNotFoundException e) {
-            Snackbar.make(binding.coordinatorLayout,
-                    R.string.system_file_manager_not_found,
-                    Snackbar.LENGTH_SHORT)
-                    .show();
-        }
+        unregisterMediaReceiver();
     }
 
     @Override
@@ -274,6 +269,23 @@ public class FileManagerDialog extends AppCompatActivity
 
         subscribeAlertDialog();
         subscribeAdapter();
+        viewModel.curDir.addOnPropertyChangedCallback(currentDirCallback);
+    }
+
+    private void registerMediaReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+        filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
+        filter.addDataScheme("file");
+        registerReceiver(mediaReceiver, filter);
+    }
+
+    private void unregisterMediaReceiver() {
+        try {
+            unregisterReceiver(mediaReceiver);
+        } catch (IllegalArgumentException e) {
+            /* Ignore non-registered receiver */
+        }
     }
 
     private void subscribeAlertDialog()
@@ -291,6 +303,14 @@ public class FileManagerDialog extends AppCompatActivity
                 })
                 .subscribe(adapter::submitList));
     }
+
+    private final Observable.OnPropertyChangedCallback currentDirCallback =
+            new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            storageAdapter.setTitle(viewModel.curDir.get());
+        }
+    };
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
@@ -386,17 +406,19 @@ public class FileManagerDialog extends AppCompatActivity
     {
         filesListState = layoutManager.onSaveInstanceState();
         outState.putParcelable(TAG_LIST_FILES_STATE, filesListState);
+        outState.putInt(TAG_SPINNER_POS, spinnerPos);
 
         super.onSaveInstanceState(outState);
     }
 
+
+
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState != null)
-            filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
+        filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
     }
 
     @Override
@@ -486,20 +508,17 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.filemanager_home_menu:
-                openHomeDirectory();
-                break;
-            case R.id.filemanager_ok_menu:
-                saveCurDirectoryPath();
-                if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
-                    createFile(false);
-                else
-                    returnDirectoryUri();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.filemanager_home_menu) {
+            openHomeDirectory();
+        } else if (itemId == R.id.filemanager_ok_menu) {
+            saveCurDirectoryPath();
+            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
+                createFile(false);
+            else
+                returnDirectoryUri();
         }
 
         return true;
@@ -616,25 +635,51 @@ public class FileManagerDialog extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    final synchronized void reloadSpinner()
     {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data == null)
+        if (storageAdapter == null || adapter == null)
             return;
 
-        switch (requestCode) {
-            case SAF_OPEN_FILE_TREE_REQUEST_CODE:
-            case SAF_CREATE_FILE_REQUEST_CODE:
-            case SAF_OPEN_FILE_REQUEST_CODE:
-                viewModel.takeSafPermissions(data);
+        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
+        spinnerPos = getSpinnerPos(spinnerItems);
+        binding.storageSpinner.setSelection(spinnerPos);
 
-                Intent i = new Intent();
-                i.setData(data.getData());
-                setResult(RESULT_OK, i);
-                finish();
-                break;
+        storageAdapter.clear();
+        storageAdapter.addItems(spinnerItems);
+        storageAdapter.setTitle(viewModel.curDir.get());
+        storageAdapter.notifyDataSetChanged();
+
+        viewModel.refreshCurDirectory();
+    }
+
+    private int getSpinnerPos(List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems) {
+        for (int i = 0; i < spinnerItems.size(); i++) {
+            String curDir = viewModel.curDir.get();
+            if (curDir != null && curDir.startsWith(spinnerItems.get(i).getStoragePath())) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * The receiver for mount and eject actions of removable storage.
+     */
+
+    private static class MediaReceiver extends BroadcastReceiver {
+        WeakReference<FileManagerDialog> dialog;
+
+        MediaReceiver(FileManagerDialog dialog)
+        {
+            this.dialog = new WeakReference<>(dialog);
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            if (dialog.get() != null)
+                dialog.get().reloadSpinner();
         }
     }
 }

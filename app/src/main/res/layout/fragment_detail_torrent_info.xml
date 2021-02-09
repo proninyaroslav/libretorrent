@@ -29,18 +29,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="16dp"
                 android:paddingEnd="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:orientation="vertical"
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:layout_marginRight="48dp"
                     android:layout_marginEnd="48dp"
                     android:layout_alignParentStart="true"
                     android:paddingStart="16dp">
@@ -65,30 +61,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/transparentRoundRipple"
                     android:contentDescription="@string/edit_torrent_name"
                     android:tint="@color/gray_dark"
-                    android:src="@drawable/ic_mode_edit_white_24dp"
+                    app:srcCompat="@drawable/ic_mode_edit_white_24dp"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="16dp"
                 android:paddingEnd="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:orientation="vertical"
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:layout_marginRight="48dp"
                     android:layout_marginEnd="48dp"
                     android:layout_alignParentStart="true"
                     android:paddingStart="16dp">
@@ -112,11 +103,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/transparentRoundRipple"
                     android:contentDescription="@string/dir_chooser_title"
-                    android:src="@drawable/ic_folder_grey600_24dp"
+                    app:srcCompat="@drawable/ic_folder_grey600_24dp"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
@@ -135,6 +125,24 @@
                     android:text="@string/sequential_download"
                     android:checked="@={viewModel.mutableParams.sequentialDownload}" />
             </com.google.android.material.internal.FlowLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tags"
+                    style="@style/TitleText" />
+
+                <org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList
+                    android:id="@+id/tags_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_torrent_size_and_count"

@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.addfeed;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
@@ -34,13 +33,12 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -60,7 +58,6 @@ import io.reactivex.disposables.Disposable;
 
 public class AddFeedDialog extends DialogFragment
 {
-    @SuppressWarnings("unused")
     private static final String TAG = AddFeedDialog.class.getSimpleName();
 
     private static final String TAG_URI = "uri";
@@ -111,6 +108,9 @@ public class AddFeedDialog extends DialogFragment
     }
 
     private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+
+    private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
+            (__) -> switchClipboardButton();
 
     private void switchClipboardButton()
     {
@@ -204,10 +204,19 @@ public class AddFeedDialog extends DialogFragment
 
         initLayoutView();
 
+        binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+
         return alert;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public void onDestroyView()
+    {
+        binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+
+        super.onDestroyView();
+    }
+
     private void initLayoutView()
     {
         binding.url.addTextChangedListener(new TextWatcher() {
@@ -238,23 +247,7 @@ public class AddFeedDialog extends DialogFragment
                 binding.layoutFilter.setError(null);
             }
         });
-        binding.filter.setOnTouchListener((View v, MotionEvent event) -> {
-            final int DRAWABLE_LEFT = 0;
-            final int DRAWABLE_TOP = 1;
-            final int DRAWABLE_RIGHT = 2;
-            final int DRAWABLE_BOTTOM = 3;
-
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (binding.filter.getRight() -
-                    binding.filter.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    binding.expandableLayout.toggle();
-
-                    return true;
-                }
-            }
-
-            return false;
-        });
+        binding.layoutFilter.setEndIconOnClickListener((v) -> binding.expandableLayout.toggle());
 
         binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
         switchClipboardButton();

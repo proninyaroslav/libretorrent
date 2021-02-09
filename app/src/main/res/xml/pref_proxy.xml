@@ -4,6 +4,7 @@
     <ListPreference
         android:key="@string/pref_key_proxy_type"
         android:title="@string/pref_proxy_type_title"
+        android:summary="%s"
         android:entries="@array/pref_proxy_type_entries"
         android:entryValues="@array/pref_proxy_type_entries_value"
         android:persistent="false" />

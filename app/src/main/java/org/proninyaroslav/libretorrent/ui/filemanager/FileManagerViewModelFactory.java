@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
-import android.content.Context;
+import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -27,15 +27,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class FileManagerViewModelFactory extends ViewModelProvider.NewInstanceFactory
 {
-    private final Context context;
+    private final Application application;
     private final FileManagerConfig config;
     private final String startDir;
 
-    public FileManagerViewModelFactory(@NonNull Context context,
+    public FileManagerViewModelFactory(@NonNull Application application,
                                        FileManagerConfig config,
                                        String startDir)
     {
-        this.context = context;
+        this.application = application;
         this.config = config;
         this.startDir = startDir;
     }
@@ -45,7 +45,7 @@ public class FileManagerViewModelFactory extends ViewModelProvider.NewInstanceFa
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass)
     {
         if (modelClass.isAssignableFrom(FileManagerViewModel.class))
-            return (T)new FileManagerViewModel(context, config, startDir);
+            return (T)new FileManagerViewModel(application, config, startDir);
 
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

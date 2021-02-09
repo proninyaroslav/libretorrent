@@ -94,6 +94,18 @@
     <string name="drawer_date_added_week">Semaine</string>
     <string name="drawer_date_added_month">Mois</string>
     <string name="drawer_date_added_year">Année</string>
+    <string name="tags">Tags</string>
+    <string name="add_tag">Add tag</string>
+    <string name="edit_tag">Edit tag</string>
+    <string name="tag_name">Tag name</string>
+    <string name="tag_color">Tag color</string>
+    <string name="add_tag_failed">Failed to add tag</string>
+    <string name="tag_deleting_failed">Failed to delete tag</string>
+    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="no_tags">No tags</string>
+    <string name="select_tag">Select tag</string>
+    <string name="new_tag">New tag</string>
+    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -181,6 +193,9 @@
     <string name="error_open_dir">Impossible d\'ouvrir le dossier</string>
     <string name="home_directory">Accueil</string>
     <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Stockage interne</string>
+    <string name="external_storage_name" formatted="false">Stockage externe %1$d</string>
     <string name="permission_denied">Permission refusée</string>
     <string name="save_file">Enregistrer le fichier</string>
     <string name="file_name">Nom de fichier</string>
@@ -189,7 +204,6 @@
     <string name="system_manager">Gestionnaire système</string>
     <string name="system_file_manager_not_found">Gestionnaire de fichiers système introuvable</string>
     <string name="replace_file">Remplacer le fichier</string>
-    <string name="device_does_not_support_this_feature">Votre appareil ne supporte pas cette fonctionnalité</string>
     <string name="parent_folder">Dossier parent</string>
     <!-- Error dialog -->
     <string name="report">Rapport</string>
@@ -209,17 +223,17 @@
     <string name="torrent_state">État</string>
     <string name="torrent_speed">Vitesse</string>
     <string name="torrent_downloaded">Téléchargé</string>
-    <string name="torrent_ETA">HPA</string>
-    <string name="torrent_seeds">Essaimeurs</string>
+    <string name="torrent_ETA">Temps restant</string>
+    <string name="torrent_seeds">Seeds</string>
     <string name="torrent_peers">Pairs</string>
     <string name="torrent_leechers">Sangsues</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="torrent_uploaded">Téléversé</string>
+    <string name="torrent_uploaded">Envoyé</string>
     <string name="torrent_share_ratio">Ratio de partage</string>
     <string name="torrent_active_time">Temps d\'activité</string>
     <string name="torrent_seeding_time">Temps de partage</string>
-    <string name="torrent_pieces">Piéces</string>
+    <string name="torrent_pieces">Pièces</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Traqueurs</string>
@@ -243,7 +257,7 @@
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">Ce torrent n\'est pas encore connecté à des pairs</string>
-    <string name="piece_map">Carte des Piéces</string>
+    <string name="piece_map">Carte des pièces</string>
     <string name="resume_torrent">Reprendre</string>
     <string name="pause_torrent">Pause</string>
     <string name="share_magnet">Partager le lien \"magnet\"</string>
@@ -276,6 +290,7 @@
     <string name="add_feed_channel">Ajouter une chaîne</string>
     <string name="feed_name">Nom (optionnel)</string>
     <string name="feed_filter_prompt">Entrez les mots (séparés par \"|\"), dont l\'un doit figurer dans le nom ou entrer une expression régulière. Les torrents ne seront ajoutés que si ce filtre correspond au nom du torrent</string>
+    <string name="feed_filter_prompt_one_per_line">Veuillez entrer un filtre par ligne.</string>
     <string name="feed_auto_download">Télécharger de nouveaux torrents automatiquement</string>
     <string name="feed_use_regex">Utiliser une expression régulière</string>
     <string name="backup_feed_channels">Conserver une sauvegarde</string>
@@ -305,19 +320,18 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Créer un torrent</string>
     <string name="creating_torrent_progress">Création du torrent, veuillez patienter&#8230;</string>
-    <string name="file_or_folder_for_seeding">Fichier ou dossier pour l\'ensemencement</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Veuillez d\'abord sélectionner un fichier ou un dossier pour le seeding</string>
+    <string name="file_or_folder_for_seeding">Fichier ou dossier pour le partage</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Veuillez d\'abord sélectionner un fichier ou un dossier pour le partage</string>
     <string name="tracker_urls">URLs des trackers</string>
-    <string name="web_seed_urls">URLs de graine Web</string>
+    <string name="web_seed_urls">URLs de partage Web</string>
     <string name="comments">Commentaires</string>
     <string name="tracker_urls_hint">(optionnel) Entrez un tracker par ligne en ordre de priorité</string>
-    <string name="web_seed_urls_hint">(optional) Un par ligne</string>
+    <string name="web_seed_urls_hint">(optionnel) Un par ligne</string>
     <string name="optional_hint">(optionnel)</string>
     <string name="piece_size">Taille de la pièce</string>
     <string name="create_torrent_options">Options</string>
     <string name="option_start_seeding">Commencez de partage</string>
     <string name="option_private_torrent">Torrent privé</string>
-    <string name="option_optimize_alignment">Optimiser l\'alignement</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>
@@ -465,6 +479,8 @@
     <string name="pref_show_nat_errors">Afficher les erreurs NAT</string>
     <string name="pref_anonymous_mode_title">Activer le mode anonyme</string>
     <string name="pref_anonymous_mode_summary">L\'application tente de cacher son identité dans un certain degré. Le user-agent sera réinitialisé à une chaîne vide (sauf pour les torrents privés). Les Trackers ne seront utilisés que s\'ils utilisent un serveur proxy. Les sockets d\'écoute sont fermées, et les connexions entrantes seront acceptées par un proxy SOCKS5 ou I2P (si un proxy pair est configuré et est exécuté sur la même machine que le proxy tracker). NAT-PMP, UPnP, DHT et la découverte locale des pairs sont désactivées</string>
+    <string name="pref_seeding_outgoing_connections_title">Activer les connexion sortantes pour l\'envoi</string>
+    <string name="pref_seeding_outgoing_connections_summary">Détermine si le torrents qui s\'envoient doivent essayer de faire des connexions sortantes ou non. Cela peut être désactivé dans des situations spécifiques où le coût pour les connexions sortantes est élevé</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Type de proxy</string>
     <string-array name="pref_proxy_type_entries">
@@ -476,7 +492,7 @@
     <string name="pref_proxy_address_title">Hôte</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Permettre la connexion aux pairs</string>
-    <string name="pref_proxy_peers_too_summary">Le proxy sera utilisé pour se connecter avec les trackers, les pairs et les serveur web essaimeurs</string>
+    <string name="pref_proxy_peers_too_summary">Le proxy sera utilisé pour se connecter avec les trackers, les pairs et les web seeds</string>
     <string name="pref_proxy_requires_auth_title">Requiert une authentification</string>
     <string name="pref_proxy_requires_auth_summary">Avertissement: le mot de passe est enregistré non chiffré</string>
     <string name="pref_proxy_login_title">Identifiant</string>

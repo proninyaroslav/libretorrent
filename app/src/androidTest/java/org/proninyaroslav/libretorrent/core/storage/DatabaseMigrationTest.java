@@ -117,10 +117,11 @@ public class DatabaseMigrationTest
 
         sqliteDb.close();
 
-        helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 5, true,
+        helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 6, true,
                 DatabaseMigration.MIGRATION_1_2,
                 DatabaseMigration.MIGRATION_2_3,
                 DatabaseMigration.MIGRATION_3_4,
+                DatabaseMigration.MIGRATION_5_6,
                 new DatabaseMigration.RoomDatabaseMigration(context));
 
         AppDatabase db = getMigratedRoomDatabase();
@@ -138,6 +139,7 @@ public class DatabaseMigrationTest
         assertFalse(torrent1.manuallyPaused); /* It's not imported from old db */
         assertFalse(torrent1.downloadingMetadata);
         assertNull(torrent1.getMagnet());
+        assertEquals(Torrent.VISIBILITY_VISIBLE_NOTIFY_FINISHED, torrent1.visibility);
 
         assertEquals(fastResume1.torrentId, torrent1.id);
         assertArrayEquals(fastResume1.data, fastResumeData1);
@@ -152,6 +154,7 @@ public class DatabaseMigrationTest
         assertEquals("file://" + fs.getDefaultDownloadPath(), torrent2.downloadPath.toString());
         assertTrue(torrent2.downloadingMetadata);
         assertEquals(magnet, torrent2.getMagnet());
+        assertEquals(Torrent.VISIBILITY_VISIBLE_NOTIFY_FINISHED, torrent2.visibility);
     }
 
     @Test
@@ -172,10 +175,11 @@ public class DatabaseMigrationTest
 
         sqliteDb.close();
 
-        helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 5, true,
+        helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 6, true,
                 DatabaseMigration.MIGRATION_1_2,
                 DatabaseMigration.MIGRATION_2_3,
                 DatabaseMigration.MIGRATION_3_4,
+                DatabaseMigration.MIGRATION_5_6,
                 new DatabaseMigration.RoomDatabaseMigration(context));
 
         AppDatabase db = getMigratedRoomDatabase();

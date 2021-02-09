@@ -51,7 +51,6 @@ import java.util.List;
 public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdapter.ViewHolder>
         implements Selectable<TrackerItem>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = TrackerListAdapter.class.getSimpleName();
 
     private SelectionTracker<TrackerItem> selectionTracker;

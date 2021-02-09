@@ -35,12 +35,12 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -49,11 +49,17 @@ import java.util.List;
 
 public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManagerAdapter.ViewHolder>
 {
-    @SuppressWarnings("unused")
     private static final String TAG = FileManagerAdapter.class.getSimpleName();
 
     private ViewHolder.ClickListener clickListener;
     private List<String> highlightFileTypes;
+
+    private static final Comparator<FileManagerNode> directoryFirstCmp = (n1, n2) -> {
+        int byName = n1.compareTo(n2);
+        int directoryFirst = Boolean.compare(n2.isDirectory(), n1.isDirectory());
+
+        return (directoryFirst == 0 ? byName : directoryFirst);
+    };
 
     public FileManagerAdapter(List<String> highlightFileTypes, ViewHolder.ClickListener clickListener)
     {
@@ -82,7 +88,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
     public void submitList(@Nullable List<FileManagerNode> list)
     {
         if (list != null)
-            Collections.sort(list);
+            Collections.sort(list, directoryFirstCmp);
 
         super.submitList(list);
     }
@@ -147,7 +153,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
             fileName.setText(item.getName());
 
-            if (item.getType() == FileNode.Type.DIR) {
+            if (item.isDirectory()) {
                 if (item.getName().equals(FileManagerNode.PARENT_DIR)) {
                     fileIcon.setImageResource(R.drawable.ic_arrow_up_bold_grey600_24dp);
                     fileIcon.setContentDescription(context.getString(R.string.parent_folder));
@@ -156,7 +162,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
                     fileIcon.setContentDescription(context.getString(R.string.folder));
                 }
 
-            } else if (item.getType() == FileNode.Type.FILE) {
+            } else {
                 fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
                 fileIcon.setContentDescription(context.getString(R.string.file));
             }

@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core.model.session;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -53,33 +55,33 @@ class TorrentCriticalWork
     }
 
     private ExecutorService exec = Executors.newFixedThreadPool(2);
-    private boolean moving;
-    private int saveResume;
+    private AtomicBoolean moving = new AtomicBoolean();
+    private AtomicInteger saveResume = new AtomicInteger();
     private BehaviorSubject<State> stateChangedEvent =
             BehaviorSubject.createDefault(new State(false, false, System.currentTimeMillis()));
 
     public boolean isMoving()
     {
-        return moving;
+        return moving.get();
     }
 
-    public synchronized void setMoving(boolean moving)
+    public void setMoving(boolean moving)
     {
-        this.moving = moving;
+        this.moving.set(moving);
         emitChangedEvent();
     }
 
     public boolean isSaveResume()
     {
-        return saveResume > 0;
+        return saveResume.get() > 0;
     }
 
-    public synchronized void setSaveResume(boolean saveResume)
+    public void setSaveResume(boolean saveResume)
     {
         if (saveResume)
-            ++this.saveResume;
+            this.saveResume.incrementAndGet();
         else
-            --this.saveResume;
+            this.saveResume.decrementAndGet();
         emitChangedEvent();
     }
 
@@ -92,7 +94,7 @@ class TorrentCriticalWork
     {
         exec.submit(() -> {
             stateChangedEvent.onNext(
-                    new State(moving, saveResume > 0, System.currentTimeMillis()));
+                    new State(moving.get(), saveResume.get() > 0, System.currentTimeMillis()));
         });
     }
 }

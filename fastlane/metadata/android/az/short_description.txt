@@ -1,1 +1,1 @@
-LibreTorrent, libtorrent-ə əsaslanan, Android 4+ üçün Azad bir torrent müştərisidir. Faylları birbaşa cihazınıza endirin və paylaşın
+LibreTorrent, libtorrent-ə əsaslanan, Android 5+ üçün Azad bir torrent müştərisidir. Faylları birbaşa cihazınıza endirin və paylaşın

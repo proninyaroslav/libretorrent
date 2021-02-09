@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -64,7 +66,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         implements
         Preference.OnPreferenceChangeListener
 {
-    @SuppressWarnings("unused")
     private static final String TAG = NetworkSettingsFragment.class.getSimpleName();
 
     private static final int FILE_CHOOSE_REQUEST = 1;
@@ -188,8 +189,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         int type = pref.encryptMode();
         if (encryptMode != null) {
             encryptMode.setValueIndex(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
-            encryptMode.setSummary(typesName[type]);
             enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
             bindOnPreferenceChangeListener(encryptMode);
 
@@ -221,8 +220,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         Preference ipFilterFile = findPreference(keyIpFilterFile);
         if (ipFilterFile != null) {
             String path = pref.ipFilteringFile();
-            if (path != null)
-                ipFilterFile.setSummary(fs.getFilePath(Uri.parse(path)));
+            if (path != null) {
+                try {
+                    ipFilterFile.setSummary(fs.getFilePath(Uri.parse(path)));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
+            }
             ipFilterFile.setOnPreferenceClickListener((Preference preference) -> {
                 fileChooseDialog();
 
@@ -267,6 +271,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
                 return true;
             });
+        }
+
+        String keySeedingOutgoingConn = getString(R.string.pref_key_seeding_outgoing_connections);
+        SwitchPreferenceCompat seedingOutgoingConn = findPreference(keySeedingOutgoingConn);
+        if (seedingOutgoingConn != null) {
+            seedingOutgoingConn.setChecked(pref.seedingOutgoingConnections());
+            bindOnPreferenceChangeListener(seedingOutgoingConn);
         }
     }
 
@@ -317,8 +328,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
             int type = Integer.parseInt((String) newValue);
             pref.encryptMode(type);
-            String[] typesName = getResources().getStringArray(R.array.pref_enc_mode_entries);
-            preference.setSummary(typesName[type]);
 
             boolean enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
 
@@ -366,6 +375,8 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
             pref.enableIpFiltering((boolean)newValue);
 
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_seeding_outgoing_connections))) {
+            pref.seedingOutgoingConnections((boolean)newValue);
         }
 
         return true;
@@ -416,9 +427,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
             String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
             Preference ipFilterFile = findPreference(keyIpFilterFile);
-            if (ipFilterFile != null)
-                ipFilterFile.setSummary(fs.getFilePath(path));
-
+            if (ipFilterFile != null) {
+                try {
+                    ipFilterFile.setSummary(fs.getFilePath(path));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
+            }
         } else if (requestCode == ANONYMOUS_MODE) {
             String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
             Preference anonymousMode = findPreference(keyAnonymousMode);

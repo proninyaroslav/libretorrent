@@ -1,0 +1,22 @@
+# Fitur
+
+* DHT, PeX, enkripsi, LSD, UPnP, NAT*PMP, dan µTP
+* Pemfilteran IP (eMule dat dan PeerGuardian)
+* Kemampuan untuk menyempurnakan (pengaturan jaringan, manajemen daya, kontrol baterai, pengaturan UI, dll.)
+* Mendukung torrent dengan banyak file dan file besar
+* Dukungan tautan HTTP\S dan tautan magnet
+* Mendukung proxy untuk tracker dan peer
+* Kemampuan untuk memindahkan file saat sedang mengunduh
+* Kemampuan untuk memindahkan file secara otomatis ke direktori lain atau ke penyimpanan eksternal di akhir unduhan
+* Kemampuan untuk menentukan prioritas file dan folder
+* Kemampuan untuk memilih file yang akan diunduh
+* Kemampuan untuk mengunduh secara berurutan
+* Desain material
+* Tema gelap dan hitam
+* Tampilan antarmuka optimal untuk tablet
+* Penjadwalan
+* Pengolah RSS
+* Mendukung Android TV
+* Mampu membuat torrents
+* Streaming aneka berkas yang dipilih
+* dan lain lain
