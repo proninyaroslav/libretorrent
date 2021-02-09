@@ -813,7 +813,9 @@ public class TorrentSessionImpl extends SessionManager
                 sp.setString(settings_pack.string_types.proxy_username.swigValue(), initParams.proxyLogin);
                 sp.setString(settings_pack.string_types.proxy_password.swigValue(), initParams.proxyPassword);
             }
-            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), initParams.proxyPeersToo);
+            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), settings.proxyPeersToo);
+            sp.setBoolean(settings_pack.bool_types.proxy_tracker_connections.swigValue(), true);
+            sp.setBoolean(settings_pack.bool_types.proxy_hostnames.swigValue(), true);
         }
     }
 
