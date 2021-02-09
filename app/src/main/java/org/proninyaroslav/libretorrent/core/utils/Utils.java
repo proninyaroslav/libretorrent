@@ -67,6 +67,7 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
+import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
@@ -738,6 +739,10 @@ public class Utils {
             throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
 
         return scheme.equals(ContentResolver.SCHEME_FILE);
+    }
+
+    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path) {
+        return SafFileSystem.getInstance(appContext).isSafPath(path);
     }
 
     public static int getRandomColor() {

@@ -27,23 +27,25 @@ import androidx.annotation.NonNull;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-class FsModuleResolverImpl implements FsModuleResolver
-{
-    private Context appContext;
-    private DefaultFsModule defaultModule;
+class FsModuleResolverImpl implements FsModuleResolver {
+    private final Context appContext;
+    private final SafFsModule safModule;
+    private final DefaultFsModule defaultModule;
 
-    public FsModuleResolverImpl(@NonNull Context appContext)
-    {
+    public FsModuleResolverImpl(@NonNull Context appContext) {
         this.appContext = appContext;
+        this.safModule = new SafFsModule(appContext);
         this.defaultModule = new DefaultFsModule(appContext);
     }
 
     @Override
-    public FsModule resolveFsByUri(@NonNull Uri uri) throws UnknownUriException
-    {
-        if (Utils.isFileSystemPath(uri))
+    public FsModule resolveFsByUri(@NonNull Uri uri) throws UnknownUriException {
+        if (Utils.isSafPath(appContext, uri)) {
+            return safModule;
+        } else if (Utils.isFileSystemPath(uri)) {
             return defaultModule;
-        else
+        } else {
             throw new UnknownUriException("Cannot resolve file system for the given uri: " + uri);
+        }
     }
 }
