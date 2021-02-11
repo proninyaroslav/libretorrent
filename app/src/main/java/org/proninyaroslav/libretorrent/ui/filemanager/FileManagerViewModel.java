@@ -235,7 +235,8 @@ public class FileManagerViewModel extends AndroidViewModel
         fileName = appendExtension(fs.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
-        if (!f.getParentFile().canWrite())
+        File parent = f.getParentFile();
+        if (parent != null && !parent.canWrite())
             throw new SecurityException("Permission denied");
         try {
             if (f.exists() && !f.delete())

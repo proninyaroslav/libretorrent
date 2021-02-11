@@ -128,6 +128,6 @@ class DefaultFsModule implements FsModule
     {
         File parent = new File(filePath.getPath()).getParentFile();
 
-        return (parent.exists() ? Uri.fromFile(parent) : null);
+        return (parent != null && parent.exists() ? Uri.fromFile(parent) : null);
     }
 }
