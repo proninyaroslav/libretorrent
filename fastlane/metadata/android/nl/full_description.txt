@@ -1,0 +1,22 @@
+# Kenmerken
+
+* DHT, PeX, encryptie, LSD, UPnP, NAT*PMP, μTP
+* IP-filtering (eMule dat en PeerGuardian)
+* Mogelijkheid tot afstemmen (netwerkinstellingen, stroombeheer, batterijbeheer, UI instellingen, enz.)
+* Ondersteunt torrents met een groot aantal bestanden en grote bestanden
+* HTTP\S en magneetlinks ondersteuning
+* Ondersteuning voor trackers en peers
+* Mogelijkheid om bestanden te verplaatsen tijdens het downloaden
+* Mogelijkheid om bestanden automatisch te verplaatsen naar een andere map of naar een externe schijf aan het einde van de download
+* Mogelijkheid om prioriteiten van bestanden en mappen te specificeren
+* Mogelijkheid om te selecteren welke bestanden moeten worden gedownload
+* Mogelijkheid om opeenvolgend te downloaden
+Material Design
+* Donker en Zwart thema
+* Tablet geoptimaliseerde UI
+Planning
+* RSS manager
+* Android TV ondersteuning
+* Mogelijkheid om torrents te maken
+* Streaming van geselecteerde bestanden
+* En meer

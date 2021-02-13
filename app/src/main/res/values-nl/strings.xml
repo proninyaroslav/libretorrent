@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="error">Foutmelding</string>
+    <string name="warning">Waarschuwing</string>
+    <string name="shutdown">Afsluiten</string>
+    <string name="replace">Vervangen</string>
+    <string name="add">Toevoegen</string>
+    <string name="delete">Verwijderen</string>
+    <string name="deleting">Verwijderen</string>
+    <string name="select_all">Alles selecteren</string>
+    <string name="save">Opslaan</string>
+    <string name="search">Zoeken</string>
+    <string name="not_available">Niet van toepassing</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d u. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d u. %2$d m. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d sec</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d sec</string>
+    <string name="def">Standaard</string>
+    <string name="foreground_notification">Voorgrond notificatie</string>
+    <string name="link">Koppeling</string>
+    <string name="filter">Filter</string>
+    <string name="refresh">Vernieuwen</string>
+    <string name="edit">Bewerken</string>
+    <string name="menu">Menu</string>
+    <string name="open_navigation_drawer">Open navigatiebalk</string>
+    <string name="close_navigation_drawer">Sluit navigatiebalk</string>
+    <string name="file">Bestand</string>
+    <string name="folder">Map</string>
+    <string name="finished">Beëindigd</string>
+    <string name="pause_all">Alle pauzeren</string>
+    <string name="resume_all">Hervat alles</string>
+    <string name="all">Alle</string>
+    <string name="details">Details</string>
+    <string name="stats">Statistieken</string>
+    <string name="filters">Filters</string>
+    <string name="apply">Toepassen</string>
+    <string name="clipboard">Klembord</string>
+    <string name="switch_on">Aan</string>
+    <string name="switch_off">Uit</string>
+    <!-- Main window -->
+    <string name="delete_torrent_with_downloaded_files">Verwijderen met gedownloade bestanden</string>
+    <string name="delete_selected_torrent">Geselecteerde torrent verwijderen? Deze bewerking kan niet ongedaan worden gemaakt</string>
+    <string name="delete_selected_torrents">Verwijder de geselecteerde torrents? Deze bewerking kan niet ongedaan worden gemaakt</string>
+    <string name="force_recheck_torrent">Forceer hercontroleren</string>
+    <string name="force_announce_torrent">Forceer aankondigen</string>
+    <string name="add_link">Link toevoegen</string>
+    <string name="dialog_add_link_title">Vul de infohash-waarde, magneetlink, of HTTP/HTTPS-link in</string>
+    <string name="torrent_list_empty">Geen torrents</string>
+    <string name="select_or_add_torrent">Selecteer of voeg een torrent toe</string>
+    <string name="error_empty_link">Voer een link in</string>
+    <string name="error_invalid_link">Ongeldige link</string>
+    <string name="error_open_torrent_file">Kan het torrentbestand niet openen</string>
+    <string name="open_file">Bestand openen</string>
+    <string name="settings">Instellingen</string>
+    <string name="ip_filter_add_error">IP filter toevoegen mislukt (%1$d mislukt). Misschien is het bestand beschadigd of heeft het een onjuist formaat</string>
+    <string name="ip_filter_add_success">IP filter succesvol toegevoegd</string>
+    <string name="proxy_settings_applied">Proxyserverinstellingen succesvol toegepast</string>
+    <string name="proxy_settings_apply_after_reboot">Proxy server instellingen worden toegepast na het herstarten van de app</string>
+    <string name="theme_settings_apply_after_reboot">Thema instellingen worden toegepast na het herstarten van de app</string>
+    <string name="about">Over</string>
+    <!-- Navigation drawer -->
+    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <!-- total download/upload • download/upload speed -->
+    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_listen_port">Luisteren op poort: %1$s</string>
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_downloading">Downloaden</string>
+    <string name="drawer_status_downloaded">Gedownload</string>
+    <string name="drawer_status_downloading_metadata">Bezig met downloaden van metadata</string>
+    <string name="drawer_status_error">Foutmelding</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorteren</string>
+    <string name="drawer_sorting_name">Naam</string>
+    <string name="drawer_sorting_date_added">Datum toegevoegd</string>
+    <string name="drawer_sorting_size">Grootte</string>
+    <string name="drawer_sorting_progress">Voortgang</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_no_sorting">Geen sortering</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Datum toegevoegd</string>
+    <string name="drawer_date_added_today">Vandaag</string>
+    <string name="drawer_date_added_yesterday">Gisteren</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Maand</string>
+    <string name="drawer_date_added_year">Jaar</string>
+    <string name="tags">Tags</string>
+    <string name="add_tag">Tag toevoegen</string>
+    <string name="edit_tag">Tag bewerken</string>
+    <string name="tag_name">Tag naam</string>
+    <string name="tag_color">Tag kleur</string>
+    <string name="add_tag_failed">Kon tag niet toevoegen</string>
+    <string name="tag_deleting_failed">Verwijderen van tag mislukt</string>
+    <string name="tag_already_exists">Tag met dezelfde naam bestaat al</string>
+    <string name="no_tags">Geen Tags</string>
+    <string name="select_tag">Selecteer tag</string>
+    <string name="new_tag">Nieuwe tag</string>
+    <string name="without_tags">Zonder tags</string>
+    <!-- Foreground notification -->
+    <!-- percent • ETA • download speed • name -->
+    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- status • upload speed • name -->
+    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <!-- status • name -->
+    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="torrent_count_notify_template">Downloaden: %1$d totaal: %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent draait op de achtergrond</string>
+    <string name="network_online">Netwerk status: Online</string>
+    <string name="network_offline">Netwerk status: Offline</string>
+    <string name="notify_shutting_down">Afsluiten&#8230;</string>
+    <!-- Error notification -->
+    <string name="torrent_error_notify_title">Torrent fout</string>
+    <string name="error_template">Foutmelding: %1$s</string>
+    <string name="restore_torrent_error">kan torrent niet herstellen van de vorige sessie</string>
+    <string name="session_error_title">Sessie fout</string>
+    <!-- ip_address:port, type (error: error_msg)-->
+    <string name="nat_error_title">NAT fout</string>
+    <!-- Finish notification -->
+    <string name="torrent_finished_notify">Torrent voltooid</string>
+    <!-- Torrents move notification -->
+    <string name="torrent_moving_title">Torrent verplaatsen</string>
+    <string name="torrent_moving_content">Verplaatsen van %1$s, een moment geduld</string>
+    <string name="torrent_move_success">Torrent met succes verplaatst</string>
+    <string name="torrent_move_fail">Kan torrent niet verplaatsen</string>
+    <!-- Added notification -->
+    <!-- Torrent list item -->
+    <!-- downloaded/total (percent) -->
+    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
+    <!-- ↓ download speed | ↑ upload speed -->
+    <string name="download_upload_speed_template">\u2193 %1$s/s × \u2191 %2$s/s</string>
+    <!-- downloaded/total • percent • ETA -->
+    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <!-- connected/total -->
+    <string name="peers_template">%1$d/%2$d</string>
+    <string name="torrent_status_downloading">Bezig met downloaden</string>
+    <string name="torrent_status_seeding">Seeden</string>
+    <string name="torrent_status_paused">Gepauzeerd</string>
+    <string name="torrent_status_stopped">Gestopt</string>
+    <string name="torrent_status_checking">Controleren</string>
+    <string name="torrent_status_finished">Voltooid</string>
+    <string name="torrent_status_downloading_metadata">Bezig met downloaden van metadata</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Toestemming geweigerd</string>
+    <string name="perm_denied_warning">Zonder deze machtiging kan de app geen torrentbestanden in het geheugen opslaan. De app zal niet goed werken. Weet u zeker dat u deze toestemming wilt weigeren?</string>
+    <!-- Add torrent dialog -->
+    <string name="add_torrent_title">Torrent toevoegen</string>
+    <string name="error_decode_torrent">Decoderen van torrent bestand mislukt. Misschien is het bestand beschadigd of heeft het een onjuist formaat</string>
+    <string name="error_io_torrent">Fout bij het lezen van het torrentbestand</string>
+    <string name="error_fetch_link">Gegevens ophalen van de link is mislukt</string>
+    <string name="error_invalid_link_or_path">Ongeldige link of pad naar de torrent</string>
+    <string name="error_add_torrent">Torrent toevoegen mislukt</string>
+    <string name="error_file_not_found_add_torrent">Torrent is niet toegevoegd. Misschien is het torrent bestand verplaatst of verwijderd</string>
+    <string name="error_io_add_torrent">Kan torrent niet toevoegen. I/O fout</string>
+    <string name="torrent_exist">Torrent bestaat al. Torrents zijn samengevoegd</string>
+    <string name="error_field_required">Dit veld is verplicht</string>
+    <string name="error_no_files_selected">Geen bestanden geselecteerd</string>
+    <string name="free_space">%1$s vrij</string>
+    <string name="error_free_space">Er is onvoldoende vrije ruimte beschikbaar op het geselecteerde pad om de geselecteerde bestanden te downloaden</string>
+    <string name="files_size">Geselecteerd %1$s van %2$s</string>
+    <string name="start_torrent">Start torrent</string>
+    <string name="file_is_too_large_error">Bestand is te groot</string>
+    <string name="unable_to_open_folder">Kan de geselecteerde map niet openen. Probeer een andere map te selecteren</string>
+    <string name="error_empty_name">Voer een naam in</string>
+    <string name="ignore_free_space">Negeer vrije ruimte</string>
+    <!-- Torrent info -->
+    <string name="torrent_info">Informatie</string>
+    <string name="torrent_files">Bestanden</string>
+    <string name="torrent_name">Naam</string>
+    <string name="upload_torrent_into">Uploaden in</string>
+    <string name="torrent_size">Grootte</string>
+    <string name="torrent_file_count">Aantal bestanden</string>
+    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_comment">Opmerking</string>
+    <string name="torrent_create_date">Aangemaakt</string>
+    <string name="torrent_created_in_program">Gemaakt in programma</string>
+    <string name="sequential_download">Opeenvolgend downloaden</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Map selectie</string>
+    <string name="file_chooser_title">Bestand selecteren</string>
+    <string name="torrent_file_chooser_title">Torrent selectie</string>
+    <string name="dialog_new_folder_title">Nieuwe map</string>
+    <string name="error_dialog_new_folder">Kan geen nieuwe map aanmaken</string>
+    <string name="error_open_dir">Kan de map niet openen</string>
+    <string name="home_directory">Home</string>
+    <!-- name (size) -->
+    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
+    <string name="internal_storage_name">Interne opslag</string>
+    <string name="external_storage_name" formatted="false">Externe opslag %1$d</string>
+    <string name="permission_denied">Toegang geweigerd</string>
+    <string name="save_file">Bestand opslaan</string>
+    <string name="file_name">Bestandsnaam</string>
+    <string name="error_file_exists">Bestand bestaat al</string>
+    <string name="file_name_is_empty">Bestandsnaam kan niet leeg zijn</string>
+    <string name="system_manager">Systeem beheerder</string>
+    <string name="system_file_manager_not_found">Systeem bestandsbeheerder niet gevonden</string>
+    <string name="replace_file">Bestand vervangen</string>
+    <string name="parent_folder">Bovenliggende map</string>
+    <!-- Error dialog -->
+    <string name="report">Rapporteren</string>
+    <string name="more_details">Meer details</string>
+    <!-- Detail torrent dialog -->
+    <!-- priority • downloaded/total • percent • availability -->
+    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nBeschikbaarheid: %5$s</string>
+    <string name="file_priority_normal">Normaal</string>
+    <string name="file_priority_low">Negeren</string>
+    <string name="file_priority_high">Hoog</string>
+    <string name="file_priority_mixed">Gemixt</string>
+    <string name="change_priority">Prioriteit</string>
+    <string name="dialog_change_priority_title">Prioriteit wijzigen</string>
+    <string name="change_priority_low">Laag (negeer bestand)</string>
+    <string name="change_priority_normal">Normaal</string>
+    <string name="change_priority_high">Hoog</string>
+    <string name="torrent_state">Status</string>
+    <string name="torrent_speed">Snelheid</string>
+    <string name="torrent_downloaded">Gedownload</string>
+    <string name="torrent_ETA">ETA</string>
+    <string name="torrent_seeds">Seeds</string>
+    <string name="torrent_peers">Peers</string>
+    <string name="torrent_leechers">Leechers</string>
+    <!-- connected (total) -->
+    <string name="torrent_peers_template">%1$d (%2$d)</string>
+    <string name="torrent_uploaded">Geüpload</string>
+    <string name="torrent_share_ratio">Deel ratio</string>
+    <string name="torrent_active_time">Actieve tijd</string>
+    <string name="torrent_seeding_time">Seed tijd</string>
+    <string name="torrent_pieces">Fragmenten</string>
+    <!-- downloaded/total (piece length) -->
+    <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
+    <string name="torrent_trackers">Trackers</string>
+    <string name="tracker_state_working">Werkend</string>
+    <string name="tracker_state_not_working">Werkt niet</string>
+    <string name="tracker_state_updating">Bijwerken&#8230;</string>
+    <string name="tracker_state_not_contacted">Nog niet verbonden</string>
+    <string name="share_tracker_url">Deel URL</string>
+    <string name="delete_selected_tracker">Geselecteerde tracker verwijderen?</string>
+    <string name="delete_selected_trackers">Verwijder de geselecteerde trackers?</string>
+    <string name="add_trackers">Trackers toevoegen</string>
+    <string name="dialog_add_trackers">(Een per regel)</string>
+    <string name="open_using">Openen met</string>
+    <string name="peer_port">Poort: %1$d</string>
+    <string name="peer_relevance">Relevantie: %1$.1f</string>
+    <string name="peer_connection_type">Verbinding: %1$s</string>
+    <!-- ↓ total download • ↑ total upload -->
+    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_client">Client: %1$s</string>
+    <string name="peer_connection_type_bittorrent">BT</string>
+    <string name="peer_connection_type_web">Web</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_list_empty">Deze torrent heeft nog geen verbinding met peers</string>
+    <string name="piece_map">Fragmentenkaart</string>
+    <string name="resume_torrent">Hervatten</string>
+    <string name="pause_torrent">Onderbreken</string>
+    <string name="share_magnet">Deel magnetlink</string>
+    <string name="save_torrent_file">Torrent bestand opslaan</string>
+    <string name="torrent_speed_limit">Snelheidslimiet</string>
+    <string name="share_via">Delen via</string>
+    <string name="save_torrent_file_successfully">Torrent bestand succesvol opgeslagen</string>
+    <string name="error_save_torrent_file">Fout bij het opslaan van torrentbestand</string>
+    <string name="speed_limit_title">Maximum snelheid</string>
+    <string name="upload_speed">Uploaden</string>
+    <string name="download_speed">Downloaden</string>
+    <string name="speed_limit_dialog">Stel snelheid in KiB/s (0 - zonder limiet)</string>
+    <string name="torrent_added_date">Toegevoegd</string>
+    <string name="torrent_availability">Beschikbaarheid</string>
+    <string name="share_stream_url">Deel stream URL</string>
+    <string name="magnet_include_file_priorities">Bestandsprioriteiten meenemen?</string>
+    <string name="magnet_more_about_bep53">Meer informatie: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">Geen trackers</string>
+    <string name="edit_torrent_name">Bewerk torrent naam</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Kopiëren</string>
+    <string name="text_copied_to_clipboard">Tekst gekopieerd naar klembord</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">Een fout is opgetreden binnen de app. U kunt een foutrapport naar de ontwikkelaars sturen</string>
+    <string name="error_comment_prompt">U kunt hier extra informatie en opmerkingen toevoegen:</string>
+    <!-- Feeds -->
+    <string name="feed">RSS</string>
+    <string name="feed_channel_list_empty">Geen kanalen</string>
+    <string name="select_or_add_feed_channel">Een RSS/Atom kanaal selecteren of toevoegen</string>
+    <string name="add_feed_channel">Kanaal toevoegen</string>
+    <string name="feed_name">Naam (optioneel)</string>
+    <string name="feed_filter_prompt">Voer de woorden in (gescheiden door \"|\"), waarvan er één in de naam of reguliere expressie moet staan. Torrents worden alleen toegevoegd als dit filter overeenkomt met de torrent naam</string>
+    <string name="feed_filter_prompt_one_per_line">Vul één filter per regel in.</string>
+    <string name="feed_auto_download">Nieuwe torrents automatisch downloaden</string>
+    <string name="feed_use_regex">Gebruikt reguliere uitdrukkingen</string>
+    <string name="backup_feed_channels">Back-up opslaan</string>
+    <string name="restore_feed_channels_backup">Back-up terugzetten</string>
+    <string name="feed_last_update_template">Bijgewerkt: %1$s</string>
+    <string name="feed_last_update_never">nooit</string>
+    <string name="error_cannot_add_channel">Kanaal kan niet worden toegevoegd</string>
+    <string name="error_cannot_edit_channel">Kanaal kan niet worden bewerkt</string>
+    <string name="error_cannot_delete_channel">Kanaal kan niet worden verwijderd</string>
+    <string name="copy_link">Link kopiëren</string>
+    <string name="delete_selected_channel">Geselecteerde kanaal verwijderen?</string>
+    <string name="delete_selected_channels">Geselecteerde kanalen verwijderen?</string>
+    <string name="edit_feed_channel">Kanaal bewerken</string>
+    <string name="link_copied_to_clipboard">Link gekopieerd naar klembord</string>
+    <string name="mark_as_read">Markeren als gelezen</string>
+    <string name="mark_as_unread">Markeren als ongelezen</string>
+    <string name="feed_item_list_empty">Geen artikelen</string>
+    <string name="backup_feeds_successfully">Kanalen succesvol opgeslagen</string>
+    <string name="restore_feeds_backup_successfully">Kanalen succesvol hersteld</string>
+    <string name="error_backup_feeds">Kanalen opslaan mislukt</string>
+    <string name="error_restore_feeds_backup">Kanalen herstellen mislukt</string>
+    <string name="feed_item_open_article_url">Artikel openen</string>
+    <string name="feeds_backup_selection_dialog_title">Back-upbestand selecteren</string>
+    <string name="error_import_invalid_format">Ongeldig formaat</string>
+    <string name="feed_do_not_download_immediately">Niet onmiddellijk downloaden</string>
+    <string name="feed_item_url_not_found">URL niet gevonden</string>
+    <!-- Create torrent dialog -->
+    <string name="create_torrent">Maak torrent</string>
+    <string name="creating_torrent_progress">Torrent aan het maken, even geduld&#8230;</string>
+    <string name="file_or_folder_for_seeding">Bestand of map voor seeden</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Selecteer bestand of map om eerst te uploaden</string>
+    <string name="tracker_urls">Tracker URL\'s</string>
+    <string name="web_seed_urls">Web seed URL\'s</string>
+    <string name="comments">Opmerkingen</string>
+    <string name="tracker_urls_hint">(optioneel) Voer trackers (één per regel) in volgorde van prioriteit</string>
+    <string name="web_seed_urls_hint">(optioneel) Een per regel</string>
+    <string name="optional_hint">(optioneel)</string>
+    <string name="piece_size">Fragment grootte</string>
+    <string name="create_torrent_options">Opties</string>
+    <string name="option_start_seeding">Begin met uploaden</string>
+    <string name="option_private_torrent">Privé torrent</string>
+    <string-array name="piece_size_entries">
+        <item>Auto</item>
+        <item>16 KiB</item>
+        <item>32 KiB</item>
+        <item>64 KiB</item>
+        <item>128 KiB</item>
+        <item>256 KiB</item>
+        <item>512 KiB</item>
+        <item>1 MiB</item>
+        <item>2 MiB</item>
+        <item>4 MiB</item>
+        <item>8 MiB</item>
+        <item>16 MiB</item>
+        <item>32 MiB</item>
+    </string-array>
+    <string name="invalid_url">Ongeldige URL: %1$s</string>
+    <string name="folder_is_empty">Geselecteerde map is leeg of alle bestanden zijn uitgesloten door het filter</string>
+    <string name="error_create_torrent">Kan torrent niet aanmaken</string>
+    <string name="skip_files">Bestanden overslaan</string>
+    <string name="skip_files_hint">Voer bestandsnamen in gescheiden door \"|\"</string>
+    <string name="select_folder_to_save">Selecteer de map om op te slaan</string>
+    <string name="torrent_saved_to">Torrent opgeslagen in %1$s</string>
+    <string name="unable_to_open_file">Kan geselecteerde bestand niet openen</string>
+    <string name="unable_to_create_file">Kan bestand niet aanmaken</string>
+    <!-- Log -->
+    <string name="log_journal">Logboek</string>
+    <string name="journal_list_empty">Geen vermeldingen</string>
+    <string name="journal_start_recording">Start logging</string>
+    <string name="journal_stop_recording">Stop logging</string>
+    <string name="journal_started_recording">Loggen gestart</string>
+    <string name="journal_filter_session_log">Sessie log</string>
+    <string name="journal_filter_dht_log">DHT log</string>
+    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
+    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_save_log_failed">Fout bij het opslaan van log</string>
+    <string name="journal_save_log_success">Logboek succesvol opgeslagen: %1$s</string>
+    <string name="pref_journal_save_log_to">Sla log op in</string>
+    <!-- Log settings -->
+    <string name="pref_journal_max_stored_entries">Maximum van opgeslagen logboekvermeldingen</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Weergave</string>
+    <string name="pref_header_behavior">Gedrag</string>
+    <string name="pref_header_storage">Opslagruimte</string>
+    <string name="pref_header_limitations">Beperkingen</string>
+    <string name="pref_header_network">Netwerk</string>
+    <string name="pref_header_scheduling">Planning</string>
+    <string name="pref_header_feed">RSS</string>
+    <string name="pref_header_streaming">Streamen</string>
+    <!-- Storage settings -->
+    <string name="pref_save_torrents_in_title">Torrents opslaan in</string>
+    <string name="pref_move_after_download_title">Verplaatsen na downloaden</string>
+    <string name="pref_move_after_download_in_title">Verplaatsen na downloaden in</string>
+    <string name="pref_save_torrent_files_title">Bewaar .torrent bestanden</string>
+    <string name="pref_save_torrent_files_summary">Bewaar .torrent bestanden na start downloaden</string>
+    <string name="pref_save_torrent_files_in_title">Bewaar .torrent bestanden in</string>
+    <string name="pref_watch_dir_title">Monitor map</string>
+    <string name="pref_watch_dir_summary">De torrent bestanden (met .torrent extensie) worden in de opgegeven map gemonitord en automatisch toegevoegd. De torrent bestanden worden verwijderd na toevoegen</string>
+    <string name="pref_dir_to_watch_title">Map om te monitoren</string>
+    <!-- Limitations settings -->
+    <string name="pref_speed_category">Snelheid</string>
+    <string name="pref_max_download_speed_title">Maximale downloadsnelheid</string>
+    <string name="pref_max_upload_speed_title">Maximale upload snelheid</string>
+    <string name="pref_max_connections_title">Maximum aantal verbindingen</string>
+    <string name="pref_max_connections_summary">Minimum aantal verbindingen - 2</string>
+    <string name="pref_torrent_queueing_category">Torrent wachtrij</string>
+    <string name="pref_max_active_uploads_title">Maximum actieve uploads</string>
+    <string name="pref_max_active_downloads_title">Maximum aantal actieve downloads</string>
+    <string name="pref_max_active_torrents_title">Maximale actieve torrents</string>
+    <string name="pref_max_connections_per_torrent_title">Maximum aantal verbindingen per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Minimum aantal verbindingen - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximum aantal upload slots per torrent</string>
+    <string name="pref_auto_manage_title">Automatisch beheren</string>
+    <string name="pref_auto_manage_summary">De torrent kan op elk moment worden hervat of automatisch worden gepauzeerd. Inschakelen van deze optie kan de pauze vertragen/hervatten</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 zonder limiet</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Thema instellingen</string>
+    <string name="pref_theme_title">Thema</string>
+    <string-array name="pref_theme_entries">
+        <item>Licht</item>
+        <item>Donker</item>
+        <item>Zwart</item>
+    </string-array>
+    <string name="pref_notification_category">Meldingsinstellingen</string>
+    <string name="pref_torrent_finish_notify_title">Torrent voltooid melding</string>
+    <string name="pref_torrent_finish_notify_summary">Toon een melding wanneer een torrent klaar is met downloaden</string>
+    <string name="pref_play_sound_notify_title">Geluid afspelen</string>
+    <string name="pref_notify_sound_title">Meldingsgeluid</string>
+    <string name="pref_led_indicator_notify_title">LED indicator</string>
+    <string name="pref_led_indicator_color_notify_title">LED indicator kleur</string>
+    <string name="pref_vibration_notify_title">Trillen</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Automatisch starten</string>
+    <string name="pref_autostart_summary">De app automatisch uitvoeren na het starten van apparaat</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Alleen ongelimiteerde verbindingen</string>
+    <string name="pref_umnetered_connections_only_summary">Download alleen via ongelimiteerde verbindingen (bijvoorbeeld Wi-Fi of Ethernet)</string>
+    <string name="pref_enable_roaming_title">Toestaan tijdens roaming</string>
+    <string name="pref_enable_roaming_summary">Alleen downloaden als het apparaat niet op roaming netwerk is</string>
+    <string name="pref_power_management_category">Energiebeheer</string>
+    <string name="pref_keep_alive_title">Houd apparaat actief</string>
+    <string name="pref_keep_alive_summary">Indien ingeschakeld, zal de applicatie op de achtergrond worden uitgevoerd. Automatisch afsluiten bij beeindigen downloads zal nog werken</string>
+    <string name="pref_shutdown_downloads_complete_title">Afsluiten als downloads voltooid zijn</string>
+    <string name="pref_shutdown_downloads_complete_summary">Indien ingeschakeld, zal de app afsluiten als alle downloads zijn voltooid</string>
+    <string name="pref_cpu_do_not_sleep_title">Houdt de CPU wakker</string>
+    <string name="pref_cpu_do_not_sleep_summary">Dit inschakelen zal het batterijgebruik verhogen. Gebruik deze optie als de downloadsnelheid vermindert wanneer het scherm wordt uitgeschakeld</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Alleen downloaden en uploaden tijdens het opladen</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Indien ingeschakeld, zullen torrents alleen downloaden/uploaden tijdens het opladen. Alle torrents zullen pauzeren wanneer lader niet is verbonden</string>
+    <string name="pref_battery_control_title">Batterij beheer</string>
+    <string name="pref_custom_battery_control_title">Aangepast accu percentage</string>
+    <string name="pref_custom_battery_control_value_title">Accu percentage setpoint</string>
+    <string name="pref_battery_control_summary">Alle torrents worden gepauzeerd als het batterijniveau onder %1$d%% komt. Limiet is niet van toepassing tijdens opladen</string>
+    <string name="pref_custom_battery_control_summary">Stel een aangepast percentage in om downloads te pauzeren als de batterij onder de gegeven drempel daalt. Inschakelen zal de standaard %1$d%% drempel negeren</string>
+    <string name="pref_custom_battery_control_dialog_summary">Het instellen van een aangepast batterijpercentage voor de applicatie zal een negatieve invloed hebben op de levensduur van de accu tijdens het downloaden op accu. Weet u zeker dat u dit wilt inschakelen?</string>
+    <!-- Network settings -->
+    <string name="pref_proxy_settings_title">Proxy instellingen</string>
+    <string name="pref_enable_dht_title">DHT inschakelen</string>
+    <string name="pref_enable_dht_summary">Laat BitTorrent-clients elkaar vinden zonder het gebruik van tracker. Inschakelen van deze functie zal het batterijgebruik verhogen</string>
+    <string name="pref_enable_lsd_title">LSD inschakelen</string>
+    <string name="pref_enable_lsd_summary">Functie is ontworpen om de ontdekking te ondersteunen van lokale BitTorrent peers, gericht op het minimaliseren van het verkeer</string>
+    <string name="pref_enable_utp_title">μTP inschakelen</string>
+    <string name="pref_enable_utp_summary">Bedoeld om slechte latency en andere congestieproblemen in conventionele BitTorrent over TCP, te verminderen, terwijl het een betrouwbare en geordende levering biedt</string>
+    <string name="pref_enable_upnp_title">Schakel UPnP in</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP inschakelen</string>
+    <string name="pref_port_settings_category">Poort instellingen</string>
+    <string name="pref_use_random_port_title">Willekeurige poort gebruiken</string>
+    <string name="pref_use_random_port_summarty">Stelt de startpoort willekeurig binnen bereik [%1$d, %2$d] en de eindpoort in als eerste + 10</string>
+    <string name="pref_port_range_title">Poortbereik</string>
+    <string name="pref_port_range_start_title">Begin</string>
+    <string name="pref_port_range_end_title">Einde</string>
+    <string name="pref_encryption_category">Versleuteling</string>
+    <string name="pref_enc_mode_title">Versleutelingsmodus</string>
+    <string-array name="pref_enc_mode_entries">
+        <item>Voorkeur voor versleuteling</item>
+        <item>Versleuteling vereisen</item>
+        <item>Versleuteling uitschakelen</item>
+    </string-array>
+    <string name="pref_enc_in_connections_title">Inkomende verbindingen</string>
+    <string name="pref_enc_out_connections_title">Uitgaande verbindingen</string>
+    <string name="pref_ip_filtering_category">IP filteren</string>
+    <string name="pref_enable_ip_filtering_title">IP-filtering inschakelen</string>
+    <string name="pref_enable_ip_filtering_summary">Het gebruik van IP-filtering verhoogt het geheugengebruik. Afhankelijk van de bestandsgrootte kan het enige tijd duren voordat het filter wordt toegepast bij het opstarten</string>
+    <string name="pref_ip_filtering_file_title">Pad naar filter bestand (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">NAT-fouten weergeven</string>
+    <string name="pref_anonymous_mode_title">Schakel anonieme modus in</string>
+    <string name="pref_anonymous_mode_summary">De app probeert zijn identiteit tot een zekere mate te verbergen. De user-agent wordt gereset naar een lege string (met uitzondering van privé torrents). Trackers worden alleen gebruikt als ze een proxyserver gebruiken. De sockets van luistersockets zijn gesloten, en inkomende verbindingen worden alleen geaccepteerd via een SOCKS5 of I2P proxy (als er een peer proxy is ingesteld en op dezelfde machine als de tracker proxy). NAT-PMP, UPnP, DHT en lokale peer discovery zijn uitgeschakeld</string>
+    <string name="pref_seeding_outgoing_connections_title">Schakel uitgaande verbindingen voor seeds in</string>
+    <string name="pref_seeding_outgoing_connections_summary">Bepaalt of torrents moeten proberen uitgaande verbindingen te maken of niet. Het kan worden uitgeschakeld in zeer specifieke situaties waar de kosten voor het maken van uitgaande verbindingen hoog zijn</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">Proxy type</string>
+    <string-array name="pref_proxy_type_entries">
+        <item>(Geen)</item>
+        <item>SOCKS4</item>
+        <item>SOCKS5</item>
+        <item>HTTP</item>
+    </string-array>
+    <string name="pref_proxy_address_title">Adres</string>
+    <string name="pref_proxy_port_title">Poort</string>
+    <string name="pref_proxy_peers_too_title">Ook gebruiken voor peer verbindingen</string>
+    <string name="pref_proxy_peers_too_summary">De proxy wordt gebruikt voor het verbinden met trackers, peers en web seeds</string>
+    <string name="pref_proxy_requires_auth_title">Autorisatie vereist</string>
+    <string name="pref_proxy_requires_auth_summary">Waarschuwing: het wachtwoord is onversleuteld opgeslagen</string>
+    <string name="pref_proxy_login_title">Inloggen</string>
+    <string name="pref_proxy_password_title">Wachtwoord</string>
+    <!-- Schedule settings -->
+    <string name="pref_enable_scheduling_start_title">Starttijd</string>
+    <string name="pref_enable_scheduling_start_summary">Start app op het opgegeven tijdstip. Torrents worden uitgevoerd volgens hun staat voor de laatste afsluiting</string>
+    <string name="pref_enable_scheduling_shutdown_title">Tijd van afsluiten</string>
+    <string name="pref_enable_scheduling_shutdown_summary">App afsluiten op een bepaalde tijd</string>
+    <string name="pref_scheduling_run_only_once_title">Slechts eenmaal uitvoeren</string>
+    <string name="pref_scheduling_switch_wifi_title">Wi-Fi in-/uitschakelen</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi wordt automatisch ingeschakeld wanneer de app wordt gestart op de geplande tijd en is uitgeschakeld nadat de app op de geplande tijd is uitgeschakeld</string>
+    <!-- Feed settings -->
+    <string name="pref_feed_auto_refresh_title">Kanalen automatisch vernieuwen</string>
+    <string name="pref_feed_auto_refresh_summary">Kanalen periodiek vernieuwen op de achtergrond</string>
+    <string name="pref_feed_refresh_interval_title">Vernieuwingsinterval</string>
+    <string-array name="pref_feed_refresh_intervals_entries">
+        <item>15 minuten</item>
+        <item>30 minuten</item>
+        <item>1 uur</item>
+        <item>2 uur</item>
+        <item>6 uur</item>
+        <item>12 uur</item>
+        <item>1 dag</item>
+    </string-array>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Alleen ongelimiteerde verbindingen</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Vernieuwen alleen via ongelimiteerde verbindingen (bijvoorbeeld Wi-Fi of Ethernet)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming inschakelen</string>
+    <string name="pref_feed_keep_items_time_title">Behoud artikelen</string>
+    <string-array name="pref_feed_keep_items_time_entries">
+        <item>1 dag</item>
+        <item>2 dagen</item>
+        <item>4 dagen</item>
+        <item>1 week</item>
+        <item>2 weken</item>
+        <item>1 maand</item>
+        <item>2 maanden</item>
+        <item>3 maanden</item>
+        <item>Altijd</item>
+    </string-array>
+    <string name="pref_feed_start_torrents_title">Torrents uitvoeren</string>
+    <string name="pref_feed_start_torrents_summary">Voer torrents uit na toevoegen</string>
+    <string name="pref_feed_remove_duplicates_title">Duplicaten verwijderen</string>
+    <string name="pref_feed_remove_duplicates_summary">Controleert de titel van nieuw gedownloade item en slaat over als er al een met dezelfde titel aanwezig is</string>
+    <!-- Streaming settings -->
+    <string name="pref_streaming_enable_title">Schakel streaming in</string>
+    <string name="pref_streaming_enable_summary">Met streaming kunt u individuele bestanden downloaden van een torrent met behulp van een browser of mediaspeler met behulp van HTTP-urls</string>
+    <string name="pref_streaming_hostname">Hostnaam</string>
+    <string name="pref_streaming_port">Poort</string>
+    <string name="pref_streaming_error">Geselecteerde poort of hostnaam voor het streamen is bezet of onjuist. Corrigeer aub</string>
+    <!-- About dialog -->
+    <string name="about_title">Over LibreTorrent</string>
+    <string name="about_description"><![CDATA[    Meer informatie en help ook het project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab. om/proninyaroslav/libretorrent</a><br><br>
+    LibreTorrent is een vrije als in Freedom torrent client voor Android 4+, gebaseerd op libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
+    LibreTorrent is gratis software, vrijgegeven onder de voorwaarden van de <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_changelog">Changelog</string>
+</resources>

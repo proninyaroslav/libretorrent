@@ -1,1 +1,1 @@
-LibreTorrent是一款基于libtorrent的Android 5+免费as in Freedom torrent客户端。 直接在设备上下载和共享文件。
+LibreTorrent 是一款基于 libtorrent 的用于 Android 5+ 的自由的种子客户端。 直接在设备上下载和共享文件。

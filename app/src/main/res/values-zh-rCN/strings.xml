@@ -548,6 +548,6 @@
     <string name="about_title">关于 LibreTorrent</string>
     <string name="about_description"><![CDATA[    了解更多信息并帮助项目发展： <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent 是一个用于 Android 4+ 的自由的 Torrent 客户端，它基于 libtorrent （Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>）库。<br><br>
-    LibreTorrent是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3）</a>条款发布的自由软件]]></string>
+    LibreTorrent 是根据<a href="http://www.gnu.org/copyleft/gpl.html">GNU通用公共许可证v3（GPLv3）</a>条款发布的自由软件]]></string>
     <string name="about_changelog">更新日志</string>
 </resources>

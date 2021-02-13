@@ -71,6 +71,7 @@ You can help translate the app here: [https://crowdin.com/project/libretorrent](
  - **Chinese Traditional** *(thanks lzmxya)*
  - **Chinese** *(thanks yanglw, Xu Eric and Tan Yongle)*
  - **Czech** *(thanks HarryPhoon, novas78)*
+ - **Dutch** *(thanks Postpeer)*
  - **English**
  - **French** *(thanks Valentin Orient, boby23)*
  - **German** *(thanks vanitasvitae)*

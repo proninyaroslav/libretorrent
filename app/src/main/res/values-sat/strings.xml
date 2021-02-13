@@ -36,10 +36,10 @@
     <string name="file">ᱨᱮᱫ</string>
     <string name="folder">ᱯᱚᱴᱚᱢ</string>
     <string name="finished">ᱪᱟᱵᱟ ᱮᱱᱟ</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
-    <string name="details">Details</string>
+    <string name="pause_all">ᱡᱷᱚᱛᱚ ᱯᱚᱡᱽ ᱢᱮ</string>
+    <string name="resume_all">ᱡᱷᱚᱛᱚ ᱞᱟᱦᱟ ᱪᱷᱚᱭ ᱢᱮ</string>
+    <string name="all">ᱡᱷᱚᱛᱚ</string>
+    <string name="details">ᱵᱤᱵᱨᱚᱬ</string>
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
     <string name="apply">Apply</string>
@@ -94,7 +94,6 @@
     <string name="drawer_date_added_week">Week</string>
     <string name="drawer_date_added_month">Month</string>
     <string name="drawer_date_added_year">Year</string>
-    <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
     <string name="edit_tag">Edit tag</string>
