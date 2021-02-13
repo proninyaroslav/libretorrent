@@ -1,0 +1,11 @@
+* Bugfixes:
+    - Crash on 32-bit CPUs
+    - Crash when the "Watch directory" option is enabled
+    - Correct path to SD card
+    - Opening a torrent file from third-party apps
+    - Enabling finish notification in the settings
+    - Minor fixes
+* Indicator light and vibration enabled by default for finish notification (reinstallation required)
+* New translations:
+    - Dutch
+* Updated current translations
