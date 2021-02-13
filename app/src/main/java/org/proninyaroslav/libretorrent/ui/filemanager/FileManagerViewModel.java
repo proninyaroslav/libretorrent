@@ -235,7 +235,8 @@ public class FileManagerViewModel extends AndroidViewModel
         fileName = appendExtension(fs.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
-        if (!f.getParentFile().canWrite())
+        File parent = f.getParentFile();
+        if (parent != null && !parent.canWrite())
             throw new SecurityException("Permission denied");
         try {
             if (f.exists() && !f.delete())
@@ -284,9 +285,9 @@ public class FileManagerViewModel extends AndroidViewModel
             if (file != null && !file.equals(external)) {
                 String absolutePath = file.getAbsolutePath();
                 String path = getBaseSdCardPath(absolutePath);
-                if (path == null || !new File(path).canRead()) {
+                if (path == null || !checkSdCardPermission(new File(path), config)) {
                     path = getSdCardDataPath(absolutePath);
-                    if (path == null || !new File(path).canRead()) {
+                    if (path == null || !checkSdCardPermission(new File(path), config)) {
                         Log.w(TAG, "Ext sd card path wrong: " + absolutePath);
                         continue;
                     }
@@ -323,6 +324,19 @@ public class FileManagerViewModel extends AndroidViewModel
             // Keep non-canonical path.
             return absolutePath;
         }
+    }
+
+    private boolean checkSdCardPermission(File file, FileManagerConfig config) {
+        switch (config.showMode) {
+            case FileManagerConfig.FILE_CHOOSER_MODE:
+                return file.canRead();
+            case FileManagerConfig.DIR_CHOOSER_MODE:
+                return file.canRead() && file.canWrite();
+            case FileManagerConfig.SAVE_FILE_MODE:
+                return file.canWrite();
+        }
+
+        throw new IllegalArgumentException("Unknown mode: " + config.showMode);
     }
 
     public List<FileManagerSpinnerAdapter.StorageSpinnerItem> getStorageList()

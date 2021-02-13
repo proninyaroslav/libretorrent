@@ -76,6 +76,7 @@ import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.IDN;
 import java.nio.charset.Charset;
@@ -561,8 +562,8 @@ public class Utils {
             @Override
             public void onResponseHandle(HttpURLConnection conn, int code, String message) {
                 if (code == HttpURLConnection.HTTP_OK) {
-                    try {
-                        response[0] = IOUtils.toByteArray(conn.getInputStream());
+                    try(InputStream is = conn.getInputStream()) {
+                        response[0] = IOUtils.toByteArray(is);
 
                     } catch (IOException e) {
                         errorArray.add(e);
