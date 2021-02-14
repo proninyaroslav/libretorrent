@@ -1,0 +1,16 @@
+* Deneysel sistem dosyası yöneticisi desteği kaldırıldı. Bu şekilde eklenen torrentleri bozabilir
+* Android 10 desteği
+* Android 4.x desteği kaldırıldı. 5.0, desteklenen en düşük sürümdür
+* Eklenenler:
+    - BitTorrent 2.0 desteği
+    - Etiketler
+    - Panodan yapıştırıldığında bağlantıları otomatik getirme
+    - Uyarlanabilir kısayol simgeleri
+* Yeni çeviriler:
+    - Arapça
+    - Bengalce
+    - Endonezya
+    - Farsça
+    - Santali
+* Çeviriler güncellendi
+* libtorrent4j 2.x sürümüne güncellendi

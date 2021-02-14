@@ -2,21 +2,21 @@
 
 * DHT, PeX, titkosítás, LSD, UPnP, NAT*PMP, µTP
 * IP szűrés (eMule dat és PeerGuardian)
-* Finomhangolási képesség (hálózati beállítások, energiagazdálkodás, akkumulátor vezérlés, felhasználói felület beállításai stb.)
-* Támogatja a nagy számosságú torrenteket és a nagy fájlokat
-* HTTP\S és magnet link támogatás
-* Proxy támogatása trackereknek és a peerek számára
-* Képes a fájlokat mozgatni letöltés közben is
-* A fájlok automatikus áthelyezése egy másik könyvtárba vagy egy külső meghajtóra a letöltés végén
-* Képes a fájlok és mappák prioritásait kezelni
-* Lehetőség van kiválasztani a mely fájlokat töltse le
-* Képes a letöltéseket folyamatában is kezelni
+* Finomhangolás (hálózati beállítások, energiagazdálkodás, akkumulátorvezérlés, felhasználói felület beállításai stb.)
+* Számos torrent és nagy fájlok támogatása
+* HTTP\S és mágneslink támogatás
+* Proxyk támogatása a követők és partnerek számára
+* Fájlok áthelyezése letöltés közben is
+* Fájlok automatikus áthelyezése egy másik könyvtárba vagy egy külső meghajtóra a letöltés végén
+* Fájlok és mappák prioritásának kezelése
+* Letöltendő fájlok megadása
+* Sorfolytonos letöltés
 * Material Design
-* Sötét és Fekete téma
-* Tabletre optimalizált UI
+* Sötét és fekete téma
+* Táblagépre optimalizált felület
 * Ütemezés
 * RSS kezelő
 * Android TV támogatás
-* Torrentek létrehozásának képessége
-* A kiválasztott fájlok streamelése
+* Torrentek létrehozása
+* A kiválasztott fájlok közvetítése
 * és még sok egyéb funkció

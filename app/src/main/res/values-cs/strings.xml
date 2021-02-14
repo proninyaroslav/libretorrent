@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
     <string name="network_offline">Stav sítě: Offline</string>
-    <string name="notify_shutting_down">Vypínání&#8230;</string>
+    <string name="notify_shutting_down">Vypínání…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Chyba torrentu</string>
     <string name="error_template">Chyba: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Trackeři</string>
     <string name="tracker_state_working">Pracuje</string>
     <string name="tracker_state_not_working">Nepracuje</string>
-    <string name="tracker_state_updating">Aktualizování&#8230;</string>
+    <string name="tracker_state_updating">Aktualizování…</string>
     <string name="tracker_state_not_contacted">Ještě nekontaktováno</string>
     <string name="share_tracker_url">Sdílet URL</string>
     <string name="delete_selected_tracker">Smazat zvolený tracker?</string>
@@ -319,10 +319,10 @@
     <string name="feed_item_url_not_found">URL nebyla nalezena</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Vytvořit torrent</string>
-    <string name="creating_torrent_progress">Vytváření torrentu, čekejte prosím&#8230;</string>
+    <string name="creating_torrent_progress">Vytváření torrentu, čekejte prosím…</string>
     <string name="file_or_folder_for_seeding">Soubor nebo složka pro seedování</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Nejprve vyberte soubor nebo složku pro seedování</string>
-    <string name="tracker_urls">URL Trackeru:</string>
+    <string name="tracker_urls">URL Trackeru</string>
     <string name="web_seed_urls">URL webových seedů</string>
     <string name="comments">Komentáře</string>
     <string name="tracker_urls_hint">(Volitelné) Zadejte sledovače - jeden na řádek v pořadí podle priority</string>
