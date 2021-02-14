@@ -5,6 +5,9 @@
 
 LibreTorrent
 =====================
+
+![LibreTorrent](fastlane/metadata/android/en-US/images/featureGraphic.png)
+
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
 [<img alt="Get it on AFH" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=246723)
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
