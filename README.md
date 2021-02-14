@@ -1,5 +1,6 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/libretorrent/localized.svg)](https://crowdin.com/project/libretorrent)
 [![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
+[![Matrix Room](https://img.shields.io/matrix/libretorrent:matrix.org?label=Matrix%20Room)](https://matrix.to/#libretorrent:matrix.org)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/14421/badge.svg">](https://scan.coverity.com/projects/proninyaroslav-libretorrent)
 
 LibreTorrent
