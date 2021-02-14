@@ -7,15 +7,15 @@
     <string name="no">Hayır</string>
     <string name="error">Hata</string>
     <string name="warning">Uyarı</string>
-    <string name="shutdown">Kapama, Çalışmayı durdurma</string>
+    <string name="shutdown">Kapat</string>
     <string name="replace">Değiştir</string>
     <string name="add">Ekle</string>
     <string name="delete">Sil</string>
     <string name="deleting">Siliniyor</string>
     <string name="select_all">Hepsini seç</string>
     <string name="save">Kaydet</string>
-    <string name="search">Araştır</string>
-    <string name="not_available">Mevcut değil</string>
+    <string name="search">Ara</string>
+    <string name="not_available">Yok</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d sa. %3$d dk</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -24,9 +24,9 @@
     <string name="elapsed_time_format_mm_ss">%1$d dk. %2$d sn</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d sn</string>
-    <string name="def">Varsayılan</string>
+    <string name="def">Öntanımlı</string>
     <string name="foreground_notification">Ön plan bildirimi</string>
-    <string name="link">Link</string>
+    <string name="link">Bağlantı</string>
     <string name="filter">Filtre</string>
     <string name="refresh">Yenile</string>
     <string name="edit">Düzenle</string>
@@ -50,14 +50,14 @@
     <string name="delete_torrent_with_downloaded_files">İndirilen dosyalarla birlikte sil</string>
     <string name="delete_selected_torrent">Seçili torrent silinsin mi? Bu işlem geri alınamaz</string>
     <string name="delete_selected_torrents">Seçili torrentler silinsin mi? Bu işlem geri alınamaz</string>
-    <string name="force_recheck_torrent">Tekrar kontrol etmeye zorla</string>
+    <string name="force_recheck_torrent">Tekrar denetlemeye zorla</string>
     <string name="force_announce_torrent">Anons etmeyi zorla</string>
     <string name="add_link">Bağlantı ekle</string>
-    <string name="dialog_add_link_title">infohash değeri, magnet linki, ya da HTTP/HTTPS linkini girin</string>
+    <string name="dialog_add_link_title">infohash değeri, magnet bağlantısı, veya HTTP/HTTPS bağlantısını girin</string>
     <string name="torrent_list_empty">Torrent yok</string>
     <string name="select_or_add_torrent">Torrent seç ya da ekle</string>
-    <string name="error_empty_link">Lütfen link girin</string>
-    <string name="error_invalid_link">Geçersiz link</string>
+    <string name="error_empty_link">Lütfen bağlantı girin</string>
+    <string name="error_invalid_link">Geçersiz bağlantı</string>
     <string name="error_open_torrent_file">Torrent dosyası açılamıyor</string>
     <string name="open_file">Dosya aç</string>
     <string name="settings">Ayarlar</string>
@@ -97,16 +97,16 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag">Etiketi düzenle</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="add_tag_failed">Etiket eklenemedi</string>
+    <string name="tag_deleting_failed">Etiket silinemedi</string>
+    <string name="tag_already_exists">Aynı ada sahip bir etiket zaten var</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag">Etiket seç</string>
+    <string name="new_tag">Yeni etiket</string>
+    <string name="without_tags">Etiketler olmadan</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent arka planda çalışıyor</string>
     <string name="network_online">Ağ durumu: Çevrimiçi</string>
     <string name="network_offline">Ağ durumu: Çevrimdışı</string>
-    <string name="notify_shutting_down">Kapatılıyor&#8230;</string>
+    <string name="notify_shutting_down">Kapatılıyor…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent hatası</string>
     <string name="error_template">Hata: %1$s</string>
@@ -147,7 +147,7 @@
     <string name="torrent_status_seeding">Yükleniyor</string>
     <string name="torrent_status_paused">Duraklatıldı</string>
     <string name="torrent_status_stopped">Durduruldu</string>
-    <string name="torrent_status_checking">Kontrol ediliyor</string>
+    <string name="torrent_status_checking">Denetleniyor</string>
     <string name="torrent_status_finished">Tamamlandı</string>
     <string name="torrent_status_downloading_metadata">Meta veri indiriliyor</string>
     <!-- Permission dialog -->
@@ -157,8 +157,8 @@
     <string name="add_torrent_title">Torrent ekle</string>
     <string name="error_decode_torrent">Torrent dosyası çözümlenemedi. Belki dosya bozuktur ya da yanlış bir formata sahiptir</string>
     <string name="error_io_torrent">Torrent dosyası okuma hatası</string>
-    <string name="error_fetch_link">Linkten veri alınamadı</string>
-    <string name="error_invalid_link_or_path">Geçersiz link ya da torrent yolu</string>
+    <string name="error_fetch_link">Bağlantıdan veri alınamadı</string>
+    <string name="error_invalid_link_or_path">Geçersiz bağlantı veya torrent yolu</string>
     <string name="error_add_torrent">Torrent eklenemedi</string>
     <string name="error_file_not_found_add_torrent">Torrent eklenemedi. Belki torrent dosyası taşınmış, ya da silinmiştir</string>
     <string name="error_io_add_torrent">Torrent eklenemedi. I/O hatası</string>
@@ -195,8 +195,8 @@
     <string name="home_directory">Ana klasör</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name">Dahili depolama</string>
+    <string name="external_storage_name" formatted="false">Harici depolama %1$d</string>
     <string name="permission_denied">İzin reddedildi</string>
     <string name="save_file">Dosyayı kaydet</string>
     <string name="file_name">Dosya adı</string>
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">Takipçiler</string>
     <string name="tracker_state_working">Çalışıyor</string>
     <string name="tracker_state_not_working">Çalışmıyor</string>
-    <string name="tracker_state_updating">Güncelleniyor&#8230;</string>
+    <string name="tracker_state_updating">Güncelleniyor…</string>
     <string name="tracker_state_not_contacted">Henüz irtibat kurulmadı</string>
     <string name="share_tracker_url">URL paylaş</string>
     <string name="delete_selected_tracker">Seçili takipçiyi sil?</string>
@@ -301,11 +301,11 @@
     <string name="error_cannot_add_channel">Kanal eklenemiyor</string>
     <string name="error_cannot_edit_channel">Kanal düzenlenemiyor</string>
     <string name="error_cannot_delete_channel">Kanal silinemiyor</string>
-    <string name="copy_link">Linki kopyala</string>
+    <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="delete_selected_channel">Seçili kanalı sil?</string>
     <string name="delete_selected_channels">Seçili kanalları sil?</string>
     <string name="edit_feed_channel">Kanalı düzenle</string>
-    <string name="link_copied_to_clipboard">Link panoya kopyalandı</string>
+    <string name="link_copied_to_clipboard">Bağlantı panoya kopyalandı</string>
     <string name="mark_as_read">Okundu olarak işaretle</string>
     <string name="mark_as_unread">Okunmadı olarak işaretle</string>
     <string name="feed_item_list_empty">Makale yok</string>
@@ -320,7 +320,7 @@
     <string name="feed_item_url_not_found">URL bulunamadı</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent oluştur</string>
-    <string name="creating_torrent_progress">Torrent oluşturuluyor, lütfen bekleyin&#8230;</string>
+    <string name="creating_torrent_progress">Torrent oluşturuluyor, lütfen bekleyin…</string>
     <string name="file_or_folder_for_seeding">Yüklemek için dosya ya da klasör</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Lütfen önce tohumlama için dosya veya klasör seçin</string>
     <string name="tracker_urls">Takipçi URL\'leri</string>
@@ -382,7 +382,7 @@
     <string name="pref_header_network">Ağ</string>
     <string name="pref_header_scheduling">Zamanlama</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming">Akış</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Torrentleri şuraya kaydet</string>
     <string name="pref_move_after_download_title">İndirdikten sonra taşı</string>
@@ -442,11 +442,11 @@
     <string name="pref_cpu_do_not_sleep_summary">Bunu etkinleştirmek pil kullanımını arttıracaktır. Ekran kapandığında indirme hızı düşüyorsa bu seçeneği kullanın</string>
     <string name="pref_download_and_upload_only_when_charging_title">Sadece şarj olurken indir ve karşıya yükle</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Etkinse, torrentler yalnızca şarj olurken indirilir/karşıya yüklenir. Şarj cihazına bağlı değilken tüm torrentler duraklatılır</string>
-    <string name="pref_battery_control_title">Pil kontrolü</string>
+    <string name="pref_battery_control_title">Pil denetimi</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
-    <string name="pref_custom_battery_control_value_title">Pil kontrol yüzdesi</string>
+    <string name="pref_custom_battery_control_value_title">Pil denetimi yüzdesi</string>
     <string name="pref_battery_control_summary">Pil seviyesi %1$d%% altına düşerse tüm torrentler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
-    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altındaysa, indirmeleri duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
+    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altına indiğinde, indirmeleri duraklatmak için özel bir yüzde ayarlayın. Bunu etkinleştirmek, öntanımlı %%%1$d eşiğini yok sayacaktır</string>
     <string name="pref_custom_battery_control_dialog_summary">İndirmeler gerçekleşirken uygulama için dikkate alınacak özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Bunu etkinleştirmek istediğinize emin misin?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy ayarları</string>
@@ -455,7 +455,7 @@
     <string name="pref_enable_lsd_title">LSD\'yi etkinleştir</string>
     <string name="pref_enable_lsd_summary">Trafiği en aza indirmek amacıyla, yerel BitTorrent eşlerinin keşfedilmesini desteklemek için tasarlanmıştır</string>
     <string name="pref_enable_utp_title">μTP\'yi etkinleştir</string>
-    <string name="pref_enable_utp_summary">Güvenilir, düzenli teslimatı sağlarken, TCP üzerinden geleneksel BitTorrent\'te bulunan zayıf gecikme ve diğer tıkanıklık kontrolü sorunlarını azaltmak için tasarlanmıştır</string>
+    <string name="pref_enable_utp_summary">Güvenilir, düzenli teslimatı sağlarken, TCP üzerinden geleneksel BitTorrent\'te bulunan zayıf gecikme ve diğer tıkanıklık denetimi sorunlarını azaltmak için tasarlanmıştır</string>
     <string name="pref_enable_upnp_title">UPnP\'yi etkinleştir</string>
     <string name="pref_enable_natpmp_title">NAT-PMP\'yi etkinleştir</string>
     <string name="pref_port_settings_category">Port ayarları</string>
@@ -499,7 +499,7 @@
     <string name="pref_proxy_login_title">Oturum aç</string>
     <string name="pref_proxy_password_title">Parola</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_title">Başlangıç ​​zamanı</string>
+    <string name="pref_enable_scheduling_start_title">Başlangıç zamanı</string>
     <string name="pref_enable_scheduling_start_summary">Uygulamayı belirtilen zamanda başlat. Torrentler son kapanmadan önceki durumlarına göre çalışacaktır</string>
     <string name="pref_enable_scheduling_shutdown_title">Kapanma zamanı</string>
     <string name="pref_enable_scheduling_shutdown_summary">Uygulamayı belirtilen zamanda kapat</string>
@@ -538,7 +538,7 @@
     <string name="pref_feed_start_torrents_title">Torrentleri çalıştır</string>
     <string name="pref_feed_start_torrents_summary">Ekledikten sonra torrentleri çalıştır</string>
     <string name="pref_feed_remove_duplicates_title">Çift olanları kaldır</string>
-    <string name="pref_feed_remove_duplicates_summary">Yeni indirilmiş ögenin başlığını kontrol eder ve aynı başlıkta biri zaten mevcutsa pas geçer</string>
+    <string name="pref_feed_remove_duplicates_summary">Yeni indirilmiş ögenin başlığını denetler ve aynı başlıkta bir öge zaten varsa pas geçer</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Streaming\'i etkinleştir</string>
     <string name="pref_streaming_enable_summary">Streaming, HTTP URL\'lerini kullanarak bir tarayıcı veya medya oynatıcı kullanarak bir torrentden tek tek dosyaları indirmenize olanak sağlar</string>
