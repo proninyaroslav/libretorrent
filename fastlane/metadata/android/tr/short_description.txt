@@ -1,1 +1,1 @@
-LibreTorrent, libtorrent'e dayalı, Android 5+ için özgür bir torrent istemcisidir. Dosyaları doğrudan cihazınıza indirin ve paylaşın
+Free and Open Source, full-featured torrent client. Based on libtorrent library

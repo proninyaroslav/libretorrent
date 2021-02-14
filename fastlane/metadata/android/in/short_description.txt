@@ -1,1 +1,1 @@
-LibreTorrent merupakan klien torrent bebas-merdeka berbasis libtorrent untuk Android 5 keatas. Unduh dan bagikan berkas langsung dari perangkat anda
+Free and Open Source, full-featured torrent client. Based on libtorrent library

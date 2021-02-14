@@ -1,1 +1,1 @@
-LibreTorrent је слободан торент клијент за Андроид 5+, заснован на libtorrent. Преузимај и дели датотеке директно помоћу свог уређаја
+Free and Open Source, full-featured torrent client. Based on libtorrent library

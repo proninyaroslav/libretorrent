@@ -1,1 +1,1 @@
-LibreTorrent è un client torrent libero ed open source, per Andorid 5+, basato su libtorrent. Scarica e condividi file direttamente sul tuo dispositivo
+Free and Open Source, full-featured torrent client. Based on libtorrent library

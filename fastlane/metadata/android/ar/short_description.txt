@@ -1,1 +1,1 @@
-LibreTorrent مجاني كما هو الحال بالنسبة لعميل تورنت الحرية للأندرويد 5+، استنادًا إلى ليبرتورنت. حمّل وشارك الملفات مباشرة على جهازك
+Free and Open Source, full-featured torrent client. Based on libtorrent library

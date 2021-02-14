@@ -1,1 +1,1 @@
-LibreTorrent is gratis als in 'Freedom torrent client' voor Android 5+, gebaseerd op libtorrent. Download en deel bestanden rechtstreeks op uw apparaat
+Free and Open Source, full-featured torrent client. Based on libtorrent library
