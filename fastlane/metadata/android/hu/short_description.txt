@@ -1,1 +1,1 @@
-Free and Open Source, full-featured torrent client. Based on libtorrent library
+Szabad és nyílt forráskódú, libtorrent programkönyvtáron alapuló torrentkliens.

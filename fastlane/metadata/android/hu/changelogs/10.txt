@@ -1,0 +1,11 @@
+* Hozzáadva:
+    - Közvetítési támogatás (jelenleg DLNA nélkül).
+    - Nagy számú fájlt tartalmazó torrentek támogatása.
+    - BEP53 támogatás.
+    - Hibák megjelenítése minden torrenthez.
+    - „Ne töltse le azonnal” lehetőség a hírforrásoknál
+    - Saját BitTorrent ujjlenyomat („Lr”)
+    - Akkumulátor-használati figyelmeztetés a DHT lehetőséghez
+* Kínai fordítás
+* Java 8 támogatás
+* Átállás a libtorrent4j programkönyvtárra
