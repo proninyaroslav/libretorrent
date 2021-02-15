@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent पृष्ठभूमि में चल रहा है</string>
     <string name="network_online">नेटवर्क स्थिति: ऑनलाइन</string>
     <string name="network_offline">नेटवर्क स्थिति: ऑफ़लाइन</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Shutting down…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">टोरेंट की त्रुटि</string>
     <string name="error_template">त्रुटि: %1$s</string>
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">ट्रैकर्स</string>
     <string name="tracker_state_working">काम कर रहे</string>
     <string name="tracker_state_not_working">काम नहीं कर रहा</string>
-    <string name="tracker_state_updating">अद्यतन कर रहा है &#8230;</string>
+    <string name="tracker_state_updating">अद्यतन कर रहा है …</string>
     <string name="tracker_state_not_contacted">अभी तक संपर्क नहीं किया गया</string>
     <string name="share_tracker_url">शेयर यूआरएल</string>
     <string name="delete_selected_tracker">चयनित ट्रैकर हटाएं?</string>
@@ -320,7 +320,7 @@
     <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">धार पैदा करो</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
     <string name="file_or_folder_for_seeding">बोने के लिए फाइल या फोल्डर</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">ट्रैकर यूआरएल</string>
@@ -445,8 +445,8 @@
     <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
     <string name="pref_custom_battery_control_title">कस्टम बैटरी प्रतिशत</string>
     <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
-    <string name="pref_battery_control_summary">यदि बैटरी स्तर% 1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
-    <string name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट% 1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
+    <string name="pref_battery_control_summary">यदि बैटरी स्तर %1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट %1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
     <string name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>
