@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="ok">OK</string>
-    <string name="cancel">Mégsem</string>
+    <string name="cancel">Mégse</string>
     <string name="yes">Igen</string>
     <string name="no">Nem</string>
     <string name="error">Hiba</string>
@@ -12,7 +12,7 @@
     <string name="add">Új hozzáadása</string>
     <string name="delete">Törlés</string>
     <string name="deleting">Törlés</string>
-    <string name="select_all">Mindet kijelöl</string>
+    <string name="select_all">Az összes kijelölése</string>
     <string name="save">Mentés</string>
     <string name="search">Keresés</string>
     <string name="not_available">N/A</string>
@@ -25,11 +25,11 @@
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d mp</string>
     <string name="def">Alapértelmezett</string>
-    <string name="foreground_notification">Előtér értesítések</string>
+    <string name="foreground_notification">Előtérbeli értesítések</string>
     <string name="link">Hivatkozás</string>
     <string name="filter">Szűrő</string>
-    <string name="refresh">Frissít</string>
-    <string name="edit">Javít</string>
+    <string name="refresh">Frissítés</string>
+    <string name="edit">Szerkesztés</string>
     <string name="menu">Menü</string>
     <string name="open_navigation_drawer">Navigációs fiók kinyitása</string>
     <string name="close_navigation_drawer">Navigációs fiók bezárása</string>
@@ -47,25 +47,25 @@
     <string name="switch_on">Be</string>
     <string name="switch_off">Ki</string>
     <!-- Main window -->
-    <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájllal együtt</string>
-    <string name="delete_selected_torrent">Törlöd a kiválasztott torrentet? A művelet nem vonható vissza</string>
-    <string name="delete_selected_torrents">Törlöd a kiválasztott torrenteket? A művelet nem vonható vissza</string>
+    <string name="delete_torrent_with_downloaded_files">Törlés a letöltött fájlokkal együtt</string>
+    <string name="delete_selected_torrent">Törli a kiválasztott torrentet\? A művelet nem vonható vissza.</string>
+    <string name="delete_selected_torrents">Törli a kiválasztott torrenteket\? A művelet nem vonható vissza.</string>
     <string name="force_recheck_torrent">Adatok erőltetett újraellenőrzése</string>
     <string name="force_announce_torrent">Erőltetett újrakapcsolódás</string>
     <string name="add_link">Hivatkozás hozzáadása</string>
-    <string name="dialog_add_link_title">Add meg az infohash értékét, magnet linket, vagy HTTP/HTTPS linket</string>
+    <string name="dialog_add_link_title">Adja meg az infohash értéket, mágneslinket, vagy HTTP/HTTPS hivatkozást</string>
     <string name="torrent_list_empty">Nincsenek torrentek</string>
     <string name="select_or_add_torrent">Torrent hozzáadása vagy kiválasztása</string>
-    <string name="error_empty_link">Add meg a linket</string>
+    <string name="error_empty_link">Adjon meg egy hivatkozást</string>
     <string name="error_invalid_link">Érvénytelen hivatkozás</string>
-    <string name="error_open_torrent_file">Nem tudom megnyitni a torrent fájlt</string>
+    <string name="error_open_torrent_file">Nem lehet megnyitni a torrentfájlt</string>
     <string name="open_file">Fájl megnyitása</string>
     <string name="settings">Beállítások</string>
-    <string name="ip_filter_add_error">Nem tudok IP szűrőt hozzáadni (%1$d sikertelen). Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
+    <string name="ip_filter_add_error">Az IP szűrő hozzáadása sikertelen (%1$d sikertelen). Lehet, hogy a fájl hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő sikeresen hozzáadva</string>
-    <string name="proxy_settings_applied">Proxy szerver beálítások sikeresen hozzáadva</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy szerver beálítások a következő újraindítás után lépnek életbe</string>
-    <string name="theme_settings_apply_after_reboot">A téma beállításai a következő újraindítás után aktiválódnak</string>
+    <string name="proxy_settings_applied">A proxy kiszolgáló beállításai sikeresen alkalmazva</string>
+    <string name="proxy_settings_apply_after_reboot">A proxy kiszolgáló beállításai a következő újraindítás után lépnek életbe</string>
+    <string name="theme_settings_apply_after_reboot">A téma beállításai a következő újraindítás után lépnek életbe</string>
     <string name="about">Névjegy</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-csomópontok: %1$d</string>
@@ -73,10 +73,10 @@
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <string name="session_stats_listen_port">Kapcsolati port: %1$s</string>
     <!-- Status -->
-    <string name="drawer_status">Státusz</string>
+    <string name="drawer_status">Állapot</string>
     <string name="drawer_status_downloading">Letöltés</string>
-    <string name="drawer_status_downloaded">Letöltött</string>
-    <string name="drawer_status_downloading_metadata">Metadata letöltése</string>
+    <string name="drawer_status_downloaded">Letöltve</string>
+    <string name="drawer_status_downloading_metadata">Metaadatok letöltése</string>
     <string name="drawer_status_error">Hiba</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Rendezés</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">Méret</string>
     <string name="drawer_sorting_progress">Folyamat</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peerek</string>
+    <string name="drawer_sorting_peers">Partnerek</string>
     <string name="drawer_sorting_no_sorting">Rendezés nélkül</string>
     <!-- Date added -->
     <string name="drawer_date_added">Hozzáadás dátuma</string>
@@ -113,25 +113,25 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Letöltés: %1$d Összes: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent a háttérben fut</string>
-    <string name="network_online">Hálózati státusz: Élő</string>
-    <string name="network_offline">Hálózati státusz: Szétkapcsolt</string>
-    <string name="notify_shutting_down">Leállítás&amp;#8230</string>
+    <string name="torrent_count_notify_template">Letöltés: %1$d Összesen: %2$d</string>
+    <string name="app_running_in_the_background">A LibreTorrent a háttérben fut</string>
+    <string name="network_online">Hálózat állapota: Kapcsolatban</string>
+    <string name="network_offline">Hálózat állapota: Szétkapcsolt</string>
+    <string name="notify_shutting_down">Leállítás…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent hiba</string>
     <string name="error_template">Hiba: %1$s</string>
-    <string name="restore_torrent_error">nem tudom javítani a torrentet az előző sessionből</string>
-    <string name="session_error_title">Session hiba</string>
+    <string name="restore_torrent_error">a torrent nem állítható vissza az előző munkamenetből</string>
+    <string name="session_error_title">Munkamenet hiba</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT hiba</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent elkészült</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Torrent mozgatása</string>
-    <string name="torrent_moving_content">Mozgatom a %1$s-t, kérlek várj</string>
-    <string name="torrent_move_success">Torrent sikeresen átmozgatva</string>
-    <string name="torrent_move_fail">Nem sikerült átmozgatni a torrentet</string>
+    <string name="torrent_moving_title">Torrent áthelyezése</string>
+    <string name="torrent_moving_content">A(z) %1$s áthelyezése, kis türelmet</string>
+    <string name="torrent_move_success">Torrent sikeresen áthelyezve</string>
+    <string name="torrent_move_fail">Nem sikerült áthelyezni a torrentet</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -143,54 +143,54 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Letöltés</string>
-    <string name="torrent_status_seeding">Seedelés</string>
-    <string name="torrent_status_paused">Szüneteltetve</string>
-    <string name="torrent_status_stopped">Leállítva</string>
+    <string name="torrent_status_seeding">Megosztás</string>
+    <string name="torrent_status_paused">Szüneteltetett</string>
+    <string name="torrent_status_stopped">Leállított</string>
     <string name="torrent_status_checking">Ellenőrzés</string>
     <string name="torrent_status_finished">Befejezett</string>
-    <string name="torrent_status_downloading_metadata">Metadata letöltése</string>
+    <string name="torrent_status_downloading_metadata">Metaadatok letöltése</string>
     <!-- Permission dialog -->
-    <string name="perm_denied_title">Nincs megfelelő jogosultság</string>
-    <string name="perm_denied_warning">Engedélyek nélkül nem tudom a memóriába betölteni a torrent fájlt. Az app nem fog rendesen működni. Biztos, hogy elveted ennek az engedélynek a megadását?</string>
+    <string name="perm_denied_title">Engedély megtagadva</string>
+    <string name="perm_denied_warning">Az engedély nélkül nem lehet a memóriába menteni a torrent fájlt. Az alkalmazás nem fog rendesen működni. Biztos, hogy megtiltja ezt az engedélyt\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent hozzáadása</string>
-    <string name="error_decode_torrent">Nem tudom dekódolni a torrent fájlt. Valószínű hibás, sérült vagy nem megfelelő a formátuma</string>
+    <string name="error_decode_torrent">A torrent fájl dekódolása nem sikerült. Lehet, hogy a fájl hibás, sérült vagy nem megfelelő a formátuma.</string>
     <string name="error_io_torrent">Hiba a torrent fájl olvasásakor</string>
-    <string name="error_fetch_link">Nem tudom a link adatait kinyerni</string>
-    <string name="error_invalid_link_or_path">Hibás link vagy hibás az elérése a torrent fájlnak</string>
-    <string name="error_add_torrent">Nem tudtam hozzáadni a torrent fájlt</string>
-    <string name="error_file_not_found_add_torrent">Nerm tudom hozzáadni a torrent fájlt. Valószínű a fájl nincs ott vagy törölve lett</string>
-    <string name="error_io_add_torrent">Nem tudom hozzáadni a torrentet. I/O hiba</string>
-    <string name="torrent_exist">A torrent már létezik. Torrenteket egyesítették</string>
-    <string name="error_field_required">Ez egy kötelező mező</string>
+    <string name="error_fetch_link">Az adatok kinyerése a hivatkozásból sikertelen</string>
+    <string name="error_invalid_link_or_path">Hibás hivatkozás vagy torrentfájl-útvonal</string>
+    <string name="error_add_torrent">A torrent fájl hozzáadása sikertelen</string>
+    <string name="error_file_not_found_add_torrent">A torrent fájl hozzáadása sikertelen. Lehet, hogy fájl át lett helyezve vagy törölve lett.</string>
+    <string name="error_io_add_torrent">A torrent hozzáadása sikertelen. I/O hiba.</string>
+    <string name="torrent_exist">A torrent már létezik. A torrentek egyesítve lettek.</string>
+    <string name="error_field_required">Ez a mező kötelező</string>
     <string name="error_no_files_selected">Nincs fájl kiválasztva</string>
     <string name="free_space">%1$s szabad</string>
-    <string name="error_free_space">Nem áll rendelekezésre elég szabad hely a kiválasztott helyen, hogy oda letöltsd a torrentet</string>
-    <string name="files_size">A kiválasztott %1$s tobb mint %2$s</string>
+    <string name="error_free_space">Nincs elég szabad hely a kiválasztott helyen, hogy oda töltse le a kiválasztott fájlokat</string>
+    <string name="files_size">%1$s / %2$s kiválasztva</string>
     <string name="start_torrent">Torrent indítása</string>
     <string name="file_is_too_large_error">Túl nagy a fájl</string>
-    <string name="unable_to_open_folder">Nem választható ki a könyvtár. Kérlek válassz másikat</string>
-    <string name="error_empty_name">Add meg a nevet</string>
-    <string name="ignore_free_space">Szabad hely méret figyelmen kívül hagyása</string>
+    <string name="unable_to_open_folder">A könyvtár nem nyitható meg. Válasszon egy másik mappát.</string>
+    <string name="error_empty_name">Adja meg a nevet</string>
+    <string name="ignore_free_space">Szabad hely méretének figyelmen kívül hagyása</string>
     <!-- Torrent info -->
-    <string name="torrent_info">Info</string>
+    <string name="torrent_info">Információ</string>
     <string name="torrent_files">Fájlok</string>
     <string name="torrent_name">Név</string>
     <string name="upload_torrent_into">Feltöltés ide</string>
     <string name="torrent_size">Méret</string>
     <string name="torrent_file_count">Fájlok száma</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Ellenőrzőösszeg</string>
     <string name="torrent_comment">Megjegyzés</string>
     <string name="torrent_create_date">Létrehozva</string>
-    <string name="torrent_created_in_program">Programban létrehozva</string>
-    <string name="sequential_download">Folyamatos letöltés</string>
+    <string name="torrent_created_in_program">Létrehozó program</string>
+    <string name="sequential_download">Sorfolytonos letöltés</string>
     <!-- Filemanager dialog -->
-    <string name="dir_chooser_title">Könyvtár választása</string>
+    <string name="dir_chooser_title">Mappa választása</string>
     <string name="file_chooser_title">Fájl kiválasztása</string>
     <string name="torrent_file_chooser_title">Torrent kiválasztása</string>
     <string name="dialog_new_folder_title">Új könyvtár</string>
-    <string name="error_dialog_new_folder">Nem lehet mappát létrehozni</string>
-    <string name="error_open_dir">Nem lehet a könyvtárat megnyitni</string>
+    <string name="error_dialog_new_folder">Az új mappa nem hozható létre</string>
+    <string name="error_open_dir">A mappa nem nyitható meg</string>
     <string name="home_directory">Kezdőlap</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
@@ -201,10 +201,10 @@
     <string name="file_name">Fájlnév</string>
     <string name="error_file_exists">A fájl már létezik</string>
     <string name="file_name_is_empty">A név mező nem lehet üres</string>
-    <string name="system_manager">Rendszer menedzser</string>
-    <string name="system_file_manager_not_found">Nincs rendszer fájl menedzser</string>
+    <string name="system_manager">Rendszerkezelő</string>
+    <string name="system_file_manager_not_found">A rendszer fájlkezelője nem található</string>
     <string name="replace_file">Fájl cseréje</string>
-    <string name="parent_folder">Szülő könyvtár</string>
+    <string name="parent_folder">Szülő mappa</string>
     <!-- Error dialog -->
     <string name="report">Jelentés</string>
     <string name="more_details">További részletek</string>
@@ -212,12 +212,12 @@
     <!-- priority • downloaded/total • percent • availability -->
     <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nElérhetőség: %5$s</string>
     <string name="file_priority_normal">Normál</string>
-    <string name="file_priority_low">Kihagyás</string>
+    <string name="file_priority_low">Mellőzés</string>
     <string name="file_priority_high">Magas</string>
     <string name="file_priority_mixed">Vegyes</string>
     <string name="change_priority">Prioritás</string>
     <string name="dialog_change_priority_title">Prioritás módosítása</string>
-    <string name="change_priority_low">Alacsony (fájl kihagyása)</string>
+    <string name="change_priority_low">Alacsony (fájl mellőzése)</string>
     <string name="change_priority_normal">Normál</string>
     <string name="change_priority_high">Magas</string>
     <string name="torrent_state">Állapot</string>
@@ -225,7 +225,7 @@
     <string name="torrent_downloaded">Letöltött</string>
     <string name="torrent_ETA">ETA</string>
     <string name="torrent_seeds">Források</string>
-    <string name="torrent_peers">Peerek</string>
+    <string name="torrent_peers">Partnerek</string>
     <string name="torrent_leechers">Letöltők</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
@@ -233,22 +233,22 @@
     <string name="torrent_share_ratio">Megosztási arány</string>
     <string name="torrent_active_time">Aktív idő</string>
     <string name="torrent_seeding_time">Visszatöltési idő</string>
-    <string name="torrent_pieces">Darabok</string>
+    <string name="torrent_pieces">Szeletek</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="torrent_trackers">Tracker-ek</string>
+    <string name="torrent_trackers">Követők</string>
     <string name="tracker_state_working">Folyamatban</string>
     <string name="tracker_state_not_working">Nincs folyamatban</string>
-    <string name="tracker_state_updating">Frissítés&#8230;</string>
-    <string name="tracker_state_not_contacted">Még nincsenek kapcsolataid</string>
+    <string name="tracker_state_updating">Frissítés…</string>
+    <string name="tracker_state_not_contacted">Még nem volt kapcsolatfelvétel</string>
     <string name="share_tracker_url">URL megosztása</string>
-    <string name="delete_selected_tracker">Törlöd a kiválasztott tracker-t?</string>
-    <string name="delete_selected_trackers">Törlöd a kiválasztott trackereket?</string>
-    <string name="add_trackers">Tracker hozzáadása</string>
+    <string name="delete_selected_tracker">Törli a kiválasztott követőt\?</string>
+    <string name="delete_selected_trackers">Törli a kiválasztott követőket\?</string>
+    <string name="add_trackers">Követők hozzáadása</string>
     <string name="dialog_add_trackers">(Soronként egy)</string>
-    <string name="open_using">Megnyitás</string>
+    <string name="open_using">Megnyitás…</string>
     <string name="peer_port">Port: %1$d</string>
-    <string name="peer_relevance">Előfordulás: %1$.1f</string>
+    <string name="peer_relevance">Relevancia: %1$.1f</string>
     <string name="peer_connection_type">Kapcsolat: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
@@ -256,20 +256,20 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">Ez a torrent nem kapcsolódik egyetlen peer-hez sem</string>
-    <string name="piece_map">Szelet térkép</string>
+    <string name="peer_list_empty">Ez a torrent még nem kapcsolódik egyetlen partnerhez sem</string>
+    <string name="piece_map">Szelettérkép</string>
     <string name="resume_torrent">Folytatás</string>
     <string name="pause_torrent">Szünet</string>
-    <string name="share_magnet">Magnet megosztása</string>
-    <string name="save_torrent_file">Torrent fájl mentése</string>
+    <string name="share_magnet">Mágneslink megosztása</string>
+    <string name="save_torrent_file">Torrentfájl mentése</string>
     <string name="torrent_speed_limit">Sebességkorlát</string>
-    <string name="share_via">Megosztás itt</string>
+    <string name="share_via">Megosztás…</string>
     <string name="save_torrent_file_successfully">A torrent sikeresen elmentve</string>
     <string name="error_save_torrent_file">A torrent fájl mentése sikertelen</string>
     <string name="speed_limit_title">Maximális sebesség</string>
     <string name="upload_speed">Feltöltés</string>
     <string name="download_speed">Letöltés</string>
-    <string name="speed_limit_dialog">Sebességhatár beállítása KiB/s (0 - nincs limit)</string>
+    <string name="speed_limit_dialog">Sebességhatár beállítása KiB/s (0 - nincs korlát)</string>
     <string name="torrent_added_date">Hozzáadva</string>
     <string name="torrent_availability">Elérhetőség</string>
     <string name="share_stream_url">Stream URL megosztása</string>
@@ -289,48 +289,48 @@
     <string name="select_or_add_feed_channel">RSS/Atom csatorna kiválasztása vagy hozzáadása</string>
     <string name="add_feed_channel">Csatorna hozzáadása</string>
     <string name="feed_name">Név (nem kötelező)</string>
-    <string name="feed_filter_prompt">Írd be a szavakat (\"|\" elválasztással), amelynek egyikének a névben kell lennie, vagy be kell írnia a reguláris kifejezést. A torrentek csak akkor kerülnek hozzáadásra, ha ez a szűrő megegyezik a torrent nevével</string>
-    <string name="feed_filter_prompt_one_per_line">Írj be egy szűrőt soronként.</string>
-    <string name="feed_auto_download">Új torrentek letöltése automatikusan</string>
+    <string name="feed_filter_prompt">Írja be a szavakat („|” karakterekkel elválasztva), amelyek egyikének a névben kell lennie, vagy adjon meg egy reguláris kifejezést. A torrentek csak akkor lesznek hozzáadva, ha ez a szűrő megfelel a torrent nevének.</string>
+    <string name="feed_filter_prompt_one_per_line">Soronként adja meg a szűrőket.</string>
+    <string name="feed_auto_download">Új torrentek automatikus letöltése</string>
     <string name="feed_use_regex">Reguláris kifejezés használata</string>
     <string name="backup_feed_channels">Biztonsági másolat mentése</string>
-    <string name="restore_feed_channels_backup">Mentés visszatöltése</string>
+    <string name="restore_feed_channels_backup">Biztonsági másolat visszatöltése</string>
     <string name="feed_last_update_template">Frissítve: %1$s</string>
     <string name="feed_last_update_never">soha</string>
-    <string name="error_cannot_add_channel">Nem tudok csatornát létrehozni</string>
-    <string name="error_cannot_edit_channel">Nem tudom a csatornát javítani</string>
-    <string name="error_cannot_delete_channel">Nem tudom a csatornát törölni</string>
+    <string name="error_cannot_add_channel">A csatornát nem lehet hozzáadni</string>
+    <string name="error_cannot_edit_channel">A csatornát nem lehet szerkeszteni</string>
+    <string name="error_cannot_delete_channel">A csatornát nem lehet törölni</string>
     <string name="copy_link">Hivatkozás másolása</string>
-    <string name="delete_selected_channel">Törlöd a kiválasztott csatornát?</string>
-    <string name="delete_selected_channels">Törlöd a kiválasztott csatornákat?</string>
-    <string name="edit_feed_channel">Csatorna módosítása</string>
-    <string name="link_copied_to_clipboard">Link másolása a vágólapra</string>
+    <string name="delete_selected_channel">Törli a kiválasztott csatornát\?</string>
+    <string name="delete_selected_channels">Törli a kiválasztott csatornákat\?</string>
+    <string name="edit_feed_channel">Csatorna szerkesztése</string>
+    <string name="link_copied_to_clipboard">Hivatkozás a vágólapra másolva</string>
     <string name="mark_as_read">Megjelölés olvasottként</string>
     <string name="mark_as_unread">Megjelölés olvasatlanként</string>
     <string name="feed_item_list_empty">Nincsenek cikkek</string>
-    <string name="backup_feeds_successfully">A csatorna sikeresen mentve</string>
-    <string name="restore_feeds_backup_successfully">A csatorna sikeresen visszatöltve</string>
-    <string name="error_backup_feeds">Nem sikerült menteni a csatornákat</string>
-    <string name="error_restore_feeds_backup">Nem sikerült viszatölteni a csatornákat</string>
+    <string name="backup_feeds_successfully">A csatornák sikeresen mentve</string>
+    <string name="restore_feeds_backup_successfully">A csatornák sikeresen visszatöltve</string>
+    <string name="error_backup_feeds">A csatornák mentése sikertelen</string>
+    <string name="error_restore_feeds_backup">A csatornák visszatöltése sikertelen</string>
     <string name="feed_item_open_article_url">Cikk megnyitása</string>
     <string name="feeds_backup_selection_dialog_title">Biztonsági mentés kiválasztása</string>
-    <string name="error_import_invalid_format">Hibás formátum</string>
-    <string name="feed_do_not_download_immediately">Ne töltsd le azonnal</string>
-    <string name="feed_item_url_not_found">Nem található a webhely</string>
+    <string name="error_import_invalid_format">Érvénytelen formátum</string>
+    <string name="feed_do_not_download_immediately">Ne töltse le azonnal</string>
+    <string name="feed_item_url_not_found">Az URL nem található</string>
     <!-- Create torrent dialog -->
-    <string name="create_torrent">Torrent készítése</string>
-    <string name="creating_torrent_progress">Torrent létrehozása, kérlek várj&#8230;</string>
-    <string name="file_or_folder_for_seeding">Fájl vagy könyvtár a seedeléshez</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Először válassz egy fájlt vagy mappát a seedeléshez</string>
-    <string name="tracker_urls">Tracker URL-ek</string>
+    <string name="create_torrent">Torrent létrehozása</string>
+    <string name="creating_torrent_progress">Torrent létrehozása, kis türelmet…</string>
+    <string name="file_or_folder_for_seeding">Megosztandó fájl vagy mappa</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Először válasszon egy fájlt vagy mappát a megosztáshoz</string>
+    <string name="tracker_urls">Követő URL-ek</string>
     <string name="web_seed_urls">Webes seed URL-ek</string>
     <string name="comments">Megjegyzések</string>
-    <string name="tracker_urls_hint">(nem kötelező) Írd be soronként a trackereket, de fontossági sorrendben</string>
+    <string name="tracker_urls_hint">(nem kötelező) Adja meg soronként a követőket, fontossági sorrendben</string>
     <string name="web_seed_urls_hint">(nem kötelező) Soronként egy</string>
     <string name="optional_hint">(nem kötelező)</string>
-    <string name="piece_size">Szeletek mérete</string>
+    <string name="piece_size">Szeletméret</string>
     <string name="create_torrent_options">Beállítások</string>
-    <string name="option_start_seeding">Seedelés indítása</string>
+    <string name="option_start_seeding">Megosztás indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
@@ -347,14 +347,14 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url">Hibás URL: %1$s</string>
-    <string name="folder_is_empty">A kiválasztott könyvtár üres vagy minden fájl ki van zárva a szűrőben</string>
-    <string name="error_create_torrent">Nem sikerült létrehozni a torrentet</string>
-    <string name="skip_files">A fájl kihagyása</string>
-    <string name="skip_files_hint">Írd be a fájl nevét (\"|\" elválasztással)</string>
-    <string name="select_folder_to_save">Válaszd ki a könyvtárt a mentéshez</string>
+    <string name="invalid_url">Érvénytelen URL: %1$s</string>
+    <string name="folder_is_empty">A kiválasztott mappa üres vagy a szűrő minden fájlt kizár</string>
+    <string name="error_create_torrent">A torrent nem hozható létre</string>
+    <string name="skip_files">Fájlok kihagyása</string>
+    <string name="skip_files_hint">Adja meg a fájlneveket, „|” karakterrel elválasztva</string>
+    <string name="select_folder_to_save">Válassza ki a mappát a mentéshez</string>
     <string name="torrent_saved_to">A torrent mentve ide: %1$s</string>
-    <string name="unable_to_open_file">Nem tudom megnyitni a kiválasztott fájlt</string>
+    <string name="unable_to_open_file">A kiválasztott fájl nem nyitható meg</string>
     <string name="unable_to_create_file">A fájl nem hozható létre</string>
     <!-- Log -->
     <string name="log_journal">Napló</string>
@@ -362,14 +362,14 @@
     <string name="journal_start_recording">Felvétel indítása</string>
     <string name="journal_stop_recording">Felvétel leállítása</string>
     <string name="journal_started_recording">Felvétel elindítva</string>
-    <string name="journal_filter_session_log">Napló megjelenítése</string>
+    <string name="journal_filter_session_log">Munkamenet-napló</string>
     <string name="journal_filter_dht_log">DHT napló</string>
-    <string name="journal_filter_peer_log">Peer napló</string>
+    <string name="journal_filter_peer_log">Partner napló</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP napló</string>
     <string name="journal_filter_torrent_log">Torrent napló</string>
-    <string name="journal_save_log_failed">Napló mentése nem sikerült</string>
-    <string name="journal_save_log_success">Napló sikeresen mentésre került:%1$s</string>
-    <string name="pref_journal_save_log_to">Napló mentése</string>
+    <string name="journal_save_log_failed">A napló mentése sikertelen</string>
+    <string name="journal_save_log_success">A napló mentése sikeres: %1$s</string>
+    <string name="pref_journal_save_log_to">Napló mentése ide:</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">A tárolt naplóbejegyzések maximális száma</string>
     <!-- Settings -->
@@ -377,27 +377,27 @@
     <string name="pref_header_appearance">Megjelenés</string>
     <string name="pref_header_behavior">Működés</string>
     <string name="pref_header_storage">Tárhely</string>
-    <string name="pref_header_limitations">Korlátozás</string>
+    <string name="pref_header_limitations">Korlátozások</string>
     <string name="pref_header_network">Hálózat</string>
     <string name="pref_header_scheduling">Ütemezés</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Adatfolyam</string>
+    <string name="pref_header_streaming">Közvetítés</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Torrent fájl mentése</string>
-    <string name="pref_move_after_download_title">Mozgasd letöltés után</string>
-    <string name="pref_move_after_download_in_title">Mozgasd letöltés után ide</string>
+    <string name="pref_save_torrents_in_title">Torrentek mentése ide:</string>
+    <string name="pref_move_after_download_title">Letöltés után áthelyezés</string>
+    <string name="pref_move_after_download_in_title">Az ide letöltés után áthelyezés:</string>
     <string name="pref_save_torrent_files_title">.torrent fájl mentése</string>
-    <string name="pref_save_torrent_files_summary">A letöltés megkezdése után ments el a .torrent fájlokat</string>
-    <string name="pref_save_torrent_files_in_title">Mentsd el a .torrent fájlokat a</string>
-    <string name="pref_watch_dir_title">Könyvtár nézet</string>
-    <string name="pref_watch_dir_summary">A torrent fájlokat (.torrent kiterjesztéssel) a megadott könyvtárban figyeljük és automatikusan hozzáadjuk. A torrent fájlok hozzáadása után törlődnek</string>
-    <string name="pref_dir_to_watch_title">Nézendő könyvtár</string>
+    <string name="pref_save_torrent_files_summary">A .torrent fájlok mentése a letöltés megkezdése után</string>
+    <string name="pref_save_torrent_files_in_title">A .torrent fájlok mentése ide:</string>
+    <string name="pref_watch_dir_title">Könyvtár figyelése</string>
+    <string name="pref_watch_dir_summary">A megadott könyvtárban lévő torrentfájlok (.torrent kiterjesztéssel) figyelve lesznek, és automatikusan hozzáadásra kerülnek. A torrentfájlok hozzáadásuk után törlődnek.</string>
+    <string name="pref_dir_to_watch_title">Figyelendő könyvtár</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Sebesség</string>
     <string name="pref_max_download_speed_title">Maximum letöltési sebesség</string>
     <string name="pref_max_upload_speed_title">Maximum feltöltési sebesség</string>
-    <string name="pref_max_connections_title">Maximális kapcsolatok száma</string>
-    <string name="pref_max_connections_summary">Minimális kapcsolatok száma - 2</string>
+    <string name="pref_max_connections_title">Maximum kapcsolatok száma</string>
+    <string name="pref_max_connections_summary">Minimum kapcsolatok száma - 2</string>
     <string name="pref_torrent_queueing_category">Torrent sorbaállítás</string>
     <string name="pref_max_active_uploads_title">Maximum aktív feltöltések</string>
     <string name="pref_max_active_downloads_title">Maximum aktív letöltések</string>
@@ -405,11 +405,11 @@
     <string name="pref_max_connections_per_torrent_title">Maximális kapcsolatok száma torrentenként</string>
     <string name="pref_max_connections_per_torrent_summary">Minimális kapcsolatok száma - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maximális feltöltési szálak száma torrentenként</string>
-    <string name="pref_auto_manage_title">Automata menedzselés</string>
-    <string name="pref_auto_manage_summary">A torrent bármikor automatikusan folytatható vagy szüneteltethető. Ennek az opciónak a bekapcsolása lelassíthatja a megállítást/folytatást</string>
-    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 limit nélkül</string>
+    <string name="pref_auto_manage_title">Automatikus kezelés</string>
+    <string name="pref_auto_manage_summary">A torrent bármikor automatikusan folytatható vagy szüneteltethető. A beállítás bekapcsolása lelassíthatja a megállítást/folytatást.</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 korlát nélkül</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category">Téma bellításai</string>
+    <string name="pref_theme_category">Téma beállításai</string>
     <string name="pref_theme_title">Téma</string>
     <string-array name="pref_theme_entries">
         <item>Világos</item>
@@ -418,7 +418,7 @@
     </string-array>
     <string name="pref_notification_category">Értesítési beállítások</string>
     <string name="pref_torrent_finish_notify_title">Torrent befejezési értesítés</string>
-    <string name="pref_torrent_finish_notify_summary">Küldjön értesítést ha befejeződött a torrent letöltése</string>
+    <string name="pref_torrent_finish_notify_summary">Küldjön értesítést, ha befejeződött a torrent letöltése</string>
     <string name="pref_play_sound_notify_title">Hang lejátszása</string>
     <string name="pref_notify_sound_title">Értesítési hang</string>
     <string name="pref_led_indicator_notify_title">LED jelző</string>
@@ -426,40 +426,40 @@
     <string name="pref_vibration_notify_title">Rezgés</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Automatikus indítás</string>
-    <string name="pref_autostart_summary">Készülék indítása után automatikusan induljon el az app is</string>
+    <string name="pref_autostart_summary">Az eszköz indítása után automatikusan induljon el az alkalmazás is</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Csak a nem mért csatlakozások</string>
-    <string name="pref_umnetered_connections_only_summary">Töltse le csak a nem mért kapcsolatokkal (például Wi-Fi vagy Ethernet)</string>
-    <string name="pref_enable_roaming_title">Roaming engedélyezése</string>
-    <string name="pref_enable_roaming_summary">Csak akkor töltse le ha a készülék nincs roaming módban</string>
-    <string name="pref_power_management_category">Energiagazdálkodás kezelő</string>
-    <string name="pref_keep_alive_title">Életben tart</string>
-    <string name="pref_keep_alive_summary">Ha engedélyezi, az alkalmazás továbbra is a háttérben fut. Leállítás ha a letöltés befejeződött elfogadott</string>
-    <string name="pref_shutdown_downloads_complete_title">Leállítás ha a letöltés befejeződött</string>
-    <string name="pref_shutdown_downloads_complete_summary">Ha engedélyezi, az alkalmazás leáll, amikor az összes letöltés befejeződött</string>
-    <string name="pref_cpu_do_not_sleep_title">Tartsd ébren a CPU-t</string>
-    <string name="pref_cpu_do_not_sleep_summary">Ennek engedélyezése növeli az akkumulátor használatát. Használja ezt a beállítást, ha a letöltés sebessége csökken, amikor a képernyő kikapcsol</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Fel és letöltés csak akkor ha töltőn van</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Ha engedélyezve van, a torrentek csak töltés közben töltenek fel és le. Minden torrent szünetet tart, ha nem csatlakozik a töltőhöz</string>
+    <string name="pref_umnetered_connections_only_title">Csak forgalomkorlát nélküli kapcsolatokon</string>
+    <string name="pref_umnetered_connections_only_summary">Csak forgalomkorlát nélküli kapcsolatokon töltsön le (például Wi-Fi-n vagy Etherneten)</string>
+    <string name="pref_enable_roaming_title">Barangolás engedélyezése</string>
+    <string name="pref_enable_roaming_summary">Csak akkor töltsön le, ha az eszköz nincs barangolás módban</string>
+    <string name="pref_power_management_category">Energiagazdálkodás</string>
+    <string name="pref_keep_alive_title">Életben tartás</string>
+    <string name="pref_keep_alive_summary">Ha engedélyezett, akkor az alkalmazás tovább fog futni a háttérben. A letöltések befejezése utáni leállítás beállítás figyelembe lesz véve.</string>
+    <string name="pref_shutdown_downloads_complete_title">Leállítás, ha a letöltések befejeződtek</string>
+    <string name="pref_shutdown_downloads_complete_summary">Ha engedélyezi, akkor az alkalmazás leáll, ha az összes letöltés befejeződött</string>
+    <string name="pref_cpu_do_not_sleep_title">A CPU ébren tartása</string>
+    <string name="pref_cpu_do_not_sleep_summary">Ennek engedélyezése növeli az akkumulátorhasználatot. Akkor használja ezt a beállítást, ha a letöltés sebessége csökken, ha a képernyő kikapcsol.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Fel- és letöltés, csak ha töltőn van</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Ha engedélyezett, akkor a torrentek csak töltés közben töltenek fel és le. Minden torrent szünetel, ha nem csatlakozik a töltőhöz.</string>
     <string name="pref_battery_control_title">Akkumulátor vezérlése</string>
     <string name="pref_custom_battery_control_title">Egyéni akkumulátor százalék</string>
-    <string name="pref_custom_battery_control_value_title">Akkumlátor kontrol százalék</string>
-    <string name="pref_battery_control_summary">Az összes torrent szüneteltetésre kerül, ha az akkumulátor töltöttségi szintje a %1$d%% alá csökken. A korlátozás nem vonatkozik a töltés idején</string>
-    <string name="pref_custom_battery_control_summary">Állítson be egy egyéni százalékot a letöltések szüneteltetésére. Ha az akkumulátor az adott küszöb alá esik a letöltések megállnak. Ennek engedélyezésével figyelmen kívül hagyja az alapértelmezett %1$d%% küszöböt</string>
-    <string name="pref_custom_battery_control_dialog_summary">Az egyéni akkumulátor százalékos arányának beállítása negatív hatással lesz az akkumulátor élettartamára a letöltések során. Biztosan engedélyezni szeretné ezt?</string>
+    <string name="pref_custom_battery_control_value_title">Akkumulátor vezérlési százalék</string>
+    <string name="pref_battery_control_summary">Az összes torrent szüneteltetésre kerül, ha az akkumulátor töltöttségi szintje %1$d%% alá csökken. A korlátozás töltés során nem érvényes.</string>
+    <string name="pref_custom_battery_control_summary">Állítson be egy egyéni százalékot a letöltések szüneteltetésére. Ha az akkumulátor az adott küszöb alá esik a letöltések megállnak. Ennek engedélyezésével figyelmen kívül hagyja az alapértelmezett %1$d%%-os küszöböt.</string>
+    <string name="pref_custom_battery_control_dialog_summary">Az egyéni akkumulátor százalék beállítása negatív hatással lesz az akkumulátor élettartamára a letöltések során. Biztos, hogy engedélyezi ezt\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy beállítások</string>
     <string name="pref_enable_dht_title">DHT engedélyezése</string>
-    <string name="pref_enable_dht_summary">Ez lehetővé teszi a BitTorrent-kliensek számára, hogy nyomkövető használata nélkül megtalálják egymást. Ennek engedélyezése növeli az akkumulátor használatát</string>
+    <string name="pref_enable_dht_summary">Ez lehetővé teszi a BitTorrent-kliensek számára, hogy követő használata nélkül is megtalálják egymást. Ennek engedélyezése növeli az akkumulátorhasználatot.</string>
     <string name="pref_enable_lsd_title">LSD engedélyezése</string>
-    <string name="pref_enable_lsd_summary">Úgy tervezték, hogy támogassa a helyi BitTorrent társaik felfedezését, a forgalom minimalizálása céljából</string>
+    <string name="pref_enable_lsd_summary">Arra tervezték, hogy támogassa a helyi BitTorrent partnerek felfedezését, a forgalom minimalizálása céljából</string>
     <string name="pref_enable_utp_title">μTP engedélyezése</string>
     <string name="pref_enable_utp_summary">Célja, hogy enyhítse a hagyományos BitTorrent TCP-n keresztüli gyenge késleltetési és egyéb torlódáskezelési problémáit, miközben megbízható, rendezett kézbesítést biztosít</string>
     <string name="pref_enable_upnp_title">UPnP engedélyezése</string>
     <string name="pref_enable_natpmp_title">NAT-PMP engedélyezése</string>
     <string name="pref_port_settings_category">Port beállítások</string>
     <string name="pref_use_random_port_title">Véletlenszerű port használat</string>
-    <string name="pref_use_random_port_summarty">A kezdőportot véletlenszerűen állítja be a [%1$d, %2$d], a végport pedig az első + 10 tartományba</string>
+    <string name="pref_use_random_port_summarty">A kezdőportot véletlenszerűen állítja be a(z) [%1$d, %2$d], a befejező portot pedig az első + 10 tartományban</string>
     <string name="pref_port_range_title">Port tartomány</string>
     <string name="pref_port_range_start_title">Kezdő</string>
     <string name="pref_port_range_end_title">Befejező</string>
@@ -472,15 +472,15 @@
     </string-array>
     <string name="pref_enc_in_connections_title">Bejövő kapcsolatok</string>
     <string name="pref_enc_out_connections_title">Kimenő kapcsolatok</string>
-    <string name="pref_ip_filtering_category">IP szűrés</string>
-    <string name="pref_enable_ip_filtering_title">IP szűrés engedélyezése</string>
-    <string name="pref_enable_ip_filtering_summary">Az IP-szűrés használata növeli a memóriafelhasználást. A fájl méretétől függően a szűrő telepítése indításakor eltarthat egy ideig</string>
+    <string name="pref_ip_filtering_category">IP-szűrés</string>
+    <string name="pref_enable_ip_filtering_title">IP-szűrés engedélyezése</string>
+    <string name="pref_enable_ip_filtering_summary">Az IP-szűrés használata növeli a memóriahasználatot. A fájl méretétől függően, a szűrő alkalmazása indításakor eltarthat egy ideig.</string>
     <string name="pref_ip_filtering_file_title">Szűrőfájl útvonala (.dat, .p2p)</string>
-    <string name="pref_show_nat_errors">NAT hibák mutatása</string>
+    <string name="pref_show_nat_errors">NAT hibák megjelenítése</string>
     <string name="pref_anonymous_mode_title">Anoním mód engedélyezése</string>
-    <string name="pref_anonymous_mode_summary">Az alkalmazás bizonyos mértékig megpróbálja elrejteni identitását. A felhasználói ügynök visszaáll egy üres karakterláncra (kivéve a privát torrenteket). A nyomkövetőket csak akkor használják, ha proxykiszolgálót használnak. A figyelőcsatlakozók zárva vannak, és a bejövő kapcsolatok csak SOCKS5 vagy I2P proxy segítségével fogadhatók el (ha peer proxy van beállítva, és ugyanazon a gépen fut, mint a tracker proxy). A NAT-PMP, UPnP, DHT és a helyi peer keresés ki van kapcsolva</string>
-    <string name="pref_seeding_outgoing_connections_title">Kimenő kapcsolatok engedélyezése a seedekhez</string>
-    <string name="pref_seeding_outgoing_connections_summary">Meghatározható, hogy a seedelt torrentek megpróbáljanak kimenő kapcsolatot létesíteni vagy ne. Ez kikapcsolható nagyon speciális helyzetekben, ahol a kimenő összeköttetések létrehozásának számossága magas</string>
+    <string name="pref_anonymous_mode_summary">Az alkalmazás bizonyos mértékig megpróbálja elrejteni identitását. A felhasználói ügynök visszaáll egy üres karakterláncra (kivéve a privát torrenteket). A követőket csak akkor használja, ha proxykiszolgálót használnak. A figyelő foglalatok zárva vannak, és a bejövő kapcsolatok csak SOCKS5 vagy I2P proxy segítségével fogadhatók el (ha partner proxy van beállítva, és ugyanazon a gépen fut, mint a követő proxy). A NAT-PMP, UPnP, DHT és a helyi partnerek keresés ki van kapcsolva.</string>
+    <string name="pref_seeding_outgoing_connections_title">Kimenő kapcsolatok engedélyezése a megosztásokhoz</string>
+    <string name="pref_seeding_outgoing_connections_summary">Meghatározza, hogy a megosztott torrentek megpróbálhatnak-e kimenő kapcsolatot létesíteni vagy sem. Ez adott esetben kikapcsolható, ha a kimenő kapcsolatok száma nagy.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy típus</string>
     <string-array name="pref_proxy_type_entries">
@@ -491,24 +491,24 @@
     </string-array>
     <string name="pref_proxy_address_title">Cím</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_title">Peer kapcsolatokhoz is használható</string>
-    <string name="pref_proxy_peers_too_summary">A proxyt trackerek kapcsolódásához, peer-ekhez és webes seedeléshez használjuk</string>
-    <string name="pref_proxy_requires_auth_title">Azonosítás kötelező</string>
-    <string name="pref_proxy_requires_auth_summary">Figyelem: a jelszó titkosítás nélkül kerül mentésre</string>
-    <string name="pref_proxy_login_title">Belépés</string>
+    <string name="pref_proxy_peers_too_title">Partnerkapcsolatokhoz is használható</string>
+    <string name="pref_proxy_peers_too_summary">A proxy követők, partnerek és webes seedek kapcsolódásához is használva lesz</string>
+    <string name="pref_proxy_requires_auth_title">Meghatalmazás szükséges</string>
+    <string name="pref_proxy_requires_auth_summary">Figyelmeztetés: a jelszó titkosítás nélkül lesz mentve</string>
+    <string name="pref_proxy_login_title">Bejelentkezés</string>
     <string name="pref_proxy_password_title">Jelszó</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Kezdés ideje</string>
-    <string name="pref_enable_scheduling_start_summary">Indítsa el az alkalmazást a megadott időben. A torrent az utolsó leállítási állapot előtti beállításokkal fog futni</string>
+    <string name="pref_enable_scheduling_start_summary">Az alkalmazás indítása a megadott időben. A torrent az utolsó leállítási állapot szerinti beállításokkal fog futni.</string>
     <string name="pref_enable_scheduling_shutdown_title">Leállítási idő</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Állítsa le az alkalmazást egy megadott időpontban</string>
-    <string name="pref_scheduling_run_only_once_title">Csak egyszer fusson</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Az alkalmazás leállítása a megadott időpontban</string>
+    <string name="pref_scheduling_run_only_once_title">Futtatás csak egyszer</string>
     <string name="pref_scheduling_switch_wifi_title">Wi-Fi engedélyezése/tiltása</string>
-    <string name="pref_scheduling_switch_wifi_summary">A Wi-Fi automatikusan bekapcsolódik, amikor az alkalmazást az ütemezett időben elindítja, és letiltásra kerül, miután az alkalmazás a tervezett időben leállt</string>
+    <string name="pref_scheduling_switch_wifi_summary">A Wi-Fi automatikusan bekapcsol, ha az alkalmazás elindul az ütemezett időben, és letiltásra kerül, ha az alkalmazás a tervezett időben leállt</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Csatornák automatikus frissítése</string>
-    <string name="pref_feed_auto_refresh_summary">Rendszeresen frissítse a csatornákat a háttérben</string>
-    <string name="pref_feed_refresh_interval_title">Frissítési időintervallum</string>
+    <string name="pref_feed_auto_refresh_summary">Csatornák rendszeres frissítése a háttérben</string>
+    <string name="pref_feed_refresh_interval_title">Frissítési időköz</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>15 percenként</item>
         <item>30 percenként</item>
@@ -519,9 +519,9 @@
         <item>1 naponta</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Nem mért csatlakozások kizárólag</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Frissítés csak a nem mért kapcsolaton keresztül (például Wi-Fi vagy Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming engedélyezése</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Csak forgalomkorlát nélküli kapcsolatok</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Csak forgalomkorlát nélküli kapcsolatokon frissítsen (például Wi-Fi-n vagy Etherneten)</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Barangolás engedélyezése</string>
     <string name="pref_feed_keep_items_time_title">Cikkek meghagyása</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 nap</item>
@@ -536,18 +536,16 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Torrentek futtatása</string>
     <string name="pref_feed_start_torrents_summary">Torrentek futtatása hozzáadás után</string>
-    <string name="pref_feed_remove_duplicates_title">Többszörösek törlése</string>
-    <string name="pref_feed_remove_duplicates_summary">Ellenőrzi az újonnan letöltött tétel címét, és átugorja, ha már létezik ugyanaz a cím</string>
+    <string name="pref_feed_remove_duplicates_title">Ismétlődések törlése</string>
+    <string name="pref_feed_remove_duplicates_summary">Ellenőrzi az újonnan letöltött elem címét, és átugorja, ha már létezik ugyanaz a cím</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Streaming engedélyezése</string>
-    <string name="pref_streaming_enable_summary">A streaming lehetővé teszi az egyes fájlok letöltését a torrentből böngésző vagy médialejátszó segítségével HTTP URL-k segítségével</string>
-    <string name="pref_streaming_hostname">Hosztnév</string>
+    <string name="pref_streaming_enable_title">Közvetítés engedélyezése</string>
+    <string name="pref_streaming_enable_summary">A közvetítés lehetővé teszi az egyes fájlok letöltését a torrentből egy böngésző vagy médialejátszó segítségével, HTTP URL-k használatával</string>
+    <string name="pref_streaming_hostname">Gépnév</string>
     <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">A streaminghez kiválasztott port vagy hostnév foglalt vagy hibás. Kérjük, javítsa ki</string>
+    <string name="pref_streaming_error">A közvetítéshez kiválasztott port vagy gépnév foglalt vagy hibás. Javítsa ki.</string>
     <!-- About dialog -->
-    <string name="about_title">LibreTorrent névjegy</string>
-    <string name="about_description"><![CDATA[További információk és a projekt támogatása: <a href="https://gitlab.com/proninyaroslav/libretorrent"> https://gitlab.com/proninyaroslav/libretorrent </a> <br> <br>
-     A LibreTorrent egy ingyenes, mint a Freedom torrent kliens az Android 4 vagy újabb verziókhoz, a libtorrent alapján (Java wrapper <a href="https://github.com/aldenml/libtorrent4j"> libtorrent4j </a>) lib. br>
-     A LibreTorrent egy ingyenes szoftver, amelyet a <a href="http://www.gnu.org/copyleft/gpl.html"> GNU Általános Nyilvános Licenc v3 (GPLv3) </a> feltételei alapján adtak ki]]></string>
-    <string name="about_changelog">Változások listája</string>
+    <string name="about_title">A LibreTorrent névjegye</string>
+    <string name="about_description">További információk és a projekt támogatása: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; A LibreTorrent egy szabad torrentkliens Android 4-re és újabb verziókra, amely a libtorrent (pontosabban a javás &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) programkönyvtárra épül.&lt;br&gt;&lt;br&gt; A LibreTorrent szabad szoftver, amely a &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; feltételei alatt kerül közreadásra.</string>
+    <string name="about_changelog">Változásnapló</string>
 </resources>
