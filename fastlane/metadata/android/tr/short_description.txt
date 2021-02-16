@@ -1,1 +1,1 @@
-Free and Open Source, full-featured torrent client. Based on libtorrent library
+libtorrent temel alan, Özgür ve Açık Kaynaklı, tam özellikli torrent istemcisi

@@ -1,0 +1,13 @@
+* Hata düzeltme
+* Eklenenler:
+   - Torrent sıralama
+   - Koyu tema
+   - Rastgele bağlantı noktası kullanabilme
+   - Zorunlu şifreleme
+   - Başlamadan torrent ekleyebilme
+   - HTTP bağlantısı yeniden yönlendirme desteği
+* Yeni çeviriler eklendi:
+   - Çince
+   - İspanyolca
+   - Lehçe
+* jlibtorrent 1.2.0.4 sürümüne güncellendi

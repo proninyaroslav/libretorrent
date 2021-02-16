@@ -1,0 +1,6 @@
+* Hata düzeltme
+* (yoğun talep üzerine) Tor kaldırıldı
+* Yeni çeviriler eklendi:
+   - Almanca
+   - Litvanyaca
+* 65534 en yüksek bağlantı noktası olarak ayarlandı

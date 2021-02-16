@@ -1,0 +1,9 @@
+* Hata düzeltme
+* Eklenenler:
+   - Yeni magnet alma yöntemi (bekleme listesine magnet bağlantısı ekleyebilme)
+   - Tarihe göre torrent sıralaması eklendi
+* Yeni çeviriler eklendi:
+   - Çekçe
+   - Bokmål Norveççe
+   - Romence
+* jlibtorrent 1.2.0.10 sürümüne güncellendi
