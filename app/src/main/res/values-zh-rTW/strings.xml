@@ -48,17 +48,17 @@
     <string name="switch_off">關閉</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">將已下載的檔案一併刪除</string>
-    <string name="delete_selected_torrent">Delete the selected torrent? This operation cannot be undone</string>
-    <string name="delete_selected_torrents">Delete the selected torrents? This operation cannot be undone</string>
+    <string name="delete_selected_torrent">確定要刪除所選的任務嗎？該動作無法復原。</string>
+    <string name="delete_selected_torrents">確定要刪除所選的任務嗎？該動作無法復原。</string>
     <string name="force_recheck_torrent">強制重新檢查</string>
     <string name="force_announce_torrent">強制重新宣告</string>
     <string name="add_link">新增連結</string>
     <string name="dialog_add_link_title">輸入資訊雜湊值、磁力連結或 HTTP/HTTPS 連結</string>
-    <string name="torrent_list_empty">No torrents</string>
-    <string name="select_or_add_torrent">Select or add a torrent</string>
+    <string name="torrent_list_empty">沒有任務</string>
+    <string name="select_or_add_torrent">點選或新增任務</string>
     <string name="error_empty_link">請輸入連結位址</string>
     <string name="error_invalid_link">無效的連結</string>
-    <string name="error_open_torrent_file">Unable to open the torrent file</string>
+    <string name="error_open_torrent_file">無法開啟該 Torrent 檔案</string>
     <string name="open_file">開啟檔案</string>
     <string name="settings">設定</string>
     <string name="ip_filter_add_error">Failed to add IP filter (%1$d failed). Maybe file is corrupted or has an incorrect format</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">接聽埠：%1$s</string>
     <!-- Status -->
     <string name="drawer_status">狀態</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status_downloading">下載中</string>
+    <string name="drawer_status_downloaded">下載完成</string>
+    <string name="drawer_status_downloading_metadata">下載中繼資料中</string>
     <string name="drawer_status_error">錯誤</string>
     <!-- Sorting -->
     <string name="drawer_sorting">排序</string>
@@ -119,7 +119,7 @@
     <string name="network_offline">網路狀態：離線</string>
     <string name="notify_shutting_down">正在結束執行…</string>
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Torrent error</string>
+    <string name="torrent_error_notify_title">Torrent 錯誤</string>
     <string name="error_template">錯誤：%1$s</string>
     <string name="restore_torrent_error">unable to restore torrent from previous session</string>
     <string name="session_error_title">工作階段錯誤</string>
@@ -129,7 +129,7 @@
     <string name="torrent_finished_notify">下載完成</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content">Moving %1$s, please wait</string>
+    <string name="torrent_moving_content">正在移動 %1$s，請稍候</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <string name="torrent_move_fail">Could not move torrent</string>
     <!-- Added notification -->
@@ -148,12 +148,12 @@
     <string name="torrent_status_stopped">已停止</string>
     <string name="torrent_status_checking">檢查中</string>
     <string name="torrent_status_finished">已完成</string>
-    <string name="torrent_status_downloading_metadata">Downloading metadata</string>
+    <string name="torrent_status_downloading_metadata">下載中繼資料中</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">權限存取被拒</string>
     <string name="perm_denied_warning">缺乏該權限將不能儲存檔案，因而導致應用程式無法正常運作。你確定要拒絕授予此權限嗎？</string>
     <!-- Add torrent dialog -->
-    <string name="add_torrent_title">Add torrent</string>
+    <string name="add_torrent_title">新增任務</string>
     <string name="error_decode_torrent">Failed decoding torrent file. Maybe the file is corrupted or has an incorrect format</string>
     <string name="error_io_torrent">Error reading the torrent file</string>
     <string name="error_fetch_link">Failed to fetch data from the link</string>
@@ -166,12 +166,12 @@
     <string name="error_no_files_selected">No files selected</string>
     <string name="free_space">剩餘 %1$s</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
-    <string name="files_size">Selected %1$s out of %2$s</string>
+    <string name="files_size">總共 %2$s，已選取 %1$s</string>
     <string name="start_torrent">立即開始</string>
     <string name="file_is_too_large_error">檔案過大</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">請輸入名稱</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="ignore_free_space">忽略可用空間大小</string>
     <!-- Torrent info -->
     <string name="torrent_info">資訊</string>
     <string name="torrent_files">檔案</string>
@@ -187,7 +187,7 @@
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">選擇資料夾</string>
     <string name="file_chooser_title">選擇檔案</string>
-    <string name="torrent_file_chooser_title">Torrent selection</string>
+    <string name="torrent_file_chooser_title">選擇 Torrent 檔案</string>
     <string name="dialog_new_folder_title">新增資料夾</string>
     <string name="error_dialog_new_folder">無法新增資料夾</string>
     <string name="error_open_dir">無法開啟該資料夾</string>
@@ -203,8 +203,8 @@
     <string name="file_name_is_empty">檔名不能為空</string>
     <string name="system_manager">系統檔案管理員</string>
     <string name="system_file_manager_not_found">找不到系統檔案管理員</string>
-    <string name="replace_file">Replace file</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="replace_file">取代檔案</string>
+    <string name="parent_folder">上層資料夾</string>
     <!-- Error dialog -->
     <string name="report">回報</string>
     <string name="more_details">詳細資訊</string>
@@ -221,12 +221,12 @@
     <string name="change_priority_normal">普通</string>
     <string name="change_priority_high">高</string>
     <string name="torrent_state">狀態</string>
-    <string name="torrent_speed">Speed</string>
+    <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">已下載</string>
     <string name="torrent_ETA">剩餘時間</string>
-    <string name="torrent_seeds">Seeds</string>
+    <string name="torrent_seeds">做種人數</string>
     <string name="torrent_peers">用戶</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_leechers">下載人數</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">已上傳</string>
@@ -289,9 +289,9 @@
     <string name="select_or_add_feed_channel">選擇或新增一個 RSS/Atom 頻道</string>
     <string name="add_feed_channel">新增頻道</string>
     <string name="feed_name">名稱 (選填)</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
+    <string name="feed_filter_prompt">輸入被標題包括的文字 (項目以豎線「|」分隔)，或者使用正規表示式。只有當 Torrent 名稱與規則相符時才會加入任務。</string>
+    <string name="feed_filter_prompt_one_per_line">每行一條篩選規則。</string>
+    <string name="feed_auto_download">自動新增任務</string>
     <string name="feed_use_regex">使用正規表示式</string>
     <string name="backup_feed_channels">建立備份</string>
     <string name="restore_feed_channels_backup">還原備份</string>
@@ -318,8 +318,8 @@
     <string name="feed_do_not_download_immediately">不要立即下載</string>
     <string name="feed_item_url_not_found">找不到網址</string>
     <!-- Create torrent dialog -->
-    <string name="create_torrent">Create torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
+    <string name="create_torrent">製作 Torrent</string>
+    <string name="creating_torrent_progress">正在建立 Torrent，請稍候…</string>
     <string name="file_or_folder_for_seeding">供做種的檔案或資料夾</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">請先選擇欲做種的檔案或資料夾</string>
     <string name="tracker_urls">追蹤器網址</string>
@@ -330,8 +330,8 @@
     <string name="optional_hint">(選填)</string>
     <string name="piece_size">分塊大小</string>
     <string name="create_torrent_options">選項</string>
-    <string name="option_start_seeding">Start seeding</string>
-    <string name="option_private_torrent">Private torrent</string>
+    <string name="option_start_seeding">立刻做種</string>
+    <string name="option_private_torrent">私有 Torrent</string>
     <string-array name="piece_size_entries">
         <item>自動</item>
         <item>16 KiB</item>
@@ -349,13 +349,13 @@
     </string-array>
     <string name="invalid_url">無效的網址：%1$s</string>
     <string name="folder_is_empty">所選的資料夾沒有內容或其中檔案已全被略過</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
+    <string name="error_create_torrent">無法建立 Torrent</string>
     <string name="skip_files">略過檔案</string>
     <string name="skip_files_hint">輸入檔名並以豎線「|」分隔</string>
     <string name="select_folder_to_save">選擇儲存位置</string>
     <string name="torrent_saved_to">Torrent saved to %1$s</string>
     <string name="unable_to_open_file">無法開啟所選的檔案</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_create_file">無法建立檔案</string>
     <!-- Log -->
     <string name="log_journal">日誌</string>
     <string name="journal_list_empty">沒有項目</string>
@@ -366,7 +366,7 @@
     <string name="journal_filter_dht_log">DHT 記錄</string>
     <string name="journal_filter_peer_log">用戶記錄</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP 記錄</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_filter_torrent_log">Torrent 記錄</string>
     <string name="journal_save_log_failed">儲存日誌失敗</string>
     <string name="journal_save_log_success">已成功儲存日誌：%1$s</string>
     <string name="pref_journal_save_log_to">儲存日誌至</string>
@@ -386,9 +386,9 @@
     <string name="pref_save_torrents_in_title">下載位置</string>
     <string name="pref_move_after_download_title">Move after download</string>
     <string name="pref_move_after_download_in_title">Move after download in</string>
-    <string name="pref_save_torrent_files_title">Save .torrent files</string>
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_save_torrent_files_in_title">Save .torrent files in</string>
+    <string name="pref_save_torrent_files_title">另存 .torrent 檔案</string>
+    <string name="pref_save_torrent_files_summary">開始下載後，將任務另存為 .torrent 檔案</string>
+    <string name="pref_save_torrent_files_in_title">儲存位置</string>
     <string name="pref_watch_dir_title">監視目錄</string>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
     <string name="pref_dir_to_watch_title">監視目錄位置</string>
@@ -397,17 +397,17 @@
     <string name="pref_max_download_speed_title">下載速度上限</string>
     <string name="pref_max_upload_speed_title">上傳速度上限</string>
     <string name="pref_max_connections_title">最大連線數</string>
-    <string name="pref_max_connections_summary">Minimum number of connections - 2</string>
-    <string name="pref_torrent_queueing_category">Torrent queueing</string>
-    <string name="pref_max_active_uploads_title">Maximum active uploads</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_active_torrents_title">Maximum active torrents</string>
+    <string name="pref_max_connections_summary">連線數至少為 2</string>
+    <string name="pref_torrent_queueing_category">任務佇列</string>
+    <string name="pref_max_active_uploads_title">最大上傳數</string>
+    <string name="pref_max_active_downloads_title">最大下載數</string>
+    <string name="pref_max_active_torrents_title">最大任務執行數</string>
     <string name="pref_max_connections_per_torrent_title">單一任務最大連線數</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
+    <string name="pref_max_connections_per_torrent_summary">連線數至少為 2</string>
     <string name="pref_max_uploads_per_torrent_title">單一任務最大上傳通道數</string>
     <string name="pref_auto_manage_title">自動管理</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
-    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 without limit</string>
+    <string name="pref_auto_manage_summary">傳輸任務可能會隨時暫停或繼續。若啟用此選項，手動暫停與繼續的反應速度可能會變慢</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">輸入 -1 表示無限制</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主題設定</string>
     <string name="pref_theme_title">主題</string>
@@ -452,14 +452,14 @@
     <string name="pref_enable_dht_title">啟用 DHT</string>
     <string name="pref_enable_dht_summary">允許 BitTorrent 用戶端毋須透過追蹤器便能找到彼此，啟用後將增加耗電量</string>
     <string name="pref_enable_lsd_title">啟用 LSD</string>
-    <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
+    <string name="pref_enable_lsd_summary">支援探索區域網路內的用戶以減輕網際網路流量負擔</string>
     <string name="pref_enable_utp_title">啟用 μTP</string>
-    <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
+    <string name="pref_enable_utp_summary">用以緩解基於 TCP 的傳統 BitTorrent 協定所遭遇的延遲與壅塞控制問題，並提供更為可靠且井然有序的傳遞方式</string>
     <string name="pref_enable_upnp_title">啟用 UPnP</string>
     <string name="pref_enable_natpmp_title">啟用 NAT-PMP</string>
     <string name="pref_port_settings_category">連接埠設定</string>
     <string name="pref_use_random_port_title">隨機分配連接埠</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">在範圍 [%1$d, %2$d] 間隨機選定起始埠，並將其值 +10 設為結束埠</string>
     <string name="pref_port_range_title">連接埠範圍</string>
     <string name="pref_port_range_start_title">起</string>
     <string name="pref_port_range_end_title">訖</string>
@@ -499,7 +499,7 @@
     <string name="pref_proxy_password_title">密碼</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">啟動時間</string>
-    <string name="pref_enable_scheduling_start_summary">在指定的時間啟動應用程式，傳輸任務會依照上次停機前的狀態自動執行</string>
+    <string name="pref_enable_scheduling_start_summary">在指定的時間啟動應用程式，傳輸任務會依照上次停機前的狀態繼續執行</string>
     <string name="pref_enable_scheduling_shutdown_title">停機時間</string>
     <string name="pref_enable_scheduling_shutdown_summary">在指定的時間結束應用程式</string>
     <string name="pref_scheduling_run_only_once_title">僅實施一輪</string>
@@ -540,7 +540,7 @@
     <string name="pref_feed_remove_duplicates_summary">檢查新的下載項目標題是否已經存在，如有便略過</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">啟用串流</string>
-    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
+    <string name="pref_streaming_enable_summary">在瀏覽器或多媒體播放器中輸入 HTTP 網址，即可下載 Torrent 內的單獨的檔案</string>
     <string name="pref_streaming_hostname">主機名稱</string>
     <string name="pref_streaming_port">連接埠</string>
     <string name="pref_streaming_error">供串流使用的連接埠或主機名稱不正確或忙碌中，請修復</string>
