@@ -1,1 +1,1 @@
-* First release.
+* 首个发行版。
