@@ -55,10 +55,10 @@
     <string name="add_link">添加下载链接</string>
     <string name="dialog_add_link_title">输入磁力链接或 HTTP/HTTPS 链接</string>
     <string name="torrent_list_empty">没有种子任务</string>
-    <string name="select_or_add_torrent">选择或添加一个 torrent</string>
+    <string name="select_or_add_torrent">选择或添加一个种子</string>
     <string name="error_empty_link">请输入链接地址</string>
     <string name="error_invalid_link">无效的链接地址</string>
-    <string name="error_open_torrent_file">无法打开目标种子文件</string>
+    <string name="error_open_torrent_file">无法打开种子文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
     <string name="ip_filter_add_error">无法添加 IP 过滤器 (%1$d 失败)，可能文件已损坏或格式不正确</string>
@@ -128,10 +128,10 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">种子已完成</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">种子</string>
+    <string name="torrent_moving_title">移动种子</string>
     <string name="torrent_moving_content">正在移动%1$s，请稍候</string>
     <string name="torrent_move_success">种子移动成功</string>
-    <string name="torrent_move_fail">无法移动Torrent</string>
+    <string name="torrent_move_fail">无法移动种子</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -154,7 +154,7 @@
     <string name="perm_denied_warning">应用程序没有这个权限将无法保存内存中的种子文件。应用程序将无法正常工作。你确定要拒绝此权限吗？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">添加种子</string>
-    <string name="error_decode_torrent">torrent 文件解码失败。可能文件已损坏或格式不正确</string>
+    <string name="error_decode_torrent">种子文件解码失败。可能文件已损坏或格式不正确</string>
     <string name="error_io_torrent">读取种子文件时出错</string>
     <string name="error_fetch_link">无法从链接中提取数据</string>
     <string name="error_invalid_link_or_path">无效的链接或路径无效</string>
