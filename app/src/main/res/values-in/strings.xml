@@ -34,7 +34,7 @@
     <string name="open_navigation_drawer">Buka laci navigasi</string>
     <string name="close_navigation_drawer">Tutup laci navigasi</string>
     <string name="file">Berkas</string>
-    <string name="folder">Folder</string>
+    <string name="folder">Berkas</string>
     <string name="finished">Selesai</string>
     <string name="pause_all">Tunda semua</string>
     <string name="resume_all">Lanjutkan semua</string>
@@ -68,7 +68,7 @@
     <string name="theme_settings_apply_after_reboot">Setelan tema akan diterapkan setelah memulai ulang aplikasi</string>
     <string name="about">Tentang</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes">Node DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/dtk</string>
     <string name="session_stats_listen_port">Port masuk: %1$s</string>
@@ -96,7 +96,7 @@
     <string name="drawer_date_added_year">Tahun</string>
     <string name="tags">Tag</string>
     <string name="add_tag">Tambahkan tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag">Sunting tag</string>
     <string name="tag_name">Nama tag</string>
     <string name="tag_color">Warna tag</string>
     <string name="add_tag_failed">Gagal menambahkan tag</string>
@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent berjalan di latarbelakang</string>
     <string name="network_online">Status jaringan: Daring</string>
     <string name="network_offline">Status jaringan: Luring</string>
-    <string name="notify_shutting_down">Mematikan&#8230;</string>
+    <string name="notify_shutting_down">Mematikan…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent mengalami kesalahan</string>
     <string name="error_template">Kesalahan: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Tracker</string>
     <string name="tracker_state_working">Bekerja</string>
     <string name="tracker_state_not_working">Tidak bekerja</string>
-    <string name="tracker_state_updating">Memperbarui&#8230;</string>
+    <string name="tracker_state_updating">Memperbarui…</string>
     <string name="tracker_state_not_contacted">Belum terhubung</string>
     <string name="share_tracker_url">Bagikan tautan</string>
     <string name="delete_selected_tracker">Hapus tracker yang dipilih?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">Tautan tidak ditemukan</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Buat torrent</string>
-    <string name="creating_torrent_progress">Membuat torrent, mohon tunggu&#8230;</string>
+    <string name="creating_torrent_progress">Membuat torrent, mohon tunggu…</string>
     <string name="file_or_folder_for_seeding">Berkas atau folder untuk seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Harap pilih berkas atau folder untuk seed terlebih dulu</string>
     <string name="tracker_urls">Tautan tracker</string>

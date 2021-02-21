@@ -1,0 +1,11 @@
+* Hata düzeltmeleri:
+    - 32 bit CPU'larda çökme
+    - "Dizini izle" seçeneği etkinleştirildiğinde çökme
+    - SD karta giden yolu düzeltme
+    - Üçüncü taraf uygulamalardan bir torrent dosyası açma
+    - Ayarlarda bitiş bildirimini etkinleştirme
+    - Küçük düzeltmeler
+* Bitiş bildirimi için gösterge ışığı ve titreşim öntanımlı olarak etkin (yeniden kurulum gereklidir)
+* Yeni çeviriler:
+    - Flemenkçe
+* Var olan çeviriler güncellendi

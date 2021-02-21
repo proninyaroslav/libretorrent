@@ -1,0 +1,22 @@
+# Funksjoner
+
+* DHT, PeX, kryptering, LSD, UPnP, NAT*PMP, µTP
+* IP-filtrering (eMule dat og PeerGuardian)
+* Mulighet til fininstilling (nettverksinnstillinger, effekthåndtering, batterikontroll, grensesnittsinnstillinger, osv.)
+* Støtter torrenter med stort antall filer og store filer
+* HTTP(S) og magnetlenkestøtte
+* Støtter mellomtjener for sporere og likemenn
+* Mulighet til å flytte filer under nedlasting
+* Mulighet til automatisk flytting av filer til annen mappe, eller til eksternlagring etter nedlasting
+* Mulighet til å angi fil- og mappeprioritet
+* Mulighet til å velge hvilke filer som skal lastes ned
+* Mulighet til å laste ned sekvensielt
+* Materiell design
+* Mørk og svart drakt
+* Nettbrettsoptimisert grensesnitt
+* Planlegging
+* RSS-håndtering
+* Android TV-støtte
+* Mulighet til å lage torrenter
+* Strømming av alle valgte filer
+* Med mer

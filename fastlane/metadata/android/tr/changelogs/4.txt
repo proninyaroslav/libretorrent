@@ -1,0 +1,10 @@
+* Hata düzeltme
+* Eklenenler:
+   - Harici depolama desteği
+   - Başlatıcı kısayolları (Android 7.1 için)
+   - Uygulamanın ayarlanabilir depolamaya taşınmasına izin ver
+* Yeni çeviriler eklendi:
+   - Brezilya Portekizcesi
+   - Fransızca
+   - Yunanca
+* jlibtorrent 1.2.0.6 sürümüne güncellendi

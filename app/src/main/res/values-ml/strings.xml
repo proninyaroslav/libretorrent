@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">പശ്ചാത്തലത്തിൽ പ്രവർത്തിപ്പിക്കുന്ന LibreTorrent</string>
     <string name="network_online">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓൺലൈനിൽ</string>
     <string name="network_offline">നെറ്റ്വർക്ക് സ്റ്റാറ്റസ്: ഓഫ്ലൈൻ</string>
-    <string name="notify_shutting_down">അടച്ചുപൂട്ടുന്നു&#8230;</string>
+    <string name="notify_shutting_down">അടച്ചുപൂട്ടുന്നു…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">ടോറന്റ് പിശക്</string>
     <string name="error_template">പിശക്:%1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">ട്രാക്കറുകൾ</string>
     <string name="tracker_state_working">പ്രവർത്തിക്കുന്നു</string>
     <string name="tracker_state_not_working">പ്രവർത്തിക്കുന്നില്ല</string>
-    <string name="tracker_state_updating">അപ്ഡേറ്റുചെയ്യുന്നു&#8230;</string>
+    <string name="tracker_state_updating">അപ്ഡേറ്റുചെയ്യുന്നു…</string>
     <string name="tracker_state_not_contacted">ഇതുവരെ ബന്ധപ്പെട്ടിട്ടില്ല</string>
     <string name="share_tracker_url">URL പങ്കിടുക</string>
     <string name="delete_selected_tracker">തിരഞ്ഞെടുത്ത ട്രാക്കർ ഇല്ലാതാക്കണോ?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL കണ്ടെത്തിയില്ല</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">ടോറന്റ് സൃഷ്ടിക്കുക</string>
-    <string name="creating_torrent_progress">ടോറന്റ് സൃഷ്ടിക്കുന്നു, ദയവായി കാത്തിരിക്കുക&#8230;</string>
+    <string name="creating_torrent_progress">ടോറന്റ് സൃഷ്ടിക്കുന്നു, ദയവായി കാത്തിരിക്കുക…</string>
     <string name="file_or_folder_for_seeding">വിതയ്ക്കുന്നതിന് ഫയൽ അല്ലെങ്കിൽ ഫോൾഡർ</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">ആദ്യം വിത്ത് പാകുന്നതിന് ഫയലോ ഫോൾഡറോ തിരഞ്ഞെടുക്കുക</string>
     <string name="tracker_urls">ട്രാക്കർ URL കൾ</string>
@@ -444,8 +444,8 @@
     <string name="pref_battery_control_title">ബാറ്ററി നിയന്ത്രണം</string>
     <string name="pref_custom_battery_control_title">ഇഷ്ടാനുസൃത ബാറ്ററി ശതമാനം</string>
     <string name="pref_custom_battery_control_value_title">ബാറ്ററി നിയന്ത്രണം ശതമാനം</string>
-    <string name="pref_battery_control_summary">ബാറ്ററി ലെവലിൽ% 1$d%% താഴെ പോകുമ്പോൾ എല്ലാ വേഗതകളും താൽക്കാലികമായി നിർത്തും. ചാർജ്ജുചെയ്യുന്ന സമയത്ത് പരിധി ബാധകമല്ല</string>
-    <string name="pref_custom_battery_control_summary">ബാറ്ററി തന്നിരിക്കുന്ന പരിധിക്ക് താഴെയാണെങ്കിൽ ഡൌൺലോഡുകൾ താൽക്കാലികമായി നിർത്തുന്നതിന് ഇഷ്ടാനുസൃത ശതമാനം സജ്ജമാക്കുക. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നത് സ്ഥിരസ്ഥിതി% 1$d%% ത്രെഷോൾഡ് അവഗണിക്കും</string>
+    <string name="pref_battery_control_summary">ബാറ്ററി ലെവലിൽ %1$d%% താഴെ പോകുമ്പോൾ എല്ലാ വേഗതകളും താൽക്കാലികമായി നിർത്തും. ചാർജ്ജുചെയ്യുന്ന സമയത്ത് പരിധി ബാധകമല്ല</string>
+    <string name="pref_custom_battery_control_summary">ബാറ്ററി തന്നിരിക്കുന്ന പരിധിക്ക് താഴെയാണെങ്കിൽ ഡൌൺലോഡുകൾ താൽക്കാലികമായി നിർത്തുന്നതിന് ഇഷ്ടാനുസൃത ശതമാനം സജ്ജമാക്കുക. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നത് സ്ഥിരസ്ഥിതി %1$d%% ത്രെഷോൾഡ് അവഗണിക്കും</string>
     <string name="pref_custom_battery_control_dialog_summary">ഡൌൺലോഡുകൾ നടക്കുമ്പോൾ ആപ്ലിക്കേഷനായി ഇച്ഛാനുസൃത ബാറ്ററി ശതമാനം സജ്ജമാക്കുന്നതിന് ബാറ്ററി ലൈഫിൽ പ്രതികൂല സ്വാധീനം ഉണ്ടാകും. ഇത് പ്രവർത്തനക്ഷമമാക്കണമെന്ന് തീർച്ചയാണോ?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">പ്രോക്സി ക്രമീകരണങ്ങൾ</string>

@@ -48,8 +48,8 @@
     <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
-    <string name="delete_selected_torrent">Supprimer ce Torrent? Cette action ne pourra pas être annulée</string>
-    <string name="delete_selected_torrents">Supprimer ces Torrents? Cette action ne pourra pas être annulée</string>
+    <string name="delete_selected_torrent">Supprimer ce Torrent \? Cette action ne pourra pas être annulée</string>
+    <string name="delete_selected_torrents">Supprimer ces Torrents \? Cette action ne pourra pas être annulée</string>
     <string name="force_recheck_torrent">Forcer la revérification</string>
     <string name="force_announce_torrent">Forcer l\'annonce</string>
     <string name="add_link">Ajouter un lien</string>
@@ -113,14 +113,14 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Téléchargement: %1$d Total: %2$d</string>
+    <string name="torrent_count_notify_template">Téléchargement : %1$d Total : %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent fonctionne en arrière-plan</string>
-    <string name="network_online">État du réseau: En ligne</string>
-    <string name="network_offline">État du réseau: Hors ligne</string>
-    <string name="notify_shutting_down">Arrêt en cours&#8230;</string>
+    <string name="network_online">État du réseau : En ligne</string>
+    <string name="network_offline">État du réseau : Hors ligne</string>
+    <string name="notify_shutting_down">Arrêt en cours…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent erreur</string>
-    <string name="error_template">Erreur: %1$s</string>
+    <string name="error_template">Erreur : %1$s</string>
     <string name="restore_torrent_error">impossible de restaurer le torrent de la session précédente</string>
     <string name="session_error_title">Erreur de session</string>
     <!-- ip_address:port, type (error: error_msg)-->
@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Téléchargement des métadonnées</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission refusée</string>
-    <string name="perm_denied_warning">Sans cette autorisation, l\'application ne peut pas sauvegarder les fichiers torrent en mémoire. L\'application ne fonctionnera pas correctement. Voulez-vous vraiment refuser cette autorisation?</string>
+    <string name="perm_denied_warning">Sans cette autorisation, l\'application ne peut pas sauvegarder les fichiers torrent en mémoire. L\'application ne fonctionnera pas correctement. Voulez-vous vraiment refuser cette autorisation \?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Ajouter un torrent</string>
     <string name="error_decode_torrent">Échec du décodage du fichier torrent. Peut-être le fichier est corrompu ou a un format incorrect</string>
@@ -210,7 +210,8 @@
     <string name="more_details">Plus de détails</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilité: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nDisponibilité : %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Basse</string>
     <string name="file_priority_high">Haute</string>
@@ -239,20 +240,20 @@
     <string name="torrent_trackers">Traqueurs</string>
     <string name="tracker_state_working">Fonctionne</string>
     <string name="tracker_state_not_working">Ne fonctionne pas</string>
-    <string name="tracker_state_updating">Actualisation&#8230;</string>
+    <string name="tracker_state_updating">Actualisation…</string>
     <string name="tracker_state_not_contacted">Pas encore contacté</string>
     <string name="share_tracker_url">Partager l\'URL</string>
-    <string name="delete_selected_tracker">Supprimer le tracker sélectionné?</string>
-    <string name="delete_selected_trackers">Supprimer les trackers sélectionnés?</string>
+    <string name="delete_selected_tracker">Supprimer le tracker sélectionné \?</string>
+    <string name="delete_selected_trackers">Supprimer les trackers sélectionnés \?</string>
     <string name="add_trackers">Ajouter des trackers</string>
     <string name="dialog_add_trackers">(Un par ligne)</string>
     <string name="open_using">Ouvrir avec</string>
-    <string name="peer_port">Port: %1$d</string>
-    <string name="peer_relevance">Ratio: %1$.1f</string>
-    <string name="peer_connection_type">Connexion: %1$s</string>
+    <string name="peer_port">Port : %1$d</string>
+    <string name="peer_relevance">Ratio : %1$.1f</string>
+    <string name="peer_connection_type">Connexion : %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
-    <string name="peer_client">Client: %1$s</string>
+    <string name="peer_client">Client : %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
@@ -273,8 +274,8 @@
     <string name="torrent_added_date">Ajoutée</string>
     <string name="torrent_availability">Disponibilité</string>
     <string name="share_stream_url">Partager l\'URL du stream</string>
-    <string name="magnet_include_file_priorities">Inclure les priorités de fichier?</string>
-    <string name="magnet_more_about_bep53">Plus d\'information: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_include_file_priorities">Inclure les priorités de fichier \?</string>
+    <string name="magnet_more_about_bep53">Plus d\'information : http ://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aucun tracker</string>
     <string name="edit_torrent_name">Modifier le nom du torrent</string>
     <!-- Send text to clipboard -->
@@ -282,7 +283,7 @@
     <string name="text_copied_to_clipboard">Copier dans le presse-papiers</string>
     <!-- Error report -->
     <string name="app_error_occurred">Une erreur s\'est produite dans l\'application. Vous pouvez envoyer le rapport aux développeurs</string>
-    <string name="error_comment_prompt">Vous pouvez ajouter des informations supplémentaires et des commentaires ici:</string>
+    <string name="error_comment_prompt">Vous pouvez ajouter des informations supplémentaires et des commentaires ici :</string>
     <!-- Feeds -->
     <string name="feed">Flux RSS</string>
     <string name="feed_channel_list_empty">Aucune chaîne</string>
@@ -295,14 +296,14 @@
     <string name="feed_use_regex">Utiliser une expression régulière</string>
     <string name="backup_feed_channels">Conserver une sauvegarde</string>
     <string name="restore_feed_channels_backup">Restaurer la sauvegarde</string>
-    <string name="feed_last_update_template">Actualisé: %1$s</string>
+    <string name="feed_last_update_template">Actualisé : %1$s</string>
     <string name="feed_last_update_never">jamais</string>
     <string name="error_cannot_add_channel">Impossible d\'ajouter une chaîne</string>
     <string name="error_cannot_edit_channel">Impossible d\'éditer le canal</string>
     <string name="error_cannot_delete_channel">Impossible de supprimer le canal</string>
     <string name="copy_link">Copier le lien</string>
-    <string name="delete_selected_channel">Supprimer la chaîne sélectionnée?</string>
-    <string name="delete_selected_channels">Supprimer les chaînes sélectionnées?</string>
+    <string name="delete_selected_channel">Supprimer la chaîne sélectionnée \?</string>
+    <string name="delete_selected_channels">Supprimer les chaînes sélectionnées \?</string>
     <string name="edit_feed_channel">Modifier la chaîne</string>
     <string name="link_copied_to_clipboard">Lien copié dans le presse-papier</string>
     <string name="mark_as_read">Marquer comme lu</string>
@@ -319,7 +320,7 @@
     <string name="feed_item_url_not_found">URL introuvable</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Créer un torrent</string>
-    <string name="creating_torrent_progress">Création du torrent, veuillez patienter&#8230;</string>
+    <string name="creating_torrent_progress">Création du torrent, veuillez patienter…</string>
     <string name="file_or_folder_for_seeding">Fichier ou dossier pour le partage</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Veuillez d\'abord sélectionner un fichier ou un dossier pour le partage</string>
     <string name="tracker_urls">URLs des trackers</string>
@@ -347,7 +348,7 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="invalid_url">URL invalide: %1$s</string>
+    <string name="invalid_url">URL invalide : %1$s</string>
     <string name="folder_is_empty">Le dossier sélectionné est vide ou tous les fichiers sont exclus par le filtre</string>
     <string name="error_create_torrent">Impossible de créer le torrent</string>
     <string name="skip_files">Ignorer les fichiers</string>
@@ -446,7 +447,7 @@
     <string name="pref_custom_battery_control_value_title">Pourcentage de contrôle de la batterie</string>
     <string name="pref_battery_control_summary">Tous les torrents seront mis en pause si le niveau de la batterie descend en dessous du seuil spécifié (%1$d%%). Lors de la charge, les torrents sont distribués sans tenir compte de ce seuil</string>
     <string name="pref_custom_battery_control_summary">Définissez un pourcentage personnalisé pour interrompre les téléchargements si la batterie tombe en dessous du seuil défini. Activer ceci ignorera le seuil par défaut de %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary">La définition d\'un pourcentage de batterie personnalisé pour l\'application aura un impact négatif sur la durée de vie de la batterie pendant les téléchargements. Êtes-vous sûr de vouloir l\'activer?</string>
+    <string name="pref_custom_battery_control_dialog_summary">La définition d\'un pourcentage de batterie personnalisé pour l\'application aura un impact négatif sur la durée de vie de la batterie pendant les téléchargements. Êtes-vous sûr de vouloir l\'activer \?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Paramètres de proxy</string>
     <string name="pref_enable_dht_title">Activer DHT</string>
@@ -494,7 +495,7 @@
     <string name="pref_proxy_peers_too_title">Permettre la connexion aux pairs</string>
     <string name="pref_proxy_peers_too_summary">Le proxy sera utilisé pour se connecter avec les trackers, les pairs et les web seeds</string>
     <string name="pref_proxy_requires_auth_title">Requiert une authentification</string>
-    <string name="pref_proxy_requires_auth_summary">Avertissement: le mot de passe est enregistré non chiffré</string>
+    <string name="pref_proxy_requires_auth_summary">Avertissement : le mot de passe est enregistré non chiffré</string>
     <string name="pref_proxy_login_title">Identifiant</string>
     <string name="pref_proxy_password_title">Mot de passe</string>
     <!-- Schedule settings -->
@@ -546,8 +547,6 @@
     <string name="pref_streaming_error">Le port ou nom d\'hôte sélectionné pour la diffusion en continu est occupé ou incorrect. S\'il vous plaît le réparer</string>
     <!-- About dialog -->
     <string name="about_title">À propos de LibreTorrent</string>
-    <string name="about_description"><![CDATA[    Plus d\'information et aussi pour aider le projet: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent est un Free as in Freedom torrent client pour Android 4+, basé sur libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent est un logiciel libre, publié sous les termes de la <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Plus d\'information et aussi pour aider le projet : &lt;a href=https ://gitlab.com/proninyaroslav/libretorrent&gt;https ://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent est un Free as in Freedom torrent client pour Android 4+, basé sur libtorrent (Java wrapper &lt;a href=https ://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent est un logiciel libre, publié sous les termes de la &lt;a href=http ://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Journal des modifications</string>
 </resources>

@@ -1,0 +1,1 @@
+自由且开源，全功能的 torrent 客户端。基于 libtorrent 库
