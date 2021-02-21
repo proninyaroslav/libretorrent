@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
     <string name="network_offline">Şəbəkə vəziyyəti: Xətdən kənar</string>
-    <string name="notify_shutting_down">Söndürülür&#8230;</string>
+    <string name="notify_shutting_down">Söndürülür…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent xətası</string>
     <string name="error_template">Xəta: %1$s</string>
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">İzləyici</string>
     <string name="tracker_state_working">İşləyir</string>
     <string name="tracker_state_not_working">İşləmir</string>
-    <string name="tracker_state_updating">Yenilənir&#8230;</string>
+    <string name="tracker_state_updating">Yenilənir…</string>
     <string name="tracker_state_not_contacted">Hələ ki, əlaqə saxlanılmayıb</string>
     <string name="share_tracker_url">URL-ni paylaş</string>
     <string name="delete_selected_tracker">Seçilmiş izləyici silinsin?</string>
@@ -320,7 +320,7 @@
     <string name="feed_item_url_not_found">URL tapılmadı</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent yarat</string>
-    <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
+    <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin…</string>
     <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Zəhmət olmasa yükləmədən əvvəl fayl və ya qovluğu seçin</string>
     <string name="tracker_urls">İzləyici URL-lər</string>
