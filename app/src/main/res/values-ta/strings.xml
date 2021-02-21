@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">பின்புலத்தில் LibreTorrent இயங்கும்</string>
     <string name="network_online">நெட்வொர்க் நிலை: ஆன்லைன்</string>
     <string name="network_offline">நெட்வொர்க் நிலை: ஆஃப்லைன்</string>
-    <string name="notify_shutting_down">நிறுத்துதல்&#8230;</string>
+    <string name="notify_shutting_down">நிறுத்துதல்…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">டோரண்ட் பிழை</string>
     <string name="error_template">பிழை: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">டிராக்கர்ஸ்</string>
     <string name="tracker_state_working">வேலை</string>
     <string name="tracker_state_not_working">வேலை செய்யவில்லை</string>
-    <string name="tracker_state_updating">புதுப்பிக்கிறது&#8230;</string>
+    <string name="tracker_state_updating">புதுப்பிக்கிறது…</string>
     <string name="tracker_state_not_contacted">இதுவரை தொடர்பு கொள்ளப்படவில்லை</string>
     <string name="share_tracker_url">URL ஐப் பகிர்</string>
     <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL கிடைக்கவில்லை</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent ஐ உருவாக்கவும்</string>
-    <string name="creating_torrent_progress">டோரண்டை உருவாக்குகிறது, தயவுசெய்து காத்திருங்கள்&#8230;</string>
+    <string name="creating_torrent_progress">டோரண்டை உருவாக்குகிறது, தயவுசெய்து காத்திருங்கள்…</string>
     <string name="file_or_folder_for_seeding">விதைப்பதற்கு கோப்பு அல்லது அடைவு</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">முதலில் விதைப்பதற்கு கோப்பு அல்லது கோப்புறையைத் தேர்ந்தெடுக்கவும்</string>
     <string name="tracker_urls">டிராக்கரின் URL கள்</string>
