@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent läuft im Hintergrund</string>
     <string name="network_online">Netzwerkstatus: Online</string>
     <string name="network_offline">Netzwerkstatus: Offline</string>
-    <string name="notify_shutting_down">Wird heruntergefahren&#8230;</string>
+    <string name="notify_shutting_down">Wird heruntergefahren…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent Fehler</string>
     <string name="error_template">Fehler: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Tracker</string>
     <string name="tracker_state_working">Arbeitend</string>
     <string name="tracker_state_not_working">Ruhend</string>
-    <string name="tracker_state_updating">Erneuernd&#8230;</string>
+    <string name="tracker_state_updating">Erneuernd…</string>
     <string name="tracker_state_not_contacted">Noch nicht kontaktiert</string>
     <string name="share_tracker_url">URL teilen</string>
     <string name="delete_selected_tracker">Den ausgewählten Tracker löschen?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL nicht gefunden</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent erstellen</string>
-    <string name="creating_torrent_progress">Torrent wird erstellt, bitte warten&#8230;</string>
+    <string name="creating_torrent_progress">Torrent wird erstellt, bitte warten…</string>
     <string name="file_or_folder_for_seeding">Datei oder Ordner zum Seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Bitte wählen Sie zuerst eine Datei oder einen Ordner für das Seeding aus</string>
     <string name="tracker_urls">Tracker-URLs</string>
