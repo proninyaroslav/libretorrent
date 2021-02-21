@@ -45,7 +45,6 @@
     <string name="clipboard">Clipboard</string>
     <string name="switch_on">On</string>
     <!-- Main window -->
-    <string name="delete_selected_torrents"/>
     <string name="add_link">Add link</string>
     <string name="error_empty_link">Please enter link</string>
     <string name="open_file">Open file</string>
@@ -67,7 +66,6 @@
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
     <!-- Date added -->
-    <string name="drawer_date_added_today"/>
     <string name="drawer_date_added_year"/>
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
@@ -132,7 +130,6 @@
     <string name="torrent_files">Files</string>
     <string name="torrent_name">Name</string>
     <string name="torrent_hash_sum">Hash sum</string>
-    <string name="sequential_download"/>
     <!-- Filemanager dialog -->
     <string name="dialog_new_folder_title"/>
     <string name="error_dialog_new_folder">Unable to create a new folder</string>
@@ -140,7 +137,6 @@
     <string name="home_directory">Home</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="save_file"/>
     <string name="file_name">File name</string>
     <string name="error_file_exists">File already exists</string>
     <string name="file_name_is_empty">File name cannot be empty</string>
@@ -160,10 +156,8 @@
     <string name="torrent_ETA">ETA</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="torrent_seeding_time"/>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="tracker_state_updating"/>
     <string name="delete_selected_trackers"/>
     <string name="dialog_add_trackers">(One per line)</string>
     <string name="peer_port">Port: %1$d</string>
@@ -174,12 +168,10 @@
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
     <string name="pause_torrent">Pause</string>
-    <string name="share_via"/>
     <string name="save_torrent_file_successfully">Torrent file saved successfully</string>
     <string name="error_save_torrent_file">Failed to save a torrent file</string>
     <string name="upload_speed">Upload</string>
     <string name="download_speed">Download</string>
-    <string name="share_stream_url"/>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
     <string name="text_copied_to_clipboard">Text copied to clipboard</string>
@@ -188,11 +180,9 @@
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_name"/>
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="feed_last_update_template"/>
     <string name="error_cannot_delete_channel"/>
     <string name="delete_selected_channel">Delete the selected channel?</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
@@ -200,7 +190,6 @@
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
-    <string name="feed_do_not_download_immediately"/>
     <!-- Create torrent dialog -->
     <string name="creating_torrent_progress">Creating torrent, please wait…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
@@ -232,18 +221,15 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_stop_recording"/>
     <string name="journal_filter_peer_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_behavior"/>
     <string name="pref_header_network">Network</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_move_after_download_in_title"/>
     <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
     <!-- Limitations settings -->
