@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent running in the background</string>
     <string name="network_online">Network status: Online</string>
     <string name="network_offline">Network status: Offline</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
+    <string name="notify_shutting_down">Shutting down…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent error</string>
     <string name="error_template">Error: %1$s</string>
@@ -211,7 +211,8 @@
     <string name="more_details">More details</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nAvailability: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignore</string>
     <string name="file_priority_high">High</string>
@@ -240,11 +241,11 @@
     <string name="torrent_trackers">Trackers</string>
     <string name="tracker_state_working">Working</string>
     <string name="tracker_state_not_working">Not working</string>
-    <string name="tracker_state_updating">Updating&#8230;</string>
+    <string name="tracker_state_updating">Updating…</string>
     <string name="tracker_state_not_contacted">Not contacted yet</string>
     <string name="share_tracker_url">Share URL</string>
-    <string name="delete_selected_tracker">Delete the selected tracker?</string>
-    <string name="delete_selected_trackers">Delete the selected trackers?</string>
+    <string name="delete_selected_tracker">Delete the selected tracker\?</string>
+    <string name="delete_selected_trackers">Delete the selected trackers\?</string>
     <string name="add_trackers">Add trackers</string>
     <string name="dialog_add_trackers">(One per line)</string>
     <string name="open_using">Open using</string>
@@ -274,7 +275,7 @@
     <string name="torrent_added_date">Added</string>
     <string name="torrent_availability">Availability</string>
     <string name="share_stream_url">Share stream URL</string>
-    <string name="magnet_include_file_priorities">Include file priorities?</string>
+    <string name="magnet_include_file_priorities">Include file priorities\?</string>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No trackers</string>
     <string name="edit_torrent_name">Edit torrent name</string>
@@ -303,7 +304,7 @@
     <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="copy_link">Copy link</string>
     <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="delete_selected_channels">Delete the selected channels?</string>
+    <string name="delete_selected_channels">Delete the selected channels\?</string>
     <string name="edit_feed_channel">Edit channel</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="mark_as_read">Mark as read</string>
@@ -320,7 +321,7 @@
     <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Create torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait&#8230;</string>
+    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Tracker URLs</string>
