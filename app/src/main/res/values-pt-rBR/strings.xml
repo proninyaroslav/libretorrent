@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent está rodando em segundo plano</string>
     <string name="network_online">Status da rede: Online</string>
     <string name="network_offline">Status da rede: Offline</string>
-    <string name="notify_shutting_down">Encerrando&#8230;</string>
+    <string name="notify_shutting_down">Encerrando…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Erro de torrent</string>
     <string name="error_template">Erro: %1$s</string>
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">Rastreadores</string>
     <string name="tracker_state_working">Funcionando</string>
     <string name="tracker_state_not_working">Não está funcionando</string>
-    <string name="tracker_state_updating">Atualizando&#8230;</string>
+    <string name="tracker_state_updating">Atualizando…</string>
     <string name="tracker_state_not_contacted">Não contactado ainda</string>
     <string name="share_tracker_url">Compartilhar endereço</string>
     <string name="delete_selected_tracker">Deletar o rastreador selecionado?</string>
@@ -320,7 +320,7 @@
     <string name="feed_item_url_not_found">URL não encontrada</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>
-    <string name="creating_torrent_progress">Criando torrent, por favor aguarde&#8230;</string>
+    <string name="creating_torrent_progress">Criando torrent, por favor aguarde…</string>
     <string name="file_or_folder_for_seeding">Arquivo ou pasta para semeando</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Por favor selecione primeiro o arquivo ou pasta para compartilhar</string>
     <string name="tracker_urls">URLs do rastreador</string>
