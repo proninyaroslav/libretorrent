@@ -66,7 +66,6 @@
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
     <!-- Date added -->
-    <string name="drawer_date_added_year"/>
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
     <string name="tag_name">Tag name</string>
@@ -131,7 +130,6 @@
     <string name="torrent_name">Name</string>
     <string name="torrent_hash_sum">Hash sum</string>
     <!-- Filemanager dialog -->
-    <string name="dialog_new_folder_title"/>
     <string name="error_dialog_new_folder">Unable to create a new folder</string>
     <string name="error_open_dir">Unable to open the folder</string>
     <string name="home_directory">Home</string>
@@ -158,7 +156,6 @@
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="delete_selected_trackers"/>
     <string name="dialog_add_trackers">(One per line)</string>
     <string name="peer_port">Port: %1$d</string>
     <!-- ↓ total download • ↑ total upload -->
@@ -183,7 +180,6 @@
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="error_cannot_delete_channel"/>
     <string name="delete_selected_channel">Delete the selected channel?</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
@@ -221,7 +217,6 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_filter_peer_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
