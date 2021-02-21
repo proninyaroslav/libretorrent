@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent draait op de achtergrond</string>
     <string name="network_online">Netwerk status: Online</string>
     <string name="network_offline">Netwerk status: Offline</string>
-    <string name="notify_shutting_down">Afsluiten&#8230;</string>
+    <string name="notify_shutting_down">Afsluiten…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent fout</string>
     <string name="error_template">Foutmelding: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Trackers</string>
     <string name="tracker_state_working">Werkend</string>
     <string name="tracker_state_not_working">Werkt niet</string>
-    <string name="tracker_state_updating">Bijwerken&#8230;</string>
+    <string name="tracker_state_updating">Bijwerken…</string>
     <string name="tracker_state_not_contacted">Nog niet verbonden</string>
     <string name="share_tracker_url">Deel URL</string>
     <string name="delete_selected_tracker">Geselecteerde tracker verwijderen?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL niet gevonden</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Maak torrent</string>
-    <string name="creating_torrent_progress">Torrent aan het maken, even geduld&#8230;</string>
+    <string name="creating_torrent_progress">Torrent aan het maken, even geduld…</string>
     <string name="file_or_folder_for_seeding">Bestand of map voor seeden</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Selecteer bestand of map om eerst te uploaden</string>
     <string name="tracker_urls">Tracker URL\'s</string>
