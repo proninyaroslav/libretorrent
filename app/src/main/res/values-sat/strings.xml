@@ -45,7 +45,7 @@
     <string name="clipboard">Clipboard</string>
     <string name="switch_on">On</string>
     <!-- Main window -->
-    <string name="add_link">Add link</string>
+    <string name="add_link">ᱞᱤᱸᱠ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
     <string name="error_empty_link">Please enter link</string>
     <string name="open_file">Open file</string>
     <string name="ip_filter_add_error">Failed to add IP filter (%1$d failed). Maybe file is corrupted or has an incorrect format</string>
@@ -350,4 +350,7 @@
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="delete_torrent_with_downloaded_files">ᱰᱟᱩᱱᱞᱳᱰ ᱠᱟᱱ ᱨᱮᱫᱠᱚ ᱥᱟᱞᱟᱜ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
+    <string name="switch_off">ᱵᱚᱸᱫ</string>
+    <string name="apply">ᱮᱢ ᱪᱷᱚ</string>
 </resources>
