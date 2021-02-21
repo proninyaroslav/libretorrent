@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent가 백그라운드에서 실행 중입니다.</string>
     <string name="network_online">네트워크 상태: 온라인</string>
     <string name="network_offline">네트워크 상태: 오프라인</string>
-    <string name="notify_shutting_down">종료 중&#8230;</string>
+    <string name="notify_shutting_down">종료 중…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">토렌트 오류</string>
     <string name="error_template">오류: %1$s</string>
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">트래커</string>
     <string name="tracker_state_working">작동됨</string>
     <string name="tracker_state_not_working">작동 안 됨</string>
-    <string name="tracker_state_updating">업데이트 중&#8230;</string>
+    <string name="tracker_state_updating">업데이트 중…</string>
     <string name="tracker_state_not_contacted">접촉 전</string>
     <string name="share_tracker_url">URL 공유</string>
     <string name="delete_selected_tracker">선택한 트래커를 삭제할까요?</string>
@@ -320,7 +320,7 @@
     <string name="feed_item_url_not_found">URL을 찾을 수 없음</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">토렌트 생성</string>
-    <string name="creating_torrent_progress">토렌트 생성 중입니다. 잠시만 기다리세요&#8230;</string>
+    <string name="creating_torrent_progress">토렌트 생성 중입니다. 잠시만 기다리세요…</string>
     <string name="file_or_folder_for_seeding">배포할 파일이나 폴더</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">트래커 URL</string>
