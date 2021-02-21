@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Laster ned metadata …</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
-    <string name="perm_denied_warning">Uten denne tilgangen kan ikke programmet lagre torrentfiler i minne. Programmet vil ikke virke ordentlig. Er du sikker på at du vil nekte denne tilgangen?</string>
+    <string name="perm_denied_warning">Er du sikker på at du vil forhindre programmet fra å lagre torrentfiler i minnet\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
@@ -166,13 +166,13 @@
     <string name="error_field_required">Påkrevd felt</string>
     <string name="error_no_files_selected">Ingen filer valgt</string>
     <string name="free_space">%1$s ledig</string>
-    <string name="error_free_space">Det finnes ikke nok ledig plass i valgt sti til nedlasting av valgte filer</string>
+    <string name="error_free_space">Ikke nok ledig plass der til nedlasting av valgte filer</string>
     <string name="files_size">Valgte %1$s av %2$s</string>
     <string name="start_torrent"></string>
-    <string name="file_is_too_large_error">Filen er for stor</string>
+    <string name="file_is_too_large_error">For stor fil</string>
     <string name="unable_to_open_folder">Kunne ikke åpne valgt mappe. Prøv å velge en annen mappe</string>
     <string name="error_empty_name">Skriv inn navn</string>
-    <string name="ignore_free_space">Ignorer gjenværende plass</string>
+    <string name="ignore_free_space">Ignorer lite gjenværende plass</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Filer</string>
@@ -395,17 +395,17 @@
     <string name="pref_dir_to_watch_title">Katalog å se</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Hastighet</string>
-    <string name="pref_max_download_speed_title">Maksimal nedlastingshastighet</string>
-    <string name="pref_max_upload_speed_title">Maksimal opplastingshastighet</string>
-    <string name="pref_max_connections_title">Maksimalt antall tilkoblinger</string>
-    <string name="pref_max_connections_summary">Minimum antall tilkoblinger - 2</string>
+    <string name="pref_max_download_speed_title">Maks. nedlastingshastighet</string>
+    <string name="pref_max_upload_speed_title">Maks. opplastingshastighet</string>
+    <string name="pref_max_connections_title">Maks. antall tilkoblinger</string>
+    <string name="pref_max_connections_summary">Min. antall tilkoblinger - 2</string>
     <string name="pref_torrent_queueing_category">Torrent-kødanning</string>
-    <string name="pref_max_active_uploads_title">Maksimalt antall aktive opplastinger</string>
-    <string name="pref_max_active_downloads_title">Maksimalt antall aktive nedlastinger</string>
-    <string name="pref_max_active_torrents_title">Maksimalt antall aktive torrenter</string>
-    <string name="pref_max_connections_per_torrent_title">Maksimalt antall tilkoblinger per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum antall tilkoblinger - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maksimum antall laste opp slot per torrent</string>
+    <string name="pref_max_active_uploads_title">Maks. antall aktive opplastinger</string>
+    <string name="pref_max_active_downloads_title">Maks. antall aktive nedlastinger</string>
+    <string name="pref_max_active_torrents_title">Maks. antall aktive torrenter</string>
+    <string name="pref_max_connections_per_torrent_title">Maks. antall tilkoblinger per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">Min. antall tilkoblinger - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">Maks. antall laste opp slot per torrent</string>
     <string name="pref_auto_manage_title">Automatisk administrasjon</string>
     <string name="pref_auto_manage_summary">Torrenten kan gjenopptas eller lagres automatisk når som helst. Å skru på dette kan gjøre pause/gjenoppta tregere.</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 grenseløs</string>
@@ -427,7 +427,7 @@
     <string name="pref_vibration_notify_title">Vibrasjon</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten</string>
+    <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Kun for tilkoblinger uten kvote</string>
     <string name="pref_umnetered_connections_only_summary">Kun last ned på ubegrensede tilkoblinger (for eksempel Wi-Fi eller Ethernet)</string>
@@ -436,7 +436,7 @@
     <string name="pref_power_management_category">Strømstyring</string>
     <string name="pref_keep_alive_title">Arbeid i bakgrunnen</string>
     <string name="pref_keep_alive_summary">Hvis aktivert, fortsetter programmet å kjøre i bakgrunnen. Nedleggelse når nedlastinger er fullført, respekteres fortsatt</string>
-    <string name="pref_shutdown_downloads_complete_title">Slå av etter at nedlastinger fullføres</string>
+    <string name="pref_shutdown_downloads_complete_title">Slå av ved fullføring av alle nedlastinger</string>
     <string name="pref_shutdown_downloads_complete_summary">Hvis påskrudd vil programmet bli lukket etter at alt på nedlasting har blitt overført</string>
     <string name="pref_cpu_do_not_sleep_title">Hold CPU aktiv</string>
     <string name="pref_cpu_do_not_sleep_summary">Å skru på dette vil øke batteribruken. Bruk dette valget hvis nedlastingshastigheten går ned når skjermen skrur seg av</string>
@@ -547,8 +547,6 @@
     <string name="pref_streaming_error">Velg en port eller et vertsnavn for streaming som ikke er feil eller opptatt.</string>
     <!-- About dialog -->
     <string name="about_title">Om</string>
-    <string name="about_description"><![CDATA[    Mer informasjon og også for å hjelpe prosjektet: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent er fri programave-torrentklient for Android 4+, basert på libtorrent (Java-omslag libtorrent4j <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent er fri programvare. gitt ut med <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Mer info og hvordan du kan hjelpe prosjektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent er en gemenhetslig fri (&lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;]]) programave-torrentklient for Android 4+, basert på libtorrent (Java-omslag libtorrent4j &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Endringslogg</string>
 </resources>
