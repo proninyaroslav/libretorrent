@@ -64,8 +64,8 @@
     <string name="ip_filter_add_error">Nem lehet hozzáadni az IP szűrőt (%1$d sikertelen). Lehet, hogy a fájl hibás, sérült vagy nem megfelelő a formátuma</string>
     <string name="ip_filter_add_success">IP szűrő hozzáadva</string>
     <string name="proxy_settings_applied">A proxy kiszolgáló beállításai alkalmazva</string>
-    <string name="proxy_settings_apply_after_reboot">A proxy kiszolgáló beállításai a következő újraindítás után lépnek életbe</string>
-    <string name="theme_settings_apply_after_reboot">A téma beállításai a következő újraindítás után lépnek életbe</string>
+    <string name="proxy_settings_apply_after_reboot">Indítsa újra az alkalmazást, hogy a használni tudja az új proxibeállításokat</string>
+    <string name="theme_settings_apply_after_reboot">Indítsa újra az alkalmazást, hogy a használni tudja az új témát</string>
     <string name="about">Névjegy</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-csomópontok: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Kapcsolati port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Állapot</string>
-    <string name="drawer_status_downloading">Letöltés</string>
+    <string name="drawer_status_downloading">Letöltés…</string>
     <string name="drawer_status_downloaded">Letöltve</string>
-    <string name="drawer_status_downloading_metadata">Metaadatok letöltése</string>
+    <string name="drawer_status_downloading_metadata">Metaadatok letöltése…</string>
     <string name="drawer_status_error">Hiba</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Rendezés</string>
