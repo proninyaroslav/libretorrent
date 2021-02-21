@@ -62,10 +62,10 @@
     <string name="open_file">Åpne fil</string>
     <string name="settings">Innstillinger</string>
     <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje filen er skadet eller har feil format</string>
-    <string name="ip_filter_add_success">IP-filterlagt til</string>
+    <string name="ip_filter_add_success">IP-filter lagt til</string>
     <string name="proxy_settings_applied">Mellomtjenerinnstillinger lagt til</string>
-    <string name="proxy_settings_apply_after_reboot">Nye mellomtjenerinnstillinger vil trå i kraft ved neste oppstart av programmet</string>
-    <string name="theme_settings_apply_after_reboot">Nye draktinnstillinger vil komme til syne ved neste oppstart av programmet</string>
+    <string name="proxy_settings_apply_after_reboot">Start programmet på ny for å bruke de nye mellomtjenerinnstillingene</string>
+    <string name="theme_settings_apply_after_reboot">Start programmet på ny for å iføre ny drakt</string>
     <string name="about">Om</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
@@ -144,7 +144,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Laster ned …</string>
-    <string name="torrent_status_seeding">Deler</string>
+    <string name="torrent_status_seeding">Deler …</string>
     <string name="torrent_status_paused">Pauset</string>
     <string name="torrent_status_stopped">Stoppet</string>
     <string name="torrent_status_checking">Sjekker …</string>
@@ -158,7 +158,7 @@
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
     <string name="error_io_torrent">Feil ved lesing av torrentfil</string>
     <string name="error_fetch_link">Klarte ikke å hente inn data fra lenken</string>
-    <string name="error_invalid_link_or_path">Ugyldig lenke eller sti til torrent</string>
+    <string name="error_invalid_link_or_path">Ugyldig lenke eller torrentsti</string>
     <string name="error_add_torrent">Klarte ikke å legge til torrent</string>
     <string name="error_file_not_found_add_torrent">Klarte ikke å legge til torrent. Kanskje torrentfilen er flyttet eller slettet\?</string>
     <string name="error_io_add_torrent">Klarte ikke å legge til torrent. Inn-/ut-datafeil</string>
@@ -201,7 +201,7 @@
     <string name="save_file">Lagre filen</string>
     <string name="file_name">Filnavn</string>
     <string name="error_file_exists">Filen finnes allerede</string>
-    <string name="file_name_is_empty">Filnavnet kan ikke være tomt</string>
+    <string name="file_name_is_empty">Skriv inn et filnavn først</string>
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">Fant ikke systemfilbehandler</string>
     <string name="replace_file">Erstatt fil</string>
