@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent rulează în fundal</string>
     <string name="network_online">Status rețea: Online</string>
     <string name="network_offline">Status rețea: Offline</string>
-    <string name="notify_shutting_down">Se închide&#8230;</string>
+    <string name="notify_shutting_down">Se închide…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Eroare torrent</string>
     <string name="error_template">Eroare: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Trackere</string>
     <string name="tracker_state_working">Funcționează</string>
     <string name="tracker_state_not_working">Nu funcționează</string>
-    <string name="tracker_state_updating">Se actualizează&#8230;</string>
+    <string name="tracker_state_updating">Se actualizează…</string>
     <string name="tracker_state_not_contacted">Necontactat încă</string>
     <string name="share_tracker_url">Distribuie URL</string>
     <string name="delete_selected_tracker">Stergeți trackerul selectat?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL nu a fost găsit</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Creați torrent</string>
-    <string name="creating_torrent_progress">Se crează torrent-ul, vă rugăm așteptați&#8230;</string>
+    <string name="creating_torrent_progress">Se crează torrent-ul, vă rugăm așteptați…</string>
     <string name="file_or_folder_for_seeding">Fișier sau dosar pentru seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Vă rugăm să selectați mai întâi fișierul sau folderul pentru însămânțare</string>
     <string name="tracker_urls">URL-uri de urmărire</string>
