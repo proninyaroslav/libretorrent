@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">バックグラウンドで LibreTorrent を動作し続ける</string>
     <string name="network_online">ネットワークステータス: オンライン</string>
     <string name="network_offline">ネットワークステータス: オフライン</string>
-    <string name="notify_shutting_down">シャットダウン中&#8230;</string>
+    <string name="notify_shutting_down">シャットダウン中…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">トレントエラー</string>
     <string name="error_template">エラー: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">トラッカー</string>
     <string name="tracker_state_working">実行中</string>
     <string name="tracker_state_not_working">停止中</string>
-    <string name="tracker_state_updating">アップデート中&#8230;</string>
+    <string name="tracker_state_updating">アップデート中…</string>
     <string name="tracker_state_not_contacted">まだ接続されていません</string>
     <string name="share_tracker_url">URL を共有</string>
     <string name="delete_selected_tracker">選択されたアイテムを削除しますか?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL が見つかりません</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">トレントを作成</string>
-    <string name="creating_torrent_progress">トレントを作成しています。しばらくお待ち下さい&#8230;</string>
+    <string name="creating_torrent_progress">トレントを作成しています。しばらくお待ち下さい…</string>
     <string name="file_or_folder_for_seeding">シード用のファイルまたはフォルダ</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">最初にシードするファイルまたはフォルダを選択して下さい</string>
     <string name="tracker_urls">トラッカー URL</string>
