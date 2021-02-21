@@ -266,7 +266,7 @@
     <string name="torrent_speed_limit">Hastighetsavgrensning</string>
     <string name="share_via">Del via</string>
     <string name="save_torrent_file_successfully">Torrent-fil lagret</string>
-    <string name="error_save_torrent_file">Klarte ikke å lagre torrentfil</string>
+    <string name="error_save_torrent_file">Kunne ikke lagre torrentfil</string>
     <string name="speed_limit_title">Maksimal hastighet</string>
     <string name="upload_speed">↑</string>
     <string name="download_speed">↓</string>
@@ -275,12 +275,12 @@
     <string name="torrent_availability">Tilgjengelighet</string>
     <string name="share_stream_url">Del nettadressen til stream</string>
     <string name="magnet_include_file_priorities">Inkluder filprioriteter?</string>
-    <string name="magnet_more_about_bep53">Mer informasjon: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">Mer info på http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Ingen sporere</string>
     <string name="edit_torrent_name">Rediger torrentnavn</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopier</string>
-    <string name="text_copied_to_clipboard">Tekst kopiert til utklippstavle</string>
+    <string name="text_copied_to_clipboard">Kopiert til utklippstavle</string>
     <!-- Error report -->
     <string name="app_error_occurred">En feil inntraff. Du kan sende feilrapporten til utviklerne</string>
     <string name="error_comment_prompt">Legg til evt. ekstra informasjon og kommentarer her:</string>
@@ -302,7 +302,7 @@
     <string name="error_cannot_edit_channel">Kan ikke redigere kanal</string>
     <string name="error_cannot_delete_channel">Kan ikke slette kanal</string>
     <string name="copy_link">Kopier lenke</string>
-    <string name="delete_selected_channel">Slett den valgte kanalen?</string>
+    <string name="delete_selected_channel">Slett valgt kanal\?</string>
     <string name="delete_selected_channels">Slett de valgte kanalene?</string>
     <string name="edit_feed_channel">Rediger kanal</string>
     <string name="link_copied_to_clipboard">Kopiert til utklippstavlen</string>
@@ -321,14 +321,14 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Lag torrent</string>
     <string name="creating_torrent_progress">Vent mens torrenten opprettes …</string>
-    <string name="file_or_folder_for_seeding">Fil eller mappe for deling</string>
+    <string name="file_or_folder_for_seeding">Fil eller mappe å dele</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Velg en fil eller mappe å dele først</string>
     <string name="tracker_urls">Sporer-nettadresser</string>
-    <string name="web_seed_urls">Nettdeleradresse</string>
+    <string name="web_seed_urls">Nettdeleradresser</string>
     <string name="comments">Kommentarer</string>
     <string name="tracker_urls_hint">(Valgfritt) skriv inn én sporer per linje i prioritert rekkefølge</string>
     <string name="web_seed_urls_hint">(Valgfritt) én per linje</string>
-    <string name="optional_hint">(valgfritt)</string>
+    <string name="optional_hint">(Valgfritt)</string>
     <string name="piece_size">Delstørrelse</string>
     <string name="create_torrent_options">Alternativer</string>
     <string name="option_start_seeding">Start deling</string>
@@ -368,7 +368,7 @@
     <string name="journal_filter_peer_log">Likemannslogg</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP-logg</string>
     <string name="journal_filter_torrent_log">Torrentlogg</string>
-    <string name="journal_save_log_failed">Klarte ikke å lagre logg</string>
+    <string name="journal_save_log_failed">Kunne ikke lagre logg</string>
     <string name="journal_save_log_success">Logg lagret: %1$s</string>
     <string name="pref_journal_save_log_to">Lagre logg i …</string>
     <!-- Log settings -->
