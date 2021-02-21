@@ -122,7 +122,7 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent feil</string>
     <string name="error_template">Feil: %1$s</string>
-    <string name="restore_torrent_error">kan ikke gjenopprette torrent fra forrige økt</string>
+    <string name="restore_torrent_error">Kan ikke gjenopprette torrent fra forrige økt</string>
     <string name="session_error_title">Session feil</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT feil</string>
@@ -156,14 +156,14 @@
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
-    <string name="error_io_torrent">Feil ved lesing av torrentfil</string>
-    <string name="error_fetch_link">Klarte ikke å hente inn data fra lenken</string>
+    <string name="error_io_torrent">Kunne ikke lese torrentfilen</string>
+    <string name="error_fetch_link">Kunne ikke hente data fra lenken</string>
     <string name="error_invalid_link_or_path">Ugyldig lenke eller torrentsti</string>
-    <string name="error_add_torrent">Klarte ikke å legge til torrent</string>
+    <string name="error_add_torrent">Kunne ikke legge til torrenten</string>
     <string name="error_file_not_found_add_torrent">Klarte ikke å legge til torrent. Kanskje torrentfilen er flyttet eller slettet\?</string>
-    <string name="error_io_add_torrent">Klarte ikke å legge til torrent. Inn-/ut-datafeil</string>
-    <string name="torrent_exist">Torrenten finnes allerede. Torrenten ble flettet</string>
-    <string name="error_field_required">Dette er et påkrevd felt</string>
+    <string name="error_io_add_torrent">Kan ikke legge til torrenten som følge av en nn-/ut-datafeil.</string>
+    <string name="torrent_exist">Siden torrenten allerede finnes ble de flettet.</string>
+    <string name="error_field_required">Påkrevd felt</string>
     <string name="error_no_files_selected">Ingen filer valgt</string>
     <string name="free_space">%1$s ledig</string>
     <string name="error_free_space">Det finnes ikke nok ledig plass i valgt sti til nedlasting av valgte filer</string>
@@ -203,7 +203,7 @@
     <string name="error_file_exists">Filen finnes allerede</string>
     <string name="file_name_is_empty">Skriv inn et filnavn først</string>
     <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">Fant ikke systemfilbehandler</string>
+    <string name="system_file_manager_not_found">Fant ikke en filbehandler</string>
     <string name="replace_file">Erstatt fil</string>
     <string name="parent_folder">Ovennevnt mappe</string>
     <!-- Error dialog -->
@@ -282,8 +282,8 @@
     <string name="send_text_to_clipboard">Kopier</string>
     <string name="text_copied_to_clipboard">Kopiert til utklippstavle</string>
     <!-- Error report -->
-    <string name="app_error_occurred">En feil inntraff. Du kan sende feilrapporten til utviklerne</string>
-    <string name="error_comment_prompt">Legg til evt. ekstra informasjon og kommentarer her:</string>
+    <string name="app_error_occurred">Programfeil inntraff. Du kan sende feilrapporten til utviklerne</string>
+    <string name="error_comment_prompt">Legg til ekstra info og kommentarer her:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Ingen kanaler</string>
@@ -291,7 +291,7 @@
     <string name="add_feed_channel">Legg til kanal</string>
     <string name="feed_name">Navn (valgfritt)</string>
     <string name="feed_filter_prompt">Skriv inn ordene (skilt med \"|\" symbol), hvorav en må være i navnet eller angi vanlig uttrykk. Torrenter vil bare bli lagt til hvis dette filteret samsvarer med torrentnavnet</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
+    <string name="feed_filter_prompt_one_per_line">Skriv inn ett filter per linje.</string>
     <string name="feed_auto_download">Last ned nye torrenter automatisk</string>
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
     <string name="backup_feed_channels">Lagre sikkerhetskopi</string>
@@ -311,8 +311,8 @@
     <string name="feed_item_list_empty">Ingen artikler</string>
     <string name="backup_feeds_successfully">Kanaler lagret</string>
     <string name="restore_feeds_backup_successfully">Kanaler gjenopprettet</string>
-    <string name="error_backup_feeds">Klarte ikke å lagre kanaler</string>
-    <string name="error_restore_feeds_backup">Klarte ikke å gjenopprette kanaler</string>
+    <string name="error_backup_feeds">Kunne ikke lagre kanaler</string>
+    <string name="error_restore_feeds_backup">Kunne ikke gjenopprette kanaler</string>
     <string name="feed_item_open_article_url">Åpne artikkelen</string>
     <string name="feeds_backup_selection_dialog_title">Velg sikkerhetskopifil</string>
     <string name="error_import_invalid_format">Ugyldig format</string>
@@ -388,7 +388,7 @@
     <string name="pref_move_after_download_title">Flytt etter nedlasting</string>
     <string name="pref_move_after_download_in_title">Flytt etter nedlasting i</string>
     <string name="pref_save_torrent_files_title">Lagre .torrent-filer</string>
-    <string name="pref_save_torrent_files_summary">Lagre .torrent-filer etter at nedlasting igangsettes</string>
+    <string name="pref_save_torrent_files_summary">Lagre .torrent-filer når nedlasting starter.</string>
     <string name="pref_save_torrent_files_in_title">Lagre .torrent-filer i</string>
     <string name="pref_watch_dir_title">Se katalog</string>
     <string name="pref_watch_dir_summary">Torrent-filene (med .torrent-utvidelse) blir sett i den angitte katalogen og automatisk lagt til. Torrent-filene slettes etter at du har lagt til</string>
@@ -454,7 +454,7 @@
     <string name="pref_enable_dht_summary">Lar BitTorrent-klienter finne hverandre uten bruk av en sporer. Å skru på dette vil øke batteribruken</string>
     <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Designet for å støtte lokal oppdaging av BitTorrent-likemenn, myntet på å minimere trafikk</string>
-    <string name="pref_enable_utp_title">Skru på μTP</string>
+    <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">Dens hensikt er å bøte på dårlig svartid og kødannelsesproblemer i konvensjonell BitTorrent over TCP, samtidig som den gir pålitelig levering i rett rekkefølge</string>
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
@@ -478,9 +478,9 @@
     <string name="pref_enable_ip_filtering_summary">Bruk av IP-filtrering øker minnebruken. Avhengig av filstørrelsen, kan det hende det tar litt tid å legge det til ved oppstart</string>
     <string name="pref_ip_filtering_file_title">Sti til filter-fil (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Vis NAT-feil</string>
-    <string name="pref_anonymous_mode_title">Skru på anonymt modus</string>
+    <string name="pref_anonymous_mode_title">Anonymt modus</string>
     <string name="pref_anonymous_mode_summary">Programmet prøver å skjule sin identitet til en viss grad. Brukeragenten bil bli tilbakestilt til en tom streng (unntatt for private torrenter). Sporere vil kun brukes hvis de bruker en mellomtjener. Lyttesocketene er lukket, og innkommende tilkoblinger vil kun godtas gjennom en SOCKS5- eller I2P-mellomtjener (hvis en likemannsmellomtjener er satt opp og kjører på samme maskinen som sporermellomtjeneren). NAT-PMP, UPnP, DHT og lokal likemannsoppdaging er avskrudd.</string>
-    <string name="pref_seeding_outgoing_connections_title">Skru på utgående tilkoblinger for likemenn</string>
+    <string name="pref_seeding_outgoing_connections_title">Utgående tilkoblinger for likemenn</string>
     <string name="pref_seeding_outgoing_connections_summary">Angir om deling av torrenter skal prøve å etablere utgående tilkoblinger eller ei. Det kan skrus av i veldig spesifikke situasjoner der kostnaden for etablering av utgående tilkoblinger er høy.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
@@ -495,7 +495,7 @@
     <string name="pref_proxy_peers_too_title">Bruk også for likemannstilkoblinger</string>
     <string name="pref_proxy_peers_too_summary">Mellomtjeneren vil bli brukt for tilkoblinger til sporere, likemenn og vev-delere</string>
     <string name="pref_proxy_requires_auth_title">Krever identitetsgodkjenning</string>
-    <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret ukryptert</string>
+    <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret ukryptert.</string>
     <string name="pref_proxy_login_title">Innlogging</string>
     <string name="pref_proxy_password_title">Passord</string>
     <!-- Schedule settings -->
@@ -544,7 +544,7 @@
     <string name="pref_streaming_enable_summary">Streaming lar deg laste ned individuelle filer fra en torrent ved hjelp av en nettleser eller mediespiller ved hjelp av HTTP-adresser</string>
     <string name="pref_streaming_hostname">Vertsnavn </string>
     <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Valgte port eller vertsnavn for streaming er opptatt eller feil. Vennligst reparer det</string>
+    <string name="pref_streaming_error">Velg en port eller et vertsnavn for streaming som ikke er feil eller opptatt.</string>
     <!-- About dialog -->
     <string name="about_title">Om</string>
     <string name="about_description"><![CDATA[    Mer informasjon og også for å hjelpe prosjektet: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
