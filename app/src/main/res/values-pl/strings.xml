@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Tracker\'ów</string>
     <string name="tracker_state_working">Aktywne</string>
     <string name="tracker_state_not_working">Nieaktywne</string>
-    <string name="tracker_state_updating">Aktualizowanie&#8230;</string>
+    <string name="tracker_state_updating">Aktualizowanie…</string>
     <string name="tracker_state_not_contacted">Nie skomunikowany</string>
     <string name="share_tracker_url">Udostępnij URL</string>
     <string name="delete_selected_tracker">Usunąć wybrany tracker?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">Nie znaleziono adresu URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Utwórz torrent</string>
-    <string name="creating_torrent_progress">Tworzenie torrentu, proszę czekać&#8230;</string>
+    <string name="creating_torrent_progress">Tworzenie torrentu, proszę czekać…</string>
     <string name="file_or_folder_for_seeding">Plik lub folder do seedowanie</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Proszę najpierw wybrać plik lub folder do seedowania</string>
     <string name="tracker_urls">Adresy trackerów</string>
