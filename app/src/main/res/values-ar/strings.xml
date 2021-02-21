@@ -296,7 +296,7 @@
     <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="copy_link">Copy link</string>
     <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="delete_selected_channels">Delete the selected channels?</string>
+    <string name="delete_selected_channels">Delete the selected channels\?</string>
     <string name="edit_feed_channel">Edit channel</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="mark_as_read">Mark as read</string>
