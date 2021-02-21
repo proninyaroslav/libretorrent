@@ -1,4 +1,4 @@
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/libretorrent/localized.svg)](https://crowdin.com/project/libretorrent)
+[![Weblate](https://hosted.weblate.org/widgets/libretorrent/-/svg-badge.svg)](https://hosted.weblate.org/engage/libretorrent/)
 [![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
 [![Matrix Room](https://img.shields.io/matrix/libretorrent:matrix.org?label=Matrix%20Room)](https://matrix.to/#libretorrent:matrix.org)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/14421/badge.svg">](https://scan.coverity.com/projects/proninyaroslav-libretorrent)
@@ -65,7 +65,7 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
 Translations
 ---
 
-You can help translate the app here: [https://crowdin.com/project/libretorrent](https://crowdin.com/project/libretorrent)
+You can help translate the app here: [https://hosted.weblate.org/engage/libretorrent/](https://hosted.weblate.org/engage/libretorrent/)
 
  - **Arabic** *(thanks xivaphro)*
  - **Azerbaijani** *(thanks Khan27)*
