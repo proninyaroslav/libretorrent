@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent atzealdean lanean ari da</string>
     <string name="network_online">Sarearen egoera: Linean</string>
     <string name="network_offline">Sarearen egoera: Lineaz kanpo</string>
-    <string name="notify_shutting_down">Itzaltzen&#8230;</string>
+    <string name="notify_shutting_down">Itzaltzen…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent errorea</string>
     <string name="error_template">Errorea: %1$s</string>
@@ -211,7 +211,8 @@
     <string name="more_details">Xehetasun gehiago</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nAvailability: %5$s</string>
     <string name="file_priority_normal">Arrunta</string>
     <string name="file_priority_low">Ezikusi</string>
     <string name="file_priority_high">Altua</string>
@@ -240,7 +241,7 @@
     <string name="torrent_trackers">Aztarnariak</string>
     <string name="tracker_state_working">Lanean</string>
     <string name="tracker_state_not_working">Not working</string>
-    <string name="tracker_state_updating">Eguneratzen&#8230;</string>
+    <string name="tracker_state_updating">Eguneratzen…</string>
     <string name="tracker_state_not_contacted">Ez dago kontakturik oraindik</string>
     <string name="share_tracker_url">Partekatu URL-a</string>
     <string name="delete_selected_tracker">Ezabatu aukeratutako aztarnaria?</string>
@@ -274,7 +275,7 @@
     <string name="torrent_added_date">Gehituta</string>
     <string name="torrent_availability">Erabilgarritasuna</string>
     <string name="share_stream_url">Share stream URL</string>
-    <string name="magnet_include_file_priorities">Include file priorities?</string>
+    <string name="magnet_include_file_priorities">Include file priorities\?</string>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aztarnaririk ez</string>
     <string name="edit_torrent_name">Edit torrent name</string>
@@ -320,7 +321,7 @@
     <string name="feed_item_url_not_found">Ez da URL-a aurkitu</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Sortu torrent-a</string>
-    <string name="creating_torrent_progress">Torrent-a sortzen, itxaron mesedez&#8230;</string>
+    <string name="creating_torrent_progress">Torrent-a sortzen, itxaron mesedez…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">Aztarnarien URL-ak</string>
