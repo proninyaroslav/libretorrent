@@ -1,0 +1,1 @@
+Gemenhetslig fri fullverdig torrent-klient. Basert på libtorrent-biblioteket
