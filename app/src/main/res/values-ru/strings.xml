@@ -56,16 +56,16 @@
     <string name="dialog_add_link_title">Введите magnet или HTTP/HTTPS ссылку</string>
     <string name="torrent_list_empty">Нет торрентов</string>
     <string name="select_or_add_torrent">Выберите или добавьте торрент</string>
-    <string name="error_empty_link">Пожалуйста, введите ссылку</string>
+    <string name="error_empty_link">Введите ссылку</string>
     <string name="error_invalid_link">Неверная ссылка</string>
     <string name="error_open_torrent_file">Невозможно открыть торрент-файл</string>
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
     <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно файл повреждён или имеет неверный формат</string>
-    <string name="ip_filter_add_success">IP фильтр успешно добавлен</string>
-    <string name="proxy_settings_applied">Настройки прокси-сервера успешно применены</string>
-    <string name="proxy_settings_apply_after_reboot">Настройки прокси-сервера будут применены после перезапуска приложения</string>
-    <string name="theme_settings_apply_after_reboot">Настройки темы будут применены после перезапуска приложения</string>
+    <string name="ip_filter_add_success">IP фильтр добавлен</string>
+    <string name="proxy_settings_applied">Настройки прокси-сервера применены</string>
+    <string name="proxy_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новые настройки прокси</string>
+    <string name="theme_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новую тему</string>
     <string name="about">О программе</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT узлы: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Прослушиваемый порт: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Статус</string>
-    <string name="drawer_status_downloading">Загрузка</string>
+    <string name="drawer_status_downloading">Загрузка…</string>
     <string name="drawer_status_downloaded">Загружено</string>
-    <string name="drawer_status_downloading_metadata">Загрузка метаданных</string>
+    <string name="drawer_status_downloading_metadata">Загрузка метаданных…</string>
     <string name="drawer_status_error">Ошибка</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Сортировка</string>
@@ -102,7 +102,7 @@
     <string name="tag_color">Цвет метки</string>
     <string name="add_tag_failed">Не удалось добавить метку</string>
     <string name="tag_deleting_failed">Не удалось удалить метку</string>
-    <string name="tag_already_exists">Метка с таким именем уже существует</string>
+    <string name="tag_already_exists">Этот тег уже существует</string>
     <string name="no_tags">Нет меток</string>
     <string name="select_tag">Выбрать метку</string>
     <string name="new_tag">Новая метка</string>
@@ -118,11 +118,11 @@
     <string name="app_running_in_the_background">LibreTorrent запущен в фоне</string>
     <string name="network_online">Статус сети: Онлайн</string>
     <string name="network_offline">Статус сети: Оффлайн</string>
-    <string name="notify_shutting_down">Завершение работы&#8230;</string>
+    <string name="notify_shutting_down">Завершение работы…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Ошибка торрента</string>
     <string name="error_template">Ошибка: %1$s</string>
-    <string name="restore_torrent_error">не удалось восстановить торрент из предыдущей сессии</string>
+    <string name="restore_torrent_error">Не удалось восстановить торрент из предыдущей сессии</string>
     <string name="session_error_title">Ошибка сессии</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Ошибка NAT</string>
@@ -130,8 +130,8 @@
     <string name="torrent_finished_notify">Торрент загружен</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Перемещение торрента</string>
-    <string name="torrent_moving_content">Перемещение %1$s, пожалуйста, подождите</string>
-    <string name="torrent_move_success">Торрент успешно перемещен</string>
+    <string name="torrent_moving_content">Подождите, пока переместится %1$s…</string>
+    <string name="torrent_move_success">Торрент перемещен</string>
     <string name="torrent_move_fail">Не удалось переместить торрент</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -143,36 +143,36 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Загружается</string>
-    <string name="torrent_status_seeding">Раздаётся</string>
+    <string name="torrent_status_downloading">Загружается…</string>
+    <string name="torrent_status_seeding">Раздаётся…</string>
     <string name="torrent_status_paused">Пауза</string>
     <string name="torrent_status_stopped">Остановлен</string>
-    <string name="torrent_status_checking">Проверка</string>
+    <string name="torrent_status_checking">Проверка…</string>
     <string name="torrent_status_finished">Загружен</string>
-    <string name="torrent_status_downloading_metadata">Загрузка метаданных</string>
+    <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Без этого разрешения приложение не может сохранять торрент-файлы в память. Приложение не будет работать должным образом. Вы уверены, что хотите запретить это разрешение?</string>
+    <string name="perm_denied_warning">Вы уверены, что хотите запретить приложению сохранять торрент-файлы в памяти\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
-    <string name="error_decode_torrent">Ошибка декодирования торрент-файла. Возможно файл повреждён или имеет неверный формат</string>
+    <string name="error_decode_torrent">Ошибка декодирования торрент-файла. Может он поврежден или в неправильном формате\?</string>
     <string name="error_io_torrent">Ошибка чтения торрент-файла</string>
     <string name="error_fetch_link">Не удалось получить данные из ссылки</string>
     <string name="error_invalid_link_or_path">Неверная ссылка или путь до торрента</string>
     <string name="error_add_torrent">Не удалось добавить торрент</string>
-    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Возможно торрент-файл перемещён или удалён</string>
-    <string name="error_io_add_torrent">Невозможно добавить торрент. Ошибка ввода/вывода</string>
-    <string name="torrent_exist">Торрент уже существует. Торренты были объединены</string>
-    <string name="error_field_required">Это поле обязательно для заполнения</string>
+    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Может быть торрент файл перемещен, или удален\?</string>
+    <string name="error_io_add_torrent">Невозможно добавить торрент из-за ошибки ввода-вывода.</string>
+    <string name="torrent_exist">Так как торрент уже существует, они были объединены.</string>
+    <string name="error_field_required">Обязательное поле</string>
     <string name="error_no_files_selected">Не выбраны файлы</string>
     <string name="free_space">%1$s свободно</string>
-    <string name="error_free_space">В указанном расположении не хватает свободного места, чтобы загрузить выбранные файлы</string>
+    <string name="error_free_space">Недостаточно свободного места для загрузки выбранных файлов</string>
     <string name="files_size">Выбрано %1$s из %2$s</string>
     <string name="start_torrent">Запустить торрент</string>
     <string name="file_is_too_large_error">Файл слишком большой</string>
-    <string name="unable_to_open_folder">Не удается открыть выбранную папку. Пожалуйста, попробуйте выбрать другую папку</string>
-    <string name="error_empty_name">Пожалуйста, введите имя</string>
-    <string name="ignore_free_space">Игнорировать размер свободного пространства</string>
+    <string name="unable_to_open_folder">Невозможно открыть выбранную папку. Попробуйте выбрать другую.</string>
+    <string name="error_empty_name">Введите имя</string>
+    <string name="ignore_free_space">Игнорировать нехватку места для хранения</string>
     <!-- Torrent info -->
     <string name="torrent_info">Информация</string>
     <string name="torrent_files">Файлы</string>
@@ -180,7 +180,7 @@
     <string name="upload_torrent_into">Загрузить в</string>
     <string name="torrent_size">Размер</string>
     <string name="torrent_file_count">Количество файлов</string>
-    <string name="torrent_hash_sum">Хеш сумма</string>
+    <string name="torrent_hash_sum">Контрольные суммы</string>
     <string name="torrent_comment">Комментарий</string>
     <string name="torrent_create_date">Создан</string>
     <string name="torrent_created_in_program">Создан в программе</string>
@@ -190,8 +190,8 @@
     <string name="file_chooser_title">Выбор файла</string>
     <string name="torrent_file_chooser_title">Выбор торрента</string>
     <string name="dialog_new_folder_title">Новая папка</string>
-    <string name="error_dialog_new_folder">Невозможно создать новую папку</string>
-    <string name="error_open_dir">Невозможно открыть папку</string>
+    <string name="error_dialog_new_folder">Не удалось создать новую папку</string>
+    <string name="error_open_dir">Не удалось открыть папку</string>
     <string name="home_directory">Домой</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
@@ -201,9 +201,9 @@
     <string name="save_file">Сохранить файл</string>
     <string name="file_name">Имя файла</string>
     <string name="error_file_exists">Файл уже существует</string>
-    <string name="file_name_is_empty">Имя файла не может быть пустым</string>
+    <string name="file_name_is_empty">Сначала введите имя файла</string>
     <string name="system_manager">Системный менеджер</string>
-    <string name="system_file_manager_not_found">Системный файловый менеджер не найден</string>
+    <string name="system_file_manager_not_found">Не удалось найти файловый менеджер</string>
     <string name="replace_file">Заменить файл</string>
     <string name="parent_folder">Родительская папка</string>
     <!-- Error dialog -->
@@ -240,7 +240,7 @@
     <string name="torrent_trackers">Трекеры</string>
     <string name="tracker_state_working">Работает</string>
     <string name="tracker_state_not_working">Не работает</string>
-    <string name="tracker_state_updating">Обновление&#8230;</string>
+    <string name="tracker_state_updating">Обновление…</string>
     <string name="tracker_state_not_contacted">Соединения пока что нет</string>
     <string name="share_tracker_url">Поделиться URL</string>
     <string name="delete_selected_tracker">Удалить выбранный трекер?</string>
@@ -265,7 +265,7 @@
     <string name="save_torrent_file">Сохранить торрент файл</string>
     <string name="torrent_speed_limit">Ограничение скорости</string>
     <string name="share_via">Поделиться с помощью</string>
-    <string name="save_torrent_file_successfully">Торрент-файл успешно сохранён</string>
+    <string name="save_torrent_file_successfully">Торрент-файл сохранён</string>
     <string name="error_save_torrent_file">Не удалось сохранить торрент-файл</string>
     <string name="speed_limit_title">Максимальная скорость</string>
     <string name="upload_speed">Отдача</string>
@@ -275,15 +275,15 @@
     <string name="torrent_availability">Доступность</string>
     <string name="share_stream_url">Поделиться URL стрима</string>
     <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
-    <string name="magnet_more_about_bep53">Больше информации: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">Больше информации: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
     <string name="edit_torrent_name">Редактировать имя торрента</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
-    <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
+    <string name="text_copied_to_clipboard">Скопировано в буфер обмена</string>
     <!-- Error report -->
     <string name="app_error_occurred">В приложении произошла ошибка. Вы можете отправить отчёт разработчикам</string>
-    <string name="error_comment_prompt">Вы можете добавить дополнительную информацию и комментарии:</string>
+    <string name="error_comment_prompt">Добавьте дополнительную информацию и комментарии сюда:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Нет каналов</string>
@@ -291,8 +291,8 @@
     <string name="add_feed_channel">Добавить канал</string>
     <string name="feed_name">Имя (необязательно)</string>
     <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента</string>
-    <string name="feed_filter_prompt_one_per_line">Введите фильтры по одному в строке.</string>
-    <string name="feed_auto_download">Скачивать новые торренты автоматически</string>
+    <string name="feed_filter_prompt_one_per_line">Введите по одному фильтру в каждой строке.</string>
+    <string name="feed_auto_download">Автозагрузка торрентов</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
     <string name="backup_feed_channels">Сохранить резервную копию</string>
     <string name="restore_feed_channels_backup">Восстановить резервную копию</string>
@@ -305,12 +305,12 @@
     <string name="delete_selected_channel">Удалить выбранный канал?</string>
     <string name="delete_selected_channels">Удалить выбранные каналы?</string>
     <string name="edit_feed_channel">Редактировать канал</string>
-    <string name="link_copied_to_clipboard">Ссылка скопирована в буфер обмена</string>
+    <string name="link_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="mark_as_read">Отметить как прочитанное</string>
     <string name="mark_as_unread">Отметить как непрочитанное</string>
     <string name="feed_item_list_empty">Нет статей</string>
-    <string name="backup_feeds_successfully">Каналы успешно сохранены</string>
-    <string name="restore_feeds_backup_successfully">Каналы успешно восстановлены</string>
+    <string name="backup_feeds_successfully">Каналы сохранены</string>
+    <string name="restore_feeds_backup_successfully">Каналы восстановлены</string>
     <string name="error_backup_feeds">Не удалось сохранить каналы</string>
     <string name="error_restore_feeds_backup">Не удалось восстановить каналы</string>
     <string name="feed_item_open_article_url">Открыть статью</string>
@@ -320,15 +320,15 @@
     <string name="feed_item_url_not_found">URL не найден</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Создать торрент</string>
-    <string name="creating_torrent_progress">Создание торрента, пожалуйста, подождите&#8230;</string>
+    <string name="creating_torrent_progress">Подождите, пока торрент будет создан…</string>
     <string name="file_or_folder_for_seeding">Файл или папка для раздачи</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Пожалуйста, сначала выберите файл или папку для раздачи</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Сначала выберите файл или папку для раздачи</string>
     <string name="tracker_urls">Адреса трекеров</string>
     <string name="web_seed_urls">Адреса веб-сидов</string>
     <string name="comments">Комментарии</string>
-    <string name="tracker_urls_hint">(необязательно) Введите трекеры по одному в строке в порядке приоритета</string>
-    <string name="web_seed_urls_hint">(необязательно) По одному в строке</string>
-    <string name="optional_hint">(опционально)</string>
+    <string name="tracker_urls_hint">(Необязательно) Введите трекеры по одному в строке в порядке приоритета</string>
+    <string name="web_seed_urls_hint">(Необязательно) По одному в строке</string>
+    <string name="optional_hint">(Опционально)</string>
     <string name="piece_size">Размер части</string>
     <string name="create_torrent_options">Опции</string>
     <string name="option_start_seeding">Начать раздачу</string>
@@ -350,13 +350,13 @@
     </string-array>
     <string name="invalid_url">Неверный URL: %1$s</string>
     <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром</string>
-    <string name="error_create_torrent">Невозможно создать торрент</string>
+    <string name="error_create_torrent">Не удалось создать торрент</string>
     <string name="skip_files">Пропустить файлы</string>
     <string name="skip_files_hint">Введите имена файлов, разделённые символов \"|\"</string>
     <string name="select_folder_to_save">Выберите папку для сохранения</string>
     <string name="torrent_saved_to">Торрент сохранён в %1$s</string>
-    <string name="unable_to_open_file">Невозможно открыть выбранный файл</string>
-    <string name="unable_to_create_file">Невозможно создать файл</string>
+    <string name="unable_to_open_file">Не удалось открыть выбранный файл</string>
+    <string name="unable_to_create_file">Не удалось создать файл</string>
     <!-- Log -->
     <string name="log_journal">Журнал</string>
     <string name="journal_list_empty">Нет записей</string>
@@ -369,7 +369,7 @@
     <string name="journal_filter_portmap_log">Лог UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Торрент лог</string>
     <string name="journal_save_log_failed">Не удалось сохранить лог</string>
-    <string name="journal_save_log_success">Лог успешно сохранён: %1$s</string>
+    <string name="journal_save_log_success">Лог сохранён: %1$s</string>
     <string name="pref_journal_save_log_to">Сохранить лог в</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Максимальное количество хранимых записей журнала</string>
@@ -388,23 +388,23 @@
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
     <string name="pref_move_after_download_in_title">Перемещать после загрузки в</string>
     <string name="pref_save_torrent_files_title">Сохранять .torrent файлы</string>
-    <string name="pref_save_torrent_files_summary">Сохранять .torrent файлы после начала загрузки</string>
+    <string name="pref_save_torrent_files_summary">Сохранять .torrent файлы когда начнутся загрузки</string>
     <string name="pref_save_torrent_files_in_title">Сохранять .torrent файлы в</string>
     <string name="pref_watch_dir_title">Отслеживать директорию</string>
-    <string name="pref_watch_dir_summary">Торрент файлы (с расширением .torrent) отслеживаются в указанном каталоге и автоматически добавляются. Торрент файлы удаляются после добавления</string>
+    <string name="pref_watch_dir_summary">.torrent файлы в этой папке автоматически добавляются, а затем удаляются.</string>
     <string name="pref_dir_to_watch_title">Директория для отслеживания</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Скорость</string>
     <string name="pref_max_download_speed_title">Максимальная скорость загрузки</string>
     <string name="pref_max_upload_speed_title">Максимальная скорость отдачи</string>
     <string name="pref_max_connections_title">Максимальное количество соединений</string>
-    <string name="pref_max_connections_summary">Минимальное количество соединений - 2</string>
+    <string name="pref_max_connections_summary">Минимальное количество соединений - 2.</string>
     <string name="pref_torrent_queueing_category">Очерёдность торрентов</string>
     <string name="pref_max_active_uploads_title">Максимальное число активных раздач</string>
     <string name="pref_max_active_downloads_title">Максимальное число активных загрузок</string>
     <string name="pref_max_active_torrents_title">Максимальное число активных торрентов</string>
     <string name="pref_max_connections_per_torrent_title">Максимальное количество соединений на торрент</string>
-    <string name="pref_max_connections_per_torrent_summary">Минимальное количество соединений - 2</string>
+    <string name="pref_max_connections_per_torrent_summary">Минимальное количество соединений - 2.</string>
     <string name="pref_max_uploads_per_torrent_title">Максимальное количество слотов отдачи на торрент</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
     <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. Включение этой опции может замедлить паузу/возобновление</string>

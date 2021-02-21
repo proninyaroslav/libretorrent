@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent працює у фоновому режимі</string>
     <string name="network_online">Статус мережі: Онлайн</string>
     <string name="network_offline">Статус мережі: Офлайн</string>
-    <string name="notify_shutting_down">Вимкнення&#8230;</string>
+    <string name="notify_shutting_down">Вимкнення…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Помилка торрента</string>
     <string name="error_template">Помилка: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Трекери</string>
     <string name="tracker_state_working">Працює</string>
     <string name="tracker_state_not_working">Не працює</string>
-    <string name="tracker_state_updating">Оновлення&#8230;</string>
+    <string name="tracker_state_updating">Оновлення…</string>
     <string name="tracker_state_not_contacted">З\'єднання поки що немає</string>
     <string name="share_tracker_url">Поділитися посиланням</string>
     <string name="delete_selected_tracker">Видалити вибраний трекер?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL не знайдено</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Створити торрент</string>
-    <string name="creating_torrent_progress">Створення торренту, зачекайте&#8230;</string>
+    <string name="creating_torrent_progress">Створення торренту, зачекайте…</string>
     <string name="file_or_folder_for_seeding">Файл або папка для роздачі</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Будь ласка, спочатку виберіть файл або папку для роздачі</string>
     <string name="tracker_urls">Адреси трекерів</string>

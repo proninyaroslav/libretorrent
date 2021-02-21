@@ -85,7 +85,6 @@
     <string name="drawer_sorting_size">Ukuran</string>
     <string name="drawer_sorting_progress">Progres</string>
     <string name="drawer_sorting_ETA">Sisa waktu</string>
-    <string name="drawer_sorting_peers">Peers</string>
     <string name="drawer_sorting_no_sorting">Tidak diurutkan</string>
     <!-- Date added -->
     <string name="drawer_date_added">Tanggal ditambahkan</string>
@@ -225,8 +224,6 @@
     <string name="torrent_downloaded">Terunduh</string>
     <string name="torrent_ETA">Sisa waktu</string>
     <string name="torrent_seeds">Seed</string>
-    <string name="torrent_peers">Peers</string>
-    <string name="torrent_leechers">Leechers</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Terunggah</string>
@@ -381,7 +378,6 @@
     <string name="pref_header_network">Jaringan</string>
     <string name="pref_header_scheduling">Menjadwalkan</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Simpan torrent di</string>
     <string name="pref_move_after_download_title">Pindahkan setelah mengunduh</string>

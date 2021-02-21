@@ -97,16 +97,12 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +114,7 @@
     <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
     <string name="network_offline">Şəbəkə vəziyyəti: Xətdən kənar</string>
-    <string name="notify_shutting_down">Söndürülür&#8230;</string>
+    <string name="notify_shutting_down">Söndürülür…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent xətası</string>
     <string name="error_template">Xəta: %1$s</string>
@@ -195,8 +191,6 @@
     <string name="home_directory">Əsas qovluq</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">İcazə verilmədi</string>
     <string name="save_file">Faylı saxla</string>
     <string name="file_name">Fayl adı</string>
@@ -240,7 +234,7 @@
     <string name="torrent_trackers">İzləyici</string>
     <string name="tracker_state_working">İşləyir</string>
     <string name="tracker_state_not_working">İşləmir</string>
-    <string name="tracker_state_updating">Yenilənir&#8230;</string>
+    <string name="tracker_state_updating">Yenilənir…</string>
     <string name="tracker_state_not_contacted">Hələ ki, əlaqə saxlanılmayıb</string>
     <string name="share_tracker_url">URL-ni paylaş</string>
     <string name="delete_selected_tracker">Seçilmiş izləyici silinsin?</string>
@@ -320,7 +314,7 @@
     <string name="feed_item_url_not_found">URL tapılmadı</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent yarat</string>
-    <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin&#8230;</string>
+    <string name="creating_torrent_progress">Torrent yaradılır, zəhmət olmasa gözləyin…</string>
     <string name="file_or_folder_for_seeding">Yükləmək üçün fayl və ya qovluq</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Zəhmət olmasa yükləmədən əvvəl fayl və ya qovluğu seçin</string>
     <string name="tracker_urls">İzləyici URL-lər</string>
@@ -382,7 +376,6 @@
     <string name="pref_header_network">Şəbəkə</string>
     <string name="pref_header_scheduling">Planlaşdırma</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Torrentlərin saxlanılma ünvanı</string>
     <string name="pref_move_after_download_title">Endiriləndən sonra köçür</string>

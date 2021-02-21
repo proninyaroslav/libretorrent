@@ -97,16 +97,12 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +114,7 @@
     <string name="app_running_in_the_background">LibreTorrent ради у позадини</string>
     <string name="network_online">Статус мреже: Онлајн</string>
     <string name="network_offline">Статус мреже: Офлајн</string>
-    <string name="notify_shutting_down">Искључивање&#8230;</string>
+    <string name="notify_shutting_down">Искључивање…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Грешка торента</string>
     <string name="error_template">Грешка: %1$s</string>
@@ -195,8 +191,6 @@
     <string name="home_directory">Почетак</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Забрањен приступ</string>
     <string name="save_file">Сачувај фајл</string>
     <string name="file_name">Име фајла</string>
@@ -240,7 +234,7 @@
     <string name="torrent_trackers">Трагачи</string>
     <string name="tracker_state_working">Ради</string>
     <string name="tracker_state_not_working">Не ради</string>
-    <string name="tracker_state_updating">Ажурира&#8230;</string>
+    <string name="tracker_state_updating">Ажурира…</string>
     <string name="tracker_state_not_contacted">Још увек није контактиран</string>
     <string name="share_tracker_url">Подели URL</string>
     <string name="delete_selected_tracker">Избриши изабраног трагача?</string>
@@ -320,7 +314,7 @@
     <string name="feed_item_url_not_found">URL није пронађен</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Направи торент</string>
-    <string name="creating_torrent_progress">Креирање торента, молимо сачекати&#8230;</string>
+    <string name="creating_torrent_progress">Креирање торента, молимо сачекати…</string>
     <string name="file_or_folder_for_seeding">Фајл или фолдер за слање</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Молимо прво изабери фајл или фолдер за сидовање</string>
     <string name="tracker_urls">URL пратиоца</string>

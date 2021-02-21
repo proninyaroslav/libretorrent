@@ -97,16 +97,12 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/초 \u2022 %4$s</string>
@@ -118,7 +114,7 @@
     <string name="app_running_in_the_background">LibreTorrent가 백그라운드에서 실행 중입니다.</string>
     <string name="network_online">네트워크 상태: 온라인</string>
     <string name="network_offline">네트워크 상태: 오프라인</string>
-    <string name="notify_shutting_down">종료 중&#8230;</string>
+    <string name="notify_shutting_down">종료 중…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">토렌트 오류</string>
     <string name="error_template">오류: %1$s</string>
@@ -195,8 +191,6 @@
     <string name="home_directory">홈</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">권한 거부됨</string>
     <string name="save_file">파일 저장</string>
     <string name="file_name">파일 이름</string>
@@ -240,7 +234,7 @@
     <string name="torrent_trackers">트래커</string>
     <string name="tracker_state_working">작동됨</string>
     <string name="tracker_state_not_working">작동 안 됨</string>
-    <string name="tracker_state_updating">업데이트 중&#8230;</string>
+    <string name="tracker_state_updating">업데이트 중…</string>
     <string name="tracker_state_not_contacted">접촉 전</string>
     <string name="share_tracker_url">URL 공유</string>
     <string name="delete_selected_tracker">선택한 트래커를 삭제할까요?</string>
@@ -297,7 +291,6 @@
     <string name="backup_feed_channels">백업 저장</string>
     <string name="restore_feed_channels_backup">백업 복구</string>
     <string name="feed_last_update_template">업데이트됨: %1$s</string>
-    <string name="feed_last_update_never">never</string>
     <string name="error_cannot_add_channel">채널을 추가할 수 없음</string>
     <string name="error_cannot_edit_channel">채널을 편집할 수 없음</string>
     <string name="error_cannot_delete_channel">채널을 삭제할 수 없음</string>
@@ -320,7 +313,7 @@
     <string name="feed_item_url_not_found">URL을 찾을 수 없음</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">토렌트 생성</string>
-    <string name="creating_torrent_progress">토렌트 생성 중입니다. 잠시만 기다리세요&#8230;</string>
+    <string name="creating_torrent_progress">토렌트 생성 중입니다. 잠시만 기다리세요…</string>
     <string name="file_or_folder_for_seeding">배포할 파일이나 폴더</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="tracker_urls">트래커 URL</string>
