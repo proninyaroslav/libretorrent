@@ -168,7 +168,6 @@
     <string name="free_space">%1$s ledig</string>
     <string name="error_free_space">Ikke nok ledig plass der til nedlasting av valgte filer</string>
     <string name="files_size">Valgte %1$s av %2$s</string>
-    <string name="start_torrent"></string>
     <string name="file_is_too_large_error">For stor fil</string>
     <string name="unable_to_open_folder">Kunne ikke åpne valgt mappe. Prøv å velge en annen mappe</string>
     <string name="error_empty_name">Skriv inn navn</string>
@@ -358,7 +357,6 @@
     <string name="unable_to_open_file">Kunne ikke åpne valgt fil</string>
     <string name="unable_to_create_file">Kunne ikke opprette fil</string>
     <!-- Log -->
-    <string name="log_journal"></string>
     <string name="journal_list_empty">Ingen oppføringer</string>
     <string name="journal_start_recording">Start opptak</string>
     <string name="journal_stop_recording">Stopp opptak</string>

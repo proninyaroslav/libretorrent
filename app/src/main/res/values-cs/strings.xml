@@ -248,7 +248,6 @@
     <string name="dialog_add_trackers">(Jeden na řádek)</string>
     <string name="open_using">Otevřít pomocí</string>
     <string name="peer_port">Port: %1$d</string>
-    <string name="peer_relevance"></string>
     <string name="peer_connection_type">Připojení: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>

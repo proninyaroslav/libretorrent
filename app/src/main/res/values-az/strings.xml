@@ -97,16 +97,13 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag"></string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag"></string>
-    <string name="new_tag"></string>
-    <string name="without_tags"></string>
+    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -195,8 +192,7 @@
     <string name="home_directory">Əsas qovluq</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name"></string>
-    <string name="external_storage_name" formatted="false"></string>
+    <string name="external_storage_name" formatted="false"/>
     <string name="permission_denied">İcazə verilmədi</string>
     <string name="save_file">Faylı saxla</string>
     <string name="file_name">Fayl adı</string>
@@ -382,7 +378,6 @@
     <string name="pref_header_network">Şəbəkə</string>
     <string name="pref_header_scheduling">Planlaşdırma</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Torrentlərin saxlanılma ünvanı</string>
     <string name="pref_move_after_download_title">Endiriləndən sonra köçür</string>

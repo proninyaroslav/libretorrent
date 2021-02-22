@@ -128,10 +128,8 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">下載完成</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title"></string>
     <string name="torrent_moving_content">正在移動 %1$s，請稍候</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
-    <string name="torrent_move_fail"></string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -163,7 +161,6 @@
     <string name="error_io_add_torrent">Unable to add the torrent. I/O error</string>
     <string name="torrent_exist">Torrent already exists. Torrents were merged</string>
     <string name="error_field_required">必填</string>
-    <string name="error_no_files_selected"></string>
     <string name="free_space">剩餘 %1$s</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
     <string name="files_size">總共 %2$s，已選取 %1$s</string>
@@ -261,7 +258,6 @@
     <string name="resume_torrent">繼續</string>
     <string name="pause_torrent">暫停</string>
     <string name="share_magnet">分享磁力連結</string>
-    <string name="save_torrent_file"></string>
     <string name="torrent_speed_limit">速度限制</string>
     <string name="share_via">分享</string>
     <string name="save_torrent_file_successfully">Torrent file saved successfully</string>
@@ -276,7 +272,6 @@
     <string name="magnet_include_file_priorities">要包含檔案屬性嗎？</string>
     <string name="magnet_more_about_bep53">更多資訊：http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">沒有追蹤器</string>
-    <string name="edit_torrent_name"></string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">複製</string>
     <string name="text_copied_to_clipboard">文字已複製至剪貼簿</string>
@@ -353,7 +348,6 @@
     <string name="skip_files">略過檔案</string>
     <string name="skip_files_hint">輸入檔名並以豎線「|」分隔</string>
     <string name="select_folder_to_save">選擇儲存位置</string>
-    <string name="torrent_saved_to"></string>
     <string name="unable_to_open_file">無法開啟所選的檔案</string>
     <string name="unable_to_create_file">無法建立檔案</string>
     <!-- Log -->
@@ -384,8 +378,7 @@
     <string name="pref_header_streaming">串流</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">下載位置</string>
-    <string name="pref_move_after_download_title"></string>
-    <string name="pref_move_after_download_in_title"></string>
+    <string name="pref_move_after_download_in_title"/>
     <string name="pref_save_torrent_files_title">另存 .torrent 檔案</string>
     <string name="pref_save_torrent_files_summary">開始下載後，將任務另存為 .torrent 檔案</string>
     <string name="pref_save_torrent_files_in_title">儲存位置</string>

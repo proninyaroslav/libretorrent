@@ -381,7 +381,6 @@
     <string name="pref_header_network">Red</string>
     <string name="pref_header_scheduling">Programación</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Guardar torrents en</string>
     <string name="pref_move_after_download_title">Mover al finalizar descarga</string>

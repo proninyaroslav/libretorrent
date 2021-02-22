@@ -45,7 +45,6 @@
     <string name="apply">Appliquer</string>
     <string name="clipboard">Presse-papier</string>
     <string name="switch_on">On</string>
-    <string name="switch_off"></string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
     <string name="delete_selected_torrent">Supprimer ce Torrent \? Cette action ne pourra pas être annulée</string>
@@ -225,7 +224,6 @@
     <string name="torrent_speed">Vitesse</string>
     <string name="torrent_downloaded">Téléchargé</string>
     <string name="torrent_ETA">Temps restant</string>
-    <string name="torrent_seeds"></string>
     <string name="torrent_peers">Pairs</string>
     <string name="torrent_leechers">Sangsues</string>
     <!-- connected (total) -->
@@ -358,7 +356,6 @@
     <string name="unable_to_open_file">Impossible d\'ouvrir le fichier sélectionné</string>
     <string name="unable_to_create_file">Impossible de créer le fichier</string>
     <!-- Log -->
-    <string name="log_journal"></string>
     <string name="journal_list_empty">Pas d\'entrées</string>
     <string name="journal_start_recording">Lancer enregistrement</string>
     <string name="journal_stop_recording">Arrêter l\'enregistrement</string>
@@ -366,7 +363,6 @@
     <string name="journal_filter_session_log">Journal de session</string>
     <string name="journal_filter_dht_log">Journal DHT</string>
     <string name="journal_filter_peer_log">Journal des pairs</string>
-    <string name="journal_filter_portmap_log"></string>
     <string name="journal_filter_torrent_log">Journal du torrent</string>
     <string name="journal_save_log_failed">Échec de la sauvegarde du journal</string>
     <string name="journal_save_log_success">Log enregistré avec succès : %1$s</string>
@@ -378,11 +374,9 @@
     <string name="pref_header_appearance">Apparence</string>
     <string name="pref_header_behavior">Comportement</string>
     <string name="pref_header_storage">Stockage</string>
-    <string name="pref_header_limitations"></string>
     <string name="pref_header_network">Réseau</string>
     <string name="pref_header_scheduling">Planification</string>
     <string name="pref_header_feed">Flux RSS</string>
-    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
