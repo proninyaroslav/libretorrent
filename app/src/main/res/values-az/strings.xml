@@ -581,4 +581,6 @@
     <string name="torrent_version_entries_v1_only"></string>
     <string name="torrent_version_entries_v2_only"></string>
     <string name="torrent_version_entries_hybrid"></string>
+    <string name="pref_header_streaming"></string>
+    <string name="pref_foreground_notify_combined_pause_button_summary"></string>
 </resources>
