@@ -45,7 +45,7 @@
     <string name="apply">Applica</string>
     <string name="clipboard">Appunti</string>
     <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_off"></string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Elimina insieme ai file scaricati</string>
     <string name="delete_selected_torrent">Cancellare il torrent selezionato? Questa azione non può essere annullata</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">Dimensione</string>
     <string name="drawer_sorting_progress">Progresso</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_peers"></string>
     <string name="drawer_sorting_no_sorting">Senza ordinamento</string>
     <!-- Date added -->
     <string name="drawer_date_added">Data aggiunta</string>
@@ -97,16 +97,16 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag"></string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag"></string>
+    <string name="new_tag"></string>
+    <string name="without_tags"></string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -382,7 +382,7 @@
     <string name="pref_header_network">Rete</string>
     <string name="pref_header_scheduling">Pianificazione</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Salva i torrent in</string>
     <string name="pref_move_after_download_title">Sposta dopo il download</string>
