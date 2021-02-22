@@ -224,7 +224,6 @@
     <string name="torrent_downloaded">Terunduh</string>
     <string name="torrent_ETA">Sisa waktu</string>
     <string name="torrent_seeds">Seed</string>
-    <string name="torrent_leechers"/>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Terunggah</string>

@@ -75,13 +75,10 @@
     <string name="drawer_status_error">त्रुटि</string>
     <!-- Sorting -->
     <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_size"/>
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_no_sorting"/>
     <!-- Date added -->
     <string name="drawer_date_added_today"/>
-    <string name="drawer_date_added_week"/>
     <string name="drawer_date_added_year"/>
     <!-- Tags -->
     <string name="tags">Tags</string>
@@ -92,7 +89,6 @@
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -178,7 +174,6 @@
     <string name="home_directory">होम</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="external_storage_name" formatted="false"/>
     <string name="permission_denied">अनुमति नहीं मिली</string>
     <string name="save_file">फाइल सुरक्षित करें</string>
     <string name="file_name">फ़ाइल का नाम</string>
@@ -186,7 +181,6 @@
     <string name="file_name_is_empty">फ़ाइल का नाम रिक्त नहीं हो सकता</string>
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="parent_folder"/>
     <!-- Error dialog -->
     <string name="report">रिपोर्ट</string>
     <string name="more_details">अधिक जानकारी</string>
@@ -257,7 +251,6 @@
     <string name="share_stream_url">शेयर स्ट्रीम यूआरएल</string>
     <string name="magnet_include_file_priorities">फ़ाइल प्राथमिकताएं शामिल करें?</string>
     <string name="magnet_more_about_bep53">अधिक जानकारी: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="edit_torrent_name"/>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">प्रतिलिपि</string>
     <string name="text_copied_to_clipboard">क्लिपबोर्ड पर पाठ कॉपी किया गया</string>
@@ -274,11 +267,9 @@
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">स्वचालित रूप से नए टॉरेंट डाउनलोड करें</string>
     <string name="feed_use_regex">नियमित अभिव्यक्ति का उपयोग करें</string>
-    <string name="restore_feed_channels_backup"/>
     <string name="feed_last_update_template">अपडेट किया गया:%1$s</string>
     <string name="feed_last_update_never">कभी नहीँ</string>
     <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
-    <string name="error_cannot_delete_channel"/>
     <string name="copy_link">प्रतिरूप जोड़ना</string>
     <string name="delete_selected_channel">चयनित चैनल हटाएं?</string>
     <string name="delete_selected_channels">चयनित चैनल हटाएं?</string>
@@ -333,15 +324,11 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_list_empty"/>
     <string name="journal_stop_recording"/>
-    <string name="journal_filter_session_log"/>
     <string name="journal_filter_peer_log"/>
-    <string name="journal_filter_torrent_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries"/>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">दिखावट</string>

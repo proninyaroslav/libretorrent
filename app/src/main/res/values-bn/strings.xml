@@ -103,7 +103,6 @@
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -190,7 +189,6 @@
     <string name="home_directory">মূল পাতা</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="external_storage_name" formatted="false"/>
     <string name="permission_denied">অনুমতি প্রত্যাখ্যাত</string>
     <string name="save_file">ফাইল সংরক্ষণ করুন</string>
     <string name="file_name">ফাইলের নাম</string>
@@ -198,35 +196,27 @@
     <string name="file_name_is_empty">ফাইলের নাম খালি রাখা যাবে না</string>
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="parent_folder"/>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template"/>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignore</string>
     <string name="file_priority_high">High</string>
     <string name="file_priority_mixed">Mixed</string>
-    <string name="dialog_change_priority_title"/>
     <string name="change_priority_low">Low (ignore file)</string>
     <string name="change_priority_normal">Normal</string>
     <string name="change_priority_high">High</string>
-    <string name="torrent_speed"/>
     <string name="torrent_ETA">ETA</string>
-    <string name="torrent_peers"/>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="torrent_share_ratio"/>
     <string name="torrent_seeding_time"/>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">ট্র্যাকার</string>
     <string name="tracker_state_working">কর্মরত</string>
     <string name="tracker_state_not_working">কর্মরত নয়</string>
-    <string name="tracker_state_not_contacted"/>
     <string name="delete_selected_tracker"/>
-    <string name="add_trackers"/>
     <string name="dialog_add_trackers">(প্রতি লাইনে একটা)</string>
     <string name="peer_port">পোর্ট: %1$d</string>
     <string name="peer_relevance">প্রাসঙ্গিকতা: %1$.1f</string>
@@ -242,15 +232,12 @@
     <string name="pause_torrent">বিরতি</string>
     <string name="share_magnet">ম্যাগনেট শেয়ার করুন</string>
     <string name="save_torrent_file">টরেন্ট ফাইল সংরক্ষণ করুন</string>
-    <string name="share_via"/>
     <string name="save_torrent_file_successfully">Torrent file saved successfully</string>
     <string name="error_save_torrent_file">Failed to save a torrent file</string>
     <string name="upload_speed">Upload</string>
     <string name="download_speed">Download</string>
-    <string name="torrent_added_date"/>
     <string name="share_stream_url"/>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="edit_torrent_name"/>
     <!-- Send text to clipboard -->
     <string name="text_copied_to_clipboard">Text copied to clipboard</string>
     <!-- Error report -->
@@ -258,27 +245,20 @@
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="select_or_add_feed_channel"/>
     <string name="feed_name"/>
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="backup_feed_channels"/>
     <string name="feed_last_update_template"/>
-    <string name="error_cannot_add_channel"/>
     <string name="error_cannot_delete_channel"/>
     <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="edit_feed_channel"/>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
-    <string name="mark_as_unread"/>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
-    <string name="feeds_backup_selection_dialog_title"/>
     <string name="feed_do_not_download_immediately"/>
     <!-- Create torrent dialog -->
-    <string name="create_torrent"/>
     <string name="creating_torrent_progress">Creating torrent, please wait…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
@@ -287,7 +267,6 @@
     <string name="web_seed_urls_hint">(optional) One per line</string>
     <string name="optional_hint">(optional)</string>
     <string name="create_torrent_options">Options</string>
-    <string name="option_private_torrent"/>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>
@@ -310,29 +289,21 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_list_empty"/>
     <string name="journal_stop_recording"/>
-    <string name="journal_filter_session_log"/>
     <string name="journal_filter_peer_log"/>
-    <string name="journal_filter_torrent_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries"/>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_behavior"/>
-    <string name="pref_header_limitations"/>
     <string name="pref_header_network">Network</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title"/>
     <string name="pref_move_after_download_in_title"/>
     <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_watch_dir_title"/>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
     <!-- Limitations settings -->
-    <string name="pref_speed_category"/>
     <string name="pref_max_download_speed_title">Maximum download speed</string>
     <string name="pref_max_upload_speed_title">Maximum upload speed</string>
     <string name="pref_max_connections_title">Maximum number of connections</string>
@@ -346,17 +317,14 @@
     <string name="pref_auto_manage_title">Auto manage</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category"/>
     <string name="pref_theme_title">Theme</string>
     <string-array name="pref_theme_entries">
         <item>Light</item>
         <item>Dark</item>
         <item>Black</item>
     </string-array>
-    <string name="pref_torrent_finish_notify_title"/>
     <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
     <string name="pref_notify_sound_title">Notification sound</string>
-    <string name="pref_led_indicator_color_notify_title"/>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Run the app after start device</string>
@@ -365,7 +333,6 @@
     <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
     <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_keep_alive_title"/>
     <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
     <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
     <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
@@ -373,7 +340,6 @@
     <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
     <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
     <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_custom_battery_control_value_title"/>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
     <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
@@ -386,7 +352,6 @@
     <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
     <string name="pref_enable_upnp_title">Enable UPnP</string>
     <string name="pref_enable_natpmp_title">Enable NAT-PMP</string>
-    <string name="pref_use_random_port_title"/>
     <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>
@@ -396,10 +361,8 @@
         <item>Require encryption</item>
         <item>Disable encryption</item>
     </string-array>
-    <string name="pref_enc_out_connections_title"/>
     <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_show_nat_errors"/>
     <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
     <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
     <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
@@ -420,7 +383,6 @@
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_enable_scheduling_shutdown_summary"/>
     <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
     <!-- Feed settings -->

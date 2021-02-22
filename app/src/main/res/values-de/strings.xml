@@ -101,7 +101,6 @@
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -190,7 +189,6 @@
     <string name="home_directory">Startseite</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="external_storage_name" formatted="false"/>
     <string name="permission_denied">Zugriff verweigert</string>
     <string name="save_file">Datei speichern</string>
     <string name="file_name">Dateiname</string>
@@ -355,7 +353,6 @@
     <string name="journal_start_recording">Aufzeichnung starten</string>
     <string name="journal_stop_recording">Aufzeichnung stoppen</string>
     <string name="journal_started_recording">Aufzeichnung gestartet</string>
-    <string name="journal_filter_dht_log"/>
     <string name="journal_filter_portmap_log"/>
     <string name="journal_save_log_failed">Speichern von log fehlgeschlagen</string>
     <string name="journal_save_log_success">Log erfolgreich gespeichert: %1$s</string>

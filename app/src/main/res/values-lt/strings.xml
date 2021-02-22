@@ -31,9 +31,7 @@
     <string name="refresh">Atnaujinti</string>
     <string name="edit">Redaguoti</string>
     <string name="menu">Meniu</string>
-    <string name="close_navigation_drawer"/>
     <string name="file">File</string>
-    <string name="finished"/>
     <string name="resume_all"/>
     <string name="details">Details</string>
     <string name="stats">Stats</string>
@@ -71,13 +69,10 @@
     <string name="drawer_status_error">Klaida</string>
     <!-- Sorting -->
     <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_size"/>
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_no_sorting"/>
     <!-- Date added -->
     <string name="drawer_date_added_today"/>
-    <string name="drawer_date_added_week"/>
     <string name="drawer_date_added_year"/>
     <!-- Tags -->
     <string name="tags">Tags</string>
@@ -88,7 +83,6 @@
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -174,14 +168,12 @@
     <string name="home_directory">Namai</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="external_storage_name" formatted="false"/>
     <string name="save_file">Išsaugoti failą</string>
     <string name="file_name">Failo pavadinimas</string>
     <string name="error_file_exists">Failas jau egzistuoja</string>
     <string name="file_name_is_empty">Failo vardas negali būti tuščias</string>
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="parent_folder"/>
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
     <string name="more_details">Daugiau detalių</string>
@@ -252,7 +244,6 @@
     <string name="share_stream_url">Dalytis stream URL</string>
     <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
     <string name="magnet_more_about_bep53">Daugiau informacijos: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="edit_torrent_name"/>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>
     <string name="text_copied_to_clipboard">Tekstas nukopijuotas į iškarpinę</string>
@@ -269,11 +260,9 @@
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Atsisiųskite naujus torrentus automatiškai</string>
     <string name="feed_use_regex">Naudokite įprastinę išraišką</string>
-    <string name="restore_feed_channels_backup"/>
     <string name="feed_last_update_template">Atnaujinta: %1$s</string>
     <string name="feed_last_update_never">niekada</string>
     <string name="error_cannot_add_channel">Negalima pridėti kanalo</string>
-    <string name="error_cannot_delete_channel"/>
     <string name="copy_link">Nukopijuoti nuorodą</string>
     <string name="delete_selected_channel">Ištrinti pasirinktą kanalą?</string>
     <string name="delete_selected_channels">Ištrinti pasirinktus kanalus?</string>
@@ -328,15 +317,11 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_list_empty"/>
     <string name="journal_stop_recording"/>
-    <string name="journal_filter_session_log"/>
     <string name="journal_filter_peer_log"/>
-    <string name="journal_filter_torrent_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries"/>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aspetto</string>

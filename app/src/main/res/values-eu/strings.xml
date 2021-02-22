@@ -102,7 +102,6 @@
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="new_tag"/>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -188,7 +187,6 @@
     <string name="home_directory">Etxea</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="external_storage_name" formatted="false"/>
     <string name="permission_denied">Baimena ukatuta</string>
     <string name="save_file">Gorde fitxategia</string>
     <string name="file_name">Fitxategi izena</string>
@@ -244,7 +242,6 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="piece_map"/>
     <string name="resume_torrent">Berrekin</string>
     <string name="pause_torrent">Gerlditu</string>
     <string name="share_magnet">Partekatu magnet-a</string>
@@ -258,7 +255,6 @@
     <string name="download_speed">Deskargatu</string>
     <string name="torrent_added_date">Gehituta</string>
     <string name="torrent_availability">Erabilgarritasuna</string>
-    <string name="magnet_include_file_priorities"/>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aztarnaririk ez</string>
     <!-- Send text to clipboard -->
@@ -446,7 +442,6 @@
         <item>Eskatu gailuaren enkriptatzea</item>
         <item>Gaitu zifratua</item>
     </string-array>
-    <string name="pref_enc_out_connections_title"/>
     <string name="pref_ip_filtering_category">IP iragazketa</string>
     <string name="pref_enable_ip_filtering_title">Gaitu IP iragazketa</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
