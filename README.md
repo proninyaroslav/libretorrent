@@ -62,6 +62,11 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
  - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
  - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
 
+Contributors
+---
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
+
 Translations
 ---
 
@@ -78,7 +83,7 @@ You can help translate the app here: [https://hosted.weblate.org/engage/libretor
  - **Czech** *(thanks HarryPhoon, novas78)*
  - **Dutch** *(thanks Postpeer)*
  - **English**
- - **Esperanto** (thanks animatorzpolski)
+ - **Esperanto** *(thanks animatorzpolski)*
  - **French** *(thanks Valentin Orient, boby23)*
  - **German** *(thanks vanitasvitae)*
  - **Greek** *(thanks Spyros3000, skyhirules)*
@@ -102,11 +107,6 @@ You can help translate the app here: [https://hosted.weblate.org/engage/libretor
  - **Tamil** *(thanks Lino Joseph)*
  - **Turkish** *(thanks oersen)*
  - **Ukrainian** *(thanks SensDeViata)*
-
-Contributors
----
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Screenshots
 ---
