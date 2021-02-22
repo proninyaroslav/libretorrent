@@ -68,7 +68,7 @@
     <string name="theme_settings_apply_after_reboot">Thema instellingen worden toegepast na het herstarten van de app</string>
     <string name="about">Over</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes"></string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <string name="session_stats_listen_port">Luisteren op poort: %1$s</string>
@@ -85,13 +85,13 @@
     <string name="drawer_sorting_size">Grootte</string>
     <string name="drawer_sorting_progress">Voortgang</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_peers"></string>
     <string name="drawer_sorting_no_sorting">Geen sortering</string>
     <!-- Date added -->
     <string name="drawer_date_added">Datum toegevoegd</string>
     <string name="drawer_date_added_today">Vandaag</string>
     <string name="drawer_date_added_yesterday">Gisteren</string>
-    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_week"></string>
     <string name="drawer_date_added_month">Maand</string>
     <string name="drawer_date_added_year">Jaar</string>
     <string name="tags">Tags</string>
@@ -167,7 +167,7 @@
     <string name="free_space">%1$s vrij</string>
     <string name="error_free_space">Er is onvoldoende vrije ruimte beschikbaar op het geselecteerde pad om de geselecteerde bestanden te downloaden</string>
     <string name="files_size">Geselecteerd %1$s van %2$s</string>
-    <string name="start_torrent">Start torrent</string>
+    <string name="start_torrent"></string>
     <string name="file_is_too_large_error">Bestand is te groot</string>
     <string name="unable_to_open_folder">Kan de geselecteerde map niet openen. Probeer een andere map te selecteren</string>
     <string name="error_empty_name">Voer een naam in</string>
@@ -224,9 +224,9 @@
     <string name="torrent_speed">Snelheid</string>
     <string name="torrent_downloaded">Gedownload</string>
     <string name="torrent_ETA">ETA</string>
-    <string name="torrent_seeds">Seeds</string>
-    <string name="torrent_peers">Peers</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_seeds"></string>
+    <string name="torrent_peers"></string>
+    <string name="torrent_leechers"></string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Geüpload</string>
@@ -236,7 +236,7 @@
     <string name="torrent_pieces">Fragmenten</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="torrent_trackers">Trackers</string>
+    <string name="torrent_trackers"></string>
     <string name="tracker_state_working">Werkend</string>
     <string name="tracker_state_not_working">Werkt niet</string>
     <string name="tracker_state_updating">Bijwerken…</string>
@@ -363,10 +363,10 @@
     <string name="journal_stop_recording">Stop logging</string>
     <string name="journal_started_recording">Loggen gestart</string>
     <string name="journal_filter_session_log">Sessie log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="journal_filter_dht_log"></string>
+    <string name="journal_filter_peer_log"></string>
+    <string name="journal_filter_portmap_log"></string>
+    <string name="journal_filter_torrent_log"></string>
     <string name="journal_save_log_failed">Fout bij het opslaan van log</string>
     <string name="journal_save_log_success">Logboek succesvol opgeslagen: %1$s</string>
     <string name="pref_journal_save_log_to">Sla log op in</string>
@@ -421,7 +421,7 @@
     <string name="pref_torrent_finish_notify_summary">Toon een melding wanneer een torrent klaar is met downloaden</string>
     <string name="pref_play_sound_notify_title">Geluid afspelen</string>
     <string name="pref_notify_sound_title">Meldingsgeluid</string>
-    <string name="pref_led_indicator_notify_title">LED indicator</string>
+    <string name="pref_led_indicator_notify_title"></string>
     <string name="pref_led_indicator_color_notify_title">LED indicator kleur</string>
     <string name="pref_vibration_notify_title">Trillen</string>
     <!-- Behavior settings -->
@@ -549,5 +549,5 @@
     <string name="about_description"><![CDATA[    Meer informatie en help ook het project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab. om/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is een vrije als in Freedom torrent client voor Android 4+, gebaseerd op libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is gratis software, vrijgegeven onder de voorwaarden van de <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog"></string>
 </resources>
