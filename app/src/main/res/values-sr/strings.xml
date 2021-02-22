@@ -97,16 +97,16 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag"></string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag"></string>
+    <string name="new_tag"></string>
+    <string name="without_tags"></string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -195,8 +195,8 @@
     <string name="home_directory">Почетак</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name"></string>
+    <string name="external_storage_name" formatted="false"></string>
     <string name="permission_denied">Забрањен приступ</string>
     <string name="save_file">Сачувај фајл</string>
     <string name="file_name">Име фајла</string>
