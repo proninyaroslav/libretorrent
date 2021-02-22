@@ -97,16 +97,12 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +114,7 @@
     <string name="app_running_in_the_background">LibreTorrent está rodando em segundo plano</string>
     <string name="network_online">Status da rede: Online</string>
     <string name="network_offline">Status da rede: Offline</string>
-    <string name="notify_shutting_down">Encerrando&#8230;</string>
+    <string name="notify_shutting_down">Encerrando…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Erro de torrent</string>
     <string name="error_template">Erro: %1$s</string>
@@ -195,8 +191,6 @@
     <string name="home_directory">Início</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permissão negada</string>
     <string name="save_file">Salvar arquivo</string>
     <string name="file_name">Nome do arquivo</string>
@@ -225,9 +219,6 @@
     <string name="torrent_speed">Velocidade</string>
     <string name="torrent_downloaded">Baixado</string>
     <string name="torrent_ETA">TED</string>
-    <string name="torrent_seeds">Seeds</string>
-    <string name="torrent_peers">Peers</string>
-    <string name="torrent_leechers">Leechers</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Enviado</string>
@@ -240,7 +231,7 @@
     <string name="torrent_trackers">Rastreadores</string>
     <string name="tracker_state_working">Funcionando</string>
     <string name="tracker_state_not_working">Não está funcionando</string>
-    <string name="tracker_state_updating">Atualizando&#8230;</string>
+    <string name="tracker_state_updating">Atualizando…</string>
     <string name="tracker_state_not_contacted">Não contactado ainda</string>
     <string name="share_tracker_url">Compartilhar endereço</string>
     <string name="delete_selected_tracker">Deletar o rastreador selecionado?</string>
@@ -320,7 +311,7 @@
     <string name="feed_item_url_not_found">URL não encontrada</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>
-    <string name="creating_torrent_progress">Criando torrent, por favor aguarde&#8230;</string>
+    <string name="creating_torrent_progress">Criando torrent, por favor aguarde…</string>
     <string name="file_or_folder_for_seeding">Arquivo ou pasta para semeando</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Por favor selecione primeiro o arquivo ou pasta para compartilhar</string>
     <string name="tracker_urls">URLs do rastreador</string>

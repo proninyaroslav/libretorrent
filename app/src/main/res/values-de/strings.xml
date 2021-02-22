@@ -85,7 +85,6 @@
     <string name="drawer_sorting_size">Größe</string>
     <string name="drawer_sorting_progress">Fortschritt</string>
     <string name="drawer_sorting_ETA">Geschätzte Ankunftszeit</string>
-    <string name="drawer_sorting_peers">Peers</string>
     <string name="drawer_sorting_no_sorting">Keine Sortierung</string>
     <!-- Date added -->
     <string name="drawer_date_added">Hinzufügezeitpunkt</string>
@@ -96,16 +95,12 @@
     <string name="drawer_date_added_year">Jahr</string>
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -117,7 +112,7 @@
     <string name="app_running_in_the_background">LibreTorrent läuft im Hintergrund</string>
     <string name="network_online">Netzwerkstatus: Online</string>
     <string name="network_offline">Netzwerkstatus: Offline</string>
-    <string name="notify_shutting_down">Wird heruntergefahren&#8230;</string>
+    <string name="notify_shutting_down">Wird heruntergefahren…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent Fehler</string>
     <string name="error_template">Fehler: %1$s</string>
@@ -194,8 +189,6 @@
     <string name="home_directory">Startseite</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Zugriff verweigert</string>
     <string name="save_file">Datei speichern</string>
     <string name="file_name">Dateiname</string>
@@ -225,7 +218,6 @@
     <string name="torrent_downloaded">Heruntergeladen</string>
     <string name="torrent_ETA">Geschätzte Ankunftszeit</string>
     <string name="torrent_seeds">Seeder</string>
-    <string name="torrent_peers">Peers</string>
     <string name="torrent_leechers">Leecher</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
@@ -239,7 +231,7 @@
     <string name="torrent_trackers">Tracker</string>
     <string name="tracker_state_working">Arbeitend</string>
     <string name="tracker_state_not_working">Ruhend</string>
-    <string name="tracker_state_updating">Erneuernd&#8230;</string>
+    <string name="tracker_state_updating">Erneuernd…</string>
     <string name="tracker_state_not_contacted">Noch nicht kontaktiert</string>
     <string name="share_tracker_url">URL teilen</string>
     <string name="delete_selected_tracker">Den ausgewählten Tracker löschen?</string>
@@ -319,7 +311,7 @@
     <string name="feed_item_url_not_found">URL nicht gefunden</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent erstellen</string>
-    <string name="creating_torrent_progress">Torrent wird erstellt, bitte warten&#8230;</string>
+    <string name="creating_torrent_progress">Torrent wird erstellt, bitte warten…</string>
     <string name="file_or_folder_for_seeding">Datei oder Ordner zum Seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Bitte wählen Sie zuerst eine Datei oder einen Ordner für das Seeding aus</string>
     <string name="tracker_urls">Tracker-URLs</string>
@@ -357,16 +349,10 @@
     <string name="unable_to_open_file">Ausgewählte Datei kann nicht geöffnet werden</string>
     <string name="unable_to_create_file">Datei kann nicht erstellt werden</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
     <string name="journal_list_empty">Keine Einträge</string>
     <string name="journal_start_recording">Aufzeichnung starten</string>
     <string name="journal_stop_recording">Aufzeichnung stoppen</string>
     <string name="journal_started_recording">Aufzeichnung gestartet</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Speichern von log fehlgeschlagen</string>
     <string name="journal_save_log_success">Log erfolgreich gespeichert: %1$s</string>
     <string name="pref_journal_save_log_to">Log speichern in</string>
@@ -381,7 +367,6 @@
     <string name="pref_header_network">Netzwerk</string>
     <string name="pref_header_scheduling">Zeitplan</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Speichere Torrents in</string>
     <string name="pref_move_after_download_title">Nach dem Download verschieben</string>
@@ -423,7 +408,6 @@
     <string name="pref_notify_sound_title">Benachrichtigungston</string>
     <string name="pref_led_indicator_notify_title">Benachrichtigungs-LED</string>
     <string name="pref_led_indicator_color_notify_title">LED Farbe</string>
-    <string name="pref_vibration_notify_title">Vibration</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Starte die App bei Gerätestart</string>

@@ -66,7 +66,7 @@
     <string name="proxy_settings_applied">Ajustes del servidor proxy aplicados correctamente</string>
     <string name="proxy_settings_apply_after_reboot">Los ajustes del servidor proxy serán aplicados después de reiniciar la aplicación</string>
     <string name="theme_settings_apply_after_reboot">Los ajustes del tema serán aplicados tras reiniciar la aplicación</string>
-    <string name="about">Acerca de&#8230;</string>
+    <string name="about">Acerca de…</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nodos DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
@@ -117,7 +117,7 @@
     <string name="app_running_in_the_background">LibreTorrent está ejecutandose en segundo plano</string>
     <string name="network_online">Estado de la red: Conectado</string>
     <string name="network_offline">Estado de la red: Desconectado</string>
-    <string name="notify_shutting_down">Saliendo&#8230;</string>
+    <string name="notify_shutting_down">Saliendo…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Error de torrent</string>
     <string name="error_template">Error: %1$s</string>
@@ -239,7 +239,7 @@
     <string name="torrent_trackers">Rastreadores</string>
     <string name="tracker_state_working">Funcionando</string>
     <string name="tracker_state_not_working">No funciona</string>
-    <string name="tracker_state_updating">Actualizando&#8230;</string>
+    <string name="tracker_state_updating">Actualizando…</string>
     <string name="tracker_state_not_contacted">No contactado aún</string>
     <string name="share_tracker_url">Compartir URL</string>
     <string name="delete_selected_tracker">¿Borrar rastreador seleccionado?</string>
@@ -319,7 +319,7 @@
     <string name="feed_item_url_not_found">URL no encontrada</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crear torrent</string>
-    <string name="creating_torrent_progress">Creando torrent, espere por favor&#8230;</string>
+    <string name="creating_torrent_progress">Creando torrent, espere por favor…</string>
     <string name="file_or_folder_for_seeding">Archivo o carpeta para sembrar</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Por favor, primero selecciona el archivo o carpeta para sembrar</string>
     <string name="tracker_urls">URLs de rastreadores</string>
@@ -381,7 +381,6 @@
     <string name="pref_header_network">Red</string>
     <string name="pref_header_scheduling">Programación</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Guardar torrents en</string>
     <string name="pref_move_after_download_title">Mover al finalizar descarga</string>

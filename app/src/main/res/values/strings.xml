@@ -46,7 +46,6 @@
     <string name="clipboard">Clipboard</string>
     <string name="switch_on">On</string>
     <string name="switch_off">Off</string>
-
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Delete with downloaded files</string>
     <string name="delete_selected_torrent">Delete the selected torrent? This operation cannot be undone</string>
@@ -75,9 +74,9 @@
     <string name="session_stats_listen_port">Listening port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading&#8230;</string>
+    <string name="drawer_status_downloading">Downloading…</string>
     <string name="drawer_status_downloaded">Downloaded</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata&#8230;</string>
+    <string name="drawer_status_downloading_metadata">Downloading metadata…</string>
     <string name="drawer_status_error">Error</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sorting</string>
@@ -108,9 +107,7 @@
     <string name="select_tag">Select tag</string>
     <string name="new_tag">New tag</string>
     <string name="without_tags">Without tags</string>
-
     <!-- Foreground notification -->
-
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
     <!-- status • upload speed • name -->
@@ -121,8 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent running in the background</string>
     <string name="network_online">Network status: Online</string>
     <string name="network_offline">Network status: Offline</string>
-    <string name="notify_shutting_down">Shutting down&#8230;</string>
-
+    <string name="notify_shutting_down">Shutting down…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent error</string>
     <string name="error_template">Error: %1$s</string>
@@ -130,20 +126,15 @@
     <string name="session_error_title">Session error</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT error</string>
-
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finished</string>
-
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moving torrent</string>
-    <string name="torrent_moving_content">Please wait while moving %1$s&#8230;</string>
+    <string name="torrent_moving_content">Please wait while moving %1$s…</string>
     <string name="torrent_move_success">Torrent moved</string>
     <string name="torrent_move_fail">Could not move torrent</string>
-
     <!-- Added notification -->
-
     <!-- Torrent list item -->
-
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
@@ -152,18 +143,16 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Downloading&#8230;</string>
-    <string name="torrent_status_seeding">Seeding&#8230;</string>
+    <string name="torrent_status_downloading">Downloading…</string>
+    <string name="torrent_status_seeding">Seeding…</string>
     <string name="torrent_status_paused">Paused</string>
     <string name="torrent_status_stopped">Stopped</string>
-    <string name="torrent_status_checking">Checking&#8230;</string>
+    <string name="torrent_status_checking">Checking…</string>
     <string name="torrent_status_finished">Finished</string>
-    <string name="torrent_status_downloading_metadata">Downloading metadata&#8230;</string>
-
+    <string name="torrent_status_downloading_metadata">Downloading metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
     <string name="perm_denied_warning">Are you sure you you want to prevent the app from saving torrent files in memory?</string>
-
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Add torrent</string>
     <string name="error_decode_torrent">Could not decode torrent file. Maybe it is damaged or in the wrong format?</string>
@@ -184,7 +173,6 @@
     <string name="unable_to_open_folder">Cannot open the selected folder. Try selecting a different one.</string>
     <string name="error_empty_name">Enter a name</string>
     <string name="ignore_free_space">Ignore low storage space</string>
-
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>
@@ -197,7 +185,6 @@
     <string name="torrent_create_date">Created</string>
     <string name="torrent_created_in_program">Created in program</string>
     <string name="sequential_download">Sequential download</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Folder selection</string>
     <string name="file_chooser_title">File selection</string>
@@ -219,13 +206,10 @@
     <string name="system_file_manager_not_found">Could not find a file manager</string>
     <string name="replace_file">Replace file</string>
     <string name="parent_folder">Parent folder</string>
-
     <!-- Error dialog -->
     <string name="report">Report</string>
     <string name="more_details">More details</string>
-
     <!-- Detail torrent dialog -->
-
     <!-- priority • downloaded/total • percent • availability -->
     <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nAvailability: %5$s</string>
     <string name="file_priority_normal">Normal</string>
@@ -256,7 +240,7 @@
     <string name="torrent_trackers">Trackers</string>
     <string name="tracker_state_working">Working</string>
     <string name="tracker_state_not_working">Not working</string>
-    <string name="tracker_state_updating">Updating&#8230;</string>
+    <string name="tracker_state_updating">Updating…</string>
     <string name="tracker_state_not_contacted">Not contacted yet</string>
     <string name="share_tracker_url">Share URL</string>
     <string name="delete_selected_tracker">Delete the selected tracker?</string>
@@ -294,15 +278,12 @@
     <string name="magnet_more_about_bep53">More info at https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No trackers</string>
     <string name="edit_torrent_name">Edit torrent name</string>
-
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copy</string>
     <string name="text_copied_to_clipboard">Copied to clipboard</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">App error occurred. You can send the report to developers</string>
     <string name="error_comment_prompt">Add extra info and comments here:</string>
-
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">No channels</string>
@@ -337,10 +318,9 @@
     <string name="error_import_invalid_format">Invalid format</string>
     <string name="feed_do_not_download_immediately">Do not download immediately</string>
     <string name="feed_item_url_not_found">URL not found</string>
-
     <!-- Create torrent dialog -->
     <string name="create_torrent">Create torrent</string>
-    <string name="creating_torrent_progress">Please wait while the torrent is created&#8230;</string>
+    <string name="creating_torrent_progress">Please wait while the torrent is created…</string>
     <string name="file_or_folder_for_seeding">File or folder to share</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Select a file or folder to share first.</string>
     <string name="tracker_urls">Tracker URLs</string>
@@ -377,7 +357,6 @@
     <string name="torrent_saved_to">Torrent saved to %1$s</string>
     <string name="unable_to_open_file">Could not open selected file</string>
     <string name="unable_to_create_file">Could not create file</string>
-
     <!-- Log -->
     <string name="log_journal">Journal</string>
     <string name="journal_list_empty">No entries</string>
@@ -394,9 +373,7 @@
     <string name="pref_journal_save_log_to">Save log to</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
-
     <!-- Settings -->
-
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
     <string name="pref_header_behavior">Behavior</string>
@@ -452,10 +429,10 @@
     <string name="pref_autostart_title">Auto-start</string>
     <string name="pref_autostart_summary">Run the app upon starting the device.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Only unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">)Only use connections without a quota (for example Wi-Fi or Ethernet).</string>
+    <string name="pref_umnetered_connections_only_title">Only unmetered connections</string>
+    <string name="pref_umnetered_connections_only_summary">Only use connections without a quota (for example Wi-Fi or Ethernet).</string>
     <string name="pref_enable_roaming_title">Roaming</string>
-    <string name="pref_enable_roaming_summary">Only download only if the device isn\'t roaming.</string>
+    <string name="pref_enable_roaming_summary">Only download if the device isn\'t roaming.</string>
     <string name="pref_power_management_category">Power management</string>
     <string name="pref_keep_alive_title">Keep alive</string>
     <string name="pref_keep_alive_summary">Leaves the app running in the background. Still respects closing the app when all downloads finish.</string>
@@ -568,11 +545,8 @@
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Select a port or hostname for streaming that isn\'t busy or incorrect.</string>
-
     <!-- About dialog -->
     <string name="about_title">About</string>
-    <string name="about_description"><![CDATA[
-    More info and how to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent is copylefted libre (<a href="http://www.gnu.org/copyleft/gpl.html">GPLv3+</a>]]) torrent client for Android 4+, based on the libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>]]></string>
+    <string name="about_description">More info and how to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is copylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torrent client for Android 4+, based on the libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Changelog</string>
 </resources>

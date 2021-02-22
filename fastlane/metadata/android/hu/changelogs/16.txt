@@ -1,0 +1,15 @@
+* Hozzáadva:
+Külső tárolók támogatása (SD kártyák, USD eszközök, stb.)
+ Néhány újdonság kísérleti szolgáltatás, hibák lehetségesek.
+ - Az adattárolás változása miatt a már hozzáadott torrentek lesznek automatikusan importálva.
+ - Session napló
+ - "Ismétlődések eltávolítása" opció az RSS-beállításokban
+* Hibajavítás és a stabilitás növelése
+* Nagyszámú fájlt tartalmazó torrentek támogatása
+* Új fordítások:
+ - Japán
+ - Török
+ - Azeri
+ - Szerb
+ - Magyar
+* Frissítés a libtorrent4j 1.2.3.0 verzióra
