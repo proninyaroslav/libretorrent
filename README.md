@@ -78,6 +78,7 @@ You can help translate the app here: [https://hosted.weblate.org/engage/libretor
  - **Czech** *(thanks HarryPhoon, novas78)*
  - **Dutch** *(thanks Postpeer)*
  - **English**
+ - **Esperanto** (thanks animatorzpolski)
  - **French** *(thanks Valentin Orient, boby23)*
  - **German** *(thanks vanitasvitae)*
  - **Greek** *(thanks Spyros3000, skyhirules)*
