@@ -544,4 +544,5 @@
     LibreTorrent è un client torrent libero ed open source per Android 4+, basato su libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent è software libero, rilasciato sotto i termini della <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Novità</string>
+    <string name="switch_off">Off</string>
 </resources>
