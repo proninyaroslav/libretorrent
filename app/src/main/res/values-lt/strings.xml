@@ -31,21 +31,21 @@
     <string name="refresh">Atnaujinti</string>
     <string name="edit">Redaguoti</string>
     <string name="menu">Meniu</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
+    <string name="open_navigation_drawer"></string>
+    <string name="close_navigation_drawer"></string>
     <string name="file">File</string>
-    <string name="folder">Folder</string>
-    <string name="finished">Finished</string>
-    <string name="pause_all">Pause all</string>
-    <string name="resume_all">Resume all</string>
-    <string name="all">All</string>
+    <string name="folder"></string>
+    <string name="finished"></string>
+    <string name="pause_all"></string>
+    <string name="resume_all"></string>
+    <string name="all"></string>
     <string name="details">Details</string>
     <string name="stats">Stats</string>
     <string name="filters">Filters</string>
-    <string name="apply">Apply</string>
+    <string name="apply"></string>
     <string name="clipboard">Clipboard</string>
     <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_off"></string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ištrinti su parsiųstais failais</string>
     <string name="delete_selected_torrent">Ištrinti pasirinktą torentą? Ši operacija negali būti atšaukta</string>
@@ -68,45 +68,45 @@
     <string name="theme_settings_apply_after_reboot">Temos nustatymai bus pritaikty paleidus programėlę iš naujo</string>
     <string name="about">Apie</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
+    <string name="session_stats_dht_nodes"></string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
-    <string name="session_stats_listen_port">Listening port: %1$s</string>
+    <string name="session_stats_listen_port"></string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloaded">Downloaded</string>
+    <string name="drawer_status_downloaded"></string>
     <string name="drawer_status_downloading_metadata">Downloading metadata</string>
     <string name="drawer_status_error">Klaida</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting"></string>
     <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_date_added"></string>
+    <string name="drawer_sorting_size"></string>
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
+    <string name="drawer_sorting_peers"></string>
+    <string name="drawer_sorting_no_sorting"></string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added"></string>
+    <string name="drawer_date_added_today"></string>
+    <string name="drawer_date_added_yesterday"></string>
+    <string name="drawer_date_added_week"></string>
+    <string name="drawer_date_added_month"></string>
+    <string name="drawer_date_added_year"></string>
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag"></string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag"></string>
+    <string name="new_tag"></string>
+    <string name="without_tags"></string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +118,7 @@
     <string name="app_running_in_the_background">LibreTorrent veikia foniniame rėžime</string>
     <string name="network_online">Tinklo būklė: Prisijungęs</string>
     <string name="network_offline">Tinklo būklė: Atsijungęs</string>
-    <string name="notify_shutting_down">Shutting down…</string>
+    <string name="notify_shutting_down"></string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrento klaida</string>
     <string name="error_template">Klaida: %1$s</string>
@@ -129,10 +129,10 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torentas baigtas siųsti</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_title"></string>
     <string name="torrent_moving_content">Moving %1$s, please wait</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_move_fail"></string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -195,17 +195,17 @@
     <string name="home_directory">Namai</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
-    <string name="permission_denied">Permission denied</string>
+    <string name="internal_storage_name"></string>
+    <string name="external_storage_name" formatted="false"></string>
+    <string name="permission_denied"></string>
     <string name="save_file">Išsaugoti failą</string>
     <string name="file_name">Failo pavadinimas</string>
     <string name="error_file_exists">Failas jau egzistuoja</string>
     <string name="file_name_is_empty">Failo vardas negali būti tuščias</string>
     <string name="system_manager">System manager</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
-    <string name="parent_folder">Parent folder</string>
+    <string name="replace_file"></string>
+    <string name="parent_folder"></string>
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
     <string name="more_details">Daugiau detalių</string>
@@ -276,8 +276,8 @@
     <string name="share_stream_url">Dalytis stream URL</string>
     <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
     <string name="magnet_more_about_bep53">Daugiau informacijos: http://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">No trackers</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="tracker_list_empty"></string>
+    <string name="edit_torrent_name"></string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Nukopijuoti</string>
     <string name="text_copied_to_clipboard">Tekstas nukopijuotas į iškarpinę</string>
@@ -294,30 +294,30 @@
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Atsisiųskite naujus torrentus automatiškai</string>
     <string name="feed_use_regex">Naudokite įprastinę išraišką</string>
-    <string name="backup_feed_channels">Save backup</string>
-    <string name="restore_feed_channels_backup">Restore backup</string>
+    <string name="backup_feed_channels"></string>
+    <string name="restore_feed_channels_backup"></string>
     <string name="feed_last_update_template">Atnaujinta: %1$s</string>
     <string name="feed_last_update_never">niekada</string>
     <string name="error_cannot_add_channel">Negalima pridėti kanalo</string>
-    <string name="error_cannot_edit_channel">Cannot edit channel</string>
-    <string name="error_cannot_delete_channel">Cannot delete channel</string>
+    <string name="error_cannot_edit_channel"></string>
+    <string name="error_cannot_delete_channel"></string>
     <string name="copy_link">Nukopijuoti nuorodą</string>
     <string name="delete_selected_channel">Ištrinti pasirinktą kanalą?</string>
     <string name="delete_selected_channels">Ištrinti pasirinktus kanalus?</string>
     <string name="edit_feed_channel">Redaguoti kanalą</string>
     <string name="link_copied_to_clipboard">Nuoroda nukopijuota į iškarpinę</string>
     <string name="mark_as_read">Žymėti kaip skaitytas</string>
-    <string name="mark_as_unread">Mark as unread</string>
+    <string name="mark_as_unread"></string>
     <string name="feed_item_list_empty">Nr straipsnių</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
     <string name="feed_item_open_article_url">Atviras straipsnis</string>
-    <string name="feeds_backup_selection_dialog_title">Select backup file</string>
+    <string name="feeds_backup_selection_dialog_title"></string>
     <string name="error_import_invalid_format">Netinkamas formatas</string>
     <string name="feed_do_not_download_immediately">Nedarykite atsisiųsti nedelsiant</string>
-    <string name="feed_item_url_not_found">URL not found</string>
+    <string name="feed_item_url_not_found"></string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Sukurti torentą</string>
     <string name="creating_torrent_progress">Creating torrent, please wait…</string>
@@ -358,21 +358,21 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
-    <string name="journal_list_empty">No entries</string>
-    <string name="journal_start_recording">Start recording</string>
-    <string name="journal_stop_recording">Stop recording</string>
-    <string name="journal_started_recording">Started recording</string>
-    <string name="journal_filter_session_log">Session log</string>
-    <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
-    <string name="journal_filter_torrent_log">Torrent log</string>
+    <string name="log_journal"></string>
+    <string name="journal_list_empty"></string>
+    <string name="journal_start_recording"></string>
+    <string name="journal_stop_recording"></string>
+    <string name="journal_started_recording"></string>
+    <string name="journal_filter_session_log"></string>
+    <string name="journal_filter_dht_log"></string>
+    <string name="journal_filter_peer_log"></string>
+    <string name="journal_filter_portmap_log"></string>
+    <string name="journal_filter_torrent_log"></string>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
-    <string name="pref_journal_save_log_to">Save log to</string>
+    <string name="pref_journal_save_log_to"></string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries"></string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aspetto</string>
@@ -382,7 +382,7 @@
     <string name="pref_header_network">Tinklas</string>
     <string name="pref_header_scheduling">Planavimas</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Išsaugoiti torentus į</string>
     <string name="pref_move_after_download_title">Perkelti po parsiuntimo</string>
@@ -461,7 +461,7 @@
     <string name="pref_port_settings_category">Prievado nustatymai</string>
     <string name="pref_use_random_port_title">Naudoti atsitiktinį prievadą</string>
     <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_title"></string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">Šifravimas</string>
@@ -537,7 +537,7 @@
     </string-array>
     <string name="pref_feed_start_torrents_title">Paleisti torentus</string>
     <string name="pref_feed_start_torrents_summary">Paleiskite torentus po pridėjimo</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
+    <string name="pref_feed_remove_duplicates_title"></string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Įgalinti streaming</string>
