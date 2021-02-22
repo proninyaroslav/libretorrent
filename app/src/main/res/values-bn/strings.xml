@@ -140,10 +140,10 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">ডাউনলোডরত</string>
-    <string name="torrent_status_seeding">বপন হচ্ছে</string>
+    <string name="torrent_status_seeding">বপন হচ্ছে…</string>
     <string name="torrent_status_paused">বিরতি</string>
     <string name="torrent_status_stopped">বন্ধ হয়েছে</string>
-    <string name="torrent_status_checking">পরীক্ষা করা হচ্ছে</string>
+    <string name="torrent_status_checking">পরীক্ষা করা হচ্ছে…</string>
     <string name="torrent_status_finished">সমাপ্ত</string>
     <string name="torrent_status_downloading_metadata">মেটাডাটা ডাউনলোড হচ্ছে</string>
     <!-- Permission dialog -->
@@ -175,7 +175,7 @@
     <string name="upload_torrent_into">আপলোড তথ্য</string>
     <string name="torrent_size">আকার</string>
     <string name="torrent_file_count">ফাইলের সংখ্যা</string>
-    <string name="torrent_hash_sum">হ্যাশ সাম</string>
+    <string name="torrent_hash_sum">হ্যাশের মান</string>
     <string name="torrent_comment">মতামত</string>
     <string name="torrent_create_date">তৈরি হয়েছে</string>
     <string name="torrent_created_in_program">প্রোগ্রামে তৈরি</string>
@@ -191,7 +191,7 @@
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="permission_denied">অনুমতি প্রত্যাখ্যাত</string>
     <string name="save_file">ফাইল সংরক্ষণ করুন</string>
-    <string name="file_name">ফাইলের নাম</string>
+    <string name="file_name">ফাইল নাম</string>
     <string name="error_file_exists">এই ফাইলটি ইতোমধ্যেই রয়েছে</string>
     <string name="file_name_is_empty">ফাইলের নাম খালি রাখা যাবে না</string>
     <string name="system_manager">System manager</string>
@@ -415,4 +415,12 @@
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="torrent_uploaded">আপলোডকৃত</string>
+    <string name="torrent_leechers">লিচার</string>
+    <string name="torrent_peers">অন্যরা</string>
+    <string name="torrent_seeds">বীজ</string>
+    <string name="torrent_downloaded">ডাউনলোডকৃত</string>
+    <string name="torrent_speed">গতি</string>
+    <string name="torrent_state">অবস্থা</string>
+    <string name="change_priority">অগ্রাধিকার</string>
 </resources>
