@@ -45,7 +45,7 @@
     <string name="apply">Appliquer</string>
     <string name="clipboard">Presse-papier</string>
     <string name="switch_on">On</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_off"></string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
     <string name="delete_selected_torrent">Supprimer ce Torrent \? Cette action ne pourra pas être annulée</string>
@@ -96,16 +96,16 @@
     <string name="drawer_date_added_year">Année</string>
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag">Éditer étiquette</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="add_tag_failed">Échec d\'ajout d\'étiquette</string>
+    <string name="tag_deleting_failed">Échec de suppression d\'étiquette</string>
+    <string name="tag_already_exists">Une étiquette avec le même nom existe déjà</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag">Sélectionnez une étiquette</string>
+    <string name="new_tag">Nouvelle étiquette</string>
+    <string name="without_tags">Sans étiquettes</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -225,7 +225,7 @@
     <string name="torrent_speed">Vitesse</string>
     <string name="torrent_downloaded">Téléchargé</string>
     <string name="torrent_ETA">Temps restant</string>
-    <string name="torrent_seeds">Seeds</string>
+    <string name="torrent_seeds"></string>
     <string name="torrent_peers">Pairs</string>
     <string name="torrent_leechers">Sangsues</string>
     <!-- connected (total) -->
@@ -358,7 +358,7 @@
     <string name="unable_to_open_file">Impossible d\'ouvrir le fichier sélectionné</string>
     <string name="unable_to_create_file">Impossible de créer le fichier</string>
     <!-- Log -->
-    <string name="log_journal">Journal</string>
+    <string name="log_journal"></string>
     <string name="journal_list_empty">Pas d\'entrées</string>
     <string name="journal_start_recording">Lancer enregistrement</string>
     <string name="journal_stop_recording">Arrêter l\'enregistrement</string>
@@ -366,7 +366,7 @@
     <string name="journal_filter_session_log">Journal de session</string>
     <string name="journal_filter_dht_log">Journal DHT</string>
     <string name="journal_filter_peer_log">Journal des pairs</string>
-    <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
+    <string name="journal_filter_portmap_log"></string>
     <string name="journal_filter_torrent_log">Journal du torrent</string>
     <string name="journal_save_log_failed">Échec de la sauvegarde du journal</string>
     <string name="journal_save_log_success">Log enregistré avec succès : %1$s</string>
@@ -378,11 +378,11 @@
     <string name="pref_header_appearance">Apparence</string>
     <string name="pref_header_behavior">Comportement</string>
     <string name="pref_header_storage">Stockage</string>
-    <string name="pref_header_limitations">Limitations</string>
+    <string name="pref_header_limitations"></string>
     <string name="pref_header_network">Réseau</string>
     <string name="pref_header_scheduling">Planification</string>
     <string name="pref_header_feed">Flux RSS</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming"></string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Chemin d\'enregistrement</string>
     <string name="pref_move_after_download_title">Déplacer après le téléchargement</string>
