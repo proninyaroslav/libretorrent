@@ -282,7 +282,6 @@
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="error_cannot_delete_channel"/>
     <string name="delete_selected_channel">Delete the selected channel?</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
@@ -320,7 +319,6 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_filter_peer_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
