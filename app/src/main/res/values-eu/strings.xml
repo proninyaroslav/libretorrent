@@ -51,7 +51,7 @@
     <string name="delete_selected_torrent">Ezabatu aukeratutako torrent-a? Eragiketa hau ezin da desegin</string>
     <string name="delete_selected_torrents">Ezabatu aukeratutako torrent-ak? Eragiketa hau ezin da desegin</string>
     <string name="force_recheck_torrent">Behartu berrikustea</string>
-    <string name="force_announce_torrent">Force announce</string>
+    <string name="force_announce_torrent"></string>
     <string name="add_link">Gehitu lotura</string>
     <string name="dialog_add_link_title">Sartu infohash balioa, magnet lotura edo HTTP/HTTPS lotura</string>
     <string name="torrent_list_empty">Torren-tik ez</string>
@@ -97,16 +97,16 @@
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Edit tag</string>
+    <string name="edit_tag"></string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
     <string name="tag_deleting_failed">Failed to delete tag</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
-    <string name="select_tag">Select tag</string>
-    <string name="new_tag">New tag</string>
-    <string name="without_tags">Without tags</string>
+    <string name="select_tag"></string>
+    <string name="new_tag"></string>
+    <string name="without_tags"></string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -132,7 +132,7 @@
     <string name="torrent_moving_title">Torrent-a mugitzen</string>
     <string name="torrent_moving_content">Mugitzen %1$s, itxaron mesedez</string>
     <string name="torrent_move_success">Torrent-a behar bezala mugitu da</string>
-    <string name="torrent_move_fail">Could not move torrent</string>
+    <string name="torrent_move_fail"></string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -167,7 +167,7 @@
     <string name="error_no_files_selected">Ez da fitxategirik hautatu</string>
     <string name="free_space">%1$s libre</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
-    <string name="files_size">Selected %1$s out of %2$s</string>
+    <string name="files_size"></string>
     <string name="start_torrent">Hasi torrent-a</string>
     <string name="file_is_too_large_error">Fitxategia handiegia da</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
@@ -179,7 +179,7 @@
     <string name="torrent_name">Izena</string>
     <string name="upload_torrent_into">Igoeraren informazioa</string>
     <string name="torrent_size">Tamaina</string>
-    <string name="torrent_file_count">File count</string>
+    <string name="torrent_file_count"></string>
     <string name="torrent_hash_sum">Hash sum</string>
     <string name="torrent_comment">Iruzkina</string>
     <string name="torrent_create_date">Sortua</string>
@@ -195,8 +195,8 @@
     <string name="home_directory">Etxea</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
+    <string name="internal_storage_name"></string>
+    <string name="external_storage_name" formatted="false"></string>
     <string name="permission_denied">Baimena ukatuta</string>
     <string name="save_file">Gorde fitxategia</string>
     <string name="file_name">Fitxategi izena</string>
@@ -211,8 +211,7 @@
     <string name="more_details">Xehetasun gehiago</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nAvailability: %5$s</string>
+    <string name="file_downloading_status_template"></string>
     <string name="file_priority_normal">Arrunta</string>
     <string name="file_priority_low">Ezikusi</string>
     <string name="file_priority_high">Altua</string>
@@ -228,19 +227,19 @@
     <string name="torrent_ETA">ETA</string>
     <string name="torrent_seeds">Haziak</string>
     <string name="torrent_peers">Hartzaileak</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_leechers"></string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="torrent_uploaded">Uploaded</string>
+    <string name="torrent_uploaded"></string>
     <string name="torrent_share_ratio">Elkarbanatze maila</string>
     <string name="torrent_active_time">Aktibo egondako denbora totala</string>
-    <string name="torrent_seeding_time">Seeding time</string>
+    <string name="torrent_seeding_time"></string>
     <string name="torrent_pieces">Zatiak</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Aztarnariak</string>
     <string name="tracker_state_working">Lanean</string>
-    <string name="tracker_state_not_working">Not working</string>
+    <string name="tracker_state_not_working"></string>
     <string name="tracker_state_updating">Eguneratzen…</string>
     <string name="tracker_state_not_contacted">Ez dago kontakturik oraindik</string>
     <string name="share_tracker_url">Partekatu URL-a</string>
@@ -258,8 +257,8 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">This torrent has not connected to any peers yet</string>
-    <string name="piece_map">Pieces map</string>
+    <string name="peer_list_empty"></string>
+    <string name="piece_map"></string>
     <string name="resume_torrent">Berrekin</string>
     <string name="pause_torrent">Gerlditu</string>
     <string name="share_magnet">Partekatu magnet-a</string>
@@ -271,14 +270,14 @@
     <string name="speed_limit_title">Abiadura maximoa</string>
     <string name="upload_speed">Igo</string>
     <string name="download_speed">Deskargatu</string>
-    <string name="speed_limit_dialog">Set speed in KiB/s (0 - without limit)</string>
+    <string name="speed_limit_dialog"></string>
     <string name="torrent_added_date">Gehituta</string>
     <string name="torrent_availability">Erabilgarritasuna</string>
-    <string name="share_stream_url">Share stream URL</string>
-    <string name="magnet_include_file_priorities">Include file priorities\?</string>
+    <string name="share_stream_url"></string>
+    <string name="magnet_include_file_priorities"></string>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aztarnaririk ez</string>
-    <string name="edit_torrent_name">Edit torrent name</string>
+    <string name="edit_torrent_name"></string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopiatu</string>
     <string name="text_copied_to_clipboard">Testua arbelean kopiatuta</string>
@@ -332,7 +331,7 @@
     <string name="optional_hint">(hautazkoa)</string>
     <string name="piece_size">Pieza tamaina</string>
     <string name="create_torrent_options">Aukerak</string>
-    <string name="option_start_seeding">Start seeding</string>
+    <string name="option_start_seeding"></string>
     <string name="option_private_torrent">Torrent pribatua</string>
     <string-array name="piece_size_entries">
         <item>Automatikoa</item>
@@ -352,7 +351,7 @@
     <string name="invalid_url">URL baliogabea: %1$s</string>
     <string name="folder_is_empty">Hautatutako karpeta hutsik dago edo fitxategi guztiak iragazki bidez baztertuta daude</string>
     <string name="error_create_torrent">Ezin izan da torrent-a sortu</string>
-    <string name="skip_files">Skip files</string>
+    <string name="skip_files"></string>
     <string name="skip_files_hint">Sartu fitxategien izenak \"|\" ikurraz bereizita</string>
     <string name="select_folder_to_save">Hautatu gordetzeko karpeta</string>
     <string name="torrent_saved_to">Torrent-a %1$s(e)ra gordeta</string>
@@ -366,14 +365,14 @@
     <string name="journal_started_recording">Hasi grabatzen</string>
     <string name="journal_filter_session_log">Sesio erregistroa</string>
     <string name="journal_filter_dht_log">DHT erregistroa</string>
-    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_peer_log"></string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP erregistroa</string>
     <string name="journal_filter_torrent_log">Torrent erregistroa</string>
     <string name="journal_save_log_failed">Huts egin du erregistroa gordetzean</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <string name="pref_journal_save_log_to">Gorde erregistroa hemen</string>
     <!-- Log settings -->
-    <string name="pref_journal_max_stored_entries">Maximum stored journal entries</string>
+    <string name="pref_journal_max_stored_entries"></string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Itxura</string>
@@ -393,14 +392,14 @@
     <string name="pref_save_torrent_files_in_title">Gorde .torrent fitxategiak hemen</string>
     <string name="pref_watch_dir_title">Ikusi direktorioa</string>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
-    <string name="pref_dir_to_watch_title">Directory to watch</string>
+    <string name="pref_dir_to_watch_title"></string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Abiadura</string>
     <string name="pref_max_download_speed_title">Gehienezko deskarga abiadura</string>
     <string name="pref_max_upload_speed_title">Gehienezko igoera abiadura</string>
     <string name="pref_max_connections_title">Gehienezko konexio kopurua</string>
     <string name="pref_max_connections_summary">Gutxienezko konexioa kopurua - 2</string>
-    <string name="pref_torrent_queueing_category">Torrent queueing</string>
+    <string name="pref_torrent_queueing_category"></string>
     <string name="pref_max_active_uploads_title">Gehienezko igoera aktiboak</string>
     <string name="pref_max_active_downloads_title">Gehienezko deskarga aktiboak</string>
     <string name="pref_max_active_torrents_title">Gehienezko torrent aktiboak</string>
@@ -435,7 +434,7 @@
     <string name="pref_enable_roaming_title">Gaitu roaming-a</string>
     <string name="pref_enable_roaming_summary">Deskargatu bakarrik gailua roaming-ean ez badago</string>
     <string name="pref_power_management_category">Energia kudeaketa</string>
-    <string name="pref_keep_alive_title">Keep alive</string>
+    <string name="pref_keep_alive_title"></string>
     <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
     <string name="pref_shutdown_downloads_complete_title">Deskargak amaitzean itzali</string>
     <string name="pref_shutdown_downloads_complete_summary">Gaituta badago, aplikazioa deskarga guztiak amaitutakoan itzaliko da</string>
@@ -462,7 +461,7 @@
     <string name="pref_port_settings_category">Portu ezarpenak</string>
     <string name="pref_use_random_port_title">Erabili ausazko portua</string>
     <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_title">Port range</string>
+    <string name="pref_port_range_title"></string>
     <string name="pref_port_range_start_title">Hasi</string>
     <string name="pref_port_range_end_title">Amaitu</string>
     <string name="pref_encryption_category">Zifratua</string>
@@ -472,12 +471,12 @@
         <item>Eskatu gailuaren enkriptatzea</item>
         <item>Gaitu zifratua</item>
     </string-array>
-    <string name="pref_enc_in_connections_title">Incoming connections</string>
-    <string name="pref_enc_out_connections_title">Outgoing connections</string>
+    <string name="pref_enc_in_connections_title"></string>
+    <string name="pref_enc_out_connections_title"></string>
     <string name="pref_ip_filtering_category">IP iragazketa</string>
     <string name="pref_enable_ip_filtering_title">Gaitu IP iragazketa</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
+    <string name="pref_ip_filtering_file_title"></string>
     <string name="pref_show_nat_errors">Ikusi NAT erroreak</string>
     <string name="pref_anonymous_mode_title">Gaitu modu anonimoa</string>
     <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
@@ -493,7 +492,7 @@
     </string-array>
     <string name="pref_proxy_address_title">Helbidea</string>
     <string name="pref_proxy_port_title">Portua</string>
-    <string name="pref_proxy_peers_too_title">Also use for peer connections</string>
+    <string name="pref_proxy_peers_too_title"></string>
     <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
     <string name="pref_proxy_requires_auth_title">Baimena behar du</string>
     <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
@@ -503,7 +502,7 @@
     <string name="pref_enable_scheduling_start_title">Hasiera-ordua</string>
     <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
     <string name="pref_enable_scheduling_shutdown_title">Amatatze-ordua</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
+    <string name="pref_enable_scheduling_shutdown_summary"></string>
     <string name="pref_scheduling_run_only_once_title">Exekutatu behin bakarrik</string>
     <string name="pref_scheduling_switch_wifi_title">Gaitu/desgaitu WiFi-a</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
@@ -524,7 +523,7 @@
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Neurketarik gabeko konexioak bakarrik</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Gaitu roaming-a</string>
-    <string name="pref_feed_keep_items_time_title">Keep articles</string>
+    <string name="pref_feed_keep_items_time_title"></string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 egun</item>
         <item>2 egun</item>
