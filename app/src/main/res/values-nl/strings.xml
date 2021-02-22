@@ -355,7 +355,6 @@
     <string name="journal_stop_recording">Stop logging</string>
     <string name="journal_started_recording">Loggen gestart</string>
     <string name="journal_filter_session_log">Sessie log</string>
-    <string name="journal_filter_torrent_log"/>
     <string name="journal_save_log_failed">Fout bij het opslaan van log</string>
     <string name="journal_save_log_success">Logboek succesvol opgeslagen: %1$s</string>
     <string name="pref_journal_save_log_to">Sla log op in</string>

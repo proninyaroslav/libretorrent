@@ -353,7 +353,6 @@
     <string name="journal_start_recording">Aufzeichnung starten</string>
     <string name="journal_stop_recording">Aufzeichnung stoppen</string>
     <string name="journal_started_recording">Aufzeichnung gestartet</string>
-    <string name="journal_filter_portmap_log"/>
     <string name="journal_save_log_failed">Speichern von log fehlgeschlagen</string>
     <string name="journal_save_log_success">Log erfolgreich gespeichert: %1$s</string>
     <string name="pref_journal_save_log_to">Log speichern in</string>

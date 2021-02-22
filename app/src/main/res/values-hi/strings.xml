@@ -78,7 +78,6 @@
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
     <!-- Date added -->
-    <string name="drawer_date_added_today"/>
     <string name="drawer_date_added_year"/>
     <!-- Tags -->
     <string name="tags">Tags</string>
@@ -324,7 +323,6 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_stop_recording"/>
     <string name="journal_filter_peer_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>

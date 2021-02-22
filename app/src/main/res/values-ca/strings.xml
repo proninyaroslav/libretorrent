@@ -9,7 +9,6 @@
     <string name="shutdown">Apaga</string>
     <string name="add">Afegeix</string>
     <string name="delete">Delete</string>
-    <string name="search"/>
     <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
@@ -37,7 +36,6 @@
     <string name="switch_on">Activat</string>
     <string name="switch_off">Desactivat</string>
     <!-- Main window -->
-    <string name="force_recheck_torrent"/>
     <string name="add_link">Afegeix un enllaç</string>
     <string name="torrent_list_empty">Cap torrent</string>
     <string name="error_empty_link">Please enter link</string>
@@ -150,7 +148,6 @@
     <string name="torrent_comment">Comentari</string>
     <string name="torrent_create_date">Creat</string>
     <!-- Filemanager dialog -->
-    <string name="file_chooser_title"/>
     <string name="dialog_new_folder_title">Carpeta nova</string>
     <string name="error_dialog_new_folder">Unable to create a new folder</string>
     <string name="error_open_dir">Unable to open the folder</string>
@@ -188,7 +185,6 @@
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_trackers">Rastrejadors</string>
-    <string name="tracker_state_not_contacted"/>
     <string name="add_trackers">Afegeix rastrejadors</string>
     <string name="dialog_add_trackers">(un per línia)</string>
     <string name="peer_port">Port: %1$d</string>
@@ -217,13 +213,10 @@
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_name"/>
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="feed_last_update_template"/>
     <string name="feed_last_update_never">mai</string>
-    <string name="copy_link"/>
     <string name="delete_selected_channel">Delete the selected channel?</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="mark_as_read">Marca com a llegits</string>
@@ -232,7 +225,6 @@
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
     <string name="error_backup_feeds">Failed to save channels</string>
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
-    <string name="feed_do_not_download_immediately"/>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crea torrent</string>
     <string name="creating_torrent_progress">Creating torrent, please wait…</string>
@@ -265,20 +257,17 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_stop_recording"/>
     <string name="journal_filter_peer_log"/>
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_behavior"/>
     <string name="pref_header_storage">Emmagatzematge</string>
     <string name="pref_header_limitations">Límits</string>
     <string name="pref_header_network">Xarxa</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_move_after_download_in_title"/>
     <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
     <!-- Limitations settings -->
