@@ -62,9 +62,9 @@
     <string name="settings">Paramètres</string>
     <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Peut-être que le fichier est corrompu ou a un format incorrect</string>
     <string name="ip_filter_add_success">Le filtre IP a été ajouté avec succès</string>
-    <string name="proxy_settings_applied">Paramètres du serveur proxy appliqués avec succès</string>
-    <string name="proxy_settings_apply_after_reboot">Les paramètres du serveur proxy seront appliqués après le redémarrage de l\'application</string>
-    <string name="theme_settings_apply_after_reboot">Les paramètres de thème seront appliqués après le redémarrage de l\'application.</string>
+    <string name="proxy_settings_applied">Paramètres du serveur proxy appliqués</string>
+    <string name="proxy_settings_apply_after_reboot">Veuillez redémarrer l\'application pour utiliser les nouveaux paramètres du proxy</string>
+    <string name="theme_settings_apply_after_reboot">Les paramètres de thème seront appliqués après le redémarrage de l\'application</string>
     <string name="about">À propos</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
@@ -73,9 +73,9 @@
     <string name="session_stats_listen_port">Écoute du port %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Statut</string>
-    <string name="drawer_status_downloading">Téléchargement</string>
+    <string name="drawer_status_downloading">Téléchargement en cours…</string>
     <string name="drawer_status_downloaded">Téléchargé</string>
-    <string name="drawer_status_downloading_metadata">Téléchargement des métadonnées</string>
+    <string name="drawer_status_downloading_metadata">Téléchargement des métadonnées en cours…</string>
     <string name="drawer_status_error">Erreur</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Tri</string>
@@ -120,7 +120,7 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent erreur</string>
     <string name="error_template">Erreur : %1$s</string>
-    <string name="restore_torrent_error">impossible de restaurer le torrent de la session précédente</string>
+    <string name="restore_torrent_error">Impossible de restaurer le torrent de la session précédente</string>
     <string name="session_error_title">Erreur de session</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Erreur NAT</string>
@@ -128,7 +128,7 @@
     <string name="torrent_finished_notify">Torrent terminé</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Déplacement du torrent</string>
-    <string name="torrent_moving_content">Déplacement de %1$s, veuillez patienter</string>
+    <string name="torrent_moving_content">Veuillez patienter pendant le déplacement de %1$s…</string>
     <string name="torrent_move_success">Torrent déplacé avec succès</string>
     <string name="torrent_move_fail">Impossible de déplacer le torrent</string>
     <!-- Added notification -->
@@ -141,19 +141,19 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Téléchargement</string>
+    <string name="torrent_status_downloading">Téléchargement en cours…</string>
     <string name="torrent_status_seeding">Essaimage</string>
     <string name="torrent_status_paused">Pause</string>
     <string name="torrent_status_stopped">Arrêté</string>
-    <string name="torrent_status_checking">Vérification</string>
+    <string name="torrent_status_checking">Vérification…</string>
     <string name="torrent_status_finished">Fini</string>
-    <string name="torrent_status_downloading_metadata">Téléchargement des métadonnées</string>
+    <string name="torrent_status_downloading_metadata">Téléchargement des métadonnées…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission refusée</string>
-    <string name="perm_denied_warning">Sans cette autorisation, l\'application ne peut pas sauvegarder les fichiers torrent en mémoire. L\'application ne fonctionnera pas correctement. Voulez-vous vraiment refuser cette autorisation \?</string>
+    <string name="perm_denied_warning">Voulez-vous vraiment refuser l\'autorisation  de sauvegarder des fichiers torrents en mémoire \?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Ajouter un torrent</string>
-    <string name="error_decode_torrent">Échec du décodage du fichier torrent. Peut-être le fichier est corrompu ou a un format incorrect</string>
+    <string name="error_decode_torrent">Échec du décodage du fichier torrent. Le fichier est sans doute corrompu ou a un format incorect</string>
     <string name="error_io_torrent">Erreur lors de la lecture du fichier torrent</string>
     <string name="error_fetch_link">Impossible d\'extraire les données du lien</string>
     <string name="error_invalid_link_or_path">Lien ou chemin vers le torrent non valide</string>
