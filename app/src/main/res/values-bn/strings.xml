@@ -56,16 +56,16 @@
     <string name="dialog_add_link_title">ইনফোহ্যাশ মান, ম্যাগনেটিক লিঙ্ক, বা এইচটিটিপি/এইচটিটিপিএস লিঙ্ক প্রবেশ করান</string>
     <string name="torrent_list_empty">টরেন্ট নেই</string>
     <string name="select_or_add_torrent">টরেন্ট নির্বাচন বা যোগ করুন</string>
-    <string name="error_empty_link">অনুগ্রহ করে একটি লিঙ্ক দিন</string>
+    <string name="error_empty_link">লিঙ্ক দাও</string>
     <string name="error_invalid_link">অবৈধ লিঙ্ক</string>
     <string name="error_open_torrent_file">টরেন্ট ফাইল খুলতে ব্যর্থ</string>
     <string name="open_file">ফাইল খুলুন</string>
     <string name="settings">সেটিংস</string>
-    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করতে ব্যর্থ হয়েছে (%1$d ব্যর্থ হয়েছে)। হয়তো ফাইলটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে</string>
-    <string name="ip_filter_add_success">আইপি ফিল্টার সফলভাবে যোগ করা হয়েছে</string>
-    <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো ফাইলটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে</string>
+    <string name="ip_filter_add_success">আইপি ফিল্টার যুক্তকৃত</string>
+    <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত</string>
+    <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করো</string>
+    <string name="theme_settings_apply_after_reboot">নতুন থিম ব্যবহার করতে অ্যাপটি আবার শুরু করো</string>
     <string name="about">সম্পর্কে</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">ডিএইচটি নোডস: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">পোর্ট শোনা হচ্ছে: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">অবস্থা</string>
-    <string name="drawer_status_downloading">ডাউনলোডরত</string>
+    <string name="drawer_status_downloading">ডাউনলোডরত…</string>
     <string name="drawer_status_downloaded">ডাউনলোড হয়েছে</string>
-    <string name="drawer_status_downloading_metadata">ডাউনলোডরত মেটাডাটা</string>
+    <string name="drawer_status_downloading_metadata">মেটাডাটা ডাউনলোডরত…</string>
     <string name="drawer_status_error">ত্রুটি</string>
     <!-- Sorting -->
     <string name="drawer_sorting">সারিবদ্ধকরণ</string>
@@ -99,9 +99,9 @@
     <string name="add_tag">Add tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="add_tag_failed">ট্যাগ যুক্ত করা যায়নি</string>
+    <string name="tag_deleting_failed">ট্যাগ মুছা যায়নি</string>
+    <string name="tag_already_exists">এই ট্যাগটি ইতোমধ্যে বিদ্যমান</string>
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
@@ -126,7 +126,7 @@
     <string name="torrent_finished_notify">টরেন্টে ডাউনলোড শেষ</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">চলমান টরেন্ট</string>
-    <string name="torrent_moving_content">%1$s চলমান, দয়া করে অপেক্ষা করুন</string>
+    <string name="torrent_moving_content">%1$s সরানো হচ্ছে, দয়া করে অপেক্ষা করো…</string>
     <string name="torrent_move_success">টরেন্ট সফলভাবে সরানো হয়েছে</string>
     <string name="torrent_move_fail">টরেন্ট সরানো যায়নি</string>
     <!-- Added notification -->
@@ -423,4 +423,22 @@
     <string name="torrent_speed">গতি</string>
     <string name="torrent_state">অবস্থা</string>
     <string name="change_priority">অগ্রাধিকার</string>
+    <string name="torrent_pieces">টুকরো</string>
+    <string name="torrent_seeding_time">বপন সময়</string>
+    <string name="torrent_active_time">সক্রিয় সময়</string>
+    <string name="torrent_share_ratio">শেয়ার অনুপাত</string>
+    <string name="dialog_change_priority_title">অগ্রাধিকার পরিবর্তন</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nউপলভ্যতা: %5$s</string>
+    <string name="more_details">আরো বিস্তারিত</string>
+    <string name="parent_folder">উপরের ফোল্ডার</string>
+    <string name="replace_file">ফাইল প্রতিস্থাপন করো</string>
+    <string name="external_storage_name" formatted="false">বাহ্যিক স্টোরেজ %1$d</string>
+    <string name="internal_storage_name">অভ্যন্তরীন স্টোরেজ</string>
+    <string name="sequential_download">ধারাবাহিক ডাউনলোড</string>
+    <string name="files_size">%2$s এর মধ্যে %1$sটি নির্বাচিত</string>
+    <string name="without_tags">ট্যাগ ছাড়া</string>
+    <string name="new_tag">নতুন ট্যাগ</string>
+    <string name="select_tag">ট্যাগ নাও</string>
+    <string name="edit_tag">ট্যাগ সম্পাদনা</string>
 </resources>
