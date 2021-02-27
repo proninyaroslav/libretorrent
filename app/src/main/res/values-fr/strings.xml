@@ -13,17 +13,17 @@
     <string name="delete">Supprimer</string>
     <string name="deleting">Suppression</string>
     <string name="select_all">Sélectionner tout</string>
-    <string name="save">Sauvegarder</string>
+    <string name="save">Enregistrer</string>
     <string name="search">Chercher</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">s.o.</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d j. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d j %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">Défaut</string>
     <string name="foreground_notification">Notification de premier plan</string>
     <string name="link">Lien</string>
@@ -44,7 +44,7 @@
     <string name="filters">Filtres</string>
     <string name="apply">Appliquer</string>
     <string name="clipboard">Presse-papier</string>
-    <string name="switch_on">On</string>
+    <string name="switch_on">Activé</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
     <string name="delete_selected_torrent">Supprimer ce Torrent \? Cette action ne pourra pas être annulée</string>
@@ -55,7 +55,7 @@
     <string name="dialog_add_link_title">Entrez le lien \"magnet\" ou le lien HTTP / HTTPS</string>
     <string name="torrent_list_empty">Aucun torrent</string>
     <string name="select_or_add_torrent">Sélectionner ou ajouter un torrent</string>
-    <string name="error_empty_link">Veuillez entrer un lien</string>
+    <string name="error_empty_link">Entrez un lien</string>
     <string name="error_invalid_link">Lien non valide</string>
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
@@ -95,13 +95,13 @@
     <string name="drawer_date_added_year">Année</string>
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="edit_tag">Éditer étiquette</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
+    <string name="edit_tag">Modifier l\'étiquette</string>
+    <string name="tag_name">Nom de l\'étiquette</string>
+    <string name="tag_color">Couleur de l\'étiquette</string>
     <string name="add_tag_failed">Échec d\'ajout d\'étiquette</string>
     <string name="tag_deleting_failed">Échec de suppression d\'étiquette</string>
     <string name="tag_already_exists">Une étiquette avec le même nom existe déjà</string>
-    <string name="no_tags">No tags</string>
+    <string name="no_tags">Aucune étiquette</string>
     <string name="select_tag">Sélectionnez une étiquette</string>
     <string name="new_tag">Nouvelle étiquette</string>
     <string name="without_tags">Sans étiquettes</string>
@@ -129,7 +129,7 @@
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Déplacement du torrent</string>
     <string name="torrent_moving_content">Veuillez patienter pendant le déplacement de %1$s…</string>
-    <string name="torrent_move_success">Torrent déplacé avec succès</string>
+    <string name="torrent_move_success">Torrent déplacé</string>
     <string name="torrent_move_fail">Impossible de déplacer le torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -142,7 +142,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Téléchargement en cours…</string>
-    <string name="torrent_status_seeding">Essaimage</string>
+    <string name="torrent_status_seeding">Essaimage…</string>
     <string name="torrent_status_paused">Pause</string>
     <string name="torrent_status_stopped">Arrêté</string>
     <string name="torrent_status_checking">Vérification…</string>
@@ -228,7 +228,7 @@
     <string name="torrent_leechers">Sangsues</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="torrent_uploaded">Envoyé</string>
+    <string name="torrent_uploaded">Téléversé</string>
     <string name="torrent_share_ratio">Ratio de partage</string>
     <string name="torrent_active_time">Temps d\'activité</string>
     <string name="torrent_seeding_time">Temps de partage</string>
@@ -268,13 +268,13 @@
     <string name="speed_limit_title">Vitesse max</string>
     <string name="upload_speed">Téléversement</string>
     <string name="download_speed">Téléchargement</string>
-    <string name="speed_limit_dialog">Régler la vitesse en KiB/s (0 - illimité)</string>
+    <string name="speed_limit_dialog">Régler la vitesse en Kio/s (0 - illimité)</string>
     <string name="torrent_added_date">Ajoutée</string>
     <string name="torrent_availability">Disponibilité</string>
     <string name="share_stream_url">Partager l\'URL du stream</string>
     <string name="magnet_include_file_priorities">Inclure les priorités de fichier \?</string>
-    <string name="magnet_more_about_bep53">Plus d\'information : http ://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="tracker_list_empty">Aucun tracker</string>
+    <string name="magnet_more_about_bep53">Plus d\'infos sur http ://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="tracker_list_empty">Aucun traqueur</string>
     <string name="edit_torrent_name">Modifier le nom du torrent</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copier</string>
@@ -283,7 +283,7 @@
     <string name="app_error_occurred">Une erreur s\'est produite dans l\'application. Vous pouvez envoyer le rapport aux développeurs</string>
     <string name="error_comment_prompt">Vous pouvez ajouter des informations supplémentaires et des commentaires ici :</string>
     <!-- Feeds -->
-    <string name="feed">Flux RSS</string>
+    <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Aucune chaîne</string>
     <string name="select_or_add_feed_channel">Sélectionnez ou ajoutez un RSS/Atom canal</string>
     <string name="add_feed_channel">Ajouter une chaîne</string>
@@ -390,7 +390,7 @@
     <!-- Limitations settings -->
     <string name="pref_speed_category">Vitesse</string>
     <string name="pref_max_download_speed_title">Vitesse de téléchargement maximale</string>
-    <string name="pref_max_upload_speed_title">Vitesse de téléversement maximale</string>
+    <string name="pref_max_upload_speed_title">Vitesse de téléversement max.</string>
     <string name="pref_max_connections_title">Nombre maximum de connections</string>
     <string name="pref_max_connections_summary">Nombre minimum de connections - 2</string>
     <string name="pref_torrent_queueing_category">Torrent en file</string>
@@ -434,8 +434,8 @@
     <string name="pref_shutdown_downloads_complete_summary">Si activé, l\'application s\'éteindra lorsque tous les téléchargements seront finis</string>
     <string name="pref_cpu_do_not_sleep_title">Garder le CPU éveillé</string>
     <string name="pref_cpu_do_not_sleep_summary">En activant ceci la consommation de batterie sera accrue. Utiliser cette option si la vitesse de téléchargement décroit lorsque l\'écran est éteint</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Télécharger et téléversé uniquement en charge</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Si activé, le téléchargement/téléversement des torrents n\'a lieu que lors de la charge de l\'appareil. Tous les torrents seront mis en pause si l\'appareil n\'est pas branché</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Télécharger et téléverser uniquement en charge.</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Aucun fichier n\'est transféré tant que l\'appareil n\'est pas en cours de chargement. (Met tout en pause lorsqu\'il n\'est pas connecté à un chargeur.)</string>
     <string name="pref_battery_control_title">Activer le seuil de batterie</string>
     <string name="pref_custom_battery_control_title">Pourcentage personnalisé de la batterie</string>
     <string name="pref_custom_battery_control_value_title">Pourcentage de contrôle de la batterie</string>
@@ -543,4 +543,9 @@
     <string name="about_title">À propos de LibreTorrent</string>
     <string name="about_description">Plus d\'information et aussi pour aider le projet : &lt;a href=https ://gitlab.com/proninyaroslav/libretorrent&gt;https ://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent est un Free as in Freedom torrent client pour Android 4+, basé sur libtorrent (Java wrapper &lt;a href=https ://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent est un logiciel libre, publié sous les termes de la &lt;a href=http ://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Journal des modifications</string>
+    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_limitations">Limitations</string>
+    <string name="journal_filter_portmap_log">Journal UPnP/NAT-PMP</string>
+    <string name="log_journal">Journal</string>
+    <string name="switch_off">Désactivé</string>
 </resources>
