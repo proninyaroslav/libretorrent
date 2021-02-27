@@ -17,13 +17,13 @@
     <string name="search">Cerca</string>
     <string name="not_available">Non disponibile</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d d %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">Predefinito</string>
     <string name="foreground_notification">Notifica in primo piano</string>
     <string name="link">Collegamento</string>
@@ -44,7 +44,7 @@
     <string name="filters">Filtri</string>
     <string name="apply">Applica</string>
     <string name="clipboard">Appunti</string>
-    <string name="switch_on">On</string>
+    <string name="switch_on">Attivo</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Elimina insieme ai file scaricati</string>
     <string name="delete_selected_torrent">Cancellare il torrent selezionato? Questa azione non può essere annullata</string>
@@ -55,16 +55,16 @@
     <string name="dialog_add_link_title">Inserisci il valore infohash, magnet link o HTTP/HTTPS link</string>
     <string name="torrent_list_empty">Nessun torrent</string>
     <string name="select_or_add_torrent">Seleziona o aggiungi un torrent</string>
-    <string name="error_empty_link">Inserire il link</string>
-    <string name="error_invalid_link">Link invalido</string>
+    <string name="error_empty_link">Inserisci il collegamento</string>
+    <string name="error_invalid_link">Collegamento invalido</string>
     <string name="error_open_torrent_file">Impossibile aprire il file torrent</string>
     <string name="open_file">Apri un file</string>
     <string name="settings">Impostazioni</string>
     <string name="ip_filter_add_error">Impossibile aggiungere un filtro IP (%1$d fallito). Forse il file è corrotto o usa un formato non corretto</string>
     <string name="ip_filter_add_success">Filtro IP aggiunto con successo</string>
     <string name="proxy_settings_applied">Impostazioni server proxy applicate con successo</string>
-    <string name="proxy_settings_apply_after_reboot">Le impostazioni del server proxy verranno applicate riavviando l\'app</string>
-    <string name="theme_settings_apply_after_reboot">Le impostazioni dei temi verranno applicate riavviando l\'app</string>
+    <string name="proxy_settings_apply_after_reboot">Riavvia l\'applicazione per utilizzare le nuove impostazioni proxy</string>
+    <string name="theme_settings_apply_after_reboot">Riavvia l\'applicazione per utilizzare il nuovo tema</string>
     <string name="about">Informazioni</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nodi DHT: %1$d</string>
@@ -73,7 +73,7 @@
     <string name="session_stats_listen_port">In ascolto alla porta: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Stato</string>
-    <string name="drawer_status_downloading">Scaricando</string>
+    <string name="drawer_status_downloading">Scaricando…</string>
     <string name="drawer_status_downloaded">Scaricato</string>
     <string name="drawer_status_downloading_metadata">Scaricando i metadati</string>
     <string name="drawer_status_error">Errore</string>
@@ -93,14 +93,14 @@
     <string name="drawer_date_added_month">Mese</string>
     <string name="drawer_date_added_year">Anno</string>
     <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
+    <string name="tags">Etichette</string>
+    <string name="add_tag">Aggiungi un\'etichetta</string>
+    <string name="tag_name">Nome dell\'etichetta</string>
+    <string name="tag_color">Colore dell\'etichetta</string>
+    <string name="add_tag_failed">Impossibile aggiungere l\'etichetta</string>
+    <string name="tag_deleting_failed">Impossibile eliminare l\'etichette</string>
+    <string name="tag_already_exists">Questa etichetta esiste già</string>
+    <string name="no_tags">Nessuna etichetta</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -262,8 +262,8 @@
     <string name="save_torrent_file_successfully">Torrent salvato con successo</string>
     <string name="error_save_torrent_file">Impossibile salvare il torrent</string>
     <string name="speed_limit_title">Massima velocità</string>
-    <string name="upload_speed">Upload</string>
-    <string name="download_speed">Download</string>
+    <string name="upload_speed">Caricamento</string>
+    <string name="download_speed">Scaricamento</string>
     <string name="speed_limit_dialog">Imposta la velocità in KiB/s (0 - senza limite)</string>
     <string name="torrent_added_date">Aggiunto</string>
     <string name="torrent_availability">Disponibilità</string>
@@ -439,8 +439,8 @@
     <string name="pref_custom_battery_control_title">Percentuale batteria personalizzata</string>
     <string name="pref_custom_battery_control_value_title">Controllo percentuale della batteria</string>
     <string name="pref_battery_control_summary">Tutti i torrent saranno sospesi se il livello della batteria scende al di sotto del %1$d%%. Il limite non si applica se il dispositivo è in ricarica</string>
-    <string name="pref_custom_battery_control_summary">Imposta una percentuale personalizzata per mettere in pausa i download nel caso in cui la batteria scenda al di sotto della soglia specificata. Abilitarla ignorerà la soglia predefinita %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary">Impostare una percentuale personalizzata della batteria avrà un impatto negativo sulla durata della batteria durante i download. Sei sicuro di voler attivare questo?</string>
+    <string name="pref_custom_battery_control_summary">Imposta una percentuale personalizzata per mettere in pausa gli scaricamenti nel caso in cui la batteria scenda al di sotto della soglia specificata. Abilitarla ignorerà la soglia predefinita %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Impostare una percentuale personalizzata della batteria avrà un impatto negativo sulla durata della batteria durante gli scaricamenti. Sei sicuro/a di voler attivare questo\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Impostazioni proxy</string>
     <string name="pref_enable_dht_title">Abilita DHT</string>
@@ -544,5 +544,10 @@
     LibreTorrent è un client torrent libero ed open source per Android 4+, basato su libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent è software libero, rilasciato sotto i termini della <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Novità</string>
-    <string name="switch_off">Off</string>
+    <string name="switch_off">Disattivo</string>
+    <string name="pref_header_streaming">Streaming</string>
+    <string name="without_tags">Senza etichette</string>
+    <string name="new_tag">Nuova etichetta</string>
+    <string name="select_tag">Seleziona l\'etichetta</string>
+    <string name="edit_tag">Modifica l\'etichetta</string>
 </resources>
