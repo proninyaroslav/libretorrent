@@ -56,7 +56,7 @@
     <string name="dialog_add_link_title">Magnet- oder HTTP/HTTPS Link eingeben</string>
     <string name="torrent_list_empty">Keine Torrents</string>
     <string name="select_or_add_torrent">Torrent auswählen oder hinzufügen</string>
-    <string name="error_empty_link">Bitte Link eingeben</string>
+    <string name="error_empty_link">Link eingeben</string>
     <string name="error_invalid_link">Ungültiger Link</string>
     <string name="error_open_torrent_file">Torrent Datei kann nicht geöffnet werden</string>
     <string name="open_file">Datei öffnen</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Listening-Port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Wird heruntergeladen</string>
+    <string name="drawer_status_downloading">Wird heruntergeladen …</string>
     <string name="drawer_status_downloaded">Heruntergeladen</string>
-    <string name="drawer_status_downloading_metadata">Metadaten werden heruntergeladen</string>
+    <string name="drawer_status_downloading_metadata">Metadaten werden heruntergeladen …</string>
     <string name="drawer_status_error">Fehler</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortierung</string>
@@ -93,14 +93,14 @@
     <string name="drawer_date_added_week">Woche</string>
     <string name="drawer_date_added_month">Monat</string>
     <string name="drawer_date_added_year">Jahr</string>
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
+    <string name="tags">Markierungen</string>
+    <string name="add_tag">Markierung hinzufügen</string>
+    <string name="tag_name">Markierungsname</string>
+    <string name="tag_color">Markierungsfarbe</string>
+    <string name="add_tag_failed">Markierung konnte nicht hinzugefügt werden</string>
+    <string name="tag_deleting_failed">Markierung konnte nicht gelöscht werden</string>
+    <string name="tag_already_exists">Diese Markierung existiert bereits</string>
+    <string name="no_tags">Keine Markierungen</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -168,10 +168,10 @@
     <string name="error_empty_name">Bitte Namen eingeben</string>
     <string name="ignore_free_space">Ignoriere freie Speichergröße</string>
     <!-- Torrent info -->
-    <string name="torrent_info">Info</string>
+    <string name="torrent_info">Infos</string>
     <string name="torrent_files">Dateien</string>
     <string name="torrent_name">Name</string>
-    <string name="upload_torrent_into">Download nach</string>
+    <string name="upload_torrent_into">Hochladen nach</string>
     <string name="torrent_size">Größe</string>
     <string name="torrent_file_count">Anzahl Dateien</string>
     <string name="torrent_hash_sum">Prüfsumme</string>
@@ -285,8 +285,8 @@
     <string name="feed_filter_prompt_one_per_line">Pro Zeile einen Filter eingeben.</string>
     <string name="feed_auto_download">Neue Torrents automatisch herunterladen</string>
     <string name="feed_use_regex">Reguläre Ausdrücke verwenden</string>
-    <string name="backup_feed_channels">Backup speichern</string>
-    <string name="restore_feed_channels_backup">Backup wiederherstellen</string>
+    <string name="backup_feed_channels">Datensicherung speichern</string>
+    <string name="restore_feed_channels_backup">Datensicherung wiederherstellen</string>
     <string name="feed_last_update_template">Aktualisiert: %1$s</string>
     <string name="feed_last_update_never">noch nie</string>
     <string name="error_cannot_add_channel">Kanal kann nicht hinzugefügt werden</string>
@@ -380,16 +380,16 @@
     <!-- Limitations settings -->
     <string name="pref_speed_category">Geschwindigkeit</string>
     <string name="pref_max_download_speed_title">Maximale Downloadrate</string>
-    <string name="pref_max_upload_speed_title">Maximale Uploadrate</string>
+    <string name="pref_max_upload_speed_title">Maximale Hochladen-Rate</string>
     <string name="pref_max_connections_title">Maximale Anzahl an Verbindungen</string>
     <string name="pref_max_connections_summary">Minimale Anzahl an Verbindungen - 2</string>
     <string name="pref_torrent_queueing_category">Torrent Warteschlange</string>
-    <string name="pref_max_active_uploads_title">Maximale gleichzeitige Uploads</string>
+    <string name="pref_max_active_uploads_title">Maximale gleichzeitige Hochladen-Ereignisse</string>
     <string name="pref_max_active_downloads_title">Maximale gleichzeitige Downloads</string>
     <string name="pref_max_active_torrents_title">Maximale gleichzeitige Torrents</string>
     <string name="pref_max_connections_per_torrent_title">Maximale Anzahl an Verbindungen pro Torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Minimale Anzahl an Verbindungen - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximale Anzahl von Upload-Slots pro Torrent</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximale Anzahl von Hochladen-Slots pro Torrent</string>
     <string name="pref_auto_manage_title">Automatisch verwalten</string>
     <string name="pref_auto_manage_summary">Der Torrent kann an jedem Punkt automatisch fortgesetzt oder pausiert werden. Die Aktivierung dieser Option kann die Pause/den Fortschritt verlangsamen</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 unbeschränkt</string>
@@ -429,8 +429,8 @@
     <string name="pref_custom_battery_control_title">Nutzerdefinierter Akkustand</string>
     <string name="pref_custom_battery_control_value_title">Akkustand</string>
     <string name="pref_battery_control_summary">Alle Torrents werden pausiert, wenn der Akkustand unter %1$d%% fällt. Begrenzung gilt nicht während des Aufladens</string>
-    <string name="pref_custom_battery_control_summary">Einen benutzerdefinierten Akkustand festlegen, um Downloads zu pausieren, wenn der Akku unter den angegebenen Schwellenwert sinkt. Bei Aktivierung wird die voreingestellte Schwelle von %1$d%% ignoriert</string>
-    <string name="pref_custom_battery_control_dialog_summary">Das Festlegen eines benutzerdefinierten Akkustandes, auf den die App achten soll, wird einen negativen Einfluss auf die Akkulaufzeit haben, während Downloads ausgeführt werden. Sind Sie sicher, dass Sie dies aktivieren möchten?</string>
+    <string name="pref_custom_battery_control_summary">Lege einen benutzerdefinierten Prozentsatz fest, um das Herunterladen anzuhalten, wenn der Akku den angegebenen Schwellenwert unterschreitet. Wenn du diese Option aktivierst, wird der Standardschwellenwert %1$d%% ignoriert.</string>
+    <string name="pref_custom_battery_control_dialog_summary">Möchtesy du wirklich einen benutzerdefinierten Batterieprozentsatz festlegen, auf den die Anwendung achten soll\? Dies wirkt sich negativ auf die Akkulaufzeit aus, während Herunterladen-Ereignisse stattfinden.</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy Einstellungen</string>
     <string name="pref_enable_dht_title">DHT einschalten</string>
@@ -534,4 +534,8 @@
     LibreTorrent ist ein Free as in Freedom Torrent-Client für Android 4+, basierend auf libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) Bibliothek.<br><br>
     LibreTorrent ist freie Software, veröffentlicht unter den Bedingungen der <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Änderungsprotokoll</string>
+    <string name="without_tags">Ohne Markierungen</string>
+    <string name="new_tag">Neue Markierung</string>
+    <string name="select_tag">Markierung auswählen</string>
+    <string name="edit_tag">Markierung bearbeiten</string>
 </resources>
