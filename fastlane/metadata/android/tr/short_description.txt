@@ -1,1 +1,1 @@
-libtorrent temel alan, Özgür ve Açık Kaynaklı, tam özellikli torrent istemcisi
+Copyleft lisanslı özgür yazılım olan torrent istemcisi.
