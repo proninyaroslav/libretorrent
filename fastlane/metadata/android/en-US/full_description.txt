@@ -1,22 +1,18 @@
-# Features
-
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP
-* IP filtering (eMule dat and PeerGuardian)
-* Ability to fine tune (network settings, power management, battery control, UI settings, etc.)
-* Supports torrents with large number of files and big files
-* HTTP\S and magnet links support
-* Support proxy for trackers and peers
-* Ability to move files while downloading
-* Ability to automatic movement of files to another directory or to an external drive at the end of download
-* Ability to specify file and folder priorities
-* Ability to select which files to download
-* Ability to download sequentially
-* Material Design
-* Dark and Black theme
-* Tablet optimized UI
-* Scheduling
-* RSS manager
-* Android TV support
-* Ability to create torrents
-* Streaming of any selected files
-* And more
+* Licensed GPLv3+. Use, see, change and share; with all.
+* Select which files to download.
+* Move files while downloading.
+* Auto-move downloaded files to another folder or external drive.
+* Stream files, with sequential downloads.
+* Android TV.
+* Material design, dark and black theme, and tablet UI.
+* Customisable network, battery, and UI settings, etc.
+* 35+ translations.
+* Scheduling.
+* Auto-downloading, with Atom/RSS manager.
+* Create torrents, with many and big files.
+* HTTP\S and magnet links.
+* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* IP filtering (eMule dat and PeerGuardian).
+* Supports proxy for trackers and peers.
+* Based on libtorrent4j.
+* And more.
