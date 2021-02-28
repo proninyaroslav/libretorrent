@@ -1,6 +1,6 @@
-[![Weblate](https://hosted.weblate.org/widgets/libretorrent/-/svg-badge.svg)](https://hosted.weblate.org/engage/libretorrent/)
-[![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
+[![Hosted Weblate](https://hosted.weblate.org/widgets/libretorrent/-/svg-badge.svg)](https://hosted.weblate.org/engage/libretorrent/)
 [![Matrix Room](https://img.shields.io/matrix/libretorrent:matrix.org?label=Matrix%20Room)](https://matrix.to/#libretorrent:matrix.org)
+[![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/14421/badge.svg">](https://scan.coverity.com/projects/proninyaroslav-libretorrent)
 
 LibreTorrent
@@ -10,57 +10,56 @@ LibreTorrent
 
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
 [<img alt="Get it on AFH" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=246723)
-[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
 [<img alt="Get it on APKMirror" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/APKMirror/get-it-on-apkmirror.png">](https://www.apkmirror.com/apk/proninyaroslav/libretorrent)
 [<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
+[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
 
 **Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
 
 **Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
 
-Free and Open Source, full-featured torrent client for Android. Based on libtorrent library (Java wrapper [libtorrent4j](https://github.com/aldenml/libtorrent4j))
+Copylefted libre full-featured torrent client for Android.
+
+[Use, see, change and share](https://en.wikipedia.org/wiki/Free_software); [with all](https://en.wikipedia.org/wiki/Copyleft).
 
 Overview
 ---
 
-**Features (help is highly desired!):**
+**Features (help greatly appreciated.):**
 
+* Select which files to download
+* Move files while downloading
+* Auto-move downloaded files to another folder or external drive
+* Stream files, with sequential downloads
+* Android TV
+* Material design, dark and black theme, and tablet UI
+* Customisable network, battery, and UI settings, etc.
+* 35+ translations
+* Scheduling
+* Auto-downloading, with Atom/RSS manager
+* Create torrents, with many and big files
+* HTTP\S and magnet links
 * DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP
 * IP filtering (eMule dat and PeerGuardian)
-* Ability to fine tune (network settings, power management, battery control, UI settings, etc.)
-* Supports torrents with large number of files and big files
-* HTTP\S and magnet links support
-* Support proxy for trackers and peers
-* Ability to move files while downloading
-* Ability to automatic movement of files to another directory or to an external drive at the end of download
-* Ability to specify file and folder priorities
-* Ability to select which files to download
-* Ability to download sequentially
-* Material Design
-* Dark and Black theme
-* Tablet optimized UI
-* Scheduling
-* RSS manager
-* Android TV support
-* Ability to create torrents
-* Streaming of any selected files
+* Supports proxy for trackers and peers
+* Based on [libtorrent4j](https://github.com/aldenml/libtorrent4j)
 * And more
 
-Donation
+Donations
 ---
 
-If you like LibreTorrent you can support author with these methods. If you have problems with payment or you want to donate in another way, contact me: `proninyaroslav@mail.ru`. Thank you!
+The development is 100% funded by heroic people like you. If you have problems with payment or you want to donate in another way, contact me at `proninyaroslav@mail.ru`. Thank you!
 
+ - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
+ - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
+ - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
  - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GWWYZSCKPAB2Q)
  - **Yandex Money**: `410011738561939`
  - **WebMoney**:
      - **WMZ**: `Z335461926163`
      - **WMR**: `R151579576467`
- - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
+ - **Amazon.com eGift Cards**: just choose your amount and type the e-mail `proninyaroslav@mail.ru`
 in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
- - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
- - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
- - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
 
 Contributors
 ---
@@ -70,7 +69,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 Translations
 ---
 
-You can help translate the app here: [https://hosted.weblate.org/engage/libretorrent/](https://hosted.weblate.org/engage/libretorrent/)
+Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/libretorrent/)
 
  - **Arabic** *(thanks xivaphro)*
  - **Azerbaijani** *(thanks Khan27)*
@@ -95,7 +94,7 @@ You can help translate the app here: [https://hosted.weblate.org/engage/libretor
  - **Korean** *(thanks jjjhitel)*
  - **Lithuanian** *(thanks techwebpd)*
  - **Malayalam** *(thanks Lino Joseph)*
- - **Norwegian Bokmål** *(thanks comradekingu)*
+ - **Norwegian Bokmål** *(thanks [Allan Nordhøy](https://gitlab.com/kingu))*
  - **Persian** *(thanks Reg3xp)*
  - **Polish** *(thanks Azaradel)*
  - **Romanian** *(thanks georgenetu, Silviu200530)*

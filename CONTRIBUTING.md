@@ -1,23 +1,21 @@
 Contributors
 ---
 
-If you want to contribute code, start by looking at the open issues on gitlab.com:
-
-  https://gitlab.com/proninyaroslav/libretorrent/issues
+Start by looking at the [open issues](https://gitlab.com/proninyaroslav/libretorrent/issues) to contribute code.
   
-Make sure to write your name and email id in format Name \<e-mail\> in the license declaration above every file you make change to.
+Make sure to write your name and e-mail address in format Name \<e-mail\> in the license declaration above every file you make changes to.
 
-Repeat and rinse, if you send enough patches to demonstrate you have a good coding skills, we'll just give you commit access on the real repo and you will be part of the development team.
+Repeat and rinse, if you send enough patches to demonstrate you have a good coding skills, you will be given commit access on the real repo, making you part of the development team.
 
-Also, take a look at Coding Guidelines before making changes in code.
+Also, take a look at these Coding Guidelines before making code changes.
 
 Coding Guidelines
 ---
 
- - Keep it simple, stupid. (KISS: https://en.wikipedia.org/wiki/KISS_principle)
- - Do not repeat yourself. (DRY: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Re-use your own code and our code.
- - If you want to help, the Issue tracker and TODO list is a good place to take a look at.
+ - Keep it snimple snupid: [KISS](https://en.wikipedia.org/wiki/KISS_principle)
+ - No repeating yourself. [Re-use your own code and that of others](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
+ - If you want to help, triaging and keeping up with the issue and TODO list is great.
  - Try to follow our coding style and formatting before submitting a patch.
- - All pull requests should come from a feature branch created on your git fork. We'll review your code and will only merge it to the master branch if it doesn't break the build.
- - When you submit a pull request try to explain what issue you're fixing in detail and how you're fixing in detail it so it's easier for us to read your patches.
- - We prefer well named methods and code re-usability than a lot of comments.
+ - All merge requests should come from a feature branch created on your Git fork. Your code will be reviewed, and only merged to the master branch if it doesn't break the build.
+ - When you submit a merge request, try to explain what issue you're fixing-, and what you're fixing in detail, so it's easier for us to read your patches.
+ - Well named methods and code re-usability is preferable to a lot of comments.

@@ -1,1 +1,1 @@
-Free and Open Source, full-featured torrent client. Based on libtorrent library
+Copylefted libre software torrent client.
