@@ -48,8 +48,8 @@
     <string name="switch_off">Av</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Slett sammen med nedlastede filer</string>
-    <string name="delete_selected_torrent">Slett valgt torrent? Dette kan ikke angres</string>
-    <string name="delete_selected_torrents">Slett valgte torrenter. Dette kan ikke angres</string>
+    <string name="delete_selected_torrent">Slett valgt torrent\? (Kan ikke endres.)</string>
+    <string name="delete_selected_torrents">Slett valgte torrenter. (Kan ikke angres.)</string>
     <string name="force_recheck_torrent">Tving ny sjekk</string>
     <string name="force_announce_torrent">Tving annonsering</string>
     <string name="add_link">Legg til lenke</string>
@@ -61,11 +61,11 @@
     <string name="error_open_torrent_file">Kunne ikke åpne torrent-fil</string>
     <string name="open_file">Åpne fil</string>
     <string name="settings">Innstillinger</string>
-    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje filen er skadet eller har feil format</string>
+    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje filen er skadet eller har feil format\?</string>
     <string name="ip_filter_add_success">IP-filter lagt til</string>
     <string name="proxy_settings_applied">Mellomtjenerinnstillinger lagt til</string>
-    <string name="proxy_settings_apply_after_reboot">Start programmet på ny for å bruke de nye mellomtjenerinnstillingene</string>
-    <string name="theme_settings_apply_after_reboot">Start programmet på ny for å iføre ny drakt</string>
+    <string name="proxy_settings_apply_after_reboot">Start programmet på ny for å bruke de nye mellomtjenerinnstillingene.</string>
+    <string name="theme_settings_apply_after_reboot">Start programmet på ny for å iføre ny drakt.</string>
     <string name="about">Om</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
@@ -115,9 +115,9 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">Laster ned: %1$d Totalt: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent kjører i bakgrunnen</string>
-    <string name="network_online">Nettverksstatus: Tilkoblet</string>
-    <string name="network_offline">Nettverksstatus: Frakoblet</string>
+    <string name="app_running_in_the_background">Kjører i bakgrunnen</string>
+    <string name="network_online">Tilkoblet</string>
+    <string name="network_offline">Frakoblet</string>
     <string name="notify_shutting_down">Slår av …</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent feil</string>
@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Laster ned metadata …</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
-    <string name="perm_denied_warning">Er du sikker på at du vil forhindre programmet fra å lagre torrentfiler i minnet\?</string>
+    <string name="perm_denied_warning">Vil du virkelig forhindre programmet fra å lagre torrentfiler i minnet\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
@@ -166,7 +166,7 @@
     <string name="error_field_required">Påkrevd felt</string>
     <string name="error_no_files_selected">Ingen filer valgt</string>
     <string name="free_space">%1$s ledig</string>
-    <string name="error_free_space">Ikke nok ledig plass der til nedlasting av valgte filer</string>
+    <string name="error_free_space">Ikke nok ledig plass der til nedlasting av valgte filer.</string>
     <string name="files_size">Valgte %1$s av %2$s</string>
     <string name="file_is_too_large_error">For stor fil</string>
     <string name="unable_to_open_folder">Kunne ikke åpne valgt mappe. Prøv å velge en annen mappe</string>
@@ -281,7 +281,7 @@
     <string name="send_text_to_clipboard">Kopier</string>
     <string name="text_copied_to_clipboard">Kopiert til utklippstavle</string>
     <!-- Error report -->
-    <string name="app_error_occurred">Programfeil inntraff. Du kan sende feilrapporten til utviklerne</string>
+    <string name="app_error_occurred">En programfeil inntraff. Du kan innraportere den til utviklerne.</string>
     <string name="error_comment_prompt">Legg til ekstra info og kommentarer her:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
@@ -289,7 +289,7 @@
     <string name="select_or_add_feed_channel">Velg eller legg til en RSS/Atom-kanal</string>
     <string name="add_feed_channel">Legg til kanal</string>
     <string name="feed_name">Navn (valgfritt)</string>
-    <string name="feed_filter_prompt">Skriv inn ordene (adskilt med «|»-symbol), hvorav ett må være i navnet, eller angi et regulært uttrykk. Torrenter vil kun bli lagt til hvis dette filteret samsvarer med torrentnavnet.</string>
+    <string name="feed_filter_prompt">Skriv inn ordene (adskilt med «|»-symbol), hvorav ett må være i navnet, eller angi et regulært uttrykk. Torrenter legges kun til hvis dette filteret samsvarer med torrentnavnet.</string>
     <string name="feed_filter_prompt_one_per_line">Skriv inn ett filter per linje.</string>
     <string name="feed_auto_download">Last ned torrenter automatisk</string>
     <string name="feed_use_regex">Bruk vanlig uttrykk</string>
@@ -325,7 +325,7 @@
     <string name="tracker_urls">Sporer-nettadresser</string>
     <string name="web_seed_urls">Nettdeleradresser</string>
     <string name="comments">Kommentarer</string>
-    <string name="tracker_urls_hint">(Valgfritt) skriv inn én sporer per linje i prioritert rekkefølge</string>
+    <string name="tracker_urls_hint">(Valgfritt) skriv inn én sporer per linje i prioritert rekkefølge.</string>
     <string name="web_seed_urls_hint">(Valgfritt) én per linje</string>
     <string name="optional_hint">(Valgfritt)</string>
     <string name="piece_size">Delstørrelse</string>
@@ -348,10 +348,10 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url">Ugyldig URL: %1$s</string>
-    <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter</string>
+    <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter.</string>
     <string name="error_create_torrent">Kunne ikke lage torrent</string>
     <string name="skip_files">Hopp over filer</string>
-    <string name="skip_files_hint">Skriv inn filnavn inndelt med «|»</string>
+    <string name="skip_files_hint">Skriv inn filnavn inndelt med «|».</string>
     <string name="select_folder_to_save">Velg en mappe å lagre.</string>
     <string name="torrent_saved_to">Torrent lagret til %1$s</string>
     <string name="unable_to_open_file">Kunne ikke åpne valgt fil</string>
@@ -382,14 +382,14 @@
     <string name="pref_header_feed">RSS</string>
     <string name="pref_header_streaming">Strømming</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Lagre torrenter i</string>
+    <string name="pref_save_torrents_in_title">Lagre torrenter i …</string>
     <string name="pref_move_after_download_title">Flytt etter nedlasting</string>
     <string name="pref_move_after_download_in_title">Flytt etter nedlasting i</string>
     <string name="pref_save_torrent_files_title">Lagre .torrent-filer</string>
     <string name="pref_save_torrent_files_summary">Lagre .torrent-filer når nedlasting starter.</string>
-    <string name="pref_save_torrent_files_in_title">Lagre .torrent-filer i</string>
+    <string name="pref_save_torrent_files_in_title">Lagre .torrent-filer i …</string>
     <string name="pref_watch_dir_title">Se katalog</string>
-    <string name="pref_watch_dir_summary">Torrent-filene (med .torrent-utvidelse) blir sett i den angitte katalogen og automatisk lagt til. Torrent-filene slettes etter at du har lagt til</string>
+    <string name="pref_watch_dir_summary">.torrent-filer i denne mappen legges til og slettes automatisk.</string>
     <string name="pref_dir_to_watch_title">Katalog å se</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Hastighet</string>
@@ -405,7 +405,7 @@
     <string name="pref_max_connections_per_torrent_summary">Min. antall tilkoblinger - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maks. antall laste opp slot per torrent</string>
     <string name="pref_auto_manage_title">Automatisk administrasjon</string>
-    <string name="pref_auto_manage_summary">Torrenten kan gjenopptas eller lagres automatisk når som helst. Å skru på dette kan gjøre pause/gjenoppta tregere.</string>
+    <string name="pref_auto_manage_summary">Torrenten kan gjenopptas eller pauses automatisk når som helst. (Kan gjøre pausing/fortsettelse tregere.)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 grenseløs</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Draktvalg</string>
@@ -417,7 +417,7 @@
     </string-array>
     <string name="pref_notification_category">Merknadsinnstillinger</string>
     <string name="pref_torrent_finish_notify_title">Merknad ved fullføring av torrent</string>
-    <string name="pref_torrent_finish_notify_summary">Vis en merkad når en torrent er ferdig nedlastet</string>
+    <string name="pref_torrent_finish_notify_summary">Vis merkad når en torrent er ferdig nedlastet.</string>
     <string name="pref_play_sound_notify_title">Spill lyd</string>
     <string name="pref_notify_sound_title">Medknadslyd</string>
     <string name="pref_led_indicator_notify_title">LED-indikator</string>
@@ -427,31 +427,31 @@
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Kjør programmet ved oppstart av enheten.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Kun for tilkoblinger uten kvote</string>
+    <string name="pref_umnetered_connections_only_title">Kun for kvoteløse tilkoblinger</string>
     <string name="pref_umnetered_connections_only_summary">Kun last ned på ubegrensede tilkoblinger (for eksempel Wi-Fi eller Ethernet).</string>
     <string name="pref_enable_roaming_title">Gjesting</string>
     <string name="pref_enable_roaming_summary">Kun last ned hvis enheten ikke gjester.</string>
     <string name="pref_power_management_category">Strømstyring</string>
     <string name="pref_keep_alive_title">Arbeid i bakgrunnen</string>
-    <string name="pref_keep_alive_summary">Hvis aktivert, fortsetter programmet å kjøre i bakgrunnen. Nedleggelse når nedlastinger er fullført, respekteres fortsatt</string>
+    <string name="pref_keep_alive_summary">Levner programmet kjørende bakgrunnen. (Respekterer fremdeles lukking av programmet når alle nedlastingene er fullført.)</string>
     <string name="pref_shutdown_downloads_complete_title">Slå av ved fullføring av alle nedlastinger</string>
-    <string name="pref_shutdown_downloads_complete_summary">Hvis påskrudd vil programmet bli lukket etter at alt på nedlasting har blitt overført</string>
+    <string name="pref_shutdown_downloads_complete_summary">Skrur av programmet når alt er nedlastet.</string>
     <string name="pref_cpu_do_not_sleep_title">Hold CPU aktiv</string>
-    <string name="pref_cpu_do_not_sleep_summary">Å skru på dette vil øke batteribruken. Bruk dette valget hvis nedlastingshastigheten går ned når skjermen skrur seg av</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bruk dette hvis nedlastingshastigheten går ned når skjermen skrur seg av (Økt batteribruk.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Kun last opp og ned når tilkoblet lader.</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Hvis påskrudd, vil torrenter bare bli overført mens en lader er koblet til. Alle torrenter vil settes på pause når enheten går på batteri</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Ingen filer overføres med mindre enheten lader. (Setter alle torrenter på pause når enheten kun går på batteri.)</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
     <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
-    <string name="pref_battery_control_summary">Alle torrenter vil bli satt på pause hvis batterinivået går under %1$d%%. Vel å merke ikke med lader tilkoblet</string>
-    <string name="pref_custom_battery_control_summary">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. Å skru på dette vil ignorere den forvalgte %1$d%%-grensen.</string>
-    <string name="pref_custom_battery_control_dialog_summary">Er du sikker på at du vil sette en egendefinert batteriprosent for programmet å se opp for\? Dette har negativ innvirkning på batteriets levetid mens nedlastinger oppstår.</string>
+    <string name="pref_battery_control_summary">Pauser alle torrenter hvis batterinivået går under %1$d%%. (Vel å merke når lader ikke er tilkoblet.)</string>
+    <string name="pref_custom_battery_control_summary">Angi en egendefinert prosentandel for å pause nedlastinger på hvis batteriet faller under den angitte grensen. (Ignorerer den forvalgte %1$d%%-grensen.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vil du virkelig sette en batteriprosent programmet skal ta hensyn til\? (Øker batteribruk under nedlasting.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Mellomtjener-innstillinger</string>
     <string name="pref_enable_dht_title">DHT</string>
-    <string name="pref_enable_dht_summary">Lar BitTorrent-klienter finne hverandre uten bruk av en sporer. Øker batteribruken.</string>
+    <string name="pref_enable_dht_summary">Lar BitTorrent-klienter finne hverandre uten en sporer. (Øker batteribruken.)</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">Designet for å støtte lokal oppdaging av BitTorrent-likemenn, myntet på å minimere trafikk.</string>
+    <string name="pref_enable_lsd_summary">Designet for å støtte lokal oppdaging av BitTorrent-likemenn, myntet på minimering av trafikk.</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">I hensikt å bøte på dårlig svartid og kødannelsesproblemer i konvensjonell BitTorrent over TCP, og samtidig pålitelig levering i rett rekkefølge.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
@@ -473,13 +473,13 @@
     <string name="pref_enc_out_connections_title">Utgående tilkoblinger</string>
     <string name="pref_ip_filtering_category">IP-filtrering</string>
     <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
-    <string name="pref_enable_ip_filtering_summary">Øker minnebruken. Avhengig av filstørrelsen, kan det hende det tar litt tid å legge til filteret ved oppstart</string>
+    <string name="pref_enable_ip_filtering_summary">Avhengig av filstørrelsen, kan det hende det tar litt tid å legge til filteret ved oppstart (Øker minnebruken. )</string>
     <string name="pref_ip_filtering_file_title">Sti til filter-fil (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Vis NAT-feil</string>
     <string name="pref_anonymous_mode_title">Anonymt modus</string>
-    <string name="pref_anonymous_mode_summary">Brukeragenten tilbakestilles til en tom streng (unntatt for private torrenter). Sporere brukes kun hvis de bruker en mellomtjener. Lyttesocketene er lukket, og innkommende tilkoblinger godtas kun gjennom en SOCKS5- eller I2P-mellomtjener (hvis en likemannsmellomtjener er satt opp og kjører på samme maskinen som sporermellomtjeneren). NAT-PMP, UPnP, DHT og lokal likemannsoppdaging er avskrudd.</string>
+    <string name="pref_anonymous_mode_summary">Tom streng som brukeragent for ikke-private torrenter. Mellomtjener kreves for torrenter. Lyttesocketer lukket Innkommende tilkoblinger kun gjennom en SOCKS5- eller I2P-mellomtjener (hvis en likemannsmellomtjener er satt opp og kjører på samme maskinen som sporermellomtjeneren). NAT-PMP, UPnP, DHT og lokal likemannsoppdaging avskrudd.</string>
     <string name="pref_seeding_outgoing_connections_title">Utgående tilkoblinger for likemenn</string>
-    <string name="pref_seeding_outgoing_connections_summary">Angir om deling av torrenter skal prøve å etablere utgående tilkoblinger eller ei. Det kan skrus av i veldig spesifikke situasjoner der kostnaden for etablering av utgående tilkoblinger er høy.</string>
+    <string name="pref_seeding_outgoing_connections_summary">Lar delte torrenter gjøre utgående tilkoblinger eller ikke. Det kan skrus av i veldig spesifikke situasjoner der etablering av utgående tilkoblinger er dyrt.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
     <string-array name="pref_proxy_type_entries">
@@ -494,18 +494,18 @@
     <string name="pref_proxy_peers_too_summary">Mellomtjeneren vil bli brukt for tilkoblinger til sporere, likemenn og vev-delere.</string>
     <string name="pref_proxy_requires_auth_title">Krever identitetsgodkjenning</string>
     <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret ukryptert.</string>
-    <string name="pref_proxy_login_title">Innlogging</string>
+    <string name="pref_proxy_login_title">Brukernavn</string>
     <string name="pref_proxy_password_title">Passord</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Starttid</string>
-    <string name="pref_enable_scheduling_start_summary">Start programmet på angitt tid. Torrenter vil kjøre i henhold til deres tilstand før den siste skrus av.</string>
+    <string name="pref_enable_scheduling_start_summary">Start programmet på angitt tid. Torrenter kjører i henhold til deres tilstand før den siste skrus av.</string>
     <string name="pref_enable_scheduling_shutdown_title">Stengetid</string>
     <string name="pref_enable_scheduling_shutdown_summary">Avslutt app på den angitte tiden</string>
     <string name="pref_scheduling_run_only_once_title">Kjør kun én gang</string>
     <string name="pref_scheduling_switch_wifi_title">Skru på/av Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Aktiver Wi-Fi automatisk når programmer kjøres til planlagte tid, og skru av etter at programmet skrus av til planlagt tid.</string>
+    <string name="pref_scheduling_switch_wifi_summary">Skru på Wi-Fi for planlagt start, og av for planlagt stopp.</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Automatisk oppdatering kanaler</string>
+    <string name="pref_feed_auto_refresh_title">Oppdater kanaler automatisk</string>
     <string name="pref_feed_auto_refresh_summary">Med jevne mellomrom oppdatere kanaler i bakgrunnen.</string>
     <string name="pref_feed_refresh_interval_title">Oppdaterings intervall</string>
     <string-array name="pref_feed_refresh_intervals_entries">
@@ -545,7 +545,7 @@
     <string name="pref_streaming_error">Velg en port eller et vertsnavn for streaming som ikke er feil eller opptatt.</string>
     <!-- About dialog -->
     <string name="about_title">Om</string>
-    <string name="about_description">Mer info og hvordan du kan hjelpe prosjektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent er en gemenhetslig fri (&lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;]]) programave-torrentklient for Android 4+, basert på libtorrent (Java-omslag libtorrent4j &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_description">Mer info og hvordan du kan hjelpe prosjektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent er en gemenhetslig fri (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) programave-torrentklient for Android 4+, basert på libtorrent (Java-omslag libtorrent4j &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Endringslogg</string>
     <string name="log_journal">Journal</string>
     <string name="start_torrent">Start torrent</string>
