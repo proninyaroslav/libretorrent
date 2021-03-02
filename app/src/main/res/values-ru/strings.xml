@@ -48,8 +48,8 @@
     <string name="switch_off">Выкл.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
-    <string name="delete_selected_torrent">Удалить выбранный торрент? Данная операция не может быть отменена</string>
-    <string name="delete_selected_torrents">Удалить выбранные торренты? Данная операция не может быть отменена</string>
+    <string name="delete_selected_torrent">Удалить выбранный торрент\? (Операция не может быть отменена.)</string>
+    <string name="delete_selected_torrents">Удалить выбранные торренты\? (Операция не может быть отменена.)</string>
     <string name="force_recheck_torrent">Принудительно проверить</string>
     <string name="force_announce_torrent">Принудительное анонсирование</string>
     <string name="add_link">Добавить ссылку</string>
@@ -61,11 +61,11 @@
     <string name="error_open_torrent_file">Невозможно открыть торрент-файл</string>
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
-    <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно файл повреждён или имеет неверный формат</string>
+    <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно, файл повреждён или имеет неверный формат\?</string>
     <string name="ip_filter_add_success">IP фильтр добавлен</string>
     <string name="proxy_settings_applied">Настройки прокси-сервера применены</string>
-    <string name="proxy_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новые настройки прокси</string>
-    <string name="theme_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новую тему</string>
+    <string name="proxy_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новые настройки прокси.</string>
+    <string name="theme_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новую тему.</string>
     <string name="about">О программе</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT узлы: %1$d</string>
@@ -115,9 +115,9 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">Загружается: %1$d Всего: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent запущен в фоне</string>
-    <string name="network_online">Статус сети: Онлайн</string>
-    <string name="network_offline">Статус сети: Оффлайн</string>
+    <string name="app_running_in_the_background">Запущен в фоне</string>
+    <string name="network_online">Онлайн</string>
+    <string name="network_offline">Оффлайн</string>
     <string name="notify_shutting_down">Завершение работы…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Ошибка торрента</string>
@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Вы уверены, что хотите запретить приложению сохранять торрент-файлы в памяти\?</string>
+    <string name="perm_denied_warning">Действительно запретить приложению хранить торрент-файлы в памяти\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
     <string name="error_decode_torrent">Ошибка декодирования торрент-файла. Может он поврежден или в неправильном формате\?</string>
@@ -166,7 +166,7 @@
     <string name="error_field_required">Обязательное поле</string>
     <string name="error_no_files_selected">Не выбраны файлы</string>
     <string name="free_space">%1$s свободно</string>
-    <string name="error_free_space">Недостаточно свободного места для загрузки выбранных файлов</string>
+    <string name="error_free_space">Недостаточно свободного места для загрузки выбранных файлов.</string>
     <string name="files_size">Выбрано %1$s из %2$s</string>
     <string name="start_torrent">Запустить торрент</string>
     <string name="file_is_too_large_error">Файл слишком большой</string>
@@ -282,7 +282,7 @@
     <string name="send_text_to_clipboard">Копировать</string>
     <string name="text_copied_to_clipboard">Скопировано в буфер обмена</string>
     <!-- Error report -->
-    <string name="app_error_occurred">В приложении произошла ошибка. Вы можете отправить отчёт разработчикам</string>
+    <string name="app_error_occurred">В приложении произошла ошибка. Вы можете сообщить об этом разработчикам.</string>
     <string name="error_comment_prompt">Добавьте дополнительную информацию и комментарии сюда:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
@@ -326,7 +326,7 @@
     <string name="tracker_urls">Адреса трекеров</string>
     <string name="web_seed_urls">Адреса веб-сидов</string>
     <string name="comments">Комментарии</string>
-    <string name="tracker_urls_hint">(Необязательно) Введите трекеры по одному в строке в порядке приоритета</string>
+    <string name="tracker_urls_hint">(Необязательно) Введите трекеры по одному в строке в порядке приоритета.</string>
     <string name="web_seed_urls_hint">(Необязательно) По одному в строке</string>
     <string name="optional_hint">(Опционально)</string>
     <string name="piece_size">Размер части</string>
@@ -349,10 +349,10 @@
         <item>32 Мб</item>
     </string-array>
     <string name="invalid_url">Неверный URL: %1$s</string>
-    <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром</string>
+    <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром.</string>
     <string name="error_create_torrent">Не удалось создать торрент</string>
     <string name="skip_files">Пропустить файлы</string>
-    <string name="skip_files_hint">Введите имена файлов, разделённые символов \"|\"</string>
+    <string name="skip_files_hint">Введите имена файлов, разделённые символов \"|\".</string>
     <string name="select_folder_to_save">Выберите папку для сохранения.</string>
     <string name="torrent_saved_to">Торрент сохранён в %1$s</string>
     <string name="unable_to_open_file">Не удалось открыть выбранный файл</string>
@@ -370,7 +370,7 @@
     <string name="journal_filter_torrent_log">Торрент лог</string>
     <string name="journal_save_log_failed">Не удалось сохранить лог</string>
     <string name="journal_save_log_success">Лог сохранён: %1$s</string>
-    <string name="pref_journal_save_log_to">Сохранить лог в</string>
+    <string name="pref_journal_save_log_to">Сохранить лог в…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Максимальное количество хранимых записей журнала</string>
     <!-- Settings -->
@@ -384,12 +384,12 @@
     <string name="pref_header_feed">RSS</string>
     <string name="pref_header_streaming">Стриминг</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Сохранять торренты в</string>
+    <string name="pref_save_torrents_in_title">Сохранять торренты в…</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>
     <string name="pref_move_after_download_in_title">Перемещать после загрузки в</string>
     <string name="pref_save_torrent_files_title">Сохранять .torrent файлы</string>
     <string name="pref_save_torrent_files_summary">Сохранять .torrent файлы когда начнутся загрузки.</string>
-    <string name="pref_save_torrent_files_in_title">Сохранять .torrent файлы в</string>
+    <string name="pref_save_torrent_files_in_title">Сохранять .torrent файлы в…</string>
     <string name="pref_watch_dir_title">Отслеживать директорию</string>
     <string name="pref_watch_dir_summary">.torrent файлы в этой папке автоматически добавляются, а затем удаляются.</string>
     <string name="pref_dir_to_watch_title">Директория для отслеживания</string>
@@ -407,7 +407,7 @@
     <string name="pref_max_connections_per_torrent_summary">Минимальное количество соединений - 2.</string>
     <string name="pref_max_uploads_per_torrent_title">Максимальное количество слотов отдачи на торрент</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
-    <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. Включение этой опции может замедлить паузу/возобновление</string>
+    <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. (Может замедлить паузу/возобновление)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 без ограничений</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Настройки темы</string>
@@ -435,23 +435,23 @@
     <string name="pref_enable_roaming_summary">Скачивать только если устройство не в роуминге.</string>
     <string name="pref_power_management_category">Управление питанием</string>
     <string name="pref_keep_alive_title">Работать в фоне</string>
-    <string name="pref_keep_alive_summary">Если включено, приложение остаётся работать в фоновом режиме. Завершение после окончания загрузок по-прежнему выполняется.</string>
+    <string name="pref_keep_alive_summary">Если включено, приложение остаётся работать в фоновом режиме. (Завершение после окончания загрузок по-прежнему выполняется.)</string>
     <string name="pref_shutdown_downloads_complete_title">Завершить после окончания загрузок</string>
-    <string name="pref_shutdown_downloads_complete_summary">Если включено, то приложение завершит свою работу после окончания всех загрузок</string>
+    <string name="pref_shutdown_downloads_complete_summary">Завершать работу приложения после окончания всех загрузок</string>
     <string name="pref_cpu_do_not_sleep_title">Не давать спать процессору</string>
-    <string name="pref_cpu_do_not_sleep_summary">Включение этой опции увеличит использование батареи. Используйте её, если скорость загрузки снижается, когда экран выключен</string>
+    <string name="pref_cpu_do_not_sleep_summary">Используйте её, если скорость загрузки снижается, когда экран выключен. (Увеличивает расход батареи.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Загрузка и раздача только во время зарядки.</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Если включено, торренты будут загружаться/раздаваться только во время зарядки. Все торренты будут приостановлены, если устройство не заряжается</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Если включено, торренты будут загружаться/раздаваться только во время зарядки. (Все торренты будут приостановлены, если устройство не заряжается.)</string>
     <string name="pref_battery_control_title">Контроль заряда аккумулятора</string>
     <string name="pref_custom_battery_control_title">Заданный процент аккумулятора</string>
     <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
-    <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. Ограничение не действует во время зарядки.</string>
-    <string name="pref_custom_battery_control_summary">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. Включение этого параметра будет игнорировать порог по умолчанию %1$d%%.</string>
-    <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного уровня заряда аккумулятора для приложения будет отрицательно сказываться на времени автономной работы во время загрузки. Вы действительно хотите включить это?</string>
+    <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. (Ограничение не действует во время зарядки.)</string>
+    <string name="pref_custom_battery_control_summary">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. (Игнорирует порог по умолчанию в %1$d%%.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Действительно установить пород заряда батареи\? (Увеличивает расход батареи при загрузке.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
-    <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера. Включение этой опции увеличит использование батареи.</string>
+    <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера. (Увеличивает расход батареи.)</string>
     <string name="pref_enable_lsd_title">Включить LSD</string>
     <string name="pref_enable_lsd_summary">Разработан для получения возможности обнаружения локальных BitTorrent-пиров, и, следовательно, сокращения трафика.</string>
     <string name="pref_enable_utp_title">Включить μTP</string>
@@ -475,13 +475,13 @@
     <string name="pref_enc_out_connections_title">Входящие соединения</string>
     <string name="pref_ip_filtering_category">IP фильтр</string>
     <string name="pref_enable_ip_filtering_title">Включить IP фильтр</string>
-    <string name="pref_enable_ip_filtering_summary">Использование IP фильтрации увеличивает использование памяти. В зависимости от размера файла, применение фильтра может занять некоторое время при запуске приложения</string>
+    <string name="pref_enable_ip_filtering_summary">В зависимости от размера файла, применение фильтра может занять некоторое время при запуске приложения. (Увеличивает использование памяти.)</string>
     <string name="pref_ip_filtering_file_title">Путь до файла фильтра (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Показывать ошибки NAT</string>
     <string name="pref_anonymous_mode_title">Включить анонимный режим</string>
-    <string name="pref_anonymous_mode_summary">Приложение пытается скрыть свою личность в определённой степени. User-agent будет сброшен в пустую строку (кроме приватных торрентов). Трекеры будут использоваться только если они используют прокси-сервер. Сокеты прослушивания закрыты, и входящие соединения будут приниматься только через прокси-сервер SOCKS5 или I2P (если одноранговый прокси-сервер настроен и работает на той же машине, что и прокси-сервер трекера). NAT-PMP, UPnP, DHT и обнаружение локального узла отключены</string>
+    <string name="pref_anonymous_mode_summary">User-agent будет сброшен в пустую строку (кроме приватных торрентов). Трекеры будут использоваться только если они используют прокси-сервер. Сокеты прослушивания закрыты. Входящие соединения будут приниматься только через прокси-сервер SOCKS5 или I2P (если одноранговый прокси-сервер настроен и работает на той же машине, что и прокси-сервер трекера). NAT-PMP, UPnP, DHT и обнаружение локального узла отключены.</string>
     <string name="pref_seeding_outgoing_connections_title">Включить исходящие соединения для сидов</string>
-    <string name="pref_seeding_outgoing_connections_summary">Определяет, должны ли раздающие торренты пытаться установить исходящие соединения или нет. Это может быть отключено в очень специфических ситуациях, когда стоимость исходящих соединений высока</string>
+    <string name="pref_seeding_outgoing_connections_summary">Позволяет раздающим торренам устанавливать исходящие соединения или нет. Отключить, когда стоимость исходящих соединений высока.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип прокси</string>
     <string-array name="pref_proxy_type_entries">
@@ -495,8 +495,8 @@
     <string name="pref_proxy_peers_too_title">Также использовать для соединения с пирами</string>
     <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами</string>
     <string name="pref_proxy_requires_auth_title">Требуется авторизация</string>
-    <string name="pref_proxy_requires_auth_summary">Внимание: пароль хранится в незашифрованном виде.</string>
-    <string name="pref_proxy_login_title">Логин</string>
+    <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится в незашифрованном виде.</string>
+    <string name="pref_proxy_login_title">Имя пользователя</string>
     <string name="pref_proxy_password_title">Пароль</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Время запуска</string>
@@ -505,7 +505,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">Остановка приложения в заданное время</string>
     <string name="pref_scheduling_run_only_once_title">Запустить только один раз</string>
     <string name="pref_scheduling_switch_wifi_title">Включить/выключить Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi автоматически включается когда приложение запущено в запланированное время и выключается когда приложение остановлено в запланированное время</string>
+    <string name="pref_scheduling_switch_wifi_summary">Включать Wi-Fi при запланированном запуске и выключать при запланированной остановке.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Автообновление каналов</string>
     <string name="pref_feed_auto_refresh_summary">Периодически обновлять каналы в фоне.</string>
