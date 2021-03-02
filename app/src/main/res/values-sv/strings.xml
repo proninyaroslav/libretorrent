@@ -406,5 +406,4 @@
     <string name="session_stats_listen_port">Lyssningsport: %1$s</string>
     <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
     <string name="about">Om</string>
-    <string name="drawer_status_downloaded"></string>
 </resources>
