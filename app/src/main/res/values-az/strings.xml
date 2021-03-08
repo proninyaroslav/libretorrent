@@ -52,12 +52,12 @@
     <string name="delete_selected_torrents">Seçilmiş torrentlər silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="force_recheck_torrent">Təkrar yoxlamağa məcbur et</string>
     <string name="force_announce_torrent">Anons etməyə məcbur et</string>
-    <string name="add_link">Link əlavə et</string>
-    <string name="dialog_add_link_title">infohash dəyəri, magnet linki və ya HTTP/HTTPS linkini daxil et</string>
+    <string name="add_link">Bağlantı əlavə et</string>
+    <string name="dialog_add_link_title">infohash dəyəri, magnet bağlantısı və ya HTTP/HTTPS bağlantısını daxil et</string>
     <string name="torrent_list_empty">Torrent yoxdur</string>
     <string name="select_or_add_torrent">Torrent seç və ya əlavə et</string>
     <string name="error_empty_link">Zəhmət olmasa link daxil et</string>
-    <string name="error_invalid_link">Yanlış link</string>
+    <string name="error_invalid_link">Etibarsız bağlantı</string>
     <string name="error_open_torrent_file">Torrent faylı açıla bilmir</string>
     <string name="open_file">Faylı aç</string>
     <string name="settings">Tənzimləmələr</string>
@@ -76,7 +76,7 @@
     <string name="drawer_status">Vəziyyət</string>
     <string name="drawer_status_downloading">Endirilir</string>
     <string name="drawer_status_downloaded">Endirildi</string>
-    <string name="drawer_status_downloading_metadata">Meta verilənlər endirilir</string>
+    <string name="drawer_status_downloading_metadata">Meta verilənlər endirilir…</string>
     <string name="drawer_status_error">Xəta</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sıralama</string>
@@ -95,14 +95,14 @@
     <string name="drawer_date_added_month">Ay</string>
     <string name="drawer_date_added_year">İl</string>
     <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
-    <string name="no_tags">No tags</string>
+    <string name="tags">Etiketlər</string>
+    <string name="add_tag">Etiket əlavə et</string>
+    <string name="tag_name">Etiket adı</string>
+    <string name="tag_color">Etiket rəngi</string>
+    <string name="add_tag_failed">Etiket əlavə edilə bilmir</string>
+    <string name="tag_deleting_failed">Etiket silinə bilmir</string>
+    <string name="tag_already_exists">Bu etiket artıq mövcuddur</string>
+    <string name="no_tags">Etiket yoxdur</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
@@ -118,7 +118,7 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent xətası</string>
     <string name="error_template">Xəta: %1$s</string>
-    <string name="restore_torrent_error">torrent əvvəlki seansdan geri qaytarıla bilmədi</string>
+    <string name="restore_torrent_error">Torrent əvvəlki seansdan bərpa edilə bilmir</string>
     <string name="session_error_title">Seans xətası</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT xətası</string>
@@ -126,8 +126,8 @@
     <string name="torrent_finished_notify">Torrent bitdi</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Torrent köçürülür</string>
-    <string name="torrent_moving_content">%1$s köçürülür, zəhmət olmasa gözləyin</string>
-    <string name="torrent_move_success">Torrent uğurla köçürüldü</string>
+    <string name="torrent_moving_content">%1$s köçürülür, zəhmət olmasa gözləyin…</string>
+    <string name="torrent_move_success">Torrent köçürüldü</string>
     <string name="torrent_move_fail">Torrent köçürülə bilmədi</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -139,36 +139,36 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Endirilir</string>
-    <string name="torrent_status_seeding">Yüklənir</string>
+    <string name="torrent_status_downloading">Endirilir…</string>
+    <string name="torrent_status_seeding">Yüklənir…</string>
     <string name="torrent_status_paused">Fasilə verildi</string>
     <string name="torrent_status_stopped">Dayandırıldı</string>
-    <string name="torrent_status_checking">Yoxlanılır</string>
+    <string name="torrent_status_checking">Yoxlanılır…</string>
     <string name="torrent_status_finished">Bitdi</string>
-    <string name="torrent_status_downloading_metadata">Meta verilənlər endirilir</string>
+    <string name="torrent_status_downloading_metadata">Meta verilənlər endirilir…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İcazə verilmədi</string>
-    <string name="perm_denied_warning">Bu icazə olmadan tətbiq torrent fayllarını yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
+    <string name="perm_denied_warning">Tətbiqin torrent fayllarını yaddaşda saxlamasının qarşısını almaq istədiyinizə əminsiniz\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent əlavə et</string>
-    <string name="error_decode_torrent">Torrent faylının şifrəsi açılmadı. Bəlkə fayl xarabdır və ya yalnış formatdadır</string>
-    <string name="error_io_torrent">Torrent faylının oxunma xətası</string>
-    <string name="error_fetch_link">Bağlantıdan verilənlərin alınma xətası</string>
+    <string name="error_decode_torrent">Torrent faylının şifrəsi açıla bilmədi. Bəlkə fayl zədəlidir və ya yanlış formatdadır\?</string>
+    <string name="error_io_torrent">Torrent faylı oxuna bilmir</string>
+    <string name="error_fetch_link">Bağlantıdan verilənlərin alına bilmədi</string>
     <string name="error_invalid_link_or_path">Etibarsız torrent bağlantısı və ya yolu</string>
-    <string name="error_add_torrent">Torrent əlavə etmə xətası</string>
-    <string name="error_file_not_found_add_torrent">Torrent əlavə etmə xətası. Bəlkə torrent fayl köçürülüb və ya silinib</string>
-    <string name="error_io_add_torrent">Torrent əlavə edilə bilmədi. G/Ç xətası</string>
-    <string name="torrent_exist">Torrent artıq mövcuddur. Torrent birləşdirildi</string>
-    <string name="error_field_required">Bu sahə lazımlıdır</string>
+    <string name="error_add_torrent">Torrent əlavə edilə bilmədi</string>
+    <string name="error_file_not_found_add_torrent">Torrent əlavə edilə bilmədi. Bəlkə torrent fayl köçürülüb və ya silinib\?</string>
+    <string name="error_io_add_torrent">Torrent G/Ç xətasına görə əlavə edilə bilmədi.</string>
+    <string name="torrent_exist">Torrent artıq mövcud olduğu üçün birləşdirildi.</string>
+    <string name="error_field_required">Lazımi sahə</string>
     <string name="error_no_files_selected">Fayl seçilməyib</string>
     <string name="free_space">%1$s boşdur</string>
-    <string name="error_free_space">Seçilmiş faylları endirmək üçün seçilmiş yolda kifayət qədər boş yer yoxdur</string>
-    <string name="files_size">%2$s dənədən %1$s dənəsi seçildi</string>
+    <string name="error_free_space">Seçilmiş faylları endirmək üçün yetərli boş sahə yoxdur</string>
+    <string name="files_size">%1$s/%2$s seçildi</string>
     <string name="start_torrent">Torrent-i başlat</string>
     <string name="file_is_too_large_error">Fayl çox böyükdür</string>
-    <string name="unable_to_open_folder">Seçilmiş qovluq açıla bilmir. Zəhmət olmasa başqa bir qovluq seçin</string>
-    <string name="error_empty_name">Zəhmət olmasa adı daxil edin</string>
-    <string name="ignore_free_space">Boş sahə həcminə əhəmiyyət vermə</string>
+    <string name="unable_to_open_folder">Seçilmiş qovluq açıla bilmir. Başqa birini seçməyə çalışın.</string>
+    <string name="error_empty_name">Bir ad daxil edin</string>
+    <string name="ignore_free_space">Az yaddaş həcminə əhəmiyyət vermə</string>
     <!-- Torrent info -->
     <string name="torrent_info">Məlumat</string>
     <string name="torrent_files">Fayllar</string>
@@ -186,7 +186,7 @@
     <string name="file_chooser_title">Fayl seçimi</string>
     <string name="torrent_file_chooser_title">Torrent seçimi</string>
     <string name="dialog_new_folder_title">Yeni qovluq</string>
-    <string name="error_dialog_new_folder">Yeni bir qovluq yaradıla bilmədi</string>
+    <string name="error_dialog_new_folder">Yeni qovluq yaradıla bilmədi</string>
     <string name="error_open_dir">Qovluq açıla bilmədi</string>
     <string name="home_directory">Əsas qovluq</string>
     <!-- name (size) -->
@@ -195,9 +195,9 @@
     <string name="save_file">Faylı saxla</string>
     <string name="file_name">Fayl adı</string>
     <string name="error_file_exists">Fayl artıq mövcuddur</string>
-    <string name="file_name_is_empty">Fayl adı boş ola bilməz</string>
+    <string name="file_name_is_empty">Əvvəlcə fayl adı daxil edin</string>
     <string name="system_manager">Sistem idarəçisi</string>
-    <string name="system_file_manager_not_found">Sistem fayl idarəçisi tapılmadı</string>
+    <string name="system_file_manager_not_found">Fayl meneceri tapıla bilmədi</string>
     <string name="replace_file">Faylı əvəz et</string>
     <string name="parent_folder">Üst qovluq</string>
     <!-- Error dialog -->
@@ -537,11 +537,15 @@
     <string name="pref_streaming_enable_summary">Streaming, səyyahdan istifadə edərək bir torrentdən və HTTP bağlantıları istifadə edərək media oynadıcıdan fərdi şəkildə faylları endirməyinizə icazə verər.</string>
     <string name="pref_streaming_hostname">Host adı</string>
     <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Streaming üçün seçilmiş host adı və port məşğuldur və ya doğru deyil. Zəhmət olmasa bunu düzəldin</string>
+    <string name="pref_streaming_error">Yayım üçün məşğul və ya yanlış olmayan bir port və ya host adı seçin.</string>
     <!-- About dialog -->
-    <string name="about_title">LibreTorrent haqqında</string>
-    <string name="about_description"><![CDATA[    Daha çox məlumat və həmçinin layihəyə kömək etmək üçün: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent, libtorrent kitabxanasına əsaslanan, Android 4+ üçün Azad bir torrent müştərisidir. (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
-    LibreTorrent ödənişsiz proqram təminatıdır, <a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimati Lisenziya v3 (GPLv3)</a> şərtləri altında yayımlanır]]></string>
+    <string name="about_title">Haqqında</string>
+    <string name="about_description">Daha çox məlumat və həmçinin layihəyə necə kömək etmək oalr: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent, libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) kitabxanasına əsaslanan&lt;br&gt;&lt;br&gt; Android 4+ üçün copylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torrent müştərisidir.</string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
+    <string name="external_storage_name" formatted="false">Xarici anbar %1$d</string>
+    <string name="internal_storage_name">Daxili anbar</string>
+    <string name="without_tags">Etiketsiz</string>
+    <string name="new_tag">Yeni etiket</string>
+    <string name="select_tag">Etiketi seç</string>
+    <string name="edit_tag">Etiketə düzəliş et</string>
 </resources>

@@ -101,6 +101,7 @@ Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/lib
  - **Russian**
  - **Santali** *(thanks Rocky_734)*
  - **Serbian (Cyrillic)** *(thanks veles330)*
+ - **Sinhala** *(thanks HelaBasa)*
  - **Spanish** *(thanks ed10vi, MS-PC)*
  - **Swedish** *(thanks JAMALDIN01)*
  - **Tamil** *(thanks Lino Joseph)*
