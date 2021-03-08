@@ -11,7 +11,7 @@
     <string name="replace">Replace</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
-    <string name="deleting">Deleting</string>
+    <string name="deleting">Deleting…</string>
     <string name="select_all">Select all</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
@@ -48,22 +48,22 @@
     <string name="switch_off">Off</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Delete with downloaded files</string>
-    <string name="delete_selected_torrent">Delete the selected torrent? (Cannot be undone.)</string>
-    <string name="delete_selected_torrents">Delete the selected torrents? (Cannot be undone.)</string>
+    <string name="delete_selected_torrent">Delete selected torrent? (Cannot be undone.)</string>
+    <string name="delete_selected_torrents">Delete selected torrents? (Cannot be undone.)</string>
     <string name="force_recheck_torrent">Force recheck</string>
-    <string name="force_announce_torrent">Force announce</string>
+    <string name="force_announce_torrent">Force-announce</string>
     <string name="add_link">Add link</string>
-    <string name="dialog_add_link_title">Enter the infohash value, magnet link, or HTTP/HTTPS link</string>
+    <string name="dialog_add_link_title">Enter the infohash value, magnet link, or HTTP/S link</string>
     <string name="torrent_list_empty">No torrents</string>
     <string name="select_or_add_torrent">Select or add a torrent</string>
     <string name="error_empty_link">Enter the link</string>
     <string name="error_invalid_link">Invalid link</string>
-    <string name="error_open_torrent_file">Unable to open the torrent file</string>
+    <string name="error_open_torrent_file">Cannot open the .torrent file</string>
     <string name="open_file">Open file</string>
     <string name="settings">Settings</string>
-    <string name="ip_filter_add_error">Could not add IP filter (%1$d failed). Maybe the file is damaged or has an incorrect format?</string>
+    <string name="ip_filter_add_error">Could not add IP filter (%1$d failed). Maybe the file is damaged or in the wrong format?</string>
     <string name="ip_filter_add_success">IP filter added</string>
-    <string name="proxy_settings_applied">Proxy server settings applied</string>
+    <string name="proxy_settings_applied">Using the new proxy server settings.</string>
     <string name="proxy_settings_apply_after_reboot">Restart the app to use the new proxy settings.</string>
     <string name="theme_settings_apply_after_reboot">Restart the app to use the new theme.</string>
     <string name="about">About</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">Size</string>
     <string name="drawer_sorting_progress">Progress</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_peers">Popularity</string>
     <string name="drawer_sorting_no_sorting">No sorting</string>
     <!-- Date added -->
     <string name="drawer_date_added">Date added</string>
@@ -114,22 +114,22 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Downloading: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">Running in the background</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
+    <string name="app_running_in_the_background">Running in the background…</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
     <string name="notify_shutting_down">Shutting down…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent error</string>
     <string name="error_template">Error: %1$s</string>
-    <string name="restore_torrent_error">Cannot restore torrent from previous session</string>
+    <string name="restore_torrent_error">Cannot restore torrent from previous session.</string>
     <string name="session_error_title">Session error</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT error</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent finished</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Moving torrent</string>
+    <string name="torrent_moving_title">Moving torrent…</string>
     <string name="torrent_moving_content">Please wait while moving %1$s…</string>
     <string name="torrent_move_success">Torrent moved</string>
     <string name="torrent_move_fail">Could not move torrent</string>
@@ -144,7 +144,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Downloading…</string>
-    <string name="torrent_status_seeding">Seeding…</string>
+    <string name="torrent_status_seeding">Sharing…</string>
     <string name="torrent_status_paused">Paused</string>
     <string name="torrent_status_stopped">Stopped</string>
     <string name="torrent_status_checking">Checking…</string>
@@ -152,22 +152,22 @@
     <string name="torrent_status_downloading_metadata">Downloading metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
-    <string name="perm_denied_warning">Really prevent the app from keeping torrent files in memory?</string>
+    <string name="perm_denied_warning">Really prevent the app from keeping .torrent files in memory?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Add torrent</string>
-    <string name="error_decode_torrent">Could not decode torrent file. Maybe it is damaged or in the wrong format?</string>
-    <string name="error_io_torrent">Could not read the torrent file</string>
+    <string name="error_decode_torrent">Could not decode .torrent file. Maybe it is damaged or in the wrong format?</string>
+    <string name="error_io_torrent">Could not read the .torrent file</string>
     <string name="error_fetch_link">Could not fetch data from the link</string>
     <string name="error_invalid_link_or_path">Invalid link or torrent path</string>
     <string name="error_add_torrent">Could not add the torrent</string>
-    <string name="error_file_not_found_add_torrent">Could not add the torrent. Maybe the torrent file is moved, or deleted?</string>
+    <string name="error_file_not_found_add_torrent">Could not add the torrent. Maybe the .torrent file moved, or got deleted?</string>
     <string name="error_io_add_torrent">Cannot add the torrent due to an I/O error.</string>
     <string name="torrent_exist">Since the torrent already exists they were merged.</string>
     <string name="error_field_required">Required field</string>
     <string name="error_no_files_selected">No files selected</string>
     <string name="free_space">%1$s free</string>
     <string name="error_free_space">Not enough free space there to download the selected files.</string>
-    <string name="files_size">Selected %1$s out of %2$s</string>
+    <string name="files_size">%1$s of %2$s selected</string>
     <string name="start_torrent">Start torrent</string>
     <string name="file_is_too_large_error">File too large</string>
     <string name="unable_to_open_folder">Cannot open the selected folder. Try selecting a different one.</string>
@@ -177,7 +177,7 @@
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>
     <string name="torrent_name">Name</string>
-    <string name="upload_torrent_into">Upload into</string>
+    <string name="upload_torrent_into">Upload into…</string>
     <string name="torrent_size">Size</string>
     <string name="torrent_file_count">File count</string>
     <string name="torrent_hash_sum">Checksum</string>
@@ -225,15 +225,15 @@
     <string name="torrent_speed">Speed</string>
     <string name="torrent_downloaded">Downloaded</string>
     <string name="torrent_ETA">ETA</string>
-    <string name="torrent_seeds">Seeds</string>
-    <string name="torrent_peers">Peers</string>
-    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_seeds">Sharers</string>
+    <string name="torrent_peers">Total</string>
+    <string name="torrent_leechers">Takers</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Uploaded</string>
     <string name="torrent_share_ratio">Share ratio</string>
     <string name="torrent_active_time">Active time</string>
-    <string name="torrent_seeding_time">Seeding time</string>
+    <string name="torrent_seeding_time">Sharing time</string>
     <string name="torrent_pieces">Pieces</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -242,9 +242,9 @@
     <string name="tracker_state_not_working">Not working</string>
     <string name="tracker_state_updating">Updating…</string>
     <string name="tracker_state_not_contacted">Not contacted yet</string>
-    <string name="share_tracker_url">Share URL</string>
-    <string name="delete_selected_tracker">Delete the selected tracker?</string>
-    <string name="delete_selected_trackers">Delete the selected trackers?</string>
+    <string name="share_tracker_url">Share URL…</string>
+    <string name="delete_selected_tracker">Delete selected tracker?</string>
+    <string name="delete_selected_trackers">Delete selected trackers?</string>
     <string name="add_trackers">Add trackers</string>
     <string name="dialog_add_trackers">(One per line)</string>
     <string name="open_using">Open using</string>
@@ -257,15 +257,15 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">This torrent has not connected to any peers yet</string>
+    <string name="peer_list_empty">This torrent has not connected to anyone yet</string>
     <string name="piece_map">Pieces map</string>
     <string name="resume_torrent">Resume</string>
     <string name="pause_torrent">Pause</string>
     <string name="share_magnet">Share magnet</string>
     <string name="save_torrent_file">Save torrent file</string>
     <string name="torrent_speed_limit">Speed limit</string>
-    <string name="share_via">Share via</string>
-    <string name="save_torrent_file_successfully">Torrent file saved</string>
+    <string name="share_via">Share via…</string>
+    <string name="save_torrent_file_successfully">.torrent file saved</string>
     <string name="error_save_torrent_file">Could not save torrent file</string>
     <string name="speed_limit_title">Max speed</string>
     <string name="upload_speed">Upload</string>
@@ -273,7 +273,7 @@
     <string name="speed_limit_dialog">Set speed in KiB/s (0 - without limit)</string>
     <string name="torrent_added_date">Added</string>
     <string name="torrent_availability">Availability</string>
-    <string name="share_stream_url">Share stream URL</string>
+    <string name="share_stream_url">Share stream URL…</string>
     <string name="magnet_include_file_priorities">Include file priorities?</string>
     <string name="magnet_more_about_bep53">More info at https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No trackers</string>
@@ -289,7 +289,7 @@
     <string name="feed_channel_list_empty">No channels</string>
     <string name="select_or_add_feed_channel">Select or add an RSS/Atom channel</string>
     <string name="add_feed_channel">Add channel</string>
-    <string name="feed_name">Name (optional)</string>
+    <string name="feed_name">(Optional) name</string>
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name, or enter a regular expression. Torrents are only added if this filter matches the torrent name.</string>
     <string name="feed_filter_prompt_one_per_line">Enter one filter per line.</string>
     <string name="feed_auto_download">Auto-download torrents</string>
@@ -303,7 +303,7 @@
     <string name="error_cannot_delete_channel">Cannot delete channel</string>
     <string name="copy_link">Copy link</string>
     <string name="delete_selected_channel">Delete selected channel?</string>
-    <string name="delete_selected_channels">Delete the selected channels?</string>
+    <string name="delete_selected_channels">Delete selected channels?</string>
     <string name="edit_feed_channel">Edit channel</string>
     <string name="link_copied_to_clipboard">Copied to clipboard</string>
     <string name="mark_as_read">Mark as read</string>
@@ -324,14 +324,14 @@
     <string name="file_or_folder_for_seeding">File or folder to share</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Select a file or folder to share first.</string>
     <string name="tracker_urls">Tracker URLs</string>
-    <string name="web_seed_urls">Web-seed URLs</string>
+    <string name="web_seed_urls">Web-share URLs</string>
     <string name="comments">Comments</string>
-    <string name="tracker_urls_hint">(Optional) Enter one tracker per line in order of priority.</string>
+    <string name="tracker_urls_hint">(Optional) enter one tracker per line in order of priority.</string>
     <string name="web_seed_urls_hint">(Optional) one per line</string>
     <string name="optional_hint">(Optional)</string>
     <string name="piece_size">Piece size</string>
     <string name="create_torrent_options">Options</string>
-    <string name="option_start_seeding">Start seeding</string>
+    <string name="option_start_seeding">Start sharing</string>
     <string name="option_private_torrent">Private torrent</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
@@ -365,7 +365,7 @@
     <string name="journal_started_recording">Started recording</string>
     <string name="journal_filter_session_log">Session log</string>
     <string name="journal_filter_dht_log">DHT log</string>
-    <string name="journal_filter_peer_log">Peer log</string>
+    <string name="journal_filter_peer_log">Connection log</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP log</string>
     <string name="journal_filter_torrent_log">Torrent log</string>
     <string name="journal_save_log_failed">Could not save log</string>
@@ -395,16 +395,16 @@
     <string name="pref_dir_to_watch_title">Directory to watch</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Speed</string>
-    <string name="pref_max_download_speed_title">Max. download speed</string>
-    <string name="pref_max_upload_speed_title">Max. upload speed</string>
+    <string name="pref_max_download_speed_title">Max. ⬇ speed</string>
+    <string name="pref_max_upload_speed_title">Max. ⬆ speed</string>
     <string name="pref_max_connections_title">Max. number of connections</string>
-    <string name="pref_max_connections_summary">Min. number of connections - 2.</string>
+    <string name="pref_max_connections_summary">(Min. 2 connections.)</string>
     <string name="pref_torrent_queueing_category">Torrent queueing</string>
     <string name="pref_max_active_uploads_title">Max. number of active uploads</string>
     <string name="pref_max_active_downloads_title">Max. number of active downloads</string>
     <string name="pref_max_active_torrents_title">Max. number of active torrents</string>
     <string name="pref_max_connections_per_torrent_title">Max. number of connections per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Min. number of connections - 2.</string>
+    <string name="pref_max_connections_per_torrent_summary">(Min. 2 connections.)</string>
     <string name="pref_max_uploads_per_torrent_title">Max. number of upload slots per torrent</string>
     <string name="pref_auto_manage_title">Auto-manage</string>
     <string name="pref_auto_manage_summary">The torrent may be auto-resumed or paused at any point. (May slow down the pausing/resuming.)</string>
@@ -434,11 +434,11 @@
     <string name="pref_enable_roaming_title">Roaming</string>
     <string name="pref_enable_roaming_summary">Only download if the device isn\'t roaming.</string>
     <string name="pref_power_management_category">Power management</string>
-    <string name="pref_keep_alive_title">Keep alive</string>
+    <string name="pref_keep_alive_title">Keep running</string>
     <string name="pref_keep_alive_summary">Leaves the app running in the background. (Still respects closing the app when all downloads finish.)</string>
     <string name="pref_shutdown_downloads_complete_title">Close after finishing all downloads</string>
     <string name="pref_shutdown_downloads_complete_summary">Turns off the app when everything is downloaded.</string>
-    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
+    <string name="pref_cpu_do_not_sleep_title">Keep device awake</string>
     <string name="pref_cpu_do_not_sleep_summary">Use if the download speed reduces when the screen turns off. (Increases battery usage.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Only download and upload when charging.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">No files are transferred unless the device is charging. (Pauses all torrents when not connected to a charger.)</string>
@@ -446,14 +446,14 @@
     <string name="pref_custom_battery_control_title">Custom battery percentage</string>
     <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
     <string name="pref_battery_control_summary">Pauses all torrents if the battery level goes below %1$d%%. (The limit doesn\'t apply when charging.)</string>
-    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. (Ignores the default %1$d%% threshold.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Really set a battery percentage treshold to look out for? (Increases battery use while downloading.)</string>
+    <string name="pref_custom_battery_control_summary">Set a battery % to pause downloads at. (Ignores the default %1$d%%.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Really set a battery % to look out for? (Increases battery use while downloading.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy settings</string>
     <string name="pref_enable_dht_title">DHT</string>
-    <string name="pref_enable_dht_summary">Lets BitTorrent-clients find each-other without a tracker. (Increases battery usage.)</string>
+    <string name="pref_enable_dht_summary">Allows finding others without a tracker. (Increases battery usage.)</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">Designed to support discovery of local BitTorrent peers, aiming to minimize traffic.</string>
+    <string name="pref_enable_lsd_summary">Designed to support local discovery, aiming to minimize traffic.</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">Intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
@@ -479,9 +479,9 @@
     <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Show NAT errors</string>
     <string name="pref_anonymous_mode_title">Anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">Empty string as user-agent for non-private torrents.Trackers required to use a proxy server. Listening sockets closed. Incoming connections only accepted through SOCKS5- or I2P proxy (if a peer proxy is set up and is runs on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery off.</string>
-    <string name="pref_seeding_outgoing_connections_title">Outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Lets seeded torrents make outgoing connections or not. Turned it off if making outgoing connections is costly.</string>
+    <string name="pref_anonymous_mode_summary">No user-agent string for non-private torrents. Only proxied trackers. Listening sockets closed. Incoming connections through SOCKS5- or I2P proxy (if a peer proxy exists on the tracker proxy PC). NAT-PMP, UPnP, DHT and local discovery off.</string>
+    <string name="pref_seeding_outgoing_connections_title">Outgoing connections for sharing</string>
+    <string name="pref_seeding_outgoing_connections_summary">Lets shared torrents make outgoing connections. (Can be costly.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
     <string-array name="pref_proxy_type_entries">
@@ -492,17 +492,17 @@
     </string-array>
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_title">Also use for peer connections</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds.</string>
+    <string name="pref_proxy_peers_too_title">Also use for connections</string>
+    <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-shares are proxied.</string>
     <string name="pref_proxy_requires_auth_title">Requires authorization</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: The password is saved unencrypted.</string>
+    <string name="pref_proxy_requires_auth_summary">Warning: The password is saved as a regular file.</string>
     <string name="pref_proxy_login_title">Username</string>
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_title">Start time</string>
+    <string name="pref_enable_scheduling_start_title">Start-time</string>
     <string name="pref_enable_scheduling_start_summary">Start the app at a specified time. Torrents  run according to their state before the last one is shut down.</string>
-    <string name="pref_enable_scheduling_shutdown_title">Shutdown time</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Shutdown app at the specified time</string>
+    <string name="pref_enable_scheduling_shutdown_title">Shutdown-time</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Shutdown the app at a specified time</string>
     <string name="pref_scheduling_run_only_once_title">Only run once</string>
     <string name="pref_scheduling_switch_wifi_title">Toggle Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Turn on Wi-Fi on for scheduled start, and off for scheduled stop.</string>
@@ -533,15 +533,15 @@
         <item>1 month</item>
         <item>2 months</item>
         <item>3 months</item>
-        <item>Always</item>
+        <item>Indefinitely</item>
     </string-array>
     <string name="pref_feed_start_torrents_title">Auto-start torrents</string>
-    <string name="pref_feed_start_torrents_summary">Start torrents after adding them.</string>
-    <string name="pref_feed_remove_duplicates_title">Remove duplicates</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of any newly downloaded item and skips when one with the same title is already present.</string>
+    <string name="pref_feed_start_torrents_summary">Downloads added torrents.</string>
+    <string name="pref_feed_remove_duplicates_title">No duplication</string>
+    <string name="pref_feed_remove_duplicates_summary">Skips downloading already present file titles.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Streaming</string>
-    <string name="pref_streaming_enable_summary">Allows downloading individual files from a torrent using a web-browser or media player using HTTP URLs.</string>
+    <string name="pref_streaming_enable_summary">Allows downloading individual files from a torrent using a web-browser or media player using HTTP/S URLs.</string>
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Select a port or hostname for streaming that isn\'t busy or incorrect.</string>
