@@ -354,7 +354,7 @@
     <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων διαχωρισμένα με \"|\".</string>
     <string name="select_folder_to_save">Επιλέξτε ένα φάκελο για αποθήκευση.</string>
     <string name="torrent_saved_to">Torrent αποθηκεύονται σε %1$s</string>
-    <string name="unable_to_open_file">Αδυναμία ανοίγματος του επιλεχθέντος αρχείου</string>
+    <string name="unable_to_open_file">Το επιλεγμένο αρχείο δεν μπορεί να ανοίξει</string>
     <string name="unable_to_create_file">Αδυναμία δημιουργίας αρχείου</string>
     <!-- Log -->
     <string name="log_journal">Ημερολόγιο</string>
@@ -367,8 +367,8 @@
     <string name="journal_filter_peer_log">Καταγραφή peers</string>
     <string name="journal_filter_portmap_log">Καταγραφή UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Καταγραφή torrent</string>
-    <string name="journal_save_log_failed">Αποτυχία αποθήκευσης αρχείου καταγραφής</string>
-    <string name="journal_save_log_success">Επιτυχής αποθήκευση καταγραφής: %1$s</string>
+    <string name="journal_save_log_failed">Αδυναμία αποθήκευσης αρχείου καταγραφής</string>
+    <string name="journal_save_log_success">Η καταγραφή αποθηκεύτηκε: %1$s</string>
     <string name="pref_journal_save_log_to">Αποθήκευση αρχείου καταγραφής σε…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Μέγιστος αριθμός αποθηκευμένων αρχείων καταγραφής</string>
@@ -399,14 +399,14 @@
     <string name="pref_max_connections_title">Μέγιστος αριθμός συνδέσεων</string>
     <string name="pref_max_connections_summary">Ελάχιστος αριθμός συνδέσεων - 2.</string>
     <string name="pref_torrent_queueing_category">Ουρά torrent</string>
-    <string name="pref_max_active_uploads_title">Μέγιστες ενεργές μεταφορτώσεις</string>
-    <string name="pref_max_active_downloads_title">Μέγιστες ενεργές λήψεις</string>
-    <string name="pref_max_active_torrents_title">Μέγιστα ενεργά torrents</string>
+    <string name="pref_max_active_uploads_title">Μέγιστος αριθμός ενεργών μεταφορτώσεων</string>
+    <string name="pref_max_active_downloads_title">Μέγιστος αριθμός ενεργών λήψεων</string>
+    <string name="pref_max_active_torrents_title">Μέγιστος αριθμός ενεργών torrents</string>
     <string name="pref_max_connections_per_torrent_title">Μέγιστος αριθμός συνδέσεων ανά torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Ελάχιστος αριθμός συνδέσεων - 2.</string>
-    <string name="pref_max_uploads_per_torrent_title">Μέγιστος αριθμός χρονοθυρίδων ανά torrent</string>
+    <string name="pref_max_uploads_per_torrent_title">Μέγιστος αριθμός θέσεων μεταφόρτωσης ανά torrent</string>
     <string name="pref_auto_manage_title">Αυτόματη διαχείριση</string>
-    <string name="pref_auto_manage_summary">Το torrent μπορεί να παυθεί ή να συνεχιστεί αυτόματα οποιαδήποτε στιγμή. Η ενεργοποίηση αυτής της επιλογής μπορεί να επιβραδύνει τη διαδικασία.</string>
+    <string name="pref_auto_manage_summary">Το torrent μπορεί να ξεκινήσει ή να σταματήσει αυτόματα οποιαδήποτε στιγμή (ίσως υπάρξει επιβράδυνση στη διαδικασία).</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 χωρίς όριο</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
@@ -430,13 +430,13 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Μόνο μη περιορισμένες συνδέσεις</string>
     <string name="pref_umnetered_connections_only_summary">Χρήση μόνο συνδέσεων χωρίς όριο (για παράδειγμα Wi-Fi ή Ethernet).</string>
-    <string name="pref_enable_roaming_title">Ενεργοποίηση περιαγωγής</string>
+    <string name="pref_enable_roaming_title">Περιαγωγή</string>
     <string name="pref_enable_roaming_summary">Λήψη μόνο εάν η συσκευή δεν είναι σε περιαγωγή.</string>
     <string name="pref_power_management_category">Διαχείριση ενέργειας</string>
     <string name="pref_keep_alive_title">Εργαστείτε στο παρασκήνιο</string>
     <string name="pref_keep_alive_summary">Εάν είναι ενεργοποιημένη, η εφαρμογή θα παραμείνει ενεργή στο παρασκήνιο. Ο τερματισμός λειτουργίας όταν ολοκληρώνονται οι λήψεις εξακολουθεί να τηρείται</string>
     <string name="pref_shutdown_downloads_complete_title">Τερματισμός όταν ολοκληρωθούν οι λήψεις</string>
-    <string name="pref_shutdown_downloads_complete_summary">Αν ενεργοποιηθεί, η εφαρμογή θα τερματιστεί όταν όλες οι λήψεις θα έχουν ολοκληρωθεί</string>
+    <string name="pref_shutdown_downloads_complete_summary">Τερματισμός της εφαρμογής με την ολοκλήρωση των λήψεων.</string>
     <string name="pref_cpu_do_not_sleep_title">Επεξεργαστής πάντα σε λειτουργία</string>
     <string name="pref_cpu_do_not_sleep_summary">Αν ενεργοποιηθεί θα αυξηθεί η χρήση της μπαταρίας. Να χρησιμοποιείται μόνο αν υπάρχει μείωση της ταχύτητας λήψης όταν κλείνει η οθόνη.</string>
     <string name="pref_download_and_upload_only_when_charging_title">Λήψη και μεταφόρτωση μόνο κατά τη φόρτιση.</string>
@@ -449,14 +449,14 @@
     <string name="pref_custom_battery_control_dialog_summary">Πράγματι να οριστεί ένα όριο ποσοστού μπαταρίας; (Αυξάνει τη χρήση της μπαταρίας κατά τη λήψη.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ρυθμίσεις μεσολαβητή</string>
-    <string name="pref_enable_dht_title">Ενεργοποίηση DHT</string>
+    <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Επιτρέπει στους πελάτες BitTorrent να συνδέονται μεταξύ τους χωρίς την χρήση ιχνηλάτη. Αν ενεργοποιηθεί θα αυξηθεί η χρήση της μπαταρίας</string>
-    <string name="pref_enable_lsd_title">Ενεργοποίηση LSD</string>
+    <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Σχεδιασμένο για την ανακάλυψη τοπικών ομότιμων χρηστών BitTorrent, με στόχο να μειωθεί η κίνηση δεδομένων.</string>
-    <string name="pref_enable_utp_title">Ενεργοποίηση μTP</string>
-    <string name="pref_enable_utp_summary">Περιορίζει την αδύναμη ταχύτητα απόκρισης και άλλα προβλήματα συμφόρησης που εμφανίζονται στο τυπικό BitTorrent μέσω TCP, ενώ προσφέρει αξιόπιστη και καθορισμένη παραλαβή πακέτων</string>
-    <string name="pref_enable_upnp_title">Ενεργοποίηση UPnP</string>
-    <string name="pref_enable_natpmp_title">Ενεργοποίηση NAT-PMP</string>
+    <string name="pref_enable_utp_title">μTP</string>
+    <string name="pref_enable_utp_summary">Περιορίζει την αδύναμη ταχύτητα απόκρισης και άλλα προβλήματα συμφόρησης που εμφανίζονται στο τυπικό BitTorrent μέσω TCP, ενώ προσφέρει αξιόπιστη και καθορισμένη παραλαβή πακέτων.</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Ρυθμίσεις θύρας</string>
     <string name="pref_use_random_port_title">Χρήση τυχαίας θύρας</string>
     <string name="pref_use_random_port_summarty">Ορίζει τη θύρα εκκίνησης τυχαία στο εύρος [%1$d, %2$d] και τη θύρα τερματισμού, ως την πρώτη +10.</string>
@@ -464,7 +464,7 @@
     <string name="pref_port_range_start_title">Έναρξη</string>
     <string name="pref_port_range_end_title">Τέλος</string>
     <string name="pref_encryption_category">Κρυπτογράφηση</string>
-    <string name="pref_enc_mode_title">Λειτουργία κρυπτογράφησης</string>
+    <string name="pref_enc_mode_title">Κατάσταση</string>
     <string-array name="pref_enc_mode_entries">
         <item>Προτίμηση κρυπτογράφησης</item>
         <item>Απαίτηση κρυπτογράφησης</item>
@@ -477,7 +477,7 @@
     <string name="pref_enable_ip_filtering_summary">Η χρήση φίλτρου IP αυξάνει την απαιτούμενη μνήμη. Ανάλογα με το μέγεθος του αρχείου, το φίλτρο μπορεί να πάρει λίγη ώρα για να εφαρμοστεί κατά την εκκίνηση.</string>
     <string name="pref_ip_filtering_file_title">Διαδρομή σε αρχείο φίλτρου (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Εμφάνιση σφαλμάτων NAT</string>
-    <string name="pref_anonymous_mode_title">Ενεργοποίηση ανώνυμης κατάστασης</string>
+    <string name="pref_anonymous_mode_title">Ανώνυμη κατάσταση</string>
     <string name="pref_anonymous_mode_summary">Η εφαρμογή προσπαθεί να κρύψει την ταυτότητα της σε ένα βαθμό. Ο user-agent θα αντικατασταθεί με κενό (εκτός των ιδιωτικών torrents). Οι trackers θα χρησιμοποιούνται μόνο αν χρησιμοποιούν proxy server. Τα NAT-PMP, UPnP, DHT και οι τοπικές συνδέσεις απενεργοποιούνται.</string>
     <string name="pref_seeding_outgoing_connections_title">Ενεργοποίηση εξερχομένων συνδέσεων για τα seeds</string>
     <string name="pref_seeding_outgoing_connections_summary">Καθορίζει αν τα torrents που κάνουν seeding θα επιχειρούν εξερχόμενες συνδέσεις ή όχι. Μπορεί να απενεργοποιηθεί σε περιπτώσεις που το κόστος τέτοιων συνδέσεων είναι υψηλό.</string>
@@ -495,15 +495,15 @@
     <string name="pref_proxy_peers_too_summary">Ο μεσολαβητής θα χρησιμοποιηθεί για σύνδεση με ιχνηλάτες, ομότιμους χρήστες και διαμοιραστές δικτύου</string>
     <string name="pref_proxy_requires_auth_title">Απαιτεί εξουσιοδότηση</string>
     <string name="pref_proxy_requires_auth_summary">Προειδοποίηση: Ο κωδικός αποθηκεύεται χωρίς κρυπτογράφηση.</string>
-    <string name="pref_proxy_login_title">Σύνδεση χρήστη</string>
+    <string name="pref_proxy_login_title">Όνομα χρήστη</string>
     <string name="pref_proxy_password_title">Κωδικός</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Ωρα έναρξης</string>
     <string name="pref_enable_scheduling_start_summary">Εκκινήστε την εφαρμογή σε καθορισμένη ώρα. Τα Torrents λειτουργούν σύμφωνα με την κατάσταση τους πριν τερματιστεί το τελευταίο.</string>
     <string name="pref_enable_scheduling_shutdown_title">Χρόνος τερματισμού λειτουργίας</string>
     <string name="pref_enable_scheduling_shutdown_summary">Εφαρμογή τερματισμού κατά την καθορισμένη ώρα</string>
-    <string name="pref_scheduling_run_only_once_title">Εκτελέστε μόνο μία φορά</string>
-    <string name="pref_scheduling_switch_wifi_title">Ενεργοποίηση/απενεργοποίηση Wi-Fi</string>
+    <string name="pref_scheduling_run_only_once_title">Εκτέλεση μία φορά</string>
+    <string name="pref_scheduling_switch_wifi_title">Εναλλαγή Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Το Wi-Fi ενεργοποιείται αυτόματα όταν η εφαρμογή ξεκινά την προγραμματισμένη ώρα και απενεργοποιείται αφού ολοκληρωθεί η εφαρμογή την προγραμματισμένη ώρα</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Αυτόματη ανανέωση καναλιών</string>
@@ -521,7 +521,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Μόνο μη περιορισμένες συνδέσεις</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Ανανέωση μόνο σε συνδέσεις χωρίς όριο (για παράδειγμα Wi-Fi ή Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Ενεργοποίηση περιαγωγής</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Περιαγωγή</string>
     <string name="pref_feed_keep_items_time_title">Κρατήστε άρθρα</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 ημέρα</item>
@@ -537,15 +537,15 @@
     <string name="pref_feed_start_torrents_title">Αυτόματη εκκίνηση torrents</string>
     <string name="pref_feed_start_torrents_summary">Εκκίνηση των torrents μετά την προσθήκη τους.</string>
     <string name="pref_feed_remove_duplicates_title">Διαγραφή διπλότυπων</string>
-    <string name="pref_feed_remove_duplicates_summary">Ελέγχει τον τίτλο του ληφθέντος αντικειμένου και το παραλείπει όταν υπάρχει άλλο με τον ίδιο τίτλο</string>
+    <string name="pref_feed_remove_duplicates_summary">Ελέγχει τον τίτλο των νέων ληφθέντων αντικειμένων και τα παραλείπει όταν υπάρχει άλλο με τον ίδιο τίτλο.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Ενεργοποίηση streaming</string>
+    <string name="pref_streaming_enable_title">Διαμοιρασμός</string>
     <string name="pref_streaming_enable_summary">Σας επιτρέπει να κατεβάζετε μεμονωμένα αρχεία από ένα torrent χρησιμοποιώντας ένα πρόγραμμα περιήγησης ή ένα media player χρησιμοποιώντας URL HTTP</string>
     <string name="pref_streaming_hostname">Όνομα κεντρικού υπολογιστή</string>
     <string name="pref_streaming_port">Θύρα</string>
     <string name="pref_streaming_error">Επιλέξτε μια θύρα ή όνομα κεντρικού υπολογιστή για ροή που δεν είναι απασχολημένη ή λανθασμένη.</string>
     <!-- About dialog -->
-    <string name="about_title">Σχετικά με το LibreTorrent</string>
+    <string name="about_title">Σχετικά</string>
     <string name="about_description"><![CDATA[    Περισσότερες πληροφορίες και συνεισφορά στο έργο: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     Το LibreTorrent είναι μια ελεύθερη εφαρμογή torrent για Android 4+, βασισμένο στο libtorrent (πακέτο για Java: <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
     Το LibreTorrent είναι ελεύθερο λογισμικό και διατίθεται υπό τους όρους <a href="http://www.gnu.org/copyleft/gpl.html">της Γενικής Άδειας Δημόσιας Χρήσης GNU, έκδοση 3 (GPLv3)</a>]]></string>
