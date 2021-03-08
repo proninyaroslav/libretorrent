@@ -11,7 +11,7 @@
     <string name="replace">Заменить</string>
     <string name="add">Добавить</string>
     <string name="delete">Удалить</string>
-    <string name="deleting">Удаление</string>
+    <string name="deleting">Удаление…</string>
     <string name="select_all">Выбрать всё</string>
     <string name="save">Сохранить</string>
     <string name="search">Поиск</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">Размер</string>
     <string name="drawer_sorting_progress">Прогресс</string>
     <string name="drawer_sorting_ETA">ETA</string>
-    <string name="drawer_sorting_peers">Пиры</string>
+    <string name="drawer_sorting_peers">Популярность</string>
     <string name="drawer_sorting_no_sorting">Нет сортировки</string>
     <!-- Date added -->
     <string name="drawer_date_added">Дата добавления</string>
@@ -114,7 +114,7 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/с \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Загружается: %1$d Всего: %2$d</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ из %2$d</string>
     <string name="app_running_in_the_background">Запущен в фоне</string>
     <string name="network_online">Онлайн</string>
     <string name="network_offline">Оффлайн</string>
@@ -129,7 +129,7 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Торрент загружен</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Перемещение торрента</string>
+    <string name="torrent_moving_title">Перемещение торрента…</string>
     <string name="torrent_moving_content">Подождите, пока переместится %1$s…</string>
     <string name="torrent_move_success">Торрент перемещен</string>
     <string name="torrent_move_fail">Не удалось переместить торрент</string>
@@ -177,7 +177,7 @@
     <string name="torrent_info">Информация</string>
     <string name="torrent_files">Файлы</string>
     <string name="torrent_name">Имя</string>
-    <string name="upload_torrent_into">Загрузить в</string>
+    <string name="upload_torrent_into">Загрузить в…</string>
     <string name="torrent_size">Размер</string>
     <string name="torrent_file_count">Количество файлов</string>
     <string name="torrent_hash_sum">Контрольные суммы</string>
@@ -242,7 +242,7 @@
     <string name="tracker_state_not_working">Не работает</string>
     <string name="tracker_state_updating">Обновление…</string>
     <string name="tracker_state_not_contacted">Соединения пока что нет</string>
-    <string name="share_tracker_url">Поделиться URL</string>
+    <string name="share_tracker_url">Поделиться URL…</string>
     <string name="delete_selected_tracker">Удалить выбранный трекер?</string>
     <string name="delete_selected_trackers">Удалить выбранные трекеры?</string>
     <string name="add_trackers">Добавить трекеры</string>
@@ -264,7 +264,7 @@
     <string name="share_magnet">Поделиться magnet-ссылкой</string>
     <string name="save_torrent_file">Сохранить торрент файл</string>
     <string name="torrent_speed_limit">Ограничение скорости</string>
-    <string name="share_via">Поделиться с помощью</string>
+    <string name="share_via">Поделиться с помощью…</string>
     <string name="save_torrent_file_successfully">Торрент-файл сохранён</string>
     <string name="error_save_torrent_file">Не удалось сохранить торрент-файл</string>
     <string name="speed_limit_title">Максимальная скорость</string>
