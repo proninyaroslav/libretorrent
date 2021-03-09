@@ -1,1 +1,1 @@
-Un client torrent completo, Libre e Open Source. Basato su libtorrent
+Un client torrent libre copylefted.
