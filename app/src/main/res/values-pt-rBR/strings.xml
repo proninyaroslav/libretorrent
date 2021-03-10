@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">Aceitar</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="error">Erro</string>
-    <string name="warning">Atenção</string>
+    <string name="error">Falha</string>
+    <string name="warning">Aviso</string>
     <string name="shutdown">Desligar</string>
     <string name="replace">Substituir</string>
     <string name="add">Adicionar</string>
-    <string name="delete">Deletar</string>
+    <string name="delete">Excluir</string>
     <string name="deleting">Deletando</string>
-    <string name="select_all">Selecionar todos</string>
+    <string name="select_all">Selecionar tudo</string>
     <string name="save">Salvar</string>
-    <string name="search">Buscar</string>
+    <string name="search">Pesquisar</string>
     <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
