@@ -11,7 +11,7 @@
     <string name="replace">Zastąp</string>
     <string name="add">Dodaj</string>
     <string name="delete">Usuń</string>
-    <string name="deleting">Usuwanie</string>
+    <string name="deleting">Usuwanie…</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="save">Zapisz</string>
     <string name="search">Szukaj</string>
@@ -47,8 +47,8 @@
     <string name="switch_off">Wył.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Usuń razem z pobranymi plikami</string>
-    <string name="delete_selected_torrent">Usunąć wybrany torrent? Ta operacja nie może zostać odzczyniona</string>
-    <string name="delete_selected_torrents">Usunąć wybrane torrenty? Ta operacja nie może zostać odczyniona</string>
+    <string name="delete_selected_torrent">Usunąć wybrany torrent\? (Nie można cofnąć)</string>
+    <string name="delete_selected_torrents">Usunąć wybrane torrenty\? (Nie można cofnąć)</string>
     <string name="force_recheck_torrent">Wymuś ponowne sprawdzenie spójności plików</string>
     <string name="force_announce_torrent">Wymuś powiadomienie</string>
     <string name="add_link">Dodaj link</string>
@@ -60,7 +60,7 @@
     <string name="error_open_torrent_file">Błąd przy otwieraniu pliku</string>
     <string name="open_file">Otwórz plik</string>
     <string name="settings">Ustawienia</string>
-    <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format</string>
+    <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
     <string name="ip_filter_add_success">Filtr IP został pomyślnie dodany</string>
     <string name="proxy_settings_applied">Ustawienia serwera proxy wykonano pomyślnie</string>
     <string name="proxy_settings_apply_after_reboot">Ustawienia serwera proxy zostaną zaaplikowane po restarcie aplikacji</string>
@@ -73,9 +73,9 @@
     <string name="session_stats_listen_port">Nasłuchiwanie portu: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Pobieranie</string>
+    <string name="drawer_status_downloading">Pobieranie…</string>
     <string name="drawer_status_downloaded">Pobrane</string>
-    <string name="drawer_status_downloading_metadata">Pobieranie metadanych</string>
+    <string name="drawer_status_downloading_metadata">Pobieranie metadanych…</string>
     <string name="drawer_status_error">Błąd</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortowanie</string>
@@ -127,8 +127,8 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent ukończony</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Przenoszenie torrenta</string>
-    <string name="torrent_moving_content">Przenoszenie %1$s, proszę czekać</string>
+    <string name="torrent_moving_title">Przenoszenie torrenta…</string>
+    <string name="torrent_moving_content">Przenoszenie %1$s, proszę czekać…</string>
     <string name="torrent_move_success">Torrent pomyślnie przeniesiony</string>
     <string name="torrent_move_fail">Nie można przenieść torrentu</string>
     <!-- Added notification -->
@@ -141,13 +141,13 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Pobieranie</string>
-    <string name="torrent_status_seeding">Seedowanie</string>
+    <string name="torrent_status_downloading">Pobieranie…</string>
+    <string name="torrent_status_seeding">Seedowanie…</string>
     <string name="torrent_status_paused">Pauza</string>
     <string name="torrent_status_stopped">Wstrzymany</string>
-    <string name="torrent_status_checking">Sprawdzanie</string>
+    <string name="torrent_status_checking">Sprawdzanie…</string>
     <string name="torrent_status_finished">Ukończony</string>
-    <string name="torrent_status_downloading_metadata">Pobieranie metadanych</string>
+    <string name="torrent_status_downloading_metadata">Pobieranie metadanych…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Odmowa dostępu</string>
     <string name="perm_denied_warning">Bez dostępu do zapisu na pamięci telefonu aplikacja nie jest w stanie zapisywać torrentów, oraz nie będzie działać prawidłowo. Czy jesteś pewien, że nie chcesz zezwolić aplikacji na wyżej wymieniony dostęp?</string>
@@ -158,7 +158,7 @@
     <string name="error_fetch_link">Błąd przy pobieraniu danych z podanego adresu</string>
     <string name="error_invalid_link_or_path">Nieprawidłowy adres lub ścieżka do pliku torrent</string>
     <string name="error_add_torrent">Błąd przy dodawaniu torrenta</string>
-    <string name="error_file_not_found_add_torrent">Torrenta nie odnaleziono, mógł zostać przeniesiony lub usunięty</string>
+    <string name="error_file_not_found_add_torrent">Torrenta nie odnaleziono. Może został przeniesiony lub usunięty\?</string>
     <string name="error_io_add_torrent">Błąd przy dodawaniu torrenta. Błąd Wejścia/Wyjścia</string>
     <string name="torrent_exist">Torrent istnieje i został połączony z poprzednikiem</string>
     <string name="error_field_required">To pole jest wymagane</string>
@@ -175,7 +175,7 @@
     <string name="torrent_info">Informacje</string>
     <string name="torrent_files">Pliki</string>
     <string name="torrent_name">Nazwa</string>
-    <string name="upload_torrent_into">Wyślij do</string>
+    <string name="upload_torrent_into">Wyślij do…</string>
     <string name="torrent_size">Wielkość</string>
     <string name="torrent_file_count">Liczba plików</string>
     <string name="torrent_hash_sum">Suma Hash</string>
@@ -240,7 +240,7 @@
     <string name="tracker_state_not_working">Nieaktywne</string>
     <string name="tracker_state_updating">Aktualizowanie…</string>
     <string name="tracker_state_not_contacted">Nie skomunikowany</string>
-    <string name="share_tracker_url">Udostępnij URL</string>
+    <string name="share_tracker_url">Udostępnij URL…</string>
     <string name="delete_selected_tracker">Usunąć wybrany tracker?</string>
     <string name="delete_selected_trackers">Usunąć wybrane tracker\'y?</string>
     <string name="add_trackers">Dodaj tracker</string>
@@ -262,7 +262,7 @@
     <string name="share_magnet">Udostępnij magnet</string>
     <string name="save_torrent_file">Zapisz plik torrent</string>
     <string name="torrent_speed_limit">Limit prędkości</string>
-    <string name="share_via">Udostępnij za pomocą</string>
+    <string name="share_via">Udostępnij za pomocą…</string>
     <string name="save_torrent_file_successfully">Plik torrent zapisano pomyślnie</string>
     <string name="error_save_torrent_file">Błąd przy zapisie pliku torrent</string>
     <string name="speed_limit_title">Maksymalna prędkość</string>
@@ -368,7 +368,7 @@
     <string name="journal_filter_torrent_log">Dziennik torrentów</string>
     <string name="journal_save_log_failed">Nie udało się zapisać dziennika</string>
     <string name="journal_save_log_success">Dziennik zapisany pomyślnie: %1$s</string>
-    <string name="pref_journal_save_log_to">Zapisz dziennik do</string>
+    <string name="pref_journal_save_log_to">Zapisz dziennik do…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maksymalna ilość zapisów w dzienniku</string>
     <!-- Settings -->
@@ -382,12 +382,12 @@
     <string name="pref_header_feed">RSS</string>
     <string name="pref_header_streaming">Strumieniowanie</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Scieżka zapisu torrentów</string>
+    <string name="pref_save_torrents_in_title">Scieżka zapisu torrentów…</string>
     <string name="pref_move_after_download_title">Przenieś po pobraniu jako</string>
     <string name="pref_move_after_download_in_title">Przeniś po pobraniu do</string>
     <string name="pref_save_torrent_files_title">Zapisz pliki .torrent</string>
     <string name="pref_save_torrent_files_summary">Zapisz pliki .torrent po rozpoczęciu pobierania</string>
-    <string name="pref_save_torrent_files_in_title">Zapisz pliki .torrent do</string>
+    <string name="pref_save_torrent_files_in_title">Zapisz pliki .torrent do…</string>
     <string name="pref_watch_dir_title">Oglądaj katalog</string>
     <string name="pref_watch_dir_summary">Pliki torrenta (z rozszerzeniem .torrent) są obserwowane w określonym katalogu i automatycznie dodawane. Pliki torrenta są usuwane po dodaniu</string>
     <string name="pref_dir_to_watch_title">Katalog do obejrzenia</string>
@@ -549,4 +549,5 @@
     LibreTorrent jest Wolnym klientem sieci Torrent dla urządzeń z Android 4 i nowszymi, opartym na libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent jest Wolnym oprogramowaniem wydanym na zasadach wyrażonych w  <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Dziennik zmian</string>
+    <string name="folder">Folder</string>
 </resources>
