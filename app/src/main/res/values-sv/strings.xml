@@ -55,23 +55,23 @@
     <string name="dialog_add_link_title">Ange infohash-värdet, magnet länk eller HTTP/HTTPS-länk</string>
     <string name="torrent_list_empty">Inga torrents</string>
     <string name="select_or_add_torrent">Välj eller lägg till en torrent</string>
-    <string name="error_empty_link">Ange länk</string>
+    <string name="error_empty_link">Fyll i länken</string>
     <string name="error_invalid_link">Ogiltig länk</string>
     <string name="error_open_torrent_file">Det går inte att öppna torrent-filen</string>
     <string name="open_file">Öppna fil</string>
     <string name="settings">Inställningar</string>
-    <string name="ip_filter_add_error">Det gick inte att lägga till IP-filter (%1$d misslyckades). Filen är kanske skadad eller har ett felaktigt format</string>
+    <string name="ip_filter_add_error">Kunde inte att lägga till IP-filter (%1$d misslyckades). Filen kanske är skadad eller har ett felaktigt format</string>
     <string name="ip_filter_add_success">IP-filter har lagts till</string>
-    <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="proxy_settings_applied">Inställningarna för proxy-servern tillämpades</string>
+    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya proxy-inställningarna</string>
+    <string name="theme_settings_apply_after_reboot">Starta om appen för att använda det nya temat</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Downloading</string>
-    <string name="drawer_status_downloading_metadata">Downloading metadata</string>
+    <string name="drawer_status_downloading">Ladda ner…</string>
+    <string name="drawer_status_downloading_metadata">Laddar ner metadata…</string>
     <string name="drawer_status_error">Error</string>
     <!-- Sorting -->
     <string name="drawer_sorting_name">Name</string>
@@ -83,9 +83,9 @@
     <string name="add_tag">Add tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="add_tag_failed">Kunde inte lägga till tagg</string>
+    <string name="tag_deleting_failed">Kunde inte ta bort tagg</string>
+    <string name="tag_already_exists">Den här taggen finns redan</string>
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
@@ -98,13 +98,13 @@
     <string name="network_offline">Network status: Offline</string>
     <!-- Error notification -->
     <string name="error_template">Error: %1$s</string>
-    <string name="restore_torrent_error">unable to restore torrent from previous session</string>
+    <string name="restore_torrent_error">Kan inte återställa torrent från föregående session</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="nat_error_title">NAT error</string>
+    <string name="nat_error_title">NAT-fel</string>
     <!-- Finish notification -->
     <!-- Torrents move notification -->
-    <string name="torrent_moving_content">Moving %1$s, please wait</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_moving_content">Vänligen vänta medans %1$s flyttas…</string>
+    <string name="torrent_move_success">Torrent flyttades</string>
     <string name="torrent_move_fail">Kunde inte flytta torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -116,30 +116,30 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Hämtar</string>
-    <string name="torrent_status_seeding">Laddar upp</string>
+    <string name="torrent_status_downloading">Laddar ner…</string>
+    <string name="torrent_status_seeding">Seedar…</string>
     <string name="torrent_status_paused">Pausad</string>
     <string name="torrent_status_stopped">Stoppad</string>
-    <string name="torrent_status_checking">Kontrollerar</string>
+    <string name="torrent_status_checking">Kontrollerar…</string>
     <string name="torrent_status_finished">Slutförd</string>
-    <string name="torrent_status_downloading_metadata">Laddar ner metadata</string>
+    <string name="torrent_status_downloading_metadata">Laddar ner metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Åtkomst nekad</string>
     <string name="perm_denied_warning">Utan denna behörighet kan appen inte spara torrent-filer i minnet. Appen kommer inte att fungera korrekt. Är du säker på att du vill neka denna behörighet?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Lägg till torrent</string>
-    <string name="error_decode_torrent">Det gick inte att avkoda torrentfilen. Filen är kanske skadad eller har ett felaktigt format</string>
-    <string name="error_io_torrent">Fel vid läsning av torrent-filen</string>
-    <string name="error_fetch_link">Det gick inte att hämta data från länken</string>
-    <string name="error_invalid_link_or_path">Ogiltig länk eller sökväg till torrent</string>
-    <string name="error_add_torrent">Det gick inte att lägga till torrent</string>
-    <string name="error_file_not_found_add_torrent">Det gick inte att lägga till torrenten. Kanske torrentfilen flyttades eller raderades</string>
-    <string name="error_io_add_torrent">Det går inte att lägga till torrenten. I/O-fel</string>
-    <string name="torrent_exist">Torrent finns redan. Torrents slogs samman</string>
-    <string name="error_field_required">Detta fält är obligatoriskt</string>
+    <string name="error_decode_torrent">Kunde inte avkoda torrent-fil. Den kanske är skadad eller i ett felaktigt format\?</string>
+    <string name="error_io_torrent">Kunde inte läsa torrent-filen</string>
+    <string name="error_fetch_link">Kunde inte hämta data från länken</string>
+    <string name="error_invalid_link_or_path">Icke giltig länk eller torrent-genväg</string>
+    <string name="error_add_torrent">Kunde inte lägga till torrenten</string>
+    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är torrent-filen flyttad, eller borttagen\?</string>
+    <string name="error_io_add_torrent">Kan inte lägga till torrent till följd av ett I/O-fel.</string>
+    <string name="torrent_exist">Eftersom att torrenten redan finns så slogs de ihop.</string>
+    <string name="error_field_required">Fält som krävs</string>
     <string name="error_no_files_selected">Inga filer valda</string>
     <string name="free_space">%1$s ledigt</string>
-    <string name="error_free_space">Det finns inte tillräckligt med ledigt utrymme på den valda sökvägen för att ladda ner de valda filerna</string>
+    <string name="error_free_space">Det finns inte tillräckligt med utrymme för att ladda ner de valda filerna</string>
     <string name="files_size">Vald %1$s av %2$s</string>
     <string name="start_torrent">Starta torrent</string>
     <string name="file_is_too_large_error">Filen är för stor</string>
@@ -383,4 +383,27 @@
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="torrent_moving_title">Flyttar torrent</string>
+    <string name="torrent_finished_notify">Torrent färdig</string>
+    <string name="session_error_title">Sessionsfel</string>
+    <string name="torrent_error_notify_title">Torrent-fel</string>
+    <string name="notify_shutting_down">Stänger ner…</string>
+    <string name="app_running_in_the_background">LibreTorrent körs i bakgrunden</string>
+    <string name="torrent_count_notify_template">Laddar ner: %1$d Totalt: %2$d</string>
+    <string name="without_tags">Utan taggar</string>
+    <string name="new_tag">Ny tagg</string>
+    <string name="select_tag">Välj tagg</string>
+    <string name="edit_tag">Redigera tagg</string>
+    <string name="drawer_date_added_year">År</string>
+    <string name="drawer_date_added_month">Månad</string>
+    <string name="drawer_date_added_week">Vecka</string>
+    <string name="drawer_date_added_yesterday">Igår</string>
+    <string name="drawer_date_added_today">Idag</string>
+    <string name="drawer_sorting_no_sorting">Ingen sortering</string>
+    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_size">Storlek</string>
+    <string name="drawer_sorting">Sorterar</string>
+    <string name="session_stats_listen_port">Lyssningsport: %1$s</string>
+    <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
+    <string name="about">Om</string>
 </resources>

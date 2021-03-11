@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">සොයන්න</string>
+    <string name="save">සුරකින්න</string>
+    <string name="select_all">සියල්ල තෝරන්න</string>
+    <string name="add">එකතු කරන්න</string>
+    <string name="shutdown">වසා දමන්න</string>
+    <string name="warning">අවවාදයයි</string>
+    <string name="error">දෝෂයකි</string>
+    <string name="yes">ඔව්</string>
+    <string name="cancel">අවලංගු</string>
+    <string name="ok">හරි</string>
+</resources>
