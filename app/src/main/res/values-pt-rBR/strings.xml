@@ -11,7 +11,7 @@
     <string name="replace">Substituir</string>
     <string name="add">Adicionar</string>
     <string name="delete">Excluir</string>
-    <string name="deleting">Deletando</string>
+    <string name="deleting">Excluindo…</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="save">Salvar</string>
     <string name="search">Pesquisar</string>
@@ -36,20 +36,20 @@
     <string name="file">Arquivo</string>
     <string name="folder">Pasta</string>
     <string name="finished">Concluído</string>
-    <string name="pause_all">Pausar todos</string>
+    <string name="pause_all">Pausar tudo</string>
     <string name="resume_all">Retomar tudo</string>
-    <string name="all">Todos</string>
+    <string name="all">Tudo</string>
     <string name="details">Detalhes</string>
-    <string name="stats">Status</string>
+    <string name="stats">Estatísticas</string>
     <string name="filters">Filtros</string>
     <string name="apply">Aplicar</string>
-    <string name="clipboard">Área de Transferência</string>
+    <string name="clipboard">Área de transferência</string>
     <string name="switch_on">Ligado</string>
     <string name="switch_off">Desligado</string>
     <!-- Main window -->
-    <string name="delete_torrent_with_downloaded_files">Deletar com arquivos baixados</string>
-    <string name="delete_selected_torrent">Deletar o torrent selecionado? Esta operação não pode ser desfeita</string>
-    <string name="delete_selected_torrents">Deletar os torrents selecionados? Esta operação não pode ser desfeita</string>
+    <string name="delete_torrent_with_downloaded_files">Excluir com arquivos baixados</string>
+    <string name="delete_selected_torrent">Excluir torrent selecionado\? (Não pode ser desfeito.)</string>
+    <string name="delete_selected_torrents">Excluir torrents selecionados\? (Não pode ser desfeito.)</string>
     <string name="force_recheck_torrent">Forçar rechecagem</string>
     <string name="force_announce_torrent">Forçar anúncio</string>
     <string name="add_link">Adicionar link</string>
@@ -77,7 +77,7 @@
     <string name="drawer_status_downloading">Baixando</string>
     <string name="drawer_status_downloaded">Baixado</string>
     <string name="drawer_status_downloading_metadata">Baixando metadados</string>
-    <string name="drawer_status_error">Erro</string>
+    <string name="drawer_status_error">Falha</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Ordenar</string>
     <string name="drawer_sorting_name">Nome</string>
@@ -116,12 +116,12 @@
     <string name="network_offline">Status da rede: Offline</string>
     <string name="notify_shutting_down">Encerrando…</string>
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Erro de torrent</string>
-    <string name="error_template">Erro: %1$s</string>
+    <string name="torrent_error_notify_title">Falha de torrent</string>
+    <string name="error_template">Falha: %1$s</string>
     <string name="restore_torrent_error">incapaz de restaurar o torrent da sessão anterior</string>
-    <string name="session_error_title">Erro de sessão</string>
+    <string name="session_error_title">Falha de sessão</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="nat_error_title">Erro NAT</string>
+    <string name="nat_error_title">Falha de NAT</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent terminado</string>
     <!-- Torrents move notification -->
@@ -273,7 +273,7 @@
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Texto copiado para clipboard</string>
     <!-- Error report -->
-    <string name="app_error_occurred">Ocorreu um erro no aplicativo. Você pode reportar isto aos desenvolvedores</string>
+    <string name="app_error_occurred">Ocorreu um falha no aplicativo. Você pode reportar isto aos desenvolvedores</string>
     <string name="error_comment_prompt">Você pode adicionar informações extras e comentários aqui:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
@@ -468,7 +468,7 @@
     <string name="pref_enable_ip_filtering_title">Habilitar filtragem IP</string>
     <string name="pref_enable_ip_filtering_summary">Uso da filtragem IP aumenta o uso de memória. Dependendo do tamanho do arquivo, o filtro pode levar algum tempo até ser aplicado durante a inicialização</string>
     <string name="pref_ip_filtering_file_title">Caminho para o arquivo de filtro (.dat, .p2p)</string>
-    <string name="pref_show_nat_errors">Mostrar erros NAT</string>
+    <string name="pref_show_nat_errors">Mostrar falha de NAT</string>
     <string name="pref_anonymous_mode_title">Ativar modo anônimo</string>
     <string name="pref_anonymous_mode_summary">O aplicativo tenta esconder sua identidade até um certo grau. O agente de usuário será redefinido para uma seqüência vazia (exceto para torrents privados). Índices só serão usados se eles estiverem usando um servidor proxy. Os sockets de escuta estão fechados, e conexões de entrada só serão aceitas através de um proxy SOCKS5 ou I2P (se um proxy do par é configurado e é executado na mesma máquina que o proxy do rastreador). NAT-PMP, UPnP, DHT e detecção de conexões locais estão desativadas</string>
     <string name="pref_seeding_outgoing_connections_title">Ativar conexões de saída para seeds</string>
