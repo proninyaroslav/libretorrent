@@ -53,12 +53,12 @@
     <string name="force_recheck_torrent">Forçar rechecagem</string>
     <string name="force_announce_torrent">Forçar anúncio</string>
     <string name="add_link">Adicionar link</string>
-    <string name="dialog_add_link_title">Insira o link magnético ou HTTP/HTTPS</string>
+    <string name="dialog_add_link_title">Insira o link magnético ou HTTP/S</string>
     <string name="torrent_list_empty">Sem torrents</string>
     <string name="select_or_add_torrent">Selecione ou adicione um torrent</string>
-    <string name="error_empty_link">Por favor insira um link</string>
+    <string name="error_empty_link">Insire o link</string>
     <string name="error_invalid_link">Link inválido</string>
-    <string name="error_open_torrent_file">Não foi possível abrir o arquivo torrent</string>
+    <string name="error_open_torrent_file">Não é possível abrir o arquivo .torrent</string>
     <string name="open_file">Abrir arquivo</string>
     <string name="settings">Configurações</string>
     <string name="ip_filter_add_error">Falha ao adicionar filtro IP (%1$d falhou). Talvez o arquivo esteja corrompido ou tenha um formato incorreto</string>
