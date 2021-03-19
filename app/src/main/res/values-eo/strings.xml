@@ -182,4 +182,12 @@
     <string name="error_free_space">Ne sufiĉas libera spaco ĉi tie por elŝuti elektitajn dosierojn</string>
     <string name="free_space">%1$s libere</string>
     <string name="error_no_files_selected">Neniu dosiero elektita</string>
+    <string name="delete_selected_torrents">Ĉu forigi elektitajn torentojn\? (Ne povos malfari.)</string>
+    <string name="switch_off">Malŝalti</string>
+    <string name="switch_on">Ŝalti</string>
+    <string name="stats">Statistikoj</string>
+    <string name="resume_all">Daŭrigi ĉiujn</string>
+    <string name="foreground_notification">Malfona sciigo</string>
+    <string name="not_available">Ne disponebla</string>
+    <string name="replace">Anstataŭigi</string>
 </resources>
