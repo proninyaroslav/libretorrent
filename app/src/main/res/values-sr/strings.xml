@@ -11,7 +11,7 @@
     <string name="replace">Замени</string>
     <string name="add">Додај</string>
     <string name="delete">Избриши</string>
-    <string name="deleting">Брисање</string>
+    <string name="deleting">Брисање…</string>
     <string name="select_all">Изабери све</string>
     <string name="save">Сачувај</string>
     <string name="search">Претрага</string>
@@ -56,16 +56,16 @@
     <string name="dialog_add_link_title">Унеси инфохеш вредност, магнет линк или HTTP/HTTPS линк</string>
     <string name="torrent_list_empty">Нема торента</string>
     <string name="select_or_add_torrent">Селектуј или додај торент</string>
-    <string name="error_empty_link">Молимо унеси линк</string>
+    <string name="error_empty_link">Унеси линк</string>
     <string name="error_invalid_link">Неважећи линк</string>
-    <string name="error_open_torrent_file">Неуспешно отварање торент фајла</string>
+    <string name="error_open_torrent_file">Неуспешно отварање .торент датотеке</string>
     <string name="open_file">Отвори фајл</string>
     <string name="settings">Подешавања</string>
-    <string name="ip_filter_add_error">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или има погрешан формат</string>
-    <string name="ip_filter_add_success">IP филтер је успешно додат</string>
-    <string name="proxy_settings_applied">Подешавања прокси сервера су успешно сачувана</string>
-    <string name="proxy_settings_apply_after_reboot">Подешавања прокси сервера ће бити сачувана након рестартовања апликације</string>
-    <string name="theme_settings_apply_after_reboot">Подешавања теме ће бити сачувана након рестартовања апликације</string>
+    <string name="ip_filter_add_error">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или у погрешном формату\?</string>
+    <string name="ip_filter_add_success">IP филтер је додат</string>
+    <string name="proxy_settings_applied">Користи се нова подешавања прокси сервера.</string>
+    <string name="proxy_settings_apply_after_reboot">Рестартујте апликацију да би користио нова прокси подешавања.</string>
+    <string name="theme_settings_apply_after_reboot">Рестартуј апликацију да би користио нову тему</string>
     <string name="about">О нама</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT чворови: %1$d</string>
@@ -100,7 +100,7 @@
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
+    <string name="tag_deleting_failed">Неуспешно брисање ознаке</string>
     <string name="tag_already_exists">Tag with the same name already exists</string>
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
@@ -111,9 +111,9 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">Преузимање: %1$d Укупно: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent ради у позадини</string>
-    <string name="network_online">Статус мреже: Онлајн</string>
-    <string name="network_offline">Статус мреже: Офлајн</string>
+    <string name="app_running_in_the_background">Ради у позадини…</string>
+    <string name="network_online">Онлајн</string>
+    <string name="network_offline">Офлајн</string>
     <string name="notify_shutting_down">Искључивање…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Грешка торента</string>
@@ -126,8 +126,8 @@
     <string name="torrent_finished_notify">Торент је завршен</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Премештање торента</string>
-    <string name="torrent_moving_content">Премештање %1$s, молимо сачекајте</string>
-    <string name="torrent_move_success">Торент успешно премештен</string>
+    <string name="torrent_moving_content">Сачекајте док се премешта%1$s…</string>
+    <string name="torrent_move_success">Торент је премештен</string>
     <string name="torrent_move_fail">Неуспешно премештање торента</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -157,26 +157,26 @@
     <string name="error_invalid_link_or_path">Погрешан линк или локација торента</string>
     <string name="error_add_torrent">Грешка у додавању торента</string>
     <string name="error_file_not_found_add_torrent">Грешка у додавању торента. Можда је торент фајл премештен или избрисан</string>
-    <string name="error_io_add_torrent">Неуспешно додавање торента. I/O грешка</string>
-    <string name="torrent_exist">Торент већ постоји. Торенти су спојени</string>
-    <string name="error_field_required">Ово поље је обавезно</string>
-    <string name="error_no_files_selected">Нема одабраних фајлова</string>
+    <string name="error_io_add_torrent">Неуспешно додавање торента због I/O грешке.</string>
+    <string name="torrent_exist">Торент већ постоји. Торенти су спојени.</string>
+    <string name="error_field_required">Обавезно поље</string>
+    <string name="error_no_files_selected">Нема одабраних датотека</string>
     <string name="free_space">%1$s слободно</string>
-    <string name="error_free_space">Нема довољно слободне меморије на изабраној локацији за преузимање изабраних фајлова</string>
-    <string name="files_size">Изабрано %1$s од %2$s</string>
+    <string name="error_free_space">Нема довољно слободне меморије на изабраној локацији за преузимање изабраних датотека.</string>
+    <string name="files_size">%1$s од %2$s је изавбрано</string>
     <string name="start_torrent">Започни торент</string>
-    <string name="file_is_too_large_error">Фајл је превелики</string>
-    <string name="unable_to_open_folder">Неуспешно отварање изабраног фолдера. Молимо пробајте неки други фолдер</string>
-    <string name="error_empty_name">Молимо унесите име</string>
-    <string name="ignore_free_space">Игнориши величину слободног простора</string>
+    <string name="file_is_too_large_error">Датотека је превелика</string>
+    <string name="unable_to_open_folder">Неуспешно отварање изабране фасцикле. Пробајте неку другу фасциклу.</string>
+    <string name="error_empty_name">Унесите име</string>
+    <string name="ignore_free_space">Игнориши мало простора за складиштење</string>
     <!-- Torrent info -->
     <string name="torrent_info">Инфо</string>
     <string name="torrent_files">Фајлови</string>
     <string name="torrent_name">Име</string>
-    <string name="upload_torrent_into">Послати у</string>
+    <string name="upload_torrent_into">Послати у…</string>
     <string name="torrent_size">Величина</string>
-    <string name="torrent_file_count">Број фајлова</string>
-    <string name="torrent_hash_sum">Hash</string>
+    <string name="torrent_file_count">Број датотека</string>
+    <string name="torrent_hash_sum">Контролна сума</string>
     <string name="torrent_comment">Коментар</string>
     <string name="torrent_create_date">Креирано</string>
     <string name="torrent_created_in_program">Креаирано у програму</string>
@@ -251,15 +251,15 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Веб</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">Овај торент се и даље није повезани на пирове</string>
+    <string name="peer_list_empty">Овај торент се и даље није повезани ни са ким</string>
     <string name="piece_map">Мапа делова</string>
     <string name="resume_torrent">Настави</string>
     <string name="pause_torrent">Пауза</string>
     <string name="share_magnet">Подели магнет</string>
     <string name="save_torrent_file">Сачувај торент фајл</string>
     <string name="torrent_speed_limit">Ограничење брзине</string>
-    <string name="share_via">Делите преко</string>
-    <string name="save_torrent_file_successfully">Торент фајл је успешно сачуван</string>
+    <string name="share_via">Делите преко…</string>
+    <string name="save_torrent_file_successfully">.торент фајл је сачуван</string>
     <string name="error_save_torrent_file">Неуспешно чување торент фајла</string>
     <string name="speed_limit_title">Максимална брзина</string>
     <string name="upload_speed">Слање</string>
@@ -267,7 +267,7 @@
     <string name="speed_limit_dialog">Постави брзину у KiB/s (0 - без границе)</string>
     <string name="torrent_added_date">Додато</string>
     <string name="torrent_availability">Доступност</string>
-    <string name="share_stream_url">Подели URL стрима</string>
+    <string name="share_stream_url">Подели URL стрима…</string>
     <string name="magnet_include_file_priorities">Задржи приоритете фајлова?</string>
     <string name="magnet_more_about_bep53">Више информација: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нема трагача</string>
@@ -283,10 +283,10 @@
     <string name="feed_channel_list_empty">Нема канала</string>
     <string name="select_or_add_feed_channel">Изабери или додај RSS/Atom канал</string>
     <string name="add_feed_channel">Додај канал</string>
-    <string name="feed_name">Име (опционо)</string>
+    <string name="feed_name">(Опционо) име</string>
     <string name="feed_filter_prompt">Унеси речи (раздвојене са\"|\"), једна од којих мора бити у имену или регуларан израз. Торент ће бити додат само ако се овај филтер поклапа са именом торента</string>
-    <string name="feed_filter_prompt_one_per_line">Унеси филтере један по реду.</string>
-    <string name="feed_auto_download">Аутоматски преузимај нове торенте</string>
+    <string name="feed_filter_prompt_one_per_line">Унесите један филтер по реду.</string>
+    <string name="feed_auto_download">Аутоматски преузимај торенте</string>
     <string name="feed_use_regex">Користи регуларне изразе</string>
     <string name="backup_feed_channels">Сачувај резервну копију</string>
     <string name="restore_feed_channels_backup">Повратити резервну копију</string>
@@ -304,9 +304,9 @@
     <string name="mark_as_unread">Означи као непрочитано</string>
     <string name="feed_item_list_empty">Нема чланака</string>
     <string name="backup_feeds_successfully">Канали су успешно сачувани</string>
-    <string name="restore_feeds_backup_successfully">Канали су успешно обновљени</string>
-    <string name="error_backup_feeds">Неуспешно чување канала</string>
-    <string name="error_restore_feeds_backup">Неуспешно обнављане канала</string>
+    <string name="restore_feeds_backup_successfully">Канали су обновљени</string>
+    <string name="error_backup_feeds">"Неуспешно  чување канала"</string>
+    <string name="error_restore_feeds_backup">Враћање канала није успело</string>
     <string name="feed_item_open_article_url">Отвори чланак</string>
     <string name="feeds_backup_selection_dialog_title">Изабери резервну копију</string>
     <string name="error_import_invalid_format">Неправилан формат</string>
@@ -320,9 +320,9 @@
     <string name="tracker_urls">URL пратиоца</string>
     <string name="web_seed_urls">URL веб слања</string>
     <string name="comments">Коментари</string>
-    <string name="tracker_urls_hint">(опционо) Унети пратиоце један по реду, поређаних по приоритету</string>
-    <string name="web_seed_urls_hint">(опционо) Један по реду</string>
-    <string name="optional_hint">(опционо)</string>
+    <string name="tracker_urls_hint">(Опционо) Унети пратиоце један по реду, поређаних по приоритету.</string>
+    <string name="web_seed_urls_hint">(Опционо) Један по реду</string>
+    <string name="optional_hint">(Опционо)</string>
     <string name="piece_size">Величина дела</string>
     <string name="create_torrent_options">Опције</string>
     <string name="option_start_seeding">Започни слање</string>
@@ -538,11 +538,10 @@
     <string name="pref_streaming_enable_summary">Стримовање дозвољава да се преузму појединачни фајлова торента користећи претраживач или медија плејер уз помоћ HTTP линкова</string>
     <string name="pref_streaming_hostname">Име домаћина</string>
     <string name="pref_streaming_port">Порт</string>
-    <string name="pref_streaming_error">Изабрани порт или име домаћина за стримовање је заузето или погрешно. Молимо поправити га</string>
+    <string name="pref_streaming_error">Изабери порт или име домаћина за стримовање које није заузето или погрешно.</string>
     <!-- About dialog -->
-    <string name="about_title">Више о LibreTorrent</string>
-    <string name="about_description"><![CDATA[    Више информација и помагање пројекту: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent је слободан торент клијент за Андроид 4+, назиран на libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent је бесплатан софтвер, објављен под услоивима <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_title">Основни подаци</string>
+    <string name="about_description">Више информација и како помоћи пројекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent је слободан торент клијент за Андроид 4+, назиран на libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Евиденција измена</string>
+    <string name="new_tag">Нова ознака</string>
 </resources>
