@@ -519,7 +519,7 @@
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Tylko przez Wi-Fi</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Odświerzaj tylko poprzez Wi-Fi lub Ethernet</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Odświeżaj tylko poprzez Wi-Fi lub Ethernet</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Włącz roaming</string>
     <string name="pref_feed_keep_items_time_title">Zachowaj artykuły</string>
     <string-array name="pref_feed_keep_items_time_entries">
