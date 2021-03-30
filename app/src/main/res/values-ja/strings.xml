@@ -545,7 +545,7 @@
     <string name="pref_streaming_port">ポート</string>
     <string name="pref_streaming_error">選択されたポートまたはホスト名は、ストリーミングがビジーか、または正しくありません。修正して下さい。</string>
     <!-- About dialog -->
-    <string name="about_title">LibreTorrent について</string>
+    <string name="about_title">バージョン情報</string>
     <string name="about_description"><![CDATA[追加情報とプロジェクトの支援:<a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
 LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のフリーのトレントクライアントです(Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>)。<br><br>
 LibreTorrent <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>の規約に基づいて公開されるフリーソフトです。]]></string>
