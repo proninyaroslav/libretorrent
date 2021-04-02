@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Não é possível abrir o arquivo .torrent</string>
     <string name="open_file">Abrir arquivo</string>
     <string name="settings">Configurações</string>
-    <string name="ip_filter_add_error">Falha ao adicionar filtro IP (%1$d falhou). Talvez o arquivo esteja corrompido ou tenha um formato incorreto</string>
+    <string name="ip_filter_add_error">O filtro IP não pôde ser adicionado (%1$d falhou).Talvez o arquivo esteja danificado ou no formato errado\?</string>
     <string name="ip_filter_add_success">Filtro de IP adicionado</string>
     <string name="proxy_settings_applied">Usando as novas configurações de servidor proxy.</string>
     <string name="proxy_settings_apply_after_reboot">Reinicie o aplicativo para usar as novas configurações de proxy.</string>
