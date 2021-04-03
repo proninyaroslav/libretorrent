@@ -52,12 +52,12 @@
     <string name="force_recheck_torrent">Wymuś ponowne sprawdzenie spójności plików</string>
     <string name="force_announce_torrent">Wymuś powiadomienie</string>
     <string name="add_link">Dodaj link</string>
-    <string name="dialog_add_link_title">Wpisz magnet lub HTTP/HTTPS adres</string>
+    <string name="dialog_add_link_title">Wpisz magnet lub adres HTTP/HTTPS</string>
     <string name="torrent_list_empty">Brak torrentów</string>
     <string name="select_or_add_torrent">Wybierz albo dodaj torrent</string>
     <string name="error_empty_link">Wpisz adres</string>
     <string name="error_invalid_link">Nieprawidłowy adres</string>
-    <string name="error_open_torrent_file">Błąd przy otwieraniu pliku</string>
+    <string name="error_open_torrent_file">Nie można otworzyć pliku .torrent</string>
     <string name="open_file">Otwórz plik</string>
     <string name="settings">Ustawienia</string>
     <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
