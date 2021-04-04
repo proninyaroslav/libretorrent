@@ -11,7 +11,7 @@
     <string name="replace">Ganti</string>
     <string name="add">Tambah</string>
     <string name="delete">Hapus</string>
-    <string name="deleting">Menghapus</string>
+    <string name="deleting">Menghapus…</string>
     <string name="select_all">Pilih semua</string>
     <string name="save">Simpan</string>
     <string name="search">Cari</string>
@@ -61,11 +61,11 @@
     <string name="error_open_torrent_file">Tidak dapat membuka berkas torrent</string>
     <string name="open_file">Buka berkas</string>
     <string name="settings">Setelan</string>
-    <string name="ip_filter_add_error">Gagal menambahkan IP filter (%1$d failed). Berkas mungkin rusak atau format berkas tidak valid</string>
-    <string name="ip_filter_add_success">Filter IP berhasil ditambahkan</string>
-    <string name="proxy_settings_applied">Setelan server proksi berhasil diterapkan</string>
-    <string name="proxy_settings_apply_after_reboot">Setelan server proksi akan diterapkan setelah memulai ulang aplikasi</string>
-    <string name="theme_settings_apply_after_reboot">Setelan tema akan diterapkan setelah memulai ulang aplikasi</string>
+    <string name="ip_filter_add_error">Gagal menambahkan IP filter (%1$d failed). Berkas mungkin rusak atau format berkas salah</string>
+    <string name="ip_filter_add_success">Filter IP ditambahkan</string>
+    <string name="proxy_settings_applied">Gunakan setelan server proksi baru</string>
+    <string name="proxy_settings_apply_after_reboot">Mulai ulang aplikasi untuk memakai setelan server proksi baru</string>
+    <string name="theme_settings_apply_after_reboot">Mulai ulang aplikasi untuk menggunakan tema baru</string>
     <string name="about">Tentang</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Node DHT: %1$d</string>
