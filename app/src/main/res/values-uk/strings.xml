@@ -11,7 +11,7 @@
     <string name="replace">Замінити</string>
     <string name="add">Додати</string>
     <string name="delete">Видалити</string>
-    <string name="deleting">Видалення</string>
+    <string name="deleting">Видалення…</string>
     <string name="select_all">Вибрати все</string>
     <string name="save">Зберегти</string>
     <string name="search">Пошук</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Прослуховуваний порт: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Статус</string>
-    <string name="drawer_status_downloading">Завантаження</string>
+    <string name="drawer_status_downloading">Завантаження…</string>
     <string name="drawer_status_downloaded">Завантажено</string>
-    <string name="drawer_status_downloading_metadata">Завантаження метаданих</string>
+    <string name="drawer_status_downloading_metadata">Завантаження метаданих…</string>
     <string name="drawer_status_error">Помилка</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Сортування</string>
