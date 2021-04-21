@@ -1,0 +1,14 @@
+* Experimentele systeem bestandsmanager ondersteuning verwijderd. Dit kan torrents breken die op deze manier zijn toegevoegd
+* Android 10 ondersteuning
+* Ondersteuning voor Android 4.x gestopt. 5.0 is de minimaal ondersteunde versie
+* Toegevoegd:
+    - BitTorrent 2.0 ondersteuning
+    - Tags
+    - Auto fetching links wanneer plakken vanaf klembord
+    - Adaptieve snelkoppelingen pictogrammen
+* Bugfixes
+* Nieuwe vertalingen:
+    - Arabisch
+    - Bengaal
+    - Indonesisch
+...

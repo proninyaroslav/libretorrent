@@ -1,0 +1,10 @@
+* Toegevoegd:
+    - Streaming ondersteuning (momenteel zonder DLNA).
+      Streaming maakt het mogelijk om individuele bestanden te downloaden en te delen
+      van een torrent (bijv. VLC of browser).
+      Druk gewoon lang op het bestand en kopieer de stream url
+    - Ondersteuning voor torrents met een groot aantal bestanden
+    - BEP53 ondersteuning. Meer hierover:
+      http://www.bittorrent.org/beps/bep_0053.html
+    - Toon fouten voor elke torrent
+...

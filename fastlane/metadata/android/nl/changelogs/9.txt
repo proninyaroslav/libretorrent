@@ -1,0 +1,11 @@
+* Toegevoegd:
+    - RSS manager
+    - Mogelijkheid om torrents te maken
+    - Planning
+    - Android TV ondersteuning
+    - Android P ondersteuning
+    - Meer verbetering magneet naamgeving
+    - Uitbreiden proxy poort bereik tot 65535
+    - Sta handmatig hervatten van torrents toe indien ingeschakeld stroom/Wi-Fi instellingen
+    - Kleine veranderingen
+...
