@@ -1,22 +1,18 @@
-# Funkciók
-
-* DHT, PeX, titkosítás, LSD, UPnP, NAT*PMP, µTP
-* IP szűrés (eMule dat és PeerGuardian)
-* Finomhangolás (hálózati beállítások, energiagazdálkodás, akkumulátorvezérlés, felhasználói felület beállításai stb.)
-* Számos torrent és nagy fájlok támogatása
-* HTTP\S és mágneslink támogatás
-* Proxyk támogatása a követők és partnerek számára
-* Fájlok áthelyezése letöltés közben is
-* Fájlok automatikus áthelyezése egy másik könyvtárba vagy egy külső meghajtóra a letöltés végén
-* Fájlok és mappák prioritásának kezelése
-* Letöltendő fájlok megadása
-* Sorfolytonos letöltés
-* Material Design
-* Sötét és fekete téma
-* Táblagépre optimalizált felület
-* Ütemezés
-* RSS kezelő
-* Android TV támogatás
-* Torrentek létrehozása
-* A kiválasztott fájlok közvetítése
-* és még sok egyéb funkció
+* GPLv3+ licenc. Használja, lássa, változtasson és ossza meg; mindenkivel.
+* Válassza ki, melyik fájlokat töltse le.
+* Helyezze át a fájlokat letöltés közben.
+* Automatikusan helyezze át a letöltött fájlokat másik mappába vagy külső meghajtóra.
+* Streameljen fájlokat, egymás utáni letöltésekkel.
+* Android TV.
+* Material dizájn, sötét és fekete téma és tablet felület.
+* Testreszabható hálózati, akkumulátor és felületi beállítások, stb.
+* 35+ fordítás.
+* Ütemezés.
+* Automatikus letöltések, Atom/RSS kezelővel.
+* Hozzon létre torrenteket, sok és nagy fájlokkal.
+* HTTP\S és mágneslinkek.
+* DHT, PeX, titkosítás, LSD, UPnP, NAT*PMP, µTP.
+* IP szűrés (eMule dat és PeerGuardian).
+* Proxy támogatás követőkhöz és partnerekhez.
+* A libtorrent4j-n alapszik.
+* És még több.
