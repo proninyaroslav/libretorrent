@@ -2,7 +2,7 @@
 * Válassza ki, melyik fájlokat töltse le.
 * Helyezze át a fájlokat letöltés közben.
 * Automatikusan helyezze át a letöltött fájlokat másik mappába vagy külső meghajtóra.
-* Streameljen fájlokat, egymás utáni letöltésekkel.
+* Streameljen fájlokat, sorban való letöltésekkel.
 * Android TV.
 * Material dizájn, sötét és fekete téma és tablet felület.
 * Testreszabható hálózati, akkumulátor és felületi beállítások, stb.
