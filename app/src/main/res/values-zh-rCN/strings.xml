@@ -50,7 +50,7 @@
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选定的种子？（ 此操作无法撤销。）</string>
     <string name="delete_selected_torrents">删除所选定的所有种子？（此操作无法撤销。）</string>
-    <string name="force_recheck_torrent">强制重新效验</string>
+    <string name="force_recheck_torrent">强制重新校验</string>
     <string name="force_announce_torrent">强制发布</string>
     <string name="add_link">添加链接</string>
     <string name="dialog_add_link_title">输入磁力链接或 HTTP/S 链接</string>
