@@ -11,7 +11,7 @@
     <string name="replace">置き換え</string>
     <string name="add">追加</string>
     <string name="delete">削除</string>
-    <string name="deleting">削除中</string>
+    <string name="deleting">削除中…</string>
     <string name="select_all">全て選択</string>
     <string name="save">保存</string>
     <string name="search">検索</string>
