@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="ok">OK</string>
-    <string name="cancel">キャンセル</string>
+    <string name="cancel">中止</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
     <string name="error">エラー</string>
@@ -48,12 +48,12 @@
     <string name="switch_off">OFF</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">全てのダウンロード済みファイルを削除</string>
-    <string name="delete_selected_torrent">選択したトレントを削除しますか? この操作は元に戻せません。</string>
-    <string name="delete_selected_torrents">選択したトレントを削除しますか? この操作は元に戻せません。</string>
+    <string name="delete_selected_torrent">選択したトレントを削除しますか\? (取り消せません)</string>
+    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (取り消せません)</string>
     <string name="force_recheck_torrent">強制的に再確認</string>
     <string name="force_announce_torrent">強制的に通知</string>
     <string name="add_link">リンクを追加</string>
-    <string name="dialog_add_link_title">InfoHash 値、マグネットリンク、または HTTP/HTTPS リンクを入力して下さい。</string>
+    <string name="dialog_add_link_title">InfoHash 値、マグネットリンク、または HTTP/S リンクを入力して下さい。</string>
     <string name="torrent_list_empty">トレント無し</string>
     <string name="select_or_add_torrent">トレントを選択/追加して下さい</string>
     <string name="error_empty_link">リンクを入力して下さい</string>
@@ -63,9 +63,9 @@
     <string name="settings">設定</string>
     <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性があります。</string>
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
-    <string name="proxy_settings_applied">プロキシサーバ設定を適用しました</string>
-    <string name="proxy_settings_apply_after_reboot">プロキシサーバ設定はアプリ再起動後に適用されます</string>
-    <string name="theme_settings_apply_after_reboot">テーマ設定はアプリ再起動後に適用されます</string>
+    <string name="proxy_settings_applied">新しいプロキシサーバ設定を使用します。</string>
+    <string name="proxy_settings_apply_after_reboot">新しいプロキシサーバ設定を使用するにははアプリを再起動して下さい。</string>
+    <string name="theme_settings_apply_after_reboot">新しいテーマを使用するにはアプリを再起動して下さい。</string>
     <string name="about">情報</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT ノード: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Listen 中のポート: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">状態</string>
-    <string name="drawer_status_downloading">ダウンロード中</string>
+    <string name="drawer_status_downloading">ダウンロード中…</string>
     <string name="drawer_status_downloaded">ダウンロード完了</string>
-    <string name="drawer_status_downloading_metadata">メタデータのダウンロード</string>
+    <string name="drawer_status_downloading_metadata">メタデータのダウンロード中…</string>
     <string name="drawer_status_error">エラー</string>
     <!-- Sorting -->
     <string name="drawer_sorting">並べ替え</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">サイズ</string>
     <string name="drawer_sorting_progress">状況</string>
     <string name="drawer_sorting_ETA">完了予定時刻</string>
-    <string name="drawer_sorting_peers">ピア</string>
+    <string name="drawer_sorting_peers">人気</string>
     <string name="drawer_sorting_no_sorting">ソートなし</string>
     <!-- Date added -->
     <string name="drawer_date_added">追加した日付</string>
@@ -101,8 +101,8 @@
     <string name="tag_color">タグの色</string>
     <string name="add_tag_failed">タグの追加に失敗しました</string>
     <string name="tag_deleting_failed">タグの削除に失敗しました</string>
-    <string name="tag_already_exists">同じ名前のタグが既に存在します</string>
-    <string name="no_tags">タグはありません</string>
+    <string name="tag_already_exists">このタグは既に存在します</string>
+    <string name="no_tags">タグなし</string>
     <string name="select_tag">タグを選択</string>
     <string name="new_tag">新しいタグ</string>
     <string name="without_tags">タグなし</string>
@@ -163,7 +163,7 @@
     <string name="error_io_add_torrent">トレントを追加できません。I/O エラー</string>
     <string name="torrent_exist">トレントが既に存在します。トレントはマージされました。</string>
     <string name="error_field_required">この欄は入力必須です</string>
-    <string name="error_no_files_selected">ファイルは選択されていません</string>
+    <string name="error_no_files_selected">選択されたファイルなし</string>
     <string name="free_space">%1$s 空き</string>
     <string name="error_free_space">選択したファイルをダウンロードするのに十分な空き領域がありません</string>
     <string name="files_size">%2$s の内 %1$s を選択済み</string>
