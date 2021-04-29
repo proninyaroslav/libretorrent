@@ -143,7 +143,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Γίνεται λήψη…</string>
-    <string name="torrent_status_seeding">Κοινή χρήση…</string>
+    <string name="torrent_status_seeding">Διαμοιρασμός…</string>
     <string name="torrent_status_paused">Παύση</string>
     <string name="torrent_status_stopped">Σταματημένο</string>
     <string name="torrent_status_checking">Έλεγχος…</string>
