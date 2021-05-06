@@ -56,9 +56,9 @@
     <string name="dialog_add_link_title">InfoHash 値、マグネットリンク、または HTTP/S リンクを入力して下さい。</string>
     <string name="torrent_list_empty">トレント無し</string>
     <string name="select_or_add_torrent">トレントを選択/追加して下さい</string>
-    <string name="error_empty_link">リンクを入力して下さい</string>
+    <string name="error_empty_link">リンクを入力</string>
     <string name="error_invalid_link">リンクが無効です</string>
-    <string name="error_open_torrent_file">トレントファイルを開けません</string>
+    <string name="error_open_torrent_file">.torrent ファイルを開けません</string>
     <string name="open_file">ファイルを開く</string>
     <string name="settings">設定</string>
     <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性があります。</string>
@@ -99,8 +99,8 @@
     <string name="edit_tag">タグを編集</string>
     <string name="tag_name">タグの名前</string>
     <string name="tag_color">タグの色</string>
-    <string name="add_tag_failed">タグの追加に失敗しました</string>
-    <string name="tag_deleting_failed">タグの削除に失敗しました</string>
+    <string name="add_tag_failed">タグの追加ができませんでした</string>
+    <string name="tag_deleting_failed">タグの削除ができませんでした</string>
     <string name="tag_already_exists">このタグは既に存在します</string>
     <string name="no_tags">タグなし</string>
     <string name="select_tag">タグを選択</string>
@@ -115,8 +115,8 @@
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">ダウンロード中: %1$d 合計: %2$d</string>
     <string name="app_running_in_the_background">バックグラウンドで LibreTorrent を動作し続ける</string>
-    <string name="network_online">ネットワークステータス: オンライン</string>
-    <string name="network_offline">ネットワークステータス: オフライン</string>
+    <string name="network_online">オンライン</string>
+    <string name="network_offline">オフライン</string>
     <string name="notify_shutting_down">シャットダウン中…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">トレントエラー</string>
