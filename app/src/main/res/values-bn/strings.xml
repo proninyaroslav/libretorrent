@@ -441,4 +441,21 @@
     <string name="new_tag">নতুন ট্যাগ</string>
     <string name="select_tag">ট্যাগ নাও</string>
     <string name="edit_tag">ট্যাগ সম্পাদনা</string>
+    <string name="pref_header_behavior">আচরণ</string>
+    <string name="comments">মন্তব্য</string>
+    <string name="feed_last_update_never">কখনো না</string>
+    <string name="send_text_to_clipboard">অনুলিপি</string>
+    <string name="torrent_availability">উপলভ্যতা</string>
+    <string name="torrent_added_date">যোগকৃত</string>
+    <string name="speed_limit_title">সর্বোচ্চ গতি</string>
+    <string name="share_via">ভাগ করার মাধ্যম…</string>
+    <string name="torrent_speed_limit">গতিসীমা</string>
+    <string name="peer_list_empty">এই টরেন্ট কারো সাথে যুক্ত হয় নি</string>
+    <string name="open_using">খোলার মাধ্যম</string>
+    <string name="add_trackers">ট্র্যাকার যোগ করো</string>
+    <string name="delete_selected_trackers">নির্বাচিত ট্র্যাকার মুছবে\?</string>
+    <string name="delete_selected_tracker">নির্বাচিত ট্র্যাকার মুছবে\?</string>
+    <string name="share_tracker_url">ইউআরএল ভাগ করো…</string>
+    <string name="tracker_state_not_contacted">যোগাযোগ করা হয়নি</string>
+    <string name="tracker_state_updating">হালনাগাদরত…</string>
 </resources>
