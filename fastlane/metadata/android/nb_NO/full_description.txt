@@ -1,22 +1,18 @@
-# Funksjoner
-
-* DHT, PeX, kryptering, LSD, UPnP, NAT*PMP, µTP
-* IP-filtrering (eMule dat og PeerGuardian)
-* Mulighet til fininstilling (nettverksinnstillinger, effekthåndtering, batterikontroll, grensesnittsinnstillinger, osv.)
-* Støtter torrenter med stort antall filer og store filer
-* HTTP(S) og magnetlenkestøtte
-* Støtter mellomtjener for sporere og likemenn
-* Mulighet til å flytte filer under nedlasting
-* Mulighet til automatisk flytting av filer til annen mappe, eller til eksternlagring etter nedlasting
-* Mulighet til å angi fil- og mappeprioritet
-* Mulighet til å velge hvilke filer som skal lastes ned
-* Mulighet til å laste ned sekvensielt
-* Materiell design
-* Mørk og svart drakt
-* Nettbrettsoptimisert grensesnitt
-* Planlegging
-* RSS-håndtering
-* Android TV-støtte
-* Mulighet til å lage torrenter
-* Strømming av alle valgte filer
-* Med mer
+* Lisensiert GPLv3+. Bruk, studer, endre og del; med alle.
+* Velg hvilke filer som skal lastes ned.
+* Flytt filer under nedlasting.
+* Auto-flytt nedlastede filer til en annen mappe eller eksternlagring.
+* Strømming av filer, med sekvensiell nedlasting.
+* Android TV.
+* Materiell design, mørk og svart drakt, samt nettbrettsgrensesnitt.
+* Tilpassbare nettverk-, batteri-, og grensesnittsinnstillinger, osv.
+* 35+ oversettelser.
+* Planlegging.
+* Auto-nedlasting, med Atom/RSS-håndterer.
+* Opprett torrenter, med mange og store filer.
+* HTTP\S og magnetlenker.
+* DHT, PeX, kryptering, LSD, UPnP, NAT*PMP, µTP.
+* IP-filtrering (eMule dat og PeerGuardian).
+* Støtte for mellomtjening av sporere og likemenn.
+* Basert på libtorrent4j.
+* Med mer.
