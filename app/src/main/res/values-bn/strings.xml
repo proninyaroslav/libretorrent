@@ -458,4 +458,17 @@
     <string name="share_tracker_url">ইউআরএল ভাগ করো…</string>
     <string name="tracker_state_not_contacted">যোগাযোগ করা হয়নি</string>
     <string name="tracker_state_updating">হালনাগাদরত…</string>
+    <string name="tracker_list_empty">ট্র্যাকার</string>
+    <string name="about_changelog">পরিবর্তনসূচী</string>
+    <string name="pref_enable_scheduling_shutdown_title">বন্ধের সময়</string>
+    <string name="pref_enable_scheduling_start_title">শুরুর সময়</string>
+    <string name="pref_encryption_category">এনক্রিপশন</string>
+    <string name="pref_vibration_notify_title">কম্পন</string>
+    <string name="pref_speed_category">গতি</string>
+    <string name="pref_header_streaming">ধারাপ্রচার</string>
+    <string name="pref_header_scheduling">সময়সূচীকরণ</string>
+    <string name="pref_header_limitations">সীমাবদ্ধতা</string>
+    <string name="pref_header_storage">স্টোরেজ</string>
+    <string name="pref_header_appearance">চেহারা</string>
+    <string name="log_journal">জার্নাল</string>
 </resources>
