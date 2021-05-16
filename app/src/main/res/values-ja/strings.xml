@@ -49,7 +49,7 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">全てのダウンロード済みファイルを削除</string>
     <string name="delete_selected_torrent">選択したトレントを削除しますか\? (取り消せません)</string>
-    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (取り消せません)</string>
+    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (元に戻せません。)</string>
     <string name="force_recheck_torrent">強制的に再確認</string>
     <string name="force_announce_torrent">強制的に通知</string>
     <string name="add_link">リンクを追加</string>
@@ -61,10 +61,10 @@
     <string name="error_open_torrent_file">.torrent ファイルを開けません</string>
     <string name="open_file">ファイルを開く</string>
     <string name="settings">設定</string>
-    <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性があります。</string>
+    <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性\?</string>
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
     <string name="proxy_settings_applied">新しいプロキシサーバ設定を使用します。</string>
-    <string name="proxy_settings_apply_after_reboot">新しいプロキシサーバ設定を使用するにははアプリを再起動して下さい。</string>
+    <string name="proxy_settings_apply_after_reboot">新プロキシサーバ設定の使用のためにアプリを再起動。</string>
     <string name="theme_settings_apply_after_reboot">新しいテーマを使用するにはアプリを再起動して下さい。</string>
     <string name="about">情報</string>
     <!-- Navigation drawer -->
@@ -113,24 +113,24 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">ダウンロード中: %1$d 合計: %2$d</string>
-    <string name="app_running_in_the_background">バックグラウンドで LibreTorrent を動作し続ける</string>
+    <string name="torrent_count_notify_template">%2$d 中 %1$d ⬇</string>
+    <string name="app_running_in_the_background">バックグラウンドで動作中…</string>
     <string name="network_online">オンライン</string>
     <string name="network_offline">オフライン</string>
     <string name="notify_shutting_down">シャットダウン中…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">トレントエラー</string>
     <string name="error_template">エラー: %1$s</string>
-    <string name="restore_torrent_error">以前のセッションからトレントを復元できませんでした</string>
+    <string name="restore_torrent_error">以前のセッションからトレントを復元できません。</string>
     <string name="session_error_title">セッションエラー</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT エラー</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">トレント完了</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">トレントの移動</string>
-    <string name="torrent_moving_content">%1$sを移動中です。お待ち下さい。</string>
-    <string name="torrent_move_success">トレントを正常に移動しました</string>
+    <string name="torrent_moving_title">トレントの移動…</string>
+    <string name="torrent_moving_content">%1$sを移動中につきお待ち下さい…</string>
+    <string name="torrent_move_success">トレントを移動しました</string>
     <string name="torrent_move_fail">トレントを移動できません</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -142,44 +142,44 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">ダウンロード中</string>
-    <string name="torrent_status_seeding">シード中</string>
+    <string name="torrent_status_downloading">ダウンロード中…</string>
+    <string name="torrent_status_seeding">共有中…</string>
     <string name="torrent_status_paused">一時停止</string>
     <string name="torrent_status_stopped">停止</string>
-    <string name="torrent_status_checking">確認中</string>
+    <string name="torrent_status_checking">確認中…</string>
     <string name="torrent_status_finished">完了</string>
-    <string name="torrent_status_downloading_metadata">メタデータのダウンロード</string>
+    <string name="torrent_status_downloading_metadata">メタデータのダウンロード中…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
-    <string name="perm_denied_warning">この許可がないとアプリはメモリにトレントファイルを保存することができません。アプリは正しく機能しません。この許可を拒否してよろしいですか?</string>
+    <string name="perm_denied_warning">アプリが .torrent ファイルをメモリに保持するのを本当に防ぐことができますか？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">トレントを追加</string>
-    <string name="error_decode_torrent">トレントファイルのデコードに失敗しました。ファイルが破損しているか、違う形式の可能性があります。</string>
-    <string name="error_io_torrent">トレントファイルの読み込みエラー</string>
+    <string name="error_decode_torrent">.torrent ファイルのデコードができませんでした。ファイルが破損しているか、不正な形式の可能性\?</string>
+    <string name="error_io_torrent">.torrent ファイルが読み込めません</string>
     <string name="error_fetch_link">リンクからデータを取得できませんでした</string>
-    <string name="error_invalid_link_or_path">トレントへのリンクまたはパスが無効です</string>
+    <string name="error_invalid_link_or_path">リンクまたはトレントのパスが無効です</string>
     <string name="error_add_torrent">トレントを追加できませんでした</string>
-    <string name="error_file_not_found_add_torrent">トレントを追加できませんでした。トレントファイルが移動または削除されている可能性があります。</string>
-    <string name="error_io_add_torrent">トレントを追加できません。I/O エラー</string>
-    <string name="torrent_exist">トレントが既に存在します。トレントはマージされました。</string>
-    <string name="error_field_required">この欄は入力必須です</string>
+    <string name="error_file_not_found_add_torrent">トレントを追加できませんでした。 .torrent ファイルが移動または削除された可能性\?</string>
+    <string name="error_io_add_torrent">I/O エラーによって、トレントを追加できません。</string>
+    <string name="torrent_exist">トレントはすでに存在しているので、それらはマージされました。</string>
+    <string name="error_field_required">入力必須項目</string>
     <string name="error_no_files_selected">選択されたファイルなし</string>
     <string name="free_space">%1$s 空き</string>
-    <string name="error_free_space">選択したファイルをダウンロードするのに十分な空き領域がありません</string>
-    <string name="files_size">%2$s の内 %1$s を選択済み</string>
+    <string name="error_free_space">選択したファイルをダウンロードするのに十分な空き領域がありません。</string>
+    <string name="files_size">%2$s 中 %1$s が選択されました</string>
     <string name="start_torrent">トレントを開始</string>
-    <string name="file_is_too_large_error">ファイルが大きすぎます</string>
-    <string name="unable_to_open_folder">選択したフォルダを開けません。別のフォルダを選択して下さい。</string>
-    <string name="error_empty_name">名前を入力して下さい</string>
-    <string name="ignore_free_space">空きスペースサイズを無視</string>
+    <string name="file_is_too_large_error">大きすぎるファイル</string>
+    <string name="unable_to_open_folder">選択したフォルダを開けません。異なるフォルダを選択して下さい。</string>
+    <string name="error_empty_name">名前を入力</string>
+    <string name="ignore_free_space">低いストレージ領域を無視</string>
     <!-- Torrent info -->
     <string name="torrent_info">情報</string>
     <string name="torrent_files">ファイル</string>
     <string name="torrent_name">名前</string>
-    <string name="upload_torrent_into">アップロード情報</string>
+    <string name="upload_torrent_into">アップロードする…</string>
     <string name="torrent_size">サイズ</string>
     <string name="torrent_file_count">ファイル数</string>
-    <string name="torrent_hash_sum">ハッシュサム</string>
+    <string name="torrent_hash_sum">チェックサム</string>
     <string name="torrent_comment">コメント</string>
     <string name="torrent_create_date">作成日時</string>
     <string name="torrent_created_in_program">プログラムで作成</string>
@@ -189,8 +189,8 @@
     <string name="file_chooser_title">ファイル選択</string>
     <string name="torrent_file_chooser_title">トレント選択</string>
     <string name="dialog_new_folder_title">新規フォルダ</string>
-    <string name="error_dialog_new_folder">新規フォルダを作成できません</string>
-    <string name="error_open_dir">フォルダを開けません</string>
+    <string name="error_dialog_new_folder">新規フォルダを作成できませんでした</string>
+    <string name="error_open_dir">フォルダを開けませんでした</string>
     <string name="home_directory">ホーム</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
@@ -199,10 +199,10 @@
     <string name="permission_denied">承認が拒否されました</string>
     <string name="save_file">ファイルの保存</string>
     <string name="file_name">ファイル名</string>
-    <string name="error_file_exists">ファイルは既に存在します</string>
-    <string name="file_name_is_empty">ファイル名を空欄にすることができません</string>
+    <string name="error_file_exists">そのファイルは既に存在します</string>
+    <string name="file_name_is_empty">最初にファイル名を入力</string>
     <string name="system_manager">システムマネージャー</string>
-    <string name="system_file_manager_not_found">システムファイルマネージャーが見つかりません</string>
+    <string name="system_file_manager_not_found">ファイルマネージャーが見つかりませんでした</string>
     <string name="replace_file">ファイルを置き換え</string>
     <string name="parent_folder">親フォルダ</string>
     <!-- Error dialog -->
@@ -224,15 +224,15 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">ダウンロード完了</string>
     <string name="torrent_ETA">完了予定時刻</string>
-    <string name="torrent_seeds">シード</string>
-    <string name="torrent_peers">ピア</string>
-    <string name="torrent_leechers">リーチャー</string>
+    <string name="torrent_seeds">共有者数</string>
+    <string name="torrent_peers">合計</string>
+    <string name="torrent_leechers">ダウンロード者数</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">アップロード済</string>
     <string name="torrent_share_ratio">負担率</string>
     <string name="torrent_active_time">稼働時間</string>
-    <string name="torrent_seeding_time">シード時間</string>
+    <string name="torrent_seeding_time">共有時間</string>
     <string name="torrent_pieces">ピース</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -241,9 +241,9 @@
     <string name="tracker_state_not_working">停止中</string>
     <string name="tracker_state_updating">アップデート中…</string>
     <string name="tracker_state_not_contacted">まだ接続されていません</string>
-    <string name="share_tracker_url">URL を共有</string>
-    <string name="delete_selected_tracker">選択されたアイテムを削除しますか?</string>
-    <string name="delete_selected_trackers">選択されたトラッカーを削除しますか?</string>
+    <string name="share_tracker_url">URL を共有…</string>
+    <string name="delete_selected_tracker">選択されたトラッカーを削除しますか\?</string>
+    <string name="delete_selected_trackers">選択されたトラッカーを削除しますか\?</string>
     <string name="add_trackers">トラッカー追加</string>
     <string name="dialog_add_trackers">(1行に1つ)</string>
     <string name="open_using">開く方法</string>
@@ -256,42 +256,42 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">このトレントはまだどのピアに接続されていません</string>
+    <string name="peer_list_empty">このトレントはまだ何にも接続されていません</string>
     <string name="piece_map">ピースマップ</string>
     <string name="resume_torrent">再開</string>
     <string name="pause_torrent">一時停止</string>
     <string name="share_magnet">Magnet を共有</string>
     <string name="save_torrent_file">トレントファイルを保存</string>
     <string name="torrent_speed_limit">速度制限</string>
-    <string name="share_via">共有...</string>
-    <string name="save_torrent_file_successfully">トレントファイルを正常に保存しました</string>
-    <string name="error_save_torrent_file">トレントファイルの保存に失敗しました</string>
+    <string name="share_via">共有方法…</string>
+    <string name="save_torrent_file_successfully">.torrent ファイルを保存しました</string>
+    <string name="error_save_torrent_file">トレントファイルの保存ができませんでした</string>
     <string name="speed_limit_title">最高速度</string>
     <string name="upload_speed">アップロード</string>
     <string name="download_speed">ダウンロード</string>
     <string name="speed_limit_dialog">KiB/s で速度設定 (0 - 制限なし)</string>
     <string name="torrent_added_date">追加済</string>
     <string name="torrent_availability">可用性</string>
-    <string name="share_stream_url">ストリームの URL を共有</string>
+    <string name="share_stream_url">ストリームの URL を共有…</string>
     <string name="magnet_include_file_priorities">ファイルの優先順位を含めますか?</string>
-    <string name="magnet_more_about_bep53">詳細情報: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">詳細情報は https://www.bittorrent.org/beps/bep_0053.html で</string>
     <string name="tracker_list_empty">トラッカーなし</string>
     <string name="edit_torrent_name">トレント名を編集</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">コピー</string>
-    <string name="text_copied_to_clipboard">テキストをクリップボードにコピーしました</string>
+    <string name="text_copied_to_clipboard">クリップボードにコピーしました</string>
     <!-- Error report -->
-    <string name="app_error_occurred">アプリエラーが発生しました。開発者にレポートを送ることができます。</string>
-    <string name="error_comment_prompt">ここに追加情報やコメントを追加することができます:</string>
+    <string name="app_error_occurred">アプリエラーが発生しました。開発者に報告ができます。</string>
+    <string name="error_comment_prompt">ここに追加情報やコメントを追加:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">チャンネルなし</string>
     <string name="select_or_add_feed_channel">RSS/Atom チャンネルを選択または追加</string>
     <string name="add_feed_channel">チャンネルの追加</string>
-    <string name="feed_name">名前 (任意)</string>
-    <string name="feed_filter_prompt">単語 (\"|\" で区切る) を入力して下さい。そのうちの1つは名前に含まれるか、正規表現を入力する必要があります。 トレントはこのフィルターがトレント名に一致する場合にのみ追加されます。</string>
-    <string name="feed_filter_prompt_one_per_line">1行に1つのフィルタを入力して下さい</string>
-    <string name="feed_auto_download">新しいトレントを自動的にダウンロード</string>
+    <string name="feed_name">(任意)名前</string>
+    <string name="feed_filter_prompt">単語 (\"|\" で区切る) を入力して下さい。そのうちの1つは名前に含まれるか、正規表現を入力する必要があります。 トレントはフィルターがトレント名に一致する場合にのみ追加されます。</string>
+    <string name="feed_filter_prompt_one_per_line">1行につき1つのフィルタを入力。</string>
+    <string name="feed_auto_download">トレントを自動ダウンロード</string>
     <string name="feed_use_regex">正規表現を使う</string>
     <string name="backup_feed_channels">バックアップを保存</string>
     <string name="restore_feed_channels_backup">バックアップを復元</string>
@@ -301,17 +301,17 @@
     <string name="error_cannot_edit_channel">チャンネルを編集できません</string>
     <string name="error_cannot_delete_channel">チャンネルを削除できません</string>
     <string name="copy_link">リンクをコピー</string>
-    <string name="delete_selected_channel">選択されたチャンネルを削除しますか?</string>
-    <string name="delete_selected_channels">選択されたチャンネルを削除しますか?</string>
+    <string name="delete_selected_channel">選択されたチャンネルを削除しますか\?</string>
+    <string name="delete_selected_channels">選択されたチャンネルを削除しますか\?</string>
     <string name="edit_feed_channel">チャンネルの編集</string>
-    <string name="link_copied_to_clipboard">リンクをクリップボードにコピーしました</string>
+    <string name="link_copied_to_clipboard">クリップボードにコピーしました</string>
     <string name="mark_as_read">既読にする</string>
     <string name="mark_as_unread">未読にする</string>
     <string name="feed_item_list_empty">アーティクルがありません</string>
     <string name="backup_feeds_successfully">チャンネルを保存しました</string>
     <string name="restore_feeds_backup_successfully">チャンネルを復元しました</string>
-    <string name="error_backup_feeds">チャンネルの保存に失敗しました</string>
-    <string name="error_restore_feeds_backup">チャンネルの復元に失敗しました</string>
+    <string name="error_backup_feeds">チャンネルの保存ができませんでした</string>
+    <string name="error_restore_feeds_backup">チャンネルの復元ができませんでした</string>
     <string name="feed_item_open_article_url">アーティクルを開く</string>
     <string name="feeds_backup_selection_dialog_title">バックアップファイルを選択</string>
     <string name="error_import_invalid_format">無効な形式</string>
@@ -319,13 +319,13 @@
     <string name="feed_item_url_not_found">URL が見つかりません</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">トレントを作成</string>
-    <string name="creating_torrent_progress">トレントを作成しています。しばらくお待ち下さい…</string>
-    <string name="file_or_folder_for_seeding">シード用のファイルまたはフォルダ</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">最初にシードするファイルまたはフォルダを選択して下さい</string>
+    <string name="creating_torrent_progress">トレントが作成されるまで、しばらくお待ち下さい…</string>
+    <string name="file_or_folder_for_seeding">共有用のファイルまたはフォルダ</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">最初に共有するファイルまたはフォルダを選択。</string>
     <string name="tracker_urls">トラッカー URL</string>
-    <string name="web_seed_urls">ウェブシード URL</string>
+    <string name="web_seed_urls">ウェブ共有 URL</string>
     <string name="comments">コメント</string>
-    <string name="tracker_urls_hint">(任意) 優先順位の順にトラッカーを1行に1つ入力して下さい</string>
+    <string name="tracker_urls_hint">(任意) 優先順位の順にトラッカーを1行につき1つ入力。</string>
     <string name="web_seed_urls_hint">(任意) 1行につき1つ</string>
     <string name="optional_hint">(任意)</string>
     <string name="piece_size">ピースサイズ</string>
@@ -348,10 +348,10 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url">無効な URL: %1$s</string>
-    <string name="folder_is_empty">選択したフォルダが空か、フィルターによって全てのファイルが除外されています。</string>
+    <string name="folder_is_empty">選択したフォルダが空か、フィルターによって全てのそのファイルが除外されています。</string>
     <string name="error_create_torrent">トレントを作成できません</string>
     <string name="skip_files">ファイルをスキップ</string>
-    <string name="skip_files_hint">\"|\" で区切られたファイル名を入力して下さい</string>
+    <string name="skip_files_hint">\"|\" で区切られたファイル名を入力して下さい。</string>
     <string name="select_folder_to_save">保存するフォルダを選択</string>
     <string name="torrent_saved_to">トレントを %1$s に保存しました</string>
     <string name="unable_to_open_file">選択したファイルを開けません</string>
@@ -364,12 +364,12 @@
     <string name="journal_started_recording">記録開始済み</string>
     <string name="journal_filter_session_log">セッションログ</string>
     <string name="journal_filter_dht_log">DHT ログ</string>
-    <string name="journal_filter_peer_log">ピアログ</string>
+    <string name="journal_filter_peer_log">接続ログ</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP ログ</string>
     <string name="journal_filter_torrent_log">トレントログ</string>
-    <string name="journal_save_log_failed">ログの保存に失敗しました</string>
+    <string name="journal_save_log_failed">ログを保存できませんでした</string>
     <string name="journal_save_log_success">ログを保存しました: %1$s</string>
-    <string name="pref_journal_save_log_to">ログの保存先</string>
+    <string name="pref_journal_save_log_to">ログの保存先…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">保管するジャーナルエントリの最大数</string>
     <!-- Settings -->
@@ -383,30 +383,30 @@
     <string name="pref_header_feed">RSS</string>
     <string name="pref_header_streaming">ストリーミング</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">トレントの保存先</string>
+    <string name="pref_save_torrents_in_title">トレントの保存先…</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
     <string name="pref_move_after_download_in_title">ダウンロード後の移動先</string>
     <string name="pref_save_torrent_files_title">.torrent ファイルを保存</string>
-    <string name="pref_save_torrent_files_summary">ダウンロード開始後に .torrent ファイルを保存</string>
-    <string name="pref_save_torrent_files_in_title">.torrent ファイルの保存先</string>
+    <string name="pref_save_torrent_files_summary">ダウンロード開始時に .torrent ファイルを保存</string>
+    <string name="pref_save_torrent_files_in_title">.torrent ファイルの保存先…</string>
     <string name="pref_watch_dir_title">ディレクトリを表示</string>
-    <string name="pref_watch_dir_summary">トレントファイル (.torrent拡張機能付き) は指定されたディレクトリに表示され、自動的に追加されます。追加後にトレントファイルが削除されます。</string>
+    <string name="pref_watch_dir_summary">このフォルダの .torrent ファイルは自動追加され、そして削除されます。</string>
     <string name="pref_dir_to_watch_title">表示するディレクトリ</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">速度</string>
-    <string name="pref_max_download_speed_title">最大ダウンロード速度</string>
-    <string name="pref_max_upload_speed_title">最大アップロード速度</string>
+    <string name="pref_max_download_speed_title">最大 ⬇ 速度</string>
+    <string name="pref_max_upload_speed_title">最大 ⬆ 速度</string>
     <string name="pref_max_connections_title">最大接続数</string>
     <string name="pref_max_connections_summary">最小接続数 - 2</string>
     <string name="pref_torrent_queueing_category">トレントキュー</string>
-    <string name="pref_max_active_uploads_title">最大のアクティブなアップロード</string>
-    <string name="pref_max_active_downloads_title">最大のアクティブなダウンロード</string>
-    <string name="pref_max_active_torrents_title">最大のアクティブなトレント</string>
+    <string name="pref_max_active_uploads_title">アクティブなアップロードの最大数</string>
+    <string name="pref_max_active_downloads_title">アクティブなダウンロードの最大数</string>
+    <string name="pref_max_active_torrents_title">アクティブなトレントの最大数</string>
     <string name="pref_max_connections_per_torrent_title">トレントごとの最大接続数</string>
     <string name="pref_max_connections_per_torrent_summary">最小接続数 - 2</string>
     <string name="pref_max_uploads_per_torrent_title">トレントごとのアップロードスロットの最大数</string>
     <string name="pref_auto_manage_title">自動管理</string>
-    <string name="pref_auto_manage_summary">トレントはいつでも自動的に再開または一時停止することができます。このオプションを有効にすると、一時停止/再開が遅くなることがあります。</string>
+    <string name="pref_auto_manage_summary">トレントはいつでも自動再開または一時停止することができます。(一時停止/再開が遅くなることがあります。)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 制限なし</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">テーマ設定</string>
@@ -418,7 +418,7 @@
     </string-array>
     <string name="pref_notification_category">通知設定</string>
     <string name="pref_torrent_finish_notify_title">トレント終了通知</string>
-    <string name="pref_torrent_finish_notify_summary">トレントのダウンロードが完了したときに通知を表示する</string>
+    <string name="pref_torrent_finish_notify_summary">トレントがダウンロードされたときに通知を表示する。</string>
     <string name="pref_play_sound_notify_title">サウンド再生</string>
     <string name="pref_notify_sound_title">通知音</string>
     <string name="pref_led_indicator_notify_title">LED 表示</string>
@@ -426,37 +426,37 @@
     <string name="pref_vibration_notify_title">振動</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">自動起動</string>
-    <string name="pref_autostart_summary">端末起動後にアプリを実行する</string>
+    <string name="pref_autostart_summary">端末起動時にアプリを実行する。</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">定額制接続のみ</string>
-    <string name="pref_umnetered_connections_only_summary">従量課金ではない接続 (Wi-Fiやイーサネットなど) のみを通してダウンロードする</string>
-    <string name="pref_enable_roaming_title">ローミングの有効化</string>
-    <string name="pref_enable_roaming_summary">端末がローミングしていない場合にのみダウンロードする</string>
+    <string name="pref_umnetered_connections_only_summary">従量制ではない接続 (Wi-Fiやイーサネットなど) のみ使用。</string>
+    <string name="pref_enable_roaming_title">ローミング</string>
+    <string name="pref_enable_roaming_summary">端末がローミングしていない場合にのみダウンロードする。</string>
     <string name="pref_power_management_category">電源管理</string>
-    <string name="pref_keep_alive_title">スリープにしない</string>
-    <string name="pref_keep_alive_summary">有効にすると、アプリはバックグラウンドで実行されたままになります。ダウンロードが完了したらシャットダウンして下さい。</string>
-    <string name="pref_shutdown_downloads_complete_title">ダウンロード完了時にシャットダウン</string>
-    <string name="pref_shutdown_downloads_complete_summary">有効にすると全てのダウンロードが完了したときにアプリがシャットダウンします</string>
-    <string name="pref_cpu_do_not_sleep_title">CPU をスリープにしない</string>
-    <string name="pref_cpu_do_not_sleep_summary">有効にするとバッテリーの使用量が増えます。画面消灯時にダウンロード速度が遅くなる場合はこのオプションを使用して下さい。</string>
-    <string name="pref_download_and_upload_only_when_charging_title">充電時のみダウンロードとアップロード</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">有効にした場合、充電時にのみトレントをダウンロード/アップロードします。充電器に接続されていない場合、全てのトレントは一時停止します。</string>
+    <string name="pref_keep_alive_title">実行中のままにする</string>
+    <string name="pref_keep_alive_summary">アプリをバックグラウンドで実行したままにします。(全ダウンロードが終了したらアプリを閉じることを重んじます。)</string>
+    <string name="pref_shutdown_downloads_complete_title">ダウンロード全終了時に閉じる</string>
+    <string name="pref_shutdown_downloads_complete_summary">全てダウンロードされたときにアプリをオフにするる</string>
+    <string name="pref_cpu_do_not_sleep_title">デバイスをスリープにしない</string>
+    <string name="pref_cpu_do_not_sleep_summary">画面消灯時にダウンロード速度が遅くなる場合は使用して下さい。(バッテリー使用量増加。)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">充電時はダウンロードとアップロードのみ。</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">非充電時にファイルは転送されません。(充電器に接続されていない場合、全てのトレントが一時停止します。)</string>
     <string name="pref_battery_control_title">バッテリー制御</string>
     <string name="pref_custom_battery_control_title">カスタムバッテリー残量</string>
     <string name="pref_custom_battery_control_value_title">バッテリー制御の残量</string>
-    <string name="pref_battery_control_summary">バッテリー残量が %1$d%% を下回った場合、全てのトレントは一時停止されます。充電時に制限は適用されません。</string>
-    <string name="pref_custom_battery_control_summary">バッテリーが所定のしきい値を下回った場合にダウンロードを一時停止する残量を設定します。これを有効にすると、既定の %1$d%% しきい値が無視されます。</string>
-    <string name="pref_custom_battery_control_dialog_summary">アプリが監視するカスタムバッテリー残量を設定すると、ダウンロード中のバッテリー寿命に悪影響があります。有効にしてもよろしいですか?</string>
+    <string name="pref_battery_control_summary">バッテリー残量が %1$d%% を下回った場合、全てのトレントが一時停止されます。(充電時に制限は適用されません。)</string>
+    <string name="pref_custom_battery_control_summary">ダウンロードを一時停止するバッテリー%を設定します。(既定の %1$d%% が無視されます。)</string>
+    <string name="pref_custom_battery_control_dialog_summary">本当にご覧のバッテリー%に設定しますか\? (ダウンロード中は電池の消費量が増加します。)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">プロキシ設定</string>
-    <string name="pref_enable_dht_title">DHT を有効化</string>
-    <string name="pref_enable_dht_summary">トラッカーを使用せずに BitTorrent クライアントが互いを見つけることができます。これを有効にするとバッテリー使用量が増加します。</string>
-    <string name="pref_enable_lsd_title">LSD を有効化</string>
-    <string name="pref_enable_lsd_summary">トラフィックを最小化することを目的として、地元の BitTorrent ピアの発見をサポートするように設計されています。</string>
-    <string name="pref_enable_utp_title">μTP を有効化</string>
+    <string name="pref_enable_dht_title">DHT</string>
+    <string name="pref_enable_dht_summary">トラッカーなしに他の人を発見するのを許可する。(バッテリー使用量が増加。)</string>
+    <string name="pref_enable_lsd_title">LSD</string>
+    <string name="pref_enable_lsd_summary">トラフィックを最小化することを目的として、ローカルの発見をサポートするように設計されています。</string>
+    <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">信頼性が高く、指定された配送を提供しながら、従来の BitTorrent で見られる遅延やその他の混雑制御の問題を軽減することを目的としています。</string>
-    <string name="pref_enable_upnp_title">UPnP を有効化</string>
-    <string name="pref_enable_natpmp_title">NAT-PMP を有効化</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">ポート設定</string>
     <string name="pref_use_random_port_title">ランダムポートを使用</string>
     <string name="pref_use_random_port_summarty">開始ポートを [%1$d, %2$d] の範囲でランダムに、終了ポートを最初の +10 に設定します。</string>
@@ -464,7 +464,7 @@
     <string name="pref_port_range_start_title">開始</string>
     <string name="pref_port_range_end_title">終了</string>
     <string name="pref_encryption_category">暗号化</string>
-    <string name="pref_enc_mode_title">暗号化モード</string>
+    <string name="pref_enc_mode_title">モード</string>
     <string-array name="pref_enc_mode_entries">
         <item>暗号化を優先</item>
         <item>暗号化が必要</item>
@@ -473,14 +473,14 @@
     <string name="pref_enc_in_connections_title">外部からの接続</string>
     <string name="pref_enc_out_connections_title">こちらからの接続</string>
     <string name="pref_ip_filtering_category">IP フィルタリング</string>
-    <string name="pref_enable_ip_filtering_title">IP フィルタリングを有効化</string>
-    <string name="pref_enable_ip_filtering_summary">IP フィルタリングを使用するとメモリ使用量が増加します。ファイルサイズに応じて、起動時にフィルタを適用するには時間がかかる場合があります。</string>
+    <string name="pref_enable_ip_filtering_title">IP フィルタリング</string>
+    <string name="pref_enable_ip_filtering_summary">ファイルサイズに応じて、フィルタを起動時に適用するには時間がかかる場合があります。(バッテリー使用量が増加。)</string>
     <string name="pref_ip_filtering_file_title">フィルターファイルへのパス (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT エラーを表示</string>
-    <string name="pref_anonymous_mode_title">匿名モードを有効化</string>
+    <string name="pref_anonymous_mode_title">匿名モード</string>
     <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフ。</string>
-    <string name="pref_seeding_outgoing_connections_title">シードの送信接続を有効化</string>
-    <string name="pref_seeding_outgoing_connections_summary">トレントのシードの送信を試みるかどうかを決定します。 これは、出力接続のコストが高い非常に特定の状況で無効になる可能性があります。</string>
+    <string name="pref_seeding_outgoing_connections_title">共有の送信接続</string>
+    <string name="pref_seeding_outgoing_connections_summary">共有されたトレントが送信接続をできます。(コストがかかる場合があります。)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">プロキシタイプ</string>
     <string-array name="pref_proxy_type_entries">
@@ -491,23 +491,23 @@
     </string-array>
     <string name="pref_proxy_address_title">アドレス</string>
     <string name="pref_proxy_port_title">ポート</string>
-    <string name="pref_proxy_peers_too_title">ピア接続にも使用</string>
-    <string name="pref_proxy_peers_too_summary">プロキシはトラッカー、ピア、ウェブシードとの接続に使用されます</string>
+    <string name="pref_proxy_peers_too_title">接続にも使用</string>
+    <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブ共有への接続はプロキシされます。</string>
     <string name="pref_proxy_requires_auth_title">認証が必要</string>
-    <string name="pref_proxy_requires_auth_summary">警告: パスワードは暗号化なしで保存されます</string>
-    <string name="pref_proxy_login_title">ログイン</string>
+    <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常ファイルで保存されます</string>
+    <string name="pref_proxy_login_title">ユーザー名</string>
     <string name="pref_proxy_password_title">パスワード</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">開始時刻</string>
-    <string name="pref_enable_scheduling_start_summary">指定された時刻にアプリを起動します。Torrent は最後のシャットダウンの前に状態に従って実行されます。</string>
+    <string name="pref_enable_scheduling_start_summary">指定された時刻にアプリを起動します。Torrent は最後のものがシャットダウンの前に状態に従って実行されます。</string>
     <string name="pref_enable_scheduling_shutdown_title">シャットダウン時刻</string>
     <string name="pref_enable_scheduling_shutdown_summary">特定の時刻にアプリを終了する</string>
     <string name="pref_scheduling_run_only_once_title">1度だけ実行</string>
-    <string name="pref_scheduling_switch_wifi_title">Wi-Fi の有効/無効</string>
-    <string name="pref_scheduling_switch_wifi_summary">予定時刻にアプリを起動すると自動的に Wi-Fi が有効になり、予定時刻にアプリがシャットダウンされた後に無効になります。</string>
+    <string name="pref_scheduling_switch_wifi_title">Wi-Fi の切り替え</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fiを予定開始するときはオン、予定停止するときはオフにします。</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">チャンネルの自動更新</string>
-    <string name="pref_feed_auto_refresh_summary">バックグラウンドで定期的にチャンネルを更新する</string>
+    <string name="pref_feed_auto_refresh_summary">バックグラウンドで定期的にチャンネルを更新する。</string>
     <string name="pref_feed_refresh_interval_title">更新間隔</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>15分</item>
@@ -521,7 +521,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">定額制接続のみ</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">定額の接続でのみ更新する (Wi-Fi やイーサネットなど)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">ローミングの有効化</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">ローミング</string>
     <string name="pref_feed_keep_items_time_title">アーティクルを保持</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1日</item>
@@ -534,20 +534,18 @@
         <item>3ヶ月</item>
         <item>常時</item>
     </string-array>
-    <string name="pref_feed_start_torrents_title">トレント実行</string>
+    <string name="pref_feed_start_torrents_title">トレント自動開始</string>
     <string name="pref_feed_start_torrents_summary">追加後トレント実行</string>
-    <string name="pref_feed_remove_duplicates_title">重複項目を削除</string>
-    <string name="pref_feed_remove_duplicates_summary">同じタイトルの項目が既に存在している場合、新しくダウンロードしたアイテムのタイトルをチェックしてスキップします。</string>
+    <string name="pref_feed_remove_duplicates_title">重複なし</string>
+    <string name="pref_feed_remove_duplicates_summary">既に存在するファイルタイトルのダウンロードをスキップします。</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">ストリーミングの有効化</string>
-    <string name="pref_streaming_enable_summary">ストリーミングを使用すると、HTTP の URL を使用してブラウザまたはメディアプレーヤーを使用して、トレントから個々のファイルをダウンロードできます。</string>
+    <string name="pref_streaming_enable_title">ストリーミング</string>
+    <string name="pref_streaming_enable_summary">HTTP/S の URL を使用してウェブブラウザまたはメディアプレーヤーを使用して、トレントから個々のファイルをダウンロードを許可。</string>
     <string name="pref_streaming_hostname">ホスト名</string>
     <string name="pref_streaming_port">ポート</string>
-    <string name="pref_streaming_error">選択されたポートまたはホスト名は、ストリーミングがビジーか、または正しくありません。修正して下さい。</string>
+    <string name="pref_streaming_error">ストリーミング用のポートまたはホスト名は、ビジーまたは不正でないものを選択してください。</string>
     <!-- About dialog -->
     <string name="about_title">バージョン情報</string>
-    <string name="about_description"><![CDATA[追加情報とプロジェクトの支援:<a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のフリーのトレントクライアントです(Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>)。<br><br>
-LibreTorrent <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>の規約に基づいて公開されるフリーソフトです。]]></string>
+    <string name="about_description">追加情報とプロジェクトの支援方法:&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のcopylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)のトレントクライアントです(Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新履歴</string>
 </resources>
