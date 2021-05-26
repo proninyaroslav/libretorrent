@@ -113,10 +113,10 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">Pobieranie: %1$d Razem: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent działa w tle</string>
+    <string name="app_running_in_the_background">LibreTorrent działa w tle…</string>
     <string name="network_online">Online</string>
     <string name="network_offline">Offline</string>
-    <string name="notify_shutting_down">Wyłączanie...</string>
+    <string name="notify_shutting_down">Wyłączanie…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Błąd torrenta</string>
     <string name="error_template">Błąd: %1$s</string>
@@ -271,7 +271,7 @@
     <string name="speed_limit_dialog">Ustaw prędkość w KiB/s (0 - bez limitu)</string>
     <string name="torrent_added_date">Dodano</string>
     <string name="torrent_availability">Dostępność</string>
-    <string name="share_stream_url">Udostępnij adres URL strumienia</string>
+    <string name="share_stream_url">Udostępnij adres URL strumienia…</string>
     <string name="magnet_include_file_priorities">Uwzględnij priorytety plików?</string>
     <string name="magnet_more_about_bep53">Więcej informacji: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Brak trackerów</string>
@@ -493,7 +493,7 @@
     <string name="pref_proxy_peers_too_title">Użyj również do połączenia z peer\'ami</string>
     <string name="pref_proxy_peers_too_summary">Proxy zostanie użyte do połączeń z tracker\'ami, peer\'ami oraz seed\'ami</string>
     <string name="pref_proxy_requires_auth_title">Używaj autoryzacji</string>
-    <string name="pref_proxy_requires_auth_summary">Uwaga! Hasło jest zapisywane w niezaszyfrowanym pliku! </string>
+    <string name="pref_proxy_requires_auth_summary">Uwaga: Hasło jest zapisywane w zwykłym pliku.</string>
     <string name="pref_proxy_login_title">Logowanie</string>
     <string name="pref_proxy_password_title">Hasło</string>
     <!-- Schedule settings -->
@@ -519,7 +519,7 @@
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Tylko przez Wi-Fi</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Odświeżaj tylko poprzez Wi-Fi lub Ethernet</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Odświeżaj tylko poprzez Wi-Fi lub Ethernet.</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Włącz roaming</string>
     <string name="pref_feed_keep_items_time_title">Zachowaj artykuły</string>
     <string-array name="pref_feed_keep_items_time_entries">
