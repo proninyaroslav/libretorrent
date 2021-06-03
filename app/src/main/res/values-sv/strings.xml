@@ -11,7 +11,7 @@
     <string name="replace">Ersätt</string>
     <string name="add">Lägg till</string>
     <string name="delete">Radera</string>
-    <string name="deleting">Tar bort</string>
+    <string name="deleting">Tar bort…</string>
     <string name="select_all">Markera allt</string>
     <string name="save">Spara</string>
     <string name="search">Sök</string>
@@ -48,23 +48,23 @@
     <string name="switch_off">Av</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Radera med nedladdade filer</string>
-    <string name="delete_selected_torrent">Ta bort den valda torrenten? Denna åtgärd kan inte ångras</string>
-    <string name="delete_selected_torrents">Ta bort de valda torrenterna? Denna åtgärd kan inte ångras</string>
+    <string name="delete_selected_torrent">Ta bort vald torrent\? (Kan inte ångras.)</string>
+    <string name="delete_selected_torrents">Ta bort valda torrenter\? (Kan inte ångras.)</string>
     <string name="force_announce_torrent">Tvinga annonsering</string>
     <string name="add_link">Lägg till länk</string>
-    <string name="dialog_add_link_title">Ange infohash-värdet, magnet länk eller HTTP/HTTPS-länk</string>
+    <string name="dialog_add_link_title">Ange infohash-värdet, magnet-länk eller HTTP/S-länk</string>
     <string name="torrent_list_empty">Inga torrents</string>
     <string name="select_or_add_torrent">Välj eller lägg till en torrent</string>
     <string name="error_empty_link">Fyll i länken</string>
     <string name="error_invalid_link">Ogiltig länk</string>
-    <string name="error_open_torrent_file">Det går inte att öppna torrent-filen</string>
+    <string name="error_open_torrent_file">Kan inte öppna .torrent-filen</string>
     <string name="open_file">Öppna fil</string>
     <string name="settings">Inställningar</string>
-    <string name="ip_filter_add_error">Kunde inte att lägga till IP-filter (%1$d misslyckades). Filen kanske är skadad eller har ett felaktigt format</string>
-    <string name="ip_filter_add_success">IP-filter har lagts till</string>
-    <string name="proxy_settings_applied">Inställningarna för proxy-servern tillämpades</string>
-    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya proxy-inställningarna</string>
-    <string name="theme_settings_apply_after_reboot">Starta om appen för att använda det nya temat</string>
+    <string name="ip_filter_add_error">Kunde inte att lägga till IP-filter (%1$d misslyckades). Filen kanske är skadad eller har ett felaktigt format\?</string>
+    <string name="ip_filter_add_success">IP-filtret lades till</string>
+    <string name="proxy_settings_applied">Använder de nya inställningarna för proxy-servern.</string>
+    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya proxy-inställningarna.</string>
+    <string name="theme_settings_apply_after_reboot">Starta om appen för att använda det nya temat.</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
@@ -94,11 +94,11 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="network_online">Network status: Online</string>
-    <string name="network_offline">Network status: Offline</string>
+    <string name="network_online">Uppkopplad</string>
+    <string name="network_offline">Nerkopplad</string>
     <!-- Error notification -->
     <string name="error_template">Error: %1$s</string>
-    <string name="restore_torrent_error">Kan inte återställa torrent från föregående session</string>
+    <string name="restore_torrent_error">Kan inte återställa torrent från föregående session.</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT-fel</string>
     <!-- Finish notification -->
@@ -125,35 +125,35 @@
     <string name="torrent_status_downloading_metadata">Laddar ner metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Åtkomst nekad</string>
-    <string name="perm_denied_warning">Utan denna behörighet kan appen inte spara torrent-filer i minnet. Appen kommer inte att fungera korrekt. Är du säker på att du vill neka denna behörighet?</string>
+    <string name="perm_denied_warning">Vill du verkligen förhindra appen att behålla .torrent-filer i minnet\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Lägg till torrent</string>
-    <string name="error_decode_torrent">Kunde inte avkoda torrent-fil. Den kanske är skadad eller i ett felaktigt format\?</string>
-    <string name="error_io_torrent">Kunde inte läsa torrent-filen</string>
+    <string name="error_decode_torrent">Kunde inte avkoda .torrent-fil. Den kanske är skadad eller i ett felaktigt format\?</string>
+    <string name="error_io_torrent">Kunde inte läsa .torrent-filen</string>
     <string name="error_fetch_link">Kunde inte hämta data från länken</string>
     <string name="error_invalid_link_or_path">Icke giltig länk eller torrent-genväg</string>
     <string name="error_add_torrent">Kunde inte lägga till torrenten</string>
-    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är torrent-filen flyttad, eller borttagen\?</string>
+    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är .torrent-filen flyttad, eller borttagen\?</string>
     <string name="error_io_add_torrent">Kan inte lägga till torrent till följd av ett I/O-fel.</string>
     <string name="torrent_exist">Eftersom att torrenten redan finns så slogs de ihop.</string>
     <string name="error_field_required">Fält som krävs</string>
     <string name="error_no_files_selected">Inga filer valda</string>
     <string name="free_space">%1$s ledigt</string>
-    <string name="error_free_space">Det finns inte tillräckligt med utrymme för att ladda ner de valda filerna</string>
-    <string name="files_size">Vald %1$s av %2$s</string>
+    <string name="error_free_space">Det finns inte tillräckligt med utrymme för att ladda ner de valda filerna.</string>
+    <string name="files_size">%1$s av %2$s valdes</string>
     <string name="start_torrent">Starta torrent</string>
-    <string name="file_is_too_large_error">Filen är för stor</string>
-    <string name="unable_to_open_folder">Det gick inte att öppna vald mapp. Försök att välja en annan mapp</string>
-    <string name="error_empty_name">Snälla ange namn</string>
-    <string name="ignore_free_space">Ignorera utrymmesstorlek</string>
+    <string name="file_is_too_large_error">Filen för stor</string>
+    <string name="unable_to_open_folder">Kan inte öppna den valda mappen. Prova välj en annan.</string>
+    <string name="error_empty_name">Ange ett namn</string>
+    <string name="ignore_free_space">Ignorera lågt diskutrymme</string>
     <!-- Torrent info -->
     <string name="torrent_info">Information</string>
     <string name="torrent_files">Filer</string>
     <string name="torrent_name">Namn</string>
-    <string name="upload_torrent_into">Ladda upp till</string>
+    <string name="upload_torrent_into">Ladda upp till…</string>
     <string name="torrent_size">Storlek</string>
     <string name="torrent_file_count">Antal filer</string>
-    <string name="torrent_hash_sum">Hashsumma</string>
+    <string name="torrent_hash_sum">Kontrollsumma</string>
     <string name="torrent_comment">Kommentar</string>
     <string name="torrent_create_date">Skapad</string>
     <string name="torrent_created_in_program">Skapad i programmet</string>
@@ -163,16 +163,16 @@
     <string name="file_chooser_title">Val av fil</string>
     <string name="torrent_file_chooser_title">Val av Torrent</string>
     <string name="dialog_new_folder_title">Ny mapp</string>
-    <string name="error_dialog_new_folder">Det gick inte att skapa en ny mapp</string>
-    <string name="error_open_dir">Det går inte att öppna mappen</string>
+    <string name="error_dialog_new_folder">Kunde inte skapa ny mapp</string>
+    <string name="error_open_dir">Kunde inte öppna mappen</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="file_name">File name</string>
-    <string name="error_file_exists">File already exists</string>
-    <string name="file_name_is_empty">File name cannot be empty</string>
+    <string name="file_name">Filnamn</string>
+    <string name="error_file_exists">Filen existerar redan</string>
+    <string name="file_name_is_empty">Ange ett namn först</string>
     <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="system_file_manager_not_found">Kunde inte hitta en filhanterare</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->
@@ -189,45 +189,45 @@
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="dialog_add_trackers">(One per line)</string>
+    <string name="dialog_add_trackers">(En per rad)</string>
     <string name="peer_port">Port: %1$d</string>
     <string name="peer_connection_type">Anslutning: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
     <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
     <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
-    <string name="peer_connection_type_web">Web</string>
-    <string name="pause_torrent">Pause</string>
-    <string name="save_torrent_file_successfully">Torrent file saved successfully</string>
-    <string name="error_save_torrent_file">Failed to save a torrent file</string>
-    <string name="upload_speed">Upload</string>
-    <string name="download_speed">Download</string>
-    <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="peer_connection_type_web">Webb</string>
+    <string name="pause_torrent">Pausa</string>
+    <string name="save_torrent_file_successfully">.torrent-filen sparades</string>
+    <string name="error_save_torrent_file">Kunde inte spara en torrent-fil</string>
+    <string name="upload_speed">Ladda upp</string>
+    <string name="download_speed">Ladda ner</string>
+    <string name="magnet_more_about_bep53">Mer information via http://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="text_copied_to_clipboard">Kopierades till klippbordet</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">Ett app-fel inträffade. Du kan rapportera det till utvecklarna.</string>
+    <string name="error_comment_prompt">Lägg till extra-information och kommentarer här:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="feed_filter_prompt">Ange orden (separerat med \"|\")varav en av varje måste finnas i namnet eller ange ett vanligt uttryck. Torrentarna läggs endast till om det här filtret matchar torrentens namn.</string>
+    <string name="feed_filter_prompt_one_per_line">Ange ett filter per rad.</string>
+    <string name="feed_auto_download">Ladda ner torrentar automatiskt</string>
+    <string name="delete_selected_channel">Ta bort vald kanal\?</string>
+    <string name="link_copied_to_clipboard">Kopierades till klippbordet</string>
+    <string name="backup_feeds_successfully">Kanaler sparades</string>
+    <string name="restore_feeds_backup_successfully">Kanaler återställdes</string>
+    <string name="error_backup_feeds">Kunde inte spara kanaler</string>
+    <string name="error_restore_feeds_backup">Kunde inte återställa kanaler</string>
     <!-- Create torrent dialog -->
-    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
-    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="creating_torrent_progress">Vänligen vänta medans torrenten skapas…</string>
+    <string name="file_or_folder_for_seeding">Fil eller mapp att dela</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att dela först.</string>
     <string name="web_seed_urls">Web seed URLs</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
-    <string name="optional_hint">(optional)</string>
-    <string name="create_torrent_options">Options</string>
+    <string name="tracker_urls_hint">(Valfritt) ange en spårare per rad i prioritetsordningen.</string>
+    <string name="web_seed_urls_hint">(Valfritt) en per rad</string>
+    <string name="optional_hint">(Valfritt)</string>
+    <string name="create_torrent_options">Alternativ</string>
     <string-array name="piece_size_entries">
         <item>Auto</item>
         <item>16 KiB</item>
@@ -243,108 +243,108 @@
         <item>16 MiB</item>
         <item>32 MiB</item>
     </string-array>
-    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="folder_is_empty">Den valda mappen är tom eller så exkluderas dess filer av filtret.</string>
+    <string name="error_create_torrent">Kunde inte skapa torrent</string>
+    <string name="skip_files_hint">Ange filnamn separerade med \"|\".</string>
+    <string name="select_folder_to_save">Välj en mapp att spara.</string>
+    <string name="unable_to_open_file">Kunde inte öppna den valda filen</string>
+    <string name="unable_to_create_file">Kunde inte skapa fil</string>
     <!-- Log -->
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_failed">Kunde spara logg</string>
+    <string name="journal_save_log_success">Logg sparades: %1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_network">Network</string>
+    <string name="pref_header_network">Nätverk</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
+    <string name="pref_save_torrent_files_summary">Spara .torrent-filer när nerladdningen startar.</string>
+    <string name="pref_watch_dir_summary">.torrent-filerna i den här mappen läggs automatiskt till och tas sedan bort.</string>
     <!-- Limitations settings -->
-    <string name="pref_max_download_speed_title">Maximum download speed</string>
-    <string name="pref_max_upload_speed_title">Maximum upload speed</string>
-    <string name="pref_max_connections_title">Maximum number of connections</string>
-    <string name="pref_max_connections_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_active_uploads_title">Maximum active uploads</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_active_torrents_title">Maximum active torrents</string>
-    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_auto_manage_title">Auto manage</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_download_speed_title">Max. ⬇-hastighet</string>
+    <string name="pref_max_upload_speed_title">Max. ⬆-hastighet</string>
+    <string name="pref_max_connections_title">Max. antalet anslutningar</string>
+    <string name="pref_max_connections_summary">(Min. 2 anslutningar.)</string>
+    <string name="pref_max_active_uploads_title">Max. antalet aktiva uppladdningar</string>
+    <string name="pref_max_active_downloads_title">Max. antalet aktiva nerladdningar</string>
+    <string name="pref_max_active_torrents_title">Max. antalet aktiva torrentar</string>
+    <string name="pref_max_connections_per_torrent_title">Max. antalet anslutningar per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">(Min. 2 anslutningar.)</string>
+    <string name="pref_max_uploads_per_torrent_title">Maximalt antalet tillgängliga platser för uppladdning per torrent</string>
+    <string name="pref_auto_manage_title">Hantera automatiskt</string>
+    <string name="pref_auto_manage_summary">Torrenten kan återupptas automatiskt eller pausas när som helst. (Kan sakta ner pausandet/återupptagandet.)</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_title">Tema</string>
     <string-array name="pref_theme_entries">
         <item>Light</item>
         <item>Dark</item>
         <item>Black</item>
     </string-array>
-    <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
-    <string name="pref_notify_sound_title">Notification sound</string>
+    <string name="pref_torrent_finish_notify_summary">Visa avisering när en torrent är nerladdad.</string>
+    <string name="pref_notify_sound_title">Aviseringsljud</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_autostart_title">Starta automatiskt</string>
+    <string name="pref_autostart_summary">Kör appen när enheten startas upp.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
-    <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
-    <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
-    <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_umnetered_connections_only_title">Endast obestämda anslutningar</string>
+    <string name="pref_umnetered_connections_only_summary">Använd endast anslutningar utan en kvot (exempelvis för Wi-Fi eller Ethernet).</string>
+    <string name="pref_enable_roaming_title">Roaming</string>
+    <string name="pref_enable_roaming_summary">Ladda endast ner om enheten inte använder roaming.</string>
+    <string name="pref_keep_alive_summary">Låter appen köras i bakgrunden. (Respekterar fortfarande att appen stängs när alla nerladdningar är färdiga.)</string>
+    <string name="pref_shutdown_downloads_complete_title">Stäng ner efter att alla nerladdningar har avslutats</string>
+    <string name="pref_shutdown_downloads_complete_summary">Stänger av appen när allting är nerladdat.</string>
+    <string name="pref_cpu_do_not_sleep_summary">Använd om nerladdningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Ladda endast ner och ladda endast upp under laddning.</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Inga filer förs över om inte enheten laddas. (Pausar alla torrentar när ingen laddare är ansluten.)</string>
+    <string name="pref_battery_control_title">Batterikontroll</string>
+    <string name="pref_battery_control_summary">Pausar alla torrentar om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
+    <string name="pref_custom_battery_control_summary">Ställ in batteri-% att pausa nerladdningar vid. (Ignorerar %1$d%% som standard.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-% att hålla utkik för\? (Ökar användning av batteriet under nerladdning.)</string>
     <!-- Network settings -->
-    <string name="pref_enable_dht_title">Enable DHT</string>
-    <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
-    <string name="pref_enable_lsd_title">Enable LSD</string>
-    <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
-    <string name="pref_enable_utp_title">Enable μTP</string>
+    <string name="pref_enable_dht_title">DHT</string>
+    <string name="pref_enable_dht_summary">Tillåter att hitta andra utan en spårare. (Ökar användningen av batteri.)</string>
+    <string name="pref_enable_lsd_title">LSD</string>
+    <string name="pref_enable_lsd_summary">Designad för att stötta lokal upptäckt med syfte på att minimera trafik.</string>
+    <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
-    <string name="pref_enable_upnp_title">Enable UPnP</string>
-    <string name="pref_enable_natpmp_title">Enable NAT-PMP</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
-    <string name="pref_enc_mode_title">Encryption mode</string>
+    <string name="pref_port_range_end_title">Slut</string>
+    <string name="pref_enc_mode_title">Läge</string>
     <string-array name="pref_enc_mode_entries">
         <item>Prefer encryption</item>
         <item>Require encryption</item>
         <item>Disable encryption</item>
     </string-array>
-    <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
-    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
+    <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
+    <string name="pref_anonymous_mode_title">Anonymt läge</string>
     <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för seedning</string>
+    <string name="pref_seeding_outgoing_connections_summary">Låter delade torrentar skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
-    <string name="pref_proxy_type_title">Proxy type</string>
+    <string name="pref_proxy_type_title">Typ av proxy</string>
     <string-array name="pref_proxy_type_entries">
         <item>(None)</item>
         <item>SOCKS4</item>
         <item>SOCKS5</item>
         <item>HTTP</item>
     </string-array>
-    <string name="pref_proxy_address_title">Address</string>
+    <string name="pref_proxy_address_title">Adress</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
-    <string name="pref_proxy_login_title">Login</string>
-    <string name="pref_proxy_password_title">Password</string>
+    <string name="pref_proxy_peers_too_summary">Anslutningar till spårare, andra och webb-delningar är proxifierade.</string>
+    <string name="pref_proxy_requires_auth_summary">Varning: Lösenordet sparas som en vanlig fil.</string>
+    <string name="pref_proxy_login_title">Användarnamn</string>
+    <string name="pref_proxy_password_title">Lösenord</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
+    <string name="pref_enable_scheduling_start_summary">Starta appen vid den specifika tiden. Torrentarna körs enligt deras tillstånd innan den sista stängs ner.</string>
+    <string name="pref_scheduling_switch_wifi_title">Växla till Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
+    <string name="pref_feed_auto_refresh_title">Uppdatera automatiskt kanaler</string>
+    <string name="pref_feed_auto_refresh_summary">Uppdatera kanaler periodiskt i bakgrunden.</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>15 minutes</item>
         <item>30 minutes</item>
@@ -355,9 +355,9 @@
         <item>1 day</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Endast på obestämda anslutningar</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Uppdatera endast på anslutningar utan en kvot (exempelvis Wi-Fi eller Ethernet).</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 day</item>
         <item>2 days</item>
@@ -369,27 +369,25 @@
         <item>3 months</item>
         <item>Always</item>
     </string-array>
-    <string name="pref_feed_start_torrents_title">Run torrents</string>
-    <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_start_torrents_title">Starta torrentar automatiskt</string>
+    <string name="pref_feed_start_torrents_summary">Laddar ner tillagda torrentar.</string>
+    <string name="pref_feed_remove_duplicates_summary">Hoppar över nerladdning av redan närvarande fil-titlar.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Enable streaming</string>
-    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
+    <string name="pref_streaming_enable_title">Strömmar</string>
+    <string name="pref_streaming_enable_summary">Tillåter att ladda ner individuella filer från en torrent genom att använda en webbläsare eller mediaspelare via HTTP/S-url:er.</string>
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
+    <string name="pref_streaming_error">Välj en port eller ett värdnamn för strömningar som inte är upptagna eller felaktiga.</string>
     <!-- About dialog -->
-    <string name="about_title">About LibreTorrent</string>
-    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
-    <string name="torrent_moving_title">Flyttar torrent</string>
+    <string name="about_title">Om</string>
+    <string name="about_description">Mer info och hur man hjälper projektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt; https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent är en upphovsrättsbefriad fri (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)-torrentklient för Android 4+, baserad på libtorrent (Java-wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)bibl.&lt;br&gt;&lt;br&gt;</string>
+    <string name="torrent_moving_title">Flyttar torrent…</string>
     <string name="torrent_finished_notify">Torrent färdig</string>
     <string name="session_error_title">Sessionsfel</string>
     <string name="torrent_error_notify_title">Torrent-fel</string>
     <string name="notify_shutting_down">Stänger ner…</string>
-    <string name="app_running_in_the_background">LibreTorrent körs i bakgrunden</string>
-    <string name="torrent_count_notify_template">Laddar ner: %1$d Totalt: %2$d</string>
+    <string name="app_running_in_the_background">Körs i bakgrunden…</string>
+    <string name="torrent_count_notify_template">"%1$d ⬇ av  %2$d"</string>
     <string name="without_tags">Utan taggar</string>
     <string name="new_tag">Ny tagg</string>
     <string name="select_tag">Välj tagg</string>
@@ -400,10 +398,152 @@
     <string name="drawer_date_added_yesterday">Igår</string>
     <string name="drawer_date_added_today">Idag</string>
     <string name="drawer_sorting_no_sorting">Ingen sortering</string>
-    <string name="drawer_sorting_peers">Peers</string>
+    <string name="drawer_sorting_peers">Popularitet</string>
     <string name="drawer_sorting_size">Storlek</string>
     <string name="drawer_sorting">Sorterar</string>
     <string name="session_stats_listen_port">Lyssningsport: %1$s</string>
     <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
     <string name="about">Om</string>
+    <string name="about_changelog">Ändringslogg</string>
+    <string name="pref_feed_remove_duplicates_title">Ingen duplicering</string>
+    <string name="pref_feed_keep_items_time_title">Behåll artiklar</string>
+    <string name="pref_custom_battery_control_value_title">Procent av batterikontroll</string>
+    <string name="pref_custom_battery_control_title">Anpassat batteriprocent</string>
+    <string name="pref_torrent_queueing_category">Torrent-kö</string>
+    <string name="pref_watch_dir_title">Mapp att bevaka</string>
+    <string name="pref_journal_max_stored_entries">Maximalt lagrade journal-poster</string>
+    <string name="journal_filter_session_log">Logg för session</string>
+    <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
+    <string name="torrent_seeding_time">Tid för seedning</string>
+    <string name="torrent_leechers">Tagare</string>
+    <string name="drawer_date_added">Datum tillagd</string>
+    <string name="drawer_sorting_date_added">Datum tillagd</string>
+    <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>
+    <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Stäng ner appen vid en specifik tid</string>
+    <string name="pref_enable_scheduling_shutdown_title">Tid för nerstängning</string>
+    <string name="pref_enable_scheduling_start_title">Start-tid</string>
+    <string name="pref_proxy_requires_auth_title">Kräver autentisering</string>
+    <string name="pref_proxy_peers_too_title">Använd också för anslutningar</string>
+    <string name="pref_show_nat_errors">Via NAT-fel</string>
+    <string name="pref_ip_filtering_file_title">Genväg till filtreringsfil (.dat, .p2p)</string>
+    <string name="pref_ip_filtering_category">IP-filtrering</string>
+    <string name="pref_enc_out_connections_title">Utgående anslutningar</string>
+    <string name="pref_enc_in_connections_title">Inkommande anslutningar</string>
+    <string name="pref_encryption_category">Kryptering</string>
+    <string name="pref_port_range_title">Portintervall</string>
+    <string name="pref_use_random_port_title">Använd anpassad port</string>
+    <string name="pref_port_settings_category">Port-inställningar</string>
+    <string name="pref_proxy_settings_title">Proxy-inställningar</string>
+    <string name="pref_cpu_do_not_sleep_title">Håll enheten vaken</string>
+    <string name="pref_keep_alive_title">Fortsätt kör</string>
+    <string name="pref_power_management_category">Strömhantering</string>
+    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="pref_led_indicator_color_notify_title">Färg på LED-indikator</string>
+    <string name="pref_led_indicator_notify_title">LED-indikator</string>
+    <string name="pref_play_sound_notify_title">Spela ljud</string>
+    <string name="pref_torrent_finish_notify_title">Avisering för avslutad torrent</string>
+    <string name="pref_notification_category">Aviseringsinställningar</string>
+    <string name="pref_theme_category">Tema-inställningar</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 utan gräns</string>
+    <string name="pref_speed_category">Hastighet</string>
+    <string name="pref_dir_to_watch_title">Mapp att bevaka</string>
+    <string name="pref_save_torrent_files_in_title">Spara .torrent-filer i…</string>
+    <string name="pref_save_torrent_files_title">Spara .torrent-filer</string>
+    <string name="pref_move_after_download_title">Flytta efter nerladdning</string>
+    <string name="pref_save_torrents_in_title">Spara torrentar i…</string>
+    <string name="pref_header_streaming">Strömning</string>
+    <string name="pref_header_scheduling">Schemaläggning</string>
+    <string name="pref_header_limitations">Begränsningar</string>
+    <string name="pref_header_storage">Lagring</string>
+    <string name="pref_header_behavior">Beteende</string>
+    <string name="pref_header_appearance">Utseende</string>
+    <string name="pref_journal_save_log_to">Spara logg till…</string>
+    <string name="journal_filter_torrent_log">Torrent-logg</string>
+    <string name="journal_filter_portmap_log">UPnP/NAT-PMP-logg</string>
+    <string name="journal_filter_peer_log">Anslutningslogg</string>
+    <string name="journal_filter_dht_log">DHT-logg</string>
+    <string name="journal_started_recording">Startade inspelning</string>
+    <string name="journal_stop_recording">Stoppa inspelning</string>
+    <string name="journal_start_recording">Börja spela in</string>
+    <string name="journal_list_empty">Inga poster</string>
+    <string name="log_journal">Journal</string>
+    <string name="torrent_saved_to">Torrenten sparades till %1$s</string>
+    <string name="skip_files">Hoppa över filer</string>
+    <string name="invalid_url">Ogiltig URL: %1$s</string>
+    <string name="option_private_torrent">Privat torrent</string>
+    <string name="option_start_seeding">Börja seeda</string>
+    <string name="piece_size">Storlek på del</string>
+    <string name="comments">Kommentarer</string>
+    <string name="tracker_urls">URL för spårarna</string>
+    <string name="create_torrent">Skapa torrent</string>
+    <string name="feed_item_url_not_found">URL hittades inte</string>
+    <string name="feed_do_not_download_immediately">Ladda inte ner omedelbart</string>
+    <string name="error_import_invalid_format">Ogiltigt format</string>
+    <string name="feeds_backup_selection_dialog_title">Välj säkerhetskopieringsfil</string>
+    <string name="feed_item_open_article_url">Öppna artikel</string>
+    <string name="feed_item_list_empty">Inga artiklar</string>
+    <string name="mark_as_unread">Markera som o-läst</string>
+    <string name="mark_as_read">Markera som läst</string>
+    <string name="edit_feed_channel">Redigera kanal</string>
+    <string name="delete_selected_channels">Ta bort valda kanaler\?</string>
+    <string name="copy_link">Kopiera länk</string>
+    <string name="error_cannot_delete_channel">Kan inte ta bort kanal</string>
+    <string name="error_cannot_edit_channel">Kan inte redigera kanal</string>
+    <string name="error_cannot_add_channel">Kan inte lägga till kanal</string>
+    <string name="feed_last_update_never">aldrig</string>
+    <string name="feed_last_update_template">Uppdaterades: %1$s</string>
+    <string name="restore_feed_channels_backup">Återställ säkerhetskopia</string>
+    <string name="backup_feed_channels">Spara säkerhetskopia</string>
+    <string name="feed_use_regex">Använd vanligt uttryck</string>
+    <string name="feed_name">(Valfritt) namn</string>
+    <string name="add_feed_channel">Lägg till kanal</string>
+    <string name="select_or_add_feed_channel">Välj eller lägg till en RSS/Atom-kanal</string>
+    <string name="feed_channel_list_empty">Inga kanaler</string>
+    <string name="send_text_to_clipboard">Kopiera</string>
+    <string name="edit_torrent_name">Redigera namn på torrent</string>
+    <string name="tracker_list_empty">Inga spårare</string>
+    <string name="share_stream_url">Dela strömmens URL…</string>
+    <string name="torrent_availability">Tillgänglighet</string>
+    <string name="torrent_added_date">Lades till</string>
+    <string name="speed_limit_dialog">Ställ in hastighet i KiB/s (0 - utan gräns)</string>
+    <string name="resume_torrent">Återuppta</string>
+    <string name="peer_list_empty">Den här torrenten har inte anslutit till någon än</string>
+    <string name="peer_connection_type_utp">μTP</string>
+    <string name="peer_relevance">Relevans: %1$.1f</string>
+    <string name="open_using">Öppna med</string>
+    <string name="add_trackers">Lägg till spårare</string>
+    <string name="delete_selected_trackers">Ta bort valda spårare\?</string>
+    <string name="delete_selected_tracker">Ta bort vald spårare\?</string>
+    <string name="share_tracker_url">Dela URL…</string>
+    <string name="tracker_state_not_contacted">Inte kontaktad än</string>
+    <string name="tracker_state_updating">Uppdaterar…</string>
+    <string name="tracker_state_not_working">Fungerar inte</string>
+    <string name="tracker_state_working">Fungerar</string>
+    <string name="torrent_trackers">Spårare</string>
+    <string name="torrent_pieces">Delar</string>
+    <string name="torrent_active_time">Aktiv tid</string>
+    <string name="torrent_uploaded">Uppladdat</string>
+    <string name="torrent_peers">Totalt</string>
+    <string name="torrent_seeds">Delare</string>
+    <string name="torrent_downloaded">Nerladdat</string>
+    <string name="torrent_speed">Hastighet</string>
+    <string name="torrent_state">Status</string>
+    <string name="dialog_change_priority_title">Ändra prioritet</string>
+    <string name="change_priority">Prioritet</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • 
+\nTillgängligt: %5$s</string>
+    <string name="more_details">Fler detaljer</string>
+    <string name="parent_folder">Föräldra-mapp</string>
+    <string name="replace_file">Ersätt fil</string>
+    <string name="save_file">Spara fil</string>
+    <string name="permission_denied">Åtkomst nekades</string>
+    <string name="external_storage_name" formatted="false">Extern lagring %1$d</string>
+    <string name="internal_storage_name">Intern lagring</string>
+    <string name="drawer_status_downloaded">Nerladdad</string>
+    <string name="speed_limit_title">Maxhastighet</string>
+    <string name="share_via">Dela via…</string>
+    <string name="torrent_speed_limit">Hastighetsgräns</string>
+    <string name="save_torrent_file">Spara torrent-fil</string>
+    <string name="share_magnet">Dela magnet</string>
 </resources>
