@@ -140,32 +140,32 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Baixando…</string>
-    <string name="torrent_status_seeding">Compartilhando…</string>
+    <string name="torrent_status_seeding">Semeando…</string>
     <string name="torrent_status_paused">Pausado</string>
     <string name="torrent_status_stopped">Parado</string>
     <string name="torrent_status_checking">Checando…</string>
     <string name="torrent_status_finished">Terminado</string>
-    <string name="torrent_status_downloading_metadata">Baixando metadados</string>
+    <string name="torrent_status_downloading_metadata">Baixando metadados…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
     <string name="perm_denied_warning">Sem esta permissão o aplicativo não salvará os arquivos torrent na memória. O aplicativo não irá funcionar corretamente. Você tem certeza de que quer negar esta permissão?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Adicionar torrent</string>
     <string name="error_decode_torrent">Falha ao decodificar o arquivo torrent. Talvez o arquivo esteja corrompido ou em um formato incorreto</string>
-    <string name="error_io_torrent">Erro ao ler o arquivo torrent</string>
-    <string name="error_fetch_link">Falha ao buscar dados do link</string>
+    <string name="error_io_torrent">Não é possível ler o arquivo .torrent</string>
+    <string name="error_fetch_link">Não foi possível buscar dados do link</string>
     <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
     <string name="error_add_torrent">Falha ao adicionar o torrent</string>
     <string name="error_file_not_found_add_torrent">Falha ao adicionar o torrent. Talvez o arquivo torrent tenha sido movido ou deletado</string>
     <string name="error_io_add_torrent">Não foi possível adicionar o torrent por conta de um erro de entrada e saída.</string>
     <string name="torrent_exist">Torrent já existe. Torrents foram unidos</string>
-    <string name="error_field_required">Este campo é necessário</string>
+    <string name="error_field_required">Campo obrigatório</string>
     <string name="error_no_files_selected">Nenhum arquivo selecionado</string>
     <string name="free_space">%1$s livre</string>
     <string name="error_free_space">Não há espaço livre o suficiente no caminho selecionado para baixar os arquivos selecionados</string>
-    <string name="files_size">Selecionado %1$s entre %2$s</string>
+    <string name="files_size">%1$s de %2$s selecionado</string>
     <string name="start_torrent">Iniciar torrent</string>
-    <string name="file_is_too_large_error">O arquivo é muito grande</string>
+    <string name="file_is_too_large_error">Arquivo muito grande</string>
     <string name="unable_to_open_folder">Não foi possível abrir a pasta selecionada. Por favor, tente selecionar outra pasta</string>
     <string name="error_empty_name">Por favor, digite o nome</string>
     <string name="ignore_free_space">Ignorar tamanho de espaço livre</string>
@@ -173,7 +173,7 @@
     <string name="torrent_info">Informação</string>
     <string name="torrent_files">Arquivos</string>
     <string name="torrent_name">Nome</string>
-    <string name="upload_torrent_into">Enviar para</string>
+    <string name="upload_torrent_into">Enviar para…</string>
     <string name="torrent_size">Tamanho</string>
     <string name="torrent_file_count">Contagem de arquivos</string>
     <string name="torrent_hash_sum">Soma de hash</string>
