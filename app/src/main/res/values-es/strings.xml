@@ -520,7 +520,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Solo en conexiones sin límite</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizar solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerancia</string>
     <string name="pref_feed_keep_items_time_title">Mantener artículos</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 día</item>
@@ -538,7 +538,7 @@
     <string name="pref_feed_remove_duplicates_title">No hay duplicados</string>
     <string name="pref_feed_remove_duplicates_summary">Omite la descarga de archivos con títulos ya presentes.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Streaming</string>
+    <string name="pref_streaming_enable_title">Transmisión</string>
     <string name="pref_streaming_enable_summary">Permite descargar archivos individuales de un torrent usando un navegador web o reproductor multimedia usando URLs HTTP/S.</string>
     <string name="pref_streaming_hostname">Nombre del host</string>
     <string name="pref_streaming_port">Puerto</string>
