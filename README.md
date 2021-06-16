@@ -71,42 +71,7 @@ Translations
 
 Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/libretorrent/)
 
- - **Arabic** *(thanks xivaphro)*
- - **Azerbaijani** *(thanks Khan27)*
- - **Basque** *(thanks dabid)*
- - **Bengali** *(thanks Oymate)*
- - **Brazilian Portuguese** *(thanks Wolfterro)*
- - **Catalan** *(thanks amontero)*
- - **Chinese Traditional** *(thanks lzmxya)*
- - **Chinese** *(thanks yanglw, Xu Eric and Tan Yongle)*
- - **Czech** *(thanks HarryPhoon, novas78)*
- - **Dutch** *(thanks Postpeer)*
- - **English**
- - **Esperanto** *(thanks animatorzpolski)*
- - **French** *(thanks Valentin Orient, boby23)*
- - **German** *(thanks vanitasvitae)*
- - **Greek** *(thanks Spyros3000, skyhirules)*
- - **Hindi** *(thanks Lino Joseph)*
- - **Hungarian** *(thanks Ephyx)*
- - **Indonesian** *(thanks ardumpl)*
- - **Italian** *(thanks Gabrielelulo2, GiovaGa)*
- - **Japanese** *(thanks mamarama9904)*
- - **Korean** *(thanks jjjhitel)*
- - **Lithuanian** *(thanks techwebpd)*
- - **Malayalam** *(thanks Lino Joseph)*
- - **Norwegian Bokmål** *(thanks [Allan Nordhøy](https://gitlab.com/kingu))*
- - **Persian** *(thanks Reg3xp)*
- - **Polish** *(thanks Azaradel)*
- - **Romanian** *(thanks georgenetu, Silviu200530)*
- - **Russian**
- - **Santali** *(thanks Rocky_734)*
- - **Serbian (Cyrillic)** *(thanks veles330)*
- - **Sinhala** *(thanks HelaBasa)*
- - **Spanish** *(thanks ed10vi, MS-PC)*
- - **Swedish** *(thanks JAMALDIN01)*
- - **Tamil** *(thanks Lino Joseph)*
- - **Turkish** *(thanks oersen)*
- - **Ukrainian** *(thanks SensDeViata)*
+![languages](https://hosted.weblate.org/widgets/libretorrent/-/multi-auto.svg)
 
 Screenshots
 ---
