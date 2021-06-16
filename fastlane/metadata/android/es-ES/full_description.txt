@@ -1,22 +1,18 @@
-# Características
-
-* DHT, PeX, cifrado, LSD, UPnP, NAT*PMP, µTP
-* Filtrado de IP (eMule dat y PeerGuardian)
-* Habilidad para personalizar (ajustes de red, gestión de energía, control de batería, ajustes de la interfaz, etc.)
-* Soporte para torrents con gran cantidad de archivos y archivos grandes
-* Soporte para HTTP\S y enlaces magnet
-* Soporte para proxy con rastreadores y pares
-* Habilidad para mover archivos durante la descarga
-* Habilidad para mover archivos automáticamente a otro directorio o a una unidad externa al final de la descarga
-* Habilidad para especificar prioridades de archivo y carpeta
-* Habilidad para seleccionar los archivos a descargar
-* Habilidad para descargar secuencialmente
-* Material Design
-* Tema oscuro y negro
-* Interfaz optimizada para tabletas
-* Programación
-* Administrador RSS
-* Soporte para Android TV
-* Habilidad para crear torrents
-* Streaming de cualquier archivo seleccionado
-* Y mucho más
+* Licencia GPLv3+. Utilice, vea, cambie y comparta; con todo.
+* Seleccionar qué archivos descargar.
+* Mover los archivos mientras se descargan.
+* Mover automáticamente los archivos descargados a otra carpeta o unidad externa.
+* Transmite archivos, con descargas secuenciales.
+* Android TV.
+* Diseño de material, tema oscuro y negro, e interfaz de usuario para tabletas.
+* Ajustes personalizables de red, batería, interfaz de usuario, etc.
+* Más de 35 traducciones.
+* Programación de tiempo.
+* Auto-descarga, con gestor Atom/RSS.
+* Crea torrents, con muchos y grandes archivos.
+* HTTP\S y enlaces magnet.
+* DHT, PeX, encriptación, LSD, UPnP, NAT*PMP, µTP.
+* Filtrado de IP (eMule dat y PeerGuardian).
+* Soporta proxy para trackers y peers.
+* Basado en libtorrent4j.
+* Y más.

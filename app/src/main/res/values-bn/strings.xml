@@ -11,7 +11,7 @@
     <string name="replace">প্রতিস্থাপন</string>
     <string name="add">যোগ</string>
     <string name="delete">মুছে ফেলুন</string>
-    <string name="deleting">মুছে ফেলা হচ্ছে</string>
+    <string name="deleting">মুছা হচ্ছে…</string>
     <string name="select_all">সব নির্বাচন করুন</string>
     <string name="save">সংরক্ষণ করুন</string>
     <string name="search">অনুসন্ধান</string>
@@ -48,20 +48,20 @@
     <string name="switch_off">বন্ধ</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ডাউনলোড করা ফাইলসহ মুছুন</string>
-    <string name="delete_selected_torrent">নির্বাচিত টরেন্ট মুছে ফেলা হবে, এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না</string>
-    <string name="delete_selected_torrents">নির্বাচিত টরেন্টসমূহ মুছে ফেলা হবে, এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না</string>
+    <string name="delete_selected_torrent">নির্বাচিত টরেন্ট মুছবে\? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
+    <string name="delete_selected_torrents">নির্বাচিত টরেন্ট মুছবে\? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
     <string name="force_recheck_torrent">আবার দেখুন</string>
-    <string name="force_announce_torrent">আবার ঘোষণা করুন</string>
+    <string name="force_announce_torrent">আবার ঘোষণা</string>
     <string name="add_link">লিংক যোগ করুন</string>
-    <string name="dialog_add_link_title">ইনফোহ্যাশ মান, ম্যাগনেটিক লিঙ্ক, বা এইচটিটিপি/এইচটিটিপিএস লিঙ্ক প্রবেশ করান</string>
+    <string name="dialog_add_link_title">ইনফোহ্যাশ মান, চুম্বক সংযোগ, বা এইচটিটিপি/এস সংযোগ প্রবেশ করাও</string>
     <string name="torrent_list_empty">টরেন্ট নেই</string>
     <string name="select_or_add_torrent">টরেন্ট নির্বাচন বা যোগ করুন</string>
     <string name="error_empty_link">লিঙ্ক দাও</string>
     <string name="error_invalid_link">অবৈধ লিঙ্ক</string>
-    <string name="error_open_torrent_file">টরেন্ট ফাইল খুলতে ব্যর্থ</string>
+    <string name="error_open_torrent_file">টরেন্ট নথি(.torrent) খুলতে ব্যর্থ</string>
     <string name="open_file">ফাইল খুলুন</string>
     <string name="settings">সেটিংস</string>
-    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো ফাইলটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে</string>
+    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো নথিটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে\?</string>
     <string name="ip_filter_add_success">আইপি ফিল্টার যুক্তকৃত</string>
     <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত</string>
     <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করো</string>
@@ -111,21 +111,21 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">ডাউনলোডরত: %1$d মোট: %2$d</string>
-    <string name="app_running_in_the_background">লিবরেটরেন্ট ব্যাকগ্রাউন্ডে চলছে</string>
+    <string name="app_running_in_the_background">পটভূমিতে চলমান…</string>
     <string name="network_online">নেটওয়ার্কের অবস্থা: অনলাইন</string>
     <string name="network_offline">নেটওয়ার্কের অবস্থা: অফলাইন</string>
     <string name="notify_shutting_down">বন্ধ হচ্ছে…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">টরেন্টে ত্রুটি</string>
     <string name="error_template">ত্রুটি: %1$s</string>
-    <string name="restore_torrent_error">আগের সেশন থেকে টরেন্ট উদ্ধার করা যায়নি</string>
+    <string name="restore_torrent_error">আগের সেশন থেকে টরেন্ট উদ্ধার করা যায়নি।</string>
     <string name="session_error_title">সেশন ত্রুটি</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">ন্যাট ত্রুটি</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">টরেন্টে ডাউনলোড শেষ</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">চলমান টরেন্ট</string>
+    <string name="torrent_moving_title">টরেন্ট সরানো হচ্ছে…</string>
     <string name="torrent_moving_content">%1$s সরানো হচ্ছে, দয়া করে অপেক্ষা করো…</string>
     <string name="torrent_move_success">টরেন্ট সফলভাবে সরানো হয়েছে</string>
     <string name="torrent_move_fail">টরেন্ট সরানো যায়নি</string>
@@ -139,13 +139,13 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">ডাউনলোডরত</string>
+    <string name="torrent_status_downloading">ডাউনলোডরত…</string>
     <string name="torrent_status_seeding">বপন হচ্ছে…</string>
     <string name="torrent_status_paused">বিরতি</string>
     <string name="torrent_status_stopped">বন্ধ হয়েছে</string>
     <string name="torrent_status_checking">পরীক্ষা করা হচ্ছে…</string>
     <string name="torrent_status_finished">সমাপ্ত</string>
-    <string name="torrent_status_downloading_metadata">মেটাডাটা ডাউনলোড হচ্ছে</string>
+    <string name="torrent_status_downloading_metadata">মেটাতথ্য নামানো হচ্ছে…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">অনুমতি প্রত্যাখ্যাত</string>
     <string name="perm_denied_warning">এই অনুমতি ব্যতীত অ্যাপটি টরেন্ট ফাইল মেমরিতে ফাইলগুলি সংরক্ষণ করতে পারবে না। অ্যাপটি সঠিকভাবে কাজ করবে না। আপনি কি এই অনুমতিটি অস্বীকার করার বিষয়ে নিশ্চিত?</string>
@@ -156,8 +156,8 @@
     <string name="error_fetch_link">লিঙ্ক থেকে ডাটা আনতে ব্যর্থ</string>
     <string name="error_invalid_link_or_path">টরেন্টের লিঙ্ক বা পথ অবৈধ</string>
     <string name="error_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ</string>
-    <string name="error_file_not_found_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। হয়তো টরেন্ট ফাইল সরানো, বা মুছে ফেলা হয়েছে</string>
-    <string name="error_io_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। ই/আ ত্রুটি</string>
+    <string name="error_file_not_found_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। হয়তো টরেন্ট ফাইল সরানো বা মুছে ফেলা হয়েছে\?</string>
+    <string name="error_io_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। ই/আ ত্রুটি।</string>
     <string name="torrent_exist">টরেন্ট আগে থেকেই ছিল। টররেন্টগুলো মিলানো হয়েছে</string>
     <string name="error_field_required">এই ঘরটি পূরন করা আবশ্যক</string>
     <string name="error_no_files_selected">কোনো ফাইল নির্বাচন করা হয়নি</string>
@@ -172,7 +172,7 @@
     <string name="torrent_info">তথ্য</string>
     <string name="torrent_files">ফাইল</string>
     <string name="torrent_name">নাম</string>
-    <string name="upload_torrent_into">আপলোড তথ্য</string>
+    <string name="upload_torrent_into">তথ্য আপলোডের স্থান…</string>
     <string name="torrent_size">আকার</string>
     <string name="torrent_file_count">ফাইলের সংখ্যা</string>
     <string name="torrent_hash_sum">হ্যাশের মান</string>
@@ -254,7 +254,7 @@
     <!-- Create torrent dialog -->
     <string name="creating_torrent_progress">Creating torrent, please wait…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">বপন শুরু করার জন্য ফাইল বা ফোল্ডার নির্বাচন করো।</string>
     <string name="web_seed_urls">Web seed URLs</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
     <string name="web_seed_urls_hint">(optional) One per line</string>
@@ -277,8 +277,8 @@
     </string-array>
     <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
     <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
+    <string name="skip_files_hint">\"|\" দিয়ে আলাদা করা ফাইলের নাম দাও।</string>
+    <string name="select_folder_to_save">সংরক্ষণের জন্য একটি ফোল্ডার নির্বাচন।</string>
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
@@ -290,7 +290,7 @@
     <string name="pref_header_network">Network</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
+    <string name="pref_save_torrent_files_summary">ডাউনলোড শুরু করার পরে .torrent ফাইল সংরক্ষণ করো।</string>
     <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
     <!-- Limitations settings -->
     <string name="pref_max_download_speed_title">Maximum download speed</string>
@@ -312,21 +312,21 @@
         <item>Dark</item>
         <item>Black</item>
     </string-array>
-    <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
+    <string name="pref_torrent_finish_notify_summary">টরেন্ট নামানো শেষ হলে একটা বিজ্ঞপ্তি দেখাও।</string>
     <string name="pref_notify_sound_title">Notification sound</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_autostart_summary">ডিভাইস শুরু হওয়ার সময় অ্যাপ চালু করো।</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_enable_roaming_summary">শুধুমাত্র ডিভাইস রোম না করলে ডাউনলোড করবে।</string>
     <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
     <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
     <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
     <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
+    <string name="pref_download_and_upload_only_when_charging_title">শুধু চার্জরত অবস্থায় ডাউনলোড ও আপলোড করো।</string>
     <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
@@ -367,7 +367,7 @@
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
+    <string name="pref_proxy_requires_auth_summary">সতর্কতা: পাসওয়ার্ড সাধারণ ফ</string>
     <string name="pref_proxy_login_title">Login</string>
     <string name="pref_proxy_password_title">Password</string>
     <!-- Schedule settings -->
@@ -376,7 +376,7 @@
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
+    <string name="pref_feed_auto_refresh_summary">সাময়িকভাবে পটভূমিতে চ্যানেলগুলোদেখো/রিফ্রেশ করো।</string>
     <string-array name="pref_feed_refresh_intervals_entries">
         <item>15 minutes</item>
         <item>30 minutes</item>
@@ -402,7 +402,7 @@
         <item>Always</item>
     </string-array>
     <string name="pref_feed_start_torrents_title">Run torrents</string>
-    <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
+    <string name="pref_feed_start_torrents_summary">যুক্ত করা টরেন্ট নামায়।</string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Enable streaming</string>
@@ -441,4 +441,115 @@
     <string name="new_tag">নতুন ট্যাগ</string>
     <string name="select_tag">ট্যাগ নাও</string>
     <string name="edit_tag">ট্যাগ সম্পাদনা</string>
+    <string name="pref_header_behavior">আচরণ</string>
+    <string name="comments">মন্তব্য</string>
+    <string name="feed_last_update_never">কখনো না</string>
+    <string name="send_text_to_clipboard">অনুলিপি</string>
+    <string name="torrent_availability">উপলভ্যতা</string>
+    <string name="torrent_added_date">যোগকৃত</string>
+    <string name="speed_limit_title">সর্বোচ্চ গতি</string>
+    <string name="share_via">ভাগ করার মাধ্যম…</string>
+    <string name="torrent_speed_limit">গতিসীমা</string>
+    <string name="peer_list_empty">এই টরেন্ট কারো সাথে যুক্ত হয় নি</string>
+    <string name="open_using">খোলার মাধ্যম</string>
+    <string name="add_trackers">ট্র্যাকার যোগ করো</string>
+    <string name="delete_selected_trackers">নির্বাচিত ট্র্যাকার মুছবে\?</string>
+    <string name="delete_selected_tracker">নির্বাচিত ট্র্যাকার মুছবে\?</string>
+    <string name="share_tracker_url">ইউআরএল ভাগ করো…</string>
+    <string name="tracker_state_not_contacted">যোগাযোগ করা হয়নি</string>
+    <string name="tracker_state_updating">হালনাগাদরত…</string>
+    <string name="tracker_list_empty">ট্র্যাকার</string>
+    <string name="about_changelog">পরিবর্তনসূচী</string>
+    <string name="pref_enable_scheduling_shutdown_title">বন্ধের সময়</string>
+    <string name="pref_enable_scheduling_start_title">শুরুর সময়</string>
+    <string name="pref_encryption_category">এনক্রিপশন</string>
+    <string name="pref_vibration_notify_title">কম্পন</string>
+    <string name="pref_speed_category">গতি</string>
+    <string name="pref_header_streaming">ধারাপ্রচার</string>
+    <string name="pref_header_scheduling">সময়সূচীকরণ</string>
+    <string name="pref_header_limitations">সীমাবদ্ধতা</string>
+    <string name="pref_header_storage">স্টোরেজ</string>
+    <string name="pref_header_appearance">চেহারা</string>
+    <string name="log_journal">রোজনা মচা</string>
+    <string name="pref_enable_scheduling_shutdown_summary">নির্দিষ্ট সময়ে অ্যাপ বন্ধ করো</string>
+    <string name="pref_ip_filtering_file_title">ছাঁকনির নথির পথ (.dat, .p2p)</string>
+    <string name="speed_limit_dialog">কিবা./সে হিসেবে গতি দেখাও (০ - সীমা নেই)</string>
+    <string name="select_or_add_feed_channel">আরএসএস/অ্যা</string>
+    <string name="pref_proxy_peers_too_title">যোগাযোগের জন্য ব্যবহার করো</string>
+    <string name="pref_save_torrent_files_in_title">.torrent নথি সংরক্ষণের স্থান…</string>
+    <string name="pref_move_after_download_in_title">ডাউনলোডের পরে সরানোর স্থান</string>
+    <string name="pref_journal_max_stored_entries">সর্বোচ্চ রক্ষিত ইতিহাস ভুক্তি</string>
+    <string name="torrent_saved_to">%1$s এ টরেন্ট সংরক্ষিত</string>
+    <string name="feed_do_not_download_immediately">সঙ্গে সঙ্গে নামাবে না</string>
+    <string name="pref_scheduling_run_only_once_title">একবার চালাও</string>
+    <string name="pref_show_nat_errors">ন্যাট সমস্যা দেখাও</string>
+    <string name="pref_use_random_port_title">যেকোনো পোর্ট ব্যবহার করো</string>
+    <string name="pref_custom_battery_control_value_title">ব্যাটারি হারের নিয়ন্ত্রণ</string>
+    <string name="pref_custom_battery_control_title">পছন্দের ব্যাটারি হার</string>
+    <string name="pref_cpu_do_not_sleep_title">যন্ত্র চালু রাখো</string>
+    <string name="pref_led_indicator_color_notify_title">এলইডি বিজ্ঞপ্তি রঙ</string>
+    <string name="pref_torrent_finish_notify_title">টরেন্ট পূর্ণ হওয়ার বিজ্ঞপ্তি</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">সীমা ছাড়া -১</string>
+    <string name="pref_dir_to_watch_title">দেখার জন্য শাখা</string>
+    <string name="pref_save_torrent_files_title">.torrent নথি সংরক্ষণ করো</string>
+    <string name="pref_move_after_download_title">ডাউনলোডের পরে সরাও</string>
+    <string name="pref_save_torrents_in_title">টরেন্ট সংরক্ষণ স্থান…</string>
+    <string name="pref_journal_save_log_to">সূচী সংরক্ষণ স্থান…</string>
+    <string name="invalid_url">ভুল সংযোগ: %1$s</string>
+    <string name="feed_item_url_not_found">সংযোগ পাওয়া যায়নি</string>
+    <string name="feeds_backup_selection_dialog_title">ব্যাকআপ নথি নির্বাচন করো</string>
+    <string name="mark_as_unread">অপঠিত চিহ্নিত করো</string>
+    <string name="mark_as_read">পঠিত চিহ্নিত করো</string>
+    <string name="delete_selected_channels">নির্বাচিত চ্যানেল মুছবে\?</string>
+    <string name="error_cannot_delete_channel">চ্যানেল মুছা যায় না</string>
+    <string name="error_cannot_add_channel">চ্যানেল যোগ করা যায় না</string>
+    <string name="error_cannot_edit_channel">চ্যানেল সম্পাদনা করা যায় না</string>
+    <string name="feed_use_regex">স্বাভাবিক ভাব(রেগুলার এক্সপ্রেশন) ব্যবহার করো</string>
+    <string name="edit_torrent_name">টরেন্ট নাম সম্পাদনা</string>
+    <string name="magnet_include_file_priorities">নথির অগ্রাধিকার রাখবে\?</string>
+    <string name="share_stream_url">ধারার সংযোগ ভাগ করো…</string>
+    <string name="pref_feed_remove_duplicates_title">দ্বিত্ব রাখবে না</string>
+    <string name="pref_feed_keep_items_time_title">নিবন্ধ রেখে দাও</string>
+    <string name="pref_feed_refresh_interval_title">পুনঃতাজাকরণ বিরতি</string>
+    <string name="pref_proxy_requires_auth_title">সত্যায়ন প্রয়োজন</string>
+    <string name="pref_ip_filtering_category">আইপি ছাঁকন</string>
+    <string name="pref_enc_out_connections_title">বহির্মুখী সংযোগ</string>
+    <string name="pref_enc_in_connections_title">আসন্ন সংযোগ</string>
+    <string name="pref_port_range_title">পোর্ট বিস্তার</string>
+    <string name="pref_port_settings_category">পোর্ট পছন্দ</string>
+    <string name="pref_proxy_settings_title">প্রক্সি পছন্দ</string>
+    <string name="pref_keep_alive_title">চলতে থাকো</string>
+    <string name="pref_power_management_category">শক্তি ব্যবস্থাপনা</string>
+    <string name="pref_led_indicator_notify_title">এলইডি নির্দেশক</string>
+    <string name="pref_play_sound_notify_title">শব্দ বাজাও</string>
+    <string name="pref_notification_category">বিজ্ঞপ্তি পছন্দ</string>
+    <string name="pref_theme_category">রঙের পছন্দ</string>
+    <string name="pref_torrent_queueing_category">টরেন্ট সারিবদ্ধকরণ</string>
+    <string name="pref_watch_dir_title">শাখা দেখো</string>
+    <string name="journal_filter_torrent_log">টরেন্ট সূচী</string>
+    <string name="journal_filter_portmap_log">ইউপিএনপি/ন্যাট-পিএমপি সূচী</string>
+    <string name="journal_filter_peer_log">যোগাযোগ সূচী</string>
+    <string name="journal_filter_dht_log">ডিএইচটি সূচী</string>
+    <string name="journal_filter_session_log">সেশন সূচী</string>
+    <string name="journal_started_recording">রেকর্ডিং শুরু হয়েছে</string>
+    <string name="journal_stop_recording">রেকর্ডিং থামাও</string>
+    <string name="journal_start_recording">রেকর্ডিং শুরু</string>
+    <string name="journal_list_empty">ভুক্তি নেই</string>
+    <string name="skip_files">নথি উপেক্ষা</string>
+    <string name="option_private_torrent">ব্যক্তিগত টরেন্ট</string>
+    <string name="option_start_seeding">বপন শুরু</string>
+    <string name="piece_size">টুকরোর আকার</string>
+    <string name="tracker_urls">ট্র্যাকার সংযোগ</string>
+    <string name="create_torrent">টরেন্ট বানাও</string>
+    <string name="error_import_invalid_format">ভুল অবস্থা(ফরম্যাট)</string>
+    <string name="feed_item_open_article_url">নিবন্ধ খুলো</string>
+    <string name="feed_item_list_empty">কোনো নিবন্ধ নেই</string>
+    <string name="edit_feed_channel">চ্যানেল সম্পাদনা</string>
+    <string name="copy_link">সংযোগ অনুলিপি</string>
+    <string name="feed_last_update_template">%1$s: হালনাগাদকৃত</string>
+    <string name="restore_feed_channels_backup">ব্যাকআপ ফিরত আনো</string>
+    <string name="backup_feed_channels">ব্যাকআপ সংরক্ষণ</string>
+    <string name="feed_name">(ঐচ্ছিক) নাম</string>
+    <string name="add_feed_channel">চ্যানেল যোগ করো</string>
+    <string name="feed_channel_list_empty">কোনো চ্যানেল নেই</string>
 </resources>

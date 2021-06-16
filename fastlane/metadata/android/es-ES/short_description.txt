@@ -1,1 +1,1 @@
-Cliente torrent libre y de código abierto. Basado en la biblioteca libtorrent
+Cliente torrent de software libre con copyleft.

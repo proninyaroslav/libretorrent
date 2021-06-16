@@ -1,0 +1,9 @@
+* Bugfixing
+* Toegevoegd:
+   - Nieuw magneetmechanisme voor het ophalen (mogelijkheid om magneetlink in wachtlijst toe te voegen)
+   - Torrent sorteren op datum toegevoegd
+* Nieuwe vertalingen toegevoegd:
+   - Tsjechisch
+   - Noors Bokmål
+   - Roemeens
+* Update naar jlibtorrent 1.2.0.10

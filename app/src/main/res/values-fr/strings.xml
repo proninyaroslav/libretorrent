@@ -11,7 +11,7 @@
     <string name="replace">Remplacer</string>
     <string name="add">Ajouter</string>
     <string name="delete">Supprimer</string>
-    <string name="deleting">Suppression</string>
+    <string name="deleting">Suppression…</string>
     <string name="select_all">Sélectionner tout</string>
     <string name="save">Enregistrer</string>
     <string name="search">Chercher</string>
@@ -47,17 +47,17 @@
     <string name="switch_on">Activé</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
-    <string name="delete_selected_torrent">Supprimer ce Torrent \? Cette action ne pourra pas être annulée</string>
-    <string name="delete_selected_torrents">Supprimer ces Torrents \? Cette action ne pourra pas être annulée</string>
+    <string name="delete_selected_torrent">Supprimer le torrent sélectionné \? (Impossible d’annuler.)</string>
+    <string name="delete_selected_torrents">Supprimer les torrents sélectionnés \? (Impossible à annuler.)</string>
     <string name="force_recheck_torrent">Forcer la revérification</string>
-    <string name="force_announce_torrent">Forcer l\'annonce</string>
+    <string name="force_announce_torrent">Forcer-l\'annonce</string>
     <string name="add_link">Ajouter un lien</string>
-    <string name="dialog_add_link_title">Entrez le lien \"magnet\" ou le lien HTTP / HTTPS</string>
+    <string name="dialog_add_link_title">Entrez le lien magnet ou le lien HTTP(S)</string>
     <string name="torrent_list_empty">Aucun torrent</string>
     <string name="select_or_add_torrent">Sélectionner ou ajouter un torrent</string>
     <string name="error_empty_link">Entrez un lien</string>
     <string name="error_invalid_link">Lien non valide</string>
-    <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier torrent</string>
+    <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier .torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
     <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Peut-être que le fichier est corrompu ou a un format incorrect</string>
@@ -84,7 +84,7 @@
     <string name="drawer_sorting_size">Taille</string>
     <string name="drawer_sorting_progress">Progression</string>
     <string name="drawer_sorting_ETA">Heure d\'arrivée prévue</string>
-    <string name="drawer_sorting_peers">Pairs</string>
+    <string name="drawer_sorting_peers">Popularité</string>
     <string name="drawer_sorting_no_sorting">Aucun tri</string>
     <!-- Date added -->
     <string name="drawer_date_added">Date ajoutée</string>
@@ -93,8 +93,8 @@
     <string name="drawer_date_added_week">Semaine</string>
     <string name="drawer_date_added_month">Mois</string>
     <string name="drawer_date_added_year">Année</string>
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
+    <string name="tags">Étiquettes</string>
+    <string name="add_tag">Ajouter une étiquette</string>
     <string name="edit_tag">Modifier l\'étiquette</string>
     <string name="tag_name">Nom de l\'étiquette</string>
     <string name="tag_color">Couleur de l\'étiquette</string>
@@ -548,4 +548,5 @@
     <string name="journal_filter_portmap_log">Journal UPnP/NAT-PMP</string>
     <string name="log_journal">Journal</string>
     <string name="switch_off">Désactivé</string>
+    <string name="torrent_seeds">Partageurs</string>
 </resources>

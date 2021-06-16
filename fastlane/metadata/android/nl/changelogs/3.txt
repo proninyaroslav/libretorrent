@@ -1,0 +1,13 @@
+* Bugfixing
+* Toegevoegd:
+   - Torrent sorteren
+   - Donker thema
+   - Mogelijkheid om willekeurige poort te gebruiken
+   - Gedwongen encryptie
+   - Mogelijkheid om een torrent toe te voegen zonder te starten
+   - Ondersteuning voor HTTP-links doorsturen
+* Nieuwe vertalingen toegevoegd:
+   - Chinees
+   - Spaans
+   - Pools
+* Update naar jlibtorrent 1.2.0.4

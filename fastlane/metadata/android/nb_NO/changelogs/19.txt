@@ -1,0 +1,11 @@
+* Feilfikser:
+    - Krasj på 32-biters prosessorer
+    - Krasj når «Oppsynsmappe»-valget er påskrudd
+    - Rett sti til SD-kort
+    - Åpning av torrentfil fra tredjepartsprogrammer
+    - Mulighet for å slå på fullføringsmerknad i innstillingene
+    - Små feilfikser
+* Indikatorlys og vibrasjon som forvalg for fullføringsmerknad (ominstallasjon kreves)
+* Nye oversettelser:
+    - Nederlandsk
+* Eksisterende oversettelser oppdatert

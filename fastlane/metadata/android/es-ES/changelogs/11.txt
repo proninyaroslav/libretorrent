@@ -1,0 +1,8 @@
+* Se añade:
+    - Deslizar para refrescar el gestor de archivos
+* Corrección de errores:
+    - Ventana de detalles en blanco en las tabletas
+    - Soporte de multiventana
+    - Soporte para portátiles Chrome OS y Android
+* Actualización de la traducción al chino
+* Actualización a libtorrent4j 1.2.0.20-RC3

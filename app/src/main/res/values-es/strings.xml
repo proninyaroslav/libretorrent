@@ -281,7 +281,7 @@
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Copiado al portapapeles</string>
     <!-- Error report -->
-    <string name="app_error_occurred">Se produjo un error de la aplicación. Puedes enviar el informe a los desarrolladores</string>
+    <string name="app_error_occurred">Se produjo un error en la aplicación. Puedes informarlo a los desarrolladores.</string>
     <string name="error_comment_prompt">Añadir información extra y comentarios aquí:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
@@ -312,7 +312,7 @@
     <string name="restore_feeds_backup_successfully">Canales restaurados</string>
     <string name="error_backup_feeds">No se pudo guardar los canales</string>
     <string name="error_restore_feeds_backup">No se pudo restaurar los canales</string>
-    <string name="feed_item_open_article_url">Artículo abierto</string>
+    <string name="feed_item_open_article_url">Abrir artículo</string>
     <string name="feeds_backup_selection_dialog_title">Seleccionar archivo de respaldo</string>
     <string name="error_import_invalid_format">Formato no válido</string>
     <string name="feed_do_not_download_immediately">No descargar inmediatamente</string>
@@ -433,7 +433,7 @@
     <string name="pref_enable_roaming_summary">Descargar solo si el dispositivo no está en roaming.</string>
     <string name="pref_power_management_category">Gestión de energía</string>
     <string name="pref_keep_alive_title">Mantener ejecutándose</string>
-    <string name="pref_keep_alive_summary">Si está habilitado, la aplicación seguirá funcionando en segundo plano. El apagado cuando se completan las descargas se respeta</string>
+    <string name="pref_keep_alive_summary">Deja la aplicación funcionando en segundo plano. (Aún respeta el cierre de la app cuando finalicen todas las descargas.)</string>
     <string name="pref_shutdown_downloads_complete_title">Salir después de finalizar todas las descargas</string>
     <string name="pref_shutdown_downloads_complete_summary">Salir de la aplicación cuando todo esté descargado.</string>
     <string name="pref_cpu_do_not_sleep_title">Mantener dispositivo despierto</string>
@@ -473,13 +473,13 @@
     <string name="pref_enc_out_connections_title">Conexiones salientes</string>
     <string name="pref_ip_filtering_category">Filtrado de IP</string>
     <string name="pref_enable_ip_filtering_title">Filtrado de IP</string>
-    <string name="pref_enable_ip_filtering_summary">Aumenta el uso de la memoria. Dependiendo del tamaño del archivo, el aplicado del filtro puede llevar algún tiempo al inicio.</string>
+    <string name="pref_enable_ip_filtering_summary">Dependiendo del tamaño del archivo, el aplicado del filtro puede llevar algún tiempo al inicio. (Aumenta el uso de la memoria.)</string>
     <string name="pref_ip_filtering_file_title">Ruta al archivo de filtro (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Mostrar errores NAT</string>
     <string name="pref_anonymous_mode_title">Modo anónimo</string>
-    <string name="pref_anonymous_mode_summary">La aplicación trata de ocultar tu identidad hasta cierto punto. El user-agent se restablecerá a una cadena vacía (excepto para los torrents privados). Los rastreadores solo se usarán si están usando un servidor proxy. Los sockets de escucha están cerrados, y las conexiones entrantes solo serán aceptadas a través de un proxy SOCKS5 o I2P (si se configura un proxy de pares y se ejecuta en la misma máquina que el proxy del rastreador). NAT-PMP, UPnP, DHT y el descubrimiento de pares locales están desactivados</string>
+    <string name="pref_anonymous_mode_summary">No hay cadena de agente de usuario para los torrents no privados. Solo rastreadores proxies. Sockets en escucha cerrados. Conexiones entrantes a través de SOCKS5 o proxy I2P (si existe un proxy de pares en la PC proxy del rastreador). NAT-PMP, UPnP, DHT y el descubrimiento local deshabilitados.</string>
     <string name="pref_seeding_outgoing_connections_title">Conexiones salientes para compartir</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determina si los torrents de siembra deberían intentar realizar conexiones salientes o no. Puede deshabilitarse en situaciones muy específicas donde el costo de hacer conexiones salientes es alto</string>
+    <string name="pref_seeding_outgoing_connections_summary">Permite que los torrents compartidos realicen conexiones salientes. (Puede ser costoso.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
     <string-array name="pref_proxy_type_entries">
@@ -491,7 +491,7 @@
     <string name="pref_proxy_address_title">Dirección</string>
     <string name="pref_proxy_port_title">Puerto</string>
     <string name="pref_proxy_peers_too_title">Usar también para las conexiones</string>
-    <string name="pref_proxy_peers_too_summary">El proxy será usado para conectar con rastreadores, pares y semillas web</string>
+    <string name="pref_proxy_peers_too_summary">Las conexiones a rastreadores, otros y recursos web compartidos se realizan mediante proxy.</string>
     <string name="pref_proxy_requires_auth_title">Requiere autorización</string>
     <string name="pref_proxy_requires_auth_summary">Advertencia: La contraseña se guarda como un archivo normal.</string>
     <string name="pref_proxy_login_title">Usuario</string>
@@ -502,8 +502,8 @@
     <string name="pref_enable_scheduling_shutdown_title">Tiempo de apagado</string>
     <string name="pref_enable_scheduling_shutdown_summary">Apagar la aplicación a una hora especificada</string>
     <string name="pref_scheduling_run_only_once_title">Ejecutar una sola vez</string>
-    <string name="pref_scheduling_switch_wifi_title">Habilitar/deshabilitar Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">El Wi-Fi se habilita automáticamente cuando la aplicación se inicia a la hora programada y se desactiva después de que la aplicación se completa a la hora programada</string>
+    <string name="pref_scheduling_switch_wifi_title">Alternar Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Enciende el Wi-Fi para el inicio programado, y apágalo para detener lo programado.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Actualización automática de canales</string>
     <string name="pref_feed_auto_refresh_summary">Actualizar periódicamente los canales en segundo plano.</string>
@@ -520,7 +520,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Solo en conexiones sin límite</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizar solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerancia</string>
     <string name="pref_feed_keep_items_time_title">Mantener artículos</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 día</item>
@@ -536,18 +536,16 @@
     <string name="pref_feed_start_torrents_title">Inicio automático de torrents</string>
     <string name="pref_feed_start_torrents_summary">Descargas de torrents añadidas.</string>
     <string name="pref_feed_remove_duplicates_title">No hay duplicados</string>
-    <string name="pref_feed_remove_duplicates_summary">Comprueba el título del elemento recién descargado y se salta cuando ya hay uno con el mismo título</string>
+    <string name="pref_feed_remove_duplicates_summary">Omite la descarga de archivos con títulos ya presentes.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Streaming</string>
-    <string name="pref_streaming_enable_summary">Streaming te permite descargar archivos individuales desde un torrent usando un navegador o reproductor multimedia usando URLs HTTP</string>
+    <string name="pref_streaming_enable_title">Transmisión</string>
+    <string name="pref_streaming_enable_summary">Permite descargar archivos individuales de un torrent usando un navegador web o reproductor multimedia usando URLs HTTP/S.</string>
     <string name="pref_streaming_hostname">Nombre del host</string>
     <string name="pref_streaming_port">Puerto</string>
     <string name="pref_streaming_error">Selecciona un puerto o nombre de host para el streaming que no esté ocupado o sea incorrecto.</string>
     <!-- About dialog -->
     <string name="about_title">Acerca de</string>
-    <string name="about_description"><![CDATA[    Más información y también para ayudar al proyecto: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent es un cliente torrent libre como en libertad para Android 4+, basado en la librería libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
-    LibreTorrent es software libre, publicado bajo los términos de la <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Más información y cómo ayudar al proyecto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent es un cliente torrent libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) con copyleft para Android 4+, basado en la librería libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Registro de cambios</string>
     <string name="pref_header_streaming">Streaming</string>
 </resources>
