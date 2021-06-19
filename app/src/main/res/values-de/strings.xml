@@ -11,7 +11,7 @@
     <string name="replace">Ersetzen</string>
     <string name="add">Hinzufügen</string>
     <string name="delete">Löschen</string>
-    <string name="deleting">Wird gelöscht</string>
+    <string name="deleting">Wird gelöscht…</string>
     <string name="select_all">Alle auswählen</string>
     <string name="save">Speichern</string>
     <string name="search">Suchen</string>

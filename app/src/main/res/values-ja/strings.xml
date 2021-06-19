@@ -64,7 +64,7 @@
     <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性\?</string>
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
     <string name="proxy_settings_applied">新しいプロキシサーバ設定を使用します。</string>
-    <string name="proxy_settings_apply_after_reboot">新プロキシサーバ設定の使用のためにアプリを再起動。</string>
+    <string name="proxy_settings_apply_after_reboot">新プロキシサーバ設定の使用のためにアプリを再起動</string>
     <string name="theme_settings_apply_after_reboot">新しいテーマを使用するにはアプリを再起動して下さい。</string>
     <string name="about">情報</string>
     <!-- Navigation drawer -->
@@ -224,9 +224,9 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">ダウンロード完了</string>
     <string name="torrent_ETA">完了予定時刻</string>
-    <string name="torrent_seeds">共有者数</string>
+    <string name="torrent_seeds">共有人数</string>
     <string name="torrent_peers">合計</string>
-    <string name="torrent_leechers">ダウンロード者数</string>
+    <string name="torrent_leechers">ダウンロード人数</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">アップロード済</string>
@@ -428,8 +428,8 @@
     <string name="pref_autostart_title">自動起動</string>
     <string name="pref_autostart_summary">端末起動時にアプリを実行する。</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">定額制接続のみ</string>
-    <string name="pref_umnetered_connections_only_summary">従量制ではない接続 (Wi-Fiやイーサネットなど) のみ使用。</string>
+    <string name="pref_umnetered_connections_only_title">従量制以外の接続のみ</string>
+    <string name="pref_umnetered_connections_only_summary">従量制以外の接続 (Wi-Fiやイーサネットなど) のみ使用。</string>
     <string name="pref_enable_roaming_title">ローミング</string>
     <string name="pref_enable_roaming_summary">端末がローミングしていない場合にのみダウンロードする。</string>
     <string name="pref_power_management_category">電源管理</string>
@@ -464,7 +464,7 @@
     <string name="pref_port_range_start_title">開始</string>
     <string name="pref_port_range_end_title">終了</string>
     <string name="pref_encryption_category">暗号化</string>
-    <string name="pref_enc_mode_title">モード</string>
+    <string name="pref_enc_mode_title">方式</string>
     <string-array name="pref_enc_mode_entries">
         <item>暗号化を優先</item>
         <item>暗号化が必要</item>
@@ -478,8 +478,8 @@
     <string name="pref_ip_filtering_file_title">フィルターファイルへのパス (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT エラーを表示</string>
     <string name="pref_anonymous_mode_title">匿名モード</string>
-    <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフ。</string>
-    <string name="pref_seeding_outgoing_connections_title">共有の送信接続</string>
+    <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフです。</string>
+    <string name="pref_seeding_outgoing_connections_title">シードの送信接続</string>
     <string name="pref_seeding_outgoing_connections_summary">共有されたトレントが送信接続をできます。(コストがかかる場合があります。)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">プロキシタイプ</string>
@@ -519,8 +519,8 @@
         <item>1日</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">定額制接続のみ</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">定額の接続でのみ更新する (Wi-Fi やイーサネットなど)</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">定額制の接続のみ</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">更新は従量制以外の接続のみ (Wi-Fi やイーサネットなど)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">ローミング</string>
     <string name="pref_feed_keep_items_time_title">アーティクルを保持</string>
     <string-array name="pref_feed_keep_items_time_entries">
@@ -540,12 +540,12 @@
     <string name="pref_feed_remove_duplicates_summary">既に存在するファイルタイトルのダウンロードをスキップします。</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">ストリーミング</string>
-    <string name="pref_streaming_enable_summary">HTTP/S の URL を使用してウェブブラウザまたはメディアプレーヤーを使用して、トレントから個々のファイルをダウンロードを許可。</string>
+    <string name="pref_streaming_enable_summary">HTTP/S の URL を使用してウェブブラウザまたはメディアプレーヤを使用して、トレントから個々のファイルをダウンロードを許可。</string>
     <string name="pref_streaming_hostname">ホスト名</string>
     <string name="pref_streaming_port">ポート</string>
     <string name="pref_streaming_error">ストリーミング用のポートまたはホスト名は、ビジーまたは不正でないものを選択してください。</string>
     <!-- About dialog -->
     <string name="about_title">バージョン情報</string>
-    <string name="about_description">追加情報とプロジェクトの支援方法:&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のcopylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)のトレントクライアントです(Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)。&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_description">追加情報とプロジェクトの支援方法:&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のコピーレフト化した自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)なトレントクライアントです(Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新履歴</string>
 </resources>
