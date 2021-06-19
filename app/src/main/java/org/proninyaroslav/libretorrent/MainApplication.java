@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
@@ -32,6 +34,8 @@ import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
 public class MainApplication extends MultiDexApplication {
+    public static final String TAG = MainApplication.class.getSimpleName();
+
     static {
         /* Vector Drawable support in ImageView for API < 21 */
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -52,6 +56,12 @@ public class MainApplication extends MultiDexApplication {
         builder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
                 .withEnabled(true)
                 .setReportDialogClass(ErrorReportActivity.class);
+        // Set stub handler
+        if (Thread.getDefaultUncaughtExceptionHandler() == null) {
+            Thread.setDefaultUncaughtExceptionHandler((t, e) ->
+                    Log.e(TAG, "Uncaught exception in "  + t + ": " + Log.getStackTraceString(e))
+            );
+        }
         ACRA.init(this, builder);
 
         TorrentNotifier.getInstance(this).makeNotifyChans();
