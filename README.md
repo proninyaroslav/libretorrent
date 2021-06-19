@@ -69,7 +69,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #### Developers
 
-* [Yaroslav Pronin](https://github.com/proninyaroslav)
+* [Yaroslav Pronin](https://gitlab.com/proninyaroslav)
 
 ## Screenshots
 
