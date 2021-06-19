@@ -24,6 +24,7 @@ LibreTorrent has some other capabilities, which are functions the software can r
 - **run at startup**: Allows the app to have itself started as soon as your device has finished booting.
 - **control vibration**: Allows the app to control the vibrator.
 - **prevent phone from sleeping**: Allows the app to prevent the phone from going to sleep.
+- **install shortcuts**: Allows the app to add Home screen shortcuts without user intervention.
 
 
 The information that may be collected with these permissions are stored locally on the device and the developer has no access to that information. These permissions can be revoked when they are not needed, this is privy to only devices running Android 6.0 upward.
