@@ -49,8 +49,8 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Radera med nedladdade filer</string>
     <string name="delete_selected_torrent">Ta bort vald torrent\? (Kan inte ångras.)</string>
-    <string name="delete_selected_torrents">Ta bort valda torrenter\? (Kan inte ångras.)</string>
-    <string name="force_announce_torrent">Tvinga annonsering</string>
+    <string name="delete_selected_torrents">Ta bort valda torrents\? (Kan inte ångras.)</string>
+    <string name="force_announce_torrent">Tvinga tillkännagivande</string>
     <string name="add_link">Lägg till länk</string>
     <string name="dialog_add_link_title">Ange infohash-värdet, magnet-länk eller HTTP/S-länk</string>
     <string name="torrent_list_empty">Inga torrents</string>
@@ -63,7 +63,7 @@
     <string name="ip_filter_add_error">Kunde inte att lägga till IP-filter (%1$d misslyckades). Filen kanske är skadad eller har ett felaktigt format\?</string>
     <string name="ip_filter_add_success">IP-filtret lades till</string>
     <string name="proxy_settings_applied">Använder de nya inställningarna för proxy-servern.</string>
-    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya proxy-inställningarna.</string>
+    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya inställningarna till proxy-servern.</string>
     <string name="theme_settings_apply_after_reboot">Starta om appen för att använda det nya temat.</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
@@ -133,13 +133,13 @@
     <string name="error_fetch_link">Kunde inte hämta data från länken</string>
     <string name="error_invalid_link_or_path">Icke giltig länk eller torrent-genväg</string>
     <string name="error_add_torrent">Kunde inte lägga till torrenten</string>
-    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är .torrent-filen flyttad, eller borttagen\?</string>
+    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är .torrent-filen flyttad eller så togs den bort\?</string>
     <string name="error_io_add_torrent">Kan inte lägga till torrent till följd av ett I/O-fel.</string>
     <string name="torrent_exist">Eftersom att torrenten redan finns så slogs de ihop.</string>
     <string name="error_field_required">Fält som krävs</string>
     <string name="error_no_files_selected">Inga filer valda</string>
     <string name="free_space">%1$s ledigt</string>
-    <string name="error_free_space">Det finns inte tillräckligt med utrymme för att ladda ner de valda filerna.</string>
+    <string name="error_free_space">Inte tillräckligt med utrymme där för att ladda ner de valda filerna.</string>
     <string name="files_size">%1$s av %2$s valdes</string>
     <string name="start_torrent">Starta torrent</string>
     <string name="file_is_too_large_error">Filen för stor</string>
@@ -202,7 +202,7 @@
     <string name="error_save_torrent_file">Kunde inte spara en torrent-fil</string>
     <string name="upload_speed">Ladda upp</string>
     <string name="download_speed">Ladda ner</string>
-    <string name="magnet_more_about_bep53">Mer information via http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">http://www.bittorrent.org/beps/bep_0053.html för mer information</string>
     <!-- Send text to clipboard -->
     <string name="text_copied_to_clipboard">Kopierades till klippbordet</string>
     <!-- Error report -->
@@ -223,8 +223,8 @@
     <string name="creating_torrent_progress">Vänligen vänta medans torrenten skapas…</string>
     <string name="file_or_folder_for_seeding">Fil eller mapp att dela</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att dela först.</string>
-    <string name="web_seed_urls">Web seed URLs</string>
-    <string name="tracker_urls_hint">(Valfritt) ange en spårare per rad i prioritetsordningen.</string>
+    <string name="web_seed_urls">URL för webb-delning</string>
+    <string name="tracker_urls_hint">(Valfritt) ange en spårare per rad i prioriteringsordningen</string>
     <string name="web_seed_urls_hint">(Valfritt) en per rad</string>
     <string name="optional_hint">(Valfritt)</string>
     <string name="create_torrent_options">Alternativ</string>
@@ -270,7 +270,7 @@
     <string name="pref_max_active_torrents_title">Max. antalet aktiva torrentar</string>
     <string name="pref_max_connections_per_torrent_title">Max. antalet anslutningar per torrent</string>
     <string name="pref_max_connections_per_torrent_summary">(Min. 2 anslutningar.)</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximalt antalet tillgängliga platser för uppladdning per torrent</string>
+    <string name="pref_max_uploads_per_torrent_title">Max. antalet uppladdnings-platser per torrent</string>
     <string name="pref_auto_manage_title">Hantera automatiskt</string>
     <string name="pref_auto_manage_summary">Torrenten kan återupptas automatiskt eller pausas när som helst. (Kan sakta ner pausandet/återupptagandet.)</string>
     <!-- Appearance settings -->
@@ -306,10 +306,10 @@
     <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Designad för att stötta lokal upptäckt med syfte på att minimera trafik.</string>
     <string name="pref_enable_utp_title">μTP</string>
-    <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
+    <string name="pref_enable_utp_summary">Avsedd att mildra dålig latens och andra problem med överbelastningskontroll som hittas i konventionell BitTorrent över TCP, samtidigt som den ger en pålitlig beställd leverans.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">Ställer in startporten slumpmässigt inom intervallet [%1$d, %2$d] och den avslutande porten som den första + 10.</string>
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">Slut</string>
     <string name="pref_enc_mode_title">Läge</string>
@@ -321,7 +321,7 @@
     <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
     <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
     <string name="pref_anonymous_mode_title">Anonymt läge</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
+    <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrentar. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en peer-proxy på tracker-proxy-datorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
     <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för seedning</string>
     <string name="pref_seeding_outgoing_connections_summary">Låter delade torrentar skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
@@ -340,8 +340,8 @@
     <string name="pref_proxy_password_title">Lösenord</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_summary">Starta appen vid den specifika tiden. Torrentarna körs enligt deras tillstånd innan den sista stängs ner.</string>
-    <string name="pref_scheduling_switch_wifi_title">Växla till Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <string name="pref_scheduling_switch_wifi_title">Växla Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Aktivera Wi-Fi för schemalagd start och av för schemalagt stopp.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Uppdatera automatiskt kanaler</string>
     <string name="pref_feed_auto_refresh_summary">Uppdatera kanaler periodiskt i bakgrunden.</string>
@@ -408,16 +408,16 @@
     <string name="pref_feed_remove_duplicates_title">Ingen duplicering</string>
     <string name="pref_feed_keep_items_time_title">Behåll artiklar</string>
     <string name="pref_custom_battery_control_value_title">Procent av batterikontroll</string>
-    <string name="pref_custom_battery_control_title">Anpassat batteriprocent</string>
+    <string name="pref_custom_battery_control_title">Anpassad batteriprocent</string>
     <string name="pref_torrent_queueing_category">Torrent-kö</string>
-    <string name="pref_watch_dir_title">Mapp att bevaka</string>
+    <string name="pref_watch_dir_title">Bevaka mapp</string>
     <string name="pref_journal_max_stored_entries">Maximalt lagrade journal-poster</string>
-    <string name="journal_filter_session_log">Logg för session</string>
+    <string name="journal_filter_session_log">Sessionslogg</string>
     <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
     <string name="torrent_seeding_time">Tid för seedning</string>
     <string name="torrent_leechers">Tagare</string>
-    <string name="drawer_date_added">Datum tillagd</string>
-    <string name="drawer_sorting_date_added">Datum tillagd</string>
+    <string name="drawer_date_added">Datum som den lades till</string>
+    <string name="drawer_sorting_date_added">Datum som den lades till</string>
     <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>
     <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
     <string name="pref_enable_scheduling_shutdown_summary">Stäng ner appen vid en specifik tid</string>
@@ -438,7 +438,7 @@
     <string name="pref_cpu_do_not_sleep_title">Håll enheten vaken</string>
     <string name="pref_keep_alive_title">Fortsätt kör</string>
     <string name="pref_power_management_category">Strömhantering</string>
-    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="pref_vibration_notify_title">Vibrering</string>
     <string name="pref_led_indicator_color_notify_title">Färg på LED-indikator</string>
     <string name="pref_led_indicator_notify_title">LED-indikator</string>
     <string name="pref_play_sound_notify_title">Spela ljud</string>
@@ -452,7 +452,7 @@
     <string name="pref_save_torrent_files_title">Spara .torrent-filer</string>
     <string name="pref_move_after_download_title">Flytta efter nerladdning</string>
     <string name="pref_save_torrents_in_title">Spara torrentar i…</string>
-    <string name="pref_header_streaming">Strömning</string>
+    <string name="pref_header_streaming">Strömmar</string>
     <string name="pref_header_scheduling">Schemaläggning</string>
     <string name="pref_header_limitations">Begränsningar</string>
     <string name="pref_header_storage">Lagring</string>
@@ -546,4 +546,7 @@
     <string name="torrent_speed_limit">Hastighetsgräns</string>
     <string name="save_torrent_file">Spara torrent-fil</string>
     <string name="share_magnet">Dela magnet</string>
+    <string name="torrent_share_ratio">Utdelningskvot</string>
+    <string name="piece_map">Kart-delar</string>
+    <string name="force_recheck_torrent">Tvinga återkontroll</string>
 </resources>

@@ -148,27 +148,27 @@
     <string name="torrent_status_downloading_metadata">Baixando metadados…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
-    <string name="perm_denied_warning">Sem esta permissão o aplicativo não salvará os arquivos torrent na memória. O aplicativo não irá funcionar corretamente. Você tem certeza de que quer negar esta permissão?</string>
+    <string name="perm_denied_warning">Deseja realmente impedir o aplicativo de manter arquivos .torrent em memória\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Adicionar torrent</string>
-    <string name="error_decode_torrent">Falha ao decodificar o arquivo torrent. Talvez o arquivo esteja corrompido ou em um formato incorreto</string>
-    <string name="error_io_torrent">Não é possível ler o arquivo .torrent</string>
-    <string name="error_fetch_link">Não foi possível buscar dados do link</string>
+    <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido\?</string>
+    <string name="error_io_torrent">Não foi possível ler o arquivo .torrent.</string>
+    <string name="error_fetch_link">Não foi possível capturar dados do link.</string>
     <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
-    <string name="error_add_torrent">Falha ao adicionar o torrent</string>
-    <string name="error_file_not_found_add_torrent">Falha ao adicionar o torrent. Talvez o arquivo torrent tenha sido movido ou deletado</string>
+    <string name="error_add_torrent">Não foi possível adicionar o torrent</string>
+    <string name="error_file_not_found_add_torrent">Não foi possível adicionar o torrent. Talvez o arquivo .torrent foi movido, ou deletado\?</string>
     <string name="error_io_add_torrent">Não foi possível adicionar o torrent por conta de um erro de entrada e saída.</string>
-    <string name="torrent_exist">Torrent já existe. Torrents foram unidos</string>
+    <string name="torrent_exist">Como o torrent já existe eles foram mesclados.</string>
     <string name="error_field_required">Campo obrigatório</string>
     <string name="error_no_files_selected">Nenhum arquivo selecionado</string>
     <string name="free_space">%1$s livre</string>
-    <string name="error_free_space">Não há espaço livre o suficiente no caminho selecionado para baixar os arquivos selecionados</string>
-    <string name="files_size">%1$s de %2$s selecionado</string>
+    <string name="error_free_space">O espaço aí é insuficiente para baixar os arquivos selecionados.</string>
+    <string name="files_size">%1$s de %2$s selecionados</string>
     <string name="start_torrent">Iniciar torrent</string>
     <string name="file_is_too_large_error">Arquivo muito grande</string>
-    <string name="unable_to_open_folder">Não foi possível abrir a pasta selecionada. Por favor, tente selecionar outra pasta</string>
-    <string name="error_empty_name">Por favor, digite o nome</string>
-    <string name="ignore_free_space">Ignorar tamanho de espaço livre</string>
+    <string name="unable_to_open_folder">Não foi possível abrir a pasta selecionada. Tente selecionar outra.</string>
+    <string name="error_empty_name">Digite um nome</string>
+    <string name="ignore_free_space">Ignorar armazenamento baixo</string>
     <!-- Torrent info -->
     <string name="torrent_info">Informação</string>
     <string name="torrent_files">Arquivos</string>
@@ -176,7 +176,7 @@
     <string name="upload_torrent_into">Enviar para…</string>
     <string name="torrent_size">Tamanho</string>
     <string name="torrent_file_count">Contagem de arquivos</string>
-    <string name="torrent_hash_sum">Soma de hash</string>
+    <string name="torrent_hash_sum">Soma de verificação</string>
     <string name="torrent_comment">Comentário</string>
     <string name="torrent_create_date">Criado</string>
     <string name="torrent_created_in_program">Criado no programa</string>
@@ -186,7 +186,7 @@
     <string name="file_chooser_title">Seleção de arquivo</string>
     <string name="torrent_file_chooser_title">Seleção de torrent</string>
     <string name="dialog_new_folder_title">Nova pasta</string>
-    <string name="error_dialog_new_folder">Não foi possível criar uma nova pasta</string>
+    <string name="error_dialog_new_folder">Não foi possível criar a nova pasta</string>
     <string name="error_open_dir">Não foi possível abrir a pasta</string>
     <string name="home_directory">Início</string>
     <!-- name (size) -->
@@ -195,9 +195,9 @@
     <string name="save_file">Salvar arquivo</string>
     <string name="file_name">Nome do arquivo</string>
     <string name="error_file_exists">O arquivo já existe</string>
-    <string name="file_name_is_empty">O nome do arquivo não pode estar vazio</string>
+    <string name="file_name_is_empty">Insira um nome de arquivo primeiro</string>
     <string name="system_manager">Gestor do sistema</string>
-    <string name="system_file_manager_not_found">Gerenciador de arquivos do sistema não foi encontrado</string>
+    <string name="system_file_manager_not_found">Não foi possível encontrar um gerenciador de arquivos</string>
     <string name="replace_file">Substituir arquivo</string>
     <string name="parent_folder">Pasta Principal</string>
     <!-- Error dialog -->
@@ -224,7 +224,7 @@
     <string name="torrent_uploaded">Enviado</string>
     <string name="torrent_share_ratio">Taxa de compartilhamento</string>
     <string name="torrent_active_time">Tempo ativo</string>
-    <string name="torrent_seeding_time">Tempo semeando</string>
+    <string name="torrent_seeding_time">Tempo de compartilhamento</string>
     <string name="torrent_pieces">Pedaços</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -233,9 +233,9 @@
     <string name="tracker_state_not_working">Não está funcionando</string>
     <string name="tracker_state_updating">Atualizando…</string>
     <string name="tracker_state_not_contacted">Não contactado ainda</string>
-    <string name="share_tracker_url">Compartilhar endereço</string>
-    <string name="delete_selected_tracker">Deletar o rastreador selecionado?</string>
-    <string name="delete_selected_trackers">Deletar os rastreadores selecionados?</string>
+    <string name="share_tracker_url">Compartilhar endereço…</string>
+    <string name="delete_selected_tracker">Deletar o rastreador selecionado\?</string>
+    <string name="delete_selected_trackers">Deletar os rastreadores selecionados\?</string>
     <string name="add_trackers">Adicionar rastreador</string>
     <string name="dialog_add_trackers">(Um por linha)</string>
     <string name="open_using">Abrir usando</string>
@@ -248,42 +248,42 @@
     <string name="peer_connection_type_bittorrent">Conexão BT</string>
     <string name="peer_connection_type_web">Conexão Web</string>
     <string name="peer_connection_type_utp">Conexão μTP</string>
-    <string name="peer_list_empty">Este torrent não se conectou a nenhum dos peers ainda</string>
+    <string name="peer_list_empty">Este torrent não se conectou a ninguém ainda</string>
     <string name="piece_map">Mapa de pedaços</string>
     <string name="resume_torrent">Continuar</string>
     <string name="pause_torrent">Pausar</string>
     <string name="share_magnet">Compartilhar link magnético</string>
     <string name="save_torrent_file">Salvar arquivo torrent</string>
     <string name="torrent_speed_limit">Limite de velocidade</string>
-    <string name="share_via">Compartilhar via</string>
-    <string name="save_torrent_file_successfully">Arquivo torrent salvo com successo</string>
-    <string name="error_save_torrent_file">Falha ao salvar arquivo torrent</string>
+    <string name="share_via">Compartilhar via…</string>
+    <string name="save_torrent_file_successfully">Arquivo .torrent salvo</string>
+    <string name="error_save_torrent_file">Não foi possível salvar o arquivo torrent</string>
     <string name="speed_limit_title">Velocidade máxima</string>
     <string name="upload_speed">Enviar</string>
     <string name="download_speed">Baixar</string>
     <string name="speed_limit_dialog">Colocando velocidade em KiB/s (0 - sem limites)</string>
     <string name="torrent_added_date">Adicionado</string>
     <string name="torrent_availability">Disponibilidade</string>
-    <string name="share_stream_url">Compartilhar o URL do stream</string>
+    <string name="share_stream_url">Compartilhar o URL do stream…</string>
     <string name="magnet_include_file_priorities">Incluir prioridades de arquivo?</string>
     <string name="magnet_more_about_bep53">Mais Informações: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Sem trackers</string>
     <string name="edit_torrent_name">Editar nome do torrent</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
-    <string name="text_copied_to_clipboard">Texto copiado para clipboard</string>
+    <string name="text_copied_to_clipboard">Copiado para a área de transferência</string>
     <!-- Error report -->
     <string name="app_error_occurred">Ocorreu um falha no aplicativo. Você pode reportar isto aos desenvolvedores</string>
-    <string name="error_comment_prompt">Você pode adicionar informações extras e comentários aqui:</string>
+    <string name="error_comment_prompt">Adicione informações extras e comentários aqui:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_channel_list_empty">Sem canals</string>
     <string name="select_or_add_feed_channel">Selecione ou adicione um RSS/Atom canal</string>
     <string name="add_feed_channel">Adicionar canal</string>
-    <string name="feed_name">Nome (opcional)</string>
+    <string name="feed_name">(Opcional) nome</string>
     <string name="feed_filter_prompt">Digite as palavras (separadas pelo símbolo \"|\"), uma das quais deve estar no nome, ou inserir uma expressão regular. Torrents só serão adicionados se este filtro corresponder ao nome do torrent.</string>
-    <string name="feed_filter_prompt_one_per_line">Digite filtros um por linha.</string>
-    <string name="feed_auto_download">Baixe novos torrents automaticamente</string>
+    <string name="feed_filter_prompt_one_per_line">Digite um filtro por linha.</string>
+    <string name="feed_auto_download">Baixar torrents automaticamente</string>
     <string name="feed_use_regex">Use expressão regular</string>
     <string name="backup_feed_channels">Guarde Backup</string>
     <string name="restore_feed_channels_backup">Restaure backup</string>
@@ -293,17 +293,17 @@
     <string name="error_cannot_edit_channel">Não foi possível editar canal</string>
     <string name="error_cannot_delete_channel">Não foi possível excluir este canal</string>
     <string name="copy_link">Link de cópia</string>
-    <string name="delete_selected_channel">Excluir o canal selecionado?</string>
-    <string name="delete_selected_channels">Excluir os canals selecionados?</string>
+    <string name="delete_selected_channel">Excluir o canal selecionado\?</string>
+    <string name="delete_selected_channels">Excluir os canais selecionados\?</string>
     <string name="edit_feed_channel">Editar canal</string>
-    <string name="link_copied_to_clipboard">Link copiado para a área de transferência</string>
+    <string name="link_copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="mark_as_read">Marcar como lido</string>
     <string name="mark_as_unread">Marcar como não lido</string>
     <string name="feed_item_list_empty">Nenhum artigo</string>
-    <string name="backup_feeds_successfully">Canais salvos com êxito</string>
-    <string name="restore_feeds_backup_successfully">Canais restaurados com êxito</string>
-    <string name="error_backup_feeds">Falha ao salvar os canais</string>
-    <string name="error_restore_feeds_backup">Falha ao restaurar os canais</string>
+    <string name="backup_feeds_successfully">Canais salvos</string>
+    <string name="restore_feeds_backup_successfully">Canais restaurados</string>
+    <string name="error_backup_feeds">Não foi possível salvar os canais</string>
+    <string name="error_restore_feeds_backup">Não foi possível restaurar os canais</string>
     <string name="feed_item_open_article_url">Artigo aberto</string>
     <string name="feeds_backup_selection_dialog_title">Selecione o arquivo de backup</string>
     <string name="error_import_invalid_format">Formato Inválido</string>
@@ -311,11 +311,11 @@
     <string name="feed_item_url_not_found">URL não encontrada</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>
-    <string name="creating_torrent_progress">Criando torrent, por favor aguarde…</string>
-    <string name="file_or_folder_for_seeding">Arquivo ou pasta para semeando</string>
+    <string name="creating_torrent_progress">Por favor aguarde enquanto o torrent é criado…</string>
+    <string name="file_or_folder_for_seeding">Arquivo ou pasta para compartilhar</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Selecione um arquivo ou pasta para compartilhar primeiro.</string>
     <string name="tracker_urls">URLs do rastreador</string>
-    <string name="web_seed_urls">URLs de sementes da Web</string>
+    <string name="web_seed_urls">URLs de compartilhamento da Web</string>
     <string name="comments">Comentários</string>
     <string name="tracker_urls_hint">(Opcional) digite um rastreador por linha na ordem de prioridade.</string>
     <string name="web_seed_urls_hint">(opcional) Uma por linha</string>

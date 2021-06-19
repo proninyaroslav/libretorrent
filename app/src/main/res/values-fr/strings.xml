@@ -64,7 +64,7 @@
     <string name="ip_filter_add_success">Le filtre IP a été ajouté avec succès</string>
     <string name="proxy_settings_applied">Paramètres du serveur proxy appliqués</string>
     <string name="proxy_settings_apply_after_reboot">Veuillez redémarrer l\'application pour utiliser les nouveaux paramètres du proxy</string>
-    <string name="theme_settings_apply_after_reboot">Les paramètres de thème seront appliqués après le redémarrage de l\'application</string>
+    <string name="theme_settings_apply_after_reboot">Les paramètres de thème seront appliqués après le redémarrage de l\'application.</string>
     <string name="about">À propos</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
@@ -112,22 +112,22 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Téléchargement : %1$d Total : %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent fonctionne en arrière-plan</string>
-    <string name="network_online">État du réseau : En ligne</string>
-    <string name="network_offline">État du réseau : Hors ligne</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ de %2$d</string>
+    <string name="app_running_in_the_background">Fonctionne en arrière-plan…</string>
+    <string name="network_online">En ligne</string>
+    <string name="network_offline">Hors ligne</string>
     <string name="notify_shutting_down">Arrêt en cours…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent erreur</string>
     <string name="error_template">Erreur : %1$s</string>
-    <string name="restore_torrent_error">Impossible de restaurer le torrent de la session précédente</string>
+    <string name="restore_torrent_error">Impossible de restaurer le torrent de la session précédente.</string>
     <string name="session_error_title">Erreur de session</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Erreur NAT</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent terminé</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Déplacement du torrent</string>
+    <string name="torrent_moving_title">Déplacement du torrent…</string>
     <string name="torrent_moving_content">Veuillez patienter pendant le déplacement de %1$s…</string>
     <string name="torrent_move_success">Torrent déplacé</string>
     <string name="torrent_move_fail">Impossible de déplacer le torrent</string>

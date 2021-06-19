@@ -1,1 +1,1 @@
-Szabad torrentkliens.
+Szabad és nyílt forráskódú torrentkliens.
