@@ -154,7 +154,7 @@
     <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido\?</string>
     <string name="error_io_torrent">Não foi possível ler o arquivo .torrent.</string>
     <string name="error_fetch_link">Não foi possível capturar dados do link.</string>
-    <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
+    <string name="error_invalid_link_or_path">Link inválido ou caminho do torrent</string>
     <string name="error_add_torrent">Não foi possível adicionar o torrent</string>
     <string name="error_file_not_found_add_torrent">Não foi possível adicionar o torrent. Talvez o arquivo .torrent foi movido, ou deletado\?</string>
     <string name="error_io_add_torrent">Não foi possível adicionar o torrent por conta de um erro de entrada e saída.</string>
@@ -176,7 +176,7 @@
     <string name="upload_torrent_into">Enviar para…</string>
     <string name="torrent_size">Tamanho</string>
     <string name="torrent_file_count">Contagem de arquivos</string>
-    <string name="torrent_hash_sum">Soma de hash</string>
+    <string name="torrent_hash_sum">Checksum</string>
     <string name="torrent_comment">Comentário</string>
     <string name="torrent_create_date">Criado</string>
     <string name="torrent_created_in_program">Criado no programa</string>
