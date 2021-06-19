@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,33 +23,36 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
 import org.acra.ACRA;
-import org.acra.annotation.AcraCore;
-import org.acra.annotation.AcraDialog;
-import org.acra.annotation.AcraMailSender;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.DialogConfigurationBuilder;
+import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
-@AcraCore(buildConfigClass = BuildConfig.class)
-@AcraMailSender(mailTo = "proninyaroslav@mail.ru")
-@AcraDialog(reportDialogClass = ErrorReportActivity.class)
-
-public class MainApplication extends MultiDexApplication
-{
-    private static final String TAG = MainApplication.class.getSimpleName();
-
+public class MainApplication extends MultiDexApplication {
     static {
         /* Vector Drawable support in ImageView for API < 21 */
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         Utils.migrateTray2SharedPreferences(this);
-        ACRA.init(this);
+
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
+        builder
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.JSON);
+        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
+                .withMailTo("proninyaroslav@mail.ru");
+        builder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
+                .withEnabled(true)
+                .setReportDialogClass(ErrorReportActivity.class);
+        ACRA.init(this, builder);
 
         TorrentNotifier.getInstance(this).makeNotifyChans();
     }
