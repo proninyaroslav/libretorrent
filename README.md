@@ -22,10 +22,7 @@ Copylefted libre full-featured torrent client for Android.
 
 [Use, see, change and share](https://en.wikipedia.org/wiki/Free_software); [with all](https://en.wikipedia.org/wiki/Copyleft).
 
-Overview
----
-
-**Features (help greatly appreciated.):**
+## 📋 Features
 
 * Select which files to download
 * Move files while downloading
@@ -45,41 +42,45 @@ Overview
 * Based on [libtorrent4j](https://github.com/aldenml/libtorrent4j)
 * And more
 
-Donations
----
-
-The development is 100% funded by heroic people like you. If you have problems with payment or you want to donate in another way, contact me at `proninyaroslav@mail.ru`. Thank you!
-
- - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
- - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
- - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
- - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GWWYZSCKPAB2Q)
- - **Yandex Money**: `410011738561939`
- - **WebMoney**:
-     - **WMZ**: `Z335461926163`
-     - **WMR**: `R151579576467`
- - **Amazon.com eGift Cards**: just choose your amount and type the e-mail `proninyaroslav@mail.ru`
-in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
-
-Contributors
----
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
-
-Translations
----
+## 🌍 Translations
 
 Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/libretorrent/)
 
 ![languages](https://hosted.weblate.org/widgets/libretorrent/-/multi-auto.svg)
 
-Screenshots
----
+## Donations
+
+The development is 100% funded by heroic people like you. If you have problems with payment or you want to donate in another way, contact me at `proninyaroslav@mail.ru`. Thank you!
+
+ - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GWWYZSCKPAB2Q)
+ - **Yandex Money (YooMoney)**: `410011738561939`
+ - **WebMoney**:
+     - **WMZ**: `Z335461926163`
+     - **WMR**: `R151579576467`
+ - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
+in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
+ - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
+ - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
+ - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
+
+## 🎉 Contributors
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+#### Developers
+
+* [Yaroslav Pronin](https://github.com/proninyaroslav)
+
+## Screenshots
 
 ![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![rss](/art/screenshots/rss.png) ![create torrent](/art/screenshots/create_torrent.png) ![session log](/art/screenshots/session_log.png) ![tablet](/art/screenshots/tablet.png)
 
-License
----
+## 🔒 Privacy Policy
+
+Please see our [Privacy Policy](PRIVACY.md).
+
+## 📄 License
+
 [![Large GPLv3 logo with “Free as in Freedom”](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
     Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
