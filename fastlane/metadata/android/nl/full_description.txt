@@ -1,22 +1,18 @@
-# Kenmerken
-
-* DHT, PeX, encryptie, LSD, UPnP, NAT*PMP, μTP
-* IP-filtering (eMule dat en PeerGuardian)
-* Mogelijkheid tot afstemmen (netwerkinstellingen, stroombeheer, batterijbeheer, UI instellingen, enz.)
-* Ondersteunt torrents met een groot aantal bestanden en grote bestanden
-* HTTP\S en magneetlinks ondersteuning
-* Ondersteuning voor trackers en peers
-* Mogelijkheid om bestanden te verplaatsen tijdens het downloaden
-* Mogelijkheid om bestanden automatisch te verplaatsen naar een andere map of naar een externe schijf aan het einde van de download
-* Mogelijkheid om prioriteiten van bestanden en mappen te specificeren
-* Mogelijkheid om te selecteren welke bestanden moeten worden gedownload
-* Mogelijkheid om opeenvolgend te downloaden
-Material Design
-* Donker en Zwart thema
-* Tablet geoptimaliseerde UI
-Planning
-* RSS manager
-* Android TV ondersteuning
-* Mogelijkheid om torrents te maken
-* Streaming van geselecteerde bestanden
-* En meer
+* Gelicentieerd GPLv3+. Gebruiken, zien, veranderen en delen; met iedereen.
+* Selecteren welke bestanden te downloaden.
+* Bestanden verplaatsen tijdens het downloaden.
+* Automatisch verplaatsen van gedownloade bestanden naar een andere map of externe schijf.
+* Bestanden streamen, met sequentiële downloads.
+* Android TV.
+* Material design, donker en zwart thema, en tablet UI.
+* Aanpasbare instellingen voor netwerk, batterij en UI, enz.
+* Meer dan 35 vertalingen.
+* Planning.
+* Automatisch downloaden, met Atom/RSS-manager.
+* Torrents aanmaken, met veel en grote bestanden.
+* HTTP\S en magneetkoppelingen.
+* DHT, PeX, versleuteling, LSD, UPnP, NAT*PMP, µTP.
+* IP-filtering (eMule-dat en PeerGuardian).
+* Ondersteunt proxy voor trackers en peers.
+* Gebaseerd op libtorrent4j.
+* En meer.

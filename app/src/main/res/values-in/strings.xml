@@ -11,7 +11,7 @@
     <string name="replace">Ganti</string>
     <string name="add">Tambah</string>
     <string name="delete">Hapus</string>
-    <string name="deleting">Menghapus</string>
+    <string name="deleting">Menghapus…</string>
     <string name="select_all">Pilih semua</string>
     <string name="save">Simpan</string>
     <string name="search">Cari</string>
@@ -48,24 +48,24 @@
     <string name="switch_off">Mati</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Hapus berkas yang terunduh juga</string>
-    <string name="delete_selected_torrent">Hapus torrent yang dipilih? Tindakan ini tidak bisa dibatalkan</string>
+    <string name="delete_selected_torrent">Hapus torrent yang dipilih\? (Tindakan ini tidak bisa dibatalkan)</string>
     <string name="delete_selected_torrents">Hapus torrent yang dipilih? Tindakan ini tidak bisa dibatalkan</string>
     <string name="force_recheck_torrent">Paksa periksa ulang</string>
     <string name="force_announce_torrent">Paksa announce</string>
     <string name="add_link">Tambahkan tautan</string>
-    <string name="dialog_add_link_title">Masukan infohash, tautan magnet, atau tautan HTTP/HTTPS</string>
+    <string name="dialog_add_link_title">Masukan nilai infohash, tautan magnet, atau tautan HTTP/S</string>
     <string name="torrent_list_empty">Tidak ada torrent</string>
     <string name="select_or_add_torrent">Pilih atau tambahkan torrent</string>
     <string name="error_empty_link">Masukkan tautan</string>
     <string name="error_invalid_link">Tautan tidak valid</string>
-    <string name="error_open_torrent_file">Tidak dapat membuka berkas torrent</string>
+    <string name="error_open_torrent_file">Tidak dapat membuka berkas .torrent</string>
     <string name="open_file">Buka berkas</string>
     <string name="settings">Setelan</string>
-    <string name="ip_filter_add_error">Gagal menambahkan IP filter (%1$d failed). Berkas mungkin rusak atau format berkas tidak valid</string>
-    <string name="ip_filter_add_success">Filter IP berhasil ditambahkan</string>
-    <string name="proxy_settings_applied">Setelan server proksi berhasil diterapkan</string>
-    <string name="proxy_settings_apply_after_reboot">Setelan server proksi akan diterapkan setelah memulai ulang aplikasi</string>
-    <string name="theme_settings_apply_after_reboot">Setelan tema akan diterapkan setelah memulai ulang aplikasi</string>
+    <string name="ip_filter_add_error">Tidak dapat menambahkan IP filter (%1$d failed). Berkas mungkin rusak atau format berkas tidak valid</string>
+    <string name="ip_filter_add_success">Filter IP ditambahkan</string>
+    <string name="proxy_settings_applied">Gunakan setelan server proksi baru</string>
+    <string name="proxy_settings_apply_after_reboot">Mulai ulang aplikasi untuk memakai setelan server proksi baru</string>
+    <string name="theme_settings_apply_after_reboot">Mulai ulang aplikasi untuk menggunakan tema baru</string>
     <string name="about">Tentang</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Node DHT: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Port masuk: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Mengunduh</string>
+    <string name="drawer_status_downloading">Mengunduh…</string>
     <string name="drawer_status_downloaded">Terunduh</string>
-    <string name="drawer_status_downloading_metadata">Mengunduh metadata</string>
+    <string name="drawer_status_downloading_metadata">Mengunduh metadata…</string>
     <string name="drawer_status_error">Kesalahan</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Mengurutkan</string>
@@ -112,24 +112,24 @@
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/dtk \u2022 %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
-    <string name="torrent_count_notify_template">Mengunduh: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent berjalan di latarbelakang</string>
-    <string name="network_online">Status jaringan: Daring</string>
-    <string name="network_offline">Status jaringan: Luring</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
+    <string name="app_running_in_the_background">LibreTorrent berjalan di latarbelakang…</string>
+    <string name="network_online">Daring</string>
+    <string name="network_offline">Luring</string>
     <string name="notify_shutting_down">Mematikan…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Torrent mengalami kesalahan</string>
     <string name="error_template">Kesalahan: %1$s</string>
-    <string name="restore_torrent_error">tidak dapat memulihkan torrent dari sesi sebelumnya</string>
+    <string name="restore_torrent_error">Tidak dapat memulihkan torrent dari sesi sebelumnya.</string>
     <string name="session_error_title">Sesi mengalami kesalahan</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT galat</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">Torrent selesai</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Memindahkan torrent</string>
+    <string name="torrent_moving_title">Memindahkan torrent…</string>
     <string name="torrent_moving_content">Memindahkan %1$s, mohon tunggu</string>
-    <string name="torrent_move_success">Torrent berhasil dipindahkan</string>
+    <string name="torrent_move_success">Torrent dipindahkan</string>
     <string name="torrent_move_fail">Tidak dapat memindahkan torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -141,25 +141,25 @@
     <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Mengunduh</string>
-    <string name="torrent_status_seeding">Menyemai</string>
+    <string name="torrent_status_downloading">Mengunduh…</string>
+    <string name="torrent_status_seeding">Membagikan seed…</string>
     <string name="torrent_status_paused">Dijeda</string>
     <string name="torrent_status_stopped">Berhenti</string>
-    <string name="torrent_status_checking">Memeriksa</string>
+    <string name="torrent_status_checking">Memeriksa…</string>
     <string name="torrent_status_finished">Selesai</string>
-    <string name="torrent_status_downloading_metadata">Mengunduh metadata</string>
+    <string name="torrent_status_downloading_metadata">Mengunduh metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Tanpa izin ini aplikasi tidak bisa menyimpan berkas pada memori. Aplikasi tidak akan berfungsi dengan baik. Apakah anda yakin ingin tetap menolak izin ini?</string>
+    <string name="perm_denied_warning">Apakah anda yakin ingin tetap menolak aplikasi memidah berkas .torrent ke penyimpanan\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Tambahkan Torrent</string>
     <string name="error_decode_torrent">Gagal mengenali berkas torrent. Berkas torrent mungkin rusak atau formatnya tidak valid</string>
-    <string name="error_io_torrent">Kesalahan membaca berkas torrent</string>
+    <string name="error_io_torrent">Tidak dapat membaca berkas .torrent</string>
     <string name="error_fetch_link">Gagal mengambil data dari tautan</string>
     <string name="error_invalid_link_or_path">Tautan atau jalur torrent tidak valid</string>
     <string name="error_add_torrent">Gagal menambahkan torrent</string>
-    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkjn berkas torrent telah dipindahkan atau dihapus</string>
-    <string name="error_io_add_torrent">Tidak dapat menambahkan torrent. Kesalahan pada masukan/luaran</string>
+    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkin berkas torrent telah dipindahkan atau dihapus</string>
+    <string name="error_io_add_torrent">Tidak dapat menambahkan torrent. Kesalahan pada masukan/luaran.</string>
     <string name="torrent_exist">Torrent telah ada dan digabungkan</string>
     <string name="error_field_required">Bagian ini perlu diisi</string>
     <string name="error_no_files_selected">Tidak ada berkas terpilih</string>
@@ -286,7 +286,7 @@
     <string name="select_or_add_feed_channel">Pilih atau tambahkan kanal RSS/Atom</string>
     <string name="add_feed_channel">Tambahkan kanal</string>
     <string name="feed_name">Nama (opsional)</string>
-    <string name="feed_filter_prompt">Masukan kata (dipisah dengan tanda \"|\"), salah satu diantaranya harus berupa nama atau ekspresi reguler. Torrent akan ditambahkan jika nama torrent sesuai dengan filter ini</string>
+    <string name="feed_filter_prompt">Masukan kata (dipisah dengan tanda \"|\"), salah satu diantaranya harus berupa nama atau ekspresi reguler. Torrent akan ditambahkan jika nama torrent sesuai dengan filter ini.</string>
     <string name="feed_filter_prompt_one_per_line">Masukan filter (satu filter per baris).</string>
     <string name="feed_auto_download">Unduh torrent baru secara otomatis</string>
     <string name="feed_use_regex">Gunakan ekspresi reguler</string>
@@ -318,11 +318,11 @@
     <string name="create_torrent">Buat torrent</string>
     <string name="creating_torrent_progress">Membuat torrent, mohon tunggu…</string>
     <string name="file_or_folder_for_seeding">Berkas atau folder untuk seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Harap pilih berkas atau folder untuk seed terlebih dulu</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Harap pilih berkas atau folder untuk seed terlebih dulu.</string>
     <string name="tracker_urls">Tautan tracker</string>
     <string name="web_seed_urls">Tautan web seed</string>
     <string name="comments">Komentar</string>
-    <string name="tracker_urls_hint">(Opsional) Masukkan tracker satu alamat per baris sesuai prioritas</string>
+    <string name="tracker_urls_hint">(Opsional) Masukkan tracker satu alamat per baris sesuai prioritas.</string>
     <string name="web_seed_urls_hint">(Opsional) satu alamat per baris</string>
     <string name="optional_hint">(Opsional)</string>
     <string name="piece_size">Ukuran potongan</string>
@@ -345,11 +345,11 @@
         <item>32 MiB</item>
     </string-array>
     <string name="invalid_url">Tautan tidak valid: %1$s</string>
-    <string name="folder_is_empty">Folder yang dipilih kosong atau semua berkas ditolak filter</string>
+    <string name="folder_is_empty">Folder yang dipilih kosong atau semua berkas ditolak filter.</string>
     <string name="error_create_torrent">Tidak dapat untuk membuat torrent</string>
     <string name="skip_files">Lewati berkas</string>
-    <string name="skip_files_hint">Masukan nama berkas dengan dipisah tanda \"|\"</string>
-    <string name="select_folder_to_save">Pilih folder untuk menyimpan</string>
+    <string name="skip_files_hint">Masukan nama berkas dengan dipisah tanda \"|\".</string>
+    <string name="select_folder_to_save">Pilih folder untuk menyimpan.</string>
     <string name="torrent_saved_to">Torrent disimpan ke %1$s</string>
     <string name="unable_to_open_file">Tidak dapat membuka berkas</string>
     <string name="unable_to_create_file">Tidak dapat membuat berkas</string>
@@ -383,10 +383,10 @@
     <string name="pref_move_after_download_title">Pindahkan setelah mengunduh</string>
     <string name="pref_move_after_download_in_title">Pindahkan setelah mengunduh di</string>
     <string name="pref_save_torrent_files_title">Simpan berkas .torrent</string>
-    <string name="pref_save_torrent_files_summary">Simpan berkas .torrent setelah muali mengunduh</string>
+    <string name="pref_save_torrent_files_summary">Simpan berkas .torrent setelah mulai mengunduh.</string>
     <string name="pref_save_torrent_files_in_title">Simpan berkas .torrent di</string>
     <string name="pref_watch_dir_title">Pantau direktori</string>
-    <string name="pref_watch_dir_summary">Berkas torrent (format .torrent) telah dipantau di direktori yang ditentukan dan ditambahkan secara otomatis. Berkas torrent dihapus setelah ditambahkan</string>
+    <string name="pref_watch_dir_summary">Berkas torrent (format .torrent) telah ditambahkan secara otomatis dan dihapus.</string>
     <string name="pref_dir_to_watch_title">Direktori yang dipantau</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Kecepatan</string>
@@ -414,7 +414,7 @@
     </string-array>
     <string name="pref_notification_category">Setelan notifikasi</string>
     <string name="pref_torrent_finish_notify_title">Notifikasi torrent selesai</string>
-    <string name="pref_torrent_finish_notify_summary">Tampilkan notifikasi saat torrent selesai diunduh</string>
+    <string name="pref_torrent_finish_notify_summary">Tampilkan notifikasi saat torrent selesai diunduh.</string>
     <string name="pref_play_sound_notify_title">Putar suara</string>
     <string name="pref_notify_sound_title">Suara notifikasi</string>
     <string name="pref_led_indicator_notify_title">Indikator LED</string>
@@ -422,12 +422,12 @@
     <string name="pref_vibration_notify_title">Getaran</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Mulai otomatis</string>
-    <string name="pref_autostart_summary">Mulai aplikasi setelah menyalakan perangkat</string>
+    <string name="pref_autostart_summary">Mulai aplikasi setelah menyalakan perangkat.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Hanya koneksi yang tidak dibatasi</string>
-    <string name="pref_umnetered_connections_only_summary">Hanya unduh melalui koneksi yang tidak dibatasi (contoh, Wi-Fi atau Ethernet)</string>
+    <string name="pref_umnetered_connections_only_summary">Hanya unduh melalui koneksi yang tidak dibatasi (contoh, Wi-Fi atau Ethernet).</string>
     <string name="pref_enable_roaming_title">Aktifkan roaming</string>
-    <string name="pref_enable_roaming_summary">Hanya unduh saat perangkat tidak dalam roaming</string>
+    <string name="pref_enable_roaming_summary">Hanya unduh saat perangkat tidak dalam roaming.</string>
     <string name="pref_power_management_category">Pengelolaan daya</string>
     <string name="pref_keep_alive_title">Tetap nyala</string>
     <string name="pref_keep_alive_summary">Jika diaktifkan, aplikasi akan terus berjalan dilatar belakang. Mematikan aplikasi saat unduhan selesai masih dijalankan</string>
@@ -435,7 +435,7 @@
     <string name="pref_shutdown_downloads_complete_summary">Jika diaktifkan, maka aplikasi akan dimatikan setelah semua unduhan selesai</string>
     <string name="pref_cpu_do_not_sleep_title">CPU tetap terjaga</string>
     <string name="pref_cpu_do_not_sleep_summary">Mengaktifkan fitur ini akan menguras baterai. Pakai opsi ini jika kecepatan unduh berkurang saat layar mati</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Hanya unduh dan unggah saat mengisi daya</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Hanya unduh dan unggah saat mengisi daya.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Jika diaktifkan, torrent akan terunduh/terunggah hanya ketika mengecas. Semua torrent akan dijeda saat tidak terhubung ke pengecas</string>
     <string name="pref_battery_control_title">Pengontrol baterai</string>
     <string name="pref_custom_battery_control_title">Persentase baterai khusus</string>
@@ -448,7 +448,7 @@
     <string name="pref_enable_dht_title">Hidupkan DHT</string>
     <string name="pref_enable_dht_summary">Fitur ini membuat klien BitTorent mencari klien lain tanpa bantuan tracker. Mengkaktifkan fitur ini akan menguras baterai</string>
     <string name="pref_enable_lsd_title">Hidupkan LSD</string>
-    <string name="pref_enable_lsd_summary">Dirancang untuk mendukung pencarian peer BitTorrent lokal, mengurangi lalu-lintas data</string>
+    <string name="pref_enable_lsd_summary">Dirancang untuk mendukung pencarian peer BitTorrent lokal, mengurangi lalu-lintas data.</string>
     <string name="pref_enable_utp_title">Hidupkan μTP</string>
     <string name="pref_enable_utp_summary">Bertujuan untuk memitigasi latensi buruk dan kontrol kongesi lain yang ditemukan dalam BitTorent konvensional melalui TCP, sambil memberikan penyaluran yang teratur dan reliabel</string>
     <string name="pref_enable_upnp_title">Hidupkan UPnP</string>
@@ -546,4 +546,7 @@
    LibreTorrent merupakan klien torrent bebas-merdeka berbasis libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib untuk Android 4 keatas.<br><br>
     LibreTorrent merupakan perangkat lunak gratis, dirilis dibawah lisensi <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Catatan perubahan</string>
+    <string name="pref_header_streaming">Streaming</string>
+    <string name="torrent_peers">Total</string>
+    <string name="drawer_sorting_peers">Popularitas</string>
 </resources>

@@ -1,0 +1,11 @@
+* Bugfixing:
+   - openen van torrent bestanden van notify in sommige browsers
+   - magneten pauzeren met sommige trackers
+   - laucher snelkoppeling
+   - downloaden op de URL's met vierkante haken
+   - poort randomiseren
+   - instellingen herstellen als de datadirectory is verwijderd
+   - kleine fixes
+* Toegevoegd:
+   - Android 8.1 ondersteuning
+...

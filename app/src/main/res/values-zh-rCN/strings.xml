@@ -49,21 +49,21 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
     <string name="delete_selected_torrent">删除所选定的种子？（ 此操作无法撤销。）</string>
-    <string name="delete_selected_torrents">删除所选定的所有种子？(此操作无法撤销)</string>
-    <string name="force_recheck_torrent">强制重新效验文件</string>
+    <string name="delete_selected_torrents">删除所选定的所有种子？（此操作无法撤销。）</string>
+    <string name="force_recheck_torrent">强制重新校验</string>
     <string name="force_announce_torrent">强制发布</string>
-    <string name="add_link">添加下载链接</string>
+    <string name="add_link">添加链接</string>
     <string name="dialog_add_link_title">输入磁力链接或 HTTP/S 链接</string>
     <string name="torrent_list_empty">没有种子任务</string>
     <string name="select_or_add_torrent">选择或添加一个种子</string>
-    <string name="error_empty_link">输入链接地址</string>
-    <string name="error_invalid_link">无效的链接地址</string>
-    <string name="error_open_torrent_file">无法打开种子文件</string>
+    <string name="error_empty_link">输入链接</string>
+    <string name="error_invalid_link">无效的链接</string>
+    <string name="error_open_torrent_file">无法打开 .torrent 文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error">无法添加 IP 过滤器 (%1$d 失败)。可能文件已损坏或格式不正确？</string>
+    <string name="ip_filter_add_error">无法添加 IP 过滤器（%1$d 失败）。可能文件已损坏或格式不正确？</string>
     <string name="ip_filter_add_success">已添加 IP 过滤器</string>
-    <string name="proxy_settings_applied">使用新的代理服务器设置</string>
+    <string name="proxy_settings_applied">使用新的代理服务器设置。</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序来使用新的代理设置。</string>
     <string name="theme_settings_apply_after_reboot">重新启动应用程序来使用新的主题。</string>
     <string name="about">关于</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">监听端口：%1$s</string>
     <!-- Status -->
     <string name="drawer_status">状态</string>
-    <string name="drawer_status_downloading">下载中 …</string>
+    <string name="drawer_status_downloading">下载中……</string>
     <string name="drawer_status_downloaded">已下载</string>
-    <string name="drawer_status_downloading_metadata">正在下载元数据…</string>
+    <string name="drawer_status_downloading_metadata">正在下载元数据……</string>
     <string name="drawer_status_error">错误</string>
     <!-- Sorting -->
     <string name="drawer_sorting">排序</string>

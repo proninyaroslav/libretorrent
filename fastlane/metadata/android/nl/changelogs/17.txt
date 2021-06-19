@@ -1,0 +1,11 @@
+* Toegevoegd:
+    - Ondersteuning voor meerdere filters in het dialoogvenster feed toevoegen
+    - Mappen eerst weergeven in de bestandsmanager
+* De bovenliggende map gebruiken als de downloadmap voor de gemaakte torrent
+* Verbeterd dialoogvenster voor het openen van gedownloade bestanden
+* Bugfixing:
+    - Crash op Android 4.x
+    - Trackers toevoegen
+    - Cache-instellingen, die invloed hebben op download snelheid (mogelijk opnieuw te installeren)
+    - Sommige ANR's
+...

@@ -8,7 +8,7 @@
     <string name="error">Error</string>
     <string name="shutdown">Apaga</string>
     <string name="add">Afegeix</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Elimina</string>
     <string name="not_available">N/A</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
@@ -395,4 +395,6 @@
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="deleting">Eliminant</string>
+    <string name="warning">Atenció</string>
 </resources>

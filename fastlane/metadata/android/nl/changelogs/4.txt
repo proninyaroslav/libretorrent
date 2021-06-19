@@ -1,0 +1,10 @@
+* Bugfixing
+* Toegevoegd:
+   - Externe opslag ondersteuning
+   - Launcher snelkoppelingen (voor Android 7.1)
+   - Toestaan app te verplaatsen naar overneembare opslag
+* Nieuwe vertalingen toegevoegd:
+   - Braziliaans Portugees
+   - Frans
+   - Grieks
+* Update naar jlibtorrent 1.2.0.6
