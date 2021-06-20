@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,6 +37,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,8 +86,6 @@ public class MainFragment extends Fragment
         implements TorrentListAdapter.ClickListener
 {
     private static final String TAG = MainFragment.class.getSimpleName();
-
-    private static final int TORRENT_FILE_CHOOSE_REQUEST = 1;
 
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
@@ -539,7 +539,7 @@ public class MainFragment extends Fragment
         config.highlightFileTypes = Collections.singletonList("torrent");
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, TORRENT_FILE_CHOOSE_REQUEST);
+        torrentFileChoose.launch(i);
     }
 
     private void openFileErrorDialog()
@@ -620,19 +620,22 @@ public class MainFragment extends Fragment
                 .subscribe((ids) -> viewModel.forceAnnounceTorrents(ids)));
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        if (resultCode != TORRENT_FILE_CHOOSE_REQUEST && resultCode != Activity.RESULT_OK)
-            return;
+    final ActivityResultLauncher<Intent> torrentFileChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK) {
+                    return;
+                }
 
-        if (data == null || data.getData() == null) {
-            openFileErrorDialog();
-            return;
-        }
+                if (data == null || data.getData() == null) {
+                    openFileErrorDialog();
+                    return;
+                }
 
-        Intent i = new Intent(activity, AddTorrentActivity.class);
-        i.putExtra(AddTorrentActivity.TAG_URI, data.getData());
-        startActivity(i);
-    }
+                Intent i = new Intent(activity, AddTorrentActivity.class);
+                i.putExtra(AddTorrentActivity.TAG_URI, data.getData());
+                startActivity(i);
+            }
+    );
 }

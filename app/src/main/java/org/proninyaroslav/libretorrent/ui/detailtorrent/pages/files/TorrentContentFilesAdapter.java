@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -247,7 +247,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
         @Override
         public ItemDetails getItemDetails()
         {
-            return new ItemDetails(selectionKey, getAdapterPosition());
+            return new ItemDetails(selectionKey, getBindingAdapterPosition());
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,6 +26,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -48,7 +50,6 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
 
     private static final String TAG_DIR_CHOOSER_BIND_PREF = "dir_chooser_bind_pref";
-    private static final int DOWNLOAD_DIR_CHOOSE_REQUEST = 1;
 
     private SettingsRepository pref;
     private FileSystemFacade fs;
@@ -208,42 +209,44 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
                 FileManagerConfig.DIR_CHOOSER_MODE);
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
 
-        startActivityForResult(i, DOWNLOAD_DIR_CHOOSE_REQUEST);
+        downloadDirChoose.launch(i);
     }
+    final ActivityResultLauncher<Intent> downloadDirChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK) {
+                   return;
+                }
+                if (data.getData() == null || dirChooserBindPref == null)
+                    return;
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == DOWNLOAD_DIR_CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data.getData() == null || dirChooserBindPref == null)
-                return;
+                Uri path = data.getData();
 
-            Uri path = data.getData();
+                Preference p = findPreference(dirChooserBindPref);
+                if (p == null)
+                    return;
 
-            Preference p = findPreference(dirChooserBindPref);
-            if (p == null)
-                return;
+                if (dirChooserBindPref.equals(getString(R.string.pref_key_dir_to_watch))) {
+                    pref.dirToWatch(path.toString());
 
-            if (dirChooserBindPref.equals(getString(R.string.pref_key_dir_to_watch))) {
-                pref.dirToWatch(path.toString());
+                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
+                    pref.moveAfterDownloadIn(path.toString());
 
-            } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
-                pref.moveAfterDownloadIn(path.toString());
+                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrent_files_in))) {
+                    pref.saveTorrentFilesIn(path.toString());
 
-            } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrent_files_in))) {
-                pref.saveTorrentFilesIn(path.toString());
+                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
+                    pref.saveTorrentsIn(path.toString());
+                }
 
-            } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
-                pref.saveTorrentsIn(path.toString());
+                try {
+                    p.setSummary(fs.getDirPath(path));
+                } catch (UnknownUriException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
             }
-
-            try {
-                p.setSummary(fs.getDirPath(path));
-            } catch (UnknownUriException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
-        }
-    }
+    );
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)

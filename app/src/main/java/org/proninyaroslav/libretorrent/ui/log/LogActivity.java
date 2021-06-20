@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,12 +57,9 @@ import io.reactivex.disposables.CompositeDisposable;
 public class LogActivity extends AppCompatActivity
     implements LogAdapter.ClickListener
 {
-    private static final String TAG = LogActivity.class.getSimpleName();
-
     private static final String TAG_AUTO_SCROLL = "auto_scroll";
     private static final String TAG_SCROLL_POSITION = "scroll_position";
     private static final String TAG_FILTER_DIALOG = "filter_dialog";
-    private static final int SAVE_LOG_PATH_CHOOSE_REQUEST = 1;
 
     private ActivityLogBinding binding;
     private LogViewModel viewModel;
@@ -313,28 +312,28 @@ public class LogActivity extends AppCompatActivity
         config.mimeType = Utils.MIME_TEXT_PLAIN;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, SAVE_LOG_PATH_CHOOSE_REQUEST);
+        saveLogPathChoose.launch(i);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
+    final ActivityResultLauncher<Intent> saveLogPathChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == RESULT_OK && data != null) {
+                    Uri filePath = data.getData();
+                    if (filePath == null)
+                        return;
 
-        if (requestCode == SAVE_LOG_PATH_CHOOSE_REQUEST && resultCode == RESULT_OK && data != null) {
-            Uri filePath = data.getData();
-            if (filePath == null)
-                return;
+                    viewModel.saveLog(filePath);
 
-            viewModel.saveLog(filePath);
+                } else {
+                    viewModel.stopLogRecording();
+                    resumeLog();
+                }
 
-        } else {
-            viewModel.stopLogRecording();
-            resumeLog();
-        }
-
-        invalidateOptionsMenu();
-    }
+                invalidateOptionsMenu();
+            }
+    );
 
     RecyclerView.OnScrollListener scrollCallback = new RecyclerView.OnScrollListener() {
 

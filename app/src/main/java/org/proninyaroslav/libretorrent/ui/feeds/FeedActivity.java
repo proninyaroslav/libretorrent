@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,6 +30,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,8 +74,6 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
 {
     private static final String TAG = FeedActivity.class.getSimpleName();
 
-    private static final int BACKUP_FEEDS_CHOOSE_REQUEST = 1;
-    private static final int RESTORE_FEEDS_BACKUP_CHOOSE_REQUEST = 2;
     private static final String TAG_BACKUP_FEEDS_ERROR_REPORT_DIALOG = "backup_feeds_error_report_dialog";
     private static final String TAG_RESTORE_FEEDS_ERROR_DIALOG = "restore_feeds_error_dialog";
     private static final String TAG_RESTORE_FEEDS_ERROR_REPORT_DIALOG = "restore_feeds_error_report_dialog";
@@ -272,7 +272,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         config.mimeType = FeedRepositoryImpl.SERIALIZE_MIME_TYPE;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, BACKUP_FEEDS_CHOOSE_REQUEST);
+        backupFeedsChoose.launch(i);
     }
 
     private void restoreFeedsChooseDialog()
@@ -286,7 +286,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         config.highlightFileTypes.add(FeedRepositoryImpl.SERIALIZE_FILE_FORMAT);
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, RESTORE_FEEDS_BACKUP_CHOOSE_REQUEST);
+        restoreFeedsBackupChoose.launch(i);
     }
 
     private void backupFeedsErrorDialog(Throwable e)
@@ -372,34 +372,37 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
                     }, this::backupFeedsErrorDialog));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
+    final ActivityResultLauncher<Intent> backupFeedsChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
 
-        if (requestCode == BACKUP_FEEDS_CHOOSE_REQUEST) {
-            if (resultCode != Activity.RESULT_OK)
-                return;
+                if (data == null || data.getData() == null) {
+                    backupFeedsErrorDialog(null);
+                    return;
+                }
 
-            if (data == null || data.getData() == null) {
-                backupFeedsErrorDialog(null);
-                return;
+                backupFeeds(data.getData());
             }
+    );
 
-            backupFeeds(data.getData());
+    final ActivityResultLauncher<Intent> restoreFeedsBackupChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
 
-        } else if (requestCode == RESTORE_FEEDS_BACKUP_CHOOSE_REQUEST) {
-            if (resultCode != Activity.RESULT_OK)
-                return;
+                if (data == null || data.getData() == null) {
+                    restoreFeedsBackupErrorDialog(null);
+                    return;
+                }
 
-            if (data == null || data.getData() == null) {
-                restoreFeedsBackupErrorDialog(null);
-                return;
+                restoreFeedsBackup(data.getData());
             }
-
-            restoreFeedsBackup(data.getData());
-        }
-    }
+    );
 
     @Override
     public void onFragmentFinished(@NonNull Fragment f, Intent intent,

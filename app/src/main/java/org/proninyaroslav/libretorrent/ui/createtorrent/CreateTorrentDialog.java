@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,6 +37,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -74,10 +76,6 @@ public class CreateTorrentDialog extends DialogFragment
     private static final String TAG_FILE_OR_FOLDER_NOT_FOUND_ERROR_DIALOG = "file_or_folder_not_found_error_fialog";
     private static final String TAG_ERROR_FOLDER_IS_EMPTY = "error_folder_is_empty";
     private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
-
-    private static final int CHOOSE_FILE_REQUEST = 1;
-    private static final int CHOOSE_DIR_REQUEST = 2;
-    private static final int CHOOSE_PATH_TO_SAVE_REQUEST = 3;
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -250,7 +248,7 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     FileManagerConfig.FILE_CHOOSER_MODE);
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-            startActivityForResult(i, CHOOSE_FILE_REQUEST);
+            chooseFile.launch(i);
         });
 
         binding.folderChooserButton.setOnClickListener((v) -> {
@@ -260,7 +258,7 @@ public class CreateTorrentDialog extends DialogFragment
                     null,
                     FileManagerConfig.DIR_CHOOSER_MODE);
             i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-            startActivityForResult(i, CHOOSE_DIR_REQUEST);
+            chooseDir.launch(i);
         });
 
         initAlertDialog(binding.getRoot());
@@ -321,7 +319,7 @@ public class CreateTorrentDialog extends DialogFragment
         config.mimeType = Utils.MIME_TORRENT;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST);
+        choosePathToSave.launch(i);
     }
 
     private void buildTorrent()
@@ -486,36 +484,55 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
+    final ActivityResultLauncher<Intent> chooseDir = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
+                if (data == null || data.getData() == null) {
+                    openPathErrorDialog(false);
+                    return;
+                }
+                binding.layoutFileOrDirPath.setErrorEnabled(false);
+                binding.layoutFileOrDirPath.setError(null);
 
-        if (requestCode == CHOOSE_DIR_REQUEST || requestCode == CHOOSE_FILE_REQUEST) {
-            if (resultCode != Activity.RESULT_OK)
-                return;
-            if (data == null || data.getData() == null) {
-                openPathErrorDialog(requestCode == CHOOSE_FILE_REQUEST);
-                return;
+                viewModel.mutableParams.getSeedPath().set(data.getData());
             }
+    );
 
-            binding.layoutFileOrDirPath.setErrorEnabled(false);
-            binding.layoutFileOrDirPath.setError(null);
-            
-            viewModel.mutableParams.getSeedPath().set(data.getData());
+    final ActivityResultLauncher<Intent> chooseFile = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
+                if (data == null || data.getData() == null) {
+                    openPathErrorDialog(true);
+                    return;
+                }
+                binding.layoutFileOrDirPath.setErrorEnabled(false);
+                binding.layoutFileOrDirPath.setError(null);
 
-        } else if (requestCode == CHOOSE_PATH_TO_SAVE_REQUEST) {
-            if (resultCode != Activity.RESULT_OK)
-                return;
-            if (data == null || data.getData() == null) {
-                createFileErrorDialog();
-                return;
+                viewModel.mutableParams.getSeedPath().set(data.getData());
             }
+    );
 
-            viewModel.mutableParams.setSavePath(data.getData());
-            buildTorrent();
-        }
-    }
+    final ActivityResultLauncher<Intent> choosePathToSave = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
+                if (data == null || data.getData() == null) {
+                    createFileErrorDialog();
+                    return;
+                }
+
+                viewModel.mutableParams.setSavePath(data.getData());
+                buildTorrent();
+            }
+    );
 
     public void onBackPressed()
     {

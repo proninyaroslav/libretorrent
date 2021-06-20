@@ -43,6 +43,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,8 +90,6 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailTorrentFragment extends Fragment
 {
     private static final String TAG = DetailTorrentFragment.class.getSimpleName();
-
-    private static final int SAVE_TORRENT_FILE_CHOOSE_REQUEST = 1;
 
     private static final String TAG_TORRENT_ID = "torrent_id";
     private static final String TAG_CURRENT_FRAG_POS = "current_frag_pos";
@@ -543,7 +543,7 @@ public class DetailTorrentFragment extends Fragment
         config.mimeType = Utils.MIME_TORRENT;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, SAVE_TORRENT_FILE_CHOOSE_REQUEST);
+        saveTorrentFileChoose.launch(i);
     }
 
     private void saveErrorTorrentFileDialog(Exception e)
@@ -793,30 +793,32 @@ public class DetailTorrentFragment extends Fragment
         viewModel.setSpeedLimit(uploadSpeedLimit, downloadSpeedLimit);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        if (requestCode != SAVE_TORRENT_FILE_CHOOSE_REQUEST || resultCode != Activity.RESULT_OK)
-            return;
+    final ActivityResultLauncher<Intent> saveTorrentFileChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
 
-        if (data == null || data.getData() == null) {
-            saveErrorTorrentFileDialog(null);
-            return;
-        }
+                if (data == null || data.getData() == null) {
+                    saveErrorTorrentFileDialog(null);
+                    return;
+                }
 
-        Uri path = data.getData();
-        try {
-            viewModel.copyTorrentFile(path);
+                Uri path = data.getData();
+                try {
+                    viewModel.copyTorrentFile(path);
 
-            Snackbar.make(binding.coordinatorLayout,
-                    getString(R.string.save_torrent_file_successfully),
-                    Snackbar.LENGTH_SHORT)
-                    .show();
+                    Snackbar.make(binding.coordinatorLayout,
+                            getString(R.string.save_torrent_file_successfully),
+                            Snackbar.LENGTH_SHORT)
+                            .show();
 
-        } catch (IOException | UnknownUriException e) {
-            saveErrorTorrentFileDialog(e);
-        }
-    }
+                } catch (IOException | UnknownUriException e) {
+                    saveErrorTorrentFileDialog(e);
+                }
+            }
+    );
 
     private void onBackPressed()
     {
