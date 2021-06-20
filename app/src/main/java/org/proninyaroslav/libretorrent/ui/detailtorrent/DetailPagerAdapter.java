@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,15 +19,11 @@
 
 package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.DetailTorrentInfoFragment;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.DetailTorrentStateFragment;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.files.DetailTorrentFilesFragment;
@@ -35,9 +31,11 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.peers.DetailTorren
 import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.DetailTorrentPiecesFragment;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers.DetailTorrentTrackersFragment;
 
-public class DetailPagerAdapter extends FragmentStatePagerAdapter
+public class DetailPagerAdapter extends FragmentStateAdapter
 {
+    @ViewPager2.OffscreenPageLimit
     public static final int NUM_FRAGMENTS = 6;
+
     public static final int INFO_FRAG_POS = 0;
     public static final int STATE_FRAG_POS = 1;
     public static final int FILES_FRAG_POS = 2;
@@ -45,40 +43,14 @@ public class DetailPagerAdapter extends FragmentStatePagerAdapter
     public static final int PEERS_FRAG_POS = 4;
     public static final int PIECES_FRAG_POS = 5;
 
-    private Context context;
 
-    public DetailPagerAdapter(Context context, FragmentManager fm)
-    {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.context = context;
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
-        switch (position) {
-            case INFO_FRAG_POS:
-                return context.getString(R.string.torrent_info);
-            case STATE_FRAG_POS:
-                return context.getString(R.string.torrent_state);
-            case FILES_FRAG_POS:
-                return context.getString(R.string.torrent_files);
-            case TRACKERS_FRAG_POS:
-                return context.getString(R.string.torrent_trackers);
-            case PEERS_FRAG_POS:
-                return context.getString(R.string.torrent_peers);
-            case PIECES_FRAG_POS:
-                return context.getString(R.string.torrent_pieces);
-            default:
-                return null;
-        }
+    public DetailPagerAdapter(Fragment fragment) {
+        super(fragment);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position)
-    {
+    public Fragment createFragment(int position) {
         switch (position) {
             case INFO_FRAG_POS:
                 return DetailTorrentInfoFragment.newInstance();
@@ -98,8 +70,7 @@ public class DetailPagerAdapter extends FragmentStatePagerAdapter
     }
 
     @Override
-    public int getCount()
-    {
+    public int getItemCount() {
         return NUM_FRAGMENTS;
     }
 }

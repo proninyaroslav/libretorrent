@@ -11,7 +11,7 @@
             android:id="@+id/appbar"
             layout="@layout/detail_torrent_appbar" />
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/fragment_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

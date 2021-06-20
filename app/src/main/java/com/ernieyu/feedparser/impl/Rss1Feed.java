@@ -94,7 +94,7 @@ class Rss1Feed extends BaseElement implements Feed {
 
     @Override
     public List<String> getCategories() {
-        return Collections.<String>emptyList();
+        return Collections.emptyList();
     }
 
     @Override

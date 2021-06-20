@@ -42,6 +42,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
@@ -192,10 +193,22 @@ public class AddTorrentActivity extends AppCompatActivity
         if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             binding.toolbar.setElevation(0);
 
-        adapter = new AddTorrentPagerAdapter(this, getSupportFragmentManager());
+
+        adapter = new AddTorrentPagerAdapter(this);
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setOffscreenPageLimit(AddTorrentPagerAdapter.NUM_FRAGMENTS);
-        binding.tabLayout.setupWithViewPager(binding.viewpager);
+        new TabLayoutMediator(binding.tabLayout, binding.viewpager,
+                (tab, position) -> {
+                    switch (position) {
+                        case AddTorrentPagerAdapter.INFO_FRAG_POS:
+                            tab.setText(R.string.torrent_info);
+                            break;
+                        case AddTorrentPagerAdapter.FILES_FRAG_POS:
+                            tab.setText(R.string.torrent_files);
+                            break;
+                    }
+                }
+        ).attach();
     }
 
     private void observeDecodeState()
