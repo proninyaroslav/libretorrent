@@ -68,6 +68,13 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
         saveChangesButton = view.findViewById(R.id.save_changes_button);
+
+        saveChangesButton.show();
+        saveChangesButton.setOnClickListener((v) -> {
+            /* Value change is tracked in TorrentService */
+            pref.applyProxy(true);
+            proxyChanged = false;
+        });
     }
 
     @Override
@@ -161,19 +168,6 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             });
             bindOnPreferenceChangeListener(password);
         }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        saveChangesButton.show();
-        saveChangesButton.setOnClickListener((v) -> {
-            /* Value change is tracked in TorrentService */
-            pref.applyProxy(true);
-            proxyChanged = false;
-        });
     }
 
     @Override
