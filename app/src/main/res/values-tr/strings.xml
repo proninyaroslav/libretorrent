@@ -447,7 +447,7 @@
     <string name="pref_custom_battery_control_value_title">Pil denetimi yüzdesi</string>
     <string name="pref_battery_control_summary">Pil seviyesi %%%1$d altına düşerse tüm torrentleri duraklatır. (Bu sınır, şarj olurken geçerli değildir.)</string>
     <string name="pref_custom_battery_control_summary">İndirmeleri duraklatmak için bir pil yüzdesi ayarlayın. (Öntanımlı %%%1$d değerini yok sayar.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Denetlenmesi gereken bir pil % değeri gerçekten ayarlansın mı\? (İndirme sırasında pil kullanımını artırır.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Denetlenmesi gereken bir pil %% değeri gerçekten ayarlansın mı\? (İndirme sırasında pil kullanımını artırır.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Vekil sunucu ayarları</string>
     <string name="pref_enable_dht_title">DHT</string>

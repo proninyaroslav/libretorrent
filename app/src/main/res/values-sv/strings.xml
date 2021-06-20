@@ -298,8 +298,8 @@
     <string name="pref_download_and_upload_only_when_charging_summary">Inga filer förs över om inte enheten laddas. (Pausar alla torrentar när ingen laddare är ansluten.)</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrentar om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
-    <string name="pref_custom_battery_control_summary">Ställ in batteri-% att pausa nerladdningar vid. (Ignorerar %1$d%% som standard.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-% att hålla utkik för\? (Ökar användning av batteriet under nerladdning.)</string>
+    <string name="pref_custom_battery_control_summary">Ställ in batteri-%% att pausa nerladdningar vid. (Ignorerar %1$d%% som standard.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-%% att hålla utkik för\? (Ökar användning av batteriet under nerladdning.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Tillåter att hitta andra utan en spårare. (Ökar användningen av batteri.)</string>
