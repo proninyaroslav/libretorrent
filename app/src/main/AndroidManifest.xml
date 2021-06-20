@@ -147,10 +147,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.RequestPermissions"
-            android:theme="@style/AppTheme.Translucent" />
-
         <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings">
             <intent-filter>

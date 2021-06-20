@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017, 2019, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.main;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -34,6 +35,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,13 +65,12 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
-import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.RequestPermissions;
+import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment;
@@ -98,8 +100,8 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity implements FragmentCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_ABOUT_DIALOG = "about_dialog";
+    private static final String TAG_PERM_DENIED_DIALOG = "perm_denied_dialog";
 
     public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
 
@@ -128,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
-    private boolean permDialogIsShow = false;
     private TorrentInfoProvider infoProvider;
+    private PermissionDeniedDialog permDeniedDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,14 +149,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         viewModel = provider.get(MainViewModel.class);
         msgViewModel = provider.get(MsgMainViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        aboutDialog = (BaseAlertDialog) getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
+        FragmentManager fm = getSupportFragmentManager();
+        aboutDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_ABOUT_DIALOG);
+        permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
 
-        if (savedInstanceState != null)
-            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-
-        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
-            permDialogIsShow = true;
-            startActivity(new Intent(this, RequestPermissions.class));
+        if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
+            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
         setContentView(R.layout.activity_main);
@@ -165,6 +165,20 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         cleanGarbageFragments();
         initLayout();
     }
+
+    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (!isGranted && Utils.shouldRequestStoragePermission(this)) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
+                    }
+                }
+            });
 
     private void initLayout() {
         showBlankFragment();
@@ -348,13 +362,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -391,15 +398,26 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_ABOUT_DIALOG))
+                    if (event.dialogTag == null) {
                         return;
-                    switch (event.type) {
-                        case NEGATIVE_BUTTON_CLICKED:
-                            openChangelogLink();
-                            break;
-                        case DIALOG_SHOWN:
-                            initAboutDialog();
-                            break;
+                    }
+
+                    if (event.dialogTag.equals(TAG_ABOUT_DIALOG)) {
+                        switch (event.type) {
+                            case NEGATIVE_BUTTON_CLICKED:
+                                openChangelogLink();
+                                break;
+                            case DIALOG_SHOWN:
+                                initAboutDialog();
+                                break;
+                        }
+                    } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
+                        if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                            permDeniedDialog.dismiss();
+                        }
+                        if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
+                            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        }
                     }
                 });
         disposables.add(d);
