@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -49,6 +49,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
@@ -425,6 +426,13 @@ public class Utils {
     public static boolean checkStoragePermission(@NonNull Context context) {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {
+        return ActivityCompat.shouldShowRequestPermissionRationale(
+                activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        );
     }
 
     /*
