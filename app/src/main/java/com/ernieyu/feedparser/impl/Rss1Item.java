@@ -81,7 +81,7 @@ class Rss1Item extends BaseItem {
 
     @Override
     public List<String> getCategories() {
-        return Collections.<String>emptyList();
+        return Collections.emptyList();
     }
 
     @Override

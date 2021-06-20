@@ -1079,15 +1079,11 @@ public class TorrentSessionImpl extends SessionManager
 
     private static String dhtBootstrapNodes()
     {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("dht.libtorrent.org:25401").append(",");
-        sb.append("router.bittorrent.com:6881").append(",");
-        sb.append("dht.transmissionbt.com:6881").append(",");
-        /* For IPv6 DHT */
-        sb.append("outer.silotis.us:6881");
-
-        return sb.toString();
+       return "dht.libtorrent.org:25401" + "," +
+                "router.bittorrent.com:6881" + "," +
+                "dht.transmissionbt.com:6881" + "," +
+                /* For IPv6 DHT */
+                "outer.silotis.us:6881";
     }
 
     private SessionParams loadSettings()
@@ -1227,8 +1223,6 @@ public class TorrentSessionImpl extends SessionManager
     private int convertProxyType(SessionSettings.ProxyType mode, boolean authRequired)
     {
         switch (mode) {
-            case NONE:
-                return settings_pack.proxy_type_t.none.swigValue();
             case SOCKS4:
                 return settings_pack.proxy_type_t.socks4.swigValue();
             case SOCKS5:

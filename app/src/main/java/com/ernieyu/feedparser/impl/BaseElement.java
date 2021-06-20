@@ -78,7 +78,7 @@ class BaseElement implements Element {
     @Override
     public List<Element> getElementList(String name) {
         return elementMap.containsKey(name) ? elementMap.get(name) :
-            Collections.<Element>emptyList();
+            Collections.emptyList();
     }
 
     @Override

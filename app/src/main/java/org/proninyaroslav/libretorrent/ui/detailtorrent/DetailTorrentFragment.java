@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,7 +24,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -53,9 +52,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -179,10 +179,33 @@ public class DetailTorrentFragment extends Fragment
         }
         binding.appbar.toolbar.setNavigationOnClickListener((v) -> onBackPressed());
 
-        adapter = new DetailPagerAdapter(activity.getApplicationContext(), getChildFragmentManager());
+        adapter = new DetailPagerAdapter(this);
         binding.fragmentViewpager.setAdapter(adapter);
-        binding.fragmentViewpager.addOnPageChangeListener(viewPagerListener);
-        binding.appbar.tabLayout.setupWithViewPager(binding.fragmentViewpager);
+        binding.fragmentViewpager.registerOnPageChangeCallback(viewPagerListener);
+        new TabLayoutMediator(binding.appbar.tabLayout, binding.fragmentViewpager,
+                (tab, position) -> {
+                    switch (position) {
+                        case DetailPagerAdapter.INFO_FRAG_POS:
+                            tab.setText(R.string.torrent_info);
+                            break;
+                        case DetailPagerAdapter.STATE_FRAG_POS:
+                            tab.setText(R.string.torrent_state);
+                            break;
+                        case DetailPagerAdapter.FILES_FRAG_POS:
+                            tab.setText(R.string.torrent_files);
+                            break;
+                        case DetailPagerAdapter.TRACKERS_FRAG_POS:
+                            tab.setText(R.string.torrent_trackers);
+                            break;
+                        case DetailPagerAdapter.PEERS_FRAG_POS:
+                            tab.setText(R.string.torrent_peers);
+                            break;
+                        case DetailPagerAdapter.PIECES_FRAG_POS:
+                            tab.setText(R.string.torrent_pieces);
+                            break;
+                    }
+                }
+        ).attach();
         binding.fragmentViewpager.setCurrentItem(currentFragPos);
 
         FragmentManager fm = getChildFragmentManager();
@@ -365,7 +388,7 @@ public class DetailTorrentFragment extends Fragment
         binding.appbar.tabLayout.setBackgroundColor(color);
     }
 
-    ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener()
+    ViewPager2.OnPageChangeCallback viewPagerListener = new ViewPager2.OnPageChangeCallback()
     {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}

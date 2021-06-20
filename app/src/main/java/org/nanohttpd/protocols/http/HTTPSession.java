@@ -123,8 +123,8 @@ public class HTTPSession implements IHTTPSession {
         this.tempFileManager = tempFileManager;
         this.inputStream = new BufferedInputStream(inputStream, HTTPSession.BUFSIZE);
         this.outputStream = outputStream;
-        this.remoteIp = inetAddress.isLoopbackAddress() || inetAddress.isAnyLocalAddress() ? "127.0.0.1" : inetAddress.getHostAddress().toString();
-        this.headers = new HashMap<String, String>();
+        this.remoteIp = inetAddress.isLoopbackAddress() || inetAddress.isAnyLocalAddress() ? "127.0.0.1" : inetAddress.getHostAddress();
+        this.headers = new HashMap();
     }
 
     /**
@@ -199,7 +199,7 @@ public class HTTPSession implements IHTTPSession {
             byte[] partHeaderBuff = new byte[MAX_HEADER_SIZE];
             for (int boundaryIdx = 0; boundaryIdx < boundaryIdxs.length - 1; boundaryIdx++) {
                 fbuf.position(boundaryIdxs[boundaryIdx]);
-                int len = (fbuf.remaining() < MAX_HEADER_SIZE) ? fbuf.remaining() : MAX_HEADER_SIZE;
+                int len = Math.min(fbuf.remaining(), MAX_HEADER_SIZE);
                 fbuf.get(partHeaderBuff, 0, len);
                 BufferedReader in =
                         new BufferedReader(new InputStreamReader(new ByteArrayInputStream(partHeaderBuff, 0, len), Charset.forName(contentType.getEncoding())), len);
@@ -496,7 +496,7 @@ public class HTTPSession implements IHTTPSession {
         int search_window_pos = 0;
         byte[] search_window = new byte[4 * 1024 + boundary.length];
 
-        int first_fill = (b.remaining() < search_window.length) ? b.remaining() : search_window.length;
+        int first_fill = Math.min(b.remaining(), search_window.length);
         b.get(search_window, 0, first_fill);
         int new_bytes = first_fill - boundary.length;
 
@@ -522,7 +522,7 @@ public class HTTPSession implements IHTTPSession {
 
             // Refill search_window
             new_bytes = search_window.length - boundary.length;
-            new_bytes = (b.remaining() < new_bytes) ? b.remaining() : new_bytes;
+            new_bytes = Math.min(b.remaining(), new_bytes);
             b.get(search_window, boundary.length, new_bytes);
         } while (new_bytes > 0);
         return res;

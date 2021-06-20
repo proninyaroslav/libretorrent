@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,46 +19,26 @@
 
 package org.proninyaroslav.libretorrent.ui.addtorrent;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import org.proninyaroslav.libretorrent.R;
-
-public class AddTorrentPagerAdapter extends FragmentStatePagerAdapter
-{
+public class AddTorrentPagerAdapter extends FragmentStateAdapter {
+    @ViewPager2.OffscreenPageLimit
     public static final int NUM_FRAGMENTS = 2;
+
     public static final int INFO_FRAG_POS = 0;
     public static final int FILES_FRAG_POS = 1;
 
-    private Context context;
-
-    public AddTorrentPagerAdapter(Context context, FragmentManager fm)
-    {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.context = context;
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
-        switch (position) {
-            case INFO_FRAG_POS:
-                return context.getString(R.string.torrent_info);
-            case FILES_FRAG_POS:
-                return context.getString(R.string.torrent_files);
-            default:
-                return null;
-        }
+    public AddTorrentPagerAdapter(FragmentActivity fa) {
+        super(fa);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position)
-    {
+    public Fragment createFragment(int position) {
         switch (position) {
             case INFO_FRAG_POS:
                 return AddTorrentInfoFragment.newInstance();
@@ -70,8 +50,7 @@ public class AddTorrentPagerAdapter extends FragmentStatePagerAdapter
     }
 
     @Override
-    public int getCount()
-    {
+    public int getItemCount() {
         return NUM_FRAGMENTS;
     }
 }
