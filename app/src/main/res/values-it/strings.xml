@@ -440,7 +440,7 @@
     <string name="pref_custom_battery_control_value_title">Controllo percentuale della batteria</string>
     <string name="pref_battery_control_summary">Sospende i torrent se il livello della batteria è al di sotto del %1$d%%. (Il limite non si applica se il dispositivo è in ricarica.)</string>
     <string name="pref_custom_battery_control_summary">Percentuale della batteria al di sotto della quale sospende. (Ignora il default %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Sei sicuro/a di voler impostare una % di attenzione\? (Aumenta l\'utilizzo della batteria.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Sei sicuro/a di voler impostare una %% di attenzione\? (Aumenta l\'utilizzo della batteria.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Impostazioni proxy</string>
     <string name="pref_enable_dht_title">DHT</string>

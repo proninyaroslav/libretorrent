@@ -446,8 +446,8 @@
     <string name="pref_custom_battery_control_title">Custom battery percentage</string>
     <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
     <string name="pref_battery_control_summary">Pauses all torrents if the battery level goes below %1$d%%. (The limit doesn\'t apply when charging.)</string>
-    <string name="pref_custom_battery_control_summary">Set a battery % to pause downloads at. (Ignores the default %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Really set a battery % to look out for? (Increases battery use while downloading.)</string>
+    <string name="pref_custom_battery_control_summary">Set a battery %% to pause downloads at. (Ignores the default %1$d%%.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Really set a battery %% to look out for? (Increases battery use while downloading.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy settings</string>
     <string name="pref_enable_dht_title">DHT</string>

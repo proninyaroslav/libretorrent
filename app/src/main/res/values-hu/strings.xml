@@ -445,8 +445,8 @@
     <string name="pref_custom_battery_control_title">Egyéni akkumulátor százalék</string>
     <string name="pref_custom_battery_control_value_title">Akkumulátor vezérlési százalék</string>
     <string name="pref_battery_control_summary">Az összes torrent szüneteltetésre kerül, ha az akkumulátor töltöttségi szintje %1$d%% alá csökken. (A korlát töltés során nem érvényes.)</string>
-    <string name="pref_custom_battery_control_summary">Akkumulátor % beállítása a letöltések szüneteltetéséhez. (Figyelmen kívül hagyja az alapértelmezett %1$d%%-os küszöböt.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Biztos, hogy figyelendő akkumulátor %-ot akar beállítani\? (Ez növeli az akkumulátorhasználatot letöltés közben.)</string>
+    <string name="pref_custom_battery_control_summary">Akkumulátor %% beállítása a letöltések szüneteltetéséhez. (Figyelmen kívül hagyja az alapértelmezett %1$d%%-os küszöböt.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Biztos, hogy figyelendő akkumulátor %%-ot akar beállítani\? (Ez növeli az akkumulátorhasználatot letöltés közben.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxybeállítások</string>
     <string name="pref_enable_dht_title">DHT</string>
