@@ -445,8 +445,8 @@
     <string name="pref_custom_battery_control_title">自定义电量百分比</string>
     <string name="pref_custom_battery_control_value_title">电量百分比</string>
     <string name="pref_battery_control_summary">当电池电量低于 %1$d%% 时，所有种子都将暂停。(此限制在充电时无效。)</string>
-    <string name="pref_custom_battery_control_summary">设置一个自定义的百分比，当电量低于给定的阈值时暂停下载。(启用该选项将忽略默认阈值 %1$d%%。)</string>
-    <string name="pref_custom_battery_control_dialog_summary">你真要设置一个用于监控的电量百分比阈值吗？(下载时会增加电池使用。)</string>
+    <string name="pref_custom_battery_control_summary">设置一个暂停下载的电量百分比%%。(启用该选项将忽略默认阈值 %1$d%%。)</string>
+    <string name="pref_custom_battery_control_dialog_summary">真要设置一个用于监控的电量百分比阈值%%吗？(下载时会增加电池使用。)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">DHT</string>
