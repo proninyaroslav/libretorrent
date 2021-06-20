@@ -33,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -62,6 +63,9 @@ public class CreateTorrentActivity extends AppCompatActivity
     {
         setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
+
+        ViewModelProvider provider = new ViewModelProvider(this);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getSupportFragmentManager();
         createTorrentDialog = (CreateTorrentDialog)fm.findFragmentByTag(TAG_CREATE_TORRENT_DIALOG);
