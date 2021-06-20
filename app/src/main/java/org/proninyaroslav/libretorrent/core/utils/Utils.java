@@ -34,6 +34,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -127,8 +129,10 @@ public class Utils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             return;
 
-        progress.getProgressDrawable().setColorFilter(getAttributeColor(context, R.attr.colorSecondary),
-                android.graphics.PorterDuff.Mode.SRC_IN);
+        progress.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(
+                getAttributeColor(context, R.attr.colorSecondary),
+                PorterDuff.Mode.SRC_IN)
+        );
     }
 
     /*

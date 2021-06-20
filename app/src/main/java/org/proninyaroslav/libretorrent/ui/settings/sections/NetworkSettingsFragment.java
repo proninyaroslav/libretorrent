@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,6 +29,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,9 +70,6 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         Preference.OnPreferenceChangeListener
 {
     private static final String TAG = NetworkSettingsFragment.class.getSimpleName();
-
-    private static final int FILE_CHOOSE_REQUEST = 1;
-    private static final int ANONYMOUS_MODE = 2;
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -265,8 +264,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
                     setFragment(AnonymousModeSettingsFragment.newInstance(),
                             getString(R.string.pref_anonymous_mode_title));
                 } else {
-                    startActivityForResult(AnonymousModeSettingsFragment.class,
-                            getString(R.string.pref_anonymous_mode_title), ANONYMOUS_MODE);
+                    Intent i = new Intent(getActivity(), PreferenceActivity.class);
+                    PreferenceActivityConfig config = new PreferenceActivityConfig(
+                            AnonymousModeSettingsFragment.class.getSimpleName(),
+                            getString(R.string.pref_anonymous_mode_title)
+                    );
+                    i.putExtra(PreferenceActivity.TAG_CONFIG, config);
+                    anonymousModeActivity.launch(i);
                 }
 
                 return true;
@@ -300,7 +304,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         config.highlightFileTypes = fileTypes;
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, FILE_CHOOSE_REQUEST);
+        fileChoose.launch(i);
     }
 
     private void bindOnPreferenceChangeListener(Preference preference)
@@ -404,41 +408,37 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         startActivity(i);
     }
 
-    private <F extends PreferenceFragmentCompat> void startActivityForResult(Class<F> fragment, String title, int requestCode)
-    {
-        Intent i = new Intent(getActivity(), PreferenceActivity.class);
-        PreferenceActivityConfig config = new PreferenceActivityConfig(
-                fragment.getSimpleName(),
-                title);
+    final ActivityResultLauncher<Intent> fileChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Uri path = data.getData();
+                    if (path == null)
+                        return;
 
-        i.putExtra(PreferenceActivity.TAG_CONFIG, config);
-        startActivityForResult(i, requestCode);
-    }
+                    pref.ipFilteringFile(path.toString());
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == FILE_CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            Uri path = data.getData();
-            if (path == null)
-                return;
-
-            pref.ipFilteringFile(path.toString());
-
-            String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
-            Preference ipFilterFile = findPreference(keyIpFilterFile);
-            if (ipFilterFile != null) {
-                try {
-                    ipFilterFile.setSummary(fs.getFilePath(path));
-                } catch (UnknownUriException e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
+                    String keyIpFilterFile = getString(R.string.pref_key_ip_filtering_file);
+                    Preference ipFilterFile = findPreference(keyIpFilterFile);
+                    if (ipFilterFile != null) {
+                        try {
+                            ipFilterFile.setSummary(fs.getFilePath(path));
+                        } catch (UnknownUriException e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                        }
+                    }
                 }
             }
-        } else if (requestCode == ANONYMOUS_MODE) {
-            String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
-            Preference anonymousMode = findPreference(keyAnonymousMode);
-            if (anonymousMode != null)
-                anonymousMode.setSummary(pref.anonymousMode() ? R.string.switch_on : R.string.switch_off);
-        }
-    }
+    );
+
+    final ActivityResultLauncher<Intent> anonymousModeActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                String keyAnonymousMode = getString(R.string.pref_key_anonymous_mode);
+                Preference anonymousMode = findPreference(keyAnonymousMode);
+                if (anonymousMode != null)
+                    anonymousMode.setSummary(pref.anonymousMode() ? R.string.switch_on : R.string.switch_off);
+            }
+    );
 }
