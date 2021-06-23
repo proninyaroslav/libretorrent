@@ -224,9 +224,9 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">已下载</string>
     <string name="torrent_ETA">剩余时间</string>
-    <string name="torrent_seeds">做种人数</string>
-    <string name="torrent_peers">总数</string>
-    <string name="torrent_leechers">下载人数</string>
+    <string name="torrent_seeds">种子</string>
+    <string name="torrent_peers">对等端</string>
+    <string name="torrent_leechers">吸血者</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
@@ -323,7 +323,7 @@
     <string name="file_or_folder_for_seeding">要分享的文件或文件夹</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">先选择要分享的文件或文件夹。</string>
     <string name="tracker_urls">Tracker 链接</string>
-    <string name="web_seed_urls">Web 分享 URLs</string>
+    <string name="web_seed_urls">Web 种子 URLs</string>
     <string name="comments">评论</string>
     <string name="tracker_urls_hint">（可选）按优先级每行输入一个 tracker。</string>
     <string name="web_seed_urls_hint">（可选）每行一个</string>
@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
     <string name="pref_proxy_peers_too_title">也用于连接</string>
-    <string name="pref_proxy_peers_too_summary">与 Tracker、其他和 web 共享的连接是经过代理的。</string>
+    <string name="pref_proxy_peers_too_summary">与 BT Tracker、其他和网络种子的连接是经过代理的。</string>
     <string name="pref_proxy_requires_auth_title">需要授权认证</string>
     <string name="pref_proxy_requires_auth_summary">警告：密码保存为常规文件。</string>
     <string name="pref_proxy_login_title">用户名</string>
