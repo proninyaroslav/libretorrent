@@ -226,7 +226,7 @@
     <string name="torrent_downloaded">İndirildi</string>
     <string name="torrent_ETA">Tahmini Bitiş Zamanı</string>
     <string name="torrent_seeds">Paylaşanlar</string>
-    <string name="torrent_peers">Toplam</string>
+    <string name="torrent_peers">Eşler</string>
     <string name="torrent_leechers">Alıcılar</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
