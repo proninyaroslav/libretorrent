@@ -324,7 +324,7 @@
     <string name="file_or_folder_for_seeding">File or folder to share</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Select a file or folder to share first.</string>
     <string name="tracker_urls">Tracker URLs</string>
-    <string name="web_seed_urls">Web-share URLs</string>
+    <string name="web_seed_urls">Web-seed URLs</string>
     <string name="comments">Comments</string>
     <string name="tracker_urls_hint">(Optional) enter one tracker per line in order of priority.</string>
     <string name="web_seed_urls_hint">(Optional) one per line</string>
@@ -493,7 +493,7 @@
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Also use for connections</string>
-    <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-shares are proxied.</string>
+    <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-seeds are proxied.</string>
     <string name="pref_proxy_requires_auth_title">Requires authorization</string>
     <string name="pref_proxy_requires_auth_summary">Warning: The password is saved as a regular file.</string>
     <string name="pref_proxy_login_title">Username</string>
