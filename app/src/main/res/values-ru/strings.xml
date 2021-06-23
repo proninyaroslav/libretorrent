@@ -243,8 +243,8 @@
     <string name="tracker_state_updating">Обновление…</string>
     <string name="tracker_state_not_contacted">Соединения пока что нет</string>
     <string name="share_tracker_url">Поделиться URL…</string>
-    <string name="delete_selected_tracker">Удалить выбранный трекер?</string>
-    <string name="delete_selected_trackers">Удалить выбранные трекеры?</string>
+    <string name="delete_selected_tracker">Удалить выбранный трекер\?</string>
+    <string name="delete_selected_trackers">Удалить выбранные трекеры\?</string>
     <string name="add_trackers">Добавить трекеры</string>
     <string name="dialog_add_trackers">(Один на строку)</string>
     <string name="open_using">Открыть с помощью</string>
@@ -303,7 +303,7 @@
     <string name="error_cannot_delete_channel">Невозможно удалить канал</string>
     <string name="copy_link">Скопировать ссылку</string>
     <string name="delete_selected_channel">Удалить выбранный канал?</string>
-    <string name="delete_selected_channels">Удалить выбранные каналы?</string>
+    <string name="delete_selected_channels">Удалить выбранные каналы\?</string>
     <string name="edit_feed_channel">Редактировать канал</string>
     <string name="link_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="mark_as_read">Отметить как прочитанное</string>
@@ -492,10 +492,10 @@
     </string-array>
     <string name="pref_proxy_address_title">Адрес</string>
     <string name="pref_proxy_port_title">Порт</string>
-    <string name="pref_proxy_peers_too_title">Также использовать для соединения с пирами</string>
+    <string name="pref_proxy_peers_too_title">Также использовать для соединений</string>
     <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами</string>
     <string name="pref_proxy_requires_auth_title">Требуется авторизация</string>
-    <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится в незашифрованном виде.</string>
+    <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится как обычный файл.</string>
     <string name="pref_proxy_login_title">Имя пользователя</string>
     <string name="pref_proxy_password_title">Пароль</string>
     <!-- Schedule settings -->
@@ -536,12 +536,12 @@
         <item>Всегда</item>
     </string-array>
     <string name="pref_feed_start_torrents_title">Запускать торренты</string>
-    <string name="pref_feed_start_torrents_summary">Запускать торренты после добавления.</string>
-    <string name="pref_feed_remove_duplicates_title">Удалить дубликаты</string>
-    <string name="pref_feed_remove_duplicates_summary">Проверяет название недавно загруженного элемента и пропускает его, если элемент с таким же названием уже присутствует</string>
+    <string name="pref_feed_start_torrents_summary">Загружать торренты после добавления.</string>
+    <string name="pref_feed_remove_duplicates_title">Без дубликатов</string>
+    <string name="pref_feed_remove_duplicates_summary">Пропускает загрузку уже имеющихся названий файлов.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Включить стриминг</string>
-    <string name="pref_streaming_enable_summary">Стриминг позволяет загружать отдельный файлы из торрента с помощью браузера или медиаплеера, используя HTTP ссылки</string>
+    <string name="pref_streaming_enable_summary">Стриминг позволяет загружать отдельный файлы из торрента с помощью браузера или медиаплеера, используя HTTP/S ссылки</string>
     <string name="pref_streaming_hostname">Имя хоста</string>
     <string name="pref_streaming_port">Порт</string>
     <string name="pref_streaming_error">Выбранный порт или имя хоста занято или некорректно. Пожалуйста, исправьте это.</string>
