@@ -446,12 +446,12 @@
     <string name="pref_custom_battery_control_title">Заданный процент аккумулятора</string>
     <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
     <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. (Ограничение не действует во время зарядки.)</string>
-    <string name="pref_custom_battery_control_summary">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. (Игнорирует порог по умолчанию в %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Действительно установить пород заряда батареи\? (Увеличивает расход батареи при загрузке.)</string>
+    <string name="pref_custom_battery_control_summary">Устанавливает %% батареи для приостановки загрузки. (Игнорирует значение по умолчанию %1$d%%.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Действительно установить %% батареи\? (Увеличивает расход заряда батареи при загрузке.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
-    <string name="pref_enable_dht_summary">Позволяет BitTorrent-клиентам найти друг друга без использования трекера. (Увеличивает расход батареи.)</string>
+    <string name="pref_enable_dht_summary">Позволяет находить других без трекера. (Увеличивает расход батареи.)</string>
     <string name="pref_enable_lsd_title">Включить LSD</string>
     <string name="pref_enable_lsd_summary">Разработан для получения возможности обнаружения локальных BitTorrent-пиров, и, следовательно, сокращения трафика.</string>
     <string name="pref_enable_utp_title">Включить μTP</string>
