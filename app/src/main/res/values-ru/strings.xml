@@ -53,12 +53,12 @@
     <string name="force_recheck_torrent">Принудительно проверить</string>
     <string name="force_announce_torrent">Принудительное анонсирование</string>
     <string name="add_link">Добавить ссылку</string>
-    <string name="dialog_add_link_title">Введите magnet или HTTP/HTTPS ссылку</string>
+    <string name="dialog_add_link_title">Введите значение infohash, magnet или HTTP/HTTPS ссылку</string>
     <string name="torrent_list_empty">Нет торрентов</string>
     <string name="select_or_add_torrent">Выберите или добавьте торрент</string>
     <string name="error_empty_link">Введите ссылку</string>
     <string name="error_invalid_link">Неверная ссылка</string>
-    <string name="error_open_torrent_file">Невозможно открыть торрент-файл</string>
+    <string name="error_open_torrent_file">Невозможно открыть .torrent файл</string>
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
     <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно, файл повреждён или имеет неверный формат\?</string>
@@ -115,14 +115,14 @@
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ из %2$d</string>
-    <string name="app_running_in_the_background">Запущен в фоне</string>
+    <string name="app_running_in_the_background">Запущен в фоне…</string>
     <string name="network_online">Онлайн</string>
     <string name="network_offline">Оффлайн</string>
     <string name="notify_shutting_down">Завершение работы…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Ошибка торрента</string>
     <string name="error_template">Ошибка: %1$s</string>
-    <string name="restore_torrent_error">Не удалось восстановить торрент из предыдущей сессии</string>
+    <string name="restore_torrent_error">Не удалось восстановить торрент из предыдущей сессии.</string>
     <string name="session_error_title">Ошибка сессии</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Ошибка NAT</string>
@@ -152,15 +152,15 @@
     <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Действительно запретить приложению хранить торрент-файлы в памяти\?</string>
+    <string name="perm_denied_warning">Действительно запретить приложению хранить .torrent файлы в памяти\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
-    <string name="error_decode_torrent">Ошибка декодирования торрент-файла. Может он поврежден или в неправильном формате\?</string>
-    <string name="error_io_torrent">Ошибка чтения торрент-файла</string>
+    <string name="error_decode_torrent">Ошибка декодирования .torrent файла. Возможно он поврежден или имеет неверный формат\?</string>
+    <string name="error_io_torrent">Ошибка чтения .torrent файла</string>
     <string name="error_fetch_link">Не удалось получить данные из ссылки</string>
     <string name="error_invalid_link_or_path">Неверная ссылка или путь до торрента</string>
     <string name="error_add_torrent">Не удалось добавить торрент</string>
-    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Может быть торрент файл перемещен, или удален\?</string>
+    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Возможно .torrent файл перемещен или удален\?</string>
     <string name="error_io_add_torrent">Невозможно добавить торрент из-за ошибки ввода-вывода.</string>
     <string name="torrent_exist">Так как торрент уже существует, они были объединены.</string>
     <string name="error_field_required">Обязательное поле</string>
