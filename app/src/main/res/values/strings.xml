@@ -225,9 +225,9 @@
     <string name="torrent_speed">Speed</string>
     <string name="torrent_downloaded">Downloaded</string>
     <string name="torrent_ETA">ETA</string>
-    <string name="torrent_seeds">Sharers</string>
-    <string name="torrent_peers">Total</string>
-    <string name="torrent_leechers">Takers</string>
+    <string name="torrent_seeds">Seeds</string>
+    <string name="torrent_peers">Peers</string>
+    <string name="torrent_leechers">Leechers</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Uploaded</string>
