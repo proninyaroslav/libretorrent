@@ -257,7 +257,7 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">Сейчас этот торрент не связан ни с одним пиром</string>
+    <string name="peer_list_empty">Этот торрент еще ни с кем не подключен</string>
     <string name="piece_map">Карта частей</string>
     <string name="resume_torrent">Запустить</string>
     <string name="pause_torrent">Пауза</string>
@@ -265,7 +265,7 @@
     <string name="save_torrent_file">Сохранить торрент файл</string>
     <string name="torrent_speed_limit">Ограничение скорости</string>
     <string name="share_via">Поделиться с помощью…</string>
-    <string name="save_torrent_file_successfully">Торрент-файл сохранён</string>
+    <string name="save_torrent_file_successfully">.torrent файл сохранён</string>
     <string name="error_save_torrent_file">Не удалось сохранить торрент-файл</string>
     <string name="speed_limit_title">Максимальная скорость</string>
     <string name="upload_speed">Отдача</string>
@@ -273,7 +273,7 @@
     <string name="speed_limit_dialog">Установите скорость в КБ/с (0 - без ограничений)</string>
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
-    <string name="share_stream_url">Поделиться URL стрима</string>
+    <string name="share_stream_url">Поделиться URL стрима…</string>
     <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
     <string name="magnet_more_about_bep53">Больше информации: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
@@ -365,7 +365,7 @@
     <string name="journal_started_recording">Запись начата</string>
     <string name="journal_filter_session_log">Лог сессии</string>
     <string name="journal_filter_dht_log">Лог DHT</string>
-    <string name="journal_filter_peer_log">Лог пиров</string>
+    <string name="journal_filter_peer_log">Лог соединений</string>
     <string name="journal_filter_portmap_log">Лог UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Торрент лог</string>
     <string name="journal_save_log_failed">Не удалось сохранить лог</string>
@@ -395,16 +395,16 @@
     <string name="pref_dir_to_watch_title">Директория для отслеживания</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Скорость</string>
-    <string name="pref_max_download_speed_title">Максимальная скорость загрузки</string>
-    <string name="pref_max_upload_speed_title">Максимальная скорость отдачи</string>
+    <string name="pref_max_download_speed_title">Макс. скорость ⬇</string>
+    <string name="pref_max_upload_speed_title">Макс. скорость ⬆</string>
     <string name="pref_max_connections_title">Максимальное количество соединений</string>
-    <string name="pref_max_connections_summary">Минимальное количество соединений - 2.</string>
+    <string name="pref_max_connections_summary">(Минимальное количество соединений - 2.)</string>
     <string name="pref_torrent_queueing_category">Очерёдность торрентов</string>
     <string name="pref_max_active_uploads_title">Максимальное число активных раздач</string>
     <string name="pref_max_active_downloads_title">Максимальное число активных загрузок</string>
     <string name="pref_max_active_torrents_title">Максимальное число активных торрентов</string>
     <string name="pref_max_connections_per_torrent_title">Максимальное количество соединений на торрент</string>
-    <string name="pref_max_connections_per_torrent_summary">Минимальное количество соединений - 2.</string>
+    <string name="pref_max_connections_per_torrent_summary">(Минимальное количество соединений - 2.)</string>
     <string name="pref_max_uploads_per_torrent_title">Максимальное количество слотов отдачи на торрент</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
     <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. (Может замедлить паузу/возобновление)</string>
@@ -438,7 +438,7 @@
     <string name="pref_keep_alive_summary">Если включено, приложение остаётся работать в фоновом режиме. (Завершение после окончания загрузок по-прежнему выполняется.)</string>
     <string name="pref_shutdown_downloads_complete_title">Завершить после окончания загрузок</string>
     <string name="pref_shutdown_downloads_complete_summary">Завершать работу приложения после окончания всех загрузок</string>
-    <string name="pref_cpu_do_not_sleep_title">Не давать спать процессору</string>
+    <string name="pref_cpu_do_not_sleep_title">Не давать спать устройству</string>
     <string name="pref_cpu_do_not_sleep_summary">Используйте её, если скорость загрузки снижается, когда экран выключен. (Увеличивает расход батареи.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Загрузка и раздача только во время зарядки.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Если включено, торренты будут загружаться/раздаваться только во время зарядки. (Все торренты будут приостановлены, если устройство не заряжается.)</string>
