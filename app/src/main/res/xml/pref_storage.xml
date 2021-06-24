@@ -18,7 +18,6 @@
         <Preference
             android:key="@string/pref_key_dir_to_watch"
             android:title="@string/pref_dir_to_watch_title"
-            android:dependency="@string/pref_key_watch_dir"
             android:persistent="false" />
     </PreferenceCategory>
 
