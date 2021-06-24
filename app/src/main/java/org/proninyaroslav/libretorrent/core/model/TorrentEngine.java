@@ -1669,9 +1669,10 @@ public class TorrentEngine
                 stopWatchDir();
 
         } else if (key.equals(appContext.getString(R.string.pref_key_dir_to_watch))) {
-            stopWatchDir();
-            startWatchDir();
-
+            if (pref.watchDir()) {
+                stopWatchDir();
+                startWatchDir();
+            }
         } else if (key.equals(appContext.getString(R.string.pref_key_streaming_enable))) {
             if (pref.enableStreaming())
                 startStreamingServer();
