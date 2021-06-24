@@ -353,4 +353,6 @@
     <string name="delete_torrent_with_downloaded_files">ᱰᱟᱩᱱᱞᱳᱰ ᱠᱟᱱ ᱨᱮᱫᱠᱚ ᱥᱟᱞᱟᱜ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
     <string name="switch_off">ᱵᱚᱸᱫ</string>
     <string name="apply">ᱮᱢ ᱪᱷᱚ</string>
+    <string name="delete_selected_torrents">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱠᱚ ᱢᱮᱴᱟᱣ ᱟᱢ\?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
+    <string name="delete_selected_torrent">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱢᱮᱴᱟᱣ ᱟᱢ\?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
 </resources>
