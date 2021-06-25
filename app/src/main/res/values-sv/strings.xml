@@ -223,7 +223,7 @@
     <string name="creating_torrent_progress">Vänligen vänta medans torrenten skapas…</string>
     <string name="file_or_folder_for_seeding">Fil eller mapp att dela</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att dela först.</string>
-    <string name="web_seed_urls">URL för webb-delning</string>
+    <string name="web_seed_urls">URL:er för webb-delning</string>
     <string name="tracker_urls_hint">(Valfritt) ange en spårare per rad i prioriteringsordningen.</string>
     <string name="web_seed_urls_hint">(Valfritt) en per rad</string>
     <string name="optional_hint">(Valfritt)</string>
@@ -299,7 +299,7 @@
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrenter om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
     <string name="pref_custom_battery_control_summary">Ställ in batteri-%% att pausa hämtningar vid. (Ignorerar %1$d%% som standard.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-% att hålla utkik för\? (Ökar användning av batteriet under hämtning.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-%% att hålla utkik för\? (Ökar användning av batteriet under hämtning.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Tillåter att hitta andra utan en spårare. (Ökar användningen av batteri.)</string>
@@ -524,8 +524,8 @@
     <string name="torrent_pieces">Delar</string>
     <string name="torrent_active_time">Aktiv tid</string>
     <string name="torrent_uploaded">Uppladdat</string>
-    <string name="torrent_peers">Totalt</string>
-    <string name="torrent_seeds">Delare</string>
+    <string name="torrent_peers">Noder</string>
+    <string name="torrent_seeds">Delningar</string>
     <string name="torrent_downloaded">Hämtat</string>
     <string name="torrent_speed">Hastighet</string>
     <string name="torrent_state">Status</string>
