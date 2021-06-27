@@ -405,28 +405,37 @@ public class TorrentEngine
 
     public void addTorrent(@NonNull Uri file, @Nullable Uri savePath)
     {
-        disposables.add(Completable.fromRunnable(() -> {
-            if (!isRunning())
-                return;
+        disposables.add(addTorrentCompletable(file, savePath)
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+        );
+    }
 
-            TorrentMetaInfo info = null;
-            try (FileDescriptorWrapper w = fs.getFD(file)) {
-                FileDescriptor outFd = w.open("r");
+    public Completable addTorrentCompletable(@NonNull Uri file) {
+        return addTorrentCompletable(file, null);
+    }
 
-                try(FileInputStream is = new FileInputStream(outFd)) {
-                    info = new TorrentMetaInfo(is);
+    public Completable addTorrentCompletable(@NonNull Uri file, @Nullable Uri savePath) {
+       return Completable.fromRunnable(() -> {
+           if (!isRunning())
+               return;
 
-                } catch (Exception e) {
-                    throw new DecodeException(e);
-                }
-                addTorrentSync(file, info, savePath);
+           TorrentMetaInfo info = null;
+           try (FileDescriptorWrapper w = fs.getFD(file)) {
+               FileDescriptor outFd = w.open("r");
 
-            } catch (Exception e) {
-                handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
-            }
+               try(FileInputStream is = new FileInputStream(outFd)) {
+                   info = new TorrentMetaInfo(is);
 
-        }).subscribeOn(Schedulers.io())
-                .subscribe());
+               } catch (Exception e) {
+                   throw new DecodeException(e);
+               }
+               addTorrentSync(file, info, savePath);
+
+           } catch (Exception e) {
+               handleAddTorrentError((info == null ? file.getPath() : info.torrentName), e);
+           }
+       });
     }
 
     /*
@@ -1200,8 +1209,20 @@ public class TorrentEngine
                     return;
                 if (f.isDirectory() || !f.getName().endsWith(".torrent"))
                     return;
-
-                addTorrent(Uri.fromFile(f));
+                Uri uri = Uri.fromFile(f);
+                disposables.add(addTorrentCompletable(uri)
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(() -> {
+                            if (pref.watchDirDeleteFile()) {
+                                try {
+                                    fs.deleteFile(uri);
+                                } catch (IOException | UnknownUriException e) {
+                                    Log.w(TAG, "[Watch] Unable to delete file: "
+                                            + Log.getStackTraceString(e));
+                                }
+                            }
+                        })
+                );
             }
         };
     }
