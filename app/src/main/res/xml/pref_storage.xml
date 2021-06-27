@@ -19,6 +19,11 @@
             android:key="@string/pref_key_dir_to_watch"
             android:title="@string/pref_dir_to_watch_title"
             android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_watch_dir_delete_file"
+            android:title="@string/pref_watch_dir_delete_file_title"
+            android:persistent="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

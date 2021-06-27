@@ -393,6 +393,7 @@
     <string name="pref_watch_dir_title">Watch directory</string>
     <string name="pref_watch_dir_summary">.torrent files in this folder are auto-added and then deleted.</string>
     <string name="pref_dir_to_watch_title">Directory to watch</string>
+    <string name="pref_watch_dir_delete_file_title">Delete .torrent file after adding</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Speed</string>
     <string name="pref_max_download_speed_title">Max. ⬇ speed</string>

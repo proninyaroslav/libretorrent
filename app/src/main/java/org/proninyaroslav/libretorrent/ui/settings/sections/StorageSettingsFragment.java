@@ -176,6 +176,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
                 });
             }
         }
+
+        String keyWatchDirDeleteFile = getString(R.string.pref_key_watch_dir_delete_file);
+        SwitchPreferenceCompat watchDirDeleteFile = findPreference(keyWatchDirDeleteFile);
+        if (watchDirDeleteFile != null) {
+            watchDirDeleteFile.setChecked(pref.watchDirDeleteFile());
+            bindOnPreferenceChangeListener(watchDirDeleteFile);
+        }
     }
 
     @Override
@@ -253,12 +260,12 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     {
         if (preference.getKey().equals(getString(R.string.pref_key_watch_dir))) {
             pref.watchDir((boolean)newValue);
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_move_after_download))) {
             pref.moveAfterDownload((boolean)newValue);
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_save_torrent_files))) {
             pref.saveTorrentFiles((boolean)newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_watch_dir_delete_file))) {
+            pref.watchDirDeleteFile((boolean) newValue);
         }
 
         return true;

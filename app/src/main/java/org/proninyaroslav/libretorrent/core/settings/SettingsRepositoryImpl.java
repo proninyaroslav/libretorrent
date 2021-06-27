@@ -100,6 +100,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+        static final boolean watchDirDeleteFile = false;
         static final boolean anonymousMode = SessionSettings.DEFAULT_ANONYMOUS_MODE;
         static final boolean seedingOutgoingConnections = SessionSettings.DEFAULT_SEEDING_OUTGOING_CONNECTIONS;
         /* Limitations settings */
@@ -796,6 +797,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_dir_to_watch), val)
+                .apply();
+    }
+
+    @Override
+    public boolean watchDirDeleteFile() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_watch_dir_delete_file),
+                Default.watchDirDeleteFile);
+    }
+
+    @Override
+    public void watchDirDeleteFile(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_watch_dir_delete_file), val)
                 .apply();
     }
 

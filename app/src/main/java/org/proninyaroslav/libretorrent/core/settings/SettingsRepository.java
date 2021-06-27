@@ -207,6 +207,10 @@ public interface SettingsRepository
 
     void dirToWatch(String val);
 
+    boolean watchDirDeleteFile();
+
+    void watchDirDeleteFile(boolean val);
+
     /*
      * Limitations settings
      */
