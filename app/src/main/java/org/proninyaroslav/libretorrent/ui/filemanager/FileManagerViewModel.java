@@ -348,7 +348,7 @@ public class FileManagerViewModel extends AndroidViewModel
         try {
             items.add(new FileManagerSpinnerAdapter.StorageSpinnerItem(
                     getApplication().getString(R.string.internal_storage_name),
-                    fs.getFilePath(primaryStorage),
+                    fs.getDirPath(primaryStorage),
                     fs.getDirAvailableBytes(primaryStorage))
             );
         } catch (UnknownUriException e) {

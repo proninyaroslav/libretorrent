@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
         android:fitsSystemWindows="true"
-        tools:context=".dialog.filemanager.FileManagerDialog">
+        tools:context=".ui.filemanager.FileManagerDialog">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"

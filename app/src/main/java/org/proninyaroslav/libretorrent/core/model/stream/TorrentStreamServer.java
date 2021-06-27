@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,28 +24,24 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.nanohttpd.protocols.http.IHTTPSession;
-import org.nanohttpd.protocols.http.NanoHTTPD;
-import org.nanohttpd.protocols.http.response.Response;
+import org.nanohttpd.NanoHTTPD;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.nanohttpd.protocols.http.response.Response.newFixedLengthResponse;
-import static org.nanohttpd.protocols.http.response.Status.BAD_REQUEST;
-import static org.nanohttpd.protocols.http.response.Status.FORBIDDEN;
-import static org.nanohttpd.protocols.http.response.Status.NOT_FOUND;
-import static org.nanohttpd.protocols.http.response.Status.NOT_MODIFIED;
-import static org.nanohttpd.protocols.http.response.Status.OK;
-import static org.nanohttpd.protocols.http.response.Status.PARTIAL_CONTENT;
-import static org.nanohttpd.protocols.http.response.Status.RANGE_NOT_SATISFIABLE;
+import static org.nanohttpd.NanoHTTPD.Response.Status.BAD_REQUEST;
+import static org.nanohttpd.NanoHTTPD.Response.Status.FORBIDDEN;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_FOUND;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_MODIFIED;
+import static org.nanohttpd.NanoHTTPD.Response.Status.OK;
+import static org.nanohttpd.NanoHTTPD.Response.Status.PARTIAL_CONTENT;
+import static org.nanohttpd.NanoHTTPD.Response.Status.RANGE_NOT_SATISFIABLE;
 
 /*
  * The server that allows to stream selected file from a torrent and to which a specific address is assigned.
@@ -112,7 +108,7 @@ public class TorrentStreamServer extends NanoHTTPD
     }
 
     @Override
-    public Response handle(IHTTPSession session)
+    public Response serve(IHTTPSession session)
     {
         String uri = session.getUri();
         String extension = uri.substring(uri.lastIndexOf('.') + 1);
@@ -133,16 +129,16 @@ public class TorrentStreamServer extends NanoHTTPD
         if (!httpSession.getUri().equals("/stream"))
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
-        Map<String, List<String>> params = httpSession.getParameters();
+        Map<String, String> params = httpSession.getParms();
         if (params.size() < 2)
             return newFixedLengthResponse(BAD_REQUEST, "", "");
 
-        String torrentId = Objects.requireNonNull(params.get("torrent")).get(0);
+        String torrentId = Objects.requireNonNull(params.get("torrent"));
 
         int fileIndex;
         TorrentStream stream;
         try {
-            fileIndex = Integer.parseInt(Objects.requireNonNull(params.get("file")).get(0));
+            fileIndex = Integer.parseInt(Objects.requireNonNull(params.get("file")));
             stream = engine.getStream(torrentId, fileIndex);
             if (stream == null)
                 return newFixedLengthResponse(NOT_FOUND, "", "");
