@@ -313,8 +313,8 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Torrent aanmaken</string>
     <string name="creating_torrent_progress">Even geduld terwijl de torrent aangemaakt wordt…</string>
-    <string name="file_or_folder_for_seeding">Bestand of map om te delen</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Selecteer eerst een bestand of map om te delen.</string>
+    <string name="file_or_folder_for_seeding">Bestand of map om te seeden</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Selecteer eerst een bestand of map om te seeden.</string>
     <string name="tracker_urls">Tracker-URL\'s</string>
     <string name="web_seed_urls">Web-seed-URL\'s</string>
     <string name="comments">Opmerkingen</string>
@@ -468,7 +468,7 @@
     <string name="pref_anonymous_mode_title">Anonieme modus</string>
     <string name="pref_anonymous_mode_summary">Geen user-agent-string voor niet-private torrents. Alleen trackers met proxy. Luister-sockets gesloten. Inkomende verbindingen via SOCKS5- of I2P-proxy (als er een peer-proxy bestaat op de tracker-proxy-pc). NAT-PMP, UPnP, DHT en lokale ontdekking uitgeschakeld.</string>
     <string name="pref_seeding_outgoing_connections_title">Uitgaande verbindingen voor het seeden</string>
-    <string name="pref_seeding_outgoing_connections_summary">Laat gedeelde torrents uitgaande verbindingen maken (kan duur zijn).</string>
+    <string name="pref_seeding_outgoing_connections_summary">Laat seedende torrents uitgaande verbindingen maken (kan duur zijn).</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy-type</string>
     <string-array name="pref_proxy_type_entries">
@@ -480,7 +480,7 @@
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Poort</string>
     <string name="pref_proxy_peers_too_title">Ook gebruiken voor verbindingen</string>
-    <string name="pref_proxy_peers_too_summary">Verbindingen met trackers, anderen en web-shares via proxy.</string>
+    <string name="pref_proxy_peers_too_summary">Verbindingen met trackers, anderen en web- seeds via proxy.</string>
     <string name="pref_proxy_requires_auth_title">Autorisatie vereist</string>
     <string name="pref_proxy_requires_auth_summary">Waarschuwing: het wachtwoord wordt als een gewoon bestand opgeslagen.</string>
     <string name="pref_proxy_login_title">Gebruikersnaam</string>
@@ -542,11 +542,12 @@
     <string name="journal_filter_peer_log">Verbindingslog</string>
     <string name="journal_filter_dht_log">DHT-log</string>
     <string name="torrent_trackers">Trackers</string>
-    <string name="torrent_leechers">Peers</string>
-    <string name="torrent_peers">Totaal</string>
+    <string name="torrent_leechers">Leechers</string>
+    <string name="torrent_peers">Peers</string>
     <string name="torrent_seeds">Seeds</string>
     <string name="start_torrent">Torrent starten</string>
     <string name="drawer_date_added_week">Week</string>
     <string name="drawer_sorting_peers">Populariteit</string>
     <string name="session_stats_dht_nodes">DHT-nodes: %1$d</string>
+    <string name="pref_watch_dir_delete_file_title">Torrent-bestand verwijderen na toevoegen</string>
 </resources>
