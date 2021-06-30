@@ -88,7 +88,6 @@
     <string name="pref_key_proxy_requires_auth" translatable="false">pref_key_proxy_requires_auth</string>
     <string name="pref_key_proxy_login" translatable="false">pref_key_proxy_login</string>
     <string name="pref_key_proxy_password" translatable="false">pref_key_proxy_password</string>
-    <string name="pref_key_proxy_changed" translatable="false">pref_key_proxy_changed</string>
     <string name="pref_key_apply_proxy" translatable="false">pref_key_apply_proxy</string>
     <!-- Scheduling settings -->
     <string name="pref_key_enable_scheduling_start" translatable="false">pref_key_enable_scheduling_start</string>

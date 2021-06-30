@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -282,10 +282,6 @@ public interface SettingsRepository
     String proxyPassword();
 
     void proxyPassword(String val);
-
-    boolean proxyChanged();
-
-    void proxyChanged(boolean val);
 
     boolean applyProxy();
 

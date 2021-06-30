@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -285,18 +285,13 @@ public class TorrentEngine
             initParams.portRangeSecond = pref.portRangeSecond();
         }
 
-        if (pref.proxyChanged()) {
-            pref.proxyChanged(false);
-            pref.applyProxy(false);
-
-            initParams.proxyType = SessionSettings.ProxyType.fromValue(pref.proxyType());
-            initParams.proxyAddress = pref.proxyAddress();
-            initParams.proxyPort = pref.proxyPort();
-            initParams.proxyPeersToo = pref.proxyPeersToo();
-            initParams.proxyRequiresAuth = pref.proxyRequiresAuth();
-            initParams.proxyLogin = pref.proxyLogin();
-            initParams.proxyPassword = pref.proxyPassword();
-        }
+        initParams.proxyType = SessionSettings.ProxyType.fromValue(pref.proxyType());
+        initParams.proxyAddress = pref.proxyAddress();
+        initParams.proxyPort = pref.proxyPort();
+        initParams.proxyPeersToo = pref.proxyPeersToo();
+        initParams.proxyRequiresAuth = pref.proxyRequiresAuth();
+        initParams.proxyLogin = pref.proxyLogin();
+        initParams.proxyPassword = pref.proxyPassword();
         
         return initParams;
     }
@@ -1672,7 +1667,6 @@ public class TorrentEngine
         } else if (key.equals(appContext.getString(R.string.pref_key_apply_proxy))) {
             if (pref.applyProxy()) {
                 pref.applyProxy(false);
-                pref.proxyChanged(false);
                 setProxy();
                 Toast.makeText(appContext,
                         R.string.proxy_settings_applied,

@@ -121,7 +121,6 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean proxyRequiresAuth = SessionSettings.DEFAULT_PROXY_REQUIRES_AUTH;
         static final String proxyLogin = SessionSettings.DEFAULT_PROXY_LOGIN;
         static final String proxyPassword = SessionSettings.DEFAULT_PROXY_PASSWORD;
-        static final boolean proxyChanged = false;
         static final boolean applyProxy = false;
         /* Scheduling settings */
         static final boolean enableSchedulingStart = false;
@@ -1080,21 +1079,6 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_proxy_password), val)
-                .apply();
-    }
-
-    @Override
-    public boolean proxyChanged()
-    {
-        return pref.getBoolean(appContext.getString(R.string.pref_key_proxy_changed),
-                Default.proxyChanged);
-    }
-
-    @Override
-    public void proxyChanged(boolean val)
-    {
-        pref.edit()
-                .putBoolean(appContext.getString(R.string.pref_key_proxy_changed), val)
                 .apply();
     }
 
