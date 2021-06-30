@@ -552,4 +552,8 @@
     LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
     <string name="about_changelog">Изменения</string>
     <string name="pref_watch_dir_delete_file_title">Удалить .torrent файл после добавления</string>
+    <string name="pref_default_trackers_list_summary">Список трекеров, которые используются в следующих случаях:
+\n1. При добавлении торрента, список по умолчанию автоматически добавляется в список торрента.
+\n2. Используется для скачивания magnet-ссылок.</string>
+    <string name="pref_default_trackers_list_title">Трекеры по умолчанию</string>
 </resources>
