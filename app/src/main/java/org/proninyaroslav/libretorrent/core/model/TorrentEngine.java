@@ -48,7 +48,6 @@ import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
-import org.proninyaroslav.libretorrent.core.model.session.SessionInitParams;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentDownload;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSession;
 import org.proninyaroslav.libretorrent.core.model.session.TorrentSessionImpl;
@@ -259,7 +258,7 @@ public class TorrentEngine
                         printSessionLog(change.entries);
                 }));
 
-        session.startWithParams(makeSessionInitParams());
+        session.start();
     }
 
     private void printSessionLog(List<LogEntry> entries)
@@ -270,30 +269,6 @@ public class TorrentEngine
 
             Log.i(TAG, entry.toString());
         }
-    }
-    
-    private SessionInitParams makeSessionInitParams()
-    {
-        SessionInitParams initParams = new SessionInitParams();
-
-        if (pref.useRandomPort()) {
-            Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
-            initParams.portRangeFirst = range.first;
-            initParams.portRangeSecond = range.second;
-        } else {
-            initParams.portRangeFirst = pref.portRangeFirst();
-            initParams.portRangeSecond = pref.portRangeSecond();
-        }
-
-        initParams.proxyType = SessionSettings.ProxyType.fromValue(pref.proxyType());
-        initParams.proxyAddress = pref.proxyAddress();
-        initParams.proxyPort = pref.proxyPort();
-        initParams.proxyPeersToo = pref.proxyPeersToo();
-        initParams.proxyRequiresAuth = pref.proxyRequiresAuth();
-        initParams.proxyLogin = pref.proxyLogin();
-        initParams.proxyPassword = pref.proxyPassword();
-        
-        return initParams;
     }
 
     /*
@@ -1291,10 +1266,19 @@ public class TorrentEngine
         }
     }
 
-    private void setRandomPortRange()
+    private void setRandomPortRange(boolean useRandomPort)
     {
-        Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
-        setPortRange(range.first, range.second);
+        SessionSettings settings = session.getSettings();
+        settings.useRandomPort = useRandomPort;
+        if (!useRandomPort) {
+            int first = pref.portRangeFirst();
+            int second = pref.portRangeSecond();
+            if (first != -1 && second != -1) {
+                settings.portRangeFirst = first;
+                settings.portRangeSecond = second;
+            }
+        }
+        session.setSettings(settings);
     }
 
     private void setPortRange(int first, int second)
@@ -1635,14 +1619,7 @@ public class TorrentEngine
             session.setSettings(s);
 
         } else if (key.equals(appContext.getString(R.string.pref_key_use_random_port))) {
-            if (pref.useRandomPort()) {
-                setRandomPortRange();
-
-            } else {
-                int portFirst = pref.portRangeFirst();
-                int portSecond = pref.portRangeSecond();
-                setPortRange(portFirst, portSecond);
-            }
+            setRandomPortRange(pref.useRandomPort());
 
         } else if (key.equals(appContext.getString(R.string.pref_key_port_range_first)) ||
                    key.equals(appContext.getString(R.string.pref_key_port_range_second))) {

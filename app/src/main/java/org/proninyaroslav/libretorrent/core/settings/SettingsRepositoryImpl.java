@@ -208,6 +208,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.autoManaged = autoManage();
         settings.anonymousMode = anonymousMode();
         settings.seedingOutgoingConnections = seedingOutgoingConnections();
+        settings.useRandomPort = useRandomPort();
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,12 +24,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.ErrorCode;
+import org.libtorrent4j.Pair;
 import org.libtorrent4j.SessionHandle;
 import org.libtorrent4j.SessionManager;
 import org.libtorrent4j.SessionParams;
@@ -761,12 +761,6 @@ public class TorrentSessionImpl extends SessionManager
         if (isRunning())
             return;
 
-        startWithParams(null);
-    }
-
-    @Override
-    public void startWithParams(@Nullable SessionInitParams initParams)
-    {
         SessionParams params = loadSettings();
         SettingsPack settingsPack = params.getSettings();
         settings_pack sp = settingsPack.swig();
@@ -790,33 +784,12 @@ public class TorrentSessionImpl extends SessionManager
             Log.i(TAG, "User agent: " + sp.get_str(settings_pack.string_types.user_agent.swigValue()));
         }
 
-        if (initParams != null)
-            initParamsToSettingsPack(initParams, params.getSettings());
+        if (settings.useRandomPort) {
+            setRandomPort(settings);
+        }
+        settingsToSettingsPack(settings, params.getSettings());
 
         super.start(params);
-    }
-
-    private void initParamsToSettingsPack(SessionInitParams initParams, SettingsPack sp)
-    {
-        if (initParams.portRangeFirst != -1 && initParams.portRangeSecond != -1) {
-            sp.listenInterfaces(getIface(settings.inetAddress, initParams.portRangeFirst));
-            sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
-                    initParams.portRangeSecond - initParams.portRangeFirst);
-        }
-
-        int proxyType = convertProxyType(initParams.proxyType, initParams.proxyRequiresAuth);
-        sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);
-        if (initParams.proxyType != SessionSettings.ProxyType.NONE) {
-            sp.setInteger(settings_pack.int_types.proxy_port.swigValue(), initParams.proxyPort);
-            sp.setString(settings_pack.string_types.proxy_hostname.swigValue(), initParams.proxyAddress);
-            if (initParams.proxyRequiresAuth) {
-                sp.setString(settings_pack.string_types.proxy_username.swigValue(), initParams.proxyLogin);
-                sp.setString(settings_pack.string_types.proxy_password.swigValue(), initParams.proxyPassword);
-            }
-            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), settings.proxyPeersToo);
-            sp.setBoolean(settings_pack.bool_types.proxy_tracker_connections.swigValue(), true);
-            sp.setBoolean(settings_pack.bool_types.proxy_hostnames.swigValue(), true);
-        }
     }
 
     @Override
@@ -1269,11 +1242,21 @@ public class TorrentSessionImpl extends SessionManager
         applySessionLoggerFilters(settings);
         enableSessionLogger(settings.logging);
 
+        if (settings.useRandomPort) {
+            setRandomPort(settings);
+        }
+
         SettingsPack sp = settings();
         if (sp != null) {
             settingsToSettingsPack(settings, sp);
             applySettingsPack(sp);
         }
+    }
+
+    private void setRandomPort(SessionSettings settings) {
+        Pair<Integer, Integer> range = SessionSettings.getRandomRangePort();
+        settings.portRangeFirst = range.first;
+        settings.portRangeSecond = range.second;
     }
 
     private void applyMaxStoredLogs(SessionSettings settings)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,8 +20,8 @@
 package org.proninyaroslav.libretorrent.core.settings;
 
 import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
 
+import org.libtorrent4j.Pair;
 import org.proninyaroslav.libretorrent.BuildConfig;
 
 import java.util.Random;
@@ -68,7 +68,7 @@ public class SessionSettings
     public static final boolean DEFAULT_LOG_PEER_FILTER = true;
     public static final boolean DEFAULT_LOG_PORTMAP_FILTER = true;
     public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
-
+    public static final boolean DEFAULT_USE_RANDOM_PORT = true;
 
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
@@ -109,6 +109,7 @@ public class SessionSettings
     public boolean logPeerFilter = DEFAULT_LOG_PEER_FILTER;
     public boolean logPortmapFilter = DEFAULT_LOG_PORTMAP_FILTER;
     public boolean logTorrentFilter = DEFAULT_LOG_TORRENT_FILTER;
+    public boolean useRandomPort = DEFAULT_USE_RANDOM_PORT;
 
     public SessionSettings() {}
 
@@ -153,6 +154,7 @@ public class SessionSettings
         this.logPeerFilter = other.logPeerFilter;
         this.logPortmapFilter = other.logPortmapFilter;
         this.logTorrentFilter = other.logTorrentFilter;
+        this.useRandomPort = other.useRandomPort;
     }
 
     public enum EncryptMode
