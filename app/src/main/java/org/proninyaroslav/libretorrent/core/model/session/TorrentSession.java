@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -113,8 +113,6 @@ public interface TorrentSession
     boolean isPeXEnabled();
 
     void start();
-
-    void startWithParams(@Nullable SessionInitParams startParams);
 
     void requestStop();
 
