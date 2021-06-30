@@ -549,4 +549,8 @@
     <string name="about_description">Περισσότερες πληροφορίες και πώς να βοηθήσετε το έργο: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; Το LibreTorrent είναι μια ελεύθερη copyleft (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) εφαρμογή torrent για Android 4+, βασισμένο στη libtorrent βιβλιοθήκη (πακέτο για Java: &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Αρχείο αλλαγών</string>
     <string name="pref_watch_dir_delete_file_title">Διαγραφή αρχείου .torrent μετά την προσθήκη</string>
+    <string name="pref_default_trackers_list_summary">Λίστα trackers που χρησιμοποιείται στις εξής περιπτώσεις:
+\n1. Όταν προστίθεται torrent, η προεπιλεγμένη λίστα προστίθεται αυτόματα στη λίστα του torrent.
+\n2. Κατά την προσθήκη συνδέσμων magnet.</string>
+    <string name="pref_default_trackers_list_title">Προεπιλεγμένοι trackers</string>
 </resources>
