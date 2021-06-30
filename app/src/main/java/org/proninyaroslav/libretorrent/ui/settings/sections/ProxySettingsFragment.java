@@ -244,10 +244,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             pref.proxyRequiresAuth((boolean)newValue);
         }
 
-        if (!proxyChanged) {
-            proxyChanged = true;
-            pref.proxyChanged(true);
-        }
+        proxyChanged = true;
 
         return true;
     }
