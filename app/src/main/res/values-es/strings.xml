@@ -549,4 +549,8 @@
     <string name="about_changelog">Registro de cambios</string>
     <string name="pref_header_streaming">Streaming</string>
     <string name="pref_watch_dir_delete_file_title">Borrar archivo .torrent después de añadirlo</string>
+    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:
+\n1. Al añadir un torrente, la lista predeterminada se añade automáticamente a la lista de torrents.
+\n2. Se utiliza para obtener enlaces magnet.</string>
+    <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
 </resources>
