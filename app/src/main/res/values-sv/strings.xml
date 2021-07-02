@@ -291,7 +291,7 @@
     <string name="pref_enable_roaming_title">Roaming</string>
     <string name="pref_enable_roaming_summary">Hämta endast om enheten inte använder roaming.</string>
     <string name="pref_keep_alive_summary">Låter appen köras i bakgrunden. (Respekterar fortfarande att appen stängs när alla hämtningar är färdiga.)</string>
-    <string name="pref_shutdown_downloads_complete_title">Stäng ner efter att alla hämtningar har avslutats</string>
+    <string name="pref_shutdown_downloads_complete_title">Stäng efter att alla hämtningar har avslutats</string>
     <string name="pref_shutdown_downloads_complete_summary">Stänger av appen när allting är hämtat.</string>
     <string name="pref_cpu_do_not_sleep_summary">Använd om hämtningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Hämta endast och ladda endast upp under laddning.</string>
