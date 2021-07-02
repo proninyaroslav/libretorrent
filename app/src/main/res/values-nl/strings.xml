@@ -550,4 +550,8 @@
     <string name="drawer_sorting_peers">Populariteit</string>
     <string name="session_stats_dht_nodes">DHT-nodes: %1$d</string>
     <string name="pref_watch_dir_delete_file_title">Torrent-bestand verwijderen na toevoegen</string>
+    <string name="pref_default_trackers_list_summary">Lijst van trackers, gebruikt in de volgende gevallen:
+\n1. Wanneer een torrent wordt toegevoegd, wordt de standaardlijst automatisch toegevoegd aan de torrentlijst.
+\n2. Gebruikt voor het ophalen van magneetkoppelingen.</string>
+    <string name="pref_default_trackers_list_title">Standaard trackers</string>
 </resources>
