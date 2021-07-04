@@ -224,9 +224,9 @@
     <string name="torrent_speed">Velocidad</string>
     <string name="torrent_downloaded">Descargado</string>
     <string name="torrent_ETA">Tiempo restante</string>
-    <string name="torrent_seeds">Compartidores</string>
-    <string name="torrent_peers">Total</string>
-    <string name="torrent_leechers">Tomadores</string>
+    <string name="torrent_seeds">Semillas</string>
+    <string name="torrent_peers">Pares</string>
+    <string name="torrent_leechers">Sanguijuelas</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Subido</string>
@@ -320,10 +320,10 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crear torrent</string>
     <string name="creating_torrent_progress">Por favor, espera mientras se crea el torrent…</string>
-    <string name="file_or_folder_for_seeding">Archivo o carpeta para compartir</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Primero selecciona el archivo o carpeta para compartir.</string>
+    <string name="file_or_folder_for_seeding">Archivo o carpeta para sembrar</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Primero selecciona el archivo o carpeta para sembrar.</string>
     <string name="tracker_urls">URLs de rastreadores</string>
-    <string name="web_seed_urls">URLs web para compartir</string>
+    <string name="web_seed_urls">URLs de las semillas web</string>
     <string name="comments">Comentarios</string>
     <string name="tracker_urls_hint">(opcional) ingresa un rastreador por línea en orden de prioridad.</string>
     <string name="web_seed_urls_hint">(opcional) uno por línea</string>
@@ -479,7 +479,7 @@
     <string name="pref_anonymous_mode_title">Modo anónimo</string>
     <string name="pref_anonymous_mode_summary">No hay cadena de agente de usuario para los torrents no privados. Solo rastreadores proxies. Sockets en escucha cerrados. Conexiones entrantes a través de SOCKS5 o proxy I2P (si existe un proxy de pares en la PC proxy del rastreador). NAT-PMP, UPnP, DHT y el descubrimiento local deshabilitados.</string>
     <string name="pref_seeding_outgoing_connections_title">Conexiones salientes para compartir</string>
-    <string name="pref_seeding_outgoing_connections_summary">Permite que los torrents compartidos realicen conexiones salientes. (Puede ser costoso.)</string>
+    <string name="pref_seeding_outgoing_connections_summary">Permite que los torrents que se están sembrando realicen conexiones salientes. (Puede ser costoso.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
     <string-array name="pref_proxy_type_entries">
@@ -491,7 +491,7 @@
     <string name="pref_proxy_address_title">Dirección</string>
     <string name="pref_proxy_port_title">Puerto</string>
     <string name="pref_proxy_peers_too_title">Usar también para las conexiones</string>
-    <string name="pref_proxy_peers_too_summary">Las conexiones a rastreadores, otros y recursos web compartidos se realizan mediante proxy.</string>
+    <string name="pref_proxy_peers_too_summary">Las conexiones a rastreadores, otros y semillas web se realizan mediante proxy.</string>
     <string name="pref_proxy_requires_auth_title">Requiere autorización</string>
     <string name="pref_proxy_requires_auth_summary">Advertencia: La contraseña se guarda como un archivo normal.</string>
     <string name="pref_proxy_login_title">Usuario</string>
@@ -520,7 +520,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Solo en conexiones sin límite</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizar solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerancia</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
     <string name="pref_feed_keep_items_time_title">Mantener artículos</string>
     <string-array name="pref_feed_keep_items_time_entries">
         <item>1 día</item>
@@ -538,7 +538,7 @@
     <string name="pref_feed_remove_duplicates_title">No hay duplicados</string>
     <string name="pref_feed_remove_duplicates_summary">Omite la descarga de archivos con títulos ya presentes.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Transmisión</string>
+    <string name="pref_streaming_enable_title">Streaming</string>
     <string name="pref_streaming_enable_summary">Permite descargar archivos individuales de un torrent usando un navegador web o reproductor multimedia usando URLs HTTP/S.</string>
     <string name="pref_streaming_hostname">Nombre del host</string>
     <string name="pref_streaming_port">Puerto</string>
@@ -548,4 +548,9 @@
     <string name="about_description">Más información y cómo ayudar al proyecto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent es un cliente torrent libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) con copyleft para Android 4+, basado en la librería libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Registro de cambios</string>
     <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_watch_dir_delete_file_title">Borrar archivo .torrent después de añadirlo</string>
+    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:
+\n1. Al añadir un torrente, la lista predeterminada se añade automáticamente a la lista de torrents.
+\n2. Se utiliza para obtener enlaces magnet.</string>
+    <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
 </resources>

@@ -538,4 +538,6 @@
     <string name="new_tag">Neue Markierung</string>
     <string name="select_tag">Markierung auswählen</string>
     <string name="edit_tag">Markierung bearbeiten</string>
+    <string name="drawer_sorting_peers">Popularität</string>
+    <string name="internal_storage_name">interner Speicher</string>
 </resources>

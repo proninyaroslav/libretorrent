@@ -117,7 +117,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Hämtar…</string>
-    <string name="torrent_status_seeding">Delar…</string>
+    <string name="torrent_status_seeding">Distribuerar…</string>
     <string name="torrent_status_paused">Pausad</string>
     <string name="torrent_status_stopped">Stoppad</string>
     <string name="torrent_status_checking">Kontrollerar…</string>
@@ -221,9 +221,9 @@
     <string name="error_restore_feeds_backup">Kunde inte återställa kanaler</string>
     <!-- Create torrent dialog -->
     <string name="creating_torrent_progress">Vänligen vänta medans torrenten skapas…</string>
-    <string name="file_or_folder_for_seeding">Fil eller mapp att dela</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att dela först.</string>
-    <string name="web_seed_urls">URL för webb-delning</string>
+    <string name="file_or_folder_for_seeding">Fil eller mapp att distribuera</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att distribuera först.</string>
+    <string name="web_seed_urls">URL:er för webbdistribution</string>
     <string name="tracker_urls_hint">(Valfritt) ange en spårare per rad i prioriteringsordningen.</string>
     <string name="web_seed_urls_hint">(Valfritt) en per rad</string>
     <string name="optional_hint">(Valfritt)</string>
@@ -291,7 +291,7 @@
     <string name="pref_enable_roaming_title">Roaming</string>
     <string name="pref_enable_roaming_summary">Hämta endast om enheten inte använder roaming.</string>
     <string name="pref_keep_alive_summary">Låter appen köras i bakgrunden. (Respekterar fortfarande att appen stängs när alla hämtningar är färdiga.)</string>
-    <string name="pref_shutdown_downloads_complete_title">Stäng ner efter att alla hämtningar har avslutats</string>
+    <string name="pref_shutdown_downloads_complete_title">Stäng efter att alla hämtningar har avslutats</string>
     <string name="pref_shutdown_downloads_complete_summary">Stänger av appen när allting är hämtat.</string>
     <string name="pref_cpu_do_not_sleep_summary">Använd om hämtningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Hämta endast och ladda endast upp under laddning.</string>
@@ -299,7 +299,7 @@
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrenter om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
     <string name="pref_custom_battery_control_summary">Ställ in batteri-%% att pausa hämtningar vid. (Ignorerar %1$d%% som standard.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-% att hålla utkik för\? (Ökar användning av batteriet under hämtning.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-%% att hålla utkik för\? (Ökar användning av batteriet under hämtning.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Tillåter att hitta andra utan en spårare. (Ökar användningen av batteri.)</string>
@@ -322,8 +322,8 @@
     <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
     <string name="pref_anonymous_mode_title">Anonymt läge</string>
     <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrenter. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en nod-proxy på tracker-proxy-datorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
-    <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för delning</string>
-    <string name="pref_seeding_outgoing_connections_summary">Låter delade torrenter skapa utgående anslutningar. (Kan bli dyrbart.)</string>
+    <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för distribution</string>
+    <string name="pref_seeding_outgoing_connections_summary">Låter distribuerade torrenter skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ av proxy</string>
     <string-array name="pref_proxy_type_entries">
@@ -334,7 +334,7 @@
     </string-array>
     <string name="pref_proxy_address_title">Adress</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_summary">Anslutningar till spårare, andra och webb-delningar är proxifierade.</string>
+    <string name="pref_proxy_peers_too_summary">Anslutningar till spårare, andra och webbdistributioner är proxifierade.</string>
     <string name="pref_proxy_requires_auth_summary">Varning: Lösenordet sparas som en vanlig fil.</string>
     <string name="pref_proxy_login_title">Användarnamn</string>
     <string name="pref_proxy_password_title">Lösenord</string>
@@ -414,7 +414,7 @@
     <string name="pref_journal_max_stored_entries">Maximalt lagrade journal-poster</string>
     <string name="journal_filter_session_log">Sessionslogg</string>
     <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
-    <string name="torrent_seeding_time">Tid för delning</string>
+    <string name="torrent_seeding_time">Tid för distribution</string>
     <string name="torrent_leechers">Tagare</string>
     <string name="drawer_date_added">Datum som den lades till</string>
     <string name="drawer_sorting_date_added">Datum som den lades till</string>
@@ -472,7 +472,7 @@
     <string name="skip_files">Hoppa över filer</string>
     <string name="invalid_url">Ogiltig URL: %1$s</string>
     <string name="option_private_torrent">Privat torrent</string>
-    <string name="option_start_seeding">Börja dela</string>
+    <string name="option_start_seeding">Börja distribuera</string>
     <string name="piece_size">Storlek på del</string>
     <string name="comments">Kommentarer</string>
     <string name="tracker_urls">URL för spårarna</string>
@@ -524,8 +524,8 @@
     <string name="torrent_pieces">Delar</string>
     <string name="torrent_active_time">Aktiv tid</string>
     <string name="torrent_uploaded">Uppladdat</string>
-    <string name="torrent_peers">Totalt</string>
-    <string name="torrent_seeds">Delare</string>
+    <string name="torrent_peers">Noder</string>
+    <string name="torrent_seeds">Distributioner</string>
     <string name="torrent_downloaded">Hämtat</string>
     <string name="torrent_speed">Hastighet</string>
     <string name="torrent_state">Status</string>
@@ -550,4 +550,5 @@
     <string name="piece_map">Kart-delar</string>
     <string name="force_recheck_torrent">Tvinga återkontroll</string>
     <string name="pref_move_after_download_in_title">Flytta efter hämtning till</string>
+    <string name="pref_watch_dir_delete_file_title">Ta bort .torrent-filen efter tilläggning</string>
 </resources>

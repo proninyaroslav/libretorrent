@@ -225,7 +225,7 @@
     <string name="torrent_downloaded">Ληφθέντα</string>
     <string name="torrent_ETA">Απομένουν</string>
     <string name="torrent_seeds">Διαμοιραστές</string>
-    <string name="torrent_peers">Σύνολο</string>
+    <string name="torrent_peers">Διαμοιραστές</string>
     <string name="torrent_leechers">Αποδέκτες</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
@@ -323,7 +323,7 @@
     <string name="file_or_folder_for_seeding">Αρχείο ή φάκελος για διαμοιρασμό</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Επιλέξτε ένα αρχείο ή φάκελο για διαμοιρασμό πρώτα.</string>
     <string name="tracker_urls">URLs ιχνηλάτη</string>
-    <string name="web_seed_urls">Διευθύνσεις URL ιστού για διαμοιρασμό</string>
+    <string name="web_seed_urls">Διευθύνσεις ιστού για διαμοιρασμό</string>
     <string name="comments">Παρατηρήσεις</string>
     <string name="tracker_urls_hint">(Προαιρετικό) εισαγάγετε έναν ιχνηλάτη ανά γραμμή κατά σειρά προτεραιότητας.</string>
     <string name="web_seed_urls_hint">(Προαιρετικό) ένας ανά γραμμή</string>
@@ -480,7 +480,7 @@
     <string name="pref_anonymous_mode_title">Ανώνυμη κατάσταση</string>
     <string name="pref_anonymous_mode_summary">Χωρίς user-agent για μη ιδιωτικά torrents. Μόνο trackers με διακομιστές μεσολάβησης. Κλειστές υποδοχές ακρόασης. Εισερχόμενες συνδέσεις μέσω SOCKS5 ή I2P διακομιστή μεσολάβησης (εάν υπάρχει ομότιμος διακομιστής στον υπολογιστή διακομιστή του ιχνηλάτη). Τα NAT-PMP, UPnP, DHT και τοπική ανακάλυψη απενεργοποιημένα.</string>
     <string name="pref_seeding_outgoing_connections_title">Εξερχόμενες συνδέσεις για διαμοιρασμό</string>
-    <string name="pref_seeding_outgoing_connections_summary">Επιτρέπει σε διαμοιρασμένα torrents να κάνουν εξερχόμενες συνδέσεις. (Μπορεί να είναι δαπανηρό.)</string>
+    <string name="pref_seeding_outgoing_connections_summary">Επιτρέπει σε διαμοιραζόμενα torrents να κάνουν εξερχόμενες συνδέσεις. (Μπορεί να είναι δαπανηρό.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
     <string-array name="pref_proxy_type_entries">
@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">Διεύθυνση</string>
     <string name="pref_proxy_port_title">Θύρα</string>
     <string name="pref_proxy_peers_too_title">Χρησιμοποίηση και για συνδέσεις</string>
-    <string name="pref_proxy_peers_too_summary">Οι συνδέσεις με ιχνηλάτες, άλλους και διαδικτυακά διαμοιρασμένα στοιχεία πραγματοποιούνται μέσω διακομιστή μεσολάβησης.</string>
+    <string name="pref_proxy_peers_too_summary">Οι συνδέσεις με ιχνηλάτες, άλλους και διαδικτυακούς διαμοιραστές πραγματοποιούνται μέσω διακομιστή μεσολάβησης.</string>
     <string name="pref_proxy_requires_auth_title">Απαιτεί εξουσιοδότηση</string>
     <string name="pref_proxy_requires_auth_summary">Προειδοποίηση: Ο κωδικός πρόσβασης αποθηκεύεται ως κανονικό αρχείο.</string>
     <string name="pref_proxy_login_title">Όνομα χρήστη</string>
@@ -548,4 +548,9 @@
     <string name="about_title">Σχετικά</string>
     <string name="about_description">Περισσότερες πληροφορίες και πώς να βοηθήσετε το έργο: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; Το LibreTorrent είναι μια ελεύθερη copyleft (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) εφαρμογή torrent για Android 4+, βασισμένο στη libtorrent βιβλιοθήκη (πακέτο για Java: &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Αρχείο αλλαγών</string>
+    <string name="pref_watch_dir_delete_file_title">Διαγραφή αρχείου .torrent μετά την προσθήκη</string>
+    <string name="pref_default_trackers_list_summary">Λίστα trackers που χρησιμοποιείται στις εξής περιπτώσεις:
+\n1. Όταν προστίθεται torrent, η προεπιλεγμένη λίστα προστίθεται αυτόματα στη λίστα του torrent.
+\n2. Κατά την προσθήκη συνδέσμων magnet.</string>
+    <string name="pref_default_trackers_list_title">Προεπιλεγμένοι trackers</string>
 </resources>
