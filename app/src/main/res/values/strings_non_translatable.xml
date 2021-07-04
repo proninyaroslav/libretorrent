@@ -58,5 +58,5 @@
     </string-array>
 
     <!-- About dialog -->
-    <string name="about_changelog_link" translatable="false">https://gitlab.com/proninyaroslav/libretorrent/blob/master/NEWS</string>
+    <string name="about_changelog_link" translatable="false">https://gitlab.com/proninyaroslav/libretorrent/blob/master/NEWS.md</string>
 </resources>
