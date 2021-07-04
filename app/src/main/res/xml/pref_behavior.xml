@@ -20,6 +20,12 @@
         android:summary="@string/pref_autostart_summary"
         android:persistent="false" />
 
+    <EditTextPreference
+        android:key="@string/pref_key_default_trackers_list"
+        android:title="@string/pref_default_trackers_list_title"
+        android:summary="@string/pref_default_trackers_list_summary"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
 

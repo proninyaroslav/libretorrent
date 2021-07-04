@@ -478,6 +478,8 @@ public class TorrentSessionImpl extends SessionManager
                     flags = flags.or_(TorrentFlags.STOP_WHEN_READY);
                     p.setFlags(flags);
 
+                    addDefaultTrackers(p);
+
                     error_code ec = new error_code();
                     th = swig().add_torrent(p, ec);
                     if (!th.is_valid() || ec.failed())
@@ -1474,6 +1476,8 @@ public class TorrentSessionImpl extends SessionManager
 
         p.setFlags(flags);
 
+        addDefaultTrackers(p);
+
         swig().async_add_torrent(p);
     }
 
@@ -1514,7 +1518,23 @@ public class TorrentSessionImpl extends SessionManager
 
         p.setFlags(flags);
 
+        addDefaultTrackers(p);
+
         swig().async_add_torrent(p);
+    }
+
+    private void addDefaultTrackers(add_torrent_params p) {
+        String[] defaultTrackers = getSettings().defaultTrackersList;
+        if (defaultTrackers != null && defaultTrackers.length > 0) {
+            string_vector v = new string_vector();
+            v.addAll(Arrays.asList(defaultTrackers));
+            p.setTrackers(v);
+        }
+    }
+
+    @Override
+    public void setDefaultTrackersList(@NonNull String[] trackersList) {
+        settings.defaultTrackersList = trackersList;
     }
 
     private void restoreDownload(String id) throws IOException

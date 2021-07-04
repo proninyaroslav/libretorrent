@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">Téléchargement des métadonnées…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission refusée</string>
-    <string name="perm_denied_warning">Voulez-vous vraiment refuser l\'autorisation  de sauvegarder des fichiers torrents en mémoire \?</string>
+    <string name="perm_denied_warning">Voulez-vous vraiment empêcher l\'application de conserver des fichiers torrents en mémoire \?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Ajouter un torrent</string>
     <string name="error_decode_torrent">Échec du décodage du fichier torrent. Le fichier est sans doute corrompu ou a un format incorect</string>
