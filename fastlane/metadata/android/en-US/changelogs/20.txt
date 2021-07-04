@@ -1,0 +1,15 @@
+* Added:
+    - Default trackers list
+    - Option to delete a file in a watched directory
+    - Allowed to change watch directory before enabling this option
+* Bugfixes:
+    - Streaming
+    - Proxy applying
+    - Random port generation
+    - Correct handling of "Do not ask again" for permissions
+    - Minor fixes
+* New translations:
+    - Sinhala (partially)
+    - Vietnamese
+* Updated current translations
+* Upgrade to libtorrent4j 2.0.4-20
