@@ -6,12 +6,12 @@ android {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 19
+        versionCode 20
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName '3.0.1'
+        versionName '3.1'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
 
@@ -104,8 +104,8 @@ def ROOM_VERSION = '2.3.0'
 dependencies {
     /* Testing */
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test:rules:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
     testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
@@ -123,7 +123,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.work:work-runtime:2.6.0-beta01'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     /* ReactiveX */
