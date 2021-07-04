@@ -175,6 +175,10 @@ public interface SettingsRepository
 
     void seedingOutgoingConnections(boolean val);
 
+    String defaultTrackersList();
+
+    void defaultTrackersList(String val);
+
     /*
      * Storage settings
      */

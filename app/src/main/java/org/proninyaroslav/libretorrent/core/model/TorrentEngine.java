@@ -1719,6 +1719,9 @@ public class TorrentEngine
             SessionSettings s = session.getSettings();
             s.maxLogSize = pref.maxLogSize();
             session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_default_trackers_list))) {
+            session.setDefaultTrackersList(pref.defaultTrackersList().split("\n"));
         }
 
         if (reschedule)

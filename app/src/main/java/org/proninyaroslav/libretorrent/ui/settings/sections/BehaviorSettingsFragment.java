@@ -28,6 +28,7 @@ import androidx.preference.Preference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
@@ -143,6 +144,17 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             roaming.setChecked(pref.enableRoaming());
             bindOnPreferenceChangeListener(roaming);
         }
+
+        String keyDefaultTrackersList = getString(R.string.pref_key_default_trackers_list);
+        EditTextPreference defaultTrackersList = findPreference(keyDefaultTrackersList);
+        if (defaultTrackersList != null) {
+            defaultTrackersList.setDialogMessage(R.string.dialog_add_trackers);
+            defaultTrackersList.setOnBindEditTextListener((editText) ->
+                editText.setSingleLine(false)
+            );
+            defaultTrackersList.setText(pref.defaultTrackersList());
+            bindOnPreferenceChangeListener(defaultTrackersList);
+        }
     }
 
     @Override
@@ -225,6 +237,9 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_custom_battery_control_value))) {
             pref.customBatteryControlValue((int)newValue);
+
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_default_trackers_list))) {
+            pref.defaultTrackersList((String)newValue);
         }
 
         return true;

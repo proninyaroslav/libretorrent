@@ -36,6 +36,7 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public interface TorrentSession
 {
@@ -123,4 +124,6 @@ public interface TorrentSession
     int[] getPieceSizeList();
 
     void download(@NonNull String magnetUri, File saveDir, boolean paused);
+
+    void setDefaultTrackersList(@NonNull String[] trackersList);
 }

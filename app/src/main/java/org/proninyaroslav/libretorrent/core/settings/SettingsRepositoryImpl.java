@@ -62,6 +62,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final int customBatteryControlValue = Utils.getDefaultBatteryLowLevel();
         static final boolean unmeteredConnectionsOnly = false;
         static final boolean enableRoaming = true;
+        static final String defaultTrackersList = "";
         /* Network settings */
         static final int portRangeFirst = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
         static final int portRangeSecond = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
@@ -209,6 +210,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.anonymousMode = anonymousMode();
         settings.seedingOutgoingConnections = seedingOutgoingConnections();
         settings.useRandomPort = useRandomPort();
+        settings.defaultTrackersList = defaultTrackersList().split("\n");
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
@@ -960,6 +962,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_seeding_outgoing_connections), val)
+                .apply();
+    }
+
+    @Override
+    public String defaultTrackersList() {
+        return pref.getString(appContext.getString(R.string.pref_key_default_trackers_list),
+                Default.defaultTrackersList);
+    }
+
+    @Override
+    public void defaultTrackersList(String val) {
+        pref.edit()
+                .putString(appContext.getString(R.string.pref_key_default_trackers_list), val)
                 .apply();
     }
 

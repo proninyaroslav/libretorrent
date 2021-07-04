@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 import org.libtorrent4j.Pair;
 import org.proninyaroslav.libretorrent.BuildConfig;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class SessionSettings
@@ -110,6 +112,7 @@ public class SessionSettings
     public boolean logPortmapFilter = DEFAULT_LOG_PORTMAP_FILTER;
     public boolean logTorrentFilter = DEFAULT_LOG_TORRENT_FILTER;
     public boolean useRandomPort = DEFAULT_USE_RANDOM_PORT;
+    public String[] defaultTrackersList = new String[]{};
 
     public SessionSettings() {}
 
@@ -155,6 +158,7 @@ public class SessionSettings
         this.logPortmapFilter = other.logPortmapFilter;
         this.logTorrentFilter = other.logTorrentFilter;
         this.useRandomPort = other.useRandomPort;
+        this.defaultTrackersList = other.defaultTrackersList;;
     }
 
     public enum EncryptMode
