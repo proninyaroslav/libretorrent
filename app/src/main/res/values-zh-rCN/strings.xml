@@ -550,9 +550,7 @@
     <string name="about_changelog">更新日志</string>
     <string name="pref_watch_dir_delete_file_title">添加后删除 .torrent 文件</string>
     <string name="pref_default_trackers_list_summary">用于下列情形的 tracker 列表：
-\n
 \n1. 添加种子时，默认列表会自动添加到种子列表中。
-\n
 \n2. 用于获取磁力链接。</string>
     <string name="pref_default_trackers_list_title">默认 trackers</string>
 </resources>
