@@ -76,7 +76,8 @@ public class TorrentService extends Service
     private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
     private CompositeDisposable disposables = new CompositeDisposable();
-    private boolean shuttingDown = false;
+    private AtomicBoolean shuttingDown = new AtomicBoolean(false);
+    private AtomicBoolean shutDownNotifyShow = new AtomicBoolean(false);
 
     @Nullable
     @Override
@@ -130,7 +131,7 @@ public class TorrentService extends Service
 
     private void stopEngine()
     {
-        shuttingDown = true;
+        shuttingDown.set(true);
         forceUpdateForeground();
         engine.doStop();
     }
@@ -139,7 +140,6 @@ public class TorrentService extends Service
     {
         disposables.clear();
         engine.removeListener(engineListener);
-        stopUpdateForegroundNotify();
         setKeepCpuAwake(false);
 
         isAlreadyRunning.set(false);
@@ -219,6 +219,7 @@ public class TorrentService extends Service
         @Override
         public void onSessionStopped()
         {
+            Log.i(TAG, "Session stopped");
             stopService();
         }
     };
@@ -231,7 +232,7 @@ public class TorrentService extends Service
 
     private void startUpdateForegroundNotify()
     {
-        if (foregroundNotify == null)
+        if (shuttingDown.get() || foregroundNotify == null)
             return;
 
         foregroundDisposable = stateProvider.observeInfoList()
@@ -290,12 +291,17 @@ public class TorrentService extends Service
 
     private void updateForegroundNotify(List<TorrentInfo> stateList)
     {
-        if (foregroundNotify == null)
+        if ((shuttingDown.get() && shutDownNotifyShow.get()) || foregroundNotify == null)
             return;
 
         isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
 
-        if (shuttingDown) {
+        if (shuttingDown.get()) {
+            disableShutdownIntent();
+            stopUpdateForegroundNotify();
+
+            shutDownNotifyShow.set(true);
+
             String shuttingDownStr = getString(R.string.notify_shutting_down);
             foregroundNotify.setStyle(null);
             foregroundNotify.setTicker(shuttingDownStr);
@@ -373,8 +379,7 @@ public class TorrentService extends Service
 
     private NotificationCompat.Action makeShutdownAction()
     {
-        Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
+        Intent shutdownIntent = makeShutdownIntent();
         PendingIntent shutdownPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
                 shutdownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -383,6 +388,22 @@ public class TorrentService extends Service
                 getString(R.string.shutdown),
                 shutdownPendingIntent)
                 .build();
+    }
+
+    private Intent makeShutdownIntent() {
+        Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
+
+        return shutdownIntent;
+    }
+
+    private void disableShutdownIntent() {
+        PendingIntent.getBroadcast(
+                getApplicationContext(),
+                0,
+                makeShutdownIntent(),
+                PendingIntent.FLAG_UPDATE_CURRENT
+        ).cancel();
     }
 
     private NotificationCompat.Action makePauseAllAction()
