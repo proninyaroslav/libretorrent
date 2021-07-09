@@ -27,13 +27,13 @@
                 android:id="@+id/layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/feed_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/feed_name"
                     android:text="@={viewModel.mutableParams.name}" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,14 +45,14 @@
                     android:id="@+id/layout_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/clipboard_button">
+                    android:layout_toStartOf="@id/clipboard_button"
+                    android:hint="@string/link">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/url"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text|textNoSuggestions"
-                        android:hint="@string/link"
                         android:text="@={viewModel.mutableParams.url}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,14 +95,14 @@
                 android:layout_height="wrap_content"
                 android:enabled="@{viewModel.mutableParams.autoDownload}"
                 app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_help_grey600_24dp">
+                app:endIconDrawable="@drawable/ic_help_grey600_24dp"
+                android:hint="@string/filter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine|textNoSuggestions"
-                    android:hint="@string/filter"
                     android:text="@={viewModel.mutableParams.filter}" />
             </com.google.android.material.textfield.TextInputLayout>
 
