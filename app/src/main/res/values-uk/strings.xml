@@ -48,14 +48,14 @@
     <string name="switch_off">Вимк.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Видалити завантажені файли</string>
-    <string name="delete_selected_torrent">Видалити вибраний торрент? Цю операцію неможливо відмінити</string>
-    <string name="delete_selected_torrents">Видалити вибрані торренти? Цю операцію неможливо відмінити</string>
+    <string name="delete_selected_torrent">Видалити вибраний торент\? (Неможливо відмінити)</string>
+    <string name="delete_selected_torrents">Видалити вибрані торенти\? (Неможливо відмінити.)</string>
     <string name="force_recheck_torrent">Примусово перевірити</string>
     <string name="force_announce_torrent">Примусове анонсування</string>
     <string name="add_link">Додати посилання</string>
     <string name="dialog_add_link_title">Введіть magnet або HTTP/HTTPS посилання</string>
-    <string name="torrent_list_empty">Немає торрентів</string>
-    <string name="select_or_add_torrent">Виберіть або додайте торрент</string>
+    <string name="torrent_list_empty">Немає торентів</string>
+    <string name="select_or_add_torrent">Виберіть або додайте торент</string>
     <string name="error_empty_link">Введіть посилання</string>
     <string name="error_invalid_link">Невірне посилання</string>
     <string name="error_open_torrent_file">Не вдалося відкрити .torrent файл</string>
@@ -119,19 +119,19 @@
     <string name="network_offline">Статус мережі: Офлайн</string>
     <string name="notify_shutting_down">Вимкнення…</string>
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Помилка торрента</string>
+    <string name="torrent_error_notify_title">Помилка торента</string>
     <string name="error_template">Помилка: %1$s</string>
-    <string name="restore_torrent_error">не вдалося відновити торрент з попередньої сесії</string>
+    <string name="restore_torrent_error">Неможливо відновити торент з попередньої сесії</string>
     <string name="session_error_title">Помилка сесії</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Помилка NAT</string>
     <!-- Finish notification -->
-    <string name="torrent_finished_notify">Торрент завершено</string>
+    <string name="torrent_finished_notify">Торент завершено</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">Переміщення торрента</string>
+    <string name="torrent_moving_title">Переміщення торента…</string>
     <string name="torrent_moving_content">Переміщення %1$s, зачекайте</string>
-    <string name="torrent_move_success">Торрент успішно переміщено</string>
-    <string name="torrent_move_fail">Не вдалося перемістити торрент</string>
+    <string name="torrent_move_success">Торент переміщено</string>
+    <string name="torrent_move_fail">Не вдалося перемістити торент</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -151,23 +151,23 @@
     <string name="torrent_status_downloading_metadata">Завантаження метаданих</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвіл відхилено</string>
-    <string name="perm_denied_warning">Без цього дозволу неможливо зберегти торрент-файли в пам\'яті. Додаток не буде працювати належним чином. Ви впевнені, що хочете заборонити цей дозвіл?</string>
+    <string name="perm_denied_warning">Ви впевнені, що хочете заборонити застосункові тримання торент-файлів у пам\'яті\?</string>
     <!-- Add torrent dialog -->
-    <string name="add_torrent_title">Додати торрент</string>
-    <string name="error_decode_torrent">Помилка декодування торренту. Можливо, файл пошкоджений або має неправильний формат</string>
-    <string name="error_io_torrent">Помилка читання торрент-файлу</string>
+    <string name="add_torrent_title">Додати торент</string>
+    <string name="error_decode_torrent">Помилка декодування торенту. Можливо, файл пошкоджений або має неправильний формат</string>
+    <string name="error_io_torrent">Помилка читання торент-файлу</string>
     <string name="error_fetch_link">Не вдалося отримати дані з посилання</string>
     <string name="error_invalid_link_or_path">Невірне посилання або шлях до торента</string>
-    <string name="error_add_torrent">Не вдалося додати торрент</string>
-    <string name="error_file_not_found_add_torrent">Не вдалося додати торрент. Можливо, торрент-файл переміщено або видалено</string>
-    <string name="error_io_add_torrent">Не вдалося додати торрент. Помилка вводу/виводу</string>
-    <string name="torrent_exist">Торрент вже існує. Торренти були об\'єднані</string>
+    <string name="error_add_torrent">Не вдалося додати торент</string>
+    <string name="error_file_not_found_add_torrent">Не вдалося додати торент. Можливо, торент-файл переміщено або видалено</string>
+    <string name="error_io_add_torrent">Не вдалося додати торент. Помилка вводу/виводу</string>
+    <string name="torrent_exist">Торент вже існує. Торенти були об\'єднані</string>
     <string name="error_field_required">Це поле обов\'язкове для заповнення</string>
     <string name="error_no_files_selected">Не вибрано жодного файлу</string>
     <string name="free_space">%1$s вільно</string>
     <string name="error_free_space">Не вистачає вільного місця на вибраному шляху для завантаження вибраних файлів</string>
     <string name="files_size">Обрано %1$s з %2$s</string>
-    <string name="start_torrent">Запустити торрент</string>
+    <string name="start_torrent">Запустити торент</string>
     <string name="file_is_too_large_error">Файл завеликий</string>
     <string name="unable_to_open_folder">Не вдається відкрити вибрану папку. Будь ласка, спробуйте вибрати іншу папку</string>
     <string name="error_empty_name">Будь ласка, введіть ім\'я</string>
@@ -187,7 +187,7 @@
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Вибір папки</string>
     <string name="file_chooser_title">Вибір файлу</string>
-    <string name="torrent_file_chooser_title">Вибір торрента</string>
+    <string name="torrent_file_chooser_title">Вибір торента</string>
     <string name="dialog_new_folder_title">Нова папка</string>
     <string name="error_dialog_new_folder">Не вдалося створити нову папку</string>
     <string name="error_open_dir">Не вдалося відкрити папку</string>
@@ -256,15 +256,15 @@
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Веб</string>
     <string name="peer_connection_type_utp">μTP</string>
-    <string name="peer_list_empty">Зараз цей торрент не пов\'язаний з жодним піром</string>
+    <string name="peer_list_empty">Зараз цей торент не пов\'язаний з жодним піром</string>
     <string name="piece_map">Карта частин</string>
     <string name="resume_torrent">Запустити</string>
     <string name="pause_torrent">Пауза</string>
     <string name="share_magnet">Поділитися magnet-посиланням</string>
-    <string name="save_torrent_file">Зберегти торрент файл</string>
+    <string name="save_torrent_file">Зберегти торент файл</string>
     <string name="torrent_speed_limit">Обмеження швидкості</string>
     <string name="share_via">Поділитися через</string>
-    <string name="save_torrent_file_successfully">Торрент-файл успішно збережено</string>
+    <string name="save_torrent_file_successfully">Торент-файл збережено</string>
     <string name="error_save_torrent_file">Не вдалося зберегти торрент-файл</string>
     <string name="speed_limit_title">Максимальна швидкість</string>
     <string name="upload_speed">Віддача</string>
