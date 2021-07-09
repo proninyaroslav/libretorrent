@@ -10,26 +10,26 @@
         android:id="@+id/layout_download_limit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/download_speed"
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/download_limit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/download_speed"
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_upload_limit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="@string/upload_speed">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/upload_limit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/upload_speed"
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

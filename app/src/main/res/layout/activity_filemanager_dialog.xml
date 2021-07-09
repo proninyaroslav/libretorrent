@@ -97,14 +97,14 @@
                     android:id="@+id/layout_file_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:hint="@string/file_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/file_name"
                         style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/file_name"
                         android:textColor="?android:attr/textColorPrimary" />
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>

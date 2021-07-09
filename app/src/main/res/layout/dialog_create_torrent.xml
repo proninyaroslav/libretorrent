@@ -52,7 +52,8 @@
                         android:id="@+id/layout_file_or_dir_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/folder_chooser_button">
+                        android:layout_toStartOf="@id/folder_chooser_button"
+                        android:hint="@string/file_or_folder_for_seeding">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/file_or_dir_path"
@@ -60,7 +61,6 @@
                             android:layout_height="wrap_content"
                             android:focusable="false"
                             android:text="@{viewModel.mutableParams.seedPathName}"
-                            android:hint="@string/file_or_folder_for_seeding"
                             android:inputType="textMultiLine" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,14 +140,14 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
                             android:id="@+id/skip_files"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text|textNoSuggestions"
                             android:ellipsize="end"
                             android:text="@={viewModel.mutableParams.skipFiles}"
-                            android:hint="@string/skip_files_hint"/>
+                            android:hint="@string/skip_files_hint" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
                             android:id="@+id/tracker_urls"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
                             android:id="@+id/web_seed_urls"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
                             android:id="@+id/comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
