@@ -549,4 +549,9 @@
     <string name="log_journal">Journal</string>
     <string name="switch_off">Désactivé</string>
     <string name="torrent_seeds">Partageurs</string>
+    <string name="pref_default_trackers_list_summary">Liste des traqueurs qui sont utilisés dans les cas suivants :
+\n1. Lors de l\'ajout d\'un torrent, la liste par défaut est automatiquement ajoutée à la liste de torrents.
+\n2. Utilisés pour récupérer les liens magnétiques.</string>
+    <string name="pref_default_trackers_list_title">Traqueurs par défaut</string>
+    <string name="pref_watch_dir_delete_file_title">Supprimer le fichier .torrent après l\'avoir ajouté</string>
 </resources>
