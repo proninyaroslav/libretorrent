@@ -74,14 +74,14 @@
     <string name="drawer_status_downloading_metadata">Hämtar metadata…</string>
     <string name="drawer_status_error">Error</string>
     <!-- Sorting -->
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_progress">Progress</string>
+    <string name="drawer_sorting_name">Namn</string>
+    <string name="drawer_sorting_progress">Förlopp</string>
     <string name="drawer_sorting_ETA">ETA</string>
     <!-- Date added -->
     <!-- Tags -->
     <string name="tags">Tags</string>
     <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
+    <string name="tag_name">Taggnamn</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Kunde inte lägga till tagg</string>
     <string name="tag_deleting_failed">Kunde inte ta bort tagg</string>
@@ -220,7 +220,7 @@
     <string name="error_backup_feeds">Kunde inte spara kanaler</string>
     <string name="error_restore_feeds_backup">Kunde inte återställa kanaler</string>
     <!-- Create torrent dialog -->
-    <string name="creating_torrent_progress">Vänligen vänta medans torrenten skapas…</string>
+    <string name="creating_torrent_progress">Vänligen vänta medan torrenten skapas…</string>
     <string name="file_or_folder_for_seeding">Fil eller mapp att distribuera</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Välj en fil eller mapp att distribuera först.</string>
     <string name="web_seed_urls">URL:er för webbdistribution</string>
@@ -409,7 +409,7 @@
     <string name="pref_feed_keep_items_time_title">Behåll artiklar</string>
     <string name="pref_custom_battery_control_value_title">Procent av batterikontroll</string>
     <string name="pref_custom_battery_control_title">Anpassad batteriprocent</string>
-    <string name="pref_torrent_queueing_category">Torrent-kö</string>
+    <string name="pref_torrent_queueing_category">Torrentkö</string>
     <string name="pref_watch_dir_title">Bevaka mapp</string>
     <string name="pref_journal_max_stored_entries">Maximalt lagrade journal-poster</string>
     <string name="journal_filter_session_log">Sessionslogg</string>
@@ -551,4 +551,8 @@
     <string name="force_recheck_torrent">Tvinga återkontroll</string>
     <string name="pref_move_after_download_in_title">Flytta efter hämtning till</string>
     <string name="pref_watch_dir_delete_file_title">Ta bort .torrent-filen efter tilläggning</string>
+    <string name="pref_default_trackers_list_summary">Bevakarlista, som används i följande fall:
+\n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan.
+\n2. Används för att hämta magnetlänkar.</string>
+    <string name="pref_default_trackers_list_title">Standard bevakare</string>
 </resources>
