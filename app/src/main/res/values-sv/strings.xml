@@ -7,7 +7,7 @@
     <string name="no">Nej</string>
     <string name="error">Fel</string>
     <string name="warning">Varning</string>
-    <string name="shutdown">Stäng av</string>
+    <string name="shutdown">Avsluta</string>
     <string name="replace">Ersätt</string>
     <string name="add">Lägg till</string>
     <string name="delete">Radera</string>
@@ -292,7 +292,7 @@
     <string name="pref_enable_roaming_summary">Hämta endast om enheten inte använder roaming.</string>
     <string name="pref_keep_alive_summary">Låter appen köras i bakgrunden. (Respekterar fortfarande att appen stängs när alla hämtningar är färdiga.)</string>
     <string name="pref_shutdown_downloads_complete_title">Stäng efter att alla hämtningar har avslutats</string>
-    <string name="pref_shutdown_downloads_complete_summary">Stänger av appen när allting är hämtat.</string>
+    <string name="pref_shutdown_downloads_complete_summary">Avslutar appen när allting är hämtat.</string>
     <string name="pref_cpu_do_not_sleep_summary">Använd om hämtningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Hämta endast och ladda endast upp under laddning.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Inga filer förs över om inte enheten laddas. (Pausar alla torrenter när ingen laddare är ansluten.)</string>
@@ -339,7 +339,7 @@
     <string name="pref_proxy_login_title">Användarnamn</string>
     <string name="pref_proxy_password_title">Lösenord</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_summary">Starta appen vid den specifika tiden. Torrenterna körs enligt deras tillstånd innan den sista stängs ner.</string>
+    <string name="pref_enable_scheduling_start_summary">Starta appen vid den specifika tiden. Torrenterna körs enligt deras tillstånd innan den sista avslutas.</string>
     <string name="pref_scheduling_switch_wifi_title">Växla Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Aktivera Wi-Fi för schemalagd start och av för schemalagt stopp.</string>
     <!-- Feed settings -->
@@ -385,7 +385,7 @@
     <string name="torrent_finished_notify">Torrent färdig</string>
     <string name="session_error_title">Sessionsfel</string>
     <string name="torrent_error_notify_title">Torrent-fel</string>
-    <string name="notify_shutting_down">Stänger ner…</string>
+    <string name="notify_shutting_down">Avslutar…</string>
     <string name="app_running_in_the_background">Körs i bakgrunden…</string>
     <string name="torrent_count_notify_template">%1$d ⬇ av %2$d</string>
     <string name="without_tags">Utan taggar</string>
@@ -420,8 +420,8 @@
     <string name="drawer_sorting_date_added">Datum som den lades till</string>
     <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>
     <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Stäng ner appen vid en specifik tid</string>
-    <string name="pref_enable_scheduling_shutdown_title">Tid för nerstängning</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Avsluta appen vid en specifik tid</string>
+    <string name="pref_enable_scheduling_shutdown_title">Tid för stängning</string>
     <string name="pref_enable_scheduling_start_title">Start-tid</string>
     <string name="pref_proxy_requires_auth_title">Kräver autentisering</string>
     <string name="pref_proxy_peers_too_title">Använd också för anslutningar</string>
