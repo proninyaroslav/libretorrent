@@ -352,7 +352,7 @@
     <string name="error_create_torrent">トレントを作成できません</string>
     <string name="skip_files">ファイルをスキップ</string>
     <string name="skip_files_hint">\"|\" で区切られたファイル名を入力して下さい。</string>
-    <string name="select_folder_to_save">保存するフォルダを選択</string>
+    <string name="select_folder_to_save">保存先フォルダを選択</string>
     <string name="torrent_saved_to">トレントを %1$s に保存しました</string>
     <string name="unable_to_open_file">選択したファイルを開けません</string>
     <string name="unable_to_create_file">ファイルを作成できません</string>
