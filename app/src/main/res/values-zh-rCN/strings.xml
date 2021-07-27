@@ -17,11 +17,11 @@
     <string name="search">搜索</string>
     <string name="not_available">不可用</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 小时 %3$d 分钟</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 时 %3$d 分</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d 小时 %2$d 分钟 %3$d 秒</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d 时 %2$d 分 %3$d 秒</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d 分钟 %2$d 秒</string>
+    <string name="elapsed_time_format_mm_ss">%1$d 分 %2$d 秒</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d 秒</string>
     <string name="def">默认</string>
@@ -47,13 +47,13 @@
     <string name="switch_on">打开</string>
     <string name="switch_off">关闭</string>
     <!-- Main window -->
-    <string name="delete_torrent_with_downloaded_files">同时删除文件</string>
-    <string name="delete_selected_torrent">删除所选定的种子？（ 此操作无法撤销。）</string>
-    <string name="delete_selected_torrents">删除所选定的所有种子？（此操作无法撤销。）</string>
+    <string name="delete_torrent_with_downloaded_files">与已下载的文件一并删除</string>
+    <string name="delete_selected_torrent">删除所选定的种子？（ 无法撤销。）</string>
+    <string name="delete_selected_torrents">删除所选定的所有种子？（无法撤销。）</string>
     <string name="force_recheck_torrent">强制重新校验</string>
     <string name="force_announce_torrent">强制发布</string>
     <string name="add_link">添加链接</string>
-    <string name="dialog_add_link_title">输入磁力链接或 HTTP/S 链接</string>
+    <string name="dialog_add_link_title">输入信息哈希值、磁力链接或 HTTP/S 链接</string>
     <string name="torrent_list_empty">没有种子任务</string>
     <string name="select_or_add_torrent">选择或添加一个种子</string>
     <string name="error_empty_link">输入链接</string>
@@ -89,8 +89,8 @@
     <string name="drawer_sorting_no_sorting">不排序</string>
     <!-- Date added -->
     <string name="drawer_date_added">添加日期</string>
-    <string name="drawer_date_added_today">今天</string>
-    <string name="drawer_date_added_yesterday">昨天</string>
+    <string name="drawer_date_added_today">今日</string>
+    <string name="drawer_date_added_yesterday">昨日</string>
     <string name="drawer_date_added_week">本周</string>
     <string name="drawer_date_added_month">本月</string>
     <string name="drawer_date_added_year">本年</string>
@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">下载元数据中…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">获取权限失败</string>
-    <string name="perm_denied_warning">你真的要阻止应用程序在内存中保存种子文件吗？</string>
+    <string name="perm_denied_warning">真的要阻止应用程序在内存中保存种子文件吗？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">添加种子</string>
     <string name="error_decode_torrent">无法解码种子文件。可能文件已损坏或格式不正确？</string>
@@ -176,8 +176,8 @@
     <string name="torrent_info">详情</string>
     <string name="torrent_files">文件</string>
     <string name="torrent_name">名称</string>
-    <string name="upload_torrent_into">上载到…</string>
-    <string name="torrent_size">文件大小</string>
+    <string name="upload_torrent_into">上传至…</string>
+    <string name="torrent_size">大小</string>
     <string name="torrent_file_count">文件数量</string>
     <string name="torrent_hash_sum">校验和</string>
     <string name="torrent_comment">注释</string>
@@ -288,7 +288,7 @@
     <string name="feed_channel_list_empty">无频道</string>
     <string name="select_or_add_feed_channel">选择或添加一个 RSS/Atom 频道</string>
     <string name="add_feed_channel">添加频道</string>
-    <string name="feed_name">(可选) 名称</string>
+    <string name="feed_name">（可选）名称</string>
     <string name="feed_filter_prompt">输入多个单词或一条正则表达式进行过滤 （注：多个单词间用\"|\"隔开，其中之一必须包含在种子名称中）。只有当这个过滤器与种子名称相匹配时，才会添加种子。</string>
     <string name="feed_filter_prompt_one_per_line">每行输入一个过滤器。</string>
     <string name="feed_auto_download">自动下载种子</string>
@@ -316,7 +316,7 @@
     <string name="feeds_backup_selection_dialog_title">选择备份文件</string>
     <string name="error_import_invalid_format">无效格式</string>
     <string name="feed_do_not_download_immediately">不立即下载</string>
-    <string name="feed_item_url_not_found">找不到URL</string>
+    <string name="feed_item_url_not_found">找不到 URL</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建BT种子</string>
     <string name="creating_torrent_progress">正在创建种子，请稍候…</string>
@@ -397,13 +397,13 @@
     <string name="pref_max_download_speed_title">最大下载速度</string>
     <string name="pref_max_upload_speed_title">最大上传速度</string>
     <string name="pref_max_connections_title">最大连接数</string>
-    <string name="pref_max_connections_summary">(最少 2 个连接)</string>
+    <string name="pref_max_connections_summary">（最少 2 个连接）</string>
     <string name="pref_torrent_queueing_category">种子队列</string>
     <string name="pref_max_active_uploads_title">最大活跃上传数</string>
     <string name="pref_max_active_downloads_title">最大活跃下载数</string>
     <string name="pref_max_active_torrents_title">最大活动种子数</string>
     <string name="pref_max_connections_per_torrent_title">每个种子最大连接数</string>
-    <string name="pref_max_connections_per_torrent_summary">(最少 2 个连接)</string>
+    <string name="pref_max_connections_per_torrent_summary">（最少 2 个连接）</string>
     <string name="pref_max_uploads_per_torrent_title">每个种子最大上传插槽数</string>
     <string name="pref_auto_manage_title">自动管理</string>
     <string name="pref_auto_manage_summary">可在任何时候自动恢复或暂停 种子。(可能会减慢暂停/恢复的速度。)</string>
@@ -503,7 +503,7 @@
     <string name="pref_enable_scheduling_shutdown_title">关闭时间</string>
     <string name="pref_enable_scheduling_shutdown_summary">在指定时间关闭应用</string>
     <string name="pref_scheduling_run_only_once_title">只运行一次</string>
-    <string name="pref_scheduling_switch_wifi_title">启用/禁用 Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_title">切换 Wi-Fi 状态</string>
     <string name="pref_scheduling_switch_wifi_summary">当程序在设定时间被启动时，自动启用 Wi-Fi；在程序于设定时间被关闭后，自动关闭 Wi-Fi。</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
