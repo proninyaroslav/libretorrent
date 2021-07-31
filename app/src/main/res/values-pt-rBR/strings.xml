@@ -318,11 +318,11 @@
     <string name="web_seed_urls">URLs de compartilhamento da Web</string>
     <string name="comments">Comentários</string>
     <string name="tracker_urls_hint">(Opcional) digite um rastreador por linha na ordem de prioridade.</string>
-    <string name="web_seed_urls_hint">(opcional) Uma por linha</string>
-    <string name="optional_hint">(opcional)</string>
+    <string name="web_seed_urls_hint">(Opcional) um por linha</string>
+    <string name="optional_hint">(Opcional)</string>
     <string name="piece_size">Tamanho da peça</string>
     <string name="create_torrent_options">Opções</string>
-    <string name="option_start_seeding">Comece a semeando</string>
+    <string name="option_start_seeding">Começar a compartilhar</string>
     <string name="option_private_torrent">Torrente privada</string>
     <string-array name="piece_size_entries">
         <item>Automático</item>
@@ -341,13 +341,13 @@
     </string-array>
     <string name="invalid_url">URL inválida: %1$s</string>
     <string name="folder_is_empty">A pasta selecionada está vazia ou todos os arquivos são excluídos pelo filtro.</string>
-    <string name="error_create_torrent">Não é possível criar torrent</string>
+    <string name="error_create_torrent">Não foi possível criar torrent</string>
     <string name="skip_files">Ignorar arquivos</string>
     <string name="skip_files_hint">Digite os nomes dos arquivos separados por \"|\".</string>
     <string name="select_folder_to_save">Selecione uma pasta para salvar.</string>
     <string name="torrent_saved_to">Torrent salvo em %1$s</string>
-    <string name="unable_to_open_file">Não foi possível abrir arquivo</string>
-    <string name="unable_to_create_file">Não foi possível criar arquivo</string>
+    <string name="unable_to_open_file">Não foi possível abrir o arquivo selecionado</string>
+    <string name="unable_to_create_file">Não foi possível criar o arquivo</string>
     <!-- Log -->
     <string name="log_journal">Registro</string>
     <string name="journal_list_empty">Não há registros</string>
@@ -356,12 +356,12 @@
     <string name="journal_started_recording">Gravação iniciada</string>
     <string name="journal_filter_session_log">Registo da sessão</string>
     <string name="journal_filter_dht_log">Registro de DHT</string>
-    <string name="journal_filter_peer_log">Registro de Peer</string>
+    <string name="journal_filter_peer_log">Histórico de conexão</string>
     <string name="journal_filter_portmap_log">Registro UPnP/NAT-PMP</string>
     <string name="journal_filter_torrent_log">Registro Torrent</string>
-    <string name="journal_save_log_failed">Falhou ao salvar registro</string>
-    <string name="journal_save_log_success">Registro salvo com êxito: %1$s</string>
-    <string name="pref_journal_save_log_to">Salvar registro a</string>
+    <string name="journal_save_log_failed">Não foi possível salvar o histórico</string>
+    <string name="journal_save_log_success">Registro salvo: %1$s</string>
+    <string name="pref_journal_save_log_to">Salvar registro em…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Limite máximo de registros</string>
     <!-- Settings -->
@@ -375,12 +375,12 @@
     <string name="pref_header_feed">Leitor RSS</string>
     <string name="pref_header_streaming">Transmissão</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrents_in_title">Salvar torrents em</string>
+    <string name="pref_save_torrents_in_title">Salvar torrents em…</string>
     <string name="pref_move_after_download_title">Mover depois de baixar</string>
     <string name="pref_move_after_download_in_title">Mover depois de baixar em</string>
     <string name="pref_save_torrent_files_title">Salvar arquivos .torrent</string>
     <string name="pref_save_torrent_files_summary">Salvar arquivos .torrent quando o download começa.</string>
-    <string name="pref_save_torrent_files_in_title">Salvar arquivos .torrent em</string>
+    <string name="pref_save_torrent_files_in_title">Salvar arquivos .torrent em…</string>
     <string name="pref_watch_dir_title">Assista o diretório</string>
     <string name="pref_watch_dir_summary">Arquivos .torrent nessa pasta são adicionados automaticamente e então deletados.</string>
     <string name="pref_dir_to_watch_title">Diretório para assistir</string>
@@ -388,17 +388,17 @@
     <string name="pref_speed_category">Velocidade</string>
     <string name="pref_max_download_speed_title">Velocidade máxima ao baixar</string>
     <string name="pref_max_upload_speed_title">Velocidade máxima ao enviar</string>
-    <string name="pref_max_connections_title">Número máximo de conexões</string>
-    <string name="pref_max_connections_summary">Número mínimo de conexões - 2</string>
+    <string name="pref_max_connections_title">Número máx. de conexões</string>
+    <string name="pref_max_connections_summary">(Mín. 2 conexões.)</string>
     <string name="pref_torrent_queueing_category">Enfileirando torrent</string>
-    <string name="pref_max_active_uploads_title">Máximo de uploads ativos</string>
-    <string name="pref_max_active_downloads_title">Máximo de downloads ativos</string>
-    <string name="pref_max_active_torrents_title">Máximo de torrents ativos</string>
-    <string name="pref_max_connections_per_torrent_title">Número máximo de conexões por torrente</string>
-    <string name="pref_max_connections_per_torrent_summary">Número mínimo de conexões - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Número máximo de upload slots por torrente</string>
-    <string name="pref_auto_manage_title">Gerenciamento automático</string>
-    <string name="pref_auto_manage_summary">O torrent pode ser retomado ou pausado automaticamente em qualquer ponto. A ativação desta opção pode diminuir a velocidade da pausa/resumo</string>
+    <string name="pref_max_active_uploads_title">Número máx. de envios ativos</string>
+    <string name="pref_max_active_downloads_title">Número máx. de downloads ativos</string>
+    <string name="pref_max_active_torrents_title">Número máx. de torrents ativos</string>
+    <string name="pref_max_connections_per_torrent_title">Número máx. de conexões por torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">(Mín. 2 conexões.)</string>
+    <string name="pref_max_uploads_per_torrent_title">Número máximo de espaços de upload por torrent</string>
+    <string name="pref_auto_manage_title">Auto-gerenciar</string>
+    <string name="pref_auto_manage_summary">O torrent pode ser automaticamente resumido ou pausado a qualquer ponto. (Pode deixar lenta a pausa ou o resumo)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 sem limites</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Configurações de tema</string>
@@ -551,4 +551,9 @@
     <string name="new_tag">Nova etiqueta</string>
     <string name="select_tag">Selecionar etiqueta</string>
     <string name="edit_tag">Editar etiqueta</string>
+    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que são usados nos seguintes casos:
+\n1. Quando adicionar um torrent, a lista padrão é automaticamente adicionada à lista de torrents
+\n2. Usada para obter links magnet</string>
+    <string name="pref_default_trackers_list_title">Rastreadores padrão</string>
+    <string name="pref_watch_dir_delete_file_title">Deletar arquivo .torrent após adicioná-lo</string>
 </resources>
