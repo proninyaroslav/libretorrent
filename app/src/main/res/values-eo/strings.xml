@@ -232,4 +232,17 @@
     <string name="delete_selected_torrent">Ĉu forigi elektitan torenton\? (Ne povos malfari.)</string>
     <string name="refresh">Aktualigi</string>
     <string name="shutdown">Elŝalti</string>
+    <string name="drawer_sorting_peers">Populareco</string>
+    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="session_stats_listen_port">Aŭskultanta pordo: %1$s</string>
+    <string name="session_stats_dht_nodes">Nodoj DHT: %1$d</string>
+    <string name="theme_settings_apply_after_reboot">Restartu la aplikaĵon, por uzi la novan etoson.</string>
+    <string name="proxy_settings_apply_after_reboot">Restartu la aplikaĵon, por uzi la novajn agordojn de prokura servilo.</string>
+    <string name="proxy_settings_applied">Uzante la novajn agordojn de prokura servilo.</string>
+    <string name="ip_filter_add_success">Filtrilo IP aldonita</string>
+    <string name="ip_filter_add_error">Ne povus aldoni la filtrilo IP (%1$d malsukcesis). Eble la dosiero estas damaĝita aŭ en erara aranĝo\?</string>
+    <string name="dialog_add_link_title">Tajpu la valoro infohash, ligilo magnet, aŭ ligilo HTTP/S</string>
+    <string name="force_announce_torrent">Devige-konekto</string>
+    <string name="force_recheck_torrent">Devige rekontroli</string>
+    <string name="filters">Filtriloj</string>
 </resources>
