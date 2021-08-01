@@ -175,10 +175,10 @@
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Berkas</string>
     <string name="torrent_name">Nama</string>
-    <string name="upload_torrent_into">Mengunggah ke</string>
+    <string name="upload_torrent_into">Mengunggah ke…</string>
     <string name="torrent_size">Ukuran</string>
     <string name="torrent_file_count">Jumlah berkas</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Checksum</string>
     <string name="torrent_comment">Komentar</string>
     <string name="torrent_create_date">Dibuat</string>
     <string name="torrent_created_in_program">Dibuat di program</string>
