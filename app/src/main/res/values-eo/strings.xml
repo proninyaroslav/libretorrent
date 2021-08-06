@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="torrent_status_downloading">Elŝutado…</string>
+    <string name="torrent_status_downloading">Elŝutante…</string>
     <string name="torrent_finished_notify">Torento finita</string>
     <string name="nat_error_title">NAT eraro</string>
-    <string name="session_error_title">Sesia eraro</string>
+    <string name="session_error_title">Seanca eraro</string>
     <string name="error_template">Eraro: %1$s</string>
     <string name="torrent_error_notify_title">Torenta eraro</string>
     <string name="drawer_date_added_year">Jaro</string>
@@ -19,7 +19,7 @@
     <string name="drawer_sorting">Ordigo</string>
     <string name="drawer_status_error">Eraro</string>
     <string name="drawer_status_downloaded">Elŝutita</string>
-    <string name="drawer_status_downloading">Elŝutado…</string>
+    <string name="drawer_status_downloading">Elŝutante…</string>
     <string name="drawer_status">Statuso</string>
     <string name="about">Pri</string>
     <string name="settings">Agordoj</string>
@@ -60,12 +60,12 @@
     <string name="ok">Bone</string>
     <string name="about_changelog">Ŝanĝoprotokolo</string>
     <string name="about_title">Pri</string>
-    <string name="pref_streaming_port">Haveno</string>
+    <string name="pref_streaming_port">Pordo</string>
     <string name="pref_scheduling_switch_wifi_title">Baskuli vifion</string>
     <string name="pref_scheduling_run_only_once_title">Lanĉi nur unufoje</string>
     <string name="pref_proxy_password_title">Pasvorto</string>
     <string name="pref_proxy_requires_auth_summary">Averto: la pasvorto estas konservita neĉifrite.</string>
-    <string name="pref_proxy_port_title">Haveno</string>
+    <string name="pref_proxy_port_title">Pordo</string>
     <string name="pref_proxy_address_title">Adreso</string>
     <string name="pref_anonymous_mode_title">Anonima reĝimo</string>
     <string name="pref_enc_mode_title">Reĝimo</string>
@@ -78,14 +78,14 @@
     <string name="pref_notification_category">Sciigaj agordoj</string>
     <string name="pref_theme_title">Etoso</string>
     <string name="pref_theme_category">Etosaj agordoj</string>
-    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 sen limo</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">−1 sen limo</string>
     <string name="pref_speed_category">Rapido</string>
     <string name="pref_dir_to_watch_title">Dosierujo por spekti</string>
     <string name="pref_watch_dir_title">Spekti dosierujon</string>
-    <string name="pref_save_torrent_files_in_title">Konservi .torrent dosierojn en</string>
+    <string name="pref_save_torrent_files_in_title">Konservi .torrent-dosierojn en…</string>
     <string name="pref_save_torrent_files_summary">Konservi .torrent dosierojn kiam elŝutado komencas.</string>
     <string name="pref_save_torrent_files_title">Konservi .torrent dosierojn</string>
-    <string name="pref_save_torrents_in_title">Konservi torentojn en</string>
+    <string name="pref_save_torrents_in_title">Konservi torentojn en…</string>
     <string name="pref_header_network">Retumo</string>
     <string name="pref_header_storage">Konservejo</string>
     <string name="pref_header_behavior">Agado</string>
@@ -378,4 +378,20 @@
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_client">Kliento: %1$s</string>
     <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
+    <string name="pref_enable_utp_title">μTP</string>
+    <string name="pref_enable_lsd_title">LSD</string>
+    <string name="pref_enable_dht_title">DHT</string>
+    <string name="pref_encryption_category">Ĉifrado</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_port_range_end_title">Fino</string>
+    <string name="pref_port_range_start_title">Komenco</string>
+    <string name="pref_port_range_title">Gamo de pordoj</string>
+    <string name="pref_enable_ip_filtering_title">IP-filtrado</string>
+    <string name="pref_ip_filtering_category">IP-filtrado</string>
+    <string name="pref_proxy_peers_too_title">Ankaŭ uzi por konektoj</string>
+    <string name="pref_enable_scheduling_start_title">Komenca tempo</string>
+    <string name="pref_proxy_login_title">Salutnomo</string>
+    <string name="pref_max_connections_per_torrent_summary">(Minimume 2 konektoj.)</string>
+    <string name="pref_max_connections_summary">(Minimume 2 konektoj.)</string>
 </resources>
