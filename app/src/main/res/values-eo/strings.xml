@@ -209,7 +209,7 @@
     <string name="notify_shutting_down">Elŝutas…</string>
     <string name="network_offline">Eksterreta</string>
     <string name="network_online">Enreta</string>
-    <string name="torrent_count_notify_template">%1$d ⬇ de %2$d</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ el %2$d</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
