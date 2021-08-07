@@ -417,38 +417,38 @@
     <string name="pref_led_indicator_color_notify_title">Cor do indicador de LED</string>
     <string name="pref_vibration_notify_title">Vibração</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Auto Iniciar</string>
+    <string name="pref_autostart_title">Iniciar Automaticamente</string>
     <string name="pref_autostart_summary">Rodar o aplicativo ao iniciar o dispositivo.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Apenas conexões não limitadas</string>
+    <string name="pref_umnetered_connections_only_title">Apenas conexões ilimitadas</string>
     <string name="pref_umnetered_connections_only_summary">Baixar somente em conexões sem um limite (por exemplo Wi-Fi ou a cabo).</string>
-    <string name="pref_enable_roaming_title">Ativar roaming</string>
+    <string name="pref_enable_roaming_title">Roaming</string>
     <string name="pref_enable_roaming_summary">Baixar somente se o dispositivo não estiver em roaming.</string>
     <string name="pref_power_management_category">Gerenciamento de energia</string>
-    <string name="pref_keep_alive_title">Trabalhar em segundo plano</string>
-    <string name="pref_keep_alive_summary">Se ativado, o aplicativo permanecerá em execução em segundo plano. Desligamento quando os downloads concluídos ainda são respeitados</string>
-    <string name="pref_shutdown_downloads_complete_title">Desligar ao terminar de baixar</string>
-    <string name="pref_shutdown_downloads_complete_summary">Se habilitado, o aplicativo irá desligar quando todos os downloads tiverem sido concluídos</string>
+    <string name="pref_keep_alive_title">Continuar executando</string>
+    <string name="pref_keep_alive_summary">Deixa a aplicação em execução em segundo plano. (Ainda respeita o fechamento da aplicação quando todos os downloads terminarem.)</string>
+    <string name="pref_shutdown_downloads_complete_title">Fechar ao terminar todos os downloads</string>
+    <string name="pref_shutdown_downloads_complete_summary">Desabilita a aplicação quando tudo for baixado.</string>
     <string name="pref_cpu_do_not_sleep_title">Manter a CPU ativa</string>
-    <string name="pref_cpu_do_not_sleep_summary">Se habilitado, irá aumentar o uso da bateria. Use esta opção se a velocidade ao baixar diminuir quando a tela se apagar</string>
+    <string name="pref_cpu_do_not_sleep_summary">Use caso a velocidade de download baixar quando a tela desligar. (Aumenta o uso de bateria.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Baixar e enviar apenas durante o carregamento.</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Se habilitado, torrents irão ser baixados/enviados apenas quando estiver carregando. Todos os torrents irão pausar quando não estiver conectado ao carregador</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Nenhum arquivo será transferido exceto se o dispositivo estiver carregando. (Pausa todos os torrents quando não conectado ao carregador.)</string>
     <string name="pref_battery_control_title">Controle de bateria</string>
     <string name="pref_custom_battery_control_title">Percentagem de bateria personalizada</string>
     <string name="pref_custom_battery_control_value_title">Percentagem de controle de bateria</string>
-    <string name="pref_battery_control_summary">Todos os torrents irão pausar se o nível de bateria estiver abaixo de %1$d%%. O limite não se aplica durante o tempo de carregamento</string>
+    <string name="pref_battery_control_summary">Pausa todos os torrents se o nível de bateria estiver abaixo de %1$d%%. (O limite não se aplica durante o carregamento)</string>
     <string name="pref_custom_battery_control_summary">Defina uma porcentagem personalizada para fazer uma pausa em downloads se a bateria cair abaixo do limite especificado. Habilitando isso ignorará o limite padrão de %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary">Definir uma porcentagem de bateria personalizada para o aplicativo terá um impacto negativo na vida da bateria enquanto os downloads estão ocorrendo. Tem certeza de que deseja ativar isso?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Configurações de Proxy</string>
-    <string name="pref_enable_dht_title">Habilitar DHT</string>
+    <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Isto permite que clientes BitTorrent consigam se achar sem o uso de rastreadores. Se habilitado, irá aumentar o uso da bateria</string>
-    <string name="pref_enable_lsd_title">Habilitar LSD</string>
+    <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Projetado para suportar descoberta local, com o objetivo de minimizar tráfego.</string>
-    <string name="pref_enable_utp_title">Habilitar μTP</string>
+    <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">Pretende-se mitigar a baixa latência e outros problemas no controle de congestionamentos encontrados em BitTorrent convencional sobre TCP, enquanto provê uma entrega confiável e ordenada</string>
-    <string name="pref_enable_upnp_title">Habilitar UPnP</string>
-    <string name="pref_enable_natpmp_title">Habilitar NAT-PMP</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Configurações de porta</string>
     <string name="pref_use_random_port_title">Usar porta aleatória</string>
     <string name="pref_use_random_port_summarty">Define a porta inicial aleatoriamente no intervalo [%1$d, %2$d] e a porta final como a primeira + 10</string>
@@ -456,7 +456,7 @@
     <string name="pref_port_range_start_title">Início</string>
     <string name="pref_port_range_end_title">Final</string>
     <string name="pref_encryption_category">Encriptação</string>
-    <string name="pref_enc_mode_title">Modo de encriptação</string>
+    <string name="pref_enc_mode_title">Modo</string>
     <string-array name="pref_enc_mode_entries">
         <item>Preferir encriptação</item>
         <item>Requerir encriptação</item>
@@ -465,13 +465,13 @@
     <string name="pref_enc_in_connections_title">Conexões de entrada</string>
     <string name="pref_enc_out_connections_title">Conexões de saída</string>
     <string name="pref_ip_filtering_category">Filtragem IP</string>
-    <string name="pref_enable_ip_filtering_title">Habilitar filtragem IP</string>
+    <string name="pref_enable_ip_filtering_title">Filtragem de IP</string>
     <string name="pref_enable_ip_filtering_summary">Uso da filtragem IP aumenta o uso de memória. Dependendo do tamanho do arquivo, o filtro pode levar algum tempo até ser aplicado durante a inicialização</string>
     <string name="pref_ip_filtering_file_title">Caminho para o arquivo de filtro (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Mostrar falha de NAT</string>
-    <string name="pref_anonymous_mode_title">Ativar modo anônimo</string>
+    <string name="pref_anonymous_mode_title">Modo anônimo</string>
     <string name="pref_anonymous_mode_summary">O aplicativo tenta esconder sua identidade até um certo grau. O agente de usuário será redefinido para uma seqüência vazia (exceto para torrents privados). Índices só serão usados se eles estiverem usando um servidor proxy. Os sockets de escuta estão fechados, e conexões de entrada só serão aceitas através de um proxy SOCKS5 ou I2P (se um proxy do par é configurado e é executado na mesma máquina que o proxy do rastreador). NAT-PMP, UPnP, DHT e detecção de conexões locais estão desativadas</string>
-    <string name="pref_seeding_outgoing_connections_title">Ativar conexões de saída para seeds</string>
+    <string name="pref_seeding_outgoing_connections_title">Conexões de saída para transmissores</string>
     <string name="pref_seeding_outgoing_connections_summary">Determina se os torrents compartilhados devem tentar fazer conexões de saída ou não. Pode ser desativado em situações muito específicas onde o custo de fazer conexões de saída é alto</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de Proxy</string>
@@ -483,11 +483,11 @@
     </string-array>
     <string name="pref_proxy_address_title">Endereço</string>
     <string name="pref_proxy_port_title">Porta</string>
-    <string name="pref_proxy_peers_too_title">Também utilizar para conexões de peer</string>
+    <string name="pref_proxy_peers_too_title">Também usar para conexões</string>
     <string name="pref_proxy_peers_too_summary">O proxy será utilizado para se conectar aos rastreadores, peers e web seeds</string>
     <string name="pref_proxy_requires_auth_title">Requer autorização</string>
     <string name="pref_proxy_requires_auth_summary">Aviso: A senha é salva como um arquivo comum.</string>
-    <string name="pref_proxy_login_title">Entrar</string>
+    <string name="pref_proxy_login_title">Nome de usuário</string>
     <string name="pref_proxy_password_title">Senha</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Horário de início</string>
@@ -495,10 +495,10 @@
     <string name="pref_enable_scheduling_shutdown_title">Horário de encerramento</string>
     <string name="pref_enable_scheduling_shutdown_summary">Encerrar aplicativo no horário especificado</string>
     <string name="pref_scheduling_run_only_once_title">Executar somente uma vez</string>
-    <string name="pref_scheduling_switch_wifi_title">Ligar/desligar Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_title">Alternar Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">O Wi-Fi é ativado automaticamente quando o aplicativo é iniciado no horário agendado e é desativado depois que o aplicativo é concluído no horário agendado</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Canais de atualização automática</string>
+    <string name="pref_feed_auto_refresh_title">Atualizar automaticamente canais</string>
     <string name="pref_feed_auto_refresh_summary">Periodicamente atualizar canais em segundo plano.</string>
     <string name="pref_feed_refresh_interval_title">Intervalo de atualização</string>
     <string-array name="pref_feed_refresh_intervals_entries">
@@ -511,7 +511,7 @@
         <item>1 dia</item>
     </string-array>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Apenas conexões não medidas</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Apenas em conexões ilimitadas</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Recarregar somente nas conexões sem um limite (por exemplo Wi-Fi ou a cabo).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Ativar roaming</string>
     <string name="pref_feed_keep_items_time_title">Mantenha artigos</string>
@@ -526,18 +526,18 @@
         <item>3 meses</item>
         <item>Sempre</item>
     </string-array>
-    <string name="pref_feed_start_torrents_title">Executar torrents</string>
+    <string name="pref_feed_start_torrents_title">Iniciar automaticamente torrents</string>
     <string name="pref_feed_start_torrents_summary">Baixa torrents adicionados.</string>
-    <string name="pref_feed_remove_duplicates_title">Excluir duplicados</string>
-    <string name="pref_feed_remove_duplicates_summary">Verifica o título do item recentemente baixado e pula quando um com o mesmo título já está presente</string>
+    <string name="pref_feed_remove_duplicates_title">Sem duplicação</string>
+    <string name="pref_feed_remove_duplicates_summary">Pula o download de títulos de arquivos já baixados</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Ativar streaming</string>
+    <string name="pref_streaming_enable_title">Streaming</string>
     <string name="pref_streaming_enable_summary">Streaming permite que você baixe arquivos individuais de um torrent usando um navegador ou media player usando URLs HTTP</string>
     <string name="pref_streaming_hostname">Nome do host</string>
     <string name="pref_streaming_port">Porta</string>
     <string name="pref_streaming_error">Selecione uma porta ou nome de host para o stream que não está ocupada ou incorreta.</string>
     <!-- About dialog -->
-    <string name="about_title">Sobre o LibreTorrent</string>
+    <string name="about_title">Sobre</string>
     <string name="about_description"><![CDATA[    Mais Informações e também para ajudar o projeto: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent é um cliente torrent liberta para Android 4+, baseado na biblioteca libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
     LibreTorrent é software livre, lançado sob os termos da <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
