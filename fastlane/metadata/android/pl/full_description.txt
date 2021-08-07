@@ -1,22 +1,18 @@
-# Funkcje
-
-* DHT, PeX, szyfrowanie, LSD, UPnP, NAT*PMP, μTP
-* Filtrowanie IP (eMule dat i PeerGuardian)
-* Możliwość dostrojenia (ustawienia sieci, zarządzanie zasilaniem, regulacja baterii, ustawienia interfejsu itp.)
-* Wspiera torrenty z dużą ilością i wielkim rozmiarem plików
-* Obsługa łączy HTTP\S i magnet
-* Obsługa proxy dla trackerów i peerów
-* Możliwość przenoszenia plików podczas pobierania
-* Możliwość automatycznego przenoszenia plików do innego katalogu lub na inny dysk po zakończeniu pobierania
-* Możliwość określenia priorytetów pliku i folderu
-* Możliwość wyboru plików do pobrania
-* Możliwość pobierania sekwencyjnego
-* Material Design
-* Ciemny i czarny motyw
-* Interfejs zoptymalizowany pod tablety
-* Planowanie
-* Menedżer RSS
-* Wsparcie dla Android TV
-* Możliwość tworzenia torrentów
-* Strumieniowanie jakiegokolwiek z wybranych plików
-* I więcej
+* Na licencji GPLv3+. Używaj, oglądaj, zmieniaj i dziel się ze wszystkimi.
+* Wybierz, które pliki chcesz ściągnąć.
+* Przenoś pliki podczas ściągania.
+* Automatycznie przenoś ściągnięte pliki do innego folderu lub dysku zewnętrznego.
+* Strumieniuj pliki ze ściąganiem sekwencyjnym.
+* Android TV.
+* Material Design, ciemny i czarny motyw, oraz interfejs dla tabletów.
+* Konfigurowalne ustawienia sieci, baterii, interfejsu itd.
+* 35+ języków.
+* Harmonogramowanie.
+* Automatyczne ściąganie z menedżerem Atom/RSS.
+* Twórz torrenty z wieloma bądź dużymi plikami.
+* Linki HTTP/HTTPS i magnet
+* DHT, PeX, szyfrowanie, LSD, UPnP, NAT*PMP, µTP.
+* Filtrowanie IP (eMule dat i PeerGuardian).
+* Obsługuje proxy dla trackerów i peerów.
+* Oparty na libtorrent4j.
+* I więcej.
