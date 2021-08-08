@@ -11,7 +11,7 @@
     <string name="replace">استبدال</string>
     <string name="add">إضافة</string>
     <string name="delete">حذف</string>
-    <string name="deleting">جاري الحذف</string>
+    <string name="deleting">جاري الحذف…</string>
     <string name="select_all">تحديد الكل</string>
     <string name="save">حفظ</string>
     <string name="search">بحث</string>
@@ -48,8 +48,8 @@
     <string name="switch_off">مغلق</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">حذف مع الملفات التي تم تنزيلها</string>
-    <string name="delete_selected_torrent">حذف التورنت المحدد؟ هذه العملية لا يمكن التراجع عنها</string>
-    <string name="delete_selected_torrents">حذف التورنتات المحددة؟ هذه العملية لا يمكن التراجع عنها</string>
+    <string name="delete_selected_torrent">هل تريد حذف التورنت المحدد؟ (هذه العملية لا يمكن التراجع عنها)</string>
+    <string name="delete_selected_torrents">هل تريد حذف التورنتات المحددة؟ (هذه العملية لا يمكن التراجع عنها)</string>
     <string name="force_recheck_torrent">تأكيد إعادة التحقق</string>
     <string name="force_announce_torrent">تأكيد الإعلان</string>
     <string name="add_link">إضافة رابط</string>
@@ -452,4 +452,23 @@
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
     LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
     LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="feed_do_not_download_immediately">لا تقم بالتنزيل مباشرة</string>
+    <string name="feeds_backup_selection_dialog_title">اختر ملف النسخ الاحتياطي</string>
+    <string name="feed_item_open_article_url">فتح المقال</string>
+    <string name="edit_feed_channel">تعديل قناة</string>
+    <string name="delete_selected_channels">هل تريد مسح القناة المحددة؟</string>
+    <string name="copy_link">نسخ الرابط</string>
+    <string name="error_cannot_delete_channel">لا يمكن مسح قناة</string>
+    <string name="error_cannot_edit_channel">لا يمكن تعديل قناة</string>
+    <string name="error_cannot_add_channel">لا يمكن إضافة قناة</string>
+    <string name="feed_last_update_never">ابدا</string>
+    <string name="restore_feed_channels_backup">تحميل نسخة احتياطية</string>
+    <string name="backup_feed_channels">حفظ نسخة احتياطية</string>
+    <string name="feed_channel_list_empty">لا توجد قنوات</string>
+    <string name="external_storage_name" formatted="false">الذاكرة الخارجية %1$d</string>
+    <string name="internal_storage_name">الذاكرة الداخلية</string>
+    <string name="without_tags">بلا شعار</string>
+    <string name="new_tag">شعار جديد</string>
+    <string name="select_tag">اختر الشعار</string>
+    <string name="edit_tag">تعديل الشعار</string>
 </resources>
