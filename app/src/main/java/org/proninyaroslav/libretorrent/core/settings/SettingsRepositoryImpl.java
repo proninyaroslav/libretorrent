@@ -211,7 +211,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.anonymousMode = anonymousMode();
         settings.seedingOutgoingConnections = seedingOutgoingConnections();
         settings.useRandomPort = useRandomPort();
-        String[] trackers = defaultTrackersList().split("\n");;
+        String[] trackers = defaultTrackersList().split("\n");
         if (trackers.length == 1 && TextUtils.isEmpty(trackers[0])) {
             settings.defaultTrackersList = new String[]{};
         } else {

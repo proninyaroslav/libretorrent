@@ -496,7 +496,7 @@
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Also use for connections</string>
-    <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-seeds are proxied.</string>
+    <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-seeds are proxied. Does not affect DHT.</string>
     <string name="pref_proxy_requires_auth_title">Requires authorization</string>
     <string name="pref_proxy_requires_auth_summary">Warning: The password is saved as a regular file.</string>
     <string name="pref_proxy_login_title">Username</string>
