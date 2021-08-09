@@ -491,7 +491,7 @@
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Używaj również do połączeń</string>
-    <string name="pref_proxy_peers_too_summary">Połączenia do trackerów, innych i źródeł sieciowych przechodzą przez proxy.</string>
+    <string name="pref_proxy_peers_too_summary">Połączenia do trackerów, innych i źródeł sieciowych przechodzą przez proxy. Nie wpływa na DHT.</string>
     <string name="pref_proxy_requires_auth_title">Wymaga autoryzacji</string>
     <string name="pref_proxy_requires_auth_summary">Ostrzeżenie: Hasło jest zapisywane jako zwykły plik.</string>
     <string name="pref_proxy_login_title">Nazwa użytkownika</string>
