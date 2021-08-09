@@ -435,7 +435,7 @@
     <string name="pref_proxy_address_title">Adresas</string>
     <string name="pref_proxy_port_title">Prievadas</string>
     <string name="pref_proxy_peers_too_title">Taip pat naudoti ryšiams</string>
-    <string name="pref_proxy_peers_too_summary">Ryšiai su trakeriais, kitais įrenginiais ir žiniatinklio skleidėjais veikia naudojant tarpinį serverį.</string>
+    <string name="pref_proxy_peers_too_summary">Ryšiai su trakeriais, kitais įrenginiais ir žiniatinklio skleidėjais veikia naudojant tarpinį serverį. Tai neturi įtakos DHT.</string>
     <string name="pref_proxy_requires_auth_title">Reikalauja autorizacijos</string>
     <string name="pref_proxy_requires_auth_summary">Įspėjimas: Slaptažodis išsaugomas kaip įprastas failas.</string>
     <string name="pref_proxy_login_title">Vartotojo vardas</string>
