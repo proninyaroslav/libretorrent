@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
     <string name="pref_proxy_peers_too_title">也用于连接</string>
-    <string name="pref_proxy_peers_too_summary">与 BT Tracker、其他和网络种子的连接是经过代理的。</string>
+    <string name="pref_proxy_peers_too_summary">与 BT Tracker、其他和网络种子的连接是经过代理的。不影响 DHT。</string>
     <string name="pref_proxy_requires_auth_title">需要授权认证</string>
     <string name="pref_proxy_requires_auth_summary">警告：密码保存为常规文件。</string>
     <string name="pref_proxy_login_title">用户名</string>
