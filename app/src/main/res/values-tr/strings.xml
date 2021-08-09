@@ -493,7 +493,7 @@
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Bağlantı noktası</string>
     <string name="pref_proxy_peers_too_title">Ayrıca bağlantılar için kullan</string>
-    <string name="pref_proxy_peers_too_summary">Takipçilere, diğerlerine ve web paylaşımlarına bağlantılar vekil sunucu aracılığıyla yapılır.</string>
+    <string name="pref_proxy_peers_too_summary">Takipçilere, diğerlerine ve web paylaşımlarına bağlantılar vekil sunucu aracılığıyla yapılır. DHT\'yi etkilemez.</string>
     <string name="pref_proxy_requires_auth_title">Yetkilendirme gerektirir</string>
     <string name="pref_proxy_requires_auth_summary">Uyarı: Parola normal bir dosya olarak kaydedilir.</string>
     <string name="pref_proxy_login_title">Kullanıcı adı</string>
