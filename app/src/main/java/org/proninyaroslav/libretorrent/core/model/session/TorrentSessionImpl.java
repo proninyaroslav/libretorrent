@@ -1526,7 +1526,10 @@ public class TorrentSessionImpl extends SessionManager
     private void addDefaultTrackers(add_torrent_params p) {
         String[] defaultTrackers = getSettings().defaultTrackersList;
         if (defaultTrackers != null && defaultTrackers.length > 0) {
-            string_vector v = new string_vector();
+            string_vector v = p.getTrackers();
+            if (v == null) {
+                v = new string_vector();
+            }
             v.addAll(Arrays.asList(defaultTrackers));
             p.setTrackers(v);
         }

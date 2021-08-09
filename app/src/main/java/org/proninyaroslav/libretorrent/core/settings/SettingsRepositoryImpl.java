@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -210,7 +211,12 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.anonymousMode = anonymousMode();
         settings.seedingOutgoingConnections = seedingOutgoingConnections();
         settings.useRandomPort = useRandomPort();
-        settings.defaultTrackersList = defaultTrackersList().split("\n");
+        String[] trackers = defaultTrackersList().split("\n");;
+        if (trackers.length == 1 && TextUtils.isEmpty(trackers[0])) {
+            settings.defaultTrackersList = new String[]{};
+        } else {
+            settings.defaultTrackersList = trackers;
+        }
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
