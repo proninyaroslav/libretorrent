@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">アドレス</string>
     <string name="pref_proxy_port_title">ポート</string>
     <string name="pref_proxy_peers_too_title">接続にも使用</string>
-    <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブシードへの接続はプロキシされます。</string>
+    <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブシードへの接続はプロキシされます。DHTには影響しません。</string>
     <string name="pref_proxy_requires_auth_title">認証が必要</string>
     <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常ファイルで保存されます</string>
     <string name="pref_proxy_login_title">ユーザー名</string>
