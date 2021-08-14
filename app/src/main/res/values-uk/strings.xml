@@ -48,8 +48,8 @@
     <string name="switch_off">Вимк.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Видалити завантажені файли</string>
-    <string name="delete_selected_torrent">Видалити вибраний торент\? (Неможливо відмінити)</string>
-    <string name="delete_selected_torrents">Видалити вибрані торенти\? (Неможливо відмінити.)</string>
+    <string name="delete_selected_torrent">Видалити вибраний торент\? (Неможливо скасувати)</string>
+    <string name="delete_selected_torrents">Видалити вибрані торенти\? (Неможливо скасувати.)</string>
     <string name="force_recheck_torrent">Примусово перевірити</string>
     <string name="force_announce_torrent">Примусове анонсування</string>
     <string name="add_link">Додати посилання</string>
