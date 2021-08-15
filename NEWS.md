@@ -1,3 +1,14 @@
+### Version 3.1.1 (2021-08-15)
+
+* Bugfixes:
+    - Foreground notification stuck
+    - Android 8.0 text field hint bug
+    - Removing original torrent trackers
+    - Sequential download for magnet links
+    - Сhanging the random port after applying the settings
+* Updated current translations
+* Upgrade to libtorrent4j 2.0.4-21
+
 ### Version 3.1 (2021-07-04)
 
 * Added:
