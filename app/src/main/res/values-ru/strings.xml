@@ -493,7 +493,7 @@
     <string name="pref_proxy_address_title">Адрес</string>
     <string name="pref_proxy_port_title">Порт</string>
     <string name="pref_proxy_peers_too_title">Также использовать для соединений</string>
-    <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами</string>
+    <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами. Не влияет на DHT.</string>
     <string name="pref_proxy_requires_auth_title">Требуется авторизация</string>
     <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится как обычный файл.</string>
     <string name="pref_proxy_login_title">Имя пользователя</string>

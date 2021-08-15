@@ -1,22 +1,17 @@
-# Fitur
-
-* DHT, PeX, enkripsi, LSD, UPnP, NAT*PMP, dan µTP
-* Pemfilteran IP (eMule dat dan PeerGuardian)
-* Kemampuan untuk menyempurnakan (pengaturan jaringan, manajemen daya, kontrol baterai, pengaturan UI, dll.)
-* Mendukung torrent dengan banyak file dan file besar
-* Dukungan tautan HTTP\S dan tautan magnet
-* Mendukung proxy untuk tracker dan peer
-* Kemampuan untuk memindahkan file saat sedang mengunduh
-* Kemampuan untuk memindahkan file secara otomatis ke direktori lain atau ke penyimpanan eksternal di akhir unduhan
-* Kemampuan untuk menentukan prioritas file dan folder
-* Kemampuan untuk memilih file yang akan diunduh
-* Kemampuan untuk mengunduh secara berurutan
-* Desain material
-* Tema gelap dan hitam
-* Tampilan antarmuka optimal untuk tablet
-* Penjadwalan
-* Pengolah RSS
-* Mendukung Android TV
-* Mampu membuat torrents
-* Streaming aneka berkas yang dipilih
-* dan lain lain
+* Lisensi GPLv3+. Gunakan, lihat, ubah dan bagikan; untuk semua.
+* Pilih berkas mana untuk diunduh.
+* Pindahkan berkas yang diunduh secara otomatis ke folder lain atau drive eksternal.
+* Stream berkas, dengan unduhan sekuensial.
+* Android TV
+* Desain material, tema gelap dan hitam, dan UI tablet.
+* Kustomisasi jaringan, baterai dan pengaturan UI, dan lain-lain.
+* 35+ terjemahan.
+* Penjadwalan.
+* Pengunduhan otomatis, dengan pengelola Atom/RSS.
+* Buat torrent, dengan berkas berukuran besar dan berjumlah banyak.
+* Tautan HTTP/S dan magnet.
+* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* Pemfilteran IP (eMule dat dan PeerGuardian).
+* Mendukung proksi untuk tracker and peer.
+* Berdasarkan pada libtorrent4j.
+* Dan lain-lain
