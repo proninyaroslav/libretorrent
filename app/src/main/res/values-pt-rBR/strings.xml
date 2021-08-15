@@ -312,7 +312,7 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Criar torrente</string>
     <string name="creating_torrent_progress">Por favor aguarde enquanto o torrent é criado…</string>
-    <string name="file_or_folder_for_seeding">Arquivo ou pasta para compartilhar</string>
+    <string name="file_or_folder_for_seeding">Arquivo ou pasta para compartilhamento</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Selecione um arquivo ou pasta para compartilhar primeiro.</string>
     <string name="tracker_urls">URLs do rastreador</string>
     <string name="web_seed_urls">URLs de compartilhamento da Web</string>
@@ -386,8 +386,8 @@
     <string name="pref_dir_to_watch_title">Diretório para assistir</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Velocidade</string>
-    <string name="pref_max_download_speed_title">Velocidade máxima ao baixar</string>
-    <string name="pref_max_upload_speed_title">Velocidade máxima ao enviar</string>
+    <string name="pref_max_download_speed_title">Velocidade máxima de download</string>
+    <string name="pref_max_upload_speed_title">Velocidade máxima ao ⬆</string>
     <string name="pref_max_connections_title">Número máx. de conexões</string>
     <string name="pref_max_connections_summary">(Mín. 2 conexões.)</string>
     <string name="pref_torrent_queueing_category">Enfileirando torrent</string>
