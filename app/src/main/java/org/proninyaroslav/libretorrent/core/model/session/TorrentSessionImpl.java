@@ -194,14 +194,18 @@ public class TorrentSessionImpl extends SessionManager
         return torrentTasks.get(id);
     }
 
+    public void setSettings(@NonNull SessionSettings settings) {
+        setSettings(settings, true);
+    }
+
     @Override
-    public void setSettings(@NonNull SessionSettings settings)
+    public void setSettings(@NonNull SessionSettings settings, boolean keepPort)
     {
         settingsLock.lock();
 
         try {
             this.settings = settings;
-            applySettings(settings);
+            applySettings(settings, keepPort);
 
         } finally {
             settingsLock.unlock();
@@ -1244,13 +1248,13 @@ public class TorrentSessionImpl extends SessionManager
         saveSettings();
     }
 
-    private void applySettings(SessionSettings settings)
+    private void applySettings(SessionSettings settings, boolean keepPort)
     {
         applyMaxStoredLogs(settings);
         applySessionLoggerFilters(settings);
         enableSessionLogger(settings.logging);
 
-        if (settings.useRandomPort) {
+        if (!keepPort && settings.useRandomPort) {
             setRandomPort(settings);
         }
 
