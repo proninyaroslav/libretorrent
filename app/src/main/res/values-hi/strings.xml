@@ -11,7 +11,7 @@
     <string name="replace">बदलने के</string>
     <string name="add">जोड़ना</string>
     <string name="delete">हटाना</string>
-    <string name="deleting">हटाया जा रहा है</string>
+    <string name="deleting">हटाया जा रहा है…</string>
     <string name="select_all">सभी का चयन करे</string>
     <string name="save">बचाना</string>
     <string name="search">खोज</string>
@@ -46,7 +46,7 @@
     <string name="switch_on">On</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
-    <string name="delete_selected_torrent">चयनित धार हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
+    <string name="delete_selected_torrent">चयनित टोरेंट हटाएं\? (पूर्ववत नहीं किया जा सकता है।)</string>
     <string name="delete_selected_torrents">चयनित टॉरेंट हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
     <string name="force_recheck_torrent">बल पुनः जाँचना</string>
     <string name="force_announce_torrent">बल की घोषणा</string>
@@ -501,4 +501,5 @@
     LibreTorrent एंड्रॉइड 4+ के लिए फ्रीडम टोरेंट क्लाइंट में एक फ्री है, जो कि libtorrent (Java आवरण <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) लिब पर आधारित है।।<br><br>
     LibreTorrent मुफ्त सॉफ्टवेयर है, जो <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> की शर्तों के तहत जारी किया गया है]]></string>
     <string name="about_changelog">बदलाव का</string>
+    <string name="apply">लागू करे</string>
 </resources>
