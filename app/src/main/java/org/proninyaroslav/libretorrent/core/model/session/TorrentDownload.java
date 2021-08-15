@@ -109,8 +109,6 @@ public interface TorrentDownload
 
     void addTrackers(@NonNull Set<String> trackers);
 
-    void addWebSeeds(@NonNull List<String> urls);
-
     boolean[] pieces();
 
     String makeMagnet(boolean includePriorities);

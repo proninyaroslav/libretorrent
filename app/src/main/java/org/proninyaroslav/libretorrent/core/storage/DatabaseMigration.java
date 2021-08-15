@@ -49,6 +49,7 @@ class DatabaseMigration
                 new RoomDatabaseMigration(appContext),
                 MIGRATION_5_6,
                 MIGRATION_6_7,
+                MIGRATION_7_8
         };
     }
 
@@ -94,6 +95,13 @@ class DatabaseMigration
             database.execSQL("CREATE TABLE IF NOT EXISTS `TorrentTagInfo` (`tagId` INTEGER NOT NULL, `torrentId` TEXT NOT NULL, PRIMARY KEY(`tagId`, `torrentId`), FOREIGN KEY(`tagId`) REFERENCES `TagInfo`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`torrentId`) REFERENCES `Torrent`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_TorrentTagInfo_tagId` ON `TorrentTagInfo` (`tagId`)");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_TorrentTagInfo_torrentId` ON `TorrentTagInfo` (`torrentId`)");
+        }
+    };
+
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `Torrent` ADD COLUMN `sequentialDownload` INTEGER NOT NULL DEFAULT 0");
         }
     };
 

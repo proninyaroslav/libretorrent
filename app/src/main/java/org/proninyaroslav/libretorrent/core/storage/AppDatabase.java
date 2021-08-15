@@ -48,7 +48,7 @@ import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
                 TagInfo.class,
                 TorrentTagInfo.class,
         },
-        version = 7
+        version = 8
 )
 @TypeConverters({UriConverter.class})
 
