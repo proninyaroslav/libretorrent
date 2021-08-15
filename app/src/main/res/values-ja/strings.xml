@@ -224,7 +224,7 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">ダウンロード完了</string>
     <string name="torrent_ETA">完了予定時刻</string>
-    <string name="torrent_seeds">共有人数</string>
+    <string name="torrent_seeds">シード</string>
     <string name="torrent_peers">合計</string>
     <string name="torrent_leechers">ダウンロード人数</string>
     <!-- connected (total) -->
@@ -320,10 +320,10 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">トレントを作成</string>
     <string name="creating_torrent_progress">トレントが作成されるまで、しばらくお待ち下さい…</string>
-    <string name="file_or_folder_for_seeding">共有用のファイルまたはフォルダ</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">最初に共有するファイルまたはフォルダを選択。</string>
+    <string name="file_or_folder_for_seeding">シードするファイルまたはフォルダ</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">最初にシードするファイルまたはフォルダを選択。</string>
     <string name="tracker_urls">トラッカー URL</string>
-    <string name="web_seed_urls">ウェブ共有 URL</string>
+    <string name="web_seed_urls">ウェブシード URL</string>
     <string name="comments">コメント</string>
     <string name="tracker_urls_hint">(任意) 優先順位の順にトラッカーを1行につき1つ入力。</string>
     <string name="web_seed_urls_hint">(任意) 1行につき1つ</string>
@@ -352,7 +352,7 @@
     <string name="error_create_torrent">トレントを作成できません</string>
     <string name="skip_files">ファイルをスキップ</string>
     <string name="skip_files_hint">\"|\" で区切られたファイル名を入力して下さい。</string>
-    <string name="select_folder_to_save">保存するフォルダを選択</string>
+    <string name="select_folder_to_save">保存先フォルダを選択</string>
     <string name="torrent_saved_to">トレントを %1$s に保存しました</string>
     <string name="unable_to_open_file">選択したファイルを開けません</string>
     <string name="unable_to_create_file">ファイルを作成できません</string>
@@ -445,8 +445,8 @@
     <string name="pref_custom_battery_control_title">カスタムバッテリー残量</string>
     <string name="pref_custom_battery_control_value_title">バッテリー制御の残量</string>
     <string name="pref_battery_control_summary">バッテリー残量が %1$d%% を下回った場合、全てのトレントが一時停止されます。(充電時に制限は適用されません。)</string>
-    <string name="pref_custom_battery_control_summary">ダウンロードを一時停止するバッテリー%を設定します。(既定の %1$d%% が無視されます。)</string>
-    <string name="pref_custom_battery_control_dialog_summary">本当にご覧のバッテリー%に設定しますか\? (ダウンロード中は電池の消費量が増加します。)</string>
+    <string name="pref_custom_battery_control_summary">ダウンロードを一時停止するバッテリー%%を設定します。(既定の %1$d%% が無視されます。)</string>
+    <string name="pref_custom_battery_control_dialog_summary">本当にご覧のバッテリー%%に設定しますか\? (ダウンロード中は電池の消費量が増加します。)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">プロキシ設定</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -480,7 +480,7 @@
     <string name="pref_anonymous_mode_title">匿名モード</string>
     <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフです。</string>
     <string name="pref_seeding_outgoing_connections_title">シードの送信接続</string>
-    <string name="pref_seeding_outgoing_connections_summary">共有されたトレントが送信接続をできます。(コストがかかる場合があります。)</string>
+    <string name="pref_seeding_outgoing_connections_summary">シード中のトレントが送信接続をできます。(費用がかかる場合があります。)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">プロキシタイプ</string>
     <string-array name="pref_proxy_type_entries">
@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">アドレス</string>
     <string name="pref_proxy_port_title">ポート</string>
     <string name="pref_proxy_peers_too_title">接続にも使用</string>
-    <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブ共有への接続はプロキシされます。</string>
+    <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブシードへの接続はプロキシされます。DHTには影響しません。</string>
     <string name="pref_proxy_requires_auth_title">認証が必要</string>
     <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常ファイルで保存されます</string>
     <string name="pref_proxy_login_title">ユーザー名</string>
@@ -548,4 +548,9 @@
     <string name="about_title">バージョン情報</string>
     <string name="about_description">追加情報とプロジェクトの支援方法:&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のコピーレフト化した自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)なトレントクライアントです(Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新履歴</string>
+    <string name="pref_default_trackers_list_summary">以下のような場合に使用されるトラッカー一覧です。
+\n1. トレントを追加したとき、その規定の一覧がトレント一覧に自動的に追加される。
+\n2. マグネットリンクの取得に使用される。</string>
+    <string name="pref_default_trackers_list_title">規定のトラッカー</string>
+    <string name="pref_watch_dir_delete_file_title">.torrent ファイルを追加後に削除</string>
 </resources>

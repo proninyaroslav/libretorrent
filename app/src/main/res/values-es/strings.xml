@@ -143,7 +143,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Descargando…</string>
-    <string name="torrent_status_seeding">Compartiendo…</string>
+    <string name="torrent_status_seeding">Sembrando…</string>
     <string name="torrent_status_paused">Pausado</string>
     <string name="torrent_status_stopped">Detenido</string>
     <string name="torrent_status_checking">Comprobando…</string>
@@ -232,7 +232,7 @@
     <string name="torrent_uploaded">Subido</string>
     <string name="torrent_share_ratio">Ratio de compartición</string>
     <string name="torrent_active_time">Tiempo activo</string>
-    <string name="torrent_seeding_time">Tiempo compartiendo</string>
+    <string name="torrent_seeding_time">Tiempo sembrando</string>
     <string name="torrent_pieces">Partes</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -330,7 +330,7 @@
     <string name="optional_hint">(opcional)</string>
     <string name="piece_size">Tamaño de la pieza</string>
     <string name="create_torrent_options">Opciones</string>
-    <string name="option_start_seeding">Comenzar a compartir</string>
+    <string name="option_start_seeding">Comenzar a sembrar</string>
     <string name="option_private_torrent">Torrent privado</string>
     <string-array name="piece_size_entries">
         <item>Automático</item>
@@ -478,7 +478,7 @@
     <string name="pref_show_nat_errors">Mostrar errores NAT</string>
     <string name="pref_anonymous_mode_title">Modo anónimo</string>
     <string name="pref_anonymous_mode_summary">No hay cadena de agente de usuario para los torrents no privados. Solo rastreadores proxies. Sockets en escucha cerrados. Conexiones entrantes a través de SOCKS5 o proxy I2P (si existe un proxy de pares en la PC proxy del rastreador). NAT-PMP, UPnP, DHT y el descubrimiento local deshabilitados.</string>
-    <string name="pref_seeding_outgoing_connections_title">Conexiones salientes para compartir</string>
+    <string name="pref_seeding_outgoing_connections_title">Conexiones salientes para sembrar</string>
     <string name="pref_seeding_outgoing_connections_summary">Permite que los torrents que se están sembrando realicen conexiones salientes. (Puede ser costoso.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de proxy</string>
@@ -550,7 +550,7 @@
     <string name="pref_header_streaming">Streaming</string>
     <string name="pref_watch_dir_delete_file_title">Borrar archivo .torrent después de añadirlo</string>
     <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:
-\n1. Al añadir un torrente, la lista predeterminada se añade automáticamente a la lista de torrents.
+\n1. Al añadir un torrent, la lista predeterminada se añade automáticamente a la lista de torrents.
 \n2. Se utiliza para obtener enlaces magnet.</string>
     <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
 </resources>

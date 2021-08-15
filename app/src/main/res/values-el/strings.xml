@@ -492,7 +492,7 @@
     <string name="pref_proxy_address_title">Διεύθυνση</string>
     <string name="pref_proxy_port_title">Θύρα</string>
     <string name="pref_proxy_peers_too_title">Χρησιμοποίηση και για συνδέσεις</string>
-    <string name="pref_proxy_peers_too_summary">Οι συνδέσεις με ιχνηλάτες, άλλους και διαδικτυακούς διαμοιραστές πραγματοποιούνται μέσω διακομιστή μεσολάβησης.</string>
+    <string name="pref_proxy_peers_too_summary">Οι συνδέσεις με ιχνηλάτες, άλλους και διαδικτυακούς διαμοιραστές πραγματοποιούνται μέσω διακομιστή μεσολάβησης. Δεν επηρεάζει το DHT.</string>
     <string name="pref_proxy_requires_auth_title">Απαιτεί εξουσιοδότηση</string>
     <string name="pref_proxy_requires_auth_summary">Προειδοποίηση: Ο κωδικός πρόσβασης αποθηκεύεται ως κανονικό αρχείο.</string>
     <string name="pref_proxy_login_title">Όνομα χρήστη</string>
