@@ -32,14 +32,14 @@
     <string name="edit">Redaguoti</string>
     <string name="menu">Meniu</string>
     <string name="file">Failas</string>
-    <string name="details">Detaliau</string>
+    <string name="details">Detalės</string>
     <string name="stats">Statistika</string>
     <string name="filters">Filtrai</string>
     <string name="clipboard">Iškarpinė</string>
     <string name="switch_on">Įjungta</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ištrinti kartu su parsiųstais failais</string>
-    <string name="delete_selected_torrent">Ištrinti pasirinktą torentą\? (Negali būti anuliuota)</string>
+    <string name="delete_selected_torrent">Ištrinti pasirinktą torentą\? (Ši operacija negali būti anuliuota.)</string>
     <string name="delete_selected_torrents">Ištrinti pasirinktus torentus\? (Negali būti anuliuota)</string>
     <string name="force_recheck_torrent">Priverstinai pertikrinti</string>
     <string name="force_announce_torrent">Priverstinai paskelbti</string>
@@ -546,9 +546,9 @@
     <string name="session_stats_listen_port">Klausymosi prievadas: %1$s</string>
     <string name="session_stats_dht_nodes">DHT mazgai: %1$d</string>
     <string name="switch_off">Išjungta</string>
-    <string name="apply">Taikyti</string>
+    <string name="apply">Pritaikyti</string>
     <string name="resume_all">Tęsti visus</string>
-    <string name="pause_all">Pristabdyti visus</string>
+    <string name="pause_all">Sustabdyti visus</string>
     <string name="all">Visi</string>
     <string name="finished">Baigta</string>
     <string name="folder">Aplankas</string>

@@ -224,9 +224,9 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">ダウンロード完了</string>
     <string name="torrent_ETA">完了予定時刻</string>
-    <string name="torrent_seeds">シード</string>
-    <string name="torrent_peers">合計</string>
-    <string name="torrent_leechers">ダウンロード人数</string>
+    <string name="torrent_seeds">シード数</string>
+    <string name="torrent_peers">ピア数</string>
+    <string name="torrent_leechers">リーチャー数</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">アップロード済</string>
@@ -352,7 +352,7 @@
     <string name="error_create_torrent">トレントを作成できません</string>
     <string name="skip_files">ファイルをスキップ</string>
     <string name="skip_files_hint">\"|\" で区切られたファイル名を入力して下さい。</string>
-    <string name="select_folder_to_save">保存先フォルダを選択</string>
+    <string name="select_folder_to_save">保存先フォルダを選択する。</string>
     <string name="torrent_saved_to">トレントを %1$s に保存しました</string>
     <string name="unable_to_open_file">選択したファイルを開けません</string>
     <string name="unable_to_create_file">ファイルを作成できません</string>
@@ -387,7 +387,7 @@
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
     <string name="pref_move_after_download_in_title">ダウンロード後の移動先</string>
     <string name="pref_save_torrent_files_title">.torrent ファイルを保存</string>
-    <string name="pref_save_torrent_files_summary">ダウンロード開始時に .torrent ファイルを保存</string>
+    <string name="pref_save_torrent_files_summary">ダウンロード時に .torrent ファイルを保存</string>
     <string name="pref_save_torrent_files_in_title">.torrent ファイルの保存先…</string>
     <string name="pref_watch_dir_title">ディレクトリを表示</string>
     <string name="pref_watch_dir_summary">このフォルダの .torrent ファイルは自動追加され、そして削除されます。</string>
@@ -480,7 +480,7 @@
     <string name="pref_anonymous_mode_title">匿名モード</string>
     <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフです。</string>
     <string name="pref_seeding_outgoing_connections_title">シードの送信接続</string>
-    <string name="pref_seeding_outgoing_connections_summary">シード中のトレントが送信接続をできます。(費用がかかる場合があります。)</string>
+    <string name="pref_seeding_outgoing_connections_summary">シード中のトレントが送信接続をできます。(コストがかかる場合があります。)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">プロキシタイプ</string>
     <string-array name="pref_proxy_type_entries">
@@ -493,7 +493,7 @@
     <string name="pref_proxy_port_title">ポート</string>
     <string name="pref_proxy_peers_too_title">接続にも使用</string>
     <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブシードへの接続はプロキシされます。DHTには影響しません。</string>
-    <string name="pref_proxy_requires_auth_title">認証が必要</string>
+    <string name="pref_proxy_requires_auth_title">要認証</string>
     <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常ファイルで保存されます</string>
     <string name="pref_proxy_login_title">ユーザー名</string>
     <string name="pref_proxy_password_title">パスワード</string>
