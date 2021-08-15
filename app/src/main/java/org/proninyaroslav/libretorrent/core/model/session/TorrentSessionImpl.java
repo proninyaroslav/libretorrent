@@ -251,8 +251,13 @@ public class TorrentSessionImpl extends SessionManager
         if (operationNotAllowed())
             return null;
 
-        Torrent torrent = new Torrent(params.sha1hash, params.downloadPath, params.name,
-                params.addPaused, System.currentTimeMillis());
+        Torrent torrent = new Torrent(
+                params.sha1hash,
+                params.downloadPath,
+                params.name,
+                params.addPaused, System.currentTimeMillis(),
+                params.sequentialDownload
+        );
 
         byte[] bencode = null;
         if (params.fromMagnet) {
@@ -326,7 +331,7 @@ public class TorrentSessionImpl extends SessionManager
         String path = fs.makeFileSystemPath(params.downloadPath);
         File saveDir = new File(path);
         if (torrent.isDownloadingMetadata()) {
-            download(params.source, saveDir, params.addPaused);
+            download(params.source, saveDir, params.addPaused, params.sequentialDownload);
             return;
         }
 
@@ -399,7 +404,8 @@ public class TorrentSessionImpl extends SessionManager
                 loadTask.putMagnet(
                         torrent.getMagnet(),
                         new File(path),
-                        torrent.manuallyPaused
+                        torrent.manuallyPaused,
+                        torrent.sequentialDownload
                 );
             }
             restoreTorrentsQueue.add(loadTask);
@@ -1360,17 +1366,23 @@ public class TorrentSessionImpl extends SessionManager
         private String magnetUri = null;
         private boolean isMagnet = false;
         private boolean magnetPaused = false;
+        private boolean magnetSequentialDownload = false;
 
         LoadTorrentTask(String torrentId)
         {
             this.torrentId = torrentId;
         }
 
-        public void putMagnet(String magnetUri, File saveDir, boolean magnetPaused)
-        {
+        public void putMagnet(
+                String magnetUri,
+                File saveDir,
+                boolean magnetPaused,
+                boolean magnetSequentialDownload
+        ) {
             this.magnetUri = magnetUri;
             this.saveDir = saveDir;
             this.magnetPaused = magnetPaused;
+            this.magnetSequentialDownload = magnetSequentialDownload;
             isMagnet = true;
         }
 
@@ -1382,7 +1394,7 @@ public class TorrentSessionImpl extends SessionManager
                     return;
 
                 if (isMagnet)
-                    download(magnetUri, saveDir, magnetPaused);
+                    download(magnetUri, saveDir, magnetPaused, magnetSequentialDownload);
                 else
                     restoreDownload(torrentId);
 
@@ -1482,8 +1494,12 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void download(@NonNull String magnetUri, File saveDir, boolean paused)
-    {
+    public void download(
+            @NonNull String magnetUri,
+            File saveDir,
+            boolean paused,
+            boolean sequentialDownload
+    ) {
         if (operationNotAllowed())
             return;
 
@@ -1515,6 +1531,10 @@ public class TorrentSessionImpl extends SessionManager
             flags = flags.or_(TorrentFlags.PAUSED);
         else
             flags = flags.and_(TorrentFlags.PAUSED.inv());
+        if (sequentialDownload)
+            flags = flags.or_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+        else
+            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD.inv());
 
         p.setFlags(flags);
 

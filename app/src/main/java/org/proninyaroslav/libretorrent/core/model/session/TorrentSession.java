@@ -123,7 +123,12 @@ public interface TorrentSession
 
     int[] getPieceSizeList();
 
-    void download(@NonNull String magnetUri, File saveDir, boolean paused);
+    void download(
+            @NonNull String magnetUri,
+            File saveDir,
+            boolean paused,
+            boolean sequentialDownload
+    );
 
     void setDefaultTrackersList(@NonNull String[] trackersList);
 }

@@ -964,20 +964,6 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public void addWebSeeds(@NonNull List<String> urls)
-    {
-        if (operationNotAllowed())
-            return;
-
-        for (String url : urls) {
-            if (url == null)
-                continue;
-            th.addUrlSeed(url);
-        }
-        saveResumeData(true);
-    }
-
-    @Override
     public boolean[] pieces()
     {
         if (operationNotAllowed())
@@ -1061,6 +1047,12 @@ class TorrentDownloadImpl implements TorrentDownload
             th.unsetFlags(TorrentFlags.SEQUENTIAL_DOWNLOAD);
 
         saveResumeData(true);
+
+        Torrent torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            torrent.sequentialDownload = sequential;
+            repo.updateTorrent(torrent);
+        }
     }
 
     @Override

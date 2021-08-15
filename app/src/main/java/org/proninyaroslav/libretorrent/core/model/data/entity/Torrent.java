@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -58,6 +58,7 @@ public class Torrent implements Parcelable
     public long dateAdded;
     public String error;
     public boolean manuallyPaused;
+    public boolean sequentialDownload;
     /*
      * Warning: read-only field, do not change directly,
      *          only trough setMagnetUri
@@ -71,13 +72,15 @@ public class Torrent implements Parcelable
                    @NonNull Uri downloadPath,
                    @NonNull String name,
                    boolean manuallyPaused,
-                   long dateAdded)
+                   long dateAdded,
+                   boolean sequentialDownload)
     {
         this.id = id;
         this.name = name;
         this.downloadPath = downloadPath;
         this.manuallyPaused = manuallyPaused;
         this.dateAdded = dateAdded;
+        this.sequentialDownload = sequentialDownload;
     }
 
     public Torrent(@NonNull String id,
@@ -85,9 +88,10 @@ public class Torrent implements Parcelable
                    @NonNull Uri downloadPath,
                    @NonNull String name,
                    boolean manuallyPaused,
-                   long dateAdded)
+                   long dateAdded,
+                   boolean sequentialDownload)
     {
-        this(id, downloadPath, name, manuallyPaused, dateAdded);
+        this(id, downloadPath, name, manuallyPaused, dateAdded, sequentialDownload);
 
         this.magnet = magnet;
     }
@@ -104,6 +108,7 @@ public class Torrent implements Parcelable
         error = source.readString();
         manuallyPaused = source.readByte() != 0;
         visibility = source.readInt();
+        sequentialDownload = source.readByte() != 0;
     }
 
     public boolean isDownloadingMetadata()
@@ -140,6 +145,7 @@ public class Torrent implements Parcelable
         dest.writeString(error);
         dest.writeByte((byte)(manuallyPaused ? 1 : 0));
         dest.writeInt(visibility);
+        dest.writeByte((byte)(sequentialDownload ? 1 : 0));
     }
 
     public static final Creator<Torrent> CREATOR =
@@ -171,8 +177,7 @@ public class Torrent implements Parcelable
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Torrent{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
@@ -180,6 +185,7 @@ public class Torrent implements Parcelable
                 ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
                 ", error='" + error + '\'' +
                 ", manuallyPaused=" + manuallyPaused +
+                ", sequentialDownload=" + sequentialDownload +
                 ", magnet='" + magnet + '\'' +
                 ", downloadingMetadata=" + downloadingMetadata +
                 ", visibility=" + visibility +
