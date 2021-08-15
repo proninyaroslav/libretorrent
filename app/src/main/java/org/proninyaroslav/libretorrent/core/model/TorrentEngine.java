@@ -137,7 +137,7 @@ public class TorrentEngine
         session = new TorrentSessionImpl(repo,
                 fs,
                 SystemFacadeHelper.getSystemFacade(appContext));
-        session.setSettings(pref.readSessionSettings());
+        session.setSettings(pref.readSessionSettings(), false);
         session.addListener(engineListener);
     }
 
@@ -1278,7 +1278,7 @@ public class TorrentEngine
                 settings.portRangeSecond = second;
             }
         }
-        session.setSettings(settings);
+        session.setSettings(settings, false);
     }
 
     private void setPortRange(int first, int second)
@@ -1289,7 +1289,7 @@ public class TorrentEngine
         SessionSettings settings = session.getSettings();
         settings.portRangeFirst = first;
         settings.portRangeSecond = second;
-        session.setSettings(settings);
+        session.setSettings(settings, false);
     }
 
     /*
