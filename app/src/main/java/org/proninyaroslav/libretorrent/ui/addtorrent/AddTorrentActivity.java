@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,9 +22,11 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +39,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,6 +48,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.proninyaroslav.libretorrent.BR;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
@@ -89,6 +93,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private CompositeDisposable disposable = new CompositeDisposable();
     private boolean showAddButton;
     private PermissionDeniedDialog permDeniedDialog;
+    private SharedPreferences localPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,6 +106,8 @@ public class AddTorrentActivity extends AppCompatActivity
         viewModel = provider.get(AddTorrentViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
+        localPref = PreferenceManager.getDefaultSharedPreferences(this);
+        fillMutableParams();
 
         if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
             storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -108,6 +115,27 @@ public class AddTorrentActivity extends AppCompatActivity
 
         initLayout();
         observeDecodeState();
+    }
+
+    private void fillMutableParams() {
+        viewModel.mutableParams.setSequentialDownload(
+                localPref.getBoolean(
+                        getString(R.string.add_torrent_sequential_download),
+                        false
+                )
+        );
+        viewModel.mutableParams.setStartAfterAdd(
+                localPref.getBoolean(
+                        getString(R.string.add_torrent_start_after_add),
+                        true
+                )
+        );
+        viewModel.mutableParams.setIgnoreFreeSpace(
+                localPref.getBoolean(
+                        getString(R.string.add_torrent_ignore_free_space),
+                        false
+                )
+        );
     }
 
     private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
@@ -129,6 +157,7 @@ public class AddTorrentActivity extends AppCompatActivity
     {
         super.onStop();
 
+        unsubscribeParamsChanged();
         disposable.clear();
     }
 
@@ -138,6 +167,7 @@ public class AddTorrentActivity extends AppCompatActivity
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeParamsChanged();
     }
 
     private void subscribeAlertDialog()
@@ -145,6 +175,43 @@ public class AddTorrentActivity extends AppCompatActivity
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposable.add(d);
     }
+
+    private void subscribeParamsChanged() {
+        viewModel.mutableParams.addOnPropertyChangedCallback(onMutableParamsChanged);
+    }
+
+    private void unsubscribeParamsChanged() {
+        viewModel.mutableParams.removeOnPropertyChangedCallback(onMutableParamsChanged);
+    }
+
+    private final Observable.OnPropertyChangedCallback onMutableParamsChanged =
+            new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            if (propertyId == BR.sequentialDownload) {
+                localPref.edit()
+                        .putBoolean(
+                                getString(R.string.add_torrent_sequential_download),
+                                viewModel.mutableParams.isSequentialDownload()
+                        )
+                        .apply();
+            } else if (propertyId == BR.startAfterAdd) {
+                localPref.edit()
+                        .putBoolean(
+                                getString(R.string.add_torrent_start_after_add),
+                                viewModel.mutableParams.isStartAfterAdd()
+                        )
+                        .apply();
+            } else if (propertyId == BR.ignoreFreeSpace) {
+                localPref.edit()
+                        .putBoolean(
+                                getString(R.string.add_torrent_ignore_free_space),
+                                viewModel.mutableParams.isIgnoreFreeSpace()
+                        )
+                        .apply();
+            }
+        }
+    };
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event) {
         if (event.dialogTag == null) {

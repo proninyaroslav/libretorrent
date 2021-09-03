@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,8 +37,8 @@ public class AddTorrentMutableParams extends BaseObservable
     private String dirName;
     private long storageFreeSpace = -1;
     private boolean sequentialDownload;
-    private boolean startAfterAdd = true;
-    private boolean ignoreFreeSpace = false;
+    private boolean startAfterAdd;
+    private boolean ignoreFreeSpace;
 
     public String getSource()
     {

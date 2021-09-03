@@ -109,4 +109,9 @@
     <string name="pref_key_streaming_enable" translatable="false">pref_key_streaming_enable</string>
     <string name="pref_key_streaming_hostname" translatable="false">pref_key_streaming_hostname</string>
     <string name="pref_key_streaming_port" translatable="false">pref_key_streaming_port</string>
+
+    <!-- Add torrent activity local preferences -->
+    <string name="add_torrent_sequential_download" translatable="false">add_torrent_sequential_download</string>
+    <string name="add_torrent_start_after_add" translatable="false">add_torrent_start_after_add</string>
+    <string name="add_torrent_ignore_free_space" translatable="false">add_torrent_ignore_free_space</string>
 </resources>
