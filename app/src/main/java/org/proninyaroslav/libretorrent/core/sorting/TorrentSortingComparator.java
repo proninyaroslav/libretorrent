@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,11 +19,11 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
-import org.proninyaroslav.libretorrent.ui.main.TorrentListItem;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
 import java.util.Comparator;
 
-public class TorrentSortingComparator implements Comparator<TorrentListItem>
+public class TorrentSortingComparator implements Comparator<TorrentInfo>
 {
     private TorrentSorting sorting;
 
@@ -38,7 +38,7 @@ public class TorrentSortingComparator implements Comparator<TorrentListItem>
     }
 
     @Override
-    public int compare(TorrentListItem state1, TorrentListItem state2)
+    public int compare(TorrentInfo state1, TorrentInfo state2)
     {
         return TorrentSorting.SortingColumns.fromValue(sorting.getColumnName())
                 .compare(state1, state2, sorting.getDirection());

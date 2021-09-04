@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,15 +19,15 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
-import org.proninyaroslav.libretorrent.ui.main.TorrentListItem;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
 public class TorrentSorting extends BaseSorting
 {
-    public enum SortingColumns implements SortingColumnsInterface<TorrentListItem>
+    public enum SortingColumns implements SortingColumnsInterface<TorrentInfo>
     {
         none {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 return 0;
@@ -35,7 +35,7 @@ public class TorrentSorting extends BaseSorting
         },
         name {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)
@@ -46,7 +46,7 @@ public class TorrentSorting extends BaseSorting
         },
         size {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)
@@ -57,7 +57,7 @@ public class TorrentSorting extends BaseSorting
         },
         progress {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)
@@ -68,7 +68,7 @@ public class TorrentSorting extends BaseSorting
         },
         ETA {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)
@@ -79,7 +79,7 @@ public class TorrentSorting extends BaseSorting
         },
         peers {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)
@@ -90,7 +90,7 @@ public class TorrentSorting extends BaseSorting
         },
         dateAdded {
             @Override
-            public int compare(TorrentListItem item1, TorrentListItem item2,
+            public int compare(TorrentInfo item1, TorrentInfo item2,
                                Direction direction)
             {
                 if (direction == Direction.ASC)

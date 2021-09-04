@@ -57,6 +57,9 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static String foregroundNotifyStatusFilter(@NonNull Context context) {
             return context.getString(R.string.pref_foreground_notify_status_downloading_value);
         }
+        static String foregroundNotifySorting(@NonNull Context context) {
+            return context.getString(R.string.pref_foreground_notify_sorting_progress_desc_value);
+        }
         /* Behavior settings */
         static final boolean autostart = false;
         static final boolean keepAlive = true;
@@ -361,6 +364,24 @@ public class SettingsRepositoryImpl implements SettingsRepository
         pref.edit()
                 .putString(
                         appContext.getString(R.string.pref_key_foreground_notify_status_filter),
+                        val
+                )
+                .apply();
+    }
+
+    @Override
+    public String foregroundNotifySorting() {
+        return pref.getString(
+                appContext.getString(R.string.pref_key_foreground_notify_sorting),
+                Default.foregroundNotifySorting(appContext)
+        );
+    }
+
+    @Override
+    public void foregroundNotifySorting(String val) {
+        pref.edit()
+                .putString(
+                        appContext.getString(R.string.pref_key_foreground_notify_sorting),
                         val
                 )
                 .apply();

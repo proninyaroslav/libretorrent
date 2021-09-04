@@ -67,6 +67,10 @@ public interface SettingsRepository
 
     void foregroundNotifyStatusFilter(String val);
 
+    String foregroundNotifySorting();
+
+    void foregroundNotifySorting(String val);
+
     /*
      * Behavior settings
      */

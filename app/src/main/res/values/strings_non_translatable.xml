@@ -15,15 +15,6 @@
         <item>@string/pref_theme_dark_value</item>
         <item>@string/pref_theme_black_value</item>
     </string-array>
-    <!-- Behavior settings -->
-    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
-    <string name="pref_enc_mode_require_value" translatable="false">1</string>
-    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
-    <string-array name="pref_enc_mode_entries_value" translatable="false">
-        <item>@string/pref_enc_mode_prefer_value</item>
-        <item>@string/pref_enc_mode_require_value</item>
-        <item>@string/pref_enc_mode_disable_value</item>
-    </string-array>
     <string name="pref_foreground_notify_status_all_value" translatable="false">0</string>
     <string name="pref_foreground_notify_status_downloading_value" translatable="false">1</string>
     <string name="pref_foreground_notify_status_downloaded_value" translatable="false">2</string>
@@ -35,6 +26,43 @@
         <item>@string/pref_foreground_notify_status_downloaded_value</item>
         <item>@string/pref_foreground_notify_status_downloading_metadata_value</item>
         <item>@string/pref_foreground_notify_status_error_value</item>
+    </string-array>
+    <string name="pref_foreground_notify_sorting_name_asc_value" translatable="false">0</string>
+    <string name="pref_foreground_notify_sorting_name_desc_value" translatable="false">1</string>
+    <string name="pref_foreground_notify_sorting_date_added_asc_value" translatable="false">2</string>
+    <string name="pref_foreground_notify_sorting_date_added_desc_value" translatable="false">3</string>
+    <string name="pref_foreground_notify_sorting_size_asc_value" translatable="false">4</string>
+    <string name="pref_foreground_notify_sorting_size_desc_value" translatable="false">5</string>
+    <string name="pref_foreground_notify_sorting_progress_asc_value" translatable="false">6</string>
+    <string name="pref_foreground_notify_sorting_progress_desc_value" translatable="false">7</string>
+    <string name="pref_foreground_notify_sorting_eta_asc_value" translatable="false">8</string>
+    <string name="pref_foreground_notify_sorting_eta_desc_value" translatable="false">9</string>
+    <string name="pref_foreground_notify_sorting_peers_asc_value" translatable="false">10</string>
+    <string name="pref_foreground_notify_sorting_peers_desc_value" translatable="false">11</string>
+    <string name="pref_foreground_notify_sorting_no_sorting_value" translatable="false">12</string>
+    <string-array name="pref_foreground_notify_sorting_entries_value" translatable="false">
+        <item>@string/pref_foreground_notify_sorting_name_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_name_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_date_added_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_date_added_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_size_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_size_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_progress_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_progress_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_eta_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_eta_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_peers_asc_value</item>
+        <item>@string/pref_foreground_notify_sorting_peers_desc_value</item>
+        <item>@string/pref_foreground_notify_sorting_no_sorting_value</item>
+    </string-array>
+    <!-- Behavior settings -->
+    <string name="pref_enc_mode_prefer_value" translatable="false">0</string>
+    <string name="pref_enc_mode_require_value" translatable="false">1</string>
+    <string name="pref_enc_mode_disable_value" translatable="false">2</string>
+    <string-array name="pref_enc_mode_entries_value" translatable="false">
+        <item>@string/pref_enc_mode_prefer_value</item>
+        <item>@string/pref_enc_mode_require_value</item>
+        <item>@string/pref_enc_mode_disable_value</item>
     </string-array>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_none_value" translatable="false">0</string>

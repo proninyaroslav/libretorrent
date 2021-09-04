@@ -67,6 +67,7 @@ import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -913,5 +914,59 @@ public class Utils {
             return TorrentFilterCollection.dateAddedYear();
         else
             return TorrentFilterCollection.all();
+    }
+
+    public static TorrentFilter getForegroundNotifyFilter(
+            @NonNull Context context,
+            @NonNull SettingsRepository pref
+    ) {
+        String val = pref.foregroundNotifyStatusFilter();
+        if (val.equals(context.getString(R.string.pref_foreground_notify_status_all_value))) {
+            return TorrentFilterCollection.all();
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_status_downloading_value))) {
+            return TorrentFilterCollection.statusDownloading();
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_status_downloaded_value))) {
+            return TorrentFilterCollection.statusDownloaded();
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_status_downloading_metadata_value))) {
+            return TorrentFilterCollection.statusDownloadingMetadata();
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_status_error_value))) {
+            return TorrentFilterCollection.statusError();
+        }
+        throw new IllegalStateException("Unknown filter type: " + val);
+    }
+
+    public static TorrentSortingComparator getForegroundNotifySorting(
+            @NonNull Context context,
+            @NonNull SettingsRepository pref
+    ) {
+        String val = pref.foregroundNotifySorting();
+        if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_name_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_name_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_date_added_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_date_added_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_size_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_size_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_progress_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_progress_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_eta_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_eta_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_peers_asc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.ASC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_peers_desc_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.DESC));
+        } else if (val.equals(context.getString(R.string.pref_foreground_notify_sorting_no_sorting_value))) {
+            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+        }
+        throw new IllegalStateException("Unknown sorting type: " + val);
     }
 }

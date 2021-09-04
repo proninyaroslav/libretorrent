@@ -102,6 +102,14 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(foregroundNotifyStatusFilter);
         }
 
+        String keyForegroundNotifySorting = getString(R.string.pref_key_foreground_notify_sorting);
+        ListPreference foregroundNotifySorting = findPreference(keyForegroundNotifySorting);
+        if (foregroundNotifySorting != null) {
+            int type = Integer.parseInt(pref.foregroundNotifySorting());
+            foregroundNotifySorting.setValueIndex(type);
+            bindOnPreferenceChangeListener(foregroundNotifySorting);
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
     }
@@ -238,6 +246,9 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_status_filter))) {
             pref.foregroundNotifyStatusFilter((String)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_sorting))) {
+            pref.foregroundNotifySorting((String)newValue);
         }
 
         return true;

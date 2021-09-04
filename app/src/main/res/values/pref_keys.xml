@@ -64,6 +64,7 @@
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <string name="pref_key_default_trackers_list" translatable="false">pref_key_default_trackers_list</string>
     <string name="pref_key_foreground_notify_status_filter" translatable="false">pref_key_foreground_notify_status_filter</string>
+    <string name="pref_key_foreground_notify_sorting" translatable="false">pref_key_foreground_notify_sorting</string>
     <!-- Network settings -->
     <string name="pref_key_enable_dht" translatable="false">pref_key_enable_dht</string>
     <string name="pref_key_enable_lsd" translatable="false">pref_key_enable_lsd</string>
