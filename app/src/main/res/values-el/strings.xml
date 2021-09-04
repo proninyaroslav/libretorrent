@@ -551,4 +551,22 @@
     <string name="pref_foreground_notify_status_filter">Φίλτρο κατάστασης</string>
     <string name="pref_foreground_notification_category">Ρυθμίσεις ειδοποιήσεων προσκήνιου</string>
     <string name="pref_foreground_notify_sorting">Ταξινόμηση</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Καμία ταξινόμηση</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Δημοτικότητα (μεγαλύτερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Μέγεθος (μεγαλύτερο πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Μέγεθος (μικρότερο πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Ημερομηνία προσθήκης (παλιότερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Ημερομηνία προσθήκης (νεότερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Δημοτικότητα (μικρότερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ΕΤΑ (μεγαλύτερος πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ΕΤΑ (μικρότερος πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Πρόοδος (μεγαλύτερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Πρόοδος (μικρότερη πρώτα)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Όνομα (Ω - Α)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Όνομα (Α - Ω)</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Σφάλμα</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Λήψη μεταδεδομένων…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Λήφθηκε</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Λήψη…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Όλα</string>
 </resources>

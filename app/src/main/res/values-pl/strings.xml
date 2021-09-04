@@ -550,4 +550,23 @@
     <string name="pref_watch_dir_delete_file_title">Usuń plik .torrent po dodaniu</string>
     <string name="pref_foreground_notify_status_filter">Filtr statusów</string>
     <string name="pref_foreground_notification_category">Ustawienia powiadomień na pierwszym planie</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Bez sortowania</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularność (od największych)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularność (od najniższych)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (od największych)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (od najmniejszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Postęp (od największych)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Postęp (od najmniejszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Rozmiar (od największych)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Rozmiar (od najmniejszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Data dodania (od najstarszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Data dodania (od najnowszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Nazwa (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Nazwa (A - Z)</string>
+    <string name="pref_foreground_notify_sorting">Sortowanie</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Błąd</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Pobieranie metadanych…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Pobrane</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Pobieranie…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Wszystkie</string>
 </resources>
