@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT вузли: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Прослуховуваний порт: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Статус</string>
@@ -108,11 +108,11 @@
     <string name="without_tags">Без теґів</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">Завантаження: %1$d Загалом: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent працює у фоновому режимі</string>
     <string name="network_online">Статус мережі: Онлайн</string>
@@ -137,9 +137,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Завантажується</string>
@@ -210,7 +210,8 @@
     <string name="more_details">Детальніше</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступність: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nДоступність: %5$s</string>
     <string name="file_priority_normal">Звичайний</string>
     <string name="file_priority_low">Пропустити</string>
     <string name="file_priority_high">Високий</string>
@@ -242,8 +243,8 @@
     <string name="tracker_state_updating">Оновлення…</string>
     <string name="tracker_state_not_contacted">З\'єднання поки що немає</string>
     <string name="share_tracker_url">Поділитися посиланням</string>
-    <string name="delete_selected_tracker">Видалити вибраний трекер?</string>
-    <string name="delete_selected_trackers">Видалити вибрані трекери?</string>
+    <string name="delete_selected_tracker">Видалити вибраний трекер\?</string>
+    <string name="delete_selected_trackers">Видалити вибрані трекери\?</string>
     <string name="add_trackers">Додати трекери</string>
     <string name="dialog_add_trackers">(Один на рядок)</string>
     <string name="open_using">Відкрити за допомогою</string>
@@ -251,7 +252,7 @@
     <string name="peer_relevance">Релевантність: %1$.1f</string>
     <string name="peer_connection_type">З\'єднання: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Клієнт: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Веб</string>
@@ -273,7 +274,7 @@
     <string name="torrent_added_date">Додано</string>
     <string name="torrent_availability">Доступність</string>
     <string name="share_stream_url">Поділитися URL стріму</string>
-    <string name="magnet_include_file_priorities">Увімкнути пріоритети файлів?</string>
+    <string name="magnet_include_file_priorities">Увімкнути пріоритети файлів\?</string>
     <string name="magnet_more_about_bep53">Більше інформації: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Немає трекерів</string>
     <string name="edit_torrent_name">Редагувати ім\'я торрента</string>
@@ -301,8 +302,8 @@
     <string name="error_cannot_edit_channel">Неможливо відредагувати канал</string>
     <string name="error_cannot_delete_channel">Неможливо видалити канал</string>
     <string name="copy_link">Скопіювати посилання</string>
-    <string name="delete_selected_channel">Видалити вибраний канал?</string>
-    <string name="delete_selected_channels">Видалити вибрані канали?</string>
+    <string name="delete_selected_channel">Видалити вибраний канал\?</string>
+    <string name="delete_selected_channels">Видалити вибрані канали\?</string>
     <string name="edit_feed_channel">Редагувати канал</string>
     <string name="link_copied_to_clipboard">Посилання скопійовано в буфер обміну</string>
     <string name="mark_as_read">Позначити як прочитане</string>
@@ -443,8 +444,8 @@
     <string name="pref_custom_battery_control_title">Заданий відсоток акумулятора</string>
     <string name="pref_custom_battery_control_value_title">Відсоток контролю акумулятора</string>
     <string name="pref_battery_control_summary">Торренти будуть припинені, якщо рівень заряду акумулятора опуститися нижче %1$d%%. Обмеження не діє під час зарядки</string>
-    <string name="pref_custom_battery_control_summary">Встановлює відсоток для призупинення завантаження, якщо заряд акумулятора опуститься нижче заданого порогу. Увімкнення цього параметра ігноруватиме стандартний поріг %1$d%% </string>
-    <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного рівня заряду акумулятора для програми буде негативно позначатися на часу автономної роботи під час завантаження. Ви дійсно хочете включити це?</string>
+    <string name="pref_custom_battery_control_summary">Встановлює відсоток для призупинення завантаження, якщо заряд акумулятора опуститься нижче заданого порогу. Увімкнення цього параметра ігноруватиме стандартний поріг %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного рівня заряду акумулятора для програми буде негативно позначатися на часу автономної роботи під час завантаження. Ви дійсно хочете включити це\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Налаштування проксі</string>
     <string name="pref_enable_dht_title">Увімкнути DHT</string>
@@ -540,6 +541,6 @@
     <string name="pref_streaming_error">Вибраний порт або ім\'я хоста зайнято або некоректно. Будь ласка, виправте це</string>
     <!-- About dialog -->
     <string name="about_title">Про LibreTorrent</string>
-    <string name="about_description"><![CDATA[Більше інформації, а також допомога проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent - вільний торрент-клієнт для Android 4+, заснований на бібліотеці libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent є вільним програмним забезпеченням, випущеним у відповідності з умовами ліцензії, &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;Загальна публічна ліцензія GNU v3 (GPLv3)&lt;/a&gt;]]></string>
+    <string name="about_description">Більше інформації, а також допомога проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent - вільний торрент-клієнт для Android 4+, заснований на бібліотеці libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent є вільним програмним забезпеченням, випущеним у відповідності з умовами ліцензії, &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;Загальна публічна ліцензія GNU v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Зміни</string>
 </resources>

@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT узлы: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/c</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/c</string>
     <string name="session_stats_listen_port">Прослушиваемый порт: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Статус</string>
@@ -109,11 +109,11 @@
     <string name="without_tags">Без меток</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/с \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/с • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/с \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/с • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ из %2$d</string>
     <string name="app_running_in_the_background">Запущен в фоне…</string>
     <string name="network_online">Онлайн</string>
@@ -138,9 +138,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/с | \u2191 %2$s/с</string>
+    <string name="download_upload_speed_template">↓ %1$s/с | ↑ %2$s/с</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Загружается…</string>
@@ -211,7 +211,8 @@
     <string name="more_details">Подробнее</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nДоступность: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nДоступность: %5$s</string>
     <string name="file_priority_normal">Нормальный</string>
     <string name="file_priority_low">Игнорируется</string>
     <string name="file_priority_high">Высокий</string>
@@ -252,7 +253,7 @@
     <string name="peer_relevance">Релевантность: %1$.1f</string>
     <string name="peer_connection_type">Соединение: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Клиент: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -274,7 +275,7 @@
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
     <string name="share_stream_url">Поделиться URL стрима…</string>
-    <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
+    <string name="magnet_include_file_priorities">Включить приоритеты файлов\?</string>
     <string name="magnet_more_about_bep53">Больше информации: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
     <string name="edit_torrent_name">Редактировать имя торрента</string>
@@ -302,7 +303,7 @@
     <string name="error_cannot_edit_channel">Невозможно отредактировать канал</string>
     <string name="error_cannot_delete_channel">Невозможно удалить канал</string>
     <string name="copy_link">Скопировать ссылку</string>
-    <string name="delete_selected_channel">Удалить выбранный канал?</string>
+    <string name="delete_selected_channel">Удалить выбранный канал\?</string>
     <string name="delete_selected_channels">Удалить выбранные каналы\?</string>
     <string name="edit_feed_channel">Редактировать канал</string>
     <string name="link_copied_to_clipboard">Скопировано в буфер обмена</string>
@@ -541,9 +542,7 @@
     <string name="pref_streaming_error">Выбранный порт или имя хоста занято или некорректно. Пожалуйста, исправьте это.</string>
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>
-    <string name="about_description"><![CDATA[    Больше информации, а также помочь проекту: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent - свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Больше информации, а также помочь проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent - свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Изменения</string>
     <string name="pref_watch_dir_delete_file_title">Удалить .torrent файл после добавления</string>
     <string name="pref_default_trackers_list_summary">Список трекеров, которые используются в следующих случаях:

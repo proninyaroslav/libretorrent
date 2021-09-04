@@ -48,8 +48,8 @@
     <string name="switch_off">Bağla</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Endirilmiş faylları da sil</string>
-    <string name="delete_selected_torrent">Seçilmiş torrent silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
-    <string name="delete_selected_torrents">Seçilmiş torrentlər silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
+    <string name="delete_selected_torrent">Seçilmiş torrent silinsin\? Bu əməliyyatın geri dönüşü yoxdur</string>
+    <string name="delete_selected_torrents">Seçilmiş torrentlər silinsin\? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="force_recheck_torrent">Təkrar yoxlamağa məcbur et</string>
     <string name="force_announce_torrent">Anons etməyə məcbur et</string>
     <string name="add_link">Bağlantı əlavə et</string>
@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT düyünləri: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Dinləmə bağlantı nöqtəsi: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Vəziyyət</string>
@@ -105,11 +105,11 @@
     <string name="no_tags">Etiket yoxdur</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">Endirilir: %1$d Cəmi: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent arxaplanda işləyir</string>
     <string name="network_online">Şəbəkə vəziyyəti: Xətdə</string>
@@ -134,9 +134,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Endirilir…</string>
@@ -205,7 +205,8 @@
     <string name="more_details">Daha çox təfsilat</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nƏlçatan: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nƏlçatan: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Əhəmiyyət vermə</string>
     <string name="file_priority_high">Yüksək</string>
@@ -237,8 +238,8 @@
     <string name="tracker_state_updating">Yenilənir…</string>
     <string name="tracker_state_not_contacted">Hələ ki, əlaqə saxlanılmayıb</string>
     <string name="share_tracker_url">URL-ni paylaş</string>
-    <string name="delete_selected_tracker">Seçilmiş izləyici silinsin?</string>
-    <string name="delete_selected_trackers">Seçilmiş izləyicilər silinsin?</string>
+    <string name="delete_selected_tracker">Seçilmiş izləyici silinsin\?</string>
+    <string name="delete_selected_trackers">Seçilmiş izləyicilər silinsin\?</string>
     <string name="add_trackers">İzləyici əlavə et</string>
     <string name="dialog_add_trackers">(Hər sətirdə biri)</string>
     <string name="open_using">Açma üsulu</string>
@@ -246,7 +247,7 @@
     <string name="peer_relevance">Uyğunluq: %1$.1f</string>
     <string name="peer_connection_type">Bağlantı: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Müştəri: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">İnternet</string>
@@ -268,7 +269,7 @@
     <string name="torrent_added_date">Əlavə edildi</string>
     <string name="torrent_availability">Mövcudluq</string>
     <string name="share_stream_url">Stream URL-ni paylaş</string>
-    <string name="magnet_include_file_priorities">Fayl prioritetləri daxil edilsin?</string>
+    <string name="magnet_include_file_priorities">Fayl prioritetləri daxil edilsin\?</string>
     <string name="magnet_more_about_bep53">Daha çox məlumat: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">İzləyici yoxdur</string>
     <string name="edit_torrent_name">Torrent adına düzəliş et</string>
@@ -296,8 +297,8 @@
     <string name="error_cannot_edit_channel">Kanala düzəliş edilə bilmir</string>
     <string name="error_cannot_delete_channel">Kanal silinə bilmir</string>
     <string name="copy_link">Bağlantını kopyala</string>
-    <string name="delete_selected_channel">Seçilmiş kanal silinsin?</string>
-    <string name="delete_selected_channels">Seçilmiş kanallar silinsin?</string>
+    <string name="delete_selected_channel">Seçilmiş kanal silinsin\?</string>
+    <string name="delete_selected_channels">Seçilmiş kanallar silinsin\?</string>
     <string name="edit_feed_channel">Kanala düzəliş et</string>
     <string name="link_copied_to_clipboard">Bağlantı lövhəyə kopyalandı</string>
     <string name="mark_as_read">Oxunmuş kimi işarələ</string>
@@ -438,7 +439,7 @@
     <string name="pref_custom_battery_control_value_title">Batereyaya nəzarət faizi</string>
     <string name="pref_battery_control_summary">Batereya səviyyəsi %1$d%% altına düşəndə bütün torrentlərə fasilə verilər. Limit, batereya doldurulması zamanı tətbiq edilmir</string>
     <string name="pref_custom_battery_control_summary">Batereya səviyyəsi müəyyən bir dəyərin altında olanda, endirmələrə fasilə vermək üçün özəl faiz tənzimləyin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
-    <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy tənzimləmələri</string>
     <string name="pref_enable_dht_title">DHT-i fəallaşdır</string>

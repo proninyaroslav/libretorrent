@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT ノード: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/秒</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/秒</string>
     <string name="session_stats_listen_port">Listen 中のポート: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">状態</string>
@@ -108,11 +108,11 @@
     <string name="without_tags">タグなし</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%2$d 中 %1$d ⬇</string>
     <string name="app_running_in_the_background">バックグラウンドで動作中…</string>
     <string name="network_online">オンライン</string>
@@ -137,9 +137,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/秒 | \u2191 %2$s/秒</string>
+    <string name="download_upload_speed_template">↓ %1$s/秒 | ↑ %2$s/秒</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">ダウンロード中…</string>
@@ -210,7 +210,8 @@
     <string name="more_details">詳細</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n利用可能: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\n利用可能: %5$s</string>
     <string name="file_priority_normal">標準</string>
     <string name="file_priority_low">無視</string>
     <string name="file_priority_high">高</string>
@@ -251,7 +252,7 @@
     <string name="peer_relevance">関連性: %1$.1f</string>
     <string name="peer_connection_type">接続: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">クライアント: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -273,7 +274,7 @@
     <string name="torrent_added_date">追加済</string>
     <string name="torrent_availability">可用性</string>
     <string name="share_stream_url">ストリームの URL を共有…</string>
-    <string name="magnet_include_file_priorities">ファイルの優先順位を含めますか?</string>
+    <string name="magnet_include_file_priorities">ファイルの優先順位を含めますか\?</string>
     <string name="magnet_more_about_bep53">詳細情報は https://www.bittorrent.org/beps/bep_0053.html で</string>
     <string name="tracker_list_empty">トラッカーなし</string>
     <string name="edit_torrent_name">トレント名を編集</string>

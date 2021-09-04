@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nodos DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Puerto de escucha: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Estado</string>
@@ -108,11 +108,11 @@
     <string name="without_tags">Sin etiquetas</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ de %2$d</string>
     <string name="app_running_in_the_background">Ejecutándose en segundo plano…</string>
     <string name="network_online">Conectado</string>
@@ -137,9 +137,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Descargando…</string>
@@ -210,7 +210,8 @@
     <string name="more_details">Más detalles</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilidad: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nDisponibilidad: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorar</string>
     <string name="file_priority_high">Alta</string>
@@ -242,8 +243,8 @@
     <string name="tracker_state_updating">Actualizando…</string>
     <string name="tracker_state_not_contacted">No contactado aún</string>
     <string name="share_tracker_url">Compartir URL…</string>
-    <string name="delete_selected_tracker">¿Borrar rastreador seleccionado?</string>
-    <string name="delete_selected_trackers">¿Borrar rastreadores seleccionados?</string>
+    <string name="delete_selected_tracker">¿Borrar rastreador seleccionado\?</string>
+    <string name="delete_selected_trackers">¿Borrar rastreadores seleccionados\?</string>
     <string name="add_trackers">Añadir rastreadores</string>
     <string name="dialog_add_trackers">(uno por línea)</string>
     <string name="open_using">Abrir usando</string>
@@ -251,7 +252,7 @@
     <string name="peer_relevance">Relevancia: %1$.1f</string>
     <string name="peer_connection_type">Conexión: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Cliente: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -273,7 +274,7 @@
     <string name="torrent_added_date">Añadido</string>
     <string name="torrent_availability">Disponibilidad</string>
     <string name="share_stream_url">Compartir la URL del stream…</string>
-    <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos?</string>
+    <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos\?</string>
     <string name="magnet_more_about_bep53">Más información en: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No hay rastreadores</string>
     <string name="edit_torrent_name">Editar nombre del torrent</string>

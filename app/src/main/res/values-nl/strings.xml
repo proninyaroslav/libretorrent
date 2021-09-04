@@ -69,7 +69,7 @@
     <string name="about">Over</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Luisterpoort: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
@@ -107,9 +107,9 @@
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d %% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ van %2$d</string>
     <string name="app_running_in_the_background">Draait op de achtergrond…</string>
     <string name="network_online">Online</string>
@@ -134,7 +134,7 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d %%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s × \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s × ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d %% %4$s</string>
     <!-- connected/total -->
@@ -244,7 +244,7 @@
     <string name="peer_relevance">Relevantie: %1$.1f</string>
     <string name="peer_connection_type">Verbinding: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Client: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -266,7 +266,7 @@
     <string name="torrent_added_date">Toegevoegd</string>
     <string name="torrent_availability">Beschikbaarheid</string>
     <string name="share_stream_url">Stream-URL delen…</string>
-    <string name="magnet_include_file_priorities">Bestandsprioriteiten meenemen?</string>
+    <string name="magnet_include_file_priorities">Bestandsprioriteiten meenemen\?</string>
     <string name="magnet_more_about_bep53">Meer informatie op https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Geen trackers</string>
     <string name="edit_torrent_name">Torrentnaam bewerken</string>

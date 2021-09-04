@@ -48,8 +48,8 @@
     <string name="switch_off">Vyp.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Smazat se staženými soubory</string>
-    <string name="delete_selected_torrent">Smazat vybraný torrent? Tato operace nemůže být vrácena</string>
-    <string name="delete_selected_torrents">Smazat vybrané torrenty? Tato operace nemůže být vrácena</string>
+    <string name="delete_selected_torrent">Smazat vybraný torrent\? Tato operace nemůže být vrácena</string>
+    <string name="delete_selected_torrents">Smazat vybrané torrenty\? Tato operace nemůže být vrácena</string>
     <string name="force_recheck_torrent">Vynutit kontrolu</string>
     <string name="force_announce_torrent">Vynutit ohlášení</string>
     <string name="add_link">Přidat odkaz</string>
@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DTH uzly: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Port posluchače: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Stav</string>
@@ -108,11 +108,11 @@
     <string name="without_tags">Bez štítků</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">Stahování: %1$d Celkem: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent běží na pozadí</string>
     <string name="network_online">Stav sítě: Online</string>
@@ -137,9 +137,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Stahování</string>
@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Stahuji metadata</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Přístup odepřen</string>
-    <string name="perm_denied_warning">Bez tohoto oprávnění aplikace nemůže uložit soubory torrentu do paměti. Aplikace nebude pracovat správně. Opravdu chcete zamítnout toto oprávnění?</string>
+    <string name="perm_denied_warning">Bez tohoto oprávnění aplikace nemůže uložit soubory torrentu do paměti. Aplikace nebude pracovat správně. Opravdu chcete zamítnout toto oprávnění\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Přidat torrent</string>
     <string name="error_decode_torrent">Chyba při dekódování torrentu. Možná je soubor poškozen nebo nemá správný formát</string>
@@ -210,7 +210,8 @@
     <string name="more_details">Více informací</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDostupnost: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nDostupnost: %5$s</string>
     <string name="file_priority_normal">Normální</string>
     <string name="file_priority_low">Ignorovat</string>
     <string name="file_priority_high">Vysoká</string>
@@ -242,15 +243,15 @@
     <string name="tracker_state_updating">Aktualizování…</string>
     <string name="tracker_state_not_contacted">Ještě nekontaktováno</string>
     <string name="share_tracker_url">Sdílet URL</string>
-    <string name="delete_selected_tracker">Smazat zvolený tracker?</string>
-    <string name="delete_selected_trackers">Smazat zvolené trackery?</string>
+    <string name="delete_selected_tracker">Smazat zvolený tracker\?</string>
+    <string name="delete_selected_trackers">Smazat zvolené trackery\?</string>
     <string name="add_trackers">Přidat trackery</string>
     <string name="dialog_add_trackers">(Jeden na řádek)</string>
     <string name="open_using">Otevřít pomocí</string>
     <string name="peer_port">Port: %1$d</string>
     <string name="peer_connection_type">Připojení: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -272,7 +273,7 @@
     <string name="torrent_added_date">Přidáno</string>
     <string name="torrent_availability">Dostupnost</string>
     <string name="share_stream_url">Sdílejte adresu URL streamu</string>
-    <string name="magnet_include_file_priorities">Zahrnout priority souborů?</string>
+    <string name="magnet_include_file_priorities">Zahrnout priority souborů\?</string>
     <string name="magnet_more_about_bep53">Další informace: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Žádné sledovače</string>
     <string name="edit_torrent_name">Upravit název torrentu</string>
@@ -300,8 +301,8 @@
     <string name="error_cannot_edit_channel">Kanál nelze upravit</string>
     <string name="error_cannot_delete_channel">Kanál nelze odstranit</string>
     <string name="copy_link">Kopírovat odkaz</string>
-    <string name="delete_selected_channel">Smazat vybraný kanál?</string>
-    <string name="delete_selected_channels">Smazat vybrané kanály?</string>
+    <string name="delete_selected_channel">Smazat vybraný kanál\?</string>
+    <string name="delete_selected_channels">Smazat vybrané kanály\?</string>
     <string name="edit_feed_channel">Upravit kanál</string>
     <string name="link_copied_to_clipboard">Odkaz zkopírován do schránky</string>
     <string name="mark_as_read">Označit jako přečtené</string>
@@ -349,7 +350,7 @@
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny soubory jsou vyloučeny filtrem</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
     <string name="skip_files">Přeskočit soubory</string>
-    <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\" </string>
+    <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\"</string>
     <string name="select_folder_to_save">Vyberte složku pro uložení</string>
     <string name="torrent_saved_to">Torrent uložen do %1$s</string>
     <string name="unable_to_open_file">Vybraný soubor nelze otevřít</string>
@@ -443,7 +444,7 @@
     <string name="pref_custom_battery_control_value_title">Procenta kontroly stavu baterie</string>
     <string name="pref_battery_control_summary">Všechny torrenty budou pozastavena, pokud úroveň baterie klesne pod %1$d%%. Limit neplatí v době při nabíjení</string>
     <string name="pref_custom_battery_control_summary">Chcete-li pozastavit stahování v případě, že baterie klesne pod danou prahovou hodnotu, nastavte vlastní procento. Povolením této možnosti bude ignorována výchozí prahová hodnota %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary">Nastavení vlastního procenta baterie bude mít negativní vliv na životnost baterie při stahování. Opravdu to chcete povolit?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Nastavení vlastního procenta baterie bude mít negativní vliv na životnost baterie při stahování. Opravdu to chcete povolit\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Nastavení Proxy</string>
     <string name="pref_enable_dht_title">Povolit DHT</string>
@@ -539,8 +540,6 @@
     <string name="pref_streaming_error">Vybraný port nebo název hostitele pro streamování je zaneprázdněn nebo nesprávný. Opravte to</string>
     <!-- About dialog -->
     <string name="about_title">O LibreTorrent</string>
-    <string name="about_description"><![CDATA[    Další informace: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent je volně dostupný torrentový klient pro Android 4+, založený na libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent je volně dostupný software, vydaný podle podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Další informace: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent je volně dostupný torrentový klient pro Android 4+, založený na libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent je volně dostupný software, vydaný podle podmínek &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Seznam změn</string>
 </resources>

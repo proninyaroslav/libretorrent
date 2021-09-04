@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Node DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/dtk</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/dtk</string>
     <string name="session_stats_listen_port">Port masuk: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
@@ -107,11 +107,11 @@
     <string name="without_tags">Tanpa tanda</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/dtk \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/dtk • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/dtk \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/dtk • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent berjalan di latarbelakang…</string>
     <string name="network_online">Daring</string>
@@ -136,9 +136,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/dtk | \u2191 %2$s/dtk</string>
+    <string name="download_upload_speed_template">↓ %1$s/dtk | ↑ %2$s/dtk</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Mengunduh…</string>
@@ -209,7 +209,8 @@
     <string name="more_details">Keterangan lebih lanjut</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nTersedia: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nTersedia: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Abaikan</string>
     <string name="file_priority_high">Tinggi</string>
@@ -248,7 +249,7 @@
     <string name="peer_relevance">Relevansi: %1$.1f</string>
     <string name="peer_connection_type">Koneksi: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Client: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Web</string>
@@ -270,7 +271,7 @@
     <string name="torrent_added_date">Ditambahkan</string>
     <string name="torrent_availability">Ketersediaan</string>
     <string name="share_stream_url">Bagikan tautan stream…</string>
-    <string name="magnet_include_file_priorities">Ikutkan prioritas berkas?</string>
+    <string name="magnet_include_file_priorities">Ikutkan prioritas berkas\?</string>
     <string name="magnet_more_about_bep53">Info lebih lanjut, kunjungi: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Tidak ada tracker</string>
     <string name="edit_torrent_name">Ubah nama torrent</string>

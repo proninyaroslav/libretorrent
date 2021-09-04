@@ -48,8 +48,8 @@
     <string name="switch_off">முடக்கு</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">பதிவிறக்கப்பட்ட கோப்புகளை நீக்கு</string>
-    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்கு? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
-    <string name="delete_selected_torrents">தேர்ந்தெடுத்த தொகையை நீக்கவா? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
+    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்கு\? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
+    <string name="delete_selected_torrents">தேர்ந்தெடுத்த தொகையை நீக்கவா\? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
     <string name="force_recheck_torrent">படை மறுபடியும்</string>
     <string name="force_announce_torrent">படை அறிவிப்பு</string>
     <string name="add_link">இணைப்பைச் சேர்க்கவும்</string>
@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT கணுக்கள்:%1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">கேட்கும் துறை:%1$s</string>
     <!-- Status -->
     <string name="drawer_status">நிலை</string>
@@ -108,11 +108,11 @@
     <string name="without_tags">குறிச்சொற்கள் இல்லாமல்</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">பதிவிறக்குகிறது: %1$d மொத்தம்: %2$d</string>
     <string name="app_running_in_the_background">பின்புலத்தில் LibreTorrent இயங்கும்</string>
     <string name="network_online">நெட்வொர்க் நிலை: ஆன்லைன்</string>
@@ -137,9 +137,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">பதிவிறக்குகிறது</string>
@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">மெட்டாடேட்டாவை பதிவிறக்குகிறது</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">அனுமதி மறுக்கப்பட்டது</string>
-    <string name="perm_denied_warning">இந்த அனுமதியின்றி, நினைவகத்தில் டாரண்ட் கோப்புகளை சேமிக்க முடியாது. பயன்பாடு ஒழுங்காக இயங்காது. இந்த அனுமதியை மறுக்க விரும்புகிறீர்களா?</string>
+    <string name="perm_denied_warning">இந்த அனுமதியின்றி, நினைவகத்தில் டாரண்ட் கோப்புகளை சேமிக்க முடியாது. பயன்பாடு ஒழுங்காக இயங்காது. இந்த அனுமதியை மறுக்க விரும்புகிறீர்களா\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent ஐ சேர்க்கவும்</string>
     <string name="error_decode_torrent">டிரான்டிங் டிராண்ட் கோப்பு தோல்வியடைந்தது. ஒருவேளை கோப்பு சிதைந்திருக்கலாம் அல்லது தவறான வடிவமைப்பில் இருக்கலாம்</string>
@@ -210,7 +210,8 @@
     <string name="more_details">கூடுதல் தகவல்கள்</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\n கிடைக்கக்கூடியதாக்கல்: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\n கிடைக்கக்கூடியதாக்கல்: %5$s</string>
     <string name="file_priority_normal">இயல்பான</string>
     <string name="file_priority_low">புறக்கணி</string>
     <string name="file_priority_high">உயர்</string>
@@ -242,8 +243,8 @@
     <string name="tracker_state_updating">புதுப்பிக்கிறது…</string>
     <string name="tracker_state_not_contacted">இதுவரை தொடர்பு கொள்ளப்படவில்லை</string>
     <string name="share_tracker_url">URL ஐப் பகிர்</string>
-    <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா?</string>
-    <string name="delete_selected_trackers">தேர்ந்தெடுக்கப்பட்ட டிராக்கர்களை நீக்கவா?</string>
+    <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா\?</string>
+    <string name="delete_selected_trackers">தேர்ந்தெடுக்கப்பட்ட டிராக்கர்களை நீக்கவா\?</string>
     <string name="add_trackers">டிராக்கர்ஸ் சேர்க்கவும்</string>
     <string name="dialog_add_trackers">(வரிக்கு ஒன்று)</string>
     <string name="open_using">பயன்படுத்தி திறக்க</string>
@@ -251,7 +252,7 @@
     <string name="peer_relevance">பொருத்தம்:%1$.1f</string>
     <string name="peer_connection_type">இணைப்பு:%1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">கிளையண்ட்:%1$s</string>
     <string name="peer_connection_type_bittorrent">பிடி</string>
     <string name="peer_connection_type_web">வலை</string>
@@ -273,7 +274,7 @@
     <string name="torrent_added_date">சேர்க்கப்பட்டது</string>
     <string name="torrent_availability">கிடைக்கும்</string>
     <string name="share_stream_url">ஸ்ட்ரீம் URL ஐப் பகிர்</string>
-    <string name="magnet_include_file_priorities">கோப்பு முன்னுரிமைகள் அடங்கும்?</string>
+    <string name="magnet_include_file_priorities">கோப்பு முன்னுரிமைகள் அடங்கும்\?</string>
     <string name="magnet_more_about_bep53">மேலும் தகவல்: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">டிராக்கர்கள் இல்லை</string>
     <string name="edit_torrent_name">டொரண்ட் பெயரைத் திருத்து</string>
@@ -295,14 +296,14 @@
     <string name="feed_use_regex">வழக்கமான வெளிப்பாட்டை பயன்படுத்தவும்</string>
     <string name="backup_feed_channels">காப்புப்பிரதியைச் சேமிக்கவும்</string>
     <string name="restore_feed_channels_backup">காப்புப்பிரதியை மீட்டமை</string>
-    <string name="feed_last_update_template">புதுப்பிக்கப்பட்டது:  %1$s</string>
+    <string name="feed_last_update_template">புதுப்பிக்கப்பட்டது: %1$s</string>
     <string name="feed_last_update_never">ஒருபோதும்</string>
     <string name="error_cannot_add_channel">சேனலைச் சேர்க்க முடியாது</string>
     <string name="error_cannot_edit_channel">சேனலைத் திருத்த முடியாது</string>
     <string name="error_cannot_delete_channel">சேனலை நீக்க முடியாது</string>
     <string name="copy_link">இணைப்பை நகலெடு</string>
-    <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா?</string>
-    <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா?</string>
+    <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா\?</string>
+    <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா\?</string>
     <string name="edit_feed_channel">சேனலைத் திருத்தவும்</string>
     <string name="link_copied_to_clipboard">இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
     <string name="mark_as_read">படித்ததாக</string>
@@ -352,7 +353,7 @@
     <string name="skip_files">கோப்புகளை தவிர்</string>
     <string name="skip_files_hint">\"|\" பிரிக்கப்பட்ட கோப்பு பெயர்களை உள்ளிடவும்</string>
     <string name="select_folder_to_save">சேமிக்க கோப்புறையைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="torrent_saved_to"> %1$s இல் டொரண்ட் சேமிக்கப்பட்டது</string>
+    <string name="torrent_saved_to">%1$s இல் டொரண்ட் சேமிக்கப்பட்டது</string>
     <string name="unable_to_open_file">தேர்ந்தெடுக்கப்பட்ட கோப்பைத் திறக்க முடியவில்லை</string>
     <string name="unable_to_create_file">கோப்பை உருவாக்க முடியவில்லை</string>
     <!-- Log -->
@@ -444,7 +445,7 @@
     <string name="pref_custom_battery_control_value_title">பேட்டரி கட்டுப்பாடு சதவீதம்</string>
     <string name="pref_battery_control_summary">பேட்டரி நிலை %1$d%% க்கு கீழே சென்றால் எல்லா தொனிகளும் இடைநிறுத்தப்படும். வரம்பை சார்ஜ் செய்யும் நேரத்தில் பயன்படுத்த முடியாது</string>
     <string name="pref_custom_battery_control_summary">பேட்டரி கொடுக்கப்பட்ட நுழைவாயில் கீழே குறைகிறது என்றால் பதிவிறக்கங்களை இடைநிறுத்தம் விருப்ப சதவீதம் அமைக்கவும். இதை இயக்குவதன் மூலம் இயல்புநிலை %1$d%% வாசலில் புறக்கணிக்கப்படும்</string>
-    <string name="pref_custom_battery_control_dialog_summary">பயன்பாட்டிற்கான தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது, பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை நீங்கள் நிச்சயமாக இயக்க விரும்புகிறீர்களா?</string>
+    <string name="pref_custom_battery_control_dialog_summary">பயன்பாட்டிற்கான தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது, பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை நீங்கள் நிச்சயமாக இயக்க விரும்புகிறீர்களா\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">பதிலாள் அமைப்புகள்</string>
     <string name="pref_enable_dht_title">DHT ஐ இயக்கு</string>
@@ -540,9 +541,6 @@
     <string name="pref_streaming_error">ஸ்ட்ரீமிங்கிற்கான தேர்ந்தெடுத்த துறை அல்லது புரவலன் பெயர் பிஸியாக அல்லது தவறானது. தயவுசெய்து அதை சரிசெய்யவும்</string>
     <!-- About dialog -->
     <string name="about_title">LibreTorrent பற்றி</string>
-    <string name="about_description"><![CDATA[    மேலும் தகவலுக்கு <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a> இல் கிடைக்கும்<br><br>
-    libtorrent (ஜாவா ரேப்பர் <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) நூலகத்தின் அடிப்படையில் Android 4+ க்கான சுதந்திர டொரண்ட் கிளையண்டில் LibreTorrent இலவசம்<br><br>
-    LibreTorrent என்பது இலவச மென்பொருள், இது <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> இன் விதிமுறைகளின் கீழ் வெளியிடப்பட்டது
-    ]]></string>
+    <string name="about_description">மேலும் தகவலுக்கு &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt; இல் கிடைக்கும்&lt;br&gt;&lt;br&gt; libtorrent (ஜாவா ரேப்பர் &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) நூலகத்தின் அடிப்படையில் Android 4+ க்கான சுதந்திர டொரண்ட் கிளையண்டில் LibreTorrent இலவசம்&lt;br&gt;&lt;br&gt; LibreTorrent என்பது இலவச மென்பொருள், இது &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; இன் விதிமுறைகளின் கீழ் வெளியிடப்பட்டது</string>
     <string name="about_changelog">சேஞ்ச்</string>
 </resources>

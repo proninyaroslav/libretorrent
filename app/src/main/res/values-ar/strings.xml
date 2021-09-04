@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">عقد جدول التجزئة الموزع: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/ث</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/ث</string>
     <string name="session_stats_listen_port">منفذ الاستماع: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">الحالة</string>
@@ -105,11 +105,11 @@
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/ثانية \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/ثانية • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/ثانية \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/ثانية • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">التنزيل: %1$d المجموع: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent يعمل في الخلفية</string>
     <string name="network_online">حالة الشبكة: متصل</string>
@@ -134,9 +134,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/ث | \u2191 %2$s/ث</string>
+    <string name="download_upload_speed_template">↓ %1$s/ث | ↑ %2$s/ث</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">تحميل</string>
@@ -205,7 +205,8 @@
     <string name="more_details">المزيد من التفاصيل</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nمتوفر: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nمتوفر: %5$s</string>
     <string name="file_priority_normal">عادية</string>
     <string name="file_priority_low">تجاهل</string>
     <string name="file_priority_high">عالية</string>
@@ -246,7 +247,7 @@
     <string name="peer_relevance">صلة: %1$.1f</string>
     <string name="peer_connection_type">جارٍ التوصيل ب %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">العميل: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">الويب</string>
@@ -444,9 +445,7 @@
     <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>
-    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br>
-    LibreTorrent is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="feed_do_not_download_immediately">لا تقم بالتنزيل مباشرة</string>
     <string name="feeds_backup_selection_dialog_title">اختر ملف النسخ الاحتياطي</string>
     <string name="feed_item_open_article_url">فتح المقال</string>

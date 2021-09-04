@@ -2,7 +2,6 @@
 <resources>
     <!-- Global string -->
 
-    <?xml version='1.0' encoding='UTF-8'?>
     <string-array name="piece_size_entries" translatable="false">
         <item>@string/piece_size_entries_0</item>
         <item>@string/piece_size_entries_1</item>

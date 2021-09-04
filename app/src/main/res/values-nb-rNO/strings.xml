@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Lytteport: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
@@ -109,11 +109,11 @@
     <string name="without_tags">Uten etiketter</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ av %2$d</string>
     <string name="app_running_in_the_background">Kjører i bakgrunnen …</string>
     <string name="network_online">Tilkoblet</string>
@@ -138,9 +138,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Laster ned …</string>
@@ -210,7 +210,8 @@
     <string name="more_details">Ytterligere detaljer</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nTilgjengelighet: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nTilgjengelighet: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorer</string>
     <string name="file_priority_high">Høy</string>
@@ -242,8 +243,8 @@
     <string name="tracker_state_updating">Oppdaterer…</string>
     <string name="tracker_state_not_contacted">Ikke kontaktet enda</string>
     <string name="share_tracker_url">Del nettadresse …</string>
-    <string name="delete_selected_tracker">Slett valgt sporer?</string>
-    <string name="delete_selected_trackers">Slett valgte sporere?</string>
+    <string name="delete_selected_tracker">Slett valgt sporer\?</string>
+    <string name="delete_selected_trackers">Slett valgte sporere\?</string>
     <string name="add_trackers">Legg til sporer</string>
     <string name="dialog_add_trackers">(Én per linje)</string>
     <string name="open_using">Åpne med</string>
@@ -251,7 +252,7 @@
     <string name="peer_relevance">Betydning: %1$.1f</string>
     <string name="peer_connection_type">Tilkobling: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Klient: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Vev</string>
@@ -273,7 +274,7 @@
     <string name="torrent_added_date">La til</string>
     <string name="torrent_availability">Tilgjengelighet</string>
     <string name="share_stream_url">Del nettadressen til stream …</string>
-    <string name="magnet_include_file_priorities">Inkluder filprioriteter?</string>
+    <string name="magnet_include_file_priorities">Inkluder filprioriteter\?</string>
     <string name="magnet_more_about_bep53">Mer info på http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Ingen sporere</string>
     <string name="edit_torrent_name">Rediger torrentnavn</string>
@@ -534,7 +535,7 @@
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Strømming</string>
     <string name="pref_streaming_enable_summary">Lar deg laste ned individuelle filer fra en torrent ved hjelp av en nettleser eller mediespiller ved hjelp av HTTP/S-nettadresser</string>
-    <string name="pref_streaming_hostname">Vertsnavn </string>
+    <string name="pref_streaming_hostname">Vertsnavn</string>
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Velg en port eller et vertsnavn for streaming som ikke er feil eller opptatt.</string>
     <!-- About dialog -->

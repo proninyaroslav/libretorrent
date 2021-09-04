@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">گره‌های DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">پورت شنود: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">آمار</string>
@@ -105,11 +105,11 @@
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">در حال بارگیری: %1$d مجموع: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent در پس‌زمینه در حال اجرا است</string>
     <string name="network_online">وضعیت شبکه: آنلاین</string>
@@ -134,9 +134,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">در حال بارگیری</string>
@@ -205,7 +205,8 @@
     <string name="more_details">جزئیات بیشتر</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nدسترس پذیری: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nدسترس پذیری: %5$s</string>
     <string name="file_priority_normal">متوسط</string>
     <string name="file_priority_low">نادیده گرفتن</string>
     <string name="file_priority_high">بالا</string>
@@ -246,7 +247,7 @@
     <string name="peer_relevance">ارتباط: %1$.1f</string>
     <string name="peer_connection_type">اتصال: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">کارخواه: %1$s</string>
     <string name="peer_connection_type_bittorrent">بیت تورنت</string>
     <string name="peer_connection_type_web">وب</string>
@@ -438,8 +439,7 @@
     <string name="pref_custom_battery_control_title">درصد سفارشی باتری</string>
     <string name="pref_custom_battery_control_value_title">درصد مهار باتری</string>
     <string name="pref_battery_control_summary">اگر میزان باتری به زیر %1$d%% برسد، همه تورنت‌ها متوقف خواهند شد. محدودیت هنگام شارژ اعمال نمی‌شود</string>
-    <string name="pref_custom_battery_control_summary">تنظیم درصد سفارشی برای توقف بارگیری‌ها، هنگامی که درصد باتری به کمتر از آستانه داده شده کاهش می‌یابد.
-فعال‌سازی این موجب نادیده گرفتن آستانه پیش‌فرض %1$d%% خواهد شد</string>
+    <string name="pref_custom_battery_control_summary">تنظیم درصد سفارشی برای توقف بارگیری‌ها، هنگامی که درصد باتری به کمتر از آستانه داده شده کاهش می‌یابد. فعال‌سازی این موجب نادیده گرفتن آستانه پیش‌فرض %1$d%% خواهد شد</string>
     <string name="pref_custom_battery_control_dialog_summary">تنظیم یک درصد سفارشی باتری برای اینکه برنامه هنگامی که بارگیری‌ها در حال انجام هستند مراقب آن باشد، روی عمر باتری تاثیر منفی خواهد گذاشت. آیا مطمئن هستید که می‌خواهید این گزینه را فعال کنید؟</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">تنظیمات پروکسی</string>
@@ -467,8 +467,7 @@
     <string name="pref_enc_out_connections_title">اتصال‌های خروجی</string>
     <string name="pref_ip_filtering_category">فیلتر IP</string>
     <string name="pref_enable_ip_filtering_title">فعال‌سازی فیلتر IP</string>
-    <string name="pref_enable_ip_filtering_summary">استفاده از پالایش IP مصرف حافظه را بالا می‌برد.
-بسته به اندازه پرونده، اعمال پالودن هنگام راه‌اندازی، کمی زمان ببرد</string>
+    <string name="pref_enable_ip_filtering_summary">استفاده از پالایش IP مصرف حافظه را بالا می‌برد. بسته به اندازه پرونده، اعمال پالودن هنگام راه‌اندازی، کمی زمان ببرد</string>
     <string name="pref_ip_filtering_file_title">مسیر به پرونده فیلتر (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">نمایش خطاهای NAT</string>
     <string name="pref_anonymous_mode_title">فعال‌سازی حالت ناشناس</string>
@@ -537,8 +536,6 @@
     <string name="pref_streaming_error">پورت یا نام میزبان انتخابی برای پخش آنلاین مشغول یا نادرست است. لطفا آن را درست کنید</string>
     <!-- About dialog -->
     <string name="about_title">درباره LibreTorrent</string>
-    <string name="about_description"><![CDATA[    اطلاعات بیشتر و همچنین برای کمک به پروژه:  <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent  یک کارخواه آزاد بر اساس libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) lib.<br><br> برای اندروید بالای 4 است
-    LibreTorrent یک نرم‌افزار آزاد،منتشر شده  تحت شرایط  <a href="http://www.gnu.org/copyleft/gpl.html">پروانه عمومی همگانی گنو نگارش 3 (GPLv3)</a> است]]></string>
+    <string name="about_description">اطلاعات بیشتر و همچنین برای کمک به پروژه: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent یک کارخواه آزاد بر اساس libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; برای اندروید بالای 4 است LibreTorrent یک نرم‌افزار آزاد،منتشر شده تحت شرایط &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;پروانه عمومی همگانی گنو نگارش 3 (GPLv3)&lt;/a&gt; است</string>
     <string name="about_changelog">گزارش دگرگونی</string>
 </resources>

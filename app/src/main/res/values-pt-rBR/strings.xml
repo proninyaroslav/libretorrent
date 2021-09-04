@@ -70,7 +70,7 @@
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Nós DHT: %1$d</string>
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="session_stats_listen_port">Porta de escuta: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
@@ -105,11 +105,11 @@
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ de %2$d</string>
     <string name="app_running_in_the_background">Rodando em segundo plano…</string>
     <string name="network_online">Online</string>
@@ -134,9 +134,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Baixando…</string>
@@ -205,7 +205,8 @@
     <string name="more_details">Mais detalhes</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nDisponibilidade: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nDisponibilidade: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorar</string>
     <string name="file_priority_high">Alta</string>
@@ -243,7 +244,7 @@
     <string name="peer_relevance">Relevância: %1$.1f</string>
     <string name="peer_connection_type">Conexão: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Cliente: %1$s</string>
     <string name="peer_connection_type_bittorrent">Conexão BT</string>
     <string name="peer_connection_type_web">Conexão Web</string>
@@ -265,7 +266,7 @@
     <string name="torrent_added_date">Adicionado</string>
     <string name="torrent_availability">Disponibilidade</string>
     <string name="share_stream_url">Compartilhar o URL do stream…</string>
-    <string name="magnet_include_file_priorities">Incluir prioridades de arquivo?</string>
+    <string name="magnet_include_file_priorities">Incluir prioridades de arquivo\?</string>
     <string name="magnet_more_about_bep53">Mais Informações: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Sem trackers</string>
     <string name="edit_torrent_name">Editar nome do torrent</string>
@@ -436,7 +437,7 @@
     <string name="pref_custom_battery_control_value_title">Percentagem de controle de bateria</string>
     <string name="pref_battery_control_summary">Pausa todos os torrents se o nível de bateria estiver abaixo de %1$d%%. (O limite não se aplica durante o carregamento)</string>
     <string name="pref_custom_battery_control_summary">Defina uma porcentagem personalizada para fazer uma pausa em downloads se a bateria cair abaixo do limite especificado. Habilitando isso ignorará o limite padrão de %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary">Definir uma porcentagem de bateria personalizada para o aplicativo terá um impacto negativo na vida da bateria enquanto os downloads estão ocorrendo. Tem certeza de que deseja ativar isso?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Definir uma porcentagem de bateria personalizada para o aplicativo terá um impacto negativo na vida da bateria enquanto os downloads estão ocorrendo. Tem certeza de que deseja ativar isso\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Configurações de Proxy</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -532,9 +533,7 @@
     <string name="pref_streaming_error">Selecione uma porta ou nome de host para o stream que não está ocupada ou incorreta.</string>
     <!-- About dialog -->
     <string name="about_title">Sobre</string>
-    <string name="about_description"><![CDATA[    Mais Informações e também para ajudar o projeto: <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent é um cliente torrent liberta para Android 4+, baseado na biblioteca libtorrent (Java wrapper <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>).<br><br>
-    LibreTorrent é software livre, lançado sob os termos da <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a>]]></string>
+    <string name="about_description">Mais Informações e também para ajudar o projeto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent é um cliente torrent liberta para Android 4+, baseado na biblioteca libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt; LibreTorrent é software livre, lançado sob os termos da &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Novidades</string>
     <string name="torrent_leechers">Receptores</string>
     <string name="torrent_peers">Pares</string>

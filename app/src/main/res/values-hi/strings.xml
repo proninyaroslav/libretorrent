@@ -47,7 +47,7 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">डाउनलोड की गई फ़ाइलों के साथ हटाएं</string>
     <string name="delete_selected_torrent">चयनित टोरेंट हटाएं\? (पूर्ववत नहीं किया जा सकता है।)</string>
-    <string name="delete_selected_torrents">चयनित टॉरेंट हटाएं? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
+    <string name="delete_selected_torrents">चयनित टॉरेंट हटाएं\? यह ऑपरेशन पूर्ववत नहीं किया जा सकता है</string>
     <string name="force_recheck_torrent">बल पुनः जाँचना</string>
     <string name="force_announce_torrent">बल की घोषणा</string>
     <string name="add_link">लिंक जोड़ें</string>
@@ -67,7 +67,7 @@
     <string name="about">के बारे में</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Downloading</string>
@@ -89,11 +89,11 @@
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">डाउनलोड कर रहा है: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">LibreTorrent पृष्ठभूमि में चल रहा है</string>
     <string name="network_online">नेटवर्क स्थिति: ऑनलाइन</string>
@@ -115,9 +115,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">डाउनलोड कर रहा है</string>
@@ -129,7 +129,7 @@
     <string name="torrent_status_downloading_metadata">तत्व आंकड़े डाउन लोड हो रहे हैं</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">अनुमति नहीं मिली</string>
-    <string name="perm_denied_warning">इस अनुमति के बिना ऐप मेमोरी में टोरेंट फाइलों को सेव नहीं कर सकता। ऐप ठीक से काम नहीं करेगा। क्या आप वाकई इस अनुमति को अस्वीकार करना चाहते हैं?</string>
+    <string name="perm_denied_warning">इस अनुमति के बिना ऐप मेमोरी में टोरेंट फाइलों को सेव नहीं कर सकता। ऐप ठीक से काम नहीं करेगा। क्या आप वाकई इस अनुमति को अस्वीकार करना चाहते हैं\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">धार जोड़ें</string>
     <string name="error_decode_torrent">असफल डिकोडिंग टोरेंट फ़ाइल। हो सकता है कि फ़ाइल दूषित हो या गलत प्रारूप हो</string>
@@ -184,7 +184,8 @@
     <string name="more_details">अधिक जानकारी</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nउपयोगिता: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nउपयोगिता: %5$s</string>
     <string name="file_priority_normal">साधारण</string>
     <string name="file_priority_low">नज़रअंदाज़ करना</string>
     <string name="file_priority_high">उच्च</string>
@@ -216,16 +217,16 @@
     <string name="tracker_state_updating">अद्यतन कर रहा है …</string>
     <string name="tracker_state_not_contacted">अभी तक संपर्क नहीं किया गया</string>
     <string name="share_tracker_url">शेयर यूआरएल</string>
-    <string name="delete_selected_tracker">चयनित ट्रैकर हटाएं?</string>
-    <string name="delete_selected_trackers">चयनित ट्रैकर हटाएं?</string>
+    <string name="delete_selected_tracker">चयनित ट्रैकर हटाएं\?</string>
+    <string name="delete_selected_trackers">चयनित ट्रैकर हटाएं\?</string>
     <string name="add_trackers">ट्रैकर्स जोड़ें</string>
     <string name="dialog_add_trackers">(प्रति पंक्ति एक)</string>
     <string name="open_using">का उपयोग कर खोलें</string>
     <string name="peer_port">पोर्ट: %1$d</string>
-    <string name="peer_relevance">प्रासंगिकता   :  %1$.1f</string>
+    <string name="peer_relevance">प्रासंगिकता : %1$.1f</string>
     <string name="peer_connection_type">कनेक्शन: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">ग्राहक: %1$s</string>
     <string name="peer_connection_type_bittorrent">बीटी</string>
     <string name="peer_connection_type_web">वेब</string>
@@ -247,7 +248,7 @@
     <string name="torrent_added_date">जोड़ा गया</string>
     <string name="torrent_availability">उपलब्धता</string>
     <string name="share_stream_url">शेयर स्ट्रीम यूआरएल</string>
-    <string name="magnet_include_file_priorities">फ़ाइल प्राथमिकताएं शामिल करें?</string>
+    <string name="magnet_include_file_priorities">फ़ाइल प्राथमिकताएं शामिल करें\?</string>
     <string name="magnet_more_about_bep53">अधिक जानकारी: http://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">प्रतिलिपि</string>
@@ -269,8 +270,8 @@
     <string name="feed_last_update_never">कभी नहीँ</string>
     <string name="error_cannot_add_channel">चैनल नहीं जोड़ सकता</string>
     <string name="copy_link">प्रतिरूप जोड़ना</string>
-    <string name="delete_selected_channel">चयनित चैनल हटाएं?</string>
-    <string name="delete_selected_channels">चयनित चैनल हटाएं?</string>
+    <string name="delete_selected_channel">चयनित चैनल हटाएं\?</string>
+    <string name="delete_selected_channels">चयनित चैनल हटाएं\?</string>
     <string name="edit_feed_channel">चैनल संपादित करें</string>
     <string name="link_copied_to_clipboard">लिंक को क्लिपबोर्ड पर कॉपी किया गया</string>
     <string name="mark_as_read">पढ़े हुए का चिह्न</string>
@@ -397,7 +398,7 @@
     <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
     <string name="pref_battery_control_summary">यदि बैटरी स्तर %1$d%% से नीचे चला जाता है, तो सभी टोरेंट्स को रोक दिया जाएगा। चार्जिंग के समय सीमा लागू नहीं होती है</string>
     <string name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक कस्टम प्रतिशत सेट करें। इसे सक्षम करने से डिफ़ॉल्ट %1$d%% थ्रेशोल्ड पर ध्यान नहीं दिया जाएगा</string>
-    <string name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <string name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी जीवन पर नकारात्मक प्रभाव पड़ेगा जबकि डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं\?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">प्रॉक्सी सेटिंग</string>
     <string name="pref_enable_dht_title">DHT को सक्षम करें</string>
@@ -491,9 +492,7 @@
     <string name="pref_streaming_error">स्ट्रीमिंग के लिए चयनित पोर्ट या होस्टनाम व्यस्त या गलत है। कृपया इसे ठीक करे</string>
     <!-- About dialog -->
     <string name="about_title">LibreTorrent के बारे में</string>
-    <string name="about_description"><![CDATA[    अधिक जानकारी और परियोजना को मदद करने के लिए <a href="https://gitlab.com/proninyaroslav/libretorrent">https://gitlab.com/proninyaroslav/libretorrent</a><br><br>
-    LibreTorrent एंड्रॉइड 4+ के लिए फ्रीडम टोरेंट क्लाइंट में एक फ्री है, जो कि libtorrent (Java आवरण <a href="https://github.com/aldenml/libtorrent4j">libtorrent4j</a>) लिब पर आधारित है।।<br><br>
-    LibreTorrent मुफ्त सॉफ्टवेयर है, जो <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> की शर्तों के तहत जारी किया गया है]]></string>
+    <string name="about_description">अधिक जानकारी और परियोजना को मदद करने के लिए &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent एंड्रॉइड 4+ के लिए फ्रीडम टोरेंट क्लाइंट में एक फ्री है, जो कि libtorrent (Java आवरण &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) लिब पर आधारित है।।&lt;br&gt;&lt;br&gt; LibreTorrent मुफ्त सॉफ्टवेयर है, जो &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; की शर्तों के तहत जारी किया गया है</string>
     <string name="about_changelog">बदलाव का</string>
     <string name="apply">लागू करे</string>
 </resources>

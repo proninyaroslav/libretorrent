@@ -60,7 +60,7 @@
     <string name="about">Apie</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
-    <string name="session_stats_download_upload">%1$s \u2022 %2$s/s</string>
+    <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <!-- Status -->
     <string name="drawer_status">Statusas</string>
     <string name="drawer_status_downloading">Parsisiunčiama…</string>
@@ -82,11 +82,11 @@
     <string name="no_tags">Nėra žymų</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \u2022 %2$s</string>
+    <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">%1$d ⬇ iš %2$d</string>
     <string name="app_running_in_the_background">Veikiama fone…</string>
     <string name="network_online">Prisijungęs</string>
@@ -108,9 +108,9 @@
     <!-- downloaded/total (percent) -->
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
     <!-- ↓ download speed | ↑ upload speed -->
-    <string name="download_upload_speed_template">\u2193 %1$s/s | \u2191 %2$s/s</string>
+    <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s \u2022 %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Atsiunčiama…</string>
@@ -176,7 +176,8 @@
     <string name="more_details">Daugiau detalių</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s \u2022 %2$s/%3$s \u2022 %4$d%% \u2022\nPrieinamumas: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nPrieinamumas: %5$s</string>
     <string name="file_priority_normal">Normalus</string>
     <string name="file_priority_low">Žemas</string>
     <string name="file_priority_high">Aukštas</string>
@@ -217,7 +218,7 @@
     <string name="peer_relevance">Aktualumas: %1$.1f</string>
     <string name="peer_connection_type">Sujungimas: %1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">\u2193 %1$s \u2022 \u2191 %2$s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">Klientas: %1$s</string>
     <string name="peer_connection_type_bittorrent">BT</string>
     <string name="peer_connection_type_web">Žiniatinklis</string>
@@ -239,7 +240,7 @@
     <string name="torrent_added_date">Pridėta</string>
     <string name="torrent_availability">Prieinamumas</string>
     <string name="share_stream_url">Bendrinti srauto URL…</string>
-    <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
+    <string name="magnet_include_file_priorities">Įtraukti failo prioritetus\?</string>
     <string name="magnet_more_about_bep53">Daugiau informacijos https://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopijuoti</string>
