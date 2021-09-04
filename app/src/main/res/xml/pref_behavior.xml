@@ -6,24 +6,28 @@
         android:key="@string/pref_key_unmetered_connections_only"
         android:title="@string/pref_umnetered_connections_only_title"
         android:summary="@string/pref_umnetered_connections_only_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_roaming"
         android:title="@string/pref_enable_roaming_title"
         android:summary="@string/pref_enable_roaming_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_autostart"
         android:title="@string/pref_autostart_title"
         android:summary="@string/pref_autostart_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <EditTextPreference
         android:key="@string/pref_key_default_trackers_list"
         android:title="@string/pref_default_trackers_list_title"
         android:summary="@string/pref_default_trackers_list_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <PreferenceCategory
@@ -33,18 +37,21 @@
             android:key="@string/pref_key_keep_alive"
             android:title="@string/pref_keep_alive_title"
             android:summary="@string/pref_keep_alive_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_shutdown_downloads_complete"
             android:title="@string/pref_shutdown_downloads_complete_title"
             android:summary="@string/pref_shutdown_downloads_complete_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_cpu_do_not_sleep"
             android:title="@string/pref_cpu_do_not_sleep_title"
             android:summary="@string/pref_cpu_do_not_sleep_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
@@ -52,6 +59,7 @@
             android:title="@string/pref_download_and_upload_only_when_charging_title"
             android:summary="@string/pref_download_and_upload_only_when_charging_summary"
             android:disableDependentsState="true"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
@@ -59,6 +67,7 @@
             android:title="@string/pref_battery_control_title"
             android:summary="@string/pref_battery_control_summary"
             android:dependency="@string/pref_key_download_and_upload_only_when_charging"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
@@ -66,6 +75,7 @@
             android:title="@string/pref_custom_battery_control_title"
             android:summary="@string/pref_custom_battery_control_summary"
             android:dependency="@string/pref_key_battery_control"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SeekBarPreference
@@ -73,6 +83,7 @@
             android:title="@string/pref_custom_battery_control_value_title"
             android:dependency="@string/pref_key_custom_battery_control"
             app:showSeekBarValue="true"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

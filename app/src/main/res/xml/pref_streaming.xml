@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_streaming_enable"
         android:title="@string/pref_streaming_enable_title"
         android:summary="@string/pref_streaming_enable_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <EditTextPreference
@@ -12,6 +14,7 @@
         android:title="@string/pref_streaming_hostname"
         android:inputType="text|textNoSuggestions"
         android:dependency="@string/pref_key_streaming_enable"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <EditTextPreference
@@ -19,5 +22,6 @@
         android:title="@string/pref_streaming_port"
         android:inputType="numberDecimal"
         android:dependency="@string/pref_key_streaming_enable"
+        app:singleLineTitle="false"
         android:persistent="false" />
 </PreferenceScreen>
