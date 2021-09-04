@@ -581,4 +581,5 @@
     <string name="pref_posix_disk_io_title"></string>
     <string name="pref_validate_https_trackers_summary"></string>
     <string name="exact_alarm_permission_warning"></string>
+    <string name="pref_foreground_notify_combined_pause_button_summary"></string>
 </resources>
