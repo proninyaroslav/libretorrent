@@ -53,6 +53,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -237,12 +238,21 @@ public class TorrentService extends Service
 
         foregroundDisposable = stateProvider.observeInfoList()
                 .subscribeOn(Schedulers.io())
+                .flatMapSingle((infoList) ->
+                        Flowable.fromIterable(infoList)
+                                .sorted(this::sortByProgressAsc)
+                                .toList()
+                )
                 .observeOn(AndroidSchedulers.mainThread())
                 .delay(FOREGROUND_NOTIFY_UPDATE_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(this::updateForegroundNotify,
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
+    }
+
+    private int sortByProgressAsc(TorrentInfo a, TorrentInfo b) {
+        return Integer.compare(a.progress, b.progress);
     }
 
     private void forceUpdateForeground()
