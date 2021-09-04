@@ -50,4 +50,16 @@
                 android:persistent="false" />
         </PreferenceCategory>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_foreground_notification_category">
+
+        <ListPreference
+            android:key="@string/pref_key_foreground_notify_status_filter"
+            android:title="@string/pref_foreground_notify_status_filter"
+            android:summary="%s"
+            android:entries="@array/pref_foreground_notify_status_filter_entries"
+            android:entryValues="@array/pref_foreground_notify_status_filter_entries_value"
+            android:persistent="false" />
+    </PreferenceCategory>
 </PreferenceScreen>

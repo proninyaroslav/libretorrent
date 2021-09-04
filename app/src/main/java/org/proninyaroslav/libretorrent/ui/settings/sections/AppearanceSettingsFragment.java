@@ -94,6 +94,14 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(torrentFinishNotify);
         }
 
+        String keyForegroundNotifyStatusFilter = getString(R.string.pref_key_foreground_notify_status_filter);
+        ListPreference foregroundNotifyStatusFilter = findPreference(keyForegroundNotifyStatusFilter);
+        if (foregroundNotifyStatusFilter != null) {
+            int type = Integer.parseInt(pref.foregroundNotifyStatusFilter());
+            foregroundNotifyStatusFilter.setValueIndex(type);
+            bindOnPreferenceChangeListener(foregroundNotifyStatusFilter);
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
     }
@@ -227,6 +235,9 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_led_indicator_color_notify))) {
             pref.ledIndicatorColorNotify((int)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_status_filter))) {
+            pref.foregroundNotifyStatusFilter((String)newValue);
         }
 
         return true;

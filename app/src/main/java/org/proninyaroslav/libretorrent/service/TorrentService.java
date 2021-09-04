@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,6 +36,8 @@ import androidx.core.app.NotificationCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
+import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -54,10 +56,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 
 public class TorrentService extends Service
 {
@@ -79,6 +85,7 @@ public class TorrentService extends Service
     private CompositeDisposable disposables = new CompositeDisposable();
     private AtomicBoolean shuttingDown = new AtomicBoolean(false);
     private AtomicBoolean shutDownNotifyShow = new AtomicBoolean(false);
+    private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
 
     @Nullable
     @Override
@@ -105,6 +112,7 @@ public class TorrentService extends Service
 
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
+        subscribeForceSortAndFilter();
 
         Utils.enableBootReceiverIfNeeded(getApplicationContext());
         setKeepCpuAwake(pref.cpuDoNotSleep());
@@ -133,7 +141,7 @@ public class TorrentService extends Service
     private void stopEngine()
     {
         shuttingDown.set(true);
-        forceUpdateForeground();
+        forceClearForeground();
         engine.doStop();
     }
 
@@ -227,8 +235,11 @@ public class TorrentService extends Service
 
     private void handleSettingsChanged(String key)
     {
-        if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
+        if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep))) {
             setKeepCpuAwake(pref.cpuDoNotSleep());
+        } else if (key.equals(getString(R.string.pref_key_foreground_notify_status_filter))) {
+            forceSortAndFilter.onNext(true);
+        }
     }
 
     private void startUpdateForegroundNotify()
@@ -240,6 +251,7 @@ public class TorrentService extends Service
                 .subscribeOn(Schedulers.io())
                 .flatMapSingle((infoList) ->
                         Flowable.fromIterable(infoList)
+                                .filter(getFilter())
                                 .sorted(this::sortByProgressAsc)
                                 .toList()
                 )
@@ -251,11 +263,50 @@ public class TorrentService extends Service
                 );
     }
 
+    private Disposable getInfoListSingle() {
+        return stateProvider.getInfoListSingle()
+                .subscribeOn(Schedulers.io())
+                .flatMap((infoList) ->
+                        Observable.fromIterable(infoList)
+                                .filter(getFilter())
+                                .sorted(this::sortByProgressAsc)
+                                .toList()
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateForegroundNotify,
+                        (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
+                                + Log.getStackTraceString(t))
+                );
+    }
+
+    private void subscribeForceSortAndFilter() {
+        disposables.add(forceSortAndFilter
+                .filter((force) -> force)
+                .observeOn(Schedulers.io())
+                .subscribe((force) -> disposables.add(getInfoListSingle())));
+    }
+
     private int sortByProgressAsc(TorrentInfo a, TorrentInfo b) {
         return Integer.compare(a.progress, b.progress);
     }
 
-    private void forceUpdateForeground()
+    private TorrentFilter getFilter() {
+        String val = pref.foregroundNotifyStatusFilter();
+        if (val.equals(getString(R.string.pref_foreground_notify_status_all_value))) {
+            return TorrentFilterCollection.all();
+        } else if (val.equals(getString(R.string.pref_foreground_notify_status_downloading_value))) {
+            return TorrentFilterCollection.statusDownloading();
+        } else if (val.equals(getString(R.string.pref_foreground_notify_status_downloaded_value))) {
+            return TorrentFilterCollection.statusDownloaded();
+        } else if (val.equals(getString(R.string.pref_foreground_notify_status_downloading_metadata_value))) {
+            return TorrentFilterCollection.statusDownloadingMetadata();
+        } else if (val.equals(getString(R.string.pref_foreground_notify_status_error_value))) {
+            return TorrentFilterCollection.statusError();
+        }
+        throw new IllegalStateException("Unknown filter type: " + val);
+    }
+
+    private void forceClearForeground()
     {
         disposables.add(Completable.fromRunnable(() -> {
                     updateForegroundNotify(Collections.emptyList());

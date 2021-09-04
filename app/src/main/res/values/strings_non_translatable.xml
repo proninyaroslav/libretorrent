@@ -24,6 +24,18 @@
         <item>@string/pref_enc_mode_require_value</item>
         <item>@string/pref_enc_mode_disable_value</item>
     </string-array>
+    <string name="pref_foreground_notify_status_all_value" translatable="false">0</string>
+    <string name="pref_foreground_notify_status_downloading_value" translatable="false">1</string>
+    <string name="pref_foreground_notify_status_downloaded_value" translatable="false">2</string>
+    <string name="pref_foreground_notify_status_downloading_metadata_value" translatable="false">3</string>
+    <string name="pref_foreground_notify_status_error_value" translatable="false">4</string>
+    <string-array name="pref_foreground_notify_status_filter_entries_value" translatable="false">
+        <item>@string/pref_foreground_notify_status_all_value</item>
+        <item>@string/pref_foreground_notify_status_downloading_value</item>
+        <item>@string/pref_foreground_notify_status_downloaded_value</item>
+        <item>@string/pref_foreground_notify_status_downloading_metadata_value</item>
+        <item>@string/pref_foreground_notify_status_error_value</item>
+    </string-array>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_none_value" translatable="false">0</string>
     <string name="pref_proxy_type_socks4_value" translatable="false">1</string>

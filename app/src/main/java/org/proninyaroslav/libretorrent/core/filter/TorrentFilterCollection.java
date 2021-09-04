@@ -19,8 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
-import androidx.annotation.NonNull;
-
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.utils.DateUtils;

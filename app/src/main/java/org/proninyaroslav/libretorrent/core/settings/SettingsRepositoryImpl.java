@@ -47,10 +47,15 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean playSoundNotify = true;
         static final boolean ledIndicatorNotify = true;
         static final boolean vibrationNotify = true;
-        static int theme(@NonNull Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
+        static int theme(@NonNull Context context) {
+            return Integer.parseInt(context.getString(R.string.pref_theme_light_value));
+        }
         static int ledIndicatorColorNotify(@NonNull Context context)
         {
             return ContextCompat.getColor(context, R.color.primary);
+        }
+        static String foregroundNotifyStatusFilter(@NonNull Context context) {
+            return context.getString(R.string.pref_foreground_notify_status_downloading_value);
         }
         /* Behavior settings */
         static final boolean autostart = false;
@@ -340,6 +345,24 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_led_indicator_color_notify), val)
+                .apply();
+    }
+
+    @Override
+    public String foregroundNotifyStatusFilter() {
+        return pref.getString(
+                appContext.getString(R.string.pref_key_foreground_notify_status_filter),
+                Default.foregroundNotifyStatusFilter(appContext)
+        );
+    }
+
+    @Override
+    public void foregroundNotifyStatusFilter(String val) {
+        pref.edit()
+                .putString(
+                        appContext.getString(R.string.pref_key_foreground_notify_status_filter),
+                        val
+                )
                 .apply();
     }
 

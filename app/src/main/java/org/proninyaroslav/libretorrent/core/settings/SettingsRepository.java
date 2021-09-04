@@ -63,6 +63,10 @@ public interface SettingsRepository
 
     void ledIndicatorColorNotify(int val);
 
+    String foregroundNotifyStatusFilter();
+
+    void foregroundNotifyStatusFilter(String val);
+
     /*
      * Behavior settings
      */
