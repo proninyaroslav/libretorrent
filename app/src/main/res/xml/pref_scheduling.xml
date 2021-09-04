@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_scheduling_start"
         android:title="@string/pref_enable_scheduling_start_title"
         android:summary="@string/pref_enable_scheduling_start_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
@@ -11,12 +13,14 @@
         android:positiveButtonText="@string/ok"
         android:negativeButtonText="@string/cancel"
         android:dependency="@string/pref_key_enable_scheduling_start"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_scheduling_shutdown"
         android:title="@string/pref_enable_scheduling_shutdown_title"
         android:summary="@string/pref_enable_scheduling_shutdown_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
@@ -24,6 +28,7 @@
         android:positiveButtonText="@string/ok"
         android:negativeButtonText="@string/cancel"
         android:dependency="@string/pref_key_enable_scheduling_shutdown"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <CheckBoxPreference
@@ -31,10 +36,12 @@
         android:key="@string/pref_key_scheduling_switch_wifi"
         android:title="@string/pref_scheduling_switch_wifi_title"
         android:summary="@string/pref_scheduling_switch_wifi_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <CheckBoxPreference
         android:key="@string/pref_key_scheduling_run_only_once"
         android:title="@string/pref_scheduling_run_only_once_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 </PreferenceScreen>

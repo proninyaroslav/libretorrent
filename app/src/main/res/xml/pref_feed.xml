@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/pref_feed_auto_refresh_title">
@@ -8,6 +9,7 @@
             android:key="@string/pref_key_feed_auto_refresh"
             android:title="@string/pref_feed_auto_refresh_title"
             android:summary="@string/pref_feed_auto_refresh_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <ListPreference
@@ -17,6 +19,7 @@
             android:entries="@array/pref_feed_refresh_intervals_entries"
             android:entryValues="@array/pref_feed_refresh_intervals_values"
             android:dependency="@string/pref_key_feed_auto_refresh"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
@@ -24,12 +27,14 @@
             android:title="@string/pref_feed_auto_refresh_unmetered_connections_only_title"
             android:summary="@string/pref_feed_auto_refresh_unmetered_connections_only_summary"
             android:dependency="@string/pref_key_feed_auto_refresh"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_feed_auto_refresh_enable_roaming"
             android:title="@string/pref_feed_auto_refresh_enable_roaming_title"
             android:dependency="@string/pref_key_feed_auto_refresh"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 
@@ -39,17 +44,20 @@
         android:summary="%s"
         android:entries="@array/pref_feed_keep_items_time_entries"
         android:entryValues="@array/pref_feed_keep_items_time_entry_values"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_feed_start_torrents"
         android:title="@string/pref_feed_start_torrents_title"
         android:summary="@string/pref_feed_start_torrents_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_feed_remove_duplicates"
         android:title="@string/pref_feed_remove_duplicates_title"
         android:summary="@string/pref_feed_remove_duplicates_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 </PreferenceScreen>
