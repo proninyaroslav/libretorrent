@@ -13,6 +13,6 @@
 * HTTP\S ir magnetinės nuorodos.
 * DHT, PeX, šifravimas, LSD, UPnP, NAT*PMP, µTP.
 * IP filtravimas (eMule dat ir PeerGuardian).
-* Palaikomi tarpiniai serverių ir lygiaverčių vartotojų serveriai.
+* Palaikomi įgaliotuosius serverius sekliams ir siuntėjams.
 * Parengta pagal libtorrent4j.
 * Ir dar daugiau.

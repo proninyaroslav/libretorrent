@@ -11,7 +11,7 @@
     <string name="replace">取代</string>
     <string name="add">新增</string>
     <string name="delete">刪除</string>
-    <string name="deleting">正在刪除</string>
+    <string name="deleting">正在刪除…</string>
     <string name="select_all">全選</string>
     <string name="save">儲存</string>
     <string name="search">搜尋</string>
@@ -327,21 +327,20 @@
     <string name="create_torrent_options">選項</string>
     <string name="option_start_seeding">立刻做種</string>
     <string name="option_private_torrent">私有 Torrent</string>
-    <string-array name="piece_size_entries">
-        <item>自動</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">自動</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">無效的網址：%1$s</string>
     <string name="folder_is_empty">所選的資料夾沒有內容或其中檔案已全被略過</string>
     <string name="error_create_torrent">無法建立 Torrent</string>
@@ -403,11 +402,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">主題設定</string>
     <string name="pref_theme_title">主題</string>
-    <string-array name="pref_theme_entries">
-        <item>淺色</item>
-        <item>深色</item>
-        <item>黑色</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">淺色</string>
+    <string name="pref_theme_entries_1">深色</string>
+    <string name="pref_theme_entries_2">黑色</string>
     <string name="pref_notification_category">通知設定</string>
     <string name="pref_torrent_finish_notify_title">下載完成通知</string>
     <string name="pref_torrent_finish_notify_summary">當下載作業完成時發出通知</string>
@@ -457,11 +455,10 @@
     <string name="pref_port_range_end_title">訖</string>
     <string name="pref_encryption_category">加密</string>
     <string name="pref_enc_mode_title">模式</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>偏好加密</item>
-        <item>要求加密</item>
-        <item>停用加密</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">偏好加密</string>
+    <string name="pref_enc_mode_entries_1">要求加密</string>
+    <string name="pref_enc_mode_entries_2">停用加密</string>
     <string name="pref_enc_in_connections_title">輸入連線</string>
     <string name="pref_enc_out_connections_title">輸出連線</string>
     <string name="pref_ip_filtering_category">IP 篩選</string>
@@ -475,12 +472,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy 類型</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(無)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(無)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">主機位址</string>
     <string name="pref_proxy_port_title">連接埠</string>
     <string name="pref_proxy_peers_too_title">亦套用至用戶連線</string>
@@ -501,31 +497,29 @@
     <string name="pref_feed_auto_refresh_title">自動重新整理頻道</string>
     <string name="pref_feed_auto_refresh_summary">定期在背景重新整理頻道</string>
     <string name="pref_feed_refresh_interval_title">重新整理週期</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 分鐘</item>
-        <item>30 分鐘</item>
-        <item>1 小時</item>
-        <item>2 小時</item>
-        <item>6 小時</item>
-        <item>12 小時</item>
-        <item>1 天</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 分鐘</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 分鐘</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 小時</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 小時</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 小時</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 小時</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 天</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">僅限非計量付費網路</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">只透過非計量付費網路 (如：Wi-Fi 或乙太網路) 重新整理</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">漫遊時允許</string>
     <string name="pref_feed_keep_items_time_title">保留文章</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 天</item>
-        <item>2 天</item>
-        <item>4 天</item>
-        <item>1 週</item>
-        <item>2 週</item>
-        <item>1 個月</item>
-        <item>2 個月</item>
-        <item>3 個月</item>
-        <item>永遠</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 天</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 天</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 天</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 週</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 週</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 個月</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 個月</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 個月</string>
+    <string name="pref_feed_keep_items_time_entries_8">永遠</string>
     <string name="pref_feed_start_torrents_title">Run torrents</string>
     <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
     <string name="pref_feed_remove_duplicates_title">移除重複項目</string>

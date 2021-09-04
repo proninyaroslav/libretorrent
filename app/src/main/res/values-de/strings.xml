@@ -324,21 +324,20 @@
     <string name="create_torrent_options">Optionen</string>
     <string name="option_start_seeding">Seeding starten</string>
     <string name="option_private_torrent">Privater Torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Automatisch</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Automatisch</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Ungültige URL: %1$s</string>
     <string name="folder_is_empty">Ausgewählter Ordner ist leer oder alle Dateien sind vom Filter ausgeschlossen</string>
     <string name="error_create_torrent">Unfähig torrent zu erstellen</string>
@@ -396,11 +395,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Themen Einstellungen</string>
     <string name="pref_theme_title">Theme</string>
-    <string-array name="pref_theme_entries">
-        <item>Hell</item>
-        <item>Dunkel</item>
-        <item>Schwarz</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Hell</string>
+    <string name="pref_theme_entries_1">Dunkel</string>
+    <string name="pref_theme_entries_2">Schwarz</string>
     <string name="pref_notification_category">Benachrichtigungseinstellungen</string>
     <string name="pref_torrent_finish_notify_title">Torrent abgeschlossen Benachrichtigung</string>
     <string name="pref_torrent_finish_notify_summary">Benachrichtige bei abgeschlossenen Torrents</string>
@@ -449,11 +447,10 @@
     <string name="pref_port_range_end_title">Ende</string>
     <string name="pref_encryption_category">Verschlüsselung</string>
     <string name="pref_enc_mode_title">Verschlüsselungsmodus</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Bevorzuge Verschlüsselung</item>
-        <item>Erfordere Verschlüsselung</item>
-        <item>Deaktiviere Verschlüsselung</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Bevorzuge Verschlüsselung</string>
+    <string name="pref_enc_mode_entries_1">Erfordere Verschlüsselung</string>
+    <string name="pref_enc_mode_entries_2">Deaktiviere Verschlüsselung</string>
     <string name="pref_enc_in_connections_title">Eingehende Verbindungen</string>
     <string name="pref_enc_out_connections_title">Ausgehende Verbindungen</string>
     <string name="pref_ip_filtering_category">IP-Filterung</string>
@@ -467,12 +464,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Legt fest, ob Seeding Torrents versuchen sollen, ausgehende Verbindungen herzustellen oder nicht. Es kann in sehr speziellen Situationen deaktiviert werden, wenn die Kosten für ausgehende Verbindungen hoch sind.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxytyp</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Keiner)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Keiner)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adresse</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Auch für Peer Verbindungen</string>
@@ -493,31 +489,29 @@
     <string name="pref_feed_auto_refresh_title">Automatische Aktualisierung der Kanäle</string>
     <string name="pref_feed_auto_refresh_summary">Regelmäßige Aktualisierung der Kanäle im Hintergrund</string>
     <string name="pref_feed_refresh_interval_title">Aktualisierungsintervall</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 Minuten</item>
-        <item>30 Minuten</item>
-        <item>1 Stunde</item>
-        <item>2 Stunden</item>
-        <item>6 Stunden</item>
-        <item>12 Stunden</item>
-        <item>1 Tag</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 Minuten</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 Minuten</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 Stunde</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 Stunden</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 Stunden</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 Stunden</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 Tag</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Nur nicht getaktete Verbindungen</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Nur über nicht getaktete Verbindungen aktualisieren (z. B. WLAN oder LAN)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming aktivieren</string>
     <string name="pref_feed_keep_items_time_title">Artikel aufbewahren</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 Tag</item>
-        <item>2 Tage</item>
-        <item>4 Tage</item>
-        <item>1 Woche</item>
-        <item>2 Wochen</item>
-        <item>1 Monat</item>
-        <item>2 Monate</item>
-        <item>3 Monate</item>
-        <item>Immer</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 Tag</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 Tage</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 Tage</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 Woche</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 Wochen</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 Monat</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 Monate</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 Monate</string>
+    <string name="pref_feed_keep_items_time_entries_8">Immer</string>
     <string name="pref_feed_start_torrents_title">Torrents ausführen</string>
     <string name="pref_feed_start_torrents_summary">Torrents nach dem Hinzufügen ausführen</string>
     <string name="pref_feed_remove_duplicates_title">Duplikate entfernen</string>

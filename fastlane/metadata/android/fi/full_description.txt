@@ -1,0 +1,18 @@
+* Lisensoitu GPLv3+. Käytä, katso, muuta ja jaa.
+* Valitse ladatavat tiedostot
+* Siirrä tiedostoja latauksessa
+* Siirrä valmiit lataukset toiseen kansioon/levylle
+* Suoratoista tiedostoja, peräkkäisinä latauksina
+* Android TV
+* Material design, tumma ja musta teema, tablettitila
+* Muokattavat verkko-, virta-, ja UI-asetukset jne
+* 35+ käännöstä
+* Ajastus
+* Automaattinen lataus & Atom/RSS-managerilla
+* Luo torrenteja, monia ja isoja tiedostoja varten
+* HTTP\S ja magneettilinkit
+* DHT, PeX, kryptaus, LSD, UPnP, NAT*PMP, µTP
+* IP-suodatus (eMule dat ja PeerGuardian)
+* Tukee välityspalvelinta trackereille ja vertaisille
+* Perustuu libtorrent4j:iin
+* Ja enemmän.

@@ -332,21 +332,20 @@
     <string name="create_torrent_options">选项</string>
     <string name="option_start_seeding">开始做种</string>
     <string name="option_private_torrent">私有种子</string>
-    <string-array name="piece_size_entries">
-        <item>自动</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">自动</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">无效链接：%1$s</string>
     <string name="folder_is_empty">选中文件夹为空或过滤器排除了其所有的文件。</string>
     <string name="error_create_torrent">无法创建种子</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
     <string name="pref_theme_title">主题</string>
-    <string-array name="pref_theme_entries">
-        <item>明亮</item>
-        <item>深色</item>
-        <item>黑色</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">明亮</string>
+    <string name="pref_theme_entries_1">深色</string>
+    <string name="pref_theme_entries_2">黑色</string>
     <string name="pref_notification_category">通知设置</string>
     <string name="pref_torrent_finish_notify_title">种子完成时通知</string>
     <string name="pref_torrent_finish_notify_summary">种子下载完成后显示通知。</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">结束</string>
     <string name="pref_encryption_category">加密</string>
     <string name="pref_enc_mode_title">模式</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>偏好加密</item>
-        <item>要求加密</item>
-        <item>禁用加密</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">偏好加密</string>
+    <string name="pref_enc_mode_entries_1">要求加密</string>
+    <string name="pref_enc_mode_entries_2">禁用加密</string>
     <string name="pref_enc_in_connections_title">传入连接</string>
     <string name="pref_enc_out_connections_title">传出连接</string>
     <string name="pref_ip_filtering_category">IP 过滤</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">让做种的种子建立传出连接。(可能代价不菲)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">代理类型</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>（无）</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">（无）</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
     <string name="pref_proxy_peers_too_title">也用于连接</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
     <string name="pref_feed_auto_refresh_summary">在后台定期刷新频道。</string>
     <string name="pref_feed_refresh_interval_title">刷新间隔</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 分钟</item>
-        <item>30 分钟</item>
-        <item>1 小时</item>
-        <item>2 小时</item>
-        <item>6 小时</item>
-        <item>12 小时</item>
-        <item>1 天</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 分钟</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 分钟</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 小时</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 小时</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 小时</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 小时</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 天</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">仅限于不按流量计费的连接</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">仅通过没有流量额度的连接刷新（例如，Wi-Fi 或以太网）。</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">漫游</string>
     <string name="pref_feed_keep_items_time_title">保留文章</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 天</item>
-        <item>2 天</item>
-        <item>4 天</item>
-        <item>1 周</item>
-        <item>2 周</item>
-        <item>1 个月</item>
-        <item>2 个月</item>
-        <item>3 个月</item>
-        <item>始终</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 天</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 天</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 天</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 周</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 周</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 个月</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 个月</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 个月</string>
+    <string name="pref_feed_keep_items_time_entries_8">始终</string>
     <string name="pref_feed_start_torrents_title">自动开始 torrent 文件</string>
     <string name="pref_feed_start_torrents_summary">下载添加的种子。</string>
     <string name="pref_feed_remove_duplicates_title">无重复项</string>
@@ -553,4 +547,6 @@
 \n1. 添加种子时，默认列表会自动添加到种子列表中。
 \n2. 用于获取磁力链接。</string>
     <string name="pref_default_trackers_list_title">默认 trackers</string>
+    <string name="pref_foreground_notify_status_filter">状态过滤器</string>
+    <string name="pref_foreground_notification_category">前台通知设置</string>
 </resources>

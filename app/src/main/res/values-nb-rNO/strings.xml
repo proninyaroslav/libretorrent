@@ -332,21 +332,20 @@
     <string name="create_torrent_options">Alternativer</string>
     <string name="option_start_seeding">Start deling</string>
     <string name="option_private_torrent">Privat torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Ugyldig URL: %1$s</string>
     <string name="folder_is_empty">Valgt mappe er tom, eller alle filer er ekskludert av filter.</string>
     <string name="error_create_torrent">Kunne ikke lage torrent</string>
@@ -410,11 +409,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Draktvalg</string>
     <string name="pref_theme_title">Drakt</string>
-    <string-array name="pref_theme_entries">
-        <item>Lys</item>
-        <item>Mørk</item>
-        <item>Svart</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Lys</string>
+    <string name="pref_theme_entries_1">Mørk</string>
+    <string name="pref_theme_entries_2">Svart</string>
     <string name="pref_notification_category">Merknadsinnstillinger</string>
     <string name="pref_torrent_finish_notify_title">Merknad ved fullføring av torrent</string>
     <string name="pref_torrent_finish_notify_summary">Vis merkad når en torrent er ferdig nedlastet.</string>
@@ -464,11 +462,10 @@
     <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">Kryptering</string>
     <string name="pref_enc_mode_title">Modus</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Foretrekk kryptering</item>
-        <item>Krev kryptering</item>
-        <item>Skru av kryptering</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Foretrekk kryptering</string>
+    <string name="pref_enc_mode_entries_1">Krev kryptering</string>
+    <string name="pref_enc_mode_entries_2">Skru av kryptering</string>
     <string name="pref_enc_in_connections_title">Innkommende tilkoblinger</string>
     <string name="pref_enc_out_connections_title">Utgående tilkoblinger</string>
     <string name="pref_ip_filtering_category">IP-filtrering</string>
@@ -482,16 +479,15 @@
     <string name="pref_seeding_outgoing_connections_summary">Lar delte torrenter gjøre utgående tilkoblinger. (Kan være dyrt.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Ingen)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Ingen)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adresse</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Bruk også for tilkoblinger</string>
-    <string name="pref_proxy_peers_too_summary">Tilkoblinger til sporere, andre og vev-delere blir mellomtjent.</string>
+    <string name="pref_proxy_peers_too_summary">Tilkoblinger til sporere, andre og vev-delere blir mellomtjent. Har ikke innvirkning på DHT.</string>
     <string name="pref_proxy_requires_auth_title">Krever identitetsgodkjenning</string>
     <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret som en vanlig fil.</string>
     <string name="pref_proxy_login_title">Brukernavn</string>
@@ -508,31 +504,29 @@
     <string name="pref_feed_auto_refresh_title">Oppdater kanaler automatisk</string>
     <string name="pref_feed_auto_refresh_summary">Med jevne mellomrom oppdatere kanaler i bakgrunnen.</string>
     <string name="pref_feed_refresh_interval_title">Oppdaterings intervall</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutter</item>
-        <item>30 minutter</item>
-        <item>1 time</item>
-        <item>2 timer</item>
-        <item>6 timer</item>
-        <item>12 timer</item>
-        <item>1 dag</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutter</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutter</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 time</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 timer</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 timer</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 timer</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 dag</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Kun for tilkoblinger uten kvote</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Kun gjenoppfrisk på tilkoblinger uten kvote (for eksempel Wi-Fi eller Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Gjesting</string>
     <string name="pref_feed_keep_items_time_title">Hold artikler</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 dag</item>
-        <item>2 dager</item>
-        <item>4 dager</item>
-        <item>1 uke</item>
-        <item>2 uker</item>
-        <item>1 måned</item>
-        <item>2 måneder</item>
-        <item>3 måneder</item>
-        <item>Alltid</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 dag</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dager</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dager</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 uke</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 uker</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 måned</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 måneder</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 måneder</string>
+    <string name="pref_feed_keep_items_time_entries_8">Alltid</string>
     <string name="pref_feed_start_torrents_title">Autostart torrenter</string>
     <string name="pref_feed_start_torrents_summary">Last ned tillagte torrenter.</string>
     <string name="pref_feed_remove_duplicates_title">Ingen duplisering</string>
@@ -549,4 +543,9 @@
     <string name="about_changelog">Endringslogg</string>
     <string name="log_journal">Journal</string>
     <string name="start_torrent">Start torrent</string>
+    <string name="pref_default_trackers_list_summary">Sporerliste, brukt:
+\n1. Ved tillegg av torrent, der forvalgt liste automatisk legges til torrent-listen.
+\n2. Brukt til å hente magnetlenker.</string>
+    <string name="pref_default_trackers_list_title">Forvalgte sporere</string>
+    <string name="pref_watch_dir_delete_file_title">Slett .torrent-fil før den er lagt til</string>
 </resources>

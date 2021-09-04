@@ -324,21 +324,20 @@
     <string name="create_torrent_options">Opções</string>
     <string name="option_start_seeding">Começar a compartilhar</string>
     <string name="option_private_torrent">Torrente privada</string>
-    <string-array name="piece_size_entries">
-        <item>Automático</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Automático</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">URL inválida: %1$s</string>
     <string name="folder_is_empty">A pasta selecionada está vazia ou todos os arquivos são excluídos pelo filtro.</string>
     <string name="error_create_torrent">Não foi possível criar torrent</string>
@@ -403,11 +402,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Configurações de tema</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Claro</item>
-        <item>Escuro</item>
-        <item>Preto</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Claro</string>
+    <string name="pref_theme_entries_1">Escuro</string>
+    <string name="pref_theme_entries_2">Preto</string>
     <string name="pref_notification_category">Configurações de notificação</string>
     <string name="pref_torrent_finish_notify_title">Notificação de torrent concluído</string>
     <string name="pref_torrent_finish_notify_summary">Mostrar uma notificação quando um torrent for baixado.</string>
@@ -457,11 +455,10 @@
     <string name="pref_port_range_end_title">Final</string>
     <string name="pref_encryption_category">Encriptação</string>
     <string name="pref_enc_mode_title">Modo</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Preferir encriptação</item>
-        <item>Requerir encriptação</item>
-        <item>Desabilitar encriptação</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Preferir encriptação</string>
+    <string name="pref_enc_mode_entries_1">Requerir encriptação</string>
+    <string name="pref_enc_mode_entries_2">Desabilitar encriptação</string>
     <string name="pref_enc_in_connections_title">Conexões de entrada</string>
     <string name="pref_enc_out_connections_title">Conexões de saída</string>
     <string name="pref_ip_filtering_category">Filtragem IP</string>
@@ -475,12 +472,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determina se os torrents compartilhados devem tentar fazer conexões de saída ou não. Pode ser desativado em situações muito específicas onde o custo de fazer conexões de saída é alto</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Tipo de Proxy</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Nenhum)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Nenhum)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Endereço</string>
     <string name="pref_proxy_port_title">Porta</string>
     <string name="pref_proxy_peers_too_title">Também usar para conexões</string>
@@ -501,31 +497,29 @@
     <string name="pref_feed_auto_refresh_title">Atualizar automaticamente canais</string>
     <string name="pref_feed_auto_refresh_summary">Periodicamente atualizar canais em segundo plano.</string>
     <string name="pref_feed_refresh_interval_title">Intervalo de atualização</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutos</item>
-        <item>30 minutos</item>
-        <item>1 hora</item>
-        <item>2 horas</item>
-        <item>6 horas</item>
-        <item>12 horas</item>
-        <item>1 dia</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutos</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutos</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 hora</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 horas</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 horas</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 horas</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 dia</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Apenas em conexões ilimitadas</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Recarregar somente nas conexões sem um limite (por exemplo Wi-Fi ou a cabo).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Ativar roaming</string>
     <string name="pref_feed_keep_items_time_title">Mantenha artigos</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 dia</item>
-        <item>2 dias</item>
-        <item>4 dias</item>
-        <item>1 semana</item>
-        <item>2 semanas</item>
-        <item>1 mês</item>
-        <item>2 meses</item>
-        <item>3 meses</item>
-        <item>Sempre</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 dia</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dias</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dias</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 semana</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 semanas</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 mês</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 meses</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 meses</string>
+    <string name="pref_feed_keep_items_time_entries_8">Sempre</string>
     <string name="pref_feed_start_torrents_title">Iniciar automaticamente torrents</string>
     <string name="pref_feed_start_torrents_summary">Baixa torrents adicionados.</string>
     <string name="pref_feed_remove_duplicates_title">Sem duplicação</string>

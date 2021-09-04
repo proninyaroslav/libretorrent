@@ -331,21 +331,20 @@
     <string name="create_torrent_options">Možnosti</string>
     <string name="option_start_seeding">Spustit seedování</string>
     <string name="option_private_torrent">Soukromý torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Neplatná URL: %1$s</string>
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny soubory jsou vyloučeny filtrem</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
@@ -410,11 +409,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavení motivu</string>
     <string name="pref_theme_title">Motiv</string>
-    <string-array name="pref_theme_entries">
-        <item>Světlý</item>
-        <item>Tmavý</item>
-        <item>Černý</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Světlý</string>
+    <string name="pref_theme_entries_1">Tmavý</string>
+    <string name="pref_theme_entries_2">Černý</string>
     <string name="pref_notification_category">Nastavení oznámení</string>
     <string name="pref_torrent_finish_notify_title">Oznámení o dokončení torrentu</string>
     <string name="pref_torrent_finish_notify_summary">Zobrazit oznámení po skončení stahování torretnu</string>
@@ -464,11 +462,10 @@
     <string name="pref_port_range_end_title">Konec</string>
     <string name="pref_encryption_category">Šifrování</string>
     <string name="pref_enc_mode_title">Režim šifrování</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Preferovat šifrování</item>
-        <item>Vyžadovat šifrování</item>
-        <item>Zakázat šifrování</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Preferovat šifrování</string>
+    <string name="pref_enc_mode_entries_1">Vyžadovat šifrování</string>
+    <string name="pref_enc_mode_entries_2">Zakázat šifrování</string>
     <string name="pref_enc_in_connections_title">Příchozí připojení</string>
     <string name="pref_enc_out_connections_title">Odchozí připojení</string>
     <string name="pref_ip_filtering_category">Filtrování IP</string>
@@ -482,12 +479,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Určuje, zda by se měl seedovaný torrent pokusit navázat odchozí připojení nebo ne. To může být zakázáno ve velmi specifických situacích, kdy jsou náklady na odchozí připojení vysoké</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ proxy</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Žádný)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Žádný)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adresa</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Použít také pro připojování peerů</string>
@@ -508,31 +504,29 @@
     <string name="pref_feed_auto_refresh_title">Automatické obnovení kanálů</string>
     <string name="pref_feed_auto_refresh_summary">Pravidelně obnovovat kanály na pozadí</string>
     <string name="pref_feed_refresh_interval_title">Interval obnovení</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minut</item>
-        <item>30 minut</item>
-        <item>1 hodina</item>
-        <item>2 hodiny</item>
-        <item>6 hodin</item>
-        <item>12 hodin</item>
-        <item>1 den</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minut</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minut</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 hodina</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 hodiny</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 hodin</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 hodin</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 den</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Pouze neměřená připojení</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Obnovit pouze prostřednictvím neměřených připojení (např. Wi-Fi nebo ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Zapnout roaming</string>
     <string name="pref_feed_keep_items_time_title">Uchovávat články</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 den</item>
-        <item>2 dny</item>
-        <item>4 dny</item>
-        <item>1 týden</item>
-        <item>2 týdny</item>
-        <item>1 měsíc</item>
-        <item>2 měsíce</item>
-        <item>3 měsíce</item>
-        <item>Vždy</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 den</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dny</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dny</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 týden</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 týdny</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 měsíc</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 měsíce</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 měsíce</string>
+    <string name="pref_feed_keep_items_time_entries_8">Vždy</string>
     <string name="pref_feed_start_torrents_title">Spustit torrenty</string>
     <string name="pref_feed_start_torrents_summary">Spustit torrenty po přidání</string>
     <string name="pref_feed_remove_duplicates_title">Odstranit duplikáty</string>

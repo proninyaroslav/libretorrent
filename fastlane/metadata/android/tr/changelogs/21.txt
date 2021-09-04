@@ -1,0 +1,8 @@
+* Hata düzeltmeleri:
+    - Ön plan bildirimi takılması
+    - Android 8.0 metin alanı ipucu hatası
+    - Orijinal torrent takipçilerinin kaldırılması
+    - Magnet bağlantıları için sıralı indirme
+    - Ayarları uyguladıktan sonra rastgele bağlantı noktasının değiştirilmesi
+* Çeviriler güncellendi
+* libtorrent4j 2.0.4-21 sürümüne yükseltildi

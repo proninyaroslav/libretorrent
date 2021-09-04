@@ -325,21 +325,20 @@
     <string name="create_torrent_options">Opties</string>
     <string name="option_start_seeding">Beginnen met seeden</string>
     <string name="option_private_torrent">Privétorrent</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Ongeldige URL: %1$s</string>
     <string name="folder_is_empty">De geselecteerde map is leeg of alle bestanden zijn uitgesloten door de filter.</string>
     <string name="error_create_torrent">Kon torrent niet aanmaken</string>
@@ -400,11 +399,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Thema-instellingen</string>
     <string name="pref_theme_title">Thema</string>
-    <string-array name="pref_theme_entries">
-        <item>Licht</item>
-        <item>Donker</item>
-        <item>Zwart</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Licht</string>
+    <string name="pref_theme_entries_1">Donker</string>
+    <string name="pref_theme_entries_2">Zwart</string>
     <string name="pref_notification_category">Meldingsinstellingen</string>
     <string name="pref_torrent_finish_notify_title">\"Torrent voltooid\"-melding</string>
     <string name="pref_torrent_finish_notify_summary">Een melding weergeven wanneer een torrent is gedownload.</string>
@@ -453,11 +451,10 @@
     <string name="pref_port_range_end_title">Einde</string>
     <string name="pref_encryption_category">Versleuteling</string>
     <string name="pref_enc_mode_title">Modus</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Voorkeur voor versleuteling</item>
-        <item>Versleuteling vereisen</item>
-        <item>Versleuteling uitschakelen</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Voorkeur voor versleuteling</string>
+    <string name="pref_enc_mode_entries_1">Versleuteling vereisen</string>
+    <string name="pref_enc_mode_entries_2">Versleuteling uitschakelen</string>
     <string name="pref_enc_in_connections_title">Inkomende verbindingen</string>
     <string name="pref_enc_out_connections_title">Uitgaande verbindingen</string>
     <string name="pref_ip_filtering_category">IP-filtering</string>
@@ -471,12 +468,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Laat seedende torrents uitgaande verbindingen maken (kan duur zijn).</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy-type</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Geen)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Geen)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Poort</string>
     <string name="pref_proxy_peers_too_title">Ook gebruiken voor verbindingen</string>
@@ -497,31 +493,29 @@
     <string name="pref_feed_auto_refresh_title">Kanalen automatisch vernieuwen</string>
     <string name="pref_feed_auto_refresh_summary">Kanalen periodiek vernieuwen op de achtergrond.</string>
     <string name="pref_feed_refresh_interval_title">Vernieuwingsinterval</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minuten</item>
-        <item>30 minuten</item>
-        <item>1 uur</item>
-        <item>2 uur</item>
-        <item>6 uur</item>
-        <item>12 uur</item>
-        <item>1 dag</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minuten</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minuten</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 uur</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 uur</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 uur</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 uur</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 dag</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Alleen ongelimiteerde verbindingen</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Alleen vernieuwen op verbindingen zonder quota (bijvoorbeeld wifi of ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
     <string name="pref_feed_keep_items_time_title">Artikels bewaren</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 dag</item>
-        <item>2 dagen</item>
-        <item>4 dagen</item>
-        <item>1 week</item>
-        <item>2 weken</item>
-        <item>1 maand</item>
-        <item>2 maanden</item>
-        <item>3 maanden</item>
-        <item>Altijd</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 dag</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dagen</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dagen</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 week</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 weken</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 maand</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 maanden</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 maanden</string>
+    <string name="pref_feed_keep_items_time_entries_8">Altijd</string>
     <string name="pref_feed_start_torrents_title">Torrents automatisch uitvoeren</string>
     <string name="pref_feed_start_torrents_summary">Downloadt toegevoegde torrents.</string>
     <string name="pref_feed_remove_duplicates_title">Geen duplicaten</string>

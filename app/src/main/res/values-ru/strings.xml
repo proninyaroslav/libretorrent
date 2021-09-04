@@ -333,21 +333,20 @@
     <string name="create_torrent_options">Опции</string>
     <string name="option_start_seeding">Начать раздачу</string>
     <string name="option_private_torrent">Приватный торрент</string>
-    <string-array name="piece_size_entries">
-        <item>Авто</item>
-        <item>16 Кб</item>
-        <item>32 Кб</item>
-        <item>64 Кб</item>
-        <item>128 Кб</item>
-        <item>256 Кб</item>
-        <item>512 Кб</item>
-        <item>1 Мб</item>
-        <item>2 Мб</item>
-        <item>4 Мб</item>
-        <item>8 Мб</item>
-        <item>16 Мб</item>
-        <item>32 Мб</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Авто</string>
+    <string name="piece_size_entries_1">16 Кб</string>
+    <string name="piece_size_entries_2">32 Кб</string>
+    <string name="piece_size_entries_3">64 Кб</string>
+    <string name="piece_size_entries_4">128 Кб</string>
+    <string name="piece_size_entries_5">256 Кб</string>
+    <string name="piece_size_entries_6">512 Кб</string>
+    <string name="piece_size_entries_7">1 Мб</string>
+    <string name="piece_size_entries_8">2 Мб</string>
+    <string name="piece_size_entries_9">4 Мб</string>
+    <string name="piece_size_entries_10">8 Мб</string>
+    <string name="piece_size_entries_11">16 Мб</string>
+    <string name="piece_size_entries_12">32 Мб</string>
     <string name="invalid_url">Неверный URL: %1$s</string>
     <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром.</string>
     <string name="error_create_torrent">Не удалось создать торрент</string>
@@ -412,11 +411,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Настройки темы</string>
     <string name="pref_theme_title">Тема</string>
-    <string-array name="pref_theme_entries">
-        <item>Светлая</item>
-        <item>Тёмная</item>
-        <item>Чёрная</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Светлая</string>
+    <string name="pref_theme_entries_1">Тёмная</string>
+    <string name="pref_theme_entries_2">Чёрная</string>
     <string name="pref_notification_category">Настройки уведомлений</string>
     <string name="pref_torrent_finish_notify_title">Уведомление о завершении скачивания торрента</string>
     <string name="pref_torrent_finish_notify_summary">Показывать уведомление, когда скачивание торрента завершено.</string>
@@ -466,11 +464,10 @@
     <string name="pref_port_range_end_title">Конечный</string>
     <string name="pref_encryption_category">Шифрование</string>
     <string name="pref_enc_mode_title">Режим шифрования</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Предпочитать шифрование</item>
-        <item>Требовать шифрование</item>
-        <item>Отключить шифрование</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Предпочитать шифрование</string>
+    <string name="pref_enc_mode_entries_1">Требовать шифрование</string>
+    <string name="pref_enc_mode_entries_2">Отключить шифрование</string>
     <string name="pref_enc_in_connections_title">Исходящие соединения</string>
     <string name="pref_enc_out_connections_title">Входящие соединения</string>
     <string name="pref_ip_filtering_category">IP фильтр</string>
@@ -484,12 +481,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Позволяет раздающим торренам устанавливать исходящие соединения или нет. Отключить, когда стоимость исходящих соединений высока.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип прокси</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Нет)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Нет)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Адрес</string>
     <string name="pref_proxy_port_title">Порт</string>
     <string name="pref_proxy_peers_too_title">Также использовать для соединений</string>
@@ -510,31 +506,29 @@
     <string name="pref_feed_auto_refresh_title">Автообновление каналов</string>
     <string name="pref_feed_auto_refresh_summary">Периодически обновлять каналы в фоне.</string>
     <string name="pref_feed_refresh_interval_title">Интервал обновления</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 минут</item>
-        <item>30 минут</item>
-        <item>1 час</item>
-        <item>2 часа</item>
-        <item>6 часов</item>
-        <item>12 часов</item>
-        <item>1 день</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 минут</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 минут</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 час</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 часа</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 часов</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 часов</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 день</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Только безлимитные соединения</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Загрузка только через безлимитные соединения (например, Wi-Fi или Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Включить роуминг</string>
     <string name="pref_feed_keep_items_time_title">Хранить статьи</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 день</item>
-        <item>2 дня</item>
-        <item>4 дня</item>
-        <item>1 неделю</item>
-        <item>2 недели</item>
-        <item>1 месяц</item>
-        <item>2 месяца</item>
-        <item>3 месяца</item>
-        <item>Всегда</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 день</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 дня</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 дня</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 неделю</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 недели</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 месяц</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 месяца</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 месяца</string>
+    <string name="pref_feed_keep_items_time_entries_8">Всегда</string>
     <string name="pref_feed_start_torrents_title">Запускать торренты</string>
     <string name="pref_feed_start_torrents_summary">Загружать торренты после добавления.</string>
     <string name="pref_feed_remove_duplicates_title">Без дубликатов</string>

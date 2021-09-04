@@ -332,21 +332,20 @@
     <string name="create_torrent_options">Επιλογές</string>
     <string name="option_start_seeding">Έναρξη διαμοιρασμού</string>
     <string name="option_private_torrent">Ιδιωτικό torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Αυτόματο</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Αυτόματο</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL: %1$s</string>
     <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο.</string>
     <string name="error_create_torrent">Δεν ήταν δυνατή η δημιουργία torrent</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Ρυθμίσεις θέματος</string>
     <string name="pref_theme_title">Θέμα</string>
-    <string-array name="pref_theme_entries">
-        <item>Φωτεινό</item>
-        <item>Σκοτεινό</item>
-        <item>Μαύρο</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Φωτεινό</string>
+    <string name="pref_theme_entries_1">Σκοτεινό</string>
+    <string name="pref_theme_entries_2">Μαύρο</string>
     <string name="pref_notification_category">Ρυθμίσεις ειδοποίησης</string>
     <string name="pref_torrent_finish_notify_title">Ειδοποίηση τερματισμού torrent</string>
     <string name="pref_torrent_finish_notify_summary">Εμφάνιση ειδοποίησης όταν ένα torrent έχει ληφθεί.</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">Τέλος</string>
     <string name="pref_encryption_category">Κρυπτογράφηση</string>
     <string name="pref_enc_mode_title">Κατάσταση</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Προτίμηση κρυπτογράφησης</item>
-        <item>Απαίτηση κρυπτογράφησης</item>
-        <item>Απενεργοποίηση κρυπτογράφησης</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Προτίμηση κρυπτογράφησης</string>
+    <string name="pref_enc_mode_entries_1">Απαίτηση κρυπτογράφησης</string>
+    <string name="pref_enc_mode_entries_2">Απενεργοποίηση κρυπτογράφησης</string>
     <string name="pref_enc_in_connections_title">Εισερχόμενες συνδέσεις</string>
     <string name="pref_enc_out_connections_title">Εξερχόμενες συνδέσεις</string>
     <string name="pref_ip_filtering_category">Φίλτρο IP</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Επιτρέπει σε διαμοιραζόμενα torrents να κάνουν εξερχόμενες συνδέσεις. (Μπορεί να είναι δαπανηρό.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Τύπος μεσολαβητή</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Κανένας)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Κανένας)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Διεύθυνση</string>
     <string name="pref_proxy_port_title">Θύρα</string>
     <string name="pref_proxy_peers_too_title">Χρησιμοποίηση και για συνδέσεις</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">Αυτόματη ανανέωση καναλιών</string>
     <string name="pref_feed_auto_refresh_summary">Περιοδική ανανέωση των καναλιών στο παρασκήνιο.</string>
     <string name="pref_feed_refresh_interval_title">Διάστημα ανανέωσης</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 λεπτά</item>
-        <item>30 λεπτά</item>
-        <item>1 ώρα</item>
-        <item>2 ώρες</item>
-        <item>6 ώρες</item>
-        <item>12 ώρες</item>
-        <item>1 ημέρα</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 λεπτά</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 λεπτά</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 ώρα</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 ώρες</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 ώρες</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 ώρες</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 ημέρα</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Μόνο μη περιορισμένες συνδέσεις</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Ανανέωση μόνο σε συνδέσεις χωρίς όριο (για παράδειγμα Wi-Fi ή Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Περιαγωγή</string>
     <string name="pref_feed_keep_items_time_title">Κρατήστε άρθρα</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 ημέρα</item>
-        <item>2 ημέρες</item>
-        <item>4 μέρες</item>
-        <item>1 εβδομάδα</item>
-        <item>2 εβδομάδες</item>
-        <item>1 μήνα</item>
-        <item>2 μήνες</item>
-        <item>3 μήνες</item>
-        <item>Πάντα</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 ημέρα</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 ημέρες</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 μέρες</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 εβδομάδα</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 εβδομάδες</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 μήνα</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 μήνες</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 μήνες</string>
+    <string name="pref_feed_keep_items_time_entries_8">Πάντα</string>
     <string name="pref_feed_start_torrents_title">Αυτόματη εκκίνηση torrents</string>
     <string name="pref_feed_start_torrents_summary">Λαμβάνει τα torrents που προστέθηκαν.</string>
     <string name="pref_feed_remove_duplicates_title">Όχι διπλότυπα</string>
@@ -553,4 +547,7 @@
 \n1. Όταν προστίθεται torrent, η προεπιλεγμένη λίστα προστίθεται αυτόματα στη λίστα του torrent.
 \n2. Κατά την προσθήκη συνδέσμων magnet.</string>
     <string name="pref_default_trackers_list_title">Προεπιλεγμένοι trackers</string>
+    <string name="pref_foreground_notify_status_filter">Φίλτρο κατάστασης</string>
+    <string name="pref_foreground_notification_category">Ρυθμίσεις ειδοποιήσεων προσκήνιου</string>
+    <string name="pref_foreground_notify_sorting">Ταξινόμηση</string>
 </resources>

@@ -326,21 +326,20 @@
     <string name="create_torrent_options">옵션</string>
     <string name="option_start_seeding">배포 시작</string>
     <string name="option_private_torrent">프라이빗 토렌트</string>
-    <string-array name="piece_size_entries">
-        <item>자동</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">자동</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">유효하지 않은 URL: %1$s</string>
     <string name="folder_is_empty">선택한 폴더가 비어있거나 모든 파일이 필터링되었습니다.</string>
     <string name="error_create_torrent">토렌트 생성 실패</string>
@@ -405,11 +404,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">테마 설정</string>
     <string name="pref_theme_title">테마</string>
-    <string-array name="pref_theme_entries">
-        <item>라이트</item>
-        <item>다크</item>
-        <item>블랙</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">라이트</string>
+    <string name="pref_theme_entries_1">다크</string>
+    <string name="pref_theme_entries_2">블랙</string>
     <string name="pref_notification_category">알림 설정</string>
     <string name="pref_torrent_finish_notify_title">토렌트 완료 알림</string>
     <string name="pref_torrent_finish_notify_summary">토렌트 다운로드 완료 시 알림 표시</string>
@@ -459,11 +457,10 @@
     <string name="pref_port_range_end_title">끝</string>
     <string name="pref_encryption_category">암호화</string>
     <string name="pref_enc_mode_title">암호화 모드</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>암호화 선호</item>
-        <item>암호화 요구</item>
-        <item>암호화 없음</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">암호화 선호</string>
+    <string name="pref_enc_mode_entries_1">암호화 요구</string>
+    <string name="pref_enc_mode_entries_2">암호화 없음</string>
     <string name="pref_enc_in_connections_title">들어오는 연결</string>
     <string name="pref_enc_out_connections_title">나가는 연결</string>
     <string name="pref_ip_filtering_category">IP 필터링</string>
@@ -477,12 +474,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">프록시 유형</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(없음)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(없음)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">주소</string>
     <string name="pref_proxy_port_title">포트</string>
     <string name="pref_proxy_peers_too_title">피어 연결에도 사용</string>
@@ -503,31 +499,29 @@
     <string name="pref_feed_auto_refresh_title">자동 새로고침 채널</string>
     <string name="pref_feed_auto_refresh_summary">백그라운드에서 주기적으로 채널을 새로고침합니다.</string>
     <string name="pref_feed_refresh_interval_title">새로고침 주기</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15분</item>
-        <item>30분</item>
-        <item>1시간</item>
-        <item>2시간</item>
-        <item>6시간</item>
-        <item>12시간</item>
-        <item>1일</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15분</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30분</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1시간</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2시간</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6시간</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12시간</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1일</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">데이터 연결 차단</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">무제한 연결(예: Wi-Fi나 이더넷)을 통해서만 새로고침합니다.</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">로밍 활성화</string>
     <string name="pref_feed_keep_items_time_title">항목 유지</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1일</item>
-        <item>2일</item>
-        <item>4일</item>
-        <item>1주</item>
-        <item>2주</item>
-        <item>1달</item>
-        <item>2달</item>
-        <item>3달</item>
-        <item>항상</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1일</string>
+    <string name="pref_feed_keep_items_time_entries_1">2일</string>
+    <string name="pref_feed_keep_items_time_entries_2">4일</string>
+    <string name="pref_feed_keep_items_time_entries_3">1주</string>
+    <string name="pref_feed_keep_items_time_entries_4">2주</string>
+    <string name="pref_feed_keep_items_time_entries_5">1달</string>
+    <string name="pref_feed_keep_items_time_entries_6">2달</string>
+    <string name="pref_feed_keep_items_time_entries_7">3달</string>
+    <string name="pref_feed_keep_items_time_entries_8">항상</string>
     <string name="pref_feed_start_torrents_title">토렌트 다운로드</string>
     <string name="pref_feed_start_torrents_summary">토렌트 추가 후 다운로드</string>
     <string name="pref_feed_remove_duplicates_title">중복 제거</string>

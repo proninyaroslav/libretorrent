@@ -332,21 +332,20 @@
     <string name="create_torrent_options">オプション</string>
     <string name="option_start_seeding">シード開始</string>
     <string name="option_private_torrent">プライベートトレント</string>
-    <string-array name="piece_size_entries">
-        <item>自動</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">自動</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">無効な URL: %1$s</string>
     <string name="folder_is_empty">選択したフォルダが空か、フィルターによって全てのそのファイルが除外されています。</string>
     <string name="error_create_torrent">トレントを作成できません</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">テーマ設定</string>
     <string name="pref_theme_title">テーマ</string>
-    <string-array name="pref_theme_entries">
-        <item>ライト</item>
-        <item>ダーク</item>
-        <item>ブラック</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">ライト</string>
+    <string name="pref_theme_entries_1">ダーク</string>
+    <string name="pref_theme_entries_2">ブラック</string>
     <string name="pref_notification_category">通知設定</string>
     <string name="pref_torrent_finish_notify_title">トレント終了通知</string>
     <string name="pref_torrent_finish_notify_summary">トレントがダウンロードされたときに通知を表示する。</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">終了</string>
     <string name="pref_encryption_category">暗号化</string>
     <string name="pref_enc_mode_title">方式</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>暗号化を優先</item>
-        <item>暗号化が必要</item>
-        <item>暗号化を無効化</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">暗号化を優先</string>
+    <string name="pref_enc_mode_entries_1">暗号化が必要</string>
+    <string name="pref_enc_mode_entries_2">暗号化を無効化</string>
     <string name="pref_enc_in_connections_title">外部からの接続</string>
     <string name="pref_enc_out_connections_title">こちらからの接続</string>
     <string name="pref_ip_filtering_category">IP フィルタリング</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">シード中のトレントが送信接続をできます。(コストがかかる場合があります。)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">プロキシタイプ</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(なし)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(なし)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">アドレス</string>
     <string name="pref_proxy_port_title">ポート</string>
     <string name="pref_proxy_peers_too_title">接続にも使用</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">チャンネルの自動更新</string>
     <string name="pref_feed_auto_refresh_summary">バックグラウンドで定期的にチャンネルを更新する。</string>
     <string name="pref_feed_refresh_interval_title">更新間隔</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15分</item>
-        <item>30分</item>
-        <item>1時間</item>
-        <item>2時間</item>
-        <item>6時間</item>
-        <item>12時間</item>
-        <item>1日</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15分</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30分</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1時間</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2時間</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6時間</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12時間</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1日</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">定額制の接続のみ</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">更新は従量制以外の接続のみ (Wi-Fi やイーサネットなど)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">ローミング</string>
     <string name="pref_feed_keep_items_time_title">アーティクルを保持</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1日</item>
-        <item>2日</item>
-        <item>4日</item>
-        <item>1週間</item>
-        <item>2週間</item>
-        <item>1ヶ月</item>
-        <item>2ヶ月</item>
-        <item>3ヶ月</item>
-        <item>常時</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1日</string>
+    <string name="pref_feed_keep_items_time_entries_1">2日</string>
+    <string name="pref_feed_keep_items_time_entries_2">4日</string>
+    <string name="pref_feed_keep_items_time_entries_3">1週間</string>
+    <string name="pref_feed_keep_items_time_entries_4">2週間</string>
+    <string name="pref_feed_keep_items_time_entries_5">1ヶ月</string>
+    <string name="pref_feed_keep_items_time_entries_6">2ヶ月</string>
+    <string name="pref_feed_keep_items_time_entries_7">3ヶ月</string>
+    <string name="pref_feed_keep_items_time_entries_8">常時</string>
     <string name="pref_feed_start_torrents_title">トレント自動開始</string>
     <string name="pref_feed_start_torrents_summary">追加後トレント実行</string>
     <string name="pref_feed_remove_duplicates_title">重複なし</string>

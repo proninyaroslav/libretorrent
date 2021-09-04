@@ -327,21 +327,20 @@
     <string name="create_torrent_options">Опције</string>
     <string name="option_start_seeding">Започни слање</string>
     <string name="option_private_torrent">Приватан торент</string>
-    <string-array name="piece_size_entries">
-        <item>Аутоматски</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Аутоматски</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Невалидан URL: %1$s</string>
     <string name="folder_is_empty">Изабрани фолдер је празан или су сви фајлови игнорисани због филтера</string>
     <string name="error_create_torrent">Неуспешно креирање торента</string>
@@ -406,11 +405,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Подешавање теме</string>
     <string name="pref_theme_title">Тема</string>
-    <string-array name="pref_theme_entries">
-        <item>Светла</item>
-        <item>Тамна</item>
-        <item>Црна</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Светла</string>
+    <string name="pref_theme_entries_1">Тамна</string>
+    <string name="pref_theme_entries_2">Црна</string>
     <string name="pref_notification_category">Подешавања обавештења</string>
     <string name="pref_torrent_finish_notify_title">Обавештење о завршетку торента</string>
     <string name="pref_torrent_finish_notify_summary">Покажи обавештење када торент заврши са преузимањем</string>
@@ -460,11 +458,10 @@
     <string name="pref_port_range_end_title">Крај</string>
     <string name="pref_encryption_category">Енкрипција</string>
     <string name="pref_enc_mode_title">Врста енкрипције</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Преферирај енкрипцију</item>
-        <item>Захтевај енкрипцију</item>
-        <item>Искључи енкрипцију</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Преферирај енкрипцију</string>
+    <string name="pref_enc_mode_entries_1">Захтевај енкрипцију</string>
+    <string name="pref_enc_mode_entries_2">Искључи енкрипцију</string>
     <string name="pref_enc_in_connections_title">Долазне конекције</string>
     <string name="pref_enc_out_connections_title">Одлазне конекције</string>
     <string name="pref_ip_filtering_category">IP филтрирање</string>
@@ -478,12 +475,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Одређује да ли сидовање торента треба да покуша направити спољашње везе или не. Може се искључити у врло специфичним ситуацијама где је цена прављења спољашњих веза велика</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип проксија</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Ниједан)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Ниједан)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Адреса</string>
     <string name="pref_proxy_port_title">Порт</string>
     <string name="pref_proxy_peers_too_title">Такође користи пир конекције</string>
@@ -504,31 +500,29 @@
     <string name="pref_feed_auto_refresh_title">Аутоматски освежи канале</string>
     <string name="pref_feed_auto_refresh_summary">Периодично освежи канале у позадини</string>
     <string name="pref_feed_refresh_interval_title">Интервал освежавања</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 минута</item>
-        <item>30 минута</item>
-        <item>1 сат</item>
-        <item>2 сата</item>
-        <item>6 сати</item>
-        <item>12 сати</item>
-        <item>1 дан</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 минута</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 минута</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 сат</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 сата</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 сати</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 сати</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 дан</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Само неограничене конекције</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Освежи само преко неограничених конекција (Wi-Fi или Ethernet, на пример)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Укључи роминг</string>
     <string name="pref_feed_keep_items_time_title">Задржи чланке</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 дан</item>
-        <item>2 дана</item>
-        <item>4 дана</item>
-        <item>1 недеља</item>
-        <item>2 недеље</item>
-        <item>1 месец</item>
-        <item>2 месеца</item>
-        <item>3 месеца</item>
-        <item>Увек</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 дан</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 дана</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 дана</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 недеља</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 недеље</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 месец</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 месеца</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 месеца</string>
+    <string name="pref_feed_keep_items_time_entries_8">Увек</string>
     <string name="pref_feed_start_torrents_title">Покрени торенте</string>
     <string name="pref_feed_start_torrents_summary">Покрени торенте након додавања</string>
     <string name="pref_feed_remove_duplicates_title">Отклони дупликате</string>

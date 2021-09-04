@@ -311,21 +311,20 @@
     <string name="piece_size">Pieza tamaina</string>
     <string name="create_torrent_options">Aukerak</string>
     <string name="option_private_torrent">Torrent pribatua</string>
-    <string-array name="piece_size_entries">
-        <item>Automatikoa</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Automatikoa</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">URL baliogabea: %1$s</string>
     <string name="folder_is_empty">Hautatutako karpeta hutsik dago edo fitxategi guztiak iragazki bidez baztertuta daude</string>
     <string name="error_create_torrent">Ezin izan da torrent-a sortu</string>
@@ -385,11 +384,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Gaiaren ezarpenak</string>
     <string name="pref_theme_title">Gaia</string>
-    <string-array name="pref_theme_entries">
-        <item>Argia</item>
-        <item>Iluna</item>
-        <item>Beltza</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Argia</string>
+    <string name="pref_theme_entries_1">Iluna</string>
+    <string name="pref_theme_entries_2">Beltza</string>
     <string name="pref_notification_category">Jakinarazpen ezarpenak</string>
     <string name="pref_torrent_finish_notify_title">Torrent bukaera jakinarazpena</string>
     <string name="pref_torrent_finish_notify_summary">Erakutsi jakinarazpen bat torrent-a deskargatzen bukatzen duenean</string>
@@ -437,11 +435,10 @@
     <string name="pref_port_range_end_title">Amaitu</string>
     <string name="pref_encryption_category">Zifratua</string>
     <string name="pref_enc_mode_title">Zifraketa modua</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Hobetsitako zifratua</item>
-        <item>Eskatu gailuaren enkriptatzea</item>
-        <item>Gaitu zifratua</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Hobetsitako zifratua</string>
+    <string name="pref_enc_mode_entries_1">Eskatu gailuaren enkriptatzea</string>
+    <string name="pref_enc_mode_entries_2">Gaitu zifratua</string>
     <string name="pref_ip_filtering_category">IP iragazketa</string>
     <string name="pref_enable_ip_filtering_title">Gaitu IP iragazketa</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
@@ -452,12 +449,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy mota</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Bat ere ez)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Bat ere ez)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Helbidea</string>
     <string name="pref_proxy_port_title">Portua</string>
     <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
@@ -476,30 +472,28 @@
     <string name="pref_feed_auto_refresh_title">Berritu kanalak automatikoki</string>
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
     <string name="pref_feed_refresh_interval_title">Berritze tartea</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutu</item>
-        <item>30 minutu</item>
-        <item>1 ordu</item>
-        <item>2 ordu</item>
-        <item>6 ordu</item>
-        <item>12 ordu</item>
-        <item>1 egun</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutu</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutu</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 ordu</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 ordu</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 ordu</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 ordu</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 egun</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Neurketarik gabeko konexioak bakarrik</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Gaitu roaming-a</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 egun</item>
-        <item>2 egun</item>
-        <item>4 egun</item>
-        <item>1 aste</item>
-        <item>2 aste</item>
-        <item>1 hilabete</item>
-        <item>2 hilabete</item>
-        <item>3 hilabete</item>
-        <item>Beti</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 egun</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 egun</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 egun</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 aste</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 aste</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 hilabete</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 hilabete</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 hilabete</string>
+    <string name="pref_feed_keep_items_time_entries_8">Beti</string>
     <string name="pref_feed_start_torrents_title">Abiarazi torrent-ak</string>
     <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
     <string name="pref_feed_remove_duplicates_title">Ezabatu bikoiztuak</string>

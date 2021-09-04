@@ -332,21 +332,20 @@
     <string name="create_torrent_options">விருப்பங்கள்</string>
     <string name="option_start_seeding">விதைப்பு தொடங்கவும்</string>
     <string name="option_private_torrent">தனியார் டோரண்ட்</string>
-    <string-array name="piece_size_entries">
-        <item>ஆட்டோ</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">ஆட்டோ</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">தவறான URL: %1$s</string>
     <string name="folder_is_empty">தேர்ந்தெடுக்கப்பட்ட கோப்புறை காலியாக உள்ளது அல்லது அனைத்து கோப்புகளும் வடிகட்டி மூலம் விலக்கப்படுகின்றன</string>
     <string name="error_create_torrent">டொரண்ட் உருவாக்க முடியவில்லை</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">தீம் அமைப்புகள்</string>
     <string name="pref_theme_title">தீம்</string>
-    <string-array name="pref_theme_entries">
-        <item>ஒளி</item>
-        <item>டார்க்</item>
-        <item>பிளாக்</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">ஒளி</string>
+    <string name="pref_theme_entries_1">டார்க்</string>
+    <string name="pref_theme_entries_2">பிளாக்</string>
     <string name="pref_notification_category">அறிவிப்பு அமைப்புகள்</string>
     <string name="pref_torrent_finish_notify_title">டொரண்ட் முடிப்பு அறிவிப்பு</string>
     <string name="pref_torrent_finish_notify_summary">ஒரு டார்ட் பதிவிறக்க முடிந்ததும் ஒரு அறிவிப்பைக் காட்டு</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">முடிவு</string>
     <string name="pref_encryption_category">குறியாக்க</string>
     <string name="pref_enc_mode_title">குறியாக்க முறை</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>குறியாக்கத்தை விரும்புகிறேன்</item>
-        <item>குறியாக்க தேவை</item>
-        <item>குறியாக்கத்தை முடக்கு</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">குறியாக்கத்தை விரும்புகிறேன்</string>
+    <string name="pref_enc_mode_entries_1">குறியாக்க தேவை</string>
+    <string name="pref_enc_mode_entries_2">குறியாக்கத்தை முடக்கு</string>
     <string name="pref_enc_in_connections_title">உள்வரும் இணைப்புகள்</string>
     <string name="pref_enc_out_connections_title">வெளியேறும் இணைப்புகள்</string>
     <string name="pref_ip_filtering_category">IP வடிப்பான்</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">விதைப்பு டோரண்ட்கள் வெளிச்செல்லும் இணைப்புகளை உருவாக்க முயற்சிக்க வேண்டுமா இல்லையா என்பதை தீர்மானிக்கிறது. வெளிச்செல்லும் இணைப்புகளைச் செய்வதற்கான செலவு அதிகமாக இருக்கும் குறிப்பிட்ட சூழ்நிலைகளில் இது முடக்கப்படலாம்</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">பதிலாள் வகை</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(எதுவும்)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>, HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(எதுவும்)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">, HTTP</string>
     <string name="pref_proxy_address_title">முகவரி</string>
     <string name="pref_proxy_port_title">போர்ட்</string>
     <string name="pref_proxy_peers_too_title">மேலும் பீர் இணைப்புகளை பயன்படுத்தவும்</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">ஆட்டோ புதுப்பிப்பு சேனல்கள்</string>
     <string name="pref_feed_auto_refresh_summary">பின்னணியில் நேரலைகளை புதுப்பிக்கவும்</string>
     <string name="pref_feed_refresh_interval_title">புதுப்பிப்பு இடைவெளி</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 நிமிடங்கள்</item>
-        <item>30 நிமிடம்</item>
-        <item>1 மணி நேரம்</item>
-        <item>2 மணி நேரம்</item>
-        <item>6 மணி</item>
-        <item>12 மணி நேரம்</item>
-        <item>1 நாள்</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 நிமிடங்கள்</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 நிமிடம்</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 மணி நேரம்</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 மணி நேரம்</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 மணி</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 மணி நேரம்</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 நாள்</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">அளவிடப்படாத இணைப்புகள் மட்டுமே</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">அளவிடப்படாத இணைப்புகள் மூலம் மட்டுமே புதுப்பிக்கவும் (எடுத்துக்காட்டாக, வைஃபை அல்லது ஈதர்நெட்)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">ரோமிங்கை இயக்கு</string>
     <string name="pref_feed_keep_items_time_title">கட்டுரைகளை வைத்திருங்கள்</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 நாள்</item>
-        <item>2 நாட்கள்</item>
-        <item>4 நாட்கள்</item>
-        <item>1 வாரம்</item>
-        <item>2 வாரங்கள்</item>
-        <item>1 மாதம்</item>
-        <item>2 மாதங்கள்</item>
-        <item>3 மாதங்கள்</item>
-        <item>எப்போதும்</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 நாள்</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 நாட்கள்</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 நாட்கள்</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 வாரம்</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 வாரங்கள்</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 மாதம்</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 மாதங்கள்</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 மாதங்கள்</string>
+    <string name="pref_feed_keep_items_time_entries_8">எப்போதும்</string>
     <string name="pref_feed_start_torrents_title">தொந்தரவுகளை இயக்கவும்</string>
     <string name="pref_feed_start_torrents_summary">சேர்ப்பதற்குப் பின் இயக்கங்கள் இயக்கவும்</string>
     <string name="pref_feed_remove_duplicates_title">நகல்களை அகற்று</string>

@@ -327,21 +327,20 @@
     <string name="create_torrent_options">گزینه‌ها</string>
     <string name="option_start_seeding">آغاز seedکردن</string>
     <string name="option_private_torrent">تورنت خصوصی</string>
-    <string-array name="piece_size_entries">
-        <item>خودکار</item>
-        <item>۱۶ KiB</item>
-        <item>۳۲ KiB</item>
-        <item>۶۴ KiB</item>
-        <item>۱۲۸ KiB</item>
-        <item>۲۵۶ KiB</item>
-        <item>۵۱۲ KiB</item>
-        <item>MiB ۱</item>
-        <item>MiB ۲</item>
-        <item>MiB ۴</item>
-        <item>۸ MiB</item>
-        <item>۱۶ MiB</item>
-        <item>۳۲ MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">خودکار</string>
+    <string name="piece_size_entries_1">۱۶ KiB</string>
+    <string name="piece_size_entries_2">۳۲ KiB</string>
+    <string name="piece_size_entries_3">۶۴ KiB</string>
+    <string name="piece_size_entries_4">۱۲۸ KiB</string>
+    <string name="piece_size_entries_5">۲۵۶ KiB</string>
+    <string name="piece_size_entries_6">۵۱۲ KiB</string>
+    <string name="piece_size_entries_7">MiB ۱</string>
+    <string name="piece_size_entries_8">MiB ۲</string>
+    <string name="piece_size_entries_9">MiB ۴</string>
+    <string name="piece_size_entries_10">۸ MiB</string>
+    <string name="piece_size_entries_11">۱۶ MiB</string>
+    <string name="piece_size_entries_12">۳۲ MiB</string>
     <string name="invalid_url">پیوند نامعتبر: %1$s</string>
     <string name="folder_is_empty">پوشه انتخاب شده، خالی است یا پرونده‌ها به‌وسیله فیلتر کنار گذاشته شده‌اند</string>
     <string name="error_create_torrent">نمی‌توان تورنت را ایجاد کرد</string>
@@ -406,11 +405,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">تنظیمات پوسته</string>
     <string name="pref_theme_title">پوسته</string>
-    <string-array name="pref_theme_entries">
-        <item>روشن</item>
-        <item>تاریک</item>
-        <item>سیاه</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">روشن</string>
+    <string name="pref_theme_entries_1">تاریک</string>
+    <string name="pref_theme_entries_2">سیاه</string>
     <string name="pref_notification_category">تنظیمات اعلان</string>
     <string name="pref_torrent_finish_notify_title">اعلان پایان تورنت</string>
     <string name="pref_torrent_finish_notify_summary">هنگامی که بارگیری یک تورنت به پایان می‌رسد یک اعلان نمایش بده</string>
@@ -461,11 +459,10 @@
     <string name="pref_port_range_end_title">پایان</string>
     <string name="pref_encryption_category">رمزنگاری</string>
     <string name="pref_enc_mode_title">حالت رمزنگاری</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>برتری به رمزنگاری</item>
-        <item>الزام به رمزنگاری</item>
-        <item>غیرفعال کردن رمزنگاری</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">برتری به رمزنگاری</string>
+    <string name="pref_enc_mode_entries_1">الزام به رمزنگاری</string>
+    <string name="pref_enc_mode_entries_2">غیرفعال کردن رمزنگاری</string>
     <string name="pref_enc_in_connections_title">اتصال‌های ورودی</string>
     <string name="pref_enc_out_connections_title">اتصال‌های خروجی</string>
     <string name="pref_ip_filtering_category">فیلتر IP</string>
@@ -480,12 +477,11 @@
     <string name="pref_seeding_outgoing_connections_summary">تعیین می کند که آیا تورنت های seeding باید برای برقراری اتصالات خروجی تلاش کنند یا نه. ممکن است در شرایط بسیار خاص غیرفعال شود که هزینه برقراری اتصالات خروجی زیاد باشد</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">نوع پروکسی</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(هیچ‌کدام)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(هیچ‌کدام)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">نشانی‌</string>
     <string name="pref_proxy_port_title">پورت</string>
     <string name="pref_proxy_peers_too_title">همچنین برای اتصال‌های همتا استفاده کن</string>
@@ -506,31 +502,29 @@
     <string name="pref_feed_auto_refresh_title">به‌طور خودکار کانال‌ها را نوسازی کن</string>
     <string name="pref_feed_auto_refresh_summary">به‌طور دوره‌ای کانال‌ها را در پس‌زمینه نوسازی کن</string>
     <string name="pref_feed_refresh_interval_title">فاصله نوسازی</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>۱۵ دقیقه</item>
-        <item>۳۰ دقیقه</item>
-        <item>۱ ساعت</item>
-        <item>۲ ساعت</item>
-        <item>۶ ساعت</item>
-        <item>۱۲ ساعت</item>
-        <item>۱ روز</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">۱۵ دقیقه</string>
+    <string name="pref_feed_refresh_intervals_entries_1">۳۰ دقیقه</string>
+    <string name="pref_feed_refresh_intervals_entries_2">۱ ساعت</string>
+    <string name="pref_feed_refresh_intervals_entries_3">۲ ساعت</string>
+    <string name="pref_feed_refresh_intervals_entries_4">۶ ساعت</string>
+    <string name="pref_feed_refresh_intervals_entries_5">۱۲ ساعت</string>
+    <string name="pref_feed_refresh_intervals_entries_6">۱ روز</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">تنها اتصال‌های بدون محدودیت حجم</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">تنها از راه اتصال‌های بدون محدودیت حجم (برای مثال، وای‌فای یا اترنت) نوسازی کن</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">فعال‌کردن رومینگ</string>
     <string name="pref_feed_keep_items_time_title">موارد را نگه‌دار</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>۱ روز</item>
-        <item>۲ روز</item>
-        <item>۴ روز</item>
-        <item>۱ هفته</item>
-        <item>۲ هفته</item>
-        <item>۱ ماه</item>
-        <item>۲ ماه</item>
-        <item>۳ ماه</item>
-        <item>همیشه</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">۱ روز</string>
+    <string name="pref_feed_keep_items_time_entries_1">۲ روز</string>
+    <string name="pref_feed_keep_items_time_entries_2">۴ روز</string>
+    <string name="pref_feed_keep_items_time_entries_3">۱ هفته</string>
+    <string name="pref_feed_keep_items_time_entries_4">۲ هفته</string>
+    <string name="pref_feed_keep_items_time_entries_5">۱ ماه</string>
+    <string name="pref_feed_keep_items_time_entries_6">۲ ماه</string>
+    <string name="pref_feed_keep_items_time_entries_7">۳ ماه</string>
+    <string name="pref_feed_keep_items_time_entries_8">همیشه</string>
     <string name="pref_feed_start_torrents_title">اجرای تورنت‌ها</string>
     <string name="pref_feed_start_torrents_summary">اجرای تورنت‌ها بعد از افزودن</string>
     <string name="pref_feed_remove_duplicates_title">حذف تکراری‌ها</string>

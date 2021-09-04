@@ -54,8 +54,8 @@
     <string name="settings">Nustatymai</string>
     <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro (%1$d nepavyko). Galbūt failas sugadintas arba yra pažeistas arba netinkamo formato\?</string>
     <string name="ip_filter_add_success">IP filtras pridėtas</string>
-    <string name="proxy_settings_applied">Naudojami nauji tarpinio serverio nustatymai.</string>
-    <string name="proxy_settings_apply_after_reboot">Iš naujo paleiskite programą, kad galėtumėte naudoti naujus tarpinio serverio nustatymus.</string>
+    <string name="proxy_settings_applied">Naudojami nauji įgaliotojo serverio nustatymai.</string>
+    <string name="proxy_settings_apply_after_reboot">Iš naujo paleiskite programą, kad galėtumėte naudoti naujus įgaliotojo serverio nustatymus.</string>
     <string name="theme_settings_apply_after_reboot">Iš naujo paleiskite programą, kad galėtumėte naudoti naują temą.</string>
     <string name="about">Apie</string>
     <!-- Navigation drawer -->
@@ -202,15 +202,15 @@
     <string name="torrent_pieces">Dalys</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
-    <string name="torrent_trackers">Trakeriai</string>
+    <string name="torrent_trackers">Sekliai</string>
     <string name="tracker_state_working">Veikiantys</string>
     <string name="tracker_state_not_working">Neveikiantys</string>
     <string name="tracker_state_updating">Atnaujinama…</string>
     <string name="tracker_state_not_contacted">Dar nesusisiekta</string>
     <string name="share_tracker_url">Bendrinti URL…</string>
-    <string name="delete_selected_tracker">Ištrinti pasirinktą trakerį\?</string>
-    <string name="delete_selected_trackers">Ištrinti visus pasirinktus trakerius\?</string>
-    <string name="add_trackers">Pridėti trakerius</string>
+    <string name="delete_selected_tracker">Ištrinti pasirinktą seklį\?</string>
+    <string name="delete_selected_trackers">Ištrinti visus pasirinktus seklius\?</string>
+    <string name="add_trackers">Pridėti seklius</string>
     <string name="dialog_add_trackers">(Vienas eilutėje)</string>
     <string name="open_using">Atidaryti naudojant</string>
     <string name="peer_port">Prievadas: %1$d</string>
@@ -279,31 +279,30 @@
     <string name="creating_torrent_progress">Palaukite, kol bus sukurtas torentas…</string>
     <string name="file_or_folder_for_seeding">Failas ar aplankas skleidimui</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Pirmiausia pasirinkite failą ar aplanką, kurį norite skleisti.</string>
-    <string name="tracker_urls">Trekerių URL adresai</string>
+    <string name="tracker_urls">Seklių URL adresai</string>
     <string name="web_seed_urls">Saityno skleidimo URL adresai</string>
     <string name="comments">Komentarai</string>
-    <string name="tracker_urls_hint">(Neprivaloma) kiekvienoje eilutėje prioriteto tvarka įveskite po vieną trakerį.</string>
+    <string name="tracker_urls_hint">(Neprivaloma) kiekvienoje eilutėje prioriteto tvarka įveskite po vieną seklį.</string>
     <string name="web_seed_urls_hint">(Neprivaloma) po vieną eilutėje</string>
     <string name="optional_hint">(Neprivaloma)</string>
     <string name="piece_size">Dalies dydis</string>
     <string name="create_torrent_options">Pasirinkimai</string>
     <string name="option_start_seeding">Pradėti skleisti</string>
     <string name="option_private_torrent">Privatus torentas</string>
-    <string-array name="piece_size_entries">
-        <item>Nustatyti automatiškai</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Nustatyti automatiškai</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Neteisingas URL: %1$s</string>
     <string name="folder_is_empty">Pasirinktas aplankas yra tuščias arba visi jo failai filtre pažymėti, kaip netraukiami.</string>
     <string name="error_create_torrent">Nepavyko sukurti torento</string>
@@ -355,11 +354,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Temos nustatymai</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Šviesa</item>
-        <item>Tamsus</item>
-        <item>Juoda</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Šviesa</string>
+    <string name="pref_theme_entries_1">Tamsus</string>
+    <string name="pref_theme_entries_2">Juoda</string>
     <string name="pref_notification_category">Pranešimų nustatymai</string>
     <string name="pref_torrent_finish_notify_title">Torento baigimo pranešimas</string>
     <string name="pref_torrent_finish_notify_summary">Rodyti pranešimą, kai torentas yra baigtas atsisiųsti.</string>
@@ -392,9 +390,9 @@
     <string name="pref_custom_battery_control_summary">Nustatykite baterijos %%, kuriam esant atsisiuntimas bus sustabdytas. (Ignoruojamas numatytasis %1$d%%.)</string>
     <string name="pref_custom_battery_control_dialog_summary">Ar tikrai nustatyti baterijos %%, į kurį reikia atkreipti dėmesį\? (Atsisiunčiant padidėja baterijos naudojimas.)</string>
     <!-- Network settings -->
-    <string name="pref_proxy_settings_title">Tarpinio serverio nustatymai</string>
+    <string name="pref_proxy_settings_title">Įgaliotojo serverio nustatymai</string>
     <string name="pref_enable_dht_title">DHT</string>
-    <string name="pref_enable_dht_summary">Leidžia surasti kitus be nenaudojant trakerio. (Padidina baterijos naudojimą.)</string>
+    <string name="pref_enable_dht_summary">Leidžia surasti kitus be nenaudojant seklio. (Padidina baterijos naudojimą.)</string>
     <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Sukurta vietiniam aptikimui palaikyti, siekiant kuo labiau sumažinti duomenų srautą.</string>
     <string name="pref_enable_utp_title">μTP</string>
@@ -408,11 +406,10 @@
     <string name="pref_port_range_end_title">Pabaiga</string>
     <string name="pref_encryption_category">Šifravimas</string>
     <string name="pref_enc_mode_title">Režimas</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Pageidaujamas šifravimo</item>
-        <item>Reikalauti šifravimo</item>
-        <item>Išjungti šifravimo</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Pageidaujamas šifravimo</string>
+    <string name="pref_enc_mode_entries_1">Reikalauti šifravimo</string>
+    <string name="pref_enc_mode_entries_2">Išjungti šifravimo</string>
     <string name="pref_enc_in_connections_title">Įeinantys sujungimai</string>
     <string name="pref_enc_out_connections_title">Išeinantys sujungimai</string>
     <string name="pref_ip_filtering_category">IP filtravimas</string>
@@ -421,21 +418,20 @@
     <string name="pref_ip_filtering_file_title">Kelias iki filtro failo (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Rodyti NAT klaidas</string>
     <string name="pref_anonymous_mode_title">Anoniminis režimas</string>
-    <string name="pref_anonymous_mode_summary">Neprivačių torentų atveju nėra naudotojo agento eilutės. Tik tarpiniai trakeriai. Klausymosi lizdai uždaryti. Įeinantys ryšiai per SOCKS5- arba I2P tarpinį serverį (jei peer tarpiniame kompiuteryje yra lygiavertis tarpinis serveris). NAT-PMP, UPnP, DHT ir vietinis atradimas išjungti.</string>
+    <string name="pref_anonymous_mode_summary">Neprivačių torentų atveju nėra naudotojo agento eilutės. Tik įgaliotieji sekliai. Klausymosi lizdai uždaryti. Įeinantys ryšiai per SOCKS5- arba I2P įgaliotąjį serverį (jei įgaliotame seklio kompiuteryje yra lygiavertis įgaliotasis serveris). NAT-PMP, UPnP, DHT ir vietinis atradimas išjungti.</string>
     <string name="pref_seeding_outgoing_connections_title">Išeinančios jungtys skleidimui</string>
     <string name="pref_seeding_outgoing_connections_summary">Leidžia skleidžiamiems torentams užmegzti išeinančius ryšius. (Gali kainuoti.)</string>
     <!-- Proxy settings -->
-    <string name="pref_proxy_type_title">Tarpinio serverio tipas</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Joks)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <string name="pref_proxy_type_title">Įgaliotojo serverio tipas</string>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Joks)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adresas</string>
     <string name="pref_proxy_port_title">Prievadas</string>
     <string name="pref_proxy_peers_too_title">Taip pat naudoti ryšiams</string>
-    <string name="pref_proxy_peers_too_summary">Ryšiai su trakeriais, kitais įrenginiais ir žiniatinklio skleidėjais veikia naudojant tarpinį serverį. Tai neturi įtakos DHT.</string>
+    <string name="pref_proxy_peers_too_summary">Ryšiai su sekliais, kitais įrenginiais ir žiniatinklio skleidėjais veikia naudojant įgaliotąjį serverį. Tai neturi įtakos DHT.</string>
     <string name="pref_proxy_requires_auth_title">Reikalauja autorizacijos</string>
     <string name="pref_proxy_requires_auth_summary">Įspėjimas: Slaptažodis išsaugomas kaip įprastas failas.</string>
     <string name="pref_proxy_login_title">Vartotojo vardas</string>
@@ -452,31 +448,29 @@
     <string name="pref_feed_auto_refresh_title">Automatiškai atnaujinti kanalus</string>
     <string name="pref_feed_auto_refresh_summary">Periodiškai atnaujinti kanalus fone.</string>
     <string name="pref_feed_refresh_interval_title">Atnaujinimo intervalas</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minučių</item>
-        <item>30 minučių</item>
-        <item>1 valandą</item>
-        <item>2 valandos</item>
-        <item>6 valandų</item>
-        <item>12 valandų</item>
-        <item>1 diena</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minučių</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minučių</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 valandą</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 valandos</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 valandų</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 valandų</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 diena</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Tik naudojant nelimituojamus ryšius</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Atnaujinti tik ryšiuose be kvotos (pvz., Wi-Fi arba Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Tarptinklinis ryšys</string>
     <string name="pref_feed_keep_items_time_title">Išsaugoti straipsnius</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 diena</item>
-        <item>2 dienos</item>
-        <item>4 dienos</item>
-        <item>1 savaitė</item>
-        <item>2 savaitės</item>
-        <item>1 mėnuo</item>
-        <item>2 mėnesiai</item>
-        <item>3 mėnesiai</item>
-        <item>Visada</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 diena</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dienos</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dienos</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 savaitė</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 savaitės</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 mėnuo</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 mėnesiai</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 mėnesiai</string>
+    <string name="pref_feed_keep_items_time_entries_8">Visada</string>
     <string name="pref_feed_start_torrents_title">Automatiškai paleisti torentus</string>
     <string name="pref_feed_start_torrents_summary">Atsisiunčia pridėtus torentus.</string>
     <string name="pref_feed_remove_duplicates_summary">Praleidžia failų su jau esamais pavadinimais atsisiuntimą.</string>
@@ -493,13 +487,13 @@
     <string name="pref_header_streaming">Srautinis perdavimas</string>
     <string name="pref_port_range_title">Prievado diapazonas</string>
     <string name="journal_filter_session_log">Sesijos žurnalas</string>
-    <string name="tracker_list_empty">Nėra trackerių</string>
+    <string name="tracker_list_empty">Nėra seklių</string>
     <string name="select_tag">Pasirinkite žymą</string>
     <string name="pref_feed_remove_duplicates_title">Jokio dubliavimosi</string>
-    <string name="pref_default_trackers_list_summary">Trakerių sąrašas, naudojamas šiais atvejais:
+    <string name="pref_default_trackers_list_summary">Seklių sąrašas, naudojamas šiais atvejais:
 \n1. Pridedant torentą, numatytasis sąrašas automatiškai įtraukiamas į torentų sąrašą.
 \n2. Naudojamas magnetinėms nuorodoms gauti.</string>
-    <string name="pref_default_trackers_list_title">Numatytieji trakeriai</string>
+    <string name="pref_default_trackers_list_title">Numatytieji sekliai</string>
     <string name="pref_watch_dir_delete_file_title">Ištrinti .torrent failą po pridėjimo</string>
     <string name="pref_journal_max_stored_entries">Didžiausias saugomų žurnalo įrašų skaičius</string>
     <string name="pref_journal_save_log_to">Išsaugoti žurnalą į…</string>

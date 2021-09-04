@@ -1,0 +1,8 @@
+* Bugfixes:
+    - Voorgrondmelding bleef staan
+    - Android 8.0 tekstveld-hint bug
+    - Verwijderen van originele torrent-trackers
+    - Sequentiële download voor magneetkoppelingen
+    - Wijzigen van de willekeurige poort na toepassen van de instellingen
+* Huidige vertalingen bijgewerkt
+* Upgrade naar libtorrent4j 2.0.4-21

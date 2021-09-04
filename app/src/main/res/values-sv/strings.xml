@@ -228,21 +228,20 @@
     <string name="web_seed_urls_hint">(Valfritt) en per rad</string>
     <string name="optional_hint">(Valfritt)</string>
     <string name="create_torrent_options">Alternativ</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">Den valda mappen är tom eller så exkluderas dess filer av filtret.</string>
     <string name="error_create_torrent">Kunde inte skapa torrent</string>
     <string name="skip_files_hint">Ange filnamn separerade med \"|\".</string>
@@ -275,11 +274,10 @@
     <string name="pref_auto_manage_summary">Torrenten kan återupptas automatiskt eller pausas när som helst. (Kan sakta ner pausandet/återupptagandet.)</string>
     <!-- Appearance settings -->
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Light</string>
+    <string name="pref_theme_entries_1">Dark</string>
+    <string name="pref_theme_entries_2">Black</string>
     <string name="pref_torrent_finish_notify_summary">Visa avisering när en torrent är hämtad.</string>
     <string name="pref_notify_sound_title">Aviseringsljud</string>
     <!-- Behavior settings -->
@@ -313,11 +311,10 @@
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">Slut</string>
     <string name="pref_enc_mode_title">Läge</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Prefer encryption</item>
-        <item>Require encryption</item>
-        <item>Disable encryption</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Prefer encryption</string>
+    <string name="pref_enc_mode_entries_1">Require encryption</string>
+    <string name="pref_enc_mode_entries_2">Disable encryption</string>
     <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
     <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
     <string name="pref_anonymous_mode_title">Anonymt läge</string>
@@ -326,15 +323,14 @@
     <string name="pref_seeding_outgoing_connections_summary">Låter distribuerade torrenter skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ av proxy</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(None)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(None)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adress</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_summary">Anslutningar till spårare, andra och webbdistributioner är proxifierade.</string>
+    <string name="pref_proxy_peers_too_summary">Anslutningar till spårare, andra och webbdistributioner är proxifierade. Påverkar inte DHT.</string>
     <string name="pref_proxy_requires_auth_summary">Varning: Lösenordet sparas som en vanlig fil.</string>
     <string name="pref_proxy_login_title">Användarnamn</string>
     <string name="pref_proxy_password_title">Lösenord</string>
@@ -345,30 +341,28 @@
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Uppdatera automatiskt kanaler</string>
     <string name="pref_feed_auto_refresh_summary">Uppdatera kanaler periodiskt i bakgrunden.</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>6 hours</item>
-        <item>12 hours</item>
-        <item>1 day</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 hour</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 day</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Endast på obestämda anslutningar</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Uppdatera endast på anslutningar utan en kvot (exempelvis Wi-Fi eller Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 day</item>
-        <item>2 days</item>
-        <item>4 days</item>
-        <item>1 week</item>
-        <item>2 weeks</item>
-        <item>1 month</item>
-        <item>2 months</item>
-        <item>3 months</item>
-        <item>Always</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 day</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 days</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 days</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 week</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 weeks</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 month</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 months</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 months</string>
+    <string name="pref_feed_keep_items_time_entries_8">Always</string>
     <string name="pref_feed_start_torrents_title">Starta torrenter automatiskt</string>
     <string name="pref_feed_start_torrents_summary">Hämtar tillagda torrenter.</string>
     <string name="pref_feed_remove_duplicates_summary">Hoppar över hämtning av redan närvarande fil-titlar.</string>
@@ -415,7 +409,7 @@
     <string name="journal_filter_session_log">Sessionslogg</string>
     <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
     <string name="torrent_seeding_time">Tid för distribution</string>
-    <string name="torrent_leechers">Tagare</string>
+    <string name="torrent_leechers">Nedladdare</string>
     <string name="drawer_date_added">Datum som den lades till</string>
     <string name="drawer_sorting_date_added">Datum som den lades till</string>
     <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>

@@ -333,21 +333,20 @@
     <string name="create_torrent_options">Seçenekler</string>
     <string name="option_start_seeding">Paylaşmaya başla</string>
     <string name="option_private_torrent">Özel torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Otomatik</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Otomatik</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Geçersiz URL: %1$s</string>
     <string name="folder_is_empty">Seçili klasör boş veya tüm dosyaları filtre tarafından hariç tutuldu.</string>
     <string name="error_create_torrent">Torrent oluşturulamadı</string>
@@ -412,11 +411,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema ayarları</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Açık</item>
-        <item>Koyu</item>
-        <item>Siyah</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Açık</string>
+    <string name="pref_theme_entries_1">Koyu</string>
+    <string name="pref_theme_entries_2">Siyah</string>
     <string name="pref_notification_category">Bildirim ayarları</string>
     <string name="pref_torrent_finish_notify_title">Torrent tamamlanma bildirimi</string>
     <string name="pref_torrent_finish_notify_summary">Bir torrent indirildiğinde bildirim göster.</string>
@@ -466,11 +464,10 @@
     <string name="pref_port_range_end_title">Bitiş</string>
     <string name="pref_encryption_category">Şifreleme</string>
     <string name="pref_enc_mode_title">Mod</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Şifrelemeyi tercih et</item>
-        <item>Şifrelemeyi zorunlu kıl</item>
-        <item>Şifrelemeyi devre dışı bırak</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Şifrelemeyi tercih et</string>
+    <string name="pref_enc_mode_entries_1">Şifrelemeyi zorunlu kıl</string>
+    <string name="pref_enc_mode_entries_2">Şifrelemeyi devre dışı bırak</string>
     <string name="pref_enc_in_connections_title">Gelen bağlantılar</string>
     <string name="pref_enc_out_connections_title">Giden bağlantılar</string>
     <string name="pref_ip_filtering_category">IP filtreleme</string>
@@ -484,12 +481,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Paylaşılan torrentlerin giden bağlantılar kurmasına izin verir. (Maliyetli olabilir.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Vekil sunucu türü</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Yok)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Yok)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Adres</string>
     <string name="pref_proxy_port_title">Bağlantı noktası</string>
     <string name="pref_proxy_peers_too_title">Ayrıca bağlantılar için kullan</string>
@@ -510,31 +506,29 @@
     <string name="pref_feed_auto_refresh_title">Kanalları otomatik yenile</string>
     <string name="pref_feed_auto_refresh_summary">Kanalları arka planda belirli aralıklarla yenile.</string>
     <string name="pref_feed_refresh_interval_title">Yenileme aralığı</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 dakika</item>
-        <item>30 dakika</item>
-        <item>1 saat</item>
-        <item>2 saat</item>
-        <item>6 saat</item>
-        <item>12 saat</item>
-        <item>1 gün</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 dakika</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 dakika</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 gün</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Yalnızca ölçülmeyen bağlantılarda</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Yalnızca ölçülmeyen bağlantılarda yenile (örneğin Wi-Fi veya Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Dolaşım</string>
     <string name="pref_feed_keep_items_time_title">Makaleleri sakla</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 gün</item>
-        <item>2 gün</item>
-        <item>4 gün</item>
-        <item>1 hafta</item>
-        <item>2 hafta</item>
-        <item>1 ay</item>
-        <item>2 ay</item>
-        <item>3 ay</item>
-        <item>Daima</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 gün</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 gün</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 gün</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 hafta</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 hafta</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 ay</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 ay</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 ay</string>
+    <string name="pref_feed_keep_items_time_entries_8">Daima</string>
     <string name="pref_feed_start_torrents_title">Torrentleri otomatik başlat</string>
     <string name="pref_feed_start_torrents_summary">Eklenen torrentleri indirir.</string>
     <string name="pref_feed_remove_duplicates_title">Yineleme yok</string>
@@ -554,4 +548,7 @@
 \n1. Torrent eklerken, öntanımlı liste otomatik olarak torrent listesine eklenir.
 \n2. Magnet bağlantılarını almak için kullanılır.</string>
     <string name="pref_default_trackers_list_title">Öntanımlı takipçiler</string>
+    <string name="pref_foreground_notify_status_filter">Durum filtresi</string>
+    <string name="pref_foreground_notification_category">Ön plan bildirimi ayarları</string>
+    <string name="pref_foreground_notify_sorting">Sıralama</string>
 </resources>

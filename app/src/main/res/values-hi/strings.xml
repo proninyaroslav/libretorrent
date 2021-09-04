@@ -297,21 +297,20 @@
     <string name="create_torrent_options">विकल्प</string>
     <string name="option_start_seeding">बीजारोपण शुरू करें</string>
     <string name="option_private_torrent">निजी धार</string>
-    <string-array name="piece_size_entries">
-        <item>ऑटो</item>
-        <item>16 कीबी</item>
-        <item>32 कीबी</item>
-        <item>64 कीबी</item>
-        <item>128 कीबी</item>
-        <item>256 कीबी</item>
-        <item>512 कीबी</item>
-        <item>1 मि.बी.</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">ऑटो</string>
+    <string name="piece_size_entries_1">16 कीबी</string>
+    <string name="piece_size_entries_2">32 कीबी</string>
+    <string name="piece_size_entries_3">64 कीबी</string>
+    <string name="piece_size_entries_4">128 कीबी</string>
+    <string name="piece_size_entries_5">256 कीबी</string>
+    <string name="piece_size_entries_6">512 कीबी</string>
+    <string name="piece_size_entries_7">1 मि.बी.</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">अमान्य URL: %1$s</string>
     <string name="folder_is_empty">चयनित फ़ोल्डर खाली है या सभी फ़ाइलों को फ़िल्टर द्वारा बाहर रखा गया है</string>
     <string name="error_create_torrent">धार बनाने में असमर्थ</string>
@@ -364,11 +363,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">विषय सेटिंग</string>
     <string name="pref_theme_title">विषय</string>
-    <string-array name="pref_theme_entries">
-        <item>रोशनी</item>
-        <item>अंधेरा</item>
-        <item>काली</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">रोशनी</string>
+    <string name="pref_theme_entries_1">अंधेरा</string>
+    <string name="pref_theme_entries_2">काली</string>
     <string name="pref_notification_category">अधिसूचना सेटिंग</string>
     <string name="pref_torrent_finish_notify_title">टोरेंट फिनिश नोटिफिकेशन</string>
     <string name="pref_torrent_finish_notify_summary">जब कोई धार डाउनलोड करना समाप्त करता है तो एक सूचना दिखाएं</string>
@@ -417,11 +415,10 @@
     <string name="pref_port_range_end_title">End</string>
     <string name="pref_encryption_category">एन्क्रिप्शन</string>
     <string name="pref_enc_mode_title">एन्क्रिप्शन प्रणाली</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>एन्क्रिप्शन को प्राथमिकता दें</item>
-        <item>एन्क्रिप्शन की आवश्यकता है</item>
-        <item>एन्क्रिप्शन अक्षम करें</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">एन्क्रिप्शन को प्राथमिकता दें</string>
+    <string name="pref_enc_mode_entries_1">एन्क्रिप्शन की आवश्यकता है</string>
+    <string name="pref_enc_mode_entries_2">एन्क्रिप्शन अक्षम करें</string>
     <string name="pref_enc_in_connections_title">आने वाले कनेक्शन</string>
     <string name="pref_enc_out_connections_title">निवर्तमान कनेक्शन</string>
     <string name="pref_ip_filtering_category">आईपी फ़िल्टरिंग</string>
@@ -435,12 +432,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">प्रॉक्सी प्रकार</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(कोई नहीं)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>एचटीटीपी</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(कोई नहीं)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">एचटीटीपी</string>
     <string name="pref_proxy_address_title">पता</string>
     <string name="pref_proxy_port_title">बंदरगाह</string>
     <string name="pref_proxy_peers_too_title">सहकर्मी कनेक्शन के लिए भी उपयोग करें</string>
@@ -461,31 +457,29 @@
     <string name="pref_feed_auto_refresh_title">ऑटो रिफ्रेश चैनल</string>
     <string name="pref_feed_auto_refresh_summary">समय-समय पर चैनलों को पृष्ठभूमि में ताज़ा करें</string>
     <string name="pref_feed_refresh_interval_title">ताजा अंतराल</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 मिनट</item>
-        <item>30 मिनिट</item>
-        <item>1 घंटा</item>
-        <item>2 घंटे</item>
-        <item>6 घंटे</item>
-        <item>12 घंटे</item>
-        <item>एक दिन</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 मिनट</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 मिनिट</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 घंटा</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 घंटे</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 घंटे</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 घंटे</string>
+    <string name="pref_feed_refresh_intervals_entries_6">एक दिन</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
     <string name="pref_feed_keep_items_time_title">लेख रखें</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>एक दिन</item>
-        <item>दो दिन</item>
-        <item>चार दिन</item>
-        <item>1 सप्ताह</item>
-        <item>2 सप्ताह</item>
-        <item>1 महीना</item>
-        <item>2 महीने</item>
-        <item>3 महीने</item>
-        <item>हमेशा</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">एक दिन</string>
+    <string name="pref_feed_keep_items_time_entries_1">दो दिन</string>
+    <string name="pref_feed_keep_items_time_entries_2">चार दिन</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 सप्ताह</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 सप्ताह</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 महीना</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 महीने</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 महीने</string>
+    <string name="pref_feed_keep_items_time_entries_8">हमेशा</string>
     <string name="pref_feed_start_torrents_title">दौड़ो धार</string>
     <string name="pref_feed_start_torrents_summary">जोड़ने के बाद टॉरेंट चलाएं</string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>

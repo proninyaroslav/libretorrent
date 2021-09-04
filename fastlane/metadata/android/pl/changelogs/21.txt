@@ -1,0 +1,8 @@
+* Poprawiono:
+    - Zwieszanie się pierwszoplanowego powiadomienia
+    - Błąd podpowiedzi pola tekstowego w Androidzie 8.0
+    - Usuwanie oryginalnych trackerów torrenta
+    - Pobieranie sekwencyjne dla linków magnet
+    - Zmienianie losowego portu po zastosowaniu ustawień
+* Zaktualizowano aktualne tłumaczenia
+* Uaktualniono do libtorrent4j 2.0.4-21

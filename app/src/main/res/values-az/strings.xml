@@ -327,21 +327,20 @@
     <string name="create_torrent_options">Seçimlər</string>
     <string name="option_start_seeding">Yükləməyə başla</string>
     <string name="option_private_torrent">Gizli torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Avtomatik</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Avtomatik</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Etibarsız URL: %1$s</string>
     <string name="folder_is_empty">Seçilmiş qovluq boşdur, ya da bütün fayllar filtr tərəfindən istisna edildi</string>
     <string name="error_create_torrent">Torrent yaradıla bilmədi</string>
@@ -405,11 +404,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema tənzimləmələri</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Açıq</item>
-        <item>Tünd</item>
-        <item>Qara</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Açıq</string>
+    <string name="pref_theme_entries_1">Tünd</string>
+    <string name="pref_theme_entries_2">Qara</string>
     <string name="pref_notification_category">Bildiriş tənzimləmələri</string>
     <string name="pref_torrent_finish_notify_title">Torrent bitirmə bildirişi</string>
     <string name="pref_torrent_finish_notify_summary">Torrent endirmə bitəndə bil bildiriş göstər</string>
@@ -459,11 +457,10 @@
     <string name="pref_port_range_end_title">Son</string>
     <string name="pref_encryption_category">Şifrələmə</string>
     <string name="pref_enc_mode_title">Şifrələmə rejimi</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Şifrələməyə üstünlük ver</item>
-        <item>Şifrələmə tələb et</item>
-        <item>Şifrələməni sıradan çıxart</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Şifrələməyə üstünlük ver</string>
+    <string name="pref_enc_mode_entries_1">Şifrələmə tələb et</string>
+    <string name="pref_enc_mode_entries_2">Şifrələməni sıradan çıxart</string>
     <string name="pref_enc_in_connections_title">Gələn bağlantılar</string>
     <string name="pref_enc_out_connections_title">Gedən bağlantılar</string>
     <string name="pref_ip_filtering_category">IP filtrləmə</string>
@@ -477,12 +474,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Yüklənən torrentləri gedən bağlantıya çevirmək üçün cəhd edib etməyəcəyini müəyyənləşdirər. Gedən bağlantıya çevirmənin haqqı yüksək olduğu xüsusi hallarda, bu özəllik sıradan çıxarıla bilər</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy növü</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Yoxdur)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Yoxdur)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Ünvan</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Həmçinin cüt bağlantılar üçün istifadə et</string>
@@ -503,31 +499,29 @@
     <string name="pref_feed_auto_refresh_title">Kanalları avtomatik təzələ</string>
     <string name="pref_feed_auto_refresh_summary">Kanalları arxaplanda vaxtaşırı təzələ</string>
     <string name="pref_feed_refresh_interval_title">Təzələmə aralığı</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 dəqiqə</item>
-        <item>30 dəqiqə</item>
-        <item>1 saat</item>
-        <item>2 saat</item>
-        <item>6 saat</item>
-        <item>12 saat</item>
-        <item>1 gün</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 dəqiqə</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 dəqiqə</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 saat</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 gün</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Yalnız limitsiz bağlantılar</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Yalnız limitsiz bağlantılarda təzələ (Wi-Fi və ya Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Roaminqi fəallaşdır</string>
     <string name="pref_feed_keep_items_time_title">Məqalələri saxla</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 gün</item>
-        <item>2 gün</item>
-        <item>4 gün</item>
-        <item>1 həftə</item>
-        <item>2 həftə</item>
-        <item>1 ay</item>
-        <item>2 ay</item>
-        <item>3 ay</item>
-        <item>Həmişə</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 gün</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 gün</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 gün</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 həftə</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 həftə</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 ay</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 ay</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 ay</string>
+    <string name="pref_feed_keep_items_time_entries_8">Həmişə</string>
     <string name="pref_feed_start_torrents_title">Torrentlər işlət</string>
     <string name="pref_feed_start_torrents_summary">Torrentləri əlavə edəndən sonra işlət</string>
     <string name="pref_feed_remove_duplicates_title">Təkrarlananları çıxart</string>

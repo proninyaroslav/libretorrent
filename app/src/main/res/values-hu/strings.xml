@@ -332,21 +332,20 @@
     <string name="create_torrent_options">Beállítások</string>
     <string name="option_start_seeding">Megosztás indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Érvénytelen URL: %1$s</string>
     <string name="folder_is_empty">A kiválasztott mappa üres vagy a szűrő minden fájlt kizárt.</string>
     <string name="error_create_torrent">Nem lehet létrehozni a torrentet</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Téma beállítások</string>
     <string name="pref_theme_title">Téma</string>
-    <string-array name="pref_theme_entries">
-        <item>Világos</item>
-        <item>Sötét</item>
-        <item>Fekete</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Világos</string>
+    <string name="pref_theme_entries_1">Sötét</string>
+    <string name="pref_theme_entries_2">Fekete</string>
     <string name="pref_notification_category">Értesítési beállítások</string>
     <string name="pref_torrent_finish_notify_title">Torrent befejezési értesítés</string>
     <string name="pref_torrent_finish_notify_summary">Küldjön értesítést, ha a torrent le lett töltve.</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">Befejező</string>
     <string name="pref_encryption_category">Titkosítás</string>
     <string name="pref_enc_mode_title">Mód</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Titkosítás előnyben részesítése</item>
-        <item>Titkosítás szükséges</item>
-        <item>Titkosítás kikapcsolva</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Titkosítás előnyben részesítése</string>
+    <string name="pref_enc_mode_entries_1">Titkosítás szükséges</string>
+    <string name="pref_enc_mode_entries_2">Titkosítás kikapcsolva</string>
     <string name="pref_enc_in_connections_title">Bejövő kapcsolatok</string>
     <string name="pref_enc_out_connections_title">Kimenő kapcsolatok</string>
     <string name="pref_ip_filtering_category">IP-szűrés</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">A megosztott torrentek megpróbálhatnak-e kimenő kapcsolatot létesíteni. (Költséges lehet.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy típus</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(Nincs)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(Nincs)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Cím</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Kapcsolatokhoz is használható</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">Csatornák automatikus frissítése</string>
     <string name="pref_feed_auto_refresh_summary">Csatornák rendszeres frissítése a háttérben.</string>
     <string name="pref_feed_refresh_interval_title">Frissítési időköz</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 percenként</item>
-        <item>30 percenként</item>
-        <item>1 óránként</item>
-        <item>2 óránként</item>
-        <item>6 óránként</item>
-        <item>12 óránként</item>
-        <item>1 naponta</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 percenként</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 percenként</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 óránként</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 óránként</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 óránként</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 óránként</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 naponta</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Csak forgalomkorlát nélküli kapcsolatokon</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Csak forgalomkorlát nélküli kapcsolatokon frissítsen (például Wi-Fi-n vagy Etherneten).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Barangolás</string>
     <string name="pref_feed_keep_items_time_title">Cikkek megtartása</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 nap</item>
-        <item>2 nap</item>
-        <item>4 nap</item>
-        <item>1 hét</item>
-        <item>2 hét</item>
-        <item>1 hónap</item>
-        <item>2 hónap</item>
-        <item>3 hónap</item>
-        <item>Mindig</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 nap</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 nap</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 nap</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 hét</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 hét</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 hónap</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 hónap</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 hónap</string>
+    <string name="pref_feed_keep_items_time_entries_8">Mindig</string>
     <string name="pref_feed_start_torrents_title">Torrentek automatikus indítása</string>
     <string name="pref_feed_start_torrents_summary">Letölti a hozzáadott torrenteket.</string>
     <string name="pref_feed_remove_duplicates_title">Nincsenek ismétlődések</string>

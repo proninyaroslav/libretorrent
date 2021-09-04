@@ -332,21 +332,20 @@
     <string name="create_torrent_options">ഓപ്ഷനുകൾ</string>
     <string name="option_start_seeding">വിതയ്ക്കൽ ആരംഭിക്കുക</string>
     <string name="option_private_torrent">സ്വകാര്യ ടോറന്റ്</string>
-    <string-array name="piece_size_entries">
-        <item>യാന്ത്രികം</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">യാന്ത്രികം</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">URL അസാധുവാണ്: %1$s</string>
     <string name="folder_is_empty">തിരഞ്ഞെടുത്ത ഫോൾഡർ ശൂന്യമാണ് അല്ലെങ്കിൽ എല്ലാ ഫയലുകളും ഫിൽറ്റർ മുഖേന ഒഴിവാക്കിയിരിക്കുന്നു</string>
     <string name="error_create_torrent">ടോറന്റ് സൃഷ്ടിക്കാനായില്ല</string>
@@ -411,11 +410,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">തീം സജ്ജീകരണങ്ങൾ</string>
     <string name="pref_theme_title">തീം</string>
-    <string-array name="pref_theme_entries">
-        <item>വെളിച്ചം</item>
-        <item>ഇരുണ്ടത്</item>
-        <item>കറുപ്പ്</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">വെളിച്ചം</string>
+    <string name="pref_theme_entries_1">ഇരുണ്ടത്</string>
+    <string name="pref_theme_entries_2">കറുപ്പ്</string>
     <string name="pref_notification_category">അറിയിപ്പ് ക്രമീകരണങ്ങൾ</string>
     <string name="pref_torrent_finish_notify_title">ടോറന്റ് അവസാന അറിയിപ്പ്</string>
     <string name="pref_torrent_finish_notify_summary">ടോറന്റ് ഡൌൺലോഡ് ചെയ്യുമ്പോൾ ഒരു വിജ്ഞാപനം കാണിക്കുക</string>
@@ -465,11 +463,10 @@
     <string name="pref_port_range_end_title">അവസാനിക്കുന്നു</string>
     <string name="pref_encryption_category">എൻക്രിപ്ഷൻ</string>
     <string name="pref_enc_mode_title">എൻക്രിപ്ഷൻ മോഡ്</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>എൻക്രിപ്ഷൻ തിരഞ്ഞെടുക്കുക</item>
-        <item>എൻക്രിപ്ഷൻ ആവശ്യമാണ്</item>
-        <item>എൻക്രിപ്ഷൻ അപ്രാപ്തമാക്കുക</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">എൻക്രിപ്ഷൻ തിരഞ്ഞെടുക്കുക</string>
+    <string name="pref_enc_mode_entries_1">എൻക്രിപ്ഷൻ ആവശ്യമാണ്</string>
+    <string name="pref_enc_mode_entries_2">എൻക്രിപ്ഷൻ അപ്രാപ്തമാക്കുക</string>
     <string name="pref_enc_in_connections_title">ഇൻകമിംഗ് കണക്ഷനുകൾ</string>
     <string name="pref_enc_out_connections_title">ഔട്ട്ഗോയിംഗ് കണക്ഷനുകൾ</string>
     <string name="pref_ip_filtering_category">IP ഫിൽട്ടറിംഗ്</string>
@@ -483,12 +480,11 @@
     <string name="pref_seeding_outgoing_connections_summary">വിത്ത് വിതയ്ക്കുന്ന ടോറന്റുകൾ going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നടത്താൻ ശ്രമിക്കണോ വേണ്ടയോ എന്ന് നിർണ്ണയിക്കുന്നു. Going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നിർമ്മിക്കുന്നതിനുള്ള ചെലവ് ഉയർന്ന സാഹചര്യങ്ങളിൽ ഇത് അപ്രാപ്തമാക്കിയേക്കാം</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">പ്രോക്സി തരം</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(ഒന്നുമില്ല)</item>
-        <item>സോക്സ് 4</item>
-        <item>സോക്സ് 5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(ഒന്നുമില്ല)</string>
+    <string name="pref_proxy_type_entries_1">സോക്സ് 4</string>
+    <string name="pref_proxy_type_entries_2">സോക്സ് 5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">വിലാസം</string>
     <string name="pref_proxy_port_title">തുറമുഖം</string>
     <string name="pref_proxy_peers_too_title">കൂടാതെ പിയർ കണക്ഷനുകൾക്കായി ഉപയോഗിക്കുക</string>
@@ -509,31 +505,29 @@
     <string name="pref_feed_auto_refresh_title">യാന്ത്രിക പുതുക്കൽ ചാനലുകൾ</string>
     <string name="pref_feed_auto_refresh_summary">പശ്ചാത്തലത്തിൽ ചാനലുകൾ പുതുക്കിയെടുക്കുക</string>
     <string name="pref_feed_refresh_interval_title">ഇടവേള പുതുക്കുക</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 മിനിറ്റ്</item>
-        <item>30 മിനിറ്റ്</item>
-        <item> 1 മണിക്കൂർ</item>
-        <item>2 മണിക്കൂർ</item>
-        <item>6 മണിക്കൂർ</item>
-        <item>12 മണിക്കൂർ</item>
-        <item>1 ദിവസം</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 മിനിറ്റ്</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 മിനിറ്റ്</string>
+    <string name="pref_feed_refresh_intervals_entries_2"> 1 മണിക്കൂർ</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 മണിക്കൂർ</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 മണിക്കൂർ</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 മണിക്കൂർ</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 ദിവസം</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">അളക്കാത്ത കണക്ഷനുകൾ മാത്രം</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">അളക്കാത്ത കണക്ഷനുകളിലൂടെ മാത്രം പുതുക്കുക (ഉദാഹരണത്തിന്, Wi-Fi അല്ലെങ്കിൽ ഇഥർനെറ്റ്)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">റോമിംഗ് പ്രാപ്തമാക്കുക</string>
     <string name="pref_feed_keep_items_time_title">ലേഖനങ്ങൾ സൂക്ഷിക്കുക</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 ദിവസം</item>
-        <item>2 ദിവസം</item>
-        <item>4 ദിവസം</item>
-        <item>1 ആഴ്ച</item>
-        <item>2 ആഴ്ച</item>
-        <item>1 മാസം</item>
-        <item>2 മാസം</item>
-        <item>3 മാസം</item>
-        <item>എല്ലായ്പ്പോഴും</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 ദിവസം</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 ദിവസം</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 ദിവസം</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 ആഴ്ച</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 ആഴ്ച</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 മാസം</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 മാസം</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 മാസം</string>
+    <string name="pref_feed_keep_items_time_entries_8">എല്ലായ്പ്പോഴും</string>
     <string name="pref_feed_start_torrents_title">പ്രവാഹങ്ങൾ ഓടിക്കുക</string>
     <string name="pref_feed_start_torrents_summary">ചേർത്ത് ചേർത്ത് പ്രവർത്തിപ്പിക്കുക</string>
     <string name="pref_feed_remove_duplicates_title">തനിപ്പകർപ്പുകൾ നീക്കംചെയ്യുക</string>

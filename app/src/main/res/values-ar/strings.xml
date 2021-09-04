@@ -44,14 +44,14 @@
     <string name="filters">فلترات</string>
     <string name="apply">تطبيق</string>
     <string name="clipboard">الحافظة</string>
-    <string name="switch_on">مفتوح</string>
-    <string name="switch_off">مغلق</string>
+    <string name="switch_on">تشغيل</string>
+    <string name="switch_off">ايقاف</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">حذف مع الملفات التي تم تنزيلها</string>
     <string name="delete_selected_torrent">هل تريد حذف التورنت المحدد؟ (هذه العملية لا يمكن التراجع عنها)</string>
     <string name="delete_selected_torrents">هل تريد حذف التورنتات المحددة؟ (هذه العملية لا يمكن التراجع عنها)</string>
     <string name="force_recheck_torrent">تأكيد إعادة التحقق</string>
-    <string name="force_announce_torrent">تأكيد الإعلان</string>
+    <string name="force_announce_torrent">فرض الإعلان</string>
     <string name="add_link">إضافة رابط</string>
     <string name="dialog_add_link_title">أدخل قيمة infohash، الرابط المغناطيسي أو الرابط التشعبي HTTP/HTTPS</string>
     <string name="torrent_list_empty">لا يوجد تورنت</string>
@@ -266,178 +266,173 @@
     <string name="speed_limit_dialog">تعيين السرعة في KiB/s (0 - بدون حدود)</string>
     <string name="torrent_added_date">تمت الإضافة</string>
     <string name="torrent_availability">التوفر</string>
-    <string name="share_stream_url">مشاركة رابط البث</string>
+    <string name="share_stream_url">مشاركة رابط البث…</string>
     <string name="magnet_include_file_priorities">تضمين أولويات الملف؟</string>
-    <string name="magnet_more_about_bep53">مزيد من المعلومات: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">مزيد من المعلومات في: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">لا يوجد متتبعين</string>
     <string name="edit_torrent_name">تعديل اسم ملف التورنت</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">نسخ</string>
-    <string name="text_copied_to_clipboard">تم نسخ النص إلى الحافظة</string>
+    <string name="text_copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">حدث خطأ في التطبيق. يمكنك إرسال التقرير للمطورين</string>
+    <string name="error_comment_prompt">يمكنك إضافة المعلومات والتعليقات الإضافية هنا:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="delete_selected_channel">Delete the selected channel?</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="feed_filter_prompt">أدخل الكلمات (مفصولة بعلامة \"|\") ، يجب أن تكون إحداها في الاسم ، أو أدخل تعبيرًا عاديًا. تتم إضافة السيول فقط إذا كان هذا المرشح يطابق اسم سيل.</string>
+    <string name="feed_filter_prompt_one_per_line">أدخل الفلاتر واحده في كل سطر.</string>
+    <string name="feed_auto_download">تنزيل السيول الجديدة تلقائيًا</string>
+    <string name="delete_selected_channel">هل تريد حذف القناة المحددة ؟</string>
+    <string name="link_copied_to_clipboard">تم نسخ الرابط إلى الحافظة</string>
+    <string name="backup_feeds_successfully">تم حفظ القنوات بنجاح</string>
+    <string name="restore_feeds_backup_successfully">تمت استعادة القنوات بنجاح</string>
+    <string name="error_backup_feeds">فشل حفظ القنوات</string>
+    <string name="error_restore_feeds_backup">فشل استعادة القنوات</string>
     <!-- Create torrent dialog -->
-    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
-    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
-    <string name="web_seed_urls">Web seed URLs</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
-    <string name="optional_hint">(optional)</string>
-    <string name="create_torrent_options">Options</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
-    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
+    <string name="creating_torrent_progress">جارٍ إنشاء التورنت ، يرجى الانتظار …</string>
+    <string name="file_or_folder_for_seeding">ملف أو مجلد Seeding</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">الرجاء تحديد ملف أو مجلد Seeding أولاً</string>
+    <string name="web_seed_urls">عناوين Web-seed URLs</string>
+    <string name="tracker_urls_hint">أدخل عناوين Trackers واحدة في كل سطر بترتيب الأولوية (اختياري).</string>
+    <string name="web_seed_urls_hint">واحد لكل سطر (اختياري)‎</string>
+    <string name="optional_hint">(اختياري)</string>
+    <string name="create_torrent_options">خيارات</string>
+    <string name="folder_is_empty">المجلد المحدد فارغ أو يتم استبعاد جميع الملفات بواسطة عامل التصفية.</string>
+    <string name="error_create_torrent">غير قادر على إنشاء تورنت</string>
+    <string name="skip_files_hint">أدخل أسماء الملفات مفصولة بعلامة \"|\".</string>
+    <string name="select_folder_to_save">حدد مجلدا لحفظه.</string>
+    <string name="unable_to_open_file">تعذر فتح الملف المحدد</string>
+    <string name="unable_to_create_file">تعذر إنشاء الملف</string>
     <!-- Log -->
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_failed">تعذر حفظ السجل</string>
+    <string name="journal_save_log_success">تم حفظ السجل بنجاح:%1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_network">Network</string>
+    <string name="pref_header_network">شبكة الاتصال</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
+    <string name="pref_save_torrent_files_summary">حفظ ملفات التورنت عند بدء التنزيل.</string>
+    <string name="pref_watch_dir_summary">تتم إضافة ملفات التورنت في هذا المجلد تلقائيًا ثم حذفها.</string>
     <!-- Limitations settings -->
-    <string name="pref_max_download_speed_title">Maximum download speed</string>
-    <string name="pref_max_upload_speed_title">Maximum upload speed</string>
-    <string name="pref_max_connections_title">Maximum number of connections</string>
-    <string name="pref_max_connections_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_active_uploads_title">Maximum active uploads</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_active_torrents_title">Maximum active torrents</string>
-    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_auto_manage_title">Auto manage</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_max_download_speed_title">سرعة التنزيل القصوى</string>
+    <string name="pref_max_upload_speed_title">سرعة الرفع القصوى</string>
+    <string name="pref_max_connections_title">الحد الأقصى لعدد الاتصالات</string>
+    <string name="pref_max_connections_summary">الحد الأدنى لعدد الاتصالات - 2</string>
+    <string name="pref_max_active_uploads_title">الحد الأقصى لعدد عمليات الرفع النشطة</string>
+    <string name="pref_max_active_downloads_title">الحد الأقصى لعدد عمليات التنزيل النشطة</string>
+    <string name="pref_max_active_torrents_title">الحد الأقصى لملفات التورنت النشطة</string>
+    <string name="pref_max_connections_per_torrent_title">الحد الأقصى لعدد الاتصالات لكل ملف تورنت</string>
+    <string name="pref_max_connections_per_torrent_summary">الحد الأدنى لعدد الاتصالات - 2</string>
+    <string name="pref_max_uploads_per_torrent_title">الحد الأقصى لعدد فتحات الرفع لكل ملف تورنت</string>
+    <string name="pref_auto_manage_title">إدارة تلقائية</string>
+    <string name="pref_auto_manage_summary">يمكن استئناف أو إيقاف تشغيل التورنت تلقائيًا في أي وقت. (قد يؤدي تمكين هذا الخيار إلى إبطاء الإيقاف المؤقت و الاستئناف)</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_title">Theme</string>
-    <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
-    </string-array>
-    <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
-    <string name="pref_notify_sound_title">Notification sound</string>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Light</string>
+    <string name="pref_theme_entries_1">Dark</string>
+    <string name="pref_theme_entries_2">Black</string>
+    <string name="pref_theme_title">المظهر</string>
+    <string name="pref_torrent_finish_notify_summary">إظهار إشعار عندما يتم تنزيل التورنت.</string>
+    <string name="pref_notify_sound_title">صوت الإشعار</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_autostart_title">البدء تلقائي</string>
+    <string name="pref_autostart_summary">قم بتشغيل التطبيق عند بدء تشغيل الجهاز.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
-    <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
-    <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
-    <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_umnetered_connections_only_title">فقط الاتصالات غير المحسوبة</string>
+    <string name="pref_umnetered_connections_only_summary">التنزيل فقط عبر اتصالات غير محدودة (على سبيل المثال ، Wi-Fi أو Ethernet).</string>
+    <string name="pref_enable_roaming_title">تمكين التجوال</string>
+    <string name="pref_enable_roaming_summary">قم بالتنزيل فقط إذا كان الجهاز لا يتجول.</string>
+    <string name="pref_keep_alive_summary">في حالة التمكين ، سيظل التطبيق قيد التشغيل في الخلفية. (لا يزال يراعى إغلاق التطبيق عند انتهاء جميع التنزيلات.)</string>
+    <string name="pref_shutdown_downloads_complete_title">ايقاف التشغيل عند اكتمال التنزيلات</string>
+    <string name="pref_shutdown_downloads_complete_summary">في حالة التمكين ، سيتم ايقاف التشغيل عند اكتمال جميع التنزيلات.</string>
+    <string name="pref_cpu_do_not_sleep_summary">سيؤدي تمكين هذا إلى (زيادة استخدام البطارية.) استخدم هذا الخيار إذا انخفضت سرعة التنزيل عند إيقاف تشغيل الشاشة</string>
+    <string name="pref_download_and_upload_only_when_charging_title">لا تقم بالتنزيل والرفع إلا عند الشحن.</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">في حالة التمكين ، سيتم تنزيل و رفع التورنت فقط عندما لا يتم نقل أي ملفات ما لم يكن الجهاز قيد الشحن. (ستتوقف جميع ملفات التورنت مؤقتًا عندما لا تكون متصلاً بالشاحن.)</string>
+    <string name="pref_battery_control_title">التحكم بالبطارية</string>
+    <string name="pref_battery_control_summary">سيتم إيقاف جميع التورنت مؤقتًا إذا انخفض مستوى البطارية عن %1$d ٪٪. (لا ينطبق الحد في وقت الشحن.)</string>
+    <string name="pref_custom_battery_control_summary">عيّن نسبة مئوية مخصصة للبطارية ٪٪ لإيقاف التنزيلات مؤقتًا في حالة انخفاض طاقة البطارية عن الحد المعين. تمكين هذا سوف. (يتجاهل الحد الافتراضي %1$d ٪٪.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">تحديد نسبة بطارية مخصصة للتطبيق سيكون له تأثير سلبي هل تريد حقًا تعيين بطارية ٪٪ ؟ (يزيد من استخدام البطارية أثناء التنزيل. هل تريد بالتأكيد تمكين هذا؟.)</string>
     <!-- Network settings -->
-    <string name="pref_enable_dht_title">Enable DHT</string>
-    <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
-    <string name="pref_enable_lsd_title">Enable LSD</string>
-    <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
-    <string name="pref_enable_utp_title">Enable μTP</string>
-    <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
-    <string name="pref_enable_upnp_title">Enable UPnP</string>
-    <string name="pref_enable_natpmp_title">Enable NAT-PMP</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
-    <string name="pref_port_range_start_title">Start</string>
-    <string name="pref_port_range_end_title">End</string>
-    <string name="pref_enc_mode_title">Encryption mode</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Prefer encryption</item>
-        <item>Require encryption</item>
-        <item>Disable encryption</item>
-    </string-array>
-    <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
-    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Prefer encryption</string>
+    <string name="pref_enc_mode_entries_1">Require encryption</string>
+    <string name="pref_enc_mode_entries_2">Disable encryption</string>
     <!-- Proxy settings -->
-    <string name="pref_proxy_type_title">Proxy type</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(None)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
-    <string name="pref_proxy_address_title">Address</string>
-    <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
-    <string name="pref_proxy_login_title">Login</string>
-    <string name="pref_proxy_password_title">Password</string>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(None)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
+    <string name="pref_enable_dht_title">تمكين DHT</string>
+    <string name="pref_enable_dht_summary">يسمح لعملاء BitTorrent بالعثور على بعضهم البعض دون استخدام Tracker. سيؤدي تمكين هذا إلى (زيادة استخدام البطارية.)</string>
+    <string name="pref_enable_lsd_title">تمكين LSD</string>
+    <string name="pref_enable_lsd_summary">إنه مصمم لدعم اكتشاف BitTorrent peers المحليين ، بهدف تقليل حركة المرور.</string>
+    <string name="pref_enable_utp_title">تمكين μTP</string>
+    <string name="pref_enable_utp_summary">الغرض منه هو التخفيف من زمن الاستجابة الضعيف ومشكلات التحكم في الازدحام الأخرى الموجودة في BitTorrent التقليدي عبر TCP ، مع توفير توصيل موثوق ومرتّب.</string>
+    <string name="pref_enable_upnp_title">تمكين UPnP</string>
+    <string name="pref_enable_natpmp_title">تمكين NAT-PMP</string>
+    <string name="pref_use_random_port_summarty">يضبط منفذ البدء بشكل عشوائي في النطاق [%1$d,%2$d] والمنفذ النهائي كأول + 10.</string>
+    <string name="pref_port_range_start_title">ابدأ</string>
+    <string name="pref_port_range_end_title">انهاء</string>
+    <string name="pref_enc_mode_title">وضع التشفير</string>
+    <string name="pref_enable_ip_filtering_title">تمكين فلتر IP</string>
+    <string name="pref_enable_ip_filtering_summary">يؤدي استخدام فلتر ال IP إلى زيادة استخدام الذاكرة. اعتمادًا على حجم الملف ، قد يستغرق المرشح بعض الوقت ليتم تطبيقه عند بدء التشغيل (يزيد من استخدام الذاكرة.)</string>
+    <string name="pref_anonymous_mode_title">وضع المجهول</string>
+    <string name="pref_anonymous_mode_summary">يحاول التطبيق إخفاء هويته إلى حد ما. ستتم إعادة تعيين وكيل المستخدم إلى سلسلة فارغة (باستثناء التورنت الخاص). لن يتم استخدام أدوات Trackers إلا إذا كانوا يستخدمون خادمًا وكيلاً. يتم إغلاق مآخذ الاتصالات ، ولن يتم قبول الاتصالات الواردة إلا من خلال وكيل SOCKS5 أو I2P (إذا تم إعداد وكيل نظير وتشغيله على نفس الجهاز مثل وكيل التعقب). تم إيقاف تشغيل NAT-PMP و UPnP و DHT واكتشاف peer المحلي</string>
+    <string name="pref_seeding_outgoing_connections_title">الاتصالات Seeding الصادرة</string>
+    <string name="pref_seeding_outgoing_connections_summary">يتيح Seeding التورنت الى إجراء اتصالات صادرة. (يمكن أن تكون مكلفة.)</string>
+    <!-- Proxy settings -->
+    <string name="pref_proxy_type_title">نوع الوكيل</string>
+    <string name="pref_proxy_address_title">العنوان</string>
+    <string name="pref_proxy_port_title">المنفذ</string>
+    <string name="pref_proxy_peers_too_summary">يتم إنشاء الاتصالات مع Trackers، وغيرها ، و Web-Seeds. لا يؤثر على DHT.</string>
+    <string name="pref_proxy_requires_auth_summary">تحذير: يتم حفظ كلمة المرور بدون تشفير كملف عادي.</string>
+    <string name="pref_proxy_login_title">اسم المستخدم</string>
+    <string name="pref_proxy_password_title">كلمة المرور</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
+    <string name="pref_enable_scheduling_start_summary">بدء التطبيق في وقت محدد. سيتم تشغيل التورنت وفقًا لحالتها قبل آخر إغلاق.</string>
+    <string name="pref_scheduling_switch_wifi_title">تبديل Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>6 hours</item>
-        <item>12 hours</item>
-        <item>1 day</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 hour</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 day</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 day</item>
-        <item>2 days</item>
-        <item>4 days</item>
-        <item>1 week</item>
-        <item>2 weeks</item>
-        <item>1 month</item>
-        <item>2 months</item>
-        <item>3 months</item>
-        <item>Always</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 day</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 days</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 days</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 week</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 weeks</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 month</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 months</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 months</string>
+    <string name="pref_feed_keep_items_time_entries_8">Always</string>
     <string name="pref_feed_start_torrents_title">Run torrents</string>
     <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
@@ -471,4 +466,84 @@
     <string name="new_tag">شعار جديد</string>
     <string name="select_tag">اختر الشعار</string>
     <string name="edit_tag">تعديل الشعار</string>
+    <string name="pref_port_range_title">‫مدى المنفذ</string>
+    <string name="pref_use_random_port_title">استخدم منفذ عشوائي</string>
+    <string name="pref_port_settings_category">إعدادات المنفذ</string>
+    <string name="pref_proxy_settings_title">إعدادات الوكيل</string>
+    <string name="pref_default_trackers_list_summary">قائمة Trackers التي تستخدم في الحالات التالية:
+\n1. عند إضافة تورنت، تضاف القائمة الافتراضية تلقائيًا إلى قائمة التورنت.
+\n2. تستخدم لجلب روابط Magnet.</string>
+    <string name="pref_default_trackers_list_title">قائمة Trackers الافتراضية</string>
+    <string name="pref_custom_battery_control_value_title">التحكم في نسبة البطارية</string>
+    <string name="pref_custom_battery_control_title">النسبة المئوية للبطارية المخصصة</string>
+    <string name="pref_cpu_do_not_sleep_title">ابقاء الجهاز مستيقظًا</string>
+    <string name="pref_keep_alive_title">استمرار في التشغيل</string>
+    <string name="pref_power_management_category">إدارة الطاقة</string>
+    <string name="pref_vibration_notify_title">الاهتزاز</string>
+    <string name="pref_led_indicator_color_notify_title">لون مؤشر LED</string>
+    <string name="pref_led_indicator_notify_title">مؤشر LED</string>
+    <string name="pref_play_sound_notify_title">تشغيل الصوت</string>
+    <string name="pref_torrent_finish_notify_title">الإشعار عند إنهاء التورنت</string>
+    <string name="pref_notification_category">إعدادات الإشعار</string>
+    <string name="pref_theme_category">إعدادات المظهر</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 بلا حدود</string>
+    <string name="pref_torrent_queueing_category">‏قائمة أنتظار التورنت</string>
+    <string name="pref_watch_dir_delete_file_title">حذف ملف التورنت بعد الإضافة</string>
+    <string name="pref_dir_to_watch_title">دليل العرض</string>
+    <string name="pref_speed_category">السرعة</string>
+    <string name="pref_watch_dir_title">عرض الدليل</string>
+    <string name="pref_save_torrent_files_in_title">حفظ ملفات التورنت في…</string>
+    <string name="pref_save_torrent_files_title">حفظ ملفات التورنت</string>
+    <string name="pref_move_after_download_in_title">النقل بعد التنزيل في</string>
+    <string name="pref_move_after_download_title">النقل بعد التنزيل</string>
+    <string name="pref_save_torrents_in_title">حفظ التورنت في …</string>
+    <string name="pref_header_streaming">التدفق</string>
+    <string name="pref_header_limitations">المحددات</string>
+    <string name="pref_header_storage">التخزين</string>
+    <string name="pref_header_behavior">السلوك</string>
+    <string name="log_journal">المجله</string>
+    <string name="pref_header_appearance">المظهر الخارجي</string>
+    <string name="pref_journal_max_stored_entries">الحد الأقصى لتخزين الإدخالات للمجلة اليومية</string>
+    <string name="pref_header_scheduling">الجدولة</string>
+    <string name="pref_journal_save_log_to">حفظ السجل في …</string>
+    <string name="journal_filter_torrent_log">سجل التورنت</string>
+    <string name="journal_filter_portmap_log">سجل UPnP / NAT-PMP</string>
+    <string name="journal_filter_peer_log">سجل الاتصال</string>
+    <string name="journal_filter_dht_log">سجل DHT</string>
+    <string name="journal_filter_session_log">سجل الجلسة</string>
+    <string name="journal_started_recording">بدأ التسجيل</string>
+    <string name="journal_stop_recording">إيقاف التسجيل</string>
+    <string name="journal_start_recording">ابدأ التسجيل</string>
+    <string name="journal_list_empty">لا توجد إدخالات</string>
+    <string name="torrent_saved_to">تم حفظ التورنت في %1$s</string>
+    <string name="skip_files">تخطي الملفات</string>
+    <string name="invalid_url">عنوان URL غير صالح:%1$s</string>
+    <string name="option_private_torrent">تورنت خاص</string>
+    <string name="option_start_seeding">ابدأ Seeding</string>
+    <string name="piece_size">حجم القطعة</string>
+    <string name="comments">التعليقات</string>
+    <string name="tracker_urls">عناوين Tracker URLs</string>
+    <string name="create_torrent">إنشاء تورنت</string>
+    <string name="feed_item_url_not_found">عنوان URL غير موجود</string>
+    <string name="error_import_invalid_format">تنسيق غير صالح</string>
+    <string name="feed_item_list_empty">لا توجد مقالات</string>
+    <string name="mark_as_unread">وضع علامة غير مقروءة</string>
+    <string name="mark_as_read">وضع علامة مقروء</string>
+    <string name="feed_name">الاسم (اختياري)</string>
+    <string name="add_feed_channel">أضافة قناة</string>
+    <string name="select_or_add_feed_channel">حدد أو أضف قناة RSS/Atom</string>
+    <string name="feed_use_regex">استخدم التعبير العادي</string>
+    <string name="feed_last_update_template">تم التحديث:%1$s</string>
+    <string name="pref_scheduling_run_only_once_title">التشغيل مرة واحدة فقط</string>
+    <string name="pref_enable_scheduling_shutdown_summary">إيقاف تشغيل التطبيق في وقت محدد</string>
+    <string name="pref_enable_scheduling_shutdown_title">وقت إيقاف التشغيل</string>
+    <string name="pref_enable_scheduling_start_title">وقت البدء</string>
+    <string name="pref_proxy_requires_auth_title">تحتاج إلى إذن</string>
+    <string name="pref_proxy_peers_too_title">استخدم أيضًا اتصالات peers</string>
+    <string name="pref_show_nat_errors">إظهار أخطاء NAT</string>
+    <string name="pref_ip_filtering_file_title">مسار ملف الفلتر (.dat. p2p)</string>
+    <string name="pref_ip_filtering_category">فلتر IP</string>
+    <string name="pref_enc_out_connections_title">الاتصالات الصادرة</string>
+    <string name="pref_enc_in_connections_title">الاتصالات الواردة</string>
+    <string name="pref_encryption_category">التشفير</string>
 </resources>

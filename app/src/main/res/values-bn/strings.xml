@@ -260,21 +260,20 @@
     <string name="web_seed_urls_hint">(optional) One per line</string>
     <string name="optional_hint">(optional)</string>
     <string name="create_torrent_options">Options</string>
-    <string-array name="piece_size_entries">
-        <item>Auto</item>
-        <item>16 KiB</item>
-        <item>32 KiB</item>
-        <item>64 KiB</item>
-        <item>128 KiB</item>
-        <item>256 KiB</item>
-        <item>512 KiB</item>
-        <item>1 MiB</item>
-        <item>2 MiB</item>
-        <item>4 MiB</item>
-        <item>8 MiB</item>
-        <item>16 MiB</item>
-        <item>32 MiB</item>
-    </string-array>
+    <!-- piece_size_entries -->
+    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
     <string name="error_create_torrent">Unable to create torrent</string>
     <string name="skip_files_hint">\"|\" দিয়ে আলাদা করা ফাইলের নাম দাও।</string>
@@ -307,11 +306,10 @@
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Appearance settings -->
     <string name="pref_theme_title">Theme</string>
-    <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Light</string>
+    <string name="pref_theme_entries_1">Dark</string>
+    <string name="pref_theme_entries_2">Black</string>
     <string name="pref_torrent_finish_notify_summary">টরেন্ট নামানো শেষ হলে একটা বিজ্ঞপ্তি দেখাও।</string>
     <string name="pref_notify_sound_title">Notification sound</string>
     <!-- Behavior settings -->
@@ -345,11 +343,10 @@
     <string name="pref_port_range_start_title">Start</string>
     <string name="pref_port_range_end_title">End</string>
     <string name="pref_enc_mode_title">Encryption mode</string>
-    <string-array name="pref_enc_mode_entries">
-        <item>Prefer encryption</item>
-        <item>Require encryption</item>
-        <item>Disable encryption</item>
-    </string-array>
+    <!-- pref_enc_mode_entries -->
+    <string name="pref_enc_mode_entries_0">Prefer encryption</string>
+    <string name="pref_enc_mode_entries_1">Require encryption</string>
+    <string name="pref_enc_mode_entries_2">Disable encryption</string>
     <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
     <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
@@ -358,12 +355,11 @@
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
-    <string-array name="pref_proxy_type_entries">
-        <item>(None)</item>
-        <item>SOCKS4</item>
-        <item>SOCKS5</item>
-        <item>HTTP</item>
-    </string-array>
+    <!-- pref_proxy_type_entries -->
+    <string name="pref_proxy_type_entries_0">(None)</string>
+    <string name="pref_proxy_type_entries_1">SOCKS4</string>
+    <string name="pref_proxy_type_entries_2">SOCKS5</string>
+    <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
@@ -377,30 +373,28 @@
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
     <string name="pref_feed_auto_refresh_summary">সাময়িকভাবে পটভূমিতে চ্যানেলগুলোদেখো/রিফ্রেশ করো।</string>
-    <string-array name="pref_feed_refresh_intervals_entries">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>6 hours</item>
-        <item>12 hours</item>
-        <item>1 day</item>
-    </string-array>
+    <!-- pref_feed_refresh_intervals_entries -->
+    <string name="pref_feed_refresh_intervals_entries_0">15 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minutes</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 hour</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 hours</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 day</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
-    <string-array name="pref_feed_keep_items_time_entries">
-        <item>1 day</item>
-        <item>2 days</item>
-        <item>4 days</item>
-        <item>1 week</item>
-        <item>2 weeks</item>
-        <item>1 month</item>
-        <item>2 months</item>
-        <item>3 months</item>
-        <item>Always</item>
-    </string-array>
+    <!-- pref_feed_keep_items_time_entries -->
+    <string name="pref_feed_keep_items_time_entries_0">1 day</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 days</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 days</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 week</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 weeks</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 month</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 months</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 months</string>
+    <string name="pref_feed_keep_items_time_entries_8">Always</string>
     <string name="pref_feed_start_torrents_title">Run torrents</string>
     <string name="pref_feed_start_torrents_summary">যুক্ত করা টরেন্ট নামায়।</string>
     <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
