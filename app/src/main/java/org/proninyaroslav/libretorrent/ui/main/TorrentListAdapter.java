@@ -286,11 +286,14 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
         void setPauseButtonState(boolean isPause)
         {
+            binding.pause.setActivated(!isPause);
+
             AnimatedVectorDrawableCompat prevAnim = currAnim;
             currAnim = (isPause ? pauseToPlayAnim : playToPauseAnim);
             binding.pause.setImageDrawable(currAnim);
-            if (currAnim != prevAnim)
+            if (currAnim != prevAnim) {
                 currAnim.start();
+            }
         }
     }
 

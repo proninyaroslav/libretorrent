@@ -20,7 +20,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/fab_ripple"
+            android:background="@drawable/pause_button_background"
             android:contentDescription="@string/pause_torrent"
             android:scaleType="fitXY"
             android:padding="6dp"
