@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         android:key="@string/pref_key_proxy_settings"
         android:title="@string/pref_proxy_settings_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <Preference
         android:key="@string/pref_key_anonymous_mode"
         android:title="@string/pref_anonymous_mode_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_dht"
         android:title="@string/pref_enable_dht_title"
         android:summary="@string/pref_enable_dht_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_lsd"
         android:title="@string/pref_enable_lsd_title"
         android:summary="@string/pref_enable_lsd_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_utp"
         android:title="@string/pref_enable_utp_title"
         android:summary="@string/pref_enable_utp_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_upnp"
         android:title="@string/pref_enable_upnp_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_natpmp"
         android:title="@string/pref_enable_natpmp_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_show_nat_errors"
         android:title="@string/pref_show_nat_errors"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_seeding_outgoing_connections"
         android:title="@string/pref_seeding_outgoing_connections_title"
         android:summary="@string/pref_seeding_outgoing_connections_summary"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <PreferenceCategory
@@ -55,6 +65,7 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_use_random_port"
             android:title="@string/pref_use_random_port_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <PreferenceCategory
@@ -65,12 +76,14 @@
                 android:key="pref_key_port_range_first"
                 android:title="@string/pref_port_range_start_title"
                 android:inputType="numberDecimal"
+                app:singleLineTitle="false"
                 android:persistent="false" />
 
             <EditTextPreference
                 android:key="@string/pref_key_port_range_second"
                 android:title="@string/pref_port_range_end_title"
                 android:inputType="numberDecimal"
+                app:singleLineTitle="false"
                 android:persistent="false" />
         </PreferenceCategory>
     </PreferenceCategory>
@@ -84,16 +97,19 @@
             android:summary="%s"
             android:entries="@array/pref_enc_mode_entries"
             android:entryValues="@array/pref_enc_mode_entries_value"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_enc_in_connections"
             android:title="@string/pref_enc_in_connections_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_enc_out_connections"
             android:title="@string/pref_enc_out_connections_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 
@@ -104,12 +120,14 @@
             android:key="@string/pref_key_enable_ip_filtering"
             android:title="@string/pref_enable_ip_filtering_title"
             android:summary="@string/pref_enable_ip_filtering_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_ip_filtering_file"
             android:title="@string/pref_ip_filtering_file_title"
             android:dependency="@string/pref_key_enable_ip_filtering"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
         android:key="@string/pref_key_save_torrents_in"
         android:title="@string/pref_save_torrents_in_title"
+        app:singleLineTitle="false"
         android:persistent="false" />
 
     <PreferenceCategory
@@ -13,16 +15,19 @@
             android:key="@string/pref_key_watch_dir"
             android:title="@string/pref_watch_dir_title"
             android:summary="@string/pref_watch_dir_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_dir_to_watch"
             android:title="@string/pref_dir_to_watch_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_watch_dir_delete_file"
             android:title="@string/pref_watch_dir_delete_file_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 
@@ -32,12 +37,14 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_move_after_download"
             android:title="@string/pref_move_after_download_title"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_move_after_download_in"
             android:title="@string/pref_move_after_download_in_title"
             android:dependency="@string/pref_key_move_after_download"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 
@@ -48,12 +55,14 @@
             android:key="@string/pref_key_save_torrent_files"
             android:title="@string/pref_save_torrent_files_title"
             android:summary="@string/pref_save_torrent_files_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_save_torrent_files_in"
             android:title="@string/pref_save_torrent_files_in_title"
             android:dependency="@string/pref_key_save_torrent_files"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/pref_theme_category">
@@ -10,6 +11,7 @@
             android:summary="%s"
             android:entries="@array/pref_theme_entries"
             android:entryValues="@array/pref_theme_entries_value"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 
@@ -20,33 +22,39 @@
             android:key="@string/pref_key_torrent_finish_notify"
             android:title="@string/pref_torrent_finish_notify_title"
             android:summary="@string/pref_torrent_finish_notify_summary"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <PreferenceCategory>
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_play_sound_notify"
                 android:title="@string/pref_play_sound_notify_title"
+                app:singleLineTitle="false"
                 android:persistent="false" />
 
             <Preference
                 android:key="@string/pref_key_notify_sound"
                 android:title="@string/pref_notify_sound_title"
+                app:singleLineTitle="false"
                 android:dependency="@string/pref_key_play_sound_notify"/>
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_led_indicator_notify"
                 android:title="@string/pref_led_indicator_notify_title"
+                app:singleLineTitle="false"
                 android:persistent="false" />
 
             <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
                 android:key="@string/pref_key_led_indicator_color_notify"
                 android:title="@string/pref_led_indicator_color_notify_title"
                 android:dependency="@string/pref_key_led_indicator_notify"
+                app:singleLineTitle="false"
                 android:persistent="false" />
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_vibration_notify"
                 android:title="@string/pref_vibration_notify_title"
+                app:singleLineTitle="false"
                 android:persistent="false" />
         </PreferenceCategory>
     </PreferenceCategory>
@@ -60,6 +68,7 @@
             android:summary="%s"
             android:entries="@array/pref_foreground_notify_status_filter_entries"
             android:entryValues="@array/pref_foreground_notify_status_filter_entries_value"
+            app:singleLineTitle="false"
             android:persistent="false" />
 
         <ListPreference
@@ -68,6 +77,7 @@
             android:summary="%s"
             android:entries="@array/pref_foreground_notify_sorting_entries"
             android:entryValues="@array/pref_foreground_notify_sorting_entries_value"
+            app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>
