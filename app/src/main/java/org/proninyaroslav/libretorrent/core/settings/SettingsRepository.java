@@ -71,6 +71,10 @@ public interface SettingsRepository
 
     void foregroundNotifySorting(String val);
 
+    void foregroundNotifyCombinedPauseButton(boolean val);
+
+    boolean foregroundNotifyCombinedPauseButton();
+
     /*
      * Behavior settings
      */

@@ -61,6 +61,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
 public class TorrentService extends Service
@@ -86,6 +87,13 @@ public class TorrentService extends Service
     private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
     private TorrentFilter itemsFilter;
     private TorrentSortingComparator itemsSorting;
+    private BehaviorSubject<Boolean> combinedPauseButtonState =
+            BehaviorSubject.createDefault(false);
+
+    PendingIntent shutdownPendingIntent;
+    PendingIntent pauseButtonPendingIntent;
+    PendingIntent resumeButtonPendingIntent;
+    PendingIntent pauseResumePendingIntent;
 
     @Nullable
     @Override
@@ -101,6 +109,7 @@ public class TorrentService extends Service
         engine = TorrentEngine.getInstance(getApplicationContext());
         stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
 
+        initPendingIntents();
         makeForegroundNotify();
     }
 
@@ -109,6 +118,7 @@ public class TorrentService extends Service
         Log.i(TAG, "Start " + TAG);
 
         makeForegroundNotify();
+        subscribeCombinedPauseButtonState();
         setFilterAndSorting();
         subscribeForceSortAndFilter();
 
@@ -207,6 +217,15 @@ public class TorrentService extends Service
             case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
                 engine.resumeAll();
                 break;
+            case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME_ALL:
+                boolean paused = combinedPauseButtonState.getValue();
+                if (paused) {
+                    engine.resumeAll();
+                } else {
+                    engine.pauseAll();
+                }
+                combinedPauseButtonState.onNext(!paused);
+                break;
         }
     }
 
@@ -247,6 +266,8 @@ public class TorrentService extends Service
                 key.equals(getString(R.string.pref_key_foreground_notify_sorting))) {
             setFilterAndSorting();
             forceSortAndFilter.onNext(true);
+        } else if (key.equals(getString(R.string.pref_key_foreground_notify_combined_pause_button))) {
+            updateForegroundNotifyActions(pref.foregroundNotifyCombinedPauseButton());
         }
     }
 
@@ -294,6 +315,14 @@ public class TorrentService extends Service
                 .subscribe((force) -> disposables.add(getInfoListSingle())));
     }
 
+    private void subscribeCombinedPauseButtonState() {
+        disposables.add(combinedPauseButtonState
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((paused) -> updateForegroundNotifyActions(
+                        pref.foregroundNotifyCombinedPauseButton()
+                )));
+    }
+
     private void forceClearForeground()
     {
         disposables.add(Completable.fromRunnable(() -> {
@@ -328,9 +357,7 @@ public class TorrentService extends Service
                 .setTicker(getString(R.string.app_running_in_the_background))
                 .setWhen(System.currentTimeMillis());
 
-        foregroundNotify.addAction(makePauseAllAction());
-        foregroundNotify.addAction(makeResumeAllAction());
-        foregroundNotify.addAction(makeShutdownAction());
+        setForegroundNotifyActions(pref.foregroundNotifyCombinedPauseButton());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             foregroundNotify.setCategory(Notification.CATEGORY_SERVICE);
 
@@ -346,7 +373,7 @@ public class TorrentService extends Service
         isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
 
         if (shuttingDown.get()) {
-            disableShutdownIntent();
+            shutdownPendingIntent.cancel();
             stopUpdateForegroundNotify();
 
             shutDownNotifyShow.set(true);
@@ -426,58 +453,68 @@ public class TorrentService extends Service
         return inboxStyle;
     }
 
-    private NotificationCompat.Action makeShutdownAction()
-    {
-        Intent shutdownIntent = makeShutdownIntent();
-        PendingIntent shutdownPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
-                shutdownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    private void setForegroundNotifyActions(boolean combinedPauseButton) {
+        foregroundNotify.clearActions();
 
-        return new NotificationCompat.Action.Builder(
-                R.drawable.ic_power_settings_new_white_24dp,
-                getString(R.string.shutdown),
-                shutdownPendingIntent)
-                .build();
+        if (combinedPauseButton) {
+            boolean paused = combinedPauseButtonState.getValue();
+            foregroundNotify.addAction(
+                    new NotificationCompat.Action.Builder(
+                            paused ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp,
+                            paused ? getString(R.string.resume_all) : getString(R.string.pause_all),
+                            pauseResumePendingIntent
+                    ).build()
+            );
+        } else {
+            foregroundNotify.addAction(
+                    new NotificationCompat.Action.Builder(
+                            R.drawable.ic_pause_white_24dp,
+                            getString(R.string.pause_all),
+                            pauseButtonPendingIntent
+                    ).build()
+            );
+            foregroundNotify.addAction(
+                    new NotificationCompat.Action.Builder(
+                            R.drawable.ic_play_arrow_white_24dp,
+                            getString(R.string.resume_all),
+                            resumeButtonPendingIntent
+                    ).build()
+            );
+        }
+        foregroundNotify.addAction(
+                new NotificationCompat.Action.Builder(
+                        R.drawable.ic_power_settings_new_white_24dp,
+                        getString(R.string.shutdown),
+                        shutdownPendingIntent
+                ).build()
+        );
     }
 
-    private Intent makeShutdownIntent() {
+    void updateForegroundNotifyActions(boolean combinedPauseButton) {
+        setForegroundNotifyActions(combinedPauseButton);
+        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+    }
+
+    private void initPendingIntents() {
         Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
+        shutdownPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                shutdownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return shutdownIntent;
-    }
-
-    private void disableShutdownIntent() {
-        PendingIntent.getBroadcast(
-                getApplicationContext(),
-                0,
-                makeShutdownIntent(),
-                PendingIntent.FLAG_UPDATE_CURRENT
-        ).cancel();
-    }
-
-    private NotificationCompat.Action makePauseAllAction()
-    {
         Intent pauseButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         pauseButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL);
-        PendingIntent pauseButtonPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
-                pauseButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pauseButtonPendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 0, pauseButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return new NotificationCompat.Action.Builder(R.drawable.ic_pause_white_24dp,
-                getString(R.string.pause_all),
-                pauseButtonPendingIntent)
-                .build();
-    }
-
-    private NotificationCompat.Action makeResumeAllAction()
-    {
         Intent resumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         resumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_RESUME_ALL);
-        PendingIntent resumeButtonPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+        resumeButtonPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
                 resumeButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return new NotificationCompat.Action.Builder(R.drawable.ic_play_arrow_white_24dp,
-                getString(R.string.resume_all),
-                resumeButtonPendingIntent)
-                .build();
+        Intent pauseResumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        pauseResumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME_ALL);
+        pauseResumePendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 0, pauseResumeButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
     }
 }

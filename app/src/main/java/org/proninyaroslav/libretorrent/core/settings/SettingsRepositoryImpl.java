@@ -60,6 +60,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static String foregroundNotifySorting(@NonNull Context context) {
             return context.getString(R.string.pref_foreground_notify_sorting_progress_desc_value);
         }
+        static final boolean foregroundNotifyCombinedPauseButton = false;
         /* Behavior settings */
         static final boolean autostart = false;
         static final boolean keepAlive = true;
@@ -385,6 +386,24 @@ public class SettingsRepositoryImpl implements SettingsRepository
                         val
                 )
                 .apply();
+    }
+
+    @Override
+    public void foregroundNotifyCombinedPauseButton(boolean val) {
+        pref.edit()
+                .putBoolean(
+                        appContext.getString(R.string.pref_key_foreground_notify_combined_pause_button),
+                        val
+                )
+                .apply();
+    }
+
+    @Override
+    public boolean foregroundNotifyCombinedPauseButton() {
+        return pref.getBoolean(
+                appContext.getString(R.string.pref_key_foreground_notify_combined_pause_button),
+                Default.foregroundNotifyCombinedPauseButton
+        );
     }
 
     @Override

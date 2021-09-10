@@ -46,5 +46,12 @@
             android:entryValues="@array/pref_foreground_notify_sorting_entries_value"
             app:singleLineTitle="false"
             android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_foreground_notify_combined_pause_button"
+            android:title="@string/pref_foreground_notify_combined_pause_button_title"
+            android:summary="@string/pref_foreground_notify_combined_pause_button_summary"
+            app:singleLineTitle="false"
+            android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

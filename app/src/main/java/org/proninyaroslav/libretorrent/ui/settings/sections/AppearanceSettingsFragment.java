@@ -110,6 +110,13 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(foregroundNotifySorting);
         }
 
+        String keyCombinedPauseButton = getString(R.string.pref_key_foreground_notify_combined_pause_button);
+        SwitchPreferenceCompat combinedPauseButton = findPreference(keyCombinedPauseButton);
+        if (combinedPauseButton != null) {
+            combinedPauseButton.setChecked(pref.foregroundNotifyCombinedPauseButton());
+            bindOnPreferenceChangeListener(combinedPauseButton);
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
     }
@@ -249,6 +256,9 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_sorting))) {
             pref.foregroundNotifySorting((String)newValue);
+
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_combined_pause_button))) {
+            pref.foregroundNotifyCombinedPauseButton((boolean)newValue);
         }
 
         return true;
