@@ -448,7 +448,7 @@
     <string name="pref_foreground_notify_sorting_entries_11">Popularity (greatest first)</string>
     <string name="pref_foreground_notify_sorting_entries_12">No sorting</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Combined pause button</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Combines two buttons: pause all and resume all. The button will be work like a switch. Warning: the button state is not affected by manual pause/resume of the torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combines two buttons: pause all and resume all. The button will be work like a switcher. Warning: the button state is not affected by manual pause/resume of the torrent.</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Auto-start</string>
     <string name="pref_autostart_summary">Run the app upon starting the device.</string>
