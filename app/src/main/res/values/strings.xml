@@ -67,6 +67,7 @@
     <string name="proxy_settings_apply_after_reboot">Restart the app to use the new proxy settings.</string>
     <string name="theme_settings_apply_after_reboot">Restart the app to use the new theme.</string>
     <string name="about">About</string>
+    <string name="error_open_torrent">Unable to open torrent</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT nodes: %1$d</string>
     <!-- total download/upload • download/upload speed -->

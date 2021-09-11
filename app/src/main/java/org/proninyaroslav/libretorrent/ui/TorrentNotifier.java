@@ -26,7 +26,9 @@ package org.proninyaroslav.libretorrent.ui;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
@@ -38,6 +40,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity;
 
 import java.util.ArrayList;
 
@@ -232,12 +235,22 @@ public class TorrentNotifier
                 .setContentTitle(appContext.getString(R.string.torrent_finished_notify))
                 .setTicker(appContext.getString(R.string.torrent_finished_notify))
                 .setContentText(torrent.name)
+                .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             builder.setCategory(Notification.CATEGORY_STATUS);
 
         applyLegacyNotifySettings(builder);
+
+        Intent openIntent = new Intent(appContext, DetailTorrentActivity.class);
+        openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        openIntent.setAction(DetailTorrentActivity.ACTION_OPEN_FILES);
+        openIntent.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, torrent.id);
+
+        PendingIntent openPendingIntent = PendingIntent.getActivity(
+                appContext, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(openPendingIntent);
 
         notifyManager.notify(torrent.id.hashCode(), builder.build());
     }

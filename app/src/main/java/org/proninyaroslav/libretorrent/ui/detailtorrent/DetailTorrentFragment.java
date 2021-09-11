@@ -131,6 +131,10 @@ public class DetailTorrentFragment extends Fragment
         torrentId = id;
     }
 
+    public void showFiles() {
+        currentFragPos = DetailPagerAdapter.FILES_FRAG_POS;
+    }
+
     @Override
     public void onAttach(@NonNull Context context)
     {
@@ -255,6 +259,7 @@ public class DetailTorrentFragment extends Fragment
                 .subscribe((metaInfo) -> viewModel.updateInfo(metaInfo),
                         (Throwable e) -> {
                             Log.e(TAG, "Getting meta info error: " + Log.getStackTraceString(e));
+                            finish(new Intent(), FragmentCallback.ResultCode.CANCEL);
                         }));
 
         disposables.add(viewModel.observeTorrentInfoPair()

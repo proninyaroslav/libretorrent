@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,7 @@ public class DetailTorrentActivity extends AppCompatActivity
 {
     private static final String TAG = DetailTorrentActivity.class.getSimpleName();
 
+    public static final String ACTION_OPEN_FILES = "org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity.ACTION_OPEN_FILES";
     public static final String TAG_TORRENT_ID = "torrent_id";
 
     private DetailTorrentFragment detailTorrentFragment;
@@ -67,6 +69,11 @@ public class DetailTorrentActivity extends AppCompatActivity
 
         if (detailTorrentFragment != null)
             detailTorrentFragment.setTorrentId(getIntent().getStringExtra(TAG_TORRENT_ID));
+
+        if (ACTION_OPEN_FILES.equals(getIntent().getAction())) {
+            getIntent().setAction(null);
+            detailTorrentFragment.showFiles();
+        }
     }
 
     @Override
@@ -101,6 +108,13 @@ public class DetailTorrentActivity extends AppCompatActivity
     public void onFragmentFinished(@NonNull Fragment f, Intent intent,
                                    @NonNull ResultCode code)
     {
+        if (code == ResultCode.CANCEL) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.error_open_torrent,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
         finish();
     }
 }
