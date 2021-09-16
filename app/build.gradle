@@ -6,12 +6,12 @@ android {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 21
+        versionCode 22
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName '3.1.1'
+        versionName '3.2'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
 

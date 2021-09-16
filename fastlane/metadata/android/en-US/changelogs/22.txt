@@ -1,0 +1,11 @@
+* Added:
+    - Filtering and sorting in the foreground notification
+    - Combo pause button in foreground notification
+    - Retaining the selected options in the add dialog
+    - Opening torrent files list by finish notification clicking
+    - Inverted pause button color
+* Bugfixes:
+    - Wrapping settings titles
+* New translations:
+    - Finnish
+* Updated current translations

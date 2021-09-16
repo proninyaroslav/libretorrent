@@ -1,3 +1,17 @@
+### Version 3.2 (2021-09-16)
+
+* Added:
+    - Filtering and sorting in the foreground notification
+    - Combo pause button in foreground notification
+    - Retaining the selected options in the add dialog
+    - Opening torrent files list by finish notification clicking
+    - Inverted pause button color
+* Bugfixes:
+    - Wrapping settings titles
+* New translations:
+    - Finnish
+* Updated current translations
+
 ### Version 3.1.1 (2021-08-15)
 
 * Bugfixes:
