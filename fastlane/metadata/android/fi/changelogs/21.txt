@@ -1,8 +1,0 @@
-* Bugikorjaukset:
-    - Etualan ilmoitusten jumitus
-    - Android 8.0 tekstikentän vihje
-    - Alkuperäisen torrent-trackerin poisto
-    - Peräkkäinen tallennus magnet-linkeissä
-    - Satunnaisportin muuttaminen asetusmuutosten jälkeen
-* Päivitetty nykyisiä käännöksiä
-* Päivitys versioon libtorrent4j 2.0.4-21

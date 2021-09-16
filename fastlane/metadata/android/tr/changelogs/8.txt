@@ -1,2 +1,0 @@
-* Hata düzeltme
-* jlibtorrent 1.2.0.17 sürümüne güncellendi

@@ -1,8 +1,0 @@
-* Toegevoegd:
-    - Vernieuwen met vegen aan bestandsmanager
-* Bugfixing:
-    - Blanco detailvenster op tablets
-    - Ondersteuning voor meerdere vensters
-    - Chrome OS en Android-notebooks ondersteunen
-* Bijwerken van Chinese vertaling
-* Update naar libtorrent4j 1.2.0.20-RC3

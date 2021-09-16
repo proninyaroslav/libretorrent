@@ -1,8 +1,0 @@
-* Přidáno:
-    - Táhnutí k obnovení správce souborů
-* Opravy chyb:
-    - Prázdné okno podrobností na tabletech
-    - Podpora více oken
-    - Podpora notebooků s Chrome OS a Androidem
-* Aktualizovaný čínský překlad
-* Aktualizace na libtorrent4j 1.2.0.20-RC3

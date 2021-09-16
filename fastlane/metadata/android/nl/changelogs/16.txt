@@ -1,6 +1,0 @@
-* Toegevoegd:
-    - Volledige ondersteuning van externe opslag (SD-kaarten, USB-apparaten, enz.)
-      Dit is een experimentele functie, bugs zijn mogelijk.
-      Bijvoorbeeld, het verwijderen van gedownloade bestanden bij het verwijderen van een torrent werkt niet
-    - Materiaal Ontwerp 2.0
-...

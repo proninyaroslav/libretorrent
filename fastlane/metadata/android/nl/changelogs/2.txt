@@ -1,6 +1,0 @@
-* Bugfixing
-* Tor verwijderd (op veler verzoek)
-* Nieuwe vertalingen toegevoegd:
-   - Duits
-   - Litouws
-* Stel 65534 in als maximale poort
