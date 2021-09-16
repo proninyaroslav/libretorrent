@@ -488,7 +488,7 @@
     <string name="pref_proxy_peers_too_summary">Koneksi ke tracker, lainnya and web-seeds akan diproksi. Tidak memengaruhi DHT.</string>
     <string name="pref_proxy_requires_auth_title">Membutuhkan otorisasi</string>
     <string name="pref_proxy_requires_auth_summary">Peringatan: kata sandi tersimpan sebagai berkas biasa.</string>
-    <string name="pref_proxy_login_title">Username</string>
+    <string name="pref_proxy_login_title">Nama Pengguna</string>
     <string name="pref_proxy_password_title">Kata sandi</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Waktu mulai</string>

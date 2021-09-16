@@ -340,12 +340,12 @@
     <string name="piece_size_entries_4">128 KiB</string>
     <string name="piece_size_entries_5">256 KiB</string>
     <string name="piece_size_entries_6">512 KiB</string>
-    <string name="piece_size_entries_7">1MiB</string>
-    <string name="piece_size_entries_8">2MiB</string>
-    <string name="piece_size_entries_9">4MiB</string>
-    <string name="piece_size_entries_10">8MiB</string>
-    <string name="piece_size_entries_11">16MiB</string>
-    <string name="piece_size_entries_12">32MiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">Niepoprawny adres: %1$s</string>
     <string name="folder_is_empty">Wybrany folder jest pusty albo wszystkie jego pliki są wykluczone przez filtr.</string>
     <string name="error_create_torrent">Nie udało się utworzyć torrenta</string>
@@ -383,11 +383,11 @@
     <string name="pref_header_streaming">Strumieniowanie</string>
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Zapisuj torrenty w…</string>
-    <string name="pref_move_after_download_title">Przenieś po pobraniu</string>
-    <string name="pref_move_after_download_in_title">Przenieś po pobraniu do</string>
-    <string name="pref_save_torrent_files_title">Zapisz pliki .torrent</string>
+    <string name="pref_move_after_download_title">Przenoś po pobraniu</string>
+    <string name="pref_move_after_download_in_title">Przenoś po pobraniu do…</string>
+    <string name="pref_save_torrent_files_title">Zapisuj pliki .torrent</string>
     <string name="pref_save_torrent_files_summary">Zapisz pliki .torrent po rozpoczęciu pobierania.</string>
-    <string name="pref_save_torrent_files_in_title">Zapisz pliki .torrent w…</string>
+    <string name="pref_save_torrent_files_in_title">Zapisuj pliki .torrent w…</string>
     <string name="pref_watch_dir_title">Obserwuj katalog</string>
     <string name="pref_watch_dir_summary">Pliki .torrent w tym folderze są dodawane automatycznie i potem usuwane.</string>
     <string name="pref_dir_to_watch_title">Katalog do obserwowania</string>
@@ -437,7 +437,7 @@
     <string name="pref_shutdown_downloads_complete_summary">Wyłącza aplikację po pobraniu wszystkiego.</string>
     <string name="pref_cpu_do_not_sleep_title">Utrzymuj urządzenie wybudzone</string>
     <string name="pref_cpu_do_not_sleep_summary">Użyj, jeśli zmniejsza się prędkość pobierania po wyłączeniu ekranu. Zwiększy to zużycie baterii.</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Pobieraj i wysyłaj tylko podczas ładowania urządzenia.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Pobieraj i wysyłaj tylko podczas ładowania urządzenia</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Nie są przesyłane żadne pliki, jeśli urządzenie nie jest ładowane. Wstrzyma to wszystkie torrenty, gdy ładowarka nie jest podłączona.</string>
     <string name="pref_battery_control_title">Kontrola baterii</string>
     <string name="pref_custom_battery_control_title">Niestandardowy procent baterii</string>
@@ -473,7 +473,7 @@
     <string name="pref_enable_ip_filtering_title">Filtrowanie IP</string>
     <string name="pref_enable_ip_filtering_summary">W zależności od rozmiaru pliku zastosowanie filtru podczas uruchamiania może zająć trochę czasu. Zwiększy to zużycie pamięci.</string>
     <string name="pref_ip_filtering_file_title">Ścieżka do pliku z filtrem (.dat, .p2p)</string>
-    <string name="pref_show_nat_errors">Pokaż błędy NAT</string>
+    <string name="pref_show_nat_errors">Pokazuj błędy NAT</string>
     <string name="pref_anonymous_mode_title">Tryb anonimowy</string>
     <string name="pref_anonymous_mode_summary">Bez user-agenta dla nieprywatnych torrentów. Tylko trackery przechodzące przez proxy. Nasłuchiwanie socketów zamknięte. Połączenia przychodzące tylko przez SOCKS5- lub I2P proxy (jeśli peer proxy istnieje na PC proxy trackera). NAT-PMP, UPnP, DHT i lokalne odkrywanie wyłączone.</string>
     <string name="pref_seeding_outgoing_connections_title">Połączenia wychodzące do seedowania</string>
@@ -497,7 +497,7 @@
     <string name="pref_enable_scheduling_start_title">Czas uruchomienia</string>
     <string name="pref_enable_scheduling_start_summary">Uruchom aplikację o określonym czasie. Torrenty działają zgodnie z ich stanem sprzed ostatniego wyłączenia.</string>
     <string name="pref_enable_scheduling_shutdown_title">Czas wyłączenia</string>
-    <string name="pref_enable_scheduling_shutdown_summary">Wyłącz aplikację o określonym czasie</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Wyłącz aplikację o określonym czasie.</string>
     <string name="pref_scheduling_run_only_once_title">Uruchom tylko raz</string>
     <string name="pref_scheduling_switch_wifi_title">Włącz/wyłącz Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Włącz Wi-Fi dla zaplanowanego uruchomienia i wyłącz dla zaplanowanego wyłączenia.</string>
@@ -547,20 +547,20 @@
 \n1. Podczas dodawania torrenta domyślna lista jest automatycznie dodawana do listy torrentów.
 \n2. Używana do pobierania linków magnet.</string>
     <string name="pref_default_trackers_list_title">Domyślne trackery</string>
-    <string name="pref_watch_dir_delete_file_title">Usuń plik .torrent po dodaniu</string>
+    <string name="pref_watch_dir_delete_file_title">Usuwaj plik .torrent po dodaniu</string>
     <string name="pref_foreground_notify_status_filter">Filtr statusów</string>
     <string name="pref_foreground_notification_category">Ustawienia powiadomień na pierwszym planie</string>
     <string name="pref_foreground_notify_sorting_entries_12">Bez sortowania</string>
-    <string name="pref_foreground_notify_sorting_entries_11">Popularność (od największych)</string>
-    <string name="pref_foreground_notify_sorting_entries_10">Popularność (od najniższych)</string>
-    <string name="pref_foreground_notify_sorting_entries_9">ETA (od największych)</string>
-    <string name="pref_foreground_notify_sorting_entries_8">ETA (od najmniejszych)</string>
-    <string name="pref_foreground_notify_sorting_entries_7">Postęp (od największych)</string>
-    <string name="pref_foreground_notify_sorting_entries_6">Postęp (od najmniejszych)</string>
-    <string name="pref_foreground_notify_sorting_entries_5">Rozmiar (od największych)</string>
-    <string name="pref_foreground_notify_sorting_entries_4">Rozmiar (od najmniejszych)</string>
-    <string name="pref_foreground_notify_sorting_entries_3">Data dodania (od najstarszych)</string>
-    <string name="pref_foreground_notify_sorting_entries_2">Data dodania (od najnowszych)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularność (od największej)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularność (od najmniejszej)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (od największego)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (od najmniejszego)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Postęp (od największego)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Postęp (od najmniejszego)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Rozmiar (od największego)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Rozmiar (od najmniejszego)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Data dodania (od najstarszej)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Data dodania (od najnowszej)</string>
     <string name="pref_foreground_notify_sorting_entries_1">Nazwa (Z - A)</string>
     <string name="pref_foreground_notify_sorting_entries_0">Nazwa (A - Z)</string>
     <string name="pref_foreground_notify_sorting">Sortowanie</string>
@@ -569,4 +569,7 @@
     <string name="pref_foreground_notify_status_filter_entries_2">Pobrane</string>
     <string name="pref_foreground_notify_status_filter_entries_1">Pobieranie…</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Wszystkie</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Łączy dwa przyciski: wstrzymaj wszystko i wznów wszystko. Przycisk będzie działać jak przełącznik. Uwaga: na stan przycisku nie ma wpływu ręczne wstrzymywanie/wznawianie torrenta.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Połączony przycisk wstrzymania</string>
+    <string name="error_open_torrent">Nie można otworzyć torrenta</string>
 </resources>

@@ -552,4 +552,25 @@
     <string name="pref_foreground_notify_status_filter">Durum filtresi</string>
     <string name="pref_foreground_notification_category">Ön plan bildirimi ayarları</string>
     <string name="pref_foreground_notify_sorting">Sıralama</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Sıralama yok</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popülerlik (önce en büyük)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popülerlik (önce en küçük)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Kalan süre (önce en büyük)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Kalan süre (önce en küçük)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">İlerleme (önce en büyük)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">İlerleme (önce en küçük)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Boyut (önce en büyük)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Boyut (önce en küçük)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Eklenme tarihi (önce en eski)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Eklenme tarihi (önce en yeni)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Ad (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Ad (A - Z)</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Hata</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Üst veri indiriliyor…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">İndirildi</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">İndiriliyor…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Tümü</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">İki düğmeyi birleştirir: tümünü duraklat ve tümünü devam ettir. Düğme bir değiştirici anahtar gibi çalışacaktır. Uyarı: düğme durumu, torrentin elle duraklatılmasından/devam ettirilmesinden etkilenmez.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Birleşik duraklatma düğmesi</string>
+    <string name="error_open_torrent">Torrent açılamıyor</string>
 </resources>

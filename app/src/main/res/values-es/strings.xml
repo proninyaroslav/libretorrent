@@ -548,4 +548,28 @@
 \n1. Al añadir un torrent, la lista predeterminada se añade automáticamente a la lista de torrents.
 \n2. Se utiliza para obtener enlaces magnet.</string>
     <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Sin clasificación</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularidad (el más grande primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularidad (el más pequeño primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (el más grande primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (el más pequeño primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Progreso (el más grande primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Progreso (el más pequeño primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Tamaño (el más grande primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Tamaño (el más pequeño primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Fecha añadida (la más antigua primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Fecha añadida (la más reciente primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Nombre (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Nombre (A - Z)</string>
+    <string name="pref_foreground_notify_sorting">Clasificación</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Error</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Descargando metadatos…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Descargado</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Descargando…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Todo</string>
+    <string name="pref_foreground_notify_status_filter">Filtro de estado</string>
+    <string name="pref_foreground_notification_category">Ajustes de notificaciones en primer plano</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combina dos botones: pausar todo y reanudar todo. El botón funcionará como un interruptor. Advertencia: el estado del botón no es afectado por el uso manual de pausa/reanudación del torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Botón de pausa combinado</string>
+    <string name="error_open_torrent">No se puede abrir el torrent</string>
 </resources>

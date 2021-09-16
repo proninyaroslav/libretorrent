@@ -84,7 +84,7 @@
     <string name="drawer_sorting_date_added">Dato tillagt</string>
     <string name="drawer_sorting_size">Størrelse</string>
     <string name="drawer_sorting_progress">Progress</string>
-    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_ETA">Gjenstående tid</string>
     <string name="drawer_sorting_peers">Popularitet</string>
     <string name="drawer_sorting_no_sorting">Ingen sortering</string>
     <!-- Date added -->
@@ -549,4 +549,28 @@
 \n2. Brukt til å hente magnetlenker.</string>
     <string name="pref_default_trackers_list_title">Forvalgte sporere</string>
     <string name="pref_watch_dir_delete_file_title">Slett .torrent-fil før den er lagt til</string>
+    <string name="pref_foreground_notify_sorting">Sortering</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Gjenstående tid (korteste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Gjenstående tid (lengste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Framdrift (største først)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Framdrift (minste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularitet (største først)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularitet (minste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Ingen sortering</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Størrelse (største først)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Størrelse (minste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Dato lagt til (eldste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Dato lagt til (nyeste først)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Navn (A - Å)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Navn (Å - A)</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Feil</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Laster ned metadata …</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Nedlastet</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Laster ned …</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Alle</string>
+    <string name="pref_foreground_notify_status_filter">Statusfilter</string>
+    <string name="pref_foreground_notification_category">Innstillinger for forgrunnstjeneste</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerer knappevalgene for enten «Pause alle» eller «Gjenoppta alle».. Advarsel: Manuell fortsettelse/pause av torrenten har ingen innvirkning på knappens posisjon.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Kombinert pause-knapp</string>
+    <string name="error_open_torrent">Kunne ikke åpne torrent</string>
 </resources>

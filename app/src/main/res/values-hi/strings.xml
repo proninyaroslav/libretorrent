@@ -495,4 +495,5 @@
     <string name="about_description">अधिक जानकारी और परियोजना को मदद करने के लिए &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent एंड्रॉइड 4+ के लिए फ्रीडम टोरेंट क्लाइंट में एक फ्री है, जो कि libtorrent (Java आवरण &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) लिब पर आधारित है।।&lt;br&gt;&lt;br&gt; LibreTorrent मुफ्त सॉफ्टवेयर है, जो &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; की शर्तों के तहत जारी किया गया है</string>
     <string name="about_changelog">बदलाव का</string>
     <string name="apply">लागू करे</string>
+    <string name="drawer_sorting_size">माप</string>
 </resources>

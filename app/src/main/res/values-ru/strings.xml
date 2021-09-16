@@ -549,4 +549,28 @@
 \n1. При добавлении торрента, список по умолчанию автоматически добавляется в список торрента.
 \n2. Используется для скачивания magnet-ссылок.</string>
     <string name="pref_default_trackers_list_title">Трекеры по умолчанию</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Без сортировки</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Популярность (сначала наибольшая)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Популярность (сначала наименьшая)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (сначала наибольшее)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (сначала наименьшее)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Прогресс (сначала наибольший)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Прогресс (сначала наименьший)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Размер (сначала наибольшие)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Размер (сначала наименьшие)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Дата добавления (сначала старые)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Дата добавления (сначала новые)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Имя (Я-А)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Имя (А-Я)</string>
+    <string name="pref_foreground_notify_sorting">Сортировка</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Ошибка</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Загрузка метаданных…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Загружено</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Загрузка…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Все</string>
+    <string name="pref_foreground_notify_status_filter">Фильтр статуса</string>
+    <string name="pref_foreground_notification_category">Настройки уведомления переднего плана</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Комбинированная кнопка паузы</string>
+    <string name="error_open_torrent">Невозможно открыть торрент</string>
 </resources>

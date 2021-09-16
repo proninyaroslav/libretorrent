@@ -139,8 +139,8 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">ডাউনলোডরত…</string>
-    <string name="torrent_status_seeding">বপন হচ্ছে…</string>
+    <string name="torrent_status_downloading">ডাউনলোড হচ্ছে…</string>
+    <string name="torrent_status_seeding">সিড হচ্ছে…</string>
     <string name="torrent_status_paused">বিরতি</string>
     <string name="torrent_status_stopped">বন্ধ হয়েছে</string>
     <string name="torrent_status_checking">পরীক্ষা করা হচ্ছে…</string>

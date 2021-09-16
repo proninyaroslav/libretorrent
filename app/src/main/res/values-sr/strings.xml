@@ -140,7 +140,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Преузимање…</string>
-    <string name="torrent_status_seeding">Дељење…</string>
+    <string name="torrent_status_seeding">Сејање…</string>
     <string name="torrent_status_paused">Паузирано</string>
     <string name="torrent_status_stopped">Заустављено</string>
     <string name="torrent_status_checking">Проверам…</string>
@@ -220,7 +220,7 @@
     <string name="torrent_speed">Брзина</string>
     <string name="torrent_downloaded">Преузето</string>
     <string name="torrent_ETA">Преостало</string>
-    <string name="torrent_seeds">Делиоци</string>
+    <string name="torrent_seeds">Seeds</string>
     <string name="torrent_peers">Укупно</string>
     <string name="torrent_leechers">Узимаоци</string>
     <!-- connected (total) -->

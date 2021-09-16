@@ -49,7 +49,7 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">全てのダウンロード済みファイルを削除</string>
     <string name="delete_selected_torrent">選択したトレントを削除しますか\? (取り消せません)</string>
-    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (元に戻せません。)</string>
+    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (取り消せません)</string>
     <string name="force_recheck_torrent">強制的に再確認</string>
     <string name="force_announce_torrent">強制的に通知</string>
     <string name="add_link">リンクを追加</string>
@@ -65,28 +65,28 @@
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
     <string name="proxy_settings_applied">新しいプロキシサーバ設定を使用します。</string>
     <string name="proxy_settings_apply_after_reboot">新プロキシサーバ設定の使用のためにアプリを再起動</string>
-    <string name="theme_settings_apply_after_reboot">新しいテーマを使用するにはアプリを再起動して下さい。</string>
+    <string name="theme_settings_apply_after_reboot">新しいテーマを使用するには、アプリを再起動して下さい。</string>
     <string name="about">情報</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT ノード: %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s • %2$s/秒</string>
-    <string name="session_stats_listen_port">Listen 中のポート: %1$s</string>
+    <string name="session_stats_listen_port">リッスン中のポート: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">状態</string>
     <string name="drawer_status_downloading">ダウンロード中…</string>
     <string name="drawer_status_downloaded">ダウンロード完了</string>
-    <string name="drawer_status_downloading_metadata">メタデータのダウンロード中…</string>
+    <string name="drawer_status_downloading_metadata">メタデータをダウンロード中…</string>
     <string name="drawer_status_error">エラー</string>
     <!-- Sorting -->
     <string name="drawer_sorting">並べ替え</string>
     <string name="drawer_sorting_name">名前</string>
     <string name="drawer_sorting_date_added">追加した日付</string>
     <string name="drawer_sorting_size">サイズ</string>
-    <string name="drawer_sorting_progress">状況</string>
+    <string name="drawer_sorting_progress">進捗</string>
     <string name="drawer_sorting_ETA">完了予定時刻</string>
     <string name="drawer_sorting_peers">人気</string>
-    <string name="drawer_sorting_no_sorting">ソートなし</string>
+    <string name="drawer_sorting_no_sorting">並び替えない</string>
     <!-- Date added -->
     <string name="drawer_date_added">追加した日付</string>
     <string name="drawer_date_added_today">今日</string>
@@ -143,12 +143,12 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">ダウンロード中…</string>
-    <string name="torrent_status_seeding">共有中…</string>
+    <string name="torrent_status_seeding">シード中…</string>
     <string name="torrent_status_paused">一時停止</string>
     <string name="torrent_status_stopped">停止</string>
     <string name="torrent_status_checking">確認中…</string>
     <string name="torrent_status_finished">完了</string>
-    <string name="torrent_status_downloading_metadata">メタデータのダウンロード中…</string>
+    <string name="torrent_status_downloading_metadata">メタデータをダウンロード中…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
     <string name="perm_denied_warning">アプリが .torrent ファイルをメモリに保持するのを本当に防ぐことができますか？</string>
@@ -160,7 +160,7 @@
     <string name="error_invalid_link_or_path">リンクまたはトレントのパスが無効です</string>
     <string name="error_add_torrent">トレントを追加できませんでした</string>
     <string name="error_file_not_found_add_torrent">トレントを追加できませんでした。 .torrent ファイルが移動または削除された可能性\?</string>
-    <string name="error_io_add_torrent">I/O エラーによって、トレントを追加できません。</string>
+    <string name="error_io_add_torrent">入出力エラーによって、トレントを追加できません。</string>
     <string name="torrent_exist">トレントはすでに存在しているので、それらはマージされました。</string>
     <string name="error_field_required">入力必須項目</string>
     <string name="error_no_files_selected">選択されたファイルなし</string>
@@ -183,7 +183,7 @@
     <string name="torrent_comment">コメント</string>
     <string name="torrent_create_date">作成日時</string>
     <string name="torrent_created_in_program">プログラムで作成</string>
-    <string name="sequential_download">連続ダウンロード</string>
+    <string name="sequential_download">順次ダウンロード</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">フォルダ選択</string>
     <string name="file_chooser_title">ファイル選択</string>
@@ -231,9 +231,9 @@
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">アップロード済</string>
-    <string name="torrent_share_ratio">負担率</string>
+    <string name="torrent_share_ratio">共有率</string>
     <string name="torrent_active_time">稼働時間</string>
-    <string name="torrent_seeding_time">共有時間</string>
+    <string name="torrent_seeding_time">シード時間</string>
     <string name="torrent_pieces">ピース</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -387,7 +387,7 @@
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
     <string name="pref_move_after_download_in_title">ダウンロード後の移動先</string>
     <string name="pref_save_torrent_files_title">.torrent ファイルを保存</string>
-    <string name="pref_save_torrent_files_summary">ダウンロード時に .torrent ファイルを保存</string>
+    <string name="pref_save_torrent_files_summary">ダウンロード時に .torrent ファイルを保存する。</string>
     <string name="pref_save_torrent_files_in_title">.torrent ファイルの保存先…</string>
     <string name="pref_watch_dir_title">ディレクトリを表示</string>
     <string name="pref_watch_dir_summary">このフォルダの .torrent ファイルは自動追加され、そして削除されます。</string>
@@ -397,28 +397,28 @@
     <string name="pref_max_download_speed_title">最大 ⬇ 速度</string>
     <string name="pref_max_upload_speed_title">最大 ⬆ 速度</string>
     <string name="pref_max_connections_title">最大接続数</string>
-    <string name="pref_max_connections_summary">最小接続数 - 2</string>
+    <string name="pref_max_connections_summary">(最小接続数 2)</string>
     <string name="pref_torrent_queueing_category">トレントキュー</string>
     <string name="pref_max_active_uploads_title">アクティブなアップロードの最大数</string>
     <string name="pref_max_active_downloads_title">アクティブなダウンロードの最大数</string>
     <string name="pref_max_active_torrents_title">アクティブなトレントの最大数</string>
     <string name="pref_max_connections_per_torrent_title">トレントごとの最大接続数</string>
-    <string name="pref_max_connections_per_torrent_summary">最小接続数 - 2</string>
+    <string name="pref_max_connections_per_torrent_summary">(最小接続数 2)</string>
     <string name="pref_max_uploads_per_torrent_title">トレントごとのアップロードスロットの最大数</string>
     <string name="pref_auto_manage_title">自動管理</string>
-    <string name="pref_auto_manage_summary">トレントはいつでも自動再開または一時停止することができます。(一時停止/再開が遅くなることがあります。)</string>
+    <string name="pref_auto_manage_summary">トレントはいつでも自動再開、または一時停止することができます。(一時停止と再開が遅くなることがあります。)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 制限なし</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">テーマ設定</string>
     <string name="pref_theme_title">テーマ</string>
     <!-- pref_theme_entries -->
-    <string name="pref_theme_entries_0">ライト</string>
-    <string name="pref_theme_entries_1">ダーク</string>
-    <string name="pref_theme_entries_2">ブラック</string>
+    <string name="pref_theme_entries_0">明</string>
+    <string name="pref_theme_entries_1">暗</string>
+    <string name="pref_theme_entries_2">黒</string>
     <string name="pref_notification_category">通知設定</string>
     <string name="pref_torrent_finish_notify_title">トレント終了通知</string>
     <string name="pref_torrent_finish_notify_summary">トレントがダウンロードされたときに通知を表示する。</string>
-    <string name="pref_play_sound_notify_title">サウンド再生</string>
+    <string name="pref_play_sound_notify_title">音再生</string>
     <string name="pref_notify_sound_title">通知音</string>
     <string name="pref_led_indicator_notify_title">LED 表示</string>
     <string name="pref_led_indicator_color_notify_title">LED 表示の色</string>
@@ -457,7 +457,7 @@
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">ポート設定</string>
-    <string name="pref_use_random_port_title">ランダムポートを使用</string>
+    <string name="pref_use_random_port_title">ランダムなポートを使用</string>
     <string name="pref_use_random_port_summarty">開始ポートを [%1$d, %2$d] の範囲でランダムに、終了ポートを最初の +10 に設定します。</string>
     <string name="pref_port_range_title">ポート範囲</string>
     <string name="pref_port_range_start_title">開始</string>
@@ -468,19 +468,19 @@
     <string name="pref_enc_mode_entries_0">暗号化を優先</string>
     <string name="pref_enc_mode_entries_1">暗号化が必要</string>
     <string name="pref_enc_mode_entries_2">暗号化を無効化</string>
-    <string name="pref_enc_in_connections_title">外部からの接続</string>
-    <string name="pref_enc_out_connections_title">こちらからの接続</string>
+    <string name="pref_enc_in_connections_title">着信接続</string>
+    <string name="pref_enc_out_connections_title">送信接続</string>
     <string name="pref_ip_filtering_category">IP フィルタリング</string>
     <string name="pref_enable_ip_filtering_title">IP フィルタリング</string>
     <string name="pref_enable_ip_filtering_summary">ファイルサイズに応じて、フィルタを起動時に適用するには時間がかかる場合があります。(バッテリー使用量が増加。)</string>
     <string name="pref_ip_filtering_file_title">フィルターファイルへのパス (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">NAT エラーを表示</string>
     <string name="pref_anonymous_mode_title">匿名モード</string>
-    <string name="pref_anonymous_mode_summary">非プライベートなトレントにユーザーエージェント文字列はありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見はオフです。</string>
+    <string name="pref_anonymous_mode_summary">非プライベートなトレントにはユーザーエージェント文字列がありません。プロキシされたトラッカーのみ。リスニングsocketを閉じます。着信接続は SOCKS5- または I2P プロキシ経由 (トラッカープロキシ PC 上にピアプロキシが存在する場合)。NAT-PMP、UPnP、DHT、ローカル発見は無効です。</string>
     <string name="pref_seeding_outgoing_connections_title">シードの送信接続</string>
     <string name="pref_seeding_outgoing_connections_summary">シード中のトレントが送信接続をできます。(コストがかかる場合があります。)</string>
     <!-- Proxy settings -->
-    <string name="pref_proxy_type_title">プロキシタイプ</string>
+    <string name="pref_proxy_type_title">プロキシの種類</string>
     <!-- pref_proxy_type_entries -->
     <string name="pref_proxy_type_entries_0">(なし)</string>
     <string name="pref_proxy_type_entries_1">SOCKS4</string>
@@ -491,7 +491,7 @@
     <string name="pref_proxy_peers_too_title">接続にも使用</string>
     <string name="pref_proxy_peers_too_summary">トラッカーや他の人、ウェブシードへの接続はプロキシされます。DHTには影響しません。</string>
     <string name="pref_proxy_requires_auth_title">要認証</string>
-    <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常ファイルで保存されます</string>
+    <string name="pref_proxy_requires_auth_summary">警告: パスワードは通常のファイルで保存されます。</string>
     <string name="pref_proxy_login_title">ユーザー名</string>
     <string name="pref_proxy_password_title">パスワード</string>
     <!-- Schedule settings -->
@@ -501,7 +501,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">特定の時刻にアプリを終了する</string>
     <string name="pref_scheduling_run_only_once_title">1度だけ実行</string>
     <string name="pref_scheduling_switch_wifi_title">Wi-Fi の切り替え</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fiを予定開始するときはオン、予定停止するときはオフにします。</string>
+    <string name="pref_scheduling_switch_wifi_summary">Wi-Fiを、予定を開始するときはオン、予定を停止するときはオフにします。</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">チャンネルの自動更新</string>
     <string name="pref_feed_auto_refresh_summary">バックグラウンドで定期的にチャンネルを更新する。</string>
@@ -516,7 +516,7 @@
     <string name="pref_feed_refresh_intervals_entries_6">1日</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">定額制の接続のみ</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">更新は従量制以外の接続のみ (Wi-Fi やイーサネットなど)</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">更新は従量制以外の接続のみ (Wi-Fi やイーサネットなど)。</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">ローミング</string>
     <string name="pref_feed_keep_items_time_title">アーティクルを保持</string>
     <!-- pref_feed_keep_items_time_entries -->
@@ -530,7 +530,7 @@
     <string name="pref_feed_keep_items_time_entries_7">3ヶ月</string>
     <string name="pref_feed_keep_items_time_entries_8">常時</string>
     <string name="pref_feed_start_torrents_title">トレント自動開始</string>
-    <string name="pref_feed_start_torrents_summary">追加後トレント実行</string>
+    <string name="pref_feed_start_torrents_summary">ダウンロードしたものをトレントに追加する。</string>
     <string name="pref_feed_remove_duplicates_title">重複なし</string>
     <string name="pref_feed_remove_duplicates_summary">既に存在するファイルタイトルのダウンロードをスキップします。</string>
     <!-- Streaming settings -->
@@ -548,4 +548,28 @@
 \n2. マグネットリンクの取得に使用される。</string>
     <string name="pref_default_trackers_list_title">規定のトラッカー</string>
     <string name="pref_watch_dir_delete_file_title">.torrent ファイルを追加後に削除</string>
+    <string name="pref_foreground_notify_sorting_entries_11">人気(最高を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">人気(最低を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">完了予定時刻(最長を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">完了予定時刻(最短を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">進捗(最高を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">進捗(最低を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">サイズ(最大を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">サイズ(最小を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">追加した日付(最古を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">追加した日付(最新を最初に)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">名前(ZからA)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">名前(AからZ)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">並び替えない</string>
+    <string name="pref_foreground_notify_sorting">並べ替え</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">エラー</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">メタデータをダウンロード中…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">ダウンロード完了</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">ダウンロード中…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">全て</string>
+    <string name="pref_foreground_notify_status_filter">状態フィルター</string>
+    <string name="pref_foreground_notification_category">フォアグラウンド通知設定</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">2つのボタンを結合: 全て一時停止と全て再開。このボタンは切替器のように機能します。警告: ボタンの状態は、トレントを手動で一時停止または再開しても影響を受けません。</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">一時停止ボタンの結合</string>
+    <string name="error_open_torrent">トレントを開けません</string>
 </resources>

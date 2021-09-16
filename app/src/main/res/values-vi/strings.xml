@@ -388,4 +388,16 @@
     <string name="pref_header_network">Mạng</string>
     <string name="pref_header_limitations">Hạn chế</string>
     <string name="pref_header_behavior">Kiểu</string>
+    <string name="about_description">Nhiều thông tin hơn và cách giúp đỡ dự án: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent là ứng dụng torrent tự do (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) cho Android 4+, dựa trên thư viện libtorrent (Wrapper Java &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_title">Giới thiệu</string>
+    <string name="pref_streaming_error">Chọn một cổng hoặc tên máy chủ để truyền phát mà không bị bận hoặc không đúng.</string>
+    <string name="pref_streaming_port">Cổng</string>
+    <string name="pref_streaming_hostname">Tên máy chủ</string>
+    <string name="pref_streaming_enable_summary">Cho phép tải xuống các tệp riêng biệt từ một torrent bằng trình duyệt web hoặc trình phát phương tiện sử dụng các URL HTTP/S.</string>
+    <string name="pref_streaming_enable_title">Truyền phát</string>
+    <string name="pref_feed_remove_duplicates_summary">Bỏ qua việc tải xuống các tiêu đề tệp đã có sẵn.</string>
+    <string name="pref_feed_remove_duplicates_title">Không trùng lặp</string>
+    <string name="pref_feed_start_torrents_summary">Tải xuống các torrent đã thêm.</string>
+    <string name="pref_feed_start_torrents_title">Tự động bắt đầu các torrent</string>
+    <string name="pref_feed_keep_items_time_entries_8">Vô thời hạn</string>
 </resources>
