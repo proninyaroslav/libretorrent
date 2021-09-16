@@ -335,18 +335,18 @@
     <string name="option_private_torrent">Ιδιωτικό torrent</string>
     <!-- piece_size_entries -->
     <string name="piece_size_entries_0">Αυτόματο</string>
-    <string name="piece_size_entries_1">16 KiB</string>
-    <string name="piece_size_entries_2">32 KiB</string>
-    <string name="piece_size_entries_3">64 KiB</string>
-    <string name="piece_size_entries_4">128 KiB</string>
-    <string name="piece_size_entries_5">256 KiB</string>
-    <string name="piece_size_entries_6">512 KiB</string>
-    <string name="piece_size_entries_7">1 MiB</string>
-    <string name="piece_size_entries_8">2 MiB</string>
-    <string name="piece_size_entries_9">4 MiB</string>
-    <string name="piece_size_entries_10">8 MiB</string>
-    <string name="piece_size_entries_11">16 MiB</string>
-    <string name="piece_size_entries_12">32 MiB</string>
+    <string name="piece_size_entries_1">16 KB</string>
+    <string name="piece_size_entries_2">32 KB</string>
+    <string name="piece_size_entries_3">64 KB</string>
+    <string name="piece_size_entries_4">128 KB</string>
+    <string name="piece_size_entries_5">256 KB</string>
+    <string name="piece_size_entries_6">512 KB</string>
+    <string name="piece_size_entries_7">1 MB</string>
+    <string name="piece_size_entries_8">2 MB</string>
+    <string name="piece_size_entries_9">4 MB</string>
+    <string name="piece_size_entries_10">8 MB</string>
+    <string name="piece_size_entries_11">16 MB</string>
+    <string name="piece_size_entries_12">32 MB</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL: %1$s</string>
     <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο.</string>
     <string name="error_create_torrent">Δεν ήταν δυνατή η δημιουργία torrent</string>
@@ -569,4 +569,7 @@
     <string name="pref_foreground_notify_status_filter_entries_2">Λήφθηκε</string>
     <string name="pref_foreground_notify_status_filter_entries_1">Λήψη…</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Όλα</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Συνδυάζει δύο κουμπιά: παύση όλων και ανάκτηση όλων. Το κουμπί θα λειτουργεί σαν διακόπτης. Προειδοποίηση: η κατάσταση του κουμπιού δεν επηρεάζεται από τη χειροκίνητη παύση/ανάκτηση του torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Συνδυασμένο κουμπί παύσης</string>
+    <string name="error_open_torrent">Αδυναμία ανοίγματος torrent</string>
 </resources>

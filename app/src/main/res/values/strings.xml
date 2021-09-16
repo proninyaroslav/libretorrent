@@ -530,7 +530,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">Shutdown the app at a specified time</string>
     <string name="pref_scheduling_run_only_once_title">Only run once</string>
     <string name="pref_scheduling_switch_wifi_title">Toggle Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Turn on Wi-Fi on for scheduled start, and off for scheduled stop.</string>
+    <string name="pref_scheduling_switch_wifi_summary">Turn on Wi-Fi for scheduled start, and off for scheduled stop.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto-refresh channels</string>
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background.</string>

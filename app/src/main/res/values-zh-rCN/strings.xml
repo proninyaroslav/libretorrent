@@ -550,4 +550,26 @@
     <string name="pref_default_trackers_list_title">默认 trackers</string>
     <string name="pref_foreground_notify_status_filter">状态过滤器</string>
     <string name="pref_foreground_notification_category">前台通知设置</string>
+    <string name="pref_foreground_notify_sorting_entries_7">已下载百分比 (最多在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">已下载百分比 (最少在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">估计剩余时间 (最长在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">不排序</string>
+    <string name="pref_foreground_notify_sorting_entries_11">流行度 (最高的在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">流行度 (最低的在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">估计剩余时间 (最短在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">大小 (最大在前）</string>
+    <string name="pref_foreground_notify_sorting_entries_4">大小 (最小在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">添加日期 (最旧在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">添加日期 (最新在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">名称 (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">名称 (A - Z)</string>
+    <string name="pref_foreground_notify_sorting">排序中</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">错误</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">正下载元数据…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">已下载</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">下载中…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">全部</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像转换开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">组合暂停键</string>
+    <string name="error_open_torrent">打不开种子文件</string>
 </resources>

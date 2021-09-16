@@ -326,7 +326,7 @@
     <string name="option_start_seeding">Beginnen met seeden</string>
     <string name="option_private_torrent">Privétorrent</string>
     <!-- piece_size_entries -->
-    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_0">Automatisch</string>
     <string name="piece_size_entries_1">16 KiB</string>
     <string name="piece_size_entries_2">32 KiB</string>
     <string name="piece_size_entries_3">64 KiB</string>
@@ -548,4 +548,28 @@
 \n1. Wanneer een torrent wordt toegevoegd, wordt de standaardlijst automatisch toegevoegd aan de torrentlijst.
 \n2. Gebruikt voor het ophalen van magneetkoppelingen.</string>
     <string name="pref_default_trackers_list_title">Standaard trackers</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Niet sorteren</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Populariteit (grootste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Populariteit (kleinste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Geschatte resterende tijd (grootste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Geschatte resterende tijd (kleinste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Voortgang (grootste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Voortgang (kleinste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Grootte (grootste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Grootte (kleinste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Datum toegevoegd (oudste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Datum toegevoegd (nieuwste eerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Naam (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Naam (A - Z)</string>
+    <string name="pref_foreground_notify_sorting">Sorteren</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Fout</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Metadata downloaden…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Gedownload</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Downloaden…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Alles</string>
+    <string name="pref_foreground_notify_status_filter">Status-filter</string>
+    <string name="pref_foreground_notification_category">Instellingen voor meldingen op de voorgrond</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combineert twee knoppen: alles pauzeren en alles hervatten. De knop werkt als een schakelaar. Waarschuwing: de status van de knop wordt niet beïnvloed door handmatig pauzeren/hervatten van de torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Gecombineerde pauzeknop</string>
+    <string name="error_open_torrent">Kan torrent niet openen</string>
 </resources>
