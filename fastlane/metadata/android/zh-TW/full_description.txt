@@ -1,22 +1,18 @@
-# Features
-
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP
-* IP filtering (eMule dat and PeerGuardian)
-* Ability to fine tune (network settings, power management, battery control, UI settings, etc.)
-* Supports torrents with large number of files and big files
-* HTTP\S and magnet links support
-* Support proxy for trackers and peers
-* Ability to move files while downloading
-* Ability to automatic movement of files to another directory or to an external drive at the end of download
-* Ability to specify file and folder priorities
-* Ability to select which files to download
-* Ability to download sequentially
-* Material Design
-* Dark and Black theme
-* Tablet optimized UI
-* Scheduling
-* RSS manager
-* Android TV support
-* Ability to create torrents
-* Streaming of any selected files
-* And more
+* 通過 GPLv3+ 授權。使用、查看、修改與分享一切！
+* 可選擇 Torrent 中的個別檔案以下載。
+* 允許在下載過程中移動檔案。
+* 自動將已下載的檔案移動至另一個資料夾或外部儲存裝置。
+* 串流檔案，以及連續不間斷地下載。
+* 支援 Android TV.
+* 使用 Material design，提供深色與黑色主題，及適合平板的界面。
+* 可自訂的網路、電量與界面設定等。
+* 35+ 種以上的翻譯。
+* 可以預訂時間執行。
+* 自動下載，支援 Atom/RSS 管理器。
+* 製作 torrent，不論檔案大小與數量。
+* 支援一般的 HTTP(S) 與磁力連結。
+* 多種常見的協定與服務支持，包含 DHT、PeX、encryption、LSD、UPnP、NAT*PMP、µTP。
+* IP 過濾（例如針對 eMule dat 以及 PeerGuardian）
+* 支持對追蹤器（tracker）以及用戶（peer）使用 proxy （網路代理）。
+* 基於 libtorrent4j 函式庫。
+* 未完待續……
