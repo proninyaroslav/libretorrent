@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">Mengunduh metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Apakah anda yakin ingin tetap menolak aplikasi memidah berkas .torrent ke penyimpanan\?</string>
+    <string name="perm_denied_warning">Benar-benar mencegah aplikasi menyimpan file .torrent di memori\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Tambahkan Torrent</string>
     <string name="error_decode_torrent">Gagal mengenali berkas torrent. Mungkin berkas rusak atau formatnya tidak valid\?</string>
