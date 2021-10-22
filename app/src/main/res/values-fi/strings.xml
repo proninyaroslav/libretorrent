@@ -447,4 +447,5 @@
     <string name="file_chooser_title">Tiedoston valinta</string>
     <string name="dir_chooser_title">Kansion valinta</string>
     <string name="sequential_download">Peräkkäinen tallennus</string>
+    <string name="error_open_torrent">Torrenttia ei pystytty avaamaan</string>
 </resources>
