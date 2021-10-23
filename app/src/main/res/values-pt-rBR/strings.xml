@@ -152,7 +152,7 @@
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Adicionar torrent</string>
     <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido\?</string>
-    <string name="error_io_torrent">Não foi possível ler o arquivo .torrent.</string>
+    <string name="error_io_torrent">Não foi possível ler o arquivo .torrent</string>
     <string name="error_fetch_link">Não foi possível capturar dados do link.</string>
     <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
     <string name="error_add_torrent">Não foi possível adicionar o torrent</string>
@@ -450,7 +450,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Configurações de porta</string>
     <string name="pref_use_random_port_title">Usar porta aleatória</string>
-    <string name="pref_use_random_port_summarty">Define a porta inicial aleatoriamente no intervalo [%1$d, %2$d] e a porta final como a primeira + 10</string>
+    <string name="pref_use_random_port_summarty">Define a porta inicial aleatoriamente no intervalo [%1$d, %2$d] e a porta final como a primeira + 10.</string>
     <string name="pref_port_range_title">Faixa de portas</string>
     <string name="pref_port_range_start_title">Início</string>
     <string name="pref_port_range_end_title">Final</string>
