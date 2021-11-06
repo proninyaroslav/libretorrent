@@ -542,4 +542,5 @@
     <string name="about_title">Despre LibreTorrent</string>
     <string name="about_description">Pentru mai multe informații și pentru a contribui la proiect accesați: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent este un client gratuit (open source) de torrent pentru Android 4+, bazat pe biblioteca libtorrent (wrapper de Java &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt; LibreTorrent este un software gratuit, lansat sub termenii licenței &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Istoricul modificărilor</string>
+    <string name="folder">Dosar</string>
 </resources>
