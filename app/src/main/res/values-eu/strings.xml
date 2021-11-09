@@ -11,7 +11,7 @@
     <string name="replace">Ordezkatu</string>
     <string name="add">Gehitu</string>
     <string name="delete">Ezabatu</string>
-    <string name="deleting">Ezabatzen</string>
+    <string name="deleting">Ezabatzen…</string>
     <string name="select_all">Hautatu denak</string>
     <string name="save">Gorde</string>
     <string name="search">Bilatu</string>
