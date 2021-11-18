@@ -67,13 +67,13 @@
     <string name="pref_feed_remove_duplicates_title">Ei duplikointia</string>
     <string name="pref_feed_start_torrents_title">Käynnistä automaattisesti torrentit</string>
     <string name="pref_feed_keep_items_time_title">Pidä artikkelit</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Verkkovierailu</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Päivitä vain yhteydet, joissa ei ole kiintiötä (esim. Wi-Fi ja Ethernet).</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Vain rajoittamattoman kulutuksen verkossa</string>
     <string name="pref_feed_refresh_interval_title">Päivitysväli</string>
     <string name="pref_feed_auto_refresh_summary">Päivitä kanavat ajoittain taustalla.</string>
     <string name="pref_feed_auto_refresh_title">Päivitä kanavat automaattisesti</string>
-    <string name="pref_scheduling_switch_wifi_summary">Ota Wi-Fi käyttöön ajastetussa aloituksessa ja ota pois käytöstä ajastetussa keskeytyksessä.</string>
+    <string name="pref_scheduling_switch_wifi_summary">Kytke Wi-Fi käyttöön kun käynnistetään ajoitetusti ja pois kun pysäytetään ajoitetusti.</string>
     <string name="pref_scheduling_switch_wifi_title">Vaihda Wi-Fiin</string>
     <string name="pref_scheduling_run_only_once_title">Suorita vain kerran</string>
     <string name="pref_enable_scheduling_shutdown_summary">Sulje ohjelma määriteltynä aikana</string>
@@ -118,7 +118,7 @@
     <string name="pref_keep_alive_title">Pidä päällä</string>
     <string name="pref_power_management_category">Virranhallinta</string>
     <string name="pref_enable_roaming_summary">Tallenna vain, jos laite ei ole roaming-tilassa.</string>
-    <string name="pref_enable_roaming_title">Roaming</string>
+    <string name="pref_enable_roaming_title">Verkkovierailu</string>
     <string name="pref_umnetered_connections_only_summary">Käytä vain yhteyksiä ilman kiintiötä (esim. Wi-Fi tai Ethernet).</string>
     <string name="pref_umnetered_connections_only_title">Vain kiinteähintaiset verkkoyhteydet</string>
     <string name="pref_autostart_summary">Suorita sovellus laitteen käynnistyksen yhteydessä.</string>
@@ -162,7 +162,7 @@
     <string name="unable_to_open_file">Ei voitu avata valittua tiedostoa</string>
     <string name="torrent_saved_to">Torrent tallennettu kohteeseen%1$s</string>
     <string name="select_folder_to_save">Valitse tallennuskansio.</string>
-    <string name="skip_files_hint">Syötä tiedostonimet, ja erottele ne käyttämällä merkkiä \"|\"</string>
+    <string name="skip_files_hint">Syötä tiedostonimet erotettuna merkillä \"|\".</string>
     <string name="skip_files">Ohita tiedostot</string>
     <string name="error_create_torrent">Ei voitu luoda torrentia</string>
     <string name="folder_is_empty">Valittu kansio on tyhjä tai kaikki sen tiedostot on suodatettu.</string>
@@ -447,5 +447,6 @@
     <string name="file_chooser_title">Tiedoston valinta</string>
     <string name="dir_chooser_title">Kansion valinta</string>
     <string name="sequential_download">Peräkkäinen tallennus</string>
-    <string name="error_open_torrent">Torrenttia ei pystytty avaamaan</string>
+    <string name="error_open_torrent">Torrenttia ei voitu avata</string>
+    <string name="piece_size_entries_0">Automaattinen</string>
 </resources>
