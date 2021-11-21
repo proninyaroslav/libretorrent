@@ -347,7 +347,7 @@ public class TorrentService extends Service
         startupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent startupPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, startupIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
                 TorrentNotifier.FOREGROUND_NOTIFY_CHAN_ID)
@@ -499,22 +499,28 @@ public class TorrentService extends Service
         Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
         shutdownPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
-                shutdownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                shutdownIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         Intent pauseButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         pauseButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL);
         pauseButtonPendingIntent = PendingIntent.getBroadcast(
-                getApplicationContext(), 0, pauseButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                getApplicationContext(), 0, pauseButtonIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         Intent resumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         resumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_RESUME_ALL);
         resumeButtonPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
-                resumeButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                resumeButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         Intent pauseResumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         pauseResumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME_ALL);
         pauseResumePendingIntent = PendingIntent.getBroadcast(
-                getApplicationContext(), 0, pauseResumeButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                getApplicationContext(), 0, pauseResumeButtonIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
     }
 }

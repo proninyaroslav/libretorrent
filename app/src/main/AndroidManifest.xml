@@ -4,9 +4,7 @@
     package="org.proninyaroslav.libretorrent"
     android:installLocation="auto">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
@@ -15,11 +13,16 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
     <uses-feature android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
         android:required="false" />
 
     <application
@@ -32,10 +35,11 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"> <!-- TODO: remove after change targetSdkVersion to 30 -->
+        android:requestLegacyExternalStorage="true">
 
         <activity android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.Launcher">
+            android:theme="@style/AppTheme.Launcher"
+            android:exported="true">
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -137,7 +141,8 @@
         <activity android:name=".ui.SendTextToClipboard"
             android:label="@string/send_text_to_clipboard"
             android:icon="@drawable/ic_content_copy_grey600_48dp"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -148,7 +153,8 @@
         </activity>
 
         <activity android:name=".ui.settings.SettingsActivity"
-            android:label="@string/settings">
+            android:label="@string/settings"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -267,7 +273,8 @@
         </receiver>
 
         <receiver
-            android:name=".receiver.BootReceiver">
+            android:name=".receiver.BootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />

@@ -249,7 +249,9 @@ public class TorrentNotifier
         openIntent.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, torrent.id);
 
         PendingIntent openPendingIntent = PendingIntent.getActivity(
-                appContext, torrent.id.hashCode(), openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                appContext, torrent.id.hashCode(), openIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
         builder.setContentIntent(openPendingIntent);
 
         notifyManager.notify(torrent.id.hashCode(), builder.build());
