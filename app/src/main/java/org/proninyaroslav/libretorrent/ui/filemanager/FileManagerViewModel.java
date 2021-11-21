@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.filemanager;
 
 import android.app.Application;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +41,7 @@ import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.subjects.BehaviorSubject;
@@ -114,13 +116,13 @@ public class FileManagerViewModel extends AndroidViewModel
 
     private List<FileManagerNode> getChildItems()
     {
-        List<FileManagerNode> items = new ArrayList<>();
-        String dir = curDir.get();
+        var items = new ArrayList<FileManagerNode>();
+        var dir = curDir.get();
         if (dir == null)
             return items;
 
         try {
-            File dirFile = new File(dir);
+            var dirFile = new File(dir);
             if (!(dirFile.exists() && dirFile.isDirectory()))
                 return items;
 
@@ -128,10 +130,10 @@ public class FileManagerViewModel extends AndroidViewModel
             if (!dirFile.getPath().equals(FileManagerNode.ROOT_DIR))
                 items.add(0, new FileManagerNode(FileManagerNode.PARENT_DIR, FileNode.Type.DIR, true));
 
-            File[] files = dirFile.listFiles();
+            var files = dirFile.listFiles();
             if (files == null)
                 return items;
-            for (File file : files) {
+            for (var file : filterDirectories(files)) {
                 if (file.isDirectory())
                     items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR, true));
                 else
@@ -144,6 +146,22 @@ public class FileManagerViewModel extends AndroidViewModel
         }
 
         return items;
+    }
+
+    List<File> filterDirectories(File[] files) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                || config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+            return Arrays.asList(files);
+        }
+
+        var filtered = new ArrayList<File>();
+        for (var file : files) {
+            if (file.isFile() || file.canWrite()) {
+                filtered.add(file);
+            }
+        }
+
+        return filtered;
     }
 
     public boolean createDirectory(String name)
