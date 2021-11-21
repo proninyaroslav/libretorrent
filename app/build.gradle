@@ -110,12 +110,12 @@ dependencies {
     testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
     /* AndroidX libraries */
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.fragment:fragment:1.3.6'
-    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.fragment:fragment:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.paging:paging-runtime:3.0.1'
+    implementation 'androidx.paging:paging-runtime:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
