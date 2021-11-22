@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">Mengunduh metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Apakah anda yakin ingin tetap menolak aplikasi memidah berkas .torrent ke penyimpanan\?</string>
+    <string name="perm_denied_warning">Yakin ingin mencegah aplikasi untuk menyimpan berkas .torrent dalam penyimpanan\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Tambahkan Torrent</string>
     <string name="error_decode_torrent">Gagal mengenali berkas torrent. Mungkin berkas rusak atau formatnya tidak valid\?</string>
@@ -178,7 +178,7 @@
     <string name="upload_torrent_into">Mengunggah ke…</string>
     <string name="torrent_size">Ukuran</string>
     <string name="torrent_file_count">Jumlah berkas</string>
-    <string name="torrent_hash_sum">Checksum</string>
+    <string name="torrent_hash_sum">Ceksum</string>
     <string name="torrent_comment">Komentar</string>
     <string name="torrent_create_date">Dibuat</string>
     <string name="torrent_created_in_program">Dibuat di program</string>
@@ -497,7 +497,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">Matikan aplikasi saat waktu tertentu</string>
     <string name="pref_scheduling_run_only_once_title">Jalankan hanya sekali</string>
     <string name="pref_scheduling_switch_wifi_title">Hidupkan/matikan Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Nyalakan WI-Fi saat pengaktifan yang dijadwalkan, dan matikan saat penonaktifan yang dijadwalkan.</string>
+    <string name="pref_scheduling_switch_wifi_summary">Nyalakan Wi-Fi untuk mulai dijadwal, dan matikan untuk berhenti dijadwal.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Segarkan otomatis kanal</string>
     <string name="pref_feed_auto_refresh_summary">Segarkan kanal secara periodik di latar belakang.</string>
@@ -548,4 +548,28 @@
     <string name="pref_default_trackers_list_title">Tracker bawaan</string>
     <string name="pref_watch_dir_delete_file_title">Hapus berkas .torrent setelah menambah</string>
     <string name="torrent_leechers">Leecher</string>
+    <string name="pref_foreground_notification_category">Pengaturan pemberitahuan latar depan</string>
+    <string name="pref_foreground_notify_status_filter">Filter status</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Semua</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Mengunduh…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Diunduh</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Kemajuan (terkecil dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Kemajuan (terbesar dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (terkecil dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (terbesar dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularitas (terkecil dulu)</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Tombol jeda gabungan</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Menggabungkan dua tombol: jeda semua dan lanjutkan semua. Tombol akan bekerja seperti switcher. Peringatan: status tombol tidak terpengaruh oleh jeda/lanjutan manual torrent.</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Kesalahan</string>
+    <string name="pref_foreground_notify_sorting">Penyortiran</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Nama (A - Z)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Nama (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Ukuran (terkecil dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Ukuran (terbesar dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Tanggal ditambahkan (terbaru dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Tanggal ditambahkan (terlama dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularitas (terbesar dulu)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Tidak ada penyortiran</string>
+    <string name="error_open_torrent">Tidak dapat membuka torrent</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Mengunduh Metadata…</string>
 </resources>

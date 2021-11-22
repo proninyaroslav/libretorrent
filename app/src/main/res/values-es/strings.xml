@@ -259,7 +259,7 @@
     <string name="peer_connection_type_utp">μTP</string>
     <string name="peer_list_empty">Este torrent no se ha conectado con nadie aún</string>
     <string name="piece_map">Mapa de partes</string>
-    <string name="resume_torrent">Continuar</string>
+    <string name="resume_torrent">Reanudar</string>
     <string name="pause_torrent">Pausar</string>
     <string name="share_magnet">Compartir magnet</string>
     <string name="save_torrent_file">Guardar archivo torrent</string>
@@ -551,8 +551,8 @@
     <string name="pref_foreground_notify_sorting_entries_12">Sin clasificación</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularidad (el más grande primero)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Popularidad (el más pequeño primero)</string>
-    <string name="pref_foreground_notify_sorting_entries_9">ETA (el más grande primero)</string>
-    <string name="pref_foreground_notify_sorting_entries_8">ETA (el más pequeño primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Tiempo estimado (el más grande primero)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Tiempo estimado (el más pequeño primero)</string>
     <string name="pref_foreground_notify_sorting_entries_7">Progreso (el más grande primero)</string>
     <string name="pref_foreground_notify_sorting_entries_6">Progreso (el más pequeño primero)</string>
     <string name="pref_foreground_notify_sorting_entries_5">Tamaño (el más grande primero)</string>
@@ -569,7 +569,7 @@
     <string name="pref_foreground_notify_status_filter_entries_0">Todo</string>
     <string name="pref_foreground_notify_status_filter">Filtro de estado</string>
     <string name="pref_foreground_notification_category">Ajustes de notificaciones en primer plano</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Combina dos botones: pausar todo y reanudar todo. El botón funcionará como un interruptor. Advertencia: el estado del botón no es afectado por el uso manual de pausa/reanudación del torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combina dos botones: pausar todo y reanudar todo. El botón funcionará como un interruptor. Advertencia: el estado del botón no será afectado por la pausa/reanudación manual del torrent.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Botón de pausa combinado</string>
-    <string name="error_open_torrent">No se puede abrir el torrent</string>
+    <string name="error_open_torrent">No se pudo abrir el torrent</string>
 </resources>

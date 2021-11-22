@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Действительно запретить приложению хранить .torrent файлы в памяти\?</string>
+    <string name="perm_denied_warning">Разрешение на доступ к хранилищу необходимо для скачивания торрентов и доступа к .torrent файлам. Вы действительно хотите запретите это разрешение\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
     <string name="error_decode_torrent">Ошибка декодирования .torrent файла. Возможно он поврежден или имеет неверный формат\?</string>
