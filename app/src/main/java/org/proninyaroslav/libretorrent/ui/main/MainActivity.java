@@ -410,11 +410,13 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                         }
                     } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
                         if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
-                            permissionManager.setDoNotAsk(true);
                             permDeniedDialog.dismiss();
                         }
                         if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
                             permissionManager.requestPermissions();
+                        }
+                        if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
+                            permissionManager.setDoNotAsk(true);
                         }
                     }
                 });
