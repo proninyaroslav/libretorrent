@@ -572,4 +572,5 @@
     <string name="about_title">About</string>
     <string name="about_description">More info and how to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a copylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torrent client for Android 4+, based on the libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Changelog</string>
+    <string name="perm_denied_warning_android_r">Access all files permission is required to download torrents and access .torrent files in arbitrary folders. Without this permission, LibreTorrent will only have access to a limited number of folders. Are you sure you want to deny this permission\?</string>
 </resources>
