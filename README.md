@@ -14,7 +14,7 @@ LibreTorrent
 [<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
 
-**Mirror:** https://proninyaroslav.ru/ftp/libretorrent/
+**Mirror:** https://proninyaroslav.ru/mirror/libretorrent/
 
 **Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
 

@@ -10,10 +10,11 @@ For better and enhanced utilization of LibreTorrent, the software is designed to
 The permission is;
 
 - Storage
+- Manage all files (Android 11 and above)
 
   With the storage permission enabled, the app can;
-   - modify or delete the contents of your SD card.
-   - read the contents of your SD card.
+   - modify or delete the storage contents to save torrens or other files.
+   - read the storage contents for access .torrent files or other files.
 
 
 LibreTorrent has some other capabilities, which are functions the software can remotely effect on its own. They include;

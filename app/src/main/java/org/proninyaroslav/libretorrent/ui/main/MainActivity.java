@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.main;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -35,8 +34,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,6 +68,7 @@ import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
+import org.proninyaroslav.libretorrent.ui.StoragePermissionManager;
 import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment;
@@ -132,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private BaseAlertDialog aboutDialog;
     private TorrentInfoProvider infoProvider;
     private PermissionDeniedDialog permDeniedDialog;
+    private StoragePermissionManager permissionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,12 +148,24 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         viewModel = provider.get(MainViewModel.class);
         msgViewModel = provider.get(MsgMainViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        FragmentManager fm = getSupportFragmentManager();
-        aboutDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_ABOUT_DIALOG);
-        permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
 
-        if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
-            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        FragmentManager fm = getSupportFragmentManager();
+        permissionManager = new StoragePermissionManager(this,
+                (isGranted, shouldRequestStoragePermission) -> {
+                    if (!isGranted && shouldRequestStoragePermission) {
+                        if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                            permDeniedDialog = PermissionDeniedDialog.newInstance();
+                            FragmentTransaction ft = fm.beginTransaction();
+                            ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                            ft.commitAllowingStateLoss();
+                        }
+                    }
+                });
+        aboutDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_ABOUT_DIALOG);
+        permDeniedDialog = (PermissionDeniedDialog) fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
+
+        if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
+            permissionManager.requestPermissions();
         }
 
         setContentView(R.layout.activity_main);
@@ -165,20 +176,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         cleanGarbageFragments();
         initLayout();
     }
-
-    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            isGranted -> {
-                if (!isGranted && Utils.shouldRequestStoragePermission(this)) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                        permDeniedDialog = PermissionDeniedDialog.newInstance();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
-            });
 
     private void initLayout() {
         showBlankFragment();
@@ -413,10 +410,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                         }
                     } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
                         if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                            permissionManager.setDoNotAsk(true);
                             permDeniedDialog.dismiss();
                         }
                         if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
-                            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            permissionManager.requestPermissions();
                         }
                     }
                 });

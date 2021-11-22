@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.addtorrent;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,8 +34,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
@@ -59,6 +56,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityAddTorrentBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
+import org.proninyaroslav.libretorrent.ui.StoragePermissionManager;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 
 import java.io.FileNotFoundException;
@@ -94,6 +92,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private boolean showAddButton;
     private PermissionDeniedDialog permDeniedDialog;
     private SharedPreferences localPref;
+    private StoragePermissionManager permissionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -104,13 +103,26 @@ public class AddTorrentActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(AddTorrentViewModel.class);
+        permissionManager = new StoragePermissionManager(this,
+                (isGranted, shouldRequestStoragePermission) -> {
+                    var fm = getSupportFragmentManager();
+                    if (!isGranted && shouldRequestStoragePermission) {
+                        if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                            permDeniedDialog = PermissionDeniedDialog.newInstance();
+                            FragmentTransaction ft = fm.beginTransaction();
+                            ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                            ft.commitAllowingStateLoss();
+                        }
+                    }
+                });
+
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
         localPref = PreferenceManager.getDefaultSharedPreferences(this);
         fillMutableParams();
 
-        if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
-            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
+            permissionManager.requestPermissions();
         }
 
         initLayout();
@@ -137,20 +149,6 @@ public class AddTorrentActivity extends AppCompatActivity
                 )
         );
     }
-
-    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            isGranted -> {
-                if (!isGranted && Utils.shouldRequestStoragePermission(this)) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                        permDeniedDialog = PermissionDeniedDialog.newInstance();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
-            });
 
     @Override
     protected void onStop()
@@ -242,10 +240,11 @@ public class AddTorrentActivity extends AppCompatActivity
             }
         } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
             if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                permissionManager.setDoNotAsk(true);
                 permDeniedDialog.dismiss();
             }
             if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
-                storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                permissionManager.requestPermissions();
             }
         }
     }
