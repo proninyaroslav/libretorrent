@@ -153,7 +153,7 @@
     <string name="torrent_status_downloading_metadata">Downloading metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
-    <string name="perm_denied_warning">Really prevent the app from keeping .torrent files in memory?</string>
+    <string name="perm_denied_warning">Storage permission is required to download torrents and access .torrent files. Do you really want to deny this permission\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Add torrent</string>
     <string name="error_decode_torrent">Could not decode .torrent file. Maybe it is damaged or in the wrong format?</string>
