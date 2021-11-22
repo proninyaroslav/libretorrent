@@ -229,7 +229,7 @@
     <string name="optional_hint">(Valfritt)</string>
     <string name="create_torrent_options">Alternativ</string>
     <!-- piece_size_entries -->
-    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_0">Automatisk</string>
     <string name="piece_size_entries_1">16 KiB</string>
     <string name="piece_size_entries_2">32 KiB</string>
     <string name="piece_size_entries_3">64 KiB</string>
@@ -269,15 +269,15 @@
     <string name="pref_max_active_torrents_title">Max. antalet aktiva torrenter</string>
     <string name="pref_max_connections_per_torrent_title">Max. antalet anslutningar per torrent</string>
     <string name="pref_max_connections_per_torrent_summary">(Min. 2 anslutningar.)</string>
-    <string name="pref_max_uploads_per_torrent_title">Max. antalet uppladdnings-platser per torrent</string>
+    <string name="pref_max_uploads_per_torrent_title">Max. antal uppladdningsplatser per torrent</string>
     <string name="pref_auto_manage_title">Hantera automatiskt</string>
     <string name="pref_auto_manage_summary">Torrenten kan återupptas automatiskt eller pausas när som helst. (Kan sakta ner pausandet/återupptagandet.)</string>
     <!-- Appearance settings -->
     <string name="pref_theme_title">Tema</string>
     <!-- pref_theme_entries -->
-    <string name="pref_theme_entries_0">Light</string>
-    <string name="pref_theme_entries_1">Dark</string>
-    <string name="pref_theme_entries_2">Black</string>
+    <string name="pref_theme_entries_0">Ljust</string>
+    <string name="pref_theme_entries_1">Mörkt</string>
+    <string name="pref_theme_entries_2">Svart</string>
     <string name="pref_torrent_finish_notify_summary">Visa avisering när en torrent är hämtad.</string>
     <string name="pref_notify_sound_title">Aviseringsljud</string>
     <!-- Behavior settings -->
@@ -292,8 +292,8 @@
     <string name="pref_shutdown_downloads_complete_title">Stäng efter att alla hämtningar har avslutats</string>
     <string name="pref_shutdown_downloads_complete_summary">Avslutar appen när allting är hämtat.</string>
     <string name="pref_cpu_do_not_sleep_summary">Använd om hämtningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Hämta endast och ladda endast upp under laddning.</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">Inga filer förs över om inte enheten laddas. (Pausar alla torrenter när ingen laddare är ansluten.)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Hämta och ladda upp endast under laddning.</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Inga filer överförs om inte enheten laddas. (Pausar alla torrenter när ingen laddare är ansluten.)</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrenter om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
     <string name="pref_custom_battery_control_summary">Ställ in batteri-%% att pausa hämtningar vid. (Ignorerar %1$d%% som standard.)</string>
@@ -324,7 +324,7 @@
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Typ av proxy</string>
     <!-- pref_proxy_type_entries -->
-    <string name="pref_proxy_type_entries_0">(None)</string>
+    <string name="pref_proxy_type_entries_0">(Ingen)</string>
     <string name="pref_proxy_type_entries_1">SOCKS4</string>
     <string name="pref_proxy_type_entries_2">SOCKS5</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
@@ -337,31 +337,31 @@
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_summary">Starta appen vid den specifika tiden. Torrenterna körs enligt deras tillstånd innan den sista avslutas.</string>
     <string name="pref_scheduling_switch_wifi_title">Växla Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Aktivera Wi-Fi för schemalagd start och av för schemalagt stopp.</string>
+    <string name="pref_scheduling_switch_wifi_summary">Aktivera Wi-Fi för schemalagd start och inaktivera för schemalagd stopp.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Uppdatera automatiskt kanaler</string>
     <string name="pref_feed_auto_refresh_summary">Uppdatera kanaler periodiskt i bakgrunden.</string>
     <!-- pref_feed_refresh_intervals_entries -->
-    <string name="pref_feed_refresh_intervals_entries_0">15 minutes</string>
-    <string name="pref_feed_refresh_intervals_entries_1">30 minutes</string>
-    <string name="pref_feed_refresh_intervals_entries_2">1 hour</string>
-    <string name="pref_feed_refresh_intervals_entries_3">2 hours</string>
-    <string name="pref_feed_refresh_intervals_entries_4">6 hours</string>
-    <string name="pref_feed_refresh_intervals_entries_5">12 hours</string>
-    <string name="pref_feed_refresh_intervals_entries_6">1 day</string>
+    <string name="pref_feed_refresh_intervals_entries_0">15 minuter</string>
+    <string name="pref_feed_refresh_intervals_entries_1">30 minuter</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 timme</string>
+    <string name="pref_feed_refresh_intervals_entries_3">2 timmar</string>
+    <string name="pref_feed_refresh_intervals_entries_4">6 timmar</string>
+    <string name="pref_feed_refresh_intervals_entries_5">12 timmar</string>
+    <string name="pref_feed_refresh_intervals_entries_6">1 dag</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Endast på obestämda anslutningar</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Uppdatera endast på anslutningar utan en kvot (exempelvis Wi-Fi eller Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
     <!-- pref_feed_keep_items_time_entries -->
-    <string name="pref_feed_keep_items_time_entries_0">1 day</string>
-    <string name="pref_feed_keep_items_time_entries_1">2 days</string>
-    <string name="pref_feed_keep_items_time_entries_2">4 days</string>
-    <string name="pref_feed_keep_items_time_entries_3">1 week</string>
-    <string name="pref_feed_keep_items_time_entries_4">2 weeks</string>
-    <string name="pref_feed_keep_items_time_entries_5">1 month</string>
-    <string name="pref_feed_keep_items_time_entries_6">2 months</string>
-    <string name="pref_feed_keep_items_time_entries_7">3 months</string>
+    <string name="pref_feed_keep_items_time_entries_0">1 dag</string>
+    <string name="pref_feed_keep_items_time_entries_1">2 dagar</string>
+    <string name="pref_feed_keep_items_time_entries_2">4 dagar</string>
+    <string name="pref_feed_keep_items_time_entries_3">1 vecka</string>
+    <string name="pref_feed_keep_items_time_entries_4">2 veckor</string>
+    <string name="pref_feed_keep_items_time_entries_5">1 månad</string>
+    <string name="pref_feed_keep_items_time_entries_6">2 månader</string>
+    <string name="pref_feed_keep_items_time_entries_7">3 månader</string>
     <string name="pref_feed_keep_items_time_entries_8">Always</string>
     <string name="pref_feed_start_torrents_title">Starta torrenter automatiskt</string>
     <string name="pref_feed_start_torrents_summary">Hämtar tillagda torrenter.</string>
@@ -374,7 +374,7 @@
     <string name="pref_streaming_error">Välj en port eller ett värdnamn för strömningar som inte är upptagna eller felaktiga.</string>
     <!-- About dialog -->
     <string name="about_title">Om</string>
-    <string name="about_description">Mer info och hur man hjälper projektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt; https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent är en upphovsrättsbefriad fri (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)-torrentklient för Android 4+, baserad på libtorrent (Java-wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)bibl.&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_description">Mer info och hur man hjälper projektet: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt; https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent är en upphovsrättsbefriad fri (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torrentklient för Android 4+, baserad på libtorrent (Java-wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) bibl.&lt;br&gt;&lt;br&gt;</string>
     <string name="torrent_moving_title">Flyttar torrent…</string>
     <string name="torrent_finished_notify">Torrent färdig</string>
     <string name="session_error_title">Sessionsfel</string>
@@ -409,9 +409,9 @@
     <string name="journal_filter_session_log">Sessionslogg</string>
     <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
     <string name="torrent_seeding_time">Tid för distribution</string>
-    <string name="torrent_leechers">Nedladdare</string>
-    <string name="drawer_date_added">Datum som den lades till</string>
-    <string name="drawer_sorting_date_added">Datum som den lades till</string>
+    <string name="torrent_leechers">Hämtare</string>
+    <string name="drawer_date_added">Datum tillagd</string>
+    <string name="drawer_sorting_date_added">Datum tillagd</string>
     <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>
     <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
     <string name="pref_enable_scheduling_shutdown_summary">Avsluta appen vid en specifik tid</string>
@@ -549,4 +549,28 @@
 \n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan.
 \n2. Används för att hämta magnetlänkar.</string>
     <string name="pref_default_trackers_list_title">Standard bevakare</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerar två knappar: pausa alla och återuppta alla. Knappen fungerar som en omkopplare. Varning: knappstatus påverkas inte av manuell pausning/återupptagning av torrenten.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Kombinerad pausknapp</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Ingen sortering</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularitet (största först)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularitet (minsta först)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (störst först)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (minsta först)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Framsteg (största först)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Framsteg (minsta först)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Storlek (största först)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Storlek (minsta först)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Datum tillagd (nyaste först)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Datum tillagd (nyaste först)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Namn (Ö - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Namn (A - Ö)</string>
+    <string name="pref_foreground_notify_sorting">Sortering</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Fel</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Hämtar metadata…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Hämtad</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Hämtar…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Alla</string>
+    <string name="pref_foreground_notify_status_filter">Statusfilter</string>
+    <string name="pref_foreground_notification_category">Förgrundsaviseringsinställningar</string>
+    <string name="error_open_torrent">Det går inte att öppna torrent</string>
 </resources>

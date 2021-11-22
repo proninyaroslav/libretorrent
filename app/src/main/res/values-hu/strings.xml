@@ -75,7 +75,7 @@
     <!-- Status -->
     <string name="drawer_status">Állapot</string>
     <string name="drawer_status_downloading">Letöltés…</string>
-    <string name="drawer_status_downloaded">Letöltve</string>
+    <string name="drawer_status_downloaded">Letöltött</string>
     <string name="drawer_status_downloading_metadata">Metaadatok letöltése…</string>
     <string name="drawer_status_error">Hiba</string>
     <!-- Sorting -->
@@ -84,7 +84,7 @@
     <string name="drawer_sorting_date_added">Hozzáadás dátuma</string>
     <string name="drawer_sorting_size">Méret</string>
     <string name="drawer_sorting_progress">Folyamat</string>
-    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_ETA">Letöltés várható ideje</string>
     <string name="drawer_sorting_peers">Népszerűség</string>
     <string name="drawer_sorting_no_sorting">Nincs rendezés</string>
     <!-- Date added -->
@@ -224,7 +224,7 @@
     <string name="torrent_state">Állapot</string>
     <string name="torrent_speed">Sebesség</string>
     <string name="torrent_downloaded">Letöltve</string>
-    <string name="torrent_ETA">ETA</string>
+    <string name="torrent_ETA">Letöltés várható ideje</string>
     <string name="torrent_seeds">Megosztók</string>
     <string name="torrent_peers">Partnerek</string>
     <string name="torrent_leechers">Letöltők</string>
@@ -334,7 +334,7 @@
     <string name="option_start_seeding">Megosztás indítása</string>
     <string name="option_private_torrent">Privát torrent</string>
     <!-- piece_size_entries -->
-    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_0">Automatikus</string>
     <string name="piece_size_entries_1">16 KiB</string>
     <string name="piece_size_entries_2">32 KiB</string>
     <string name="piece_size_entries_3">64 KiB</string>
@@ -385,7 +385,7 @@
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">Torrentek mentése…</string>
     <string name="pref_move_after_download_title">Letöltés után áthelyezés</string>
-    <string name="pref_move_after_download_in_title">Az innen való letöltés után áthelyezés:</string>
+    <string name="pref_move_after_download_in_title">Letöltés után áthelyezés ide:</string>
     <string name="pref_save_torrent_files_title">.torrent fájlok mentése</string>
     <string name="pref_save_torrent_files_summary">.torrent fájlok mentése amikor elkezdődik a letöltés.</string>
     <string name="pref_save_torrent_files_in_title">A .torrent fájlok mentése…</string>
@@ -489,7 +489,7 @@
     <string name="pref_proxy_address_title">Cím</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Kapcsolatokhoz is használható</string>
-    <string name="pref_proxy_peers_too_summary">A követők, partnerek és webes megosztók kapcsolatai proxyzva lesznek.</string>
+    <string name="pref_proxy_peers_too_summary">A követők, partnerek és webes megosztók kapcsolatai proxyzva lesznek. Nincs hatással a DHT-ra.</string>
     <string name="pref_proxy_requires_auth_title">Hiletelsítés szükséges</string>
     <string name="pref_proxy_requires_auth_summary">Figyelmeztetés: A jelszó szabályos fájlként lesz mentve.</string>
     <string name="pref_proxy_login_title">Felhasználónév</string>
@@ -545,4 +545,31 @@
     <string name="about_changelog">Változásnapló</string>
     <string name="pref_default_trackers_list_title">Alapértelmezett követők</string>
     <string name="pref_watch_dir_delete_file_title">.torrent fájl törlése hozzáadás után</string>
+    <string name="pref_default_trackers_list_summary">Követőlista, melyet a következő esetekben használ:
+\n1. Amikor torrentet ad hozzá, akkor az alapértelmezett lista hozzá lesz adva a torrentlistához.
+\n2. A mágneslinkek lekérése során.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinálja a két gombot: az összes szüneteltetését és folytatását. A gomb kapcsolóként fog működni. Figyelmeztetés: a gomb állapotára nincs hatással a torrent kézi szüneteltetése/folytatása.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Kombinált szüneteltetés gomb</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Nincs rendezés</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Népszerűség (legnagyobb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Népszerűség (legkisebb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Letöltés várható ideje (legnagyobb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Letöltés várható ideje (legkisebb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Folyamat (legnagyobb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Folyamat (legkisebb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Méret (legnagyobb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Méret (legkisebb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Hozzáadás dátuma (legrégebbi elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Hozzáadás dátuma (legújabb elöl)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Név (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Név (A - Z)</string>
+    <string name="pref_foreground_notify_sorting">Rendezés</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Hiba</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Metaadatok letöltése…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Letöltve</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Letöltés…</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Összes</string>
+    <string name="pref_foreground_notify_status_filter">Állapotszűrő</string>
+    <string name="pref_foreground_notification_category">Előtérbeli értesítések beállításai</string>
+    <string name="error_open_torrent">A torrent nem nyitható meg</string>
 </resources>

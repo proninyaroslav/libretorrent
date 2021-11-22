@@ -152,7 +152,7 @@
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Adicionar torrent</string>
     <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido\?</string>
-    <string name="error_io_torrent">Não foi possível ler o arquivo .torrent.</string>
+    <string name="error_io_torrent">Não foi possível ler o arquivo .torrent</string>
     <string name="error_fetch_link">Não foi possível capturar dados do link.</string>
     <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
     <string name="error_add_torrent">Não foi possível adicionar o torrent</string>
@@ -450,7 +450,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Configurações de porta</string>
     <string name="pref_use_random_port_title">Usar porta aleatória</string>
-    <string name="pref_use_random_port_summarty">Define a porta inicial aleatoriamente no intervalo [%1$d, %2$d] e a porta final como a primeira + 10</string>
+    <string name="pref_use_random_port_summarty">Define a porta inicial aleatoriamente no intervalo [%1$d, %2$d] e a porta final como a primeira + 10.</string>
     <string name="pref_port_range_title">Faixa de portas</string>
     <string name="pref_port_range_start_title">Início</string>
     <string name="pref_port_range_end_title">Final</string>
@@ -549,4 +549,28 @@
 \n2. Usada para obter links magnet</string>
     <string name="pref_default_trackers_list_title">Rastreadores padrão</string>
     <string name="pref_watch_dir_delete_file_title">Deletar arquivo .torrent após adicioná-lo</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Botão de pausa combinado</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Todos</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Nome (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Tamanho (maior primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Progresso (menor primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Progresso (maior primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularidade (menor primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularidade (maior primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Sem ordenação</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combina dois botões: pausar tudo e retomar tudo. O botão funcionará como um botão de troca. Aviso: o estado do botão não é afetado pela pausa/resumo manual da torrente.</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Nome (A - Z)</string>
+    <string name="error_open_torrent">Incapaz de abrir o torrent</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (maior primeiro)</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Baixando metadados…</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (menor primeiro)</string>
+    <string name="pref_foreground_notification_category">Configurações de notificação em primeiro plano</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Baixando…</string>
+    <string name="pref_foreground_notify_status_filter">Filtro de status</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Data adicionada (mais antiga primeiro)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Tamanho (menor primeiro)</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Baixado</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Erro</string>
+    <string name="pref_foreground_notify_sorting">Classificação</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Data adicionada (mais recente primeiro)</string>
 </resources>
