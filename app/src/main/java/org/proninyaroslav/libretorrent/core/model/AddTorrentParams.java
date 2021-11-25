@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -121,6 +120,7 @@ public class AddTorrentParams implements Parcelable {
         return sha1hash.hashCode();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "AddTorrentParams{" +

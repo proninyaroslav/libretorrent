@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.core.model.session;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
@@ -36,7 +35,6 @@ import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public interface TorrentSession
 {

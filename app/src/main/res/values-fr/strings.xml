@@ -200,8 +200,6 @@
     <string name="file_name">Nom de fichier</string>
     <string name="error_file_exists">Le fichier existe déjà</string>
     <string name="file_name_is_empty">Le nom du fichier ne peut pas être vide</string>
-    <string name="system_manager">Gestionnaire système</string>
-    <string name="system_file_manager_not_found">Impossible de trouver un gestionnaire de fichiers</string>
     <string name="replace_file">Remplacer le fichier</string>
     <string name="parent_folder">Dossier parent</string>
     <!-- Error dialog -->

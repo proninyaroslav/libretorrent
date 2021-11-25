@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.log;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
@@ -104,6 +105,7 @@ public class LogMutableParams extends BaseObservable
         notifyPropertyChanged(BR.logTorrentFilter);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

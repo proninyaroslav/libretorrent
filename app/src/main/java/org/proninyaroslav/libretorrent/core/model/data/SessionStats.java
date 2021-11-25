@@ -132,6 +132,7 @@ public class SessionStats extends AbstractInfoParcel
                 listenPort == stats.listenPort;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

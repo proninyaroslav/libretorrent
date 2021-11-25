@@ -196,8 +196,6 @@
     <string name="file_name">Fayl adı</string>
     <string name="error_file_exists">Fayl artıq mövcuddur</string>
     <string name="file_name_is_empty">Əvvəlcə fayl adı daxil edin</string>
-    <string name="system_manager">Sistem idarəçisi</string>
-    <string name="system_file_manager_not_found">Fayl meneceri tapıla bilmədi</string>
     <string name="replace_file">Faylı əvəz et</string>
     <string name="parent_folder">Üst qovluq</string>
     <!-- Error dialog -->

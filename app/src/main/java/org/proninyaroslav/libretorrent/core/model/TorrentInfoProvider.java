@@ -334,10 +334,8 @@ public class TorrentInfoProvider {
                                         emitter.onNext(newInfo);
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting advanced info for torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            });
+                            (Throwable t) -> Log.e(TAG, "Getting advanced info for torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)));
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
@@ -371,10 +369,8 @@ public class TorrentInfoProvider {
                                         emitter.onNext(newInfoList);
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting trackers info for torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            });
+                            (Throwable t) -> Log.e(TAG, "Getting trackers info for torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)));
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
@@ -406,10 +402,8 @@ public class TorrentInfoProvider {
                                         emitter.onNext(newInfoList);
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting peers info for torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            });
+                            (Throwable t) -> Log.e(TAG, "Getting peers info for torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)));
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
@@ -440,10 +434,8 @@ public class TorrentInfoProvider {
                                         emitter.onNext(newInfoList);
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting pieces for torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            });
+                            (Throwable t) -> Log.e(TAG, "Getting pieces for torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)));
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {

@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -109,6 +110,7 @@ public class TorrentDetailsInfo extends BaseObservable
         notifyPropertyChanged(BR.metaInfo);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

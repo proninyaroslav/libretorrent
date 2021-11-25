@@ -196,8 +196,6 @@
     <string name="file_name">Име датотеке</string>
     <string name="error_file_exists">Датотека већ постоји</string>
     <string name="file_name_is_empty">Прво унесите назив датотеке</string>
-    <string name="system_manager">Системски менаџер</string>
-    <string name="system_file_manager_not_found">Не могу да пронађем менаџер датотека</string>
     <string name="replace_file">Замени фајл</string>
     <string name="parent_folder">Родитељски фолдер</string>
     <!-- Error dialog -->

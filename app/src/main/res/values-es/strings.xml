@@ -201,8 +201,6 @@
     <string name="file_name">Nombre del archivo</string>
     <string name="error_file_exists">El archivo ya existe</string>
     <string name="file_name_is_empty">Ingresa primero el nombre del archivo</string>
-    <string name="system_manager">Administrador del sistema</string>
-    <string name="system_file_manager_not_found">No se pudo encontrar un administrador de archivos</string>
     <string name="replace_file">Reemplazar archivo</string>
     <string name="parent_folder">Carpeta raíz</string>
     <!-- Error dialog -->

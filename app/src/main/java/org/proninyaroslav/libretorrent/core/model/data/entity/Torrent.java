@@ -176,6 +176,7 @@ public class Torrent implements Parcelable
         return o instanceof Torrent && (o == this || id.equals(((Torrent)o).id));
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Torrent{" +

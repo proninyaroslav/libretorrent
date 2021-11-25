@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.mediarss;
 
+import androidx.annotation.NonNull;
+
 /**
  * Partially implemented.
  *
@@ -77,6 +79,7 @@ public class Content {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MediaRssContent{" +

@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser;
 
+import androidx.annotation.NonNull;
+
 /**
  * Represents an enclosure from the RSS item.
  */
@@ -72,7 +74,8 @@ public class Enclosure {
 		return result;
 	}
 
-	@Override
+	@NonNull
+    @Override
 	public String toString() {
 		return "Enclosure{" +
 			"url='" + url + '\'' +

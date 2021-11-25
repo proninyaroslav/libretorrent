@@ -196,8 +196,6 @@
     <string name="report">Báo cáo</string>
     <string name="parent_folder">Thư mục mẹ</string>
     <string name="replace_file">Thay thế tệp</string>
-    <string name="system_file_manager_not_found">Không thể tìm thấy một trình quản lý tệp</string>
-    <string name="system_manager">Trình quản lý hệ thống</string>
     <string name="file_name_is_empty">Hãy nhập tên tệp trước tiên</string>
     <string name="error_file_exists">Tệp đã tồn tại</string>
     <string name="file_name">Tên tệp</string>

@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser;
 
+import androidx.annotation.NonNull;
+
 /**
  * A class that represents the bitTorrent 0.1 DTD,
  * a simple XML format, based on RSS 2.0 and written by EZTV (https://eztv.io)
@@ -122,6 +124,7 @@ public class EzRssTorrentItem {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TorrentMetadata{" +

@@ -196,8 +196,6 @@
     <string name="file_name">نام پرونده</string>
     <string name="error_file_exists">پرونده از قبل وجود دارد</string>
     <string name="file_name_is_empty">نام پرونده نمی‌تواند خالی باشد</string>
-    <string name="system_manager">مدیر سیستم</string>
-    <string name="system_file_manager_not_found">مدیر پرونده سیستم یافت نشد</string>
     <string name="replace_file">جایگزینی پرونده</string>
     <string name="parent_folder">پوشه منبع</string>
     <!-- Error dialog -->

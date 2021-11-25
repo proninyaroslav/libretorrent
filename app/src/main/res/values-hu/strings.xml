@@ -201,8 +201,6 @@
     <string name="file_name">Fájlnév</string>
     <string name="error_file_exists">A fájl már létezik</string>
     <string name="file_name_is_empty">Adjon meg egy fájlnevet</string>
-    <string name="system_manager">Rendszerkezelő</string>
-    <string name="system_file_manager_not_found">Nem található fájlkezelő</string>
     <string name="replace_file">Fájl cseréje</string>
     <string name="parent_folder">Szülő mappa</string>
     <!-- Error dialog -->

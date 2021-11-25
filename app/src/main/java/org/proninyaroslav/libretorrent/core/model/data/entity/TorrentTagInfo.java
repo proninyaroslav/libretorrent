@@ -23,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 @Entity(
         foreignKeys = {
@@ -78,6 +77,7 @@ public class TorrentTagInfo {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TorrentTagInfo{" +

@@ -114,6 +114,7 @@ public class BencodeFileItem implements Parcelable, Comparable<BencodeFileItem>
         return path.compareTo(anotner.path);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

@@ -42,7 +42,7 @@ public class TrackerInfo extends AbstractInfoParcel
     public int tier;
     public int status;
 
-    public class Status
+    public static class Status
     {
         public static final int UNKNOWN = -1;
         public static final int WORKING = 0;
@@ -187,6 +187,7 @@ public class TrackerInfo extends AbstractInfoParcel
                 status == state.status;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

@@ -203,8 +203,6 @@
     <string name="file_name">Filename</string>
     <string name="error_file_exists">The file already exists</string>
     <string name="file_name_is_empty">Enter a filename first</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">Could not find a file manager</string>
     <string name="replace_file">Replace file</string>
     <string name="parent_folder">Parent folder</string>
     <!-- Error dialog -->

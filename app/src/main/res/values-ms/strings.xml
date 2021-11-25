@@ -139,7 +139,6 @@
     <string name="file_name">Nama fail</string>
     <string name="error_file_exists">Fail telahpun wujud</string>
     <string name="file_name_is_empty">Masukkan nama fail dahulu</string>
-    <string name="system_manager">Pengurus sistem</string>
     <string name="replace_file">Ganti fail</string>
     <string name="parent_folder">Folder induk</string>
     <string name="report">Lapor</string>
@@ -219,7 +218,6 @@
     <string name="drawer_sorting_size">Saiz</string>
     <string name="save_torrent_file_successfully">fail .torrent disimpan</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
-    <string name="system_file_manager_not_found">Pengurus fail tidak dijumpai</string>
     <string name="error_comment_prompt">Masukkan maklumat tambahan dan ulasan di sini:</string>
     <string name="drawer_sorting_progress">Kemajuan</string>
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/saat • %4$s</string>

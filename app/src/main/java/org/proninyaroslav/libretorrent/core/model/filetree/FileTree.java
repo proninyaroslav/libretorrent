@@ -35,7 +35,7 @@ import java.util.Set;
  * The class represents a file tree model hierarchy. Based on trie.
  */
 
-public class FileTree<F extends FileTree> implements FileNode<FileTree>, Serializable
+public class FileTree<F extends FileTree<?>> implements FileNode<FileTree<?>>, Serializable
 {
     public static final String ROOT = File.separator;
     /* The name for pointer to the parent node */
@@ -172,15 +172,15 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
 
     public String getPath()
     {
-        String path = "";
-        FileTree curNode = this;
+        StringBuilder path = new StringBuilder();
+        FileTree<?> curNode = this;
 
         while (curNode.parent != null) {
-            path = curNode.name + File.separator + path;
+            path.insert(0, curNode.name + File.separator);
             curNode = curNode.parent;
         }
 
-        return path;
+        return path.toString();
     }
 
     @Override
@@ -198,7 +198,7 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
         if (o == this)
             return true;
 
-        FileTree fileTree = (FileTree)o;
+        FileTree<?> fileTree = (FileTree<?>)o;
 
         return index == fileTree.index &&
                 (name == null || name.equals(fileTree.name)) &&
@@ -206,6 +206,7 @@ public class FileTree<F extends FileTree> implements FileNode<FileTree>, Seriali
                 isLeaf == fileTree.isLeaf;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

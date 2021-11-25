@@ -98,6 +98,7 @@ public class TagInfo implements Parcelable {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TagInfo{" +

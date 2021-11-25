@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.impl;
 
+import androidx.annotation.NonNull;
+
 import org.xml.sax.Attributes;
 
 import com.ernieyu.feedparser.FeedUtils;
@@ -41,6 +43,7 @@ abstract class BaseItem extends BaseElement implements Item {
         return id;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getTitle();

@@ -46,7 +46,7 @@ public class PeerInfo extends AbstractInfoParcel
     public int downSpeed;
     public int upSpeed;
 
-    public class ConnectionType
+    public static class ConnectionType
     {
         public static final int BITTORRENT = 0;
         public static final int WEB = 1;
@@ -228,6 +228,7 @@ public class PeerInfo extends AbstractInfoParcel
                 upSpeed == state.upSpeed;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.mediarss;
 
+import androidx.annotation.NonNull;
+
 /**
  * This is the hash of the binary media file.
  * It can appear multiple times as long as each instance is a different algo.
@@ -68,6 +70,7 @@ public class Hash {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MediaRssHash{" +

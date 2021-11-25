@@ -65,6 +65,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -326,7 +327,7 @@ public class DetailTorrentViewModel extends AndroidViewModel {
                               @NonNull FilePriority priority) {
         disposable.add(io.reactivex.Observable.fromIterable(fileNames)
                 .map((fileName) -> curDir.getChild(fileName))
-                .filter((file) -> file != null)
+                .filter(Objects::nonNull)
                 .subscribe((file) -> {
                     file.setPriority(priority, true);
                     updateChildren();

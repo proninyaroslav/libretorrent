@@ -50,6 +50,7 @@ public class TagItem {
         return info.hashCode();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TagItem{" +

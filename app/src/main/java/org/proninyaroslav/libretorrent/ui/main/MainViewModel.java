@@ -36,7 +36,6 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
-import org.proninyaroslav.libretorrent.ui.main.drawer.TagItem;
 
 import java.util.List;
 

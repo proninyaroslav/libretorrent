@@ -111,7 +111,7 @@ class DatabaseMigration
 
     static class RoomDatabaseMigration extends Migration
     {
-        final class OldDataModel
+        static final class OldDataModel
         {
             static final String TORRENT_FILE_NAME = "torrent";
             static final String TORRENT_RESUME_FILE_NAME = "fastresume";

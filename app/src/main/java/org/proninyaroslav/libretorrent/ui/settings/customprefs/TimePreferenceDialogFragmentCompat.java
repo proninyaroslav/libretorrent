@@ -1,6 +1,5 @@
 package org.proninyaroslav.libretorrent.ui.settings.customprefs;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -84,13 +83,8 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
             // Get the current values from the TimePicker
             int hours;
             int minutes;
-            if (Build.VERSION.SDK_INT >= 23) {
-                hours = mTimePicker.getHour();
-                minutes = mTimePicker.getMinute();
-            } else {
-                hours = mTimePicker.getCurrentHour();
-                minutes = mTimePicker.getCurrentMinute();
-            }
+            hours = mTimePicker.getHour();
+            minutes = mTimePicker.getMinute();
 
             // Generate value to save
             int minutesAfterMidnight = (hours * 60) + minutes;

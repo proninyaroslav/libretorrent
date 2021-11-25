@@ -157,10 +157,7 @@ public class FeedParser
             return mediaContentUrl;
 
         String guid = watchGuid(item);
-        if (guid != null)
-            return guid;
-
-        return null;
+        return guid;
     }
 
     /*

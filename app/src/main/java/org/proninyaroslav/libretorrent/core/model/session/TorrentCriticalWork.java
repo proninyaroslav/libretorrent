@@ -35,7 +35,7 @@ class TorrentCriticalWork
         SAVE_RESUME
     }
 
-    public class State
+    public static class State
     {
         public boolean moving;
         public boolean saveResume;
@@ -92,9 +92,7 @@ class TorrentCriticalWork
 
     private void emitChangedEvent()
     {
-        exec.submit(() -> {
-            stateChangedEvent.onNext(
-                    new State(moving.get(), saveResume.get() > 0, System.currentTimeMillis()));
-        });
+        exec.submit(() -> stateChangedEvent.onNext(
+                new State(moving.get(), saveResume.get() > 0, System.currentTimeMillis())));
     }
 }

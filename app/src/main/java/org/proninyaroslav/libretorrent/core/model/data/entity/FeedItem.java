@@ -139,6 +139,7 @@ public class FeedItem implements Parcelable
         return o instanceof FeedItem && (o == this || id.equals(((FeedItem)o).id));
     }
 
+    @NonNull
     @Override
     public String toString()
     {

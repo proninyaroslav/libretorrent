@@ -104,6 +104,7 @@ public class FileManagerNode implements FileNode<FileManagerNode>
                 enabled == fileManagerNode.enabled;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

@@ -202,8 +202,6 @@
     <string name="file_name">Имя файла</string>
     <string name="error_file_exists">Файл уже существует</string>
     <string name="file_name_is_empty">Сначала введите имя файла</string>
-    <string name="system_manager">Системный менеджер</string>
-    <string name="system_file_manager_not_found">Не удалось найти файловый менеджер</string>
     <string name="replace_file">Заменить файл</string>
     <string name="parent_folder">Родительская папка</string>
     <!-- Error dialog -->

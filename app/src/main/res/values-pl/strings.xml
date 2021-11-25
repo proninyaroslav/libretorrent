@@ -200,8 +200,6 @@
     <string name="file_name">Nazwa pliku</string>
     <string name="error_file_exists">Plik już istnieje</string>
     <string name="file_name_is_empty">Najpierw wprowadź nazwę pliku</string>
-    <string name="system_manager">Menedżer systemu</string>
-    <string name="system_file_manager_not_found">Nie udało się znaleźć menedżera plików</string>
     <string name="replace_file">Zastąp plik</string>
     <string name="parent_folder">Folder nadrzędny</string>
     <!-- Error dialog -->

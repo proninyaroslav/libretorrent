@@ -201,8 +201,6 @@
     <string name="file_name">文件名</string>
     <string name="error_file_exists">文件已经存在</string>
     <string name="file_name_is_empty">先输入一个文件名</string>
-    <string name="system_manager">系统管理员</string>
-    <string name="system_file_manager_not_found">找不到文件管理器</string>
     <string name="replace_file">替换文件</string>
     <string name="parent_folder">上层文件夹</string>
     <!-- Error dialog -->

@@ -58,7 +58,7 @@ public class ClipboardDialog extends DialogFragment
         }
     }
 
-    public class Item
+    public static class Item
     {
         public String dialogTag;
         public String str;

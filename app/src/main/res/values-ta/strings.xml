@@ -201,8 +201,6 @@
     <string name="file_name">கோப்பு பெயர்</string>
     <string name="error_file_exists">கோப்பு ஏற்கனவே உள்ளது</string>
     <string name="file_name_is_empty">கோப்பு பெயர் காலியாக இருக்க முடியாது</string>
-    <string name="system_manager">கணினி மேலாளர்</string>
-    <string name="system_file_manager_not_found">கணினி கோப்பு மேலாளர் காணப்படவில்லை</string>
     <string name="replace_file">கோப்பை மாற்றவும்</string>
     <string name="parent_folder">பெற்றோர் கோப்புறை</string>
     <!-- Error dialog -->

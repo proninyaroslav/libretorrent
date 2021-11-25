@@ -38,8 +38,8 @@ import java.util.List;
 public class TorrentInfo extends AbstractInfoParcel {
     @NonNull
     public String torrentId;
-    public String name = "";
-    public TorrentStateCode stateCode = TorrentStateCode.UNKNOWN;
+    public String name;
+    public TorrentStateCode stateCode;
     public int progress = 0;
     public long receivedBytes = 0L;
     public long uploadedBytes = 0L;
@@ -47,13 +47,13 @@ public class TorrentInfo extends AbstractInfoParcel {
     public long downloadSpeed = 0L;
     public long uploadSpeed = 0L;
     public long ETA = -1L;
-    public long dateAdded = 0L;
+    public long dateAdded;
     public int totalPeers = 0;
     public int peers = 0;
     public String error;
     public boolean sequentialDownload = false;
     public Priority[] filePriorities = new Priority[0];
-    public List<TagInfo> tags = new ArrayList<>();
+    public List<TagInfo> tags;
 
     public TorrentInfo(
             @NonNull String torrentId,
@@ -235,6 +235,7 @@ public class TorrentInfo extends AbstractInfoParcel {
                 tags.equals(info.tags));
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TorrentInfo{" +

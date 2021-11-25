@@ -32,8 +32,7 @@ class FakeIPFilter implements IPFilter
     private ArrayList<Pair<String, String>> ranges = new ArrayList<>();
 
     @Override
-    public void addRange(@NonNull String first, @NonNull String last) throws IPFilterException
-    {
+    public void addRange(@NonNull String first, @NonNull String last) {
         ranges.add(Pair.create(first, last));
     }
 

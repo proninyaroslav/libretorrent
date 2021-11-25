@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;

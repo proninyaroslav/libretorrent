@@ -24,8 +24,6 @@ import androidx.annotation.NonNull;
 import org.libtorrent4j.Pair;
 import org.proninyaroslav.libretorrent.BuildConfig;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class SessionSettings

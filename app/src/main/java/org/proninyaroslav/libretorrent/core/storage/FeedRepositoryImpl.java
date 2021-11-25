@@ -38,6 +38,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,7 +144,7 @@ public class FeedRepositoryImpl implements FeedRepository
     public void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException
     {
         SystemFacadeHelper.getFileSystemFacade(appContext)
-                .write(new Gson().toJson(getAllFeeds()), Charset.forName("UTF-8"), file);
+                .write(new Gson().toJson(getAllFeeds()), StandardCharsets.UTF_8, file);
     }
 
     @Override
@@ -153,7 +154,7 @@ public class FeedRepositoryImpl implements FeedRepository
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         try (FileDescriptorWrapper w = fs.getFD(file);
              FileInputStream fin = new FileInputStream(w.open("r"));
-             InputStreamReader reader = new InputStreamReader(fin, Charset.forName("UTF-8")))
+             InputStreamReader reader = new InputStreamReader(fin, StandardCharsets.UTF_8))
         {
             feeds = new Gson()
                     .fromJson(reader, new TypeToken<ArrayList<FeedChannel>>(){}

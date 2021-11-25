@@ -38,7 +38,6 @@
             android:background="?attr/toolbarColor" />
 
         <View
-            android:id="@+id/content_divider"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar_divider"

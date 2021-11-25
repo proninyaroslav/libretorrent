@@ -79,7 +79,7 @@ public class EmptyRecyclerView extends RecyclerView
     @Override
     public void setAdapter(Adapter adapter)
     {
-        Adapter oldAdapter = getAdapter();
+        var oldAdapter = getAdapter();
         if (oldAdapter != null)
             oldAdapter.unregisterAdapterDataObserver(observer);
 

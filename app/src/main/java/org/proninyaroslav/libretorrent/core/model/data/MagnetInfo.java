@@ -22,6 +22,8 @@ package org.proninyaroslav.libretorrent.core.model.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 /*
@@ -116,6 +118,7 @@ public class MagnetInfo implements Parcelable
         return sha1hash.hashCode();
     }
 
+    @NonNull
     @Override
     public String toString()
     {

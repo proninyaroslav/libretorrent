@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.sorting;
 
+import androidx.annotation.NonNull;
+
 public class BaseSorting
 {
     public enum Direction
@@ -63,6 +65,7 @@ public class BaseSorting
         return columnName;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

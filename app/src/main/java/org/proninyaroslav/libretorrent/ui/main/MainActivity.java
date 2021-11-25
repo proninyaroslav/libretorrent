@@ -774,7 +774,9 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                     .getAppVersionName();
             if (versionName != null)
                 versionTextView.setText(versionName);
-            descriptionTextView.setText(Html.fromHtml(getString(R.string.about_description)));
+            descriptionTextView.setText(
+                    Html.fromHtml(getString(R.string.about_description), Html.FROM_HTML_MODE_LEGACY)
+            );
             descriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }

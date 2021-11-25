@@ -161,11 +161,9 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         if (password != null) {
             String passwordValue = pref.proxyPassword();
             password.setText(passwordValue);
-            password.setOnBindEditTextListener((editText) -> {
-                password.setSummary(editText
-                        .getTransformationMethod()
-                        .getTransformation(passwordValue, editText).toString());
-            });
+            password.setOnBindEditTextListener((editText) -> password.setSummary(editText
+                    .getTransformationMethod()
+                    .getTransformation(passwordValue, editText).toString()));
             bindOnPreferenceChangeListener(password);
         }
     }
@@ -231,11 +229,9 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_password))) {
            pref.proxyPassword((String)newValue);
-            ((EditTextPreference)preference).setOnBindEditTextListener((editText) -> {
-                preference.setSummary(editText
-                        .getTransformationMethod()
-                        .getTransformation((String)newValue, editText).toString());
-            });
+            ((EditTextPreference)preference).setOnBindEditTextListener((editText) -> preference.setSummary(editText
+                    .getTransformationMethod()
+                    .getTransformation((String)newValue, editText).toString()));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_peers_too))) {
             pref.proxyPeersToo((boolean)newValue);

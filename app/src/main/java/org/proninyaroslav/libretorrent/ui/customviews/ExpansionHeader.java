@@ -19,7 +19,6 @@ package org.proninyaroslav.libretorrent.ui.customviews;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -157,10 +156,7 @@ public class ExpansionHeader extends FrameLayout
         if (resId == -1)
             return;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            textView.setTextAppearance(context, resId);
-        else
-            textView.setTextAppearance(resId);
+        textView.setTextAppearance(resId);
     }
 
     @Nullable

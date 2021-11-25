@@ -201,8 +201,6 @@
     <string name="file_name">Filnavn</string>
     <string name="error_file_exists">Filen finnes allerede</string>
     <string name="file_name_is_empty">Skriv inn et filnavn først</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">Fant ikke en filbehandler</string>
     <string name="replace_file">Erstatt fil</string>
     <string name="parent_folder">Ovennevnt mappe</string>
     <!-- Error dialog -->

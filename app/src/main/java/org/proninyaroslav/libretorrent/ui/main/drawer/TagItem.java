@@ -51,6 +51,7 @@ public class TagItem extends AbstractTagItem {
         return info.hashCode();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "TagItem{" +

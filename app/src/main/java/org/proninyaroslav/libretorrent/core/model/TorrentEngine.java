@@ -76,6 +76,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -529,7 +530,7 @@ public class TorrentEngine
     public void forceRecheckTorrents(@NonNull List<String> ids)
     {
         disposables.add(Observable.fromIterable(ids)
-                .filter((id) -> id != null)
+                .filter(Objects::nonNull)
                 .subscribe((id) -> {
                     if (!isRunning())
                         return;
@@ -543,7 +544,7 @@ public class TorrentEngine
     public void forceAnnounceTorrents(@NonNull List<String> ids)
     {
         disposables.add(Observable.fromIterable(ids)
-                .filter((id) -> id != null)
+                .filter(Objects::nonNull)
                 .subscribe((id) -> {
                     if (!isRunning())
                         return;
@@ -1350,7 +1351,7 @@ public class TorrentEngine
         {
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
-                    .filter((torrent) -> torrent != null)
+                    .filter(Objects::nonNull)
                     .subscribe((torrent) -> {
                                 notifier.makeTorrentFinishedNotify(torrent);
                                 if (torrent.visibility != Torrent.VISIBILITY_HIDDEN)
@@ -1364,10 +1365,8 @@ public class TorrentEngine
                                         setDownloadPath(id, Uri.parse(newPath));
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            })
+                            (Throwable t) -> Log.e(TAG, "Getting torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)))
             );
         }
 
@@ -1386,10 +1385,8 @@ public class TorrentEngine
 
                                 notifier.makeMovingTorrentNotify(name);
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            })
+                            (Throwable t) -> Log.e(TAG, "Getting torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)))
             );
         }
 
@@ -1413,24 +1410,20 @@ public class TorrentEngine
                                     notifier.makeTorrentErrorNotify(name,
                                             appContext.getString(R.string.torrent_move_fail));
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            })
+                            (Throwable t) -> Log.e(TAG, "Getting torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)))
             );
         }
 
         @Override
         public void onIpFilterParsed(int ruleCount)
         {
-            disposables.add(Completable.fromRunnable(() -> {
-                        Toast.makeText(appContext,
-                                (ruleCount > 0 ?
-                                        appContext.getString(R.string.ip_filter_add_success) :
-                                        appContext.getString(R.string.ip_filter_add_error, ruleCount)),
-                                Toast.LENGTH_LONG)
-                                .show();
-                    })
+            disposables.add(Completable.fromRunnable(() -> Toast.makeText(appContext,
+                    (ruleCount > 0 ?
+                            appContext.getString(R.string.ip_filter_add_success) :
+                            appContext.getString(R.string.ip_filter_add_error, ruleCount)),
+                    Toast.LENGTH_LONG)
+                    .show())
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe()
             );
@@ -1466,10 +1459,8 @@ public class TorrentEngine
                                 notifier.makeTorrentErrorNotify(name,
                                         appContext.getString(R.string.restore_torrent_error));
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            })
+                            (Throwable t) -> Log.e(TAG, "Getting torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)))
             );
         }
 
@@ -1483,7 +1474,7 @@ public class TorrentEngine
 
             disposables.add(repo.getTorrentByIdSingle(id)
                     .subscribeOn(Schedulers.io())
-                    .filter((torrent) -> torrent != null)
+                    .filter(Objects::nonNull)
                     .subscribe((torrent) -> {
                                 if (err == null) {
                                     if (pref.saveTorrentFiles())
@@ -1493,10 +1484,8 @@ public class TorrentEngine
                                     notifier.makeTorrentErrorNotify(torrent.name, appContext.getString(R.string.error_free_space));
                                 }
                             },
-                            (Throwable t) -> {
-                                Log.e(TAG, "Getting torrent " + id + " error: " +
-                                        Log.getStackTraceString(t));
-                            })
+                            (Throwable t) -> Log.e(TAG, "Getting torrent " + id + " error: " +
+                                    Log.getStackTraceString(t)))
             );
 
             if (checkPauseTorrents()) {

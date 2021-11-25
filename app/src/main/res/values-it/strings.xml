@@ -196,8 +196,6 @@
     <string name="file_name">Nome file</string>
     <string name="error_file_exists">Il file esiste già</string>
     <string name="file_name_is_empty">Specificare dapprima un nome file</string>
-    <string name="system_manager">Gestore di sistema</string>
-    <string name="system_file_manager_not_found">Gestore file non trovato</string>
     <string name="replace_file">Sostituisci file</string>
     <string name="parent_folder">Cartella superiore</string>
     <!-- Error dialog -->

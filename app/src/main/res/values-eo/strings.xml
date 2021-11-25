@@ -150,7 +150,6 @@
     <string name="torrent_state">Stato</string>
     <string name="more_details">Plu detaloj</string>
     <string name="parent_folder">Patra dosierujo</string>
-    <string name="system_manager">Operaciuma administrilo</string>
     <string name="file_name_is_empty">Enigu dosiernomon unue</string>
     <string name="error_file_exists">La dosiero jam ekzistas</string>
     <string name="file_name">Dosiernomo</string>
@@ -318,7 +317,6 @@
 \nHavebleco: %5$s</string>
     <string name="report">Raporti</string>
     <string name="replace_file">Anstataŭi dosiero</string>
-    <string name="system_file_manager_not_found">Ne povus trovi dosiermastrumilo</string>
     <string name="permission_denied">Permeso neita</string>
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="sequential_download">Sinsekva elŝutado</string>

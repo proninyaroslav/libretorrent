@@ -216,10 +216,8 @@ public class FeedItemsFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting item list error: " +
-                                    Log.getStackTraceString(t));
-                        });
+                        (Throwable t) -> Log.e(TAG, "Getting item list error: " +
+                                Log.getStackTraceString(t)));
     }
 
     private void getAllFeedItemsSingle()
@@ -233,10 +231,8 @@ public class FeedItemsFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting item list error: " +
-                                    Log.getStackTraceString(t));
-                        }));
+                        (Throwable t) -> Log.e(TAG, "Getting item list error: " +
+                                Log.getStackTraceString(t))));
     }
 
     private void subscribeRefreshStatus()

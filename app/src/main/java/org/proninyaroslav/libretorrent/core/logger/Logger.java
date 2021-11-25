@@ -93,7 +93,7 @@ public class Logger
 
     private int calcInitBufCapacity(int capacity)
     {
-        return (int) Math.floor(capacity / 2);
+        return (int) Math.floor(capacity / 2.0);
     }
 
     protected void send(@NonNull LogEntry entry)

@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
 
 public class InputFilterRangeTest
 {
-    class FilterCase
+    static class FilterCase
     {
         String description;
         Pair<Integer, Integer> range;

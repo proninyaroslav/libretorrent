@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.mediarss;
 
+import androidx.annotation.NonNull;
+
 /**
  * Optional element for P2P link.
  *
@@ -56,6 +58,7 @@ public class PeerLink {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MediaRssPeerLink{" +

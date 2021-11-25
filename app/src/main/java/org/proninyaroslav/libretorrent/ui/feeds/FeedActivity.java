@@ -350,12 +350,10 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
             return true;
         }).subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(() -> {
-              Toast.makeText(this,
-                      R.string.backup_feeds_successfully,
-                      Toast.LENGTH_SHORT)
-                      .show();
-          }, this::restoreFeedsBackupErrorDialog));
+          .subscribe(() -> Toast.makeText(this,
+                  R.string.backup_feeds_successfully,
+                  Toast.LENGTH_SHORT)
+                  .show(), this::restoreFeedsBackupErrorDialog));
     }
 
     private void restoreFeedsBackup(Uri file)

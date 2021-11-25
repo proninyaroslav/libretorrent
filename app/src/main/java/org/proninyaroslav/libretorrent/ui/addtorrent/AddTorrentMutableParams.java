@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.ObservableField;
@@ -137,6 +138,7 @@ public class AddTorrentMutableParams extends BaseObservable
         notifyPropertyChanged(BR.ignoreFreeSpace);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

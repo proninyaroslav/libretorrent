@@ -29,7 +29,6 @@ import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.DialogConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.data.StringFormat;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
@@ -44,8 +43,6 @@ public class MainApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Utils.migrateTray2SharedPreferences(this);
 
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
         builder

@@ -37,6 +37,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.FeedFetcherWorker;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -150,7 +151,7 @@ public class AddFeedViewModel extends AndroidViewModel
         disposables.add(repo.getFeedByIdSingle(feedId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter((channel) -> channel != null)
+                .filter(Objects::nonNull)
                 .subscribe((channel) -> {
                     mutableParams.setUrl(channel.url);
                     mutableParams.setName(channel.name);

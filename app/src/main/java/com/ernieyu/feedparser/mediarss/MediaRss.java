@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.mediarss;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class MediaRss {
         return peerLinks;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MediaRss{" +

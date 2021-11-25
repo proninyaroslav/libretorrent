@@ -30,7 +30,6 @@
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
 \nSaatavuus: %5$s</string>
-    <string name="system_manager">Järjestelmämanageri</string>
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="free_space">%1$s vapaana</string>
     <string name="peers_template">%1$d/%2$d</string>
@@ -431,7 +430,6 @@
     <string name="report">Raportoi</string>
     <string name="parent_folder">Yläkansio</string>
     <string name="replace_file">Korvaa tiedosto</string>
-    <string name="system_file_manager_not_found">Ei löydetty tiedostonhallintaohjelmaa</string>
     <string name="file_name_is_empty">Syötä tiedostonimi ensin</string>
     <string name="error_file_exists">Tiedosto on jo olemassa</string>
     <string name="file_name">Tiedostonimi</string>

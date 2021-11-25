@@ -194,8 +194,6 @@
     <string name="file_name">ফাইল নাম</string>
     <string name="error_file_exists">এই ফাইলটি ইতোমধ্যেই রয়েছে</string>
     <string name="file_name_is_empty">ফাইলের নাম খালি রাখা যাবে না</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->

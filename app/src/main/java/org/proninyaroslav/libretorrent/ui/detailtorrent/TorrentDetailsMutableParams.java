@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
@@ -80,6 +81,7 @@ public class TorrentDetailsMutableParams extends BaseObservable
         notifyPropertyChanged(BR.prioritiesChanged);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

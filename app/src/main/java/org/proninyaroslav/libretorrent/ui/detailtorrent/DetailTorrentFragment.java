@@ -266,31 +266,25 @@ public class DetailTorrentFragment extends Fragment
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleTorrentInfo,
-                        (Throwable e) -> {
-                            Log.e(TAG, "Getting info error: " + Log.getStackTraceString(e));
-                        }));
+                        (Throwable e) -> Log.e(TAG, "Getting info error: " + Log.getStackTraceString(e))));
 
         disposables.add(viewModel.observeAdvancedTorrentInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((info) -> viewModel.updateInfo(info),
-                        (Throwable e) -> {
-                            Log.e(TAG, "Getting advanced info error: " + Log.getStackTraceString(e));
-                        }));
+                        (Throwable e) -> Log.e(TAG, "Getting advanced info error: " + Log.getStackTraceString(e))));
     }
 
     private void subscribeMsgViewModel()
     {
         disposables.add(msgViewModel.observeFragmentInActionMode()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((inActionMode) -> {
-                    setTabLayoutColor(
-                            Utils.getAttributeColor(
-                                    activity,
-                                    inActionMode ? R.attr.actionModeBackground : R.attr.toolbarColor
-                            )
-                    );
-                }));
+                .subscribe((inActionMode) -> setTabLayoutColor(
+                        Utils.getAttributeColor(
+                                activity,
+                                inActionMode ? R.attr.actionModeBackground : R.attr.toolbarColor
+                        )
+                )));
     }
 
     private void subscribeFreeSpaceError()

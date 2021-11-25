@@ -177,8 +177,6 @@
     <string name="file_name">फ़ाइल का नाम</string>
     <string name="error_file_exists">फ़ाइल पहले से ही मौजूद है</string>
     <string name="file_name_is_empty">फ़ाइल का नाम रिक्त नहीं हो सकता</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
     <!-- Error dialog -->
     <string name="report">रिपोर्ट</string>
     <string name="more_details">अधिक जानकारी</string>

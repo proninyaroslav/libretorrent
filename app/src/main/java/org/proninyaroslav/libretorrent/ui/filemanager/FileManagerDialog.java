@@ -60,7 +60,6 @@ import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;

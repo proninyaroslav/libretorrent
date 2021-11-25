@@ -197,8 +197,6 @@
     <string name="file_name">Bestandsnaam</string>
     <string name="error_file_exists">Het bestand bestaat al</string>
     <string name="file_name_is_empty">Voer eerst een bestandsnaam in</string>
-    <string name="system_manager">Systeembeheerder</string>
-    <string name="system_file_manager_not_found">Kon geen bestandsbeheerder vinden</string>
     <string name="replace_file">Bestand vervangen</string>
     <string name="parent_folder">Bovenliggende map</string>
     <!-- Error dialog -->

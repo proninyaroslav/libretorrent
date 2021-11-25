@@ -201,8 +201,6 @@
     <string name="file_name">ഫയലിന്റെ പേര്</string>
     <string name="error_file_exists">ഫയൽ ഇതിനകം നിലവിലുണ്ട്</string>
     <string name="file_name_is_empty">ഫയലിന്റെ പേര് ശൂന്യമായിരിക്കരുത്</string>
-    <string name="system_manager">സിസ്റ്റം മാനേജർ</string>
-    <string name="system_file_manager_not_found">സിസ്റ്റം ഫയൽ മാനേജർ കണ്ടെത്തിയില്ല</string>
     <string name="replace_file">ഫയൽ മാറ്റിസ്ഥാപിക്കുക</string>
     <string name="parent_folder">മാതൃ ഫോൾഡർ</string>
     <!-- Error dialog -->

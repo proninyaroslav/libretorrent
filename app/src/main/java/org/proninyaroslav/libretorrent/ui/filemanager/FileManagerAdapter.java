@@ -88,7 +88,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
     public void submitList(@Nullable List<FileManagerNode> list)
     {
         if (list != null)
-            Collections.sort(list, directoryFirstCmp);
+            list.sort(directoryFirstCmp);
 
         super.submitList(list);
     }

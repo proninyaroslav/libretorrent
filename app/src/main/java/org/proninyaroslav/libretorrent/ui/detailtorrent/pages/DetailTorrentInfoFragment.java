@@ -47,7 +47,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentInfoBinding;
-import org.proninyaroslav.libretorrent.service.Scheduler;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
@@ -55,7 +54,6 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

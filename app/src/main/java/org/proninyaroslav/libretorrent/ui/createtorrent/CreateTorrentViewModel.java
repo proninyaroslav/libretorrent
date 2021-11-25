@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -157,7 +158,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         resetPercentProgress();
         disposables.add(builder.observeProgress()
                 .subscribeOn(Schedulers.io())
-                .filter((progress) -> progress != null)
+                .filter(Objects::nonNull)
                 .subscribe(this::makePercentProgress)
         );
         disposables.add(builder.build()

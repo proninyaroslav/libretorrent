@@ -295,10 +295,8 @@ public class MainFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting torrent info list error: " +
-                                    Log.getStackTraceString(t));
-                        });
+                        (Throwable t) -> Log.e(TAG, "Getting torrent info list error: " +
+                                Log.getStackTraceString(t)));
     }
 
     private void subscribeAlertDialog()
@@ -345,10 +343,8 @@ public class MainFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting torrent info list error: " +
-                                    Log.getStackTraceString(t));
-                        });
+                        (Throwable t) -> Log.e(TAG, "Getting torrent info list error: " +
+                                Log.getStackTraceString(t)));
     }
 
     private void subscribeTorrentsDeleted()

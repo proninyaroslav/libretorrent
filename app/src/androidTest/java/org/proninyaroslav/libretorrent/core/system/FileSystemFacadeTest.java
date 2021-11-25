@@ -66,7 +66,7 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void deleteFile() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("test.txt");
+        fsResolver.existsFileNames = Collections.singletonList("test.txt");
         try {
             assertTrue(fakeFs.deleteFile(Uri.parse("file:///root/test.txt")));
 
@@ -81,9 +81,9 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void getFileUri() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("test.txt");
+        fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertEquals("file:///root/test.txt", fakeFs.getFileUri(dirUri, "test.txt").toString());
-        fsResolver.existsFileNames = Arrays.asList("bar");
+        fsResolver.existsFileNames = Collections.singletonList("bar");
         assertNull(fakeFs.getFileUri(dirUri, "test.txt"));
         fsResolver.existsFileNames = null;
     }
@@ -91,9 +91,9 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void getFileUri_relativePath() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("bar.txt");
+        fsResolver.existsFileNames = Collections.singletonList("bar.txt");
         assertEquals("file:///root/foo/bar.txt", fakeFs.getFileUri("foo/bar.txt", dirUri).toString());
-        fsResolver.existsFileNames = Arrays.asList("test.txt");
+        fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertNull(fakeFs.getFileUri("foo/bar.txt", dirUri));
         fsResolver.existsFileNames = null;
     }
@@ -102,10 +102,10 @@ public class FileSystemFacadeTest extends AbstractTest
     public void createFile() throws UnknownUriException
     {
         try {
-            fsResolver.existsFileNames = Arrays.asList("test.txt");
+            fsResolver.existsFileNames = Collections.singletonList("test.txt");
             assertEquals("file:///root/test.txt", fakeFs.createFile(dirUri, "test.txt", false).toString());
             assertEquals("file:///root/test.txt", fakeFs.createFile(dirUri, "test.txt", true).toString());
-            fsResolver.existsFileNames = Arrays.asList("foo");
+            fsResolver.existsFileNames = Collections.singletonList("foo");
             assertEquals("file:///root/test.txt", fakeFs.createFile(dirUri, "test.txt", false).toString());
             assertEquals("file:///root/test.txt", fakeFs.createFile(dirUri, "test.txt", true).toString());
 
@@ -146,7 +146,7 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void getDirName() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("bar");
+        fsResolver.existsFileNames = Collections.singletonList("bar");
         assertEquals("bar", fakeFs.getDirPath(Uri.parse("file///root/bar")));
         fsResolver.existsFileNames = null;
     }
@@ -154,9 +154,9 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void fileExists() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("test.txt");
+        fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertTrue(fakeFs.fileExists(Uri.parse("file///root/test.txt")));
-        fsResolver.existsFileNames = Arrays.asList("bar");
+        fsResolver.existsFileNames = Collections.singletonList("bar");
         assertFalse(fakeFs.fileExists(Uri.parse("file///root/test.txt")));
         fsResolver.existsFileNames = null;
     }
@@ -164,9 +164,9 @@ public class FileSystemFacadeTest extends AbstractTest
     @Test
     public void makeFileSystemPath() throws UnknownUriException
     {
-        fsResolver.existsFileNames = Arrays.asList("bar.txt");
+        fsResolver.existsFileNames = Collections.singletonList("bar.txt");
         assertEquals("/root/foo/bar.txt", fakeFs.makeFileSystemPath(dirUri, "foo/bar.txt"));
-        fsResolver.existsFileNames = Arrays.asList("test.txt");
+        fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertNull(fakeFs.makeFileSystemPath(dirUri, "foo/bar.txt"));
         fsResolver.existsFileNames = null;
     }

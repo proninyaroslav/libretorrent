@@ -196,8 +196,6 @@
     <string name="file_name">‮اسم الملف</string>
     <string name="error_file_exists">الملف موجود مسبقا</string>
     <string name="file_name_is_empty">لا يمكن ترك الاسم فارغا</string>
-    <string name="system_manager">مدير النظام</string>
-    <string name="system_file_manager_not_found">لم يعثر على مدير ملفات النظام</string>
     <string name="replace_file">استبدال ملف</string>
     <string name="parent_folder">المجلد الأصل</string>
     <!-- Error dialog -->

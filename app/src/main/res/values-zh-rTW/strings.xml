@@ -198,8 +198,6 @@
     <string name="file_name">檔案名稱</string>
     <string name="error_file_exists">檔案已存在</string>
     <string name="file_name_is_empty">請輸入檔名</string>
-    <string name="system_manager">系統檔案管理員</string>
-    <string name="system_file_manager_not_found">找不到檔案管理員</string>
     <string name="replace_file">取代檔案</string>
     <string name="parent_folder">上層資料夾</string>
     <!-- Error dialog -->

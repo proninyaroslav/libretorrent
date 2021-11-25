@@ -36,7 +36,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemFeedItemsListBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;
 
@@ -175,7 +174,7 @@ public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAd
             TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ styleAttr });
             binding.title.setTextColor(a.getColor(0, 0));
             a.recycle();
-            Utils.setTextViewStyle(context, binding.title, (item.read ? R.style.normalText : R.style.boldText));
+            binding.title.setTextAppearance(item.read ? R.style.normalText : R.style.boldText);
             binding.title.setText(item.title);
 
             binding.pubDate.setText(SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)

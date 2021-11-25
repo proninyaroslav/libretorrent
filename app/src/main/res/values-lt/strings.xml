@@ -169,8 +169,6 @@
     <string name="file_name">Failo pavadinimas</string>
     <string name="error_file_exists">Failas jau egzistuoja</string>
     <string name="file_name_is_empty">Pirmiausia įveskite failo pavadinimą</string>
-    <string name="system_manager">Sistemos valdiklis</string>
-    <string name="system_file_manager_not_found">Nepavyko rasti failų tvarkyklės</string>
     <!-- Error dialog -->
     <string name="report">Ataskaita</string>
     <string name="more_details">Daugiau detalių</string>

@@ -186,6 +186,7 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
                 totalLeechers == state.totalLeechers;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

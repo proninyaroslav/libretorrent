@@ -68,7 +68,7 @@ public class TorrentInputStream extends InputStream
         private byte[] buf;
     }
 
-    private class Piece
+    private static class Piece
     {
         int index;
         int readLength;

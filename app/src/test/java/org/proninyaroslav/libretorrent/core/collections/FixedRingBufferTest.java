@@ -37,19 +37,19 @@ public class FixedRingBufferTest
     @Test(expected = IllegalArgumentException.class)
     public void testCapacityZero()
     {
-        new FixedRingBuffer(0);
+        new FixedRingBuffer<Integer>(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInitCapacityNegative()
     {
-        new FixedRingBuffer(-1, 10);
+        new FixedRingBuffer<Integer>(-1, 10);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInitCapacityGreatCapacity()
     {
-        new FixedRingBuffer(11, 10);
+        new FixedRingBuffer<Integer>(11, 10);
     }
 
     @Test

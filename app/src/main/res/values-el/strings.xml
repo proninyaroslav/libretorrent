@@ -201,8 +201,6 @@
     <string name="file_name">Όνομα αρχείου</string>
     <string name="error_file_exists">Το αρχείο υπάρχει ήδη</string>
     <string name="file_name_is_empty">Εισαγάγετε πρώτα ένα όνομα αρχείου</string>
-    <string name="system_manager">Διαχειριστής συστήματος</string>
-    <string name="system_file_manager_not_found">Δε βρέθηκε διαχειριστής αρχείων συστήματος</string>
     <string name="replace_file">Αντικατάσταση αρχείου</string>
     <string name="parent_folder">Γονικός φάκελος</string>
     <!-- Error dialog -->

@@ -194,8 +194,6 @@
     <string name="file_name">Dateiname</string>
     <string name="error_file_exists">Die Datei existiert bereits</string>
     <string name="file_name_is_empty">Der Dateiname darf nicht leer sein</string>
-    <string name="system_manager">System-Manager</string>
-    <string name="system_file_manager_not_found">Datei-Manager des Systems nicht gefunden</string>
     <string name="replace_file">Datei ersetzen</string>
     <string name="parent_folder">Übergeordnetes Verzeichnis</string>
     <!-- Error dialog -->

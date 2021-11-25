@@ -190,6 +190,7 @@ public class TorrentMetaInfo implements Parcelable
                 numPieces == info.numPieces;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

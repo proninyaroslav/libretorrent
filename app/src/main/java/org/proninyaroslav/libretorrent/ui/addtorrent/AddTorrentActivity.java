@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -258,9 +257,9 @@ public class AddTorrentActivity extends AppCompatActivity
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /* Disable elevation for portrait mode */
-        if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (!Utils.isTwoPane(this)) {
             binding.toolbar.setElevation(0);
-
+        }
 
         adapter = new AddTorrentPagerAdapter(this);
         binding.viewpager.setAdapter(adapter);

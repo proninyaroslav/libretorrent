@@ -200,8 +200,6 @@
     <string name="file_name">Nama berkas</string>
     <string name="error_file_exists">Berkas sudah ada</string>
     <string name="file_name_is_empty">Nama berkas tidak boleh kosong</string>
-    <string name="system_manager">Pengelola sistem</string>
-    <string name="system_file_manager_not_found">Pengelola berkas tidak ditemukan</string>
     <string name="replace_file">Ganti berkas</string>
     <string name="parent_folder">Folder induk</string>
     <!-- Error dialog -->

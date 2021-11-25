@@ -22,6 +22,8 @@ package org.proninyaroslav.libretorrent.core.model.stream;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class TorrentStream implements Parcelable
@@ -116,6 +118,7 @@ public class TorrentStream implements Parcelable
         return o instanceof TorrentStream && (o == this || id.equals(((TorrentStream)o).id));
     }
 
+    @NonNull
     @Override
     public String toString()
     {

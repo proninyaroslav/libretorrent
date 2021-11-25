@@ -146,9 +146,7 @@ public class FeedViewModel extends AndroidViewModel
 
     public void markAsReadFeeds(@NonNull List<Long> feedIdList)
     {
-        disposables.add(Completable.fromRunnable(() -> {
-            repo.markAsReadByFeedId(feedIdList);
-        }).subscribeOn(Schedulers.io())
+        disposables.add(Completable.fromRunnable(() -> repo.markAsReadByFeedId(feedIdList)).subscribeOn(Schedulers.io())
           .subscribe());
     }
 

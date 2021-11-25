@@ -115,9 +115,7 @@ public class FeedItemsViewModel extends AndroidViewModel
         if (feedId == -1)
             return;
 
-        disposables.add(Completable.fromRunnable(() -> {
-            repo.markAsReadByFeedId(Collections.singletonList(feedId));
-        }).subscribeOn(Schedulers.io())
+        disposables.add(Completable.fromRunnable(() -> repo.markAsReadByFeedId(Collections.singletonList(feedId))).subscribeOn(Schedulers.io())
           .subscribe());
     }
 

@@ -171,8 +171,6 @@
     <string name="file_name">Filnamn</string>
     <string name="error_file_exists">Filen existerar redan</string>
     <string name="file_name_is_empty">Ange ett namn först</string>
-    <string name="system_manager">System manager</string>
-    <string name="system_file_manager_not_found">Kunde inte hitta en filhanterare</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->

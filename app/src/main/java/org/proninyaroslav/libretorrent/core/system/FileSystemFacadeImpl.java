@@ -36,6 +36,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 class FileSystemFacadeImpl implements FileSystemFacade
@@ -384,12 +385,12 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     private void trimFilename(StringBuilder res, int maxBytes)
     {
-        byte[] raw = res.toString().getBytes(Charset.forName("UTF-8"));
+        byte[] raw = res.toString().getBytes(StandardCharsets.UTF_8);
         if (raw.length > maxBytes) {
             maxBytes -= 3;
             while (raw.length > maxBytes) {
                 res.deleteCharAt(res.length() / 2);
-                raw = res.toString().getBytes(Charset.forName("UTF-8"));
+                raw = res.toString().getBytes(StandardCharsets.UTF_8);
             }
             res.insert(res.length() / 2, "...");
         }

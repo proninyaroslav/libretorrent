@@ -74,6 +74,7 @@ public class DownloadableFileItem extends FileItem
                 }
             };
 
+    @NonNull
     @Override
     public String toString()
     {

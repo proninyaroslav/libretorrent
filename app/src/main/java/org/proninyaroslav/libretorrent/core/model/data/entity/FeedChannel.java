@@ -129,6 +129,7 @@ public class FeedChannel implements Parcelable
         return o instanceof FeedChannel && (o == this || id == ((FeedChannel)o).id);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

@@ -189,13 +189,8 @@ public class FeedFetcherWorker extends Worker
     private void filterItems(long id, List<FeedItem> items, long acceptMinDate)
     {
         List<String> existingItemsId = repo.getItemsIdByFeedId(id);
-        Iterator<FeedItem> it = items.iterator();
-        while (it.hasNext()) {
-            FeedItem item = it.next();
-            /* Also filtering the items that we already have in db */
-            if (item != null && (item.pubDate > 0 && item.pubDate <= acceptMinDate || existingItemsId.contains(item.id)))
-                it.remove();
-        }
+        /* Also filtering the items that we already have in db */
+        items.removeIf(item -> item != null && (item.pubDate > 0 && item.pubDate <= acceptMinDate || existingItemsId.contains(item.id)));
     }
 
     private void filterItemDuplicates(List<FeedItem> items)
@@ -205,12 +200,7 @@ public class FeedFetcherWorker extends Worker
             titles.add(item.title);
 
         List<String> existingTitles = repo.findItemsExistingTitles(titles);
-        Iterator<FeedItem> it = items.iterator();
-        while (it.hasNext()) {
-            FeedItem item = it.next();
-            if (item != null && existingTitles.contains(item.title))
-                it.remove();
-        }
+        items.removeIf(item -> item != null && existingTitles.contains(item.title));
     }
 
     private void deleteOldItems(long keepDateBorderTime)

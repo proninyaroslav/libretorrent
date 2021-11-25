@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.model.filetree;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
@@ -101,6 +102,7 @@ public class FilePriority implements Serializable
          return priority == filePriority.priority && type.equals(filePriority.getType());
     }
 
+    @NonNull
     @Override
     public String toString()
     {

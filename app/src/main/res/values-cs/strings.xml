@@ -201,8 +201,6 @@
     <string name="file_name">Název souboru</string>
     <string name="error_file_exists">Soubor již existuje</string>
     <string name="file_name_is_empty">Název souboru nemůže být prázdný</string>
-    <string name="system_manager">Systémový správce</string>
-    <string name="system_file_manager_not_found">Systémový správce souborů nebyl nalezen</string>
     <string name="replace_file">Nahradit soubor</string>
     <string name="parent_folder">Nadřazená složka</string>
     <!-- Error dialog -->

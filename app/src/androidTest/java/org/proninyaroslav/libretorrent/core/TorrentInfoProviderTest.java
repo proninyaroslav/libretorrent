@@ -189,7 +189,7 @@ public class TorrentInfoProviderTest extends AbstractTest
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((pieces) -> {
                     c.countDown();
-                    assertNotEquals(0, pieces);
+                    assertNotEquals(0, pieces.length);
                     boolean[] expectedPieces = engine.getPieces(params.sha1hash);
                     assertEquals(expectedPieces.length, pieces.length);
                 });

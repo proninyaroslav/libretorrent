@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.impl;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -113,6 +115,7 @@ class Rss1Feed extends BaseElement implements Feed {
         return itemList;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getTitle();

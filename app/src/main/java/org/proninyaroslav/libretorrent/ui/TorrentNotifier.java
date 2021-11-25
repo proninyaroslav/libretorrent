@@ -124,8 +124,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_ERROR);
+        builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(name.hashCode(), builder.build());
     }
@@ -141,8 +140,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_STATUS);
+        builder.setCategory(Notification.CATEGORY_STATUS);
 
         notifyManager.notify(name.hashCode(), builder.build());
     }
@@ -158,8 +156,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_ERROR);
+        builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(message.hashCode(), builder.build());
     }
@@ -175,8 +172,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_ERROR);
+        builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(SESSION_ERROR_NOTIFICATION_ID, builder.build());
     }
@@ -192,8 +188,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_ERROR);
+        builder.setCategory(Notification.CATEGORY_ERROR);
 
         notifyManager.notify(NAT_ERROR_NOTIFICATION_ID, builder.build());
     }
@@ -209,8 +204,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_STATUS);
+        builder.setCategory(Notification.CATEGORY_STATUS);
 
         notifyManager.notify(name.hashCode(), builder.build());
     }
@@ -229,8 +223,7 @@ public class TorrentNotifier {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            builder.setCategory(Notification.CATEGORY_STATUS);
+        builder.setCategory(Notification.CATEGORY_STATUS);
 
         applyLegacyNotifySettings(builder);
 

@@ -202,8 +202,6 @@
     <string name="file_name">Dosya adı</string>
     <string name="error_file_exists">Dosya zaten var</string>
     <string name="file_name_is_empty">Önce bir dosya adı girin</string>
-    <string name="system_manager">Sistem yöneticisi</string>
-    <string name="system_file_manager_not_found">Bir dosya yöneticisi bulunamadı</string>
     <string name="replace_file">Dosyayı değiştir</string>
     <string name="parent_folder">Üst klasör</string>
     <!-- Error dialog -->

@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.model.data;
 
+import androidx.annotation.NonNull;
+
 public class ReadPieceInfo
 {
     public int piece;
@@ -34,6 +36,7 @@ public class ReadPieceInfo
         this.err = err;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

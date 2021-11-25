@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.model.filetree;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 /*
@@ -118,6 +120,7 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
         return size;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

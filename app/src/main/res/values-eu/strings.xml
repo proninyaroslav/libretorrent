@@ -192,8 +192,6 @@
     <string name="file_name">Fitxategi izena</string>
     <string name="error_file_exists">Fitxategia lehendik ere existitzen da</string>
     <string name="file_name_is_empty">Izena ezin da hutsik egon</string>
-    <string name="system_manager">Sistema-administratzailea</string>
-    <string name="system_file_manager_not_found">Ez da aurkitu sistemako fitxategi administratzailea</string>
     <string name="replace_file">Ordeztu fitxategia</string>
     <string name="parent_folder">Karpeta nagusia</string>
     <!-- Error dialog -->

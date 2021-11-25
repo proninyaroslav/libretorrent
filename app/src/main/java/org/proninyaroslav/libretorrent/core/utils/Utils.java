@@ -31,8 +31,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
@@ -44,18 +42,15 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.preference.PreferenceManager;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -79,12 +74,12 @@ import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.IDN;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.MessageDigest;
@@ -127,9 +122,6 @@ public class Utils {
 
     public static void colorizeProgressBar(@NonNull Context context,
                                            @NonNull ProgressBar progress) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            return;
-
         progress.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(
                 getAttributeColor(context, R.attr.colorSecondary),
                 PorterDuff.Mode.SRC_IN)
@@ -173,35 +165,23 @@ public class Utils {
         boolean noUnmeteredOnly;
         boolean noRoaming;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            /*
-             * Use ConnectivityManager#isActiveNetworkMetered() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
-             * since Android detection VPN as metered, including on Android 9, oddly enough.
-             * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
-             *
-             * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
-             */
-            boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                    !systemFacade.isActiveNetworkMetered();
-            noUnmeteredOnly = !unmeteredOnly || unmetered;
+        NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+        /*
+         * Use ConnectivityManager#isActiveNetworkMetered() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
+         * since Android detection VPN as metered, including on Android 9, oddly enough.
+         * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
+         *
+         * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
+         */
+        boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                !systemFacade.isActiveNetworkMetered();
+        noUnmeteredOnly = !unmeteredOnly || unmetered;
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
-            } else {
-                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-                noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
-            }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
         } else {
             NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-            if (netInfo == null) {
-                noUnmeteredOnly = false;
-                noRoaming = false;
-            } else {
-                noUnmeteredOnly = !unmeteredOnly || !systemFacade.isActiveNetworkMetered();
-                noRoaming = !(enableRoaming && netInfo.isRoaming());
-            }
+            noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
         }
 
         return noUnmeteredOnly && noRoaming;
@@ -210,13 +190,9 @@ public class Utils {
     public static boolean isMetered(@NonNull Context context) {
         SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                    systemFacade.isActiveNetworkMetered();
-        } else {
-            return systemFacade.isActiveNetworkMetered();
-        }
+        NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+        return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                systemFacade.isActiveNetworkMetered();
     }
 
     public static boolean isRoaming(@NonNull Context context) {
@@ -445,78 +421,6 @@ public class Utils {
     }
 
     /*
-     * Migrate from Tray settings database to shared preferences.
-     * TODO: delete after some releases
-     */
-    @Deprecated
-    public static void migrateTray2SharedPreferences(@NonNull Context appContext) {
-        final String TAG = "tray2shared";
-        final String migrate_key = "tray2shared_migrated";
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(appContext);
-
-        if (pref.getBoolean(migrate_key, false))
-            return;
-
-        File dbFile = appContext.getDatabasePath("tray.db");
-        if (dbFile == null || !dbFile.exists()) {
-            Log.w(TAG, "Database not found");
-            pref.edit().putBoolean(migrate_key, true).apply();
-
-            return;
-        }
-        SQLiteDatabase db;
-        try {
-            db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
-        } catch (Exception e) {
-            Log.e(TAG, "Couldn't open database: " + Log.getStackTraceString(e));
-            appContext.deleteDatabase("tray");
-            pref.edit().putBoolean(migrate_key, true).apply();
-
-            return;
-        }
-        Cursor c = db.query("TrayPreferences",
-                new String[]{"KEY", "VALUE"},
-                null,
-                null,
-                null,
-                null,
-                null);
-        SharedPreferences.Editor edit = pref.edit();
-        Log.i(TAG, "Start migrate");
-        try {
-            int key_i = c.getColumnIndex("KEY");
-            int value_i = c.getColumnIndex("VALUE");
-            while (c.moveToNext()) {
-                String key = c.getString(key_i);
-                String value = c.getString(value_i);
-
-                if (value.equalsIgnoreCase("true")) {
-                    edit.putBoolean(key, true);
-                } else if (value.equalsIgnoreCase("false")) {
-                    edit.putBoolean(key, false);
-                } else {
-                    try {
-                        int number = Integer.parseInt(value);
-                        edit.putInt(key, number);
-                    } catch (NumberFormatException e) {
-                        edit.putString(key, value);
-                    }
-                }
-            }
-            Log.i(TAG, "Migrate completed");
-
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } finally {
-            c.close();
-            db.close();
-            appContext.deleteDatabase("tray.db");
-            edit.putBoolean(migrate_key, true);
-            edit.apply();
-        }
-    }
-
-    /*
      * Workaround for start service in Android 8+ if app no started.
      * We have a window of time to get around to calling startForeground() before we get ANR,
      * if work is longer than a millisecond but less than a few seconds.
@@ -667,7 +571,7 @@ public class Utils {
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
-        messageDigest.update(s.getBytes(Charset.forName("UTF-8")));
+        messageDigest.update(s.getBytes(StandardCharsets.UTF_8));
         StringBuilder sha1 = new StringBuilder();
         for (byte b : messageDigest.digest()) {
             if ((0xff & b) < 0x10)
@@ -717,7 +621,7 @@ public class Utils {
         int colorRes = typedValue.resourceId;
         int color = -1;
         try {
-            color = context.getResources().getColor(colorRes);
+            color = context.getResources().getColor(colorRes, null);
 
         } catch (Resources.NotFoundException e) {
             return color;
@@ -740,15 +644,6 @@ public class Utils {
         path = (TextUtils.isEmpty(path) ? fs.getDefaultDownloadPath() : path);
 
         return (path == null ? null : Uri.parse(fs.normalizeFileSystemPath(path)));
-    }
-
-    public static void setTextViewStyle(@NonNull Context context,
-                                        @NonNull TextView textView,
-                                        int resId) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            textView.setTextAppearance(context, resId);
-        else
-            textView.setTextAppearance(resId);
     }
 
     public static boolean isFileSystemPath(@NonNull Uri path) {

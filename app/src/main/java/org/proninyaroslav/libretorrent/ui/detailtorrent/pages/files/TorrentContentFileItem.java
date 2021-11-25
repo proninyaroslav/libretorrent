@@ -97,6 +97,7 @@ public class TorrentContentFileItem extends FileItem
                 availability == item.availability;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

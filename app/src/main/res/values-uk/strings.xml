@@ -201,8 +201,6 @@
     <string name="file_name">Назва файлу</string>
     <string name="error_file_exists">Файл вже існує</string>
     <string name="file_name_is_empty">Спочатку введіть назву файлу</string>
-    <string name="system_manager">Менеджер системи</string>
-    <string name="system_file_manager_not_found">Не вдалося знайти файловий менеджер</string>
     <string name="replace_file">Замінити файл</string>
     <string name="parent_folder">Батьківська папка</string>
     <!-- Error dialog -->

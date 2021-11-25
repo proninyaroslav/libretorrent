@@ -200,8 +200,6 @@
     <string name="file_name">Nume de fișier</string>
     <string name="error_file_exists">Fisierul există deja</string>
     <string name="file_name_is_empty">Numele fișierului nu poate fi gol</string>
-    <string name="system_manager">Manager de system</string>
-    <string name="system_file_manager_not_found">Manager de fișiere de sistem nu a fost găsit</string>
     <string name="replace_file">Înlocuire fişierul</string>
     <string name="parent_folder">Dosarul sursă</string>
     <!-- Error dialog -->

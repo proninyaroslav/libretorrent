@@ -201,8 +201,6 @@
     <string name="file_name">ファイル名</string>
     <string name="error_file_exists">そのファイルは既に存在します</string>
     <string name="file_name_is_empty">最初にファイル名を入力</string>
-    <string name="system_manager">システムマネージャー</string>
-    <string name="system_file_manager_not_found">ファイルマネージャーが見つかりませんでした</string>
     <string name="replace_file">ファイルを置き換え</string>
     <string name="parent_folder">親フォルダ</string>
     <!-- Error dialog -->

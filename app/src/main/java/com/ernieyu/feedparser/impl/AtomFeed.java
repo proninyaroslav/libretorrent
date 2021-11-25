@@ -1,5 +1,7 @@
 package com.ernieyu.feedparser.impl;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,6 +106,7 @@ class AtomFeed extends BaseElement implements Feed {
 	    return itemList;
 	}
     
+    @NonNull
     @Override
     public String toString() {
         return getTitle();

@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.createtorrent;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.ObservableField;
@@ -155,6 +156,7 @@ public class CreateTorrentMutableParams extends BaseObservable
         notifyPropertyChanged(BR.savePath);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

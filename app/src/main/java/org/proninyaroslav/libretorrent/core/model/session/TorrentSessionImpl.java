@@ -96,6 +96,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -817,7 +818,7 @@ public class TorrentSessionImpl extends SessionManager
     private void stopTasks()
     {
         disposables.add(Observable.fromIterable(torrentTasks.values())
-                .filter((task) -> task != null)
+                .filter(Objects::nonNull)
                 .map(TorrentDownload::requestStop)
                 .toList()
                 .flatMapCompletable(Completable::merge) /* Wait for all torrents */
@@ -1455,9 +1456,9 @@ public class TorrentSessionImpl extends SessionManager
             byte_vector v = new byte_vector();
             for (Priority priority : priorities) {
                 if (priority == null)
-                    v.add((byte)org.libtorrent4j.Priority.IGNORE.swig());
+                    v.add(org.libtorrent4j.Priority.IGNORE.swig());
                 else
-                    v.add((byte)PriorityConverter.convert(priority).swig());
+                    v.add(PriorityConverter.convert(priority).swig());
             }
 
             p.set_file_priorities(v);

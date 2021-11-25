@@ -20,10 +20,8 @@
 package org.proninyaroslav.libretorrent.ui.addtag;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;

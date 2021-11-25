@@ -912,7 +912,7 @@ class TorrentDownloadImpl implements TorrentDownload
         peer_info_vector v = new peer_info_vector();
         th_swig.get_peer_info(v);
 
-        int size = (int)v.size();
+        int size = v.size();
         ArrayList<AdvancedPeerInfo> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
             l.add(new AdvancedPeerInfo(v.get(i)));

@@ -199,6 +199,8 @@ public class AddTorrentViewModel extends AndroidViewModel {
         private final WeakReference<AddTorrentViewModel> viewModel;
 
         private TorrentDecodeTask(AddTorrentViewModel viewModel) {
+            super();
+
             this.viewModel = new WeakReference<>(viewModel);
         }
 

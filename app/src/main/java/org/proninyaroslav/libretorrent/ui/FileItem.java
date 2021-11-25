@@ -117,6 +117,7 @@ public class FileItem implements Parcelable, Comparable<FileItem>
         return name.compareTo(o.name);
     }
 
+    @NonNull
     @Override
     public String toString()
     {

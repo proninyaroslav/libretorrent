@@ -264,10 +264,8 @@ public class FeedFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting feed list error: " +
-                                    Log.getStackTraceString(t));
-                        });
+                        (Throwable t) -> Log.e(TAG, "Getting feed list error: " +
+                                Log.getStackTraceString(t)));
     }
 
     private void getAllFeedsSingle()
@@ -281,10 +279,8 @@ public class FeedFragment extends Fragment
                 )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::submitList,
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting feed list error: " +
-                                    Log.getStackTraceString(t));
-                        }));
+                        (Throwable t) -> Log.e(TAG, "Getting feed list error: " +
+                                Log.getStackTraceString(t))));
     }
 
     private void subscribeMsgViewModel()

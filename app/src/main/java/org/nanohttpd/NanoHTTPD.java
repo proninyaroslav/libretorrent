@@ -32,6 +32,8 @@ package org.nanohttpd;
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * #L%
  */
+import androidx.annotation.NonNull;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -250,6 +252,7 @@ public abstract class NanoHTTPD {
         public void delete(String name) {
             set(name, "-delete-", -30);
         }
+        @NonNull
         @Override
         public Iterator<String> iterator() {
             return this.cookies.keySet().iterator();

@@ -170,6 +170,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         return availability;
     }
 
+    @NonNull
     @Override
     public String toString()
     {
