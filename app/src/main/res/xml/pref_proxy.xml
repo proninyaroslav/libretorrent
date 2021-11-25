@@ -5,7 +5,7 @@
     <ListPreference
         android:key="@string/pref_key_proxy_type"
         android:title="@string/pref_proxy_type_title"
-        android:summary="%s"
+        app:useSimpleSummaryProvider="true"
         android:entries="@array/pref_proxy_type_entries"
         android:entryValues="@array/pref_proxy_type_entries_value"
         app:singleLineTitle="false"

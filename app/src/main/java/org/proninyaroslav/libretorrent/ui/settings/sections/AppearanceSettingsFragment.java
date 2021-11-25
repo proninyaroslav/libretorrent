@@ -36,18 +36,16 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
-import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
-import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements
@@ -192,7 +190,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_appearance, rootKey);
     }

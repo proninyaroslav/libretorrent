@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -25,8 +25,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;

@@ -30,9 +30,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -194,7 +193,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_storage, rootKey);
     }

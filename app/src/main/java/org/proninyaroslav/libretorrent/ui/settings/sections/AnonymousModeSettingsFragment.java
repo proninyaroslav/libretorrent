@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,8 +22,7 @@ package org.proninyaroslav.libretorrent.ui.settings.sections;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -63,7 +62,7 @@ public class AnonymousModeSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_anonymous_mode, rootKey);
     }

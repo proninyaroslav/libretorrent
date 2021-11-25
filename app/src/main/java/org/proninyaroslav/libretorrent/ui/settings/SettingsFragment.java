@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,8 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -213,7 +212,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_headers, rootKey);
     }

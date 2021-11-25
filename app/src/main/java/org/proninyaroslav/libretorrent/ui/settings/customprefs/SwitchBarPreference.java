@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,8 +24,7 @@ import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
 import androidx.preference.PreferenceViewHolder;
-
-import com.takisoft.preferencex.SwitchPreferenceCompat;
+import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.ui.customviews.SwitchBar;

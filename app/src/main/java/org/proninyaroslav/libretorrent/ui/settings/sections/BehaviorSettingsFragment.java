@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,12 +24,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
-
-import com.takisoft.preferencex.EditTextPreference;
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -186,7 +185,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_behavior, rootKey);
     }

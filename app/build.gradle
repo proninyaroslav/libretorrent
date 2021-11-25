@@ -128,9 +128,10 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
+    implementation "androidx.preference:preference:1.1.1"
 
     /* ReactiveX */
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     /* ACRA */
@@ -147,7 +148,7 @@ dependencies {
     implementation "org.libtorrent4j:libtorrent4j-android-x86_64:$LIBTORRENT4J_VERSION"
 
     /* Other */
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
     implementation 'com.jaredrummler:colorpicker:1.1.0'
@@ -155,8 +156,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
     implementation 'org.apache.commons:commons-text:1.9'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.takisoft.preferencex:preferencex:1.1.0'
-    implementation 'com.leinardi.android:speed-dial:3.1.1'
-    implementation 'net.java.dev.jna:jna:5.6.0@aar'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.leinardi.android:speed-dial:3.2.0'
+    implementation 'net.java.dev.jna:jna:5.10.0@aar'
 }
