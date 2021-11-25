@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.receiver;
 
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,36 +28,47 @@ import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.service.Scheduler;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 
 /*
  * The receiver for autostart service.
  */
 
-public class BootReceiver extends BroadcastReceiver
-{
+public class BootReceiver extends BroadcastReceiver {
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
-        if (intent.getAction() == null)
-            return;
+    public void onReceive(Context context, Intent intent) {
+        var appContext = context.getApplicationContext();
+        var pref = RepositoryHelper.getSettingsRepository(appContext);
 
-        Context appContext = context.getApplicationContext();
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
-
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+        var action = intent.getAction();
+        if (isBootCompleted(action)) {
             initScheduling(context, pref);
-
-            if (pref.autostart() && pref.keepAlive())
+            if (pref.autostart() && pref.keepAlive()) {
                 TorrentEngine.getInstance(appContext).start();
+            }
+        } else if (AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED.equals(action)) {
+            initScheduling(context, pref);
         }
     }
 
-    private void initScheduling(Context appContext, SettingsRepository pref)
-    {
-        if (pref.enableSchedulingStart())
-            Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime());
+    private boolean isBootCompleted(String action) {
+        return Intent.ACTION_BOOT_COMPLETED.equals(action) ||
+                "android.intent.action.QUICKBOOT_POWERON".equals(action) ||
+                "com.htc.intent.action.QUICKBOOT_POWERON".equals(action);
+    }
 
-        if (pref.enableSchedulingShutdown())
-            Scheduler.setStopAppAlarm(appContext, pref.schedulingShutdownTime());
+    private void initScheduling(Context appContext, SettingsRepository pref) {
+        var notifier = TorrentNotifier.getInstance(appContext);
+
+        if (pref.enableSchedulingStart()) {
+            if (!Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime())) {
+                notifier.makeExactAlarmPermissionNotify();
+            }
+        }
+        if (pref.enableSchedulingShutdown()) {
+            if (!Scheduler.setStopAppAlarm(appContext, pref.schedulingShutdownTime())) {
+                notifier.makeExactAlarmPermissionNotify();
+            }
+        }
     }
 }

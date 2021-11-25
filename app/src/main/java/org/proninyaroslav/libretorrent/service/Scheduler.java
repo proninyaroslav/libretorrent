@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,8 +24,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -40,8 +42,7 @@ import org.proninyaroslav.libretorrent.receiver.SchedulerReceiver;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class Scheduler
-{
+public class Scheduler {
     public static final String SCHEDULER_WORK_START_APP = "scheduler_work_start_app";
     public static final String SCHEDULER_WORK_STOP_APP = "scheduler_work_stop_app";
     public static final String SCHEDULER_WORK_PERIODICAL_REFRESH_FEEDS = "scheduler_work_periodical_refresh_feeds";
@@ -50,35 +51,36 @@ public class Scheduler
      * Time in minutes after 00:00
      */
 
-    public static void setStartAppAlarm(@NonNull Context appContext, int time)
-    {
-        setStartStopAppAlarm(appContext, SCHEDULER_WORK_START_APP, time);
+    public static boolean setStartAppAlarm(@NonNull Context appContext, int time) {
+        return setStartStopAppAlarm(appContext, SCHEDULER_WORK_START_APP, time);
     }
 
-    public static void setStopAppAlarm(@NonNull Context appContext, int time)
-    {
-        setStartStopAppAlarm(appContext, SCHEDULER_WORK_STOP_APP, time);
+    public static boolean setStopAppAlarm(@NonNull Context appContext, int time) {
+        return setStartStopAppAlarm(appContext, SCHEDULER_WORK_STOP_APP, time);
     }
 
-    public static void cancelStartAppAlarm(@NonNull Context appContext)
-    {
+    public static void cancelStartAppAlarm(@NonNull Context appContext) {
         Intent intent = new Intent(appContext, SchedulerReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(appContext, SCHEDULER_WORK_START_APP.hashCode(), intent, 0);
-        AlarmManager am = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pi = PendingIntent.getBroadcast(
+                appContext, SCHEDULER_WORK_START_APP.hashCode(), intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        AlarmManager am = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
         am.cancel(pi);
     }
 
-    public static void cancelStopAppAlarm(@NonNull Context appContext)
-    {
+    public static void cancelStopAppAlarm(@NonNull Context appContext) {
         Intent intent = new Intent(appContext, SchedulerReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(appContext, SCHEDULER_WORK_STOP_APP.hashCode(), intent, 0);
-        AlarmManager am = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pi = PendingIntent.getBroadcast(
+                appContext, SCHEDULER_WORK_STOP_APP.hashCode(), intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        AlarmManager am = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
         am.cancel(pi);
     }
 
-    private static void setStartStopAppAlarm(@NonNull Context appContext,
-                                             @NonNull String workTag, int time)
-    {
+    private static boolean setStartStopAppAlarm(@NonNull Context appContext,
+                                                @NonNull String workTag, int time) {
         Calendar calendar = Calendar.getInstance();
         long timeInMillis = System.currentTimeMillis();
 
@@ -92,27 +94,30 @@ public class Scheduler
 
         Intent intent = new Intent(appContext, SchedulerReceiver.class);
         intent.setAction(workTag);
-        PendingIntent pi = PendingIntent.getBroadcast(appContext, workTag.hashCode(), intent, 0);
-        AlarmManager am = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pi = PendingIntent.getBroadcast(
+                appContext, workTag.hashCode(), intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        AlarmManager am = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-        else
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !am.canScheduleExactAlarms()) {
+            return false;
+        }
+        am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+        return true;
     }
 
     /*
      * Interval in milliseconds
      */
 
-    public static void runPeriodicalRefreshFeeds(@NonNull Context appContext, long interval)
-    {
+    public static void runPeriodicalRefreshFeeds(@NonNull Context appContext, long interval) {
         Data data = new Data.Builder()
                 .putString(FeedFetcherWorker.TAG_ACTION, FeedFetcherWorker.ACTION_FETCH_ALL_CHANNELS)
                 .build();
         PeriodicWorkRequest work = new PeriodicWorkRequest.Builder(FeedFetcherWorker.class,
-                    interval,
-                    TimeUnit.MILLISECONDS)
+                interval,
+                TimeUnit.MILLISECONDS)
                 .setInputData(data)
                 .setConstraints(getRefreshFeedsConstraints(appContext))
                 .addTag(SCHEDULER_WORK_PERIODICAL_REFRESH_FEEDS)
@@ -122,8 +127,7 @@ public class Scheduler
                 ExistingPeriodicWorkPolicy.REPLACE, work);
     }
 
-    private static Constraints getRefreshFeedsConstraints(Context appContext)
-    {
+    private static Constraints getRefreshFeedsConstraints(Context appContext) {
         SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
 
         NetworkType netType = NetworkType.CONNECTED;
@@ -137,8 +141,7 @@ public class Scheduler
                 .build();
     }
 
-    public static void cancelPeriodicalRefreshFeeds(@NonNull Context appContext)
-    {
+    public static void cancelPeriodicalRefreshFeeds(@NonNull Context appContext) {
         WorkManager.getInstance(appContext).cancelAllWorkByTag(SCHEDULER_WORK_PERIODICAL_REFRESH_FEEDS);
     }
 }

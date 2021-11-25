@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,6 +23,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -34,13 +35,21 @@ import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
+import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference;
 import org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreferenceDialogFragmentCompat;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class SchedulingSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener
 {
+    private static final String TAG_EXACT_ALARM_PERMISSION_DIALOG = "exact_alarm_permission_dialog";
+
     private SettingsRepository pref;
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
 
     public static SchedulingSettingsFragment newInstance()
     {
@@ -56,6 +65,7 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
         super.onCreate(savedInstanceState);
 
         pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        dialogViewModel = new ViewModelProvider(getActivity()).get(BaseAlertDialog.SharedViewModel.class);
 
         String keyEnableStart = getString(R.string.pref_key_enable_scheduling_start);
         SwitchPreferenceCompat enableStart = findPreference(keyEnableStart);
@@ -100,6 +110,57 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
         }
     }
 
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_EXACT_ALARM_PERMISSION_DIALOG)) {
+                        return;
+                    }
+                    if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
+                        Utils.requestExactAlarmPermission(getContext());
+                    }
+                });
+        disposables.add(d);
+    }
+
+    private void showExactAlarmPermissionDialog()
+    {
+        if (!isAdded())
+            return;
+
+        var fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_EXACT_ALARM_PERMISSION_DIALOG) == null) {
+            var exactAlarmDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.permission_denied),
+                    getString(R.string.exact_alarm_permission_warning),
+                    0,
+                    getString(R.string.yes),
+                    getString(R.string.no),
+                    null,
+                    true);
+
+            exactAlarmDialog.show(fm, TAG_EXACT_ALARM_PERMISSION_DIALOG);
+        }
+    }
+
     @Override
     public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
     {
@@ -137,7 +198,9 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
 
             if ((boolean)newValue) {
                 int time = pref.schedulingStartTime();
-                Scheduler.setStartAppAlarm(context, time);
+                if (!Scheduler.setStartAppAlarm(context, time)) {
+                    showExactAlarmPermissionDialog();
+                }
             } else {
                 Scheduler.cancelStartAppAlarm(context);
             }
@@ -148,7 +211,9 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
 
             if ((boolean)newValue) {
                 int time = pref.schedulingStartTime();
-                Scheduler.setStopAppAlarm(context, time);
+                if (!Scheduler.setStopAppAlarm(context, time)) {
+                    showExactAlarmPermissionDialog();
+                }
             } else {
                 Scheduler.cancelStopAppAlarm(context);
             }
@@ -156,11 +221,15 @@ public class SchedulingSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_start_time))) {
             pref.schedulingStartTime((int)newValue);
-            Scheduler.setStartAppAlarm(context, (int)newValue);
+            if (!Scheduler.setStartAppAlarm(context, (int)newValue)) {
+                showExactAlarmPermissionDialog();
+            }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_shutdown_time))) {
             pref.schedulingShutdownTime((int)newValue);
-            Scheduler.setStopAppAlarm(context, (int)newValue);
+            if (!Scheduler.setStopAppAlarm(context, (int)newValue)) {
+                showExactAlarmPermissionDialog();
+            }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_scheduling_run_only_once))) {
             pref.schedulingRunOnlyOnce((boolean)newValue);

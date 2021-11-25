@@ -531,6 +531,7 @@
     <string name="pref_scheduling_run_only_once_title">Only run once</string>
     <string name="pref_scheduling_switch_wifi_title">Toggle Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Turn on Wi-Fi for scheduled start, and off for scheduled stop.</string>
+    <string name="exact_alarm_permission_warning">For the scheduler to work, you must obtain permission in a special system dialog. Proceed?</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto-refresh channels</string>
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background.</string>

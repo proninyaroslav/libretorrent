@@ -42,6 +42,7 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -51,6 +52,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
@@ -763,6 +765,18 @@ public class Utils {
 
     public static int getRandomColor() {
         return ((int) (Math.random() * 16777215)) | (0xFF << 24);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    public static Intent buildExactAlarmPermissionRequest(@NonNull Context context) {
+        var uri = Uri.fromParts("package", context.getPackageName(), null);
+        return new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).setData(uri);
+    }
+
+    public static void requestExactAlarmPermission(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            context.startActivity(buildExactAlarmPermissionRequest(context));
+        }
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

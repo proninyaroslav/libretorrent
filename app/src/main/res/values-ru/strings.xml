@@ -503,6 +503,7 @@
     <string name="pref_scheduling_run_only_once_title">Запустить только один раз</string>
     <string name="pref_scheduling_switch_wifi_title">Включить/выключить Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Включать Wi-Fi при запланированном запуске и выключать при запланированной остановке.</string>
+    <string name="exact_alarm_permission_warning">Для работы планировщика необходимо получить разрешение в специальном системном диалоге. Продолжить?</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Автообновление каналов</string>
     <string name="pref_feed_auto_refresh_summary">Периодически обновлять каналы в фоне.</string>

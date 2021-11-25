@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,6 +29,7 @@ import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
+import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 
 import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_START_APP;
 import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_STOP_APP;
@@ -45,22 +46,23 @@ public class SchedulerReceiver extends BroadcastReceiver
         if (intent.getAction() == null)
             return;
 
-        Context appContext = context.getApplicationContext();
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
+        var appContext = context.getApplicationContext();
+        var pref = RepositoryHelper.getSettingsRepository(appContext);
+        var notifier = TorrentNotifier.getInstance(appContext);
 
         switch (intent.getAction()) {
             case SCHEDULER_WORK_START_APP: {
-                onStartApp(appContext, pref);
+                onStartApp(appContext, pref, notifier);
                 break;
             }
             case SCHEDULER_WORK_STOP_APP: {
-                onStopApp(appContext, pref);
+                onStopApp(appContext, pref, notifier);
                 break;
             }
         }
     }
 
-    private void onStartApp(Context appContext, SettingsRepository pref)
+    private void onStartApp(Context appContext, SettingsRepository pref, TorrentNotifier notifier)
     {
         if (!pref.enableSchedulingStart())
             return;
@@ -68,8 +70,8 @@ public class SchedulerReceiver extends BroadcastReceiver
         boolean oneshot = pref.schedulingRunOnlyOnce();
         if (oneshot) {
             pref.enableSchedulingStart(false);
-        } else {
-            Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime());
+        } else if (!Scheduler.setStartAppAlarm(appContext, pref.schedulingStartTime())) {
+            notifier.makeExactAlarmPermissionNotify();
         }
         if (pref.schedulingSwitchWiFi())
             ((WifiManager)appContext.getApplicationContext()
@@ -79,7 +81,7 @@ public class SchedulerReceiver extends BroadcastReceiver
         Utils.enableBootReceiverIfNeeded(appContext);
     }
 
-    private void onStopApp(Context appContext, SettingsRepository pref)
+    private void onStopApp(Context appContext, SettingsRepository pref, TorrentNotifier notifier)
     {
         if (!pref.enableSchedulingShutdown())
             return;
@@ -87,8 +89,8 @@ public class SchedulerReceiver extends BroadcastReceiver
         boolean oneshot = pref.schedulingRunOnlyOnce();
         if (oneshot) {
             pref.enableSchedulingShutdown(false);
-        } else {
-            Scheduler.setStartAppAlarm(appContext, pref.schedulingShutdownTime());
+        } else if (!Scheduler.setStartAppAlarm(appContext, pref.schedulingShutdownTime())) {
+            notifier.makeExactAlarmPermissionNotify();
         }
 
         TorrentEngine.getInstance(appContext).forceStop();
