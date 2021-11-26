@@ -125,7 +125,7 @@ public class TrackerInfo extends AbstractInfoParcel {
         if (numUpdating != null && numUpdating > 0) {
             return new Result(Status.UPDATING, "");
         } else if (numWorking != null && numWorking > 0) {
-            return new Result(Status.WORKING, firstErrorMessage);
+            return new Result(Status.WORKING, firstTrackerMessage);
         } else if (numNotWorking != null && numNotWorking.equals(numEndpoints)) {
             return new Result(
                     Status.NOT_WORKING,
