@@ -401,14 +401,13 @@ public class TorrentService extends Service
             if (state == null)
                 continue;
 
-            String template;
             TorrentStateCode code = state.stateCode;
 
             if (code == TorrentStateCode.DOWNLOADING) {
                 ++downloadingCount;
                 inboxStyle.addLine(getString(R.string.downloading_torrent_notify_template,
                         state.progress,
-                        (state.ETA == -1) ? Utils.INFINITY_SYMBOL :
+                        (state.ETA >= TorrentInfo.MAX_ETA) ? Utils.INFINITY_SYMBOL :
                                 DateUtils.formatElapsedTime(state.ETA),
                         Formatter.formatFileSize(this, state.downloadSpeed),
                         state.name));

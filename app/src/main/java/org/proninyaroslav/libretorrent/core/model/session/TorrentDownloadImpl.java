@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -18,6 +18,8 @@
  */
 
 package org.proninyaroslav.libretorrent.core.model.session;
+
+import static org.proninyaroslav.libretorrent.core.model.data.TorrentInfo.MAX_ETA;
 
 import android.net.Uri;
 import android.text.TextUtils;
@@ -103,7 +105,6 @@ class TorrentDownloadImpl implements TorrentDownload
     /* For streaming */
     private final static int PRELOAD_PIECES_COUNT = 5;
     private static final int DEFAULT_PIECE_DEADLINE = 1000; /* ms */
-    private static final int MAX_METADATA_SIZE = 2 * 1024 * 1024;
 
     private static final int[] INNER_LISTENER_TYPES = new int[] {
             AlertType.STATE_CHANGED.swig(),
@@ -1070,9 +1071,9 @@ class TorrentDownloadImpl implements TorrentDownload
     public long getETA()
     {
         if (operationNotAllowed())
-            return 0;
+            return MAX_ETA;
         if (getStateCode() != TorrentStateCode.DOWNLOADING)
-            return 0;
+            return MAX_ETA;
 
         TorrentStatus status = th.status();
         long left = status.totalWanted() - status.totalWantedDone();
@@ -1080,9 +1081,9 @@ class TorrentDownloadImpl implements TorrentDownload
         if (left <= 0)
             return 0;
         if (rate <= 0)
-            return -1;
+            return MAX_ETA;
 
-        return left / rate;
+        return Math.min(left / rate, MAX_ETA);
     }
 
     @Override

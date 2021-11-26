@@ -36,6 +36,8 @@ import java.util.List;
  */
 
 public class TorrentInfo extends AbstractInfoParcel {
+    public static final long MAX_ETA = 8640000;
+
     @NonNull
     public String torrentId;
     public String name;
@@ -46,7 +48,7 @@ public class TorrentInfo extends AbstractInfoParcel {
     public long totalBytes = 0L;
     public long downloadSpeed = 0L;
     public long uploadSpeed = 0L;
-    public long ETA = -1L;
+    public long ETA = MAX_ETA;
     public long dateAdded;
     public int totalPeers = 0;
     public int peers = 0;

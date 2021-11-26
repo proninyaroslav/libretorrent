@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentListBinding;
@@ -236,7 +237,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             String totalBytes = Formatter.formatFileSize(context, item.totalBytes);
             String receivedBytes;
             String ETA;
-            if (item.ETA == -1)
+            if (item.ETA >= TorrentInfo.MAX_ETA)
                 ETA = "\u2022 " + Utils.INFINITY_SYMBOL;
             else if (item.ETA == 0)
                 ETA = "";
