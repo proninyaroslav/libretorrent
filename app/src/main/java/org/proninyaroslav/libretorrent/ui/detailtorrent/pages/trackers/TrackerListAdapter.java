@@ -112,7 +112,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
         return getCurrentList().indexOf(key);
     }
 
-    private static final DiffUtil.ItemCallback<TrackerItem> diffCallback = new DiffUtil.ItemCallback<TrackerItem>()
+    private static final DiffUtil.ItemCallback<TrackerItem> diffCallback = new DiffUtil.ItemCallback<>()
     {
         @Override
         public boolean areContentsTheSame(@NonNull TrackerItem oldItem,
@@ -184,12 +184,17 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
                     status = context.getString(R.string.tracker_state_not_working);
                     break;
             }
-            binding.status.setText(status);
-            if (!TextUtils.isEmpty(item.message)) {
+            if (TextUtils.isEmpty(status)) {
+                binding.status.setVisibility(View.GONE);
+            } else {
+                binding.status.setVisibility(View.VISIBLE);
+                binding.status.setText(status);
+            }
+            if (TextUtils.isEmpty(item.message)) {
+                binding.message.setVisibility(View.GONE);
+            } else {
                 binding.message.setVisibility(View.VISIBLE);
                 binding.message.setText(item.message);
-            } else {
-                binding.message.setVisibility(View.GONE);
             }
 
             if (item.status == TrackerInfo.Status.WORKING)
