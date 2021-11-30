@@ -244,9 +244,6 @@ public class AddTorrentActivity extends AppCompatActivity
             if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
                 permissionManager.requestPermissions();
             }
-            if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
-                permissionManager.setDoNotAsk(true);
-            }
         }
     }
 
