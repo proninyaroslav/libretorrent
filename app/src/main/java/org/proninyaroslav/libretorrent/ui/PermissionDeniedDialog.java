@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui;
 
 import android.app.Dialog;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,9 +42,7 @@ public class PermissionDeniedDialog extends BaseAlertDialog {
         super.onCreateDialog(savedInstanceState);
 
         String title = getString(R.string.perm_denied_title);
-        String message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
-                getString(R.string.perm_denied_warning_android_r) :
-                getString(R.string.perm_denied_warning);
+        String message = getString(R.string.perm_denied_warning);
         String positiveText = getString(R.string.yes);
         String negativeText = getString(R.string.no);
 
