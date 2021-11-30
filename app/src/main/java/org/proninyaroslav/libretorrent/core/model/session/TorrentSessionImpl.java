@@ -779,7 +779,6 @@ public class TorrentSessionImpl extends SessionManager
         settings_pack sp = settingsPack.swig();
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
         sp.set_bool(settings_pack.bool_types.enable_ip_notifier.swigValue(), false);
-        sp.set_int(settings_pack.int_types.stop_tracker_timeout.swigValue(), 0);
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), 5000);
         sp.set_bool(settings_pack.bool_types.announce_to_all_trackers.swigValue(), true);
         sp.set_bool(settings_pack.bool_types.announce_to_all_tiers.swigValue(), true);
