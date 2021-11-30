@@ -410,4 +410,8 @@ public interface SettingsRepository
     boolean logTorrentFilter();
 
     void logTorrentFilter(boolean val);
+
+    boolean askManageAllFilesPermission();
+
+    void askManageAllFilesPermission(boolean val);
 }

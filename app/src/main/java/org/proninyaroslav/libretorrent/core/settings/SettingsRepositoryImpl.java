@@ -1528,4 +1528,17 @@ public class SettingsRepositoryImpl implements SettingsRepository
                 .putBoolean(appContext.getString(R.string.pref_key_log_torrent_filter), val)
                 .apply();
     }
+
+    @Override
+    public boolean askManageAllFilesPermission() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_ask_manage_all_access_permission),
+                Default.askManageAllFilesPermission);
+    }
+
+    @Override
+    public void askManageAllFilesPermission(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_ask_manage_all_access_permission), val)
+                .apply();
+    }
 }
