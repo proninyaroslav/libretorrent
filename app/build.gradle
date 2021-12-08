@@ -28,6 +28,17 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
+    flavorDimensions "deploy"
+
+    productFlavors {
+        main {
+            dimension "deploy"
+        }
+        play {
+            dimension "deploy"
+        }
+    }
+
     buildTypes {
         /* Enable or disable logging in build types */
         def SESSION_LOGGING = 'SESSION_LOGGING'

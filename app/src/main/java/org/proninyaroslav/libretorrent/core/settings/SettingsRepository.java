@@ -414,4 +414,8 @@ public interface SettingsRepository
     boolean askManageAllFilesPermission();
 
     void askManageAllFilesPermission(boolean val);
+
+    boolean showManageAllFilesWarningDialog();
+
+    void showManageAllFilesWarningDialog(boolean val);
 }

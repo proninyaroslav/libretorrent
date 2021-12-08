@@ -39,9 +39,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -50,8 +50,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
+import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
@@ -78,7 +79,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.IDN;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -101,6 +101,10 @@ import javax.net.ssl.X509TrustManager;
  */
 
 public class Utils {
+    private static final String TAG = Utils.class.getSimpleName();
+
+    private static final String TAG_MANAGE_ALL_FILES_WARNING_DIALOG = "manage_all_files_warning_dialog";
+
     public static final String INFINITY_SYMBOL = "\u221e";
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
@@ -404,15 +408,6 @@ public class Utils {
         return R.style.AppTheme_Settings;
     }
 
-    public static boolean checkStoragePermission(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return Environment.isExternalStorageManager();
-        } else {
-            return ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        }
-    }
-
     public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {
         return ActivityCompat.shouldShowRequestPermissionRationale(
                 activity,
@@ -674,8 +669,51 @@ public class Utils {
         }
     }
 
+    public static boolean hasManageExternalStoragePermission(@NonNull Context appContext) {
+        try {
+            var info = appContext.getPackageManager().getPackageInfo(
+                    appContext.getPackageName(),
+                    PackageManager.GET_PERMISSIONS
+            );
+            if (info.requestedPermissions == null) {
+                return false;
+            }
+            for (var p : info.requestedPermissions) {
+                if ("android.permission.MANAGE_EXTERNAL_STORAGE".equals(p)) {
+                    return true;
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, "Unable to get permissions", e);
+            return false;
+        }
+
+        return false;
+    }
+
+    public static void showManageAllFilesWarningDialog(
+            @NonNull Context appContext,
+            @NonNull FragmentManager fm
+    ) {
+        var pref = RepositoryHelper.getSettingsRepository(appContext);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                || Utils.hasManageExternalStoragePermission(appContext)
+                || !pref.showManageAllFilesWarningDialog()) {
+            return;
+        }
+
+        if (fm.findFragmentByTag(TAG_MANAGE_ALL_FILES_WARNING_DIALOG) == null) {
+            pref.showManageAllFilesWarningDialog(false);
+
+            var dialog = ManageAllFilesWarningDialog.newInstance();
+            var ft = fm.beginTransaction();
+            ft.add(dialog, TAG_MANAGE_ALL_FILES_WARNING_DIALOG);
+            ft.commitAllowingStateLoss();
+        }
+    }
+
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
-                                                             @NonNull SharedPreferences localPref) {
+                                                       @NonNull SharedPreferences localPref) {
         Resources res = context.getResources();
 
         ArrayList<DrawerGroup> groups = new ArrayList<>();

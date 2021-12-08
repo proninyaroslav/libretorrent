@@ -22,14 +22,17 @@ package org.proninyaroslav.libretorrent.ui;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
@@ -40,6 +43,7 @@ public class StoragePermissionManager {
     private ActivityResultLauncher<String> storagePermission;
     private final Context appContext;
     private SettingsRepository pref;
+    private boolean hasManageExternalStoragePermission;
 
     public StoragePermissionManager(
             @NonNull ComponentActivity activity,
@@ -47,11 +51,15 @@ public class StoragePermissionManager {
     ) {
         appContext = activity.getApplicationContext();
         pref = RepositoryHelper.getSettingsRepository(appContext);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        // MANAGE_EXTERNAL_STORAGE is disabled for the Google Play version
+        // so we need to check before requesting permission
+        hasManageExternalStoragePermission = Utils.hasManageExternalStoragePermission(appContext);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
             manageExternalStoragePermission = activity.registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> callback.onResult(
-                            Utils.checkStoragePermission(appContext),
+                            checkPermissions(),
                             pref.askManageAllFilesPermission()
                     )
             );
@@ -67,7 +75,7 @@ public class StoragePermissionManager {
     }
 
     public void requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
             if (!pref.askManageAllFilesPermission()) {
                 return;
             }
@@ -87,7 +95,12 @@ public class StoragePermissionManager {
     }
 
     public boolean checkPermissions() {
-        return Utils.checkStoragePermission(appContext);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
+            return Environment.isExternalStorageManager();
+        } else {
+            return ContextCompat.checkSelfPermission(appContext,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        }
     }
 
     public interface Callback {

@@ -123,6 +123,7 @@ public class AddTorrentActivity extends AppCompatActivity
         if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
             permissionManager.requestPermissions();
         }
+        Utils.showManageAllFilesWarningDialog(getApplicationContext(), getSupportFragmentManager());
 
         initLayout();
         observeDecodeState();

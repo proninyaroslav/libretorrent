@@ -162,6 +162,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean logTorrentFilter = SessionSettings.DEFAULT_LOG_TORRENT_FILTER;
 
         static final boolean askManageAllFilesPermission = true;
+        static final boolean showManageAllFilesWarningDialog = true;
     }
 
     private Context appContext;
@@ -1539,6 +1540,21 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public void askManageAllFilesPermission(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_ask_manage_all_access_permission), val)
+                .apply();
+    }
+
+    @Override
+    public boolean showManageAllFilesWarningDialog() {
+        return pref.getBoolean(
+                appContext.getString(R.string.pref_key_show_manage_all_files_warning_dialog),
+                Default.showManageAllFilesWarningDialog
+        );
+    }
+
+    @Override
+    public void showManageAllFilesWarningDialog(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_show_manage_all_files_warning_dialog), val)
                 .apply();
     }
 }

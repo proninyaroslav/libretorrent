@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
             permissionManager.requestPermissions();
         }
+        Utils.showManageAllFilesWarningDialog(getApplicationContext(), getSupportFragmentManager());
 
         setContentView(R.layout.activity_main);
 
