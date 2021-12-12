@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">Pobieranie metadanych…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Odmowa dostępu</string>
-    <string name="perm_denied_warning">Naprawdę uniemożliwić aplikacji przechowywanie plików .torrent w pamięci\?</string>
+    <string name="perm_denied_warning">Aby pobierać torrenty i uzyskiwać dostęp do plików .torrent, wymagane jest uprawnienie dostępu do pamięci. Czy naprawdę chcesz odmówić tego uprawnienia\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Dodaj torrent</string>
     <string name="error_decode_torrent">Błąd odczytu pliku .torrent. Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Łączy dwa przyciski: wstrzymaj wszystko i wznów wszystko. Przycisk będzie działać jak przełącznik. Uwaga: na stan przycisku nie ma wpływu ręczne wstrzymywanie/wznawianie torrenta.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Połączony przycisk wstrzymania</string>
     <string name="error_open_torrent">Nie można otworzyć torrenta</string>
+    <string name="exact_alarm_permission_warning">Aby harmonogram działał, musisz zezwolić na dostęp w specjalnym oknie dialogowym systemu. Kontynuować\?</string>
+    <string name="perm_denied_warning_android_r">Uprawnienie dostępu do wszystkich plików jest wymagane do pobierania torrentów i uzyskiwania dostępu do plików .torrent w dowolnych folderach. Bez tego uprawnienia LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów. Czy na pewno chcesz odmówić tego uprawnienia\?</string>
+    <string name="manage_all_files_warning_dialog_title">Ostrzeżenie</string>
+    <string name="manage_all_files_warning_dialog_description">Wersja LibreTorrent w Google Play nie ma uprawnienia dostępu do wszystkich plików. Oznacza to, że LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów, takich jak np. Pobrane. W razie potrzeby, aby włączyć to uprawnienie, zainstaluj LibreTorrent z innego źródła; pełna lista znajduje się na stronie projektu:</string>
 </resources>

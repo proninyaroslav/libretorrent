@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Üst veri indiriliyor…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
-    <string name="perm_denied_warning">Uygulamanın .torrent dosyalarını bellekte tutması gerçekten engellensin mi\?</string>
+    <string name="perm_denied_warning">Torrentleri indirmek ve .torrent dosyalarına erişmek için depolama izni gereklidir. Bu izni gerçekten reddetmek istiyor musunuz\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent ekle</string>
     <string name="error_decode_torrent">.torrent dosyasının kodu çözülemedi. Hasarlı veya yanlış biçimde olabilir mi\?</string>
@@ -571,4 +571,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">İki düğmeyi birleştirir: tümünü duraklat ve tümünü devam ettir. Düğme bir değiştirici anahtar gibi çalışacaktır. Uyarı: düğme durumu, torrentin elle duraklatılmasından/devam ettirilmesinden etkilenmez.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Birleşik duraklatma düğmesi</string>
     <string name="error_open_torrent">Torrent açılamıyor</string>
+    <string name="exact_alarm_permission_warning">Zamanlayıcının çalışması için özel bir sistem iletişim kutusunda izin almanız gerekir. Devam edilsin mi\?</string>
+    <string name="perm_denied_warning_android_r">Torrentleri indirmek ve herhangi bir klasördeki .torrent dosyalarına erişmek için tüm dosyalara erişim izni gereklidir. Bu izin olmadan, LibreTorrent yalnızca sınırlı sayıda klasöre erişebilir. Bu izni reddetmek istediğinizden emin misiniz\?</string>
+    <string name="manage_all_files_warning_dialog_description">LibreTorrent\'in Google Play sürümünün tüm dosyalara erişim izni yoktur. Bu, LibreTorrent\'in İndirilenler veya diğerleri gibi yalnızca sınırlı sayıda klasöre erişimi olacağı anlamına gelir. Gerekirse, bu izni etkinleştirmek için lütfen LibreTorrent\'i başka bir kaynaktan kurun, tam liste proje sayfasında bulunmaktadır:</string>
+    <string name="manage_all_files_warning_dialog_title">Uyarı</string>
 </resources>

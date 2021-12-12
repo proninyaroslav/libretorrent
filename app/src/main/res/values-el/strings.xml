@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Λήψη μεταδεδομένων…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Άρνηση δικαιώματος</string>
-    <string name="perm_denied_warning">Πράγματι να αποτραπεί η εφαρμογή να διατηρεί αρχεία .torrent στη μνήμη;</string>
+    <string name="perm_denied_warning">Η πρόσβαση στον αποθηκευτικό χώρο είναι απαραίτητη για τη λήψη torrent και την πρόσβαση στα αρχεία .torrent. Θέλετε σίγουρα να μην επιτρέψετε αυτήν την άδεια;</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Προσθήκη torrent</string>
     <string name="error_decode_torrent">Δεν ήταν δυνατή η αποκωδικοποίηση του αρχείου .torrent. Ίσως είναι κατεστραμμένο ή σε λάθος μορφή;</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Συνδυάζει δύο κουμπιά: παύση όλων και ανάκτηση όλων. Το κουμπί θα λειτουργεί σαν διακόπτης. Προειδοποίηση: η κατάσταση του κουμπιού δεν επηρεάζεται από τη χειροκίνητη παύση/ανάκτηση του torrent.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Συνδυασμένο κουμπί παύσης</string>
     <string name="error_open_torrent">Αδυναμία ανοίγματος torrent</string>
+    <string name="exact_alarm_permission_warning">Για να δουλέψει ο προγραμματιστής πρέπει να δώσετε άδεια στο σύστημα. Συμφωνείτε;</string>
+    <string name="perm_denied_warning_android_r">Απαιτείται άδεια πρόσβασης σε όλα τα αρχεία, για λήψη torrent και πρόσβαση σε αρχεία .torrent σε αυθαίρετους φακέλους. Χωρίς αυτήν την άδεια το LibreTorrent θα έχει πρόσβαση μόνο σε περιορισμένο αριθμό φακέλων. Είστε βέβαιοι ότι θέλετε να αρνηθείτε αυτήν την άδεια;</string>
+    <string name="manage_all_files_warning_dialog_title">Προειδοποίηση</string>
+    <string name="manage_all_files_warning_dialog_description">Η έκδοση του LibreTorrent στο Google Play δεν έχει άδεια πρόσβασης σε όλα τα αρχεία. Αυτό σημαίνει ότι το LibreTorrent θα έχει πρόσβαση μόνο σε περιορισμένο αριθμό φακέλων, όπως Λήψεις ή άλλους. Εάν χρειάζεται, για να ενεργοποιήσετε αυτήν την άδεια εγκαταστήστε το LibreTorrent από άλλη πηγή. Η πλήρης λίστα παρουσιάζεται στη σελίδα του έργου:</string>
 </resources>

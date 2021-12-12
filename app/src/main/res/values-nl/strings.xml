@@ -148,7 +148,7 @@
     <string name="torrent_status_downloading_metadata">Metadata downloaden…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Toestemming geweigerd</string>
-    <string name="perm_denied_warning">Echt voorkomen dat de app .torrent-bestanden in het geheugen houdt\?</string>
+    <string name="perm_denied_warning">Machtiging voor opslag is nodig om torrents te downloaden en toegang te krijgen tot .torrent-bestanden. Wilt u deze toestemming echt weigeren\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent toevoegen</string>
     <string name="error_decode_torrent">Kon het .torrent-bestand niet decoderen. Misschien is het beschadigd of heeft het een verkeerd formaat\?</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Combineert twee knoppen: alles pauzeren en alles hervatten. De knop werkt als een schakelaar. Waarschuwing: de status van de knop wordt niet beïnvloed door handmatig pauzeren/hervatten van de torrent.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Gecombineerde pauzeknop</string>
     <string name="error_open_torrent">Kan torrent niet openen</string>
+    <string name="exact_alarm_permission_warning">Om de planner te laten werken, moet u toestemming krijgen in een speciaal systeemdialoogvenster. Doorgaan\?</string>
+    <string name="perm_denied_warning_android_r">Machtiging voor toegang tot alle bestanden is vereist om torrents te downloaden en toegang te krijgen tot .torrent-bestanden in willekeurige mappen. Zonder deze toestemming heeft LibreTorrent slechts toegang tot een beperkt aantal mappen. Weet u zeker dat u deze toestemming wilt weigeren\?</string>
+    <string name="manage_all_files_warning_dialog_description">De Google Play-versie van LibreTorrent heeft geen toestemming om alle bestanden te openen. Dit betekent dat LibreTorrent slechts toegang heeft tot een beperkt aantal mappen, zoals Downloads of andere. Als u deze toestemming wilt inschakelen, installeer LibreTorrent dan vanaf een andere bron. De volledige lijst vindt u op de projectpagina:</string>
+    <string name="manage_all_files_warning_dialog_title">Waarschuwing</string>
 </resources>

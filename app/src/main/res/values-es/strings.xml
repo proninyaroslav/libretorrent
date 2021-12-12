@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Descargando metadatos…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
-    <string name="perm_denied_warning">¿Realmente quieres impedir que la aplicación mantenga los archivos .torrent en la memoria\?</string>
+    <string name="perm_denied_warning">Se necesitan permisos de almacenamiento para descargar y acceder a archivos torrent. ¿Realmente desea denegar este permiso\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Añadir torrent</string>
     <string name="error_decode_torrent">No se pudo decodificar el archivo .torrent. ¿Quizá esté dañado o en el formato incorrecto\?</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Combina dos botones: pausar todo y reanudar todo. El botón funcionará como un interruptor. Advertencia: el estado del botón no será afectado por la pausa/reanudación manual del torrent.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Botón de pausa combinado</string>
     <string name="error_open_torrent">No se pudo abrir el torrent</string>
+    <string name="exact_alarm_permission_warning">Para que el programador funcione necesita obtener el permiso en un diálogo especial del sistema. ¿Desea proceder\?</string>
+    <string name="perm_denied_warning_android_r">El permiso de acceso a todos los archivos es necesario para descargar torrents y acceder a archivos .torrent en carpetas arbitrarias. Sin este permiso, LibreTorrent sólo tendrá acceso a un número limitado de carpetas. ¿Está seguro de que quiere denegar este permiso\?</string>
+    <string name="manage_all_files_warning_dialog_title">Advertencia</string>
+    <string name="manage_all_files_warning_dialog_description">La versión de LibreTorrent para Google Play no tiene permiso para acceder a todos los archivos. Esto significa que LibreTorrent sólo tendrá acceso a un número limitado de carpetas, como Descargas u otras. Si es necesario, para habilitar este permiso, por favor instale LibreTorrent desde otra fuente, la lista completa se presenta en la página del proyecto:</string>
 </resources>
