@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">メタデータをダウンロード中…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
-    <string name="perm_denied_warning">アプリが .torrent ファイルをメモリに保持するのを本当に防ぐことができますか？</string>
+    <string name="perm_denied_warning">トレントをダウンロードしたり、 .torrent ファイルにアクセスするには、ストレージの許可が必要です。本当にこの許可を拒否しますか？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">トレントを追加</string>
     <string name="error_decode_torrent">.torrent ファイルのデコードができませんでした。ファイルが破損しているか、不正な形式の可能性\?</string>
@@ -176,7 +176,7 @@
     <string name="torrent_info">情報</string>
     <string name="torrent_files">ファイル</string>
     <string name="torrent_name">名前</string>
-    <string name="upload_torrent_into">アップロードする…</string>
+    <string name="upload_torrent_into">アップロード中…</string>
     <string name="torrent_size">サイズ</string>
     <string name="torrent_file_count">ファイル数</string>
     <string name="torrent_hash_sum">チェックサム</string>
@@ -223,9 +223,9 @@
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">ダウンロード完了</string>
     <string name="torrent_ETA">完了予定時刻</string>
-    <string name="torrent_seeds">シード数</string>
-    <string name="torrent_peers">ピア数</string>
-    <string name="torrent_leechers">リーチャー数</string>
+    <string name="torrent_seeds">シード</string>
+    <string name="torrent_peers">ピア</string>
+    <string name="torrent_leechers">リーチャー</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">アップロード済</string>
@@ -570,4 +570,5 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">2つのボタンを結合: 全て一時停止と全て再開。このボタンは切替器のように機能します。警告: ボタンの状態は、トレントを手動で一時停止または再開しても影響を受けません。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">一時停止ボタンの結合</string>
     <string name="error_open_torrent">トレントを開けません</string>
+    <string name="exact_alarm_permission_warning">スケジューラーを動作させるには、特別なシステムダイアログで許可を得る必要があります。実行しますか？</string>
 </resources>
