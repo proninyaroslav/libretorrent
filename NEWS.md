@@ -1,3 +1,18 @@
+### Version 3.3 (2021-12-12)
+
+* Android 12 support
+* Minimum supported version of Android raised to 7.0
+* Bugfixes:
+    - Accessing the network interface in Android 11
+    - Displaying trackers status
+    - Sorting by ETA
+    - Minor fixes
+* Enabled announcing all trackers by default
+* libtorrent4j upgraded to 2.0.4-22-RC1
+* New translations:
+    - Malay
+* Updated current translations
+
 ### Version 3.2 (2021-09-16)
 
 * Added:
