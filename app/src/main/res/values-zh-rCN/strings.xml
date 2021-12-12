@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">下载元数据中…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">获取权限失败</string>
-    <string name="perm_denied_warning">真的要阻止应用程序在内存中保存种子文件吗？</string>
+    <string name="perm_denied_warning">下载和访问 torrent 文件需要存储权限。你真的想拒绝授予这个权限吗？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">添加种子</string>
     <string name="error_decode_torrent">无法解码种子文件。可能文件已损坏或格式不正确？</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像转换开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">组合暂停键</string>
     <string name="error_open_torrent">打不开种子文件</string>
+    <string name="exact_alarm_permission_warning">要使调度程序工作，您必须在一个特殊的系统对话框中获得许可。继续吗？</string>
+    <string name="perm_denied_warning_android_r">下载种子和访问任意文件夹中的 .torrent 文件需要访问所有文件权限。 如果没有此权限，LibreTorrent 将只能访问有限数量的文件夹。 您确定要拒绝此权限吗？</string>
+    <string name="manage_all_files_warning_dialog_description">LibreTorrent 的 Google Play 版本无权访问所有文件。 这意味着 LibreTorrent 只能访问有限数量的文件夹，例如下载或其他。 如果有需要，要启用此权限，请从其他来源安装 LibreTorrent，完整列表显示在项目页面上：</string>
+    <string name="manage_all_files_warning_dialog_title">警告</string>
 </resources>

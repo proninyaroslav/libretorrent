@@ -316,7 +316,7 @@
     <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
     <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
     <string name="pref_anonymous_mode_title">Anonymt läge</string>
-    <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrenter. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en nod-proxy på tracker-proxy-datorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
+    <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrenter. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en jämlikeproxy på spårar-proxy-datorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
     <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för distribution</string>
     <string name="pref_seeding_outgoing_connections_summary">Låter distribuerade torrenter skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
@@ -394,7 +394,7 @@
     <string name="drawer_sorting_size">Storlek</string>
     <string name="drawer_sorting">Sorterar</string>
     <string name="session_stats_listen_port">Lyssningsport: %1$s</string>
-    <string name="session_stats_dht_nodes">DHT-noder: %1$d</string>
+    <string name="session_stats_dht_nodes">DHT-jämlikar: %1$d</string>
     <string name="about">Om</string>
     <string name="about_changelog">Ändringslogg</string>
     <string name="pref_feed_remove_duplicates_title">Ingen duplicering</string>
@@ -467,7 +467,7 @@
     <string name="option_start_seeding">Börja distribuera</string>
     <string name="piece_size">Storlek på del</string>
     <string name="comments">Kommentarer</string>
-    <string name="tracker_urls">URL för spårarna</string>
+    <string name="tracker_urls">URL för spårare</string>
     <string name="create_torrent">Skapa torrent</string>
     <string name="feed_item_url_not_found">URL hittades inte</string>
     <string name="feed_do_not_download_immediately">Hämta inte ner omedelbart</string>
@@ -508,7 +508,7 @@
     <string name="delete_selected_trackers">Ta bort valda spårare\?</string>
     <string name="delete_selected_tracker">Ta bort vald spårare\?</string>
     <string name="share_tracker_url">Dela URL…</string>
-    <string name="tracker_state_not_contacted">Inte kontaktad än</string>
+    <string name="tracker_state_not_contacted">Inte kontaktad ännu</string>
     <string name="tracker_state_updating">Uppdaterar…</string>
     <string name="tracker_state_not_working">Fungerar inte</string>
     <string name="tracker_state_working">Fungerar</string>
@@ -516,7 +516,7 @@
     <string name="torrent_pieces">Delar</string>
     <string name="torrent_active_time">Aktiv tid</string>
     <string name="torrent_uploaded">Uppladdat</string>
-    <string name="torrent_peers">Noder</string>
+    <string name="torrent_peers">Jämlikar</string>
     <string name="torrent_seeds">Distributioner</string>
     <string name="torrent_downloaded">Hämtat</string>
     <string name="torrent_speed">Hastighet</string>
@@ -543,10 +543,10 @@
     <string name="force_recheck_torrent">Tvinga återkontroll</string>
     <string name="pref_move_after_download_in_title">Flytta efter hämtning till</string>
     <string name="pref_watch_dir_delete_file_title">Ta bort .torrent-filen efter tilläggning</string>
-    <string name="pref_default_trackers_list_summary">Bevakarlista, som används i följande fall:
+    <string name="pref_default_trackers_list_summary">Spårarlista, som används i följande fall:
 \n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan.
 \n2. Används för att hämta magnetlänkar.</string>
-    <string name="pref_default_trackers_list_title">Standard bevakare</string>
+    <string name="pref_default_trackers_list_title">Standard spårare</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerar två knappar: pausa alla och återuppta alla. Knappen fungerar som en omkopplare. Varning: knappstatus påverkas inte av manuell pausning/återupptagning av torrenten.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinerad pausknapp</string>
     <string name="pref_foreground_notify_sorting_entries_12">Ingen sortering</string>

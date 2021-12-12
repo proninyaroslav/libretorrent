@@ -543,4 +543,6 @@
     <string name="pref_enc_out_connections_title">الاتصالات الصادرة</string>
     <string name="pref_enc_in_connections_title">الاتصالات الواردة</string>
     <string name="pref_encryption_category">التشفير</string>
+    <string name="error_open_torrent">لا يمكن فتح التورينت‮‭‬‫‫‪‌</string>
+    <string name="manage_all_files_warning_dialog_title">تحذير</string>
 </resources>

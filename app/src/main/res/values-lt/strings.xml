@@ -122,7 +122,7 @@
     <string name="torrent_status_downloading_metadata">Atsisiunčiami metaduomenys…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Leidimas nesuteiktas</string>
-    <string name="perm_denied_warning">Ar tikrai neleisite programai atmintyje laikyti .torrent failų\?</string>
+    <string name="perm_denied_warning">Norint atsisiųsti torentus ir pasiekti .torrent failus, reikalingas saugyklos leidimas. Ar tikrai norite atsisakyti šio leidimo\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Pridėti torentą</string>
     <string name="error_decode_torrent">Nepavyko iššifruoti .torrent failo. Galbūt jis pažeistas arba yra netinkamo formato\?</string>
@@ -571,4 +571,5 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Sujungia du mygtukus: pristabdyti visus ir tęsti visus. Mygtukas veiks kaip perjungiklis. Įspėjimas: mygtuko būsenai įtakos rankinis torento pristabdymas/atnaujinimas neturi.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinuotas pauzės mygtukas</string>
     <string name="error_open_torrent">Nepavyksta atidaryti torento</string>
+    <string name="exact_alarm_permission_warning">Kad tvarkaraštis veiktų, turite gauti leidimą specialiame sistemos dialogo lange. Vykdyti\?</string>
 </resources>

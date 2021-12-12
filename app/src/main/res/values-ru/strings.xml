@@ -572,4 +572,7 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Комбинированная кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
+    <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите запретите это разрешение\?</string>
+    <string name="manage_all_files_warning_dialog_description">Версия LibreTorrent для Google Play не имеет разрешения на доступ ко всем файлам. Это означает, что LibreTorrent будет иметь доступ только к ограниченному числу папок, например \"Загрузки\" или другим. Если необходимо включить это разрешение, установите LibreTorrent из другого источника, полный список представлен на странице проекта:</string>
+    <string name="manage_all_files_warning_dialog_title">Предупреждение</string>
 </resources>

@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Metaadatok letöltése…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Engedély megtagadva</string>
-    <string name="perm_denied_warning">Biztos, hogy megtiltja az alkalmazásnak, hogy a memóriába mentse a .torrent fájlokat\?</string>
+    <string name="perm_denied_warning">Tároló engedély szükséges a torrent fájlok letöltéséhez és eléréséhez. Biztos, hogy megtagadja ezt az engedélyt\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent hozzáadása</string>
     <string name="error_decode_torrent">Nem lehet dekódolni a .torrent fájlt. Lehet, hogy a fájl sérült vagy nem megfelelő a formátuma\?</string>

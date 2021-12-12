@@ -303,10 +303,10 @@
     <string name="pref_power_management_category">Quản lý pin</string>
     <string name="pref_enable_roaming_summary">Chỉ tải khi thiết bị không chuyển vùng.</string>
     <string name="pref_enable_roaming_title">Chuyển vùng</string>
-    <string name="pref_umnetered_connections_only_summary">Chỉ sử dụng với mạng không giới hạn dung lượng (như wifi hoặc mạng LAN.)</string>
+    <string name="pref_umnetered_connections_only_summary">Chỉ sử dụng với mạng không giới hạn dung lượng (như Wi-Fi hoặc mạng LAN).</string>
     <string name="pref_umnetered_connections_only_title">Chỉ với mạng không đo lường</string>
     <string name="pref_autostart_summary">Chạy ứng dụng khi khởi động thiết bị.</string>
-    <string name="pref_autostart_title">Tự động bắt đầu</string>
+    <string name="pref_autostart_title">Tự khởi động</string>
     <string name="pref_vibration_notify_title">Rung</string>
     <string name="pref_led_indicator_color_notify_title">Màu LED</string>
     <string name="pref_led_indicator_notify_title">LED</string>
