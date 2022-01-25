@@ -1149,9 +1149,11 @@ public class TorrentSessionImpl extends SessionManager
         sp.setBoolean(settings_pack.bool_types.enable_outgoing_utp.swigValue(), settings.utpEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled);
-        int encryptMode = convertEncryptMode(settings.encryptMode);
+        var encryptMode = convertEncryptMode(settings.encryptMode);
+        var encLevel = getAllowedEncryptLevel(settings.encryptMode);
         sp.setInteger(settings_pack.int_types.in_enc_policy.swigValue(), encryptMode);
         sp.setInteger(settings_pack.int_types.out_enc_policy.swigValue(), encryptMode);
+        sp.setInteger(settings_pack.int_types.allowed_enc_level.swigValue(), encLevel);
         sp.uploadRateLimit(settings.uploadRateLimit);
         sp.downloadRateLimit(settings.downloadRateLimit);
         sp.anonymousMode(settings.anonymousMode);
@@ -1204,6 +1206,14 @@ public class TorrentSessionImpl extends SessionManager
                 return settings_pack.enc_policy.pe_forced.swigValue();
             default:
                 return settings_pack.enc_policy.pe_disabled.swigValue();
+        }
+    }
+
+    private int getAllowedEncryptLevel(SessionSettings.EncryptMode mode) {
+        if (mode == SessionSettings.EncryptMode.FORCED) {
+            return settings_pack.enc_level.pe_rc4.swigValue();
+        } else {
+            return settings_pack.enc_level.pe_both.swigValue();
         }
     }
 
