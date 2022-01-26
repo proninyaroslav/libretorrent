@@ -111,6 +111,7 @@ public class TorrentEngine
     private FileSystemFacade fs;
     private DownloadsCompletedListener downloadsCompleted;
     private ExecutorService exec = Executors.newSingleThreadExecutor();
+    private SessionErrorFilter errorFilter = new SessionErrorFilter();
 
     private static volatile TorrentEngine INSTANCE;
 
@@ -1430,9 +1431,11 @@ public class TorrentEngine
         }
 
         @Override
-        public void onSessionError(@NonNull String errorMsg)
-        {
-           notifier.makeSessionErrorNotify(errorMsg);
+        public void onSessionError(@NonNull String errorMsg) {
+            if (errorFilter.skip(errorMsg)) {
+                return;
+            }
+            notifier.makeSessionErrorNotify(errorMsg);
         }
 
         @Override
@@ -1546,7 +1549,7 @@ public class TorrentEngine
             SessionSettings s = session.getSettings();
             s.activeDownloads = pref.maxActiveDownloads();
             session.setSettings(s);
-            
+
         } else if (key.equals(appContext.getString(R.string.pref_key_max_active_uploads))) {
             SessionSettings s = session.getSettings();
             s.activeSeeds = pref.maxActiveUploads();
