@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -1714,6 +1714,11 @@ public class TorrentEngine
 
         } else if (key.equals(appContext.getString(R.string.pref_key_default_trackers_list))) {
             session.setDefaultTrackersList(pref.defaultTrackersList().split("\n"));
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_validate_https_trackers))) {
+            SessionSettings s = session.getSettings();
+            s.validateHttpsTrackers = pref.validateHttpsTrackers();
+            session.setSettings(s);
         }
 
         if (reschedule)

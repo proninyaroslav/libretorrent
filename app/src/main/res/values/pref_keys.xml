@@ -84,6 +84,7 @@
     <string name="pref_key_show_nat_errors" translatable="false">pref_key_show_nat_errors</string>
     <string name="pref_key_anonymous_mode" translatable="false">pref_key_anonymous_mode</string>
     <string name="pref_key_seeding_outgoing_connections" translatable="false">pref_key_seeding_outgoing_connections</string>
+    <string name="pref_key_validate_https_trackers" translatable="false">pref_key_validate_https_trackers</string>
     <!-- Proxy settings -->
     <string name="pref_key_proxy_type" translatable="false">pref_key_proxy_type</string>
     <string name="pref_key_proxy_address" translatable="false">pref_key_proxy_address</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -69,6 +69,7 @@ public class SessionSettings
     public static final boolean DEFAULT_LOG_PORTMAP_FILTER = true;
     public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
     public static final boolean DEFAULT_USE_RANDOM_PORT = true;
+    public static final boolean DEFAULT_VALIDATE_HTTPS_TRACKERS = true;
 
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
@@ -111,6 +112,7 @@ public class SessionSettings
     public boolean logTorrentFilter = DEFAULT_LOG_TORRENT_FILTER;
     public boolean useRandomPort = DEFAULT_USE_RANDOM_PORT;
     public String[] defaultTrackersList = new String[]{};
+    public boolean validateHttpsTrackers = DEFAULT_VALIDATE_HTTPS_TRACKERS;
 
     public SessionSettings() {}
 
@@ -156,7 +158,8 @@ public class SessionSettings
         this.logPortmapFilter = other.logPortmapFilter;
         this.logTorrentFilter = other.logTorrentFilter;
         this.useRandomPort = other.useRandomPort;
-        this.defaultTrackersList = other.defaultTrackersList;;
+        this.defaultTrackersList = other.defaultTrackersList;
+        this.validateHttpsTrackers = other.validateHttpsTrackers;
     }
 
     public enum EncryptMode

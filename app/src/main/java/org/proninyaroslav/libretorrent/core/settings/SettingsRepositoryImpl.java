@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -91,6 +91,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
             return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value));
         }
         static final boolean showNatErrors = false;
+        static final boolean validateHttpsTrackers = SessionSettings.DEFAULT_VALIDATE_HTTPS_TRACKERS;
         /* Storage settings */
         static String saveTorrentsIn(@NonNull Context context)
         {
@@ -229,6 +230,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         } else {
             settings.defaultTrackersList = trackers;
         }
+        settings.validateHttpsTrackers = validateHttpsTrackers();
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
@@ -1047,6 +1049,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public void defaultTrackersList(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_default_trackers_list), val)
+                .apply();
+    }
+
+    @Override
+    public boolean validateHttpsTrackers() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_validate_https_trackers),
+                Default.validateHttpsTrackers);
+    }
+
+    @Override
+    public void validateHttpsTrackers(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_validate_https_trackers), val)
                 .apply();
     }
 

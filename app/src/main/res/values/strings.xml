@@ -509,6 +509,8 @@
     <string name="pref_anonymous_mode_summary">No user-agent string for non-private torrents. Only proxied trackers. Listening sockets closed. Incoming connections through SOCKS5- or I2P proxy (if a peer proxy exists on the tracker proxy PC). NAT-PMP, UPnP, DHT and local discovery off.</string>
     <string name="pref_seeding_outgoing_connections_title">Outgoing connections for seeding</string>
     <string name="pref_seeding_outgoing_connections_summary">Lets seeding torrents make outgoing connections. (Can be costly.)</string>
+    <string name="pref_validate_https_trackers_title">Validate HTTPS trackers certificate</string>
+    <string name="pref_validate_https_trackers_summary">The certificate of HTTPS trackers and HTTPS web seeds will be validated in the system certificate store.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
     <!-- pref_proxy_type_entries -->

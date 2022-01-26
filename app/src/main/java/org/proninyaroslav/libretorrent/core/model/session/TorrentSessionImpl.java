@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -1159,6 +1159,7 @@ public class TorrentSessionImpl extends SessionManager
         sp.anonymousMode(settings.anonymousMode);
         sp.seedingOutgoingConnections(settings.seedingOutgoingConnections);
         sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), getAlertMask(settings).to_int());
+        sp.setBoolean(settings_pack.bool_types.validate_https_trackers.swigValue(), settings.validateHttpsTrackers);
 
         applyProxy(settings, sp);
     }

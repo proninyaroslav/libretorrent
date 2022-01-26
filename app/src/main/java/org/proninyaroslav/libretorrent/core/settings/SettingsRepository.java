@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -190,6 +190,10 @@ public interface SettingsRepository
     String defaultTrackersList();
 
     void defaultTrackersList(String val);
+
+    boolean validateHttpsTrackers();
+
+    void validateHttpsTrackers(boolean val);
 
     /*
      * Storage settings

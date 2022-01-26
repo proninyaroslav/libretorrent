@@ -59,6 +59,13 @@
         app:singleLineTitle="false"
         android:persistent="false" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_validate_https_trackers"
+        android:title="@string/pref_validate_https_trackers_title"
+        android:summary="@string/pref_validate_https_trackers_summary"
+        app:singleLineTitle="false"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:title="@string/pref_port_settings_category">
 

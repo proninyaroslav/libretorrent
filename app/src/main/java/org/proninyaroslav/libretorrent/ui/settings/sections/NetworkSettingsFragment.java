@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -282,6 +282,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             seedingOutgoingConn.setChecked(pref.seedingOutgoingConnections());
             bindOnPreferenceChangeListener(seedingOutgoingConn);
         }
+
+        String keyValidateHttpsTrackers = getString(R.string.pref_key_validate_https_trackers);
+        SwitchPreferenceCompat validateHttpsTrackers = findPreference(keyValidateHttpsTrackers);
+        if (validateHttpsTrackers != null) {
+            validateHttpsTrackers.setChecked(pref.validateHttpsTrackers());
+            bindOnPreferenceChangeListener(validateHttpsTrackers);
+        }
     }
 
     @Override
@@ -380,6 +387,9 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
 
         }  else if (preference.getKey().equals(getString(R.string.pref_key_seeding_outgoing_connections))) {
             pref.seedingOutgoingConnections((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_validate_https_trackers))) {
+            pref.validateHttpsTrackers((boolean) newValue);
         }
 
         return true;
