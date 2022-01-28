@@ -70,20 +70,16 @@ public class FileManagerViewModel extends AndroidViewModel
         this.startDir = startDir;
 
         String path = config.path;
-        if (TextUtils.isEmpty(path)) {
-            if (startDir != null) {
-                File dir = new File(startDir);
-                boolean accessMode = config.showMode == FileManagerConfig.FILE_CHOOSER_MODE ?
-                        dir.canRead() :
-                        dir.canWrite();
-                if (!(dir.exists() && accessMode))
-                    startDir = fs.getDefaultDownloadPath();
-            } else {
-                startDir = fs.getDefaultDownloadPath();
-            }
-
-        } else {
+        if (TextUtils.isEmpty(path) && startDir == null) {
             startDir = path;
+        }
+        if (startDir == null) {
+            startDir = fs.getDefaultDownloadPath();
+        }
+        File dir = new File(startDir);
+        boolean canAccess = checkPermissions(dir, config);
+        if (!(dir.exists() && canAccess)) {
+            startDir = fs.getDefaultDownloadPath();
         }
 
         try {
@@ -181,7 +177,7 @@ public class FileManagerViewModel extends AndroidViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (!dir.canRead())
+        else if (!checkPermissions(dir, config))
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -193,7 +189,7 @@ public class FileManagerViewModel extends AndroidViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (!dir.canRead())
+        else if (!checkPermissions(dir, config))
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -210,7 +206,7 @@ public class FileManagerViewModel extends AndroidViewModel
             return;
         File dir = new File(path);
         File parentDir = dir.getParentFile();
-        if (parentDir != null && !parentDir.canRead())
+        if (parentDir != null && !checkPermissions(parentDir, config))
             throw new SecurityException("Permission denied");
 
         updateCurDir(dir.getParent());
@@ -254,7 +250,7 @@ public class FileManagerViewModel extends AndroidViewModel
 
         File f = new File(curDir.get(), fileName);
         File parent = f.getParentFile();
-        if (parent != null && !parent.canWrite())
+        if (parent != null && !checkPermissions(parent, config))
             throw new SecurityException("Permission denied");
         try {
             if (f.exists() && !f.delete())
@@ -276,7 +272,7 @@ public class FileManagerViewModel extends AndroidViewModel
             return null;
 
         File dir = new File(path);
-        if (!(dir.canWrite() && dir.canRead()))
+        if (!checkPermissions(dir, config))
             throw new SecurityException("Permission denied");
 
         return Uri.fromFile(dir);
@@ -289,7 +285,7 @@ public class FileManagerViewModel extends AndroidViewModel
             return null;
 
         File f = new File(path, fileName);
-        if (!f.canRead())
+        if (!checkPermissions(f, config))
             throw new SecurityException("Permission denied");
 
         return Uri.fromFile(f);
@@ -303,9 +299,9 @@ public class FileManagerViewModel extends AndroidViewModel
             if (file != null && !file.equals(external)) {
                 String absolutePath = file.getAbsolutePath();
                 String path = getBaseSdCardPath(absolutePath);
-                if (path == null || !checkSdCardPermission(new File(path), config)) {
+                if (path == null || !checkPermissions(new File(path), config)) {
                     path = getSdCardDataPath(absolutePath);
-                    if (path == null || !checkSdCardPermission(new File(path), config)) {
+                    if (path == null || !checkPermissions(new File(path), config)) {
                         Log.w(TAG, "Ext sd card path wrong: " + absolutePath);
                         continue;
                     }
@@ -344,7 +340,7 @@ public class FileManagerViewModel extends AndroidViewModel
         }
     }
 
-    private boolean checkSdCardPermission(File file, FileManagerConfig config) {
+    private boolean checkPermissions(File file, FileManagerConfig config) {
         switch (config.showMode) {
             case FileManagerConfig.FILE_CHOOSER_MODE:
                 return file.canRead();
