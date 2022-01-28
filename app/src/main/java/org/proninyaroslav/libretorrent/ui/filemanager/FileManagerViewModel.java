@@ -70,7 +70,7 @@ public class FileManagerViewModel extends AndroidViewModel
         this.startDir = startDir;
 
         String path = config.path;
-        if (TextUtils.isEmpty(path) && startDir == null) {
+        if (!TextUtils.isEmpty(path) && startDir == null) {
             startDir = path;
         }
         if (startDir == null) {
