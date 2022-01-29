@@ -48,7 +48,7 @@ public class TorrentInfoProviderTest extends AbstractTest
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false, new ArrayList<>());
+                false, false, new ArrayList<>(), false);
     }
 
     @Test

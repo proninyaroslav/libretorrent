@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -79,12 +79,12 @@ public class TorrentEngineTest extends AbstractTest
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false, new ArrayList<>());
+                false, false, new ArrayList<>(), false);
 
         params2 = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
                 torrentHash2, torrentName2,
                 new Priority[]{Priority.DEFAULT}, dir,
-                false, false, new ArrayList<>());
+                false, false, new ArrayList<>(), false);
     }
 
     @Test
