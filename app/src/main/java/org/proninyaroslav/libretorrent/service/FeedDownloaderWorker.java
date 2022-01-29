@@ -184,7 +184,8 @@ public class FeedDownloaderWorker extends Worker
                 downloadPath,
                 false,
                 !pref.feedStartTorrents(),
-                new ArrayList<>()
+                new ArrayList<>(),
+                false
         );
     }
 

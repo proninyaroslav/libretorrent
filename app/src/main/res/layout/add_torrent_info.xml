@@ -114,6 +114,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ignore_free_space"
                 android:checked="@={viewModel.mutableParams.ignoreFreeSpace}" />
+
+            <CheckBox
+                android:id="@+id/download_first_last_pieces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download_first_last_pieces"
+                android:checked="@={viewModel.mutableParams.firstLastPiecePriority}" />
         </com.google.android.material.internal.FlowLayout>
 
         <LinearLayout

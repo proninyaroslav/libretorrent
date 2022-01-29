@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -49,7 +49,8 @@ class DatabaseMigration
                 new RoomDatabaseMigration(appContext),
                 MIGRATION_5_6,
                 MIGRATION_6_7,
-                MIGRATION_7_8
+                MIGRATION_7_8,
+                MIGRATION_8_9
         };
     }
 
@@ -102,6 +103,13 @@ class DatabaseMigration
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE `Torrent` ADD COLUMN `sequentialDownload` INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `Torrent` ADD COLUMN `firstLastPiecePriority` INTEGER NOT NULL DEFAULT 0");
         }
     };
 

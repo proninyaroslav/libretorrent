@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -66,6 +66,7 @@ public class Torrent implements Parcelable
     private String magnet;
     public boolean downloadingMetadata = false;
     public int visibility = VISIBILITY_VISIBLE_NOTIFY_FINISHED;
+    public boolean firstLastPiecePriority;
 
     @Ignore
     public Torrent(@NonNull String id,
@@ -73,14 +74,16 @@ public class Torrent implements Parcelable
                    @NonNull String name,
                    boolean manuallyPaused,
                    long dateAdded,
-                   boolean sequentialDownload)
-    {
+                   boolean sequentialDownload,
+                   boolean firstLastPiecePriority
+    ){
         this.id = id;
         this.name = name;
         this.downloadPath = downloadPath;
         this.manuallyPaused = manuallyPaused;
         this.dateAdded = dateAdded;
         this.sequentialDownload = sequentialDownload;
+        this.firstLastPiecePriority = firstLastPiecePriority;
     }
 
     public Torrent(@NonNull String id,
@@ -89,9 +92,10 @@ public class Torrent implements Parcelable
                    @NonNull String name,
                    boolean manuallyPaused,
                    long dateAdded,
-                   boolean sequentialDownload)
-    {
-        this(id, downloadPath, name, manuallyPaused, dateAdded, sequentialDownload);
+                   boolean sequentialDownload,
+                   boolean firstLastPiecePriority
+    ){
+        this(id, downloadPath, name, manuallyPaused, dateAdded, sequentialDownload, firstLastPiecePriority);
 
         this.magnet = magnet;
     }
@@ -109,6 +113,7 @@ public class Torrent implements Parcelable
         manuallyPaused = source.readByte() != 0;
         visibility = source.readInt();
         sequentialDownload = source.readByte() != 0;
+        firstLastPiecePriority = source.readByte() != 0;
     }
 
     public boolean isDownloadingMetadata()
@@ -146,10 +151,10 @@ public class Torrent implements Parcelable
         dest.writeByte((byte)(manuallyPaused ? 1 : 0));
         dest.writeInt(visibility);
         dest.writeByte((byte)(sequentialDownload ? 1 : 0));
+        dest.writeByte((byte)(firstLastPiecePriority ? 1 : 0));
     }
 
-    public static final Creator<Torrent> CREATOR =
-            new Creator<Torrent>()
+    public static final Creator<Torrent> CREATOR = new Creator<>()
             {
                 @Override
                 public Torrent createFromParcel(Parcel source)
@@ -190,6 +195,7 @@ public class Torrent implements Parcelable
                 ", magnet='" + magnet + '\'' +
                 ", downloadingMetadata=" + downloadingMetadata +
                 ", visibility=" + visibility +
+                ", firstLastPiecePriority=" + firstLastPiecePriority +
                 '}';
     }
 }

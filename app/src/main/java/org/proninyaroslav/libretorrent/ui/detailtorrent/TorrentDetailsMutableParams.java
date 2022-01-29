@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,6 +32,7 @@ public class TorrentDetailsMutableParams extends BaseObservable
     private Uri dirPath;
     private boolean sequentialDownload = false;
     private boolean prioritiesChanged = false;
+    private boolean firstLastPiecePriority = false;
 
     @Bindable
     public String getName()
@@ -81,6 +82,18 @@ public class TorrentDetailsMutableParams extends BaseObservable
         notifyPropertyChanged(BR.prioritiesChanged);
     }
 
+    @Bindable
+    public boolean isFirstLastPiecePriority()
+    {
+        return firstLastPiecePriority;
+    }
+
+    public void setFirstLastPiecePriority(boolean firstLastPiecePriority)
+    {
+        this.firstLastPiecePriority = firstLastPiecePriority;
+        notifyPropertyChanged(BR.firstLastPiecePriority);
+    }
+
     @NonNull
     @Override
     public String toString()
@@ -90,6 +103,7 @@ public class TorrentDetailsMutableParams extends BaseObservable
                 ", dirPath=" + dirPath +
                 ", sequentialDownload=" + sequentialDownload +
                 ", prioritiesChanged=" + prioritiesChanged +
+                ", firstLastPiecePriority=" + firstLastPiecePriority +
                 '}';
     }
 }

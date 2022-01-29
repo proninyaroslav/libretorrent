@@ -261,7 +261,8 @@ public class TorrentSessionImpl extends SessionManager
                 params.downloadPath,
                 params.name,
                 params.addPaused, System.currentTimeMillis(),
-                params.sequentialDownload
+                params.sequentialDownload,
+                params.firstLastPiecePriority
         );
 
         byte[] bencode = null;
@@ -535,30 +536,35 @@ public class TorrentSessionImpl extends SessionManager
             remove(th, SessionHandle.DELETE_FILES);
     }
 
-    private void mergeTorrent(String id, AddTorrentParams params, byte[] bencode)
-    {
-        if (operationNotAllowed())
+    private void mergeTorrent(String id, AddTorrentParams params, byte[] bencode) {
+        if (operationNotAllowed()) {
             return;
+        }
 
-        TorrentDownload task = torrentTasks.get(id);
-        if (task == null)
+        var task = torrentTasks.get(id);
+        if (task == null) {
             return;
+        }
 
         task.setSequentialDownload(params.sequentialDownload);
-        if (params.filePriorities != null)
+        if (params.filePriorities != null) {
             task.prioritizeFiles(params.filePriorities);
+        }
+        task.setFirstLastPiecePriority(params.firstLastPiecePriority);
 
         try {
-            TorrentInfo ti = (bencode == null ?
+            var ti = (bencode == null ?
                     new TorrentInfo(new File(Uri.parse(params.source).getPath())) :
                     new TorrentInfo(bencode));
 
-            TorrentHandle th = find(Sha1Hash.parseHex(id));
+            var th = find(Sha1Hash.parseHex(id));
             if (th != null) {
-                for (AnnounceEntry tracker : ti.trackers())
+                for (var tracker : ti.trackers()) {
                     th.addTracker(tracker);
-                for (WebSeedEntry webSeed : ti.webSeeds())
+                }
+                for (var webSeed : ti.webSeeds()) {
                     th.addUrlSeed(webSeed.url());
+                }
             }
             task.saveResumeData(true);
 
@@ -566,10 +572,11 @@ public class TorrentSessionImpl extends SessionManager
             /* Ignore */
         }
 
-        if (params.addPaused)
+        if (params.addPaused) {
             task.pauseManually();
-        else
+        } else {
             task.resumeManually();
+        }
     }
 
     @Override

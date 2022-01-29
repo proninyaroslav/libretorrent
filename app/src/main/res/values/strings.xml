@@ -177,6 +177,7 @@
     <string name="unable_to_open_folder">Cannot open the selected folder. Try selecting a different one.</string>
     <string name="error_empty_name">Enter a name</string>
     <string name="ignore_free_space">Ignore low storage space</string>
+    <string name="download_first_last_pieces">Download first and last pieces first</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>

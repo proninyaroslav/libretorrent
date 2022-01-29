@@ -746,6 +746,31 @@ public class TorrentEngine
           .subscribe());
     }
 
+    public void setFirstLastPiecePriority(@NonNull String id, boolean enabled) {
+        disposables.add(Completable.fromRunnable(() -> {
+            if (!isRunning()) {
+                return;
+            }
+            var task = session.getTask(id);
+            if (task != null) {
+                task.setFirstLastPiecePriority(enabled);
+            }
+        }).subscribeOn(Schedulers.io()).subscribe());
+    }
+
+    public boolean isFirstLastPiecePriority(@NonNull String id) {
+        if (!isRunning()) {
+            return false;
+        }
+
+        var task = session.getTask(id);
+        if (task == null) {
+            return false;
+        }
+
+        return task.isFirstLastPiecePriority();
+    }
+
     public void prioritizeFiles(@NonNull String id, @NonNull Priority[] priorities)
     {
         disposables.add(Completable.fromRunnable(() -> {
@@ -819,7 +844,8 @@ public class TorrentEngine
                     torrent.error,
                     task.isSequentialDownload(),
                     task.getFilePriorities(),
-                    tags
+                    tags,
+                    task.isFirstLastPiecePriority()
             );
         }
     }
@@ -1231,7 +1257,8 @@ public class TorrentEngine
                 downloadPath,
                 false,
                 false,
-                new ArrayList<>()
+                new ArrayList<>(),
+                false
         );
 
         if (fs.getDirAvailableBytes(downloadPath) < info.torrentSize) {

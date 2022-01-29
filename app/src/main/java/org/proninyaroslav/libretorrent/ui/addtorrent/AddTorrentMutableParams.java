@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -40,6 +40,7 @@ public class AddTorrentMutableParams extends BaseObservable
     private boolean sequentialDownload;
     private boolean startAfterAdd;
     private boolean ignoreFreeSpace;
+    private boolean firstLastPiecePriority;
 
     public String getSource()
     {
@@ -138,6 +139,18 @@ public class AddTorrentMutableParams extends BaseObservable
         notifyPropertyChanged(BR.ignoreFreeSpace);
     }
 
+    @Bindable
+    public boolean isFirstLastPiecePriority()
+    {
+        return firstLastPiecePriority;
+    }
+
+    public void setFirstLastPiecePriority(boolean firstLastPiecePriority)
+    {
+        this.firstLastPiecePriority = firstLastPiecePriority;
+        notifyPropertyChanged(BR.firstLastPiecePriority);
+    }
+
     @NonNull
     @Override
     public String toString()
@@ -152,6 +165,7 @@ public class AddTorrentMutableParams extends BaseObservable
                 ", sequentialDownload=" + sequentialDownload +
                 ", startAfterAdd=" + startAfterAdd +
                 ", ignoreFreeSpace=" + ignoreFreeSpace +
+                ", firstLastPiecePriority=" + firstLastPiecePriority +
                 '}';
     }
 }

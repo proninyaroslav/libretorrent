@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -148,6 +148,12 @@ public class AddTorrentActivity extends AppCompatActivity
                         false
                 )
         );
+        viewModel.mutableParams.setFirstLastPiecePriority(
+                localPref.getBoolean(
+                        getString(R.string.add_torrent_download_first_last_pieces),
+                        false
+                )
+        );
     }
 
     @Override
@@ -205,6 +211,13 @@ public class AddTorrentActivity extends AppCompatActivity
                         .putBoolean(
                                 getString(R.string.add_torrent_ignore_free_space),
                                 viewModel.mutableParams.isIgnoreFreeSpace()
+                        )
+                        .apply();
+            } else if (propertyId == BR.firstLastPiecePriority) {
+                localPref.edit()
+                        .putBoolean(
+                                getString(R.string.add_torrent_download_first_last_pieces),
+                                viewModel.mutableParams.isFirstLastPiecePriority()
                         )
                         .apply();
             }

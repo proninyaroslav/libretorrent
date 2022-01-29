@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -48,7 +48,7 @@ import org.proninyaroslav.libretorrent.core.storage.dao.TorrentDao;
                 TagInfo.class,
                 TorrentTagInfo.class,
         },
-        version = 8
+        version = 9
 )
 @TypeConverters({UriConverter.class})
 

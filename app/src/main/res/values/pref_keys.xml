@@ -118,6 +118,7 @@
     <string name="add_torrent_sequential_download" translatable="false">add_torrent_sequential_download</string>
     <string name="add_torrent_start_after_add" translatable="false">add_torrent_start_after_add</string>
     <string name="add_torrent_ignore_free_space" translatable="false">add_torrent_ignore_free_space</string>
+    <string name="add_torrent_download_first_last_pieces" translatable="false">add_torrent_download_first_last_pieces</string>
 
     <string name="pref_key_ask_manage_all_access_permission" translatable="false">pref_key_ask_manage_all_access_permission</string>
     <string name="pref_key_show_manage_all_files_warning_dialog" translatable="false">pref_key_show_manage_all_files_warning_dialog</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -429,13 +429,15 @@ public class DetailTorrentViewModel extends AndroidViewModel {
     }
 
     private void initMutableParams() {
-        Torrent torrent = info.getTorrent();
-        if (torrent == null)
+        var torrent = info.getTorrent();
+        if (torrent == null) {
             return;
+        }
 
         mutableParams.setName(torrent.name);
         mutableParams.setDirPath(torrent.downloadPath);
         mutableParams.setSequentialDownload(engine.isSequentialDownload(torrentId));
+        mutableParams.setFirstLastPiecePriority(engine.isFirstLastPiecePriority(torrentId));
     }
 
     private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback() {
@@ -506,6 +508,11 @@ public class DetailTorrentViewModel extends AndroidViewModel {
                             freeSpaceError.onNext(true);
                         engine.prioritizeFiles(torrentId, priorities);
                     }
+                }
+            case BR.firstLastPiecePriority:
+                var firstLastPiecePriority = mutableParams.isFirstLastPiecePriority();
+                if (ti.firstLastPiecePriority != firstLastPiecePriority) {
+                    engine.setFirstLastPiecePriority(torrentId, firstLastPiecePriority);
                 }
 
                 break;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -56,6 +56,7 @@ public class TorrentInfo extends AbstractInfoParcel {
     public boolean sequentialDownload = false;
     public Priority[] filePriorities = new Priority[0];
     public List<TagInfo> tags;
+    public boolean firstLastPiecePriority = false;
 
     public TorrentInfo(
             @NonNull String torrentId,
@@ -91,7 +92,8 @@ public class TorrentInfo extends AbstractInfoParcel {
             String error,
             boolean sequentialDownload,
             Priority[] filePriorities,
-            @NonNull List<TagInfo> tags
+            @NonNull List<TagInfo> tags,
+            boolean firstLastPiecePriority
     ) {
         super(torrentId);
 
@@ -112,6 +114,7 @@ public class TorrentInfo extends AbstractInfoParcel {
         this.sequentialDownload = sequentialDownload;
         this.filePriorities = filePriorities;
         this.tags = tags;
+        this.firstLastPiecePriority = firstLastPiecePriority;
     }
 
     public TorrentInfo(Parcel source) {
@@ -135,6 +138,7 @@ public class TorrentInfo extends AbstractInfoParcel {
         filePriorities = (Priority[]) source.readArray(Priority.class.getClassLoader());
         tags = new ArrayList<>();
         source.readTypedList(tags, TagInfo.CREATOR);
+        firstLastPiecePriority = source.readByte() != 0;
     }
 
     @Override
@@ -163,10 +167,10 @@ public class TorrentInfo extends AbstractInfoParcel {
         dest.writeByte((byte) (sequentialDownload ? 1 : 0));
         dest.writeArray(filePriorities);
         dest.writeTypedList(tags);
+        dest.writeByte((byte) (firstLastPiecePriority ? 1 : 0));
     }
 
-    public static final Parcelable.Creator<TorrentInfo> CREATOR =
-            new Parcelable.Creator<TorrentInfo>() {
+    public static final Parcelable.Creator<TorrentInfo> CREATOR = new Parcelable.Creator<>() {
                 @Override
                 public TorrentInfo createFromParcel(Parcel source) {
                     return new TorrentInfo(source);
@@ -204,6 +208,7 @@ public class TorrentInfo extends AbstractInfoParcel {
         result = prime * result + (sequentialDownload ? 1 : 0);
         result = prime * result + Arrays.hashCode(filePriorities);
         result = prime * result + tags.hashCode();
+        result = prime * result + (firstLastPiecePriority ? 1 : 0);
 
         return result;
     }
@@ -234,6 +239,7 @@ public class TorrentInfo extends AbstractInfoParcel {
                 (error == null || error.equals(info.error)) &&
                 sequentialDownload == info.sequentialDownload &&
                 Arrays.equals(filePriorities, info.filePriorities) &&
+                firstLastPiecePriority == info.firstLastPiecePriority &&
                 tags.equals(info.tags));
     }
 
@@ -258,6 +264,7 @@ public class TorrentInfo extends AbstractInfoParcel {
                 ", sequentialDownload=" + sequentialDownload +
                 ", filePriorities=" + Arrays.toString(filePriorities) +
                 ", tags=" + tags +
+                ", firstLastPiecePriority=" + firstLastPiecePriority +
                 '}';
     }
 }

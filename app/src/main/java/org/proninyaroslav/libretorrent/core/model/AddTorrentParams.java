@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -48,6 +48,7 @@ public class AddTorrentParams implements Parcelable {
     public boolean addPaused;
     @NonNull
     public List<TagInfo> tags;
+    public boolean firstLastPiecePriority;
 
     public AddTorrentParams(
             @NonNull String source,
@@ -58,7 +59,8 @@ public class AddTorrentParams implements Parcelable {
             @NonNull Uri downloadPath,
             boolean sequentialDownload,
             boolean addPaused,
-            @NonNull List<TagInfo> tags
+            @NonNull List<TagInfo> tags,
+            boolean firstLastPiecePriority
     ) {
         this.source = source;
         this.fromMagnet = fromMagnet;
@@ -69,6 +71,7 @@ public class AddTorrentParams implements Parcelable {
         this.sequentialDownload = sequentialDownload;
         this.addPaused = addPaused;
         this.tags = tags;
+        this.firstLastPiecePriority = firstLastPiecePriority;
     }
 
     public AddTorrentParams(Parcel source) {
@@ -81,6 +84,7 @@ public class AddTorrentParams implements Parcelable {
         sequentialDownload = source.readByte() != 0;
         addPaused = source.readByte() != 0;
         tags = source.readArrayList(TagInfo.class.getClassLoader());
+        firstLastPiecePriority = source.readByte() != 0;
     }
 
     @Override
@@ -99,10 +103,10 @@ public class AddTorrentParams implements Parcelable {
         dest.writeByte((byte) (sequentialDownload ? 1 : 0));
         dest.writeByte((byte) (addPaused ? 1 : 0));
         dest.writeTypedList(tags);
+        dest.writeByte((byte) (firstLastPiecePriority ? 1 : 0));
     }
 
-    public static final Parcelable.Creator<AddTorrentParams> CREATOR =
-            new Parcelable.Creator<AddTorrentParams>() {
+    public static final Parcelable.Creator<AddTorrentParams> CREATOR = new Parcelable.Creator<>() {
                 @Override
                 public AddTorrentParams createFromParcel(Parcel source) {
                     return new AddTorrentParams(source);
@@ -133,6 +137,7 @@ public class AddTorrentParams implements Parcelable {
                 ", sequentialDownload=" + sequentialDownload +
                 ", addPaused=" + addPaused +
                 ", tags=" + tags +
+                ", firstLastPiecePriority=" + firstLastPiecePriority +
                 '}';
     }
 }

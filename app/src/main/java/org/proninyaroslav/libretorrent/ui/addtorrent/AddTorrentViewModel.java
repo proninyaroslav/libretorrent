@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -512,7 +512,8 @@ public class AddTorrentViewModel extends AndroidViewModel {
                 dirPath,
                 mutableParams.isSequentialDownload(),
                 !mutableParams.isStartAfterAdd(),
-                tags
+                tags,
+                mutableParams.isFirstLastPiecePriority()
         );
 
         /* TODO: maybe rewrite to WorkManager */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -142,6 +142,7 @@ class TorrentDownloadImpl implements TorrentDownload
     private Completable stopEvent;
     private boolean resumeDataRejected;
     private boolean hasMissingFiles;
+    private boolean hasFirstLastPiecePriority;
 
     public TorrentDownloadImpl(SessionManager sessionManager,
                                TorrentRepository repo,
@@ -162,6 +163,12 @@ class TorrentDownloadImpl implements TorrentDownload
         partsFile = getPartsFile();
         listener = new InnerListener();
         sessionManager.addListener(listener);
+
+        var torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            hasFirstLastPiecePriority = torrent.firstLastPiecePriority;
+            applyFirstLastPiecePriority(hasFirstLastPiecePriority);
+        }
 
         /*
          * Save resume data after first start, if needed
@@ -248,6 +255,11 @@ class TorrentDownloadImpl implements TorrentDownload
                     break;
                 case METADATA_RECEIVED:
                     handleMetadata((MetadataReceivedAlert)alert);
+                    // If first/last piece priority was specified when adding this torrent,
+                    // we should apply it now that we have metadata.
+                    if (hasFirstLastPiecePriority) {
+                        applyFirstLastPiecePriority(true);
+                    }
                     saveResumeData(true);
                     break;
                 case READ_PIECE:
@@ -715,6 +727,11 @@ class TorrentDownloadImpl implements TorrentDownload
             return;
 
         th.prioritizeFiles(p);
+
+        // Restore first/last piece first option if necessary
+        if (hasFirstLastPiecePriority) {
+            applyFirstLastPiecePriority(true, priorities);
+        }
     }
 
     @Override
@@ -1054,6 +1071,78 @@ class TorrentDownloadImpl implements TorrentDownload
             torrent.sequentialDownload = sequential;
             repo.updateTorrent(torrent);
         }
+    }
+
+    @Override
+    public void setFirstLastPiecePriority(boolean enabled) {
+        if (hasFirstLastPiecePriority == enabled) {
+            return;
+        }
+        hasFirstLastPiecePriority = enabled;
+        if (operationNotAllowed()) {
+            return;
+        }
+
+        applyFirstLastPiecePriority(enabled);
+        saveResumeData(true);
+
+        var torrent = repo.getTorrentById(id);
+        if (torrent != null) {
+            torrent.firstLastPiecePriority = enabled;
+            repo.updateTorrent(torrent);
+        }
+    }
+
+    @Override
+    public boolean isFirstLastPiecePriority() {
+        return hasFirstLastPiecePriority;
+    }
+
+    private void applyFirstLastPiecePriority(boolean enabled) {
+        applyFirstLastPiecePriority(enabled, new Priority[]{});
+    }
+
+    // Download first and last pieces first for every file in the torrent
+    private void applyFirstLastPiecePriority(boolean enabled, Priority[] updatedFilePriorities) {
+        if (operationNotAllowed()) {
+            return;
+        }
+
+        Log.i(TAG, "Download first and last piece first: " + id);
+
+        var filePriorities = updatedFilePriorities.length != 0
+                ? updatedFilePriorities
+                : getFilePriorities();
+        var piecePriorities = th.piecePriorities();
+
+        // Updating file priorities is an async operation in libtorrent,
+        // when we just updated it and immediately query it we might get the old/wrong values,
+        // so we rely on `updatedFilePriorities` in this case.
+        var ti = th.torrentFile();
+        var files = ti.files();
+        for (var index = 0; index < filePriorities.length; index++) {
+            var filePriority = filePriorities[index];
+            if (filePriority == Priority.IGNORE) {
+                continue;
+            }
+
+            // Determine the priority to set
+            var newPriority = enabled ? Priority.TOP_PRIORITY : filePriority;
+            var piecePriority = PriorityConverter.convert(newPriority);
+            var filePieces = getFilePieces(ti, index);
+            if (filePieces == null) {
+                continue;
+            }
+            // Worst case: AVI index = 1% of total file size (at the end of the file)
+            var numPieces = Math.ceil(files.fileSize(index) * 0.01 / ti.pieceLength());
+            for (var i = 0; i < numPieces; i++) {
+                piecePriorities[filePieces.first + i] = piecePriority;
+                piecePriorities[filePieces.second - i] = piecePriority;
+            }
+        }
+        Log.e(TAG, "" + Arrays.toString(piecePriorities));
+
+        th.prioritizePieces(piecePriorities);
     }
 
     @Override

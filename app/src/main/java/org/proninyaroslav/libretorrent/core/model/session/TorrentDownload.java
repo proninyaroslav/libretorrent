@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -114,6 +114,10 @@ public interface TorrentDownload
     String makeMagnet(boolean includePriorities);
 
     void setSequentialDownload(boolean sequential);
+
+    void setFirstLastPiecePriority(boolean enabled);
+
+    boolean isFirstLastPiecePriority();
 
     void setTorrentName(@NonNull String name);
 

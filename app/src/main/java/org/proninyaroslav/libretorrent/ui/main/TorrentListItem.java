@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -47,7 +47,8 @@ public class TorrentListItem extends TorrentInfo {
                 state.error,
                 state.sequentialDownload,
                 state.filePriorities,
-                state.tags
+                state.tags,
+                state.firstLastPiecePriority
         );
     }
 
