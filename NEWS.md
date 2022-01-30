@@ -1,3 +1,17 @@
+### Version 3.4 (2022-01-30)
+
+* Added:
+    - Validate HTTPS trackers option
+    - Downloading first and last pieces first
+* Bugfixes:
+    - "Operation not supported on transport endpoint" message
+    - Forced encryption
+    - Minor fixes
+* libtorrent4j upgraded to 2.0.5-24
+* New translations:
+    - Bulgarian
+* Updated current translations
+
 ### Version 3.3 (2021-12-12)
 
 * Android 12 support
