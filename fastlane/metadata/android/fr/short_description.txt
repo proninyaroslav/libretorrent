@@ -1,1 +1,1 @@
-Copylefted libre software torrent client.
+Client torrent logiciel Open Source avec copyleft.

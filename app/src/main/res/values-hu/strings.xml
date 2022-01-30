@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_status_filter">Állapotszűrő</string>
     <string name="pref_foreground_notification_category">Előtérbeli értesítések beállításai</string>
     <string name="error_open_torrent">A torrent nem nyitható meg</string>
+    <string name="manage_all_files_warning_dialog_title">Figyelmeztetés</string>
+    <string name="manage_all_files_warning_dialog_description">A LibreTorrent Google Play verziója nem fér hozzá az összes fájlhoz. Ez azt jelenti, hogy a LibreTorrent csak korlázott számú mappához fér hozzá, mint a Letöltések és mások. Ha szüksége van erre az engedélyre, akkor telepítse a LibreTorrentet más forrásból, a teljes lista a projekt oldalán található:</string>
+    <string name="exact_alarm_permission_warning">Az ütemező működéséhez engedélyt kell szereznie egy speciális rendszer-párbeszédablakon. Folytatja\?</string>
+    <string name="perm_denied_warning_android_r">Az összes fájl elérésének engedélye szükséges a torrentek tetszőleges mappákba történő letöltéséhez és az azokban lévő .torrent fájlok eléréséhez. Enélkül az engedély nélkül a LibreTorrent csak korlátozott számú mappához fér hozzá. Biztos, hogy meg akarja tagadni ezt az engedélyt\?</string>
 </resources>

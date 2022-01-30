@@ -151,7 +151,7 @@
     <string name="torrent_status_downloading_metadata">Завантаження метаданих…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвіл відхилено</string>
-    <string name="perm_denied_warning">Ви впевнені, що хочете заборонити застосункові тримання торент-файлів у пам\'яті\?</string>
+    <string name="perm_denied_warning">Щоб завантажити торренти та отримати доступ до файлів .torrent, потрібен дозвіл на зберігання. Ви дійсно хочете відмовити в цьому дозволі\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Додати торент</string>
     <string name="error_decode_torrent">Помилка декодування торенту. Можливо, файл пошкоджений або має неправильний формат\?</string>
@@ -498,7 +498,7 @@
     <string name="pref_enable_scheduling_shutdown_title">Час зупинки</string>
     <string name="pref_enable_scheduling_shutdown_summary">Вимкнення програми в заданий час</string>
     <string name="pref_scheduling_run_only_once_title">Запустити лише один раз</string>
-    <string name="pref_scheduling_switch_wifi_title">Перемикати Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_title">Перемкнути Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Увімкніть Wi-Fi для запланованого запуску та вимкніть для запланованої зупинки.</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Автооновлення каналів</string>
@@ -570,4 +570,10 @@
     <string name="pref_foreground_notify_sorting_entries_5">Розмір (спочатку найбільший)</string>
     <string name="pref_foreground_notify_sorting_entries_1">Ім\'я (Я - А)</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Завантажено</string>
+    <string name="pref_validate_https_trackers_title">Перевірка сертифікату HTTPS-трекерів</string>
+    <string name="perm_denied_warning_android_r">Для завантаження торрентів і доступу до файлів .torrent у довільних папках потрібен дозвіл на доступ до всіх файлів. Без цього дозволу LibreTorrent матиме доступ лише до обмеженої кількості папок. Ви впевнені, що хочете відмовити в цьому дозволі\?</string>
+    <string name="pref_validate_https_trackers_summary">Сертифікат HTTPS-трекерів і веб-сидів HTTPS буде перевірено в системному сховищі сертифікатів.</string>
+    <string name="exact_alarm_permission_warning">Щоб планувальник працював, ви повинні отримати дозвіл у спеціальному системному діалоговому вікні. Продовжити\?</string>
+    <string name="manage_all_files_warning_dialog_title">Попередження</string>
+    <string name="manage_all_files_warning_dialog_description">Версія LibreTorrent для Google Play не має дозволу на доступ до всіх файлів. Це означає, що LibreTorrent матиме доступ лише до обмеженої кількості папок, таких як Завантаження чи інші. Якщо потрібно увімкнути цей дозвіл, встановіть LibreTorrent з іншого джерела, повний список представлений на сторінці проекту:</string>
 </resources>
