@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">Oke</string>
+    <string name="ok">OK</string>
     <string name="cancel">Batal</string>
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
-    <string name="error">Galat</string>
+    <string name="error">Kesalahan</string>
     <string name="warning">Peringatan</string>
     <string name="shutdown">Matikan</string>
     <string name="replace">Ganti</string>
@@ -17,13 +17,13 @@
     <string name="search">Cari</string>
     <string name="not_available">Tidak tersedia</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d h. %2$d j. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d j. %2$d m. %3$d dtk</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d j. %2$d m. %3$d d</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d dtk</string>
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d d</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d dtk</string>
+    <string name="elapsed_time_format_ss">%1$d d</string>
     <string name="def">Bawaan</string>
     <string name="foreground_notification">Notifikasi latar depan</string>
     <string name="link">Tautan</string>
@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">Mengunduh metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Yakin ingin mencegah aplikasi untuk menyimpan berkas .torrent dalam penyimpanan\?</string>
+    <string name="perm_denied_warning">Izin penyimpanan diperlukan untuk mengunduh torrent dan mengakses file .torrent. Apakah Anda benar-benar ingin menolak izin ini\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Tambahkan Torrent</string>
     <string name="error_decode_torrent">Gagal mengenali berkas torrent. Mungkin berkas rusak atau formatnya tidak valid\?</string>
@@ -570,4 +570,8 @@
     <string name="pref_foreground_notify_sorting_entries_12">Tidak ada penyortiran</string>
     <string name="error_open_torrent">Tidak dapat membuka torrent</string>
     <string name="pref_foreground_notify_status_filter_entries_3">Mengunduh Metadata…</string>
+    <string name="manage_all_files_warning_dialog_description">LibreTorrent versi Google Play tidak memiliki izin untuk mengakses semua file. Ini berarti bahwa LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas, seperti Unduhan atau lainnya. Jika diperlukan, untuk mengaktifkan izin ini, silakan instal LibreTorrent dari sumber lain, daftar lengkap disajikan di halaman proyek:</string>
+    <string name="perm_denied_warning_android_r">Akses semua file izin diperlukan untuk mengunduh torrent dan mengakses file .torrent di folder arbitrer. Tanpa izin ini, LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas. Apakah Anda yakin ingin menolak izin ini\?</string>
+    <string name="manage_all_files_warning_dialog_title">Peringatan</string>
+    <string name="exact_alarm_permission_warning">Agar penjadwal berfungsi, Anda harus mendapatkan izin dalam dialog sistem khusus. Lanjutkan\?</string>
 </resources>

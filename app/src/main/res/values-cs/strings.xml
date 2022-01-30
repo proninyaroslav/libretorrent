@@ -430,12 +430,12 @@
     <string name="pref_enable_roaming_summary">Stáhnout pouze v případě, že zařízení není v roamingu</string>
     <string name="pref_power_management_category">Řízení spotřeby</string>
     <string name="pref_keep_alive_title">Pracovat na pozadí</string>
-    <string name="pref_keep_alive_summary">Je-li tato funkce povolena, aplikace zůstane spuštěna na pozadí. Vypnutí při dokončení stahování je stále respektováno</string>
-    <string name="pref_shutdown_downloads_complete_title">Vypnout po dokončení stahování</string>
-    <string name="pref_shutdown_downloads_complete_summary">Pokud je zapnuto, aplikace se ukončí po dokončení všech stahování</string>
-    <string name="pref_cpu_do_not_sleep_title">Udržet CPU probuzené</string>
-    <string name="pref_cpu_do_not_sleep_summary">Povolením této možnosti se zvýší spotřeba energie. Použijte tuto možnost, pokud se rychlost stahování snižuje při vypnuté obrazovce</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Stahovat a nahrávat pouze při nabíjení</string>
+    <string name="pref_keep_alive_summary">Nechá aplikaci běžet na pozadí. (Vypnutí při dokončení stahování je stále respektováno)</string>
+    <string name="pref_shutdown_downloads_complete_title">Vypnout po dokončení všech stahování</string>
+    <string name="pref_shutdown_downloads_complete_summary">Ukončí aplikaci, když je vše staženo.</string>
+    <string name="pref_cpu_do_not_sleep_title">Udržet zařízení probuzené</string>
+    <string name="pref_cpu_do_not_sleep_summary">Povolte, pokud se rychlost stahování snižuje při vypnuté obrazovce (Zvyšuje využití baterie)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Stahovat a nahrávat pouze při nabíjení.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Pokud je povoleno, torrenty se budou stahovat/nahrávat pouze při nabíjení. Všechny torrenty budou pozastaveny, pokud se zařízení nenabíjí</string>
     <string name="pref_battery_control_title">Kontrola stavu baterie</string>
     <string name="pref_custom_battery_control_title">Vlastní stav baterie v procentech</string>
@@ -540,4 +540,38 @@
     <string name="about_title">O LibreTorrent</string>
     <string name="about_description">Další informace: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent je volně dostupný torrentový klient pro Android 4+, založený na libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent je volně dostupný software, vydaný podle podmínek &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Seznam změn</string>
+    <string name="manage_all_files_warning_dialog_description">Verze LibreTorrent z Google Play nemá oprávnění pro přístup ke všem souborům. To znamená, že LibreTorrent bude mít pouze přístup k omezenému počtu složek, např. Stažené atd... Pokud potřebujete toto oprávnění povolit, tak prosím nainstalujte LibreTorrent z jiného zdroje, kompletní seznam je dostupný na stránce projektu:</string>
+    <string name="manage_all_files_warning_dialog_title">Varování</string>
+    <string name="peer_relevance">Relevance: %1$.1f</string>
+    <string name="error_open_torrent">Nelze otevřít torrent</string>
+    <string name="pref_watch_dir_delete_file_title">Vymazat .torrent soubor po přidání</string>
+    <string name="pref_foreground_notification_category">Nastavení oznámení na popředí</string>
+    <string name="pref_foreground_notify_status_filter">Filtr stavu</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularita (od nejnižší)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularita (od nejvyšší)</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Chyba</string>
+    <string name="pref_foreground_notify_sorting">Třídění</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinuje dvě tlačítka: pozastavit vše a obnovit vše. Tohle tlačítko bude fungovat jako přepínač. Varování: stav tlačítka není ovlivněn ručním pozastavením/obnovením torrentu.</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (od největší)</string>
+    <string name="pref_default_trackers_list_summary">Seznam trackerů použitých v následujících případech:
+\n1. Při přidání torrentu je výchozí seznam přidán do seznamu torrentu.
+\n2. Použit pro získávání odkazů magnet.</string>
+    <string name="pref_default_trackers_list_title">Výchozí trackery</string>
+    <string name="perm_denied_warning_android_r">Oprávnění k přístupu ke všem souborům je potřeba ke stažení torrentů a přístupu k .torrent souborům ve všech složkách. Bez tohoto oprávnění bude mít LibreTorrent pouze přístup k omezenému počtu složek. Opravdu chcete toto oprávnění zrušit\?</string>
+    <string name="exact_alarm_permission_warning">Aby mohl plánovač fungovat, musíte udělit oprávnění ve speciálním dialogu systému. Pokračovat\?</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Jméno (A - Z)</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Žádné třídění</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Vše</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">Stahuji…</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Staženo</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">Stahuji metadata…</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Jméno (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Datum přidání (od nejnovějšího)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Datum přidání (od nejstaršího)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Velikost (od nejmenší)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Velikost (od největší)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Postup (od nejmenšího)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Postup (od největšího)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">ETA (od nejmenší)</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Kombinované tlačítko pozastavení</string>
 </resources>

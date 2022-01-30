@@ -1,17 +1,18 @@
-* Lisensi GPLv3+. Gunakan, lihat, ubah dan bagikan; untuk semua.
-* Pilih berkas mana untuk diunduh.
-* Pindahkan berkas yang diunduh secara otomatis ke folder lain atau drive eksternal.
-* Stream berkas, dengan unduhan sekuensial.
-* Android TV
-* Desain material, tema gelap dan hitam, dan UI tablet.
-* Kustomisasi jaringan, baterai dan pengaturan UI, dan lain-lain.
+* Berlisensi GPLv3+. Menggunakan, melihat, merubah, dan membagikan; dengan semua.
+* Pilih file mana yang akan diunduh.
+* Pindahkan file saat mengunduh.
+* Pindahkan file yang diunduh secara otomatis ke folder lain atau drive eksternal.
+* Streaming file, dengan unduhan berurutan.
+* Android TV.
+* Material design, tema gelap dan hitam, dan UI tablet.
+* Pengaturan jaringan, baterai, dan UI yang dapat disesuaikan, dll.
 * 35+ terjemahan.
 * Penjadwalan.
-* Pengunduhan otomatis, dengan pengelola Atom/RSS.
-* Buat torrent, dengan berkas berukuran besar dan berjumlah banyak.
-* Tautan HTTP/S dan magnet.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* Pengunduhan otomatis, dengan Atom/RSS manager.
+* Buat torrent, dengan banyak dan file besar.
+* HTTP\S dan tautan magnet.
+* DHT, PeX, enkripsi, LSD, UPnP, NAT*PMP, µTP.
 * Pemfilteran IP (eMule dat dan PeerGuardian).
-* Mendukung proksi untuk tracker and peer.
-* Berdasarkan pada libtorrent4j.
-* Dan lain-lain
+* Mendukung proxy untuk pelacak dan rekan.
+* Berdasarkan libtorrent4j.
+* Dan banyak lagi.

@@ -574,4 +574,7 @@
     <string name="perm_denied_warning_android_r">Απαιτείται άδεια πρόσβασης σε όλα τα αρχεία, για λήψη torrent και πρόσβαση σε αρχεία .torrent σε αυθαίρετους φακέλους. Χωρίς αυτήν την άδεια το LibreTorrent θα έχει πρόσβαση μόνο σε περιορισμένο αριθμό φακέλων. Είστε βέβαιοι ότι θέλετε να αρνηθείτε αυτήν την άδεια;</string>
     <string name="manage_all_files_warning_dialog_title">Προειδοποίηση</string>
     <string name="manage_all_files_warning_dialog_description">Η έκδοση του LibreTorrent στο Google Play δεν έχει άδεια πρόσβασης σε όλα τα αρχεία. Αυτό σημαίνει ότι το LibreTorrent θα έχει πρόσβαση μόνο σε περιορισμένο αριθμό φακέλων, όπως Λήψεις ή άλλους. Εάν χρειάζεται, για να ενεργοποιήσετε αυτήν την άδεια εγκαταστήστε το LibreTorrent από άλλη πηγή. Η πλήρης λίστα παρουσιάζεται στη σελίδα του έργου:</string>
+    <string name="pref_validate_https_trackers_title">Επικύρωση πιστοποιητικών HTTPS trackers</string>
+    <string name="pref_validate_https_trackers_summary">Το πιστοποιητικό των HTTPS trackers και των HTTPS seeds ιστού θα επικυρωθεί στο χώρο αποθήκευσης πιστοποιητικών συστήματος.</string>
+    <string name="download_first_last_pieces">Λήψη πρώτα του πρώτου και τελευταίου κομματιού</string>
 </resources>

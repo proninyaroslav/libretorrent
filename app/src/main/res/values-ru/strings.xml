@@ -575,4 +575,7 @@
     <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите запретите это разрешение\?</string>
     <string name="manage_all_files_warning_dialog_description">Версия LibreTorrent для Google Play не имеет разрешения на доступ ко всем файлам. Это означает, что LibreTorrent будет иметь доступ только к ограниченному числу папок, например \"Загрузки\" или другим. Если необходимо включить это разрешение, установите LibreTorrent из другого источника, полный список представлен на странице проекта:</string>
     <string name="manage_all_files_warning_dialog_title">Предупреждение</string>
+    <string name="pref_validate_https_trackers_title">Проверка сертитификата HTTPS трекеров</string>
+    <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб сидов будет проверятся в системном хранилище сертификатов.</string>
+    <string name="download_first_last_pieces">Загружать с первых и последних частей</string>
 </resources>

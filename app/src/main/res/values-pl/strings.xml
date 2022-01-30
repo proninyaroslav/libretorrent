@@ -574,4 +574,7 @@
     <string name="perm_denied_warning_android_r">Uprawnienie dostępu do wszystkich plików jest wymagane do pobierania torrentów i uzyskiwania dostępu do plików .torrent w dowolnych folderach. Bez tego uprawnienia LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów. Czy na pewno chcesz odmówić tego uprawnienia\?</string>
     <string name="manage_all_files_warning_dialog_title">Ostrzeżenie</string>
     <string name="manage_all_files_warning_dialog_description">Wersja LibreTorrent w Google Play nie ma uprawnienia dostępu do wszystkich plików. Oznacza to, że LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów, takich jak np. Pobrane. W razie potrzeby, aby włączyć to uprawnienie, zainstaluj LibreTorrent z innego źródła; pełna lista znajduje się na stronie projektu:</string>
+    <string name="pref_validate_https_trackers_title">Weryfikuj certyfikaty trackerów HTTPS</string>
+    <string name="pref_validate_https_trackers_summary">Certyfikaty trackerów HTTPS i źródeł sieciowych będą weryfikowane w magazynie certyfikatów systemu.</string>
+    <string name="download_first_last_pieces">Najpierw pobierz pierwszy i ostatni fragment</string>
 </resources>

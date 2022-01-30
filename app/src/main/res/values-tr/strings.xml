@@ -575,4 +575,7 @@
     <string name="perm_denied_warning_android_r">Torrentleri indirmek ve herhangi bir klasördeki .torrent dosyalarına erişmek için tüm dosyalara erişim izni gereklidir. Bu izin olmadan, LibreTorrent yalnızca sınırlı sayıda klasöre erişebilir. Bu izni reddetmek istediğinizden emin misiniz\?</string>
     <string name="manage_all_files_warning_dialog_description">LibreTorrent\'in Google Play sürümünün tüm dosyalara erişim izni yoktur. Bu, LibreTorrent\'in İndirilenler veya diğerleri gibi yalnızca sınırlı sayıda klasöre erişimi olacağı anlamına gelir. Gerekirse, bu izni etkinleştirmek için lütfen LibreTorrent\'i başka bir kaynaktan kurun, tam liste proje sayfasında bulunmaktadır:</string>
     <string name="manage_all_files_warning_dialog_title">Uyarı</string>
+    <string name="pref_validate_https_trackers_title">HTTPS takipçi sertifikasını doğrula</string>
+    <string name="pref_validate_https_trackers_summary">HTTPS takipçilerin ve HTTPS web paylaşımlarının sertifikası, sistem sertifika deposunda doğrulanacaktır.</string>
+    <string name="download_first_last_pieces">Önce ilk ve son parçaları indir</string>
 </resources>

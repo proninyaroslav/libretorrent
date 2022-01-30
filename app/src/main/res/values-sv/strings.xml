@@ -55,12 +55,12 @@
     <string name="dialog_add_link_title">Ange infohash-värdet, magnet-länk eller HTTP/S-länk</string>
     <string name="torrent_list_empty">Inga torrenter</string>
     <string name="select_or_add_torrent">Välj eller lägg till en torrent</string>
-    <string name="error_empty_link">Fyll i länken</string>
+    <string name="error_empty_link">Ange länken</string>
     <string name="error_invalid_link">Ogiltig länk</string>
-    <string name="error_open_torrent_file">Kan inte öppna .torrent-filen</string>
+    <string name="error_open_torrent_file">Det går inte att öppna .torrent-filen</string>
     <string name="open_file">Öppna fil</string>
     <string name="settings">Inställningar</string>
-    <string name="ip_filter_add_error">Kunde inte att lägga till IP-filter (%1$d misslyckades). Filen kanske är skadad eller har ett felaktigt format\?</string>
+    <string name="ip_filter_add_error">Det gick inte att lägga till IP-filtret (%1$d misslyckades). Kanske är filen skadad eller har fel format\?</string>
     <string name="ip_filter_add_success">IP-filtret lades till</string>
     <string name="proxy_settings_applied">Använder de nya inställningarna för proxy-servern.</string>
     <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya inställningarna till proxy-servern.</string>
@@ -72,21 +72,21 @@
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Hämtar…</string>
     <string name="drawer_status_downloading_metadata">Hämtar metadata…</string>
-    <string name="drawer_status_error">Error</string>
+    <string name="drawer_status_error">Fel</string>
     <!-- Sorting -->
     <string name="drawer_sorting_name">Namn</string>
     <string name="drawer_sorting_progress">Förlopp</string>
     <string name="drawer_sorting_ETA">ETA</string>
     <!-- Date added -->
     <!-- Tags -->
-    <string name="tags">Tags</string>
+    <string name="tags">Taggar</string>
     <string name="add_tag">Add tag</string>
     <string name="tag_name">Taggnamn</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Kunde inte lägga till tagg</string>
     <string name="tag_deleting_failed">Kunde inte ta bort tagg</string>
     <string name="tag_already_exists">Den här taggen finns redan</string>
-    <string name="no_tags">No tags</string>
+    <string name="no_tags">Inga taggar</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
@@ -97,8 +97,8 @@
     <string name="network_online">Uppkopplad</string>
     <string name="network_offline">Nerkopplad</string>
     <!-- Error notification -->
-    <string name="error_template">Error: %1$s</string>
-    <string name="restore_torrent_error">Kan inte återställa torrent från föregående session.</string>
+    <string name="error_template">Fel: %1$s</string>
+    <string name="restore_torrent_error">Det går inte att återställa torrent från föregående session.</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT-fel</string>
     <!-- Finish notification -->
@@ -125,24 +125,24 @@
     <string name="torrent_status_downloading_metadata">Hämtar metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Åtkomst nekad</string>
-    <string name="perm_denied_warning">Vill du verkligen förhindra appen att behålla .torrent-filer i minnet\?</string>
+    <string name="perm_denied_warning">Lagringstillstånd krävs för att hämta torrenter och komma åt .torrent-filer. Vill du verkligen avfärda detta tillstånd\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Lägg till torrent</string>
-    <string name="error_decode_torrent">Kunde inte avkoda .torrent-fil. Den kanske är skadad eller i ett felaktigt format\?</string>
-    <string name="error_io_torrent">Kunde inte läsa .torrent-filen</string>
-    <string name="error_fetch_link">Kunde inte hämta data från länken</string>
-    <string name="error_invalid_link_or_path">Icke giltig länk eller torrent-genväg</string>
-    <string name="error_add_torrent">Kunde inte lägga till torrenten</string>
-    <string name="error_file_not_found_add_torrent">Kunde inte lägga till torrenten. Kanske är .torrent-filen flyttad eller så togs den bort\?</string>
-    <string name="error_io_add_torrent">Kan inte lägga till torrent till följd av ett I/O-fel.</string>
+    <string name="error_decode_torrent">Det gick inte att avkoda .torrent-filen. Den kanske är skadad eller i ett felaktigt format\?</string>
+    <string name="error_io_torrent">Det gick inte att läsa .torrent-filen</string>
+    <string name="error_fetch_link">Det gick inte att hämta data från länken</string>
+    <string name="error_invalid_link_or_path">Ogiltig länk eller torrentsökväg</string>
+    <string name="error_add_torrent">Det gick inte att lägga till torrenten</string>
+    <string name="error_file_not_found_add_torrent">Det gick inte att lägga till torrenten. Kanske har .torrent-filen flyttats eller tagits bort\?</string>
+    <string name="error_io_add_torrent">Det går inte att lägga till torrenten på grund av ett I/O-fel.</string>
     <string name="torrent_exist">Eftersom att torrenten redan finns så slogs de ihop.</string>
-    <string name="error_field_required">Fält som krävs</string>
+    <string name="error_field_required">Obligatoriskt fält</string>
     <string name="error_no_files_selected">Inga filer valda</string>
     <string name="free_space">%1$s ledigt</string>
-    <string name="error_free_space">Inte tillräckligt med utrymme där för att hämta de valda filerna.</string>
+    <string name="error_free_space">Det finns inte tillräckligt med ledigt utrymme för att hämta de valda filerna.</string>
     <string name="files_size">%1$s av %2$s valdes</string>
     <string name="start_torrent">Starta torrent</string>
-    <string name="file_is_too_large_error">Filen för stor</string>
+    <string name="file_is_too_large_error">Filen är för stor</string>
     <string name="unable_to_open_folder">Kan inte öppna den valda mappen. Prova välj en annan.</string>
     <string name="error_empty_name">Ange ett namn</string>
     <string name="ignore_free_space">Ignorera lågt diskutrymme</string>
@@ -163,13 +163,13 @@
     <string name="file_chooser_title">Val av fil</string>
     <string name="torrent_file_chooser_title">Val av Torrent</string>
     <string name="dialog_new_folder_title">Ny mapp</string>
-    <string name="error_dialog_new_folder">Kunde inte skapa ny mapp</string>
-    <string name="error_open_dir">Kunde inte öppna mappen</string>
+    <string name="error_dialog_new_folder">Det gick inte att skapa ny mapp</string>
+    <string name="error_open_dir">Det gick inte att öppna mappen</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="file_name">Filnamn</string>
-    <string name="error_file_exists">Filen existerar redan</string>
+    <string name="error_file_exists">Filen finns redan</string>
     <string name="file_name_is_empty">Ange ett namn först</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
@@ -197,15 +197,15 @@
     <string name="peer_connection_type_web">Webb</string>
     <string name="pause_torrent">Pausa</string>
     <string name="save_torrent_file_successfully">.torrent-filen sparades</string>
-    <string name="error_save_torrent_file">Kunde inte spara en torrent-fil</string>
+    <string name="error_save_torrent_file">Det gick inte att spara torrentfilen</string>
     <string name="upload_speed">Ladda upp</string>
     <string name="download_speed">Hämta</string>
     <string name="magnet_more_about_bep53">http://www.bittorrent.org/beps/bep_0053.html för mer information</string>
     <!-- Send text to clipboard -->
     <string name="text_copied_to_clipboard">Kopierades till klippbordet</string>
     <!-- Error report -->
-    <string name="app_error_occurred">Ett app-fel inträffade. Du kan rapportera det till utvecklarna.</string>
-    <string name="error_comment_prompt">Lägg till extra-information och kommentarer här:</string>
+    <string name="app_error_occurred">Ett appfel inträffade. Du kan rapportera det till utvecklarna.</string>
+    <string name="error_comment_prompt">Lägg till extra information och kommentarer här:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_filter_prompt">Ange orden (separerat med \"|\")varav en av varje måste finnas i namnet eller ange ett vanligt uttryck. Torrenterna läggs endast till om det här filtret matchar torrentens namn.</string>
@@ -215,8 +215,8 @@
     <string name="link_copied_to_clipboard">Kopierades till klippbordet</string>
     <string name="backup_feeds_successfully">Kanaler sparades</string>
     <string name="restore_feeds_backup_successfully">Kanaler återställdes</string>
-    <string name="error_backup_feeds">Kunde inte spara kanaler</string>
-    <string name="error_restore_feeds_backup">Kunde inte återställa kanaler</string>
+    <string name="error_backup_feeds">Det gick inte att spara kanaler</string>
+    <string name="error_restore_feeds_backup">Det gick inte att återställa kanaler</string>
     <!-- Create torrent dialog -->
     <string name="creating_torrent_progress">Vänligen vänta medan torrenten skapas…</string>
     <string name="file_or_folder_for_seeding">Fil eller mapp att distribuera</string>
@@ -241,7 +241,7 @@
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">Den valda mappen är tom eller så exkluderas dess filer av filtret.</string>
-    <string name="error_create_torrent">Kunde inte skapa torrent</string>
+    <string name="error_create_torrent">Det gick inte att skapa torrent</string>
     <string name="skip_files_hint">Ange filnamn separerade med \"|\".</string>
     <string name="select_folder_to_save">Välj en mapp att spara.</string>
     <string name="unable_to_open_file">Kunde inte öppna den valda filen</string>
@@ -366,7 +366,7 @@
     <string name="pref_feed_remove_duplicates_summary">Hoppar över hämtning av redan närvarande fil-titlar.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Strömning</string>
-    <string name="pref_streaming_enable_summary">Tillåter att hämta individuella filer från en torrent genom att använda en webbläsare eller mediaspelare via HTTP/S-url:er.</string>
+    <string name="pref_streaming_enable_summary">Tillåt hämtning av enskilda filer från en torrent genom att använda en webbläsare eller mediaspelare via HTTP/S-webbadresser.</string>
     <string name="pref_streaming_hostname">Värdnamn</string>
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Välj en port eller ett värdnamn för strömningar som inte är upptagna eller felaktiga.</string>
@@ -376,7 +376,7 @@
     <string name="torrent_moving_title">Flyttar torrent…</string>
     <string name="torrent_finished_notify">Torrent färdig</string>
     <string name="session_error_title">Sessionsfel</string>
-    <string name="torrent_error_notify_title">Torrent-fel</string>
+    <string name="torrent_error_notify_title">Torrentfel</string>
     <string name="notify_shutting_down">Avslutar…</string>
     <string name="app_running_in_the_background">Körs i bakgrunden…</string>
     <string name="torrent_count_notify_template">%1$d ⬇ av %2$d</string>
@@ -392,7 +392,7 @@
     <string name="drawer_sorting_no_sorting">Ingen sortering</string>
     <string name="drawer_sorting_peers">Popularitet</string>
     <string name="drawer_sorting_size">Storlek</string>
-    <string name="drawer_sorting">Sorterar</string>
+    <string name="drawer_sorting">Sortering</string>
     <string name="session_stats_listen_port">Lyssningsport: %1$s</string>
     <string name="session_stats_dht_nodes">DHT-jämlikar: %1$d</string>
     <string name="about">Om</string>
@@ -417,7 +417,7 @@
     <string name="pref_enable_scheduling_start_title">Start-tid</string>
     <string name="pref_proxy_requires_auth_title">Kräver autentisering</string>
     <string name="pref_proxy_peers_too_title">Använd också för anslutningar</string>
-    <string name="pref_show_nat_errors">Via NAT-fel</string>
+    <string name="pref_show_nat_errors">Visa NAT-fel</string>
     <string name="pref_ip_filtering_file_title">Genväg till filtreringsfil (.dat, .p2p)</string>
     <string name="pref_ip_filtering_category">IP-filtrering</string>
     <string name="pref_enc_out_connections_title">Utgående anslutningar</string>
@@ -480,9 +480,9 @@
     <string name="edit_feed_channel">Redigera kanal</string>
     <string name="delete_selected_channels">Ta bort valda kanaler\?</string>
     <string name="copy_link">Kopiera länk</string>
-    <string name="error_cannot_delete_channel">Kan inte ta bort kanal</string>
-    <string name="error_cannot_edit_channel">Kan inte redigera kanal</string>
-    <string name="error_cannot_add_channel">Kan inte lägga till kanal</string>
+    <string name="error_cannot_delete_channel">Det går inte att ta bort kanalen</string>
+    <string name="error_cannot_edit_channel">Det går inte att redigera kanalen</string>
+    <string name="error_cannot_add_channel">Det går inte att lägga till en kanal</string>
     <string name="feed_last_update_never">aldrig</string>
     <string name="feed_last_update_template">Uppdaterades: %1$s</string>
     <string name="restore_feed_channels_backup">Återställ säkerhetskopia</string>
@@ -552,7 +552,7 @@
     <string name="pref_foreground_notify_sorting_entries_12">Ingen sortering</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularitet (största först)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Popularitet (minsta först)</string>
-    <string name="pref_foreground_notify_sorting_entries_9">ETA (störst först)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (största först)</string>
     <string name="pref_foreground_notify_sorting_entries_8">ETA (minsta först)</string>
     <string name="pref_foreground_notify_sorting_entries_7">Framsteg (största först)</string>
     <string name="pref_foreground_notify_sorting_entries_6">Framsteg (minsta först)</string>
@@ -571,4 +571,11 @@
     <string name="pref_foreground_notify_status_filter">Statusfilter</string>
     <string name="pref_foreground_notification_category">Förgrundsaviseringsinställningar</string>
     <string name="error_open_torrent">Det går inte att öppna torrent</string>
+    <string name="manage_all_files_warning_dialog_title">Varning</string>
+    <string name="manage_all_files_warning_dialog_description">Google Play-versionen av LibreTorrent har inte behörighet att komma åt alla filer. Detta innebär att LibreTorrent endast kommer att ha tillgång till ett begränsat antal mappar, som hämtningar eller annan. Om det behövs, för att aktivera denna behörighet, installera LibreTorrent från annan källa, hela listan presenteras på projektsidan:</string>
+    <string name="exact_alarm_permission_warning">För att schemaläggaren ska fungera måste du få behörighet i en speciell systemdialog. Fortsätt\?</string>
+    <string name="perm_denied_warning_android_r">Åtkomst till alla filer krävs för att hämta torrenter och komma åt .torrent-filer i godtyckliga mappar. Utan detta tillstånd kommer LibreTorrent endast att ha tillgång till ett begränsat antal mappar. Är du säker på att du vill avfärda denna behörighet\?</string>
+    <string name="pref_validate_https_trackers_title">Validera HTTPS-spårarcertifikat</string>
+    <string name="download_first_last_pieces">Hämta första och sista delarna först</string>
+    <string name="pref_validate_https_trackers_summary">Certifikatet för HTTPS-spårare och HTTPS-webbdistributioner kommer att valideras i systemcertifikatarkivet.</string>
 </resources>
