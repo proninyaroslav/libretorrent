@@ -196,6 +196,11 @@ class TorrentDownloadImpl implements TorrentDownload
         return !th.isValid() || stopped;
     }
 
+    private boolean hasMetadata() {
+        var ti = th.torrentFile();
+        return !operationNotAllowed() && ti != null && ti.numFiles() > 0;
+    }
+
     private final class InnerListener implements AlertListener
     {
         @Override
@@ -710,8 +715,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public void prioritizeFiles(@NonNull Priority[] priorities)
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return;
+        }
 
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
@@ -737,8 +743,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public long getSize()
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return 0;
+        }
 
         TorrentInfo info = th.torrentFile();
 
@@ -1079,7 +1086,7 @@ class TorrentDownloadImpl implements TorrentDownload
             return;
         }
         hasFirstLastPiecePriority = enabled;
-        if (operationNotAllowed()) {
+        if (!hasMetadata()) {
             return;
         }
 
@@ -1104,7 +1111,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
     // Download first and last pieces first for every file in the torrent
     private void applyFirstLastPiecePriority(boolean enabled, Priority[] updatedFilePriorities) {
-        if (operationNotAllowed()) {
+        if (!hasMetadata()) {
             return;
         }
 
@@ -1276,8 +1283,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public Uri getPartsFile()
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return null;
+        }
 
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
@@ -1472,8 +1480,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public double[] getFilesAvailability(int[] piecesAvailability)
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return new double[0];
+        }
 
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
@@ -1597,8 +1606,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public TorrentStream getStream(int fileIndex)
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return null;
+        }
 
         TorrentInfo ti = th.torrentFile();
         if (ti == null)
@@ -1639,8 +1649,9 @@ class TorrentDownloadImpl implements TorrentDownload
     @Override
     public byte[] getBencode()
     {
-        if (operationNotAllowed())
+        if (!hasMetadata()) {
             return null;
+        }
 
         TorrentInfo ti = th.torrentFile();
 
