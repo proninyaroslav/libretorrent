@@ -39,6 +39,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -422,10 +424,13 @@ public class Utils {
      */
 
     public static void startServiceBackground(@NonNull Context context, @NonNull Intent i) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            context.startForegroundService(i);
-        else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Postpone the service start until the main thread is free to avoid ANR
+            new Handler(Looper.getMainLooper())
+                    .post(() -> context.startForegroundService(i));
+        } else {
             context.startService(i);
+        }
     }
 
     public static void enableBootReceiver(@NonNull Context context, boolean enable) {
