@@ -95,18 +95,18 @@
     <string name="drawer_date_added_month">Ay</string>
     <string name="drawer_date_added_year">Yıl</string>
     <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
+    <string name="tags">Etiketler</string>
+    <string name="add_tag">Etiket ekle</string>
     <string name="edit_tag">Etiketi düzenle</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
+    <string name="tag_name">Etiket ismi</string>
+    <string name="tag_color">Etiket rengi</string>
     <string name="add_tag_failed">Etiket eklenemedi</string>
     <string name="tag_deleting_failed">Etiket silinemedi</string>
     <string name="tag_already_exists">Bu etiket zaten var</string>
-    <string name="no_tags">No tags</string>
+    <string name="no_tags">Etiket yok</string>
     <string name="select_tag">Etiket seç</string>
     <string name="new_tag">Yeni etiket</string>
-    <string name="without_tags">Etiketler olmadan</string>
+    <string name="without_tags">Etiketsiz</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
