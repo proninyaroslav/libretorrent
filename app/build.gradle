@@ -111,7 +111,7 @@ tasks.withType(Test) {
 }
 
 def ROOM_VERSION = '2.4.1'
-def LIFECYCLE_VERSION = '2.4.0'
+def LIFECYCLE_VERSION = '2.4.1'
 
 dependencies {
     /* Testing */
@@ -123,9 +123,9 @@ dependencies {
 
     /* AndroidX libraries */
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'androidx.fragment:fragment:1.4.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
+    implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.paging:paging-runtime:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
@@ -139,7 +139,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
-    implementation "androidx.preference:preference:1.1.1"
+    implementation "androidx.preference:preference:1.2.0"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
