@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.annotation.SuppressLint;
+import android.database.CursorWindow;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -61,6 +63,19 @@ public class MainApplication extends MultiDexApplication {
         }
         ACRA.init(this, builder);
 
+        increaseCursorWindowSize();
+
         TorrentNotifier.getInstance(this).makeNotifyChans();
+    }
+
+    @SuppressLint("DiscouragedPrivateApi")
+    private void increaseCursorWindowSize() {
+        try {
+            var field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); // 100MB
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to increase CursorWindow size", e);
+        }
     }
 }
