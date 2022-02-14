@@ -133,7 +133,7 @@
     <string name="save_file">Запазване на файла</string>
     <string name="report">Докладване</string>
     <string name="more_details">Повече подробности</string>
-    <string name="file_downloading_status_template">%1$s - %2$s/%3$s - %4$d% -
+    <string name="file_downloading_status_template">%1$s - %2$s/%3$s - %4$d%% -
 \nНаличност: %5$s</string>
     <string name="file_priority_normal">Нормален</string>
     <string name="file_priority_low">Игнориране</string>
@@ -317,8 +317,8 @@
     <string name="pref_battery_control_title">Управление на батерията</string>
     <string name="pref_custom_battery_control_title">Процент на батерията по избор</string>
     <string name="pref_custom_battery_control_value_title">Процент на управление на батерията</string>
-    <string name="pref_battery_control_summary">Паузира всички торенти, ако нивото на батерията падне под %1$d%. (Ограничението не се прилага при зареждане.)</string>
-    <string name="pref_custom_battery_control_summary">Задайте %% от батерията, при които да се спира изтеглянето. (Пренебрегва стойността по подразбиране %1$d%.)</string>
+    <string name="pref_battery_control_summary">Паузира всички торенти, ако нивото на батерията падне под %1$d%%. (Ограничението не се прилага при зареждане.)</string>
+    <string name="pref_custom_battery_control_summary">Задайте %% от батерията, при които да се спира изтеглянето. (Пренебрегва стойността по подразбиране %1$d%%.)</string>
     <string name="pref_default_trackers_list_title">Тракери по подразбиране</string>
     <string name="ok">ОК</string>
     <string name="cancel">Отказ</string>
