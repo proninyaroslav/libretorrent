@@ -110,7 +110,7 @@ tasks.withType(Test) {
     }
 }
 
-def ROOM_VERSION = '2.4.1'
+def ROOM_VERSION = '2.4.2'
 def LIFECYCLE_VERSION = '2.4.1'
 
 dependencies {
