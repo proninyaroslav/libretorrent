@@ -572,7 +572,7 @@ public class DetailTorrentFragment extends Fragment
         if (fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG) == null) {
             speedLimitDialog = BaseAlertDialog.newInstance(
                     getString(R.string.speed_limit_title),
-                    getString(R.string.speed_limit_dialog),
+                    getString(R.string.torrent_speed_limit_dialog),
                     R.layout.dialog_speed_limit,
                     getString(R.string.ok),
                     getString(R.string.cancel),
