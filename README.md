@@ -62,6 +62,7 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
  - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
  - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
  - **Nano**: `nano_1jtaa1njf3pn66pi48uqbak3rpbn373px6xeugynwxm1yb5hyfb6ure15pyy`
+ - **Monero**: `48j4Mo7J7t51EeBf35Lpdmehmi9chUwzSXxHrnjpRJ6fPQafPWvSCdFafw3rA5ZRWievfYEDToNso8VppbJf2RVH9cdZmHa`
 
 ## 🎉 Contributors
 
