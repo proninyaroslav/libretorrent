@@ -269,7 +269,7 @@
     <string name="speed_limit_title">Максимальная скорость</string>
     <string name="upload_speed">Отдача</string>
     <string name="download_speed">Загрузка</string>
-    <string name="speed_limit_dialog">Установите скорость в КБ/с (0 - без ограничений)</string>
+    <string name="speed_limit_dialog">Установите скорость в КиБ/с (0 - без ограничений)</string>
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
     <string name="share_stream_url">Поделиться URL стрима…</string>
@@ -573,9 +573,11 @@
     <string name="pref_foreground_notify_combined_pause_button_title">Комбинированная кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
     <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите запретите это разрешение\?</string>
-    <string name="manage_all_files_warning_dialog_description">Версия LibreTorrent для Google Play не имеет разрешения на доступ ко всем файлам. Это означает, что LibreTorrent будет иметь доступ только к ограниченному числу папок, например \"Загрузки\" или другим. Если необходимо включить это разрешение, установите LibreTorrent из другого источника, полный список представлен на странице проекта:</string>
+    <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузки\' и подобных.
+\nНа странице проекта есть другие источники.</string>
     <string name="manage_all_files_warning_dialog_title">Предупреждение</string>
     <string name="pref_validate_https_trackers_title">Проверка сертитификата HTTPS трекеров</string>
     <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб сидов будет проверятся в системном хранилище сертификатов.</string>
     <string name="download_first_last_pieces">Загружать с первых и последних частей</string>
+    <string name="torrent_speed_limit_dialog">Установите скорость в КиБ/с. Обратите внимание, что установка более высокого лимита для торрента, чем глобальный лимит, не перезапишет глобальный лимит.</string>
 </resources>

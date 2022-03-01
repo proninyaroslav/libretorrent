@@ -62,8 +62,8 @@
     <string name="settings">Inställningar</string>
     <string name="ip_filter_add_error">Det gick inte att lägga till IP-filtret (%1$d misslyckades). Kanske är filen skadad eller har fel format\?</string>
     <string name="ip_filter_add_success">IP-filtret lades till</string>
-    <string name="proxy_settings_applied">Använder de nya inställningarna för proxy-servern.</string>
-    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya inställningarna till proxy-servern.</string>
+    <string name="proxy_settings_applied">Använder de nya inställningarna för proxyservern.</string>
+    <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya inställningarna för proxyservern.</string>
     <string name="theme_settings_apply_after_reboot">Starta om appen för att använda det nya temat.</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
@@ -80,7 +80,7 @@
     <!-- Date added -->
     <!-- Tags -->
     <string name="tags">Taggar</string>
-    <string name="add_tag">Add tag</string>
+    <string name="add_tag">Lägg till tagg</string>
     <string name="tag_name">Taggnamn</string>
     <string name="tag_color">Tag color</string>
     <string name="add_tag_failed">Kunde inte lägga till tagg</string>
@@ -280,10 +280,10 @@
     <string name="pref_notify_sound_title">Aviseringsljud</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Starta automatiskt</string>
-    <string name="pref_autostart_summary">Kör appen när enheten startas upp.</string>
+    <string name="pref_autostart_summary">Kör appen när enheten startas.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Endast obestämda anslutningar</string>
-    <string name="pref_umnetered_connections_only_summary">Använd endast anslutningar utan en kvot (exempelvis för Wi-Fi eller Ethernet).</string>
+    <string name="pref_umnetered_connections_only_summary">Använd endast anslutningar utan avgift (exempelvis för Wi-Fi eller Ethernet).</string>
     <string name="pref_enable_roaming_title">Roaming</string>
     <string name="pref_enable_roaming_summary">Hämta endast om enheten inte använder roaming.</string>
     <string name="pref_keep_alive_summary">Låter appen köras i bakgrunden. (Respekterar fortfarande att appen stängs när alla hämtningar är färdiga.)</string>
@@ -316,7 +316,7 @@
     <string name="pref_enable_ip_filtering_title">IP-filtrering</string>
     <string name="pref_enable_ip_filtering_summary">Beroende på filstorleken, att verkställa filtret vid uppstart kan ta lite tid. (Ökar minnesanvändningen.)</string>
     <string name="pref_anonymous_mode_title">Anonymt läge</string>
-    <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrenter. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en jämlikeproxy på spårar-proxy-datorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
+    <string name="pref_anonymous_mode_summary">Ingen användaragentsträng för icke-privata torrenter. Endast proxifierade spårare. Lyssningsuttagen stängda. Inkommande anslutningar via SOCKS5 eller I2P-proxy (om det finns en jämlikeproxy på spårarproxydatorn). NAT-PMP, UPnP, DHT och lokal upptäckt av.</string>
     <string name="pref_seeding_outgoing_connections_title">Utgående anslutningar för distribution</string>
     <string name="pref_seeding_outgoing_connections_summary">Låter distribuerade torrenter skapa utgående anslutningar. (Kan bli dyrbart.)</string>
     <!-- Proxy settings -->
@@ -414,7 +414,7 @@
     <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
     <string name="pref_enable_scheduling_shutdown_summary">Avsluta appen vid en specifik tid</string>
     <string name="pref_enable_scheduling_shutdown_title">Tid för stängning</string>
-    <string name="pref_enable_scheduling_start_title">Start-tid</string>
+    <string name="pref_enable_scheduling_start_title">Starttid</string>
     <string name="pref_proxy_requires_auth_title">Kräver autentisering</string>
     <string name="pref_proxy_peers_too_title">Använd också för anslutningar</string>
     <string name="pref_show_nat_errors">Visa NAT-fel</string>
@@ -426,9 +426,9 @@
     <string name="pref_port_range_title">Portintervall</string>
     <string name="pref_use_random_port_title">Använd anpassad port</string>
     <string name="pref_port_settings_category">Port-inställningar</string>
-    <string name="pref_proxy_settings_title">Proxy-inställningar</string>
+    <string name="pref_proxy_settings_title">Proxyinställningar</string>
     <string name="pref_cpu_do_not_sleep_title">Håll enheten vaken</string>
-    <string name="pref_keep_alive_title">Fortsätt kör</string>
+    <string name="pref_keep_alive_title">Hålla igång</string>
     <string name="pref_power_management_category">Strömhantering</string>
     <string name="pref_vibration_notify_title">Vibrering</string>
     <string name="pref_led_indicator_color_notify_title">Färg på LED-indikator</string>
@@ -532,7 +532,7 @@
     <string name="permission_denied">Åtkomst nekades</string>
     <string name="external_storage_name" formatted="false">Extern lagring %1$d</string>
     <string name="internal_storage_name">Intern lagring</string>
-    <string name="drawer_status_downloaded">Hämtad</string>
+    <string name="drawer_status_downloaded">Hämtade</string>
     <string name="speed_limit_title">Maxhastighet</string>
     <string name="share_via">Dela via…</string>
     <string name="torrent_speed_limit">Hastighetsgräns</string>
@@ -572,7 +572,8 @@
     <string name="pref_foreground_notification_category">Förgrundsaviseringsinställningar</string>
     <string name="error_open_torrent">Det går inte att öppna torrent</string>
     <string name="manage_all_files_warning_dialog_title">Varning</string>
-    <string name="manage_all_files_warning_dialog_description">Google Play-versionen av LibreTorrent har inte behörighet att komma åt alla filer. Detta innebär att LibreTorrent endast kommer att ha tillgång till ett begränsat antal mappar, som hämtningar eller annan. Om det behövs, för att aktivera denna behörighet, installera LibreTorrent från annan källa, hela listan presenteras på projektsidan:</string>
+    <string name="manage_all_files_warning_dialog_description">Använd inte Google Play-versionen av LibreTorrent om du vill spara torrenter i andra mappar än \"Hämtningar\" och liknande.
+\nDet finns andra källor på projektsidan.</string>
     <string name="exact_alarm_permission_warning">För att schemaläggaren ska fungera måste du få behörighet i en speciell systemdialog. Fortsätt\?</string>
     <string name="perm_denied_warning_android_r">Åtkomst till alla filer krävs för att hämta torrenter och komma åt .torrent-filer i godtyckliga mappar. Utan detta tillstånd kommer LibreTorrent endast att ha tillgång till ett begränsat antal mappar. Är du säker på att du vill avfärda denna behörighet\?</string>
     <string name="pref_validate_https_trackers_title">Validera HTTPS-spårarcertifikat</string>

@@ -574,4 +574,5 @@
     <string name="pref_foreground_notify_sorting_entries_12">Aucun tri</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Combine deux boutons : pause tout et reprendre tout. Le bouton fonctionnera comme un commutateur. Attention : l\'état du bouton n\'est pas affecté par la pause/reprise manuelle du torrent.</string>
     <string name="exact_alarm_permission_warning">Pour que le planificateur fonctionne, vous devez obtenir une autorisation dans une boîte de dialogue spéciale du système. Voulez-vous poursuivre \?</string>
+    <string name="pref_validate_https_trackers_title">Valider le certificat des trackers HTTPS</string>
 </resources>

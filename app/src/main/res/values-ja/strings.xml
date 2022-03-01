@@ -573,7 +573,8 @@
     <string name="exact_alarm_permission_warning">スケジューラーを動作させるには、特別なシステムダイアログで許可を得る必要があります。実行しますか？</string>
     <string name="perm_denied_warning_android_r">トレントをダウンロードし、任意のフォルダにある .torrent ファイルにアクセスするには、全ファイルにアクセスする許可が必要です。この許可がない場合、 LibreTorrent は限られた数のフォルダにしかアクセスできません。本当にこの許可を拒否しますか\?</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
-    <string name="manage_all_files_warning_dialog_description">LibreTorrent の Google Play 版は全ファイルにアクセスする許可を持っていません。つまり、 LibreTorrent がダウンロードなどの、限られた数のフォルダにしかアクセスできません。必要に応じてこの権限を有効にするには、他の発信源から LibreTorrent をインストールしてください。完全な一覧は、プロジェクトのページにあります:</string>
+    <string name="manage_all_files_warning_dialog_description">\'Downloads\' と類似のとは別のフォルダにtorrentを保存したいならば、LibreTorrent の Google Play 版を使用しないでください。
+\n他の配布元は、プロジェクトのページにあります。</string>
     <string name="pref_validate_https_trackers_title">HTTPS トラッカーの証明書を検証する</string>
     <string name="download_first_last_pieces">最初と最後のピースを最初にダウンロード</string>
     <string name="pref_validate_https_trackers_summary">HTTPS トラッカーと HTTPS ウェブシードの証明書は、システムの証明書ストアで検証されます。</string>

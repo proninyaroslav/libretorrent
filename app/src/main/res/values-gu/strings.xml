@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no">ના</string>
+    <string name="ok">બરાબર</string>
+    <string name="error">ભૂલ</string>
+    <string name="warning">ચેતવણી</string>
+    <string name="shutdown">બંધ કરો</string>
+    <string name="replace">બદલો</string>
+    <string name="add">ઉમેરો</string>
+    <string name="delete">ડિલીટ કરો</string>
+    <string name="deleting">ડિલીટ કરી રહ્યાં છીએ…</string>
+    <string name="select_all">બધા પસંદ કરો</string>
+    <string name="save">સેવ કરો</string>
+    <string name="search">શોધો</string>
+    <string name="not_available">N/A</string>
+    <string name="def">ડિફૉલ્ટ</string>
+    <string name="cancel">રદ કરો</string>
+    <string name="yes">હા</string>
+</resources>

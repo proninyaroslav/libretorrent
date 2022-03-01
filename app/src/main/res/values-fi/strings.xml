@@ -509,7 +509,8 @@
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="exact_alarm_permission_warning">Aikatauluttajan toiminta edellyttää käyttöoikeuden myöntöä erityisellä järjestelmävalinnalla. Jatketaanko\?</string>
-    <string name="manage_all_files_warning_dialog_description">LibreTorrentin Google Play -versiolla ei ole oikeutta käyttää kaikkia tiedostoja, eli sillä on pääsy vain rajoitettuihin kansioihin, kuten Lataukset yms. Jos tämä käyttöoikeus on tarpeellinen, asenna LibreTorrent eri lähteestä, joista löydät listauksen projektin sivulta:</string>
+    <string name="manage_all_files_warning_dialog_description">Älä käytä LibreTorrentin Google Play -versiota, jos haluat tallentaa torrenteja \'Downloads\' ja vastaavien kansioiden ulkopuolelle.
+\nMuita lähteitä on projektin sivulla.</string>
     <string name="manage_all_files_warning_dialog_title">Varoitus</string>
     <string name="perm_denied_warning_android_r">Torrentien lataus ja .torrent-tiedostojen avaus mistä tahansa kansiosta edellyttää kaikkien tiedostojen käyttöoikeutta. Ilman tätä käyttöoikeutta LibreTorrentilla on pääsy vain rajoitettuihin kansioihin. Haluatko varmasti kieltää tämän käyttöoikeuden\?</string>
     <string name="download_first_last_pieces">Lataa ensin ensimmänen ja viimeinen osa</string>

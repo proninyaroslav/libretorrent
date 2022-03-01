@@ -571,4 +571,11 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerer knappevalgene for enten «Pause alle» eller «Gjenoppta alle».. Advarsel: Manuell fortsettelse/pause av torrenten har ingen innvirkning på knappens posisjon.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinert pause-knapp</string>
     <string name="error_open_torrent">Kunne ikke åpne torrent</string>
+    <string name="pref_validate_https_trackers_title">Bekreft sertifikater for HTTPS-sporere</string>
+    <string name="download_first_last_pieces">Last ned de første og siste delene først</string>
+    <string name="perm_denied_warning_android_r">Tilgang til alle filer kreves for å laste ned torrenter og få tilgang til .torrent-filer i egenvalgte mapper. Uten denne tilgangen vil LibreTorrent kun ha tilgang til et begrenset antall mapper. Er du sikker på at du vil nekte denne tilgangen\?</string>
+    <string name="exact_alarm_permission_warning">For at planleggeren skal virke må du innhente tilgangen i en spesiell systemdialog. Fortsett\?</string>
+    <string name="pref_validate_https_trackers_summary">Sertifikatet til HTTPS-sporere og HTTPS-vevdelere vil bekreftet i systemsertifikatslagringen.</string>
+    <string name="manage_all_files_warning_dialog_title">Advarsel</string>
+    <string name="manage_all_files_warning_dialog_description">Google Play-versjonen av LibreTorrent har ikke tilgang til alle filer. Dette betyr at LibreTorrent ikke har tilgang til et begrenset antall mapper, som «Nedlastinger», eller andre. Hvis det trengs for å legge til tilgangen, kan du installere LibreTorrent fra en annen kilde. Hele listen er å finne på prosjektsiden:</string>
 </resources>

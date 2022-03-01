@@ -156,7 +156,8 @@
     <string name="perm_denied_warning">Storage permission is required to download torrents and access .torrent files. Do you really want to deny this permission\?</string>
     <!-- Manage all files warning dialog -->
     <string name="manage_all_files_warning_dialog_title">Warning</string>
-    <string name="manage_all_files_warning_dialog_description">The Google Play version of LibreTorrent does not have permission to access all files. This means that LibreTorrent will only have access to a limited number of folders, like "Downloads" or other. If needed, to enable this permission, please install LibreTorrent from other source, the full list is presented on the project page:</string>
+    <string name="manage_all_files_warning_dialog_description">Don\'t use the Google Play version of LibreTorrent if you want to save torrents in folders other than \'Downloads\' and similar.
+\nThere are other sources on the project page.</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Add torrent</string>
     <string name="error_decode_torrent">Could not decode .torrent file. Maybe it is damaged or in the wrong format?</string>

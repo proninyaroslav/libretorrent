@@ -577,4 +577,5 @@
     <string name="pref_validate_https_trackers_title">Weryfikuj certyfikaty trackerów HTTPS</string>
     <string name="pref_validate_https_trackers_summary">Certyfikaty trackerów HTTPS i źródeł sieciowych będą weryfikowane w magazynie certyfikatów systemu.</string>
     <string name="download_first_last_pieces">Najpierw pobierz pierwszy i ostatni fragment</string>
+    <string name="torrent_speed_limit_dialog">Ustaw prędkość w KiB/s. Pamiętaj, że ustawiając limit na torrenta wyższy, niż wynosi globalny, nie nadpisze on globalnego limitu.</string>
 </resources>

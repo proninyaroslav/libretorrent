@@ -466,7 +466,7 @@
     <string name="pref_ip_filtering_file_title">Caminho para o arquivo de filtro (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Mostrar falha de NAT</string>
     <string name="pref_anonymous_mode_title">Modo anônimo</string>
-    <string name="pref_anonymous_mode_summary">O aplicativo tenta esconder sua identidade até um certo grau. O agente de usuário será redefinido para uma seqüência vazia (exceto para torrents privados). Índices só serão usados se eles estiverem usando um servidor proxy. Os sockets de escuta estão fechados, e conexões de entrada só serão aceitas através de um proxy SOCKS5 ou I2P (se um proxy do par é configurado e é executado na mesma máquina que o proxy do rastreador). NAT-PMP, UPnP, DHT e detecção de conexões locais estão desativadas</string>
+    <string name="pref_anonymous_mode_summary">Nenhuma string de agente do usuário para torrents não privados. Apenas rastreadores proxy. Tomadas de escuta fechadas. Conexões de entrada através do proxy SOCKS5- ou I2P (se existir um proxy de peer no PC do proxy do rastreador). NAT-PMP, UPnP, DHT e descoberta local desativados.</string>
     <string name="pref_seeding_outgoing_connections_title">Conexões de saída para semeadores</string>
     <string name="pref_seeding_outgoing_connections_summary">Permitir que torrents de semeadura estabeleçam conexões de saída (pode ser custoso).</string>
     <!-- Proxy settings -->
@@ -531,7 +531,7 @@
     <string name="pref_streaming_error">Selecione uma porta ou nome de host para o stream que não está ocupada ou incorreta.</string>
     <!-- About dialog -->
     <string name="about_title">Sobre</string>
-    <string name="about_description">Mais Informações e também para ajudar o projeto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent é um cliente torrent liberta para Android 4+, baseado na biblioteca libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt; LibreTorrent é software livre, lançado sob os termos da &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
+    <string name="about_description">Mais informações e como ajudar o projeto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent é um copylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) cliente de torrent para Android 4+, baseado no libtorrent (Java wrapper &lt;a href=https:// github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Novidades</string>
     <string name="torrent_leechers">Receptores</string>
     <string name="torrent_peers">Pares</string>
@@ -575,4 +575,7 @@
     <string name="manage_all_files_warning_dialog_description">A versão do LibreTorrent na Google Play não tem permissão para acessar todos os arquivos. Isso significa que o LibreTorrent só terá acesso a um número limitado de pastas, como Downloads ou outras. Se necessário, para habilitar esta permissão, instale o LibreTorrent de outra fonte, a lista completa é apresentada na página do projeto:</string>
     <string name="perm_denied_warning_android_r">A permissão de acesso a todos os arquivos é necessária para baixar torrents e acessar arquivos .torrent em pastas arbitrárias. Sem essa permissão, o LibreTorrent apenas terá acesso a um número limitado de pastas. Tem certeza de que deseja negar esta permissão\?</string>
     <string name="exact_alarm_permission_warning">Para que o planejador funcione, você deve obter permissão em uma caixa de diálogo especial do sistema. Continuar\?</string>
+    <string name="pref_validate_https_trackers_summary">O certificado de rastreadores HTTPS e sementes da web HTTPS serão validados no armazenamento de certificados do sistema.</string>
+    <string name="download_first_last_pieces">Baixe as primeiras e últimas peças primeiro</string>
+    <string name="pref_validate_https_trackers_title">Validar certificado de rastreadores HTTPS</string>
 </resources>

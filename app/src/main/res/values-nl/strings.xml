@@ -572,6 +572,10 @@
     <string name="error_open_torrent">Kan torrent niet openen</string>
     <string name="exact_alarm_permission_warning">Om de planner te laten werken, moet u toestemming krijgen in een speciaal systeemdialoogvenster. Doorgaan\?</string>
     <string name="perm_denied_warning_android_r">Machtiging voor toegang tot alle bestanden is vereist om torrents te downloaden en toegang te krijgen tot .torrent-bestanden in willekeurige mappen. Zonder deze toestemming heeft LibreTorrent slechts toegang tot een beperkt aantal mappen. Weet u zeker dat u deze toestemming wilt weigeren\?</string>
-    <string name="manage_all_files_warning_dialog_description">De Google Play-versie van LibreTorrent heeft geen toestemming om alle bestanden te openen. Dit betekent dat LibreTorrent slechts toegang heeft tot een beperkt aantal mappen, zoals Downloads of andere. Als u deze toestemming wilt inschakelen, installeer LibreTorrent dan vanaf een andere bron. De volledige lijst vindt u op de projectpagina:</string>
+    <string name="manage_all_files_warning_dialog_description">Gebruik de Google Play-versie van LibreTorrent niet als u torrents wilt opslaan in andere mappen dan \'Downloads\' en dergelijke.
+\nEr zijn andere bronnen op de projectpagina.</string>
     <string name="manage_all_files_warning_dialog_title">Waarschuwing</string>
+    <string name="pref_validate_https_trackers_title">Certificaat voor HTTPS-trackers valideren</string>
+    <string name="pref_validate_https_trackers_summary">Het certificaat van HTTPS-trackers en HTTPS-webseeds wordt gevalideerd in de certificatenopslag van het systeem.</string>
+    <string name="download_first_last_pieces">Eerste en laatste deeltjes eerst downloaden</string>
 </resources>

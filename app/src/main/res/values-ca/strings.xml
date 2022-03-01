@@ -42,7 +42,7 @@
     <string name="error_invalid_link">Enllaç no vàlid</string>
     <string name="open_file">Open file</string>
     <string name="settings">Configuració</string>
-    <string name="ip_filter_add_error">Failed to add IP filter (%1$d failed). Maybe file is corrupted or has an incorrect format</string>
+    <string name="ip_filter_add_error">No s\'ha pogut afegir el filtre de IP (%1$d ha fallat). Pot ser que l\'arxiu estigui danyat o tingui un format incorrecte\?</string>
     <string name="ip_filter_add_success">IP filter added successfully</string>
     <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
@@ -53,9 +53,9 @@
     <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <!-- Status -->
     <string name="drawer_status">Estat</string>
-    <string name="drawer_status_downloading">Descarregant</string>
+    <string name="drawer_status_downloading">Descarregant…</string>
     <string name="drawer_status_downloaded">Descarregat</string>
-    <string name="drawer_status_downloading_metadata">Descarregant metadades</string>
+    <string name="drawer_status_downloading_metadata">Descarregant metadades…</string>
     <string name="drawer_status_error">Error</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Ordre</string>
@@ -99,7 +99,7 @@
     <string name="nat_error_title">NAT error</string>
     <!-- Finish notification -->
     <!-- Torrents move notification -->
-    <string name="torrent_moving_content">Moving %1$s, please wait</string>
+    <string name="torrent_moving_content">Si us plau esperi mentre es mou %1$s…</string>
     <string name="torrent_move_success">Torrent moved successfully</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -111,24 +111,24 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Downloading</string>
-    <string name="torrent_status_seeding">Sembrant</string>
+    <string name="torrent_status_downloading">Descarregant…</string>
+    <string name="torrent_status_seeding">Sembrant…</string>
     <string name="torrent_status_paused">En pausa</string>
     <string name="torrent_status_stopped">Aturat</string>
-    <string name="torrent_status_checking">Comprovant</string>
+    <string name="torrent_status_checking">Comprovant…</string>
     <string name="torrent_status_finished">Finalitzat</string>
-    <string name="torrent_status_downloading_metadata">Descarregant metadades</string>
+    <string name="torrent_status_downloading_metadata">Descarregant metadades…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permís denegat</string>
     <string name="perm_denied_warning">Without this permission app can\'t save torrent files in memory. The app will not work properly. Are you sure you want to deny this permission\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Afegeix torrent</string>
-    <string name="error_decode_torrent">Failed decoding torrent file. Maybe the file is corrupted or has an incorrect format</string>
+    <string name="error_decode_torrent">No s\'ha pogut descodificar l\'arxiu .torrent. Pot ser que estigui danyat o tingui un format incorrecte\?</string>
     <string name="error_io_torrent">Error reading the torrent file</string>
     <string name="error_fetch_link">Failed to fetch data from the link</string>
     <string name="error_invalid_link_or_path">Invalid link or path to the torrent</string>
     <string name="error_add_torrent">Failed to add the torrent</string>
-    <string name="error_file_not_found_add_torrent">Failed to add the torrent. Maybe the torrent file is moved, or deleted</string>
+    <string name="error_file_not_found_add_torrent">No s\'ha pogut afegir el torrent. Pot ser que l\'arxiu .torrent s\'hagi mogut o esborrat\?</string>
     <string name="error_io_add_torrent">Unable to add the torrent. I/O error</string>
     <string name="torrent_exist">Torrent already exists. Torrents were merged</string>
     <string name="error_field_required">This field is required</string>
@@ -306,7 +306,7 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Realment vol establit un %% de bateria a tenir en compte\? (S\'incrementarà l\'ús de la bateria durant les descàrregues.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">Activa DHT</string>
     <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
@@ -385,6 +385,19 @@
     <!-- About dialog -->
     <string name="about_title">About LibreTorrent</string>
     <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
-    <string name="deleting">Eliminant</string>
+    <string name="deleting">Eliminant…</string>
     <string name="warning">Atenció</string>
+    <string name="force_recheck_torrent">Forçar la recomprovació</string>
+    <string name="replace">Reemplaçar</string>
+    <string name="delete_selected_torrents">Esborrar els torrents seleccionats\? (No es pot desfer.)</string>
+    <string name="open_navigation_drawer">Obrir calaix de navegació</string>
+    <string name="all">Tot</string>
+    <string name="select_all">Seleccionar tot</string>
+    <string name="search">Buscar</string>
+    <string name="foreground_notification">Notificació en primer pla</string>
+    <string name="refresh">Actualitzar</string>
+    <string name="delete_torrent_with_downloaded_files">Esborrar amb els arxius descarregats</string>
+    <string name="delete_selected_torrent">Esborrar el torrent seleccionat\? (No es pot desfer.)</string>
+    <string name="close_navigation_drawer">Tancar calaix de navegació</string>
+    <string name="save">Guardar</string>
 </resources>

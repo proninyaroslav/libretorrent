@@ -1,9 +1,8 @@
-* Licencia GPLv3+. Utilice, vea, cambie y comparta; con todo.
-* BitTorrent 2.0 and WebTorrent support
-* Seleccionar qué archivos descargar.
-* Mover los archivos mientras se descargan.
-* Mover automáticamente los archivos descargados a otra carpeta o unidad externa.
-* Transmite archivos, con descargas secuenciales.
+* Licensed GPLv3+. Use, see, change and share; with all.
+* Select which files to download.
+* Move files while downloading.
+* Auto-move downloaded files to another folder or external drive.
+* Stream files, with sequential downloads.
 * Android TV.
 * Material design, dark and black theme, and tablet UI.
 * Customisable network, battery, and UI settings, etc.
