@@ -1,5 +1,6 @@
 # Ezaugarriak
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, zifratua, LSD, UPnP, NAT*PMP, µTP
 * IP iragaztea (eMule dat eta PeerGuardian)
 * Konfiguragarria (sare-konfigurazioa, energia-administrazioa, bateriaren kontrola, erabiltzaile-interfazearen doikuntzak, etab.)

@@ -1,4 +1,5 @@
 * Licencia GPLv3+. Utilice, vea, cambie y comparta; con todo.
+* BitTorrent 2.0 and WebTorrent support
 * Seleccionar qué archivos descargar.
 * Mover los archivos mientras se descargan.
 * Mover automáticamente los archivos descargados a otra carpeta o unidad externa.

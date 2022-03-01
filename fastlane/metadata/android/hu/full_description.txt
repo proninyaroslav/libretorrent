@@ -1,4 +1,5 @@
 * GPLv3+ licenc. Használja, lássa, változtasson és ossza meg; mindenkivel.
+* BitTorrent 2.0 and WebTorrent support
 * Válassza ki, melyik fájlokat töltse le.
 * Helyezze át a fájlokat letöltés közben.
 * Automatikusan helyezze át a letöltött fájlokat másik mappába vagy külső meghajtóra.

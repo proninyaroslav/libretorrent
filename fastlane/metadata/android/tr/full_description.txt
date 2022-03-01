@@ -1,4 +1,5 @@
 * GPLv3+ altına lisanslanmıştır. Kullanın, görün, değiştirin ve herkesle paylaşın.
+* BitTorrent 2.0 and WebTorrent support
 * Hangi dosyaların indirileceğini seçin.
 * İndirilirken dosyaları taşıyın.
 * İndirilen dosyaları otomatik olarak başka bir klasöre veya harici sürücüye taşıyın.

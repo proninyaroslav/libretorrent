@@ -1,4 +1,5 @@
 * Na licencji GPLv3+. Używaj, oglądaj, zmieniaj i dziel się ze wszystkimi.
+* BitTorrent 2.0 and WebTorrent support
 * Wybierz, które pliki chcesz ściągnąć.
 * Przenoś pliki podczas ściągania.
 * Automatycznie przenoś ściągnięte pliki do innego folderu lub dysku zewnętrznego.

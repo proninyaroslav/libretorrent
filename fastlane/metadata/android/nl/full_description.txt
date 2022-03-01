@@ -1,4 +1,5 @@
 * Gelicentieerd GPLv3+. Gebruiken, zien, veranderen en delen; met iedereen.
+* BitTorrent 2.0 and WebTorrent support
 * Selecteren welke bestanden te downloaden.
 * Bestanden verplaatsen tijdens het downloaden.
 * Automatisch verplaatsen van gedownloade bestanden naar een andere map of externe schijf.

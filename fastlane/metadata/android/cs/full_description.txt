@@ -1,4 +1,5 @@
 * Licencováno jako GPLv3+. Používejte, zobrazujte, měňte a sdílejte se všemi.
+* BitTorrent 2.0 and WebTorrent support
 * Vybrat jaké soubory stáhnout.
 * Přesouvat soubory při stahování.
 * Automaticky přesunout stažené soubory do jiné složky nebo externího disku.

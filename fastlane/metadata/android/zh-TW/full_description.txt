@@ -1,4 +1,5 @@
 * 通過 GPLv3+ 授權。使用、查看、修改與分享一切！
+* BitTorrent 2.0 and WebTorrent support
 * 可選擇 Torrent 中的個別檔案以下載。
 * 允許在下載過程中移動檔案。
 * 自動將已下載的檔案移動至另一個資料夾或外部儲存裝置。

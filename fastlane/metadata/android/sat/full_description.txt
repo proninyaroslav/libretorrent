@@ -1,5 +1,6 @@
 # ᱯᱷᱤᱪᱚᱠᱚ
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, ᱮᱱᱠᱨᱤᱯᱥᱚᱱ, LSD, UPnP, NAT*PMP, µTP
 * IP ᱪᱷᱟᱹᱱᱤ (eMule dat ᱟᱨ PeerGuardian)
 * ᱯᱷᱟᱭᱤᱱ ᱴᱭᱩᱱ ᱫᱟᱲᱮ (ᱱᱮᱴᱣᱥᱨᱠ ᱥᱟᱹᱡᱟᱣ, ᱯᱟᱣᱟᱨ ᱢᱮᱱᱮᱡᱢᱮᱸᱴ, ᱵᱮᱴᱨᱭ ᱠᱚᱱᱴᱨᱚᱞ, UI ᱥᱟᱡᱟᱣ, etc.)

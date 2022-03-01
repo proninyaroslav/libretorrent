@@ -1,5 +1,6 @@
 # Xüsusiyyətlər
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, şifrələmə, LSD, UPnP, NAT*PMP, µTP
 * IP filtrləmə (eMule dat və PeerGuardian)
 * Yaxşı kökləmə bacarığı (şəbəkə tənzimləmələri, enerjini idarəetmə, batereyaya nəzarət, İİ tənzimləmələri və s.)

@@ -1,4 +1,5 @@
 * Lisensiert GPLv3+. Bruk, studer, endre og del; med alle.
+* BitTorrent 2.0 and WebTorrent support
 * Velg hvilke filer som skal lastes ned.
 * Flytt filer under nedlasting.
 * Auto-flytt nedlastede filer til en annen mappe eller eksternlagring.

@@ -1,4 +1,5 @@
 * GPLv3+ licencija. Naudokite, žiūrėkite, keiskite ir dalinkitės; su visais.
+* BitTorrent 2.0 and WebTorrent support
 * Pasirinkite, kuriuos failus atsisiųsti.
 * Perkelkite failus atsisiuntimo metu.
 * Automatinis atsisiųstų failų perkėlimas į kitą aplanką arba išorinį diską.

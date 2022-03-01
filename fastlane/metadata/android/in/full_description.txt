@@ -1,4 +1,5 @@
 * Berlisensi GPLv3+. Menggunakan, melihat, merubah, dan membagikan; dengan semua.
+* BitTorrent 2.0 and WebTorrent support
 * Pilih file mana yang akan diunduh.
 * Pindahkan file saat mengunduh.
 * Pindahkan file yang diunduh secara otomatis ke folder lain atau drive eksternal.

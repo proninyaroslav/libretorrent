@@ -1,5 +1,6 @@
 # Одлике
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, енкрипција, LSD, UPnP, NAT*PMP, µTP
 * IP филтрирање (eMule dat и PeerGuardian)
 * Могужност финих подешавања (подењавања мреже, менаџмент снаге, контрола батерија, UI подешавања, итд.)

@@ -1,4 +1,5 @@
 * Berlesenkan GPLv3+. Guna, lihat, ubah dan kongsi; dengan semua.
+* BitTorrent 2.0 and WebTorrent support
 * Memilih fail yang hendak dimuat turun.
 * Memindahkan fail ketika memuat turun.
 * Pindahan fail yang telah dimuat turun secara auto ke folder lain atau pemacu luaran.

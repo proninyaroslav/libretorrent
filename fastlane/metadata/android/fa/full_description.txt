@@ -1,5 +1,6 @@
 # ویژگی‌ها
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, رمزنگاری, LSD, UPnP, NAT*PMP, µTP
 * فیلتر IP (eMule dat and PeerGuardian)
 * توانایی تنظیم موبه‌مو (تنظیمات شبکه، مدیریت نیرو، مهار باتری، تنظیمات رابط‌کاربری، وغیره.)

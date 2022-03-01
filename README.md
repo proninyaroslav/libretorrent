@@ -24,6 +24,7 @@ Copylefted libre full-featured torrent client for Android.
 
 ## 📋 Features
 
+* BitTorrent 2.0 and WebTorrent support
 * Select which files to download
 * Move files while downloading
 * Auto-move downloaded files to another folder or external drive

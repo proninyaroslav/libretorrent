@@ -1,5 +1,6 @@
 # المميزات
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP
 * IP filtering (eMule dat and PeerGuardian)
 * Ability to fine tune (network settings, power management, battery control, UI settings, etc.)

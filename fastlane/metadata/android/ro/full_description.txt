@@ -1,5 +1,6 @@
 # Caracteristici
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, criptare, LSD, UPnP, NAT * PMP, µTP
 * Filtrare IP (dat de eMule și PeerGuardian)
 * Posibilitatea de a regla fin (setările rețelei, administrarea energiei, controlul bateriei, setările UI etc.)

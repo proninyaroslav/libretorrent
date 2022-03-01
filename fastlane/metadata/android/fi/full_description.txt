@@ -1,4 +1,5 @@
 * Lisensoitu GPLv3+. Käytä, katso, muuta ja jaa.
+* BitTorrent 2.0 and WebTorrent support
 * Valitse ladatavat tiedostot
 * Siirrä tiedostoja latauksessa
 * Siirrä valmiit lataukset toiseen kansioon/levylle

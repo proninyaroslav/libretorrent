@@ -1,5 +1,6 @@
 # Funzionalità
 
+* BitTorrent 2.0 and WebTorrent support
 * DHT, PeX, crittografia, LSD, UPnP, NAT*PMP, µTP
 * Filtraggio IP (eMule dat e PeerGuardian)
 * Personalizzabile (impostazioni di rete, gestione dell'energia, controllo della batteria, impostazioni dell'interfaccia, ecc..)

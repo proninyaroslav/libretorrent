@@ -1,4 +1,5 @@
 * Sous licence GPLv3+. Utiliser, voir, modifier et partager avec tous.
+* BitTorrent 2.0 and WebTorrent support
 * Sélectionnez les fichiers à télécharger.
 * Déplacez les fichiers pendant le téléchargement.
 * Déplacez automatiquement les fichiers téléchargés vers un autre dossier ou un lecteur externe.
