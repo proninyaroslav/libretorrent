@@ -151,7 +151,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
     /* libtorrent wrapper */
-    def LIBTORRENT4J_VERSION = '2.0.5-24'
+    def LIBTORRENT4J_VERSION = '2.0.5-26-RC1'
     implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm64:$LIBTORRENT4J_VERSION"

@@ -784,6 +784,13 @@ public class TorrentSessionImpl extends SessionManager
         SessionParams params = loadSettings();
         SettingsPack settingsPack = params.getSettings();
         settings_pack sp = settingsPack.swig();
+
+        // Internally set the session to use a simple posix disk I/O back-end, used
+        // for systems that don't have a 64-bit virtual address space or don't support
+        // memory mapped files. This option only to use in particular situations, like
+        // Android devices with faulty drivers.
+        params.setPosixDiskIO();
+
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
         sp.set_bool(settings_pack.bool_types.enable_ip_notifier.swigValue(), false);
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), 5000);
