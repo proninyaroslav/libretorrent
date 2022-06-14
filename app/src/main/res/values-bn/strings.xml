@@ -53,19 +53,19 @@
     <string name="force_recheck_torrent">আবার দেখুন</string>
     <string name="force_announce_torrent">আবার ঘোষণা</string>
     <string name="add_link">লিংক যোগ করুন</string>
-    <string name="dialog_add_link_title">ইনফোহ্যাশ মান, চুম্বক সংযোগ, বা এইচটিটিপি/এস সংযোগ প্রবেশ করাও</string>
-    <string name="torrent_list_empty">টরেন্ট নেই</string>
+    <string name="dialog_add_link_title">ইনফোহ্যাশ মান, চুম্বক সংযোগ, বা এইচটিটিপি/এস সংযোগ প্রবেশ করুন</string>
+    <string name="torrent_list_empty">কোন টরেন্ট নেই</string>
     <string name="select_or_add_torrent">টরেন্ট নির্বাচন বা যোগ করুন</string>
-    <string name="error_empty_link">লিঙ্ক দাও</string>
+    <string name="error_empty_link">লিঙ্ক প্রদান করুন</string>
     <string name="error_invalid_link">অবৈধ লিঙ্ক</string>
     <string name="error_open_torrent_file">টরেন্ট নথি(.torrent) খুলতে ব্যর্থ</string>
     <string name="open_file">ফাইল খুলুন</string>
     <string name="settings">সেটিংস</string>
     <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো নথিটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে\?</string>
-    <string name="ip_filter_add_success">আইপি ফিল্টার যুক্তকৃত</string>
-    <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত</string>
-    <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করো</string>
-    <string name="theme_settings_apply_after_reboot">নতুন থিম ব্যবহার করতে অ্যাপটি আবার শুরু করো</string>
+    <string name="ip_filter_add_success">আইপি ফিল্টার যুক্ত হয়েছে</string>
+    <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত হয়েছে</string>
+    <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করুন</string>
+    <string name="theme_settings_apply_after_reboot">নতুন থিম ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করুন</string>
     <string name="about">সম্পর্কে</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">ডিএইচটি নোডস: %1$d</string>
@@ -91,18 +91,18 @@
     <string name="drawer_date_added">যুক্ত করার তারিখ</string>
     <string name="drawer_date_added_today">আজকে</string>
     <string name="drawer_date_added_yesterday">গতকাল</string>
-    <string name="drawer_date_added_week">সপ্তাহে</string>
-    <string name="drawer_date_added_month">মাসে</string>
-    <string name="drawer_date_added_year">বছরে</string>
+    <string name="drawer_date_added_week">সপ্তাহ</string>
+    <string name="drawer_date_added_month">মাস</string>
+    <string name="drawer_date_added_year">বছর</string>
     <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
+    <string name="tags">ট্যাগ গুলো</string>
+    <string name="add_tag">ট্যাগ যুক্ত করুন</string>
+    <string name="tag_name">ট্যাগ এর নাম</string>
+    <string name="tag_color">ট্যাগ এর রং</string>
     <string name="add_tag_failed">ট্যাগ যুক্ত করা যায়নি</string>
     <string name="tag_deleting_failed">ট্যাগ মুছা যায়নি</string>
     <string name="tag_already_exists">এই ট্যাগটি ইতোমধ্যে বিদ্যমান</string>
-    <string name="no_tags">No tags</string>
+    <string name="no_tags">কোন ট্যাগ নেই</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
@@ -110,10 +110,10 @@
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
-    <string name="torrent_count_notify_template">ডাউনলোডরত: %1$d মোট: %2$d</string>
-    <string name="app_running_in_the_background">পটভূমিতে চলমান…</string>
-    <string name="network_online">নেটওয়ার্কের অবস্থা: অনলাইন</string>
-    <string name="network_offline">নেটওয়ার্কের অবস্থা: অফলাইন</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
+    <string name="app_running_in_the_background">ব্যাকগ্রাউন্ড এ চলমান…</string>
+    <string name="network_online">অনলাইন</string>
+    <string name="network_offline">অফলাইন</string>
     <string name="notify_shutting_down">বন্ধ হচ্ছে…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">টরেন্টে ত্রুটি</string>
@@ -121,13 +121,13 @@
     <string name="restore_torrent_error">আগের সেশন থেকে টরেন্ট উদ্ধার করা যায়নি।</string>
     <string name="session_error_title">সেশন ত্রুটি</string>
     <!-- ip_address:port, type (error: error_msg)-->
-    <string name="nat_error_title">ন্যাট ত্রুটি</string>
+    <string name="nat_error_title">NAT ত্রুটি</string>
     <!-- Finish notification -->
     <string name="torrent_finished_notify">টরেন্টে ডাউনলোড শেষ</string>
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">টরেন্ট সরানো হচ্ছে…</string>
     <string name="torrent_moving_content">%1$s সরানো হচ্ছে, দয়া করে অপেক্ষা করো…</string>
-    <string name="torrent_move_success">টরেন্ট সফলভাবে সরানো হয়েছে</string>
+    <string name="torrent_move_success">টরেন্ট সরানো হয়েছে</string>
     <string name="torrent_move_fail">টরেন্ট সরানো যায়নি</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -167,7 +167,7 @@
     <string name="file_is_too_large_error">ফাইলটি অত্যন্ত বড়</string>
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="error_empty_name">অনুগ্রহ করে নাম লিখুন</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="ignore_free_space">কম স্টোরেজ স্পেস উপেক্ষা করুন</string>
     <!-- Torrent info -->
     <string name="torrent_info">তথ্য</string>
     <string name="torrent_files">ফাইল</string>
@@ -193,7 +193,7 @@
     <string name="save_file">ফাইল সংরক্ষণ করুন</string>
     <string name="file_name">ফাইল নাম</string>
     <string name="error_file_exists">এই ফাইলটি ইতোমধ্যেই রয়েছে</string>
-    <string name="file_name_is_empty">ফাইলের নাম খালি রাখা যাবে না</string>
+    <string name="file_name_is_empty">আগে ফাইলের নাম লিখুন</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->
@@ -234,25 +234,25 @@
     <string name="download_speed">Download</string>
     <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="text_copied_to_clipboard">ক্লিপবোর্ড এ কপি করা হয়েছে</string>
     <!-- Error report -->
     <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="error_comment_prompt">অতিরিক্ত তথ্য এবং মন্তব্য যোগ করুন:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
     <string name="delete_selected_channel">Delete the selected channel\?</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
+    <string name="link_copied_to_clipboard">লিন্ক ক্লিপবোর্ড এ কপি হয়েছে</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
+    <string name="restore_feeds_backup_successfully">চ্যানেলগুলি উদ্ধার করা হয়েছে</string>
     <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="error_restore_feeds_backup">চ্যানেল পুনরুদ্ধার করা যায়নি</string>
     <!-- Create torrent dialog -->
-    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
+    <string name="creating_torrent_progress">টরেন্ট তৈরি করা হচ্ছে অনুগ্রহ করে অপেক্ষা করুন…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">বপন শুরু করার জন্য ফাইল বা ফোল্ডার নির্বাচন করো।</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">সিডিং শুরু করার জন্য ফাইল বা ফোল্ডার নির্বাচন করুন।</string>
     <string name="web_seed_urls">Web seed URLs</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
     <string name="web_seed_urls_hint">(optional) One per line</string>
@@ -279,7 +279,7 @@
     <string name="unable_to_open_file">Unable to open selected file</string>
     <string name="unable_to_create_file">Unable to create file</string>
     <!-- Log -->
-    <string name="journal_save_log_failed">Failed to save log</string>
+    <string name="journal_save_log_failed">লগ সংরক্ষণ করা যায়নি</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
@@ -403,8 +403,8 @@
     <string name="pref_streaming_port">Port</string>
     <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
     <!-- About dialog -->
-    <string name="about_title">About LibreTorrent</string>
-    <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
+    <string name="about_title">LibreTorrent এর সম্পর্কে</string>
+    <string name="about_description">আরও তথ্য এবং প্রকল্পে সাহায্য করার জন্য: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent Android 4+ এর জন্য libtorrent-এর উপর ভিত্তি করে একটি বিনামূল্যের ও উম্মুক্ত টরেন্ট ক্লায়েন্ট , (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent হল একটি বিনামূল্যের সফটওয়্যার, যা &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU জেনারেল পাবলিক লাইসেন্স v3 (GPLv3) &lt;/a&gt; এর শর্তাবলীর অধীনে প্রকাশিত।</string>
     <string name="torrent_uploaded">আপলোডকৃত</string>
     <string name="torrent_leechers">লিচার</string>
     <string name="torrent_peers">অন্যরা</string>
@@ -429,8 +429,8 @@
     <string name="files_size">%2$s এর মধ্যে %1$sটি নির্বাচিত</string>
     <string name="without_tags">ট্যাগ ছাড়া</string>
     <string name="new_tag">নতুন ট্যাগ</string>
-    <string name="select_tag">ট্যাগ নাও</string>
-    <string name="edit_tag">ট্যাগ সম্পাদনা</string>
+    <string name="select_tag">ট্যাগ বাছুন</string>
+    <string name="edit_tag">ট্যাগ সম্পাদনা করুন</string>
     <string name="pref_header_behavior">আচরণ</string>
     <string name="comments">মন্তব্য</string>
     <string name="feed_last_update_never">কখনো না</string>
@@ -442,11 +442,11 @@
     <string name="torrent_speed_limit">গতিসীমা</string>
     <string name="peer_list_empty">এই টরেন্ট কারো সাথে যুক্ত হয় নি</string>
     <string name="open_using">খোলার মাধ্যম</string>
-    <string name="add_trackers">ট্র্যাকার যোগ করো</string>
+    <string name="add_trackers">ট্র্যাকার যোগ করুন</string>
     <string name="delete_selected_trackers">নির্বাচিত ট্র্যাকার মুছবে\?</string>
     <string name="delete_selected_tracker">নির্বাচিত ট্র্যাকার মুছবে\?</string>
     <string name="share_tracker_url">ইউআরএল ভাগ করো…</string>
-    <string name="tracker_state_not_contacted">যোগাযোগ করা হয়নি</string>
+    <string name="tracker_state_not_contacted">সংযোগ করা হয়নি</string>
     <string name="tracker_state_updating">হালনাগাদরত…</string>
     <string name="tracker_list_empty">ট্র্যাকার</string>
     <string name="about_changelog">পরিবর্তনসূচী</string>
@@ -542,4 +542,6 @@
     <string name="feed_name">(ঐচ্ছিক) নাম</string>
     <string name="add_feed_channel">চ্যানেল যোগ করো</string>
     <string name="feed_channel_list_empty">কোনো চ্যানেল নেই</string>
+    <string name="error_open_torrent">টরেন্ট খোলা যাচ্ছে না</string>
+    <string name="download_first_last_pieces">প্রথম এবং শেষ টুকরা আগে ডাউনলোড করুন</string>
 </resources>

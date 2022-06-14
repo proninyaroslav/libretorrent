@@ -578,4 +578,5 @@
     <string name="pref_validate_https_trackers_title">HTTPS トラッカーの証明書を検証する</string>
     <string name="download_first_last_pieces">最初と最後のピースを最初にダウンロード</string>
     <string name="pref_validate_https_trackers_summary">HTTPS トラッカーと HTTPS ウェブシードの証明書は、システムの証明書ストアで検証されます。</string>
+    <string name="torrent_speed_limit_dialog">速度をKiB/sで設定してください。トレントの上限が全体の上限より高いとき、全体の上限は上書きされません。</string>
 </resources>

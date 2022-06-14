@@ -1,18 +1,19 @@
-* Licensed GPLv3+. Use, see, change and share; with all.
-* Select which files to download.
-* Move files while downloading.
-* Auto-move downloaded files to another folder or external drive.
-* Stream files, with sequential downloads.
+* Litsentsiga GPLv3+. Kasuta, vaata, muuda ja jaga; koos kõigega.
+* BitTorrent 2.0 ja WebTorrent'i tugi.
+* Vali milliseid faile allalaadida.
+* Liiguta faile allalaadimise ajal.
+* Auto-teisalda allalaetud faile teise kausta või välisele andmekandjale.
+* Striimi faile, kasutades järjestikkulist allalaadimist.
 * Android TV.
-* Material design, dark and black theme, and tablet UI.
-* Customisable network, battery, and UI settings, etc.
-* 35+ translations.
-* Scheduling.
-* Auto-downloading, with Atom/RSS manager.
-* Create torrents, with many and big files.
-* HTTP\S and magnet links.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
-* IP filtering (eMule dat and PeerGuardian).
-* Supports proxy for trackers and peers.
-* Based on libtorrent4j.
-* And more.
+* Material disain, tume ja must välimus, ja tablet UI.
+* Muudetav interneti, aku, ja UI seaded, jne.
+* 35+ tõlget.
+* Ajakavaplaanid.
+* Auto-allalaadimine, koos Atom/RSS halduriga.
+* Loo torrenteid, koos mitme või suurte failidega.
+* HTTP\S ja Magnet lingid.
+* DHT, PeX, krüpteering, LSD, UPnP, NAT*PMP, µTP.
+* IP filtrid (eMule dat ja PeerGuardian).
+* Proksi tugi nii jälitajate kui ka partneritega.
+* Kasutatud on libtorrent4j.
+* Ja rohkemgi.

@@ -578,4 +578,5 @@
     <string name="pref_validate_https_trackers_summary">Sertifikatet til HTTPS-sporere og HTTPS-vevdelere vil bekreftet i systemsertifikatslagringen.</string>
     <string name="manage_all_files_warning_dialog_title">Advarsel</string>
     <string name="manage_all_files_warning_dialog_description">Google Play-versjonen av LibreTorrent har ikke tilgang til alle filer. Dette betyr at LibreTorrent ikke har tilgang til et begrenset antall mapper, som «Nedlastinger», eller andre. Hvis det trengs for å legge til tilgangen, kan du installere LibreTorrent fra en annen kilde. Hele listen er å finne på prosjektsiden:</string>
+    <string name="torrent_speed_limit_dialog">Sett hastighet i KiB/s. Merk at å sette en høyere grense på en torrent overstyrer grensen satt for alle torrenter.</string>
 </resources>

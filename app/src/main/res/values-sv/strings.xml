@@ -82,7 +82,7 @@
     <string name="tags">Taggar</string>
     <string name="add_tag">Lägg till tagg</string>
     <string name="tag_name">Taggnamn</string>
-    <string name="tag_color">Tag color</string>
+    <string name="tag_color">Taggfärg</string>
     <string name="add_tag_failed">Kunde inte lägga till tagg</string>
     <string name="tag_deleting_failed">Kunde inte ta bort tagg</string>
     <string name="tag_already_exists">Den här taggen finns redan</string>
@@ -579,4 +579,5 @@
     <string name="pref_validate_https_trackers_title">Validera HTTPS-spårarcertifikat</string>
     <string name="download_first_last_pieces">Hämta första och sista delarna först</string>
     <string name="pref_validate_https_trackers_summary">Certifikatet för HTTPS-spårare och HTTPS-webbdistributioner kommer att valideras i systemcertifikatarkivet.</string>
+    <string name="torrent_speed_limit_dialog">Ställ in hastighet i KiB/s. Observera att om du ställer in en högre gräns på en torrent kommer den globala gränsen inte att åsidosätta den globala gränsen.</string>
 </resources>

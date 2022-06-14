@@ -572,10 +572,12 @@
     <string name="pref_foreground_notify_sorting">Classificação</string>
     <string name="pref_foreground_notify_sorting_entries_2">Data adicionada (mais recente primeiro)</string>
     <string name="manage_all_files_warning_dialog_title">Aviso</string>
-    <string name="manage_all_files_warning_dialog_description">A versão do LibreTorrent na Google Play não tem permissão para acessar todos os arquivos. Isso significa que o LibreTorrent só terá acesso a um número limitado de pastas, como Downloads ou outras. Se necessário, para habilitar esta permissão, instale o LibreTorrent de outra fonte, a lista completa é apresentada na página do projeto:</string>
+    <string name="manage_all_files_warning_dialog_description">Não use a versão do Google Play do LibreTorrent se quiser salvar torrents em pastas diferentes de \'Downloads\' e similares.
+\nExistem outras fontes na página do projeto.</string>
     <string name="perm_denied_warning_android_r">A permissão de acesso a todos os arquivos é necessária para baixar torrents e acessar arquivos .torrent em pastas arbitrárias. Sem essa permissão, o LibreTorrent apenas terá acesso a um número limitado de pastas. Tem certeza de que deseja negar esta permissão\?</string>
     <string name="exact_alarm_permission_warning">Para que o planejador funcione, você deve obter permissão em uma caixa de diálogo especial do sistema. Continuar\?</string>
     <string name="pref_validate_https_trackers_summary">O certificado de rastreadores HTTPS e sementes da web HTTPS serão validados no armazenamento de certificados do sistema.</string>
     <string name="download_first_last_pieces">Baixe as primeiras e últimas peças primeiro</string>
     <string name="pref_validate_https_trackers_title">Validar certificado de rastreadores HTTPS</string>
+    <string name="torrent_speed_limit_dialog">Defina a velocidade em KiB/s. Observe que definir um limite mais alto em um torrent do que o limite global não substituirá o limite global.</string>
 </resources>

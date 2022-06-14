@@ -15,7 +15,7 @@
     <string name="select_all">Seleccionar todo</string>
     <string name="save">Guardar</string>
     <string name="search">Buscar</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">N/D</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -108,7 +108,7 @@
     <string name="without_tags">Sin etiquetas</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d %% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
@@ -455,7 +455,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Ajustes del puerto</string>
     <string name="pref_use_random_port_title">Usar puerto aleatorio</string>
-    <string name="pref_use_random_port_summarty">Establece el puerto de inicio de forma aleatoria en el rango [%1$d, %2$d] y el puerto final como primero + 10.</string>
+    <string name="pref_use_random_port_summarty">Establece el puerto inicial de forma aleatoria en el rango [%1$d, %2$d] y el puerto final como primero + 10.</string>
     <string name="pref_port_range_title">Rango de puertos</string>
     <string name="pref_port_range_start_title">Inicio</string>
     <string name="pref_port_range_end_title">Final</string>
@@ -531,7 +531,7 @@
     <string name="pref_feed_remove_duplicates_title">No hay duplicados</string>
     <string name="pref_feed_remove_duplicates_summary">Omite la descarga de archivos con títulos ya presentes.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Transmisión</string>
+    <string name="pref_streaming_enable_title">Streaming</string>
     <string name="pref_streaming_enable_summary">Permite descargar archivos individuales de un torrent usando un navegador web o reproductor multimedia usando URLs HTTP/S.</string>
     <string name="pref_streaming_hostname">Nombre del host</string>
     <string name="pref_streaming_port">Puerto</string>
@@ -540,7 +540,7 @@
     <string name="about_title">Acerca de</string>
     <string name="about_description">Más información y cómo ayudar al proyecto: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent es un cliente torrent libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) con copyleft para Android 4+, basado en la librería libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Registro de cambios</string>
-    <string name="pref_header_streaming">Transmitiendo</string>
+    <string name="pref_header_streaming">Streaming</string>
     <string name="pref_watch_dir_delete_file_title">Borrar archivo .torrent después de añadirlo</string>
     <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:
 \n1. Al añadir un torrent, la lista predeterminada se añade automáticamente a la lista de torrents.
@@ -573,10 +573,10 @@
     <string name="exact_alarm_permission_warning">Para que el programador funcione, debes obtener el permiso en un diálogo especial del sistema. ¿Continuar\?</string>
     <string name="perm_denied_warning_android_r">El permiso de acceso a todos los archivos es necesario para descargar torrents y acceder a archivos .torrent en carpetas arbitrarias. Sin este permiso, LibreTorrent solo tendrá acceso a un número limitado de carpetas. ¿Estás seguro de que deseas denegar este permiso\?</string>
     <string name="manage_all_files_warning_dialog_title">Advertencia</string>
-    <string name="manage_all_files_warning_dialog_description">No usar la versión de Google Play de LibreTorrent si quiere guardar torrents en carpetas diferentes a \"Descargas\" o similares.
+    <string name="manage_all_files_warning_dialog_description">No usar la versión de Google Play de LibreTorrent si quieres guardar torrents en carpetas diferentes a \"Descargas\" o similares.
 \nHay otras fuentes en la página del proyecto.</string>
     <string name="pref_validate_https_trackers_title">Validar certificado de rastreadores HTTPS</string>
     <string name="pref_validate_https_trackers_summary">El certificado de rastreadores HTTPS y semillas web HTTPS serán validados en el almacén de certificados del sistema.</string>
     <string name="download_first_last_pieces">Descargar primeras y últimas partes primero</string>
-    <string name="torrent_speed_limit_dialog">Ajuste la velocidad en KiB/s. Tenga en cuenta que al establecer un límite más alto en un torrent, el límite global no anulará el límite global.</string>
+    <string name="torrent_speed_limit_dialog">Establecer velocidad en KiB/s. Ten en cuenta que al establecer un límite más alto en un torrent, el límite global no anulará el límite global.</string>
 </resources>

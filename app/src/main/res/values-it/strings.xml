@@ -219,7 +219,7 @@
     <string name="torrent_downloaded">Scaricato</string>
     <string name="torrent_ETA">Tempo stimato</string>
     <string name="torrent_seeds">Condivisori</string>
-    <string name="torrent_peers">Totale</string>
+    <string name="torrent_peers">Peers</string>
     <string name="torrent_leechers">Ricettori</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
