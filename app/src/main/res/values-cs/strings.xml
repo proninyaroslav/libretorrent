@@ -578,4 +578,5 @@
     <string name="pref_validate_https_trackers_title">Ověřit HTTPS certifikát trackeru</string>
     <string name="download_first_last_pieces">Stáhnout první a poslední části jako první</string>
     <string name="pref_validate_https_trackers_summary">Certifikát HTTPS trackerů a web seedů bude ověřen v systémovém úložišti certifikátů.</string>
+    <string name="torrent_speed_limit_dialog">Nastavit rychlost v KiB/s. Nastavením vyššího limitu rychlosti než globálního nedojde k překročení globální rychlosti.</string>
 </resources>

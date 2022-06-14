@@ -1,23 +1,19 @@
-# Características
-
-* BitTorrent 2.0 and WebTorrent support
-* DHT, PeX, encriptação, LSD, UPnP, NAT*PMP, µTP
-* Filtrar IP (eMule dat e PeerGuardian)
-* Capacidade de afinar (configurações de rede, gerenciamento de energia, controle de bateria, configurações de Interface do Usuário, et cetera)
-* Suporta torrents com um grande número de arquivos e tamanhos grandes
-* Suporte a links HTTP\S e magnet
-* Suporte proxy para rastreadores e pares
-* Capacidade de mover arquivos durante o download
-* Capacidade de movimentar automaticamente arquivos para outro diretório ou para um drive externo no final do download
-* Capacidade de especificar prioridades para o arquivo e pasta
-* Capacidade de selecionar quais arquivos deseje baixar
-* Capacidade de baixar sequencialmente
-* Desenho de Materiais
-* Tema Oscuro e Claro
-* Tablet otimizado para Interface do Usuário
-* Planejamento
-* Gerenciador de RSS
-* Suporte a TV Android
-* Capacidade de criar torrents
-* Streaming de todos os arquivos selecionados
-* E muito mais
+* Licenciado na GPLv3+. Use, veja, altere e compartilhe; com todos.
+* Suporte a BitTorrent 2.0 e WebTorrent.
+* Selecione quais arquivos baixar.
+* Mova arquivos durante o download.
+* Auto-mover arquivos baixados para outra pasta ou unidade externa.
+* Arquivos de fluxo, com downloads sequenciais.
+* AndroidTV.
+* Temas material design, escuro e preto, e interface para tablets.
+* Configurações personalizáveis de rede, bateria e interface do usuário, etc.
+* Mais de 35 traduções.
+* Agendamento.
+* Auto-download, com gerenciador Atom/RSS.
+* Crie torrents, com muitos e grandes arquivos.
+* HTTP\S e links magnéticos.
+* DHT, PeX, criptografia, LSD, UPnP, NAT*PMP, µTP.
+* Filtragem de IP (eMule dat e PeerGuardian).
+* Suporta proxy para rastreadores e pares.
+* Baseado em libtorrent4j.
+* E mais.

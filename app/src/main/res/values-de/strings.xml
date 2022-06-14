@@ -65,7 +65,7 @@
     <string name="ip_filter_add_success">IP-Filter hinzugefügt</string>
     <string name="proxy_settings_applied">Proxyserver-Einstellungen angewendet</string>
     <string name="proxy_settings_apply_after_reboot">Proxyserver-Einstellungen werden nach einem Neustart der App angewendet.</string>
-    <string name="theme_settings_apply_after_reboot">Anwendung der Theme-Einstellungen erfordert einen Neustart</string>
+    <string name="theme_settings_apply_after_reboot">Starten Sie die App neu, um das neue Thema zu verwenden.</string>
     <string name="about">Über</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT-Knoten: %1$d</string>
@@ -150,13 +150,13 @@
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent hinzufügen</string>
     <string name="error_decode_torrent">Konnte Torrent-Datei nicht dekodieren. Möglicherweise ist die Datei korrupt oder hat ein falsches Format\?</string>
-    <string name="error_io_torrent">Fehler beim Lesen der .torrent-Datei</string>
+    <string name="error_io_torrent">Konnte die .torrent-Datei nicht lesen</string>
     <string name="error_fetch_link">Konnte keine Daten über den Link abrufen</string>
     <string name="error_invalid_link_or_path">Ungültiger Link oder Torrent-Pfad</string>
     <string name="error_add_torrent">Konnte den Torrent nicht hinzufügen</string>
     <string name="error_file_not_found_add_torrent">Torrent konnte nicht hinzugefügt werden. Vielleicht wurde die Torrent Datei verschoben oder gelöscht\?</string>
     <string name="error_io_add_torrent">Torrent hinzufügen nicht möglich. E/A Fehler.</string>
-    <string name="torrent_exist">Da der Torrent bereits existiert, wurden sie verschmolzen.</string>
+    <string name="torrent_exist">Da der Torrent bereits existiert, wurden sie zusammengefügt.</string>
     <string name="error_field_required">Pflichtfeld</string>
     <string name="error_no_files_selected">Keine Dateien ausgewählt</string>
     <string name="free_space">%1$s frei</string>
@@ -165,7 +165,7 @@
     <string name="start_torrent">Torrent starten</string>
     <string name="file_is_too_large_error">Datei zu groß</string>
     <string name="unable_to_open_folder">Kann den ausgewählten Ordner nicht öffnen. Bitte versuche einen anderen Ordner auszuwählen.</string>
-    <string name="error_empty_name">Name eingeben</string>
+    <string name="error_empty_name">Gib einen Namen ein</string>
     <string name="ignore_free_space">Ignoriere niedrigen Speicherplatz</string>
     <!-- Torrent info -->
     <string name="torrent_info">Infos</string>
@@ -185,7 +185,7 @@
     <string name="torrent_file_chooser_title">Torrent Auswahl</string>
     <string name="dialog_new_folder_title">Neuer Ordner</string>
     <string name="error_dialog_new_folder">Konnte neuen Ordner nicht anlegen</string>
-    <string name="error_open_dir">Ordner konnte nicht geöffnet werden</string>
+    <string name="error_open_dir">Konnte den Ordner nicht öffnen</string>
     <string name="home_directory">Startseite</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
@@ -216,14 +216,14 @@
     <string name="torrent_speed">Geschwindigkeit</string>
     <string name="torrent_downloaded">Heruntergeladen</string>
     <string name="torrent_ETA">Geschätzte Ankunftszeit</string>
-    <string name="torrent_seeds">Seeder</string>
+    <string name="torrent_seeds">Seeds</string>
     <string name="torrent_leechers">Leecher</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Hochgeladen</string>
     <string name="torrent_share_ratio">Verteilungsverhältnis</string>
     <string name="torrent_active_time">Active</string>
-    <string name="torrent_seeding_time">Seeding</string>
+    <string name="torrent_seeding_time">Seeding-Zeit</string>
     <string name="torrent_pieces">Teile</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -256,7 +256,7 @@
     <string name="torrent_speed_limit">Geschwindigkeitsbeschränkung</string>
     <string name="share_via">Teilen mit…</string>
     <string name="save_torrent_file_successfully">.torrent-Datei gespeichert</string>
-    <string name="error_save_torrent_file">Speichern der Torrent Datei fehlgeschlagen</string>
+    <string name="error_save_torrent_file">Konnte eine .torrent-Datei nicht speichern</string>
     <string name="speed_limit_title">Maximalgeschwindigkeit</string>
     <string name="upload_speed">Hochladen</string>
     <string name="download_speed">Herunterladen</string>
@@ -574,4 +574,9 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombiniert zwei Knöpfe: pausiere alles und setze alles fort. Der Knopf funktioniert wie ein Schalter. Warnung: Der Zustand des Knopfes wird nicht beeinflusst durch das manuelle Stoppen/Fortsetzen des Torrents.</string>
     <string name="pref_validate_https_trackers_title">Überprüfung des HTTPS Tracker-Zertifikats</string>
     <string name="pref_foreground_notification_category">Vordergrundbenachrichtigungseinstellungen</string>
+    <string name="torrent_speed_limit_dialog">Setze eine Geschwindigkeit in KiB/s. Das Setzen eines höheren Limits als die globale Beschränkung wird diese nicht überschreiben.</string>
+    <string name="exact_alarm_permission_warning">Damit der Planer funktioniert, müssen Sie in einem speziellen Systemdialog die Erlaubnis einholen. Fortfahren\?</string>
+    <string name="pref_validate_https_trackers_summary">Das Zertifikat von HTTPS-Trackern und HTTPS-Web-Seeds wird im Zertifikatspeicher des Systems validiert.</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Zeit verbleibend (kleinste zuerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Zeit verbleibend (größte zuerst)</string>
 </resources>

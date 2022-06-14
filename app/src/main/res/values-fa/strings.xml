@@ -11,7 +11,7 @@
     <string name="replace">جایگزینی</string>
     <string name="add">افزودن</string>
     <string name="delete">حذف</string>
-    <string name="deleting">درحال حذف</string>
+    <string name="deleting">درحال حذف …</string>
     <string name="select_all">انتخاب همه</string>
     <string name="save">ذخیره</string>
     <string name="search">جستجو</string>
@@ -48,24 +48,24 @@
     <string name="switch_off">غیرفعال</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">حذف با پرونده‌های بارگیری شده</string>
-    <string name="delete_selected_torrent">تورنت انتخاب شده حذف شود؟ این عملیات غیرقابل بازگشت است</string>
-    <string name="delete_selected_torrents">تورنت‌های انتخاب شده حذف شوند؟ این عملیات غیرقابل بازگشت است</string>
+    <string name="delete_selected_torrent">تورنت انتخاب شده حذف شود؟ (غیرقابل بازگشت)</string>
+    <string name="delete_selected_torrents">تورنت‌های انتخاب شده حذف شوند؟ (غیرقابل بازگشت)</string>
     <string name="force_recheck_torrent">اجبار بررسی دوباره</string>
     <string name="force_announce_torrent">اجبار اعلام</string>
     <string name="add_link">افزودن پیوند</string>
-    <string name="dialog_add_link_title">مقدار infohash، پیوند مگنت، یا پیوند HTTP/HTTPS را وارد کنید</string>
+    <string name="dialog_add_link_title">مقدار infohash، لینک مگنت، یا لینک HTTP/S را وارد کنید</string>
     <string name="torrent_list_empty">هیچ تورنتی نیست</string>
     <string name="select_or_add_torrent">انتخاب یا افزودن تورنت</string>
-    <string name="error_empty_link">لطفا پیوند را وارد کنید</string>
+    <string name="error_empty_link">لینک را وارد کنید</string>
     <string name="error_invalid_link">پیوند نامعتبر است</string>
-    <string name="error_open_torrent_file">نمی‌توان پرونده تورنت را باز کرد</string>
+    <string name="error_open_torrent_file">باز کردن فایل تورنت امکان‌پذیر نبود</string>
     <string name="open_file">بازکردن پرونده</string>
     <string name="settings">تنظیمات</string>
-    <string name="ip_filter_add_error">فیلتر IP ناموفق بود (%1$d ناموفق‌بود). شاید پرونده خراب یا دارای قالب نادرست است</string>
-    <string name="ip_filter_add_success">فیلتر IP باموفقیت افزوده شد</string>
+    <string name="ip_filter_add_error">اضافه کردن فیلتر IP امکان‌پذیر نیست (%1$d ناموفق). شاید فایل آسیب دیده یا با فرمت اشتباه است!</string>
+    <string name="ip_filter_add_success">فیلتر IP افزوده شد</string>
     <string name="proxy_settings_applied">تنظیمات سرور پروکسی باموفقیت اعمال شدند</string>
-    <string name="proxy_settings_apply_after_reboot">تنظیمات سرور پروکسی بعد از راه‌اندازی دوباره برنامه بکارگرفته خواهند شد</string>
-    <string name="theme_settings_apply_after_reboot">تنظیمات پوسته بعد راه‌اندازی دوباره برنامه بکارگرفته خواهند شد</string>
+    <string name="proxy_settings_apply_after_reboot">برای اعمال تنظیمات پروکسی جدید، برنامه را راه‌اندازی مجدد کنید</string>
+    <string name="theme_settings_apply_after_reboot">برای استفاده از پوسته جدید، برنامه را راه‌اندازی مجدد کنید</string>
     <string name="about">درباره</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">گره‌های DHT: %1$d</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">پورت شنود: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">آمار</string>
-    <string name="drawer_status_downloading">در حال بارگیری</string>
+    <string name="drawer_status_downloading">درحال دانلود …</string>
     <string name="drawer_status_downloaded">بارگیری شد</string>
-    <string name="drawer_status_downloading_metadata">در حال بارگیری فراداده</string>
+    <string name="drawer_status_downloading_metadata">درحال دانلود ابرداده …</string>
     <string name="drawer_status_error">خطا</string>
     <!-- Sorting -->
     <string name="drawer_sorting">مرتب سازی</string>
@@ -85,7 +85,7 @@
     <string name="drawer_sorting_size">اندازه‌</string>
     <string name="drawer_sorting_progress">پیشرفت</string>
     <string name="drawer_sorting_ETA">زمان تقریبی دریافت</string>
-    <string name="drawer_sorting_peers">همتا‌ها</string>
+    <string name="drawer_sorting_peers">محبوبیت</string>
     <string name="drawer_sorting_no_sorting">بدون مرتب سازی</string>
     <!-- Date added -->
     <string name="drawer_date_added">تاریخ افزوده شدن</string>
@@ -99,9 +99,9 @@
     <string name="add_tag">Add tag</string>
     <string name="tag_name">Tag name</string>
     <string name="tag_color">Tag color</string>
-    <string name="add_tag_failed">Failed to add tag</string>
-    <string name="tag_deleting_failed">Failed to delete tag</string>
-    <string name="tag_already_exists">Tag with the same name already exists</string>
+    <string name="add_tag_failed">افزودن برچسب امکان‌پذیر نیست</string>
+    <string name="tag_deleting_failed">حذف برچسب امکان‌پذیر نیست</string>
+    <string name="tag_already_exists">این برچسب درحال حاضر وجود دارد</string>
     <string name="no_tags">No tags</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
@@ -110,10 +110,10 @@
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
-    <string name="torrent_count_notify_template">در حال بارگیری: %1$d مجموع: %2$d</string>
-    <string name="app_running_in_the_background">LibreTorrent در پس‌زمینه در حال اجرا است</string>
-    <string name="network_online">وضعیت شبکه: آنلاین</string>
-    <string name="network_offline">وضعیت شبکه: آفلاین</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ از %2$d</string>
+    <string name="app_running_in_the_background">درحال اجرا در پس‌زمینه …</string>
+    <string name="network_online">آنلاین</string>
+    <string name="network_offline">آفلاین</string>
     <string name="notify_shutting_down">در حال خاموش شدن…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">خطای تورنت</string>
@@ -125,9 +125,9 @@
     <!-- Finish notification -->
     <string name="torrent_finished_notify">تورنت به پایان رسید</string>
     <!-- Torrents move notification -->
-    <string name="torrent_moving_title">در حال انتقال تورنت</string>
-    <string name="torrent_moving_content">در حال انتقال %1$s، لطفا صبر کنید</string>
-    <string name="torrent_move_success">تورنت با موفقیت منتقل شد</string>
+    <string name="torrent_moving_title">درحال انتقال تورنت …</string>
+    <string name="torrent_moving_content">لطفا صبر کنید، درحال انتقال %1$s …</string>
+    <string name="torrent_move_success">تورنت منتقل گردید</string>
     <string name="torrent_move_fail">نمی‌توان تورنت را منتقل کرد</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -139,27 +139,27 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">در حال بارگیری</string>
-    <string name="torrent_status_seeding">در حال seed کردن</string>
+    <string name="torrent_status_downloading">درحال دانلود …</string>
+    <string name="torrent_status_seeding">درحال آپلود …</string>
     <string name="torrent_status_paused">مکث شده</string>
     <string name="torrent_status_stopped">متوقف شده</string>
-    <string name="torrent_status_checking">در حال بررسی</string>
+    <string name="torrent_status_checking">درحال بررسی …</string>
     <string name="torrent_status_finished">به پایان رسید</string>
-    <string name="torrent_status_downloading_metadata">در حال بارگیری فراداده</string>
+    <string name="torrent_status_downloading_metadata">درحال دانلود ابرداده …</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">دسترسی رد شد</string>
-    <string name="perm_denied_warning">بدون این دسترسی برنامه نمی‌تواند پرونده‌های تورنت را در حافظه ذخیره کند. برنامه به‌درستی کار نخواهد کرد. آیا مطمئن هستید که می‌خواهید این مجوز را رد کنید؟</string>
+    <string name="perm_denied_warning">اجازه دسترسی به حافظه برای دانلود تورنت‌ و دسترسی به فایل‌های تورنت لازم است. آیا واقعاً می‌خواهید این مجوز را رد کنید؟</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">افزودن تورنت</string>
-    <string name="error_decode_torrent">رمزگشایی پرونده تورنت ناموفق بود. شاید پرونده خراب یا دارای قالب نادرست است</string>
-    <string name="error_io_torrent">خطا در خواندن پرونده تورنت</string>
-    <string name="error_fetch_link">واکشی از پیوند ناموفق بود</string>
-    <string name="error_invalid_link_or_path">پیوند یا مسیر تورنت نامعتبر است</string>
-    <string name="error_add_torrent">افزودن تورنت ناموفق بود</string>
-    <string name="error_file_not_found_add_torrent">افزودن تورنت ناموفق بود. شاید پرونده تورنت منتقل، یا حذف شده است</string>
-    <string name="error_io_add_torrent">نمی‌توان تورنت را افزود. خطای ورودی/خروجی</string>
-    <string name="torrent_exist">تورنت از قبل وجود دارد. تورنت‌ها ادغام شدند</string>
-    <string name="error_field_required">این بخش الزامی است</string>
+    <string name="error_decode_torrent">رمزگشایی فایل تورنت امکان‌پذیر نیست. شاید آسیب دیده یا با فرمت اشتباه است!</string>
+    <string name="error_io_torrent">عدم امکان خواندن فایل تورنت</string>
+    <string name="error_fetch_link">دریافت داده از لینک امکان‌پذیر نبود</string>
+    <string name="error_invalid_link_or_path">لینک یا مسیر تورنت نامعتبر است</string>
+    <string name="error_add_torrent">افزودن تورنت امکان‌پذیر نبود</string>
+    <string name="error_file_not_found_add_torrent">افزودن تورنت امکان‌پذیر نبود. شاید فایل تورنت منتقل یا حذف شده است!</string>
+    <string name="error_io_add_torrent">افزودن تورنت امکان‌پذیر نبود. خطا در ورودی/خروجی</string>
+    <string name="torrent_exist">از آنجایی که تورنت از قبل وجود داشت. آنها ادغام شدند.</string>
+    <string name="error_field_required">فیلد الزامی</string>
     <string name="error_no_files_selected">هیچ پرونده‌ای انتخاب نشده</string>
     <string name="free_space">%1$s آزاد است</string>
     <string name="error_free_space">فضای کافی در مسیر انتخابی برای بارگیری پرونده‌ها وجود ندارد</string>
@@ -536,4 +536,12 @@
     <string name="about_title">درباره LibreTorrent</string>
     <string name="about_description">اطلاعات بیشتر و همچنین برای کمک به پروژه: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent یک کارخواه آزاد بر اساس libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; برای اندروید بالای 4 است LibreTorrent یک نرم‌افزار آزاد،منتشر شده تحت شرایط &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;پروانه عمومی همگانی گنو نگارش 3 (GPLv3)&lt;/a&gt; است</string>
     <string name="about_changelog">گزارش دگرگونی</string>
+    <string name="error_open_torrent">ناتوان در بازکردن تورنت</string>
+    <string name="manage_all_files_warning_dialog_title">هشدار</string>
+    <string name="manage_all_files_warning_dialog_description">در صورتیکه می‌خواهید تورنت‌ها را در پوشه‌هایی غیر از \'دانلودها\' و یا مشابه آن ذخیره کنید، از LibreTorrent نسخه گوگل پلی استفاده نکنید.
+\nمنابع دیگری در صفحه پروژه موجود است.</string>
+    <string name="edit_tag">ویرایش برچسب</string>
+    <string name="select_tag">انتخاب برچسب</string>
+    <string name="new_tag">برچسب جدید</string>
+    <string name="without_tags">بدون برچسب</string>
 </resources>

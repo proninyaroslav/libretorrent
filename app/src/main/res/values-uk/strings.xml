@@ -166,7 +166,7 @@
     <string name="error_no_files_selected">Не вибрано жодного файлу</string>
     <string name="free_space">%1$s вільно</string>
     <string name="error_free_space">Недостатньо вільного місця для завантаження вибраних файлів.</string>
-    <string name="files_size">Вибрано %1$s з %2$s.</string>
+    <string name="files_size">Вибрано %1$s з %2$s</string>
     <string name="start_torrent">Запустити торент</string>
     <string name="file_is_too_large_error">Завеликий файл</string>
     <string name="unable_to_open_folder">Не вдається відкрити вибрану папку. Будь ласка, спробуйте вибрати іншу папку</string>
@@ -575,5 +575,8 @@
     <string name="pref_validate_https_trackers_summary">Сертифікат HTTPS-трекерів і веб-сидів HTTPS буде перевірено в системному сховищі сертифікатів.</string>
     <string name="exact_alarm_permission_warning">Щоб планувальник працював, ви повинні отримати дозвіл у спеціальному системному діалоговому вікні. Продовжити\?</string>
     <string name="manage_all_files_warning_dialog_title">Попередження</string>
-    <string name="manage_all_files_warning_dialog_description">Версія LibreTorrent для Google Play не має дозволу на доступ до всіх файлів. Це означає, що LibreTorrent матиме доступ лише до обмеженої кількості папок, таких як Завантаження чи інші. Якщо потрібно увімкнути цей дозвіл, встановіть LibreTorrent з іншого джерела, повний список представлений на сторінці проекту:</string>
+    <string name="manage_all_files_warning_dialog_description">Не використовуйте версію LibreTorrent для Google Play, якщо ви бажаєте зберігати торенти в теках, відмінних від \"Завантажене\"або подібних.
+\nНа сторінці проєкту є інші джерела.</string>
+    <string name="torrent_speed_limit_dialog">Встановити швидкість у КіБ/с. Зауважте, що встановлення для торента обмеження, більшого за глобальне, не замінить глобальне.</string>
+    <string name="download_first_last_pieces">Спочатку завантажувати перші та останні частини</string>
 </resources>

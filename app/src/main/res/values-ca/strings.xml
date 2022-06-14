@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">D\'acord</string>
+    <string name="ok">D’acord</string>
     <string name="cancel">Cancel·la</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
@@ -38,15 +38,15 @@
     <!-- Main window -->
     <string name="add_link">Afegeix un enllaç</string>
     <string name="torrent_list_empty">Cap torrent</string>
-    <string name="error_empty_link">Please enter link</string>
+    <string name="error_empty_link">Introduïu l’enllaç</string>
     <string name="error_invalid_link">Enllaç no vàlid</string>
-    <string name="open_file">Open file</string>
-    <string name="settings">Configuració</string>
-    <string name="ip_filter_add_error">No s\'ha pogut afegir el filtre de IP (%1$d ha fallat). Pot ser que l\'arxiu estigui danyat o tingui un format incorrecte\?</string>
-    <string name="ip_filter_add_success">IP filter added successfully</string>
+    <string name="open_file">Obre un fitxer</string>
+    <string name="settings">Paràmetres</string>
+    <string name="ip_filter_add_error">No s’ha pogut afegir el filtre d’IP (%1$d ha fallat). Potser el fitxer estigui danyat o tingui un format incorrecte.</string>
+    <string name="ip_filter_add_success">S’ha afegit el filtre d’IP</string>
     <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
     <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="theme_settings_apply_after_reboot">Reinicieu l’aplicació per a utilitzar el tema nou.</string>
     <string name="about">Quant a</string>
     <!-- Navigation drawer -->
     <!-- total download/upload • download/upload speed -->
@@ -60,14 +60,14 @@
     <!-- Sorting -->
     <string name="drawer_sorting">Ordre</string>
     <string name="drawer_sorting_name">Nom</string>
-    <string name="drawer_sorting_date_added">Data afegit</string>
+    <string name="drawer_sorting_date_added">Data d’addició</string>
     <string name="drawer_sorting_size">Mida</string>
     <string name="drawer_sorting_progress">Progrés</string>
     <string name="drawer_sorting_ETA">Temps estimat</string>
     <string name="drawer_sorting_peers">Parells</string>
     <string name="drawer_sorting_no_sorting">Sense ordre</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Data afegit</string>
+    <string name="drawer_date_added">Data d’addició</string>
     <string name="drawer_date_added_today">Avui</string>
     <string name="drawer_date_added_yesterday">Ahir</string>
     <string name="drawer_date_added_week">Setmana</string>
@@ -75,10 +75,10 @@
     <string name="drawer_date_added_year">Any</string>
     <string name="tags">Etiquetes</string>
     <string name="add_tag">Afegeix etiqueta</string>
-    <string name="tag_name">Nom de l\'etiqueta</string>
-    <string name="tag_color">Color de l\'etiqueta</string>
-    <string name="add_tag_failed">No s\'ha pogut afegir l\'etiqueta</string>
-    <string name="tag_deleting_failed">No s\'ha pogut esborrar l\'etiqueta</string>
+    <string name="tag_name">Nom de l’etiqueta</string>
+    <string name="tag_color">Color de l’etiqueta</string>
+    <string name="add_tag_failed">No s’ha pogut afegir l’etiqueta</string>
+    <string name="tag_deleting_failed">No s’ha pogut suprimir l’etiqueta</string>
     <string name="tag_already_exists">Ja hi ha una etiqueta amb aquest nom</string>
     <string name="no_tags">No hi ha etiquetes</string>
     <string name="new_tag">Nova etiqueta</string>
@@ -99,8 +99,8 @@
     <string name="nat_error_title">NAT error</string>
     <!-- Finish notification -->
     <!-- Torrents move notification -->
-    <string name="torrent_moving_content">Si us plau esperi mentre es mou %1$s…</string>
-    <string name="torrent_move_success">Torrent moved successfully</string>
+    <string name="torrent_moving_content">Espereu mentre es mou %1$s…</string>
+    <string name="torrent_move_success">S’ha mogut el torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
     <!-- downloaded/total (percent) -->
@@ -111,54 +111,54 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">Descarregant…</string>
+    <string name="torrent_status_downloading">S’està baixant…</string>
     <string name="torrent_status_seeding">Sembrant…</string>
     <string name="torrent_status_paused">En pausa</string>
     <string name="torrent_status_stopped">Aturat</string>
-    <string name="torrent_status_checking">Comprovant…</string>
+    <string name="torrent_status_checking">S’està comprovant…</string>
     <string name="torrent_status_finished">Finalitzat</string>
     <string name="torrent_status_downloading_metadata">Descarregant metadades…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permís denegat</string>
-    <string name="perm_denied_warning">Without this permission app can\'t save torrent files in memory. The app will not work properly. Are you sure you want to deny this permission\?</string>
+    <string name="perm_denied_warning">Cal el permís d’emmagatzematge per a baixar torrents i accedir als fitxers .torrent. Realment voleu denegar aquest permís\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Afegeix torrent</string>
-    <string name="error_decode_torrent">No s\'ha pogut descodificar l\'arxiu .torrent. Pot ser que estigui danyat o tingui un format incorrecte\?</string>
-    <string name="error_io_torrent">Error reading the torrent file</string>
+    <string name="error_decode_torrent">No s’ha pogut descodificar el fitxer .torrent. Potser estigui danyat o tingui un format incorrecte.</string>
+    <string name="error_io_torrent">No s’ha pogut llegir el fitxer .torrent</string>
     <string name="error_fetch_link">Failed to fetch data from the link</string>
     <string name="error_invalid_link_or_path">Invalid link or path to the torrent</string>
-    <string name="error_add_torrent">Failed to add the torrent</string>
-    <string name="error_file_not_found_add_torrent">No s\'ha pogut afegir el torrent. Pot ser que l\'arxiu .torrent s\'hagi mogut o esborrat\?</string>
+    <string name="error_add_torrent">No s’ha pogut afegir el torrent</string>
+    <string name="error_file_not_found_add_torrent">No s’ha pogut afegir el torrent. Potser el fitxer .torrent s’ha mogut o suprimit.</string>
     <string name="error_io_add_torrent">Unable to add the torrent. I/O error</string>
-    <string name="torrent_exist">Torrent already exists. Torrents were merged</string>
+    <string name="torrent_exist">Com que el torrent ja existia, ambdós s’han fusionat.</string>
     <string name="error_field_required">This field is required</string>
     <string name="free_space">%1$s free</string>
     <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
     <string name="start_torrent">Inicia torrent</string>
-    <string name="file_is_too_large_error">File is too large</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="error_empty_name">Please enter name</string>
+    <string name="file_is_too_large_error">El fitxer és massa gran</string>
+    <string name="unable_to_open_folder">No s’ha pogut obrir la carpeta seleccionada. Proveu de seleccionar-ne una altra.</string>
+    <string name="error_empty_name">Introduïu un nom</string>
     <string name="ignore_free_space">Ignore free space size</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>
     <string name="torrent_name">Nom</string>
     <string name="torrent_size">Mida</string>
-    <string name="torrent_hash_sum">Hash sum</string>
+    <string name="torrent_hash_sum">Suma de comprovació</string>
     <string name="torrent_comment">Comentari</string>
     <string name="torrent_create_date">Creat</string>
     <!-- Filemanager dialog -->
     <string name="dialog_new_folder_title">Carpeta nova</string>
-    <string name="error_dialog_new_folder">Unable to create a new folder</string>
-    <string name="error_open_dir">Unable to open the folder</string>
+    <string name="error_dialog_new_folder">No s’ha pogut crear una carpeta nova</string>
+    <string name="error_open_dir">No s’ha pogut obrir la carpeta</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="internal_storage_name">Emmagatzematge intern</string>
     <string name="external_storage_name" formatted="false">Emmagatzematge extern %1$d</string>
-    <string name="file_name">File name</string>
-    <string name="error_file_exists">File already exists</string>
-    <string name="file_name_is_empty">File name cannot be empty</string>
+    <string name="file_name">Nom del fitxer</string>
+    <string name="error_file_exists">El fitxer ja existeix</string>
+    <string name="file_name_is_empty">Introduïu un nom primer</string>
     <!-- Error dialog -->
     <string name="report">Report</string>
     <!-- Detail torrent dialog -->
@@ -195,8 +195,8 @@
     <string name="resume_torrent">Continua</string>
     <string name="pause_torrent">Pausa</string>
     <string name="share_magnet">Comparteix magnet</string>
-    <string name="save_torrent_file_successfully">Torrent file saved successfully</string>
-    <string name="error_save_torrent_file">Failed to save a torrent file</string>
+    <string name="save_torrent_file_successfully">S’ha desat el fitxer .torrent</string>
+    <string name="error_save_torrent_file">No s’ha pogut desar el fitxer del torrent</string>
     <string name="speed_limit_title">Velocitat màxima</string>
     <string name="upload_speed">Pujada</string>
     <string name="download_speed">Download</string>
@@ -211,12 +211,12 @@
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
-    <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
+    <string name="feed_filter_prompt">Introduïu les paraules (separades per «|»), una de les quals ha de ser al nom, o bé introduïu una expressió regular. Els torrents només s’afegiran si aquest filtre coincideix amb el nom del torrent.</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
     <string name="feed_last_update_never">mai</string>
     <string name="delete_selected_channel">Delete the selected channel\?</string>
-    <string name="link_copied_to_clipboard">Link copied to clipboard</string>
+    <string name="link_copied_to_clipboard">S’ha copiat al porta-retalls</string>
     <string name="mark_as_read">Marca com a llegits</string>
     <string name="mark_as_unread">Marca com a no llegits</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
@@ -225,16 +225,16 @@
     <string name="error_restore_feeds_backup">Failed to restore channels</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crea torrent</string>
-    <string name="creating_torrent_progress">Creating torrent, please wait…</string>
+    <string name="creating_torrent_progress">Espereu mentre es crea el torrent…</string>
     <string name="file_or_folder_for_seeding">File or folder for seeding</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
     <string name="web_seed_urls">Web seed URLs</string>
     <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
     <string name="web_seed_urls_hint">(optional) One per line</string>
-    <string name="optional_hint">(optional)</string>
+    <string name="optional_hint">(Opcional)</string>
     <string name="create_torrent_options">Options</string>
     <!-- piece_size_entries -->
-    <string name="piece_size_entries_0">Auto</string>
+    <string name="piece_size_entries_0">Automàtic</string>
     <string name="piece_size_entries_1">16 KiB</string>
     <string name="piece_size_entries_2">32 KiB</string>
     <string name="piece_size_entries_3">64 KiB</string>
@@ -248,11 +248,11 @@
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
-    <string name="error_create_torrent">Unable to create torrent</string>
-    <string name="skip_files_hint">Enter file names separated by \"|\"</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="unable_to_open_file">Unable to open selected file</string>
-    <string name="unable_to_create_file">Unable to create file</string>
+    <string name="error_create_torrent">No s’ha pogut crear el torrent</string>
+    <string name="skip_files_hint">Introduïu els noms dels fitxers separats per «|».</string>
+    <string name="select_folder_to_save">Seleccioneu una carpeta a desar.</string>
+    <string name="unable_to_open_file">No s’ha pogut obrir el fitxer seleccionat</string>
+    <string name="unable_to_create_file">No s’ha pogut crear el fitxer</string>
     <!-- Log -->
     <string name="journal_save_log_failed">Failed to save log</string>
     <string name="journal_save_log_success">Log saved successfully: %1$s</string>
@@ -278,7 +278,7 @@
     <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
     <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
     <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
-    <string name="pref_auto_manage_title">Auto manage</string>
+    <string name="pref_auto_manage_title">Gestiona automàticament</string>
     <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
     <!-- Appearance settings -->
     <string name="pref_theme_title">Tema</string>
@@ -289,7 +289,7 @@
     <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
     <string name="pref_notify_sound_title">Notification sound</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_title">Inicia automàticament</string>
     <string name="pref_autostart_summary">Run the app after start device</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
@@ -306,28 +306,28 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Realment vol establit un %% de bateria a tenir en compte\? (S\'incrementarà l\'ús de la bateria durant les descàrregues.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Realment voleu establir un %% de bateria a tenir en compte\? (Se’n incrementarà l’ús durant les baixades.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">Activa DHT</string>
     <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
-    <string name="pref_enable_lsd_title">Activa LSD</string>
+    <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
-    <string name="pref_enable_utp_title">Activa μTP</string>
+    <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
-    <string name="pref_enable_upnp_title">Activa UPnP</string>
-    <string name="pref_enable_natpmp_title">Activa NAT-PMP</string>
+    <string name="pref_enable_upnp_title">UPnP</string>
+    <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
     <string name="pref_port_range_start_title">Inici</string>
     <string name="pref_port_range_end_title">Final</string>
     <string name="pref_encryption_category">Xifratge</string>
-    <string name="pref_enc_mode_title">Mode de xifrat</string>
+    <string name="pref_enc_mode_title">Mode</string>
     <!-- pref_enc_mode_entries -->
     <string name="pref_enc_mode_entries_0">Preferir xifrat</string>
     <string name="pref_enc_mode_entries_1">Requerir xifrat</string>
     <string name="pref_enc_mode_entries_2">Desactivar xifrat</string>
-    <string name="pref_enable_ip_filtering_title">Enable IP filtering</string>
+    <string name="pref_enable_ip_filtering_title">Filtratge d’IP</string>
     <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
-    <string name="pref_anonymous_mode_title">Enable anonymous mode</string>
+    <string name="pref_anonymous_mode_title">Mode anònim</string>
     <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
     <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
     <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
@@ -387,17 +387,60 @@
     <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="deleting">Eliminant…</string>
     <string name="warning">Atenció</string>
-    <string name="force_recheck_torrent">Forçar la recomprovació</string>
+    <string name="force_recheck_torrent">Força la recomprovació</string>
     <string name="replace">Reemplaçar</string>
-    <string name="delete_selected_torrents">Esborrar els torrents seleccionats\? (No es pot desfer.)</string>
+    <string name="delete_selected_torrents">Voleu suprimir els torrents seleccionats\? (No es pot desfer.)</string>
     <string name="open_navigation_drawer">Obrir calaix de navegació</string>
     <string name="all">Tot</string>
     <string name="select_all">Seleccionar tot</string>
     <string name="search">Buscar</string>
     <string name="foreground_notification">Notificació en primer pla</string>
     <string name="refresh">Actualitzar</string>
-    <string name="delete_torrent_with_downloaded_files">Esborrar amb els arxius descarregats</string>
-    <string name="delete_selected_torrent">Esborrar el torrent seleccionat\? (No es pot desfer.)</string>
+    <string name="delete_torrent_with_downloaded_files">Suprimeix amb els fitxers baixats</string>
+    <string name="delete_selected_torrent">Voleu suprimir el torrent seleccionat\? (No es pot desfer.)</string>
     <string name="close_navigation_drawer">Tancar calaix de navegació</string>
     <string name="save">Guardar</string>
+    <string name="edit_tag">Edita l’etiqueta</string>
+    <string name="select_tag">Seleccioneu una etiqueta</string>
+    <string name="torrent_file_chooser_title">Selecció de torrent</string>
+    <string name="save_file">Desa el fitxer</string>
+    <string name="torrent_pieces">Peces</string>
+    <string name="select_or_add_torrent">Seleccioneu o afegiu un torrent</string>
+    <string name="more_details">Més detalls</string>
+    <string name="dir_chooser_title">Selecció de carpeta</string>
+    <string name="parent_folder">Carpeta contenidora</string>
+    <string name="error_open_torrent_file">No s’ha pogut obrir el fitxer .torrent</string>
+    <string name="error_no_files_selected">No s’ha seleccionat cap fitxer</string>
+    <string name="force_announce_torrent">Força l’anunci</string>
+    <string name="replace_file">Reemplaça el fitxer</string>
+    <string name="error_open_torrent">No s’ha pogut obrir el torrent</string>
+    <string name="manage_all_files_warning_dialog_title">Avís</string>
+    <string name="file_chooser_title">Selecció de fitxer</string>
+    <string name="dialog_change_priority_title">Canvia’n la prioritat</string>
+    <string name="torrent_file_count">Recompte de fitxers</string>
+    <string name="comments">Comentaris</string>
+    <string name="pref_port_settings_category">Paràmetres del port</string>
+    <string name="journal_filter_torrent_log">Registre del torrent</string>
+    <string name="error_cannot_delete_channel">No s’ha pogut suprimir el canal</string>
+    <string name="error_cannot_add_channel">No s’ha pogut afegir el canal</string>
+    <string name="pref_ip_filtering_category">Filtratge d’IP</string>
+    <string name="edit_torrent_name">Edita el nom del torrent</string>
+    <string name="journal_start_recording">Inicia l’enregistrament</string>
+    <string name="peer_connection_type">Connexió: %1$s</string>
+    <string name="feed_item_url_not_found">No s’ha trobat l’URL</string>
+    <string name="sequential_download">Baixada seqüencial</string>
+    <string name="pref_theme_category">Paràmetres del tema</string>
+    <string name="journal_filter_dht_log">Registre de DHT</string>
+    <string name="journal_stop_recording">Atura l’enregistrament</string>
+    <string name="add_feed_channel">Afegeix un canal</string>
+    <string name="feed_name">Nom (opcional)</string>
+    <string name="copy_link">Copia l’enllaç</string>
+    <string name="error_cannot_edit_channel">No s’ha pogut editar el canal</string>
+    <string name="journal_filter_session_log">Registre de la sessió</string>
+    <string name="journal_filter_peer_log">Registre de la connexió</string>
+    <string name="pref_notification_category">Paràmetres de notificacions</string>
+    <string name="pref_proxy_settings_title">Paràmetres de servidor intermediari</string>
+    <string name="pref_port_range_title">Interval de ports</string>
+    <string name="about_changelog">Registre de canvis</string>
+    <string name="torrent_move_fail">No s’ha pogut moure el torrent</string>
 </resources>
