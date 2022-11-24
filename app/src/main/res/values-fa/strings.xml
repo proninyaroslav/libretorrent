@@ -26,7 +26,7 @@
     <string name="elapsed_time_format_ss">%1$d ثانیه</string>
     <string name="def">پیش‌فرض</string>
     <string name="foreground_notification">اعلان پیش‌زمینه</string>
-    <string name="link">پیوند</string>
+    <string name="link">لینک</string>
     <string name="filter">فیلتر</string>
     <string name="refresh">نوسازی</string>
     <string name="edit">ویرایش</string>
@@ -52,12 +52,12 @@
     <string name="delete_selected_torrents">تورنت‌های انتخاب شده حذف شوند؟ (غیرقابل بازگشت)</string>
     <string name="force_recheck_torrent">اجبار بررسی دوباره</string>
     <string name="force_announce_torrent">اجبار اعلام</string>
-    <string name="add_link">افزودن پیوند</string>
+    <string name="add_link">افزودن لینک</string>
     <string name="dialog_add_link_title">مقدار infohash، لینک مگنت، یا لینک HTTP/S را وارد کنید</string>
     <string name="torrent_list_empty">هیچ تورنتی نیست</string>
     <string name="select_or_add_torrent">انتخاب یا افزودن تورنت</string>
     <string name="error_empty_link">لینک را وارد کنید</string>
-    <string name="error_invalid_link">پیوند نامعتبر است</string>
+    <string name="error_invalid_link">لینک نامعتبر است</string>
     <string name="error_open_torrent_file">باز کردن فایل تورنت امکان‌پذیر نبود</string>
     <string name="open_file">بازکردن پرونده</string>
     <string name="settings">تنظیمات</string>
@@ -235,7 +235,7 @@
     <string name="tracker_state_not_working">بی‌کار</string>
     <string name="tracker_state_updating">در حال به‌روزرسانی…</string>
     <string name="tracker_state_not_contacted">هنوز تماسی ایجاد نشده</string>
-    <string name="share_tracker_url">هم‌رسانی پیوند</string>
+    <string name="share_tracker_url">هم‌رسانی لینک</string>
     <string name="delete_selected_tracker">ردیاب انتخابی حذف شود؟</string>
     <string name="delete_selected_trackers">ردیاب‌های انتخابی حذف شوند؟</string>
     <string name="add_trackers">افزودن ردیاب</string>
@@ -294,7 +294,7 @@
     <string name="error_cannot_add_channel">نمی‌توان کانال را افزود</string>
     <string name="error_cannot_edit_channel">نمی‌توان کانال را ویرایش کرد</string>
     <string name="error_cannot_delete_channel">نمی‌توان کانال را حذف کرد</string>
-    <string name="copy_link">کپی پیوند</string>
+    <string name="copy_link">کپی لینک</string>
     <string name="delete_selected_channel">کانال انتخابی حذف شود؟</string>
     <string name="delete_selected_channels">کانال‌های انتخابی حذف شوند؟</string>
     <string name="edit_feed_channel">ویرایش کانال</string>
@@ -310,7 +310,7 @@
     <string name="feeds_backup_selection_dialog_title">انتخاب پرونده پشتیبان</string>
     <string name="error_import_invalid_format">قالب نامعتبر است</string>
     <string name="feed_do_not_download_immediately">بی‌درنگ بارگیری نکن</string>
-    <string name="feed_item_url_not_found">پیوند یافت نشد</string>
+    <string name="feed_item_url_not_found">لینک یافت نشد</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">ایجاد تورنت</string>
     <string name="creating_torrent_progress">در حال ایجاد تورنت، لطفا منتظر باشید…</string>
@@ -340,7 +340,7 @@
     <string name="piece_size_entries_10">۸ MiB</string>
     <string name="piece_size_entries_11">۱۶ MiB</string>
     <string name="piece_size_entries_12">۳۲ MiB</string>
-    <string name="invalid_url">پیوند نامعتبر: %1$s</string>
+    <string name="invalid_url">لینک نامعتبر: %1$s</string>
     <string name="folder_is_empty">پوشه انتخاب شده، خالی است یا پرونده‌ها به‌وسیله فیلتر کنار گذاشته شده‌اند</string>
     <string name="error_create_torrent">نمی‌توان تورنت را ایجاد کرد</string>
     <string name="skip_files">رد شدن از پرونده‌ها</string>
