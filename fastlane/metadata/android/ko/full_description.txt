@@ -1,19 +1,19 @@
-* Licensed GPLv3+. Use, see, change and share; with all.
-* BitTorrent 2.0 and WebTorrent support
-* Select which files to download.
-* Move files while downloading.
-* Auto-move downloaded files to another folder or external drive.
-* Stream files, with sequential downloads.
-* Android TV.
-* Material design, dark and black theme, and tablet UI.
-* Customisable network, battery, and UI settings, etc.
-* 35+ translations.
-* Scheduling.
-* Auto-downloading, with Atom/RSS manager.
-* Create torrents, with many and big files.
-* HTTP\S and magnet links.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
-* IP filtering (eMule dat and PeerGuardian).
-* Supports proxy for trackers and peers.
-* Based on libtorrent4j.
-* And more.
+* 라이선스가 부여된 GPLv3+입니다. 사용하고, 보고, 변경하고, 공유하십시오.
+* BitTorrent 2.0 및 WebTorrent를 지원합니다.
+* 다운로드할 파일을 선택합니다.
+* 다운로드하는 동안 파일을 이동합니다.
+* 다운로드한 파일을 다른 폴더 또는 외장 드라이브로 자동 이동합니다.
+* 파일을 순차적으로 다운로드하여 스트리밍합니다.
+* 안드로이드 TV.
+* 머티리얼 디자인, 어둡고 검은색 테마, 태블릿 UI입니다.
+* 네트워크, 배터리 및 UI 설정 등을 사용자 지정할 수 있습니다.
+* 35개 이상의 번역이 있습니다.
+* 예약.
+* ATOM/RSS 관리자를 사용하여 자동 다운로드합니다.
+* 크고 많은 파일이 있는 토렌트를 만듭니다.
+* HTTP\S 및 마그네트 링크입니다.
+* DHT, PeX, 암호화, LSD, UPnP, NAT*PMP, µTP입니다.
+* IP 필터링(eMuldat 및 PeerGuardian)입니다.
+* 추적기 및 피어의 프록시를 지원합니다.
+* libtorrent4j를 기반으로 합니다.
+* 그리고 더 많은 정보가 있습니다.

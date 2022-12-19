@@ -84,7 +84,7 @@
     <string name="drawer_sorting_date_added">Дата добавления</string>
     <string name="drawer_sorting_size">Размер</string>
     <string name="drawer_sorting_progress">Прогресс</string>
-    <string name="drawer_sorting_ETA">ETA</string>
+    <string name="drawer_sorting_ETA">Осталось</string>
     <string name="drawer_sorting_peers">Популярность</string>
     <string name="drawer_sorting_no_sorting">Нет сортировки</string>
     <!-- Date added -->
@@ -102,7 +102,7 @@
     <string name="tag_color">Цвет метки</string>
     <string name="add_tag_failed">Не удалось добавить метку</string>
     <string name="tag_deleting_failed">Не удалось удалить метку</string>
-    <string name="tag_already_exists">Этот тег уже существует</string>
+    <string name="tag_already_exists">Эта метка уже существует</string>
     <string name="no_tags">Нет меток</string>
     <string name="select_tag">Выбрать метку</string>
     <string name="new_tag">Новая метка</string>
@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Разрешение на доступ к хранилищу необходимо для скачивания торрентов и доступа к .torrent файлам. Вы действительно хотите запретите это разрешение\?</string>
+    <string name="perm_denied_warning">Разрешение на доступ к хранилищу необходимо для скачивания торрентов и доступа к .torrent файлам. Вы действительно хотите отклонить это разрешение\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
     <string name="error_decode_torrent">Ошибка декодирования .torrent файла. Возможно он поврежден или имеет неверный формат\?</string>
@@ -196,7 +196,7 @@
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="internal_storage_name">Внутреннее хранилище</string>
-    <string name="external_storage_name" formatted="false">Внещнее хранилище %1$d</string>
+    <string name="external_storage_name" formatted="false">Внешнее хранилище %1$d</string>
     <string name="permission_denied">Доступ запрещён</string>
     <string name="save_file">Сохранить файл</string>
     <string name="file_name">Имя файла</string>
@@ -261,7 +261,7 @@
     <string name="resume_torrent">Запустить</string>
     <string name="pause_torrent">Пауза</string>
     <string name="share_magnet">Поделиться magnet-ссылкой</string>
-    <string name="save_torrent_file">Сохранить торрент файл</string>
+    <string name="save_torrent_file">Сохранить торрент-файл</string>
     <string name="torrent_speed_limit">Ограничение скорости</string>
     <string name="share_via">Поделиться с помощью…</string>
     <string name="save_torrent_file_successfully">.torrent файл сохранён</string>
@@ -276,7 +276,7 @@
     <string name="magnet_include_file_priorities">Включить приоритеты файлов\?</string>
     <string name="magnet_more_about_bep53">Больше информации: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
-    <string name="edit_torrent_name">Редактировать имя торрента</string>
+    <string name="edit_torrent_name">Переименовать торрент</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
     <string name="text_copied_to_clipboard">Скопировано в буфер обмена</string>
@@ -289,8 +289,8 @@
     <string name="select_or_add_feed_channel">Выберите или добавьте RSS/Atom канал</string>
     <string name="add_feed_channel">Добавить канал</string>
     <string name="feed_name">Имя (необязательно)</string>
-    <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавлены только в том случае, если фильтр соответствует имени торрента.</string>
-    <string name="feed_filter_prompt_one_per_line">Введите по одному фильтру в каждой строке.</string>
+    <string name="feed_filter_prompt">Введите слова (разделённые символом \"|\"), одно из которых должно быть в имени или введите регулярное выражение. Торренты будут добавляться только при соответствии имени фильтру.</string>
+    <string name="feed_filter_prompt_one_per_line">Введите по одному фильтру на строку.</string>
     <string name="feed_auto_download">Автозагрузка торрентов</string>
     <string name="feed_use_regex">Использовать регулярное выражение</string>
     <string name="backup_feed_channels">Сохранить резервную копию</string>
@@ -315,7 +315,7 @@
     <string name="feed_item_open_article_url">Открыть статью</string>
     <string name="feeds_backup_selection_dialog_title">Выберите файл резервной копии</string>
     <string name="error_import_invalid_format">Неверный формат</string>
-    <string name="feed_do_not_download_immediately">Не скачивать сразу</string>
+    <string name="feed_do_not_download_immediately">Не начинать закачку сразу</string>
     <string name="feed_item_url_not_found">URL не найден</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Создать торрент</string>
@@ -326,7 +326,7 @@
     <string name="web_seed_urls">Адреса веб-сидов</string>
     <string name="comments">Комментарии</string>
     <string name="tracker_urls_hint">(Необязательно) Введите трекеры по одному в строке в порядке приоритета.</string>
-    <string name="web_seed_urls_hint">(Необязательно) По одному в строке</string>
+    <string name="web_seed_urls_hint">(Необязательно) По одному на строку</string>
     <string name="optional_hint">(Опционально)</string>
     <string name="piece_size">Размер части</string>
     <string name="create_torrent_options">Опции</string>
@@ -334,23 +334,23 @@
     <string name="option_private_torrent">Приватный торрент</string>
     <!-- piece_size_entries -->
     <string name="piece_size_entries_0">Авто</string>
-    <string name="piece_size_entries_1">16 Кб</string>
-    <string name="piece_size_entries_2">32 Кб</string>
-    <string name="piece_size_entries_3">64 Кб</string>
-    <string name="piece_size_entries_4">128 Кб</string>
-    <string name="piece_size_entries_5">256 Кб</string>
-    <string name="piece_size_entries_6">512 Кб</string>
-    <string name="piece_size_entries_7">1 Мб</string>
-    <string name="piece_size_entries_8">2 Мб</string>
-    <string name="piece_size_entries_9">4 Мб</string>
-    <string name="piece_size_entries_10">8 Мб</string>
-    <string name="piece_size_entries_11">16 Мб</string>
-    <string name="piece_size_entries_12">32 Мб</string>
+    <string name="piece_size_entries_1">16 Киб</string>
+    <string name="piece_size_entries_2">32 КиБ</string>
+    <string name="piece_size_entries_3">64 КиБ</string>
+    <string name="piece_size_entries_4">128 КиБ</string>
+    <string name="piece_size_entries_5">256 КиБ</string>
+    <string name="piece_size_entries_6">512 КиБ</string>
+    <string name="piece_size_entries_7">1 МиБ</string>
+    <string name="piece_size_entries_8">2 МиБ</string>
+    <string name="piece_size_entries_9">4 МиБ</string>
+    <string name="piece_size_entries_10">8 МиБ</string>
+    <string name="piece_size_entries_11">16 МиБ</string>
+    <string name="piece_size_entries_12">32 МиБ</string>
     <string name="invalid_url">Неверный URL: %1$s</string>
     <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром.</string>
     <string name="error_create_torrent">Не удалось создать торрент</string>
     <string name="skip_files">Пропустить файлы</string>
-    <string name="skip_files_hint">Введите имена файлов, разделённые символов \"|\".</string>
+    <string name="skip_files_hint">Введите имена файлов, разделённые символом \"|\".</string>
     <string name="select_folder_to_save">Выберите папку для сохранения.</string>
     <string name="torrent_saved_to">Торрент сохранён в %1$s</string>
     <string name="unable_to_open_file">Не удалось открыть выбранный файл</string>
@@ -361,14 +361,14 @@
     <string name="journal_start_recording">Начать запись</string>
     <string name="journal_stop_recording">Остановить запись</string>
     <string name="journal_started_recording">Запись начата</string>
-    <string name="journal_filter_session_log">Лог сессии</string>
-    <string name="journal_filter_dht_log">Лог DHT</string>
-    <string name="journal_filter_peer_log">Лог соединений</string>
-    <string name="journal_filter_portmap_log">Лог UPnP/NAT-PMP</string>
-    <string name="journal_filter_torrent_log">Торрент лог</string>
-    <string name="journal_save_log_failed">Не удалось сохранить лог</string>
-    <string name="journal_save_log_success">Лог сохранён: %1$s</string>
-    <string name="pref_journal_save_log_to">Сохранить лог в…</string>
+    <string name="journal_filter_session_log">Журнал сессии</string>
+    <string name="journal_filter_dht_log">Журнал DHT</string>
+    <string name="journal_filter_peer_log">Журнал соединений</string>
+    <string name="journal_filter_portmap_log">Журнал UPnP/NAT-PMP</string>
+    <string name="journal_filter_torrent_log">Журнал торрент</string>
+    <string name="journal_save_log_failed">Не удалось сохранить журнал</string>
+    <string name="journal_save_log_success">Журнал сохранён: %1$s</string>
+    <string name="pref_journal_save_log_to">Сохранить журнал в…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Максимальное количество хранимых записей журнала</string>
     <!-- Settings -->
@@ -396,13 +396,13 @@
     <string name="pref_max_download_speed_title">Макс. скорость ⬇</string>
     <string name="pref_max_upload_speed_title">Макс. скорость ⬆</string>
     <string name="pref_max_connections_title">Максимальное количество соединений</string>
-    <string name="pref_max_connections_summary">(Минимальное количество соединений - 2.)</string>
+    <string name="pref_max_connections_summary">(Минимум 2 соединения.)</string>
     <string name="pref_torrent_queueing_category">Очерёдность торрентов</string>
     <string name="pref_max_active_uploads_title">Максимальное число активных раздач</string>
     <string name="pref_max_active_downloads_title">Максимальное число активных загрузок</string>
     <string name="pref_max_active_torrents_title">Максимальное число активных торрентов</string>
     <string name="pref_max_connections_per_torrent_title">Максимальное количество соединений на торрент</string>
-    <string name="pref_max_connections_per_torrent_summary">(Минимальное количество соединений - 2.)</string>
+    <string name="pref_max_connections_per_torrent_summary">(Минимум 2 соединения.)</string>
     <string name="pref_max_uploads_per_torrent_title">Максимальное количество слотов отдачи на торрент</string>
     <string name="pref_auto_manage_title">Автоматическое управление</string>
     <string name="pref_auto_manage_summary">Торрент может быть автоматически возобновлён или приостановлен в любой момент. (Может замедлить паузу/возобновление)</string>
@@ -416,7 +416,7 @@
     <string name="pref_theme_entries_2">Чёрная</string>
     <string name="pref_notification_category">Настройки уведомлений</string>
     <string name="pref_torrent_finish_notify_title">Уведомление о завершении скачивания торрента</string>
-    <string name="pref_torrent_finish_notify_summary">Показывать уведомление, когда скачивание торрента завершено.</string>
+    <string name="pref_torrent_finish_notify_summary">Показывать уведомление о завершении скачивания торрента.</string>
     <string name="pref_play_sound_notify_title">Проигрывать звук</string>
     <string name="pref_notify_sound_title">Звук уведомления</string>
     <string name="pref_led_indicator_notify_title">LED индикатор</string>
@@ -436,28 +436,28 @@
     <string name="pref_shutdown_downloads_complete_title">Завершить после окончания загрузок</string>
     <string name="pref_shutdown_downloads_complete_summary">Завершать работу приложения после окончания всех загрузок</string>
     <string name="pref_cpu_do_not_sleep_title">Не давать спать устройству</string>
-    <string name="pref_cpu_do_not_sleep_summary">Используйте её, если скорость загрузки снижается, когда экран выключен. (Увеличивает расход батареи.)</string>
+    <string name="pref_cpu_do_not_sleep_summary">Используйте, если скорость загрузки снижается, когда экран выключен. (Увеличивает расход батареи.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Загрузка и раздача только во время зарядки.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Если включено, торренты будут загружаться/раздаваться только во время зарядки. (Все торренты будут приостановлены, если устройство не заряжается.)</string>
     <string name="pref_battery_control_title">Контроль заряда аккумулятора</string>
     <string name="pref_custom_battery_control_title">Заданный процент аккумулятора</string>
     <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
-    <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. (Ограничение не действует во время зарядки.)</string>
+    <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опустится ниже %1$d%%. (Ограничение не действует во время зарядки.)</string>
     <string name="pref_custom_battery_control_summary">Устанавливает %% батареи для приостановки загрузки. (Игнорирует значение по умолчанию %1$d%%.)</string>
     <string name="pref_custom_battery_control_dialog_summary">Действительно установить %% батареи\? (Увеличивает расход заряда батареи при загрузке.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
-    <string name="pref_enable_dht_summary">Позволяет находить других без трекера. (Увеличивает расход батареи.)</string>
+    <string name="pref_enable_dht_summary">Позволяет находить сидов без использования трекеров. (Увеличивает расход батареи.)</string>
     <string name="pref_enable_lsd_title">Включить LSD</string>
-    <string name="pref_enable_lsd_summary">Разработан для получения возможности обнаружения локальных BitTorrent-пиров, и, следовательно, сокращения трафика.</string>
+    <string name="pref_enable_lsd_summary">Искать локальных BitTorrent-пиров. Сокращает расходуемый трафик.</string>
     <string name="pref_enable_utp_title">Включить μTP</string>
-    <string name="pref_enable_utp_summary">Предназначен для смягчения недостаточной задержки и других вопросов управления перегрузками в обычных торрентах с использованием TCP, обеспечивая при этом надёжную передачу данных</string>
+    <string name="pref_enable_utp_summary">Уменьшает задержку и проблему управления перегрузками по сравнению с TCP, обеспечивая при этом надёжную передачу данных.</string>
     <string name="pref_enable_upnp_title">Включить UPnP</string>
     <string name="pref_enable_natpmp_title">Включить NAT-PMP</string>
     <string name="pref_port_settings_category">Настройка порта</string>
     <string name="pref_use_random_port_title">Использовать случайный порт</string>
-    <string name="pref_use_random_port_summarty">Устанавливает начальный порт случайным образом в диапазоне [%1$d, %2$d] и конечный порт как первый + 10.</string>
+    <string name="pref_use_random_port_summarty">Устанавливает начальный порт случайным образом в диапазоне [%1$d, %2$d] и конечный порт, как первый + 10.</string>
     <string name="pref_port_range_title">Диапазон портов</string>
     <string name="pref_port_range_start_title">Начальный</string>
     <string name="pref_port_range_end_title">Конечный</string>
@@ -477,7 +477,7 @@
     <string name="pref_anonymous_mode_title">Включить анонимный режим</string>
     <string name="pref_anonymous_mode_summary">User-agent будет сброшен в пустую строку (кроме приватных торрентов). Трекеры будут использоваться только если они используют прокси-сервер. Сокеты прослушивания закрыты. Входящие соединения будут приниматься только через прокси-сервер SOCKS5 или I2P (если одноранговый прокси-сервер настроен и работает на той же машине, что и прокси-сервер трекера). NAT-PMP, UPnP, DHT и обнаружение локального узла отключены.</string>
     <string name="pref_seeding_outgoing_connections_title">Включить исходящие соединения для сидов</string>
-    <string name="pref_seeding_outgoing_connections_summary">Позволяет раздающим торренам устанавливать исходящие соединения или нет. Отключить, когда стоимость исходящих соединений высока.</string>
+    <string name="pref_seeding_outgoing_connections_summary">Позволяет устанавливать исходящие соединения для раздающихся торрентов. Отключите, если стоимость исходящих соединений высока.</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Тип прокси</string>
     <!-- pref_proxy_type_entries -->
@@ -490,7 +490,7 @@
     <string name="pref_proxy_peers_too_title">Также использовать для соединений</string>
     <string name="pref_proxy_peers_too_summary">Прокси будет использоваться для всех соединений с трекерами, пирами и сидами. Не влияет на DHT.</string>
     <string name="pref_proxy_requires_auth_title">Требуется авторизация</string>
-    <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится как обычный файл.</string>
+    <string name="pref_proxy_requires_auth_summary">Внимание: Пароль хранится в виде обычного файла.</string>
     <string name="pref_proxy_login_title">Имя пользователя</string>
     <string name="pref_proxy_password_title">Пароль</string>
     <!-- Schedule settings -->
@@ -535,13 +535,13 @@
     <string name="pref_feed_remove_duplicates_summary">Пропускает загрузку уже имеющихся названий файлов.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Включить стриминг</string>
-    <string name="pref_streaming_enable_summary">Стриминг позволяет загружать отдельный файлы из торрента с помощью браузера или медиаплеера, используя HTTP/S ссылки</string>
+    <string name="pref_streaming_enable_summary">Стриминг позволяет загружать отдельные файлы из торрента с помощью браузера или медиаплеера, используя HTTP/S ссылки</string>
     <string name="pref_streaming_hostname">Имя хоста</string>
     <string name="pref_streaming_port">Порт</string>
     <string name="pref_streaming_error">Выбранный порт или имя хоста занято или некорректно. Пожалуйста, исправьте это.</string>
     <!-- About dialog -->
     <string name="about_title">О LibreTorrent</string>
-    <string name="about_description">Больше информации, а также помочь проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent - свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
+    <string name="about_description">Получить больше информации, а также помочь проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent — свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Изменения</string>
     <string name="pref_watch_dir_delete_file_title">Удалить .torrent файл после добавления</string>
     <string name="pref_default_trackers_list_summary">Список трекеров, которые используются в следующих случаях:
@@ -551,8 +551,8 @@
     <string name="pref_foreground_notify_sorting_entries_12">Без сортировки</string>
     <string name="pref_foreground_notify_sorting_entries_11">Популярность (сначала наибольшая)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Популярность (сначала наименьшая)</string>
-    <string name="pref_foreground_notify_sorting_entries_9">ETA (сначала наибольшее)</string>
-    <string name="pref_foreground_notify_sorting_entries_8">ETA (сначала наименьшее)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">Осталось (сначала наибольшее)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Осталось (сначала наименьшее)</string>
     <string name="pref_foreground_notify_sorting_entries_7">Прогресс (сначала наибольший)</string>
     <string name="pref_foreground_notify_sorting_entries_6">Прогресс (сначала наименьший)</string>
     <string name="pref_foreground_notify_sorting_entries_5">Размер (сначала наибольшие)</string>
@@ -569,15 +569,15 @@
     <string name="pref_foreground_notify_status_filter_entries_0">Все</string>
     <string name="pref_foreground_notify_status_filter">Фильтр статуса</string>
     <string name="pref_foreground_notification_category">Настройки уведомления переднего плана</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
-    <string name="pref_foreground_notify_combined_pause_button_title">Комбинированная кнопка паузы</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать, как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Совмещённая кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
-    <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите запретите это разрешение\?</string>
-    <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузки\' и подобных.
+    <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите отклонить это разрешение\?</string>
+    <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузок\' и подобных.
 \nНа странице проекта есть другие источники.</string>
     <string name="manage_all_files_warning_dialog_title">Предупреждение</string>
-    <string name="pref_validate_https_trackers_title">Проверка сертитификата HTTPS трекеров</string>
-    <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб сидов будет проверятся в системном хранилище сертификатов.</string>
+    <string name="pref_validate_https_trackers_title">Проверять сертификат HTTPS трекеров</string>
+    <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб-сидов будет проверятся в системном хранилище сертификатов.</string>
     <string name="download_first_last_pieces">Загружать с первых и последних частей</string>
     <string name="torrent_speed_limit_dialog">Установите скорость в КиБ/с. Обратите внимание, что установка более высокого лимита для торрента, чем глобальный лимит, не перезапишет глобальный лимит.</string>
 </resources>

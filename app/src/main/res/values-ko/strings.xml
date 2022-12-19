@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">.torrent 파일을 열 수 없습니다</string>
     <string name="open_file">파일 열기</string>
     <string name="settings">설정</string>
-    <string name="ip_filter_add_error">IP 필터 추가에 실패했습니다 (%1$d개 실패). 파일이 손상되거나 올바르지 않은 형식일 수 있습니다.</string>
+    <string name="ip_filter_add_error">IP 필터를 추가할 수 없습니다(%1$d 실패). 파일이 손상되었거나 잘못된 형식입니까\?</string>
     <string name="ip_filter_add_success">IP 필터가 추가되었습니다.</string>
     <string name="proxy_settings_applied">프록시 서버 설정이 적용되었습니다.</string>
     <string name="proxy_settings_apply_after_reboot">앱을 다시 시작한 후 프록시 서버 설정이 적용됩니다.</string>
@@ -151,12 +151,12 @@
     <string name="perm_denied_warning">이 권한 없이 앱이 메모리에 토렌트 파일을 저장할 수 없습니다. 앱이 정상적으로 작동하지 않습니다. 정말 이 권한을 부여하지 않을까요\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">토렌트 추가</string>
-    <string name="error_decode_torrent">토렌트 파일 해독 실패. 손상된 파일이거나 올바르지 않은 형식입니다.</string>
+    <string name="error_decode_torrent">.torrent 파일을 디코딩할 수 없습니다. 손상되었거나 잘못된 형식입니까\?</string>
     <string name="error_io_torrent">토렌트 파일 읽기 오류</string>
     <string name="error_fetch_link">링크 데이터 불러오기 실패</string>
     <string name="error_invalid_link_or_path">유효하지 않은 링크나 경로</string>
     <string name="error_add_torrent">토렌트 추가 실패</string>
-    <string name="error_file_not_found_add_torrent">토렌트 추가 실패. 토렌트 파일이 이동되었거나 삭제되었을 수 있습니다.</string>
+    <string name="error_file_not_found_add_torrent">토렌트를 추가할 수 없습니다. .torrent 파일이 이동했거나 삭제되었습니까\?</string>
     <string name="error_io_add_torrent">토렌트 추가 실패. 읽기/쓰기 오류</string>
     <string name="torrent_exist">이미 존재하는 토렌트입니다. 토렌트가 병합됩니다.</string>
     <string name="error_field_required">이 영역은 필수입니다.</string>
@@ -437,7 +437,7 @@
     <string name="pref_custom_battery_control_value_title">절전 모드 기준</string>
     <string name="pref_battery_control_summary">배터리 잔여량이 %1$d%% 미만이 될 경우 모든 토렌트를 일시 중지합니다. 충전 시에는 적용되지 않습니다.</string>
     <string name="pref_custom_battery_control_summary">다운로드를 일시 중지할 잔여량 기준을 설정합니다. 설정 시 기본값 %1$d%%을 무시합니다.</string>
-    <string name="pref_custom_battery_control_dialog_summary">배터리 잔여량 설정 시 다운로드 중 배터리 수명에 부정적인 영향을 끼칠 수 있습니다. 활성화할까요\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">배터리 %%을(를) 주의하도록 설정하시겠습니까\? (다운로드 시 배터리 사용량이 증가합니다.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">프록시 설정</string>
     <string name="pref_enable_dht_title">DHT 활성화</string>
@@ -535,4 +535,11 @@
     <string name="about_title">LibreTorrent 정보</string>
     <string name="about_description">더 많은 정보 및 프로젝트 돕기: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent는 libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) 라이브러리를 기반으로, 안드로이드 4 이상 버전을 지원하는 자유 토렌트 클라이언트이며 무료입니다. is a Free as in Freedom torrent client for Android 4+, based on &lt;br&gt;&lt;br&gt; LibreTorrent는 무료 소프트웨어이며, &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; 약관을 기반으로 합니다.</string>
     <string name="about_changelog">변경내역</string>
+    <string name="edit_tag">태그 편집</string>
+    <string name="internal_storage_name">내부 저장소</string>
+    <string name="external_storage_name" formatted="false">외부 저장소 %1$d</string>
+    <string name="select_tag">태그 선택</string>
+    <string name="new_tag">새 태그</string>
+    <string name="without_tags">태그 없음</string>
+    <string name="feed_last_update_never">없음</string>
 </resources>
