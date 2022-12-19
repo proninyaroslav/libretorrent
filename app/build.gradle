@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace 'org.proninyaroslav.libretorrent'
-    compileSdkVersion 31
+    compileSdkVersion 33
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 24
@@ -111,24 +111,24 @@ tasks.withType(Test) {
     }
 }
 
-def ROOM_VERSION = '2.4.2'
-def LIFECYCLE_VERSION = '2.4.1'
+def ROOM_VERSION = '2.4.3'
+def LIFECYCLE_VERSION = '2.5.1'
 
 dependencies {
     /* Testing */
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
-    testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+    testAnnotationProcessor 'com.google.auto.service:auto-service:1.0.1'
 
     /* AndroidX libraries */
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'androidx.fragment:fragment:1.4.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.1'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.fragment:fragment:1.5.5'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.paging:paging-runtime:3.1.0'
+    implementation 'androidx.paging:paging-runtime:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
@@ -136,23 +136,25 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.work:work-runtime:2.7.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation "androidx.preference:preference:1.2.0"
+    // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
+    implementation "com.google.guava:guava:29.0-android"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     /* ACRA */
-    def ACRA_VERSION = '5.8.4'
+    def ACRA_VERSION = '5.9.7'
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
     /* libtorrent wrapper */
-    def LIBTORRENT4J_VERSION = '2.0.5-24'
+    def LIBTORRENT4J_VERSION = '2.0.6-26'
     implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm64:$LIBTORRENT4J_VERSION"
@@ -167,8 +169,8 @@ dependencies {
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
     //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
-    implementation 'org.apache.commons:commons-text:1.9'
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.leinardi.android:speed-dial:3.2.0'
-    implementation 'net.java.dev.jna:jna:5.10.0@aar'
+    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.leinardi.android:speed-dial:3.3.0'
+    implementation 'net.java.dev.jna:jna:5.12.1@aar'
 }

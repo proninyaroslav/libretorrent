@@ -46,19 +46,21 @@ public class MainApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder();
         builder
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.JSON);
-        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .withMailTo("proninyaroslav@mail.ru");
-        builder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
+        builder.withPluginConfigurations(new MailSenderConfigurationBuilder()
+                .withMailTo("proninyaroslav@mail.ru")
+                .build());
+        builder.withPluginConfigurations(new DialogConfigurationBuilder()
                 .withEnabled(true)
-                .setReportDialogClass(ErrorReportActivity.class);
+                .withReportDialogClass(ErrorReportActivity.class)
+                .build());
         // Set stub handler
         if (Thread.getDefaultUncaughtExceptionHandler() == null) {
             Thread.setDefaultUncaughtExceptionHandler((t, e) ->
-                    Log.e(TAG, "Uncaught exception in "  + t + ": " + Log.getStackTraceString(e))
+                    Log.e(TAG, "Uncaught exception in " + t + ": " + Log.getStackTraceString(e))
             );
         }
         ACRA.init(this, builder);
