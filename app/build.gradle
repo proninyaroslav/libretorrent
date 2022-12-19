@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace 'org.proninyaroslav.libretorrent'
     compileSdkVersion 31
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
@@ -31,7 +32,7 @@ android {
     flavorDimensions "deploy"
 
     productFlavors {
-        main {
+        base {
             dimension "deploy"
         }
         play {
