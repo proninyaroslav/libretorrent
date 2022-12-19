@@ -157,6 +157,13 @@ public class TorrentEngine
         Utils.startServiceBackground(appContext, new Intent(appContext, TorrentService.class));
     }
 
+    public void restartForegroundNotification()
+    {
+        Intent i = new Intent(appContext, TorrentService.class);
+        i.setAction(TorrentService.ACTION_RESTART_FOREGROUND_NOTIFICATION);
+        Utils.startServiceBackground(appContext, i);
+    }
+
     public Flowable<Boolean> observeNeedStartEngine()
     {
         return Flowable.create((emitter) -> {

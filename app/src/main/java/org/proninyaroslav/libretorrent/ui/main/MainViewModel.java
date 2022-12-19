@@ -159,6 +159,10 @@ public class MainViewModel extends AndroidViewModel {
         engine.start();
     }
 
+    public void restartForegroundNotification() {
+        engine.restartForegroundNotification();
+    }
+
     public void requestStopEngine() {
         engine.requestStop();
     }

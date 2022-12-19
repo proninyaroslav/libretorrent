@@ -70,6 +70,7 @@ public class TorrentService extends Service
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
     private static final int FOREGROUND_NOTIFY_UPDATE_DELAY = 1000; /* ms */
     public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_SHUTDOWN";
+    public static final String ACTION_RESTART_FOREGROUND_NOTIFICATION = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_RESTART_FOREGROUND_NOTIFICATION";
 
     private AtomicBoolean isAlreadyRunning = new AtomicBoolean();
     /* For the pause action button of foreground notify */
@@ -202,6 +203,9 @@ public class TorrentService extends Service
             case ACTION_SHUTDOWN:
                 shutdown();
                 return START_NOT_STICKY;
+            case ACTION_RESTART_FOREGROUND_NOTIFICATION:
+                makeForegroundNotify();
+                return START_STICKY;
         }
 
         return -1;

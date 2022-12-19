@@ -168,6 +168,10 @@ public class AddTorrentViewModel extends AndroidViewModel {
         return decodeState;
     }
 
+    public void restartForegroundNotification() {
+        engine.restartForegroundNotification();
+    }
+
     @Override
     protected void onCleared() {
         disposable.clear();

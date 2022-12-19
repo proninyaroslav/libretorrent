@@ -164,6 +164,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
 
         static final boolean askManageAllFilesPermission = true;
         static final boolean showManageAllFilesWarningDialog = true;
+        static final boolean askNotificationPermission = true;
     }
 
     private Context appContext;
@@ -1570,6 +1571,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public void showManageAllFilesWarningDialog(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_show_manage_all_files_warning_dialog), val)
+                .apply();
+    }
+
+    @Override
+    public boolean askNotificationPermission() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_ask_notification_permission),
+                Default.askNotificationPermission);
+    }
+
+    @Override
+    public void askNotificationPermission(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_ask_notification_permission), val)
                 .apply();
     }
 }

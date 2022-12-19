@@ -34,7 +34,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
-import org.proninyaroslav.libretorrent.ui.StoragePermissionManager;
+import org.proninyaroslav.libretorrent.ui.PermissionManager;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -49,7 +49,7 @@ public class CreateTorrentActivity extends AppCompatActivity
     private PermissionDeniedDialog permDeniedDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
-    private StoragePermissionManager permissionManager;
+    private PermissionManager permissionManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -61,17 +61,24 @@ public class CreateTorrentActivity extends AppCompatActivity
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getSupportFragmentManager();
-        permissionManager = new StoragePermissionManager(this,
-                (isGranted, shouldRequestStoragePermission) -> {
-                    if (!isGranted && shouldRequestStoragePermission) {
-                        if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                            permDeniedDialog = PermissionDeniedDialog.newInstance();
-                            FragmentTransaction ft = fm.beginTransaction();
-                            ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                            ft.commitAllowingStateLoss();
-                        }
+        permissionManager = new PermissionManager(this, new PermissionManager.Callback() {
+            @Override
+            public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
+                if (!isGranted && shouldRequestStoragePermission) {
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onNotificationResult(boolean isGranted, boolean shouldRequestNotificationPermission) {
+                permissionManager.setDoNotAskNotifications(!isGranted);
+            }
+        });
 
         createTorrentDialog = (CreateTorrentDialog)fm.findFragmentByTag(TAG_CREATE_TORRENT_DIALOG);
         if (createTorrentDialog == null) {
@@ -112,7 +119,7 @@ public class CreateTorrentActivity extends AppCompatActivity
                     permissionManager.requestPermissions();
                 }
                 if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
-                    permissionManager.setDoNotAsk(true);
+                    permissionManager.setDoNotAskStorage(true);
                 }
             }
         });

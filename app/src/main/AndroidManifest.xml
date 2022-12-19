@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -58,7 +59,6 @@
         </activity>
 
         <activity
-            android:label="@string/app_name"
             android:exported="true"
             android:name=".ui.addtorrent.AddTorrentActivity">
             <intent-filter>
@@ -135,9 +135,7 @@
 
         <activity android:name=".ui.filemanager.FileManagerDialog" />
 
-        <activity
-            android:label="@string/app_name"
-            android:name=".ui.detailtorrent.DetailTorrentActivity" />
+        <activity android:name=".ui.detailtorrent.DetailTorrentActivity" />
 
         <activity android:name=".ui.SendTextToClipboard"
             android:label="@string/send_text_to_clipboard"
@@ -172,16 +170,11 @@
             android:finishOnTaskLaunch="true"
             android:launchMode="singleInstance" />
 
-        <activity
-            android:label="@string/app_name"
-            android:name=".ui.feeds.FeedActivity" />
+        <activity android:name=".ui.feeds.FeedActivity" />
+
+        <activity android:name=".ui.feeditems.FeedItemsActivity" />
 
         <activity
-            android:label="@string/app_name"
-            android:name=".ui.feeditems.FeedItemsActivity" />
-
-        <activity
-            android:label="@string/app_name"
             android:name=".ui.addfeed.AddFeedActivity"
             android:exported="true"
             android:theme="@style/AppTheme.Translucent">

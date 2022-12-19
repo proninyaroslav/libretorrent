@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 25
         /*
          * Convection:

@@ -422,4 +422,8 @@ public interface SettingsRepository
     boolean showManageAllFilesWarningDialog();
 
     void showManageAllFilesWarningDialog(boolean val);
+
+    boolean askNotificationPermission();
+
+    void askNotificationPermission(boolean val);
 }

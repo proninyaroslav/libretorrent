@@ -38,14 +38,16 @@ import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-public class StoragePermissionManager {
+import java.util.ArrayList;
+
+public class PermissionManager {
     private ActivityResultLauncher<Intent> manageExternalStoragePermission;
-    private ActivityResultLauncher<String> storagePermission;
+    private ActivityResultLauncher<String[]> permissions;
     private final Context appContext;
     private SettingsRepository pref;
     private boolean hasManageExternalStoragePermission;
 
-    public StoragePermissionManager(
+    public PermissionManager(
             @NonNull ComponentActivity activity,
             @NonNull Callback callback
     ) {
@@ -58,43 +60,70 @@ public class StoragePermissionManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
             manageExternalStoragePermission = activity.registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
-                    result -> callback.onResult(
-                            checkPermissions(),
+                    result -> callback.onStorageResult(
+                            checkStoragePermissions(),
                             pref.askManageAllFilesPermission()
                     )
             );
-        } else {
-            storagePermission = activity.registerForActivityResult(
-                    new ActivityResultContracts.RequestPermission(),
-                    isGranted -> callback.onResult(
-                            isGranted,
-                            Utils.shouldRequestStoragePermission(activity)
-                    )
-            );
         }
+
+        permissions = activity.registerForActivityResult(
+                new ActivityResultContracts.RequestMultiplePermissions(),
+                result -> {
+                    Boolean storageResult = result.get(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    Boolean notificationsResult;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notificationsResult = result.get(Manifest.permission.POST_NOTIFICATIONS);
+                    } else {
+                        notificationsResult = true;
+                    }
+                    if (storageResult != null) {
+                        callback.onStorageResult(
+                                storageResult,
+                                Utils.shouldRequestStoragePermission(activity)
+                        );
+                    }
+                    if (notificationsResult != null) {
+                        callback.onNotificationResult(
+                                notificationsResult,
+                                pref.askNotificationPermission()
+                        );
+                    }
+                }
+        );
     }
 
     public void requestPermissions() {
+        ArrayList<String> permissionsList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
-            if (!pref.askManageAllFilesPermission()) {
-                return;
+            if (pref.askManageAllFilesPermission()) {
+                var uri = Uri.fromParts("package", appContext.getPackageName(), null);
+                var i = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                        .setData(uri);
+                manageExternalStoragePermission.launch(i);
             }
-            var uri = Uri.fromParts("package", appContext.getPackageName(), null);
-            var i = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                    .setData(uri);
-            manageExternalStoragePermission.launch(i);
         } else {
-            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && pref.askNotificationPermission()) {
+            permissionsList.add(Manifest.permission.POST_NOTIFICATIONS);
+        }
+        permissions.launch(permissionsList.toArray(new String[0]));
     }
 
-    public void setDoNotAsk(boolean doNotAsk) {
+    public void setDoNotAskStorage(boolean doNotAsk) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             pref.askManageAllFilesPermission(!doNotAsk);
         }
     }
 
-    public boolean checkPermissions() {
+    public void setDoNotAskNotifications(boolean doNotAsk) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pref.askNotificationPermission(!doNotAsk);
+        }
+    }
+
+    public boolean checkStoragePermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
             return Environment.isExternalStorageManager();
         } else {
@@ -103,7 +132,22 @@ public class StoragePermissionManager {
         }
     }
 
+    public boolean checkNotificationsPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return ContextCompat.checkSelfPermission(appContext,
+                    Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean checkPermissions() {
+        return checkStoragePermissions() && checkNotificationsPermissions();
+    }
+
     public interface Callback {
-        void onResult(boolean isGranted, boolean shouldRequestStoragePermission);
+        void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission);
+
+        void onNotificationResult(boolean isGranted, boolean shouldRequestNotificationPermission);
     }
 }

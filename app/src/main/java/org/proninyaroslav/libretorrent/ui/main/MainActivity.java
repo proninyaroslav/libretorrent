@@ -68,7 +68,7 @@ import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
-import org.proninyaroslav.libretorrent.ui.StoragePermissionManager;
+import org.proninyaroslav.libretorrent.ui.PermissionManager;
 import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
     private BaseAlertDialog aboutDialog;
     private TorrentInfoProvider infoProvider;
     private PermissionDeniedDialog permDeniedDialog;
-    private StoragePermissionManager permissionManager;
+    private PermissionManager permissionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,17 +150,27 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getSupportFragmentManager();
-        permissionManager = new StoragePermissionManager(this,
-                (isGranted, shouldRequestStoragePermission) -> {
-                    if (!isGranted && shouldRequestStoragePermission) {
-                        if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                            permDeniedDialog = PermissionDeniedDialog.newInstance();
-                            FragmentTransaction ft = fm.beginTransaction();
-                            ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                            ft.commitAllowingStateLoss();
-                        }
+        permissionManager = new PermissionManager(this, new PermissionManager.Callback() {
+            @Override
+            public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
+                if (!isGranted && shouldRequestStoragePermission) {
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onNotificationResult(boolean isGranted, boolean shouldRequestNotificationPermission) {
+                permissionManager.setDoNotAskNotifications(!isGranted);
+                if (isGranted) {
+                    viewModel.restartForegroundNotification();
+                }
+            }
+        });
         aboutDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_ABOUT_DIALOG);
         permDeniedDialog = (PermissionDeniedDialog) fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
 
@@ -417,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
                             permissionManager.requestPermissions();
                         }
                         if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
-                            permissionManager.setDoNotAsk(true);
+                            permissionManager.setDoNotAskStorage(true);
                         }
                     }
                 });

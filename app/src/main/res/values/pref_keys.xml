@@ -122,4 +122,5 @@
 
     <string name="pref_key_ask_manage_all_access_permission" translatable="false">pref_key_ask_manage_all_access_permission</string>
     <string name="pref_key_show_manage_all_files_warning_dialog" translatable="false">pref_key_show_manage_all_files_warning_dialog</string>
+    <string name="pref_key_ask_notification_permission" translatable="false">pref_key_ask_notification_permission</string>
 </resources>
