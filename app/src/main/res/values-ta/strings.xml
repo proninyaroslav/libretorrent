@@ -582,4 +582,6 @@
     <string name="pref_validate_https_trackers_summary"></string>
     <string name="exact_alarm_permission_warning"></string>
     <string name="pref_foreground_notify_combined_pause_button_summary"></string>
+    <string name="pref_validate_https_trackers_title"></string>
+    <string name="manage_all_files_warning_dialog_description"></string>
 </resources>
