@@ -582,4 +582,6 @@
     <string name="torrent_uploaded"></string>
     <string name="external_storage_name" formatted="false"></string>
     <string name="torrent_seeding_time"></string>
+    <string name="pref_validate_https_trackers_title"></string>
+    <string name="manage_all_files_warning_dialog_description"></string>
 </resources>
