@@ -518,4 +518,7 @@
     <string name="pref_feed_start_torrents_title"></string>
     <string name="pref_validate_https_trackers_title"></string>
     <string name="manage_all_files_warning_dialog_description"></string>
+    <string name="pref_foreground_notify_combined_pause_button_summary"></string>
+    <string name="perm_denied_warning"></string>
+    <string name="pref_scheduling_switch_wifi_summary"></string>
 </resources>
