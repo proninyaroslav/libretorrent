@@ -524,4 +524,5 @@
     <string name="pref_proxy_password_title"></string>
     <string name="pref_enable_scheduling_shutdown_summary"></string>
     <string name="pref_enable_scheduling_start_title"></string>
+    <string name="pref_validate_https_trackers_title"></string>
 </resources>
