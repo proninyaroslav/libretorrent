@@ -516,4 +516,6 @@
     <string name="pref_feed_keep_items_time_entries_8"></string>
     <string name="pref_feed_keep_items_time_entries_4"></string>
     <string name="pref_feed_start_torrents_title"></string>
+    <string name="pref_validate_https_trackers_title"></string>
+    <string name="manage_all_files_warning_dialog_description"></string>
 </resources>
