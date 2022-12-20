@@ -515,4 +515,5 @@
     <string name="pref_streaming_error">Изберете порт или име на хост за поточно предаване, който не е зает или неправилен.</string>
     <string name="apply_settings_after_reboot">Промените ще бъдат приложени след рестартиране на приложението.</string>
     <string name="download_first_last_pieces">Първо изтеглете първата и последната част</string>
+    <string name="pref_validate_https_trackers_title"></string>
 </resources>
