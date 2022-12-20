@@ -27,7 +27,6 @@ import androidx.annotation.NonNull;
 
 import org.apache.commons.io.FileUtils;
 import org.libtorrent4j.AlertListener;
-import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.ErrorCode;
 import org.libtorrent4j.Pair;
 import org.libtorrent4j.SessionHandle;
@@ -40,7 +39,6 @@ import org.libtorrent4j.TorrentFlags;
 import org.libtorrent4j.TorrentHandle;
 import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.Vectors;
-import org.libtorrent4j.WebSeedEntry;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.ListenFailedAlert;
@@ -784,6 +782,17 @@ public class TorrentSessionImpl extends SessionManager
         SessionParams params = loadSettings();
         SettingsPack settingsPack = params.getSettings();
         settings_pack sp = settingsPack.swig();
+
+        if (settings.posixDiskIo) {
+            // Internally set the session to use a simple posix disk I/O back-end, used
+            // for systems that don't have a 64-bit virtual address space or don't support
+            // memory mapped files. This option only to use in particular situations, like
+            // Android devices with faulty drivers.
+            params.setPosixDiskIO();
+        } else {
+            params.setDefaultDiskIO();
+        }
+
         sp.set_str(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), dhtBootstrapNodes());
         sp.set_bool(settings_pack.bool_types.enable_ip_notifier.swigValue(), false);
         sp.set_int(settings_pack.int_types.alert_queue_size.swigValue(), 5000);

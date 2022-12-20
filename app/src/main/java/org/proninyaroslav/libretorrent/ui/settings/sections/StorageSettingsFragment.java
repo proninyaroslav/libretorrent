@@ -25,13 +25,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -54,6 +59,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     private FileSystemFacade fs;
     /* Preference that is associated with the current dir selection dialog */
     private String dirChooserBindPref;
+    private CoordinatorLayout coordinatorLayout;
 
     public static StorageSettingsFragment newInstance()
     {
@@ -61,6 +67,14 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         fragment.setArguments(new Bundle());
 
         return fragment;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
     }
 
     @Override
@@ -182,6 +196,13 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             watchDirDeleteFile.setChecked(pref.watchDirDeleteFile());
             bindOnPreferenceChangeListener(watchDirDeleteFile);
         }
+
+        String keyPosixDiskIo = getString(R.string.pref_key_posix_disk_io);
+        SwitchPreferenceCompat posixDiskIo = findPreference(keyPosixDiskIo);
+        if (posixDiskIo != null) {
+            posixDiskIo.setChecked(pref.posixDiskIo());
+            bindOnPreferenceChangeListener(posixDiskIo);
+        }
     }
 
     @Override
@@ -255,16 +276,19 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     );
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_watch_dir))) {
-            pref.watchDir((boolean)newValue);
+            pref.watchDir((boolean) newValue);
         } else if (preference.getKey().equals(getString(R.string.pref_key_move_after_download))) {
-            pref.moveAfterDownload((boolean)newValue);
+            pref.moveAfterDownload((boolean) newValue);
         } else if (preference.getKey().equals(getString(R.string.pref_key_save_torrent_files))) {
-            pref.saveTorrentFiles((boolean)newValue);
+            pref.saveTorrentFiles((boolean) newValue);
         } else if (preference.getKey().equals(getString(R.string.pref_key_watch_dir_delete_file))) {
             pref.watchDirDeleteFile((boolean) newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_posix_disk_io))) {
+            pref.posixDiskIo((boolean) newValue);
+            Snackbar.make(coordinatorLayout, R.string.apply_settings_after_reboot, Snackbar.LENGTH_LONG)
+                    .show();
         }
 
         return true;

@@ -66,6 +66,7 @@
     <string name="proxy_settings_applied">Using the new proxy server settings.</string>
     <string name="proxy_settings_apply_after_reboot">Restart the app to use the new proxy settings.</string>
     <string name="theme_settings_apply_after_reboot">Restart the app to use the new theme.</string>
+    <string name="apply_settings_after_reboot">Changes will be applied after restarting the app.</string>
     <string name="about">About</string>
     <string name="error_open_torrent">Unable to open torrent</string>
     <!-- Navigation drawer -->
@@ -398,6 +399,8 @@
     <string name="pref_watch_dir_summary">.torrent files in this folder are auto-added and then deleted.</string>
     <string name="pref_dir_to_watch_title">Directory to watch</string>
     <string name="pref_watch_dir_delete_file_title">Delete .torrent file after adding</string>
+    <string name="pref_posix_disk_io_title">POSIX Disk I/O</string>
+    <string name="pref_posix_disk_io_summary">Note: this option only to use in particular situations, like support for some SD card filesystems. Enables a simple POSIX Disk I/O, used for systems that do not have a 64-bit virtual address space or do not support memory mapped files.</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Speed</string>
     <string name="pref_max_download_speed_title">Max. ⬇ speed</string>

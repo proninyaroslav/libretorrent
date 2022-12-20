@@ -70,6 +70,7 @@ public class SessionSettings
     public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
     public static final boolean DEFAULT_USE_RANDOM_PORT = true;
     public static final boolean DEFAULT_VALIDATE_HTTPS_TRACKERS = true;
+    public static final boolean DEFAULT_POSIX_DISK_IO = false;
 
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
@@ -113,6 +114,7 @@ public class SessionSettings
     public boolean useRandomPort = DEFAULT_USE_RANDOM_PORT;
     public String[] defaultTrackersList = new String[]{};
     public boolean validateHttpsTrackers = DEFAULT_VALIDATE_HTTPS_TRACKERS;
+    public boolean posixDiskIo = DEFAULT_POSIX_DISK_IO;
 
     public SessionSettings() {}
 
@@ -160,6 +162,7 @@ public class SessionSettings
         this.useRandomPort = other.useRandomPort;
         this.defaultTrackersList = other.defaultTrackersList;
         this.validateHttpsTrackers = other.validateHttpsTrackers;
+        this.posixDiskIo = other.posixDiskIo;
     }
 
     public enum EncryptMode

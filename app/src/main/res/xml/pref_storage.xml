@@ -2,6 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_posix_disk_io"
+        android:title="@string/pref_posix_disk_io_title"
+        android:summary="@string/pref_posix_disk_io_summary"
+        app:singleLineTitle="false"
+        android:persistent="false" />
+
     <Preference
         android:key="@string/pref_key_save_torrents_in"
         android:title="@string/pref_save_torrents_in_title"

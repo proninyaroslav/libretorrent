@@ -231,6 +231,10 @@ public interface SettingsRepository
 
     void watchDirDeleteFile(boolean val);
 
+    boolean posixDiskIo();
+
+    void posixDiskIo(boolean val);
+
     /*
      * Limitations settings
      */

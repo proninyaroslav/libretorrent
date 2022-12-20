@@ -34,6 +34,7 @@
     <string name="pref_key_watch_dir" translatable="false">pref_key_watch_dir</string>
     <string name="pref_key_dir_to_watch" translatable="false">pref_key_dir_to_watch</string>
     <string name="pref_key_watch_dir_delete_file" translatable="false">pref_key_watch_dir_delete_file</string>
+    <string name="pref_key_posix_disk_io" translatable="false">pref_key_posix_disk_io</string>
     <!-- Limitations settings -->
     <string name="pref_key_max_download_speed" translatable="false">pref_key_max_download_speed</string>
     <string name="pref_key_max_upload_speed" translatable="false">pref_key_max_upload_speed</string>

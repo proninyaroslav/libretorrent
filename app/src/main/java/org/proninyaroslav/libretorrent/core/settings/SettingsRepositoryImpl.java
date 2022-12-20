@@ -113,6 +113,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
         static final boolean watchDirDeleteFile = false;
+        static final boolean posixDiskIo = SessionSettings.DEFAULT_POSIX_DISK_IO;
         static final boolean anonymousMode = SessionSettings.DEFAULT_ANONYMOUS_MODE;
         static final boolean seedingOutgoingConnections = SessionSettings.DEFAULT_SEEDING_OUTGOING_CONNECTIONS;
         /* Limitations settings */
@@ -232,6 +233,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
             settings.defaultTrackersList = trackers;
         }
         settings.validateHttpsTrackers = validateHttpsTrackers();
+        settings.posixDiskIo = posixDiskIo();
 
         settings.proxyType = SessionSettings.ProxyType.fromValue(proxyType());
         settings.proxyAddress = proxyAddress();
@@ -887,6 +889,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public void watchDirDeleteFile(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_watch_dir_delete_file), val)
+                .apply();
+    }
+
+    @Override
+    public boolean posixDiskIo() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_posix_disk_io),
+                Default.posixDiskIo);
+    }
+
+    @Override
+    public void posixDiskIo(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_posix_disk_io), val)
                 .apply();
     }
 
