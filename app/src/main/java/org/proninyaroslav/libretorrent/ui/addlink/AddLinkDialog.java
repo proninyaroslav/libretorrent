@@ -259,6 +259,10 @@ public class AddLinkDialog extends DialogFragment
 
     private void addLink()
     {
+        if (!isAdded()) {
+            return;
+        }
+
         String s = viewModel.link.get();
         if (TextUtils.isEmpty(s))
             return;
