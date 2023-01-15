@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2023 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -44,6 +44,7 @@ import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.ListenFailedAlert;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.PortmapErrorAlert;
+import org.libtorrent4j.alerts.SaveResumeDataAlert;
 import org.libtorrent4j.alerts.SessionErrorAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.swig.add_torrent_params;
@@ -51,10 +52,8 @@ import org.libtorrent4j.swig.alert;
 import org.libtorrent4j.swig.alert_category_t;
 import org.libtorrent4j.swig.bdecode_node;
 import org.libtorrent4j.swig.byte_vector;
-import org.libtorrent4j.swig.create_torrent;
 import org.libtorrent4j.swig.entry;
 import org.libtorrent4j.swig.error_code;
-import org.libtorrent4j.swig.int_vector;
 import org.libtorrent4j.swig.ip_filter;
 import org.libtorrent4j.swig.libtorrent;
 import org.libtorrent4j.swig.session_params;
@@ -124,7 +123,8 @@ public class TorrentSessionImpl extends SessionManager
             AlertType.PEER_LOG.swig(),
             AlertType.PORTMAP_LOG.swig(),
             AlertType.TORRENT_LOG.swig(),
-            AlertType.SESSION_STATS.swig()
+            AlertType.SESSION_STATS.swig(),
+            AlertType.SAVE_RESUME_DATA.swig(),
     };
 
     /* Base unit in KiB. Used for create torrent */
@@ -465,14 +465,8 @@ public class TorrentSessionImpl extends SessionManager
             try {
                 th = swig().find_torrent(hash);
                 if (th != null && th.is_valid()) {
-                    torrent_info ti = th.torrent_file_ptr();
-                    if (ti != null && ti.is_valid()) {
-                        byte[] b = createTorrent(p, ti);
-                        if (b != null)
-                            loadedMagnets.put(hash.to_hex(), b);
-                    }
-                    notifyListeners((listener) ->
-                            listener.onMagnetLoaded(strHash, ti != null ? new TorrentInfo(ti).bencode() : null));
+                    // Fetch bencode asynchronously in AlertListener
+                    th.save_resume_data(torrent_handle.save_info_dict);
                 } else {
                     add = true;
                 }
@@ -999,11 +993,13 @@ public class TorrentSessionImpl extends SessionManager
                     runNextLoadTorrentTask();
                     break;
                 case METADATA_RECEIVED:
-                    handleMetadata(((MetadataReceivedAlert)alert));
+                    handleMetadataReceived((MetadataReceivedAlert) alert);
                     break;
                 case SESSION_STATS:
                     handleStats();
                     break;
+                case SAVE_RESUME_DATA:
+                    handleSaveMetadata((SaveResumeDataAlert) alert);
                 default:
                     checkError(alert);
                     if (settings.logging)
@@ -1049,16 +1045,23 @@ public class TorrentSessionImpl extends SessionManager
         });
     }
 
-    private void handleMetadata(MetadataReceivedAlert metadataAlert)
-    {
-        TorrentHandle th = metadataAlert.handle();
+    private void handleMetadataReceived(MetadataReceivedAlert alert) {
+        TorrentHandle th = alert.handle();
         String hash = th.infoHash().toHex();
-        if (!magnets.contains(hash))
-            return;
+        if (magnets.contains(hash)) {
+            th.saveResumeData(TorrentHandle.SAVE_INFO_DICT);
+        }
+    }
 
-        TorrentInfo ti = th.torrentFile();
-        if (ti != null)
-            loadedMagnets.put(hash, ti.bencode());
+    private void handleSaveMetadata(SaveResumeDataAlert alert) {
+        TorrentHandle th = alert.handle();
+        String hash = th.infoHash().toHex();
+        if (!magnets.contains(hash)) {
+            return;
+        }
+
+        byte_vector bytes = libtorrent.write_resume_data(alert.params().swig()).bencode();
+        loadedMagnets.put(hash, Vectors.byte_vector2bytes(bytes));
         remove(th, SessionHandle.DELETE_FILES);
 
         notifyListeners((listener) ->
@@ -1320,26 +1323,6 @@ public class TorrentSessionImpl extends SessionManager
         )))
         .subscribeOn(Schedulers.computation())
         .subscribe());
-    }
-
-    private byte[] createTorrent(add_torrent_params params, torrent_info ti)
-    {
-        if (operationNotAllowed())
-            return null;
-
-        create_torrent ct = new create_torrent(ti);
-
-        string_vector v = params.getUrl_seeds();
-        for (int i = 0; i < v.size(); i++)
-            ct.add_url_seed(v.get(i));
-
-        string_vector trackers = params.getTrackers();
-        int_vector tiers = params.getTracker_tiers();
-        for (int i = 0; i < trackers.size(); i++)
-            ct.add_tracker(trackers.get(i), tiers.get(i));
-
-        entry e = ct.generate();
-        return Vectors.byte_vector2bytes(e.bencode());
     }
 
     private TorrentDownload newTask(TorrentHandle th, String id)

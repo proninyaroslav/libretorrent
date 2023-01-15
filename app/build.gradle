@@ -1,3 +1,5 @@
+import com.android.build.OutputFile
+
 apply plugin: 'com.android.application'
 
 android {
@@ -74,7 +76,7 @@ android {
     applicationVariants.all { variant ->
         outputs.all { output ->
             versionCodeOverride =
-                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + versionCode
+                    project.ext.versionCodes.get(output.getFilter(OutputFile.ABI), 0) * 1000000 + versionCode
         }
     }
 
@@ -111,19 +113,19 @@ tasks.withType(Test) {
     }
 }
 
-def ROOM_VERSION = '2.4.3'
+def ROOM_VERSION = '2.5.0'
 def LIFECYCLE_VERSION = '2.5.1'
 
 dependencies {
     /* Testing */
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
     testAnnotationProcessor 'com.google.auto.service:auto-service:1.0.1'
 
     /* AndroidX libraries */
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.fragment:fragment:1.5.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-core:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
@@ -142,7 +144,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation "androidx.preference:preference:1.2.0"
     // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
-    implementation "com.google.guava:guava:29.0-android"
+    implementation 'com.google.guava:guava:31.1-jre'
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
@@ -154,7 +156,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
     /* libtorrent wrapper */
-    def LIBTORRENT4J_VERSION = '2.0.6-26'
+    def LIBTORRENT4J_VERSION = '2.1.0-27'
     implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm64:$LIBTORRENT4J_VERSION"
@@ -170,7 +172,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
     implementation 'org.apache.commons:commons-text:1.10.0'
-    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
-    implementation 'net.java.dev.jna:jna:5.12.1@aar'
+    implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }

@@ -84,6 +84,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -402,7 +403,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 return;
             }
 
-            TorrentMetaInfo info = new TorrentMetaInfo(ti.bencode());
+            TorrentMetaInfo info = new TorrentMetaInfo(ti);
 
             /* Skip if default name is changed */
             String name = this.name.get();
@@ -1647,15 +1648,58 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @Override
-    public byte[] getBencode()
-    {
+    public byte[] getBencode() {
         if (!hasMetadata()) {
             return null;
         }
 
-        TorrentInfo ti = th.torrentFile();
+        final long alertListenTimeout = 1000; /* ms */
+        final AtomicReference<byte[]> data = new AtomicReference<>();
+        final CountDownLatch signal = new CountDownLatch(1);
 
-        return (ti == null ? null : ti.bencode());
+        AlertListener listener = new AlertListener() {
+            @Override
+            public int[] types() {
+                return new int[] { AlertType.SAVE_RESUME_DATA.swig() };
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                torrent_handle alertTh = ((TorrentAlert<?>) alert).swig().getHandle();
+                if (alertTh == null || !alertTh.is_valid() || alertTh.info_hash().ne(th.swig().info_hash())) {
+                    return;
+                }
+                AlertType type = alert.type();
+                if (type.equals(AlertType.SAVE_RESUME_DATA)) {
+                    try {
+                        byte_vector bytes = libtorrent.write_resume_data(((SaveResumeDataAlert) alert).params().swig()).bencode();
+                        data.set(Vectors.byte_vector2bytes(bytes));
+                    } catch (Throwable e) {
+                        Log.e(TAG, "Error building torrent data", e);
+                    } finally {
+                        signal.countDown();
+                    }
+                }
+                if (type.equals(AlertType.SAVE_RESUME_DATA_FAILED)) {
+                    Log.e(TAG, "Error saving resume data");
+                    signal.countDown();
+                }
+            }
+        };
+
+        try {
+            sessionManager.addListener(listener);
+
+            if (th.isValid()) {
+                th.saveResumeData(TorrentHandle.SAVE_INFO_DICT);
+                signal.await(alertListenTimeout, TimeUnit.MILLISECONDS);
+            }
+        } catch (InterruptedException e) {
+            return data.get();
+        } finally {
+            sessionManager.removeListener(listener);
+        }
+        return data.get();
     }
 
     @Override
