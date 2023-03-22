@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.ui.settings.sections;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
@@ -161,9 +162,8 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
         if (password != null) {
             String passwordValue = pref.proxyPassword();
             password.setText(passwordValue);
-            password.setOnBindEditTextListener((editText) -> password.setSummary(editText
-                    .getTransformationMethod()
-                    .getTransformation(passwordValue, editText).toString()));
+            password.setOnBindEditTextListener(editText -> editText.setTransformationMethod(
+                PasswordTransformationMethod.getInstance()));
             bindOnPreferenceChangeListener(password);
         }
     }
