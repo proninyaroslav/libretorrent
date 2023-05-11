@@ -8,21 +8,21 @@
 
     <RadioButton
         android:id="@+id/dialog_priority_low"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:text="@string/change_priority_low" />
 
     <RadioButton
         android:id="@+id/dialog_priority_normal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:text="@string/change_priority_normal" />
 
     <RadioButton
         android:id="@+id/dialog_priority_high"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:text="@string/change_priority_high" />
