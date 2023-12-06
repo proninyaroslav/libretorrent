@@ -24,6 +24,8 @@ Copylefted libre full-featured torrent client for Android.
 
 ## 📋 Features
 
+**[Note for Android 12+]**: Google Play version doesn't have permission to access all files, use another version (F-Droid or direct APK).
+
 * BitTorrent 2.0 and WebTorrent support
 * Select which files to download
 * Move files while downloading
