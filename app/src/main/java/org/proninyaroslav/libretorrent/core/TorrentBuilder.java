@@ -25,6 +25,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.libtorrent4j.Pair;
+import org.libtorrent4j.swig.create_flags_t;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 
@@ -65,6 +66,22 @@ public class TorrentBuilder
         {
             this.piece = piece;
             this.numPieces = numPieces;
+        }
+    }
+
+    public enum TorrentVersion {
+        V1_ONLY (org.libtorrent4j.TorrentBuilder.V1_ONLY),
+        V2_ONLY (org.libtorrent4j.TorrentBuilder.V2_ONLY),
+        HYBRID (create_flags_t.from_int(0));
+
+        private final create_flags_t flag;
+
+        final create_flags_t flag() {
+            return this.flag;
+        }
+
+        TorrentVersion(create_flags_t flag) {
+            this.flag = flag;
         }
     }
 
@@ -138,6 +155,12 @@ public class TorrentBuilder
     public TorrentBuilder setFileNameFilter(Predicate<String> fileNameFilter)
     {
         this.fileNameFilter = fileNameFilter;
+
+        return this;
+    }
+
+    public TorrentBuilder setTorrentVersion(TorrentVersion version) {
+        builder.flags(builder.flags().or_(version.flag()));
 
         return this;
     }

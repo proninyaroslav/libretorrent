@@ -129,6 +129,8 @@ public class TorrentSessionImpl extends SessionManager
 
     /* Base unit in KiB. Used for create torrent */
     private static final int[] pieceSize = {0, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768};
+    /* Possible torrent versions to create. Zero is hybrid */
+    private static final int[] torrentVersions = {0, 1, 2};
     private static final String PEER_FINGERPRINT = "Lr"; /* called peer id */
     private static final String USER_AGENT = "LibreTorrent %s";
 
@@ -881,6 +883,12 @@ public class TorrentSessionImpl extends SessionManager
     public int[] getPieceSizeList()
     {
         return pieceSize;
+    }
+
+    @Override
+    public int[] getTorrentVersionList()
+    {
+        return torrentVersions;
     }
 
     @Override

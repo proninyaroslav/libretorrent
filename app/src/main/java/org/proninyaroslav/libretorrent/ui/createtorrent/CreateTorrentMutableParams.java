@@ -38,6 +38,7 @@ public class CreateTorrentMutableParams extends BaseObservable
     private String trackerUrls;
     private String webSeedUrls;
     private int pieceSizeIndex = 0;
+    private int torrentVersionIndex = 0;
     private String comments;
     private boolean startSeeding = false;
     private boolean privateTorrent = false;
@@ -109,6 +110,18 @@ public class CreateTorrentMutableParams extends BaseObservable
     }
 
     @Bindable
+    public int getTorrentVersionIndex()
+    {
+        return torrentVersionIndex;
+    }
+
+    public void setTorrentVersionIndex(int torrentVersionIndex)
+    {
+        this.torrentVersionIndex = torrentVersionIndex;
+        notifyPropertyChanged(BR.torrentVersionIndex);
+    }
+
+    @Bindable
     public String getComments()
     {
         return comments;
@@ -167,6 +180,7 @@ public class CreateTorrentMutableParams extends BaseObservable
                 ", trackerUrls='" + trackerUrls + '\'' +
                 ", webSeedUrls='" + webSeedUrls + '\'' +
                 ", pieceSizeIndex=" + pieceSizeIndex +
+                ", torrentVersionIndex=" + torrentVersionIndex +
                 ", comments='" + comments + '\'' +
                 ", startSeeding=" + startSeeding +
                 ", privateTorrent=" + privateTorrent +

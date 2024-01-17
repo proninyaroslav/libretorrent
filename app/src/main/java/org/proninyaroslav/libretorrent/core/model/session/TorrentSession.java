@@ -123,6 +123,8 @@ public interface TorrentSession
 
     int[] getPieceSizeList();
 
+    int[] getTorrentVersionList();
+
     void download(
             @NonNull String magnetUri,
             File saveDir,
