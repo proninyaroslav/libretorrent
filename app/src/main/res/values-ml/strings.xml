@@ -582,4 +582,5 @@
     <string name="pref_foreground_notify_sorting_entries_11"></string>
     <string name="pref_foreground_notify_combined_pause_button_summary"></string>
     <string name="manage_all_files_warning_dialog_description"></string>
+    <string name="force_announce_torrent"></string>
 </resources>
