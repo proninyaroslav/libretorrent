@@ -95,14 +95,14 @@
     <string name="drawer_date_added_month">Месец</string>
     <string name="drawer_date_added_year">Година</string>
     <!-- Tags -->
-    <string name="tags">Tags</string>
-    <string name="add_tag">Add tag</string>
-    <string name="tag_name">Tag name</string>
-    <string name="tag_color">Tag color</string>
+    <string name="tags">Ознаке</string>
+    <string name="add_tag">Додај ознаку</string>
+    <string name="tag_name">Име ознаке</string>
+    <string name="tag_color">Боја ознаке</string>
     <string name="add_tag_failed">Додавање ознаке није успело</string>
     <string name="tag_deleting_failed">Неуспешно брисање ознаке</string>
     <string name="tag_already_exists">Ова ознака већ постоји</string>
-    <string name="no_tags">No tags</string>
+    <string name="no_tags">Нема ознака</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
@@ -218,7 +218,7 @@
     <string name="torrent_speed">Брзина</string>
     <string name="torrent_downloaded">Преузето</string>
     <string name="torrent_ETA">Преостало</string>
-    <string name="torrent_seeds">Seeds</string>
+    <string name="torrent_seeds">Сидери</string>
     <string name="torrent_peers">Укупно</string>
     <string name="torrent_leechers">Узимаоци</string>
     <!-- connected (total) -->
