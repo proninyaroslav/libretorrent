@@ -575,8 +575,11 @@
     <string name="manage_all_files_warning_dialog_description">Gebruik de Google Play-versie van LibreTorrent niet als u torrents wilt opslaan in andere mappen dan \'Downloads\' en dergelijke.
 \nEr zijn andere bronnen op de projectpagina.</string>
     <string name="manage_all_files_warning_dialog_title">Waarschuwing</string>
-    <string name="pref_validate_https_trackers_title">Certificaat voor HTTPS-trackers valideren</string>
+    <string name="pref_validate_https_trackers_title">Certificaten van HTTPS-trackers valideren</string>
     <string name="pref_validate_https_trackers_summary">Het certificaat van HTTPS-trackers en HTTPS-webseeds wordt gevalideerd in de certificatenopslag van het systeem.</string>
     <string name="download_first_last_pieces">Eerste en laatste deeltjes eerst downloaden</string>
     <string name="torrent_speed_limit_dialog">Snelheid instellen in KiB/s. Merk op dat de globale limiet niet wordt overschreven wanneer op een torrent een hogere limiet dan de globale wordt ingesteld.</string>
+    <string name="apply_settings_after_reboot">Veranderingen worden toegepast na het herstarten van de app.</string>
+    <string name="pref_posix_disk_io_title">POSIX-schijf I/O</string>
+    <string name="pref_posix_disk_io_summary">Opmerking: deze optie alleen te gebruiken in bijzondere situaties, zoals ondersteuning voor sommige SD-kaart bestandssystemen. Schakelt een eenvoudige POSIX-schijf I/O in, gebruikt voor systemen die geen 64-bit virtuele adresruimte hebben of geen memory mapped bestanden ondersteunen.</string>
 </resources>

@@ -62,9 +62,9 @@
     <string name="settings">Ustawienia</string>
     <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
     <string name="ip_filter_add_success">Dodano filtr IP</string>
-    <string name="proxy_settings_applied">Korzystanie z nowych ustawień serwera proxy.</string>
-    <string name="proxy_settings_apply_after_reboot">Zrestartuj aplikację, aby korzystać z nowych ustawień proxy.</string>
-    <string name="theme_settings_apply_after_reboot">Zrestartuj aplikację, aby użyć nowego motywu.</string>
+    <string name="proxy_settings_applied">Korzystanie z nowych ustawień serwera proxy</string>
+    <string name="proxy_settings_apply_after_reboot">Zrestartuj aplikację, aby korzystać z nowych ustawień proxy</string>
+    <string name="theme_settings_apply_after_reboot">Zrestartuj aplikację, aby użyć nowego motywu</string>
     <string name="about">O aplikacji</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">Węzły DHT: %1$d</string>
@@ -120,7 +120,7 @@
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Błąd torrenta</string>
     <string name="error_template">Błąd: %1$s</string>
-    <string name="restore_torrent_error">Nie udało się przywrócić torrenta z poprzedniej sesji.</string>
+    <string name="restore_torrent_error">Nie udało się przywrócić torrenta z poprzedniej sesji</string>
     <string name="session_error_title">Błąd sesji</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">Błąd NAT</string>
@@ -159,12 +159,12 @@
     <string name="error_invalid_link_or_path">Niepoprawny link lub ścieżka do pliku torrent</string>
     <string name="error_add_torrent">Nie udało się dodać torrenta</string>
     <string name="error_file_not_found_add_torrent">Nie udało się dodać torrenta. Może plik .torrent został przeniesiony albo usunięty\?</string>
-    <string name="error_io_add_torrent">Nie udało się dodać torrenta z powodu błędu I/O.</string>
-    <string name="torrent_exist">Ponieważ torrent już istnieje, został połączony z poprzednim.</string>
+    <string name="error_io_add_torrent">Nie udało się dodać torrenta z powodu błędu I/O</string>
+    <string name="torrent_exist">Ponieważ torrent już istnieje, został połączony z poprzednim</string>
     <string name="error_field_required">Wymagane pole</string>
     <string name="error_no_files_selected">Nie wybrano żadnego pliku</string>
     <string name="free_space">Wolne %1$s</string>
-    <string name="error_free_space">Za mało wolnego miejsca, aby pobrać wybrane pliki.</string>
+    <string name="error_free_space">Za mało wolnego miejsca, aby pobrać wybrane pliki</string>
     <string name="files_size">Wybrano %1$s z %2$s</string>
     <string name="start_torrent">Uruchom torrent</string>
     <string name="file_is_too_large_error">Plik za duży</string>
@@ -422,7 +422,7 @@
     <string name="pref_vibration_notify_title">Wibracje</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Automatyczne uruchamianie</string>
-    <string name="pref_autostart_summary">Uruchom aplikację po uruchomieniu urządzenia.</string>
+    <string name="pref_autostart_summary">Uruchamiaj aplikację po uruchomieniu urządzenia.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Tylko połączenia bez limitu danych</string>
     <string name="pref_umnetered_connections_only_summary">Używaj tylko połączeń bez limitu danych (np. Wi-Fi lub Ethernet).</string>
@@ -529,7 +529,7 @@
     <string name="pref_feed_start_torrents_title">Automatyczne uruchamianie torrentów</string>
     <string name="pref_feed_start_torrents_summary">Pobiera dodane torrenty.</string>
     <string name="pref_feed_remove_duplicates_title">Bez duplikacji</string>
-    <string name="pref_feed_remove_duplicates_summary">Pomija pobieranie już istniejących tytułów plików.</string>
+    <string name="pref_feed_remove_duplicates_summary">Pomija pobieranie już istniejących nazw plików.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Strumieniowanie</string>
     <string name="pref_streaming_enable_summary">Umożliwia pobieranie pojedynczych plików z torrenta za pomocą przeglądarki internetowej lub odtwarzacza multimedialnego przy użyciu adresów HTTP/HTTPS.</string>
@@ -578,4 +578,7 @@
     <string name="pref_validate_https_trackers_summary">Certyfikaty trackerów HTTPS i źródeł sieciowych będą weryfikowane w magazynie certyfikatów systemu.</string>
     <string name="download_first_last_pieces">Najpierw pobierz pierwszy i ostatni fragment</string>
     <string name="torrent_speed_limit_dialog">Ustaw prędkość w KiB/s. Pamiętaj, że ustawiając limit na torrenta wyższy, niż wynosi globalny, nie nadpisze on globalnego limitu.</string>
+    <string name="apply_settings_after_reboot">Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji</string>
+    <string name="pref_posix_disk_io_title">Dyskowe POSIX I/O</string>
+    <string name="pref_posix_disk_io_summary">Uwaga: tej opcji należy używać tylko w szczególnych sytuacjach jak obsługa niektórych systemów plików na kartach pamięci. Włącza proste dyskowe POSIX I/O używane w systemach, które nie mają 64-bitowej wirtualnej przestrzeni adresowej lub nie obsługują plików mapowanych w pamięci.</string>
 </resources>

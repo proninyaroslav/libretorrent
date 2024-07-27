@@ -1,19 +1,19 @@
-* Licensed GPLv3+. Use, see, change and share; with all.
-* BitTorrent 2.0 and WebTorrent support
-* Select which files to download.
-* Move files while downloading.
-* Auto-move downloaded files to another folder or external drive.
-* Stream files, with sequential downloads.
+* Con licencia GPLv3+. Usar, ver, cambiar y compartir; con todos.
+* Soporte para BitTorrent 2.0 y WebTorrent.
+* Seleccionar qué archivos descargar.
+* Mover los archivos mientras se descargan.
+* Mover automáticamente los archivos descargados a otra carpeta o unidad externa.
+* Transmite archivos, con descargas secuenciales.
 * Android TV.
-* Material design, dark and black theme, and tablet UI.
-* Customisable network, battery, and UI settings, etc.
-* 35+ translations.
-* Scheduling.
-* Auto-downloading, with Atom/RSS manager.
-* Create torrents, with many and big files.
-* HTTP\S and magnet links.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
-* IP filtering (eMule dat and PeerGuardian).
-* Supports proxy for trackers and peers.
-* Based on libtorrent4j.
-* And more.
+* Material Design, tema oscuro y negro, e interfaz para tabletas.
+* Ajustes personalizables de red, batería, interfaz, etc.
+* Más de 35 traducciones.
+* Programación de tiempo.
+* Descarga automática, con administrador Atom/RSS.
+* Crea torrents, con varios y grandes archivos.
+* HTTP\S y enlaces magnet.
+* DHT, PeX, cifrado, LSD, UPnP, NAT*PMP, µTP.
+* Filtrado de IP (eMule dat y PeerGuardian).
+* Soporta proxy para rastreadores y pares.
+* Basado en libtorrent4j.
+* Y mucho más.

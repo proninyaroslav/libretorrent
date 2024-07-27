@@ -1,19 +1,19 @@
-* Lisensoitu GPLv3+. Käytä, katso, muuta ja jaa.
-* BitTorrent 2.0 and WebTorrent support
-* Valitse ladatavat tiedostot
-* Siirrä tiedostoja latauksessa
-* Siirrä valmiit lataukset toiseen kansioon/levylle
-* Suoratoista tiedostoja, peräkkäisinä latauksina
-* Android TV
-* Material design, tumma ja musta teema, tablettitila
-* Muokattavat verkko-, virta-, ja UI-asetukset jne
-* 35+ käännöstä
-* Ajastus
-* Automaattinen lataus & Atom/RSS-managerilla
-* Luo torrenteja, monia ja isoja tiedostoja varten
-* HTTP\S ja magneettilinkit
-* DHT, PeX, kryptaus, LSD, UPnP, NAT*PMP, µTP
-* IP-suodatus (eMule dat ja PeerGuardian)
-* Tukee välityspalvelinta trackereille ja vertaisille
-* Perustuu libtorrent4j:iin
-* Ja enemmän.
+* Lisenssi GPLv3+. Käytä, tarkastele, muuta ja jaa; kaikille.
+* BitTorrent 2.0 ja WebTorrent -tuki.
+* Valitse mitkä tiedostot ladataan.
+* Siirrä tiedostoja latauksen aikana.
+* Siirrä ladatut tiedostot automaattisesti toiseen kansioon tai ulkoiselle tallennusmedialle.
+* Suoratoista tiedostoja lataamalla ne järjestyksessä.
+* Android TV.
+* Material design, tumma ja musta teema sekä tablettikäyttöliittymä.
+* Muokattavat verkko-, akku- ja käyttöliittymäasetukset yms.
+* Käännetty yli 35 kielelle.
+* Ajoitus.
+* Latausten automatisointi Atom/RSS-hallinnalla.
+* Luo usekta ja suuria tiedostoja sisältäviä torrenteja.
+* HTTP\S- ja magnet-linkit.
+* DHT, PeX, salaus, LSD, UPnP, NAT*PMP, µTP.
+* IP-suodatus (eMule dat ja PeerGuardian).
+* Välityspalvelintuki trakkereille ja vertaisille.
+* Perustana libtorrent4j.
+* Eikä siinä vielä kaikki.

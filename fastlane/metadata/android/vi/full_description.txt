@@ -1,19 +1,19 @@
-* Licensed GPLv3+. Use, see, change and share; with all.
-* BitTorrent 2.0 and WebTorrent support
-* Select which files to download.
-* Move files while downloading.
-* Auto-move downloaded files to another folder or external drive.
-* Stream files, with sequential downloads.
-* Android TV.
-* Material design, dark and black theme, and tablet UI.
-* Customisable network, battery, and UI settings, etc.
-* 35+ translations.
-* Scheduling.
-* Auto-downloading, with Atom/RSS manager.
-* Create torrents, with many and big files.
-* HTTP\S and magnet links.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
-* IP filtering (eMule dat and PeerGuardian).
-* Supports proxy for trackers and peers.
-* Based on libtorrent4j.
-* And more.
+* Được cấp phép GPLv3+. Sử dụng, xem, thay đổi và chia sẻ; với tất cả.
+* Hỗ trợ BitTorrent 2.0 và WebTorrent
+* Chọn những tập tin để tải về.
+* Di chuyển tệp trong khi tải xuống.
+* Tự động di chuyển các tệp đã tải xuống sang thư mục khác hoặc ổ đĩa ngoài.
+* Truyền phát tệp, với các lượt tải xuống tuần tự.
+* Tivi Android.
+* Thiết kế vật liệu, chủ đề tối và đen và giao diện người dùng máy tính bảng.
+* Cài đặt mạng, pin và giao diện người dùng có thể tùy chỉnh, v.v.
+* Hơn 35 bản dịch.
+* Lập kế hoạch.
+* Tự động tải xuống, với trình quản lý Atom/RSS.
+* Tạo torrent với nhiều tệp lớn.
+* HTTP\S và liên kết nam châm.
+* DHT, PeX, mã hóa, LSD, UPnP, NAT*PMP, µTP.
+* Lọc IP (eMule dat và PeerGuardian).
+* Hỗ trợ proxy cho người theo dõi và đồng nghiệp.
+* Dựa trên libtorrent4j.
+* Và hơn thế nữa.

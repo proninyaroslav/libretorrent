@@ -381,25 +381,25 @@
     <string name="pref_save_torrent_files_title">Sauvegarder les fichiers .torrent</string>
     <string name="pref_save_torrent_files_summary">Sauvegarder les fichiers .torrent après le démarrage du téléchargement.</string>
     <string name="pref_save_torrent_files_in_title">Sauvegarder les fichiers .torrent vers…</string>
-    <string name="pref_watch_dir_title">Regarder le dossier</string>
+    <string name="pref_watch_dir_title">Dossier à surveillé</string>
     <string name="pref_watch_dir_summary">Les fichiers .torrent présents dans ce dossier seront automatiquement ajoutés puis supprimés.</string>
     <string name="pref_dir_to_watch_title">Dossier à regarder</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Vitesse</string>
     <string name="pref_max_download_speed_title">Vitesse de téléchargement maximale</string>
-    <string name="pref_max_upload_speed_title">Vitesse de téléversement maximale</string>
+    <string name="pref_max_upload_speed_title">Vitesse d’envois maximale</string>
     <string name="pref_max_connections_title">Nombre maximum de connexions</string>
     <string name="pref_max_connections_summary">(Minimum 2 connexions)</string>
-    <string name="pref_torrent_queueing_category">Torrent en file</string>
-    <string name="pref_max_active_uploads_title">Nombre maximale de téléversements actifs</string>
+    <string name="pref_torrent_queueing_category">Torrent en file d\'attente</string>
+    <string name="pref_max_active_uploads_title">Nombre maximale d\'upload actifs</string>
     <string name="pref_max_active_downloads_title">Nombre maximal de téléchargements actifs</string>
     <string name="pref_max_active_torrents_title">Nombre maximal de torrents actifs</string>
     <string name="pref_max_connections_per_torrent_title">Nombre maximum de connexions par torrent</string>
     <string name="pref_max_connections_per_torrent_summary">(Minimum 2 connexions)</string>
-    <string name="pref_max_uploads_per_torrent_title">Nombre maximum d\'emplacements de téléversé par torrent</string>
-    <string name="pref_auto_manage_title">Gérer automatiquement</string>
+    <string name="pref_max_uploads_per_torrent_title">Nombre maximum d\'upload par torrent</string>
+    <string name="pref_auto_manage_title">Gestion Automatique</string>
     <string name="pref_auto_manage_summary">Le torrent peut être repris ou mis en pause automatiquement à tout moment (peut ralentir la mise en pause/reprise).</string>
-    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 illimité</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 sans limite</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Paramètres du thème</string>
     <string name="pref_theme_title">Thème</string>
@@ -408,7 +408,7 @@
     <string name="pref_theme_entries_1">Sombre</string>
     <string name="pref_theme_entries_2">Noir</string>
     <string name="pref_notification_category">Paramètres de notification</string>
-    <string name="pref_torrent_finish_notify_title">Notification de torrent terminé</string>
+    <string name="pref_torrent_finish_notify_title">Notification pour torrent complété</string>
     <string name="pref_torrent_finish_notify_summary">Affiche une notification lorsqu\'un torrent est complètement téléchargé.</string>
     <string name="pref_play_sound_notify_title">Jouer un son de notification</string>
     <string name="pref_notify_sound_title">Son de notification</string>
@@ -565,7 +565,7 @@
     <string name="pref_foreground_notify_combined_pause_button_title">Bouton pause combiné</string>
     <string name="pref_foreground_notify_sorting_entries_10">Popularité (ordre croissant)</string>
     <string name="pref_foreground_notification_category">Paramètres des notifications de premier-plan</string>
-    <string name="pref_foreground_notify_status_filter">Filtre de statut</string>
+    <string name="pref_foreground_notify_status_filter">Filtre d\'état</string>
     <string name="pref_foreground_notify_sorting">Trier par</string>
     <string name="pref_foreground_notify_sorting_entries_4">Taille (ordre croisant)</string>
     <string name="pref_foreground_notify_sorting_entries_5">Taille (ordre décroissant)</string>
@@ -573,10 +573,13 @@
     <string name="pref_foreground_notify_sorting_entries_9">Heure de fin prévue (ordre décroissant)</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularité (ordre décroissant)</string>
     <string name="pref_foreground_notify_sorting_entries_12">Aucun tri</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Combine deux boutons : pause tout et reprendre tout. Le bouton fonctionnera comme un commutateur. Attention : l\'état du bouton n\'est pas affecté par la pause/reprise manuelle du torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combine deux boutons : pauser tout et reprendre tout. Le bouton fonctionnera comme un commutateur. Attention : l\'état du bouton n\'est pas affecté par la pause/reprise manuelle du torrent.</string>
     <string name="exact_alarm_permission_warning">Pour que le planificateur fonctionne, vous devez obtenir une autorisation dans une boîte de dialogue spéciale du système. Voulez-vous poursuivre \?</string>
     <string name="pref_validate_https_trackers_title">Valider le certificat des trackers HTTPS</string>
     <string name="pref_validate_https_trackers_summary">Le certificat des trackers HTTPS et des serveurs web HTTPS sera validé dans le magasin de certificats du système.</string>
     <string name="download_first_last_pieces">Télécharger d\'abord les premières et dernières pièces</string>
     <string name="torrent_speed_limit_dialog">Définissez la vitesse en KiB/s. Notez que la définition d\'une limite plus élevée sur un torrent que la limite globale ne remplacera pas la limite globale.</string>
+    <string name="pref_posix_disk_io_title">E/S Disque POSIX</string>
+    <string name="apply_settings_after_reboot">Les changements seront appliqué après le redémarrage de l\'application.</string>
+    <string name="pref_posix_disk_io_summary">Note : option à utiliser que dans des situations particulières, comme la prise en charge de certains systèmes de fichier de carte SD. Active une simple E/S de disque POSIX, utilisée par les systèmes ne possédant pas d\'espace d\'adressage virtuel 64-bits ou ne supportant pas les fichiers mappés en mémoire.</string>
 </resources>

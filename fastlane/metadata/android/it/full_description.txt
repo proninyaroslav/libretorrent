@@ -1,23 +1,19 @@
-# Funzionalità
-
-* BitTorrent 2.0 and WebTorrent support
-* DHT, PeX, crittografia, LSD, UPnP, NAT*PMP, µTP
-* Filtraggio IP (eMule dat e PeerGuardian)
-* Personalizzabile (impostazioni di rete, gestione dell'energia, controllo della batteria, impostazioni dell'interfaccia, ecc..)
-* Supporta torrent con un alto numero di file e grandi file
-* Supporto HTTP\S e magnet link
-* Supporto proxy per tracker e peer
-* Possibilità di spostare i file durante il download
-* Opzione per spostare i file automaticamente al termine del download, in un altra cartella o sulla memoria esterna
-* Possibilità di specificare le priorità di file e cartelle
-* Possibilità di selezionare quali file scaricare
-* Possibilità di scaricare sequenzialmente
-* Material Design
-* Tema scuro e nero
-* UI ottimizzata per tablet
-* Pianificazione
-* RSS manager
-* Supporto Android TV
-* Possibilità di creare torrent
-* Streaming di qualsiasi file selezionato
-* E altro ancora
+Licenza GPLv3+. Usa, guarda, cambia e condividi; con tutti.
+* Supporto BitTorrent 2.0 and WebTorrent;
+* Seleziona quali file scaricare;
+* Sposta i file mentre li scarichi;
+* Sposta automaticamente i file scaricati in un'altra cartella o unità esterna;
+* Streaming dei file, con il download sequenziale ;
+* Android TV;
+* Material design, tema nero o scuro, e UI per tablet;
+* Personalizza l'uso dei dati, la batteria, impostazioni della UI, ecc.;
+* 35+ traduzioni;
+* Programmazione;
+* Download automatici, con gestore Atom/RSS;
+* Crea torrent, con file grandi e numerosi;
+* Supporta HTTP\S e link magnet;
+* DHT, PeX, crittografia, LSD, UPnP, NAT*PMP, µTP;
+* Filtro IP (eMule dat e PeerGuardian);
+* Supporta proxy per tracker e peer;
+* Basato sulla libreria libtorrent4j;
+* Molto altro.

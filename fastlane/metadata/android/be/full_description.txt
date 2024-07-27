@@ -1,19 +1,19 @@
-* Licensed GPLv3+. Use, see, change and share; with all.
-* BitTorrent 2.0 and WebTorrent support
-* Select which files to download.
-* Move files while downloading.
-* Auto-move downloaded files to another folder or external drive.
-* Stream files, with sequential downloads.
+* Ліцэнзія GPLv3+. Выкарыстоўвайце, глядзіце, змяняйце і дзяліцеся; з усімі.
+* Падтрымка BitTorrent 2.0 і WebTorrent
+* Выбірайце, якія файлы неабходна спампаваць.
+* Перамяшчайце файлы падчас спампоўкі.
+* Аўтаматычнае перамяшчэнне спампаваных файлаў у іншую папку або на знешні накапільнік.
+* Паслядоўная спампоўка і стрымінг файлаў.
 * Android TV.
-* Material design, dark and black theme, and tablet UI.
-* Customisable network, battery, and UI settings, etc.
-* 35+ translations.
-* Scheduling.
-* Auto-downloading, with Atom/RSS manager.
-* Create torrents, with many and big files.
-* HTTP\S and magnet links.
-* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
-* IP filtering (eMule dat and PeerGuardian).
-* Supports proxy for trackers and peers.
-* Based on libtorrent4j.
-* And more.
+* Material Design, цёмная і чорная тэмы, інтэрфейс адаптаваны для планшэтаў.
+* Налады для сеткі, батарэі, інтэрфейса і гэтак далей
+* Пераведзены на 35+ моў.
+* Планіроўшчык.
+* Аўтазагрузка з дапамогай Atom/RSS мэнэджэра.
+* Стварэнне торэнтаў, з вялікай колькасцю і вялікімі файламі.
+* HTTP/S і magnet-спасылкі.
+* DHT, PeX, шыфраванне, LSD, UPnP, NAT*PMP, µTP.
+* IP-фільтраванне (eMule dat і PeerGuardian).
+* Падтрымка проксі для трэкераў і піроў.
+* На аснове бібліятэкі libtorrent.
+* І мноства іншага.

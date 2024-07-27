@@ -1,19 +1,19 @@
-* Berlesenkan GPLv3+. Guna, lihat, ubah dan kongsi; dengan semua.
-* BitTorrent 2.0 and WebTorrent support
-* Memilih fail yang hendak dimuat turun.
-* Memindahkan fail ketika memuat turun.
-* Pindahan fail yang telah dimuat turun secara auto ke folder lain atau pemacu luaran.
-* Siar fail, dengan muat turun berjujukan.
+* Berlesenkan GPLv3+. Guna, lihat, ubah dan kongsi; untuk semua.
+* Sokongan BitTorrent 2.0 dan WebTorrent
+* Memilih fail untuk dimuat turun.
+* Mengalih fail ketika memuat turun.
+* Mengalih fail yang dimuat turun ke folder lain ataupun pemacu luar secara automatik.
+* Mengstrim fail dan juga memuat turun secara berjujukan.
 * Android TV.
-* Reka bentuk Material, tema gelap dan hitam dan antara muka tablet.
-* Tetapan rangkaian, bateri dan antara muka dan sebagainya boleh suai.
-* 35+ terjemahan.
+* Tema rekaan material, malam, hitam, dan juga AM tablet.
+* Tetapan AM (antara muka), bateri dan juga rangkaian yang boleh diubah suai.
+* Sebanyak 35+ terjemahan.
 * Penjadualan.
-* Muat turun auto dengan pengurus Atom/RSS.
-* Cipta torrent dengan fail yang besar dan banyak.
-* Pautan HTTP/S dan magnet.
+* Muat turun auto, serta pengurus Atom/RSS.
+* Cipta torrent dengan banyaknya tanpa batas saiz fail.
+* HTTP\S dan juga pautan magnet.
 * Penyulitan DHT, PeX, LSD, UPnP, NAT*PMP, µTP.
 * Penapisan IP (eMule dat dan PeerGuardian).
-* Sokongan proksi untuk penjejak dan rakan-ke-rakan (p2p).
+* Sokongan akan proksi bagi penjejak (trackers) dan kawaran (peers).
 * Berdasarkan libtorrent4j.
 * Dan banyak lagi.

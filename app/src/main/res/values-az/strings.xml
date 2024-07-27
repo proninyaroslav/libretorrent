@@ -11,7 +11,7 @@
     <string name="replace">Əvəz et</string>
     <string name="add">Əlavə et</string>
     <string name="delete">Sil</string>
-    <string name="deleting">Silinir</string>
+    <string name="deleting">Silinir…</string>
     <string name="select_all">Hamısını seç</string>
     <string name="save">Saxla</string>
     <string name="search">Axtar</string>
@@ -49,16 +49,16 @@
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Endirilmiş faylları da sil</string>
     <string name="delete_selected_torrent">Seçilmiş torrent silinsin\? Bu əməliyyatın geri dönüşü yoxdur</string>
-    <string name="delete_selected_torrents">Seçilmiş torrentlər silinsin\? Bu əməliyyatın geri dönüşü yoxdur</string>
+    <string name="delete_selected_torrents">Seçilmiş torrentlər silinsin\? (Geri qaytarmaq mümkün deyil.)</string>
     <string name="force_recheck_torrent">Təkrar yoxlamağa məcbur et</string>
-    <string name="force_announce_torrent">Anons etməyə məcbur et</string>
+    <string name="force_announce_torrent">Məcbur elan et</string>
     <string name="add_link">Bağlantı əlavə et</string>
-    <string name="dialog_add_link_title">infohash dəyəri, magnet bağlantısı və ya HTTP/HTTPS bağlantısını daxil et</string>
+    <string name="dialog_add_link_title">İnfohash dəyərini, maqnit keçidini və ya HTTP/S bağlantısını daxil edin</string>
     <string name="torrent_list_empty">Torrent yoxdur</string>
     <string name="select_or_add_torrent">Torrent seç və ya əlavə et</string>
-    <string name="error_empty_link">Zəhmət olmasa link daxil et</string>
+    <string name="error_empty_link">Linki daxil edin</string>
     <string name="error_invalid_link">Etibarsız bağlantı</string>
-    <string name="error_open_torrent_file">Torrent faylı açıla bilmir</string>
+    <string name="error_open_torrent_file">.torrent faylı aça bilmir</string>
     <string name="open_file">Faylı aç</string>
     <string name="settings">Tənzimləmələr</string>
     <string name="ip_filter_add_error">IP filtri əlavə edilmədi (%1$d uğursuz oldu). Fayl zədəli və ya doğru olmayan formatda ola bilər</string>

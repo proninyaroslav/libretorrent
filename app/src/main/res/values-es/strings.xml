@@ -426,7 +426,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Solo conexiones sin límite</string>
     <string name="pref_umnetered_connections_only_summary">Usar solo conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
-    <string name="pref_enable_roaming_title">Roaming</string>
+    <string name="pref_enable_roaming_title">Itinerancia</string>
     <string name="pref_enable_roaming_summary">Descargar solo si el dispositivo no está en roaming.</string>
     <string name="pref_power_management_category">Gestión de energía</string>
     <string name="pref_keep_alive_title">Mantener ejecutándose</string>
@@ -514,7 +514,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Solo en conexiones sin límite</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizar solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerancia</string>
     <string name="pref_feed_keep_items_time_title">Mantener artículos</string>
     <!-- pref_feed_keep_items_time_entries -->
     <string name="pref_feed_keep_items_time_entries_0">1 día</string>
@@ -575,8 +575,11 @@
     <string name="manage_all_files_warning_dialog_title">Advertencia</string>
     <string name="manage_all_files_warning_dialog_description">No usar la versión de Google Play de LibreTorrent si quieres guardar torrents en carpetas diferentes a \"Descargas\" o similares.
 \nHay otras fuentes en la página del proyecto.</string>
-    <string name="pref_validate_https_trackers_title">Validar certificado de rastreadores HTTPS</string>
+    <string name="pref_validate_https_trackers_title">Validar certificados de rastreadores HTTPS</string>
     <string name="pref_validate_https_trackers_summary">El certificado de rastreadores HTTPS y semillas web HTTPS serán validados en el almacén de certificados del sistema.</string>
     <string name="download_first_last_pieces">Descargar primeras y últimas partes primero</string>
     <string name="torrent_speed_limit_dialog">Establecer velocidad en KiB/s. Ten en cuenta que al establecer un límite más alto en un torrent, el límite global no anulará el límite global.</string>
+    <string name="pref_posix_disk_io_title">POSIX disco I/O</string>
+    <string name="apply_settings_after_reboot">Los cambios se aplicarán tras reiniciar la aplicación.</string>
+    <string name="pref_posix_disk_io_summary">Nota: esta opción solo se usa en situaciones particulares, como el soporte para algunos sistemas de archivos de tarjetas SD. Habilita una simple POSIX disco I/O, utilizada para sistemas que no tienen un espacio de direcciones virtual de 64 bits o no soportan archivos mapeados en memoria.</string>
 </resources>

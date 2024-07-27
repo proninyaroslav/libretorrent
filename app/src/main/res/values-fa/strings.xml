@@ -167,7 +167,7 @@
     <string name="start_torrent">آغاز تورنت</string>
     <string name="file_is_too_large_error">این پرونده بسیار بزرگ است</string>
     <string name="unable_to_open_folder">نمی‌توان پوشه انتخابی را باز کرد. لطفا تلاش کنید پوشه دیگری را انتخاب کنید</string>
-    <string name="error_empty_name">لطفا نام را وارد کنید</string>
+    <string name="error_empty_name">نام را وارد کنید</string>
     <string name="ignore_free_space">اندازه فضای خالی را نادیده بگیر</string>
     <!-- Torrent info -->
     <string name="torrent_info">اطلاعات</string>
@@ -544,4 +544,5 @@
     <string name="select_tag">انتخاب برچسب</string>
     <string name="new_tag">برچسب جدید</string>
     <string name="without_tags">بدون برچسب</string>
+    <string name="apply_settings_after_reboot">تغییرات بعد از ریستارت کردن برنامه اعمال میشود.</string>
 </resources>

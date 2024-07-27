@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">Tamam</string>
+    <string name="ok">TAMAM</string>
     <string name="cancel">İptal</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
@@ -576,8 +576,11 @@
     <string name="manage_all_files_warning_dialog_description">Torrentleri \'İndirilenler\' ve benzerleri dışındaki klasörlere kaydetmek istiyorsanız, LibreTorrent\'in Google Play sürümünü kullanmayın.
 \nProje sayfasında başka kaynaklar da bulunmaktadır.</string>
     <string name="manage_all_files_warning_dialog_title">Uyarı</string>
-    <string name="pref_validate_https_trackers_title">HTTPS takipçi sertifikasını doğrula</string>
+    <string name="pref_validate_https_trackers_title">HTTPS takipçilerin sertifikalarını doğrula</string>
     <string name="pref_validate_https_trackers_summary">HTTPS takipçilerin ve HTTPS web paylaşımlarının sertifikası, sistem sertifika deposunda doğrulanacaktır.</string>
     <string name="download_first_last_pieces">Önce ilk ve son parçaları indir</string>
     <string name="torrent_speed_limit_dialog">Hızı KiB/s olarak ayarla. Bir torrent için genel sınırdan daha yüksek bir sınır belirlemenin, genel sınırı geçersiz kılmayacağını unutmayın.</string>
+    <string name="apply_settings_after_reboot">Değişiklikler, uygulama yeniden başlatıldıktan sonra uygulanacaktır.</string>
+    <string name="pref_posix_disk_io_title">POSIX Disk G/Ç</string>
+    <string name="pref_posix_disk_io_summary">Not: Bu seçenek, yalnızca bazı SD kart dosya sistemlerini desteklemek gibi belirli durumlarda kullanmak içindir. 64 bit sanal adres alanı olmayan veya bellek eşlemeli dosyaları desteklemeyen sistemler için kullanılan basit bir POSIX Disk G/Ç\'yi etkinleştirir.</string>
 </resources>

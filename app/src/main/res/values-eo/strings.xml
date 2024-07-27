@@ -369,7 +369,7 @@
     <string name="share_magnet">Sendi magneton</string>
     <string name="peer_list_empty">Tiu torento ne konektis al iu ankoraŭ</string>
     <string name="about_description">Pli da informoj kaj kiel helpi la projekton: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent estas kopilasigita libera (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torentkliento por Android 4+, surbaze de la libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
-    <string name="torrent_ETA">ETA</string>
+    <string name="torrent_ETA">LTA</string>
     <string name="torrent_trackers">Trackers</string>
     <string name="add_trackers">Aldoni trackers</string>
     <string name="peer_connection_type_bittorrent">BT</string>
@@ -392,4 +392,10 @@
     <string name="pref_proxy_login_title">Salutnomo</string>
     <string name="pref_max_connections_per_torrent_summary">(Minimume 2 konektoj.)</string>
     <string name="pref_max_connections_summary">(Minimume 2 konektoj.)</string>
+    <string name="peer_relevance">Graveco:%1$.1f</string>
+    <string name="manage_all_files_warning_dialog_description">Ne uzu la Google Play-version de LibreTorrent se vi volas konservi torentojn en dosierujoj krom \'Elŝutoj\' kaj similaj.
+\nEstas aliaj fontoj sur la projektpaĝo.</string>
+    <string name="download_first_last_pieces">Elŝutu unue kaj lastajn pecojn</string>
+    <string name="manage_all_files_warning_dialog_title">averto</string>
+    <string name="error_open_torrent">ne povas malfermi torenton</string>
 </resources>

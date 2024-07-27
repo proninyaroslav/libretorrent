@@ -1,19 +1,19 @@
-* GPLv3+ licenc. Használja, lássa, változtasson és ossza meg; mindenkivel.
-* BitTorrent 2.0 and WebTorrent support
-* Válassza ki, melyik fájlokat töltse le.
-* Helyezze át a fájlokat letöltés közben.
-* Automatikusan helyezze át a letöltött fájlokat másik mappába vagy külső meghajtóra.
-* Streameljen fájlokat, sorban való letöltésekkel.
+* Licenc GPLv3+. Használja, nézze meg, változtassa meg és ossza meg; bármit.
+* BitTorrent 2.0 és WebTorrent támogatás
+* Kiválaszthatja a letölteni kívánt fájlokat.
+* Fájlok mozgatása letöltés közben.
+* A letöltött fájlok automatikus áthelyezése másik mappába vagy külső meghajtóra.
+* Fájlok streamelése folyamatos letöltésekkel.
 * Android TV.
-* Material dizájn, sötét és fekete téma és tablet felület.
-* Testreszabható hálózati, akkumulátor és felületi beállítások, stb.
+* Anyagkialakítású megjelenés, sötét és fekete téma, valamint táblagép felhasználói felület.
+* Testreszabható hálózati, akkumulátor és felhasználói felület beállítások stb.
 * 35+ fordítás.
 * Ütemezés.
-* Automatikus letöltések, Atom/RSS kezelővel.
-* Hozzon létre torrenteket, sok és nagy fájlokkal.
-* HTTP\S és mágneslinkek.
+* Automatikus letöltés Atom/RSS kezelővel.
+* Hozzon létre torrenteket sok és nagy fájlokkal.
+* HTTP\S és magnet hivatkozások.
 * DHT, PeX, titkosítás, LSD, UPnP, NAT*PMP, µTP.
-* IP szűrés (eMule dat és PeerGuardian).
-* Proxy támogatás követőkhöz és partnerekhez.
-* A libtorrent4j-n alapszik.
-* És még több.
+* IP-szűrés (eMule dat és PeerGuardian).
+* Támogatja a követők és társaik proxyját.
+* A libtorrent4j alapján.
+* És több.

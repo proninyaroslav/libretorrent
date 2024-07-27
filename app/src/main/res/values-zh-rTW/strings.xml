@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">無法開啟該 Torrent 檔案</string>
     <string name="open_file">開啟檔案</string>
     <string name="settings">設定</string>
-    <string name="ip_filter_add_error">無法新增 IP filter （%1$d 失敗）。也許檔案已損毀，或者使用了錯誤格式？</string>
+    <string name="ip_filter_add_error">無法新增 IP 篩選器 (%1$d 失敗)。也許檔案已損毀，或者使用了錯誤格式？</string>
     <string name="ip_filter_add_success">已新增 IP 篩選器</string>
     <string name="proxy_settings_applied">正在使用新的 Proxy 設定。</string>
     <string name="proxy_settings_apply_after_reboot">重新開啟應用程式以套用 Proxy 設定。</string>
@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">接聽埠：%1$s</string>
     <!-- Status -->
     <string name="drawer_status">狀態</string>
-    <string name="drawer_status_downloading">下載中……</string>
+    <string name="drawer_status_downloading">下載中…</string>
     <string name="drawer_status_downloaded">下載完成</string>
-    <string name="drawer_status_downloading_metadata">下載中繼資料中……</string>
+    <string name="drawer_status_downloading_metadata">下載中繼資料中…</string>
     <string name="drawer_status_error">錯誤</string>
     <!-- Sorting -->
     <string name="drawer_sorting">排序</string>
@@ -98,12 +98,12 @@
     <string name="add_tag">新增標籤</string>
     <string name="edit_tag">編輯標籤</string>
     <string name="tag_name">標籤名稱</string>
-    <string name="tag_color">標籤顏色</string>
+    <string name="tag_color">標籤色彩</string>
     <string name="add_tag_failed">無法新增標籤</string>
     <string name="tag_deleting_failed">無法刪除標籤</string>
     <string name="tag_already_exists">已存在同名標籤</string>
     <string name="no_tags">沒有標籤</string>
-    <string name="select_tag">選擇標籤</string>
+    <string name="select_tag">選取標籤</string>
     <string name="new_tag">新標籤</string>
     <string name="without_tags">無標籤</string>
     <!-- Foreground notification -->
@@ -113,8 +113,8 @@
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
-    <string name="torrent_count_notify_template">正在下載⬇ %1$d／總共 %2$d</string>
-    <string name="app_running_in_the_background">正在背景執行……</string>
+    <string name="torrent_count_notify_template">正在下載⬇ %1$d／總計 %2$d</string>
+    <string name="app_running_in_the_background">正在背景執行…</string>
     <string name="network_online">網路狀態：線上</string>
     <string name="network_offline">網路狀態：離線</string>
     <string name="notify_shutting_down">正在結束執行…</string>
@@ -140,25 +140,25 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="torrent_status_downloading">下載中……</string>
-    <string name="torrent_status_seeding">做種中……</string>
+    <string name="torrent_status_downloading">下載中…</string>
+    <string name="torrent_status_seeding">做種中…</string>
     <string name="torrent_status_paused">已暫停</string>
     <string name="torrent_status_stopped">已停止</string>
-    <string name="torrent_status_checking">檢查中……</string>
+    <string name="torrent_status_checking">檢查中…</string>
     <string name="torrent_status_finished">已完成</string>
-    <string name="torrent_status_downloading_metadata">下載中繼資料中……</string>
+    <string name="torrent_status_downloading_metadata">下載中繼資料中…</string>
     <!-- Permission dialog -->
-    <string name="perm_denied_title">權限存取被拒</string>
-    <string name="perm_denied_warning">確定阻止本程式保存 .torrent 檔案至記憶體中嗎？</string>
+    <string name="perm_denied_title">權限遭拒</string>
+    <string name="perm_denied_warning">儲存空間權限是用於下載 Torrent 和存取 .torrent 檔案的必要權限。確定要拒絕此權限嗎？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">新增任務</string>
     <string name="error_decode_torrent">無法解碼 .torrent 檔案。也許檔案已損毀，或者使用了錯誤格式？</string>
     <string name="error_io_torrent">無法讀取該 .torrent 檔案</string>
     <string name="error_fetch_link">無法從該連結獲取資料</string>
-    <string name="error_invalid_link_or_path">無效的連結或 Torrent 位置</string>
+    <string name="error_invalid_link_or_path">無效的連結或 Torrent 路徑</string>
     <string name="error_add_torrent">無法新增任務</string>
     <string name="error_file_not_found_add_torrent">無法新增任務。也許該 .torrent 檔已被移動或刪除？</string>
-    <string name="error_io_add_torrent">由於輸入／輸出（I/O）錯誤，無法新增任務。</string>
+    <string name="error_io_add_torrent">由於輸入／輸出 (I/O) 錯誤，無法新增任務。</string>
     <string name="torrent_exist">由於任務已存在，兩者已被合併。</string>
     <string name="error_field_required">必填</string>
     <string name="free_space">剩餘 %1$s</string>
@@ -173,7 +173,7 @@
     <string name="torrent_info">資訊</string>
     <string name="torrent_files">檔案</string>
     <string name="torrent_name">名稱</string>
-    <string name="upload_torrent_into">上傳至……</string>
+    <string name="upload_torrent_into">上傳至…</string>
     <string name="torrent_size">檔案大小</string>
     <string name="torrent_file_count">檔案數量</string>
     <string name="torrent_hash_sum">核對和</string>
@@ -182,9 +182,9 @@
     <string name="torrent_created_in_program">建立工具</string>
     <string name="sequential_download">依序下載</string>
     <!-- Filemanager dialog -->
-    <string name="dir_chooser_title">選擇資料夾</string>
-    <string name="file_chooser_title">選擇檔案</string>
-    <string name="torrent_file_chooser_title">選擇 Torrent 檔案</string>
+    <string name="dir_chooser_title">選取資料夾</string>
+    <string name="file_chooser_title">選取檔案</string>
+    <string name="torrent_file_chooser_title">選取 Torrent 檔案</string>
     <string name="dialog_new_folder_title">新增資料夾</string>
     <string name="error_dialog_new_folder">無法新增資料夾</string>
     <string name="error_open_dir">無法開啟該資料夾</string>
@@ -193,7 +193,7 @@
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="internal_storage_name">內部儲存空間</string>
     <string name="external_storage_name" formatted="false">外部儲存空間 %1$d</string>
-    <string name="permission_denied">權限存取被拒</string>
+    <string name="permission_denied">權限遭拒</string>
     <string name="save_file">儲存檔案</string>
     <string name="file_name">檔案名稱</string>
     <string name="error_file_exists">檔案已存在</string>
@@ -238,7 +238,7 @@
     <string name="tracker_state_updating">更新中…</string>
     <string name="tracker_state_not_contacted">尚未連接</string>
     <string name="share_tracker_url">分享網址……</string>
-    <string name="delete_selected_tracker">刪除所選的追蹤器？</string>
+    <string name="delete_selected_tracker">刪除選取的追蹤器？</string>
     <string name="delete_selected_trackers">刪除所選的追蹤器？</string>
     <string name="add_trackers">新增追蹤器</string>
     <string name="dialog_add_trackers">(每行一項)</string>
@@ -312,14 +312,14 @@
     <string name="feed_do_not_download_immediately">不要立即下載</string>
     <string name="feed_item_url_not_found">找不到網址</string>
     <!-- Create torrent dialog -->
-    <string name="create_torrent">製作 Torrent</string>
+    <string name="create_torrent">「製作 Torrent</string>
     <string name="creating_torrent_progress">正在建立 Torrent，請稍候…</string>
     <string name="file_or_folder_for_seeding">欲做種的檔案或資料夾</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">請先選擇欲做種的檔案或資料夾</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">請先選取欲做種的檔案或資料夾。</string>
     <string name="tracker_urls">追蹤器網址</string>
     <string name="web_seed_urls">網頁種子網址</string>
     <string name="comments">註解</string>
-    <string name="tracker_urls_hint">(選填) 每行一項，愈前排愈優先</string>
+    <string name="tracker_urls_hint">(選填) 每行一項，愈前排愈優先。</string>
     <string name="web_seed_urls_hint">(選填) 每行一項</string>
     <string name="optional_hint">(選填)</string>
     <string name="piece_size">分塊大小</string>
@@ -345,7 +345,7 @@
     <string name="error_create_torrent">無法建立 Torrent</string>
     <string name="skip_files">略過檔案</string>
     <string name="skip_files_hint">輸入檔名並以豎線「|」分隔。</string>
-    <string name="select_folder_to_save">選擇儲存位置</string>
+    <string name="select_folder_to_save">選取儲存位置。</string>
     <string name="unable_to_open_file">無法開啟所選的檔案</string>
     <string name="unable_to_create_file">無法建立檔案</string>
     <!-- Log -->
@@ -377,7 +377,7 @@
     <!-- Storage settings -->
     <string name="pref_save_torrents_in_title">儲存 Torrent 至……</string>
     <string name="pref_save_torrent_files_title">另存 .torrent 檔案</string>
-    <string name="pref_save_torrent_files_summary">開始下載後，將任務另存為 .torrent 檔案</string>
+    <string name="pref_save_torrent_files_summary">開始下載後，將工作儲存為 .torrent 檔案。</string>
     <string name="pref_save_torrent_files_in_title">儲存 .torrent 檔案至……</string>
     <string name="pref_watch_dir_title">監視目錄</string>
     <string name="pref_watch_dir_summary">此資料夾中的 .torrent 檔案會被自動新增及移除。</string>
@@ -387,7 +387,7 @@
     <string name="pref_max_download_speed_title">下載⬇速度上限</string>
     <string name="pref_max_upload_speed_title">上傳⬆速度上限</string>
     <string name="pref_max_connections_title">最大連線數</string>
-    <string name="pref_max_connections_summary">連線數至少為 2</string>
+    <string name="pref_max_connections_summary">(連線數至少為 2)</string>
     <string name="pref_torrent_queueing_category">任務佇列</string>
     <string name="pref_max_active_uploads_title">最大上傳數</string>
     <string name="pref_max_active_downloads_title">最大下載數</string>
@@ -396,7 +396,7 @@
     <string name="pref_max_connections_per_torrent_summary">連線數至少為 2</string>
     <string name="pref_max_uploads_per_torrent_title">單一任務最大上傳通道數</string>
     <string name="pref_auto_manage_title">自動管理</string>
-    <string name="pref_auto_manage_summary">傳輸任務可能會隨時自動暫停或繼續（可能造成手動暫停與繼續的反應速度變慢）</string>
+    <string name="pref_auto_manage_summary">傳輸任務可能會隨時自動暫停或繼續 (可能造成手動暫停與繼續的反應速度變慢)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">輸入 -1 表示無限制</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主題設定</string>
@@ -415,40 +415,40 @@
     <string name="pref_vibration_notify_title">震動</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">開機時啟動</string>
-    <string name="pref_autostart_summary">裝置開機後自動執行本程式</string>
+    <string name="pref_autostart_summary">裝置開機後自動執行本應用程式。</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">僅限非計量付費網路</string>
-    <string name="pref_umnetered_connections_only_summary">只透過非計量付費網路 (如：Wi-Fi 或乙太網路) 下載</string>
+    <string name="pref_umnetered_connections_only_summary">僅透過非計費網路 (如：Wi-Fi 或乙太網路) 下載。</string>
     <string name="pref_enable_roaming_title">漫遊時允許</string>
-    <string name="pref_enable_roaming_summary">僅在裝置未漫遊時下載</string>
+    <string name="pref_enable_roaming_summary">僅在裝置未漫遊時下載。</string>
     <string name="pref_power_management_category">電源管理</string>
     <string name="pref_keep_alive_title">常駐背景執行</string>
-    <string name="pref_keep_alive_summary">讓程式於背景執行（「下載完成後結束執行」依舊有效）</string>
+    <string name="pref_keep_alive_summary">讓應用程式於背景執行 (「下載完成後結束執行」依舊有效)</string>
     <string name="pref_shutdown_downloads_complete_title">下載完成後結束執行</string>
     <string name="pref_shutdown_downloads_complete_summary">在一切下載完成後中止程式。</string>
     <string name="pref_cpu_do_not_sleep_title">避免裝置睡眠</string>
-    <string name="pref_cpu_do_not_sleep_summary">若螢幕關閉時下載速度降低，可考慮啟用此選項。（將增加耗電量）</string>
-    <string name="pref_download_and_upload_only_when_charging_title">僅限充電時傳輸</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">只在裝置充電時才進行傳輸。（一旦拔除充電線，則暫停所有任務）</string>
+    <string name="pref_cpu_do_not_sleep_summary">若螢幕關閉時下載速度降低，可考慮啟用此選項。(將增加耗電量)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">僅在充電時傳輸。</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">只在裝置充電時才進行傳輸。(一旦拔除充電線，則暫停所有任務)</string>
     <string name="pref_battery_control_title">電池用量控制</string>
     <string name="pref_custom_battery_control_title">自訂電量百分比</string>
     <string name="pref_custom_battery_control_value_title">電量百分比</string>
-    <string name="pref_battery_control_summary">電量低於 %1$d%% 時暫停所有的傳輸活動。（惟充電時不適用）</string>
-    <string name="pref_custom_battery_control_summary">自訂暫停傳輸活動的電量底限（忽略預設的 %1$d%% 閾值）</string>
-    <string name="pref_custom_battery_control_dialog_summary">你確定要設定欲監視的電量？（將增加下載時的用電量）</string>
+    <string name="pref_battery_control_summary">電量低於 %1$d%% 時暫停所有的傳輸活動。(惟充電時不適用)</string>
+    <string name="pref_custom_battery_control_summary">自訂暫停傳輸活動的電量底限 (忽略預設的 %1$d%% 閾值)</string>
+    <string name="pref_custom_battery_control_dialog_summary">你確定要設定欲監視的電量？(將增加下載時的用電量)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy 設定</string>
     <string name="pref_enable_dht_title">DHT</string>
-    <string name="pref_enable_dht_summary">允許（主要是 BitTorrent）用戶端免透過追蹤器找到彼此（將增加耗電量）</string>
+    <string name="pref_enable_dht_summary">允許 (主要是 BitTorrent) 用戶端免透過追蹤器找到彼此 (將增加耗電量)</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">支援探索區域網路內的用戶以減少網路用量</string>
+    <string name="pref_enable_lsd_summary">支援探索區域網路內的使用者以減少網路用量。</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">用以緩解基於 TCP 的傳統 BitTorrent 協定所遭遇的延遲與壅塞控制問題，並提供更為可靠且井然有序的傳遞方式</string>
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">連接埠設定</string>
     <string name="pref_use_random_port_title">隨機分配連接埠</string>
-    <string name="pref_use_random_port_summarty">在範圍 [%1$d, %2$d] 間隨機選定起始埠，並將其值 +10 設為結束埠</string>
+    <string name="pref_use_random_port_summarty">在範圍 [%1$d, %2$d] 間隨機選定起始連接埠，並將其值 +10 設為結束連接埠。</string>
     <string name="pref_port_range_title">連接埠範圍</string>
     <string name="pref_port_range_start_title">起</string>
     <string name="pref_port_range_end_title">訖</string>
@@ -462,13 +462,13 @@
     <string name="pref_enc_out_connections_title">輸出連線</string>
     <string name="pref_ip_filtering_category">IP 篩選</string>
     <string name="pref_enable_ip_filtering_title">篩選 IP 位址</string>
-    <string name="pref_enable_ip_filtering_summary">取決於名單檔案大小，在啟動程式時可能需要稍待片刻以套用篩選器。（篩選 IP 位址將增加記憶體用量）</string>
+    <string name="pref_enable_ip_filtering_summary">取決於名單檔案大小，在啟動應用程式時可能需要稍待片刻以套用篩選器。(篩選 IP 位址將增加記憶體用量)</string>
     <string name="pref_ip_filtering_file_title">篩選名單 (.dat、.p2p) 路徑</string>
     <string name="pref_show_nat_errors">顯示 NAT 錯誤訊息</string>
     <string name="pref_anonymous_mode_title">匿名模式</string>
-    <string name="pref_anonymous_mode_summary">對於非私有 Torrent 隱藏 User-Agent（程式與裝置之版本與名稱）。只使用「使用 proxy 的追蹤器」。停止偵聽 sockets。（若 tracker proxy 提供 peer proxy，則）只接受透過「使用 SOCKS5 或 I2P 的 proxy」傳入的連接請求。禁用 NAT-PMP、UPnP、DHT 及區域網內用戶探索。</string>
+    <string name="pref_anonymous_mode_summary">對於非私有的 Torrent，沒有 user-agent 字串。僅有 Proxy 的追蹤器。偵聽 Socket 關閉。透過 SOCKS5- 或 I2P Proxy 接收連線 (如果追蹤器 Proxy 電腦上存在同濟 Proxy)。NAT-PMP、UPnP、DHT和本機發現關閉。</string>
     <string name="pref_seeding_outgoing_connections_title">用於做種的傳出連接</string>
-    <string name="pref_seeding_outgoing_connections_summary">讓做種 Torrent 傳出連結。（可能付出巨大代價）</string>
+    <string name="pref_seeding_outgoing_connections_summary">讓做種 Torrent 傳出連結。 (可能付出巨大代價)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy 類型</string>
     <!-- pref_proxy_type_entries -->
@@ -479,9 +479,9 @@
     <string name="pref_proxy_address_title">主機位址</string>
     <string name="pref_proxy_port_title">連接埠</string>
     <string name="pref_proxy_peers_too_title">亦套用至用戶連線</string>
-    <string name="pref_proxy_peers_too_summary">與追蹤器、用戶以及網頁種子的連線將套用 Proxy 設定。不影響 DHT。</string>
+    <string name="pref_proxy_peers_too_summary">與追蹤器、其他使用者以及網頁種子的連線將套用 Proxy 設定。不影響 DHT。</string>
     <string name="pref_proxy_requires_auth_title">需要授權</string>
-    <string name="pref_proxy_requires_auth_summary">警告：密碼被儲存為一般檔案（可能不會被加密）。</string>
+    <string name="pref_proxy_requires_auth_summary">警告：密碼被儲存為一般檔案 (可能不會被加密)。</string>
     <string name="pref_proxy_login_title">使用者名稱</string>
     <string name="pref_proxy_password_title">密碼</string>
     <!-- Schedule settings -->
@@ -494,7 +494,7 @@
     <string name="pref_scheduling_switch_wifi_summary">隨著應用程式的排程，自動開啟與關閉 Wi-Fi。</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">自動重新整理頻道</string>
-    <string name="pref_feed_auto_refresh_summary">定期在背景重新整理頻道</string>
+    <string name="pref_feed_auto_refresh_summary">定期在背景重新整理頻道。</string>
     <string name="pref_feed_refresh_interval_title">重新整理週期</string>
     <!-- pref_feed_refresh_intervals_entries -->
     <string name="pref_feed_refresh_intervals_entries_0">15 分鐘</string>
@@ -506,7 +506,7 @@
     <string name="pref_feed_refresh_intervals_entries_6">1 天</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">僅限非計量付費網路</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">只透過非計量付費網路 (如：Wi-Fi 或乙太網路) 重新整理</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">僅透過非計費網路 (如：Wi-Fi 或乙太網路) 重新整理。</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">漫遊時允許</string>
     <string name="pref_feed_keep_items_time_title">保留文章</string>
     <!-- pref_feed_keep_items_time_entries -->
@@ -531,31 +531,27 @@
     <string name="pref_streaming_error">供串流使用的主機名稱或連接埠不正確或忙碌中，請另行選擇。</string>
     <!-- About dialog -->
     <string name="about_title">關於</string>
-    <string name="about_description">更多資訊與幫助此專案的方法：&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;
-\n&lt;br&gt;
-\nLibreTorrent 是一個無版權的自由（&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;）Torrent 客戶端，專為（版本 4 及以上的）Android 服務。此程式使用 libtorrent 函式庫（Java 版本透過 &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt; 封裝以供）
-\n&lt;br&gt;
-\n&lt;br&gt;</string>
+    <string name="about_description">更多資訊與協助此專案：&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent 是一個無版權的自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) Torrent 用戶端，專為 (版本 4 及以上的) Android 服務。此應用程式使用 libtorrent 程式庫 (Java 版本透過 &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt; 封裝以供)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新日誌</string>
     <string name="pref_default_trackers_list_summary">追蹤器列表。使用時機如下：
 \n1. 當新增任務時，預設列表將被自動加入至任務列表。
 \n2. 用於取得磁力連結。</string>
     <string name="pref_default_trackers_list_title">預設追蹤器</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">組合按鈕：全部暫停及恢復，功能類似開關。警告：按鈕狀態不受手動暫停／恢復任務所影響。</string>
-    <string name="pref_foreground_notify_combined_pause_button_title">組合的暫停鈕</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">組合暫停按鈕</string>
     <string name="pref_foreground_notify_sorting_entries_12">無排序</string>
-    <string name="pref_foreground_notify_sorting_entries_9">預估完成時間（後到先）</string>
-    <string name="pref_foreground_notify_sorting_entries_8">預估完成時間（先到後）</string>
-    <string name="pref_foreground_notify_sorting_entries_11">人數（多到少）</string>
-    <string name="pref_foreground_notify_sorting_entries_10">人數（少到多）</string>
-    <string name="pref_foreground_notify_sorting_entries_7">進度（多到少）</string>
-    <string name="pref_foreground_notify_sorting_entries_6">進度（少到多）</string>
-    <string name="pref_foreground_notify_sorting_entries_5">大小（大到小）</string>
-    <string name="pref_foreground_notify_sorting_entries_4">大小（小到大）</string>
-    <string name="pref_foreground_notify_sorting_entries_3">新增時間（舊到新）</string>
-    <string name="pref_foreground_notify_sorting_entries_2">新增時間（新到舊）</string>
-    <string name="pref_foreground_notify_sorting_entries_1">名稱（Z 到 A）</string>
-    <string name="pref_foreground_notify_sorting_entries_0">名稱（A 到 Z）</string>
+    <string name="pref_foreground_notify_sorting_entries_9">預估完成時間 (後到先)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">預估完成時間 (先到後)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">人數 (多到少)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">人數 (少到多)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">進度 (多到少)</string>
+    <string name="pref_foreground_notify_sorting_entries_6">進度 (少到多)</string>
+    <string name="pref_foreground_notify_sorting_entries_5">大小 (大到小)</string>
+    <string name="pref_foreground_notify_sorting_entries_4">大小 (小到大)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">新增時間 (舊到新)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">新增時間 (新到舊)</string>
+    <string name="pref_foreground_notify_sorting_entries_1">名稱 (Z - A)</string>
+    <string name="pref_foreground_notify_sorting_entries_0">名稱 (A - Z)</string>
     <string name="pref_foreground_notify_sorting">排序中</string>
     <string name="pref_foreground_notify_status_filter_entries_4">錯誤</string>
     <string name="pref_foreground_notify_status_filter_entries_3">正在下載中繼資料……</string>
@@ -569,8 +565,21 @@
     <string name="torrent_saved_to">Torrent 已儲存至 %1$s</string>
     <string name="edit_torrent_name">編輯 torrent 名稱</string>
     <string name="save_torrent_file">儲存 torrent 檔案</string>
-    <string name="error_no_files_selected">未選擇檔案</string>
+    <string name="error_no_files_selected">未選取檔案</string>
     <string name="torrent_move_fail">無法移動 Torrent</string>
     <string name="torrent_moving_title">正在移動 Torrent……</string>
     <string name="error_open_torrent">無法開啟 Torrent</string>
+    <string name="manage_all_files_warning_dialog_title">警告</string>
+    <string name="torrent_speed_limit_dialog">設定速度單位為 KiB/s。注意，設定一個高於全域限制的 Torrent 速度上限將不會覆寫全域限制。</string>
+    <string name="manage_all_files_warning_dialog_description">若您想儲存 Torrent 至自訂資料夾而非「Downloads」之類的資料夾，請不要使用 Google Play 版本的 LibreTorrent。
+\n在專案頁面上有其他來源。</string>
+    <string name="pref_validate_https_trackers_title">驗證 HTTPS 追蹤器憑證</string>
+    <string name="exact_alarm_permission_warning">要使排程器運作，您必須在一個特殊的系統對話方塊中取得權限。要繼續嗎？</string>
+    <string name="pref_move_after_download_in_title">下載後移至</string>
+    <string name="download_first_last_pieces">先下載首端和尾端</string>
+    <string name="pref_validate_https_trackers_summary">HTTPS 追蹤器和 HTTPS web 種子的憑證將在系統憑證儲存中進行驗證。</string>
+    <string name="perm_denied_warning_android_r">存取所有檔案是下載 Torrent 和存取任意資料夾中的 .torrent 檔案的必要權限。若無此權限，LibreTorrent 將只能存取有限數量的資料夾。你確定要拒絕此權限嗎？</string>
+    <string name="apply_settings_after_reboot">將在重新啟動應用程式後套用變更。</string>
+    <string name="pref_posix_disk_io_title">POSIX 磁碟 I/O</string>
+    <string name="pref_posix_disk_io_summary">注意：此選項僅用於特定狀況，如支援某些 SD 卡檔案系統。啟用簡單的 POSIX 磁碟 I/O，用於沒有 64 位元虛擬位址空間或不支援記憶體對應檔案的系統。</string>
 </resources>

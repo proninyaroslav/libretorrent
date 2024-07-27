@@ -76,7 +76,7 @@
     <string name="drawer_status">Status</string>
     <string name="drawer_status_downloading">Laster ned …</string>
     <string name="drawer_status_downloaded">Nedlastet</string>
-    <string name="drawer_status_downloading_metadata">Laster ned metadata …</string>
+    <string name="drawer_status_downloading_metadata">Laster ned metadata…</string>
     <string name="drawer_status_error">Feil</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortering</string>
@@ -144,7 +144,7 @@
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Laster ned …</string>
-    <string name="torrent_status_seeding">Deler …</string>
+    <string name="torrent_status_seeding">Deler…</string>
     <string name="torrent_status_paused">Pauset</string>
     <string name="torrent_status_stopped">Stoppet</string>
     <string name="torrent_status_checking">Sjekker …</string>
@@ -152,7 +152,7 @@
     <string name="torrent_status_downloading_metadata">Laster ned metadata …</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
-    <string name="perm_denied_warning">Vil du virkelig forhindre programmet fra å lagre .torrent-filer i minnet\?</string>
+    <string name="perm_denied_warning">Lagringstilgang kreves for å laste ned torrenter og å for ha adgang til torrentfiler. Vil du virkelig nekte denne tilgangen\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
     <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
@@ -366,7 +366,7 @@
     <string name="journal_filter_torrent_log">Torrentlogg</string>
     <string name="journal_save_log_failed">Kunne ikke lagre logg</string>
     <string name="journal_save_log_success">Logg lagret: %1$s</string>
-    <string name="pref_journal_save_log_to">Lagre logg i …</string>
+    <string name="pref_journal_save_log_to">Lagre logg til…</string>
     <!-- Log settings -->
     <string name="pref_journal_max_stored_entries">Maksimalt antall lagrede journaloppføringer</string>
     <!-- Settings -->
@@ -435,7 +435,7 @@
     <string name="pref_shutdown_downloads_complete_summary">Skrur av programmet når alt er nedlastet.</string>
     <string name="pref_cpu_do_not_sleep_title">Hold enhet våken</string>
     <string name="pref_cpu_do_not_sleep_summary">Bruk dette hvis nedlastingshastigheten går ned når skjermen skrur seg av (Økt batteribruk.)</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Kun last opp og ned når tilkoblet lader.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Kun last opp og ned når lader er tilkoblet.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Ingen filer overføres med mindre enheten lader. (Setter alle torrenter på pause når enheten kun går på batteri.)</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_custom_battery_control_title">Tilpasset batteri prosentandel</string>
@@ -513,7 +513,7 @@
     <string name="pref_feed_refresh_intervals_entries_6">1 dag</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Kun for tilkoblinger uten kvote</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Kun gjenoppfrisk på tilkoblinger uten kvote (for eksempel Wi-Fi eller Ethernet)</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Kun gjenoppfrisk på tilkoblinger uten kvote (for eksempel Wi-Fi eller Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Gjesting</string>
     <string name="pref_feed_keep_items_time_title">Hold artikler</string>
     <!-- pref_feed_keep_items_time_entries -->
@@ -579,4 +579,7 @@
     <string name="manage_all_files_warning_dialog_title">Advarsel</string>
     <string name="manage_all_files_warning_dialog_description">Google Play-versjonen av LibreTorrent har ikke tilgang til alle filer. Dette betyr at LibreTorrent ikke har tilgang til et begrenset antall mapper, som «Nedlastinger», eller andre. Hvis det trengs for å legge til tilgangen, kan du installere LibreTorrent fra en annen kilde. Hele listen er å finne på prosjektsiden:</string>
     <string name="torrent_speed_limit_dialog">Sett hastighet i KiB/s. Merk at å sette en høyere grense på en torrent overstyrer grensen satt for alle torrenter.</string>
+    <string name="apply_settings_after_reboot">Endringer utføres ved omstart av programmet.</string>
+    <string name="pref_posix_disk_io_summary">Merk: Kun bruk dette i gitte tilfeller, der du f.eks. trenger støtte for noen filsystemer brukt på SD-kort. Skrur på enkel POSIX disk-I/O, brukt for systemer som ikke har 64-biters virtuelt adresseområde, eller ikke støtte minnetilknyttede filer.</string>
+    <string name="pref_posix_disk_io_title">POSIX disk-I/O</string>
 </resources>

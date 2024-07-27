@@ -569,7 +569,7 @@
     <string name="pref_foreground_notify_status_filter_entries_0">Все</string>
     <string name="pref_foreground_notify_status_filter">Фильтр статуса</string>
     <string name="pref_foreground_notification_category">Настройки уведомления переднего плана</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать, как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Совмещённая кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
     <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите отклонить это разрешение\?</string>
@@ -580,4 +580,7 @@
     <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб-сидов будет проверятся в системном хранилище сертификатов.</string>
     <string name="download_first_last_pieces">Загружать с первых и последних частей</string>
     <string name="torrent_speed_limit_dialog">Установите скорость в КиБ/с. Обратите внимание, что установка более высокого лимита для торрента, чем глобальный лимит, не перезапишет глобальный лимит.</string>
+    <string name="pref_posix_disk_io_title">Дисковый POSIX I/O</string>
+    <string name="apply_settings_after_reboot">Изменения вступят в силу после перезапуска приложения.</string>
+    <string name="pref_posix_disk_io_summary">Примечание: эту опцию следует использовать только в определенных ситуациях, например, для поддержки некоторых файловых систем SD-карт. Включает простой дисковый POSIX I/O , используемый для систем, которые не имеют 64-битного виртуального адресного пространства или не поддерживают файлы с отображением в память.</string>
 </resources>

@@ -214,7 +214,7 @@
     <string name="change_priority_low">منخفض (تجاهل الملف)</string>
     <string name="change_priority_normal">عادي</string>
     <string name="change_priority_high">عالية</string>
-    <string name="torrent_state">الحالة</string>
+    <string name="torrent_state">حالة</string>
     <string name="torrent_speed">السرعة</string>
     <string name="torrent_downloaded">تم التحميل</string>
     <string name="torrent_ETA">الوقت المقدر للوصول</string>
@@ -560,7 +560,7 @@
     <string name="pref_foreground_notify_sorting_entries_5">الحجم (الأكبر أولا)</string>
     <string name="pref_validate_https_trackers_summary">سيتم التحقق من صحة شهادة أجهزة تتبع HTTPS وبذور الويب HTTPS في مخزن شهادات النظام.</string>
     <string name="pref_foreground_notify_sorting_entries_3">تاريخ الإضافة (الأقدم أولا)</string>
-    <string name="pref_validate_https_trackers_title">التحقق من صحة شهادة تعقب HTTPS</string>
+    <string name="pref_validate_https_trackers_title">التحقق من صحة شهادات متتبعات HTTPS</string>
     <string name="pref_foreground_notify_sorting_entries_0">الاسم (أ - ي)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">يجمع بين زرين: إيقاف الكل مؤقتًا واستئناف الكل. سوف يعمل الزر مثل المحول. تحذير: لا تتأثر حالة الزر بالتوقف / الاستئناف اليدوي للتورنت.</string>
     <string name="pref_foreground_notify_status_filter">عامل تصفية الحالة</string>
@@ -581,4 +581,7 @@
     <string name="pref_feed_keep_items_time_title">الاحتفاظ بالمقالات</string>
     <string name="perm_denied_warning_android_r">مطلوب إذن الوصول إلى جميع الملفات لتحميل السيول والوصول إلى الملفات .torrent في المجلدات التعسفية. وبدون هذا الإذن، لن يكون ل LibreTorrent سوى حق الوصول إلى عدد محدود من المجلدات. هل تريد بالتأكيد رفض هذا الإذن؟</string>
     <string name="torrent_speed_limit_dialog">ضبط السرعة في KiB / s. لاحظ أن تعيين حد أعلى للتورنت لن يتجاوز الحد العام الحد العام.</string>
+    <string name="apply_settings_after_reboot">سيتم تطبيق التغييرات بعد إعادة تشغيل التطبيق.</string>
+    <string name="pref_posix_disk_io_title">إدخال/إخراج قرص POSIX</string>
+    <string name="pref_posix_disk_io_summary">ملاحظة: هذا الخيار للاستخدام فقط في مواقف معينة ، مثل دعم بعض أنظمة ملفات بطاقة SD. تمكين إدخال/إخراج قرص POSIX بسيط، يستخدم للأنظمة التي لا تحتوي على مساحة عنوان ظاهرية 64 بت أو لا تدعم الملفات المعينة للذاكرة.</string>
 </resources>

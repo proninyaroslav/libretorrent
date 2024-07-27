@@ -423,7 +423,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Hanya koneksi yang tidak dibatasi</string>
     <string name="pref_umnetered_connections_only_summary">Hanya unduh melalui koneksi yang tidak dibatasi (contoh, Wi-Fi atau Ethernet).</string>
-    <string name="pref_enable_roaming_title">Roaming</string>
+    <string name="pref_enable_roaming_title">Jelajah</string>
     <string name="pref_enable_roaming_summary">Hanya unduh saat perangkat tidak dalam roaming.</string>
     <string name="pref_power_management_category">Pengelolaan daya</string>
     <string name="pref_keep_alive_title">Tetap jalankan</string>
@@ -511,7 +511,7 @@
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Hanya koneksi yang tidak dibatasi</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Hanya segarkan melalui koneksi yang tidak dibatasi (contoh, Wi-Fi atau Ethernet).</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Roaming</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Jelajah</string>
     <string name="pref_feed_keep_items_time_title">Tetap jaga artikel</string>
     <!-- pref_feed_keep_items_time_entries -->
     <string name="pref_feed_keep_items_time_entries_0">1 hari</string>
@@ -528,7 +528,7 @@
     <string name="pref_feed_remove_duplicates_title">Tidak ada duplikasi</string>
     <string name="pref_feed_remove_duplicates_summary">Lewatkan unduhan berkas dengan judul yang sudah ada.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Streaming</string>
+    <string name="pref_streaming_enable_title">StreaminG</string>
     <string name="pref_streaming_enable_summary">Mengizinkan mengunduh berkas individu dari torrent menggunakan web-browser atau pemutar media menggunakan tautan HTTP/S.</string>
     <string name="pref_streaming_hostname">Nama host</string>
     <string name="pref_streaming_port">Porta</string>
@@ -537,7 +537,7 @@
     <string name="about_title">Tentang</string>
     <string name="about_description">Informasi lebih lanjut dan bagaimana membantu bantu proyek: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent adalah libre yang dihakcipta (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) klien torrent untuk Android 4+, berdasarkan libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Catatan perubahan</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming">streaming</string>
     <string name="torrent_peers">Peer</string>
     <string name="drawer_sorting_peers">Popularitas</string>
     <string name="pref_default_trackers_list_summary">Daftar tracker yang digunakan pada kasus berikut:
@@ -557,7 +557,7 @@
     <string name="pref_foreground_notify_sorting_entries_9">ETA (terbesar dulu)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Popularitas (terkecil dulu)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Tombol jeda gabungan</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Menggabungkan dua tombol: jeda semua dan lanjutkan semua. Tombol akan bekerja seperti switcher. Peringatan: status tombol tidak terpengaruh oleh jeda/lanjutan manual torrent.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Menggabungkan dua tombol: hentikan semua dan lanjutkan semua. Tombol ini akan bekerja seperti switcher. Peringatan: kondisi tombol tidak terpengaruh oleh jeda manual/lanjutkan pada torrent.</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Kesalahan</string>
     <string name="pref_foreground_notify_sorting">Penyortiran</string>
     <string name="pref_foreground_notify_sorting_entries_0">Nama (A - Z)</string>
@@ -570,8 +570,16 @@
     <string name="pref_foreground_notify_sorting_entries_12">Tidak ada penyortiran</string>
     <string name="error_open_torrent">Tidak dapat membuka torrent</string>
     <string name="pref_foreground_notify_status_filter_entries_3">Mengunduh Metadata…</string>
-    <string name="manage_all_files_warning_dialog_description">LibreTorrent versi Google Play tidak memiliki izin untuk mengakses semua file. Ini berarti bahwa LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas, seperti Unduhan atau lainnya. Jika diperlukan, untuk mengaktifkan izin ini, silakan instal LibreTorrent dari sumber lain, daftar lengkap disajikan di halaman proyek:</string>
+    <string name="manage_all_files_warning_dialog_description">Jangan gunakan versi Google Play LibreTorrent jika anda ingin menyimpan torrents dalam folder selain \'download\' dan sejenisnya.
+\nAda sumber lain di halaman proyek.</string>
     <string name="perm_denied_warning_android_r">Akses semua file izin diperlukan untuk mengunduh torrent dan mengakses file .torrent di folder arbitrer. Tanpa izin ini, LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas. Apakah Anda yakin ingin menolak izin ini\?</string>
     <string name="manage_all_files_warning_dialog_title">Peringatan</string>
     <string name="exact_alarm_permission_warning">Agar penjadwal berfungsi, Anda harus mendapatkan izin dalam dialog sistem khusus. Lanjutkan\?</string>
+    <string name="torrent_speed_limit_dialog">Atur kecepatan dalam satuan KiB/s. Perlu diperhatikan bahwa mengatur batasan yang lebih tinggi pada satu torrent daripada batasan global tidak mengubah batasan global.</string>
+    <string name="pref_validate_https_trackers_summary">Sertifikat HTTPS pemantau dan juga seeder berbasis web HTTPS akan diperiksa keabsahannya dengan menggunakan penyimpanan sertifikat pada sistem.</string>
+    <string name="download_first_last_pieces">Unduh bagian pertama dan bagian terakhir terlebih dahulu</string>
+    <string name="pref_validate_https_trackers_title">Validasi sertifikat pelacak HTTPS</string>
+    <string name="pref_posix_disk_io_summary">Catatan: opsi ini hanya untuk digunakan dalam situasi tertentu, seperti dukungan untuk beberapa berkas kartu SD. Mengaktifkan Disk I/O POSIX sederhana, yang digunakan untuk sistem yang tidak memiliki ruang alamat virtual 64 bit atau tidak mendukung berkas pemetaan memori.</string>
+    <string name="apply_settings_after_reboot">Perubahan akan diterapkan setelah aplikasi dijalankan kembali.</string>
+    <string name="pref_posix_disk_io_title">Disk I/O POSIX</string>
 </resources>

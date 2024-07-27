@@ -1,1 +1,1 @@
-Client torrent logiciel Open Source avec copyleft.
+Client torrent logiciel libre copyleft.

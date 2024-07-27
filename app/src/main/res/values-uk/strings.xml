@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="ok">OK</string>
+    <string name="ok">ГАРАЗД</string>
     <string name="cancel">Скасувати</string>
     <string name="yes">Так</string>
     <string name="no">Ні</string>
@@ -34,7 +34,7 @@
     <string name="open_navigation_drawer">Відкрити панель навігації</string>
     <string name="close_navigation_drawer">Закрити панель навігації</string>
     <string name="file">Файл</string>
-    <string name="folder">Папка</string>
+    <string name="folder">Тека</string>
     <string name="finished">Завершено</string>
     <string name="pause_all">Призупинити всі</string>
     <string name="resume_all">Відновити всі</string>
@@ -144,7 +144,7 @@
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Завантаження…</string>
     <string name="torrent_status_seeding">Роздається…</string>
-    <string name="torrent_status_paused">Пауза</string>
+    <string name="torrent_status_paused">Призупинено</string>
     <string name="torrent_status_stopped">Зупинено</string>
     <string name="torrent_status_checking">Перевірка…</string>
     <string name="torrent_status_finished">Завершено</string>
@@ -169,7 +169,7 @@
     <string name="files_size">Вибрано %1$s з %2$s</string>
     <string name="start_torrent">Запустити торент</string>
     <string name="file_is_too_large_error">Завеликий файл</string>
-    <string name="unable_to_open_folder">Не вдається відкрити вибрану папку. Будь ласка, спробуйте вибрати іншу папку</string>
+    <string name="unable_to_open_folder">Не вдається відкрити вибрану теку. Будь ласка, спробуйте вибрати іншу теку.</string>
     <string name="error_empty_name">Введіть назву</string>
     <string name="ignore_free_space">Ігнорувати низький обсяг пам\'яті</string>
     <!-- Torrent info -->
@@ -185,12 +185,12 @@
     <string name="torrent_created_in_program">Створено в програмі</string>
     <string name="sequential_download">Послідовне завантаження</string>
     <!-- Filemanager dialog -->
-    <string name="dir_chooser_title">Вибір папки</string>
+    <string name="dir_chooser_title">Вибір теки</string>
     <string name="file_chooser_title">Вибір файлу</string>
     <string name="torrent_file_chooser_title">Вибір торента</string>
-    <string name="dialog_new_folder_title">Нова папка</string>
-    <string name="error_dialog_new_folder">Не вдалося створити нову папку</string>
-    <string name="error_open_dir">Не вдалося відкрити папку</string>
+    <string name="dialog_new_folder_title">Нова тека</string>
+    <string name="error_dialog_new_folder">Не вдалося створити нову теку</string>
+    <string name="error_open_dir">Не вдалося відкрити теку</string>
     <string name="home_directory">Головна</string>
     <!-- name (size) -->
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
@@ -202,7 +202,7 @@
     <string name="error_file_exists">Файл вже існує</string>
     <string name="file_name_is_empty">Спочатку введіть назву файлу</string>
     <string name="replace_file">Замінити файл</string>
-    <string name="parent_folder">Батьківська папка</string>
+    <string name="parent_folder">Батьківська тека</string>
     <!-- Error dialog -->
     <string name="report">Повідомити</string>
     <string name="more_details">Детальніше</string>
@@ -319,8 +319,8 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Створити торрент</string>
     <string name="creating_torrent_progress">Створення торренту, зачекайте…</string>
-    <string name="file_or_folder_for_seeding">Файл або папка для роздачі</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Будь ласка, спочатку виберіть файл або папку для роздачі.</string>
+    <string name="file_or_folder_for_seeding">Файл або тека для роздавання</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Будь ласка, спочатку виберіть файл або теку для роздавання.</string>
     <string name="tracker_urls">Адреси трекерів</string>
     <string name="web_seed_urls">Адреси веб роздачі</string>
     <string name="comments">Коментарі</string>
@@ -346,11 +346,11 @@
     <string name="piece_size_entries_11">16 МіБ</string>
     <string name="piece_size_entries_12">32 МіБ</string>
     <string name="invalid_url">Невірний URL: %1$s</string>
-    <string name="folder_is_empty">Вибрана папка порожня або всі файли виключені фільтром.</string>
+    <string name="folder_is_empty">Обрана тека порожня або всі файли виключені фільтром.</string>
     <string name="error_create_torrent">Неможливо створити торрент</string>
     <string name="skip_files">Пропустити файли</string>
     <string name="skip_files_hint">Введіть імена файлів, розділені символів \"|\".</string>
-    <string name="select_folder_to_save">Виберіть папку для збереження.</string>
+    <string name="select_folder_to_save">Оберіть теку для збереження.</string>
     <string name="torrent_saved_to">Торрент збережений у %1$s</string>
     <string name="unable_to_open_file">Неможливо відкрити вибраний файл</string>
     <string name="unable_to_create_file">Неможливо створити файл</string>
@@ -557,7 +557,7 @@
 \n1. При додаванні торрента список за замовчуванням автоматично додається до списку торрентів.
 \n2. Використовується для отримання магнітних посилань.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Комбінована кнопка паузи</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Об\'єднує дві кнопки: призупинити все і відновити все. Кнопка буде працювати як перемикач. Попередження: на стан кнопки не впливає ручна пауза/ резюме торрента.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Об\'єднує дві кнопки: призупинити все і відновити все. Кнопка працюватиме як перемикач. Попередження: на стан кнопки не впливає ручна пауза/поновлення торента.</string>
     <string name="error_open_torrent">Неможливо відкрити торрент</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Всі</string>
     <string name="pref_foreground_notify_status_filter_entries_1">Завантаження…</string>
@@ -570,13 +570,16 @@
     <string name="pref_foreground_notify_sorting_entries_5">Розмір (спочатку найбільший)</string>
     <string name="pref_foreground_notify_sorting_entries_1">Ім\'я (Я - А)</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Завантажено</string>
-    <string name="pref_validate_https_trackers_title">Перевірка сертифікату HTTPS-трекерів</string>
-    <string name="perm_denied_warning_android_r">Для завантаження торрентів і доступу до файлів .torrent у довільних папках потрібен дозвіл на доступ до всіх файлів. Без цього дозволу LibreTorrent матиме доступ лише до обмеженої кількості папок. Ви впевнені, що хочете відмовити в цьому дозволі\?</string>
-    <string name="pref_validate_https_trackers_summary">Сертифікат HTTPS-трекерів і веб-сидів HTTPS буде перевірено в системному сховищі сертифікатів.</string>
+    <string name="pref_validate_https_trackers_title">Перевірка сертифіката HTTPS-трекерів</string>
+    <string name="perm_denied_warning_android_r">Для завантаження торентів і доступу до файлів .torrent у довільних теках потрібен дозвіл на доступ до всіх файлів. Без цього дозволу LibreTorrent матиме доступ лише до обмеженої кількості тек. Ви впевнені, що хочете відмовити в цьому дозволі\?</string>
+    <string name="pref_validate_https_trackers_summary">Сертифікат HTTPS-трекерів і вебсидів HTTPS буде перевірено в системному сховищі сертифікатів.</string>
     <string name="exact_alarm_permission_warning">Щоб планувальник працював, ви повинні отримати дозвіл у спеціальному системному діалоговому вікні. Продовжити\?</string>
     <string name="manage_all_files_warning_dialog_title">Попередження</string>
     <string name="manage_all_files_warning_dialog_description">Не використовуйте версію LibreTorrent для Google Play, якщо ви бажаєте зберігати торенти в теках, відмінних від \"Завантажене\"або подібних.
 \nНа сторінці проєкту є інші джерела.</string>
     <string name="torrent_speed_limit_dialog">Встановити швидкість у КіБ/с. Зауважте, що встановлення для торента обмеження, більшого за глобальне, не замінить глобальне.</string>
     <string name="download_first_last_pieces">Спочатку завантажувати перші та останні частини</string>
+    <string name="apply_settings_after_reboot">Зміни буде застосовано після перезапуску застосунку.</string>
+    <string name="pref_posix_disk_io_title">Дисковий ввід/вивід POSIX</string>
+    <string name="pref_posix_disk_io_summary">Примітка: цю опцію можна використовувати лише в окремих ситуаціях, як-от підтримка деяких файлових систем SD-карт. Вмикає простий дисковий ввід-вивід POSIX, який використовується для систем, які не мають 64-розрядного віртуального адресного простору або не підтримують файли, відображені в пам’яті.</string>
 </resources>
