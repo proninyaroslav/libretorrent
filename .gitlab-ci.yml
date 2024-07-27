@@ -61,7 +61,7 @@ lintDebug:
   interruptible: true
   stage: build
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintBaseDebug -PbuildDir=lint
   artifacts:
     paths:
       - app/lint/reports/lint-results-debug.html
@@ -73,7 +73,7 @@ assembleDebug:
   interruptible: true
   stage: build
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew assembleBaseDebug
   artifacts:
     paths:
       - app/build/outputs/
@@ -84,4 +84,4 @@ debugTests:
   interruptible: true
   stage: test
   script:
-    - ./gradlew -Pci --console=plain :app:testDebug
+    - ./gradlew -Pci --console=plain :app:testBaseDebug
