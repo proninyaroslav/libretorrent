@@ -1,1 +1,1 @@
-Szabad és nyílt forráskódú torrentkliens.
+Copylefted szabad torrentkliens szoftver.

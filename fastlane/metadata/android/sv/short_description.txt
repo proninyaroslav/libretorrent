@@ -1,1 +1,1 @@
-Copylefted fri mjukvarutorrent-klient.
+Torrentklient med sunt förnuft byggd med öppen källkod.

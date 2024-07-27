@@ -1,19 +1,19 @@
-* 在 GPLv3+ 下授权。与所有人一起使用、查看和更改。
-* BitTorrent 2.0 and WebTorrent support
-* 选择要下载的文件。
-* 下载期间移动文件。
-* 自动移动已下载文件到另一个文件夹或外部驱动器。
-* 在线播放文件，支持序列下载。
-* 安卓 TV。
-* Material design、深色及黑色主题及平板电脑 UI。
-* 可自定义的网络、电池及 UI 设置等。
-* 超过 35 种语言翻译。
-* 任务计划。
-* 通过 Atom/RSS 管理器自动下载。
-* 创建带许多大文件的种子。
-* HTTP\S 和磁力链接。
-* DHT、PeX、加密、LSD, UPnP、NAT*PMP、µTP。
-* IP 过滤 (eMule dat 和 PeerGuardian)。
-* 支持设置 tracker 和 peer 代理。
-* 基于 libtorrent4j。
-* 以及更多。
+* 使用 GPLv3+ 许可证。你可以使用、查看、修改并再次分发给所有人。
+* 支持 BitTorrent 2.0 和 WebTorrent
+* 选择需要下载的文件。
+* 下载时移动文件。
+* 下载后自动移动文件至其他文件夹或外部存储设备。
+* 媒体文件按顺序下载。
+* Android TV。
+* Material design，声色和黑色主题，还有平板适配。
+* 可自定义网络、电池、UI 和更多设置。
+* 35+ 翻译。
+* 按照时间安排行为(Scheduling)。
+* 通过 Atom、RSS 管理，可自动下载。
+* 创建包含多个大文件的 torrents。
+* HTTP\S 和磁链。
+* DHT、PeX、加密、LSD、UPnP、NAT*PMP、µTP。
+* IP 过滤(eMule dat 和 PeerGuardian).
+* 支持代理 trackers 和节点。
+* 基于 libtorrent4j.
+* 和更多。

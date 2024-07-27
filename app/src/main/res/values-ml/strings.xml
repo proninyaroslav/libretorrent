@@ -10,10 +10,10 @@
     <string name="shutdown">അടച്ചു പൂട്ടുക</string>
     <string name="replace">പകരം വയ്ക്കുക</string>
     <string name="add">ചേർക്കുക</string>
-    <string name="delete">ചേർക്കുക</string>
-    <string name="deleting">ഇല്ലാതാക്കുന്നു</string>
+    <string name="delete">ഇല്ലാതാക്കുക</string>
+    <string name="deleting">ഇല്ലാതാക്കുന്നു…</string>
     <string name="select_all">എല്ലാം തിരഞ്ഞെടുക്കുക</string>
-    <string name="save">രക്ഷിക്കുക</string>
+    <string name="save">സംരക്ഷിക്കുക</string>
     <string name="search">അനേഷിക്കുക</string>
     <string name="not_available">ലഭ്യമല്ല</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -26,7 +26,7 @@
     <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">സ്ഥിരസ്ഥിതി</string>
     <string name="foreground_notification">ഫോർഗ്രൗണ്ട് അറിയിപ്പ്</string>
-    <string name="link">ഫോർഗ്രൗണ്ട് അറിയിപ്പ്</string>
+    <string name="link">ലിങ്ക്</string>
     <string name="filter">അരിപ്പ</string>
     <string name="refresh">പുതുക്കുക</string>
     <string name="edit">തിരുത്തുക</string>
@@ -48,10 +48,9 @@
     <string name="switch_off">വേണ്ട</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ഡൌൺലോഡ് ചെയ്ത ഫയലുകൾ ഇല്ലാതാക്കുക</string>
-    <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ\? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>
+    <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ\? (ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല.)</string>
     <string name="delete_selected_torrents">തിരഞ്ഞെടുത്ത ടോറന്റ്കൾ ഇല്ലാതാക്കണോ\? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>
     <string name="force_recheck_torrent">ഫോഴ്സ് വീണ്ടും പരിശോധിക്കുക</string>
-    <string name="force_announce_torrent">അറിയിപ്പ് നിർബന്ധമാക്കുക</string>
     <string name="add_link">ലിങ്ക് ചേർക്കുക</string>
     <string name="dialog_add_link_title">ഇൻഹോഹാഷ് മൂല്യം, മാഗ്നെറ്റ് ലിങ്ക് അല്ലെങ്കിൽ HTTP / HTTPS ലിങ്ക് നൽകുക</string>
     <string name="torrent_list_empty">ടോറന്റ്കൾ ഇല്ല</string>
@@ -475,7 +474,7 @@
     <string name="pref_anonymous_mode_title">അജ്ഞാത മോഡ് പ്രവർത്തനക്ഷമമാക്കുക</string>
     <string name="pref_anonymous_mode_summary">അപ്ലിക്കേഷൻ അതിന്റെ ഐഡന്റിറ്റി ഒരു പരിധി വരെ മറയ്ക്കാൻ ശ്രമിക്കുന്നു. ഉപയോക്തൃ-ഏജന്റിനെ ശൂന്യമായ ഒരു സ്‌ട്രിംഗിലേക്ക് പുന reset സജ്ജീകരിക്കും (സ്വകാര്യ ടോറന്റുകൾ ഒഴികെ). ഒരു പ്രോക്സി സെർവർ ഉപയോഗിക്കുകയാണെങ്കിൽ മാത്രമേ ട്രാക്കറുകൾ ഉപയോഗിക്കൂ. ലിസൺ‌ സോക്കറ്റുകൾ‌ അടച്ചിരിക്കുന്നു, ഇൻ‌കമിംഗ് കണക്ഷനുകൾ‌ ഒരു SOCKS5 അല്ലെങ്കിൽ‌ I2P പ്രോക്സി വഴി മാത്രമേ സ്വീകരിക്കുകയുള്ളൂ (ഒരു പിയർ‌ പ്രോക്സി സജ്ജമാക്കി ട്രാക്കർ‌ പ്രോക്സി പോലെ അതേ മെഷീനിൽ‌ പ്രവർ‌ത്തിക്കുകയാണെങ്കിൽ‌). NAT-PMP, UPnP, DHT, ലോക്കൽ പിയർ കണ്ടെത്തൽ എന്നിവ ഓഫാക്കി</string>
     <string name="pref_seeding_outgoing_connections_title">വിത്തുകൾക്കായി going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ പ്രവർത്തനക്ഷമമാക്കുക</string>
-    <string name="pref_seeding_outgoing_connections_summary">വിത്ത് വിതയ്ക്കുന്ന ടോറന്റുകൾ going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നടത്താൻ ശ്രമിക്കണോ വേണ്ടയോ എന്ന് നിർണ്ണയിക്കുന്നു. Going ട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ നിർമ്മിക്കുന്നതിനുള്ള ചെലവ് ഉയർന്ന സാഹചര്യങ്ങളിൽ ഇത് അപ്രാപ്തമാക്കിയേക്കാം</string>
+    <string name="pref_seeding_outgoing_connections_summary">സീഡിംഗ് ടോറന്റുകൾ ഔട്ട്‌ഗോയിംഗ് കണക്ഷനുകൾ ഉണ്ടാക്കാൻ അനുവദിക്കുന്നു. (ചെലവേറിയതാകാം.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">പ്രോക്സി തരം</string>
     <!-- pref_proxy_type_entries -->
@@ -493,7 +492,7 @@
     <string name="pref_proxy_password_title">പാസ്സ്‌വേർഡ്‌</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">ആരംഭ സമയം</string>
-    <string name="pref_enable_scheduling_start_summary">നിർദ്ദിഷ്ട സമയത്ത് അപ്ലിക്കേഷൻ ആരംഭിക്കുക. അവസാന അടച്ചുപണിക്ക് മുൻപായി സംസ്ഥാനത്തിന്റെ കണക്കുകൾ പ്രക്ഷേപണം ചെയ്യും</string>
+    <string name="pref_enable_scheduling_start_summary">ഒരു നിശ്ചിത സമയത്ത് ആപ്പ് ആരംഭിക്കുക. അവസാനത്തേത് അടച്ചുപൂട്ടുന്നതിന് മുമ്പ് അവരുടെ അവസ്ഥ അനുസരിച്ച് ടോറന്റുകൾ പ്രവർത്തിക്കുന്നു.</string>
     <string name="pref_enable_scheduling_shutdown_title">ഷട്ട്ഡൗൺ സമയം</string>
     <string name="pref_enable_scheduling_shutdown_summary">നിർദ്ദിഷ്ട സമയത്ത് ഷട്ട്ഡൗൺ ചെയ്യുക അപ്ലിക്കേഷൻ</string>
     <string name="pref_scheduling_run_only_once_title">ഒരിക്കൽ മാത്രം പ്രവർത്തിപ്പിക്കുക</string>
@@ -540,4 +539,7 @@
     <string name="about_title">LibreTorrent നെക്കുറിച്ച്</string>
     <string name="about_description">കൂടുതൽ വിവരങ്ങൾ &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt; ൽ ലഭ്യമാണ്&lt;br&gt;&lt;br&gt; ലിബ്‌ടോറന്റ് (ജാവ റാപ്പർ &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) അടിസ്ഥാനമാക്കിയുള്ള Android 4+ നായുള്ള ഫ്രീഡം ടോറന്റ് ക്ലയന്റിലെന്നപോലെ LibreTorrent ഒരു സ is ജന്യമാണ്.&lt;br&gt;&lt;br&gt; LibreTorrent എന്നത് സ്വതന്ത്ര സോഫ്റ്റ്വെയറാണ്, ഇത് &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt; നിബന്ധനകൾ‌ക്ക് കീഴിൽ പുറത്തിറക്കി</string>
     <string name="about_changelog">ചെയ്ഞ്ച്ലോഗ്</string>
+    <string name="manage_all_files_warning_dialog_title">മുന്നറിയിപ്പ്</string>
+    <string name="pref_validate_https_trackers_title">HTTPS ട്രാക്കറുകളുടെ സർട്ടിഫിക്കറ്റുകൾ സാധൂകരിക്കുക</string>
+    <string name="pref_validate_https_trackers_summary">HTTPS ട്രാക്കറുകളുടെയും HTTPS വെബ് സീഡുകളുടെയും സർട്ടിഫിക്കറ്റ് സിസ്റ്റം സർട്ടിഫിക്കറ്റ് സ്റ്റോറിൽ സാധൂകരിക്കും.</string>
 </resources>

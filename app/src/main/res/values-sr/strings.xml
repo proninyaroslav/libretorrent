@@ -148,7 +148,7 @@
     <string name="torrent_status_downloading_metadata">Преузимање метаподатака…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
-    <string name="perm_denied_warning">Заиста да спречите апликацији да чува .торрент датотеке у меморији\?</string>
+    <string name="perm_denied_warning">За преузимање торента и приступ .торрент датотекама потребна је дозвола за складиштење. Да ли заиста желите да одбијете ову дозволу\?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Додај торент</string>
     <string name="error_decode_torrent">Није могуће декодирати .торрент датотеку. Можда је оштећена или у погрешном формату\?</string>
@@ -542,4 +542,10 @@
     <string name="without_tags">Без ознака</string>
     <string name="select_tag">Изаберите ознаку</string>
     <string name="edit_tag">Измени ознаку</string>
+    <string name="download_first_last_pieces">Прво преузмите први и последњи комад</string>
+    <string name="manage_all_files_warning_dialog_description">Не користите Гугл Плеј верзију ЛибреТоррент-а ако желите да сачувате торенте у фасциклама које нису „Преузимања“ и слично.
+\nНа страници пројекта постоје и други извори.</string>
+    <string name="torrent_speed_limit_dialog">Подесите брзину у КиБ/с. Имајте на уму да постављање веће границе на торенту од глобалног ограничења неће надјачати глобално ограничење.</string>
+    <string name="error_open_torrent">Није могуће отворити торрент</string>
+    <string name="manage_all_files_warning_dialog_title">Упозорење</string>
 </resources>

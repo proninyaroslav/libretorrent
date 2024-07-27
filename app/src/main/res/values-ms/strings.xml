@@ -97,7 +97,7 @@
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Memuat turun…</string>
-    <string name="torrent_status_seeding">Menyemai seed…</string>
+    <string name="torrent_status_seeding">Sedang menyemai…</string>
     <string name="torrent_status_paused">Dijeda</string>
     <string name="torrent_status_stopped">Berhenti</string>
     <string name="torrent_status_finished">Selesai</string>
@@ -159,7 +159,7 @@
     <string name="torrent_share_ratio">Nisbah kongsi</string>
     <string name="torrent_active_time">Masa hidup</string>
     <string name="torrent_seeding_time">Masa menyemai</string>
-    <string name="torrent_pieces">Cebisan</string>
+    <string name="torrent_pieces">Bahagian</string>
     <string name="torrent_trackers">Penjejak</string>
     <string name="tracker_state_working">Berjalan</string>
     <string name="tracker_state_not_working">Tidak berjalan</string>
@@ -380,4 +380,48 @@
     <string name="pref_foreground_notify_sorting_entries_9">ETA (terbesar dahulu)</string>
     <string name="pref_umnetered_connections_only_summary">Hanya muat turun melalui sambungan tanpa had (cthnya. Wi-Fi ataupun Ethernet).</string>
     <string name="pref_foreground_notify_sorting_entries_5">Ukuran (terbesar dahulu)</string>
+    <string name="pref_theme_title">Tema</string>
+    <string name="pref_enable_roaming_summary">Hanya muat turun ketika peranti tidak dalam mod perantauan.</string>
+    <string name="pref_power_management_category">Pengurusan tenaga</string>
+    <string name="pref_keep_alive_title">Kekal berjalan</string>
+    <string name="pref_keep_alive_summary">Biarkan aplikasi berjalan di latar belakang. (Menutup aplikasi ketika kesemua muat turun selesai)</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">Tiada fail yang dipindahkan kecuali ketika peranti mengecas. (Menjeda semua torrent jika tidak bersambung dengan pengecas.)</string>
+    <string name="pref_battery_control_title">Pengawalan bateri</string>
+    <string name="pref_custom_battery_control_title">Peratusan bateri tersuai</string>
+    <string name="pref_custom_battery_control_value_title">Peratusan pengawalan bateri</string>
+    <string name="pref_battery_control_summary">Menjeda semua torrent ketika bateri di bawah %1$d%%. (Batasan tidak berlaku ketika mengecas.)</string>
+    <string name="pref_default_trackers_list_title">Penjejak lalai</string>
+    <string name="pref_default_trackers_list_summary">Senarai penjejak yang digunakan pada keadaan berikut:
+\n1. Ketika menambahkan torrent, daftar lalai ditambahkan secara automatik ke dalam senarai torrent.
+\n2. Digunakan untuk mengambil pautan magnet.</string>
+    <string name="pref_proxy_settings_title">Tetapan proksi</string>
+    <string name="pref_enable_dht_summary">Benarkan menemukan yang lain tanpa penjejak. (Meningkatkan penggunaan bateri)</string>
+    <string name="pref_enable_lsd_summary">Direka untuk menyokong pencarian setempat bagi mengurangi lalu-lintas data.</string>
+    <string name="pref_port_range_end_title">Tamat</string>
+    <string name="pref_encryption_category">Penyulitan</string>
+    <string name="pref_enc_mode_title">Mod</string>
+    <string name="pref_enc_mode_entries_0">Utamakan penyulitan</string>
+    <string name="pref_enc_mode_entries_2">Matikan penyulitan</string>
+    <string name="pref_enc_in_connections_title">Sambungan masuk</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Menggabungkan dua butang: jeda semua dan lanjutkan semua. Butang akan bekerja seperti switcher. Peringatan: status butang tidak terpengaruh dengan jeda/lanjutan manual torrent.</string>
+    <string name="pref_use_random_port_title">Gunakan port rawak</string>
+    <string name="pref_enc_mode_entries_1">Memerlukan penyulitan</string>
+    <string name="pref_enc_out_connections_title">Sambungan keluar</string>
+    <string name="pref_ip_filtering_category">Penapisan IP</string>
+    <string name="pref_cpu_do_not_sleep_summary">Gunakan jika kelajuan muat turun berkurang ketika layar mati. (Meningkatkan penggunaan bateri.)</string>
+    <string name="pref_theme_entries_1">Gelap</string>
+    <string name="pref_shutdown_downloads_complete_title">Matikan setelah semua muat turun selesai</string>
+    <string name="pref_shutdown_downloads_complete_summary">Mematikan aplikasi setelah semua muat turun selesai.</string>
+    <string name="pref_cpu_do_not_sleep_title">Kekalkan peranti untuk kekal berjaga</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Hanya muat turun dan muat naik ketika mengecas.</string>
+    <string name="pref_custom_battery_control_summary">Tetap peratusan bateri khusus untuk menjeda muat turun. (Mengabaikan batasan lalai %1$d%%)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Anda pasti ingin menetapkan %% bateri untuk diperhatikan\? (Meningkatkan penggunaan bateri ketika memuat turun.)</string>
+    <string name="pref_enable_ip_filtering_title">Penapis IP</string>
+    <string name="pref_ip_filtering_file_title">Laluan ke fail penapis (.dat, .p2p)</string>
+    <string name="pref_show_nat_errors">Papar keralatan NAT</string>
+    <string name="pref_anonymous_mode_title">Mod awanama</string>
+    <string name="pref_port_settings_category">Tetapan port</string>
+    <string name="pref_port_range_start_title">Mula</string>
+    <string name="pref_theme_entries_0">Terang</string>
+    <string name="pref_enable_ip_filtering_summary">Penapis IP mungkin memerlukan beberapa saat untuk dimulakan bergantung kepada saiz fail. (Menambah penggunaan memori)</string>
 </resources>

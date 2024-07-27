@@ -1,19 +1,19 @@
 * GPLv3+ licencija. Naudokite, žiūrėkite, keiskite ir dalinkitės; su visais.
-* BitTorrent 2.0 and WebTorrent support
+* BitTorrent 2.0 ir WebTorrent palaikymas
 * Pasirinkite, kuriuos failus atsisiųsti.
 * Perkelkite failus atsisiuntimo metu.
 * Automatinis atsisiųstų failų perkėlimas į kitą aplanką arba išorinį diską.
-* Siųskite failus srautiniu būdu, naudodami nuoseklų atsisiuntimą.
-* „Android TV“.
-* „Material“ dizainas, tamsi ir juoda temos bei planšetinio kompiuterio vartotojo sąsaja.
+* Srautiniai failai su nuosekliu atsisiuntimu.
+* Android TV.
+* Material dizainas, tamsi ir juoda temos bei planšetinio kompiuterio vartotojo sąsaja.
 * Tinklo, akumuliatoriaus, vartotojo sąsajos ir kt. nustatymų pritaikymas.
 * Daugiau nei 35 vertimai.
 * Planavimas.
-* Automatinis atsisiuntimas su „Atom/RSS“ tvarkykle.
-* Kurkite torentus, kuriuose yra daug ir didelių failų.
+* Automatinis atsisiuntimas su Atom/RS tvarkykle.
+* Kurkite torrentus, kuriuose yra daug ir didelių failų.
 * HTTP\S ir magnetinės nuorodos.
 * DHT, PeX, šifravimas, LSD, UPnP, NAT*PMP, µTP.
 * IP filtravimas (eMule dat ir PeerGuardian).
-* Palaikomi įgaliotuosius serverius sekliams ir siuntėjams.
+* Palaikomi tarpiniai serverių ir lygiaverčių vartotojų serveriai.
 * Parengta pagal libtorrent4j.
 * Ir dar daugiau.

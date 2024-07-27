@@ -1,19 +1,19 @@
-* Gelicentieerd GPLv3+. Gebruiken, zien, veranderen en delen; met iedereen.
-* BitTorrent 2.0 and WebTorrent support
-* Selecteren welke bestanden te downloaden.
+* GPLv3+ licentie. Gebruiken, bekijken, veranderen en delen; met iedereen. 
+* Ondersteuning voor BitTorrent 2.0 en WebTorrent 
+* Selecteren welke bestanden u wilt downloaden.
 * Bestanden verplaatsen tijdens het downloaden.
-* Automatisch verplaatsen van gedownloade bestanden naar een andere map of externe schijf.
+* Gedownloade bestanden automatisch verplaatsen naar een andere map of externe schijf.
 * Bestanden streamen, met sequentiële downloads.
 * Android TV.
 * Material design, donker en zwart thema, en tablet UI.
 * Aanpasbare instellingen voor netwerk, batterij en UI, enz.
 * Meer dan 35 vertalingen.
 * Planning.
-* Automatisch downloaden, met Atom/RSS-manager.
+* Automatisch downloaden met Atom/RSS manager.
 * Torrents aanmaken, met veel en grote bestanden.
 * HTTP\S en magneetkoppelingen.
 * DHT, PeX, versleuteling, LSD, UPnP, NAT*PMP, µTP.
-* IP-filtering (eMule-dat en PeerGuardian).
+* IP-filtering (eMule dat en PeerGuardian).
 * Ondersteunt proxy voor trackers en peers.
 * Gebaseerd op libtorrent4j.
 * En meer.

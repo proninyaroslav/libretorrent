@@ -579,4 +579,7 @@
     <string name="download_first_last_pieces">最初と最後のピースを最初にダウンロード</string>
     <string name="pref_validate_https_trackers_summary">HTTPS トラッカーと HTTPS ウェブシードの証明書は、システムの証明書ストアで検証されます。</string>
     <string name="torrent_speed_limit_dialog">速度をKiB/sで設定してください。トレントの上限が全体の上限より高いとき、全体の上限は上書きされません。</string>
+    <string name="apply_settings_after_reboot">変更は、アプリを再起動後に適応されます。</string>
+    <string name="pref_posix_disk_io_title">POSIX ディスク入出力</string>
+    <string name="pref_posix_disk_io_summary">注意: この設定は、一部のSDカードファイルシステムをサポートするためのような、特殊な状況だけに使います。単純なPOSIX ディスク入出力を有効化し、64bit仮想アドレス空間を持たないシステムや、メモリマップトファイルをサポートしないシステムで使われます。</string>
 </resources>

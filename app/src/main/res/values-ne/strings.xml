@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="yes">हो</string>
+    <string name="no">होइन</string>
+    <string name="error">त्रुटि</string>
+    <string name="shutdown">बन्द गर्नुहोस्</string>
+    <string name="deleting">हटाउँदै…</string>
+    <string name="select_all">सबै चयन गर्नुहोस्</string>
+    <string name="save">बचत गर्नुहोस्</string>
+    <string name="search">खोज्नुहोस्</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d दिन %2$d घण्टा %3$d मिनेट</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d घण्टा %2$d मिनेट %3$d सेकेन्ड</string>
+    <string name="elapsed_time_format_mm_ss">%1$d मिनेट %2$d सेकेन्ड</string>
+    <string name="elapsed_time_format_ss">%1$d सेकेन्ड</string>
+    <string name="def">पूर्वनिर्धारित</string>
+    <string name="warning">सावधान</string>
+    <string name="ok">ठीक छ</string>
+    <string name="cancel">रद्द गर्नुहोस्</string>
+    <string name="replace">प्रतिस्थापन गर्नुहोस्</string>
+    <string name="delete">हटाउनुहोस्</string>
+    <string name="add">थप्नुहोस्</string>
+</resources>

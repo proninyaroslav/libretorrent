@@ -1,19 +1,19 @@
-* 通過 GPLv3+ 授權。使用、查看、修改與分享一切！
-* BitTorrent 2.0 and WebTorrent support
-* 可選擇 Torrent 中的個別檔案以下載。
-* 允許在下載過程中移動檔案。
-* 自動將已下載的檔案移動至另一個資料夾或外部儲存裝置。
-* 串流檔案，以及連續不間斷地下載。
-* 支援 Android TV.
-* 使用 Material design，提供深色與黑色主題，及適合平板的界面。
-* 可自訂的網路、電量與界面設定等。
-* 35+ 種以上的翻譯。
-* 可以預訂時間執行。
-* 自動下載，支援 Atom/RSS 管理器。
-* 製作 torrent，不論檔案大小與數量。
-* 支援一般的 HTTP(S) 與磁力連結。
-* 多種常見的協定與服務支持，包含 DHT、PeX、encryption、LSD、UPnP、NAT*PMP、µTP。
-* IP 過濾（例如針對 eMule dat 以及 PeerGuardian）
-* 支持對追蹤器（tracker）以及用戶（peer）使用 proxy （網路代理）。
-* 基於 libtorrent4j 函式庫。
-* 未完待續……
+* 使用 GPLv3+ 授權條款。你可以使用、查看、修改並再次分發给所有人。
+* 支持 BitTorrent 2.0 和 WebTorrent
+* 選擇需要下載的檔案。
+* 下載時移動檔案。
+* 下載後自動移動檔案至其他資料夾或外接儲存設備。
+* 按順序下載媒體檔案。
+* 安卓電視。
+* Material design，深色和黑色主題，還有平板 UI 。
+* 可自訂網路、電池、UI和更多設置。
+* 35 個以上的翻譯。
+* 事件排程。
+* 通過Atom、RSS管理，可自動下載。
+* 建立包含許多大檔案的種子。
+* HTTP\S 和磁力連結。
+* DHT、PeX、加密、LSD、UPnP、NAT*PMP、µTP。
+* IP 過濾（eMule dat 和 PeerGuardian）。
+* 支援代理追蹤器和節點。
+* 基於 libtorrent4j。
+* 和更多。

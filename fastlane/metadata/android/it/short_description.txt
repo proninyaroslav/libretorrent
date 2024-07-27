@@ -1,1 +1,1 @@
-Un client torrent libre copylefted.
+Client per torrent (software libero, copyleft).

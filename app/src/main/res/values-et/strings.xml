@@ -486,4 +486,12 @@
     <string name="pref_proxy_type_entries_2">SOCKS5</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_port_title">Port</string>
+    <string name="perm_denied_warning_android_r">Ligipääs kõikidele failidele on vajalik, et allalaadida torrenteid ja avada .torrent faile erinevatest kaustadest. Kui keeldute loa andmisest, siis saab LibreTorrent ligipääsu ainult vähestesse kaustadesse. Oled kindel, et soovid keelduda nõusoleku andmisest\?</string>
+    <string name="pref_streaming_enable_summary">Laseb torrentist allalaadida faile individuaalselt, kasutades veebilehitsejat või meedia mängijat ja HTTP/S URL\'i.</string>
+    <string name="pref_use_random_port_summarty">Määrab suvalise pordi vahemikust [%1$d, %2$d] ja viimane port, kui esimene + 10.</string>
+    <string name="pref_proxy_requires_auth_title">Volitust on vaja</string>
+    <string name="pref_foreground_notify_sorting">Järjestus</string>
+    <string name="pref_seeding_outgoing_connections_title">Väljaminevaid ühendusi jagamiseks</string>
+    <string name="pref_feed_auto_refresh_summary">Värskenda kanaleid perioodiliselt tagaplaanil.</string>
+    <string name="pref_enable_scheduling_start_summary">Käivita äpp kindlal ajal. Torrentid käivitatakse vastavalt nagu on nende olek, enne kui viimane suletakse.</string>
 </resources>

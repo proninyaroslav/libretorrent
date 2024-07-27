@@ -48,8 +48,8 @@
     <string name="switch_off">முடக்கு</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">பதிவிறக்கப்பட்ட கோப்புகளை நீக்கு</string>
-    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்கு\? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
-    <string name="delete_selected_torrents">தேர்ந்தெடுத்த தொகையை நீக்கவா\? இந்த செயல்பாடு செயல்தவிர்க்க முடியாது</string>
+    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்க வேண்டுமா\? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது)</string>
+    <string name="delete_selected_torrents">தேர்ந்தெடுக்கப்பட்டுள்ள டோரண்டுகளை நீக்க வேண்டுமா\? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது.)</string>
     <string name="force_recheck_torrent">படை மறுபடியும்</string>
     <string name="force_announce_torrent">படை அறிவிப்பு</string>
     <string name="add_link">இணைப்பைச் சேர்க்கவும்</string>
@@ -58,14 +58,14 @@
     <string name="select_or_add_torrent">ஒன்றைத் தேர்ந்தெடுக்கவும் அல்லது சேர்க்கவும்</string>
     <string name="error_empty_link">இணைப்பை உள்ளிடுக</string>
     <string name="error_invalid_link">தவறான இணைப்பு</string>
-    <string name="error_open_torrent_file">Torrent கோப்பை திறக்க முடியவில்லை</string>
+    <string name="error_open_torrent_file">டோரண்ட் கோப்பை திறக்க முடியவில்லை</string>
     <string name="open_file">கோப்பை திற</string>
     <string name="settings">அமைப்புகள்</string>
     <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது\?</string>
     <string name="ip_filter_add_success">IP வடிப்பான் வெற்றிகரமாக சேர்க்கப்பட்டது</string>
     <string name="proxy_settings_applied">பதிலாள் சேவையக அமைப்புகள் வெற்றிகரமாக பயன்படுத்தப்பட்டன</string>
     <string name="proxy_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பதிலாள் சேவையக அமைப்புகள் பயன்படுத்தப்படும்</string>
-    <string name="theme_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு தீம் அமைப்புகள் பயன்படுத்தப்படும்</string>
+    <string name="theme_settings_apply_after_reboot">புதிய தீம் பயன்படுத்த செயலியை மறுதொடக்கம் செய்.</string>
     <string name="about">பற்றி</string>
     <!-- Navigation drawer -->
     <string name="session_stats_dht_nodes">DHT கணுக்கள்:%1$d</string>
@@ -115,8 +115,8 @@
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">பதிவிறக்குகிறது: %1$d ⬇ இல் %2$d</string>
     <string name="app_running_in_the_background">பின்புலத்தில் இயங்குகிறது…</string>
-    <string name="network_online">நெட்வொர்க் நிலை: ஆன்லைன்</string>
-    <string name="network_offline">நெட்வொர்க் நிலை: ஆஃப்லைன்</string>
+    <string name="network_online">ஆன்லைன்</string>
+    <string name="network_offline">ஆஃப்லைன்</string>
     <string name="notify_shutting_down">நிறுத்துதல்…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">டோரண்ட் பிழை</string>
@@ -155,14 +155,14 @@
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent ஐ சேர்க்கவும்</string>
     <string name="error_decode_torrent">டிரான்டிங் டிராண்ட் கோப்பு தோல்வியடைந்தது. ஒருவேளை கோப்பு சிதைந்திருக்கலாம் அல்லது தவறான வடிவமைப்பில் இருக்கலாம்\?</string>
-    <string name="error_io_torrent">Torrent கோப்பைப் படிப்பதில் பிழை</string>
+    <string name="error_io_torrent">டோரண்ட் கோப்பை படிக்க முடியவில்லை</string>
     <string name="error_fetch_link">இணைப்பு இருந்து தரவை பெற முடியவில்லை</string>
     <string name="error_invalid_link_or_path">தவறான இணைப்பு அல்லது வேகமான பாதை</string>
     <string name="error_add_torrent">வேகத்தை சேர்க்க முடியவில்லை</string>
     <string name="error_file_not_found_add_torrent">வேகத்தை சேர்க்க முடியவில்லை. ஒருவேளை torrent கோப்பு நகர்த்தப்பட்டது அல்லது நீக்கப்பட்டது\?</string>
     <string name="error_io_add_torrent">Torrent ஐ சேர்க்க முடியவில்லை. I / O பிழை</string>
     <string name="torrent_exist">டோரண்ட் ஏற்கனவே உள்ளது. தொந்தரவுகள் இணைக்கப்பட்டன</string>
-    <string name="error_field_required">இந்த புலம் தேவை</string>
+    <string name="error_field_required">தேவைப்படும் தகவல்</string>
     <string name="error_no_files_selected">கோப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை</string>
     <string name="free_space">%1$s இலவசம்</string>
     <string name="error_free_space">தேர்ந்தெடுக்கப்பட்ட கோப்புகளில் பதிவிறக்கப்பட்ட பாதையில் போதுமான இடைவெளி இல்லை</string>
@@ -200,7 +200,7 @@
     <string name="save_file">கோப்பை சேமி</string>
     <string name="file_name">கோப்பு பெயர்</string>
     <string name="error_file_exists">கோப்பு ஏற்கனவே உள்ளது</string>
-    <string name="file_name_is_empty">கோப்பு பெயர் காலியாக இருக்க முடியாது</string>
+    <string name="file_name_is_empty">கோப்பு பெயரை முதலில் உள்ளிடவும்</string>
     <string name="replace_file">கோப்பை மாற்றவும்</string>
     <string name="parent_folder">பெற்றோர் கோப்புறை</string>
     <!-- Error dialog -->
@@ -303,14 +303,14 @@
     <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா\?</string>
     <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா\?</string>
     <string name="edit_feed_channel">சேனலைத் திருத்தவும்</string>
-    <string name="link_copied_to_clipboard">இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
+    <string name="link_copied_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
     <string name="mark_as_read">படித்ததாக</string>
     <string name="mark_as_unread">படிக்காதது என்று குறி</string>
     <string name="feed_item_list_empty">கட்டுரைகள் இல்லை</string>
-    <string name="backup_feeds_successfully">சேனல்கள் வெற்றிகரமாக சேமிக்கப்பட்டன</string>
-    <string name="restore_feeds_backup_successfully">சேனல்கள் வெற்றிகரமாக மீட்டமைக்கப்பட்டன</string>
-    <string name="error_backup_feeds">சேனல்களைச் சேமிப்பதில் தோல்வி</string>
-    <string name="error_restore_feeds_backup">சேனல்களை மீட்டெடுப்பதில் தோல்வி</string>
+    <string name="backup_feeds_successfully">சேனல்கள் சேமிக்கப்பட்டன</string>
+    <string name="restore_feeds_backup_successfully">சேனல்கள் மீட்டமைக்கப்பட்டன</string>
+    <string name="error_backup_feeds">சேனல்களைச் சேமிக்க முடியவில்லை</string>
+    <string name="error_restore_feeds_backup">சேனல்களை மீட்டெடுக்க முடியவில்லை</string>
     <string name="feed_item_open_article_url">திறந்த கட்டுரை</string>
     <string name="feeds_backup_selection_dialog_title">காப்பு கோப்பைத் தேர்ந்தெடுக்கவும்</string>
     <string name="error_import_invalid_format">தவறான வடிவம்</string>
@@ -365,7 +365,7 @@
     <string name="journal_filter_peer_log">பியர் பதிவு</string>
     <string name="journal_filter_portmap_log">UPnP / NAT-PMP பதிவு</string>
     <string name="journal_filter_torrent_log">டொரண்ட் பதிவு</string>
-    <string name="journal_save_log_failed">பதிவைச் சேமிப்பதில் தோல்வி</string>
+    <string name="journal_save_log_failed">பதிவைச் சேமிக்க முடியவில்லை</string>
     <string name="journal_save_log_success">பதிவு வெற்றிகரமாக சேமிக்கப்பட்டது:%1$s</string>
     <string name="pref_journal_save_log_to">பதிவைச் சேமிக்கவும்…</string>
     <!-- Log settings -->
@@ -392,8 +392,8 @@
     <string name="pref_dir_to_watch_title">பார்க்க கோப்பகம்</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">வேகம்</string>
-    <string name="pref_max_download_speed_title">அதிகபட்ச வேகம்</string>
-    <string name="pref_max_upload_speed_title">அதிகபட்ச பதிவேற்ற வேகம்</string>
+    <string name="pref_max_download_speed_title">அதிகபட்ச ⬇ வேகம்</string>
+    <string name="pref_max_upload_speed_title">அதிகபட்ச ⬆ வேகம்</string>
     <string name="pref_max_connections_title">இணைப்புகளின் அதிகபட்ச எண்ணிக்கை</string>
     <string name="pref_max_connections_summary">இணைப்புகளின் குறைந்தபட்ச எண்ணிக்கை - 2</string>
     <string name="pref_torrent_queueing_category">டோண்ட் வரிசை</string>
@@ -415,7 +415,7 @@
     <string name="pref_theme_entries_2">பிளாக்</string>
     <string name="pref_notification_category">அறிவிப்பு அமைப்புகள்</string>
     <string name="pref_torrent_finish_notify_title">டொரண்ட் முடிப்பு அறிவிப்பு</string>
-    <string name="pref_torrent_finish_notify_summary">ஒரு டார்ட் பதிவிறக்க முடிந்ததும் ஒரு அறிவிப்பைக் காட்டு</string>
+    <string name="pref_torrent_finish_notify_summary">ஒரு டாரண்ட் பதிவிறக்கி முடிந்ததும் அறிவிப்பைக் காட்டு</string>
     <string name="pref_play_sound_notify_title">ஒலி விளையாட</string>
     <string name="pref_notify_sound_title">அறிவிப்பு ஒலி</string>
     <string name="pref_led_indicator_notify_title">LED காட்டி</string>
@@ -423,14 +423,14 @@
     <string name="pref_vibration_notify_title">அதிர்வு</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">தானாகத்</string>
-    <string name="pref_autostart_summary">சாதனம் தொடங்கி பயன்பாட்டை இயக்கவும்</string>
+    <string name="pref_autostart_summary">சாதனம் ஆன் செய்தவுடன் செயலியை தொடங்கவும்.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">அளவிடப்படாத இணைப்புகள் மட்டுமே</string>
     <string name="pref_umnetered_connections_only_summary">அளவிடப்படாத இணைப்புகளில் மட்டுமே பதிவிறக்கவும் (எடுத்துக்காட்டாக, வைஃபை அல்லது ஈதர்நெட்)</string>
-    <string name="pref_enable_roaming_title">ரோமிங்கை இயக்கு</string>
+    <string name="pref_enable_roaming_title">ரோமிங்</string>
     <string name="pref_enable_roaming_summary">சாதனம் ரோமிங் செய்யாவிட்டால் மட்டுமே பதிவிறக்கவும்</string>
     <string name="pref_power_management_category">மின் மேலாண்மை</string>
-    <string name="pref_keep_alive_title">உயிரோடு வைத்திரு</string>
+    <string name="pref_keep_alive_title">இயக்கிக்கொண்டே இரு</string>
     <string name="pref_keep_alive_summary">இயக்கப்பட்டால், பயன்பாடு பின்னணியில் இயங்கும். பதிவிறக்கங்கள் முடிந்தவுடன் பணிநிறுத்தம் செய்யப்படும்</string>
     <string name="pref_shutdown_downloads_complete_title">பதிவிறக்கங்கள் முடிந்தவுடன் பணிநிறுத்தம்</string>
     <string name="pref_shutdown_downloads_complete_summary">இயக்கப்பட்டிருந்தால், எல்லா பதிவிறக்கங்களும் முடிந்தவுடன் பயன்பாட்டை நிறுத்தலாம்</string>
@@ -566,4 +566,6 @@
     <string name="pref_foreground_notify_sorting_entries_11">பிரபலம் (பெரியது முதலில்)</string>
     <string name="pref_foreground_notify_sorting_entries_10">பிரபலம் (சிறியது முதலில்)</string>
     <string name="pref_default_trackers_list_title">இயல்புநிலை சுவடுகள்</string>
+    <string name="manage_all_files_warning_dialog_title">எச்சரிக்கை</string>
+    <string name="download_first_last_pieces">முதல் மற்றும் கடைசி பாகங்களை முதலில் தரவிறக்கவும்</string>
 </resources>

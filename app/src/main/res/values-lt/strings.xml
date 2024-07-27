@@ -62,7 +62,7 @@
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <!-- Status -->
-    <string name="drawer_status">Statusas</string>
+    <string name="drawer_status">Būsena</string>
     <string name="drawer_status_downloading">Parsisiunčiama…</string>
     <string name="drawer_status_downloading_metadata">Atsisiunčiami metaduomenys…</string>
     <string name="drawer_status_error">Klaida</string>
@@ -572,4 +572,12 @@
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinuotas pauzės mygtukas</string>
     <string name="error_open_torrent">Nepavyksta atidaryti torento</string>
     <string name="exact_alarm_permission_warning">Kad tvarkaraštis veiktų, turite gauti leidimą specialiame sistemos dialogo lange. Vykdyti\?</string>
+    <string name="perm_denied_warning_android_r">Norint atsisiųsti torentus ir pasiekti .torrent failus esančius bet kuriuose aplankuose, reikalingas prieigos prie visų failų leidimas. Be šio leidimo LibreTorrent turės prieigą tik prie riboto skaičiaus aplankų. Ar tikrai norite atmesti šį leidimą\?</string>
+    <string name="pref_validate_https_trackers_summary">HTTPS sekimo priemonių ir HTTPS žiniatinklio skleidėjų sertifikatas bus patvirtintas sistemos sertifikatų saugykloje.</string>
+    <string name="manage_all_files_warning_dialog_title">Įspėjimas</string>
+    <string name="pref_validate_https_trackers_title">Patikrinti HTTPS sekimo priemonių sertifikatą</string>
+    <string name="download_first_last_pieces">Pirmiausia atsisiųsti pirmą ir paskutinę dalis</string>
+    <string name="torrent_speed_limit_dialog">Nustatyti greitį KiB/s. Atkreipkite dėmesį, kad nustačius didesnę torento ribą nei globali riba, globali riba nebus pakeista.</string>
+    <string name="manage_all_files_warning_dialog_description">Nenaudokite „Google Play“ LibreTorrent versijos, jei norite išsaugoti torrentus kituose aplankuose nei „Atsisiuntimai“ ir panašiai.
+\nProjekto puslapyje yra ir kitų šaltinių.</string>
 </resources>

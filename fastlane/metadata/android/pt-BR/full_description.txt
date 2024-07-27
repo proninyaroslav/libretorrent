@@ -1,4 +1,4 @@
-* Licenciado na GPLv3+. Use, veja, altere e compartilhe; com todos.
+*Licenciado na GPLv3+. Use, veja, altere e compartilhe; com todos.
 * Suporte a BitTorrent 2.0 e WebTorrent.
 * Selecione quais arquivos baixar.
 * Mova arquivos durante o download.

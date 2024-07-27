@@ -1,1 +1,1 @@
-Cliente de torrent livre com licença copyleft.
+Cliente de torrent com licença livre copyleft.

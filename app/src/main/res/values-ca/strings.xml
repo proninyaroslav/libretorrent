@@ -44,8 +44,8 @@
     <string name="settings">Paràmetres</string>
     <string name="ip_filter_add_error">No s’ha pogut afegir el filtre d’IP (%1$d ha fallat). Potser el fitxer estigui danyat o tingui un format incorrecte.</string>
     <string name="ip_filter_add_success">S’ha afegit el filtre d’IP</string>
-    <string name="proxy_settings_applied">Proxy server settings applied successfully</string>
-    <string name="proxy_settings_apply_after_reboot">Proxy server settings will be applied after restarting the app</string>
+    <string name="proxy_settings_applied">Utilitzant les noves opcions de servidor proxy.</string>
+    <string name="proxy_settings_apply_after_reboot">Les opcions de servidor Proxy s\'habilitaran un cop reiniciada l\'aplicació.</string>
     <string name="theme_settings_apply_after_reboot">Reinicieu l’aplicació per a utilitzar el tema nou.</string>
     <string name="about">Quant a</string>
     <!-- Navigation drawer -->
@@ -64,7 +64,7 @@
     <string name="drawer_sorting_size">Mida</string>
     <string name="drawer_sorting_progress">Progrés</string>
     <string name="drawer_sorting_ETA">Temps estimat</string>
-    <string name="drawer_sorting_peers">Parells</string>
+    <string name="drawer_sorting_peers">Popularitat</string>
     <string name="drawer_sorting_no_sorting">Sense ordre</string>
     <!-- Date added -->
     <string name="drawer_date_added">Data d’addició</string>
@@ -90,11 +90,11 @@
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
-    <string name="network_online">Network status: Online</string>
-    <string name="network_offline">Network status: Offline</string>
+    <string name="network_online">En línia</string>
+    <string name="network_offline">Fora de línia</string>
     <!-- Error notification -->
     <string name="error_template">Error: %1$s</string>
-    <string name="restore_torrent_error">unable to restore torrent from previous session</string>
+    <string name="restore_torrent_error">No s\'ha pogut reestablir el Torrent de la sessió anterior.</string>
     <!-- ip_address:port, type (error: error_msg)-->
     <string name="nat_error_title">NAT error</string>
     <!-- Finish notification -->
@@ -125,20 +125,20 @@
     <string name="add_torrent_title">Afegeix torrent</string>
     <string name="error_decode_torrent">No s’ha pogut descodificar el fitxer .torrent. Potser estigui danyat o tingui un format incorrecte.</string>
     <string name="error_io_torrent">No s’ha pogut llegir el fitxer .torrent</string>
-    <string name="error_fetch_link">Failed to fetch data from the link</string>
-    <string name="error_invalid_link_or_path">Invalid link or path to the torrent</string>
+    <string name="error_fetch_link">No s\'han pogut extreure dades de l\'enllaç</string>
+    <string name="error_invalid_link_or_path">Enllaç o ruta del Torrent incorrectes</string>
     <string name="error_add_torrent">No s’ha pogut afegir el torrent</string>
     <string name="error_file_not_found_add_torrent">No s’ha pogut afegir el torrent. Potser el fitxer .torrent s’ha mogut o suprimit.</string>
-    <string name="error_io_add_torrent">Unable to add the torrent. I/O error</string>
+    <string name="error_io_add_torrent">No es pot afegir el torrent a causa d\'un error d\'E/S.</string>
     <string name="torrent_exist">Com que el torrent ja existia, ambdós s’han fusionat.</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_field_required">Camp requerit</string>
     <string name="free_space">%1$s free</string>
-    <string name="error_free_space">There is not enough free space on the selected path to download the selected files</string>
+    <string name="error_free_space">No hi ha prou espai lliure per baixar els fitxers seleccionats.</string>
     <string name="start_torrent">Inicia torrent</string>
     <string name="file_is_too_large_error">El fitxer és massa gran</string>
     <string name="unable_to_open_folder">No s’ha pogut obrir la carpeta seleccionada. Proveu de seleccionar-ne una altra.</string>
     <string name="error_empty_name">Introduïu un nom</string>
-    <string name="ignore_free_space">Ignore free space size</string>
+    <string name="ignore_free_space">Ignora quan hi hagi poc espai d\'emmagatzematge lliure</string>
     <!-- Torrent info -->
     <string name="torrent_info">Info</string>
     <string name="torrent_files">Files</string>
@@ -202,35 +202,35 @@
     <string name="download_speed">Download</string>
     <string name="torrent_added_date">Afegit</string>
     <string name="torrent_availability">Disponibilitat</string>
-    <string name="magnet_more_about_bep53">More information: http://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">Més informació a https://www.bittorrent.org/beps/bep.0053.html</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copia</string>
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="text_copied_to_clipboard">S\'ha copiat al porta-retalls</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">S\'ha produït un error d\'aplicació. Podeu informar-ho als desenvolupadors.</string>
+    <string name="error_comment_prompt">Afegiu informació addicional i comentaris aquí:</string>
     <!-- Feeds -->
     <string name="feed">RSS</string>
     <string name="feed_filter_prompt">Introduïu les paraules (separades per «|»), una de les quals ha de ser al nom, o bé introduïu una expressió regular. Els torrents només s’afegiran si aquest filtre coincideix amb el nom del torrent.</string>
-    <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
-    <string name="feed_auto_download">Download new torrents automatically</string>
+    <string name="feed_filter_prompt_one_per_line">Introduïu un filtre per línia.</string>
+    <string name="feed_auto_download">Baixa automàticament els torrents</string>
     <string name="feed_last_update_never">mai</string>
-    <string name="delete_selected_channel">Delete the selected channel\?</string>
+    <string name="delete_selected_channel">Voleu suprimir el canal seleccionat?</string>
     <string name="link_copied_to_clipboard">S’ha copiat al porta-retalls</string>
     <string name="mark_as_read">Marca com a llegits</string>
     <string name="mark_as_unread">Marca com a no llegits</string>
-    <string name="backup_feeds_successfully">Channels saved successfully</string>
-    <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
-    <string name="error_backup_feeds">Failed to save channels</string>
-    <string name="error_restore_feeds_backup">Failed to restore channels</string>
+    <string name="backup_feeds_successfully">Canals desats</string>
+    <string name="restore_feeds_backup_successfully">Canals restaurats</string>
+    <string name="error_backup_feeds">No s\'han pogut desar els canals</string>
+    <string name="error_restore_feeds_backup">No s\'han pogut restaurar els canals</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crea torrent</string>
     <string name="creating_torrent_progress">Espereu mentre es crea el torrent…</string>
-    <string name="file_or_folder_for_seeding">File or folder for seeding</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Please select file or folder for seeding first</string>
-    <string name="web_seed_urls">Web seed URLs</string>
-    <string name="tracker_urls_hint">(optional) Enter trackers one per line in order of priority</string>
-    <string name="web_seed_urls_hint">(optional) One per line</string>
+    <string name="file_or_folder_for_seeding">Fitxer o carpeta a sembrar</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Seleccioneu primer un fitxer o carpeta per a sembrar.</string>
+    <string name="web_seed_urls">URLs de sembra web</string>
+    <string name="tracker_urls_hint">(Opcional) introduïu un rastrejador per línia en ordre de prioritat.</string>
+    <string name="web_seed_urls_hint">(Opcional) un per línia</string>
     <string name="optional_hint">(Opcional)</string>
     <string name="create_torrent_options">Options</string>
     <!-- piece_size_entries -->
@@ -247,15 +247,15 @@
     <string name="piece_size_entries_10">8 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
-    <string name="folder_is_empty">Selected folder is empty or all files are excluded by filter</string>
+    <string name="folder_is_empty">La carpeta seleccionada està buida o tots els seus fitxers queden exclosos pel filtre.</string>
     <string name="error_create_torrent">No s’ha pogut crear el torrent</string>
     <string name="skip_files_hint">Introduïu els noms dels fitxers separats per «|».</string>
     <string name="select_folder_to_save">Seleccioneu una carpeta a desar.</string>
     <string name="unable_to_open_file">No s’ha pogut obrir el fitxer seleccionat</string>
     <string name="unable_to_create_file">No s’ha pogut crear el fitxer</string>
     <!-- Log -->
-    <string name="journal_save_log_failed">Failed to save log</string>
-    <string name="journal_save_log_success">Log saved successfully: %1$s</string>
+    <string name="journal_save_log_failed">No s\'ha pogut desar el registre</string>
+    <string name="journal_save_log_success">Registre desat: %1$s</string>
     <!-- Log settings -->
     <!-- Settings -->
     <!-- Headers -->
@@ -264,59 +264,59 @@
     <string name="pref_header_network">Xarxa</string>
     <string name="pref_header_feed">RSS</string>
     <!-- Storage settings -->
-    <string name="pref_save_torrent_files_summary">Save .torrent files after beginning downloading</string>
-    <string name="pref_watch_dir_summary">The torrent files (with .torrent extension) are watched in the specified directory and automatically added. The torrent files are deleted after adding</string>
+    <string name="pref_save_torrent_files_summary">Desa els fitxers .torrent quan s\'iniciï la baixada.</string>
+    <string name="pref_watch_dir_summary">Els fitxers .torrent d\'aquesta carpeta s\'afegiran automàticament i després se suprimiran.</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Velocitat</string>
-    <string name="pref_max_download_speed_title">Maximum download speed</string>
-    <string name="pref_max_upload_speed_title">Maximum upload speed</string>
-    <string name="pref_max_connections_title">Maximum number of connections</string>
-    <string name="pref_max_connections_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_active_uploads_title">Maximum active uploads</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_active_torrents_title">Maximum active torrents</string>
-    <string name="pref_max_connections_per_torrent_title">Maximum number of connections per torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">Minimum number of connections - 2</string>
-    <string name="pref_max_uploads_per_torrent_title">Maximum number of upload slots per torrent</string>
+    <string name="pref_max_download_speed_title">Velocitat màx. ⬇</string>
+    <string name="pref_max_upload_speed_title">Velocitat màx. ⬆</string>
+    <string name="pref_max_connections_title">Nombre de connexions màx.</string>
+    <string name="pref_max_connections_summary">(2 connexions mín.)</string>
+    <string name="pref_max_active_uploads_title">Nombre màx. de pujades actives</string>
+    <string name="pref_max_active_downloads_title">Nombre màx. de baixades actives</string>
+    <string name="pref_max_active_torrents_title">Nombre màx. de torrents actius</string>
+    <string name="pref_max_connections_per_torrent_title">Nombre màx. de connexions per torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">(2 connexions mín.)</string>
+    <string name="pref_max_uploads_per_torrent_title">Nombre màx. de ranures de pujada per torrent</string>
     <string name="pref_auto_manage_title">Gestiona automàticament</string>
-    <string name="pref_auto_manage_summary">The torrent may be resumed or paused automatically at any point. Enabling this option may slow down the pause/resume</string>
+    <string name="pref_auto_manage_summary">El torrent pot ser autoresumit o en pausa en qualsevol punt. (Pot alentir la pausa/resum.)</string>
     <!-- Appearance settings -->
     <string name="pref_theme_title">Tema</string>
     <!-- pref_theme_entries -->
     <string name="pref_theme_entries_0">Clar</string>
     <string name="pref_theme_entries_1">Fosc</string>
     <string name="pref_theme_entries_2">Negre</string>
-    <string name="pref_torrent_finish_notify_summary">Show a notification when a torrent finishes downloading</string>
+    <string name="pref_torrent_finish_notify_summary">Mostra una notificació quan es baixa un torrent.</string>
     <string name="pref_notify_sound_title">Notification sound</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Inicia automàticament</string>
-    <string name="pref_autostart_summary">Run the app after start device</string>
+    <string name="pref_autostart_summary">Executa l\'aplicació en iniciar el dispositiu.</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_keep_alive_summary">If enabled, the application will remain running in the background. Shutdown when downloads complete is still respected</string>
-    <string name="pref_shutdown_downloads_complete_title">Shutdown when downloads complete</string>
-    <string name="pref_shutdown_downloads_complete_summary">If enabled, the app will shutdown when all downloads have completed</string>
-    <string name="pref_cpu_do_not_sleep_title">Manté CPU activa</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Download and upload only when charging</string>
-    <string name="pref_download_and_upload_only_when_charging_summary">If enabled, torrents will download/upload only when charging. All torrents will pause when not connected to charger</string>
+    <string name="pref_umnetered_connections_only_title">Només amb connexions sense limitació de transferència</string>
+    <string name="pref_umnetered_connections_only_summary">Utilitza només connexions sense quota (per exemple Wi-Fi o Ethernet).</string>
+    <string name="pref_enable_roaming_title">Itinerància</string>
+    <string name="pref_enable_roaming_summary">Baixa només si el dispositiu no està en itinerància.</string>
+    <string name="pref_keep_alive_summary">Deixa l\'aplicació en funcionament en segon pla. (Això respecta el tancament de l\'aplicació quan totes les baixades acabin.)</string>
+    <string name="pref_shutdown_downloads_complete_title">Tanca després d\'acabar totes les baixades</string>
+    <string name="pref_shutdown_downloads_complete_summary">Tanca l\'aplicació quan s\'hagi baixat tot.</string>
+    <string name="pref_cpu_do_not_sleep_title">Manté el dispositiu actiu</string>
+    <string name="pref_cpu_do_not_sleep_summary">Utilitzeu-ho si la velocitat de baixada es redueix quan la pantalla s\'apaga. (Augmenta l\'ús de la bateria.)</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Baixa i puja només quan el dispositiu estigui carregant-se.</string>
+    <string name="pref_download_and_upload_only_when_charging_summary">No es transfereixen fitxers tret que el dispositiu s\'estigui carregant. (Posa en pausa tots els torrents quan el dispositiu no estigui connectat a un carregador.)</string>
     <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
+    <string name="pref_battery_control_summary">Posa en pausa tots els torrents si el nivell de bateria és inferior al %1$d%%. (El límit no s\'aplica quan es carrega.)</string>
+    <string name="pref_custom_battery_control_summary">Establiu un %% de bateria per a fer una pausa a les baixades. (Ignora el valor per defecte %1$d%%.)</string>
     <string name="pref_custom_battery_control_dialog_summary">Realment voleu establir un %% de bateria a tenir en compte\? (Se’n incrementarà l’ús durant les baixades.)</string>
     <!-- Network settings -->
-    <string name="pref_enable_dht_title">Activa DHT</string>
-    <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
+    <string name="pref_enable_dht_title">DHT</string>
+    <string name="pref_enable_dht_summary">Permet trobar altres parells sense un rastrejador. (Augmenta l\'ús de la bateria.)</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">It\'s designed to support the discovery of local BitTorrent peers, aiming to minimize the traffic</string>
+    <string name="pref_enable_lsd_summary">Dissenyat per donar suport al descobriment local, amb l\'objectiu de reduir el trànsit.</string>
     <string name="pref_enable_utp_title">μTP</string>
-    <string name="pref_enable_utp_summary">It\'s intended to mitigate poor latency and other congestion control issues found in conventional BitTorrent over TCP, while providing reliable, ordered delivery</string>
+    <string name="pref_enable_utp_summary">Destinat a mitigar la latència deficient i altres problemes de control de la congestió que es troben en el BitTorrent convencional sobre el TCP, alhora que proporciona una entrega fiable i ordenada.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
-    <string name="pref_use_random_port_summarty">Sets the start port randomly in range [%1$d, %2$d] and the end port as first + 10</string>
+    <string name="pref_use_random_port_summarty">Estableix el port d\'inici aleatòriament en l\'interval [%1$d, %2$d] i el port del final com el primer + 10.</string>
     <string name="pref_port_range_start_title">Inici</string>
     <string name="pref_port_range_end_title">Final</string>
     <string name="pref_encryption_category">Xifratge</string>
@@ -326,31 +326,31 @@
     <string name="pref_enc_mode_entries_1">Requerir xifrat</string>
     <string name="pref_enc_mode_entries_2">Desactivar xifrat</string>
     <string name="pref_enable_ip_filtering_title">Filtratge d’IP</string>
-    <string name="pref_enable_ip_filtering_summary">Using IP filtering increases memory usage. Depending on the file size, the filter may take some time to be applied at startup</string>
+    <string name="pref_enable_ip_filtering_summary">Depenent de la mida del fitxer, aplicar el filtre a l\'inici pot trigar una mica. (Augmenta l\'ús de la memòria.)</string>
     <string name="pref_anonymous_mode_title">Mode anònim</string>
-    <string name="pref_anonymous_mode_summary">The app tries to hide its identity to a certain degree. The user-agent will be reset to an empty string (except for private torrents). Trackers will only be used if they are using a proxy server. The listen sockets are closed, and incoming connections will only be accepted through a SOCKS5 or I2P proxy (if a peer proxy is set up and is run on the same machine as the tracker proxy). NAT-PMP, UPnP, DHT and local peer discovery are turned off</string>
-    <string name="pref_seeding_outgoing_connections_title">Enable outgoing connections for seeds</string>
-    <string name="pref_seeding_outgoing_connections_summary">Determines if seeding torrents should attempt to make outgoing connections or not. It may be disabled in very specific situations where the cost of making outgoing connections is high</string>
+    <string name="pref_anonymous_mode_summary">No hi ha cap cadena d\'agent d\'usuari per als torrents no privats. Només rastrejadors intermediaris. S\'estan escoltant els sockets tancats. Connexions entrants a través del servidor intermediari SOCKS5- o I2P (si hi ha un servidor intermediari del parell al servidor intermediari del PC). Desactiva NAT-PMP, UPnP, DHT i el descobriment local.</string>
+    <string name="pref_seeding_outgoing_connections_title">Connexions sortints per la sembra</string>
+    <string name="pref_seeding_outgoing_connections_summary">Permet sembrar torrents creant connexions sortints. (Pot ser costós.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Proxy type</string>
     <!-- pref_proxy_type_entries -->
-    <string name="pref_proxy_type_entries_0">(None)</string>
+    <string name="pref_proxy_type_entries_0">(Cap)</string>
     <string name="pref_proxy_type_entries_1">SOCKS4</string>
     <string name="pref_proxy_type_entries_2">SOCKS5</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">Address</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="pref_proxy_peers_too_summary">The proxy will be used for connecting with trackers, peers and web seeds</string>
-    <string name="pref_proxy_requires_auth_summary">Warning: the password is saved unencrypted</string>
-    <string name="pref_proxy_login_title">Login</string>
+    <string name="pref_proxy_peers_too_summary">Les connexions als rastrejadors, als sembradors web i altres es faran passar pel servidor intermediari. No afecta el DHT.</string>
+    <string name="pref_proxy_requires_auth_summary">Avís: La contrasenya es desa com un fitxer normal.</string>
+    <string name="pref_proxy_login_title">Nom d\'usuari</string>
     <string name="pref_proxy_password_title">Contrasenya</string>
     <!-- Schedule settings -->
-    <string name="pref_enable_scheduling_start_summary">Start app at the specified time. Torrents will run according to their state before the last shutdown</string>
-    <string name="pref_scheduling_switch_wifi_title">Enable/disable Wi-Fi</string>
-    <string name="pref_scheduling_switch_wifi_summary">Wi-Fi is automatically enabled when app is launched at the scheduled time and is disabled after app is shutdown at the scheduled time</string>
+    <string name="pref_enable_scheduling_start_summary">Inicia l\'aplicació en un moment determinat. Els torrents es processen segons el seu estat abans de tancar l\'últim.</string>
+    <string name="pref_scheduling_switch_wifi_title">Commuta la Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">Activa la Wi-Fi per a l\'inici programat, i desactiva-la per l\'aturada programada.</string>
     <!-- Feed settings -->
-    <string name="pref_feed_auto_refresh_title">Auto refresh channels</string>
-    <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background</string>
+    <string name="pref_feed_auto_refresh_title">Actualitza automàticament els canals</string>
+    <string name="pref_feed_auto_refresh_summary">Actualitza periòdicament els canals en segon pla.</string>
     <!-- pref_feed_refresh_intervals_entries -->
     <string name="pref_feed_refresh_intervals_entries_0">15 minuts</string>
     <string name="pref_feed_refresh_intervals_entries_1">30 minuts</string>
@@ -360,9 +360,9 @@
     <string name="pref_feed_refresh_intervals_entries_5">12 hores</string>
     <string name="pref_feed_refresh_intervals_entries_6">1 dia</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Refresh only through unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_feed_auto_refresh_enable_roaming_title">Enable roaming</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Només en connexions sense limitacions</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Només refresca les connexions sense quota (per exemple Wi-Fi o Ethernet).</string>
+    <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerància</string>
     <!-- pref_feed_keep_items_time_entries -->
     <string name="pref_feed_keep_items_time_entries_0">1 dia</string>
     <string name="pref_feed_keep_items_time_entries_1">2 dies</string>
@@ -373,18 +373,18 @@
     <string name="pref_feed_keep_items_time_entries_6">2 mesos</string>
     <string name="pref_feed_keep_items_time_entries_7">3 mesos</string>
     <string name="pref_feed_keep_items_time_entries_8">Sempre</string>
-    <string name="pref_feed_start_torrents_title">Run torrents</string>
-    <string name="pref_feed_start_torrents_summary">Run torrents after adding</string>
-    <string name="pref_feed_remove_duplicates_summary">Checks the title of newly downloaded item and skips when one with the same title is already present</string>
+    <string name="pref_feed_start_torrents_title">Inicia automàticament els torrents</string>
+    <string name="pref_feed_start_torrents_summary">Baixa els torrents afegits.</string>
+    <string name="pref_feed_remove_duplicates_summary">Omet la baixada de títols del fitxer ja existents.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Enable streaming</string>
-    <string name="pref_streaming_enable_summary">Streaming allows you to download individual files from a torrent using a browser or media player using HTTP urls</string>
+    <string name="pref_streaming_enable_title">Streaming</string>
+    <string name="pref_streaming_enable_summary">Permet baixar fitxers individuals des d\'un torrent utilitzant un navegador web o reproductor multimèdia utilitzant adreces URL HTTP/S.</string>
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Port</string>
-    <string name="pref_streaming_error">Selected port or hostname for streaming is busy or incorrect. Please fix it</string>
+    <string name="pref_streaming_error">Seleccioneu un port o un nom d\'amfitrió per a la transmissió que no estigui ocupat o sigui incorrecte.</string>
     <!-- About dialog -->
-    <string name="about_title">About LibreTorrent</string>
-    <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
+    <string name="about_title">Quant a</string>
+    <string name="about_description">Més informació i com ajudar al projecte: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt;LibreTorrent és un client torrent lliure (copyleft) (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) per Android 4+, basat en la biblioteca libtorrent (i el wrapper Java &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="deleting">Eliminant…</string>
     <string name="warning">Atenció</string>
     <string name="force_recheck_torrent">Força la recomprovació</string>
@@ -404,7 +404,7 @@
     <string name="select_tag">Seleccioneu una etiqueta</string>
     <string name="torrent_file_chooser_title">Selecció de torrent</string>
     <string name="save_file">Desa el fitxer</string>
-    <string name="torrent_pieces">Peces</string>
+    <string name="torrent_pieces">Parts</string>
     <string name="select_or_add_torrent">Seleccioneu o afegiu un torrent</string>
     <string name="more_details">Més detalls</string>
     <string name="dir_chooser_title">Selecció de carpeta</string>
@@ -443,4 +443,143 @@
     <string name="pref_port_range_title">Interval de ports</string>
     <string name="about_changelog">Registre de canvis</string>
     <string name="torrent_move_fail">No s’ha pogut moure el torrent</string>
+    <string name="torrent_finished_notify">Torrent finalitzat</string>
+    <string name="torrent_moving_title">Movent Torrent…</string>
+    <string name="dialog_add_link_title">Entra l\'infohash, l\'enllaç magnet o l\'enllaç HTTP/S</string>
+    <string name="notify_shutting_down">Apagant-se…</string>
+    <string name="manage_all_files_warning_dialog_description">No utilitzeu la versió de Google Play de LibreTorrent si voleu guardar els vostres Torrents a altres rutes a paty de \'Descàrregues\' o similar.
+\nHi ha altres fonts a la pàgina del projecte.</string>
+    <string name="session_stats_listen_port">Port de comunicació: %1$s</string>
+    <string name="session_stats_dht_nodes">Nodes DHT: %1$d</string>
+    <string name="torrent_error_notify_title">Error de Torrent</string>
+    <string name="session_error_title">Error de sessió</string>
+    <string name="torrent_count_notify_template">%1$d ⬇ de %2$d</string>
+    <string name="app_running_in_the_background">Executant-se en segon pla…</string>
+    <string name="apply_settings_after_reboot">S\'aplicaran els canvis després de reiniciar l\'aplicació.</string>
+    <string name="files_size">Seleccionats %1$s de %2$s</string>
+    <string name="pref_validate_https_trackers_title">Valida els certificats dels rastrejadors HTTPS</string>
+    <string name="pref_journal_save_log_to">Desa el registre a…</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Combina dos botons: posa-ho tot en pausa i reprèn-ho tot. El botó funcionarà com un commutador. Avís: l\'estat del botó no es veu afectat per la pausa/represa manual del torrent.</string>
+    <string name="tracker_state_not_contacted">Encara no s\'ha contactat</string>
+    <string name="piece_map">Mapa de les parts</string>
+    <string name="torrent_speed_limit">Límit de velocitat</string>
+    <string name="delete_selected_tracker">Voleu suprimir el rastrejador seleccionat?</string>
+    <string name="torrent_speed_limit_dialog">Estableix la velocitat en KiB/s. Tingueu en compte que el límit d\'un torrent no substituirà el límit global, encara que hi definiu un límit més alt.</string>
+    <string name="share_stream_url">Comparteix l\'URL del flux…</string>
+    <string name="tracker_list_empty">Sense rastrejadors</string>
+    <string name="feed_channel_list_empty">Sense canals</string>
+    <string name="select_or_add_feed_channel">Seleccioneu o afegiu un canal RSS/Atom</string>
+    <string name="edit_feed_channel">Edita el canal</string>
+    <string name="feed_item_open_article_url">Obre l\'article</string>
+    <string name="delete_selected_channels">Voleu suprimir els canals seleccionats?</string>
+    <string name="tracker_urls">URLs dels rastrejadors</string>
+    <string name="feeds_backup_selection_dialog_title">Seleccioneu el fitxer de còpia de seguretat</string>
+    <string name="feed_do_not_download_immediately">No baixis immediatament</string>
+    <string name="piece_size">Mida de la part</string>
+    <string name="log_journal">Diari</string>
+    <string name="pref_header_behavior">Comportament</string>
+    <string name="journal_list_empty">No hi ha cap entrada</string>
+    <string name="journal_started_recording">S\'ha iniciat l\'enregistrament</string>
+    <string name="pref_journal_max_stored_entries">Nombre màxim d\'entrades emmagatzemades al diari</string>
+    <string name="pref_header_scheduling">Programació</string>
+    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_save_torrent_files_title">Desa els fitxers .torrent</string>
+    <string name="pref_move_after_download_in_title">Mou després de finalitzar la baixada a</string>
+    <string name="pref_save_torrent_files_in_title">Desa els fitxers .torrent a…</string>
+    <string name="pref_watch_dir_title">Vigila el directori</string>
+    <string name="pref_posix_disk_io_title">E/S del disc (POSIX)</string>
+    <string name="pref_posix_disk_io_summary">Nota: aquesta opció només s\'utilitza en situacions particulars, com ara la implementació d\'alguns sistemes de fitxers de targetes SD. Activa una E/S de disc POSIX senzilla, utilitzada per a sistemes que no tenen un espai d\'adreces virtual de 64 bits o que no admeten fitxers mapats a la memòria.</string>
+    <string name="pref_torrent_queueing_category">Cua de torrents</string>
+    <string name="pref_foreground_notify_status_filter_entries_0">Tots</string>
+    <string name="pref_foreground_notify_status_filter_entries_1">S\'està baixant…</string>
+    <string name="pref_foreground_notify_status_filter_entries_3">S\'estan baixant les metadades…</string>
+    <string name="pref_foreground_notification_category">Configuració de les notificacions en primer pla</string>
+    <string name="pref_foreground_notify_sorting_entries_5">Mida (els més grossos primer)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Progrés (els més grossos primer)</string>
+    <string name="pref_foreground_notify_sorting_entries_10">Popularitat (els menys populars primer)</string>
+    <string name="pref_foreground_notify_sorting_entries_8">Temps estimat (els que acaben abans primer)</string>
+    <string name="pref_custom_battery_control_title">Percentatge de bateria personalitzat</string>
+    <string name="pref_custom_battery_control_value_title">Percentatge de control de bateria</string>
+    <string name="pref_default_trackers_list_title">Rastrejadors per defecte</string>
+    <string name="pref_default_trackers_list_summary">Llista de rastrejadors, que s\'utilitza en els casos següents:
+\n1. En afegir un torrent, la llista predeterminada s\'afegeix automàticament a la llista del torrent.
+\n2. S\'utilitza per obtenir enllaços magnètics.</string>
+    <string name="pref_enable_scheduling_start_title">Hora d\'inici</string>
+    <string name="pref_proxy_requires_auth_title">Requereix autorització</string>
+    <string name="pref_enable_scheduling_shutdown_title">Hora d\'apagada</string>
+    <string name="pref_feed_refresh_interval_title">Interval de refresc</string>
+    <string name="pref_enable_scheduling_shutdown_summary">Atura l\'aplicació a l\'hora especificada</string>
+    <string name="exact_alarm_permission_warning">Perquè el programador funcioni, haureu d\'obtenir permís en un diàleg del sistema. Voleu procedir?</string>
+    <string name="pref_feed_keep_items_time_title">Conserva els articles</string>
+    <string name="pref_feed_remove_duplicates_title">No hi ha duplicats</string>
+    <string name="perm_denied_warning_android_r">Cal accedir a tots els permisos dels fitxers per baixar torrents i accedir als fitxers .torrent en carpetes arbitràries. Sense aquest permís, el LibreTorrent només tindrà accés a un nombre limitat de carpetes. Esteu segur que voleu denegar aquest permís?</string>
+    <string name="pref_keep_alive_title">Continua funcionant</string>
+    <string name="pref_header_appearance">Aparença</string>
+    <string name="pref_foreground_notify_sorting_entries_1">Nom (Z - A)</string>
+    <string name="delete_selected_trackers">Voleu suprimir els rastrejadors seleccionats?</string>
+    <string name="journal_filter_portmap_log">Registre UPnP/NAT-PMP</string>
+    <string name="pref_led_indicator_color_notify_title">Color de l\'indicador LED</string>
+    <string name="tracker_state_working">Funcionant</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Data d\'addició (els més antics primer)</string>
+    <string name="share_via">Comparteix via…</string>
+    <string name="pref_max_active_uploads_downloads_dialog_msg">-1 sense límit</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Sense ordenació</string>
+    <string name="pref_foreground_notify_status_filter_entries_2">Baixat</string>
+    <string name="pref_torrent_finish_notify_title">Notificació de finalització del torrent</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
+\nDisponibilitat: %5$s</string>
+    <string name="pref_vibration_notify_title">Vibració</string>
+    <string name="peer_relevance">Rellevància: %1$.1f</string>
+    <string name="backup_feed_channels">Desa la còpia de seguretat</string>
+    <string name="skip_files">Omet els fitxers</string>
+    <string name="pref_power_management_category">Gestió d\'energia</string>
+    <string name="download_first_last_pieces">Baixa primer les parts del principi i del final</string>
+    <string name="magnet_include_file_priorities">Voleu incloure les prioritats dels fitxers?</string>
+    <string name="feed_use_regex">Utilitza l\'expressió regular</string>
+    <string name="pref_dir_to_watch_title">Directori a vigilar</string>
+    <string name="pref_foreground_notify_sorting_entries_9">ETA (els que acaben més tard primer)</string>
+    <string name="torrent_saved_to">S\'ha desat el torrent a %1$s</string>
+    <string name="pref_foreground_notify_sorting_entries_0">Nom (A - Z)</string>
+    <string name="pref_watch_dir_delete_file_title">Suprimeix el fitxer .torrent després d\'afegir-lo</string>
+    <string name="peer_list_empty">Aquest torrent encara no s\'ha connectat a ningú</string>
+    <string name="speed_limit_dialog">Estableix la velocitat en KiB/s (0 - sense límit)</string>
+    <string name="torrent_downloaded">Baixat</string>
+    <string name="open_using">Obre usant</string>
+    <string name="pref_move_after_download_title">Mou en finalitzar la baixada</string>
+    <string name="torrent_created_in_program">Creat al programa</string>
+    <string name="pref_foreground_notify_sorting_entries_4">Mida (els més petits primer)</string>
+    <string name="pref_foreground_notify_sorting">Ordenació</string>
+    <string name="pref_enc_in_connections_title">Connexions entrants</string>
+    <string name="pref_proxy_peers_too_title">Utilitza també per a les connexions</string>
+    <string name="torrent_uploaded">Pujat</string>
+    <string name="pref_foreground_notify_status_filter_entries_4">Error</string>
+    <string name="pref_foreground_notify_sorting_entries_11">Popularitat (els més populars primer)</string>
+    <string name="pref_save_torrents_in_title">Desa els torrents a…</string>
+    <string name="pref_scheduling_run_only_once_title">Executa només una vegada</string>
+    <string name="pref_foreground_notify_sorting_entries_6">Progrés (els més petits primer)</string>
+    <string name="pref_use_random_port_title">Utilitza un port aleatori</string>
+    <string name="pref_enc_out_connections_title">Connexions sortints</string>
+    <string name="pref_play_sound_notify_title">Reprodueix un so</string>
+    <string name="pref_show_nat_errors">Mostra els errors de NAT</string>
+    <string name="option_start_seeding">Comença la sembra</string>
+    <string name="pref_ip_filtering_file_title">Camí al fitxer de filtratge (.dat, .p2p)</string>
+    <string name="pref_foreground_notify_status_filter">Filtre d\'estat</string>
+    <string name="pref_foreground_notify_combined_pause_button_title">Botó de pausa combinat</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Data d\'addició (els més recents primer)</string>
+    <string name="pref_validate_https_trackers_summary">El certificat dels rastrejadors i llavors web HTTPS es validarà al magatzem de certificats del sistema.</string>
+    <string name="error_import_invalid_format">El format no és vàlid</string>
+    <string name="torrent_leechers">Sangoneres</string>
+    <string name="torrent_share_ratio">Relació de compartició</string>
+    <string name="feed_last_update_template">Actualitzat: %1$s</string>
+    <string name="pref_led_indicator_notify_title">Indicador LED</string>
+    <string name="upload_torrent_into">Puja a…</string>
+    <string name="permission_denied">Permís denegat</string>
+    <string name="tracker_state_not_working">No funciona</string>
+    <string name="tracker_state_updating">S\'està actualitzant…</string>
+    <string name="feed_item_list_empty">No hi ha articles</string>
+    <string name="option_private_torrent">Torrent privat</string>
+    <string name="invalid_url">L\'URL no és vàlid: %1$s</string>
+    <string name="share_tracker_url">Comparteix l\'URL…</string>
+    <string name="restore_feed_channels_backup">Restaura la còpia de seguretat</string>
+    <string name="save_torrent_file">Desa el fitxer torrent</string>
 </resources>

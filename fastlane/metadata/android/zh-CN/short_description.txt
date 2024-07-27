@@ -1,1 +1,1 @@
-Copyleft 的自由的种子客户端。
+Copyleft 自由软件 torrent 客户端。

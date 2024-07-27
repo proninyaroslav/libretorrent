@@ -150,7 +150,7 @@
     <string name="torrent_info">Information</string>
     <string name="torrent_files">Filer</string>
     <string name="torrent_name">Namn</string>
-    <string name="upload_torrent_into">Ladda upp till…</string>
+    <string name="upload_torrent_into">Skicka till…</string>
     <string name="torrent_size">Storlek</string>
     <string name="torrent_file_count">Antal filer</string>
     <string name="torrent_hash_sum">Kontrollsumma</string>
@@ -198,7 +198,7 @@
     <string name="pause_torrent">Pausa</string>
     <string name="save_torrent_file_successfully">.torrent-filen sparades</string>
     <string name="error_save_torrent_file">Det gick inte att spara torrentfilen</string>
-    <string name="upload_speed">Ladda upp</string>
+    <string name="upload_speed">Skicka</string>
     <string name="download_speed">Hämta</string>
     <string name="magnet_more_about_bep53">http://www.bittorrent.org/beps/bep_0053.html för mer information</string>
     <!-- Send text to clipboard -->
@@ -262,12 +262,12 @@
     <string name="pref_max_upload_speed_title">Max. ⬆-hastighet</string>
     <string name="pref_max_connections_title">Max. antalet anslutningar</string>
     <string name="pref_max_connections_summary">(Min. 2 anslutningar.)</string>
-    <string name="pref_max_active_uploads_title">Max. antalet aktiva uppladdningar</string>
+    <string name="pref_max_active_uploads_title">Max. antalet aktiva sändningar</string>
     <string name="pref_max_active_downloads_title">Max. antalet aktiva hämtningar</string>
     <string name="pref_max_active_torrents_title">Max. antalet aktiva torrenter</string>
     <string name="pref_max_connections_per_torrent_title">Max. antalet anslutningar per torrent</string>
     <string name="pref_max_connections_per_torrent_summary">(Min. 2 anslutningar.)</string>
-    <string name="pref_max_uploads_per_torrent_title">Max. antal uppladdningsplatser per torrent</string>
+    <string name="pref_max_uploads_per_torrent_title">Max. antal sändningsplatser per torrent</string>
     <string name="pref_auto_manage_title">Hantera automatiskt</string>
     <string name="pref_auto_manage_summary">Torrenten kan återupptas automatiskt eller pausas när som helst. (Kan sakta ner pausandet/återupptagandet.)</string>
     <!-- Appearance settings -->
@@ -290,7 +290,7 @@
     <string name="pref_shutdown_downloads_complete_title">Stäng efter att alla hämtningar har avslutats</string>
     <string name="pref_shutdown_downloads_complete_summary">Avslutar appen när allting är hämtat.</string>
     <string name="pref_cpu_do_not_sleep_summary">Använd om hämtningshastighet reduceras när skärmen stängs av. (Ökar användningen av batteriet.)</string>
-    <string name="pref_download_and_upload_only_when_charging_title">Hämta och ladda upp endast under laddning.</string>
+    <string name="pref_download_and_upload_only_when_charging_title">Hämta och skicka endast under laddning.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Inga filer överförs om inte enheten laddas. (Pausar alla torrenter när ingen laddare är ansluten.)</string>
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrenter om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
@@ -515,7 +515,7 @@
     <string name="torrent_trackers">Spårare</string>
     <string name="torrent_pieces">Delar</string>
     <string name="torrent_active_time">Aktiv tid</string>
-    <string name="torrent_uploaded">Uppladdat</string>
+    <string name="torrent_uploaded">Skickat</string>
     <string name="torrent_peers">Jämlikar</string>
     <string name="torrent_seeds">Distributioner</string>
     <string name="torrent_downloaded">Hämtat</string>
@@ -547,7 +547,7 @@
 \n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan.
 \n2. Används för att hämta magnetlänkar.</string>
     <string name="pref_default_trackers_list_title">Standard spårare</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerar två knappar: pausa alla och återuppta alla. Knappen fungerar som en omkopplare. Varning: knappstatus påverkas inte av manuell pausning/återupptagning av torrenten.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerar två knappar: pausa alla och återuppta alla. Knappen fungerar som en omkopplare. Varning: knappstatusen påverkas inte av manuell pausning/återupptagning av torrenten.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinerad pausknapp</string>
     <string name="pref_foreground_notify_sorting_entries_12">Ingen sortering</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularitet (största först)</string>
@@ -558,8 +558,8 @@
     <string name="pref_foreground_notify_sorting_entries_6">Framsteg (minsta först)</string>
     <string name="pref_foreground_notify_sorting_entries_5">Storlek (största först)</string>
     <string name="pref_foreground_notify_sorting_entries_4">Storlek (minsta först)</string>
-    <string name="pref_foreground_notify_sorting_entries_3">Datum tillagd (nyaste först)</string>
-    <string name="pref_foreground_notify_sorting_entries_2">Datum tillagd (nyaste först)</string>
+    <string name="pref_foreground_notify_sorting_entries_3">Datumet lades till (äldst först)</string>
+    <string name="pref_foreground_notify_sorting_entries_2">Datumet lades till (nyaste först)</string>
     <string name="pref_foreground_notify_sorting_entries_1">Namn (Ö - A)</string>
     <string name="pref_foreground_notify_sorting_entries_0">Namn (A - Ö)</string>
     <string name="pref_foreground_notify_sorting">Sortering</string>
@@ -580,4 +580,7 @@
     <string name="download_first_last_pieces">Hämta första och sista delarna först</string>
     <string name="pref_validate_https_trackers_summary">Certifikatet för HTTPS-spårare och HTTPS-webbdistributioner kommer att valideras i systemcertifikatarkivet.</string>
     <string name="torrent_speed_limit_dialog">Ställ in hastighet i KiB/s. Observera att om du ställer in en högre gräns på en torrent kommer den globala gränsen inte att åsidosätta den globala gränsen.</string>
+    <string name="apply_settings_after_reboot">Ändringar kommer att tillämpas efter omstart av appen.</string>
+    <string name="pref_posix_disk_io_title">I/O för POSIX-disk</string>
+    <string name="pref_posix_disk_io_summary">Obs: det här alternativet ska endast användas i särskilda situationer, som stöd för vissa SD-kortfilsystem. Aktiverar en enkel POSIX Disk I/O, som används för system som inte har ett 64-bitars virtuellt adressutrymme eller inte stöder minnesmappade filer.</string>
 </resources>

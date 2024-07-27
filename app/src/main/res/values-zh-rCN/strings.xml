@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">无法打开 .torrent 文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
-    <string name="ip_filter_add_error">无法添加 IP 筛选器（%1$d 失败）。可能文件已损坏或格式不正确？</string>
+    <string name="ip_filter_add_error">无法添加 IP 筛选器（失败 %1$d 个）。可能文件已损坏或格式不正确？</string>
     <string name="ip_filter_add_success">已添加 IP 筛选器</string>
     <string name="proxy_settings_applied">使用新的代理服务器设置。</string>
     <string name="proxy_settings_apply_after_reboot">重新启动应用程序来使用新的代理设置。</string>
@@ -180,7 +180,7 @@
     <string name="torrent_size">大小</string>
     <string name="torrent_file_count">文件数量</string>
     <string name="torrent_hash_sum">校验和</string>
-    <string name="torrent_comment">注释</string>
+    <string name="torrent_comment">备注</string>
     <string name="torrent_create_date">文件创建日期</string>
     <string name="torrent_created_in_program">文件创建工具</string>
     <string name="sequential_download">顺序下载</string>
@@ -245,7 +245,7 @@
     <string name="delete_selected_trackers">删除所选的 Tracker？</string>
     <string name="add_trackers">添加 Tracker</string>
     <string name="dialog_add_trackers">（每行一个）</string>
-    <string name="open_using">打开文件</string>
+    <string name="open_using">打开方式</string>
     <string name="peer_port">端口：%1$d</string>
     <string name="peer_relevance">关联度：%1$.1f</string>
     <string name="peer_connection_type">协议：%1$s</string>
@@ -435,7 +435,7 @@
     <string name="pref_shutdown_downloads_complete_title">完成所有下载后关闭</string>
     <string name="pref_shutdown_downloads_complete_summary">所有下载完成后关闭应用。</string>
     <string name="pref_cpu_do_not_sleep_title">保持设备唤醒</string>
-    <string name="pref_cpu_do_not_sleep_summary">如果出现屏幕关闭时下载速度降低的情况可启用此选项。（增加电池使用。）</string>
+    <string name="pref_cpu_do_not_sleep_summary">如果出现屏幕关闭时下载速度降低的情况可启用此选项。（会增加耗电量。）</string>
     <string name="pref_download_and_upload_only_when_charging_title">仅在充电时下载和上传。</string>
     <string name="pref_download_and_upload_only_when_charging_summary">除非设备正在充电，否则不传输任何文件。（未连接充电器时暂停所有种子。）</string>
     <string name="pref_battery_control_title">电池控制</string>
@@ -567,7 +567,7 @@
     <string name="pref_foreground_notify_status_filter_entries_2">已下载</string>
     <string name="pref_foreground_notify_status_filter_entries_1">下载中…</string>
     <string name="pref_foreground_notify_status_filter_entries_0">全部</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像转换开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">组合式暂停按钮</string>
     <string name="error_open_torrent">打不开种子文件</string>
     <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得许可。继续吗？</string>
@@ -576,7 +576,10 @@
 \n在项目页面上有其它的下载源。</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
     <string name="pref_validate_https_trackers_summary">HTTPS trackers 和 HTTPS web 种子的证书将在系统证书存储中进行验证。</string>
-    <string name="pref_validate_https_trackers_title">验证 HTTPS trackers 证书</string>
+    <string name="pref_validate_https_trackers_title">验证 HTTPS trackers 的证书</string>
     <string name="download_first_last_pieces">先下载最前面部分和最后部分</string>
     <string name="torrent_speed_limit_dialog">以 KiB/s 为单位设置速度。注意，设置一个高于全局限制的种子速度上限将不会覆盖全局限制。</string>
+    <string name="apply_settings_after_reboot">将在重启应用后应用更改。</string>
+    <string name="pref_posix_disk_io_title">POSIX 磁盘 I/O</string>
+    <string name="pref_posix_disk_io_summary">注：请在特定情形下使用本选项，比如支持某些 SD 卡文件系统。启动简单的 POSIX 磁盘 I/O，用于没有 64 位虚拟地址空间或者不支持内存映射文件的系统。</string>
 </resources>

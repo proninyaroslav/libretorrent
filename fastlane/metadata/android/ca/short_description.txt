@@ -1,1 +1,1 @@
-Client torrent de software lliure amb copyleft.
+Client de torrent de programari lliure i sense drets de còpia (copyleft).
