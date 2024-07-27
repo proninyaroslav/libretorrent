@@ -9,12 +9,12 @@ android {
         minSdkVersion 24
         targetSdkVersion 34
         compileSdk 34
-        versionCode 25
+        versionCode 5000027
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName '3.4'
+        versionName '3.5'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
 

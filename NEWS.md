@@ -1,3 +1,12 @@
+### Version 3.5 (2024-07-27)
+
+**Warning:** Merging trackers when adding torrent duplicate is temporarily disabled due to an error in a third-party library.
+
+* Android 14 support
+* POSIX Disk IO option in the settings. This should solve the downloading problem on some Android file systems, for example exFAT on SD cards.
+* New translations and updated current
+* Bugfixes
+
 ### Version 3.4 (2022-01-30)
 
 * Added:
