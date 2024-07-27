@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
@@ -227,35 +228,30 @@
         </activity>
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.createtorrent.CreateTorrentActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.addlink.AddLinkActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.log.LogActivity" />
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.log.LogSettingsActivity" />
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.addtag.AddTagActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:label="@string/app_name"
             android:name=".ui.tag.SelectTagActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <service
-            android:name=".service.TorrentService" />
+            android:name=".service.TorrentService"
+            android:foregroundServiceType="dataSync" />
 
         <receiver
             android:name=".receiver.NotificationReceiver"

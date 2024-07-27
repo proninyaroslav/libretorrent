@@ -1148,7 +1148,6 @@ class TorrentDownloadImpl implements TorrentDownload
                 piecePriorities[filePieces.second - i] = piecePriority;
             }
         }
-        Log.e(TAG, "" + Arrays.toString(piecePriorities));
 
         th.prioritizePieces(piecePriorities);
     }
@@ -1672,7 +1671,9 @@ class TorrentDownloadImpl implements TorrentDownload
                 AlertType type = alert.type();
                 if (type.equals(AlertType.SAVE_RESUME_DATA)) {
                     try {
-                        byte_vector bytes = libtorrent.write_resume_data(((SaveResumeDataAlert) alert).params().swig()).bencode();
+                        byte_vector bytes = libtorrent.write_torrent_file_buf_ex(
+                                ((SaveResumeDataAlert) alert).params().swig()
+                        );
                         data.set(Vectors.byte_vector2bytes(bytes));
                     } catch (Throwable e) {
                         Log.e(TAG, "Error building torrent data", e);
