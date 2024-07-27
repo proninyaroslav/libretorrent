@@ -41,6 +41,7 @@ Icon
 bin/
 gen/
 out/
+lint/
 
 # Gradle files
 .gradle/
