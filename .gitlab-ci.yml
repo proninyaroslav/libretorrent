@@ -1,4 +1,4 @@
-image: jangrewe/gitlab-ci-android
+image: garen09/garen
 
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
