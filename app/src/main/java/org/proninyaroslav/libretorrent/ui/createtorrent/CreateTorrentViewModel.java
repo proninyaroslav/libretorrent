@@ -141,6 +141,13 @@ public class CreateTorrentViewModel extends AndroidViewModel
         mutableParams.setPieceSizeIndex(index);
     }
 
+    public void setTorrentVersionIndex(int index) {
+        if (index < 0 || index >= engine.getTorrentVersionList().length)
+            return;
+
+        mutableParams.setTorrentVersionIndex(index);
+    }
+
     public void buildTorrent()
     {
         state.setValue(new BuildState(BuildState.Status.BUILDING, null));
@@ -182,6 +189,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         return new TorrentBuilder(getApplication())
                 .setSeedPath(seedPath)
                 .setPieceSize(getPieceSizeByIndex(mutableParams.getPieceSizeIndex()))
+                .setTorrentVersion(getTorrentVersionByIndex(mutableParams.getPieceSizeIndex()))
                 .addTrackers(getAndValidateTrackers())
                 .addUrlSeeds(getAndValidateWebSeeds())
                 .setAsPrivate(mutableParams.isPrivateTorrent())
@@ -325,6 +333,20 @@ public class CreateTorrentViewModel extends AndroidViewModel
     private int getPieceSizeByIndex(int index)
     {
         return engine.getPieceSizeList()[index] * 1024;
+    }
+
+    private TorrentBuilder.TorrentVersion getTorrentVersionByIndex(int index) {
+        int version = engine.getTorrentVersionList()[index];
+        if (version == 0) {
+            return TorrentBuilder.TorrentVersion.HYBRID;
+        } else if (version == 1) {
+            return TorrentBuilder.TorrentVersion.V1_ONLY;
+        } else if (version == 2) {
+            return TorrentBuilder.TorrentVersion.V2_ONLY;
+        } else {
+            Log.e(TAG, "Unknown torrent version " + version);
+            return TorrentBuilder.TorrentVersion.HYBRID;
+        }
     }
 
     public Completable downloadTorrent() throws UnknownUriException {

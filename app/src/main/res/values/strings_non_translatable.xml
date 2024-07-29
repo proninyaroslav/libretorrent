@@ -2,6 +2,12 @@
 <resources>
     <!-- Global string -->
 
+    <string-array name="torrent_version_entries" translatable="false">
+        <item>@string/torrent_version_entries_hybrid</item>
+        <item>@string/torrent_version_entries_v1_only</item>
+        <item>@string/torrent_version_entries_v2_only</item>
+    </string-array>
+
     <string-array name="piece_size_entries" translatable="false">
         <item>@string/piece_size_entries_0</item>
         <item>@string/piece_size_entries_1</item>

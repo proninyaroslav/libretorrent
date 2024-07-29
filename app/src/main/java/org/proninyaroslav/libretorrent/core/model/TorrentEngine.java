@@ -1010,6 +1010,11 @@ public class TorrentEngine
         return session.getPieceSizeList();
     }
 
+    public int[] getTorrentVersionList()
+    {
+        return session.getTorrentVersionList();
+    }
+
     public Logger getSessionLogger()
     {
         return session.getLogger();

@@ -232,11 +232,25 @@ public class CreateTorrentDialog extends DialogFragment
             {
                 viewModel.setPiecesSizeIndex(binding.piecesSize.getSelectedItemPosition());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView)
             {
                 /* Nothing */
+            }
+        });
+
+        binding.torrentVersion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                viewModel.setTorrentVersionIndex(binding.torrentVersion.getSelectedItemPosition());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+                /*  Nothing  */
             }
         });
 

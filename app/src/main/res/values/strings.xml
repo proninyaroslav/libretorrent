@@ -336,6 +336,7 @@
     <string name="web_seed_urls_hint">(Optional) one per line</string>
     <string name="optional_hint">(Optional)</string>
     <string name="piece_size">Piece size</string>
+    <string name="torrent_version">Torrent version</string>
     <string name="create_torrent_options">Options</string>
     <string name="option_start_seeding">Start seeding</string>
     <string name="option_private_torrent">Private torrent</string>
@@ -353,6 +354,11 @@
     <string name="piece_size_entries_10">8 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
+    <!-- torrent_version_entries -->
+    <string name="torrent_version_entries_hybrid">Hybrid</string>
+    <string name="torrent_version_entries_v1_only">V1 only</string>
+    <string name="torrent_version_entries_v2_only">V2 only</string>
+
     <string name="invalid_url">Invalid URL: %1$s</string>
     <string name="folder_is_empty">The selected folder is empty or all its files are excluded by the filter.</string>
     <string name="error_create_torrent">Could not create torrent</string>
