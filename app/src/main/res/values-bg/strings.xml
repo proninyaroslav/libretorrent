@@ -33,7 +33,7 @@
     <string name="switch_on">Вкл</string>
     <string name="switch_off">Изкл</string>
     <string name="delete_torrent_with_downloaded_files">Изтриване с изтеглени файлове</string>
-    <string name="delete_selected_torrent">Изтриване на избрания торент\? (Не може да бъде отменено.)</string>
+    <string name="delete_selected_torrent">Изтриване на избрания торент? (Не може да бъде отменено.)</string>
     <string name="force_recheck_torrent">Принудителна повторна проверка</string>
     <string name="add_link">Добавяне на връзка</string>
     <string name="dialog_add_link_title">Въведете стойността на infohash, магнитна връзка или HTTP/S връзка</string>
@@ -44,7 +44,7 @@
     <string name="error_open_torrent_file">Не може да се отвори .torrent файл</string>
     <string name="open_file">Отваряне на файл</string>
     <string name="settings">Настройки</string>
-    <string name="ip_filter_add_error">Не можа да се добави IP филтър (%1$d не успя). Може би файлът е повреден или е в неправилен формат\?</string>
+    <string name="ip_filter_add_error">Не можа да се добави IP филтър (%1$d не успя). Може би файлът е повреден или е в неправилен формат?</string>
     <string name="proxy_settings_applied">Използване на новите настройки на прокси сървъра.</string>
     <string name="proxy_settings_apply_after_reboot">Рестартирайте приложението, за да използвате новите настройки на прокси сървъра.</string>
     <string name="about">Относно</string>
@@ -100,7 +100,7 @@
     <string name="torrent_status_downloading_metadata">Изтегляне на метаданни…</string>
     <string name="perm_denied_title">Разрешението е отказано</string>
     <string name="add_torrent_title">Добавяне на торент</string>
-    <string name="error_decode_torrent">Не може да декодира .torrent файла. Може би е повреден или е в неправилен формат\?</string>
+    <string name="error_decode_torrent">Не може да декодира .torrent файла. Може би е повреден или е в неправилен формат?</string>
     <string name="error_io_torrent">Не можа да прочете .torrent файла</string>
     <string name="error_fetch_link">Не можаха да бъдат извлечени данни от връзката</string>
     <string name="error_invalid_link_or_path">Невалидна връзка или път на торент</string>
@@ -158,8 +158,8 @@
     <string name="tracker_state_updating">Актуализиране…</string>
     <string name="tracker_state_not_contacted">Все още не се е свързал</string>
     <string name="share_tracker_url">Споделяне на URL адрес…</string>
-    <string name="delete_selected_tracker">Изтриване на избрания тракер\?</string>
-    <string name="delete_selected_trackers">Изтриване на избраните тракери\?</string>
+    <string name="delete_selected_tracker">Изтриване на избрания тракер?</string>
+    <string name="delete_selected_trackers">Изтриване на избраните тракери?</string>
     <string name="add_trackers">Добавяне на тракери</string>
     <string name="dialog_add_trackers">(По един на ред)</string>
     <string name="open_using">Отваряне с</string>
@@ -336,7 +336,7 @@
     <string name="dialog_new_folder_title">Нова папка</string>
     <string name="parent_folder">Родителска папка</string>
     <string name="change_priority">Приоритет</string>
-    <string name="delete_selected_torrents">Изтриване на избраните торенти\? (Не може да бъде отменено.)</string>
+    <string name="delete_selected_torrents">Изтриване на избраните торенти? (Не може да бъде отменено.)</string>
     <string name="force_announce_torrent">Принудително обявяване</string>
     <string name="ip_filter_add_success">Добавен е IP филтър</string>
     <string name="session_stats_dht_nodes">DHT възли: %1$d</string>
@@ -352,9 +352,9 @@
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="drawer_sorting">Сортиране</string>
     <string name="drawer_date_added_week">Седмица</string>
-    <string name="perm_denied_warning">За изтегляне на торенти и достъп до .torrent файлове се изисква разрешение за съхранение. Наистина ли искате да откажете това разрешение\?</string>
+    <string name="perm_denied_warning">За изтегляне на торенти и достъп до .torrent файлове се изисква разрешение за съхранение. Наистина ли искате да откажете това разрешение?</string>
     <string name="error_add_torrent">Торентът не можа да се добави</string>
-    <string name="error_file_not_found_add_torrent">Торентът не можа да се добави. Може би .torrent файлът е преместен или изтрит\?</string>
+    <string name="error_file_not_found_add_torrent">Торентът не можа да се добави. Може би .torrent файлът е преместен или изтрит?</string>
     <string name="torrent_file_count">Брой файлове</string>
     <string name="file_name">Име на файла</string>
     <string name="torrent_ETA">Оставащо врене</string>
@@ -376,15 +376,15 @@
     <string name="speed_limit_title">Максимална скорост</string>
     <string name="app_error_occurred">Възникна грешка в приложението. Можете да я докладвате на разработчиците.</string>
     <string name="error_comment_prompt">Добавете допълнителна информация и коментари тук:</string>
-    <string name="delete_selected_channels">Изтриване на избрани канали\?</string>
+    <string name="delete_selected_channels">Изтриване на избрани канали?</string>
     <string name="error_import_invalid_format">Невалиден формат</string>
-    <string name="magnet_include_file_priorities">Да се включат ли приоритетите на файловете\?</string>
+    <string name="magnet_include_file_priorities">Да се включат ли приоритетите на файловете?</string>
     <string name="feed_item_list_empty">Няма статии</string>
     <string name="feed_do_not_download_immediately">Не изтегляй незабавно</string>
     <string name="creating_torrent_progress">Моля, изчакайте, докато торентът се създаде…</string>
     <string name="feed_filter_prompt">Въведете думите (разделени с \"|\"), една от които трябва да е в името, или въведете регулярен израз. Торентите се добавят само ако този филтър съвпада с името на торента.</string>
     <string name="error_cannot_delete_channel">Не може да се изтрие канал</string>
-    <string name="delete_selected_channel">Изтриване на избрания канал\?</string>
+    <string name="delete_selected_channel">Изтриване на избрания канал?</string>
     <string name="create_torrent">Създаване на торент</string>
     <string name="file_or_folder_for_seeding">Файл или папка до споделяне</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Първо изберете файл или папка за споделяне.</string>
@@ -420,7 +420,7 @@
     <string name="pref_foreground_notify_combined_pause_button_title">Комбиниран бутон за пауза</string>
     <string name="pref_foreground_notify_sorting_entries_8">Оставащо време (първо с най-малко)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Съчетава два бутона: \"Пауза\" и \"Възобновяване\". Бутонът ще работи като превключвател. Предупреждение: състоянието на бутона не се влияе от ръчното спиране/възобновяване на торента.</string>
-    <string name="pref_custom_battery_control_dialog_summary">Наистина ли сте определили %% на батерията, за който да внимавате\? (Увеличава използването на батерията по време на изтегляне.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Наистина ли сте определили %% на батерията, за който да внимавате? (Увеличава използването на батерията по време на изтегляне.)</string>
     <string name="pref_default_trackers_list_summary">Списък с тракери, който се използва в следните случаи:
 \n1. Когато добавяте торент, списъкът по подразбиране се добавя автоматично към списъка с торенти.
 \n2. Използва се за извличане на магнитни връзки.</string>
@@ -484,7 +484,7 @@
     <string name="pref_feed_keep_items_time_entries_1">2 дена</string>
     <string name="pref_feed_keep_items_time_entries_7">3 месеца</string>
     <string name="pref_enable_scheduling_shutdown_title">Време за изключване</string>
-    <string name="exact_alarm_permission_warning">За да работи планировчика, трябва да получите разрешение в специален системен диалог. Продължаване\?</string>
+    <string name="exact_alarm_permission_warning">За да работи планировчика, трябва да получите разрешение в специален системен диалог. Продължаване?</string>
     <string name="pref_feed_auto_refresh_summary">Периодично опреснявайте каналите във фонов режим.</string>
     <string name="pref_feed_auto_refresh_title">Автоматично опресяване на каналите</string>
     <string name="pref_feed_refresh_intervals_entries_0">15 минути</string>
@@ -510,6 +510,6 @@
     <string name="pref_streaming_enable_summary">Позволява изтеглянето на отделни файлове от торент с помощта на уеб браузър или мултимедиен плейър, като се използват HTTP/S URL адреси.</string>
     <string name="pref_streaming_port">Порт</string>
     <string name="about_title">Относно</string>
-    <string name="perm_denied_warning_android_r">Разрешението за достъп до всички файлове е необходимо за изтегляне на торенти и достъп до .torrent файлове в произволни папки. Без това разрешение LibreTorrent ще има достъп само до ограничен брой папки. Сигурни ли сте, че искате да откажете това разрешение\?</string>
+    <string name="perm_denied_warning_android_r">Разрешението за достъп до всички файлове е необходимо за изтегляне на торенти и достъп до .torrent файлове в произволни папки. Без това разрешение LibreTorrent ще има достъп само до ограничен брой папки. Сигурни ли сте, че искате да откажете това разрешение?</string>
     <string name="pref_streaming_error">Изберете порт или име на хост за поточно предаване, който не е зает или неправилен.</string>
 </resources>

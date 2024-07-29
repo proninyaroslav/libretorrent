@@ -107,7 +107,7 @@
     <string name="torrent_status_checking">Checking</string>
     <string name="torrent_status_downloading_metadata">Downloading metadata</string>
     <!-- Permission dialog -->
-    <string name="perm_denied_warning">Without this permission app can\'t save torrent files in memory. The app will not work properly. Are you sure you want to deny this permission\?</string>
+    <string name="perm_denied_warning">Without this permission app can\'t save torrent files in memory. The app will not work properly. Are you sure you want to deny this permission?</string>
     <!-- Add torrent dialog -->
     <string name="error_decode_torrent">Failed decoding torrent file. Maybe the file is corrupted or has an incorrect format</string>
     <string name="error_io_torrent">Error reading the torrent file</string>
@@ -178,7 +178,7 @@
     <string name="feed_filter_prompt">Enter the words (separated by \"|\"), one of which must be in the name or enter regular expression. Torrents will be added only if this filter matches the torrent name</string>
     <string name="feed_filter_prompt_one_per_line">Enter filters one per line.</string>
     <string name="feed_auto_download">Download new torrents automatically</string>
-    <string name="delete_selected_channel">Delete the selected channel\?</string>
+    <string name="delete_selected_channel">Delete the selected channel?</string>
     <string name="link_copied_to_clipboard">Link copied to clipboard</string>
     <string name="backup_feeds_successfully">Channels saved successfully</string>
     <string name="restore_feeds_backup_successfully">Channels restored successfully</string>
@@ -262,7 +262,7 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">Enable DHT</string>
     <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
@@ -343,6 +343,6 @@
     <string name="delete_torrent_with_downloaded_files">ᱰᱟᱩᱱᱞᱳᱰ ᱠᱟᱱ ᱨᱮᱫᱠᱚ ᱥᱟᱞᱟᱜ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
     <string name="switch_off">ᱵᱚᱸᱫ</string>
     <string name="apply">ᱮᱢ ᱪᱷᱚ</string>
-    <string name="delete_selected_torrents">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱠᱚ ᱢᱮᱴᱟᱣ ᱟᱢ\?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
-    <string name="delete_selected_torrent">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱢᱮᱴᱟᱣ ᱟᱢ\?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
+    <string name="delete_selected_torrents">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱠᱚ ᱢᱮᱴᱟᱣ ᱟᱢ?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
+    <string name="delete_selected_torrent">ᱵᱟᱪᱷᱟᱣ ᱠᱟᱱ ᱴᱚᱨᱮᱱᱴ ᱢᱮᱴᱟᱣ ᱟᱢ?(ᱛᱚᱭᱚᱢ ᱟᱹᱜᱩ ᱨᱩᱟᱹᱲ ᱵᱟᱭ ᱜᱟᱱᱟᱜᱼᱟ ᱾)</string>
 </resources>

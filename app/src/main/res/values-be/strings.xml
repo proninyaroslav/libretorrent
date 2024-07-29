@@ -31,7 +31,7 @@
     <string name="error_invalid_link">Няправільная спасылка</string>
     <string name="error_empty_link">Увядзіце спасылку</string>
     <string name="elapsed_time_format_h_mm_ss">%1$d г. %2$d х. %3$d с</string>
-    <string name="ip_filter_add_error">Немагчыма дадаць IP-фільтр (%1$d не атрымалася). Магчыма, файл пашкоджаны або мае няправільны фармат\?</string>
+    <string name="ip_filter_add_error">Немагчыма дадаць IP-фільтр (%1$d не атрымалася). Магчыма, файл пашкоджаны або мае няправільны фармат?</string>
     <string name="drawer_status_downloading">Спампоўка…</string>
     <string name="drawer_status">Статус</string>
     <string name="drawer_status_downloaded">Спампавана</string>
@@ -51,10 +51,10 @@
     <string name="restore_torrent_error">Не ўдаецца аднавіць торэнт з папярэдняй сесіі.</string>
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_checking">Праверка…</string>
-    <string name="perm_denied_warning">Для спампоўкі торэнтаў і доступу да файлаў .torrent патрабуецца дазвол на захоўванне. Вы сапраўды хочаце адмовіць у гэтым дазволе\?</string>
+    <string name="perm_denied_warning">Для спампоўкі торэнтаў і доступу да файлаў .torrent патрабуецца дазвол на захоўванне. Вы сапраўды хочаце адмовіць у гэтым дазволе?</string>
     <string name="manage_all_files_warning_dialog_description">Не выкарыстоўвайце версію LibreTorrent з Google Play, калі вы хочаце захоўваць торэнты ў іншых папках, акрамя \"Спампоўкі\" і падобных.
 \nНа старонцы праекта ёсць і іншыя крыніцы для спампоўкі праграмы.</string>
-    <string name="error_decode_torrent">Не ўдалося расшыфраваць торэнт-файл. Можа быць, ён пашкоджаны або ў няправільным фармаце\?</string>
+    <string name="error_decode_torrent">Не ўдалося расшыфраваць торэнт-файл. Можа быць, ён пашкоджаны або ў няправільным фармаце?</string>
     <string name="error_io_torrent">Не ўдалося прачытаць файл .torrent</string>
     <string name="error_invalid_link_or_path">Няправільная спасылка або шлях да торэнта</string>
     <string name="error_fetch_link">Не ўдалося атрымаць дадзеныя па спасылцы</string>
@@ -116,7 +116,7 @@
     <string name="apply">Ужыць</string>
     <string name="clipboard">Буфер абмену</string>
     <string name="switch_on">Укл</string>
-    <string name="delete_selected_torrent">Выдаліць выбраны торэнт\? (Нельга адмяніць)</string>
+    <string name="delete_selected_torrent">Выдаліць выбраны торэнт? (Нельга адмяніць)</string>
     <string name="force_recheck_torrent">Прымусовае пераправерка</string>
     <string name="force_announce_torrent">Прымусова абвясціць</string>
     <string name="add_link">Дадаць спасылку</string>
@@ -152,7 +152,7 @@
     <string name="torrent_status_finished">Скончана</string>
     <string name="torrent_status_downloading_metadata">Спампоўка метаданых…</string>
     <string name="perm_denied_title">Адмоўлена ў дазволе</string>
-    <string name="error_file_not_found_add_torrent">Не атрымалася дадаць торэнт. Можа быць, файл .torrent перамясціўся або быў выдалены\?</string>
+    <string name="error_file_not_found_add_torrent">Не атрымалася дадаць торэнт. Можа быць, файл .torrent перамясціўся або быў выдалены?</string>
     <string name="error_field_required">Абавязковае поле</string>
     <string name="free_space">%1$s свабодна</string>
     <string name="error_free_space">Недастаткова вольнага месца для спампоўкі выбраных файлаў.</string>
@@ -220,8 +220,8 @@
     <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="delete_torrent_with_downloaded_files">Выдаліць са спампаванымі файламі</string>
     <string name="torrent_moving_title">Перанос торэнта…</string>
-    <string name="magnet_include_file_priorities">Уключыць прыярытэты файлаў\?</string>
-    <string name="delete_selected_tracker">Выдаліць абраны трэкер\?</string>
+    <string name="magnet_include_file_priorities">Уключыць прыярытэты файлаў?</string>
+    <string name="delete_selected_tracker">Выдаліць абраны трэкер?</string>
     <string name="share_via">Падзяліцца праз…</string>
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/х • %4$s</string>
     <string name="link">Спасылка</string>
@@ -238,14 +238,14 @@
     <string name="change_priority_low">Нізкі (ігнараваць файл)</string>
     <string name="share_magnet">Падзяліцца магнітнай спасылкай</string>
     <string name="error_dialog_new_folder">Немагчыма стварыць новую папку</string>
-    <string name="delete_selected_trackers">Выдаліць выбраныя трэкеры\?</string>
+    <string name="delete_selected_trackers">Выдаліць выбраныя трэкеры?</string>
     <string name="def">Па змаўчанні</string>
     <string name="switch_off">Выкл</string>
     <string name="add_trackers">Дадаць трэкеры</string>
     <string name="error_no_files_selected">Файлы не выбраны</string>
     <string name="torrent_trackers">Трэкеры</string>
     <string name="upload_speed">Выгружана</string>
-    <string name="delete_selected_torrents">Выдаліць выбраныя торэнты\? (Нельга адмяніць)</string>
+    <string name="delete_selected_torrents">Выдаліць выбраныя торэнты? (Нельга адмяніць)</string>
     <string name="feed_last_update_template">Абноўлена: %1$s</string>
     <string name="feed_last_update_never">ніколі</string>
     <string name="error_cannot_add_channel">Немагчыма дадаць канал</string>
@@ -262,8 +262,8 @@
     <string name="backup_feed_channels">Захаваць рэзервовую копію</string>
     <string name="error_cannot_delete_channel">Немагчыма выдаліць канал</string>
     <string name="copy_link">Скапіраваць спасылку</string>
-    <string name="delete_selected_channel">Выдаліць абраны канал\?</string>
-    <string name="delete_selected_channels">Выдаліць абраныя каналы\?</string>
+    <string name="delete_selected_channel">Выдаліць абраны канал?</string>
+    <string name="delete_selected_channels">Выдаліць абраныя каналы?</string>
     <string name="link_copied_to_clipboard">Скапіравана ў буфер абмену</string>
     <string name="mark_as_unread">Адзначыць як не прачытанае</string>
     <string name="feed_item_list_empty">Няма артыкулаў</string>
@@ -488,7 +488,7 @@
     <string name="pref_proxy_password_title">Пароль</string>
     <string name="pref_feed_refresh_intervals_entries_3">2 гадзіны</string>
     <string name="pref_cpu_do_not_sleep_summary">Выкарыстоўвайце, калі хуткасць спампоўкі зніжаецца пры выключэнні экрана. (Павялічвае выкарыстанне батарэі.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Сапраўды ўсталяваць %% батарэі\? (Павялічвае выдатак зарада батарэі пры спампоўцы.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Сапраўды ўсталяваць %% батарэі? (Павялічвае выдатак зарада батарэі пры спампоўцы.)</string>
     <string name="pref_enable_scheduling_start_summary">Запуск праграмы ў зададзены час. Загрузкі і раздачы будуць працягнутыя са стану на момант апошняга выключэння.</string>
     <string name="about_description">Дадатковая інфармацыя і як дапамагчы праекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br &gt; LibreTorrent - гэта бібліятэка з аўтарскім правам (&lt;a href=https://www.gnu.org/copyleft/gpl.html &gt; GPLv3+&lt;/a&gt;) торэнт-кліент для Android 4+, на аснове бібліятэкі libtorrent (Java-абалонка &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;). &lt; br &gt; &lt; br&gt;</string>
     <string name="pref_battery_control_title">Кантроль зарада акумулятара</string>
@@ -512,11 +512,11 @@
     <string name="pref_default_trackers_list_title">Трэкеры па змаўчанні</string>
     <string name="pref_use_random_port_title">Выкарыстоўваць выпадковы порт</string>
     <string name="pref_validate_https_trackers_summary">Сертыфікат HTTPS трэкераў і HTTPS вэб-сядоў будзе праверацца ў сістэмным сховішчы сертыфікатаў.</string>
-    <string name="exact_alarm_permission_warning">Для працы планавальніка неабходна атрымаць дазвол у спецыяльным сістэмным дыялогу. Працягнуць\?</string>
+    <string name="exact_alarm_permission_warning">Для працы планавальніка неабходна атрымаць дазвол у спецыяльным сістэмным дыялогу. Працягнуць?</string>
     <string name="pref_feed_auto_refresh_summary">Перыядычна абнаўляць каналы ў фоне.</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Толькі безлімітныя злучэнні</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Уключыць роумінг</string>
-    <string name="perm_denied_warning_android_r">Дазвол на доступ да ўсіх файлаў неабходна для запампоўкі торэнтаў і доступу да .torrent файлаў. Без гэтага дазволу LibreTorrent будзе мець доступ толькі да абмежаванага ліку папак. Вы сапраўды хочаце адхіліць гэта дазвол\?</string>
+    <string name="perm_denied_warning_android_r">Дазвол на доступ да ўсіх файлаў неабходна для запампоўкі торэнтаў і доступу да .torrent файлаў. Без гэтага дазволу LibreTorrent будзе мець доступ толькі да абмежаванага ліку папак. Вы сапраўды хочаце адхіліць гэта дазвол?</string>
     <string name="apply_settings_after_reboot">Змяненні будуць ужытыя пасля перазапуску праграмы.</string>
     <string name="pref_posix_disk_io_title">Дыскавы POSIX I/O</string>
     <string name="pref_posix_disk_io_summary">Нататка: гэтую опцыю варта выкарыстоўваць толькі ў вызначаных сітуацыях, напрыклад, для падтрымкі некаторых файлавых сістэм SD-карт. Уключае просты дыскавы POSIX I/O, які выкарыстоўваецца для сістэм, якія не маюць 64-бітнай віртуальнай адраснай прасторы ці не падтрымліваюць файлы з адлюстраваннем у памяць.</string>

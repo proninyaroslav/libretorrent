@@ -48,8 +48,8 @@
     <string name="switch_off">Выкл.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Удалить вместе с загруженными файлами</string>
-    <string name="delete_selected_torrent">Удалить выбранный торрент\? (Операция не может быть отменена.)</string>
-    <string name="delete_selected_torrents">Удалить выбранные торренты\? (Операция не может быть отменена.)</string>
+    <string name="delete_selected_torrent">Удалить выбранный торрент? (Операция не может быть отменена.)</string>
+    <string name="delete_selected_torrents">Удалить выбранные торренты? (Операция не может быть отменена.)</string>
     <string name="force_recheck_torrent">Принудительно проверить</string>
     <string name="force_announce_torrent">Принудительное анонсирование</string>
     <string name="add_link">Добавить ссылку</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Невозможно открыть .torrent файл</string>
     <string name="open_file">Открыть файл</string>
     <string name="settings">Настройки</string>
-    <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно, файл повреждён или имеет неверный формат\?</string>
+    <string name="ip_filter_add_error">Не удалось добавить IP фильтр (не удалось %1$d). Возможно, файл повреждён или имеет неверный формат?</string>
     <string name="ip_filter_add_success">IP фильтр добавлен</string>
     <string name="proxy_settings_applied">Настройки прокси-сервера применены</string>
     <string name="proxy_settings_apply_after_reboot">Перезапустите приложение, чтобы использовать новые настройки прокси.</string>
@@ -145,22 +145,22 @@
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">Загружается…</string>
     <string name="torrent_status_seeding">Раздаётся…</string>
-    <string name="torrent_status_paused">Пауза</string>
+    <string name="torrent_status_paused">На паузе</string>
     <string name="torrent_status_stopped">Остановлен</string>
     <string name="torrent_status_checking">Проверка…</string>
     <string name="torrent_status_finished">Загружен</string>
     <string name="torrent_status_downloading_metadata">Загрузка метаданных…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
-    <string name="perm_denied_warning">Разрешение на доступ к хранилищу необходимо для скачивания торрентов и доступа к .torrent файлам. Вы действительно хотите отклонить это разрешение\?</string>
+    <string name="perm_denied_warning">Разрешение на доступ к хранилищу необходимо для скачивания торрентов и доступа к .torrent файлам. Вы действительно хотите отклонить это разрешение?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Добавить торрент</string>
-    <string name="error_decode_torrent">Ошибка декодирования .torrent файла. Возможно он поврежден или имеет неверный формат\?</string>
+    <string name="error_decode_torrent">Ошибка декодирования .torrent файла. Возможно он поврежден или имеет неверный формат?</string>
     <string name="error_io_torrent">Ошибка чтения .torrent файла</string>
     <string name="error_fetch_link">Не удалось получить данные из ссылки</string>
     <string name="error_invalid_link_or_path">Неверная ссылка или путь до торрента</string>
     <string name="error_add_torrent">Не удалось добавить торрент</string>
-    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Возможно .torrent файл перемещен или удален\?</string>
+    <string name="error_file_not_found_add_torrent">Не удалось добавить торрент. Возможно .torrent файл перемещен или удален?</string>
     <string name="error_io_add_torrent">Невозможно добавить торрент из-за ошибки ввода-вывода.</string>
     <string name="torrent_exist">Так как торрент уже существует, они были объединены.</string>
     <string name="error_field_required">Обязательное поле</string>
@@ -242,8 +242,8 @@
     <string name="tracker_state_updating">Обновление…</string>
     <string name="tracker_state_not_contacted">Соединения пока что нет</string>
     <string name="share_tracker_url">Поделиться URL…</string>
-    <string name="delete_selected_tracker">Удалить выбранный трекер\?</string>
-    <string name="delete_selected_trackers">Удалить выбранные трекеры\?</string>
+    <string name="delete_selected_tracker">Удалить выбранный трекер?</string>
+    <string name="delete_selected_trackers">Удалить выбранные трекеры?</string>
     <string name="add_trackers">Добавить трекеры</string>
     <string name="dialog_add_trackers">(Один на строку)</string>
     <string name="open_using">Открыть с помощью</string>
@@ -273,7 +273,7 @@
     <string name="torrent_added_date">Добавлен</string>
     <string name="torrent_availability">Доступность</string>
     <string name="share_stream_url">Поделиться URL стрима…</string>
-    <string name="magnet_include_file_priorities">Включить приоритеты файлов\?</string>
+    <string name="magnet_include_file_priorities">Включить приоритеты файлов?</string>
     <string name="magnet_more_about_bep53">Больше информации: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нет трекеров</string>
     <string name="edit_torrent_name">Переименовать торрент</string>
@@ -301,8 +301,8 @@
     <string name="error_cannot_edit_channel">Невозможно отредактировать канал</string>
     <string name="error_cannot_delete_channel">Невозможно удалить канал</string>
     <string name="copy_link">Скопировать ссылку</string>
-    <string name="delete_selected_channel">Удалить выбранный канал\?</string>
-    <string name="delete_selected_channels">Удалить выбранные каналы\?</string>
+    <string name="delete_selected_channel">Удалить выбранный канал?</string>
+    <string name="delete_selected_channels">Удалить выбранные каналы?</string>
     <string name="edit_feed_channel">Редактировать канал</string>
     <string name="link_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="mark_as_read">Отметить как прочитанное</string>
@@ -444,7 +444,7 @@
     <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
     <string name="pref_battery_control_summary">Торренты будут приостановлены, если уровень заряда аккумулятора опустится ниже %1$d%%. (Ограничение не действует во время зарядки.)</string>
     <string name="pref_custom_battery_control_summary">Устанавливает %% батареи для приостановки загрузки. (Игнорирует значение по умолчанию %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Действительно установить %% батареи\? (Увеличивает расход заряда батареи при загрузке.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Действительно установить %% батареи? (Увеличивает расход заряда батареи при загрузке.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Настройки прокси</string>
     <string name="pref_enable_dht_title">Включить DHT</string>
@@ -515,7 +515,7 @@
     <string name="pref_feed_refresh_intervals_entries_5">12 часов</string>
     <string name="pref_feed_refresh_intervals_entries_6">1 день</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Только безлимитные соединения</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Только на безлимитных соединениях</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Загрузка только через безлимитные соединения (например, Wi-Fi или Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Включить роуминг</string>
     <string name="pref_feed_keep_items_time_title">Хранить статьи</string>
@@ -572,7 +572,7 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Сочетает в себе две кнопки: приостановить все и возобновить все. Кнопка будет работать как переключатель. Внимание: на состояние кнопки не влияет ручная пауза/возобновление торрента.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Совмещённая кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
-    <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите отклонить это разрешение\?</string>
+    <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите отклонить это разрешение?</string>
     <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузок\' и подобных.
 \nНа странице проекта есть другие источники.</string>
     <string name="manage_all_files_warning_dialog_title">Предупреждение</string>

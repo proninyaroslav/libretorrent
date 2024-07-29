@@ -48,8 +48,8 @@
     <string name="switch_off">முடக்கு</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">பதிவிறக்கப்பட்ட கோப்புகளை நீக்கு</string>
-    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்க வேண்டுமா\? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது)</string>
-    <string name="delete_selected_torrents">தேர்ந்தெடுக்கப்பட்டுள்ள டோரண்டுகளை நீக்க வேண்டுமா\? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது.)</string>
+    <string name="delete_selected_torrent">தேர்ந்தெடுக்கப்பட்ட டோரண்ட் நீக்க வேண்டுமா? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது)</string>
+    <string name="delete_selected_torrents">தேர்ந்தெடுக்கப்பட்டுள்ள டோரண்டுகளை நீக்க வேண்டுமா? (இந்த செயல்பாடு செயல்தவிர்க்க முடியாது.)</string>
     <string name="force_recheck_torrent">படை மறுபடியும்</string>
     <string name="force_announce_torrent">படை அறிவிப்பு</string>
     <string name="add_link">இணைப்பைச் சேர்க்கவும்</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">டோரண்ட் கோப்பை திறக்க முடியவில்லை</string>
     <string name="open_file">கோப்பை திற</string>
     <string name="settings">அமைப்புகள்</string>
-    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது\?</string>
+    <string name="ip_filter_add_error">ஐபி வடிப்பான் சேர்க்க முடியவில்லை (%1$d தோல்வியுற்றது). ஒருவேளை கோப்பு சிதைந்துள்ளது அல்லது தவறான வடிவமைப்பு உள்ளது?</string>
     <string name="ip_filter_add_success">IP வடிப்பான் வெற்றிகரமாக சேர்க்கப்பட்டது</string>
     <string name="proxy_settings_applied">பதிலாள் சேவையக அமைப்புகள் வெற்றிகரமாக பயன்படுத்தப்பட்டன</string>
     <string name="proxy_settings_apply_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பதிலாள் சேவையக அமைப்புகள் பயன்படுத்தப்படும்</string>
@@ -151,15 +151,15 @@
     <string name="torrent_status_downloading_metadata">மெட்டாடேட்டாவை பதிவிறக்குகிறது…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">அனுமதி மறுக்கப்பட்டது</string>
-    <string name="perm_denied_warning">இந்த அனுமதியின்றி, நினைவகத்தில் டாரண்ட் கோப்புகளை சேமிக்க முடியாது. பயன்பாடு ஒழுங்காக இயங்காது. இந்த அனுமதியை மறுக்க விரும்புகிறீர்களா\?</string>
+    <string name="perm_denied_warning">இந்த அனுமதியின்றி, நினைவகத்தில் டாரண்ட் கோப்புகளை சேமிக்க முடியாது. பயன்பாடு ஒழுங்காக இயங்காது. இந்த அனுமதியை மறுக்க விரும்புகிறீர்களா?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent ஐ சேர்க்கவும்</string>
-    <string name="error_decode_torrent">டிரான்டிங் டிராண்ட் கோப்பு தோல்வியடைந்தது. ஒருவேளை கோப்பு சிதைந்திருக்கலாம் அல்லது தவறான வடிவமைப்பில் இருக்கலாம்\?</string>
+    <string name="error_decode_torrent">டிரான்டிங் டிராண்ட் கோப்பு தோல்வியடைந்தது. ஒருவேளை கோப்பு சிதைந்திருக்கலாம் அல்லது தவறான வடிவமைப்பில் இருக்கலாம்?</string>
     <string name="error_io_torrent">டோரண்ட் கோப்பை படிக்க முடியவில்லை</string>
     <string name="error_fetch_link">இணைப்பு இருந்து தரவை பெற முடியவில்லை</string>
     <string name="error_invalid_link_or_path">தவறான இணைப்பு அல்லது வேகமான பாதை</string>
     <string name="error_add_torrent">வேகத்தை சேர்க்க முடியவில்லை</string>
-    <string name="error_file_not_found_add_torrent">வேகத்தை சேர்க்க முடியவில்லை. ஒருவேளை torrent கோப்பு நகர்த்தப்பட்டது அல்லது நீக்கப்பட்டது\?</string>
+    <string name="error_file_not_found_add_torrent">வேகத்தை சேர்க்க முடியவில்லை. ஒருவேளை torrent கோப்பு நகர்த்தப்பட்டது அல்லது நீக்கப்பட்டது?</string>
     <string name="error_io_add_torrent">Torrent ஐ சேர்க்க முடியவில்லை. I / O பிழை</string>
     <string name="torrent_exist">டோரண்ட் ஏற்கனவே உள்ளது. தொந்தரவுகள் இணைக்கப்பட்டன</string>
     <string name="error_field_required">தேவைப்படும் தகவல்</string>
@@ -241,8 +241,8 @@
     <string name="tracker_state_updating">புதுப்பிக்கிறது…</string>
     <string name="tracker_state_not_contacted">இதுவரை தொடர்பு கொள்ளப்படவில்லை</string>
     <string name="share_tracker_url">URL ஐப் பகிர்…</string>
-    <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா\?</string>
-    <string name="delete_selected_trackers">தேர்ந்தெடுக்கப்பட்ட டிராக்கர்களை நீக்கவா\?</string>
+    <string name="delete_selected_tracker">தேர்ந்தெடுத்த டிராக்கரை நீக்கவா?</string>
+    <string name="delete_selected_trackers">தேர்ந்தெடுக்கப்பட்ட டிராக்கர்களை நீக்கவா?</string>
     <string name="add_trackers">டிராக்கர்ஸ் சேர்க்கவும்</string>
     <string name="dialog_add_trackers">(வரிக்கு ஒன்று)</string>
     <string name="open_using">பயன்படுத்தி திறக்க</string>
@@ -272,7 +272,7 @@
     <string name="torrent_added_date">சேர்க்கப்பட்டது</string>
     <string name="torrent_availability">கிடைக்கும்</string>
     <string name="share_stream_url">ஸ்ட்ரீம் URL ஐப் பகிர்…</string>
-    <string name="magnet_include_file_priorities">கோப்பு முன்னுரிமைகள் அடங்கும்\?</string>
+    <string name="magnet_include_file_priorities">கோப்பு முன்னுரிமைகள் அடங்கும்?</string>
     <string name="magnet_more_about_bep53">மேலும் தகவல்: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">டிராக்கர்கள் இல்லை</string>
     <string name="edit_torrent_name">டொரண்ட் பெயரைத் திருத்து</string>
@@ -300,8 +300,8 @@
     <string name="error_cannot_edit_channel">சேனலைத் திருத்த முடியாது</string>
     <string name="error_cannot_delete_channel">சேனலை நீக்க முடியாது</string>
     <string name="copy_link">இணைப்பை நகலெடு</string>
-    <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா\?</string>
-    <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா\?</string>
+    <string name="delete_selected_channel">தேர்ந்தெடுக்கப்பட்ட சேனலை நீக்கவா?</string>
+    <string name="delete_selected_channels">தேர்ந்தெடுக்கப்பட்ட சேனல்களை நீக்கவா?</string>
     <string name="edit_feed_channel">சேனலைத் திருத்தவும்</string>
     <string name="link_copied_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
     <string name="mark_as_read">படித்ததாக</string>
@@ -443,7 +443,7 @@
     <string name="pref_custom_battery_control_value_title">பேட்டரி கட்டுப்பாடு சதவீதம்</string>
     <string name="pref_battery_control_summary">பேட்டரி நிலை %1$d%% க்கு கீழே சென்றால் எல்லா தொனிகளும் இடைநிறுத்தப்படும். வரம்பை சார்ஜ் செய்யும் நேரத்தில் பயன்படுத்த முடியாது</string>
     <string name="pref_custom_battery_control_summary">பேட்டரி கொடுக்கப்பட்ட நுழைவாயில் கீழே குறைகிறது என்றால் பதிவிறக்கங்களை இடைநிறுத்தம் விருப்ப சதவீதம் அமைக்கவும். இதை இயக்குவதன் மூலம் இயல்புநிலை %1$d%% வாசலில் புறக்கணிக்கப்படும்</string>
-    <string name="pref_custom_battery_control_dialog_summary">பயன்பாட்டிற்கான தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது, பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை நீங்கள் நிச்சயமாக இயக்க விரும்புகிறீர்களா\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">பயன்பாட்டிற்கான தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது, பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை நீங்கள் நிச்சயமாக இயக்க விரும்புகிறீர்களா?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">பதிலாள் அமைப்புகள்</string>
     <string name="pref_enable_dht_title">DHT ஐ இயக்கு</string>

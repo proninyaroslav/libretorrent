@@ -39,8 +39,8 @@
     <string name="switch_on">Įjungta</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ištrinti kartu su parsiųstais failais</string>
-    <string name="delete_selected_torrent">Ištrinti pasirinktą torentą\? (Ši operacija negali būti anuliuota.)</string>
-    <string name="delete_selected_torrents">Ištrinti pasirinktus torentus\? (Negali būti anuliuota)</string>
+    <string name="delete_selected_torrent">Ištrinti pasirinktą torentą? (Ši operacija negali būti anuliuota.)</string>
+    <string name="delete_selected_torrents">Ištrinti pasirinktus torentus? (Negali būti anuliuota)</string>
     <string name="force_recheck_torrent">Priverstinai pertikrinti</string>
     <string name="force_announce_torrent">Priverstinai paskelbti</string>
     <string name="add_link">Pridėti nuorodą</string>
@@ -52,7 +52,7 @@
     <string name="error_open_torrent_file">Nepavyko atidaryti .torrent failo</string>
     <string name="open_file">Atidaryti failą</string>
     <string name="settings">Nustatymai</string>
-    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro (%1$d nepavyko). Galbūt failas sugadintas arba yra pažeistas arba netinkamo formato\?</string>
+    <string name="ip_filter_add_error">Nepavyko pridėti IP rodymo filtro (%1$d nepavyko). Galbūt failas sugadintas arba yra pažeistas arba netinkamo formato?</string>
     <string name="ip_filter_add_success">IP filtras pridėtas</string>
     <string name="proxy_settings_applied">Naudojami nauji įgaliotojo serverio nustatymai.</string>
     <string name="proxy_settings_apply_after_reboot">Iš naujo paleiskite programą, kad galėtumėte naudoti naujus įgaliotojo serverio nustatymus.</string>
@@ -122,15 +122,15 @@
     <string name="torrent_status_downloading_metadata">Atsisiunčiami metaduomenys…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Leidimas nesuteiktas</string>
-    <string name="perm_denied_warning">Norint atsisiųsti torentus ir pasiekti .torrent failus, reikalingas saugyklos leidimas. Ar tikrai norite atsisakyti šio leidimo\?</string>
+    <string name="perm_denied_warning">Norint atsisiųsti torentus ir pasiekti .torrent failus, reikalingas saugyklos leidimas. Ar tikrai norite atsisakyti šio leidimo?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Pridėti torentą</string>
-    <string name="error_decode_torrent">Nepavyko iššifruoti .torrent failo. Galbūt jis pažeistas arba yra netinkamo formato\?</string>
+    <string name="error_decode_torrent">Nepavyko iššifruoti .torrent failo. Galbūt jis pažeistas arba yra netinkamo formato?</string>
     <string name="error_io_torrent">Nepavyko perskaityti .torrent failo</string>
     <string name="error_fetch_link">Nepavyko gauti duomenų iš nuorodos</string>
     <string name="error_invalid_link_or_path">Neteisinga nuoroda arba torent kelias</string>
     <string name="error_add_torrent">Nepavyko pridėti torento</string>
-    <string name="error_file_not_found_add_torrent">Nepavyko pridėti torento. Galbūt .torrent failas persikėlė arba buvo ištrintas\?</string>
+    <string name="error_file_not_found_add_torrent">Nepavyko pridėti torento. Galbūt .torrent failas persikėlė arba buvo ištrintas?</string>
     <string name="error_io_add_torrent">Negalima pridėti torento dėl I/O klaidos.</string>
     <string name="torrent_exist">Kadangi toks torentas jau egzistuoja, jie buvo sujungti.</string>
     <string name="error_field_required">Privalomas laukas</string>
@@ -207,8 +207,8 @@
     <string name="tracker_state_updating">Atnaujinama…</string>
     <string name="tracker_state_not_contacted">Dar nesusisiekta</string>
     <string name="share_tracker_url">Bendrinti URL…</string>
-    <string name="delete_selected_tracker">Ištrinti pasirinktą seklį\?</string>
-    <string name="delete_selected_trackers">Ištrinti visus pasirinktus seklius\?</string>
+    <string name="delete_selected_tracker">Ištrinti pasirinktą seklį?</string>
+    <string name="delete_selected_trackers">Ištrinti visus pasirinktus seklius?</string>
     <string name="add_trackers">Pridėti seklius</string>
     <string name="dialog_add_trackers">(Vienas eilutėje)</string>
     <string name="open_using">Atidaryti naudojant</string>
@@ -238,7 +238,7 @@
     <string name="torrent_added_date">Pridėta</string>
     <string name="torrent_availability">Prieinamumas</string>
     <string name="share_stream_url">Bendrinti srauto URL…</string>
-    <string name="magnet_include_file_priorities">Įtraukti failo prioritetus\?</string>
+    <string name="magnet_include_file_priorities">Įtraukti failo prioritetus?</string>
     <string name="magnet_more_about_bep53">Daugiau informacijos https://www.bittorrent.org/beps/bep_0053.html</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopijuoti</string>
@@ -260,8 +260,8 @@
     <string name="feed_last_update_never">niekada</string>
     <string name="error_cannot_add_channel">Negalima pridėti kanalo</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
-    <string name="delete_selected_channel">Ištrinti pasirinktą kanalą\?</string>
-    <string name="delete_selected_channels">Ištrinti pasirinktus kanalus\?</string>
+    <string name="delete_selected_channel">Ištrinti pasirinktą kanalą?</string>
+    <string name="delete_selected_channels">Ištrinti pasirinktus kanalus?</string>
     <string name="edit_feed_channel">Redaguoti kanalą</string>
     <string name="link_copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="mark_as_read">Žymėti kaip skaitytą</string>
@@ -387,7 +387,7 @@
     <string name="pref_custom_battery_control_value_title">Baterijos valdymo procentas</string>
     <string name="pref_battery_control_summary">Sustabdo visus torentus, jei baterijos įkrovos lygis nukrenta žemiau %1$d%%. (Įkrovimo metu ši riba netaikoma.)</string>
     <string name="pref_custom_battery_control_summary">Nustatykite baterijos %%, kuriam esant atsisiuntimas bus sustabdytas. (Ignoruojamas numatytasis %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Ar tikrai nustatyti baterijos %%, į kurį reikia atkreipti dėmesį\? (Atsisiunčiant padidėja baterijos naudojimas.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Ar tikrai nustatyti baterijos %%, į kurį reikia atkreipti dėmesį? (Atsisiunčiant padidėja baterijos naudojimas.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Įgaliotojo serverio nustatymai</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -571,8 +571,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Sujungia du mygtukus: pristabdyti visus ir tęsti visus. Mygtukas veiks kaip perjungiklis. Įspėjimas: mygtuko būsenai įtakos rankinis torento pristabdymas/atnaujinimas neturi.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinuotas pauzės mygtukas</string>
     <string name="error_open_torrent">Nepavyksta atidaryti torento</string>
-    <string name="exact_alarm_permission_warning">Kad tvarkaraštis veiktų, turite gauti leidimą specialiame sistemos dialogo lange. Vykdyti\?</string>
-    <string name="perm_denied_warning_android_r">Norint atsisiųsti torentus ir pasiekti .torrent failus esančius bet kuriuose aplankuose, reikalingas prieigos prie visų failų leidimas. Be šio leidimo LibreTorrent turės prieigą tik prie riboto skaičiaus aplankų. Ar tikrai norite atmesti šį leidimą\?</string>
+    <string name="exact_alarm_permission_warning">Kad tvarkaraštis veiktų, turite gauti leidimą specialiame sistemos dialogo lange. Vykdyti?</string>
+    <string name="perm_denied_warning_android_r">Norint atsisiųsti torentus ir pasiekti .torrent failus esančius bet kuriuose aplankuose, reikalingas prieigos prie visų failų leidimas. Be šio leidimo LibreTorrent turės prieigą tik prie riboto skaičiaus aplankų. Ar tikrai norite atmesti šį leidimą?</string>
     <string name="pref_validate_https_trackers_summary">HTTPS sekimo priemonių ir HTTPS žiniatinklio skleidėjų sertifikatas bus patvirtintas sistemos sertifikatų saugykloje.</string>
     <string name="manage_all_files_warning_dialog_title">Įspėjimas</string>
     <string name="pref_validate_https_trackers_title">Patikrinti HTTPS sekimo priemonių sertifikatą</string>
@@ -580,4 +580,6 @@
     <string name="torrent_speed_limit_dialog">Nustatyti greitį KiB/s. Atkreipkite dėmesį, kad nustačius didesnę torento ribą nei globali riba, globali riba nebus pakeista.</string>
     <string name="manage_all_files_warning_dialog_description">Nenaudokite „Google Play“ LibreTorrent versijos, jei norite išsaugoti torrentus kituose aplankuose nei „Atsisiuntimai“ ir panašiai.
 \nProjekto puslapyje yra ir kitų šaltinių.</string>
+    <string name="apply_settings_after_reboot">Pakeitimai bus pritaikyti iš naujo paleidus programą.</string>
+    <string name="pref_posix_disk_io_title">POSIX Disk I/O</string>
 </resources>
