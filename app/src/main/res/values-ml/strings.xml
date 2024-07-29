@@ -580,4 +580,5 @@
     <string name="pref_foreground_notify_sorting_entries_12"></string>
     <string name="pref_foreground_notify_combined_pause_button_title"></string>
     <string name="pref_foreground_notify_sorting_entries_11"></string>
+    <string name="pref_foreground_notify_combined_pause_button_summary"></string>
 </resources>
