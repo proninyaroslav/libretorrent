@@ -189,7 +189,7 @@ public class CreateTorrentViewModel extends AndroidViewModel
         return new TorrentBuilder(getApplication())
                 .setSeedPath(seedPath)
                 .setPieceSize(getPieceSizeByIndex(mutableParams.getPieceSizeIndex()))
-                .setTorrentVersion(getTorrentVersionByIndex(mutableParams.getPieceSizeIndex()))
+                .setTorrentVersion(getTorrentVersionByIndex(mutableParams.getTorrentVersionIndex()))
                 .addTrackers(getAndValidateTrackers())
                 .addUrlSeeds(getAndValidateWebSeeds())
                 .setAsPrivate(mutableParams.isPrivateTorrent())
