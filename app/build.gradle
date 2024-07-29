@@ -77,7 +77,7 @@ android {
     applicationVariants.configureEach { variant ->
         outputs.configureEach { output ->
             versionCodeOverride =
-                    project.ext.versionCodes.get(output.getFilter(OutputFile.ABI), 0) * 1000000 + versionCode
+                    project.ext.versionCodes.get(output.getFilter(OutputFile.ABI), 0) + versionCode
         }
     }
 
