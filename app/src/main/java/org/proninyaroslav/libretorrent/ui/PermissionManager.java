@@ -95,17 +95,19 @@ public class PermissionManager {
 
     public void requestPermissions() {
         ArrayList<String> permissionsList = new ArrayList<>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
-            if (pref.askManageAllFilesPermission()) {
-                var uri = Uri.fromParts("package", appContext.getPackageName(), null);
-                var i = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                        .setData(uri);
-                manageExternalStoragePermission.launch(i);
+        if (!checkStoragePermissions()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hasManageExternalStoragePermission) {
+                if (pref.askManageAllFilesPermission()) {
+                    var uri = Uri.fromParts("package", appContext.getPackageName(), null);
+                    var i = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                            .setData(uri);
+                    manageExternalStoragePermission.launch(i);
+                }
+            } else {
+                permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
-        } else {
-            permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && pref.askNotificationPermission()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && pref.askNotificationPermission() && !checkNotificationsPermissions()) {
             permissionsList.add(Manifest.permission.POST_NOTIFICATIONS);
         }
         permissions.launch(permissionsList.toArray(new String[0]));
