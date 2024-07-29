@@ -48,8 +48,8 @@
     <string name="switch_off">Av</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Radera med hämtade filer</string>
-    <string name="delete_selected_torrent">Ta bort vald torrent\? (Kan inte ångras.)</string>
-    <string name="delete_selected_torrents">Ta bort valda torrenter\? (Kan inte ångras.)</string>
+    <string name="delete_selected_torrent">Ta bort vald torrent? (Kan inte ångras.)</string>
+    <string name="delete_selected_torrents">Ta bort valda torrenter? (Kan inte ångras.)</string>
     <string name="force_announce_torrent">Tvinga tillkännagivande</string>
     <string name="add_link">Lägg till länk</string>
     <string name="dialog_add_link_title">Ange infohash-värdet, magnet-länk eller HTTP/S-länk</string>
@@ -60,7 +60,7 @@
     <string name="error_open_torrent_file">Det går inte att öppna .torrent-filen</string>
     <string name="open_file">Öppna fil</string>
     <string name="settings">Inställningar</string>
-    <string name="ip_filter_add_error">Det gick inte att lägga till IP-filtret (%1$d misslyckades). Kanske är filen skadad eller har fel format\?</string>
+    <string name="ip_filter_add_error">Det gick inte att lägga till IP-filtret (%1$d misslyckades). Kanske är filen skadad eller har fel format?</string>
     <string name="ip_filter_add_success">IP-filtret lades till</string>
     <string name="proxy_settings_applied">Använder de nya inställningarna för proxyservern.</string>
     <string name="proxy_settings_apply_after_reboot">Starta om appen för att använda de nya inställningarna för proxyservern.</string>
@@ -125,15 +125,15 @@
     <string name="torrent_status_downloading_metadata">Hämtar metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Åtkomst nekad</string>
-    <string name="perm_denied_warning">Lagringstillstånd krävs för att hämta torrenter och komma åt .torrent-filer. Vill du verkligen avfärda detta tillstånd\?</string>
+    <string name="perm_denied_warning">Lagringstillstånd krävs för att hämta torrenter och komma åt .torrent-filer. Vill du verkligen avfärda detta tillstånd?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Lägg till torrent</string>
-    <string name="error_decode_torrent">Det gick inte att avkoda .torrent-filen. Den kanske är skadad eller i ett felaktigt format\?</string>
+    <string name="error_decode_torrent">Det gick inte att avkoda .torrent-filen. Den kanske är skadad eller i ett felaktigt format?</string>
     <string name="error_io_torrent">Det gick inte att läsa .torrent-filen</string>
     <string name="error_fetch_link">Det gick inte att hämta data från länken</string>
     <string name="error_invalid_link_or_path">Ogiltig länk eller torrentsökväg</string>
     <string name="error_add_torrent">Det gick inte att lägga till torrenten</string>
-    <string name="error_file_not_found_add_torrent">Det gick inte att lägga till torrenten. Kanske har .torrent-filen flyttats eller tagits bort\?</string>
+    <string name="error_file_not_found_add_torrent">Det gick inte att lägga till torrenten. Kanske har .torrent-filen flyttats eller tagits bort?</string>
     <string name="error_io_add_torrent">Det går inte att lägga till torrenten på grund av ett I/O-fel.</string>
     <string name="torrent_exist">Eftersom att torrenten redan finns så slogs de ihop.</string>
     <string name="error_field_required">Obligatoriskt fält</string>
@@ -211,7 +211,7 @@
     <string name="feed_filter_prompt">Ange orden (separerat med \"|\")varav en av varje måste finnas i namnet eller ange ett vanligt uttryck. Torrenterna läggs endast till om det här filtret matchar torrentens namn.</string>
     <string name="feed_filter_prompt_one_per_line">Ange ett filter per rad.</string>
     <string name="feed_auto_download">Hämtar torrenter automatiskt</string>
-    <string name="delete_selected_channel">Ta bort vald kanal\?</string>
+    <string name="delete_selected_channel">Ta bort vald kanal?</string>
     <string name="link_copied_to_clipboard">Kopierades till klippbordet</string>
     <string name="backup_feeds_successfully">Kanaler sparades</string>
     <string name="restore_feeds_backup_successfully">Kanaler återställdes</string>
@@ -295,7 +295,7 @@
     <string name="pref_battery_control_title">Batterikontroll</string>
     <string name="pref_battery_control_summary">Pausar alla torrenter om batterinivån hamnar under %1$d%%. (Gränsen gäller inte under laddning.)</string>
     <string name="pref_custom_battery_control_summary">Ställ in batteri-%% att pausa hämtningar vid. (Ignorerar %1$d%% som standard.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-%% att hålla utkik för\? (Ökar användning av batteriet under hämtning.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vill du verkligen ställa in ett batteri-%% att hålla utkik för? (Ökar användning av batteriet under hämtning.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Tillåter att hitta andra utan en spårare. (Ökar användningen av batteri.)</string>
@@ -405,7 +405,7 @@
     <string name="pref_watch_dir_title">Bevaka mapp</string>
     <string name="pref_journal_max_stored_entries">Maximalt lagrade journal-poster</string>
     <string name="journal_filter_session_log">Sessionslogg</string>
-    <string name="magnet_include_file_priorities">Inkludera prioriterade filer\?</string>
+    <string name="magnet_include_file_priorities">Inkludera prioriterade filer?</string>
     <string name="torrent_seeding_time">Tid för distribution</string>
     <string name="torrent_leechers">Hämtare</string>
     <string name="drawer_date_added">Datum tillagd</string>
@@ -478,7 +478,7 @@
     <string name="mark_as_unread">Markera som o-läst</string>
     <string name="mark_as_read">Markera som läst</string>
     <string name="edit_feed_channel">Redigera kanal</string>
-    <string name="delete_selected_channels">Ta bort valda kanaler\?</string>
+    <string name="delete_selected_channels">Ta bort valda kanaler?</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="error_cannot_delete_channel">Det går inte att ta bort kanalen</string>
     <string name="error_cannot_edit_channel">Det går inte att redigera kanalen</string>
@@ -505,8 +505,8 @@
     <string name="peer_relevance">Relevans: %1$.1f</string>
     <string name="open_using">Öppna med</string>
     <string name="add_trackers">Lägg till spårare</string>
-    <string name="delete_selected_trackers">Ta bort valda spårare\?</string>
-    <string name="delete_selected_tracker">Ta bort vald spårare\?</string>
+    <string name="delete_selected_trackers">Ta bort valda spårare?</string>
+    <string name="delete_selected_tracker">Ta bort vald spårare?</string>
     <string name="share_tracker_url">Dela URL…</string>
     <string name="tracker_state_not_contacted">Inte kontaktad ännu</string>
     <string name="tracker_state_updating">Uppdaterar…</string>
@@ -574,8 +574,8 @@
     <string name="manage_all_files_warning_dialog_title">Varning</string>
     <string name="manage_all_files_warning_dialog_description">Använd inte Google Play-versionen av LibreTorrent om du vill spara torrenter i andra mappar än \"Hämtningar\" och liknande.
 \nDet finns andra källor på projektsidan.</string>
-    <string name="exact_alarm_permission_warning">För att schemaläggaren ska fungera måste du få behörighet i en speciell systemdialog. Fortsätt\?</string>
-    <string name="perm_denied_warning_android_r">Åtkomst till alla filer krävs för att hämta torrenter och komma åt .torrent-filer i godtyckliga mappar. Utan detta tillstånd kommer LibreTorrent endast att ha tillgång till ett begränsat antal mappar. Är du säker på att du vill avfärda denna behörighet\?</string>
+    <string name="exact_alarm_permission_warning">För att schemaläggaren ska fungera måste du få behörighet i en speciell systemdialog. Fortsätt?</string>
+    <string name="perm_denied_warning_android_r">Åtkomst till alla filer krävs för att hämta torrenter och komma åt .torrent-filer i godtyckliga mappar. Utan detta tillstånd kommer LibreTorrent endast att ha tillgång till ett begränsat antal mappar. Är du säker på att du vill avfärda denna behörighet?</string>
     <string name="pref_validate_https_trackers_title">Validera HTTPS-spårarcertifikat</string>
     <string name="download_first_last_pieces">Hämta första och sista delarna först</string>
     <string name="pref_validate_https_trackers_summary">Certifikatet för HTTPS-spårare och HTTPS-webbdistributioner kommer att valideras i systemcertifikatarkivet.</string>

@@ -48,8 +48,8 @@
     <string name="switch_off">Itzali</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ezabatu deskargatutako fitxategiekin</string>
-    <string name="delete_selected_torrent">Ezabatu aukeratutako torrent-a\? Eragiketa hau ezin da desegin</string>
-    <string name="delete_selected_torrents">Ezabatu aukeratutako torrent-ak\? Eragiketa hau ezin da desegin</string>
+    <string name="delete_selected_torrent">Ezabatu aukeratutako torrent-a? Eragiketa hau ezin da desegin</string>
+    <string name="delete_selected_torrents">Ezabatu aukeratutako torrent-ak? Eragiketa hau ezin da desegin</string>
     <string name="force_recheck_torrent">Behartu berrikustea</string>
     <string name="add_link">Gehitu lotura</string>
     <string name="dialog_add_link_title">Sartu infohash balioa, magnet lotura edo HTTP/HTTPS lotura</string>
@@ -146,7 +146,7 @@
     <string name="torrent_status_downloading_metadata">Metadatuak deskargatzen</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Baimena ukatuta</string>
-    <string name="perm_denied_warning">Baimen hau gabe aplikazioak ezin ditu torrent fitxategiak memorian gorde. Aplikazioak ez du behar bezala funtzionatuko. Ziur zaude baimen hau ukatu nahi duzula\?</string>
+    <string name="perm_denied_warning">Baimen hau gabe aplikazioak ezin ditu torrent fitxategiak memorian gorde. Aplikazioak ez du behar bezala funtzionatuko. Ziur zaude baimen hau ukatu nahi duzula?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Gehitu Torrent-a</string>
     <string name="error_decode_torrent">Failed decoding torrent file. Maybe the file is corrupted or has an incorrect format</string>
@@ -226,8 +226,8 @@
     <string name="tracker_state_updating">Eguneratzen…</string>
     <string name="tracker_state_not_contacted">Ez dago kontakturik oraindik</string>
     <string name="share_tracker_url">Partekatu URL-a</string>
-    <string name="delete_selected_tracker">Ezabatu aukeratutako aztarnaria\?</string>
-    <string name="delete_selected_trackers">Ezabatu aukeratutako aztarnariak\?</string>
+    <string name="delete_selected_tracker">Ezabatu aukeratutako aztarnaria?</string>
+    <string name="delete_selected_trackers">Ezabatu aukeratutako aztarnariak?</string>
     <string name="add_trackers">Gehitu aztarnariak</string>
     <string name="dialog_add_trackers">(Bat lerro bakoitzeko)</string>
     <string name="open_using">Ireki honekin</string>
@@ -279,8 +279,8 @@
     <string name="error_cannot_edit_channel">Ezin da kanala editatu</string>
     <string name="error_cannot_delete_channel">Ezin da kanala ezabatu</string>
     <string name="copy_link">Kopiatu lotura</string>
-    <string name="delete_selected_channel">Ezabatu aukeratutako kanala\?</string>
-    <string name="delete_selected_channels">Ezabatu aukeratutako kanalak\?</string>
+    <string name="delete_selected_channel">Ezabatu aukeratutako kanala?</string>
+    <string name="delete_selected_channels">Ezabatu aukeratutako kanalak?</string>
     <string name="edit_feed_channel">Editatu kanala</string>
     <string name="link_copied_to_clipboard">Lotura arbelean kopiatuta</string>
     <string name="mark_as_read">Markatu irakurrita bezala</string>
@@ -415,7 +415,7 @@
     <string name="pref_custom_battery_control_value_title">Bateriaren kontrolaren ehunekoa</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy ezarpenak</string>
     <string name="pref_enable_dht_title">Gaitu DHT</string>

@@ -48,8 +48,8 @@
     <string name="switch_off">Вимк.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Видалити завантажені файли</string>
-    <string name="delete_selected_torrent">Видалити вибраний торент\? (Неможливо скасувати)</string>
-    <string name="delete_selected_torrents">Видалити вибрані торенти\? (Неможливо скасувати.)</string>
+    <string name="delete_selected_torrent">Видалити вибраний торент? (Неможливо скасувати)</string>
+    <string name="delete_selected_torrents">Видалити вибрані торенти? (Неможливо скасувати.)</string>
     <string name="force_recheck_torrent">Примусово перевірити</string>
     <string name="force_announce_torrent">Примусово оголошувати</string>
     <string name="add_link">Додати посилання</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Не вдалося відкрити .torrent файл</string>
     <string name="open_file">Відкрити файл</string>
     <string name="settings">Налаштування</string>
-    <string name="ip_filter_add_error">Не вдалося додати IP-фільтр (%1$d не вдалось). Можливо, файл пошкоджений або в неправильному форматі\?</string>
+    <string name="ip_filter_add_error">Не вдалося додати IP-фільтр (%1$d не вдалось). Можливо, файл пошкоджений або в неправильному форматі?</string>
     <string name="ip_filter_add_success">Додано IP-фільтр</string>
     <string name="proxy_settings_applied">Використання нових параметрів проксі-сервера.</string>
     <string name="proxy_settings_apply_after_reboot">Перезапустіть програму, щоб використовувати нові параметри проксі-сервера.</string>
@@ -151,15 +151,15 @@
     <string name="torrent_status_downloading_metadata">Завантаження метаданих…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвіл відхилено</string>
-    <string name="perm_denied_warning">Щоб завантажити торренти та отримати доступ до файлів .torrent, потрібен дозвіл на зберігання. Ви дійсно хочете відмовити в цьому дозволі\?</string>
+    <string name="perm_denied_warning">Щоб завантажити торренти та отримати доступ до файлів .torrent, потрібен дозвіл на зберігання. Ви дійсно хочете відмовити в цьому дозволі?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Додати торент</string>
-    <string name="error_decode_torrent">Помилка декодування торенту. Можливо, файл пошкоджений або має неправильний формат\?</string>
+    <string name="error_decode_torrent">Помилка декодування торенту. Можливо, файл пошкоджений або має неправильний формат?</string>
     <string name="error_io_torrent">Помилка читання торент-файлу</string>
     <string name="error_fetch_link">Не вдалося отримати дані з посилання</string>
     <string name="error_invalid_link_or_path">Недійсне посилання або шлях до торренту</string>
     <string name="error_add_torrent">Не вдалося додати торент</string>
-    <string name="error_file_not_found_add_torrent">Не вдалося додати торент. Можливо, торент-файл переміщено або видалено\?</string>
+    <string name="error_file_not_found_add_torrent">Не вдалося додати торент. Можливо, торент-файл переміщено або видалено?</string>
     <string name="error_io_add_torrent">Не вдалося додати торент. Помилка вводу/виводу.</string>
     <string name="torrent_exist">Торент вже існує. Торенти були об\'єднані</string>
     <string name="error_field_required">Обов\'язкове поле</string>
@@ -241,8 +241,8 @@
     <string name="tracker_state_updating">Оновлення…</string>
     <string name="tracker_state_not_contacted">З\'єднання поки що немає</string>
     <string name="share_tracker_url">Поділитися URL-адресою…</string>
-    <string name="delete_selected_tracker">Видалити вибраний трекер\?</string>
-    <string name="delete_selected_trackers">Видалити вибрані трекери\?</string>
+    <string name="delete_selected_tracker">Видалити вибраний трекер?</string>
+    <string name="delete_selected_trackers">Видалити вибрані трекери?</string>
     <string name="add_trackers">Додати трекери</string>
     <string name="dialog_add_trackers">(Один на рядок)</string>
     <string name="open_using">Відкрити за допомогою</string>
@@ -272,7 +272,7 @@
     <string name="torrent_added_date">Додано</string>
     <string name="torrent_availability">Доступність</string>
     <string name="share_stream_url">Поділитися URL-адресою потоку…</string>
-    <string name="magnet_include_file_priorities">Увімкнути пріоритети файлів\?</string>
+    <string name="magnet_include_file_priorities">Увімкнути пріоритети файлів?</string>
     <string name="magnet_more_about_bep53">Більше інформації на https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Немає трекерів</string>
     <string name="edit_torrent_name">Редагувати ім\'я торрента</string>
@@ -300,8 +300,8 @@
     <string name="error_cannot_edit_channel">Неможливо відредагувати канал</string>
     <string name="error_cannot_delete_channel">Неможливо видалити канал</string>
     <string name="copy_link">Скопіювати посилання</string>
-    <string name="delete_selected_channel">Видалити вибраний канал\?</string>
-    <string name="delete_selected_channels">Видалити вибрані канали\?</string>
+    <string name="delete_selected_channel">Видалити вибраний канал?</string>
+    <string name="delete_selected_channels">Видалити вибрані канали?</string>
     <string name="edit_feed_channel">Редагувати канал</string>
     <string name="link_copied_to_clipboard">Скопійовано в буфер обміну</string>
     <string name="mark_as_read">Позначити як прочитане</string>
@@ -443,7 +443,7 @@
     <string name="pref_custom_battery_control_value_title">Відсоток контролю акумулятора</string>
     <string name="pref_battery_control_summary">Торренти будуть припинені, якщо рівень заряду акумулятора опуститися нижче %1$d%%. Обмеження не діє під час зарядки</string>
     <string name="pref_custom_battery_control_summary">Встановіть заряд акумулятора %%, щоб призупинити завантаження. (Ігнорує значення за замовчуванням %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Дійсно налаштувати акумулятор %%, стежити за цим\? (Збільшує використання акумулятора під час завантаження.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Дійсно налаштувати акумулятор %%, стежити за цим? (Збільшує використання акумулятора під час завантаження.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Налаштування проксі</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -571,9 +571,9 @@
     <string name="pref_foreground_notify_sorting_entries_1">Ім\'я (Я - А)</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Завантажено</string>
     <string name="pref_validate_https_trackers_title">Перевірка сертифіката HTTPS-трекерів</string>
-    <string name="perm_denied_warning_android_r">Для завантаження торентів і доступу до файлів .torrent у довільних теках потрібен дозвіл на доступ до всіх файлів. Без цього дозволу LibreTorrent матиме доступ лише до обмеженої кількості тек. Ви впевнені, що хочете відмовити в цьому дозволі\?</string>
+    <string name="perm_denied_warning_android_r">Для завантаження торентів і доступу до файлів .torrent у довільних теках потрібен дозвіл на доступ до всіх файлів. Без цього дозволу LibreTorrent матиме доступ лише до обмеженої кількості тек. Ви впевнені, що хочете відмовити в цьому дозволі?</string>
     <string name="pref_validate_https_trackers_summary">Сертифікат HTTPS-трекерів і вебсидів HTTPS буде перевірено в системному сховищі сертифікатів.</string>
-    <string name="exact_alarm_permission_warning">Щоб планувальник працював, ви повинні отримати дозвіл у спеціальному системному діалоговому вікні. Продовжити\?</string>
+    <string name="exact_alarm_permission_warning">Щоб планувальник працював, ви повинні отримати дозвіл у спеціальному системному діалоговому вікні. Продовжити?</string>
     <string name="manage_all_files_warning_dialog_title">Попередження</string>
     <string name="manage_all_files_warning_dialog_description">Не використовуйте версію LibreTorrent для Google Play, якщо ви бажаєте зберігати торенти в теках, відмінних від \"Завантажене\"або подібних.
 \nНа сторінці проєкту є інші джерела.</string>

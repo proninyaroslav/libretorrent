@@ -48,8 +48,8 @@
     <string name="switch_off">OFF</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">全てのダウンロード済みファイルを削除</string>
-    <string name="delete_selected_torrent">選択したトレントを削除しますか\? (取り消せません)</string>
-    <string name="delete_selected_torrents">選択したトレントを削除しますか\? (取り消せません)</string>
+    <string name="delete_selected_torrent">選択したトレントを削除しますか? (取り消せません)</string>
+    <string name="delete_selected_torrents">選択したトレントを削除しますか? (取り消せません)</string>
     <string name="force_recheck_torrent">強制的に再確認</string>
     <string name="force_announce_torrent">強制的に通知</string>
     <string name="add_link">リンクを追加</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">.torrent ファイルを開けません</string>
     <string name="open_file">ファイルを開く</string>
     <string name="settings">設定</string>
-    <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性\?</string>
+    <string name="ip_filter_add_error">IP フィルタを追加できません (%1$d 失敗)。破損しているか不正なフォーマットの可能性?</string>
     <string name="ip_filter_add_success">IP フィルタを追加しました</string>
     <string name="proxy_settings_applied">新しいプロキシサーバ設定を使用します。</string>
     <string name="proxy_settings_apply_after_reboot">新プロキシサーバ設定の使用のためにアプリを再起動</string>
@@ -154,12 +154,12 @@
     <string name="perm_denied_warning">トレントをダウンロードしたり、 .torrent ファイルにアクセスするには、ストレージの許可が必要です。本当にこの許可を拒否しますか？</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">トレントを追加</string>
-    <string name="error_decode_torrent">.torrent ファイルのデコードができませんでした。ファイルが破損しているか、不正な形式の可能性\?</string>
+    <string name="error_decode_torrent">.torrent ファイルのデコードができませんでした。ファイルが破損しているか、不正な形式の可能性?</string>
     <string name="error_io_torrent">.torrent ファイルが読み込めません</string>
     <string name="error_fetch_link">リンクからデータを取得できませんでした</string>
     <string name="error_invalid_link_or_path">リンクまたはトレントのパスが無効です</string>
     <string name="error_add_torrent">トレントを追加できませんでした</string>
-    <string name="error_file_not_found_add_torrent">トレントを追加できませんでした。 .torrent ファイルが移動または削除された可能性\?</string>
+    <string name="error_file_not_found_add_torrent">トレントを追加できませんでした。 .torrent ファイルが移動または削除された可能性?</string>
     <string name="error_io_add_torrent">入出力エラーによって、トレントを追加できません。</string>
     <string name="torrent_exist">トレントはすでに存在しているので、それらはマージされました。</string>
     <string name="error_field_required">入力必須項目</string>
@@ -241,8 +241,8 @@
     <string name="tracker_state_updating">アップデート中…</string>
     <string name="tracker_state_not_contacted">まだ接続されていません</string>
     <string name="share_tracker_url">URL を共有…</string>
-    <string name="delete_selected_tracker">選択されたトラッカーを削除しますか\?</string>
-    <string name="delete_selected_trackers">選択されたトラッカーを削除しますか\?</string>
+    <string name="delete_selected_tracker">選択されたトラッカーを削除しますか?</string>
+    <string name="delete_selected_trackers">選択されたトラッカーを削除しますか?</string>
     <string name="add_trackers">トラッカー追加</string>
     <string name="dialog_add_trackers">(1行に1つ)</string>
     <string name="open_using">開く方法</string>
@@ -272,7 +272,7 @@
     <string name="torrent_added_date">追加済</string>
     <string name="torrent_availability">可用性</string>
     <string name="share_stream_url">ストリームの URL を共有…</string>
-    <string name="magnet_include_file_priorities">ファイルの優先順位を含めますか\?</string>
+    <string name="magnet_include_file_priorities">ファイルの優先順位を含めますか?</string>
     <string name="magnet_more_about_bep53">詳細情報は https://www.bittorrent.org/beps/bep_0053.html で</string>
     <string name="tracker_list_empty">トラッカーなし</string>
     <string name="edit_torrent_name">トレント名を編集</string>
@@ -300,8 +300,8 @@
     <string name="error_cannot_edit_channel">チャンネルを編集できません</string>
     <string name="error_cannot_delete_channel">チャンネルを削除できません</string>
     <string name="copy_link">リンクをコピー</string>
-    <string name="delete_selected_channel">選択されたチャンネルを削除しますか\?</string>
-    <string name="delete_selected_channels">選択されたチャンネルを削除しますか\?</string>
+    <string name="delete_selected_channel">選択されたチャンネルを削除しますか?</string>
+    <string name="delete_selected_channels">選択されたチャンネルを削除しますか?</string>
     <string name="edit_feed_channel">チャンネルの編集</string>
     <string name="link_copied_to_clipboard">クリップボードにコピーしました</string>
     <string name="mark_as_read">既読にする</string>
@@ -443,7 +443,7 @@
     <string name="pref_custom_battery_control_value_title">バッテリー制御の残量</string>
     <string name="pref_battery_control_summary">バッテリー残量が %1$d%% を下回った場合、全てのトレントが一時停止されます。(充電時に制限は適用されません。)</string>
     <string name="pref_custom_battery_control_summary">ダウンロードを一時停止するバッテリー%%を設定します。(既定の %1$d%% が無視されます。)</string>
-    <string name="pref_custom_battery_control_dialog_summary">本当にご覧のバッテリー%%に設定しますか\? (ダウンロード中は電池の消費量が増加します。)</string>
+    <string name="pref_custom_battery_control_dialog_summary">本当にご覧のバッテリー%%に設定しますか? (ダウンロード中は電池の消費量が増加します。)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">プロキシ設定</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -571,7 +571,7 @@
     <string name="pref_foreground_notify_combined_pause_button_title">一時停止ボタンの結合</string>
     <string name="error_open_torrent">トレントを開けません</string>
     <string name="exact_alarm_permission_warning">スケジューラーを動作させるには、特別なシステムダイアログで許可を得る必要があります。実行しますか？</string>
-    <string name="perm_denied_warning_android_r">トレントをダウンロードし、任意のフォルダにある .torrent ファイルにアクセスするには、全ファイルにアクセスする許可が必要です。この許可がない場合、 LibreTorrent は限られた数のフォルダにしかアクセスできません。本当にこの許可を拒否しますか\?</string>
+    <string name="perm_denied_warning_android_r">トレントをダウンロードし、任意のフォルダにある .torrent ファイルにアクセスするには、全ファイルにアクセスする許可が必要です。この許可がない場合、 LibreTorrent は限られた数のフォルダにしかアクセスできません。本当にこの許可を拒否しますか?</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
     <string name="manage_all_files_warning_dialog_description">\'Downloads\' と類似のとは別のフォルダにtorrentを保存したいならば、LibreTorrent の Google Play 版を使用しないでください。
 \n他の配布元は、プロジェクトのページにあります。</string>

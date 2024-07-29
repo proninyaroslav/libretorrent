@@ -48,8 +48,8 @@
     <string name="switch_off">Vyp.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Smazat se staženými soubory</string>
-    <string name="delete_selected_torrent">Smazat vybraný torrent\? (Tato operace nemůže být vrácena.)</string>
-    <string name="delete_selected_torrents">Smazat vybrané torrenty\? (Tato operace nemůže být vrácena.)</string>
+    <string name="delete_selected_torrent">Smazat vybraný torrent? (Tato operace nemůže být vrácena.)</string>
+    <string name="delete_selected_torrents">Smazat vybrané torrenty? (Tato operace nemůže být vrácena.)</string>
     <string name="force_recheck_torrent">Vynutit kontrolu</string>
     <string name="force_announce_torrent">Vynutit ohlášení</string>
     <string name="add_link">Přidat odkaz</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Vybraný torrent nelze otevřít</string>
     <string name="open_file">Otevřít soubor</string>
     <string name="settings">Nastavení</string>
-    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát\?</string>
+    <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát?</string>
     <string name="ip_filter_add_success">IP filtr byl přidán</string>
     <string name="proxy_settings_applied">Používání nastavení nového proxy serveru.</string>
     <string name="proxy_settings_apply_after_reboot">Restart aplikace pro použití nového nastavení proxy.</string>
@@ -151,15 +151,15 @@
     <string name="torrent_status_downloading_metadata">Stahuji metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Přístup odepřen</string>
-    <string name="perm_denied_warning">Právo přístupu k úložišti je nutné pro stahování torrentů a přístup k .torrent souborům. Opravdu chcete zamítnout toto oprávnění\?</string>
+    <string name="perm_denied_warning">Právo přístupu k úložišti je nutné pro stahování torrentů a přístup k .torrent souborům. Opravdu chcete zamítnout toto oprávnění?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Přidat torrent</string>
-    <string name="error_decode_torrent">Chyba při dekódování .torrent. Možná je soubor poškozen nebo nemá správný formát\?</string>
+    <string name="error_decode_torrent">Chyba při dekódování .torrent. Možná je soubor poškozen nebo nemá správný formát?</string>
     <string name="error_io_torrent">Chyba čtení torrent souboru</string>
     <string name="error_fetch_link">Nepodařilo se načíst data z odkazu</string>
     <string name="error_invalid_link_or_path">Neplatný odkaz nebo cesta k torrentu</string>
     <string name="error_add_torrent">Nepodařilo se přidat torrent</string>
-    <string name="error_file_not_found_add_torrent">Nepodařilo se přidat torrent. Možná je soubor torrent přesunut nebo odstraněn\?</string>
+    <string name="error_file_not_found_add_torrent">Nepodařilo se přidat torrent. Možná je soubor torrent přesunut nebo odstraněn?</string>
     <string name="error_io_add_torrent">Nelze přidat torrent kvůli I/O chybě.</string>
     <string name="torrent_exist">Torrent již existuje. Torrenty byly sloučeny.</string>
     <string name="error_field_required">Povinné pole</string>
@@ -241,8 +241,8 @@
     <string name="tracker_state_updating">Aktualizování…</string>
     <string name="tracker_state_not_contacted">Ještě nekontaktováno</string>
     <string name="share_tracker_url">Sdílet URL…</string>
-    <string name="delete_selected_tracker">Smazat zvolený tracker\?</string>
-    <string name="delete_selected_trackers">Smazat zvolené trackery\?</string>
+    <string name="delete_selected_tracker">Smazat zvolený tracker?</string>
+    <string name="delete_selected_trackers">Smazat zvolené trackery?</string>
     <string name="add_trackers">Přidat trackery</string>
     <string name="dialog_add_trackers">(Jeden na řádek)</string>
     <string name="open_using">Otevřít pomocí</string>
@@ -271,7 +271,7 @@
     <string name="torrent_added_date">Přidáno</string>
     <string name="torrent_availability">Dostupnost</string>
     <string name="share_stream_url">Sdílet URL streamu…</string>
-    <string name="magnet_include_file_priorities">Zahrnout priority souborů\?</string>
+    <string name="magnet_include_file_priorities">Zahrnout priority souborů?</string>
     <string name="magnet_more_about_bep53">Další informace: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Žádné sledovače</string>
     <string name="edit_torrent_name">Upravit název torrentu</string>
@@ -299,8 +299,8 @@
     <string name="error_cannot_edit_channel">Kanál nelze upravit</string>
     <string name="error_cannot_delete_channel">Kanál nelze odstranit</string>
     <string name="copy_link">Kopírovat odkaz</string>
-    <string name="delete_selected_channel">Smazat vybraný kanál\?</string>
-    <string name="delete_selected_channels">Smazat vybrané kanály\?</string>
+    <string name="delete_selected_channel">Smazat vybraný kanál?</string>
+    <string name="delete_selected_channels">Smazat vybrané kanály?</string>
     <string name="edit_feed_channel">Upravit kanál</string>
     <string name="link_copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="mark_as_read">Označit jako přečtené</string>
@@ -442,7 +442,7 @@
     <string name="pref_custom_battery_control_value_title">Procenta kontroly stavu baterie</string>
     <string name="pref_battery_control_summary">Pozastaví torrenty pokud úroveň baterie klesne pod %1$d%%. (Limit neplatí při nabíjení.)</string>
     <string name="pref_custom_battery_control_summary">Nastavte vlastní % úroveň stavu baterie při které se pozastaví stahování. (Ignoruje výchozí hodnotu %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Skutečně nastavit hodnotu na %%\? (Zrychlí vybíjení baterie při stahování.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Skutečně nastavit hodnotu na %%? (Zrychlí vybíjení baterie při stahování.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Nastavení Proxy</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -558,8 +558,8 @@
 \n1. Při přidání torrentu je výchozí seznam přidán do seznamu torrentu.
 \n2. Použit pro získávání odkazů magnet.</string>
     <string name="pref_default_trackers_list_title">Výchozí trackery</string>
-    <string name="perm_denied_warning_android_r">Oprávnění k přístupu ke všem souborům je potřeba ke stažení torrentů a přístupu k .torrent souborům ve všech složkách. Bez tohoto oprávnění bude mít LibreTorrent pouze přístup k omezenému počtu složek. Opravdu chcete toto oprávnění zrušit\?</string>
-    <string name="exact_alarm_permission_warning">Aby mohl plánovač fungovat, musíte udělit oprávnění ve speciálním dialogu systému. Pokračovat\?</string>
+    <string name="perm_denied_warning_android_r">Oprávnění k přístupu ke všem souborům je potřeba ke stažení torrentů a přístupu k .torrent souborům ve všech složkách. Bez tohoto oprávnění bude mít LibreTorrent pouze přístup k omezenému počtu složek. Opravdu chcete toto oprávnění zrušit?</string>
+    <string name="exact_alarm_permission_warning">Aby mohl plánovač fungovat, musíte udělit oprávnění ve speciálním dialogu systému. Pokračovat?</string>
     <string name="pref_foreground_notify_sorting_entries_0">Jméno (A - Z)</string>
     <string name="pref_foreground_notify_sorting_entries_12">Žádné třídění</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Vše</string>

@@ -48,8 +48,8 @@
     <string name="switch_off">Desativado</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Excluir arquivos baixados</string>
-    <string name="delete_selected_torrent">Excluir torrent selecionado\? (Não pode ser desfeito.)</string>
-    <string name="delete_selected_torrents">Excluir torrents selecionados\? (Não pode ser desfeito.)</string>
+    <string name="delete_selected_torrent">Excluir torrent selecionado? (Não pode ser desfeito.)</string>
+    <string name="delete_selected_torrents">Excluir torrents selecionados? (Não pode ser desfeito.)</string>
     <string name="force_recheck_torrent">Forçar nova verificação</string>
     <string name="force_announce_torrent">Forçar avisos</string>
     <string name="add_link">Adicionar link</string>
@@ -148,10 +148,10 @@
     <string name="torrent_status_downloading_metadata">Baixando metadados…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
-    <string name="perm_denied_warning">A permissão de armazenamento é necessária para baixar torrents e acessar arquivos .torrent. Você realmente quer negar essa permissão\?</string>
+    <string name="perm_denied_warning">A permissão de armazenamento é necessária para baixar torrents e acessar arquivos .torrent. Você realmente quer negar essa permissão?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Adicionar torrent</string>
-    <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido\?</string>
+    <string name="error_decode_torrent">Não foi possível decodificar o arquivo .torrent. Talvez esteja danificado ou num formato inválido?</string>
     <string name="error_io_torrent">Não foi possível ler o arquivo .torrent</string>
     <string name="error_fetch_link">Não foi possível capturar dados do link</string>
     <string name="error_invalid_link_or_path">Link ou caminho para o torrent inválido</string>
@@ -264,7 +264,7 @@
     <string name="torrent_added_date">Adicionado</string>
     <string name="torrent_availability">Disponibilidade</string>
     <string name="share_stream_url">Compartilhar URL do stream…</string>
-    <string name="magnet_include_file_priorities">Incluir prioridades de arquivo\?</string>
+    <string name="magnet_include_file_priorities">Incluir prioridades de arquivo?</string>
     <string name="magnet_more_about_bep53">Mais Informações: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Sem rastreadores</string>
     <string name="edit_torrent_name">Editar nome do torrent</string>
@@ -292,7 +292,7 @@
     <string name="error_cannot_edit_channel">Não foi possível editar este canal</string>
     <string name="error_cannot_delete_channel">Não foi possível excluir este canal</string>
     <string name="copy_link">Copiar link</string>
-    <string name="delete_selected_channel">Excluir o canal selecionado\?</string>
+    <string name="delete_selected_channel">Excluir o canal selecionado?</string>
     <string name="delete_selected_channels">Excluir canais selecionados?</string>
     <string name="edit_feed_channel">Editar canal</string>
     <string name="link_copied_to_clipboard">Copiado para área de transferência</string>
@@ -435,7 +435,7 @@
     <string name="pref_custom_battery_control_value_title">Porcentagem de controle da bateria</string>
     <string name="pref_battery_control_summary">Pausa todos os torrents se o nível de bateria estiver abaixo de %1$d%%. (O limite não se aplica durante o carregamento)</string>
     <string name="pref_custom_battery_control_summary">Defina uma %% de bateria para pausar os downloads. (Ignorar o limite padrão de %1$d%%)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Tem certeza de que deseja definir a %% da bateria a ser observada\? (Aumenta o uso da bateria durante o download.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Tem certeza de que deseja definir a %% da bateria a ser observada? (Aumenta o uso da bateria durante o download.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Configurações de Proxy</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -574,8 +574,8 @@
     <string name="manage_all_files_warning_dialog_title">Atenção</string>
     <string name="manage_all_files_warning_dialog_description">Não use a versão do Google Play do LibreTorrent se quiser salvar torrents em pastas diferentes de \'Downloads\' e similares.
 \nExistem outras fontes na página do projeto.</string>
-    <string name="perm_denied_warning_android_r">A permissão de acesso a todos os arquivos é necessária para baixar torrents e acessar arquivos .torrent em pastas arbitrárias. Sem essa permissão, o LibreTorrent apenas terá acesso a um número limitado de pastas. Tem certeza de que deseja negar esta permissão\?</string>
-    <string name="exact_alarm_permission_warning">Para que o planejador funcione, você deve obter permissão em uma caixa de diálogo especial do sistema. Continuar\?</string>
+    <string name="perm_denied_warning_android_r">A permissão de acesso a todos os arquivos é necessária para baixar torrents e acessar arquivos .torrent em pastas arbitrárias. Sem essa permissão, o LibreTorrent apenas terá acesso a um número limitado de pastas. Tem certeza de que deseja negar esta permissão?</string>
+    <string name="exact_alarm_permission_warning">Para que o planejador funcione, você deve obter permissão em uma caixa de diálogo especial do sistema. Continuar?</string>
     <string name="pref_validate_https_trackers_summary">O certificado de rastreadores HTTPS e sementes da web HTTPS serão validados no armazenamento de certificados do sistema.</string>
     <string name="download_first_last_pieces">Baixar as primeiras e últimas peças primeiro</string>
     <string name="pref_validate_https_trackers_title">Validar certificados de rastreadores HTTPS</string>

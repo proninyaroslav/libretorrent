@@ -115,8 +115,8 @@
     <string name="mark_as_read">Marki kiel legita</string>
     <string name="link_copied_to_clipboard">Kopita al tondejo</string>
     <string name="edit_feed_channel">Redakti kanalon</string>
-    <string name="delete_selected_channels">Ĉu forigi la elektitajn kanalojn\?</string>
-    <string name="delete_selected_channel">Ĉu forigi elektitan kanalon\?</string>
+    <string name="delete_selected_channels">Ĉu forigi la elektitajn kanalojn?</string>
+    <string name="delete_selected_channel">Ĉu forigi elektitan kanalon?</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="error_cannot_delete_channel">Ne povas forigi kanalon</string>
     <string name="error_cannot_edit_channel">Ne povas redakti kanalon</string>
@@ -181,7 +181,7 @@
     <string name="error_free_space">Ne sufiĉas libera spaco ĉi tie por elŝuti elektitajn dosierojn.</string>
     <string name="free_space">%1$s libere</string>
     <string name="error_no_files_selected">Neniu dosiero elektita</string>
-    <string name="delete_selected_torrents">Ĉu forigi elektitajn torentojn\? (Ne povos malfari.)</string>
+    <string name="delete_selected_torrents">Ĉu forigi elektitajn torentojn? (Ne povos malfari.)</string>
     <string name="switch_off">Malŝalti</string>
     <string name="switch_on">Ŝalti</string>
     <string name="stats">Statistikoj</string>
@@ -228,7 +228,7 @@
     <string name="drawer_status_downloading_metadata">Elŝutas metadatumoj…</string>
     <string name="session_stats_download_upload">%1$s • %2$s/s</string>
     <string name="error_open_torrent_file">Ne povas malfermi la .torrent dosieron</string>
-    <string name="delete_selected_torrent">Ĉu forigi elektitan torenton\? (Ne povos malfari.)</string>
+    <string name="delete_selected_torrent">Ĉu forigi elektitan torenton? (Ne povos malfari.)</string>
     <string name="refresh">Aktualigi</string>
     <string name="shutdown">Elŝalti</string>
     <string name="drawer_sorting_peers">Populareco</string>
@@ -239,7 +239,7 @@
     <string name="proxy_settings_apply_after_reboot">Restartu la aplikaĵon, por uzi la novajn agordojn de prokura servilo.</string>
     <string name="proxy_settings_applied">Uzante la novajn agordojn de prokura servilo.</string>
     <string name="ip_filter_add_success">Filtrilo IP aldonita</string>
-    <string name="ip_filter_add_error">Ne povus aldoni la filtrilo IP (%1$d malsukcesis). Eble la dosiero estas damaĝita aŭ en erara aranĝo\?</string>
+    <string name="ip_filter_add_error">Ne povus aldoni la filtrilo IP (%1$d malsukcesis). Eble la dosiero estas damaĝita aŭ en erara aranĝo?</string>
     <string name="dialog_add_link_title">Tajpu la valoro infohash, ligilo magnet, aŭ ligilo HTTP/S</string>
     <string name="force_announce_torrent">Devige-konekto</string>
     <string name="force_recheck_torrent">Devige rekontroli</string>
@@ -288,8 +288,8 @@
     <string name="error_comment_prompt">Aldoni ekstrajn informojn kaj komentojn ĉi tie:</string>
     <string name="resume_torrent">Daŭrigi</string>
     <string name="close_navigation_drawer">Fermi navigtirkeston</string>
-    <string name="delete_selected_tracker">Ĉu forigi elektitan tracker\?</string>
-    <string name="delete_selected_trackers">Ĉu forigi elektitajn trackers\?</string>
+    <string name="delete_selected_tracker">Ĉu forigi elektitan tracker?</string>
+    <string name="delete_selected_trackers">Ĉu forigi elektitajn trackers?</string>
     <string name="peer_connection_type">Konekto: %1$s</string>
     <string name="dialog_add_trackers">(Unu por linio)</string>
     <string name="tracker_state_not_contacted">Ne ankoraŭ kontaktita</string>
@@ -324,12 +324,12 @@
     <string name="error_field_required">Deviga kampo</string>
     <string name="torrent_exist">Ĉar la torento jam ekzistas, ili estis kunfanditaj.</string>
     <string name="error_io_add_torrent">Ne povas aldoni la dorento pro eneliga eraro.</string>
-    <string name="error_file_not_found_add_torrent">Ne povus aldoni la torenton. Eble la dosiero .torrent movigitis aŭ forigitis\?</string>
+    <string name="error_file_not_found_add_torrent">Ne povus aldoni la torenton. Eble la dosiero .torrent movigitis aŭ forigitis?</string>
     <string name="error_add_torrent">Ne povus aldoni la torenton</string>
     <string name="error_invalid_link_or_path">Nevalida ligilo aŭ torentindiko</string>
     <string name="error_fetch_link">Ne povus elŝuti la datumojn de la ligilo</string>
-    <string name="error_decode_torrent">Ne povus malkodi la dosiero .torrent. Eble ĝi estas damaĝita aŭ en malĝusta aranĝo\?</string>
-    <string name="perm_denied_warning">Ĉu vere preventi la apo, de gardi la dosierojn .torrent en la memoro\?</string>
+    <string name="error_decode_torrent">Ne povus malkodi la dosiero .torrent. Eble ĝi estas damaĝita aŭ en malĝusta aranĝo?</string>
+    <string name="perm_denied_warning">Ĉu vere preventi la apo, de gardi la dosierojn .torrent en la memoro?</string>
     <string name="perm_denied_title">Permeso neita</string>
     <string name="restore_torrent_error">Ne povas restaŭri torento de antaŭa seanco.</string>
     <string name="app_running_in_the_background">Plenumante fone…</string>
@@ -361,7 +361,7 @@
     <string name="feed">RSS</string>
     <string name="app_error_occurred">Apa eraro okazis. Vi povas raporti ĝin al la programistoj.</string>
     <string name="tracker_list_empty">Neniu trackers</string>
-    <string name="magnet_include_file_priorities">Ĉu enhavi la dosierprioritatojn\?</string>
+    <string name="magnet_include_file_priorities">Ĉu enhavi la dosierprioritatojn?</string>
     <string name="torrent_availability">Havebleco</string>
     <string name="speed_limit_dialog">Agordi rapidecon en KiB/s (0 - sen limo)</string>
     <string name="speed_limit_title">Maksimuma rapideco</string>

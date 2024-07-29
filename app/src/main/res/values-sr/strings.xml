@@ -48,8 +48,8 @@
     <string name="switch_off">Искључи</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Избриши са преузетим фајловима</string>
-    <string name="delete_selected_torrent">Обрисати изабрани торент\? (Не може се вратити.)</string>
-    <string name="delete_selected_torrents">Избриши изабране торенте\? (Не могу бити враћени.)</string>
+    <string name="delete_selected_torrent">Обрисати изабрани торент? (Не може се вратити.)</string>
+    <string name="delete_selected_torrents">Избриши изабране торенте? (Не могу бити враћени.)</string>
     <string name="force_recheck_torrent">Форсирај проверу</string>
     <string name="force_announce_torrent">Форсирај објављивање</string>
     <string name="add_link">Додај везу</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Не могу да отворим торент фајл</string>
     <string name="open_file">Отвори фајл</string>
     <string name="settings">Поставке</string>
-    <string name="ip_filter_add_error">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или у погрешном формату\?</string>
+    <string name="ip_filter_add_error">Неуспешно додавање IP филтера (није успео %1$d). Можда је фајл оштећен или у погрешном формату?</string>
     <string name="ip_filter_add_success">IP филтер је додат</string>
     <string name="proxy_settings_applied">Користи се нова подешавања прокси сервера.</string>
     <string name="proxy_settings_apply_after_reboot">Рестартујте апликацију да би користио нова прокси подешавања.</string>
@@ -148,15 +148,15 @@
     <string name="torrent_status_downloading_metadata">Преузимање метаподатака…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
-    <string name="perm_denied_warning">За преузимање торента и приступ .торрент датотекама потребна је дозвола за складиштење. Да ли заиста желите да одбијете ову дозволу\?</string>
+    <string name="perm_denied_warning">За преузимање торента и приступ .торрент датотекама потребна је дозвола за складиштење. Да ли заиста желите да одбијете ову дозволу?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Додај торент</string>
-    <string name="error_decode_torrent">Није могуће декодирати .торрент датотеку. Можда је оштећена или у погрешном формату\?</string>
+    <string name="error_decode_torrent">Није могуће декодирати .торрент датотеку. Можда је оштећена или у погрешном формату?</string>
     <string name="error_io_torrent">Није могуће прочитати .торрент датотеку</string>
     <string name="error_fetch_link">Није могуће преузети податке са везе</string>
     <string name="error_invalid_link_or_path">Неважећа веза или путања торента</string>
     <string name="error_add_torrent">Додавање торента није успело</string>
-    <string name="error_file_not_found_add_torrent">Није могуће додати торент. Можда је датотека .торрент премештена или избрисана\?</string>
+    <string name="error_file_not_found_add_torrent">Није могуће додати торент. Можда је датотека .торрент премештена или избрисана?</string>
     <string name="error_io_add_torrent">Неуспешно додавање торента због I/O грешке.</string>
     <string name="torrent_exist">Торент већ постоји. Торенти су спојени.</string>
     <string name="error_field_required">Обавезно поље</string>
@@ -218,8 +218,8 @@
     <string name="torrent_speed">Брзина</string>
     <string name="torrent_downloaded">Преузето</string>
     <string name="torrent_ETA">Преостало</string>
-    <string name="torrent_seeds">Сидери</string>
-    <string name="torrent_peers">Укупно</string>
+    <string name="torrent_seeds">Izvori</string>
+    <string name="torrent_peers">Учесници</string>
     <string name="torrent_leechers">Узимаоци</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
@@ -236,8 +236,8 @@
     <string name="tracker_state_updating">Ажурира…</string>
     <string name="tracker_state_not_contacted">Још увек није контактиран</string>
     <string name="share_tracker_url">Подели URL…</string>
-    <string name="delete_selected_tracker">Избриши изабраног трагача\?</string>
-    <string name="delete_selected_trackers">Избриши изабране трагаче\?</string>
+    <string name="delete_selected_tracker">Избриши изабраног трагача?</string>
+    <string name="delete_selected_trackers">Избриши изабране трагаче?</string>
     <string name="add_trackers">Додај трагаче</string>
     <string name="dialog_add_trackers">(Један по реду)</string>
     <string name="open_using">Отвори помоћу</string>
@@ -267,7 +267,7 @@
     <string name="torrent_added_date">Додато</string>
     <string name="torrent_availability">Доступност</string>
     <string name="share_stream_url">Подели URL стрима…</string>
-    <string name="magnet_include_file_priorities">Задржи приоритете фајлова\?</string>
+    <string name="magnet_include_file_priorities">Задржи приоритете фајлова?</string>
     <string name="magnet_more_about_bep53">Више информација на https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Нема трагача</string>
     <string name="edit_torrent_name">Уреди име торента</string>
@@ -295,8 +295,8 @@
     <string name="error_cannot_edit_channel">Није могуће изменити канал</string>
     <string name="error_cannot_delete_channel">Није могуће избрисати канал</string>
     <string name="copy_link">Копирај линк</string>
-    <string name="delete_selected_channel">Избриши изабрани канал\?</string>
-    <string name="delete_selected_channels">Избриши изабране канале\?</string>
+    <string name="delete_selected_channel">Избриши изабрани канал?</string>
+    <string name="delete_selected_channels">Избриши изабране канале?</string>
     <string name="edit_feed_channel">Уреди канал</string>
     <string name="link_copied_to_clipboard">Копирано у привремену меморију</string>
     <string name="mark_as_read">Означи као прочитано</string>
@@ -438,7 +438,7 @@
     <string name="pref_custom_battery_control_value_title">Проценат контроле батерије</string>
     <string name="pref_battery_control_summary">Сви торенти ће бити паузирани када ниво батерије оде испод %1$d%%. Ограничење не важи ако је уређај на пуњачу</string>
     <string name="pref_custom_battery_control_summary">Постави проценат на којем ће се преузимања паузирати када батерија падне испод прага. Паљење овога ће игнорисати уобичајени %1$d%% праг</string>
-    <string name="pref_custom_battery_control_dialog_summary">Постављање процента батерије који апликација треба да прати ће имати негативан утицај на трајање батерије док се преузимање врши. Да ли сигурно желите упалити ово\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Постављање процента батерије који апликација треба да прати ће имати негативан утицај на трајање батерије док се преузимање врши. Да ли сигурно желите упалити ово?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Подешавање проксија</string>
     <string name="pref_enable_dht_title">Укључи DHT</string>
@@ -548,4 +548,5 @@
     <string name="torrent_speed_limit_dialog">Подесите брзину у КиБ/с. Имајте на уму да постављање веће границе на торенту од глобалног ограничења неће надјачати глобално ограничење.</string>
     <string name="error_open_torrent">Није могуће отворити торрент</string>
     <string name="manage_all_files_warning_dialog_title">Упозорење</string>
+    <string name="apply_settings_after_reboot">Izmene će biti primenjene nakon ponovnog pokretanja aplikacije.</string>
 </resources>

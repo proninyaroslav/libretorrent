@@ -48,8 +48,8 @@
     <string name="switch_off">Aus</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Mit heruntergeladenen Dateien löschen</string>
-    <string name="delete_selected_torrent">Den ausgewählten Torrent löschen\? Diese Operation kann nicht rückgängig gemacht werden.</string>
-    <string name="delete_selected_torrents">Ausgewählte Torrents löschen\? Diese Operation kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_selected_torrent">Den ausgewählten Torrent löschen? Diese Operation kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_selected_torrents">Ausgewählte Torrents löschen? Diese Operation kann nicht rückgängig gemacht werden.</string>
     <string name="force_recheck_torrent">Überprüfung erzwingen</string>
     <string name="force_announce_torrent">Ankündigung erzwingen</string>
     <string name="add_link">Link hinzufügen</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Torrent Datei kann nicht geöffnet werden</string>
     <string name="open_file">Datei öffnen</string>
     <string name="settings">Einstellungen</string>
-    <string name="ip_filter_add_error">Konnte IP-Filter nicht hinzufügen (%1$d fehlgeschlagen). Möglicherweise ist die Datei beschädigt oder hat ein falsches Format\?</string>
+    <string name="ip_filter_add_error">Konnte IP-Filter nicht hinzufügen (%1$d fehlgeschlagen). Möglicherweise ist die Datei beschädigt oder hat ein falsches Format?</string>
     <string name="ip_filter_add_success">IP-Filter hinzugefügt</string>
     <string name="proxy_settings_applied">Proxyserver-Einstellungen angewendet</string>
     <string name="proxy_settings_apply_after_reboot">Proxyserver-Einstellungen werden nach einem Neustart der App angewendet.</string>
@@ -146,15 +146,15 @@
     <string name="torrent_status_downloading_metadata">Lädt Metadaten herunter…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Berechtigung verweigert</string>
-    <string name="perm_denied_warning">Die Speichererlaubnis ist erforderlich, um Torrents herunterzuladen und auf .torrent-Dateien zuzugreifen. Sind Sie sicher, dass Sie diese Berechtigung verweigern möchten\?</string>
+    <string name="perm_denied_warning">Die Speichererlaubnis ist erforderlich, um Torrents herunterzuladen und auf .torrent-Dateien zuzugreifen. Sind Sie sicher, dass Sie diese Berechtigung verweigern möchten?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent hinzufügen</string>
-    <string name="error_decode_torrent">Konnte Torrent-Datei nicht dekodieren. Möglicherweise ist die Datei korrupt oder hat ein falsches Format\?</string>
+    <string name="error_decode_torrent">Konnte Torrent-Datei nicht dekodieren. Möglicherweise ist die Datei korrupt oder hat ein falsches Format?</string>
     <string name="error_io_torrent">Konnte die .torrent-Datei nicht lesen</string>
     <string name="error_fetch_link">Konnte keine Daten über den Link abrufen</string>
     <string name="error_invalid_link_or_path">Ungültiger Link oder Torrent-Pfad</string>
     <string name="error_add_torrent">Konnte den Torrent nicht hinzufügen</string>
-    <string name="error_file_not_found_add_torrent">Torrent konnte nicht hinzugefügt werden. Vielleicht wurde die Torrent Datei verschoben oder gelöscht\?</string>
+    <string name="error_file_not_found_add_torrent">Torrent konnte nicht hinzugefügt werden. Vielleicht wurde die Torrent Datei verschoben oder gelöscht?</string>
     <string name="error_io_add_torrent">Torrent hinzufügen nicht möglich. E/A Fehler.</string>
     <string name="torrent_exist">Da der Torrent bereits existiert, wurden sie zusammengefügt.</string>
     <string name="error_field_required">Pflichtfeld</string>
@@ -233,8 +233,8 @@
     <string name="tracker_state_updating">Erneuernd…</string>
     <string name="tracker_state_not_contacted">Noch nicht kontaktiert</string>
     <string name="share_tracker_url">URL teilen…</string>
-    <string name="delete_selected_tracker">Ausgewählten Tracker löschen\?</string>
-    <string name="delete_selected_trackers">Ausgewählte Tracker löschen\?</string>
+    <string name="delete_selected_tracker">Ausgewählten Tracker löschen?</string>
+    <string name="delete_selected_trackers">Ausgewählte Tracker löschen?</string>
     <string name="add_trackers">Tracker hinzufügen</string>
     <string name="dialog_add_trackers">(Einen pro Zeile)</string>
     <string name="open_using">Öffne mit</string>
@@ -264,7 +264,7 @@
     <string name="torrent_added_date">Hinzugefügt</string>
     <string name="torrent_availability">Verfügbarkeit</string>
     <string name="share_stream_url">Stream-URL teilen…</string>
-    <string name="magnet_include_file_priorities">Dateiprioritäten einbeziehen\?</string>
+    <string name="magnet_include_file_priorities">Dateiprioritäten einbeziehen?</string>
     <string name="magnet_more_about_bep53">Mehr Informationen: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Keine Tracker</string>
     <string name="edit_torrent_name">Torrent-Name bearbeiten</string>
@@ -292,8 +292,8 @@
     <string name="error_cannot_edit_channel">Kanal kann nicht bearbeitet werden</string>
     <string name="error_cannot_delete_channel">Kanal kann nicht gelöscht werden</string>
     <string name="copy_link">Link kopieren</string>
-    <string name="delete_selected_channel">Ausgewählten Kanal löschen\?</string>
-    <string name="delete_selected_channels">Ausgewählte Kanäle löschen\?</string>
+    <string name="delete_selected_channel">Ausgewählten Kanal löschen?</string>
+    <string name="delete_selected_channels">Ausgewählte Kanäle löschen?</string>
     <string name="edit_feed_channel">Kanal bearbeiten</string>
     <string name="link_copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="mark_as_read">Als gelesen markieren</string>
@@ -558,7 +558,7 @@
     <string name="torrent_peers">Peers</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP-Protokoll</string>
     <string name="journal_filter_dht_log">DHT-Protokoll</string>
-    <string name="perm_denied_warning_android_r">Die Berechtigung zum Zugriff auf alle Dateien ist erforderlich, um Torrents herunterzuladen und um auf .torrent-Dateien in beliebigen Ordnern zuzugreifen. Ohne diese Berechtigung kann LibreTorrent nur auf eine begrenzte Anzahl von Ordnern zugreifen. Sind Sie sich sicher, dass Sie diese Berechtigung verweigern möchten\?</string>
+    <string name="perm_denied_warning_android_r">Die Berechtigung zum Zugriff auf alle Dateien ist erforderlich, um Torrents herunterzuladen und um auf .torrent-Dateien in beliebigen Ordnern zuzugreifen. Ohne diese Berechtigung kann LibreTorrent nur auf eine begrenzte Anzahl von Ordnern zugreifen. Sind Sie sich sicher, dass Sie diese Berechtigung verweigern möchten?</string>
     <string name="manage_all_files_warning_dialog_title">Warnung</string>
     <string name="manage_all_files_warning_dialog_description">Verwende nicht die Google Play-Version von LibreTorrent, wenn du die Torrents in anderen Ordnern als \'Downloads\' und ähnlichen speichern willst.
 \nAndere Quellen gibt es auf der Projektseite.</string>
@@ -569,7 +569,7 @@
     <string name="pref_validate_https_trackers_title">Überprüfung des HTTPS Tracker-Zertifikats</string>
     <string name="pref_foreground_notification_category">Vordergrundbenachrichtigungseinstellungen</string>
     <string name="torrent_speed_limit_dialog">Setze eine Geschwindigkeit in KiB/s. Das Setzen eines höheren Limits als die globale Beschränkung wird diese nicht überschreiben.</string>
-    <string name="exact_alarm_permission_warning">Damit der Planer funktioniert, müssen Sie in einem speziellen Systemdialog die Erlaubnis einholen. Fortfahren\?</string>
+    <string name="exact_alarm_permission_warning">Damit der Planer funktioniert, müssen Sie in einem speziellen Systemdialog die Erlaubnis einholen. Fortfahren?</string>
     <string name="pref_validate_https_trackers_summary">Das Zertifikat von HTTPS-Trackern und HTTPS-Web-Seeds wird im Zertifikatspeicher des Systems validiert.</string>
     <string name="pref_foreground_notify_sorting_entries_8">Zeit verbleibend (kleinste zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_9">Zeit verbleibend (größte zuerst)</string>
