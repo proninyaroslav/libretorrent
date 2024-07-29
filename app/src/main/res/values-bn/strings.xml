@@ -48,8 +48,8 @@
     <string name="switch_off">বন্ধ</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ডাউনলোড করা ফাইলসহ মুছুন</string>
-    <string name="delete_selected_torrent">নির্বাচিত টরেন্ট মুছবে\? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
-    <string name="delete_selected_torrents">নির্বাচিত টরেন্ট মুছবে\? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
+    <string name="delete_selected_torrent">নির্বাচিত টরেন্ট মুছবে? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
+    <string name="delete_selected_torrents">নির্বাচিত টরেন্ট মুছবে? (পূর্বাবস্থায় ফেরানো যাবে না।)</string>
     <string name="force_recheck_torrent">আবার দেখুন</string>
     <string name="force_announce_torrent">আবার ঘোষণা</string>
     <string name="add_link">লিংক যোগ করুন</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">টরেন্ট নথি(.torrent) খুলতে ব্যর্থ</string>
     <string name="open_file">ফাইল খুলুন</string>
     <string name="settings">সেটিংস</string>
-    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো নথিটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে\?</string>
+    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো নথিটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে?</string>
     <string name="ip_filter_add_success">আইপি ফিল্টার যুক্ত হয়েছে</string>
     <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত হয়েছে</string>
     <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করুন</string>
@@ -148,7 +148,7 @@
     <string name="torrent_status_downloading_metadata">মেটাতথ্য নামানো হচ্ছে…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">অনুমতি প্রত্যাখ্যাত</string>
-    <string name="perm_denied_warning">"এই অনুমতি ব্যতীত অ্যাপটি টরেন্ট ফাইলগুলো মেমরিতে  সংরক্ষণ করতে পারবে না। অ্যাপটি সঠিকভাবে কাজ করবে না। আপনি কি এই অনুমতিটি অস্বীকার করার বিষয়ে নিশ্চিত\?"</string>
+    <string name="perm_denied_warning">"এই অনুমতি ব্যতীত অ্যাপটি টরেন্ট ফাইলগুলো মেমরিতে  সংরক্ষণ করতে পারবে না। অ্যাপটি সঠিকভাবে কাজ করবে না। আপনি কি এই অনুমতিটি অস্বীকার করার বিষয়ে নিশ্চিত?"</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">টরেন্ট যোগ করুন</string>
     <string name="error_decode_torrent">টরেন্ট ফাইল ডিকোডিংয়ে ব্যর্থ হয়েছে। হয়তো ফাইলটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে</string>
@@ -156,7 +156,7 @@
     <string name="error_fetch_link">লিঙ্ক থেকে ডাটা আনতে ব্যর্থ</string>
     <string name="error_invalid_link_or_path">টরেন্টের লিঙ্ক বা পথটি ভুল</string>
     <string name="error_add_torrent">টরেন্টটি যোগ করতে ব্যর্থ হয়েছে</string>
-    <string name="error_file_not_found_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। হয়তো টরেন্ট ফাইল সরানো বা মুছে ফেলা হয়েছে\?</string>
+    <string name="error_file_not_found_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। হয়তো টরেন্ট ফাইল সরানো বা মুছে ফেলা হয়েছে?</string>
     <string name="error_io_add_torrent">টরেন্ট যুক্ত করতে ব্যর্থ। ই/আ ত্রুটি।</string>
     <string name="torrent_exist">যেহেতু টরেন্টটি আগে থেকেই ছিল তাই তাদের একত্রে যুক্ত করা হয়েছে</string>
     <string name="error_field_required">এই ঘরটি পূরণ করা আবশ্যক</string>
@@ -243,7 +243,7 @@
     <string name="feed_filter_prompt">শব্দগুলো দাও (\"|\" দিয়ে আলাদা করা), যার কোনো একটি নামের মধ্যে থাকতে হবে, অথবা রেগুলার এক্সপ্রেসন ব্যবহার করো। টরেন্ট যুক্ত করা হবে যদি শুধু টরেন্টের নামের সাথে ছাঁকনির নাম মিলে।</string>
     <string name="feed_filter_prompt_one_per_line">প্রত্যেক রেখায় একটা করে ছাঁকনি যুক্ত করো।</string>
     <string name="feed_auto_download">টরেন্ট স্বয়ংক্রিয়ভাবে নামাও</string>
-    <string name="delete_selected_channel">নির্বাচিত চ্যানেল অপসারণ করবে\?</string>
+    <string name="delete_selected_channel">নির্বাচিত চ্যানেল অপসারণ করবে?</string>
     <string name="link_copied_to_clipboard">লিন্ক ক্লিপবোর্ড এ কপি হয়েছে</string>
     <string name="backup_feeds_successfully">চ্যানেল সংরক্ষিত</string>
     <string name="restore_feeds_backup_successfully">চ্যানেলগুলি উদ্ধার করা হয়েছে</string>
@@ -327,7 +327,7 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">All torrents will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">ডিএইচটি(DHT)</string>
     <string name="pref_enable_dht_summary">It allows BitTorrent-clients to find each other without the use of tracker. Enabling this will increase the battery usage</string>
@@ -443,8 +443,8 @@
     <string name="peer_list_empty">এই টরেন্ট কারো সাথে যুক্ত হয় নি</string>
     <string name="open_using">খোলার মাধ্যম</string>
     <string name="add_trackers">ট্র্যাকার যোগ করুন</string>
-    <string name="delete_selected_trackers">নির্বাচিত ট্র্যাকার মুছবে\?</string>
-    <string name="delete_selected_tracker">নির্বাচিত ট্র্যাকার মুছবে\?</string>
+    <string name="delete_selected_trackers">নির্বাচিত ট্র্যাকার মুছবে?</string>
+    <string name="delete_selected_tracker">নির্বাচিত ট্র্যাকার মুছবে?</string>
     <string name="share_tracker_url">ইউআরএল ভাগ করো…</string>
     <string name="tracker_state_not_contacted">সংযোগ করা হয়নি</string>
     <string name="tracker_state_updating">হালনাগাদরত…</string>
@@ -490,13 +490,13 @@
     <string name="feeds_backup_selection_dialog_title">ব্যাকআপ নথি নির্বাচন করো</string>
     <string name="mark_as_unread">অপঠিত চিহ্নিত করো</string>
     <string name="mark_as_read">পঠিত চিহ্নিত করো</string>
-    <string name="delete_selected_channels">নির্বাচিত চ্যানেল মুছবে\?</string>
+    <string name="delete_selected_channels">নির্বাচিত চ্যানেল মুছবে?</string>
     <string name="error_cannot_delete_channel">চ্যানেল মুছা যায় না</string>
     <string name="error_cannot_add_channel">চ্যানেল যোগ করা যায় না</string>
     <string name="error_cannot_edit_channel">চ্যানেল সম্পাদনা করা যায় না</string>
     <string name="feed_use_regex">স্বাভাবিক ভাব(রেগুলার এক্সপ্রেশন) ব্যবহার করো</string>
     <string name="edit_torrent_name">টরেন্ট নাম সম্পাদনা</string>
-    <string name="magnet_include_file_priorities">নথির অগ্রাধিকার রাখবে\?</string>
+    <string name="magnet_include_file_priorities">নথির অগ্রাধিকার রাখবে?</string>
     <string name="share_stream_url">ধারার সংযোগ ভাগ করো…</string>
     <string name="pref_feed_remove_duplicates_title">দ্বিত্ব রাখবে না</string>
     <string name="pref_feed_keep_items_time_title">নিবন্ধ রেখে দাও</string>
@@ -576,8 +576,8 @@
     <string name="pref_foreground_notify_sorting_entries_7">সম্পন্ন (বৃহত্তম আগে)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">দুইটা বোতাম একত্র করে: সব থামানো এবং সব চালু করা। বোতামটা সুইচের মতো কাজ করে। সতর্কতা: নির্দিষ্ট টরেন্ট থামানো/চালু দ্বারা এই বোতামের অবস্থা পরিবর্তন হবে না।</string>
     <string name="pref_validate_https_trackers_summary">HTTPS ট্র্যাকার ও ওয়েব বপক এর অনুমতিপত্র সিস্টেম অনুমতিপত্র দোকানে যাচাই করো।</string>
-    <string name="perm_denied_warning_android_r">টরেন্ট নামাতে ও .torrent নথি পড়তে, সব ফাইল পরিবর্তনের অনুমতি প্রয়োজন। এই অনুমতি ছাড়া লিবরেটরেন্ট শুধু নির্দিষ্ট কয়েকটি ফোল্ডার পড়তে পারবে। তুমি কি এই অনুমতি অস্বীকার ব্যাপারে নিশ্চিত\?</string>
-    <string name="exact_alarm_permission_warning">এই সময়সূচি কাজ করাতে হলে, তোমার একটি বিশেষ সিস্টেম বক্তব্যে অনুমতি দিতে হবে। আগাবে\?</string>
+    <string name="perm_denied_warning_android_r">টরেন্ট নামাতে ও .torrent নথি পড়তে, সব ফাইল পরিবর্তনের অনুমতি প্রয়োজন। এই অনুমতি ছাড়া লিবরেটরেন্ট শুধু নির্দিষ্ট কয়েকটি ফোল্ডার পড়তে পারবে। তুমি কি এই অনুমতি অস্বীকার ব্যাপারে নিশ্চিত?</string>
+    <string name="exact_alarm_permission_warning">এই সময়সূচি কাজ করাতে হলে, তোমার একটি বিশেষ সিস্টেম বক্তব্যে অনুমতি দিতে হবে। আগাবে?</string>
     <string name="pref_default_trackers_list_summary">ট্র্যাকার তালিকা, এইসব ক্ষেত্রে ব্যবহৃত হয়:
 \n১. যখন টরেন্ট যোগ করা হয়, সহজাত তালিকা টরেন্টের তালিকায় স্বয়ংক্রিয়ভাবে যুক্ত হয়ে যায়।
 \n২. ম্যাগনেট সংযোগ আনার জন্য ব্যবহৃত হয়।</string>

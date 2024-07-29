@@ -29,9 +29,9 @@
     <string name="delete_torrent_with_downloaded_files">Kustuta koos allalaaditud failidega</string>
     <string name="switch_on">Sees</string>
     <string name="switch_off">Väljas</string>
-    <string name="delete_selected_torrent">Kustutada valitud torrent\? (Ei saa tagasipöörata.)</string>
+    <string name="delete_selected_torrent">Kustutada valitud torrent? (Ei saa tagasipöörata.)</string>
     <string name="select_or_add_torrent">Vali või lisa torrent</string>
-    <string name="delete_selected_torrents">Kustuta valitud torrentid\? (Ei saa taastada.)</string>
+    <string name="delete_selected_torrents">Kustuta valitud torrentid? (Ei saa taastada.)</string>
     <string name="error_open_torrent_file">Ei saanud avada .torrent faili</string>
     <string name="ip_filter_add_success">IP filter lisatud</string>
     <string name="about">Teave</string>
@@ -90,8 +90,8 @@
     <string name="tracker_state_updating">Uuendan…</string>
     <string name="tracker_state_not_contacted">Pole veel ühendatud</string>
     <string name="share_tracker_url">Jagamise URL…</string>
-    <string name="delete_selected_tracker">Kustuta valitud jälitaja\?</string>
-    <string name="delete_selected_trackers">Kustuta valitud jälitajad\?</string>
+    <string name="delete_selected_tracker">Kustuta valitud jälitaja?</string>
+    <string name="delete_selected_trackers">Kustuta valitud jälitajad?</string>
     <string name="add_trackers">Lisa jälitajaid</string>
     <string name="dialog_add_trackers">(Üks ühe rea kohta)</string>
     <string name="open_using">Ava kasutades</string>
@@ -175,11 +175,11 @@
     <string name="theme_settings_apply_after_reboot">Taaskäivita rakendus, et kasutada uut välimust.</string>
     <string name="proxy_settings_apply_after_reboot">Taaskäivita rakendus, et kasutada uut proksi sätet.</string>
     <string name="proxy_settings_applied">Kasutatakse uut proksi serveri sätetet.</string>
-    <string name="ip_filter_add_error">Ei saanud lisada IP filtrit (%1$d nurjus). Äkki fail on vigane või vales formaadis\?</string>
+    <string name="ip_filter_add_error">Ei saanud lisada IP filtrit (%1$d nurjus). Äkki fail on vigane või vales formaadis?</string>
     <string name="drawer_status_downloaded">Allalaetud</string>
     <string name="error_add_torrent">Ei saanud lisada torrentit</string>
-    <string name="error_file_not_found_add_torrent">Ei saanud lisada torrentit. Äkki .torrent liigutati, või kustutati\?</string>
-    <string name="error_decode_torrent">Ei saanud dekodereerida .torrent faili. Äkki vigane või vales formaadis\?</string>
+    <string name="error_file_not_found_add_torrent">Ei saanud lisada torrentit. Äkki .torrent liigutati, või kustutati?</string>
+    <string name="error_decode_torrent">Ei saanud dekodereerida .torrent faili. Äkki vigane või vales formaadis?</string>
     <string name="error_io_torrent">Ei saanud lugeda .torrent faili</string>
     <string name="error_fetch_link">Ei saanud kätte andmeid antud lingist</string>
     <string name="error_io_add_torrent">Ei saa lisada torrentit, I/O vea tõttu.</string>
@@ -380,7 +380,7 @@
     <string name="network_offline">Ühenduseta</string>
     <string name="notify_shutting_down">Suletakse…</string>
     <string name="perm_denied_title">Pole antud luba</string>
-    <string name="perm_denied_warning">Salvestamise luba on vaja torrentite allalaadimiseks ja ligipääsemiseks .torrenti failidele. Kindel, et ei soovi anda seda luba\?</string>
+    <string name="perm_denied_warning">Salvestamise luba on vaja torrentite allalaadimiseks ja ligipääsemiseks .torrenti failidele. Kindel, et ei soovi anda seda luba?</string>
     <string name="error_invalid_link_or_path">Sobimatu link või torrenti asukoht</string>
     <string name="files_size">%1$s / %2$s \'st on valitud</string>
     <string name="internal_storage_name">Sisemälu</string>
@@ -388,7 +388,7 @@
     <string name="peer_list_empty">See torrent ei ole veel ühendust saanud kellegagi</string>
     <string name="download_speed">All. kiirus</string>
     <string name="upload_speed">Ül. kiirus</string>
-    <string name="magnet_include_file_priorities">Kaasa ka faili prioriteedid\?</string>
+    <string name="magnet_include_file_priorities">Kaasa ka faili prioriteedid?</string>
     <string name="feed_channel_list_empty">Pole kanaleid</string>
     <string name="select_or_add_feed_channel">Vali või lisa RSS/Atom kanal</string>
     <string name="feed_use_regex">Kasuta tavalist väljendusviisi</string>
@@ -406,8 +406,8 @@
     <string name="feed_last_update_never">pole kunagi uuendatud</string>
     <string name="error_cannot_edit_channel">Ei saa muuta kanalit</string>
     <string name="error_cannot_delete_channel">Ei saa kustutada kanalit</string>
-    <string name="delete_selected_channel">Kustuta valitud kanal\?</string>
-    <string name="delete_selected_channels">Kustutada valitud kanalid\?</string>
+    <string name="delete_selected_channel">Kustuta valitud kanal?</string>
+    <string name="delete_selected_channels">Kustutada valitud kanalid?</string>
     <string name="error_backup_feeds">Ei saanud salvestada kanaleid</string>
     <string name="pref_foreground_notify_status_filter">Oleku filter</string>
     <string name="error_restore_feeds_backup">Ei saanud taastada kanaleid</string>
@@ -417,7 +417,7 @@
     <string name="pref_foreground_notify_sorting_entries_8">ETA (väikseim esmalt)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombineeritud pausi nupp</string>
     <string name="pref_keep_alive_summary">Hoiab äpi töötamas tagataustal. (Siiski austab äpi sulgemist, kui allalaadimised on saanud valmis.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Kindel, et määrata akutaseme %%, mida jälgida\? (Suurendab akukasutust, kui allalaetakse.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Kindel, et määrata akutaseme %%, mida jälgida? (Suurendab akukasutust, kui allalaetakse.)</string>
     <string name="pref_enable_ip_filtering_summary">Olenevalt faili suurusest, kasutades filtrit koos äpiga käivitamisel, võib võtta lisaaega. (Suurendab mälu kasutust.)</string>
     <string name="shutdown">Sulge äpp</string>
     <string name="def">Vaikimisi</string>
@@ -486,7 +486,7 @@
     <string name="pref_proxy_type_entries_2">SOCKS5</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_port_title">Port</string>
-    <string name="perm_denied_warning_android_r">Ligipääs kõikidele failidele on vajalik, et allalaadida torrenteid ja avada .torrent faile erinevatest kaustadest. Kui keeldute loa andmisest, siis saab LibreTorrent ligipääsu ainult vähestesse kaustadesse. Oled kindel, et soovid keelduda nõusoleku andmisest\?</string>
+    <string name="perm_denied_warning_android_r">Ligipääs kõikidele failidele on vajalik, et allalaadida torrenteid ja avada .torrent faile erinevatest kaustadest. Kui keeldute loa andmisest, siis saab LibreTorrent ligipääsu ainult vähestesse kaustadesse. Oled kindel, et soovid keelduda nõusoleku andmisest?</string>
     <string name="pref_streaming_enable_summary">Laseb torrentist allalaadida faile individuaalselt, kasutades veebilehitsejat või meedia mängijat ja HTTP/S URL\'i.</string>
     <string name="pref_use_random_port_summarty">Määrab suvalise pordi vahemikust [%1$d, %2$d] ja viimane port, kui esimene + 10.</string>
     <string name="pref_proxy_requires_auth_title">Volitust on vaja</string>

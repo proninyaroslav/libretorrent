@@ -120,7 +120,7 @@
     <string name="torrent_status_downloading_metadata">Descarregant metadades…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permís denegat</string>
-    <string name="perm_denied_warning">Cal el permís d’emmagatzematge per a baixar torrents i accedir als fitxers .torrent. Realment voleu denegar aquest permís\?</string>
+    <string name="perm_denied_warning">Cal el permís d’emmagatzematge per a baixar torrents i accedir als fitxers .torrent. Realment voleu denegar aquest permís?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Afegeix torrent</string>
     <string name="error_decode_torrent">No s’ha pogut descodificar el fitxer .torrent. Potser estigui danyat o tingui un format incorrecte.</string>
@@ -306,7 +306,7 @@
     <string name="pref_battery_control_title">Battery control</string>
     <string name="pref_battery_control_summary">Posa en pausa tots els torrents si el nivell de bateria és inferior al %1$d%%. (El límit no s\'aplica quan es carrega.)</string>
     <string name="pref_custom_battery_control_summary">Establiu un %% de bateria per a fer una pausa a les baixades. (Ignora el valor per defecte %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Realment voleu establir un %% de bateria a tenir en compte\? (Se’n incrementarà l’ús durant les baixades.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Realment voleu establir un %% de bateria a tenir en compte? (Se’n incrementarà l’ús durant les baixades.)</string>
     <!-- Network settings -->
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Permet trobar altres parells sense un rastrejador. (Augmenta l\'ús de la bateria.)</string>
@@ -389,7 +389,7 @@
     <string name="warning">Atenció</string>
     <string name="force_recheck_torrent">Força la recomprovació</string>
     <string name="replace">Reemplaçar</string>
-    <string name="delete_selected_torrents">Voleu suprimir els torrents seleccionats\? (No es pot desfer.)</string>
+    <string name="delete_selected_torrents">Voleu suprimir els torrents seleccionats? (No es pot desfer.)</string>
     <string name="open_navigation_drawer">Obrir calaix de navegació</string>
     <string name="all">Tot</string>
     <string name="select_all">Seleccionar tot</string>
@@ -397,7 +397,7 @@
     <string name="foreground_notification">Notificació en primer pla</string>
     <string name="refresh">Actualitzar</string>
     <string name="delete_torrent_with_downloaded_files">Suprimeix amb els fitxers baixats</string>
-    <string name="delete_selected_torrent">Voleu suprimir el torrent seleccionat\? (No es pot desfer.)</string>
+    <string name="delete_selected_torrent">Voleu suprimir el torrent seleccionat? (No es pot desfer.)</string>
     <string name="close_navigation_drawer">Tancar calaix de navegació</string>
     <string name="save">Guardar</string>
     <string name="edit_tag">Edita l’etiqueta</string>

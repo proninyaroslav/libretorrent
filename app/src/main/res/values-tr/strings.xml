@@ -48,8 +48,8 @@
     <string name="switch_off">Kapat</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">İndirilen dosyalarla birlikte sil</string>
-    <string name="delete_selected_torrent">Seçili torrent silinsin mi\? (Geri alınamaz.)</string>
-    <string name="delete_selected_torrents">Seçili torrentler silinsin mi\? (Geri alınamaz.)</string>
+    <string name="delete_selected_torrent">Seçili torrent silinsin mi? (Geri alınamaz.)</string>
+    <string name="delete_selected_torrents">Seçili torrentler silinsin mi? (Geri alınamaz.)</string>
     <string name="force_recheck_torrent">Tekrar denetlemeye zorla</string>
     <string name="force_announce_torrent">Anons etmeyi zorla</string>
     <string name="add_link">Bağlantı ekle</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">.torrent dosyası açılamıyor</string>
     <string name="open_file">Dosya aç</string>
     <string name="settings">Ayarlar</string>
-    <string name="ip_filter_add_error">IP filtresi eklenemedi (%1$d başarısız oldu). Dosya zarar görmüş veya yanlış bir biçimde olabilir mi\?</string>
+    <string name="ip_filter_add_error">IP filtresi eklenemedi (%1$d başarısız oldu). Dosya zarar görmüş veya yanlış bir biçimde olabilir mi?</string>
     <string name="ip_filter_add_success">IP filtresi eklendi</string>
     <string name="proxy_settings_applied">Yeni vekil sunucu ayarları kullanılıyor.</string>
     <string name="proxy_settings_apply_after_reboot">Yeni vekil sunucu ayarlarını kullanmak için uygulamayı yeniden başlatın.</string>
@@ -152,15 +152,15 @@
     <string name="torrent_status_downloading_metadata">Üst veri indiriliyor…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
-    <string name="perm_denied_warning">Torrentleri indirmek ve .torrent dosyalarına erişmek için depolama izni gereklidir. Bu izni gerçekten reddetmek istiyor musunuz\?</string>
+    <string name="perm_denied_warning">Torrentleri indirmek ve .torrent dosyalarına erişmek için depolama izni gereklidir. Bu izni gerçekten reddetmek istiyor musunuz?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent ekle</string>
-    <string name="error_decode_torrent">.torrent dosyasının kodu çözülemedi. Hasarlı veya yanlış biçimde olabilir mi\?</string>
+    <string name="error_decode_torrent">.torrent dosyasının kodu çözülemedi. Hasarlı veya yanlış biçimde olabilir mi?</string>
     <string name="error_io_torrent">.torrent dosyası okunamadı</string>
     <string name="error_fetch_link">Bağlantıdan veri alınamadı</string>
     <string name="error_invalid_link_or_path">Geçersiz bağlantı veya torrent yolu</string>
     <string name="error_add_torrent">Torrent eklenemedi</string>
-    <string name="error_file_not_found_add_torrent">Torrent eklenemedi. .torrent dosyası taşınmış veya silinmiş olabilir mi\?</string>
+    <string name="error_file_not_found_add_torrent">Torrent eklenemedi. .torrent dosyası taşınmış veya silinmiş olabilir mi?</string>
     <string name="error_io_add_torrent">Bir G/Ç hatası nedeniyle torrent eklenemiyor.</string>
     <string name="torrent_exist">Torrent zaten var olduğu için birleştirildi.</string>
     <string name="error_field_required">Gerekli alan</string>
@@ -242,8 +242,8 @@
     <string name="tracker_state_updating">Güncelleniyor…</string>
     <string name="tracker_state_not_contacted">Henüz irtibat kurulmadı</string>
     <string name="share_tracker_url">URL paylaş…</string>
-    <string name="delete_selected_tracker">Seçili takipçi silinsin mi\?</string>
-    <string name="delete_selected_trackers">Seçili takipçiler silinsin mi\?</string>
+    <string name="delete_selected_tracker">Seçili takipçi silinsin mi?</string>
+    <string name="delete_selected_trackers">Seçili takipçiler silinsin mi?</string>
     <string name="add_trackers">Takipçi ekle</string>
     <string name="dialog_add_trackers">(Her biri ayrı satırda)</string>
     <string name="open_using">Kullanarak aç</string>
@@ -273,7 +273,7 @@
     <string name="torrent_added_date">Eklenme tarihi</string>
     <string name="torrent_availability">Kullanılabilirlik</string>
     <string name="share_stream_url">Akış URL\'sini paylaş…</string>
-    <string name="magnet_include_file_priorities">Dosya önceliklerini dahil et\?</string>
+    <string name="magnet_include_file_priorities">Dosya önceliklerini dahil et?</string>
     <string name="magnet_more_about_bep53">Daha fazla bilgi için: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Takipçi yok</string>
     <string name="edit_torrent_name">Torrent adını düzenle</string>
@@ -301,8 +301,8 @@
     <string name="error_cannot_edit_channel">Kanal düzenlenemiyor</string>
     <string name="error_cannot_delete_channel">Kanal silinemiyor</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
-    <string name="delete_selected_channel">Seçili kanal silinsin mi\?</string>
-    <string name="delete_selected_channels">Seçili kanallar silinsin mi\?</string>
+    <string name="delete_selected_channel">Seçili kanal silinsin mi?</string>
+    <string name="delete_selected_channels">Seçili kanallar silinsin mi?</string>
     <string name="edit_feed_channel">Kanalı düzenle</string>
     <string name="link_copied_to_clipboard">Panoya kopyalandı</string>
     <string name="mark_as_read">Okundu olarak işaretle</string>
@@ -444,7 +444,7 @@
     <string name="pref_custom_battery_control_value_title">Pil denetimi yüzdesi</string>
     <string name="pref_battery_control_summary">Pil seviyesi %%%1$d altına düşerse tüm torrentleri duraklatır. (Bu sınır, şarj olurken geçerli değildir.)</string>
     <string name="pref_custom_battery_control_summary">İndirmeleri duraklatmak için bir pil yüzdesi ayarlayın. (Öntanımlı %%%1$d değerini yok sayar.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Denetlenmesi gereken bir pil %% değeri gerçekten ayarlansın mı\? (İndirme sırasında pil kullanımını artırır.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Denetlenmesi gereken bir pil %% değeri gerçekten ayarlansın mı? (İndirme sırasında pil kullanımını artırır.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Vekil sunucu ayarları</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -571,8 +571,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">İki düğmeyi birleştirir: tümünü duraklat ve tümünü devam ettir. Düğme bir değiştirici anahtar gibi çalışacaktır. Uyarı: düğme durumu, torrentin elle duraklatılmasından/devam ettirilmesinden etkilenmez.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Birleşik duraklatma düğmesi</string>
     <string name="error_open_torrent">Torrent açılamıyor</string>
-    <string name="exact_alarm_permission_warning">Zamanlayıcının çalışması için özel bir sistem iletişim kutusunda izin almanız gerekir. Devam edilsin mi\?</string>
-    <string name="perm_denied_warning_android_r">Torrentleri indirmek ve herhangi bir klasördeki .torrent dosyalarına erişmek için tüm dosyalara erişim izni gereklidir. Bu izin olmadan, LibreTorrent yalnızca sınırlı sayıda klasöre erişebilir. Bu izni reddetmek istediğinizden emin misiniz\?</string>
+    <string name="exact_alarm_permission_warning">Zamanlayıcının çalışması için özel bir sistem iletişim kutusunda izin almanız gerekir. Devam edilsin mi?</string>
+    <string name="perm_denied_warning_android_r">Torrentleri indirmek ve herhangi bir klasördeki .torrent dosyalarına erişmek için tüm dosyalara erişim izni gereklidir. Bu izin olmadan, LibreTorrent yalnızca sınırlı sayıda klasöre erişebilir. Bu izni reddetmek istediğinizden emin misiniz?</string>
     <string name="manage_all_files_warning_dialog_description">Torrentleri \'İndirilenler\' ve benzerleri dışındaki klasörlere kaydetmek istiyorsanız, LibreTorrent\'in Google Play sürümünü kullanmayın.
 \nProje sayfasında başka kaynaklar da bulunmaktadır.</string>
     <string name="manage_all_files_warning_dialog_title">Uyarı</string>

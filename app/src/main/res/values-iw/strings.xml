@@ -154,8 +154,8 @@
     <string name="tracker_state_not_working">לא פועל</string>
     <string name="tracker_state_updating">מתבצע עדכון…</string>
     <string name="share_tracker_url">לשתף כתובת…</string>
-    <string name="delete_selected_tracker">למחוק את הטראקר שנבחר\?</string>
-    <string name="delete_selected_trackers">למחוק את הטראקרים שנבחרו\?</string>
+    <string name="delete_selected_tracker">למחוק את הטראקר שנבחר?</string>
+    <string name="delete_selected_trackers">למחוק את הטראקרים שנבחרו?</string>
     <string name="add_trackers">הוספת טראקרים</string>
     <string name="open_using">פתיחה באמצעות</string>
     <string name="piece_map">מפת חלקים</string>
@@ -220,11 +220,11 @@
     <string name="theme_settings_apply_after_reboot">יש להפעיל את היישום מחדש כדי להשתמש בערכת העיצוב החדשה.</string>
     <string name="proxy_settings_apply_after_reboot">כדי להשתמש בהגדרות המתווך החדשות, יש להפעיל את היישום מחדש.</string>
     <string name="restore_torrent_error">לא ניתן לשחזר טורנט מהפעלה קודמת.</string>
-    <string name="error_decode_torrent">לא ניתן לפענח את קובץ הטורנט. אולי הוא פגום או בפורמט שגוי\?</string>
+    <string name="error_decode_torrent">לא ניתן לפענח את קובץ הטורנט. אולי הוא פגום או בפורמט שגוי?</string>
     <string name="error_add_torrent">לא ניתן להוסיף את הטורנט</string>
     <string name="error_free_space">אין מספיק מקום להורדת הקבצים שנבחרו.</string>
     <string name="save_torrent_file_successfully">קובץ הטורנט נשמר</string>
-    <string name="magnet_include_file_priorities">כלול קובץ סדרי עדיפויות\?</string>
+    <string name="magnet_include_file_priorities">כלול קובץ סדרי עדיפויות?</string>
     <string name="magnet_more_about_bep53">עוד מידע ב- https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="app_error_occurred">אירעה שגיאה ביישום. אתה יכול לדווח על כך למפתחים.</string>
     <string name="feed_use_regex">השתמש בביטוי תקין</string>
@@ -285,8 +285,8 @@
     <string name="journal_filter_peer_log">לוג חיבור</string>
     <string name="pref_journal_save_log_to">שמור לוג ב…</string>
     <string name="pref_foreground_notify_sorting_entries_10">פופולריות (הכי קטן ראשון)</string>
-    <string name="error_file_not_found_add_torrent">לא ניתן להוסיף את הטורנט. אולי קובץ הטורנט הועבר או נמחק\?</string>
-    <string name="delete_selected_channels">למחוק את הערוצים שנבחרו\?</string>
+    <string name="error_file_not_found_add_torrent">לא ניתן להוסיף את הטורנט. אולי קובץ הטורנט הועבר או נמחק?</string>
+    <string name="delete_selected_channels">למחוק את הערוצים שנבחרו?</string>
     <string name="piece_size_entries_1">16 KiB</string>
     <string name="journal_filter_dht_log">DHT לוג</string>
     <string name="pref_download_and_upload_only_when_charging_title">הורד והעלה רק בעת טעינה.</string>
@@ -302,7 +302,7 @@
     <string name="piece_size_entries_10">8 MiB</string>
     <string name="pref_play_sound_notify_title">השמע צליל</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
-    <string name="delete_selected_channel">למחוק את הערוץ שנבחר\?</string>
+    <string name="delete_selected_channel">למחוק את הערוץ שנבחר?</string>
     <string name="feeds_backup_selection_dialog_title">בחר קובץ גיבוי</string>
     <string name="journal_save_log_failed">לא ניתן לשמור את הלוג</string>
     <string name="pref_max_uploads_per_torrent_title">מקסימום חריצי העלאה לכל טורנט</string>
@@ -336,7 +336,7 @@
     <string name="error_io_torrent">לא ניתן לקרוא את קובץ הטורנט</string>
     <string name="torrent_speed_limit_dialog">הגדרת מהירות ב־KiB לשנייה. כדאי לשים לב שהגדרת הגבלת מהירות טורנט גבוהה יותר מההגדרה הכללית לא תעקוף את הגבלת המהירות הכללית.</string>
     <string name="pref_header_feed">RSS</string>
-    <string name="perm_denied_warning">הרשאת אחסון נדרשת להורדת טורנטים ולגישה לקובצי טורנט. לדחות את ההרשאה\?</string>
+    <string name="perm_denied_warning">הרשאת אחסון נדרשת להורדת טורנטים ולגישה לקובצי טורנט. לדחות את ההרשאה?</string>
     <string name="piece_size_entries_4">128 KiB</string>
     <string name="pref_foreground_notify_sorting_entries_6">התקדמות (הכי קטנה ראשון)</string>
     <string name="pref_foreground_notify_sorting_entries_11">פופולריות (הכי גדול ראשון)</string>
@@ -406,10 +406,10 @@
     <string name="pref_foreground_notify_sorting_entries_2">תאריך הוספה (הכי חדש ראשון)</string>
     <string name="pref_foreground_notify_sorting_entries_3">תאריך הוספה (הכי ישן ראשון)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">משלב שני לחצנים: להשהות הכול ולחדש הכול. הכפתור יעבוד כמו מתג. אזהרה: מצב הכפתור אינו מושפע מהשהיה/חידוש ידניים של הטורנט.</string>
-    <string name="delete_selected_torrent">למחוק את הטורנט שנבחר\? (לא ניתן לביטול.)</string>
-    <string name="delete_selected_torrents">למחוק את הטורנטים שנבחרו\? (לא ניתן לביטול.)</string>
+    <string name="delete_selected_torrent">למחוק את הטורנט שנבחר? (לא ניתן לביטול.)</string>
+    <string name="delete_selected_torrents">למחוק את הטורנטים שנבחרו? (לא ניתן לביטול.)</string>
     <string name="error_open_torrent_file">לא ניתן לפתוח את קובץ הטורנט.</string>
-    <string name="ip_filter_add_error">לא ניתן להוסיף מסנן IP (%1$d נכשל). אולי הקובץ פגום או שהתסדיר שגוי\?</string>
+    <string name="ip_filter_add_error">לא ניתן להוסיף מסנן IP (%1$d נכשל). אולי הקובץ פגום או שהתסדיר שגוי?</string>
     <string name="app_running_in_the_background">רץ ברקע…</string>
     <string name="upload_torrent_into">להעלות אל…</string>
     <string name="torrent_created_in_program">נוצר בתוכנה</string>
@@ -426,7 +426,7 @@
     <string name="pref_watch_dir_title">הצג ספרייה</string>
     <string name="pref_foreground_notify_sorting_entries_12">ללא מיון</string>
     <string name="pref_foreground_notify_combined_pause_button_title">כפתור השהייה משולב</string>
-    <string name="perm_denied_warning_android_r">הרשאת גישה לכל הקבצים נדרשת כדי להוריד טורנטים ולגשת לקבצי טורנט בתיקיות חריגות. ללא הרשאה זו, ל-LibreTorrent תהיה גישה רק למספר מוגבל של תיקיות. האם אתה בטוח שברצונך לדחות את ההרשאה הזו\?</string>
+    <string name="perm_denied_warning_android_r">הרשאת גישה לכל הקבצים נדרשת כדי להוריד טורנטים ולגשת לקבצי טורנט בתיקיות חריגות. ללא הרשאה זו, ל-LibreTorrent תהיה גישה רק למספר מוגבל של תיקיות. האם אתה בטוח שברצונך לדחות את ההרשאה הזו?</string>
     <string name="about_description">מידע נוסף ועזרה לפרוייקט: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent היא בחינם ולא זכויות יוצרים (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) קליינט לאנדרואיד 4+, מבוסס על libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">רענן רק בחיבורים ללא מגבלה (לדוגמה Wi-Fi או Ethernet).</string>
     <string name="pref_feed_start_torrents_summary">מוריד טורנטים שנוספו.</string>
@@ -470,7 +470,7 @@
     <string name="pref_seeding_outgoing_connections_summary">מאפשר לטורנטים בשיתוף ליצור חיבורים יוצאים. (עלול להיות יקר.)</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
-    <string name="exact_alarm_permission_warning">כדי שהמתזמן יפעל, עליך לקבל הרשאה בתיבת דו-שיח מיוחדת של המערכת. להמשיך\?</string>
+    <string name="exact_alarm_permission_warning">כדי שהמתזמן יפעל, עליך לקבל הרשאה בתיבת דו-שיח מיוחדת של המערכת. להמשיך?</string>
     <string name="pref_enable_scheduling_shutdown_title">זמן כיבוי</string>
     <string name="download_upload_speed_template">↓ %1$s/שנ | ↑ %2$s/שנ</string>
     <string name="pref_proxy_requires_auth_title">דורש אישור</string>
@@ -516,7 +516,7 @@
     <string name="session_stats_dht_nodes">צומתי DHT‏: %1$d</string>
     <string name="torrent_leechers">מורידים</string>
     <string name="torrent_hash_sum">סיכום ביקורת</string>
-    <string name="pref_custom_battery_control_dialog_summary">האם באמת להגדיר %% סוללה שצריך לשים לב אליהם\? (מגביר את השימוש בסוללה בזמן ההורדה.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">האם באמת להגדיר %% סוללה שצריך לשים לב אליהם? (מגביר את השימוש בסוללה בזמן ההורדה.)</string>
     <string name="apply_settings_after_reboot">השינויים יחולו לאחר הפעלת היישום מחדש.</string>
     <string name="pref_posix_disk_io_title">קלט/פלט כונן מסוג POSIX</string>
     <string name="pref_posix_disk_io_summary">לתשומת לבך: האפשרות הזאת מתאימה למצבים מסוימים, כגון תמיכה במערכות קבצים בכרטיסי SD. הפעלת קלט/פלט פשוט בתצורת POSIX, משמש למערכות שאין בהן מרחב וירטואלי של 64 סיביות או העדר תמיכה בקבצים ממופי זיכרון.</string>

@@ -11,14 +11,14 @@
     <string name="error_field_required">Bắt buộc</string>
     <string name="torrent_exist">Tệp đã được hợp nhất do tệp đã tồn tại.</string>
     <string name="error_io_add_torrent">Không thể thêm torrent do lỗi xuất/nhập.</string>
-    <string name="error_file_not_found_add_torrent">Không thể thêm torrent. Có thể tệp đã bị chuyển hoặc xóa\?</string>
+    <string name="error_file_not_found_add_torrent">Không thể thêm torrent. Có thể tệp đã bị chuyển hoặc xóa?</string>
     <string name="error_add_torrent">Không thể thêm torrent</string>
     <string name="error_invalid_link_or_path">Liên kết hoặc đường dẫn torrent không hợp lệ</string>
     <string name="error_fetch_link">Không thể nạp dữ liệu từ liên kết</string>
     <string name="error_io_torrent">Không thể đọc tệp torrent</string>
-    <string name="error_decode_torrent">Không thể giải mã file torrent. Có thể nó bị hỏng/định dạng sai\?</string>
+    <string name="error_decode_torrent">Không thể giải mã file torrent. Có thể nó bị hỏng/định dạng sai?</string>
     <string name="add_torrent_title">Thêm torrent</string>
-    <string name="perm_denied_warning">Cần có quyền lưu trữ để tải xuống torrent và truy cập các tệp .torrent. Bạn có thực sự muốn từ chối sự cho phép này\?</string>
+    <string name="perm_denied_warning">Cần có quyền lưu trữ để tải xuống torrent và truy cập các tệp .torrent. Bạn có thực sự muốn từ chối sự cho phép này?</string>
     <string name="perm_denied_title">Quyền bị từ chối</string>
     <string name="torrent_status_downloading_metadata">Đang tải metadata…</string>
     <string name="torrent_status_finished">Đã hoàn thành</string>
@@ -81,7 +81,7 @@
     <string name="proxy_settings_apply_after_reboot">Khởi động lại ứng dụng để áp dụng cài đặt proxy.</string>
     <string name="proxy_settings_applied">Sử dụng máy chủ proxy mới được cài đặt</string>
     <string name="ip_filter_add_success">Đã thêm bộ lọc IP</string>
-    <string name="ip_filter_add_error">Không thể thêm bộ lọc IP (%1$d thất bại). Có thể tệp đã bị hỏng/định dạng sai\?</string>
+    <string name="ip_filter_add_error">Không thể thêm bộ lọc IP (%1$d thất bại). Có thể tệp đã bị hỏng/định dạng sai?</string>
     <string name="settings">Cài đặt</string>
     <string name="open_file">Mở tệp</string>
     <string name="error_open_torrent_file">Không thể mở tệp torrent này</string>
@@ -93,8 +93,8 @@
     <string name="add_link">Thêm liên kết</string>
     <string name="force_announce_torrent">Buộc thông báo</string>
     <string name="force_recheck_torrent">Buộc kiểm tra lại</string>
-    <string name="delete_selected_torrent">Xóa torrent đã chọn\? (Không thể phục hồi.)</string>
-    <string name="delete_selected_torrents">Xóa các torrent đã chọn\? (Không thể phục hồi.)</string>
+    <string name="delete_selected_torrent">Xóa torrent đã chọn? (Không thể phục hồi.)</string>
+    <string name="delete_selected_torrents">Xóa các torrent đã chọn? (Không thể phục hồi.)</string>
     <string name="delete_torrent_with_downloaded_files">Xóa cả tệp đã tải</string>
     <string name="switch_off">Đóng</string>
     <string name="switch_on">Mở</string>
@@ -162,8 +162,8 @@
     <string name="open_using">Mở bằng</string>
     <string name="dialog_add_trackers">(Một trình theo dõi mỗi dòng)</string>
     <string name="add_trackers">Thêm trình theo dõi</string>
-    <string name="delete_selected_trackers">Xoá các trình theo dõi đã chọn\?</string>
-    <string name="delete_selected_tracker">Xoá trình theo dõi đã chọn\?</string>
+    <string name="delete_selected_trackers">Xoá các trình theo dõi đã chọn?</string>
+    <string name="delete_selected_tracker">Xoá trình theo dõi đã chọn?</string>
     <string name="share_tracker_url">Chia sẻ URL…</string>
     <string name="tracker_state_not_contacted">Chưa liên hệ</string>
     <string name="tracker_state_updating">Đang cập nhật…</string>
@@ -236,7 +236,7 @@
     <string name="edit_torrent_name">Sửa tên torrent</string>
     <string name="tracker_list_empty">Không có trình theo dõi</string>
     <string name="magnet_more_about_bep53">Có thêm thông tin tại https://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="magnet_include_file_priorities">Bao gồm sự ưu tiên của tệp\?</string>
+    <string name="magnet_include_file_priorities">Bao gồm sự ưu tiên của tệp?</string>
     <string name="share_stream_url">Chia sẻ URL luồng truyền…</string>
     <string name="piece_map">Bản đồ các mảnh</string>
     <string name="torrent_peers_template">%1$d (%2$d)</string>
@@ -264,8 +264,8 @@
     <string name="mark_as_read">Đánh dấu là đã xem</string>
     <string name="link_copied_to_clipboard">Đã chép vào bộ nhớ tạm</string>
     <string name="edit_feed_channel">Sửa kênh</string>
-    <string name="delete_selected_channels">Xoá các kênh đã chọn\?</string>
-    <string name="delete_selected_channel">Xoá kênh đã chọn\?</string>
+    <string name="delete_selected_channels">Xoá các kênh đã chọn?</string>
+    <string name="delete_selected_channel">Xoá kênh đã chọn?</string>
     <string name="copy_link">Sao chép liên kết</string>
     <string name="error_cannot_delete_channel">Không thể xoá kênh</string>
     <string name="error_cannot_edit_channel">Không thể sửa kênh</string>
@@ -287,7 +287,7 @@
 \n1. Khi thêm một torrent, danh sách mặc định sẽ được thêm vào danh sách torrent.
 \n2. Được dùng cho fetch đường dẫn magnet.</string>
     <string name="pref_default_trackers_list_title">Tracker mặc định</string>
-    <string name="pref_custom_battery_control_dialog_summary">Bạn chắc chứ\? (Tăng mức sử dụng pin khi tải)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Bạn chắc chứ? (Tăng mức sử dụng pin khi tải)</string>
     <string name="pref_custom_battery_control_summary">Chọn phần trăm pin %% dừng tải. (Bỏ qua mức mặc định %1$d%%.)</string>
     <string name="pref_battery_control_summary">Dừng tất cả torrent nếu pin xuống dưới %1$d%%. (Không áp dụng khi sạc)</string>
     <string name="pref_custom_battery_control_value_title">Phần trăm kiểm soát pin</string>
@@ -448,7 +448,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">Tắt ứng dụng tại một thời điểm nhất định</string>
     <string name="pref_scheduling_switch_wifi_title">Chuyển đổi Wi-Fi</string>
     <string name="pref_scheduling_switch_wifi_summary">Bật Wi-Fi khi bắt đầu theo lịch trình và tắt khi dừng theo lịch trình.</string>
-    <string name="exact_alarm_permission_warning">Để bộ lập lịch hoạt động, bạn phải xin phép trong hộp thoại hệ thống đặc biệt. Tiếp tục\?</string>
+    <string name="exact_alarm_permission_warning">Để bộ lập lịch hoạt động, bạn phải xin phép trong hộp thoại hệ thống đặc biệt. Tiếp tục?</string>
     <string name="pref_feed_refresh_interval_title">Khoảng thời gian làm mới</string>
     <string name="pref_feed_auto_refresh_title">Tự động làm mới kênh</string>
     <string name="pref_feed_auto_refresh_summary">Định kỳ làm mới các kênh trong nền.</string>
@@ -510,7 +510,7 @@
     <string name="pref_proxy_type_entries_1">SOCKS4</string>
     <string name="pref_proxy_type_entries_2">SOCKS5</string>
     <string name="pref_proxy_type_entries_3">HTTP</string>
-    <string name="perm_denied_warning_android_r">Cần có quyền truy cập tất cả các tệp để tải xuống torrent và truy cập các tệp .torrent trong các thư mục tùy ý. Nếu không có quyền này, LibreTorrent sẽ chỉ có quyền truy cập vào một số thư mục giới hạn\?</string>
+    <string name="perm_denied_warning_android_r">Cần có quyền truy cập tất cả các tệp để tải xuống torrent và truy cập các tệp .torrent trong các thư mục tùy ý. Nếu không có quyền này, LibreTorrent sẽ chỉ có quyền truy cập vào một số thư mục giới hạn?</string>
     <string name="piece_size_entries_7">1 MiB</string>
     <string name="piece_size_entries_5">256 KiB</string>
     <string name="piece_size_entries_6">512 KiB</string>

@@ -47,8 +47,8 @@
     <string name="switch_off">Wył.</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Usuń razem z pobranymi plikami</string>
-    <string name="delete_selected_torrent">Usunąć wybrany torrent\? Nie będzie można cofnąć tej akcji.</string>
-    <string name="delete_selected_torrents">Usunąć wybrane torrenty\? Nie będzie można cofnąć tej akcji.</string>
+    <string name="delete_selected_torrent">Usunąć wybrany torrent? Nie będzie można cofnąć tej akcji.</string>
+    <string name="delete_selected_torrents">Usunąć wybrane torrenty? Nie będzie można cofnąć tej akcji.</string>
     <string name="force_recheck_torrent">Wymuś ponowne sprawdzenie</string>
     <string name="force_announce_torrent">Wymuś powiadomienie</string>
     <string name="add_link">Dodaj link</string>
@@ -60,7 +60,7 @@
     <string name="error_open_torrent_file">Nie udało się otworzyć pliku .torrent</string>
     <string name="open_file">Otwórz plik</string>
     <string name="settings">Ustawienia</string>
-    <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
+    <string name="ip_filter_add_error">Nie udało się dodać filtra IP (%1$d nie powiodło się). Może plik jest uszkodzony lub ma nieprawidłowy format?</string>
     <string name="ip_filter_add_success">Dodano filtr IP</string>
     <string name="proxy_settings_applied">Korzystanie z nowych ustawień serwera proxy</string>
     <string name="proxy_settings_apply_after_reboot">Zrestartuj aplikację, aby korzystać z nowych ustawień proxy</string>
@@ -150,15 +150,15 @@
     <string name="torrent_status_downloading_metadata">Pobieranie metadanych…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Odmowa dostępu</string>
-    <string name="perm_denied_warning">Aby pobierać torrenty i uzyskiwać dostęp do plików .torrent, wymagane jest uprawnienie dostępu do pamięci. Czy naprawdę chcesz odmówić tego uprawnienia\?</string>
+    <string name="perm_denied_warning">Aby pobierać torrenty i uzyskiwać dostęp do plików .torrent, wymagane jest uprawnienie dostępu do pamięci. Czy naprawdę chcesz odmówić tego uprawnienia?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Dodaj torrent</string>
-    <string name="error_decode_torrent">Błąd odczytu pliku .torrent. Może plik jest uszkodzony lub ma nieprawidłowy format\?</string>
+    <string name="error_decode_torrent">Błąd odczytu pliku .torrent. Może plik jest uszkodzony lub ma nieprawidłowy format?</string>
     <string name="error_io_torrent">Nie udało się odczytać pliku .torrent</string>
     <string name="error_fetch_link">Nie udało się pobrać danych z linku</string>
     <string name="error_invalid_link_or_path">Niepoprawny link lub ścieżka do pliku torrent</string>
     <string name="error_add_torrent">Nie udało się dodać torrenta</string>
-    <string name="error_file_not_found_add_torrent">Nie udało się dodać torrenta. Może plik .torrent został przeniesiony albo usunięty\?</string>
+    <string name="error_file_not_found_add_torrent">Nie udało się dodać torrenta. Może plik .torrent został przeniesiony albo usunięty?</string>
     <string name="error_io_add_torrent">Nie udało się dodać torrenta z powodu błędu I/O</string>
     <string name="torrent_exist">Ponieważ torrent już istnieje, został połączony z poprzednim</string>
     <string name="error_field_required">Wymagane pole</string>
@@ -240,8 +240,8 @@
     <string name="tracker_state_updating">Aktualizowanie…</string>
     <string name="tracker_state_not_contacted">Nieskomunikowany</string>
     <string name="share_tracker_url">Udostępnij adres…</string>
-    <string name="delete_selected_tracker">Usunąć wybrany tracker\?</string>
-    <string name="delete_selected_trackers">Usunąć wybrane trackery\?</string>
+    <string name="delete_selected_tracker">Usunąć wybrany tracker?</string>
+    <string name="delete_selected_trackers">Usunąć wybrane trackery?</string>
     <string name="add_trackers">Dodaj trackery</string>
     <string name="dialog_add_trackers">jeden na linię</string>
     <string name="open_using">Otwórz za pomocą</string>
@@ -271,7 +271,7 @@
     <string name="torrent_added_date">Dodano</string>
     <string name="torrent_availability">Dostępność</string>
     <string name="share_stream_url">Udostępnij adres strumienia…</string>
-    <string name="magnet_include_file_priorities">Uwzględnić priorytety plików\?</string>
+    <string name="magnet_include_file_priorities">Uwzględnić priorytety plików?</string>
     <string name="magnet_more_about_bep53">Więcej informacji na http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Brak trackerów</string>
     <string name="edit_torrent_name">Edytuj nazwę torrenta</string>
@@ -299,8 +299,8 @@
     <string name="error_cannot_edit_channel">Nie udało się zedytować kanału</string>
     <string name="error_cannot_delete_channel">Nie udało się usunąć kanału</string>
     <string name="copy_link">Skopiuj link</string>
-    <string name="delete_selected_channel">Usunąć wybrany kanał\?</string>
-    <string name="delete_selected_channels">Usunąć wybrane kanały\?</string>
+    <string name="delete_selected_channel">Usunąć wybrany kanał?</string>
+    <string name="delete_selected_channels">Usunąć wybrane kanały?</string>
     <string name="edit_feed_channel">Edytuj kanał</string>
     <string name="link_copied_to_clipboard">Skopiowano do schowka</string>
     <string name="mark_as_read">Oznacz jako przeczytane</string>
@@ -442,7 +442,7 @@
     <string name="pref_custom_battery_control_value_title">Procent kontroli baterii</string>
     <string name="pref_battery_control_summary">Wstrzymuje wszystkie torrenty, gdy poziom baterii spadnie poniżej %1$d%%. Limit ten nie będzie obowiązywać podczas ładowania urządzenia.</string>
     <string name="pref_custom_battery_control_summary">Ustaw procent baterii, przy którym ma zostać wstrzymane pobieranie. Zignoruje to domyślne %1$d%%.</string>
-    <string name="pref_custom_battery_control_dialog_summary">Naprawdę ustawić nasłuchiwanie stanu baterii\? Zwiększy to zużycie baterii podczas pobierania.</string>
+    <string name="pref_custom_battery_control_dialog_summary">Naprawdę ustawić nasłuchiwanie stanu baterii? Zwiększy to zużycie baterii podczas pobierania.</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Ustawienia proxy</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -570,8 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Łączy dwa przyciski: wstrzymaj wszystko i wznów wszystko. Przycisk będzie działać jak przełącznik. Uwaga: na stan przycisku nie ma wpływu ręczne wstrzymywanie/wznawianie torrenta.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Połączony przycisk wstrzymania</string>
     <string name="error_open_torrent">Nie można otworzyć torrenta</string>
-    <string name="exact_alarm_permission_warning">Aby harmonogram działał, musisz zezwolić na dostęp w specjalnym oknie dialogowym systemu. Kontynuować\?</string>
-    <string name="perm_denied_warning_android_r">Uprawnienie dostępu do wszystkich plików jest wymagane do pobierania torrentów i uzyskiwania dostępu do plików .torrent w dowolnych folderach. Bez tego uprawnienia LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów. Czy na pewno chcesz odmówić tego uprawnienia\?</string>
+    <string name="exact_alarm_permission_warning">Aby harmonogram działał, musisz zezwolić na dostęp w specjalnym oknie dialogowym systemu. Kontynuować?</string>
+    <string name="perm_denied_warning_android_r">Uprawnienie dostępu do wszystkich plików jest wymagane do pobierania torrentów i uzyskiwania dostępu do plików .torrent w dowolnych folderach. Bez tego uprawnienia LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów. Czy na pewno chcesz odmówić tego uprawnienia?</string>
     <string name="manage_all_files_warning_dialog_title">Ostrzeżenie</string>
     <string name="manage_all_files_warning_dialog_description">Wersja LibreTorrent w Google Play nie ma uprawnienia dostępu do wszystkich plików. Oznacza to, że LibreTorrent będzie mieć dostęp tylko do ograniczonej liczby folderów, takich jak np. Pobrane. W razie potrzeby, aby włączyć to uprawnienie, zainstaluj LibreTorrent z innego źródła; pełna lista znajduje się na stronie projektu:</string>
     <string name="pref_validate_https_trackers_title">Weryfikuj certyfikaty trackerów HTTPS</string>

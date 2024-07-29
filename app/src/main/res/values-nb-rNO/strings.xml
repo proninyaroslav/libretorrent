@@ -48,7 +48,7 @@
     <string name="switch_off">Av</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Slett sammen med nedlastede filer</string>
-    <string name="delete_selected_torrent">Slett valgt torrent\? (Kan ikke endres.)</string>
+    <string name="delete_selected_torrent">Slett valgt torrent? (Kan ikke endres.)</string>
     <string name="delete_selected_torrents">Slett valgte torrenter. (Kan ikke angres.)</string>
     <string name="force_recheck_torrent">Tving ny sjekk</string>
     <string name="force_announce_torrent">Tving annonsering</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Kunne ikke åpne .torrent-fil</string>
     <string name="open_file">Åpne fil</string>
     <string name="settings">Innstillinger</string>
-    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje filen er skadet eller i feil format\?</string>
+    <string name="ip_filter_add_error">Klarte ikke å legge til IP-filter (%1$d mislyktes). Kanskje filen er skadet eller i feil format?</string>
     <string name="ip_filter_add_success">IP-filter lagt til</string>
     <string name="proxy_settings_applied">Bruker de nye mellomtjenerinnstillingene.</string>
     <string name="proxy_settings_apply_after_reboot">Start programmet på ny for å bruke de nye mellomtjenerinnstillingene.</string>
@@ -152,15 +152,15 @@
     <string name="torrent_status_downloading_metadata">Laster ned metadata …</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Nektet tilgang</string>
-    <string name="perm_denied_warning">Lagringstilgang kreves for å laste ned torrenter og å for ha adgang til torrentfiler. Vil du virkelig nekte denne tilgangen\?</string>
+    <string name="perm_denied_warning">Lagringstilgang kreves for å laste ned torrenter og å for ha adgang til torrentfiler. Vil du virkelig nekte denne tilgangen?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Legg til torrent</string>
-    <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format\?</string>
+    <string name="error_decode_torrent">Klarte ikke å dekode torrentfil. Kanske filen er skadet eller har feil format?</string>
     <string name="error_io_torrent">Kunne ikke lese .torrent-filen</string>
     <string name="error_fetch_link">Kunne ikke hente data fra lenken</string>
     <string name="error_invalid_link_or_path">Ugyldig lenke eller torrentsti</string>
     <string name="error_add_torrent">Kunne ikke legge til torrenten</string>
-    <string name="error_file_not_found_add_torrent">Klarte ikke å legge til torrent. Kanskje torrentfilen er flyttet eller slettet\?</string>
+    <string name="error_file_not_found_add_torrent">Klarte ikke å legge til torrent. Kanskje torrentfilen er flyttet eller slettet?</string>
     <string name="error_io_add_torrent">Kan ikke legge til torrenten som følge av en nn-/ut-datafeil.</string>
     <string name="torrent_exist">Siden torrenten allerede finnes ble de flettet.</string>
     <string name="error_field_required">Påkrevd felt</string>
@@ -224,14 +224,14 @@
     <string name="torrent_downloaded">Nedlastet</string>
     <string name="torrent_ETA">Gjenstående tid</string>
     <string name="torrent_seeds">Delere</string>
-    <string name="torrent_peers">Totalt</string>
-    <string name="torrent_leechers">Hentere</string>
+    <string name="torrent_peers">Partnere</string>
+    <string name="torrent_leechers">Snyltere</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Opplastet</string>
     <string name="torrent_share_ratio">Delingsforhold</string>
     <string name="torrent_active_time">Tid aktiv</string>
-    <string name="torrent_seeding_time">Delingstid</string>
+    <string name="torrent_seeding_time">Spredertid</string>
     <string name="torrent_pieces">Deler</string>
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
@@ -241,8 +241,8 @@
     <string name="tracker_state_updating">Oppdaterer…</string>
     <string name="tracker_state_not_contacted">Ikke kontaktet enda</string>
     <string name="share_tracker_url">Del nettadresse …</string>
-    <string name="delete_selected_tracker">Slett valgt sporer\?</string>
-    <string name="delete_selected_trackers">Slett valgte sporere\?</string>
+    <string name="delete_selected_tracker">Slett valgt sporer?</string>
+    <string name="delete_selected_trackers">Slett valgte sporere?</string>
     <string name="add_trackers">Legg til sporer</string>
     <string name="dialog_add_trackers">(Én per linje)</string>
     <string name="open_using">Åpne med</string>
@@ -272,7 +272,7 @@
     <string name="torrent_added_date">La til</string>
     <string name="torrent_availability">Tilgjengelighet</string>
     <string name="share_stream_url">Del nettadressen til stream …</string>
-    <string name="magnet_include_file_priorities">Inkluder filprioriteter\?</string>
+    <string name="magnet_include_file_priorities">Inkluder filprioriteter?</string>
     <string name="magnet_more_about_bep53">Mer info på http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Ingen sporere</string>
     <string name="edit_torrent_name">Rediger torrentnavn</string>
@@ -300,8 +300,8 @@
     <string name="error_cannot_edit_channel">Kan ikke redigere kanal</string>
     <string name="error_cannot_delete_channel">Kan ikke slette kanal</string>
     <string name="copy_link">Kopier lenke</string>
-    <string name="delete_selected_channel">Slett valgt kanal\?</string>
-    <string name="delete_selected_channels">Slett valgte kanaler\?</string>
+    <string name="delete_selected_channel">Slett valgt kanal?</string>
+    <string name="delete_selected_channels">Slett valgte kanaler?</string>
     <string name="edit_feed_channel">Rediger kanal</string>
     <string name="link_copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="mark_as_read">Merk som lest</string>
@@ -319,8 +319,8 @@
     <!-- Create torrent dialog -->
     <string name="create_torrent">Lag torrent</string>
     <string name="creating_torrent_progress">Vent mens torrenten opprettes …</string>
-    <string name="file_or_folder_for_seeding">Fil eller mappe å dele</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Velg en fil eller mappe å dele først</string>
+    <string name="file_or_folder_for_seeding">Fil eller mappe å spre</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Velg først en fil eller mappe som skal spres</string>
     <string name="tracker_urls">Sporer-nettadresser</string>
     <string name="web_seed_urls">Nettdeleradresser</string>
     <string name="comments">Kommentarer</string>
@@ -329,7 +329,7 @@
     <string name="optional_hint">(Valgfritt)</string>
     <string name="piece_size">Delstørrelse</string>
     <string name="create_torrent_options">Alternativer</string>
-    <string name="option_start_seeding">Start deling</string>
+    <string name="option_start_seeding">Start spredning</string>
     <string name="option_private_torrent">Privat torrent</string>
     <!-- piece_size_entries -->
     <string name="piece_size_entries_0">Auto</string>
@@ -442,7 +442,7 @@
     <string name="pref_custom_battery_control_value_title">Batteri kontroll prosent</string>
     <string name="pref_battery_control_summary">Pauser alle torrenter hvis batterinivået går under %1$d%%. (Vel å merke når lader ikke er tilkoblet.)</string>
     <string name="pref_custom_battery_control_summary">Sett en batteri-%% å pause nedlastinger på. (Ignorerer den forvalgte %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Vil du virkelig sette en batteri-%% programmet skal ta hensyn til\? (Øker batteribruk under nedlasting.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Vil du virkelig sette en batteri-%% programmet skal ta hensyn til? (Øker batteribruk under nedlasting.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Mellomtjener-innstillinger</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -474,7 +474,7 @@
     <string name="pref_show_nat_errors">Vis NAT-feil</string>
     <string name="pref_anonymous_mode_title">Anonymt modus</string>
     <string name="pref_anonymous_mode_summary">Ingen brukeragentstreng for ikke-private torrenter. Kun mellomtjente sporere. Lyttesocketer lukket. Innkommende tilkoblinger gjennom SOCKS5- eller I2P-mellomtjener (hvis likemannsmellomtjener kjører på samme maskinen som sporermellomtjeneren). NAT-PMP, UPnP, DHT og lokal likemannsoppdaging av.</string>
-    <string name="pref_seeding_outgoing_connections_title">Utgående tilkoblinger for deling</string>
+    <string name="pref_seeding_outgoing_connections_title">Utgående tilkoblinger for spredning</string>
     <string name="pref_seeding_outgoing_connections_summary">Lar delte torrenter gjøre utgående tilkoblinger. (Kan være dyrt.)</string>
     <!-- Proxy settings -->
     <string name="pref_proxy_type_title">Mellomtjenertype</string>
@@ -486,7 +486,7 @@
     <string name="pref_proxy_address_title">Adresse</string>
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Bruk også for tilkoblinger</string>
-    <string name="pref_proxy_peers_too_summary">Tilkoblinger til sporere, andre og vev-delere blir mellomtjent. Har ikke innvirkning på DHT.</string>
+    <string name="pref_proxy_peers_too_summary">Tilkoblinger til sporere, andre og vev-spredete bruker en mellomtjener Påvirker ikke DHT.</string>
     <string name="pref_proxy_requires_auth_title">Krever identitetsgodkjenning</string>
     <string name="pref_proxy_requires_auth_summary">Advarsel: Passordet er lagret som en vanlig fil.</string>
     <string name="pref_proxy_login_title">Brukernavn</string>
@@ -573,13 +573,13 @@
     <string name="error_open_torrent">Kunne ikke åpne torrent</string>
     <string name="pref_validate_https_trackers_title">Bekreft sertifikater for HTTPS-sporere</string>
     <string name="download_first_last_pieces">Last ned de første og siste delene først</string>
-    <string name="perm_denied_warning_android_r">Tilgang til alle filer kreves for å laste ned torrenter og få tilgang til .torrent-filer i egenvalgte mapper. Uten denne tilgangen vil LibreTorrent kun ha tilgang til et begrenset antall mapper. Er du sikker på at du vil nekte denne tilgangen\?</string>
-    <string name="exact_alarm_permission_warning">For at planleggeren skal virke må du innhente tilgangen i en spesiell systemdialog. Fortsett\?</string>
+    <string name="perm_denied_warning_android_r">Tilgang til alle filer kreves for å laste ned torrenter og få tilgang til .torrent-filer i egenvalgte mapper. Uten denne tilgangen vil LibreTorrent kun ha tilgang til et begrenset antall mapper. Er du sikker på at du vil nekte denne tilgangen?</string>
+    <string name="exact_alarm_permission_warning">For at planleggeren skal virke må du innhente tilgangen i en spesiell systemdialog. Fortsett?</string>
     <string name="pref_validate_https_trackers_summary">Sertifikatet til HTTPS-sporere og HTTPS-vevdelere vil bekreftet i systemsertifikatslagringen.</string>
     <string name="manage_all_files_warning_dialog_title">Advarsel</string>
     <string name="manage_all_files_warning_dialog_description">Google Play-versjonen av LibreTorrent har ikke tilgang til alle filer. Dette betyr at LibreTorrent ikke har tilgang til et begrenset antall mapper, som «Nedlastinger», eller andre. Hvis det trengs for å legge til tilgangen, kan du installere LibreTorrent fra en annen kilde. Hele listen er å finne på prosjektsiden:</string>
     <string name="torrent_speed_limit_dialog">Sett hastighet i KiB/s. Merk at å sette en høyere grense på en torrent overstyrer grensen satt for alle torrenter.</string>
-    <string name="apply_settings_after_reboot">Endringer utføres ved omstart av programmet.</string>
+    <string name="apply_settings_after_reboot">Endringene skjer etter omstart av appen</string>
     <string name="pref_posix_disk_io_summary">Merk: Kun bruk dette i gitte tilfeller, der du f.eks. trenger støtte for noen filsystemer brukt på SD-kort. Skrur på enkel POSIX disk-I/O, brukt for systemer som ikke har 64-biters virtuelt adresseområde, eller ikke støtte minnetilknyttede filer.</string>
     <string name="pref_posix_disk_io_title">POSIX disk-I/O</string>
 </resources>

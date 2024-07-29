@@ -36,8 +36,8 @@
     <string name="filters">Penyaring</string>
     <string name="apply">Terap</string>
     <string name="delete_torrent_with_downloaded_files">Padam beserta fail yang dimuat turun</string>
-    <string name="delete_selected_torrent">Padam torrent yang dipilih\? (Tidak boleh diundur)</string>
-    <string name="delete_selected_torrents">Padam torrent yang dipilih\? (Tidak boleh diundur)</string>
+    <string name="delete_selected_torrent">Padam torrent yang dipilih? (Tidak boleh diundur)</string>
+    <string name="delete_selected_torrents">Padam torrent yang dipilih? (Tidak boleh diundur)</string>
     <string name="force_recheck_torrent">Paksa periksa semula</string>
     <string name="force_announce_torrent">Paksa announce</string>
     <string name="add_link">Tambah pautan</string>
@@ -104,7 +104,7 @@
     <string name="torrent_status_downloading_metadata">Memuat turun metadata…</string>
     <string name="perm_denied_title">Kebenaran ditolak</string>
     <string name="add_torrent_title">Tambah torrent</string>
-    <string name="error_decode_torrent">Gagal menyahkod fail .torrent. Mungkin ianya rosak atau formatnya salah\?</string>
+    <string name="error_decode_torrent">Gagal menyahkod fail .torrent. Mungkin ianya rosak atau formatnya salah?</string>
     <string name="error_io_torrent">Tidak dapat membaca fail .torrent</string>
     <string name="error_fetch_link">Gagal mendapatkan data dari pautan</string>
     <string name="error_invalid_link_or_path">Pautan atau laluan torrent tidak sah</string>
@@ -164,8 +164,8 @@
     <string name="tracker_state_working">Berjalan</string>
     <string name="tracker_state_not_working">Tidak berjalan</string>
     <string name="share_tracker_url">Kongsi pautan…</string>
-    <string name="delete_selected_tracker">Padam penjejak yang dipilih\?</string>
-    <string name="delete_selected_trackers">Padam penjejak yang dipilih\?</string>
+    <string name="delete_selected_tracker">Padam penjejak yang dipilih?</string>
+    <string name="delete_selected_trackers">Padam penjejak yang dipilih?</string>
     <string name="tracker_state_updating">Mengemas kini…</string>
     <string name="add_trackers">Tambah penjejak</string>
     <string name="dialog_add_trackers">(Satu per baris)</string>
@@ -186,7 +186,7 @@
     <string name="torrent_added_date">Ditambah</string>
     <string name="torrent_availability">Ketersediaan</string>
     <string name="share_stream_url">Kongsi pautan siaran…</string>
-    <string name="magnet_include_file_priorities">Sertakan keutamaan fail\?</string>
+    <string name="magnet_include_file_priorities">Sertakan keutamaan fail?</string>
     <string name="tracker_list_empty">Tiada penjejak</string>
     <string name="edit_torrent_name">Sunting nama torrent</string>
     <string name="send_text_to_clipboard">Salin</string>
@@ -214,7 +214,7 @@
     <string name="open_navigation_drawer">Buka laci pengemudi</string>
     <string name="switch_off">Mati</string>
     <string name="switch_on">Hidup</string>
-    <string name="ip_filter_add_error">Tidak dapat menambahkan penyaring IP (%1$d gagal). Mungkin fail rosak atau format salah\?</string>
+    <string name="ip_filter_add_error">Tidak dapat menambahkan penyaring IP (%1$d gagal). Mungkin fail rosak atau format salah?</string>
     <string name="drawer_sorting_size">Saiz</string>
     <string name="save_torrent_file_successfully">fail .torrent disimpan</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
@@ -233,10 +233,10 @@
     <string name="files_size">%1$s dari %2$s dipilih</string>
     <string name="peer_client">Klien: %1$s</string>
     <string name="peer_connection_type_web">Sesawang</string>
-    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkin fail .torrent telah dipindah atau dipadam\?</string>
+    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkin fail .torrent telah dipindah atau dipadam?</string>
     <string name="external_storage_name" formatted="false">Simpanan luaran %1$d</string>
     <string name="file_priority_low">Abai</string>
-    <string name="perm_denied_warning">Anda yakin tidak membenarkan apl dari menyimpan fail .torrent dalam penyimpanan\?</string>
+    <string name="perm_denied_warning">Anda yakin tidak membenarkan apl dari menyimpan fail .torrent dalam penyimpanan?</string>
     <string name="torrent_exist">Memandangkan torrent telah wujud, ia digabungkan.</string>
     <string name="error_free_space">Ruang simpanan tidak mencukupi untuk memuat turun fail yang dipilih.</string>
     <string name="dir_chooser_title">Pemilihan folder</string>
@@ -265,8 +265,8 @@
     <string name="error_cannot_edit_channel">Tidak dapat menyunting saluran</string>
     <string name="error_cannot_delete_channel">Tidak dapat memadam saluran</string>
     <string name="copy_link">Salin pautan</string>
-    <string name="delete_selected_channel">Padam saluran yang dipilih\?</string>
-    <string name="delete_selected_channels">Padam saluran yang dipilih\?</string>
+    <string name="delete_selected_channel">Padam saluran yang dipilih?</string>
+    <string name="delete_selected_channels">Padam saluran yang dipilih?</string>
     <string name="edit_feed_channel">Sunting saluran</string>
     <string name="link_copied_to_clipboard">Pautan disalin ke papan klip</string>
     <string name="mark_as_read">Tanda sebagai dibaca</string>
@@ -415,7 +415,7 @@
     <string name="pref_cpu_do_not_sleep_title">Kekalkan peranti untuk kekal berjaga</string>
     <string name="pref_download_and_upload_only_when_charging_title">Hanya muat turun dan muat naik ketika mengecas.</string>
     <string name="pref_custom_battery_control_summary">Tetap peratusan bateri khusus untuk menjeda muat turun. (Mengabaikan batasan lalai %1$d%%)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Anda pasti ingin menetapkan %% bateri untuk diperhatikan\? (Meningkatkan penggunaan bateri ketika memuat turun.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Anda pasti ingin menetapkan %% bateri untuk diperhatikan? (Meningkatkan penggunaan bateri ketika memuat turun.)</string>
     <string name="pref_enable_ip_filtering_title">Penapis IP</string>
     <string name="pref_ip_filtering_file_title">Laluan ke fail penapis (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Papar keralatan NAT</string>

@@ -47,8 +47,8 @@
     <string name="switch_on">Activé</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
-    <string name="delete_selected_torrent">Supprimer le torrent sélectionné \? (Impossible d’annuler.)</string>
-    <string name="delete_selected_torrents">Supprimer les torrents sélectionnés \? (Impossible d\'annuler.)</string>
+    <string name="delete_selected_torrent">Supprimer le torrent sélectionné ? (Impossible d’annuler.)</string>
+    <string name="delete_selected_torrents">Supprimer les torrents sélectionnés ? (Impossible d\'annuler.)</string>
     <string name="force_recheck_torrent">Forcer la revérification</string>
     <string name="force_announce_torrent">Forcer-l\'annonce</string>
     <string name="add_link">Ajouter un lien</string>
@@ -60,7 +60,7 @@
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier .torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
-    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect \?</string>
+    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect ?</string>
     <string name="ip_filter_add_success">Le filtre IP a été ajouté avec succès</string>
     <string name="proxy_settings_applied">Utilisation des nouveaux paramètres du serveur proxy.</string>
     <string name="proxy_settings_apply_after_reboot">Redémarrez l\'application pour utiliser les nouveaux paramètres du proxy.</string>
@@ -150,15 +150,15 @@
     <string name="torrent_status_downloading_metadata">Téléchargement des métadonnées…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission refusée</string>
-    <string name="perm_denied_warning">L\'autorisation de stockage est nécessaire pour télécharger des torrents et accéder aux fichiers .torrent. Voulez-vous vraiment refuser cette autorisation \?</string>
+    <string name="perm_denied_warning">L\'autorisation de stockage est nécessaire pour télécharger des torrents et accéder aux fichiers .torrent. Voulez-vous vraiment refuser cette autorisation ?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Ajouter un torrent</string>
-    <string name="error_decode_torrent">Impossible de décoder le fichier .torrent. Peut-être est-il abîmé ou dans un mauvais format \?</string>
+    <string name="error_decode_torrent">Impossible de décoder le fichier .torrent. Peut-être est-il abîmé ou dans un mauvais format ?</string>
     <string name="error_io_torrent">Erreur lors de la lecture du fichier .torrent</string>
     <string name="error_fetch_link">Impossible d\'extraire les données du lien</string>
     <string name="error_invalid_link_or_path">Le lien ou chemin vers le torrent n\'est pas valide</string>
     <string name="error_add_torrent">Impossible d\'ajouter le torrent</string>
-    <string name="error_file_not_found_add_torrent">Impossible d\'ajouter le torrent. Le fichier .torrent a peut-être été déplacé ou supprimé \?</string>
+    <string name="error_file_not_found_add_torrent">Impossible d\'ajouter le torrent. Le fichier .torrent a peut-être été déplacé ou supprimé ?</string>
     <string name="error_io_add_torrent">Impossible d\'ajouter le torrent. Erreur I/O.</string>
     <string name="torrent_exist">Puisque le torrent existe déjà, ils ont été fusionnés.</string>
     <string name="error_field_required">Ce champ est requis</string>
@@ -239,8 +239,8 @@
     <string name="tracker_state_updating">Actualisation…</string>
     <string name="tracker_state_not_contacted">Pas encore contacté</string>
     <string name="share_tracker_url">Partager l\'URL…</string>
-    <string name="delete_selected_tracker">Supprimer le tracker sélectionné \?</string>
-    <string name="delete_selected_trackers">Supprimer les trackers sélectionnés \?</string>
+    <string name="delete_selected_tracker">Supprimer le tracker sélectionné ?</string>
+    <string name="delete_selected_trackers">Supprimer les trackers sélectionnés ?</string>
     <string name="add_trackers">Ajouter des trackers</string>
     <string name="dialog_add_trackers">(Un par ligne)</string>
     <string name="open_using">Ouvrir avec</string>
@@ -270,7 +270,7 @@
     <string name="torrent_added_date">Ajoutée</string>
     <string name="torrent_availability">Disponibilité</string>
     <string name="share_stream_url">Partager l\'URL du stream…</string>
-    <string name="magnet_include_file_priorities">Inclure les priorités de fichier \?</string>
+    <string name="magnet_include_file_priorities">Inclure les priorités de fichier ?</string>
     <string name="magnet_more_about_bep53">Plus d\'infos sur http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Aucun traqueur</string>
     <string name="edit_torrent_name">Modifier le nom du torrent</string>
@@ -298,8 +298,8 @@
     <string name="error_cannot_edit_channel">Impossible d\'éditer le canal</string>
     <string name="error_cannot_delete_channel">Impossible de supprimer le canal</string>
     <string name="copy_link">Copier le lien</string>
-    <string name="delete_selected_channel">Supprimer le canal sélectionné \?</string>
-    <string name="delete_selected_channels">Supprimer les canaux sélectionnés \?</string>
+    <string name="delete_selected_channel">Supprimer le canal sélectionné ?</string>
+    <string name="delete_selected_channels">Supprimer les canaux sélectionnés ?</string>
     <string name="edit_feed_channel">Modifier le canal</string>
     <string name="link_copied_to_clipboard">Copié dans le presse-papier</string>
     <string name="mark_as_read">Marquer comme lu</string>
@@ -437,7 +437,7 @@
     <string name="pref_custom_battery_control_value_title">Pourcentage de contrôle de la batterie</string>
     <string name="pref_battery_control_summary">Mettre en pause tous les torrents si le niveau de batterie descend en dessous de %1$d%% (ne s\'applique pas si en charge.)</string>
     <string name="pref_custom_battery_control_summary">Définir un pourcentage de batterie à partir duquel mettre en pause les téléchargements (ignore la valeur par défaut %1$d%%.)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Voulez-vous vraiment définir un pourcentage de batterie à surveiller \? (Augmente l\'utilisation de la batterie lors des téléchargements.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Voulez-vous vraiment définir un pourcentage de batterie à surveiller ? (Augmente l\'utilisation de la batterie lors des téléchargements.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Paramètres de proxy</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -552,7 +552,7 @@
     <string name="pref_foreground_notify_status_filter_entries_2">Téléchargé</string>
     <string name="manage_all_files_warning_dialog_description">N\'utilisez pas la version Google Play de LibreTorrent si vous souhaitez enregistrer des torrents dans des dossiers autres que \" Téléchargements \" et similaires.
 \nIl existe d\'autres sources sur la page du projet.</string>
-    <string name="perm_denied_warning_android_r">L\'autorisation d\'accès à tous les fichiers est nécessaire pour télécharger des torrents et accéder aux fichiers .torrent dans des dossiers arbitraires. Sans cette autorisation, LibreTorrent n\'aura accès qu\'à un nombre limité de dossiers. Êtes-vous sûr de vouloir refuser cette autorisation \?</string>
+    <string name="perm_denied_warning_android_r">L\'autorisation d\'accès à tous les fichiers est nécessaire pour télécharger des torrents et accéder aux fichiers .torrent dans des dossiers arbitraires. Sans cette autorisation, LibreTorrent n\'aura accès qu\'à un nombre limité de dossiers. Êtes-vous sûr de vouloir refuser cette autorisation ?</string>
     <string name="pref_foreground_notify_status_filter_entries_1">En cours de téléchargement…</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Erreur</string>
     <string name="manage_all_files_warning_dialog_title">Attention</string>
@@ -574,7 +574,7 @@
     <string name="pref_foreground_notify_sorting_entries_11">Popularité (ordre décroissant)</string>
     <string name="pref_foreground_notify_sorting_entries_12">Aucun tri</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Combine deux boutons : pauser tout et reprendre tout. Le bouton fonctionnera comme un commutateur. Attention : l\'état du bouton n\'est pas affecté par la pause/reprise manuelle du torrent.</string>
-    <string name="exact_alarm_permission_warning">Pour que le planificateur fonctionne, vous devez obtenir une autorisation dans une boîte de dialogue spéciale du système. Voulez-vous poursuivre \?</string>
+    <string name="exact_alarm_permission_warning">Pour que le planificateur fonctionne, vous devez obtenir une autorisation dans une boîte de dialogue spéciale du système. Voulez-vous poursuivre ?</string>
     <string name="pref_validate_https_trackers_title">Valider le certificat des trackers HTTPS</string>
     <string name="pref_validate_https_trackers_summary">Le certificat des trackers HTTPS et des serveurs web HTTPS sera validé dans le magasin de certificats du système.</string>
     <string name="download_first_last_pieces">Télécharger d\'abord les premières et dernières pièces</string>

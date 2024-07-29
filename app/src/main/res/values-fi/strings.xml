@@ -18,7 +18,7 @@
 \n1. Kun lisätään torrent, oletuslista on automaattisesti lisättynä torrent-listaan.
 \n2. Käytetään magnet-linkkien noutamisessa.</string>
     <string name="pref_default_trackers_list_title">Oletustrackerit</string>
-    <string name="pref_custom_battery_control_dialog_summary">Haluatko varmasti asettaa akku %% seurantaan\? (Lisää virrankulutusta tallennettaessa.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Haluatko varmasti asettaa akku %% seurantaan? (Lisää virrankulutusta tallennettaessa.)</string>
     <string name="pref_custom_battery_control_summary">Asettaa akkuprosentin %% pysäyttämään tallennusket. (Ohittaa oletuksen %1$d%%.)</string>
     <string name="pref_custom_battery_control_value_title">Virranhallinnan prosentti</string>
     <string name="pref_auto_manage_title">Hallitse automaattisesti</string>
@@ -194,8 +194,8 @@
     <string name="mark_as_read">Merkitse luetuksi</string>
     <string name="link_copied_to_clipboard">Kopioi leikepöydälle</string>
     <string name="edit_feed_channel">Muokkaa kanavaa</string>
-    <string name="delete_selected_channels">Poista valitut kanavat\?</string>
-    <string name="delete_selected_channel">Poista valittu kanava\?</string>
+    <string name="delete_selected_channels">Poista valitut kanavat?</string>
+    <string name="delete_selected_channel">Poista valittu kanava?</string>
     <string name="copy_link">Kopioi linkki</string>
     <string name="error_cannot_delete_channel">Ei voitu poistaa kanavaa</string>
     <string name="error_cannot_edit_channel">Ei voitu muokata kanavaa</string>
@@ -220,7 +220,7 @@
     <string name="edit_torrent_name">Muokkaa torrentin nimeä</string>
     <string name="tracker_list_empty">Ei trackereita</string>
     <string name="magnet_more_about_bep53">Lisätietoa: https://www.bittorrent.org/beps/bep_0053.html</string>
-    <string name="magnet_include_file_priorities">Sisällytä tiedoston priotiteetit\?</string>
+    <string name="magnet_include_file_priorities">Sisällytä tiedoston priotiteetit?</string>
     <string name="torrent_availability">Saatavuus</string>
     <string name="torrent_added_date">Lisätty</string>
     <string name="speed_limit_dialog">Aseta nopeus muodossa KiB/s (0 - ei rajoitus)</string>
@@ -247,14 +247,14 @@
     <string name="error_field_required">Vaadittava kenttä</string>
     <string name="torrent_exist">Koska torrent on jo olemassa, ne yhdistettiin.</string>
     <string name="error_io_add_torrent">Ei voitu lisätä torrentia johtuen I/O -virheestä.</string>
-    <string name="error_file_not_found_add_torrent">Ei voitu lisätä torrentia. Olisiko .torrent-tiedosto siirretty tai poistettu\?</string>
+    <string name="error_file_not_found_add_torrent">Ei voitu lisätä torrentia. Olisiko .torrent-tiedosto siirretty tai poistettu?</string>
     <string name="error_add_torrent">Ei voitu lisätä torrentia</string>
     <string name="error_invalid_link_or_path">Epäkelpo linkki tai torrentin polku</string>
     <string name="error_fetch_link">Ei voitu noutaa tietoa linkistä</string>
     <string name="error_io_torrent">Ei voitu lukea .torrent-tiedostoa</string>
-    <string name="error_decode_torrent">Ei voitu dekoodata -torrent-tiedostoa. Olisiko se vahingoittunut tai väärässä formaatissa\?</string>
+    <string name="error_decode_torrent">Ei voitu dekoodata -torrent-tiedostoa. Olisiko se vahingoittunut tai väärässä formaatissa?</string>
     <string name="add_torrent_title">Lisää torrent</string>
-    <string name="perm_denied_warning">Tallennustilan käyttöoikeus vaaditaan .torrent-tiedostojen latausta ja käyttöä varten. Haluatko todella kieltää käyttöoikeuden\?</string>
+    <string name="perm_denied_warning">Tallennustilan käyttöoikeus vaaditaan .torrent-tiedostojen latausta ja käyttöä varten. Haluatko todella kieltää käyttöoikeuden?</string>
     <string name="perm_denied_title">Lupa evätty</string>
     <string name="torrent_status_downloading_metadata">Tallennetaan metatietoja…</string>
     <string name="torrent_status_finished">Valmis</string>
@@ -306,7 +306,7 @@
     <string name="proxy_settings_apply_after_reboot">Uudelleenkäynnistä sovellus käyttääksesi uusia välityspalvelinasetuksia</string>
     <string name="proxy_settings_applied">Uusien välityspalvelinasetusten käyttäminen</string>
     <string name="ip_filter_add_success">IP-suodatin lisätty</string>
-    <string name="ip_filter_add_error">Ei voida asettaa IP-suodatinta (%1$d epäonnistui). Onko tiedosto vahingoittunut tai onko se väärässä formaatissa\?</string>
+    <string name="ip_filter_add_error">Ei voida asettaa IP-suodatinta (%1$d epäonnistui). Onko tiedosto vahingoittunut tai onko se väärässä formaatissa?</string>
     <string name="settings">Asetukset</string>
     <string name="open_file">Avaa tiedosto</string>
     <string name="error_open_torrent_file">Ei voida avata .torrent -tiedostoa</string>
@@ -316,8 +316,8 @@
     <string name="torrent_list_empty">Ei torrenteja</string>
     <string name="add_link">Lisää linkki</string>
     <string name="force_recheck_torrent">Pakota uudelleentarkistus</string>
-    <string name="delete_selected_torrents">Poista valitut torrentit\? (Ei voi peruuttaa)</string>
-    <string name="delete_selected_torrent">Poista valitut torrentit\? (Ei voi peruuttaa)</string>
+    <string name="delete_selected_torrents">Poista valitut torrentit? (Ei voi peruuttaa)</string>
+    <string name="delete_selected_torrent">Poista valitut torrentit? (Ei voi peruuttaa)</string>
     <string name="delete_torrent_with_downloaded_files">Poista tallennettujen tiedostojen kanssa</string>
     <string name="switch_off">Pois päältä</string>
     <string name="switch_on">Päällä</string>
@@ -397,8 +397,8 @@
     <string name="open_using">Avaa käyttämällä</string>
     <string name="dialog_add_trackers">(Yksi per rivi)</string>
     <string name="add_trackers">Lisää trackereita</string>
-    <string name="delete_selected_trackers">Poista valitut trackerit\?</string>
-    <string name="delete_selected_tracker">Poista valittu tracker\?</string>
+    <string name="delete_selected_trackers">Poista valitut trackerit?</string>
+    <string name="delete_selected_tracker">Poista valittu tracker?</string>
     <string name="share_tracker_url">Jaa URL…</string>
     <string name="tracker_state_not_contacted">Ei vielä kontaktoitu</string>
     <string name="tracker_state_updating">Päivitetään…</string>
@@ -508,11 +508,11 @@
     <string name="pref_foreground_notify_sorting">Lajittelu</string>
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
-    <string name="exact_alarm_permission_warning">Aikatauluttajan toiminta edellyttää käyttöoikeuden myöntöä erityisellä järjestelmävalinnalla. Jatketaanko\?</string>
+    <string name="exact_alarm_permission_warning">Aikatauluttajan toiminta edellyttää käyttöoikeuden myöntöä erityisellä järjestelmävalinnalla. Jatketaanko?</string>
     <string name="manage_all_files_warning_dialog_description">Älä käytä LibreTorrentin Google Play -versiota, jos haluat tallentaa torrenteja \'Downloads\' ja vastaavien kansioiden ulkopuolelle.
 \nMuita lähteitä on projektin sivulla.</string>
     <string name="manage_all_files_warning_dialog_title">Varoitus</string>
-    <string name="perm_denied_warning_android_r">Torrentien lataus ja .torrent-tiedostojen avaus mistä tahansa kansiosta edellyttää kaikkien tiedostojen käyttöoikeutta. Ilman tätä käyttöoikeutta LibreTorrentilla on pääsy vain rajoitettuihin kansioihin. Haluatko varmasti kieltää tämän käyttöoikeuden\?</string>
+    <string name="perm_denied_warning_android_r">Torrentien lataus ja .torrent-tiedostojen avaus mistä tahansa kansiosta edellyttää kaikkien tiedostojen käyttöoikeutta. Ilman tätä käyttöoikeutta LibreTorrentilla on pääsy vain rajoitettuihin kansioihin. Haluatko varmasti kieltää tämän käyttöoikeuden?</string>
     <string name="download_first_last_pieces">Lataa ensin ensimmänen ja viimeinen osa</string>
     <string name="pref_validate_https_trackers_title">Vahvista HTTPS-trakkerien varmenteet</string>
     <string name="pref_validate_https_trackers_summary">HTTPS-trakkerien ja HTTPS-verkkojakojen varmenteet vahvistetaan järjestelmän varmennevarastossa.</string>

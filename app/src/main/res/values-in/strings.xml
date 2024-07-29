@@ -48,8 +48,8 @@
     <string name="switch_off">Mati</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Hapus berkas yang terunduh juga</string>
-    <string name="delete_selected_torrent">Hapus torrent yang dipilih\? (Tindakan ini tidak bisa dibatalkan)</string>
-    <string name="delete_selected_torrents">Hapus torrent yang dipilih\? (Tidak bisa dibatalkan)</string>
+    <string name="delete_selected_torrent">Hapus torrent yang dipilih? (Tindakan ini tidak bisa dibatalkan)</string>
+    <string name="delete_selected_torrents">Hapus torrent yang dipilih? (Tidak bisa dibatalkan)</string>
     <string name="force_recheck_torrent">Paksa periksa ulang</string>
     <string name="force_announce_torrent">Paksa announce</string>
     <string name="add_link">Tambahkan tautan</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Tidak dapat membuka berkas .torrent</string>
     <string name="open_file">Buka berkas</string>
     <string name="settings">Setelan</string>
-    <string name="ip_filter_add_error">Tidak dapat menambahkan IP filter (%1$d failed). Mungkin berkas rusak atau format berkas tidak valid\?</string>
+    <string name="ip_filter_add_error">Tidak dapat menambahkan IP filter (%1$d failed). Mungkin berkas rusak atau format berkas tidak valid?</string>
     <string name="ip_filter_add_success">Filter IP ditambahkan</string>
     <string name="proxy_settings_applied">Gunakan setelan server proksi baru</string>
     <string name="proxy_settings_apply_after_reboot">Mulai ulang aplikasi untuk memakai setelan server proksi baru</string>
@@ -150,15 +150,15 @@
     <string name="torrent_status_downloading_metadata">Mengunduh metadata…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Izin penyimpanan diperlukan untuk mengunduh torrent dan mengakses file .torrent. Apakah Anda benar-benar ingin menolak izin ini\?</string>
+    <string name="perm_denied_warning">Izin penyimpanan diperlukan untuk mengunduh torrent dan mengakses file .torrent. Apakah Anda benar-benar ingin menolak izin ini?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Tambahkan Torrent</string>
-    <string name="error_decode_torrent">Gagal mengenali berkas torrent. Mungkin berkas rusak atau formatnya tidak valid\?</string>
+    <string name="error_decode_torrent">Gagal mengenali berkas torrent. Mungkin berkas rusak atau formatnya tidak valid?</string>
     <string name="error_io_torrent">Tidak dapat membaca berkas .torrent</string>
     <string name="error_fetch_link">Gagal mengambil data dari tautan</string>
     <string name="error_invalid_link_or_path">Tautan atau jalur torrent tidak valid</string>
     <string name="error_add_torrent">Gagal menambahkan torrent</string>
-    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkin berkas torrent telah dipindahkan atau dihapus\?</string>
+    <string name="error_file_not_found_add_torrent">Gagal menambahkan torrent. Mungkin berkas torrent telah dipindahkan atau dihapus?</string>
     <string name="error_io_add_torrent">Tidak dapat menambahkan torrent. Kesalahan pada masukan/luaran.</string>
     <string name="torrent_exist">Torrent telah ada dan digabungkan</string>
     <string name="error_field_required">Bagian ini perlu diisi</string>
@@ -238,8 +238,8 @@
     <string name="tracker_state_updating">Memperbarui…</string>
     <string name="tracker_state_not_contacted">Belum terhubung</string>
     <string name="share_tracker_url">Bagikan tautan…</string>
-    <string name="delete_selected_tracker">Hapus tracker yang dipilih\?</string>
-    <string name="delete_selected_trackers">Hapus tracker yang dipilih\?</string>
+    <string name="delete_selected_tracker">Hapus tracker yang dipilih?</string>
+    <string name="delete_selected_trackers">Hapus tracker yang dipilih?</string>
     <string name="add_trackers">Tambahkan tracker</string>
     <string name="dialog_add_trackers">(Satu per baris)</string>
     <string name="open_using">Buka menggunakan</string>
@@ -269,7 +269,7 @@
     <string name="torrent_added_date">Ditambahkan</string>
     <string name="torrent_availability">Ketersediaan</string>
     <string name="share_stream_url">Bagikan tautan stream…</string>
-    <string name="magnet_include_file_priorities">Ikutkan prioritas berkas\?</string>
+    <string name="magnet_include_file_priorities">Ikutkan prioritas berkas?</string>
     <string name="magnet_more_about_bep53">Info lebih lanjut, kunjungi: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Tidak ada tracker</string>
     <string name="edit_torrent_name">Ubah nama torrent</string>
@@ -297,8 +297,8 @@
     <string name="error_cannot_edit_channel">Tidak dapat menyunting kanal</string>
     <string name="error_cannot_delete_channel">Tidak dapat menghapus kanal</string>
     <string name="copy_link">Salin tautan</string>
-    <string name="delete_selected_channel">Hapus kanal yang dipilih\?</string>
-    <string name="delete_selected_channels">Hapus kanal yang dipilih\?</string>
+    <string name="delete_selected_channel">Hapus kanal yang dipilih?</string>
+    <string name="delete_selected_channels">Hapus kanal yang dipilih?</string>
     <string name="edit_feed_channel">Sunting kanal</string>
     <string name="link_copied_to_clipboard">Disalin</string>
     <string name="mark_as_read">Tandai sudah dibaca</string>
@@ -439,7 +439,7 @@
     <string name="pref_custom_battery_control_value_title">Persentase kontrol baterai</string>
     <string name="pref_battery_control_summary">Menjeda semua torrent saat tingkat baterai di bawah %1$d%%. (Batasan tidak berlaku saat mengisi daya)</string>
     <string name="pref_custom_battery_control_summary">Atur persentase baterai khusus untuk menjeda unduhan. (Mengabaikan batas bawaan %1$d%%)</string>
-    <string name="pref_custom_battery_control_dialog_summary">Apakah anda yakin mengatur %% baterai untuk dijaga\? (Meningkatkan pemakaian baterai saat mengunduh)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Apakah anda yakin mengatur %% baterai untuk dijaga? (Meningkatkan pemakaian baterai saat mengunduh)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Setelan proksi</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -572,9 +572,9 @@
     <string name="pref_foreground_notify_status_filter_entries_3">Mengunduh Metadata…</string>
     <string name="manage_all_files_warning_dialog_description">Jangan gunakan versi Google Play LibreTorrent jika anda ingin menyimpan torrents dalam folder selain \'download\' dan sejenisnya.
 \nAda sumber lain di halaman proyek.</string>
-    <string name="perm_denied_warning_android_r">Akses semua file izin diperlukan untuk mengunduh torrent dan mengakses file .torrent di folder arbitrer. Tanpa izin ini, LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas. Apakah Anda yakin ingin menolak izin ini\?</string>
+    <string name="perm_denied_warning_android_r">Akses semua file izin diperlukan untuk mengunduh torrent dan mengakses file .torrent di folder arbitrer. Tanpa izin ini, LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas. Apakah Anda yakin ingin menolak izin ini?</string>
     <string name="manage_all_files_warning_dialog_title">Peringatan</string>
-    <string name="exact_alarm_permission_warning">Agar penjadwal berfungsi, Anda harus mendapatkan izin dalam dialog sistem khusus. Lanjutkan\?</string>
+    <string name="exact_alarm_permission_warning">Agar penjadwal berfungsi, Anda harus mendapatkan izin dalam dialog sistem khusus. Lanjutkan?</string>
     <string name="torrent_speed_limit_dialog">Atur kecepatan dalam satuan KiB/s. Perlu diperhatikan bahwa mengatur batasan yang lebih tinggi pada satu torrent daripada batasan global tidak mengubah batasan global.</string>
     <string name="pref_validate_https_trackers_summary">Sertifikat HTTPS pemantau dan juga seeder berbasis web HTTPS akan diperiksa keabsahannya dengan menggunakan penyimpanan sertifikat pada sistem.</string>
     <string name="download_first_last_pieces">Unduh bagian pertama dan bagian terakhir terlebih dahulu</string>

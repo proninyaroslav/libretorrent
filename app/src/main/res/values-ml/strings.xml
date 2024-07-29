@@ -48,21 +48,21 @@
     <string name="switch_off">വേണ്ട</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">ഡൌൺലോഡ് ചെയ്ത ഫയലുകൾ ഇല്ലാതാക്കുക</string>
-    <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ\? (ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല.)</string>
-    <string name="delete_selected_torrents">തിരഞ്ഞെടുത്ത ടോറന്റ്കൾ ഇല്ലാതാക്കണോ\? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>
+    <string name="delete_selected_torrent">തിരഞ്ഞെടുത്ത ടോറന്റ് ഇല്ലാതാക്കണോ? (ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല.)</string>
+    <string name="delete_selected_torrents">തിരഞ്ഞെടുത്ത ടോറന്റ്കൾ ഇല്ലാതാക്കണോ? ഈ പ്രവർത്തനം പഴയപടിയാക്കാനാകില്ല</string>
     <string name="force_recheck_torrent">ഫോഴ്സ് വീണ്ടും പരിശോധിക്കുക</string>
     <string name="add_link">ലിങ്ക് ചേർക്കുക</string>
     <string name="dialog_add_link_title">ഇൻഹോഹാഷ് മൂല്യം, മാഗ്നെറ്റ് ലിങ്ക് അല്ലെങ്കിൽ HTTP / HTTPS ലിങ്ക് നൽകുക</string>
     <string name="torrent_list_empty">ടോറന്റ്കൾ ഇല്ല</string>
     <string name="select_or_add_torrent">ഒരു ടോറന്റ് തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ ചേർക്കുക</string>
-    <string name="error_empty_link">ദയവായി ലിങ്ക് നൽകുക</string>
+    <string name="error_empty_link">ലിങ്ക് നൽകുക</string>
     <string name="error_invalid_link">അസാധുവായ ലിങ്ക്</string>
     <string name="error_open_torrent_file">ടോറന്റ് ഫയൽ തുറക്കാൻ കഴിയുന്നില്ല</string>
     <string name="open_file">ഫയൽ തുറക്കുക</string>
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
     <string name="ip_filter_add_error">IP ഫിൽട്ടർ ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു (%1$d പരാജയപ്പെട്ടു). ഒരുപക്ഷേ ഫയൽ കേടായതാണ് അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റിൽ ഉണ്ട്</string>
     <string name="ip_filter_add_success">IP ഫിൽട്ടർ വിജയകരമായി ചേർത്തു</string>
-    <string name="proxy_settings_applied">പ്രോക്സി സെർവർ ക്രമീകരണം വിജയകരമായി പ്രയോഗിച്ചു</string>
+    <string name="proxy_settings_applied">പുതിയ പ്രോക്സി സെർവർ ക്രമീകരണങ്ങൾ ഉപയോഗിക്കുന്നു.</string>
     <string name="proxy_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചതിന് ശേഷം പ്രോക്സി സെർവർ ക്രമീകരണം പ്രയോഗിക്കപ്പെടും</string>
     <string name="theme_settings_apply_after_reboot">അപ്ലിക്കേഷൻ പുനരാരംഭിച്ചശേഷം തീം ക്രമീകരണങ്ങൾ പ്രയോഗിക്കും</string>
     <string name="about">കുറിച്ച്</string>
@@ -150,7 +150,7 @@
     <string name="torrent_status_downloading_metadata">മെറ്റാഡാറ്റ ഡൗൺലോഡുചെയ്യുന്നു</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">അനുമതി നിഷേധിച്ചു</string>
-    <string name="perm_denied_warning">ഈ അനുമതി ആപ്ലിക്കേഷൻ ഇല്ലാതെ ടോറന്റ് ഫയലുകൾ മെമ്മറിയിൽ സംരക്ഷിക്കാൻ കഴിയില്ല. അപ്ലിക്കേഷൻ ശരിയായി പ്രവർത്തിക്കില്ല. ഈ അനുമതി നിഷേധിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുവെന്ന് ഉറപ്പാണോ\?</string>
+    <string name="perm_denied_warning">ഈ അനുമതി ആപ്ലിക്കേഷൻ ഇല്ലാതെ ടോറന്റ് ഫയലുകൾ മെമ്മറിയിൽ സംരക്ഷിക്കാൻ കഴിയില്ല. അപ്ലിക്കേഷൻ ശരിയായി പ്രവർത്തിക്കില്ല. ഈ അനുമതി നിഷേധിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുവെന്ന് ഉറപ്പാണോ?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">ടോറന്റ് ചേർക്കുക</string>
     <string name="error_decode_torrent">ഡോർഡ് ചെയ്യാത്ത ടോറന്റ് ഫയൽ പരാജയപ്പെട്ടു. ഒരുപക്ഷേ ഫയൽ കേടായേക്കാം അല്ലെങ്കിൽ തെറ്റായ ഫോർമാറ്റ് ഉണ്ട്</string>
@@ -239,8 +239,8 @@
     <string name="tracker_state_updating">അപ്ഡേറ്റുചെയ്യുന്നു…</string>
     <string name="tracker_state_not_contacted">ഇതുവരെ ബന്ധപ്പെട്ടിട്ടില്ല</string>
     <string name="share_tracker_url">URL പങ്കിടുക</string>
-    <string name="delete_selected_tracker">തിരഞ്ഞെടുത്ത ട്രാക്കർ ഇല്ലാതാക്കണോ\?</string>
-    <string name="delete_selected_trackers">തിരഞ്ഞെടുത്ത ട്രാക്കറുകൾ ഇല്ലാതാക്കണോ\?</string>
+    <string name="delete_selected_tracker">തിരഞ്ഞെടുത്ത ട്രാക്കർ ഇല്ലാതാക്കണോ?</string>
+    <string name="delete_selected_trackers">തിരഞ്ഞെടുത്ത ട്രാക്കറുകൾ ഇല്ലാതാക്കണോ?</string>
     <string name="add_trackers">ട്രാക്കറുകൾ ചേർക്കുക</string>
     <string name="dialog_add_trackers">(ഓരോ വരിയിലും)</string>
     <string name="open_using">ഉപയോഗിച്ച് തുറക്കുക</string>
@@ -270,7 +270,7 @@
     <string name="torrent_added_date">ചേർത്തു</string>
     <string name="torrent_availability">ലഭ്യത</string>
     <string name="share_stream_url">സ്ട്രീം URL പങ്കിടുക</string>
-    <string name="magnet_include_file_priorities">ഫയൽ മുൻഗണനകൾ ഉൾപ്പെടുത്തണോ\?</string>
+    <string name="magnet_include_file_priorities">ഫയൽ മുൻഗണനകൾ ഉൾപ്പെടുത്തണോ?</string>
     <string name="magnet_more_about_bep53">കൂടുതൽ വിവരങ്ങൾ: http://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">ട്രാക്കറുകളൊന്നുമില്ല</string>
     <string name="edit_torrent_name">ടോറന്റ് പേര് എഡിറ്റുചെയ്യുക</string>
@@ -298,8 +298,8 @@
     <string name="error_cannot_edit_channel">ചാനൽ എഡിറ്റുചെയ്യാൻ കഴിയില്ല</string>
     <string name="error_cannot_delete_channel">ചാനൽ ഇല്ലാതാക്കാൻ കഴിയില്ല</string>
     <string name="copy_link">ലിങ്ക് പകർത്തുക</string>
-    <string name="delete_selected_channel">തിരഞ്ഞെടുത്ത ചാനൽ ഇല്ലാതാക്കണോ\?</string>
-    <string name="delete_selected_channels">തിരഞ്ഞെടുത്ത ചാനലുകൾ ഇല്ലാതാക്കണോ\?</string>
+    <string name="delete_selected_channel">തിരഞ്ഞെടുത്ത ചാനൽ ഇല്ലാതാക്കണോ?</string>
+    <string name="delete_selected_channels">തിരഞ്ഞെടുത്ത ചാനലുകൾ ഇല്ലാതാക്കണോ?</string>
     <string name="edit_feed_channel">ചാനൽ എഡിറ്റുചെയ്യുക</string>
     <string name="link_copied_to_clipboard">ലിങ്ക് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി</string>
     <string name="mark_as_read">വായിച്ചതായി അടയാളപ്പെടുത്തുക</string>
@@ -441,7 +441,7 @@
     <string name="pref_custom_battery_control_value_title">ബാറ്ററി നിയന്ത്രണം ശതമാനം</string>
     <string name="pref_battery_control_summary">ബാറ്ററി ലെവലിൽ %1$d%% താഴെ പോകുമ്പോൾ എല്ലാ വേഗതകളും താൽക്കാലികമായി നിർത്തും. ചാർജ്ജുചെയ്യുന്ന സമയത്ത് പരിധി ബാധകമല്ല</string>
     <string name="pref_custom_battery_control_summary">ബാറ്ററി തന്നിരിക്കുന്ന പരിധിക്ക് താഴെയാണെങ്കിൽ ഡൌൺലോഡുകൾ താൽക്കാലികമായി നിർത്തുന്നതിന് ഇഷ്ടാനുസൃത ശതമാനം സജ്ജമാക്കുക. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നത് സ്ഥിരസ്ഥിതി %1$d%% ത്രെഷോൾഡ് അവഗണിക്കും</string>
-    <string name="pref_custom_battery_control_dialog_summary">ഡൌൺലോഡുകൾ നടക്കുമ്പോൾ ആപ്ലിക്കേഷനായി ഇച്ഛാനുസൃത ബാറ്ററി ശതമാനം സജ്ജമാക്കുന്നതിന് ബാറ്ററി ലൈഫിൽ പ്രതികൂല സ്വാധീനം ഉണ്ടാകും. ഇത് പ്രവർത്തനക്ഷമമാക്കണമെന്ന് തീർച്ചയാണോ\?</string>
+    <string name="pref_custom_battery_control_dialog_summary">ഡൌൺലോഡുകൾ നടക്കുമ്പോൾ ആപ്ലിക്കേഷനായി ഇച്ഛാനുസൃത ബാറ്ററി ശതമാനം സജ്ജമാക്കുന്നതിന് ബാറ്ററി ലൈഫിൽ പ്രതികൂല സ്വാധീനം ഉണ്ടാകും. ഇത് പ്രവർത്തനക്ഷമമാക്കണമെന്ന് തീർച്ചയാണോ?</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">പ്രോക്സി ക്രമീകരണങ്ങൾ</string>
     <string name="pref_enable_dht_title">DHT പ്രവർത്തനക്ഷമമാക്കുക</string>
@@ -505,7 +505,7 @@
     <!-- pref_feed_refresh_intervals_entries -->
     <string name="pref_feed_refresh_intervals_entries_0">15 മിനിറ്റ്</string>
     <string name="pref_feed_refresh_intervals_entries_1">30 മിനിറ്റ്</string>
-    <string name="pref_feed_refresh_intervals_entries_2"> 1 മണിക്കൂർ</string>
+    <string name="pref_feed_refresh_intervals_entries_2">1 മണിക്കൂർ</string>
     <string name="pref_feed_refresh_intervals_entries_3">2 മണിക്കൂർ</string>
     <string name="pref_feed_refresh_intervals_entries_4">6 മണിക്കൂർ</string>
     <string name="pref_feed_refresh_intervals_entries_5">12 മണിക്കൂർ</string>
@@ -542,4 +542,5 @@
     <string name="manage_all_files_warning_dialog_title">മുന്നറിയിപ്പ്</string>
     <string name="pref_validate_https_trackers_title">HTTPS ട്രാക്കറുകളുടെ സർട്ടിഫിക്കറ്റുകൾ സാധൂകരിക്കുക</string>
     <string name="pref_validate_https_trackers_summary">HTTPS ട്രാക്കറുകളുടെയും HTTPS വെബ് സീഡുകളുടെയും സർട്ടിഫിക്കറ്റ് സിസ്റ്റം സർട്ടിഫിക്കറ്റ് സ്റ്റോറിൽ സാധൂകരിക്കും.</string>
+    <string name="perm_denied_warning_android_r">ടോറന്റുകൾ ഡൗൺലോഡ് ചെയ്യുന്നതിനും അനിയന്ത്രിതമായ ഫോൾഡറുകളിൽ .ടോറന്റ് ഫയലുകൾ ആക്‌സസ് ചെയ്യുന്നതിനും എല്ലാ ഫയലുകളും ആക്‌സസ് ചെയ്യാനുള്ള അനുമതി ആവശ്യമാണ്. ഈ അനുമതിയില്ലാതെ, ലിബ്രെടോറന്റിന് പരിമിതമായ എണ്ണം ഫോൾഡറുകളിലേക്ക് മാത്രമേ ആക്സസ് ഉണ്ടാകൂ. ഈ അനുമതി നിഷേധിക്കണമെന്ന് തീർച്ചയാണോ?</string>
 </resources>

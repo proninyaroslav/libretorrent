@@ -48,8 +48,8 @@
     <string name="switch_off">Uit</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Verwijderen met gedownloade bestanden</string>
-    <string name="delete_selected_torrent">Geselecteerde torrent verwijderen\? (Kan niet ongedaan worden gemaakt.)</string>
-    <string name="delete_selected_torrents">De geselecteerde torrents verwijderen\? (Kan niet ongedaan worden gemaakt.)</string>
+    <string name="delete_selected_torrent">Geselecteerde torrent verwijderen? (Kan niet ongedaan worden gemaakt.)</string>
+    <string name="delete_selected_torrents">De geselecteerde torrents verwijderen? (Kan niet ongedaan worden gemaakt.)</string>
     <string name="force_recheck_torrent">Opnieuw controleren forceren</string>
     <string name="force_announce_torrent">Aankondigen forceren</string>
     <string name="add_link">Koppeling toevoegen</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">Kan het .torrent-bestand niet openen</string>
     <string name="open_file">Bestand openen</string>
     <string name="settings">Instellingen</string>
-    <string name="ip_filter_add_error">Kon IP-filter niet toevoegen (%1$d mislukt). Misschien is het bestand beschadigd of in het verkeerde formaat\?</string>
+    <string name="ip_filter_add_error">Kon IP-filter niet toevoegen (%1$d mislukt). Misschien is het bestand beschadigd of in het verkeerde formaat?</string>
     <string name="ip_filter_add_success">IP-filter toegevoegd</string>
     <string name="proxy_settings_applied">De nieuwe proxyserver-instellingen worden gebruikt.</string>
     <string name="proxy_settings_apply_after_reboot">Start de app opnieuw om de nieuwe proxy-instellingen te gebruiken.</string>
@@ -148,15 +148,15 @@
     <string name="torrent_status_downloading_metadata">Metadata downloaden…</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Toestemming geweigerd</string>
-    <string name="perm_denied_warning">Machtiging voor opslag is nodig om torrents te downloaden en toegang te krijgen tot .torrent-bestanden. Wilt u deze toestemming echt weigeren\?</string>
+    <string name="perm_denied_warning">Machtiging voor opslag is nodig om torrents te downloaden en toegang te krijgen tot .torrent-bestanden. Wilt u deze toestemming echt weigeren?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Torrent toevoegen</string>
-    <string name="error_decode_torrent">Kon het .torrent-bestand niet decoderen. Misschien is het beschadigd of heeft het een verkeerd formaat\?</string>
+    <string name="error_decode_torrent">Kon het .torrent-bestand niet decoderen. Misschien is het beschadigd of heeft het een verkeerd formaat?</string>
     <string name="error_io_torrent">Kon het .torrent-bestand niet lezen</string>
     <string name="error_fetch_link">Kon geen gegevens ophalen van de koppeling</string>
     <string name="error_invalid_link_or_path">Koppeling of torrent-pad ongeldig</string>
     <string name="error_add_torrent">De torrent kon niet toegevoegd worden</string>
-    <string name="error_file_not_found_add_torrent">De torrent kon niet toegevoegd worden. Misschien is het .torrent-bestand verplaatst of verwijderd\?</string>
+    <string name="error_file_not_found_add_torrent">De torrent kon niet toegevoegd worden. Misschien is het .torrent-bestand verplaatst of verwijderd?</string>
     <string name="error_io_add_torrent">Kan torrent niet toevoegen door een I/O-fout.</string>
     <string name="torrent_exist">Omdat de torrent al bestaat, werden ze samengevoegd.</string>
     <string name="error_field_required">Vereist veld</string>
@@ -233,8 +233,8 @@
     <string name="tracker_state_updating">Bijwerken…</string>
     <string name="tracker_state_not_contacted">Nog niet verbonden</string>
     <string name="share_tracker_url">URL delen…</string>
-    <string name="delete_selected_tracker">Geselecteerde tracker verwijderen\?</string>
-    <string name="delete_selected_trackers">Geselecteerde trackers verwijderen\?</string>
+    <string name="delete_selected_tracker">Geselecteerde tracker verwijderen?</string>
+    <string name="delete_selected_trackers">Geselecteerde trackers verwijderen?</string>
     <string name="add_trackers">Trackers toevoegen</string>
     <string name="dialog_add_trackers">(Een per regel)</string>
     <string name="open_using">Openen met</string>
@@ -264,7 +264,7 @@
     <string name="torrent_added_date">Toegevoegd</string>
     <string name="torrent_availability">Beschikbaarheid</string>
     <string name="share_stream_url">Stream-URL delen…</string>
-    <string name="magnet_include_file_priorities">Bestandsprioriteiten meenemen\?</string>
+    <string name="magnet_include_file_priorities">Bestandsprioriteiten meenemen?</string>
     <string name="magnet_more_about_bep53">Meer informatie op https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">Geen trackers</string>
     <string name="edit_torrent_name">Torrentnaam bewerken</string>
@@ -292,8 +292,8 @@
     <string name="error_cannot_edit_channel">Kan kanaal niet bewerken</string>
     <string name="error_cannot_delete_channel">Kan kanaal niet verwijderen</string>
     <string name="copy_link">Koppeling kopiëren</string>
-    <string name="delete_selected_channel">Geselecteerd kanaal verwijderen\?</string>
-    <string name="delete_selected_channels">Geselecteerde kanalen verwijderen\?</string>
+    <string name="delete_selected_channel">Geselecteerd kanaal verwijderen?</string>
+    <string name="delete_selected_channels">Geselecteerde kanalen verwijderen?</string>
     <string name="edit_feed_channel">Kanaal bewerken</string>
     <string name="link_copied_to_clipboard">Naar klembord gekopieerd</string>
     <string name="mark_as_read">Markeren als gelezen</string>
@@ -430,7 +430,7 @@
     <string name="pref_custom_battery_control_value_title">Percentage batterijbeheer</string>
     <string name="pref_battery_control_summary">Pauzeert alle torrents als het batterijniveau onder %1$d %% komt (de limiet is niet van toepassing tijdens het opladen).</string>
     <string name="pref_custom_battery_control_summary">Stel een batterijpercentage in om downloads te pauzeren (negeert de standaard %1$d %%).</string>
-    <string name="pref_custom_battery_control_dialog_summary">Echt een batterijpercentage instellen om op te letten\? (Verhoogt het batterijverbruik tijdens het downloaden.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Echt een batterijpercentage instellen om op te letten? (Verhoogt het batterijverbruik tijdens het downloaden.)</string>
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">Proxy-instellingen</string>
     <string name="pref_enable_dht_title">DHT</string>
@@ -570,8 +570,8 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">Combineert twee knoppen: alles pauzeren en alles hervatten. De knop werkt als een schakelaar. Waarschuwing: de status van de knop wordt niet beïnvloed door handmatig pauzeren/hervatten van de torrent.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Gecombineerde pauzeknop</string>
     <string name="error_open_torrent">Kan torrent niet openen</string>
-    <string name="exact_alarm_permission_warning">Om de planner te laten werken, moet u toestemming krijgen in een speciaal systeemdialoogvenster. Doorgaan\?</string>
-    <string name="perm_denied_warning_android_r">Machtiging voor toegang tot alle bestanden is vereist om torrents te downloaden en toegang te krijgen tot .torrent-bestanden in willekeurige mappen. Zonder deze toestemming heeft LibreTorrent slechts toegang tot een beperkt aantal mappen. Weet u zeker dat u deze toestemming wilt weigeren\?</string>
+    <string name="exact_alarm_permission_warning">Om de planner te laten werken, moet u toestemming krijgen in een speciaal systeemdialoogvenster. Doorgaan?</string>
+    <string name="perm_denied_warning_android_r">Machtiging voor toegang tot alle bestanden is vereist om torrents te downloaden en toegang te krijgen tot .torrent-bestanden in willekeurige mappen. Zonder deze toestemming heeft LibreTorrent slechts toegang tot een beperkt aantal mappen. Weet u zeker dat u deze toestemming wilt weigeren?</string>
     <string name="manage_all_files_warning_dialog_description">Gebruik de Google Play-versie van LibreTorrent niet als u torrents wilt opslaan in andere mappen dan \'Downloads\' en dergelijke.
 \nEr zijn andere bronnen op de projectpagina.</string>
     <string name="manage_all_files_warning_dialog_title">Waarschuwing</string>
