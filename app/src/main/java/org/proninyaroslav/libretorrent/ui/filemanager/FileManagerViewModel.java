@@ -187,12 +187,16 @@ public class FileManagerViewModel extends AndroidViewModel
     {
         File dir = new File(path);
 
-        if (!(dir.exists() && dir.isDirectory()))
-            path = startDir;
-        else if (!checkPermissions(dir, config))
+        if (!checkPermissions(dir, config)) {
             throw new SecurityException("Permission denied");
+        }
 
         updateCurDir(path);
+    }
+
+    public boolean isDirectoryExists(String path) {
+        var dir = new File(path);
+        return dir.exists() && dir.isDirectory();
     }
 
     /*
