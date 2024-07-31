@@ -61,9 +61,9 @@ public class DatabaseMigrationTest
             AppDatabase.class.getCanonicalName(),
             new FrameworkSQLiteOpenHelperFactory());
 
-    private static final String torrentUrl = "http://www.pcds.fi/downloads/applications/internet/browsers/midori/current/debian-ubuntu/midori_0.5.11-0_amd64_.deb.torrent";
-    private static final String torrentName = "midori_0.5.11-0_amd64_.deb";
-    private static final String torrentHash = "3fe5f1a11c51cd01fd09a79621e074dda8eb36b6";
+    private static String torrentUrl = "https://webtorrent.io/torrents/wired-cd.torrent";
+    private static String torrentName = "The WIRED CD - Rip. Sample. Mash. Share";
+    private static String torrentHash = "a88fda5954e89178c372716a6a78b8180ed4dad3";
     private static final String magnet = "magnet:?xt=urn:btih:QWJC7PXG3TS6F5KJDYLLZXM6NZBHXJNK";
     private static final String magnetHash = "85922fbee6dce5e2f5491e16bcdd9e6e427ba5aa";
 

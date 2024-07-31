@@ -44,6 +44,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -58,13 +59,15 @@ public class TorrentEngineTest extends AbstractTest
     private static final String TAG = TorrentEngineTest.class.getSimpleName();
 
     private AddTorrentParams params, params2;
-    private String torrentUrl = "http://www.pcds.fi/downloads/applications/internet/browsers/midori/current/debian-ubuntu/midori_0.5.11-0_amd64_.deb.torrent";
-    private String torrentName = "midori_0.5.11-0_amd64_.deb";
-    private String torrentHash = "3fe5f1a11c51cd01fd09a79621e074dda8eb36b6";
-    private String torrentUrl2 = "https://antixlinux.com/?smd_process_download=1&download_id=3034";
-    private String torrentName2 = "antiX-17.4.1_x64-net.iso";
-    private String torrentHash2 = "320ef354343c24543998a26d3da00f3a77101b21";
+    private String torrentUrl = "https://webtorrent.io/torrents/wired-cd.torrent";
+    private String torrentName = "The WIRED CD - Rip. Sample. Mash. Share";
+    private String torrentHash = "a88fda5954e89178c372716a6a78b8180ed4dad3";
+    private int filesCount = 18;
+    private String torrentUrl2 = "https://webtorrent.io/torrents/sintel.torrent";
+    private String torrentName2 = "Sintel";
+    private String torrentHash2 = "08ada5a7a6183aae1e09d831df6748d566095a10";
     private String magnetHash = "85922fbee6dce5e2f5491e16bcdd9e6e427ba5aa";
+    private int filesCount2 = 11;
     private String magnet = "magnet:?xt=urn:btih:QWJC7PXG3TS6F5KJDYLLZXM6NZBHXJNK";
     private Uri dir;
 
@@ -76,14 +79,18 @@ public class TorrentEngineTest extends AbstractTest
         engine.start();
 
         dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
+        var p1 = new Priority[filesCount];
+        Arrays.fill(p1, Priority.DEFAULT);
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
-                new Priority[]{Priority.DEFAULT}, dir,
+                p1, dir,
                 false, false, new ArrayList<>(), false);
 
+        var p2 = new Priority[filesCount];
+        Arrays.fill(p2, Priority.DEFAULT);
         params2 = new AddTorrentParams(downloadTorrent(torrentUrl2), false,
                 torrentHash2, torrentName2,
-                new Priority[]{Priority.DEFAULT}, dir,
+                p2, dir,
                 false, false, new ArrayList<>(), false);
     }
 

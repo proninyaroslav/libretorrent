@@ -18,6 +18,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 
@@ -34,9 +35,10 @@ public class TorrentInfoProviderTest extends AbstractTest
     private static final String TAG = TorrentInfoProviderTest.class.getSimpleName();
 
     private AddTorrentParams params;
-    private String torrentUrl = "http://www.pcds.fi/downloads/applications/internet/browsers/midori/current/debian-ubuntu/midori_0.5.11-0_amd64_.deb.torrent";
-    private String torrentName = "midori_0.5.11-0_amd64_.deb";
-    private String torrentHash = "3fe5f1a11c51cd01fd09a79621e074dda8eb36b6";
+    private String torrentUrl = "https://webtorrent.io/torrents/wired-cd.torrent";
+    private String torrentName = "The WIRED CD - Rip. Sample. Mash. Share";
+    private String torrentHash = "a88fda5954e89178c372716a6a78b8180ed4dad3";
+    private int filesCount = 18;
     private Uri dir;
 
     @Before
@@ -45,9 +47,11 @@ public class TorrentInfoProviderTest extends AbstractTest
         super.init();
 
         dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
+        var p = new Priority[filesCount];
+        Arrays.fill(p, Priority.DEFAULT);
         params = new AddTorrentParams(downloadTorrent(torrentUrl), false,
                 torrentHash, torrentName,
-                new Priority[]{Priority.DEFAULT}, dir,
+                p, dir,
                 false, false, new ArrayList<>(), false);
     }
 
