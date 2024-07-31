@@ -582,4 +582,9 @@
     <string name="apply_settings_after_reboot">Зміни буде застосовано після перезапуску застосунку.</string>
     <string name="pref_posix_disk_io_title">Дисковий ввід/вивід POSIX</string>
     <string name="pref_posix_disk_io_summary">Примітка: цю опцію можна використовувати лише в окремих ситуаціях, як-от підтримка деяких файлових систем SD-карт. Вмикає простий дисковий ввід-вивід POSIX, який використовується для систем, які не мають 64-розрядного віртуального адресного простору або не підтримують файли, відображені в пам’яті.</string>
+    <string name="torrent_version">Версія торента</string>
+    <string name="torrent_version_entries_v1_only">Лише V1</string>
+    <string name="go_to_folder">Перейти до теки</string>
+    <string name="torrent_version_entries_hybrid">Гібридна</string>
+    <string name="torrent_version_entries_v2_only">Лише V2</string>
 </resources>

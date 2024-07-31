@@ -583,4 +583,9 @@
     <string name="apply_settings_after_reboot">Değişiklikler, uygulama yeniden başlatıldıktan sonra uygulanacaktır.</string>
     <string name="pref_posix_disk_io_title">POSIX Disk G/Ç</string>
     <string name="pref_posix_disk_io_summary">Not: Bu seçenek, yalnızca bazı SD kart dosya sistemlerini desteklemek gibi belirli durumlarda kullanmak içindir. 64 bit sanal adres alanı olmayan veya bellek eşlemeli dosyaları desteklemeyen sistemler için kullanılan basit bir POSIX Disk G/Ç\'yi etkinleştirir.</string>
+    <string name="torrent_version">Torrent sürümü</string>
+    <string name="torrent_version_entries_v2_only">Yalnızca sürüm 2</string>
+    <string name="torrent_version_entries_hybrid">Karma</string>
+    <string name="torrent_version_entries_v1_only">Yalnızca sürüm 1</string>
+    <string name="go_to_folder">Klasöre git</string>
 </resources>

@@ -585,4 +585,6 @@
     <string name="torrent_version_entries_v1_only">Solo V1</string>
     <string name="torrent_version_entries_v2_only">Solo V2</string>
     <string name="torrent_version">Versión torrent</string>
+    <string name="torrent_version_entries_hybrid">Híbridas</string>
+    <string name="go_to_folder">Vaya a la carpeta</string>
 </resources>
