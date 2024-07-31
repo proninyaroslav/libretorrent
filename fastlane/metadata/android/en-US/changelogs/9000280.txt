@@ -1,0 +1,4 @@
+* Added the option to create V1/V2/hybrid torrents
+* Added the ability to go to any folder by path in the file manager
+* Split APK support for F-Droid
+* Fixed display of dialog if permission is already granted

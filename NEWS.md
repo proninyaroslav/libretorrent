@@ -1,3 +1,10 @@
+### Version 3.5.1 (2024-07-31)
+
+* Added the option to create V1/V2/hybrid torrents
+* Added the ability to go to any folder by path in the file manager
+* Split APK support for F-Droid
+* Fixed display of dialog if permission is already granted
+
 ### Version 3.5 (2024-07-27)
 
 **Warning:** Merging trackers when adding torrent duplicate is temporarily disabled due to an error in a third-party library.
