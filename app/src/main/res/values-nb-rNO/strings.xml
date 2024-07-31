@@ -320,7 +320,7 @@
     <string name="create_torrent">Lag torrent</string>
     <string name="creating_torrent_progress">Vent mens torrenten opprettes …</string>
     <string name="file_or_folder_for_seeding">Fil eller mappe å spre</string>
-    <string name="error_please_select_file_or_folder_for_seeding_first">Velg først en fil eller mappe som skal spres</string>
+    <string name="error_please_select_file_or_folder_for_seeding_first">Velg en fil eller mappe å spre først</string>
     <string name="tracker_urls">Sporer-nettadresser</string>
     <string name="web_seed_urls">Nettdeleradresser</string>
     <string name="comments">Kommentarer</string>
