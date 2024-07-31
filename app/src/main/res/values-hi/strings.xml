@@ -583,4 +583,9 @@
     <string name="exact_alarm_permission_warning">शेड्यूलर को काम करने के लिए, आपको एक विशेष सिस्टम संवाद में अनुमति प्राप्त करनी होगी। आगे बढ़ें?</string>
     <string name="perm_denied_warning_android_r">Torrent डाउनलोड करने और मनमाने फोल्डरों में .torrent फाइलों तक पहुंचने के लिए सभी फाइलों तक पहुंच की अनुमति आवश्यक है। इस अनुमति के बिना, LibreTorrent के पास केवल सीमित संख्या में फोल्डरों तक पहुंच होगी। क्या आप वाकई इस अनुमति को अस्वीकार करना चाहते हैं?</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">दो बटनों को जोड़ता है: सभी को रोकें और सभी को फिर से शुरू करें। बटन स्विचर की तरह काम करेगा. चेतावनी: बटन की स्थिति torrent के मैन्युअल ठहराव/फिर से शुरू होने से प्रभावित नहीं होती है।</string>
+    <string name="torrent_version">टोरेंट संस्करण</string>
+    <string name="torrent_version_entries_hybrid">हाइब्रिड</string>
+    <string name="torrent_version_entries_v1_only">केवल V1</string>
+    <string name="torrent_version_entries_v2_only">केवल V2</string>
+    <string name="go_to_folder">फोल्डर पर जाएं</string>
 </resources>
