@@ -146,7 +146,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation 'androidx.preference:preference:1.2.1'
     // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
-    implementation 'com.google.guava:guava:33.0.0-jre'
+    implementation 'com.google.guava:guava:33.2.1-jre'
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
@@ -173,8 +173,8 @@ dependencies {
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
     //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
-    implementation 'org.apache.commons:commons-text:1.11.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.apache.commons:commons-text:1.12.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
     implementation 'net.java.dev.jna:jna:5.14.0@aar'
 
