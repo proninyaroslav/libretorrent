@@ -171,7 +171,7 @@
     <string name="file_is_too_large_error">Túl nagy fájl</string>
     <string name="unable_to_open_folder">A mappa nem nyitható meg. Próbáljon másikat választani.</string>
     <string name="error_empty_name">Adja meg a nevét</string>
-    <string name="ignore_free_space">Kevés tárhely figyelmen kívül hagyása</string>
+    <string name="ignore_free_space">A kevés tárhely figyelmen kívül hagyása</string>
     <!-- Torrent info -->
     <string name="torrent_info">Információ</string>
     <string name="torrent_files">Fájlok</string>
@@ -586,5 +586,5 @@
     <string name="torrent_version_entries_v1_only">Csak V1</string>
     <string name="torrent_version_entries_v2_only">Csak V2</string>
     <string name="torrent_version_entries_hybrid">Hibrid</string>
-    <string name="go_to_folder">Tovább a mappába</string>
+    <string name="go_to_folder">Tovább a mappához</string>
 </resources>
