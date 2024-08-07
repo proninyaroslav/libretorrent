@@ -214,8 +214,8 @@
     <string name="file_priority_low">忽略</string>
     <string name="file_priority_high">高</string>
     <string name="file_priority_mixed">混合</string>
-    <string name="change_priority">修改优先等级</string>
-    <string name="dialog_change_priority_title">优先等级</string>
+    <string name="change_priority">优先级</string>
+    <string name="dialog_change_priority_title">修改优先级</string>
     <string name="change_priority_low">低（忽略文件）</string>
     <string name="change_priority_normal">正常</string>
     <string name="change_priority_high">高</string>
@@ -225,7 +225,7 @@
     <string name="torrent_ETA">估计剩余时间</string>
     <string name="torrent_seeds">做种用户</string>
     <string name="torrent_peers">对等端</string>
-    <string name="torrent_leechers">下载中的用户</string>
+    <string name="torrent_leechers">下载用户</string>
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d （%2$d）</string>
     <string name="torrent_uploaded">已上传</string>
@@ -236,7 +236,7 @@
     <!-- downloaded/total (piece length) -->
     <string name="torrent_pieces_template">%1$d/%2$d （%3$s）</string>
     <string name="torrent_trackers">Tracker</string>
-    <string name="tracker_state_working">工作</string>
+    <string name="tracker_state_working">工作中</string>
     <string name="tracker_state_not_working">不工作</string>
     <string name="tracker_state_updating">更新中…</string>
     <string name="tracker_state_not_contacted">尚未连接</string>
@@ -455,7 +455,7 @@
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">端口设置</string>
-    <string name="pref_use_random_port_title">使用一个随机的端口号</string>
+    <string name="pref_use_random_port_title">使用随机端口号</string>
     <string name="pref_use_random_port_summarty">在区间 [%1$d,%2$d] 内随机设置起始端口，并将结束端口设置为 first+10。</string>
     <string name="pref_port_range_title">端口范围</string>
     <string name="pref_port_range_start_title">开始</string>
@@ -486,20 +486,20 @@
     <string name="pref_proxy_type_entries_3">HTTP</string>
     <string name="pref_proxy_address_title">主机</string>
     <string name="pref_proxy_port_title">端口</string>
-    <string name="pref_proxy_peers_too_title">也用于连接</string>
-    <string name="pref_proxy_peers_too_summary">与 BT Tracker、其他和网络种子的连接是经过代理的。不影响 DHT。</string>
+    <string name="pref_proxy_peers_too_title">同时用于连接</string>
+    <string name="pref_proxy_peers_too_summary">与 BT Tracker、其他用户和网络种子的连接将经过代理。不影响 DHT。</string>
     <string name="pref_proxy_requires_auth_title">需要授权认证</string>
     <string name="pref_proxy_requires_auth_summary">警告：密码保存为常规文件。</string>
     <string name="pref_proxy_login_title">用户名</string>
     <string name="pref_proxy_password_title">密码</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">启动时间</string>
-    <string name="pref_enable_scheduling_start_summary">在指定时间启动应用。种子将根据它们在最后一个种子被关闭前的状态运行。</string>
+    <string name="pref_enable_scheduling_start_summary">在指定时间启动应用。种子将以上次关闭前的状态运行。</string>
     <string name="pref_enable_scheduling_shutdown_title">关闭时间</string>
     <string name="pref_enable_scheduling_shutdown_summary">在指定时间关闭应用</string>
     <string name="pref_scheduling_run_only_once_title">只运行一次</string>
     <string name="pref_scheduling_switch_wifi_title">切换 Wi-Fi 状态</string>
-    <string name="pref_scheduling_switch_wifi_summary">当程序在设定时间被启动时，自动启用 Wi-Fi；在程序于设定时间被关闭后，自动关闭 Wi-Fi。</string>
+    <string name="pref_scheduling_switch_wifi_summary">随计划调度开启或关闭 Wi-Fi</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
     <string name="pref_feed_auto_refresh_summary">在后台定期刷新频道。</string>
@@ -527,9 +527,9 @@
     <string name="pref_feed_keep_items_time_entries_6">2 个月</string>
     <string name="pref_feed_keep_items_time_entries_7">3 个月</string>
     <string name="pref_feed_keep_items_time_entries_8">始终</string>
-    <string name="pref_feed_start_torrents_title">自动开始 torrent 文件</string>
-    <string name="pref_feed_start_torrents_summary">下载添加的种子。</string>
-    <string name="pref_feed_remove_duplicates_title">无重复项</string>
+    <string name="pref_feed_start_torrents_title">自动开始种子任务</string>
+    <string name="pref_feed_start_torrents_summary">添加后下载种子。</string>
+    <string name="pref_feed_remove_duplicates_title">禁止重复项</string>
     <string name="pref_feed_remove_duplicates_summary">跳过下载已经存在的文件标题。</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">流媒体功能</string>
@@ -570,7 +570,7 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">组合式暂停按钮</string>
     <string name="error_open_torrent">打不开种子文件</string>
-    <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得许可。继续吗？</string>
+    <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得许可。是否继续？</string>
     <string name="perm_denied_warning_android_r">访问所有文件权限是下载种子和访问任意文件夹中 .torrent 文件所必需的。如果没有此许可，LibreTorrent 将只能访问有限数量的文件夹。是否确实要拒绝此权限？</string>
     <string name="manage_all_files_warning_dialog_description">如果您想要保存种子到自定义文件夹而不是\"Downloads\"之类的文件夹，那就不要使用 LibreTorrent 的 Google Play 版本。
 \n在项目页面上有其它的下载源。</string>
