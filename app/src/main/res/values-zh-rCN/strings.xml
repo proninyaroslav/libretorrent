@@ -57,7 +57,7 @@
     <string name="torrent_list_empty">没有种子任务</string>
     <string name="select_or_add_torrent">选择或添加一个种子</string>
     <string name="error_empty_link">输入链接</string>
-    <string name="error_invalid_link">无效的链接</string>
+    <string name="error_invalid_link">无效链接</string>
     <string name="error_open_torrent_file">无法打开 .torrent 文件</string>
     <string name="open_file">打开文件</string>
     <string name="settings">设置</string>
@@ -84,8 +84,8 @@
     <string name="drawer_sorting_date_added">添加日期</string>
     <string name="drawer_sorting_size">大小</string>
     <string name="drawer_sorting_progress">进度</string>
-    <string name="drawer_sorting_ETA">估计剩余时间</string>
-    <string name="drawer_sorting_peers">流行度</string>
+    <string name="drawer_sorting_ETA">预计用时</string>
+    <string name="drawer_sorting_peers">用户数</string>
     <string name="drawer_sorting_no_sorting">不排序</string>
     <!-- Date added -->
     <string name="drawer_date_added">添加日期</string>
@@ -101,7 +101,7 @@
     <string name="tag_color">标签颜色</string>
     <string name="add_tag_failed">无法添加标签</string>
     <string name="tag_deleting_failed">无法删除标签</string>
-    <string name="tag_already_exists">这个标签已经存在</string>
+    <string name="tag_already_exists">该标签已存在</string>
     <string name="no_tags">无标签</string>
     <string name="select_tag">选择标签</string>
     <string name="new_tag">新建标签</string>
@@ -161,15 +161,15 @@
     <string name="error_add_torrent">无法添加种子文件</string>
     <string name="error_file_not_found_add_torrent">无法添加种子。可能是因为 .torrent 文件被移动或删除了？</string>
     <string name="error_io_add_torrent">因 I/O 错误无法添加种子文件。</string>
-    <string name="torrent_exist">已合并种子，因相同种子文件已存在。</string>
+    <string name="torrent_exist">由于该种子已存在，两者已被合并。</string>
     <string name="error_field_required">必填字段</string>
     <string name="error_no_files_selected">尚未选择文件</string>
     <string name="free_space">剩余空间 %1$s</string>
     <string name="error_free_space">没有足够的可用空间以下载所选文件。</string>
     <string name="files_size">已选文件大小 %1$s ，文件总大小 %2$s</string>
-    <string name="start_torrent">开始 torrent</string>
-    <string name="file_is_too_large_error">文件太大了</string>
-    <string name="unable_to_open_folder">无法打开选定的文件夹。试着选择一个不同的。</string>
+    <string name="start_torrent">开始任务</string>
+    <string name="file_is_too_large_error">文件过大</string>
+    <string name="unable_to_open_folder">无法打开选定的文件夹。请尝试选择其他文件夹。</string>
     <string name="error_empty_name">输入一个名称</string>
     <string name="ignore_free_space">忽略低存储空间</string>
     <!-- Torrent info -->
@@ -187,7 +187,7 @@
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">选择文件夹</string>
     <string name="file_chooser_title">选择文件</string>
-    <string name="torrent_file_chooser_title">选择 torrent</string>
+    <string name="torrent_file_chooser_title">选择种子</string>
     <string name="dialog_new_folder_title">创建文件夹</string>
     <string name="error_dialog_new_folder">无法创建新文件夹</string>
     <string name="error_open_dir">无法打开文件夹</string>
@@ -200,7 +200,7 @@
     <string name="save_file">保存文件</string>
     <string name="file_name">文件名</string>
     <string name="error_file_exists">文件已经存在</string>
-    <string name="file_name_is_empty">先输入一个文件名</string>
+    <string name="file_name_is_empty">请先输入文件名</string>
     <string name="replace_file">替换文件</string>
     <string name="parent_folder">上层文件夹</string>
     <!-- Error dialog -->
@@ -222,7 +222,7 @@
     <string name="torrent_state">状态</string>
     <string name="torrent_speed">速度</string>
     <string name="torrent_downloaded">已下载</string>
-    <string name="torrent_ETA">估计剩余时间</string>
+    <string name="torrent_ETA">预计用时</string>
     <string name="torrent_seeds">做种用户</string>
     <string name="torrent_peers">对等端</string>
     <string name="torrent_leechers">下载用户</string>
@@ -240,9 +240,9 @@
     <string name="tracker_state_not_working">不工作</string>
     <string name="tracker_state_updating">更新中…</string>
     <string name="tracker_state_not_contacted">尚未连接</string>
-    <string name="share_tracker_url">分享 URL…</string>
+    <string name="share_tracker_url">分享链接…</string>
     <string name="delete_selected_tracker">删除所选 Tracker？</string>
-    <string name="delete_selected_trackers">删除所选的 Tracker？</string>
+    <string name="delete_selected_trackers">删除所选的所有 Tracker？</string>
     <string name="add_trackers">添加 Tracker</string>
     <string name="dialog_add_trackers">（每行一个）</string>
     <string name="open_using">打开方式</string>
@@ -301,7 +301,7 @@
     <string name="error_cannot_delete_channel">无法删除频道</string>
     <string name="copy_link">复制链接</string>
     <string name="delete_selected_channel">删除选中频道？</string>
-    <string name="delete_selected_channels">删除选中的多个频道？</string>
+    <string name="delete_selected_channels">删除选中的所有频道？</string>
     <string name="edit_feed_channel">编辑频道</string>
     <string name="link_copied_to_clipboard">已复制到剪贴板</string>
     <string name="mark_as_read">标记为已读</string>
@@ -315,15 +315,15 @@
     <string name="feeds_backup_selection_dialog_title">选择备份文件</string>
     <string name="error_import_invalid_format">无效格式</string>
     <string name="feed_do_not_download_immediately">不立即下载</string>
-    <string name="feed_item_url_not_found">找不到 URL</string>
+    <string name="feed_item_url_not_found">找不到链接</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">创建BT种子</string>
     <string name="creating_torrent_progress">正在创建种子，请稍候…</string>
     <string name="file_or_folder_for_seeding">要做种的文件或文件夹</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">先选择做种的文件或文件夹。</string>
     <string name="tracker_urls">Tracker 链接</string>
-    <string name="web_seed_urls">Web 种子 URLs</string>
-    <string name="comments">评论</string>
+    <string name="web_seed_urls">Web 种子链接</string>
+    <string name="comments">备注</string>
     <string name="tracker_urls_hint">（可选）按优先级每行输入一个 Tracker。</string>
     <string name="web_seed_urls_hint">（可选）每行一个</string>
     <string name="optional_hint">（可选）</string>
@@ -402,9 +402,9 @@
     <string name="pref_max_active_torrents_title">最大活动种子数</string>
     <string name="pref_max_connections_per_torrent_title">每个种子最大连接数</string>
     <string name="pref_max_connections_per_torrent_summary">（最少 2 个连接）</string>
-    <string name="pref_max_uploads_per_torrent_title">每个种子最大上传插槽数</string>
+    <string name="pref_max_uploads_per_torrent_title">每个种子最大上传连接数</string>
     <string name="pref_auto_manage_title">自动管理</string>
-    <string name="pref_auto_manage_summary">可在任何时候自动恢复或暂停 种子。该选项(可能会减慢暂停/恢复的速度。)</string>
+    <string name="pref_auto_manage_summary">种子可以随时自动恢复或暂停。（可能会减慢暂停/恢复的速度。）</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 无限大</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
@@ -536,7 +536,7 @@
     <string name="pref_streaming_enable_summary">允许使用网页浏览器或使用 HTTP/S URLs 的媒体播放器从种子下载单独文件。</string>
     <string name="pref_streaming_hostname">主机名</string>
     <string name="pref_streaming_port">端口</string>
-    <string name="pref_streaming_error">为流媒体播放选择一个不繁忙或不错误的端口或主机名。</string>
+    <string name="pref_streaming_error">所选用于流媒体的端口或主机名正忙或不正确，请修正。</string>
     <!-- About dialog -->
     <string name="about_title">关于</string>
     <string name="about_description">更多信息及如何帮助项目：&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent 是一款面向 Android 4+ 系统的 copyleft 的自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) 种子客户端，基于 libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) 库。&lt;br&gt;&lt;br&gt;</string>
@@ -550,11 +550,11 @@
     <string name="pref_foreground_notification_category">前台通知设置</string>
     <string name="pref_foreground_notify_sorting_entries_7">进度（最多在前）</string>
     <string name="pref_foreground_notify_sorting_entries_6">进度（最少在前）</string>
-    <string name="pref_foreground_notify_sorting_entries_9">估计剩余时间 (最长在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_9">预计用时（最长在前）</string>
     <string name="pref_foreground_notify_sorting_entries_12">不排序</string>
-    <string name="pref_foreground_notify_sorting_entries_11">流行度（最高的在前）</string>
-    <string name="pref_foreground_notify_sorting_entries_10">流行度（最低的在前）</string>
-    <string name="pref_foreground_notify_sorting_entries_8">估计剩余时间 (最短在前)</string>
+    <string name="pref_foreground_notify_sorting_entries_11">用户数（最多在前）</string>
+    <string name="pref_foreground_notify_sorting_entries_10">用户数（最少在前）</string>
+    <string name="pref_foreground_notify_sorting_entries_8">预计用时（最短在前）</string>
     <string name="pref_foreground_notify_sorting_entries_5">大小（最大在前）</string>
     <string name="pref_foreground_notify_sorting_entries_4">大小（最小在前）</string>
     <string name="pref_foreground_notify_sorting_entries_3">添加日期（最旧在前）</string>
@@ -569,15 +569,15 @@
     <string name="pref_foreground_notify_status_filter_entries_0">全部</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">组合式暂停按钮</string>
-    <string name="error_open_torrent">打不开种子文件</string>
+    <string name="error_open_torrent">无法打开种子文件</string>
     <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得许可。是否继续？</string>
-    <string name="perm_denied_warning_android_r">访问所有文件权限是下载种子和访问任意文件夹中 .torrent 文件所必需的。如果没有此许可，LibreTorrent 将只能访问有限数量的文件夹。是否确实要拒绝此权限？</string>
+    <string name="perm_denied_warning_android_r">访问所有文件权限是下载种子和访问任意文件夹中 .torrent 文件所必需的。如果没有此权限，LibreTorrent 将只能访问有限数量的文件夹。是否确实要拒绝此权限？</string>
     <string name="manage_all_files_warning_dialog_description">如果您想要保存种子到自定义文件夹而不是\"Downloads\"之类的文件夹，那就不要使用 LibreTorrent 的 Google Play 版本。
 \n在项目页面上有其它的下载源。</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
     <string name="pref_validate_https_trackers_summary">HTTPS trackers 和 HTTPS web 种子的证书将在系统证书存储中进行验证。</string>
     <string name="pref_validate_https_trackers_title">验证 HTTPS trackers 的证书</string>
-    <string name="download_first_last_pieces">先下载最前面部分和最后部分</string>
+    <string name="download_first_last_pieces">优先下载最前与最后的区块</string>
     <string name="torrent_speed_limit_dialog">以 KiB/s 为单位设置速度。注意，设置一个高于全局限制的种子速度上限将不会覆盖全局限制。</string>
     <string name="apply_settings_after_reboot">将在重启应用后应用更改。</string>
     <string name="pref_posix_disk_io_title">POSIX 磁盘 I/O</string>
