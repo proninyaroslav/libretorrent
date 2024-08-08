@@ -499,7 +499,7 @@
     <string name="pref_enable_scheduling_shutdown_summary">在指定时间关闭应用</string>
     <string name="pref_scheduling_run_only_once_title">只运行一次</string>
     <string name="pref_scheduling_switch_wifi_title">切换 Wi-Fi 状态</string>
-    <string name="pref_scheduling_switch_wifi_summary">随计划调度开启或关闭 Wi-Fi</string>
+    <string name="pref_scheduling_switch_wifi_summary">随计划调度开启或关闭 Wi-Fi。</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">自动刷新频道</string>
     <string name="pref_feed_auto_refresh_summary">在后台定期刷新频道。</string>
@@ -570,7 +570,7 @@
     <string name="pref_foreground_notify_combined_pause_button_summary">组合两个按钮：全部暂停和全部恢复。 该按钮将像开关一样工作。 警告：按钮状态不受手动暂停/恢复种子的影响。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">组合式暂停按钮</string>
     <string name="error_open_torrent">无法打开种子文件</string>
-    <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得许可。是否继续？</string>
+    <string name="exact_alarm_permission_warning">要使调度程序工作，你必须在一个特殊的系统对话框中获得权限。是否继续？</string>
     <string name="perm_denied_warning_android_r">访问所有文件权限是下载种子和访问任意文件夹中 .torrent 文件所必需的。如果没有此权限，LibreTorrent 将只能访问有限数量的文件夹。是否确实要拒绝此权限？</string>
     <string name="manage_all_files_warning_dialog_description">如果您想要保存种子到自定义文件夹而不是\"Downloads\"之类的文件夹，那就不要使用 LibreTorrent 的 Google Play 版本。
 \n在项目页面上有其它的下载源。</string>
