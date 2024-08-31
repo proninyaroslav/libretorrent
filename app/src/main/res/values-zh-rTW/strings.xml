@@ -582,4 +582,9 @@
     <string name="apply_settings_after_reboot">將在重新啟動應用程式後套用變更。</string>
     <string name="pref_posix_disk_io_title">POSIX 磁碟 I/O</string>
     <string name="pref_posix_disk_io_summary">注意：此選項僅用於特定狀況，如支援某些 SD 卡檔案系統。啟用簡單的 POSIX 磁碟 I/O，用於沒有 64 位元虛擬位址空間或不支援記憶體對應檔案的系統。</string>
+    <string name="torrent_version">Torrent 版本</string>
+    <string name="go_to_folder">前往資料夾</string>
+    <string name="torrent_version_entries_hybrid">混合</string>
+    <string name="torrent_version_entries_v1_only">僅 V1</string>
+    <string name="torrent_version_entries_v2_only">僅 V2</string>
 </resources>
