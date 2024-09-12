@@ -552,7 +552,7 @@
     <string name="pref_foreground_notify_sorting_entries_11">Popularita (od nejvyšší)</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Chyba</string>
     <string name="pref_foreground_notify_sorting">Třídění</string>
-    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinuje dvě tlačítka: pozastavit vše a obnovit vše. Tohle tlačítko bude fungovat jako přepínač. Varování: stav tlačítka není ovlivněn ručním pozastavením/obnovením torrentu.</string>
+    <string name="pref_foreground_notify_combined_pause_button_summary">Kombinuje dvě tlačítka: pozastavit vše a obnovit vše. Tohle tlačítko funguje jako přepínač. Varování: stav tlačítka není ovlivněn ručním pozastavením/obnovením torrentu.</string>
     <string name="pref_foreground_notify_sorting_entries_9">ETA (od největší)</string>
     <string name="pref_default_trackers_list_summary">Seznam trackerů použitých v následujících případech:
 \n1. Při přidání torrentu je výchozí seznam přidán do seznamu torrentu.
@@ -575,9 +575,16 @@
     <string name="pref_foreground_notify_sorting_entries_7">Postup (od největšího)</string>
     <string name="pref_foreground_notify_sorting_entries_8">ETA (od nejmenší)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinované tlačítko pozastavení</string>
-    <string name="pref_validate_https_trackers_title">Ověřit HTTPS certifikát trackeru</string>
+    <string name="pref_validate_https_trackers_title">Ověřit certifikát HTTPS trackeru</string>
     <string name="download_first_last_pieces">Stáhnout první a poslední části jako první</string>
     <string name="pref_validate_https_trackers_summary">Certifikát HTTPS trackerů a web seedů bude ověřen v systémovém úložišti certifikátů.</string>
     <string name="torrent_speed_limit_dialog">Nastavit rychlost v KiB/s. Nastavením vyššího limitu rychlosti než globálního nedojde k překročení globální rychlosti.</string>
     <string name="apply_settings_after_reboot">Změny budou aplikovany po restartováni aplikace..</string>
+    <string name="pref_posix_disk_io_title">POSIX Disk I/O</string>
+    <string name="go_to_folder">Přejít do složky</string>
+    <string name="pref_posix_disk_io_summary">Poznámka: Tato možnost se používá pouze v určitých situacích, jako je podpora některých souborových systémů karet SD. Umožňuje jednoduchý diskový I/O POSIX používaný pro systémy, které nemají 64bitový virtuální adresní prostor nebo nepodporují soubory mapované v paměti.</string>
+    <string name="torrent_version">Verze torrentu</string>
+    <string name="torrent_version_entries_hybrid">Hybridní</string>
+    <string name="torrent_version_entries_v1_only">Pouze V1</string>
+    <string name="torrent_version_entries_v2_only">Pouze V2</string>
 </resources>
