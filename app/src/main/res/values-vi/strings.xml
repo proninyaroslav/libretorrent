@@ -520,4 +520,9 @@
     <string name="piece_size_entries_9">4 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
+    <string name="go_to_folder"></string>
+    <string name="torrent_version_entries_v2_only"></string>
+    <string name="torrent_version_entries_hybrid"></string>
+    <string name="torrent_version"></string>
+    <string name="torrent_version_entries_v1_only"></string>
 </resources>
