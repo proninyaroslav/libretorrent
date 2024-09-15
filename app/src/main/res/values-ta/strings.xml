@@ -568,4 +568,17 @@
     <string name="pref_default_trackers_list_title">இயல்புநிலை சுவடுகள்</string>
     <string name="manage_all_files_warning_dialog_title">எச்சரிக்கை</string>
     <string name="download_first_last_pieces">முதல் மற்றும் கடைசி பாகங்களை முதலில் தரவிறக்கவும்</string>
+    <string name="pref_default_trackers_list_summary"></string>
+    <string name="perm_denied_warning_android_r"></string>
+    <string name="go_to_folder"></string>
+    <string name="torrent_version_entries_v1_only"></string>
+    <string name="torrent_version_entries_v2_only"></string>
+    <string name="torrent_version_entries_hybrid"></string>
+    <string name="pref_posix_disk_io_summary"></string>
+    <string name="apply_settings_after_reboot"></string>
+    <string name="torrent_speed_limit_dialog"></string>
+    <string name="torrent_version"></string>
+    <string name="pref_posix_disk_io_title"></string>
+    <string name="pref_validate_https_trackers_summary"></string>
+    <string name="exact_alarm_permission_warning"></string>
 </resources>
