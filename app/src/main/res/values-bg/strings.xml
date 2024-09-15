@@ -361,7 +361,8 @@
     <string name="torrent_leechers">Лийчъри</string>
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="manage_all_files_warning_dialog_title">Внимание</string>
-    <string name="manage_all_files_warning_dialog_description">Версията на LibreTorrent в Google Play няма разрешение за достъп до всички файлове. Това означава, че LibreTorrent ще има достъп само до ограничен брой папки, като например Downloads(Изтегляния) или други. Ако е необходимо, за да разрешите това разрешение, моля, инсталирайте LibreTorrent от друг източник, пълният списък е представен на страницата на проекта:</string>
+    <string name="manage_all_files_warning_dialog_description">Не използвайте версията на Google Play на LibreTorrent, ако искате да запазвате торенти в папки, различни от „Изтегляния“ и подобни.
+\nИма и други източници на страницата на проекта.</string>
     <string name="torrent_hash_sum">Контролна сума</string>
     <string name="torrent_created_in_program">Създаден в програма</string>
     <string name="sequential_download">Последователно изтегляне</string>
@@ -512,4 +513,6 @@
     <string name="about_title">Относно</string>
     <string name="perm_denied_warning_android_r">Разрешението за достъп до всички файлове е необходимо за изтегляне на торенти и достъп до .torrent файлове в произволни папки. Без това разрешение LibreTorrent ще има достъп само до ограничен брой папки. Сигурни ли сте, че искате да откажете това разрешение?</string>
     <string name="pref_streaming_error">Изберете порт или име на хост за поточно предаване, който не е зает или неправилен.</string>
+    <string name="apply_settings_after_reboot">Промените ще бъдат приложени след рестартиране на приложението.</string>
+    <string name="download_first_last_pieces">Първо изтеглете първата и последната част</string>
 </resources>
