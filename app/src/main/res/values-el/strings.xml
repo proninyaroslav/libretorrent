@@ -582,4 +582,9 @@
     <string name="apply_settings_after_reboot">Οι αλλαγές θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής.</string>
     <string name="pref_posix_disk_io_summary">Σημείωση: αυτή η επιλογή χρησιμοποιείται μόνο σε συγκεκριμένες καταστάσεις, όπως υποστήριξη για ορισμένα συστήματα αρχείων κάρτας SD. Ενεργοποιεί μια απλή είσοδο/έξοδο δίσκου POSIX, που χρησιμοποιείται για συστήματα που δεν διαθέτουν χώρο εικονικής διεύθυνσης 64-bit ή δεν υποστηρίζουν αρχεία αντιστοιχισμένα στη μνήμη.</string>
     <string name="pref_posix_disk_io_title">Είσοδος/έξοδος δίσκου POSIX</string>
+    <string name="torrent_version_entries_hybrid">Υβριδικό</string>
+    <string name="torrent_version_entries_v1_only">Μόνο V1</string>
+    <string name="torrent_version_entries_v2_only">Μόνο V2</string>
+    <string name="torrent_version">Έκδοση torrent</string>
+    <string name="go_to_folder">Μετάβαση σε φάκελο</string>
 </resources>

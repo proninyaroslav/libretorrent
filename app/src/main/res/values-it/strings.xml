@@ -583,4 +583,9 @@
     <string name="apply_settings_after_reboot">Le modifiche verranno applicate dopo il riavvio dell\'app.</string>
     <string name="pref_posix_disk_io_title">I/O Disco POSIX</string>
     <string name="pref_posix_disk_io_summary">Nota: questa opzione è da utilizzare solo in situazioni particolari, come per particolari Filesystem usati per schede SD (exFAT). L\'opzione abilita un semplice I/O disco POSIX, che è usato per sistemi che non dispongono di uno spazio di indirizzamento virtuale a 64 bit o che non supportano la mappatura della memoria.</string>
+    <string name="torrent_version_entries_v1_only">Solo V1</string>
+    <string name="torrent_version_entries_v2_only">Solo V2</string>
+    <string name="go_to_folder">Vai alla cartella</string>
+    <string name="torrent_version">Versione Torrent</string>
+    <string name="torrent_version_entries_hybrid">Ibrido</string>
 </resources>
