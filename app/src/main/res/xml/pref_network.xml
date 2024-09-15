@@ -99,23 +99,20 @@
         android:title="@string/pref_encryption_category">
 
         <ListPreference
-            android:key="@string/pref_key_enc_mode"
-            android:title="@string/pref_enc_mode_title"
+            android:key="@string/pref_key_enc_in_connections_mode"
+            android:title="@string/pref_enc_in_connections_title"
             app:useSimpleSummaryProvider="true"
             android:entries="@array/pref_enc_mode_entries"
             android:entryValues="@array/pref_enc_mode_entries_value"
             app:singleLineTitle="false"
             android:persistent="false" />
 
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_enc_in_connections"
-            android:title="@string/pref_enc_in_connections_title"
-            app:singleLineTitle="false"
-            android:persistent="false" />
-
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_enc_out_connections"
+        <ListPreference
+            android:key="@string/pref_key_enc_out_connections_mode"
             android:title="@string/pref_enc_out_connections_title"
+            app:useSimpleSummaryProvider="true"
+            android:entries="@array/pref_enc_mode_entries"
+            android:entryValues="@array/pref_enc_mode_entries_value"
             app:singleLineTitle="false"
             android:persistent="false" />
     </PreferenceCategory>

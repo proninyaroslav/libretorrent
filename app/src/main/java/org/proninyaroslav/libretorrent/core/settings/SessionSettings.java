@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -90,9 +90,8 @@ public class SessionSettings
     public boolean utpEnabled = DEFAULT_UTP_ENABLED;
     public boolean upnpEnabled = DEFAULT_UPNP_ENABLED;
     public boolean natPmpEnabled = DEFAULT_NATPMP_ENABLED;
-    public boolean encryptInConnections = DEFAULT_ENCRYPT_IN_CONNECTIONS;
-    public boolean encryptOutConnections = DEFAULT_ENCRYPT_OUT_CONNECTIONS;
-    public EncryptMode encryptMode = DEFAULT_ENCRYPT_MODE;
+    public EncryptMode encryptModeOutcoming = DEFAULT_ENCRYPT_MODE;
+    public EncryptMode encryptModeIncoming = DEFAULT_ENCRYPT_MODE;
     public boolean autoManaged = DEFAULT_AUTO_MANAGED;
     public String inetAddress = DEFAULT_INETADDRESS;
     public ProxyType proxyType = DEFAULT_PROXY_TYPE;
@@ -138,9 +137,8 @@ public class SessionSettings
         this.utpEnabled = other.utpEnabled;
         this.upnpEnabled = other.upnpEnabled;
         this.natPmpEnabled = other.natPmpEnabled;
-        this.encryptInConnections = other.encryptInConnections;
-        this.encryptOutConnections = other.encryptOutConnections;
-        this.encryptMode = other.encryptMode;
+        this.encryptModeIncoming = other.encryptModeIncoming;
+        this.encryptModeOutcoming = other.encryptModeOutcoming;
         this.autoManaged = other.autoManaged;
         this.inetAddress = other.inetAddress;
         this.proxyType = other.proxyType;

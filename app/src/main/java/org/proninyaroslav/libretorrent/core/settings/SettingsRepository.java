@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -155,13 +155,13 @@ public interface SettingsRepository
 
     void useRandomPort(boolean val);
 
-    boolean encryptInConnections();
+    int encryptInConnectionsMode();
 
-    void encryptInConnections(boolean val);
+    void encryptInConnectionsMode(int val);
 
-    boolean encryptOutConnections();
+    int encryptOutConnectionsMode();
 
-    void encryptOutConnections(boolean val);
+    void encryptOutConnectionsMode(int val);
 
     boolean enableIpFiltering();
 
@@ -170,10 +170,6 @@ public interface SettingsRepository
     String ipFilteringFile();
 
     void ipFilteringFile(String val);
-
-    int encryptMode();
-
-    void encryptMode(int val);
 
     boolean showNatErrors();
 

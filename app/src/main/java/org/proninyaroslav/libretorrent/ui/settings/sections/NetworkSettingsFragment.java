@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -66,8 +66,7 @@ import java.util.List;
 
 public class NetworkSettingsFragment extends PreferenceFragmentCompat
         implements
-        Preference.OnPreferenceChangeListener
-{
+        Preference.OnPreferenceChangeListener {
     private static final String TAG = NetworkSettingsFragment.class.getSimpleName();
 
     private AppCompatActivity activity;
@@ -75,8 +74,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     private SettingsRepository pref;
     private FileSystemFacade fs;
 
-    public static NetworkSettingsFragment newInstance()
-    {
+    public static NetworkSettingsFragment newInstance() {
         NetworkSettingsFragment fragment = new NetworkSettingsFragment();
 
         fragment.setArguments(new Bundle());
@@ -85,12 +83,11 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity) context;
     }
 
     @Override
@@ -98,14 +95,13 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         super.onViewCreated(view, savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
         viewModel = new ViewModelProvider(activity).get(SettingsViewModel.class);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Context context = getActivity().getApplicationContext();
@@ -158,7 +154,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(randomPort);
         }
 
-        InputFilter[] portFilter = new InputFilter[] { InputFilterRange.PORT_FILTER };
+        InputFilter[] portFilter = new InputFilter[]{InputFilterRange.PORT_FILTER};
 
         String keyPortStart = getString(R.string.pref_key_port_range_first);
         EditTextPreference portStart = findPreference(keyPortStart);
@@ -180,31 +176,20 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(portEnd);
         }
 
-        boolean enableAdvancedEncryptSettings;
+        String keyEncryptInConnectionsMode = getString(R.string.pref_key_enc_in_connections_mode);
+        ListPreference encryptInConnectionsMode = findPreference(keyEncryptInConnectionsMode);
+        if (encryptInConnectionsMode != null) {
+            var type = pref.encryptInConnectionsMode();
+            encryptInConnectionsMode.setValueIndex(type);
+            bindOnPreferenceChangeListener(encryptInConnectionsMode);
+        }
 
-        String keyEncryptMode = getString(R.string.pref_key_enc_mode);
-        ListPreference encryptMode = findPreference(keyEncryptMode);
-        int type = pref.encryptMode();
-        if (encryptMode != null) {
-            encryptMode.setValueIndex(type);
-            enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
-            bindOnPreferenceChangeListener(encryptMode);
-
-            String keyEncryptInConnections = getString(R.string.pref_key_enc_in_connections);
-            SwitchPreferenceCompat encryptInConnections = findPreference(keyEncryptInConnections);
-            if (encryptInConnections != null) {
-                encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptInConnections.setChecked(pref.encryptInConnections());
-                bindOnPreferenceChangeListener(encryptInConnections);
-            }
-
-            String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
-            SwitchPreferenceCompat encryptOutConnections = findPreference(keyEncryptOutConnections);
-            if (encryptOutConnections != null) {
-                encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptOutConnections.setChecked(pref.encryptOutConnections());
-                bindOnPreferenceChangeListener(encryptOutConnections);
-            }
+        String keyEncryptOutConnectionsMode = getString(R.string.pref_key_enc_out_connections_mode);
+        ListPreference encryptOutConnectionsMode = findPreference(keyEncryptOutConnectionsMode);
+        if (encryptOutConnectionsMode != null) {
+            var type = pref.encryptOutConnectionsMode();
+            encryptOutConnectionsMode.setValueIndex(type);
+            bindOnPreferenceChangeListener(encryptOutConnectionsMode);
         }
 
         String keyIpFilter = getString(R.string.pref_key_enable_ip_filtering);
@@ -292,13 +277,11 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_network, rootKey);
     }
 
-    private void fileChooseDialog()
-    {
+    private void fileChooseDialog() {
         Intent i = new Intent(getActivity(), FileManagerDialog.class);
         FileManagerConfig config = new FileManagerConfig(
                 null,
@@ -313,80 +296,60 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         fileChoose.launch(i);
     }
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_port_range_first))) {
             int value = SessionSettings.DEFAULT_PORT_RANGE_FIRST;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String) newValue))
+                value = Integer.parseInt((String) newValue);
             pref.portRangeFirst(value);
             preference.setSummary(Integer.toString(value));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_port_range_second))) {
             int value = SessionSettings.DEFAULT_PORT_RANGE_SECOND;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String) newValue))
+                value = Integer.parseInt((String) newValue);
             pref.portRangeSecond(value);
             preference.setSummary(Integer.toString(value));
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_mode))) {
-            int type = Integer.parseInt((String) newValue);
-            pref.encryptMode(type);
-
-            boolean enableAdvancedEncryptSettings = type != Integer.parseInt(getString(R.string.pref_enc_mode_disable_value));
-
-            String keyEncryptInConnections = getString(R.string.pref_key_enc_in_connections);
-            SwitchPreferenceCompat encryptInConnections = findPreference(keyEncryptInConnections);
-            if (encryptInConnections != null) {
-                encryptInConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptInConnections.setChecked(enableAdvancedEncryptSettings);
-            }
-
-            String keyEncryptOutConnections = getString(R.string.pref_key_enc_out_connections);
-            SwitchPreferenceCompat encryptOutConnections = findPreference(keyEncryptOutConnections);
-            if (encryptOutConnections != null) {
-                encryptOutConnections.setEnabled(enableAdvancedEncryptSettings);
-                encryptOutConnections.setChecked(enableAdvancedEncryptSettings);
-            }
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_dht))) {
-            pref.enableDht((boolean)newValue);
+            pref.enableDht((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_lsd))) {
-            pref.enableLsd((boolean)newValue);
+            pref.enableLsd((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_utp))) {
-            pref.enableUtp((boolean)newValue);
+            pref.enableUtp((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_upnp))) {
-            pref.enableUpnp((boolean)newValue);
+            pref.enableUpnp((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_natpmp))) {
-            pref.enableNatPmp((boolean)newValue);
+            pref.enableNatPmp((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_show_nat_errors))) {
-            pref.showNatErrors((boolean)newValue);
+            pref.showNatErrors((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_use_random_port))) {
-            pref.useRandomPort((boolean)newValue);
+            pref.useRandomPort((boolean) newValue);
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_in_connections))) {
-            pref.encryptInConnections((boolean)newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_in_connections_mode))) {
+            int type = Integer.parseInt((String) newValue);
+            pref.encryptInConnectionsMode(type);
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_out_connections))) {
-            pref.encryptOutConnections((boolean)newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_enc_out_connections_mode))) {
+            int type = Integer.parseInt((String) newValue);
+            pref.encryptOutConnectionsMode(type);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_enable_ip_filtering))) {
-            pref.enableIpFiltering((boolean)newValue);
+            pref.enableIpFiltering((boolean) newValue);
 
-        }  else if (preference.getKey().equals(getString(R.string.pref_key_seeding_outgoing_connections))) {
-            pref.seedingOutgoingConnections((boolean)newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_seeding_outgoing_connections))) {
+            pref.seedingOutgoingConnections((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_validate_https_trackers))) {
             pref.validateHttpsTrackers((boolean) newValue);
@@ -395,8 +358,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         return true;
     }
 
-    private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title)
-    {
+    private <F extends PreferenceFragmentCompat> void setFragment(F fragment, String title) {
         if (Utils.isLargeScreenDevice(getActivity().getApplicationContext())) {
             viewModel.detailTitleChanged.setValue(title);
             getActivity().getSupportFragmentManager().beginTransaction()
@@ -406,8 +368,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         }
     }
 
-    private <F extends PreferenceFragmentCompat> void startActivity(Class<F> fragment, String title)
-    {
+    private <F extends PreferenceFragmentCompat> void startActivity(Class<F> fragment, String title) {
         Intent i = new Intent(getActivity(), PreferenceActivity.class);
         PreferenceActivityConfig config = new PreferenceActivityConfig(
                 fragment.getSimpleName(),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,29 +37,31 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposables;
 
-public class SettingsRepositoryImpl implements SettingsRepository
-{
-    private static class Default
-    {
+public class SettingsRepositoryImpl implements SettingsRepository {
+    private static class Default {
         /* Appearance settings */
         static final String notifySound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
         static final boolean torrentFinishNotify = true;
         static final boolean playSoundNotify = true;
         static final boolean ledIndicatorNotify = true;
         static final boolean vibrationNotify = true;
+
         static int theme(@NonNull Context context) {
             return Integer.parseInt(context.getString(R.string.pref_theme_light_value));
         }
-        static int ledIndicatorColorNotify(@NonNull Context context)
-        {
+
+        static int ledIndicatorColorNotify(@NonNull Context context) {
             return ContextCompat.getColor(context, R.color.primary);
         }
+
         static String foregroundNotifyStatusFilter(@NonNull Context context) {
             return context.getString(R.string.pref_foreground_notify_status_downloading_value);
         }
+
         static String foregroundNotifySorting(@NonNull Context context) {
             return context.getString(R.string.pref_foreground_notify_sorting_progress_desc_value);
         }
+
         static final boolean foregroundNotifyCombinedPauseButton = false;
         /* Behavior settings */
         static final boolean autostart = false;
@@ -82,36 +84,43 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean enableUpnp = true;
         static final boolean enableNatPmp = true;
         static final boolean useRandomPort = true;
-        static final boolean encryptInConnections = true;
-        static final boolean encryptOutConnections = true;
-        static final boolean enableIpFiltering = false;
-        static final String ipFilteringFile = null;
-        static int encryptMode(@NonNull Context context)
-        {
+
+        static int encryptInConnectionsMode(@NonNull Context context) {
             return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value));
         }
+
+        static int encryptOutConnectionsMode(@NonNull Context context) {
+            return Integer.parseInt(context.getString(R.string.pref_enc_mode_prefer_value));
+        }
+
+        static final boolean enableIpFiltering = false;
+        static final String ipFilteringFile = null;
         static final boolean showNatErrors = false;
         static final boolean validateHttpsTrackers = SessionSettings.DEFAULT_VALIDATE_HTTPS_TRACKERS;
+
         /* Storage settings */
-        static String saveTorrentsIn(@NonNull Context context)
-        {
+        static String saveTorrentsIn(@NonNull Context context) {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+
         static final boolean moveAfterDownload = false;
-        static String moveAfterDownloadIn(@NonNull Context context)
-        {
+
+        static String moveAfterDownloadIn(@NonNull Context context) {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+
         static final boolean saveTorrentFiles = false;
-        static String saveTorrentFilesIn(@NonNull Context context)
-        {
+
+        static String saveTorrentFilesIn(@NonNull Context context) {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+
         static final boolean watchDir = false;
-        static String dirToWatch(@NonNull Context context)
-        {
+
+        static String dirToWatch(@NonNull Context context) {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
+
         static final boolean watchDirDeleteFile = false;
         static final boolean posixDiskIo = SessionSettings.DEFAULT_POSIX_DISK_IO;
         static final boolean anonymousMode = SessionSettings.DEFAULT_ANONYMOUS_MODE;
@@ -172,8 +181,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     private SharedPreferences pref;
     private FileSystemFacade fs;
 
-    public SettingsRepositoryImpl(@NonNull Context appContext)
-    {
+    public SettingsRepositoryImpl(@NonNull Context appContext) {
         this.appContext = appContext;
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         pref = PreferenceManager.getDefaultSharedPreferences(appContext);
@@ -184,8 +192,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
      */
 
     @Override
-    public Flowable<String> observeSettingsChanged()
-    {
+    public Flowable<String> observeSettingsChanged() {
         return Flowable.create((emitter) -> {
             SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
                 if (!emitter.isCancelled())
@@ -202,8 +209,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
     }
 
     @Override
-    public SessionSettings readSessionSettings()
-    {
+    public SessionSettings readSessionSettings() {
         SessionSettings settings = new SessionSettings();
         settings.uploadRateLimit = maxUploadSpeedLimit();
         settings.connectionsLimit = maxConnections();
@@ -219,9 +225,8 @@ public class SettingsRepositoryImpl implements SettingsRepository
         settings.utpEnabled = enableUtp();
         settings.upnpEnabled = enableUpnp();
         settings.natPmpEnabled = enableNatPmp();
-        settings.encryptInConnections = encryptInConnections();
-        settings.encryptOutConnections = encryptOutConnections();
-        settings.encryptMode = SessionSettings.EncryptMode.fromValue(encryptMode());
+        settings.encryptModeIncoming = SessionSettings.EncryptMode.fromValue(encryptInConnectionsMode());
+        settings.encryptModeOutcoming = SessionSettings.EncryptMode.fromValue(encryptOutConnectionsMode());
         settings.autoManaged = autoManage();
         settings.anonymousMode = anonymousMode();
         settings.seedingOutgoingConnections = seedingOutgoingConnections();
@@ -256,105 +261,91 @@ public class SettingsRepositoryImpl implements SettingsRepository
 
 
     @Override
-    public String notifySound()
-    {
+    public String notifySound() {
         return pref.getString(appContext.getString(R.string.pref_key_notify_sound),
                 Default.notifySound);
     }
 
     @Override
-    public void notifySound(String val)
-    {
+    public void notifySound(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_notify_sound), val)
                 .apply();
     }
 
     @Override
-    public boolean torrentFinishNotify()
-    {
+    public boolean torrentFinishNotify() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_torrent_finish_notify),
                 Default.torrentFinishNotify);
     }
 
     @Override
-    public void torrentFinishNotify(boolean val)
-    {
+    public void torrentFinishNotify(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_torrent_finish_notify), val)
                 .apply();
     }
 
     @Override
-    public boolean playSoundNotify()
-    {
+    public boolean playSoundNotify() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_play_sound_notify),
                 Default.playSoundNotify);
     }
 
     @Override
-    public void playSoundNotify(boolean val)
-    {
+    public void playSoundNotify(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_play_sound_notify), val)
                 .apply();
     }
 
     @Override
-    public boolean ledIndicatorNotify()
-    {
+    public boolean ledIndicatorNotify() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_led_indicator_notify),
                 Default.ledIndicatorNotify);
     }
 
     @Override
-    public void ledIndicatorNotify(boolean val)
-    {
+    public void ledIndicatorNotify(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_led_indicator_notify), val)
                 .apply();
     }
 
     @Override
-    public boolean vibrationNotify()
-    {
+    public boolean vibrationNotify() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_vibration_notify),
                 Default.vibrationNotify);
     }
 
     @Override
-    public void vibrationNotify(boolean val)
-    {
+    public void vibrationNotify(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_vibration_notify), val)
                 .apply();
     }
 
     @Override
-    public int theme()
-    {
+    public int theme() {
         return pref.getInt(appContext.getString(R.string.pref_key_theme),
                 Default.theme(appContext));
     }
 
     @Override
-    public void theme(int val)
-    {
+    public void theme(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_theme), val)
                 .apply();
     }
 
     @Override
-    public int ledIndicatorColorNotify()
-    {
+    public int ledIndicatorColorNotify() {
         return pref.getInt(appContext.getString(R.string.pref_key_led_indicator_color_notify),
-            Default.ledIndicatorColorNotify(appContext));
+                Default.ledIndicatorColorNotify(appContext));
     }
 
     @Override
-    public void ledIndicatorColorNotify(int val)
-    {
+    public void ledIndicatorColorNotify(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_led_indicator_color_notify), val)
                 .apply();
@@ -415,465 +406,390 @@ public class SettingsRepositoryImpl implements SettingsRepository
     }
 
     @Override
-    public boolean autostart()
-    {
+    public boolean autostart() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_autostart),
                 Default.autostart);
     }
 
     @Override
-    public void autostart(boolean val)
-    {
+    public void autostart(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_autostart), val)
                 .apply();
     }
 
     @Override
-    public boolean keepAlive()
-    {
+    public boolean keepAlive() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_keep_alive),
                 Default.keepAlive);
     }
 
     @Override
-    public void keepAlive(boolean val)
-    {
+    public void keepAlive(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_keep_alive), val)
                 .apply();
     }
 
     @Override
-    public boolean shutdownDownloadsComplete()
-    {
+    public boolean shutdownDownloadsComplete() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_shutdown_downloads_complete),
                 Default.shutdownDownloadsComplete);
     }
 
     @Override
-    public void shutdownDownloadsComplete(boolean val)
-    {
+    public void shutdownDownloadsComplete(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_shutdown_downloads_complete), val)
                 .apply();
     }
 
     @Override
-    public boolean cpuDoNotSleep()
-    {
+    public boolean cpuDoNotSleep() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_cpu_do_not_sleep),
                 Default.cpuDoNotSleep);
     }
 
     @Override
-    public void cpuDoNotSleep(boolean val)
-    {
+    public void cpuDoNotSleep(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_cpu_do_not_sleep), val)
                 .apply();
     }
 
     @Override
-    public boolean onlyCharging()
-    {
+    public boolean onlyCharging() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_download_and_upload_only_when_charging),
                 Default.onlyCharging);
     }
 
     @Override
-    public void onlyCharging(boolean val)
-    {
+    public void onlyCharging(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_download_and_upload_only_when_charging), val)
                 .apply();
     }
 
     @Override
-    public boolean batteryControl()
-    {
+    public boolean batteryControl() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_battery_control),
                 Default.batteryControl);
     }
 
     @Override
-    public void batteryControl(boolean val)
-    {
+    public void batteryControl(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_battery_control), val)
                 .apply();
     }
 
     @Override
-    public boolean customBatteryControl()
-    {
+    public boolean customBatteryControl() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_custom_battery_control),
                 Default.customBatteryControl);
     }
 
     @Override
-    public void customBatteryControl(boolean val)
-    {
+    public void customBatteryControl(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_custom_battery_control), val)
                 .apply();
     }
 
     @Override
-    public int customBatteryControlValue()
-    {
+    public int customBatteryControlValue() {
         return pref.getInt(appContext.getString(R.string.pref_key_custom_battery_control_value),
                 Default.customBatteryControlValue);
     }
 
     @Override
-    public void customBatteryControlValue(int val)
-    {
+    public void customBatteryControlValue(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_custom_battery_control_value), val)
                 .apply();
     }
 
     @Override
-    public boolean unmeteredConnectionsOnly()
-    {
+    public boolean unmeteredConnectionsOnly() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_unmetered_connections_only),
                 Default.unmeteredConnectionsOnly);
     }
 
     @Override
-    public void unmeteredConnectionsOnly(boolean val)
-    {
+    public void unmeteredConnectionsOnly(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_unmetered_connections_only), val)
                 .apply();
     }
 
     @Override
-    public boolean enableRoaming()
-    {
+    public boolean enableRoaming() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
                 Default.enableRoaming);
     }
 
     @Override
-    public void enableRoaming(boolean val)
-    {
+    public void enableRoaming(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_roaming), val)
                 .apply();
     }
 
     @Override
-    public int portRangeFirst()
-    {
+    public int portRangeFirst() {
         return pref.getInt(appContext.getString(R.string.pref_key_port_range_first),
                 Default.portRangeFirst);
     }
 
     @Override
-    public void portRangeFirst(int val)
-    {
+    public void portRangeFirst(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_port_range_first), val)
                 .apply();
     }
 
     @Override
-    public int portRangeSecond()
-    {
+    public int portRangeSecond() {
         return pref.getInt(appContext.getString(R.string.pref_key_port_range_second),
                 Default.portRangeSecond);
     }
 
     @Override
-    public void portRangeSecond(int val)
-    {
+    public void portRangeSecond(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_port_range_second), val)
                 .apply();
     }
 
     @Override
-    public boolean enableDht()
-    {
+    public boolean enableDht() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_dht),
                 Default.enableDht);
     }
 
     @Override
-    public void enableDht(boolean val)
-    {
+    public void enableDht(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_dht), val)
                 .apply();
     }
 
     @Override
-    public boolean enableLsd()
-    {
+    public boolean enableLsd() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_lsd),
                 Default.enableLsd);
     }
 
     @Override
-    public void enableLsd(boolean val)
-    {
+    public void enableLsd(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_lsd), val)
                 .apply();
     }
 
     @Override
-    public boolean enableUtp()
-    {
+    public boolean enableUtp() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_utp),
                 Default.enableUtp);
     }
 
     @Override
-    public void enableUtp(boolean val)
-    {
+    public void enableUtp(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_utp), val)
                 .apply();
     }
 
     @Override
-    public boolean enableUpnp()
-    {
+    public boolean enableUpnp() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_upnp),
                 Default.enableUpnp);
     }
 
     @Override
-    public void enableUpnp(boolean val)
-    {
+    public void enableUpnp(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_upnp), val)
                 .apply();
     }
 
     @Override
-    public boolean enableNatPmp()
-    {
+    public boolean enableNatPmp() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_natpmp),
                 Default.enableNatPmp);
     }
 
     @Override
-    public void enableNatPmp(boolean val)
-    {
+    public void enableNatPmp(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_natpmp), val)
                 .apply();
     }
 
     @Override
-    public boolean useRandomPort()
-    {
+    public boolean useRandomPort() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_use_random_port),
                 Default.useRandomPort);
     }
 
     @Override
-    public void useRandomPort(boolean val)
-    {
+    public void useRandomPort(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_use_random_port), val)
                 .apply();
     }
 
     @Override
-    public boolean encryptInConnections()
-    {
-        return pref.getBoolean(appContext.getString(R.string.pref_key_enc_in_connections),
-                Default.encryptInConnections);
+    public int encryptInConnectionsMode() {
+        return pref.getInt(appContext.getString(R.string.pref_key_enc_in_connections_mode),
+                Default.encryptInConnectionsMode(appContext));
     }
 
     @Override
-    public void encryptInConnections(boolean val)
-    {
+    public void encryptInConnectionsMode(int val) {
         pref.edit()
-                .putBoolean(appContext.getString(R.string.pref_key_enc_in_connections), val)
+                .putInt(appContext.getString(R.string.pref_key_enc_in_connections_mode), val)
                 .apply();
     }
 
     @Override
-    public boolean encryptOutConnections()
-    {
-        return pref.getBoolean(appContext.getString(R.string.pref_key_enc_out_connections),
-                Default.encryptOutConnections);
+    public int encryptOutConnectionsMode() {
+        return pref.getInt(appContext.getString(R.string.pref_key_enc_out_connections_mode),
+                Default.encryptOutConnectionsMode(appContext));
     }
 
     @Override
-    public void encryptOutConnections(boolean val)
-    {
+    public void encryptOutConnectionsMode(int val) {
         pref.edit()
-                .putBoolean(appContext.getString(R.string.pref_key_enc_out_connections), val)
+                .putInt(appContext.getString(R.string.pref_key_enc_out_connections_mode), val)
                 .apply();
     }
 
     @Override
-    public boolean enableIpFiltering()
-    {
+    public boolean enableIpFiltering() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_ip_filtering),
                 Default.enableIpFiltering);
     }
 
     @Override
-    public void enableIpFiltering(boolean val)
-    {
+    public void enableIpFiltering(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_ip_filtering), val)
                 .apply();
     }
 
     @Override
-    public String ipFilteringFile()
-    {
+    public String ipFilteringFile() {
         return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_ip_filtering_file),
                 Default.ipFilteringFile));
     }
 
     @Override
-    public void ipFilteringFile(String val)
-    {
+    public void ipFilteringFile(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_ip_filtering_file), val)
                 .apply();
     }
 
     @Override
-    public int encryptMode()
-    {
-        return pref.getInt(appContext.getString(R.string.pref_key_enc_mode),
-                Default.encryptMode(appContext));
-    }
-
-    @Override
-    public void encryptMode(int val)
-    {
-        pref.edit()
-                .putInt(appContext.getString(R.string.pref_key_enc_mode), val)
-                .apply();
-    }
-
-    @Override
-    public boolean showNatErrors()
-    {
+    public boolean showNatErrors() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_show_nat_errors),
                 Default.showNatErrors);
     }
 
     @Override
-    public void showNatErrors(boolean val)
-    {
+    public void showNatErrors(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_show_nat_errors), val)
                 .apply();
     }
 
     @Override
-    public String saveTorrentsIn()
-    {
+    public String saveTorrentsIn() {
         return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_save_torrents_in),
                 Default.saveTorrentsIn(appContext)));
     }
 
     @Override
-    public void saveTorrentsIn(String val)
-    {
+    public void saveTorrentsIn(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_save_torrents_in), val)
                 .apply();
     }
 
     @Override
-    public boolean moveAfterDownload()
-    {
+    public boolean moveAfterDownload() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
                 Default.moveAfterDownload);
     }
 
     @Override
-    public void moveAfterDownload(boolean val)
-    {
+    public void moveAfterDownload(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_move_after_download), val)
                 .apply();
     }
 
     @Override
-    public String moveAfterDownloadIn()
-    {
+    public String moveAfterDownloadIn() {
         return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_move_after_download_in),
                 Default.moveAfterDownloadIn(appContext)));
     }
 
     @Override
-    public void moveAfterDownloadIn(String val)
-    {
+    public void moveAfterDownloadIn(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_move_after_download_in), val)
                 .apply();
     }
 
     @Override
-    public boolean saveTorrentFiles()
-    {
+    public boolean saveTorrentFiles() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_save_torrent_files),
                 Default.saveTorrentFiles);
     }
 
     @Override
-    public void saveTorrentFiles(boolean val)
-    {
+    public void saveTorrentFiles(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_save_torrent_files), val)
                 .apply();
     }
 
     @Override
-    public String saveTorrentFilesIn()
-    {
+    public String saveTorrentFilesIn() {
         return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_save_torrent_files_in),
                 Default.saveTorrentFilesIn(appContext)));
     }
 
     @Override
-    public void saveTorrentFilesIn(String val)
-    {
+    public void saveTorrentFilesIn(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_save_torrent_files_in), val)
                 .apply();
     }
 
     @Override
-    public boolean watchDir()
-    {
+    public boolean watchDir() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_watch_dir),
                 Default.watchDir);
     }
 
     @Override
-    public void watchDir(boolean val)
-    {
+    public void watchDir(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_watch_dir), val)
                 .apply();
     }
 
     @Override
-    public String dirToWatch()
-    {
+    public String dirToWatch() {
         return fs.normalizeFileSystemPath(pref.getString(appContext.getString(R.string.pref_key_dir_to_watch),
                 Default.dirToWatch(appContext)));
     }
 
     @Override
-    public void dirToWatch(String val)
-    {
+    public void dirToWatch(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_dir_to_watch), val)
                 .apply();
@@ -906,150 +822,130 @@ public class SettingsRepositoryImpl implements SettingsRepository
     }
 
     @Override
-    public int maxDownloadSpeedLimit()
-    {
+    public int maxDownloadSpeedLimit() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_download_speed),
                 Default.maxDownloadSpeedLimit);
     }
 
     @Override
-    public void maxDownloadSpeedLimit(int val)
-    {
+    public void maxDownloadSpeedLimit(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_download_speed), val)
                 .apply();
     }
 
     @Override
-    public int maxUploadSpeedLimit()
-    {
+    public int maxUploadSpeedLimit() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_upload_speed),
                 Default.maxUploadSpeedLimit);
     }
 
     @Override
-    public void maxUploadSpeedLimit(int val)
-    {
+    public void maxUploadSpeedLimit(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_upload_speed), val)
                 .apply();
     }
 
     @Override
-    public int maxConnections()
-    {
+    public int maxConnections() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_connections),
                 Default.maxConnections);
     }
 
     @Override
-    public void maxConnections(int val)
-    {
+    public void maxConnections(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_connections), val)
                 .apply();
     }
 
     @Override
-    public int maxConnectionsPerTorrent()
-    {
+    public int maxConnectionsPerTorrent() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_connections_per_torrent),
                 Default.maxConnectionsPerTorrent);
     }
 
     @Override
-    public void maxConnectionsPerTorrent(int val)
-    {
+    public void maxConnectionsPerTorrent(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_connections_per_torrent), val)
                 .apply();
     }
 
     @Override
-    public int maxUploadsPerTorrent()
-    {
+    public int maxUploadsPerTorrent() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_uploads_per_torrent),
                 Default.maxUploadsPerTorrent);
     }
 
     @Override
-    public void maxUploadsPerTorrent(int val)
-    {
+    public void maxUploadsPerTorrent(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_uploads_per_torrent), val)
                 .apply();
     }
 
     @Override
-    public int maxActiveUploads()
-    {
+    public int maxActiveUploads() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_active_uploads),
                 Default.maxActiveUploads);
     }
 
     @Override
-    public void maxActiveUploads(int val)
-    {
+    public void maxActiveUploads(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_active_uploads), val)
                 .apply();
     }
 
     @Override
-    public int maxActiveDownloads()
-    {
+    public int maxActiveDownloads() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_active_downloads),
                 Default.maxActiveDownloads);
     }
 
     @Override
-    public void maxActiveDownloads(int val)
-    {
+    public void maxActiveDownloads(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_active_downloads), val)
                 .apply();
     }
 
     @Override
-    public int maxActiveTorrents()
-    {
+    public int maxActiveTorrents() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_active_torrents),
                 Default.maxActiveTorrents);
     }
 
     @Override
-    public void maxActiveTorrents(int val)
-    {
+    public void maxActiveTorrents(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_active_torrents), val)
                 .apply();
     }
 
     @Override
-    public boolean anonymousMode()
-    {
+    public boolean anonymousMode() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_anonymous_mode),
                 Default.anonymousMode);
     }
 
     @Override
-    public void anonymousMode(boolean val)
-    {
+    public void anonymousMode(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_anonymous_mode), val)
                 .apply();
     }
 
     @Override
-    public boolean seedingOutgoingConnections()
-    {
+    public boolean seedingOutgoingConnections() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_seeding_outgoing_connections),
                 Default.seedingOutgoingConnections);
     }
 
     @Override
-    public void seedingOutgoingConnections(boolean val)
-    {
+    public void seedingOutgoingConnections(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_seeding_outgoing_connections), val)
                 .apply();
@@ -1082,480 +978,416 @@ public class SettingsRepositoryImpl implements SettingsRepository
     }
 
     @Override
-    public boolean autoManage()
-    {
+    public boolean autoManage() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_auto_manage),
                 Default.autoManage);
     }
 
     @Override
-    public void autoManage(boolean val)
-    {
+    public void autoManage(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_auto_manage), val)
                 .apply();
     }
 
     @Override
-    public int proxyType()
-    {
+    public int proxyType() {
         return pref.getInt(appContext.getString(R.string.pref_key_proxy_type),
                 Default.proxyType);
     }
 
     @Override
-    public void proxyType(int val)
-    {
+    public void proxyType(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_proxy_type), val)
                 .apply();
     }
 
     @Override
-    public String proxyAddress()
-    {
+    public String proxyAddress() {
         return pref.getString(appContext.getString(R.string.pref_key_proxy_address),
                 Default.proxyAddress);
     }
 
     @Override
-    public void proxyAddress(String val)
-    {
+    public void proxyAddress(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_proxy_address), val)
                 .apply();
     }
 
     @Override
-    public int proxyPort()
-    {
+    public int proxyPort() {
         return pref.getInt(appContext.getString(R.string.pref_key_proxy_port),
                 Default.proxyPort);
     }
 
     @Override
-    public void proxyPort(int val)
-    {
+    public void proxyPort(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_proxy_port), val)
                 .apply();
     }
 
     @Override
-    public boolean proxyPeersToo()
-    {
+    public boolean proxyPeersToo() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_proxy_peers_too),
                 Default.proxyPeersToo);
     }
 
     @Override
-    public void proxyPeersToo(boolean val)
-    {
+    public void proxyPeersToo(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_proxy_peers_too), val)
                 .apply();
     }
 
     @Override
-    public boolean proxyRequiresAuth()
-    {
+    public boolean proxyRequiresAuth() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_proxy_requires_auth),
                 Default.proxyRequiresAuth);
     }
 
     @Override
-    public void proxyRequiresAuth(boolean val)
-    {
+    public void proxyRequiresAuth(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_proxy_requires_auth), val)
                 .apply();
     }
 
     @Override
-    public String proxyLogin()
-    {
+    public String proxyLogin() {
         return pref.getString(appContext.getString(R.string.pref_key_proxy_login),
                 Default.proxyLogin);
     }
 
     @Override
-    public void proxyLogin(String val)
-    {
+    public void proxyLogin(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_proxy_login), val)
                 .apply();
     }
 
     @Override
-    public String proxyPassword()
-    {
+    public String proxyPassword() {
         return pref.getString(appContext.getString(R.string.pref_key_proxy_password),
                 Default.proxyPassword);
     }
 
     @Override
-    public void proxyPassword(String val)
-    {
+    public void proxyPassword(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_proxy_password), val)
                 .apply();
     }
 
     @Override
-    public boolean applyProxy()
-    {
+    public boolean applyProxy() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_apply_proxy),
                 Default.applyProxy);
     }
 
     @Override
-    public void applyProxy(boolean val)
-    {
+    public void applyProxy(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_apply_proxy), val)
                 .apply();
     }
 
     @Override
-    public boolean enableSchedulingStart()
-    {
+    public boolean enableSchedulingStart() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start),
                 Default.enableSchedulingStart);
     }
 
     @Override
-    public void enableSchedulingStart(boolean val)
-    {
+    public void enableSchedulingStart(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_scheduling_start), val)
                 .apply();
     }
 
     @Override
-    public boolean enableSchedulingShutdown()
-    {
+    public boolean enableSchedulingShutdown() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown),
                 Default.enableSchedulingShutdown);
     }
 
     @Override
-    public void enableSchedulingShutdown(boolean val)
-    {
+    public void enableSchedulingShutdown(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_scheduling_shutdown), val)
                 .apply();
     }
 
     @Override
-    public int schedulingStartTime()
-    {
+    public int schedulingStartTime() {
         return pref.getInt(appContext.getString(R.string.pref_key_scheduling_start_time),
                 Default.schedulingStartTime);
     }
 
     @Override
-    public void schedulingStartTime(int val)
-    {
+    public void schedulingStartTime(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_scheduling_start_time), val)
                 .apply();
     }
 
     @Override
-    public int schedulingShutdownTime()
-    {
+    public int schedulingShutdownTime() {
         return pref.getInt(appContext.getString(R.string.pref_key_scheduling_shutdown_time),
                 Default.schedulingShutdownTime);
     }
 
     @Override
-    public void schedulingShutdownTime(int val)
-    {
+    public void schedulingShutdownTime(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_scheduling_shutdown_time), val)
                 .apply();
     }
 
     @Override
-    public boolean schedulingRunOnlyOnce()
-    {
+    public boolean schedulingRunOnlyOnce() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_run_only_once),
                 Default.schedulingRunOnlyOnce);
     }
 
     @Override
-    public void schedulingRunOnlyOnce(boolean val)
-    {
+    public void schedulingRunOnlyOnce(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_scheduling_run_only_once), val)
                 .apply();
     }
 
     @Override
-    public boolean schedulingSwitchWiFi()
-    {
+    public boolean schedulingSwitchWiFi() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_scheduling_switch_wifi),
                 Default.schedulingSwitchWiFi);
     }
 
     @Override
-    public void schedulingSwitchWiFi(boolean val)
-    {
+    public void schedulingSwitchWiFi(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_scheduling_switch_wifi), val)
                 .apply();
     }
 
     @Override
-    public long feedItemKeepTime()
-    {
+    public long feedItemKeepTime() {
         return pref.getLong(appContext.getString(R.string.pref_key_feed_keep_items_time),
                 Default.feedItemKeepTime);
     }
 
     @Override
-    public void feedItemKeepTime(long val)
-    {
+    public void feedItemKeepTime(long val) {
         pref.edit()
                 .putLong(appContext.getString(R.string.pref_key_feed_keep_items_time), val)
                 .apply();
     }
 
     @Override
-    public boolean autoRefreshFeeds()
-    {
+    public boolean autoRefreshFeeds() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh),
                 Default.autoRefreshFeeds);
     }
 
     @Override
-    public void autoRefreshFeeds(boolean val)
-    {
+    public void autoRefreshFeeds(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh), val)
                 .apply();
     }
 
     @Override
-    public long refreshFeedsInterval()
-    {
+    public long refreshFeedsInterval() {
         return pref.getLong(appContext.getString(R.string.pref_key_feed_refresh_interval),
                 Default.refreshFeedsInterval);
     }
 
     @Override
-    public void refreshFeedsInterval(long val)
-    {
+    public void refreshFeedsInterval(long val) {
         pref.edit()
                 .putLong(appContext.getString(R.string.pref_key_feed_refresh_interval), val)
                 .apply();
     }
 
     @Override
-    public boolean autoRefreshFeedsUnmeteredConnectionsOnly()
-    {
+    public boolean autoRefreshFeedsUnmeteredConnectionsOnly() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only),
                 Default.autoRefreshFeedsUnmeteredConnectionsOnly);
     }
 
     @Override
-    public void autoRefreshFeedsUnmeteredConnectionsOnly(boolean val)
-    {
+    public void autoRefreshFeedsUnmeteredConnectionsOnly(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only), val)
                 .apply();
     }
 
     @Override
-    public boolean autoRefreshFeedsEnableRoaming()
-    {
+    public boolean autoRefreshFeedsEnableRoaming() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh_enable_roaming),
                 Default.autoRefreshFeedsEnableRoaming);
     }
 
     @Override
-    public void autoRefreshFeedsEnableRoaming(boolean val)
-    {
+    public void autoRefreshFeedsEnableRoaming(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_feed_auto_refresh_enable_roaming), val)
                 .apply();
     }
 
     @Override
-    public boolean feedStartTorrents()
-    {
+    public boolean feedStartTorrents() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_feed_start_torrents),
                 Default.feedStartTorrents);
     }
 
     @Override
-    public void feedStartTorrents(boolean val)
-    {
+    public void feedStartTorrents(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_feed_start_torrents), val)
                 .apply();
     }
 
     @Override
-    public boolean feedRemoveDuplicates()
-    {
+    public boolean feedRemoveDuplicates() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_feed_remove_duplicates),
                 Default.feedRemoveDuplicates);
     }
 
     @Override
-    public void feedRemoveDuplicates(boolean val)
-    {
+    public void feedRemoveDuplicates(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_feed_remove_duplicates), val)
                 .apply();
     }
 
     @Override
-    public boolean enableStreaming()
-    {
+    public boolean enableStreaming() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_streaming_enable),
                 Default.enableStreaming);
     }
 
     @Override
-    public void enableStreaming(boolean val)
-    {
+    public void enableStreaming(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_streaming_enable), val)
                 .apply();
     }
 
     @Override
-    public String streamingHostname()
-    {
+    public String streamingHostname() {
         return pref.getString(appContext.getString(R.string.pref_key_streaming_hostname),
                 Default.streamingHostname);
     }
 
     @Override
-    public void streamingHostname(String val)
-    {
+    public void streamingHostname(String val) {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_streaming_hostname), val)
                 .apply();
     }
 
     @Override
-    public int streamingPort()
-    {
+    public int streamingPort() {
         return pref.getInt(appContext.getString(R.string.pref_key_streaming_port),
                 Default.streamingPort);
     }
 
     @Override
-    public void streamingPort(int val)
-    {
+    public void streamingPort(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_streaming_port), val)
                 .apply();
     }
 
     @Override
-    public boolean logging()
-    {
+    public boolean logging() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_enable_logging),
                 Default.logging);
     }
 
     @Override
-    public void logging(boolean val)
-    {
+    public void logging(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_enable_logging), val)
                 .apply();
     }
 
     @Override
-    public int maxLogSize()
-    {
+    public int maxLogSize() {
         return pref.getInt(appContext.getString(R.string.pref_key_max_log_size),
                 Default.maxLogSize);
     }
 
     @Override
-    public void maxLogSize(int val)
-    {
+    public void maxLogSize(int val) {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_log_size), val)
                 .apply();
     }
 
     @Override
-    public boolean logSessionFilter()
-    {
+    public boolean logSessionFilter() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_log_session_filter),
                 Default.logSessionFilter);
     }
 
     @Override
-    public void logSessionFilter(boolean val)
-    {
+    public void logSessionFilter(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_log_session_filter), val)
                 .apply();
     }
 
     @Override
-    public boolean logDhtFilter()
-    {
+    public boolean logDhtFilter() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_log_dht_filter),
                 Default.logDhtFilter);
     }
 
     @Override
-    public void logDhtFilter(boolean val)
-    {
+    public void logDhtFilter(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_log_dht_filter), val)
                 .apply();
     }
 
     @Override
-    public boolean logPeerFilter()
-    {
+    public boolean logPeerFilter() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_log_peer_filter),
                 Default.logPeerFilter);
     }
 
     @Override
-    public void logPeerFilter(boolean val)
-    {
+    public void logPeerFilter(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_log_peer_filter), val)
                 .apply();
     }
 
     @Override
-    public boolean logPortmapFilter()
-    {
+    public boolean logPortmapFilter() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_log_portmap_filter),
                 Default.logPortmapFilter);
     }
 
     @Override
-    public void logPortmapFilter(boolean val)
-    {
+    public void logPortmapFilter(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_log_portmap_filter), val)
                 .apply();
     }
 
     @Override
-    public boolean logTorrentFilter()
-    {
+    public boolean logTorrentFilter() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_log_torrent_filter),
                 Default.logTorrentFilter);
     }
 
     @Override
-    public void logTorrentFilter(boolean val)
-    {
+    public void logTorrentFilter(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_log_torrent_filter), val)
                 .apply();
