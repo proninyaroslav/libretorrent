@@ -467,8 +467,8 @@
     <string name="pref_enc_mode_entries_0">Предпочитать шифрование</string>
     <string name="pref_enc_mode_entries_1">Требовать шифрование</string>
     <string name="pref_enc_mode_entries_2">Отключить шифрование</string>
-    <string name="pref_enc_in_connections_title">Исходящие соединения</string>
-    <string name="pref_enc_out_connections_title">Входящие соединения</string>
+    <string name="pref_enc_in_connections_title">Входящие соединения</string>
+    <string name="pref_enc_out_connections_title">Исходящие соединения</string>
     <string name="pref_ip_filtering_category">IP фильтр</string>
     <string name="pref_enable_ip_filtering_title">Включить IP фильтр</string>
     <string name="pref_enable_ip_filtering_summary">В зависимости от размера файла, применение фильтра может занять некоторое время при запуске приложения. (Увеличивает использование памяти.)</string>

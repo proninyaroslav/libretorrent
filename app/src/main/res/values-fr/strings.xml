@@ -582,4 +582,9 @@
     <string name="pref_posix_disk_io_title">E/S Disque POSIX</string>
     <string name="apply_settings_after_reboot">Les changements seront appliqué après le redémarrage de l\'application.</string>
     <string name="pref_posix_disk_io_summary">Note : option à utiliser que dans des situations particulières, comme la prise en charge de certains systèmes de fichier de carte SD. Active une simple E/S de disque POSIX, utilisée par les systèmes ne possédant pas d\'espace d\'adressage virtuel 64-bits ou ne supportant pas les fichiers mappés en mémoire.</string>
+    <string name="torrent_version_entries_v1_only">V1 seulement</string>
+    <string name="torrent_version_entries_v2_only">V2 seulement</string>
+    <string name="go_to_folder">Aller au dossier</string>
+    <string name="torrent_version">Version torrent</string>
+    <string name="torrent_version_entries_hybrid">Hybride</string>
 </resources>
