@@ -1,3 +1,8 @@
+### Version 3.5.2 (2024-09-15)
+
+* The encryption option is divided into separate ones for incoming and outgoing connections
+* Fixed a bug where disabling the option to encrypt incoming or outgoing connections did not actually change the settings in some cases
+
 ### Version 3.5.1 (2024-07-31)
 
 * Added the option to create V1/V2/hybrid torrents
