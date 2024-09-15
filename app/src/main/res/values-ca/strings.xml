@@ -582,9 +582,4 @@
     <string name="share_tracker_url">Comparteix l\'URL…</string>
     <string name="restore_feed_channels_backup">Restaura la còpia de seguretat</string>
     <string name="save_torrent_file">Desa el fitxer torrent</string>
-    <string name="go_to_folder"></string>
-    <string name="torrent_version_entries_hybrid"></string>
-    <string name="torrent_version"></string>
-    <string name="torrent_version_entries_v1_only"></string>
-    <string name="torrent_version_entries_v2_only"></string>
 </resources>

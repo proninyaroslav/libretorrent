@@ -582,9 +582,4 @@
 \n১. যখন টরেন্ট যোগ করা হয়, সহজাত তালিকা টরেন্টের তালিকায় স্বয়ংক্রিয়ভাবে যুক্ত হয়ে যায়।
 \n২. ম্যাগনেট সংযোগ আনার জন্য ব্যবহৃত হয়।</string>
     <string name="pref_posix_disk_io_summary">মনে রেখো: এই পছন্দটি নির্দিষ্ট কিছু অবস্থাতেই শুধু কাজ করে, যেমন এসডি কার্ড নথিব্যবস্থায়। একটি সহজ পোজিক্স ডিস্ক ইন/আউ, ব্যবহৃত হয় সেই ব্যবস্থাগুলোর জন্য যেগুলো ৬৪-বিট কৃত্রিম ঠিকানা ব্যবহার করতে অপারগ বা মেমরি ম্যাপকৃত নথি সমর্থন করে না।</string>
-    <string name="go_to_folder"></string>
-    <string name="torrent_version"></string>
-    <string name="torrent_version_entries_hybrid"></string>
-    <string name="torrent_version_entries_v2_only"></string>
-    <string name="torrent_version_entries_v1_only"></string>
 </resources>

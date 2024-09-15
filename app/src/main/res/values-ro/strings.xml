@@ -584,9 +584,4 @@
     <string name="apply_settings_after_reboot">Schimbările vor fi aplicate după repornirea aplicației.</string>
     <string name="pref_posix_disk_io_title">I/O Disc POSIX</string>
     <string name="pref_posix_disk_io_summary">Notă: această opțiune se folosește doar in anumite situații, cum ar fi suport pentru anumite sisteme de fișiere pentru card SD. Permite suport pentru I/O Disc POSIX, folosit pentru sistemele care nu au spațiu de adresă virtual de 64 de biți sau care nu suporta fișiere mapate in memorie.</string>
-    <string name="go_to_folder"></string>
-    <string name="torrent_version_entries_v1_only"></string>
-    <string name="torrent_version_entries_hybrid"></string>
-    <string name="torrent_version_entries_v2_only"></string>
-    <string name="torrent_version"></string>
 </resources>
