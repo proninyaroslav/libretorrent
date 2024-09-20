@@ -51,7 +51,7 @@ Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/lib
 
 ![languages](https://hosted.weblate.org/widgets/libretorrent/-/multi-auto.svg)
 
-## Donations
+## 💰 Donations
 
 The development is 100% funded by heroic people like you. If you have problems with payment or you want to donate in another way, contact me at `proninyaroslav@mail.ru`. Thank you!
 
