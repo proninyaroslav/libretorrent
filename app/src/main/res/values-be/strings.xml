@@ -520,4 +520,9 @@
     <string name="apply_settings_after_reboot">Змяненні будуць ужытыя пасля перазапуску праграмы.</string>
     <string name="pref_posix_disk_io_title">Дыскавы POSIX I/O</string>
     <string name="pref_posix_disk_io_summary">Нататка: гэтую опцыю варта выкарыстоўваць толькі ў вызначаных сітуацыях, напрыклад, для падтрымкі некаторых файлавых сістэм SD-карт. Уключае просты дыскавы POSIX I/O, які выкарыстоўваецца для сістэм, якія не маюць 64-бітнай віртуальнай адраснай прасторы ці не падтрымліваюць файлы з адлюстраваннем у памяць.</string>
+    <string name="go_to_folder">Перайсці да тэчцы</string>
+    <string name="torrent_version_entries_hybrid">Гібрыд</string>
+    <string name="torrent_version_entries_v2_only">Толькі V2</string>
+    <string name="torrent_version_entries_v1_only">Толькі V1</string>
+    <string name="torrent_version">Версія торэнта</string>
 </resources>
