@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -126,7 +126,7 @@ public class BaseAlertDialog extends DialogFragment
         int resIdView = args.getInt(TAG_RES_ID_VIEW);
         boolean autoDismiss = args.getBoolean(TAG_AUTO_DISMISS);
 
-        LayoutInflater i = LayoutInflater.from(getActivity());
+        LayoutInflater i = getLayoutInflater();
         View v = null;
         if (resIdView != 0)
             v = i.inflate(resIdView, null);

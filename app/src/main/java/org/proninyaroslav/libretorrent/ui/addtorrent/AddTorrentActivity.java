@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -270,6 +270,18 @@ public class AddTorrentActivity extends AppCompatActivity
             }
             if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
                 permissionManager.setDoNotAskStorage(true);
+            }
+        } else if (event.dialogTag.equals(TAG_DECODE_EXCEPT_DIALOG)
+                || event.dialogTag.equals(TAG_FETCH_EXCEPT_DIALOG)
+                || event.dialogTag.equals(TAG_ILLEGAL_ARGUMENT_DIALOG)
+                || event.dialogTag.equals(TAG_OUT_OF_MEMORY_DIALOG)) {
+            if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
+                var fm = getSupportFragmentManager();
+                var dialog = fm.findFragmentByTag(event.dialogTag);
+                if (dialog != null) {
+                    ((BaseAlertDialog) dialog).dismiss();
+                    finish();
+                }
             }
         }
     }
