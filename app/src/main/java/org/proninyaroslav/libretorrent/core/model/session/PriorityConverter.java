@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,47 +23,49 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
+import com.frostwire.jlibtorrent.swig.byte_vector;
+
 import org.proninyaroslav.libretorrent.core.model.data.Priority;
 
 class PriorityConverter
 {
-    private static final SparseArray<org.libtorrent4j.Priority> PRIOR_TO_LIB_PRIOR = new SparseArray<>();
+    private static final SparseArray<com.frostwire.jlibtorrent.Priority> PRIOR_TO_LIB_PRIOR = new SparseArray<>();
     static {
-        PRIOR_TO_LIB_PRIOR.put(Priority.IGNORE.value(), org.libtorrent4j.Priority.IGNORE);
-        PRIOR_TO_LIB_PRIOR.put(Priority.LOW.value(), org.libtorrent4j.Priority.LOW);
-        PRIOR_TO_LIB_PRIOR.put(Priority.TWO.value(), org.libtorrent4j.Priority.TWO);
-        PRIOR_TO_LIB_PRIOR.put(Priority.THREE.value(), org.libtorrent4j.Priority.THREE);
-        PRIOR_TO_LIB_PRIOR.put(Priority.DEFAULT.value(), org.libtorrent4j.Priority.DEFAULT);
-        PRIOR_TO_LIB_PRIOR.put(Priority.FIVE.value(), org.libtorrent4j.Priority.FIVE);
-        PRIOR_TO_LIB_PRIOR.put(Priority.SIX.value(), org.libtorrent4j.Priority.SIX);
-        PRIOR_TO_LIB_PRIOR.put(Priority.TOP_PRIORITY.value(), org.libtorrent4j.Priority.TOP_PRIORITY);
+        PRIOR_TO_LIB_PRIOR.put(Priority.IGNORE.value(), com.frostwire.jlibtorrent.Priority.IGNORE);
+        PRIOR_TO_LIB_PRIOR.put(Priority.LOW.value(), com.frostwire.jlibtorrent.Priority.NORMAL);
+        PRIOR_TO_LIB_PRIOR.put(Priority.TWO.value(), com.frostwire.jlibtorrent.Priority.TWO);
+        PRIOR_TO_LIB_PRIOR.put(Priority.THREE.value(), com.frostwire.jlibtorrent.Priority.THREE);
+        PRIOR_TO_LIB_PRIOR.put(Priority.DEFAULT.value(), com.frostwire.jlibtorrent.Priority.FOUR);
+        PRIOR_TO_LIB_PRIOR.put(Priority.FIVE.value(), com.frostwire.jlibtorrent.Priority.FIVE);
+        PRIOR_TO_LIB_PRIOR.put(Priority.SIX.value(), com.frostwire.jlibtorrent.Priority.SIX);
+        PRIOR_TO_LIB_PRIOR.put(Priority.TOP_PRIORITY.value(), com.frostwire.jlibtorrent.Priority.SEVEN);
     }
 
     private static final SparseArray<Priority> LIB_PRIOR_TO_PRIOR = new SparseArray<>();
     static {
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.IGNORE.swig(), Priority.IGNORE);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.LOW.swig(), Priority.LOW);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.TWO.swig(), Priority.TWO);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.THREE.swig(), Priority.THREE);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.DEFAULT.swig(), Priority.DEFAULT);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.FIVE.swig(), Priority.FIVE);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.SIX.swig(), Priority.SIX);
-        LIB_PRIOR_TO_PRIOR.put(org.libtorrent4j.Priority.TOP_PRIORITY.swig(), Priority.TOP_PRIORITY);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.IGNORE.swig(), Priority.IGNORE);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.NORMAL.swig(), Priority.LOW);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.TWO.swig(), Priority.TWO);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.THREE.swig(), Priority.THREE);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.FOUR.swig(), Priority.DEFAULT);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.FIVE.swig(), Priority.FIVE);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.SIX.swig(), Priority.SIX);
+        LIB_PRIOR_TO_PRIOR.put(com.frostwire.jlibtorrent.Priority.SEVEN.swig(), Priority.TOP_PRIORITY);
     }
 
-    public static org.libtorrent4j.Priority[] convert(@NonNull Priority[] priorities)
+    public static com.frostwire.jlibtorrent.Priority[] convert(@NonNull Priority[] priorities)
     {
         int n = priorities.length;
-        org.libtorrent4j.Priority[] p = new org.libtorrent4j.Priority[n];
+        com.frostwire.jlibtorrent.Priority[] p = new com.frostwire.jlibtorrent.Priority[n];
         for (int i = 0; i < n; i++) {
             Priority priority = priorities[i];
             if (priority == null) {
                 p[i] = null;
                 continue;
             }
-            org.libtorrent4j.Priority converted = PRIOR_TO_LIB_PRIOR.get(priority.value());
+            com.frostwire.jlibtorrent.Priority converted = PRIOR_TO_LIB_PRIOR.get(priority.value());
             if (converted == null)
-                converted = org.libtorrent4j.Priority.DEFAULT;
+                converted = com.frostwire.jlibtorrent.Priority.NORMAL;
 
             p[i] = converted;
         }
@@ -71,12 +73,12 @@ class PriorityConverter
         return p;
     }
 
-    public static Priority[] convert(@NonNull org.libtorrent4j.Priority[] priorities)
+    public static Priority[] convert(@NonNull com.frostwire.jlibtorrent.Priority[] priorities)
     {
         int n = priorities.length;
         Priority[] p = new Priority[n];
         for (int i = 0; i < n; i++) {
-            org.libtorrent4j.Priority priority = priorities[i];
+            com.frostwire.jlibtorrent.Priority priority = priorities[i];
             if (priority == null) {
                 p[i] = null;
                 continue;
@@ -91,16 +93,26 @@ class PriorityConverter
         return p;
     }
 
-    public static org.libtorrent4j.Priority convert(@NonNull Priority priority)
+    public static Priority[] convert(@NonNull byte_vector v)
     {
-        org.libtorrent4j.Priority converted = PRIOR_TO_LIB_PRIOR.get(priority.value());
+        int size = v.size();
+        var arr = new com.frostwire.jlibtorrent.Priority[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = com.frostwire.jlibtorrent.Priority.fromSwig(v.get(i));
+        }
+        return convert(arr);
+    }
+
+    public static com.frostwire.jlibtorrent.Priority convert(@NonNull Priority priority)
+    {
+        com.frostwire.jlibtorrent.Priority converted = PRIOR_TO_LIB_PRIOR.get(priority.value());
         if (converted == null)
-            converted = org.libtorrent4j.Priority.DEFAULT;
+            converted = com.frostwire.jlibtorrent.Priority.FOUR;
 
         return converted;
     }
 
-    public static Priority convert(@NonNull org.libtorrent4j.Priority priority)
+    public static Priority convert(@NonNull com.frostwire.jlibtorrent.Priority priority)
     {
         Priority converted = LIB_PRIOR_TO_PRIOR.get(priority.swig());
         if (converted == null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,37 +29,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 
-import org.libtorrent4j.AlertListener;
-import org.libtorrent4j.AnnounceEntry;
-import org.libtorrent4j.ErrorCode;
-import org.libtorrent4j.FileStorage;
-import org.libtorrent4j.MoveFlags;
-import org.libtorrent4j.PieceIndexBitfield;
-import org.libtorrent4j.SessionHandle;
-import org.libtorrent4j.SessionManager;
-import org.libtorrent4j.TorrentFlags;
-import org.libtorrent4j.TorrentHandle;
-import org.libtorrent4j.TorrentInfo;
-import org.libtorrent4j.TorrentStatus;
-import org.libtorrent4j.Vectors;
-import org.libtorrent4j.alerts.Alert;
-import org.libtorrent4j.alerts.AlertType;
-import org.libtorrent4j.alerts.FastresumeRejectedAlert;
-import org.libtorrent4j.alerts.FileErrorAlert;
-import org.libtorrent4j.alerts.MetadataFailedAlert;
-import org.libtorrent4j.alerts.MetadataReceivedAlert;
-import org.libtorrent4j.alerts.PieceFinishedAlert;
-import org.libtorrent4j.alerts.ReadPieceAlert;
-import org.libtorrent4j.alerts.SaveResumeDataAlert;
-import org.libtorrent4j.alerts.StateChangedAlert;
-import org.libtorrent4j.alerts.TorrentAlert;
-import org.libtorrent4j.alerts.TorrentErrorAlert;
-import org.libtorrent4j.swig.announce_entry;
-import org.libtorrent4j.swig.byte_vector;
-import org.libtorrent4j.swig.libtorrent;
-import org.libtorrent4j.swig.libtorrent_errors;
-import org.libtorrent4j.swig.peer_info_vector;
-import org.libtorrent4j.swig.torrent_handle;
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.AnnounceEntry;
+import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.FileStorage;
+import com.frostwire.jlibtorrent.MoveFlags;
+import com.frostwire.jlibtorrent.PieceIndexBitfield;
+import com.frostwire.jlibtorrent.SessionHandle;
+import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.TorrentFlags;
+import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.TorrentStatus;
+import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.FastresumeRejectedAlert;
+import com.frostwire.jlibtorrent.alerts.FileErrorAlert;
+import com.frostwire.jlibtorrent.alerts.MetadataFailedAlert;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.PieceFinishedAlert;
+import com.frostwire.jlibtorrent.alerts.ReadPieceAlert;
+import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
+import com.frostwire.jlibtorrent.alerts.StateChangedAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentErrorAlert;
+import com.frostwire.jlibtorrent.swig.announce_entry;
+import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.libtorrent_errors;
+import com.frostwire.jlibtorrent.swig.peer_info_vector;
+import com.frostwire.jlibtorrent.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.FreeSpaceException;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
@@ -160,7 +160,7 @@ class TorrentDownloadImpl implements TorrentDownload
         this.autoManaged = autoManaged;
         this.listeners = listeners;
         this.th = handle;
-        this.name = new AtomicReference<>(handle.getName());
+        this.name = new AtomicReference<>(handle.name());
         partsFile = getPartsFile();
         listener = new InnerListener();
         sessionManager.addListener(listener);
@@ -216,7 +216,7 @@ class TorrentDownloadImpl implements TorrentDownload
             if (!(alert instanceof TorrentAlert<?>))
                 return;
 
-            if (!((TorrentAlert<?>) alert).handle().swig().eq(th.swig()))
+            if (!((TorrentAlert<?>) alert).handle().swig().op_eq(th.swig()))
                 return;
 
             AlertType type = alert.type();
@@ -307,7 +307,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
         if (alert.type() == AlertType.FASTRESUME_REJECTED) {
             resumeDataRejected = true;
-            if (((FastresumeRejectedAlert)alert).error().getValue() ==
+            if (((FastresumeRejectedAlert)alert).error().value() ==
                     libtorrent_errors.mismatching_file_size.swigValue()) {
                 hasMissingFiles = true;
             }
@@ -376,7 +376,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 FastresumeRejectedAlert resumeRejectedAlert = (FastresumeRejectedAlert)alert;
                 ErrorCode error = resumeRejectedAlert.error();
                 if (error.isError()) {
-                    if (error.getValue() == libtorrent_errors.mismatching_file_size.swigValue())
+                    if (error.value() == libtorrent_errors.mismatching_file_size.swigValue())
                         errorMsg = "file sizes mismatch";
                     else
                         errorMsg = "fast resume data was rejected, reason: " + SessionErrors.getErrorMsg(error);
@@ -443,7 +443,7 @@ class TorrentDownloadImpl implements TorrentDownload
     {
         Exception err = null;
         if (alert.error().isError())
-            err = new Exception(alert.error().getMessage());
+            err = new Exception(alert.error().message());
         ReadPieceInfo info = new ReadPieceInfo(alert.piece(),
                 alert.size(),
                 alert.bufferPtr(),
@@ -728,7 +728,7 @@ class TorrentDownloadImpl implements TorrentDownload
         if (torrent == null)
             return;
 
-        org.libtorrent4j.Priority[] p = PriorityConverter.convert(priorities);
+        com.frostwire.jlibtorrent.Priority[] p = PriorityConverter.convert(priorities);
         /* Priorities for all files, priorities list for some selected files not supported */
         if (ti.numFiles() != p.length)
             return;
@@ -941,7 +941,7 @@ class TorrentDownloadImpl implements TorrentDownload
         int size = v.size();
         ArrayList<AdvancedPeerInfo> l = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
-            l.add(new AdvancedPeerInfo(v.get(i)));
+            l.add(new AdvancedPeerInfo(v.get(i), th_swig.status()));
 
         return l;
     }
@@ -1021,7 +1021,7 @@ class TorrentDownloadImpl implements TorrentDownload
     }
 
     @VisibleForTesting
-    public static String getFileIndicesBep53(org.libtorrent4j.Priority[] priorities)
+    public static String getFileIndicesBep53(com.frostwire.jlibtorrent.Priority[] priorities)
     {
         ArrayList<String> buf = new ArrayList<>();
         int startIndex = -1;
@@ -1029,7 +1029,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
         String indicesStr;
         for (int i = 0; i < priorities.length; i++) {
-            if (priorities[i].swig() == org.libtorrent4j.Priority.IGNORE.swig()) {
+            if (priorities[i].swig() == com.frostwire.jlibtorrent.Priority.IGNORE.swig()) {
                 if ((indicesStr = indicesToStr(startIndex, endIndex)) != null)
                     buf.add(indicesStr);
                 startIndex = -1;
@@ -1586,7 +1586,7 @@ class TorrentDownloadImpl implements TorrentDownload
                 for (int p = piece; p <= stream.lastFilePiece; p++) {
                     /* Set max priority to first found piece that is not confirmed finished */
                     if (!operationNotAllowed() && !th.havePiece(p)) {
-                        th.piecePriority(p, org.libtorrent4j.Priority.TOP_PRIORITY);
+                        th.piecePriority(p, com.frostwire.jlibtorrent.Priority.SEVEN);
                         th.setPieceDeadline(p, DEFAULT_PIECE_DEADLINE);
                         preloadPieces--;
                         if (preloadPieces == 0)
@@ -1596,7 +1596,7 @@ class TorrentDownloadImpl implements TorrentDownload
 
             } else {
                 if (!operationNotAllowed() && !th.havePiece(piece)) {
-                    th.piecePriority(piece, org.libtorrent4j.Priority.TOP_PRIORITY);
+                    th.piecePriority(piece, com.frostwire.jlibtorrent.Priority.SEVEN);
                     th.setPieceDeadline(piece, DEFAULT_PIECE_DEADLINE);
                 }
             }
@@ -1665,7 +1665,7 @@ class TorrentDownloadImpl implements TorrentDownload
             @Override
             public void alert(Alert<?> alert) {
                 torrent_handle alertTh = ((TorrentAlert<?>) alert).swig().getHandle();
-                if (alertTh == null || !alertTh.is_valid() || alertTh.info_hash().ne(th.swig().info_hash())) {
+                if (alertTh == null || !alertTh.is_valid() || alertTh.info_hash().op_ne(th.swig().info_hash())) {
                     return;
                 }
                 AlertType type = alert.type();

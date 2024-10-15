@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2023 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,46 +26,46 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.io.FileUtils;
-import org.libtorrent4j.AlertListener;
-import org.libtorrent4j.AnnounceEntry;
-import org.libtorrent4j.BDecodeNode;
-import org.libtorrent4j.ErrorCode;
-import org.libtorrent4j.Pair;
-import org.libtorrent4j.SessionHandle;
-import org.libtorrent4j.SessionManager;
-import org.libtorrent4j.SessionParams;
-import org.libtorrent4j.SettingsPack;
-import org.libtorrent4j.Sha1Hash;
-import org.libtorrent4j.TcpEndpoint;
-import org.libtorrent4j.TorrentFlags;
-import org.libtorrent4j.TorrentHandle;
-import org.libtorrent4j.TorrentInfo;
-import org.libtorrent4j.Vectors;
-import org.libtorrent4j.alerts.Alert;
-import org.libtorrent4j.alerts.AlertType;
-import org.libtorrent4j.alerts.ListenFailedAlert;
-import org.libtorrent4j.alerts.MetadataReceivedAlert;
-import org.libtorrent4j.alerts.PortmapErrorAlert;
-import org.libtorrent4j.alerts.SaveResumeDataAlert;
-import org.libtorrent4j.alerts.SessionErrorAlert;
-import org.libtorrent4j.alerts.TorrentAlert;
-import org.libtorrent4j.swig.add_torrent_params;
-import org.libtorrent4j.swig.alert;
-import org.libtorrent4j.swig.alert_category_t;
-import org.libtorrent4j.swig.announce_entry;
-import org.libtorrent4j.swig.bdecode_node;
-import org.libtorrent4j.swig.byte_vector;
-import org.libtorrent4j.swig.entry;
-import org.libtorrent4j.swig.error_code;
-import org.libtorrent4j.swig.ip_filter;
-import org.libtorrent4j.swig.libtorrent;
-import org.libtorrent4j.swig.session_params;
-import org.libtorrent4j.swig.settings_pack;
-import org.libtorrent4j.swig.sha1_hash;
-import org.libtorrent4j.swig.string_vector;
-import org.libtorrent4j.swig.tcp_endpoint_vector;
-import org.libtorrent4j.swig.torrent_flags_t;
-import org.libtorrent4j.swig.torrent_handle;
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.AnnounceEntry;
+import com.frostwire.jlibtorrent.BDecodeNode;
+import com.frostwire.jlibtorrent.ErrorCode;
+import com.frostwire.jlibtorrent.Pair;
+import com.frostwire.jlibtorrent.SessionHandle;
+import com.frostwire.jlibtorrent.SessionManager;
+import com.frostwire.jlibtorrent.SessionParams;
+import com.frostwire.jlibtorrent.SettingsPack;
+import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TcpEndpoint;
+import com.frostwire.jlibtorrent.TorrentFlags;
+import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.TorrentInfo;
+import com.frostwire.jlibtorrent.Vectors;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.ListenFailedAlert;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.frostwire.jlibtorrent.alerts.PortmapErrorAlert;
+import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
+import com.frostwire.jlibtorrent.alerts.SessionErrorAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentAlert;
+import com.frostwire.jlibtorrent.swig.add_torrent_params;
+import com.frostwire.jlibtorrent.swig.alert;
+import com.frostwire.jlibtorrent.swig.alert_category_t;
+import com.frostwire.jlibtorrent.swig.announce_entry;
+import com.frostwire.jlibtorrent.swig.bdecode_node;
+import com.frostwire.jlibtorrent.swig.byte_vector;
+import com.frostwire.jlibtorrent.swig.entry;
+import com.frostwire.jlibtorrent.swig.error_code;
+import com.frostwire.jlibtorrent.swig.ip_filter;
+import com.frostwire.jlibtorrent.swig.libtorrent;
+import com.frostwire.jlibtorrent.swig.session_params;
+import com.frostwire.jlibtorrent.swig.settings_pack;
+import com.frostwire.jlibtorrent.swig.sha1_hash;
+import com.frostwire.jlibtorrent.swig.string_vector;
+import com.frostwire.jlibtorrent.swig.tcp_endpoint_vector;
+import com.frostwire.jlibtorrent.swig.torrent_flags_t;
+import com.frostwire.jlibtorrent.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsException;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
@@ -429,29 +429,30 @@ public class TorrentSessionImpl extends SessionManager
         if (operationNotAllowed())
             return null;
 
-        org.libtorrent4j.AddTorrentParams params = parseMagnetUri(uri);
-        org.libtorrent4j.AddTorrentParams resParams = fetchMagnet(params);
+        com.frostwire.jlibtorrent.AddTorrentParams params = parseMagnetUri(uri);
+        com.frostwire.jlibtorrent.AddTorrentParams resParams = fetchMagnet(params);
         if (resParams == null)
             return null;
 
-        List<Priority> priorities = Arrays.asList(PriorityConverter.convert(resParams.filePriorities()));
+        List<Priority> priorities = Arrays.asList(PriorityConverter.convert(
+                resParams.swig().get_file_priorities()));
 
         return new MagnetInfo(uri, resParams.getInfoHashes().getBest().toHex(),
-                resParams.getName(), priorities);
+                resParams.name(), priorities);
     }
 
     @Override
     public MagnetInfo parseMagnet(@NonNull String uri)
     {
-        org.libtorrent4j.AddTorrentParams p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(uri);
+        com.frostwire.jlibtorrent.AddTorrentParams p = com.frostwire.jlibtorrent.AddTorrentParams.parseMagnetUri(uri);
         String sha1hash = p.getInfoHashes().getBest().toHex();
-        String name = (TextUtils.isEmpty(p.getName()) ? sha1hash : p.getName());
+        String name = (TextUtils.isEmpty(p.name()) ? sha1hash : p.name());
 
         return new MagnetInfo(uri, sha1hash, name,
-                Arrays.asList(PriorityConverter.convert(p.filePriorities())));
+                Arrays.asList(PriorityConverter.convert(p.swig().get_file_priorities())));
     }
 
-    private org.libtorrent4j.AddTorrentParams fetchMagnet(org.libtorrent4j.AddTorrentParams params) throws Exception
+    private com.frostwire.jlibtorrent.AddTorrentParams fetchMagnet(com.frostwire.jlibtorrent.AddTorrentParams params) throws Exception
     {
         if (operationNotAllowed())
             return null;
@@ -508,10 +509,10 @@ public class TorrentSessionImpl extends SessionManager
             throw new Exception(e);
         }
 
-        return new org.libtorrent4j.AddTorrentParams(p);
+        return new com.frostwire.jlibtorrent.AddTorrentParams(p);
     }
 
-    private org.libtorrent4j.AddTorrentParams parseMagnetUri(String uri)
+    private com.frostwire.jlibtorrent.AddTorrentParams parseMagnetUri(String uri)
     {
         error_code ec = new error_code();
         add_torrent_params p = libtorrent.parse_magnet_uri(uri, ec);
@@ -519,7 +520,7 @@ public class TorrentSessionImpl extends SessionManager
         if (ec.value() != 0)
             throw new IllegalArgumentException(ec.message());
 
-        return new org.libtorrent4j.AddTorrentParams(p);
+        return new com.frostwire.jlibtorrent.AddTorrentParams(p);
     }
 
     @Override
@@ -529,7 +530,7 @@ public class TorrentSessionImpl extends SessionManager
             return;
 
         magnets.remove(infoHash);
-        TorrentHandle th = find(Sha1Hash.parseHex(infoHash));
+        TorrentHandle th = find(new Sha1Hash(infoHash));
         if (th != null && th.isValid())
             remove(th, SessionHandle.DELETE_FILES);
     }
@@ -550,14 +551,11 @@ public class TorrentSessionImpl extends SessionManager
         }
         task.setFirstLastPiecePriority(params.firstLastPiecePriority);
 
-        // TODO: temporary disable due to the bug: https://github.com/aldenml/libtorrent4j/pull/244
-        if (false) {
-            try {
-                mergeTrackersAndSeeds(id, params, bencode);
-                task.saveResumeData(true);
-            } catch (Exception e) {
-                Log.e(TAG, "Unable to merge trackers and seeds:", e);
-            }
+        try {
+            mergeTrackersAndSeeds(id, params, bencode);
+            task.saveResumeData(true);
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to merge trackers and seeds:", e);
         }
 
         if (params.addPaused) {
@@ -568,7 +566,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     private void mergeTrackersAndSeeds(String id, AddTorrentParams params, byte[] bencode) throws IOException {
-        var th = find(Sha1Hash.parseHex(id));
+        var th = find(new Sha1Hash(id));
         if (th != null) {
             byte[] b;
             if (bencode == null) {
@@ -588,7 +586,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     private List<AnnounceEntry> extractTrackers(bdecode_node n, boolean fromMagnet) {
-        var announceNode = n.dict_find_list_ex("announce-list");
+        var announceNode = n.dict_find_list_s("announce-list");
         if (announceNode == null) {
             return new ArrayList<>();
         }
@@ -599,7 +597,7 @@ public class TorrentSessionImpl extends SessionManager
                 continue;
             }
             for (var j = 0; j < tier.list_size(); j++) {
-                AnnounceEntry e = new AnnounceEntry(tier.list_string_value_at_ex(j));
+                AnnounceEntry e = new AnnounceEntry(tier.list_string_value_at_s(j));
                 if (e.url().isEmpty()) {
                     continue;
                 }
@@ -615,7 +613,7 @@ public class TorrentSessionImpl extends SessionManager
         }
 
         if (urls.isEmpty()) {
-            AnnounceEntry e = new AnnounceEntry(n.dict_find_string_value_ex("announce-list"));
+            AnnounceEntry e = new AnnounceEntry(n.dict_find_string_value_s("announce-list"));
             e.failLimit((short) 0);
             if (fromMagnet) {
                 e.swig().setSource((short) announce_entry.tracker_source.source_magnet_link.swigValue());
@@ -637,7 +635,7 @@ public class TorrentSessionImpl extends SessionManager
     private List<String> extractUrlSeeds(bdecode_node n) {
         var urls = new ArrayList<String>();
 
-        var urlSeeds = n.dict_find_list_ex("url-list");
+        var urlSeeds = n.dict_find_list_s("url-list");
         if (urlSeeds == null) {
             return urls;
         }
@@ -1556,36 +1554,32 @@ public class TorrentSessionImpl extends SessionManager
             return;
         }
 
-        add_torrent_params p = new add_torrent_params();
+        var p = new com.frostwire.jlibtorrent.AddTorrentParams();
 
-        p.set_ti(ti.swig());
+        p.torrentInfo(ti);
         if (saveDir != null)
-            p.setSave_path(saveDir.getAbsolutePath());
+            p.savePath(saveDir.getAbsolutePath());
 
         if (priorities != null) {
             if (ti.files().numFiles() != priorities.length)
                 throw new IllegalArgumentException("Priorities count should be equals to the number of files");
 
-            byte_vector v = new byte_vector();
-            for (Priority priority : priorities) {
-                if (priority == null)
-                    v.add(org.libtorrent4j.Priority.IGNORE.swig());
-                else
-                    v.add(PriorityConverter.convert(priority).swig());
+            var list = new com.frostwire.jlibtorrent.Priority[priorities.length];
+            for (int i = 0; i < priorities.length; i++) {
+                if (priorities[i] == null) {
+                    list[i] = (com.frostwire.jlibtorrent.Priority.IGNORE);
+                } else {
+                    list[i] = (PriorityConverter.convert(priorities[i]));
+                }
             }
-
-            p.set_file_priorities(v);
+            p.filePriorities(list);
         }
 
         if (peers != null && !peers.isEmpty()) {
-            tcp_endpoint_vector v = new tcp_endpoint_vector();
-            for (TcpEndpoint endp : peers)
-                v.add(endp.swig());
-
-            p.setPeers(v);
+            p.peers(peers);
         }
 
-        torrent_flags_t flags = p.getFlags();
+        torrent_flags_t flags = p.flags();
         /* Force saving resume data */
         flags = flags.or_(TorrentFlags.NEED_SAVE_RESUME);
 
@@ -1604,11 +1598,11 @@ public class TorrentSessionImpl extends SessionManager
         else
             flags = flags.and_(TorrentFlags.PAUSED.inv());
 
-        p.setFlags(flags);
+        p.flags(flags);
 
-        addDefaultTrackers(p);
+        addDefaultTrackers(p.swig());
 
-        swig().async_add_torrent(p);
+        swig().async_add_torrent(p.swig());
     }
 
     @Override
@@ -1664,12 +1658,12 @@ public class TorrentSessionImpl extends SessionManager
     private void addDefaultTrackers(add_torrent_params p) {
         String[] defaultTrackers = getSettings().defaultTrackersList;
         if (defaultTrackers != null && defaultTrackers.length > 0) {
-            string_vector v = p.getTrackers();
+            string_vector v = p.get_trackers();
             if (v == null) {
                 v = new string_vector();
             }
             v.addAll(Arrays.asList(defaultTrackers));
-            p.setTrackers(v);
+            p.set_trackers(v);
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,15 +22,13 @@ package org.proninyaroslav.libretorrent.core.model.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.AnnounceEndpoint;
-import org.libtorrent4j.AnnounceEntry;
-import org.libtorrent4j.AnnounceInfohash;
+import com.frostwire.jlibtorrent.AnnounceEndpoint;
+import com.frostwire.jlibtorrent.AnnounceEntry;
+import com.frostwire.jlibtorrent.AnnounceInfohash;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,15 +104,16 @@ public class TrackerInfo extends AbstractInfoParcel {
                     firstTrackerMessage = messageV2;
                 }
             }
-            if (TextUtils.isEmpty(firstErrorMessage)) {
-                var errorV1 = e.infohashV1().swig().getLast_error();
-                var errorV2 = e.infohashV2().swig().getLast_error();
-                if (errorV1 != null && !TextUtils.isEmpty(errorV1.message())) {
-                    firstErrorMessage = errorV1.message();
-                } else if (errorV2 != null && !TextUtils.isEmpty(errorV2.message())) {
-                    firstErrorMessage = errorV2.message();
-                }
-            }
+            // TODO: add swig() to upstream
+//            if (TextUtils.isEmpty(firstErrorMessage)) {
+//                var errorV1 = e.infohashV1().swig().getLast_error();
+//                var errorV2 = e.infohashV2().swig().getLast_error();
+//                if (errorV1 != null && !TextUtils.isEmpty(errorV1.message())) {
+//                    firstErrorMessage = errorV1.message();
+//                } else if (errorV2 != null && !TextUtils.isEmpty(errorV2.message())) {
+//                    firstErrorMessage = errorV2.message();
+//                }
+//            }
         }
         var numEndpoints = statusMap.values().stream().reduce(0, Integer::sum);
         var numUpdating = statusMap.get(Status.UPDATING);

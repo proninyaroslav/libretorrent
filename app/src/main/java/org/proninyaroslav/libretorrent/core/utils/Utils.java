@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -58,7 +58,7 @@ import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
-import org.libtorrent4j.FileStorage;
+import com.frostwire.jlibtorrent.FileStorage;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;

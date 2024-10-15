@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,8 +24,8 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.Pair;
-import org.libtorrent4j.swig.create_flags_t;
+import com.frostwire.jlibtorrent.Pair;
+import com.frostwire.jlibtorrent.swig.create_flags_t;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 
@@ -41,7 +41,7 @@ import io.reactivex.subjects.BehaviorSubject;
 public class TorrentBuilder
 {
     private Context context;
-    private org.libtorrent4j.TorrentBuilder builder;
+    private com.frostwire.jlibtorrent.TorrentBuilder builder;
     private Predicate<String> fileNameFilter;
     private BehaviorSubject<Progress> progress = BehaviorSubject.create();
 
@@ -70,8 +70,8 @@ public class TorrentBuilder
     }
 
     public enum TorrentVersion {
-        V1_ONLY (org.libtorrent4j.TorrentBuilder.V1_ONLY),
-        V2_ONLY (org.libtorrent4j.TorrentBuilder.V2_ONLY),
+        V1_ONLY (com.frostwire.jlibtorrent.TorrentBuilder.V1_ONLY),
+        V2_ONLY (com.frostwire.jlibtorrent.TorrentBuilder.V2_ONLY),
         HYBRID (create_flags_t.from_int(0));
 
         private final create_flags_t flag;
@@ -88,7 +88,7 @@ public class TorrentBuilder
     public TorrentBuilder(@NonNull Context context)
     {
         this.context = context;
-        builder = new org.libtorrent4j.TorrentBuilder();
+        builder = new com.frostwire.jlibtorrent.TorrentBuilder();
     }
 
     public TorrentBuilder setSeedPath(Uri path) throws UnknownUriException
@@ -179,7 +179,7 @@ public class TorrentBuilder
 
     private void subscribeProgress()
     {
-        builder.listener(new org.libtorrent4j.TorrentBuilder.Listener() {
+        builder.listener(new com.frostwire.jlibtorrent.TorrentBuilder.Listener() {
             @Override
             public boolean accept(String filename)
             {

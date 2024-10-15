@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,12 +19,12 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import org.libtorrent4j.alerts.Alert;
-import org.libtorrent4j.alerts.DhtLogAlert;
-import org.libtorrent4j.alerts.LogAlert;
-import org.libtorrent4j.alerts.PeerLogAlert;
-import org.libtorrent4j.alerts.PortmapLogAlert;
-import org.libtorrent4j.alerts.TorrentLogAlert;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.DhtLogAlert;
+import com.frostwire.jlibtorrent.alerts.LogAlert;
+import com.frostwire.jlibtorrent.alerts.PeerLogAlert;
+import com.frostwire.jlibtorrent.alerts.PortmapLogAlert;
+import com.frostwire.jlibtorrent.alerts.TorrentLogAlert;
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.LogFilter;
 import org.proninyaroslav.libretorrent.core.logger.Logger;

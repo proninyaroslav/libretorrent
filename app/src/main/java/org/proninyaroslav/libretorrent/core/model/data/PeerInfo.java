@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,8 +24,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.PieceIndexBitfield;
-import org.libtorrent4j.TorrentStatus;
+import com.frostwire.jlibtorrent.PieceIndexBitfield;
+import com.frostwire.jlibtorrent.TorrentStatus;
 import org.proninyaroslav.libretorrent.core.model.session.AdvancedPeerInfo;
 
 /*

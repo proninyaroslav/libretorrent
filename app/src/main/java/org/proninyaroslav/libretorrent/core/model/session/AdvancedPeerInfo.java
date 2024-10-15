@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,12 +19,13 @@
 
 package org.proninyaroslav.libretorrent.core.model.session;
 
-import org.libtorrent4j.PeerInfo;
-import org.libtorrent4j.PieceIndexBitfield;
-import org.libtorrent4j.swig.peer_info;
+import com.frostwire.jlibtorrent.PeerInfo;
+import com.frostwire.jlibtorrent.PieceIndexBitfield;
+import com.frostwire.jlibtorrent.swig.peer_info;
+import com.frostwire.jlibtorrent.swig.torrent_status;
 
 /*
- * Extension of org.libtorrent4j.PeerInfo class with additional information
+ * Extension of com.frostwire.jlibtorrent.PeerInfo class with additional information
  */
 
 public class AdvancedPeerInfo extends PeerInfo
@@ -33,12 +34,15 @@ public class AdvancedPeerInfo extends PeerInfo
     protected PieceIndexBitfield pieces;
     protected boolean isUtp;
 
-    public AdvancedPeerInfo(peer_info p)
+    public AdvancedPeerInfo(peer_info p, torrent_status ts)
     {
         super(p);
 
         port = p.getIp().port();
-        pieces = new PieceIndexBitfield(p.get_pieces());
+        // TODO: add peer_info::get_pieces to upstream
+//        pieces = new PieceIndexBitfield(p.get_pieces());
+        // fake stub
+        pieces = new PieceIndexBitfield(ts.get_pieces());
         isUtp = p.getFlags().and_(peer_info.utp_socket).non_zero();
     }
 

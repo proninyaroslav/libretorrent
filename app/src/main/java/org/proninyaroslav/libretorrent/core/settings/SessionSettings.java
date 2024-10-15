@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core.settings;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.Pair;
+import com.frostwire.jlibtorrent.Pair;
 import org.proninyaroslav.libretorrent.BuildConfig;
 
 import java.util.Random;

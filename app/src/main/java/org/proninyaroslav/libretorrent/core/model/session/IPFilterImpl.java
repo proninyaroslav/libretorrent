@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,9 +21,9 @@ package org.proninyaroslav.libretorrent.core.model.session;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.swig.address;
-import org.libtorrent4j.swig.error_code;
-import org.libtorrent4j.swig.ip_filter;
+import com.frostwire.jlibtorrent.swig.address;
+import com.frostwire.jlibtorrent.swig.error_code;
+import com.frostwire.jlibtorrent.swig.ip_filter;
 import org.proninyaroslav.libretorrent.core.exception.IPFilterException;
 
 class IPFilterImpl implements IPFilter

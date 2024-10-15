@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core.model.session;
 
 import androidx.annotation.NonNull;
 
-import org.libtorrent4j.ErrorCode;
+import com.frostwire.jlibtorrent.ErrorCode;
 
 class SessionErrors
 {
@@ -48,8 +48,8 @@ class SessionErrors
             return true;
 
         for (Error nonCriticalError : errors) {
-            if (error.getValue() == nonCriticalError.errCode &&
-                nonCriticalError.errMsg.equalsIgnoreCase(error.getMessage()))
+            if (error.value() == nonCriticalError.errCode &&
+                nonCriticalError.errMsg.equalsIgnoreCase(error.message()))
                 return true;
         }
 
@@ -58,6 +58,6 @@ class SessionErrors
 
     static String getErrorMsg(ErrorCode error)
     {
-        return (error == null ? "" : error.getMessage() + ", code " + error.getValue());
+        return (error == null ? "" : error.message() + ", code " + error.value());
     }
 }
