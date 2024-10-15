@@ -551,11 +551,14 @@ public class TorrentSessionImpl extends SessionManager
         }
         task.setFirstLastPiecePriority(params.firstLastPiecePriority);
 
-        try {
-            mergeTrackersAndSeeds(id, params, bencode);
-            task.saveResumeData(true);
-        } catch (Exception e) {
-            Log.e(TAG, "Unable to merge trackers and seeds:", e);
+        // TODO: temporary disable due to the bug: https://github.com/aldenml/libtorrent4j/pull/244
+        if (false) {
+            try {
+                mergeTrackersAndSeeds(id, params, bencode);
+                task.saveResumeData(true);
+            } catch (Exception e) {
+                Log.e(TAG, "Unable to merge trackers and seeds:", e);
+            }
         }
 
         if (params.addPaused) {
