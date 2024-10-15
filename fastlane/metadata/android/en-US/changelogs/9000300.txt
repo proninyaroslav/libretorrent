@@ -1,0 +1,5 @@
+Migration to jlibtorrent 2.0 library was performed in test mode.
+What doesn't work properly yet:
+- Displaying tracker errors
+- Displaying availability and relevance value
+I ask those who decided to join the beta test to carefully test the app and report any bug fixes or the appearance of new errors.
