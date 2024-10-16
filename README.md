@@ -6,7 +6,7 @@
 <h4>Copylefted libre full-featured torrent client for Android.</h4>
 
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
-[<img alt="Get it on OpenAPK" height="80" src="https://www.openapk.net/images/openapk-badge.png">](https://www.openapk.net/libretorrent/org.proninyaroslav.libretorrent)
+[<img alt="Get it on OpenAPK" height="80" src="https://www.openapk.net/images/openapk-badge.png">](https://www.openapk.net/libretorrent/org.proninyaroslav.libretorrent/)
 [<img alt="Get it on APKMirror" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/APKMirror/get-it-on-apkmirror.png">](https://www.apkmirror.com/apk/proninyaroslav/libretorrent)
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
 [<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
@@ -35,7 +35,7 @@
 [<img src="art/screenshots/phone_dark.png" width=160>](art/screenshots/phone_dark.png)
 [<img src="art/screenshots/create_torrent.png" width=160>](art/screenshots/create_torrent.png)
 [<img src="art/screenshots/rss.png" width=160>](art/screenshots/rss.png)
-[<img src="art/screenshots/tablet.png" width=320>](art/screenshots/tablet.png)
+[<img src="art/screenshots/tablet.png" width=480>](art/screenshots/tablet.png)
 
 </div>
 
