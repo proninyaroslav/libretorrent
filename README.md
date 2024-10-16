@@ -1,26 +1,43 @@
+
+<div align="center">
+
+<p><img src="fastlane/metadata/android/en-US/images/icon.png" width="150"></p>
+<h2><b>LibreTorrent</b></h2>
+<h4>Copylefted libre full-featured torrent client for Android.</h4>
+
+[<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
+[<img alt="Get it on OpenAPK" height="80" src="https://www.openapk.net/images/openapk-badge.png">](https://www.openapk.net/libretorrent/org.proninyaroslav.libretorrent)
+[<img alt="Get it on APKMirror" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/APKMirror/get-it-on-apkmirror.png">](https://www.apkmirror.com/apk/proninyaroslav/libretorrent)
+[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
+[<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
+[<img alt="Direct APK Download" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Direct%20Download/direct-apk-download.png">](https://proninyaroslav.ru/mirror/libretorrent)
+
+
 [![Hosted Weblate](https://hosted.weblate.org/widgets/libretorrent/-/svg-badge.svg)](https://hosted.weblate.org/engage/libretorrent/)
 [![Matrix Room](https://img.shields.io/matrix/libretorrent:matrix.org?label=Matrix%20Room)](https://matrix.to/#libretorrent:matrix.org)
 [![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/LibreTorrent)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/14421/badge.svg">](https://scan.coverity.com/projects/proninyaroslav-libretorrent)
 
-LibreTorrent
-=====================
-
-![LibreTorrent](fastlane/metadata/android/en-US/images/featureGraphic.png)
-
-[<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/app/org.proninyaroslav.libretorrent)
-[<img alt="Get it on AFH" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=246723)
-[<img alt="Get it on APKMirror" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/APKMirror/get-it-on-apkmirror.png">](https://www.apkmirror.com/apk/proninyaroslav/libretorrent)
-[<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
-[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=org.proninyaroslav.libretorrent)
-
-**Mirror:** https://proninyaroslav.ru/mirror/libretorrent/
+</div>
 
 **Issues**: https://gitlab.com/proninyaroslav/libretorrent/issues
 
-Copylefted libre full-featured torrent client for Android.
-
 [Use, see, change and share](https://en.wikipedia.org/wiki/Free_software); [with all](https://en.wikipedia.org/wiki/Copyleft).
+
+
+---
+
+## Screenshots
+
+<div align="center">
+
+[<img src="art/screenshots/phone.png" width=160>](art/screenshots/phone.png)
+[<img src="art/screenshots/phone_dark.png" width=160>](art/screenshots/phone_dark.png)
+[<img src="art/screenshots/create_torrent.png" width=160>](art/screenshots/create_torrent.png)
+[<img src="art/screenshots/rss.png" width=160>](art/screenshots/rss.png)
+[<img src="art/screenshots/tablet.png" width=320>](art/screenshots/tablet.png)
+
+</div>
 
 ## 📋 Features
 
@@ -72,10 +89,6 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 #### Developers
 
 * [Yaroslav Pronin](https://gitlab.com/proninyaroslav)
-
-## Screenshots
-
-![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![rss](/art/screenshots/rss.png) ![create torrent](/art/screenshots/create_torrent.png) ![session log](/art/screenshots/session_log.png) ![tablet](/art/screenshots/tablet.png)
 
 ## 🔒 Privacy Policy
 
