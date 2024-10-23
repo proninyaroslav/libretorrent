@@ -551,14 +551,11 @@ public class TorrentSessionImpl extends SessionManager
         }
         task.setFirstLastPiecePriority(params.firstLastPiecePriority);
 
-        // TODO: temporary disable due to the bug: https://github.com/aldenml/libtorrent4j/pull/244
-        if (false) {
-            try {
-                mergeTrackersAndSeeds(id, params, bencode);
-                task.saveResumeData(true);
-            } catch (Exception e) {
-                Log.e(TAG, "Unable to merge trackers and seeds:", e);
-            }
+        try {
+            mergeTrackersAndSeeds(id, params, bencode);
+            task.saveResumeData(true);
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to merge trackers and seeds:", e);
         }
 
         if (params.addPaused) {
@@ -590,33 +587,9 @@ public class TorrentSessionImpl extends SessionManager
 
     private List<AnnounceEntry> extractTrackers(bdecode_node n, boolean fromMagnet) {
         var announceNode = n.dict_find_list_s("announce-list");
-        if (announceNode == null) {
-            return new ArrayList<>();
-        }
-        var urls = new ArrayList<AnnounceEntry>(announceNode.list_size());
-        for (var i = 0; i < announceNode.list_size(); i++) {
-            var tier = announceNode.list_at(i);
-            if (!tier.type().equals(bdecode_node.type_t.list_t)) {
-                continue;
-            }
-            for (var j = 0; j < tier.list_size(); j++) {
-                AnnounceEntry e = new AnnounceEntry(tier.list_string_value_at_s(j));
-                if (e.url().isEmpty()) {
-                    continue;
-                }
-                e.tier((short) j);
-                e.failLimit((short) 0);
-                if (fromMagnet) {
-                    e.swig().setSource((short) announce_entry.tracker_source.source_magnet_link.swigValue());
-                } else {
-                    e.swig().setSource((short) announce_entry.tracker_source.source_torrent.swigValue());
-                }
-                urls.add(e);
-            }
-        }
-
-        if (urls.isEmpty()) {
-            AnnounceEntry e = new AnnounceEntry(n.dict_find_string_value_s("announce-list"));
+        if (!announceNode.type().equals(bdecode_node.type_t.list_t)) {
+            var urls = new ArrayList<AnnounceEntry>(1);
+            AnnounceEntry e = new AnnounceEntry(n.dict_find_string_value_s("announce"));
             e.failLimit((short) 0);
             if (fromMagnet) {
                 e.swig().setSource((short) announce_entry.tracker_source.source_magnet_link.swigValue());
@@ -626,22 +599,42 @@ public class TorrentSessionImpl extends SessionManager
             if (!e.url().isEmpty()) {
                 urls.add(e);
             }
+            return urls;
         } else {
+            var urls = new ArrayList<AnnounceEntry>(announceNode.list_size());
+            for (var i = 0; i < announceNode.list_size(); i++) {
+                var tier = announceNode.list_at(i);
+                if (!tier.type().equals(bdecode_node.type_t.list_t)) {
+                    continue;
+                }
+                for (var j = 0; j < tier.list_size(); j++) {
+                    AnnounceEntry e = new AnnounceEntry(tier.list_string_value_at_s(j));
+                    if (e.url().isEmpty()) {
+                        continue;
+                    }
+                    e.tier((short) j);
+                    e.failLimit((short) 0);
+                    if (fromMagnet) {
+                        e.swig().setSource((short) announce_entry.tracker_source.source_magnet_link.swigValue());
+                    } else {
+                        e.swig().setSource((short) announce_entry.tracker_source.source_torrent.swigValue());
+                    }
+                    urls.add(e);
+                }
+            }
+
             // Shuffle each tier
             Collections.shuffle(urls);
             urls.sort(Comparator.comparingInt(AnnounceEntry::tier));
-        }
 
-        return urls;
+            return urls;
+        }
     }
 
     private List<String> extractUrlSeeds(bdecode_node n) {
         var urls = new ArrayList<String>();
 
         var urlSeeds = n.dict_find_list_s("url-list");
-        if (urlSeeds == null) {
-            return urls;
-        }
         if (urlSeeds.type().equals(bdecode_node.type_t.string_t) && urlSeeds.string_length() > 0) {
             urls.add(urlSeeds.string_value_ex());
         } else if (urlSeeds.type().equals(bdecode_node.type_t.list_t)) {
