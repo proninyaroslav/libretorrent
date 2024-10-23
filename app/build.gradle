@@ -146,7 +146,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation 'androidx.preference:preference:1.2.1'
     // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
-    implementation 'com.google.guava:guava:33.3.0-jre'
+    implementation 'com.google.guava:guava:33.3.1-jre'
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
@@ -158,7 +158,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
     /* libtorrent wrapper */
-    def LIBTORRENT4J_VERSION = '2.1.0-31'
+    def LIBTORRENT4J_VERSION = '2.1.0-32'
     implementation "org.libtorrent4j:libtorrent4j:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm:$LIBTORRENT4J_VERSION"
     implementation "org.libtorrent4j:libtorrent4j-android-arm64:$LIBTORRENT4J_VERSION"
