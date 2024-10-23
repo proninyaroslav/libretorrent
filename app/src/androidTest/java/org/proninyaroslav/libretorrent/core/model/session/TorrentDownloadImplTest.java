@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,8 +21,9 @@ package org.proninyaroslav.libretorrent.core.model.session;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.libtorrent4j.AddTorrentParams;
-import org.libtorrent4j.Priority;
+import com.frostwire.jlibtorrent.AddTorrentParams;
+import com.frostwire.jlibtorrent.Priority;
+import com.frostwire.jlibtorrent.swig.byte_vector;
 
 import static org.junit.Assert.*;
 
@@ -57,17 +58,17 @@ public class TorrentDownloadImplTest
                 fail(e.getMessage());
             }
 
-            Priority[] actualPriorities = params.filePriorities();
+            byte_vector actualPriorities =  params.swig().get_file_priorities();
             boolean equal = true;
-            for (int j = 0; j < actualPriorities.length; j++) {
-                if (expectedPriorities[j].swig() != actualPriorities[j].swig()) {
+            for (int j = 0; j < actualPriorities.size(); j++) {
+                if (expectedPriorities[j].swig() != actualPriorities.get(j)) {
                     equal = false;
                     break;
                 }
             }
 
             assertFalse("expected: " + Arrays.toString(expectedPriorities) + "\n" +
-                    "actual: " + "[" + indicesStr + "]; " + Arrays.toString(actualPriorities), equal);
+                    "actual: " + "[" + indicesStr + "]; " + Arrays.toString(PriorityConverter.convert(actualPriorities)), equal);
         }
     }
 }
