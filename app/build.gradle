@@ -116,7 +116,7 @@ tasks.withType(Test).configureEach {
 }
 
 def ROOM_VERSION = '2.6.1'
-def LIFECYCLE_VERSION = '2.8.6'
+def LIFECYCLE_VERSION = '2.8.7'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -130,7 +130,7 @@ dependencies {
 
     /* AndroidX libraries */
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.fragment:fragment:1.8.4'
+    implementation 'androidx.fragment:fragment:1.8.5'
     implementation "androidx.lifecycle:lifecycle-livedata-core:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -141,7 +141,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.work:work-runtime:2.9.1'
+    implementation 'androidx.work:work-runtime:2.10.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
@@ -155,7 +155,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     /* ACRA */
-    def ACRA_VERSION = '5.11.4'
+    def ACRA_VERSION = '5.12.0'
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
 
