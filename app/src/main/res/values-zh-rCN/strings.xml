@@ -48,7 +48,7 @@
     <string name="switch_off">关闭</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">与已下载的文件一并删除</string>
-    <string name="delete_selected_torrent">删除所选定的种子？（ 无法撤销。）</string>
+    <string name="delete_selected_torrent">删除所选定的种子？（无法撤销。）</string>
     <string name="delete_selected_torrents">删除所选定的所有种子？（无法撤销。）</string>
     <string name="force_recheck_torrent">强制重新校验</string>
     <string name="force_announce_torrent">强制发布</string>
