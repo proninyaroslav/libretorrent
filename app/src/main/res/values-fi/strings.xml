@@ -522,4 +522,7 @@
     <string name="pref_posix_disk_io_summary">Huomioi: Tämä asetus on tarkoitettu erityistilanteisiin, kuten joidenkin SD-korttien tiedostojärjestelmien tukemiseen. Mahdollistaa yksinkertaisen POSIX-levy I/O:n, jota käytetään järjestelmissä, joissa ei ole 64-bittistä virtuaalista osoiteavaruutta tai jotka eivät tue muistikartoitettuja tiedostoja.</string>
     <string name="torrent_version_entries_v1_only">Vain V1</string>
     <string name="torrent_version_entries_v2_only">Vain V2</string>
+    <string name="torrent_version_entries_hybrid">Hybridi</string>
+    <string name="go_to_folder">Siirry kansioon</string>
+    <string name="torrent_version">Torrent-versio</string>
 </resources>
