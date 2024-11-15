@@ -540,7 +540,7 @@
     <!-- About dialog -->
     <string name="about_title">Névjegy</string>
     <string name="about_description">További információk és a projekt támogatása: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; A LibreTorrent egy szabad (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) licencű) torrentkliens Android 4-re és újabb verziókra, amely a libtorrent (pontosabban a javás &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) programkönyvtárra épül.&lt;br&gt;&lt;br&gt;</string>
-    <string name="about_changelog">Változásnapló</string>
+    <string name="about_changelog">Változáslista</string>
     <string name="pref_default_trackers_list_title">Alapértelmezett követők</string>
     <string name="pref_watch_dir_delete_file_title">.torrent fájl törlése hozzáadás után</string>
     <string name="pref_default_trackers_list_summary">Követőlista, melyet a következő esetekben használ:\n1. Amikor torrentet ad hozzá, akkor az alapértelmezett lista hozzá lesz adva a torrentlistához.\n2. A mágneshivatkozások lekérésekor.</string>
