@@ -19,7 +19,7 @@
 \n2. Käytetään magnet-linkkien noutamisessa.</string>
     <string name="pref_default_trackers_list_title">Oletustrackerit</string>
     <string name="pref_custom_battery_control_dialog_summary">Haluatko varmasti asettaa akku %% seurantaan? (Lisää virrankulutusta tallennettaessa.)</string>
-    <string name="pref_custom_battery_control_summary">Asettaa akkuprosentin %% pysäyttämään tallennusket. (Ohittaa oletuksen %1$d%%.)</string>
+    <string name="pref_custom_battery_control_summary">Aseta akun varaustila %% keskeyttämään lataukset. (Ohittaa oletusarvon %1$d %%.)</string>
     <string name="pref_custom_battery_control_value_title">Virranhallinnan prosentti</string>
     <string name="pref_auto_manage_title">Hallitse automaattisesti</string>
     <string name="pref_dir_to_watch_title">Hakemisto, jota seurataan</string>
@@ -28,14 +28,13 @@
     <string name="share_stream_url">Jaa suoratoistolinkki…</string>
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nSaatavuus: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d %% •\nSaatavuus: %5$s</string>
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="free_space">%1$s vapaana</string>
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d %% %4$s</string>
     <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
-    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d %%)</string>
     <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
@@ -104,7 +103,7 @@
     <string name="pref_use_random_port_summarty">Asettaa aloitusportin sattumanvaraisesti väliltä [%1$d, %2$d] ja lopetusportin kuten ensimmäinen + 10.</string>
     <string name="pref_use_random_port_title">Käytä satunnaista porttia</string>
     <string name="about_changelog">Muutosloki</string>
-    <string name="pref_battery_control_summary">Pysäyttää kaikki torrentit, jos akun taso alittaa %1$d%%. (Rajoitus ei päde verkkovirrassa.)</string>
+    <string name="pref_battery_control_summary">Keskeyttää kaikki torrentit, jos akun varaustaso laskee alle %1$d %%. (Rajaa ei sovelleta latauksen aikana.)</string>
     <string name="pref_custom_battery_control_title">Mukautettu akkuprosentti</string>
     <string name="pref_battery_control_title">Virransäätö</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Yhtään tiedostoja ei siirretä, ellei laite ole verkkovirrassa. (Pysäyttää kaikki torrentit, kun ei ole yhdistettynä laturiin.)</string>
