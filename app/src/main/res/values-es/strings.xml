@@ -450,7 +450,7 @@
     <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">Diseñado para permitir el descubrimiento local, con el objetivo de minimizar el tráfico.</string>
     <string name="pref_enable_utp_title">μTP</string>
-    <string name="pref_enable_utp_summary">Pretende mitigar la escasa latencia y otros problemas de control de la congestión encontrados en BitTorrent convencional sobre TCP, al tiempo que proporciona una recepción fiable y ordenada.</string>
+    <string name="pref_enable_utp_summary">Al contrario que con el BitTorrent tradicional que funciona sobre TCP, el protocolo UDP está pensado para reducir los problemas de latencia y congestión en el envío y recepción de paquetes de red.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Ajustes del puerto</string>
@@ -493,7 +493,7 @@
     <string name="pref_proxy_password_title">Contraseña</string>
     <!-- Schedule settings -->
     <string name="pref_enable_scheduling_start_title">Hora de inicio</string>
-    <string name="pref_enable_scheduling_start_summary">Inicia la aplicación en un momento determinado. Los torrentes se procesan según su estado antes de cerrar el último.</string>
+    <string name="pref_enable_scheduling_start_summary">Inicia la aplicación a la hora indicada. Los torrents activos seguirán hasta completarse.</string>
     <string name="pref_enable_scheduling_shutdown_title">Hora de cierre</string>
     <string name="pref_enable_scheduling_shutdown_summary">Cierra la aplicación a la hora indicada</string>
     <string name="pref_scheduling_run_only_once_title">Ejecutar una sola vez</string>
