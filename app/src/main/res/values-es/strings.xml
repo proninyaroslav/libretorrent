@@ -130,7 +130,7 @@
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moviendo torrent…</string>
     <string name="torrent_moving_content">Espera un momento mientras se mueve %1$s…</string>
-    <string name="torrent_move_success">Se ha trasladado el torrent</string>
+    <string name="torrent_move_success">El torrent se ha cambiado de sitio</string>
     <string name="torrent_move_fail">No se pudo mover el torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
