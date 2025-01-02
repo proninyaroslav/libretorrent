@@ -6,7 +6,7 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="error">Error</string>
-    <string name="warning">Advertencia</string>
+    <string name="warning">Atención</string>
     <string name="shutdown">Salir</string>
     <string name="replace">Reemplazar</string>
     <string name="add">Añadir</string>
@@ -25,14 +25,14 @@
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">Predeterminado</string>
-    <string name="foreground_notification">Notificación de primer plano</string>
+    <string name="foreground_notification">Notificación en primer plano</string>
     <string name="link">Enlace</string>
     <string name="filter">Filtrar</string>
     <string name="refresh">Actualizar</string>
     <string name="edit">Editar</string>
     <string name="menu">Menú</string>
-    <string name="open_navigation_drawer">Abrir cajón de navegación</string>
-    <string name="close_navigation_drawer">Cerrar cajón de navegación</string>
+    <string name="open_navigation_drawer">Abrir barra de navegación</string>
+    <string name="close_navigation_drawer">Cerrar barra de navegación</string>
     <string name="file">Archivo</string>
     <string name="folder">Carpeta</string>
     <string name="finished">Finalizado</string>
@@ -53,11 +53,11 @@
     <string name="force_recheck_torrent">Forzar recomprobación</string>
     <string name="force_announce_torrent">Forzar anuncio</string>
     <string name="add_link">Añadir enlace</string>
-    <string name="dialog_add_link_title">Pon el valor infohash, enlace magnet o enlace HTTP/S</string>
+    <string name="dialog_add_link_title">Pon el valor infohash, enlace «magnet» o enlace HTTP/S</string>
     <string name="torrent_list_empty">No hay torrents</string>
     <string name="select_or_add_torrent">Seleccionar o añadir un torrent</string>
     <string name="error_empty_link">Pon el enlace</string>
-    <string name="error_invalid_link">Enlace no válido</string>
+    <string name="error_invalid_link">Enlace incorrecto</string>
     <string name="error_open_torrent_file">No se pudo abrir el archivo .torrent</string>
     <string name="open_file">Abrir archivo</string>
     <string name="settings">Ajustes</string>
@@ -130,7 +130,7 @@
     <!-- Torrents move notification -->
     <string name="torrent_moving_title">Moviendo torrent…</string>
     <string name="torrent_moving_content">Espera un momento mientras se mueve %1$s…</string>
-    <string name="torrent_move_success">Torrent movido</string>
+    <string name="torrent_move_success">Se ha trasladado el torrent</string>
     <string name="torrent_move_fail">No se pudo mover el torrent</string>
     <!-- Added notification -->
     <!-- Torrent list item -->
@@ -259,7 +259,7 @@
     <string name="piece_map">Mapa de partes</string>
     <string name="resume_torrent">Reanudar</string>
     <string name="pause_torrent">Pausar</string>
-    <string name="share_magnet">Compartir magnet</string>
+    <string name="share_magnet">Compartir enlace «magnet»</string>
     <string name="save_torrent_file">Guardar archivo torrent</string>
     <string name="torrent_speed_limit">Límite de velocidad</string>
     <string name="share_via">Compartir vía…</string>
@@ -488,7 +488,7 @@
     <string name="pref_proxy_peers_too_title">Usar también para las conexiones</string>
     <string name="pref_proxy_peers_too_summary">Las conexiones a rastreadores, otros y semillas web se realizan mediante proxy. No afecta a DHT.</string>
     <string name="pref_proxy_requires_auth_title">Requiere autorización</string>
-    <string name="pref_proxy_requires_auth_summary">Advertencia: La contraseña se guarda como un archivo normal.</string>
+    <string name="pref_proxy_requires_auth_summary">Nota: La contraseña se guarda como un archivo normal.</string>
     <string name="pref_proxy_login_title">Usuario</string>
     <string name="pref_proxy_password_title">Contraseña</string>
     <!-- Schedule settings -->
@@ -542,7 +542,7 @@
     <string name="about_changelog">Registro de cambios</string>
     <string name="pref_header_streaming">Streaming</string>
     <string name="pref_watch_dir_delete_file_title">Borrar archivo «.torrent» tras añadirlo</string>
-    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:\n1. Al añadir un torrent estos rastreadores predeterminados se le añaden automáticamente, combinándose con los que ya vienen incluidos en el propio torrent.\n2. Se utiliza para obtener enlaces magnet.</string>
+    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:\n1. Al añadir un torrent estos rastreadores se le añaden automáticamente, combinándose con los que ya vienen incluidos en el propio torrent.\n2. Se utilizan para obtener el contenido de los enlaces «magnet».</string>
     <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
     <string name="pref_foreground_notify_sorting_entries_12">Sin clasificación</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularidad (el más grande primero)</string>
