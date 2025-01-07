@@ -102,13 +102,13 @@
     <string name="add_tag_failed">No se pudo añadir la etiqueta</string>
     <string name="tag_deleting_failed">No se pudo borrar la etiqueta</string>
     <string name="tag_already_exists">Esta etiqueta ya existe</string>
-    <string name="no_tags">Sin etiquetas</string>
+    <string name="no_tags">No tiene etiquetas</string>
     <string name="select_tag">Seleccionar etiqueta</string>
     <string name="new_tag">Nueva etiqueta</string>
     <string name="without_tags">Sin etiquetas</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d %% • %2$s • ↓ %3$s/s • %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
@@ -119,7 +119,7 @@
     <string name="network_offline">Desconectado</string>
     <string name="notify_shutting_down">Saliendo…</string>
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Error de torrent</string>
+    <string name="torrent_error_notify_title">Error del torrent</string>
     <string name="error_template">Error: %1$s</string>
     <string name="restore_torrent_error">No se pudo restaurar el torrent de la sesión anterior.</string>
     <string name="session_error_title">Error de sesión</string>
@@ -154,12 +154,12 @@
     <string name="perm_denied_warning">El permiso de almacenamiento es necesario para descargar torrents y acceder a los archivos «.torrent». ¿Seguro que quieres denegar este permiso?</string>
     <!-- Add torrent dialog -->
     <string name="add_torrent_title">Añadir torrent</string>
-    <string name="error_decode_torrent">No se pudo decodificar el archivo .torrent. Puede estar dañado o tener un formato ilegible.</string>
-    <string name="error_io_torrent">No se pudo leer el archivo .torrent</string>
+    <string name="error_decode_torrent">No se pudo decodificar el archivo «.torrent». Puede estar dañado o tener un formato ilegible.</string>
+    <string name="error_io_torrent">No se pudo leer el archivo «.torrent»</string>
     <string name="error_fetch_link">No se pudieron obtener los datos a partir del enlace</string>
     <string name="error_invalid_link_or_path">El enlace o la ruta de torrent no parecen ser correctos</string>
     <string name="error_add_torrent">No se pudo añadir el torrent</string>
-    <string name="error_file_not_found_add_torrent">No se pudo añadir el torrent. Puede que el archivo .torrent se haya movido o borrado.</string>
+    <string name="error_file_not_found_add_torrent">No se pudo añadir el torrent. Puede que el archivo «.torrent» se haya movido o borrado.</string>
     <string name="error_io_add_torrent">No se pudo añadir el torrent debido a un error de entrada/salida en el sistema de archivos.</string>
     <string name="torrent_exist">Como el torrent ya existe, se fusionaron.</string>
     <string name="error_field_required">Campo obligatorio</string>
