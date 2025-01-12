@@ -119,7 +119,7 @@
     <string name="network_offline">Desconectado</string>
     <string name="notify_shutting_down">Saliendo…</string>
     <!-- Error notification -->
-    <string name="torrent_error_notify_title">Error del torrent</string>
+    <string name="torrent_error_notify_title">Hay un error en el torrent</string>
     <string name="error_template">Error: %1$s</string>
     <string name="restore_torrent_error">No se pudo restaurar el torrent de la sesión anterior.</string>
     <string name="session_error_title">Error de sesión</string>
@@ -271,7 +271,7 @@
     <string name="speed_limit_dialog">Establecer velocidad en KiB/s (0 - sin límite)</string>
     <string name="torrent_added_date">Añadido</string>
     <string name="torrent_availability">Disponibilidad</string>
-    <string name="share_stream_url">Compartir la URL del stream…</string>
+    <string name="share_stream_url">Compartir URL de retransmisión…</string>
     <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos?</string>
     <string name="magnet_more_about_bep53">Más información en: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No hay rastreadores</string>
@@ -393,15 +393,15 @@
     <string name="pref_speed_category">Velocidad</string>
     <string name="pref_max_download_speed_title">Velocidad máxima de ⬇</string>
     <string name="pref_max_upload_speed_title">Velocidad máxima de ⬆</string>
-    <string name="pref_max_connections_title">Nº máx. de conexiones</string>
-    <string name="pref_max_connections_summary">(Mínimo 2 conexiones)</string>
+    <string name="pref_max_connections_title">Límite de conexiones global</string>
+    <string name="pref_max_connections_summary">(Al menos 2 conexiones)</string>
     <string name="pref_torrent_queueing_category">Cola de torrents</string>
-    <string name="pref_max_active_uploads_title">Nº máx. de subidas activas</string>
-    <string name="pref_max_active_downloads_title">Nº máx. de descargas activas</string>
-    <string name="pref_max_active_torrents_title">Nº máx. de torrents activos</string>
-    <string name="pref_max_connections_per_torrent_title">Nº máx. de conexiones por torrent</string>
-    <string name="pref_max_connections_per_torrent_summary">(Mínimo 2 conexiones)</string>
-    <string name="pref_max_uploads_per_torrent_title">Tope de conex. de subida por torrent</string>
+    <string name="pref_max_active_uploads_title">Límite de subidas activas</string>
+    <string name="pref_max_active_downloads_title">Límite de descargas activas</string>
+    <string name="pref_max_active_torrents_title">Límite de torrents activos</string>
+    <string name="pref_max_connections_per_torrent_title">Límite de conexiones por torrent</string>
+    <string name="pref_max_connections_per_torrent_summary">(Al menos 2 conexiones)</string>
+    <string name="pref_max_uploads_per_torrent_title">Límite de subidas simultáneas por torrent</string>
     <string name="pref_auto_manage_title">Administrar automáticamente</string>
     <string name="pref_auto_manage_summary">El torrent puede reanudarse o pausarse automáticamente en cualquier punto. (Puede ralentizar la pausa/reanudación.)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 significa ilimitado</string>
@@ -515,7 +515,7 @@
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Solo en conexiones sin límite</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Actualizar solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet).</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Itinerancia</string>
-    <string name="pref_feed_keep_items_time_title">Mantener artículos</string>
+    <string name="pref_feed_keep_items_time_title">Dejar los archivos en la lista</string>
     <!-- pref_feed_keep_items_time_entries -->
     <string name="pref_feed_keep_items_time_entries_0">1 día</string>
     <string name="pref_feed_keep_items_time_entries_1">2 días</string>
@@ -526,21 +526,21 @@
     <string name="pref_feed_keep_items_time_entries_6">2 meses</string>
     <string name="pref_feed_keep_items_time_entries_7">3 meses</string>
     <string name="pref_feed_keep_items_time_entries_8">Siempre</string>
-    <string name="pref_feed_start_torrents_title">Inicio automático de torrents</string>
+    <string name="pref_feed_start_torrents_title">Iniciar torrents automáticamente</string>
     <string name="pref_feed_start_torrents_summary">Descarga los torrents añadidos.</string>
     <string name="pref_feed_remove_duplicates_title">Saltarse duplicados</string>
     <string name="pref_feed_remove_duplicates_summary">Omite la descarga de archivos con títulos que ya se hayan visto antes.</string>
     <!-- Streaming settings -->
-    <string name="pref_streaming_enable_title">Streaming</string>
-    <string name="pref_streaming_enable_summary">Permite descargar archivos individuales de un torrent usando un navegador web o reproductor multimedia tradicional mediante direcciones URL HTTP/S.</string>
-    <string name="pref_streaming_hostname">Nombre del host</string>
+    <string name="pref_streaming_enable_title">Retransmitir contenido local</string>
+    <string name="pref_streaming_enable_summary">Permite ver o reproducir en directo los archivos locales de un torrent en otros navegadores o reproductores multimedia de tu red que abran direcciones URL HTTP/S.</string>
+    <string name="pref_streaming_hostname">Dirección o nombre de red</string>
     <string name="pref_streaming_port">Puerto</string>
-    <string name="pref_streaming_error">Elige un puerto o nombre de host para el streaming que no esté ocupado o sea incorrecto.</string>
+    <string name="pref_streaming_error">Tienes que usar un puerto y nombre de red válidos y que no estén ya ocupados para retransmitir contenido.</string>
     <!-- About dialog -->
     <string name="about_title">Acerca de</string>
     <string name="about_description">Para más información y colaborar con el proyecto visita: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent es un cliente torrent «copyleft» y totalmente libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) para Android 4+, basado en la biblioteca libtorrent (con la interfaz Java &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Registro de cambios</string>
-    <string name="pref_header_streaming">Streaming</string>
+    <string name="pref_header_streaming">Retransmitir contenido local</string>
     <string name="pref_watch_dir_delete_file_title">Borrar archivo «.torrent» tras añadirlo</string>
     <string name="pref_default_trackers_list_summary">Lista de rastreadores, que se utiliza en los siguientes casos:\n1. Al añadir un torrent estos rastreadores se le añaden automáticamente, combinándose con los que ya vienen incluidos en el propio torrent.\n2. Se utilizan para obtener el contenido de los enlaces «magnet».</string>
     <string name="pref_default_trackers_list_title">Rastreadores predeterminados</string>
