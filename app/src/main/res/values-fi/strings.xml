@@ -38,7 +38,7 @@
     <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
-    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d %% • %2$s • ↓ %3$s/s • %4$s</string>
     <string name="drawer_sorting_progress">Edistyminen</string>
     <string name="drawer_sorting_size">Koko</string>
     <string name="drawer_sorting_date_added">Päivämäärä lisätty</string>
