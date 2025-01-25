@@ -1,0 +1,3 @@
+* Merging trackers when adding torrent duplicate works again
+* Upgrade libtorrent4j version
+* Minor fixes

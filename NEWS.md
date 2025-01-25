@@ -1,3 +1,9 @@
+### Version 3.6 (2025-01-25)
+
+* Merging trackers when adding torrent duplicate works again
+* Upgrade libtorrent4j version
+* Minor fixes
+
 ### Version 3.5.2 (2024-09-15)
 
 * The encryption option is divided into separate ones for incoming and outgoing connections
