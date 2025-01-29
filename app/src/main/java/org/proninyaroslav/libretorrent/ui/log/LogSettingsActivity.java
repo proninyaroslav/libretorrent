@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class LogSettingsActivity extends AppCompatActivity
 {
@@ -36,7 +35,6 @@ public class LogSettingsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_log_settings);

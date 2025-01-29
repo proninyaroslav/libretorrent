@@ -54,7 +54,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
-import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
@@ -74,6 +73,7 @@ import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
+import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
 
@@ -372,42 +372,45 @@ public class Utils {
     }
 
     public static int getAppTheme(@NonNull Context context) {
-        int theme = getThemePreference(context);
-
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Black;
-
         return R.style.AppTheme;
+//        int theme = getThemePreference(context);
+//
+//        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+//            return R.style.AppThemeM2;
+//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+//            return R.style.AppThemeM2_Dark;
+//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+//            return R.style.AppThemeM2_Black;
+//
+//        return R.style.AppThemeM2;
     }
 
     public static int getTranslucentAppTheme(@NonNull Context appContext) {
-        int theme = getThemePreference(appContext);
-
-        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme_Translucent;
-        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Translucent_Dark;
-        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Translucent_Black;
-
         return R.style.AppTheme_Translucent;
+//        int theme = getThemePreference(appContext);
+//
+//        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
+//            return R.style.AppThemeM2_Translucent;
+//        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
+//            return R.style.AppThemeM2_Translucent_Dark;
+//        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
+//            return R.style.AppThemeM2_Translucent_Black;
+//
+//        return R.style.AppThemeM2_Translucent;
     }
 
     public static int getSettingsTheme(@NonNull Context context) {
-        int theme = getThemePreference(context);
-
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme_Settings;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Settings_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Settings_Black;
-
-        return R.style.AppTheme_Settings;
+        return R.style.AppTheme;
+//        int theme = getThemePreference(context);
+//
+//        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+//            return R.style.AppThemeM2_Settings;
+//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+//            return R.style.AppThemeM2_Settings_Dark;
+//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+//            return R.style.AppThemeM2_Settings_Black;
+//
+//        return R.style.AppThemeM2_Settings;
     }
 
     public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {

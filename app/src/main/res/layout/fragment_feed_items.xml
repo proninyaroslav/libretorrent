@@ -45,6 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/feed_item_list_empty"
-            style="@style/EmptyView" />
+            style="@style/EmptyViewM2" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

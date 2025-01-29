@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_alignParentTop="true"
-            android:textAppearance="@style/TextCaption" />
+            android:textAppearance="@style/TextCaptionM2" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/init_progress"

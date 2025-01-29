@@ -175,7 +175,6 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
     implementation 'org.apache.commons:commons-text:1.13.0'
     implementation 'com.google.code.gson:gson:2.11.0'
-    implementation 'com.leinardi.android:speed-dial:3.3.0'
     implementation 'net.java.dev.jna:jna:5.16.0@aar'
 
     constraints {

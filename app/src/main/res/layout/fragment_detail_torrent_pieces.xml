@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/torrent_pieces"
-                    style="@style/TitleText" />
+                    style="@style/TitleTextM2" />
 
                 <TextView
                     android:id="@+id/pieces_count"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/piece_map"
-                    style="@style/TitleText" />
+                    style="@style/TitleTextM2" />
 
                 <org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.PiecesView
                     android:id="@+id/piece_map"

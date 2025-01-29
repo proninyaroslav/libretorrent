@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textAppearance="@style/TextCaption" />
+            android:textAppearance="@style/TextCaptionM2" />
 
         <TextView
             android:id="@+id/about_description"

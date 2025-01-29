@@ -44,7 +44,7 @@
                 android:id="@+id/storage_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/AppTheme.Toolbar.Spinner" />
+                style="@style/AppThemeM2.Toolbar.Spinner" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout

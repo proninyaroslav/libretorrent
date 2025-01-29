@@ -51,7 +51,6 @@ public class PreferenceActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         /* Prevent create activity in two pane mode (after resizing window) */

@@ -42,6 +42,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 
 import org.proninyaroslav.libretorrent.R;
@@ -170,7 +171,7 @@ public class AddTagDialog extends DialogFragment {
     }
 
     private void initAlertDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(viewModel.state.getExistsTagId() == null ?
                         R.string.add_tag :
                         R.string.edit_tag)

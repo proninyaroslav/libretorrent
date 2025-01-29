@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextCaption" />
+                    android:textAppearance="@style/TextCaptionM2" />
             </LinearLayout>
         </LinearLayout>
 

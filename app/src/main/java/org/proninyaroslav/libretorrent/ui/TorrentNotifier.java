@@ -23,6 +23,8 @@ package org.proninyaroslav.libretorrent.ui;
  * Helper of showing notifications.
  */
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -44,8 +46,6 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity;
 
 import java.util.ArrayList;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TorrentNotifier {
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";

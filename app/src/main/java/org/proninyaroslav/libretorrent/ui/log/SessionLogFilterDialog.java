@@ -34,6 +34,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogLogFilterBinding;
 
@@ -105,7 +107,7 @@ public class SessionLogFilterDialog extends DialogFragment
 
     private void initLayoutView(View view)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.filter)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> onBackPressed())
                 .setView(view);

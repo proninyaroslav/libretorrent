@@ -43,7 +43,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
+                android:textAppearance="@style/TextCaptionM2"
                 android:layout_marginEnd="8dp" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaptionM2" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +74,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
+                android:textAppearance="@style/TextCaptionM2"
                 android:layout_marginEnd="8dp" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaptionM2" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +105,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
+                android:textAppearance="@style/TextCaptionM2"
                 android:layout_marginEnd="8dp" />
 
             <TextView
@@ -117,7 +117,7 @@
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaptionM2" />
         </LinearLayout>
     </LinearLayout>
 </layout>

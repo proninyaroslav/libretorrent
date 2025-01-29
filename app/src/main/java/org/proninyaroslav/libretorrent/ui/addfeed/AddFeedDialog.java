@@ -46,6 +46,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddFeedChannelBinding;
@@ -257,7 +259,7 @@ public class AddFeedDialog extends DialogFragment
 
     private void initAlertDialog(View view)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setNegativeButton(R.string.cancel, null)
                 .setView(view);
 

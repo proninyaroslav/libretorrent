@@ -99,7 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/create_torrent_options"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <com.google.android.material.internal.FlowLayout
                         android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/skip_files"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_skip_files"
@@ -161,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tracker_urls"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tracker_urls"
@@ -189,7 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/web_seed_urls"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_web_seed_urls"
@@ -217,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/piece_size"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <Spinner
                         android:id="@+id/pieces_size"
@@ -239,7 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_version"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <Spinner
                         android:id="@+id/torrent_version"
@@ -260,7 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/comments"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_comments"

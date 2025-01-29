@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textAppearance="@style/TextCaption"
+                android:textAppearance="@style/TextCaptionM2"
                 app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
                 app:formatFileSize="@{@string/free_space}" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/files_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextCaption" />
+                android:textAppearance="@style/TextCaptionM2" />
         </LinearLayout>
 
         <androidx.core.widget.ContentLoadingProgressBar

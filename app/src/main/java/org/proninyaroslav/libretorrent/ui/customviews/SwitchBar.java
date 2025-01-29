@@ -36,21 +36,21 @@ public class SwitchBar extends SwitchCompat
 {
     public SwitchBar(@NonNull Context context)
     {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar));
+        super(new ContextThemeWrapper(context, R.style.SwitchBarM2));
 
         init(context);
     }
 
     public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs)
     {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar), attrs);
+        super(new ContextThemeWrapper(context, R.style.SwitchBarM2), attrs);
 
         init(context);
     }
 
     public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
     {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar), attrs, defStyleAttr);
+        super(new ContextThemeWrapper(context, R.style.SwitchBarM2), attrs, defStyleAttr);
 
         init(context);
     }

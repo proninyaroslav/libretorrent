@@ -62,7 +62,7 @@
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
                         android:textIsSelectable="true"
-                        android:textAppearance="@style/TextCaption"
+                        android:textAppearance="@style/TextCaptionM2"
                         android:text="@{detailError}" />
                 </ScrollView>
 

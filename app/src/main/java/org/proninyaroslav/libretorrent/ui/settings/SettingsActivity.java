@@ -28,7 +28,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class SettingsActivity extends AppCompatActivity
 {
@@ -41,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);

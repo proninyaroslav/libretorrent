@@ -32,6 +32,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -145,7 +147,7 @@ public class BaseAlertDialog extends DialogFragment
                                       String negativeText, String neutralText,
                                       boolean autoDismiss)
     {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        var dialog = new MaterialAlertDialogBuilder(getActivity());
         if (title != null)
             dialog.setTitle(title);
 

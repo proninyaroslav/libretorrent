@@ -38,6 +38,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogSelectTagBinding;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
@@ -142,7 +144,7 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
     }
 
     private void initAlertDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.select_tag)
                 .setPositiveButton(R.string.new_tag, null)
                 .setNegativeButton(R.string.cancel, null)

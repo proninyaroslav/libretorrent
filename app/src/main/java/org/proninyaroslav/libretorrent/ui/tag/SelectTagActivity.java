@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class SelectTagActivity extends AppCompatActivity implements FragmentCallback {
@@ -40,7 +39,6 @@ public class SelectTagActivity extends AppCompatActivity implements FragmentCall
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
 

@@ -54,7 +54,6 @@ public class CreateTorrentActivity extends AppCompatActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         ViewModelProvider provider = new ViewModelProvider(this);

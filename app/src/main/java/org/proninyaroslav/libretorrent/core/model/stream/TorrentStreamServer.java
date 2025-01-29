@@ -19,6 +19,14 @@
 
 package org.proninyaroslav.libretorrent.core.model.stream;
 
+import static org.nanohttpd.NanoHTTPD.Response.Status.BAD_REQUEST;
+import static org.nanohttpd.NanoHTTPD.Response.Status.FORBIDDEN;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_FOUND;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_MODIFIED;
+import static org.nanohttpd.NanoHTTPD.Response.Status.OK;
+import static org.nanohttpd.NanoHTTPD.Response.Status.PARTIAL_CONTENT;
+import static org.nanohttpd.NanoHTTPD.Response.Status.RANGE_NOT_SATISFIABLE;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -34,14 +42,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-
-import static org.nanohttpd.NanoHTTPD.Response.Status.BAD_REQUEST;
-import static org.nanohttpd.NanoHTTPD.Response.Status.FORBIDDEN;
-import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_FOUND;
-import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_MODIFIED;
-import static org.nanohttpd.NanoHTTPD.Response.Status.OK;
-import static org.nanohttpd.NanoHTTPD.Response.Status.PARTIAL_CONTENT;
-import static org.nanohttpd.NanoHTTPD.Response.Status.RANGE_NOT_SATISFIABLE;
 
 /*
  * The server that allows to stream selected file from a torrent and to which a specific address is assigned.

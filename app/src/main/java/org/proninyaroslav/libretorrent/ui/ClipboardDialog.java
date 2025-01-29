@@ -22,10 +22,11 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -98,7 +99,7 @@ public class ClipboardDialog extends DialogFragment
 
         viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
+        var dialogBuilder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.clipboard)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 

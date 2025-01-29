@@ -118,7 +118,6 @@ public class FileManagerDialog extends AppCompatActivity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();

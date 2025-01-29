@@ -39,7 +39,6 @@ import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

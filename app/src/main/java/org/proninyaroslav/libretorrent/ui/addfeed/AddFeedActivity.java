@@ -30,7 +30,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class AddFeedActivity extends AppCompatActivity
@@ -46,7 +45,6 @@ public class AddFeedActivity extends AppCompatActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();

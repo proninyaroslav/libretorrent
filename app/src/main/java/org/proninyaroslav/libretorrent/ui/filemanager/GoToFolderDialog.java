@@ -39,6 +39,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogGoToFolderBinding;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
@@ -126,7 +128,7 @@ public class GoToFolderDialog extends DialogFragment {
     }
 
     private void initAlertDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.go_to_folder)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)

@@ -76,7 +76,6 @@ public class LogActivity extends AppCompatActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();

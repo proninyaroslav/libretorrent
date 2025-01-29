@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.model.data.entity;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -31,8 +33,6 @@ import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static androidx.room.ForeignKey.CASCADE;
 
 /*
  * Representation of the feed article.

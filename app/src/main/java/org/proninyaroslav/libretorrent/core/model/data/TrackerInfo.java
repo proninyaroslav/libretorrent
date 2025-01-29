@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.core.model.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +29,6 @@ import org.libtorrent4j.AnnounceEndpoint;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.AnnounceInfohash;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

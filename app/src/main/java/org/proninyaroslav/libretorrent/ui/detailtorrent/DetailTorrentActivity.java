@@ -52,7 +52,6 @@ public class DetailTorrentActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         if (Utils.isTwoPane(this)) {

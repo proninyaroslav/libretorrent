@@ -64,7 +64,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextCaption"
+                    android:textAppearance="@style/TextCaptionM2"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="end|center_vertical"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextCaption" />
+                    android:textAppearance="@style/TextCaptionM2" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +91,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:layout_weight="0.8"
-                    android:textAppearance="@style/TextCaption"
+                    android:textAppearance="@style/TextCaptionM2"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
@@ -102,7 +102,7 @@
                     android:ellipsize="end"
                     android:gravity="end|center_vertical"
                     android:layout_weight="0.2"
-                    android:textAppearance="@style/TextCaption" />
+                    android:textAppearance="@style/TextCaptionM2" />
             </LinearLayout>
 
             <TextView
@@ -114,7 +114,7 @@
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:textColor="?attr/colorError"
-                android:textAppearance="@style/TextCaption"
+                android:textAppearance="@style/TextCaptionM2"
                 android:layout_marginEnd="8dp" />
         </LinearLayout>
     </LinearLayout>

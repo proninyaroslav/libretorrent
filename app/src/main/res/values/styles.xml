@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="BaseTheme" />
-    <style name="AppTheme.Dark" parent="BaseTheme.Dark" />
-    <style name="AppTheme.Black" parent="BaseTheme.Black" />
-    <style name="AppTheme.Dialog" parent="BaseTheme.Dialog" />
-    <style name="AppTheme.Dialog.Dark" parent="BaseTheme.Dialog.Dark" />
-    <style name="AppTheme.Dialog.Black" parent="BaseTheme.Dialog.Black" />
-    <style name="AppTheme.Translucent" parent="BaseTheme.Translucent" />
-    <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark" />
-    <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black" />
-    <style name="AppTheme.Settings" parent="BaseTheme.Settings" />
-    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark" />
-    <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black" />
-    <style name="AppTheme.Launcher" parent="BaseTheme.Launcher" />
-    <style name="AppTheme.Toolbar.Spinner" parent="BaseTheme.Toolbar.Spinner" />
+    <style name="AppThemeM2" parent="BaseThemeM2" />
+    <style name="AppThemeM2.Dark" parent="BaseThemeM2.Dark" />
+    <style name="AppThemeM2.Black" parent="BaseThemeM2.Black" />
+    <style name="AppThemeM2.Dialog" parent="BaseThemeM2.Dialog" />
+    <style name="AppThemeM2.Dialog.Dark" parent="BaseThemeM2.Dialog.Dark" />
+    <style name="AppThemeM2.Dialog.Black" parent="BaseThemeM2.Dialog.Black" />
+    <style name="AppThemeM2.Translucent" parent="BaseThemeM2.Translucent" />
+    <style name="AppThemeM2.Translucent.Dark" parent="BaseThemeM2.Translucent.Dark" />
+    <style name="AppThemeM2.Translucent.Black" parent="BaseThemeM2.Translucent.Black" />
+    <style name="AppThemeM2.Settings" parent="BaseThemeM2.Settings" />
+    <style name="AppThemeM2.Settings.Dark" parent="BaseThemeM2.Settings.Dark" />
+    <style name="AppThemeM2.Settings.Black" parent="BaseThemeM2.Settings.Black" />
+    <style name="AppThemeM2.Launcher" parent="BaseThemeM2.Launcher" />
+    <style name="AppThemeM2.Toolbar.Spinner" parent="BaseThemeM2.Toolbar.Spinner" />
 
-    <style name="BaseTheme" parent="Theme.MaterialComponents.Light">
+    <style name="BaseThemeM2" parent="Theme.MaterialComponents.Light">
         <item name="colorSurface">@color/foreground</item>
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/background</item>
@@ -23,10 +23,10 @@
         <item name="android:actionModeBackground">@color/action_mode</item>
         <item name="actionModeBackground">@color/action_mode</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu</item>
-        <item name="popupMenuStyle">@style/PopupMenu</item> <!-- For pre-Lollipop -->
-        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
-        <item name="alertDialogTheme">@style/AppTheme.Dialog</item> <!-- For pre-Lollipop -->
+        <item name="android:popupMenuStyle">@style/PopupMenuM2</item>
+        <item name="popupMenuStyle">@style/PopupMenuM2</item> <!-- For pre-Lollipop -->
+        <item name="android:alertDialogTheme">@style/AppThemeM2.Dialog</item>
+        <item name="alertDialogTheme">@style/AppThemeM2.Dialog</item> <!-- For pre-Lollipop -->
 
         <item name="background">@color/background</item>
         <item name="foreground">@color/foreground</item>
@@ -44,7 +44,7 @@
         <item name="statusBarColor">@color/primary_dark</item>
         <item name="colorOk">@color/ok</item>
         <item name="pieceCellColor">@color/piece_cell</item>
-        <item name="tabLayoutTheme">@style/BaseTheme.TabLayout</item>
+        <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
 
         <item name="colorPrimary">@color/primary</item>
@@ -55,14 +55,14 @@
         <item name="colorOnSecondary">@color/text_primary_inverse</item>
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@android:color/white</item>
-        <item name="textInputStyle">@style/AppTextField</item>
+        <item name="textInputStyle">@style/AppTextFieldM2</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
-    <style name="BaseTheme.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="BaseThemeM2.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="colorSurface">@color/foreground_dark</item>
         <item name="colorOnSurface">@color/text_primary_inverse</item>
         <item name="android:colorBackground">@color/background_dark</item>
@@ -71,10 +71,10 @@
         <item name="android:actionModeBackground">@color/action_mode_dark</item>
         <item name="actionModeBackground">@color/action_mode_dark</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu_Dark</item>
-        <item name="popupMenuStyle">@style/PopupMenu_Dark</item> <!-- For pre-Lollipop -->
-        <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Dark</item>
-        <item name="alertDialogTheme">@style/AppTheme.Dialog.Dark</item> <!-- For pre-Lollipop -->
+        <item name="android:popupMenuStyle">@style/PopupMenuM2_Dark</item>
+        <item name="popupMenuStyle">@style/PopupMenuM2_Dark</item> <!-- For pre-Lollipop -->
+        <item name="android:alertDialogTheme">@style/AppThemeM2.Dialog.Dark</item>
+        <item name="alertDialogTheme">@style/AppThemeM2.Dialog.Dark</item> <!-- For pre-Lollipop -->
 
         <item name="background">@color/background_dark</item>
         <item name="foreground">@color/foreground_dark</item>
@@ -92,7 +92,7 @@
         <item name="statusBarColor">@color/background_dark</item>
         <item name="colorOk">@color/ok_light</item>
         <item name="pieceCellColor">@color/piece_cell_dark</item>
-        <item name="tabLayoutTheme">@style/BaseTheme.TabLayout.Dark</item>
+        <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout.Dark</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay_dark</item>
 
         <item name="colorPrimary">@color/primary_light</item>
@@ -103,7 +103,7 @@
         <item name="colorOnSecondary">@color/text_primary</item>
         <item name="colorError">@color/error_light</item>
         <item name="colorOnError">@android:color/white</item>
-        <item name="textInputStyle">@style/AppTextField</item>
+        <item name="textInputStyle">@style/AppTextFieldM2</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -111,14 +111,14 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Black" parent="BaseTheme.Dark">
+    <style name="BaseThemeM2.Black" parent="BaseThemeM2.Dark">
         <item name="colorSurface">@color/foreground_dark</item>
         <item name="android:colorBackground">@android:color/black</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:actionModeBackground">@android:color/black</item>
         <item name="actionModeBackground">@android:color/black</item> <!-- For pre-Lollipop -->
-        <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Black</item>
-        <item name="alertDialogTheme">@style/AppTheme.Dialog.Black</item> <!-- For pre-Lollipop -->
+        <item name="android:alertDialogTheme">@style/AppThemeM2.Dialog.Black</item>
+        <item name="alertDialogTheme">@style/AppThemeM2.Dialog.Black</item> <!-- For pre-Lollipop -->
 
         <item name="background">@android:color/black</item>
         <item name="backgroundDialog">@color/background_dialog_black</item>
@@ -134,7 +134,7 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="BaseThemeM2.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/text_primary_inverse</item>
@@ -155,7 +155,7 @@
         <item name="android:topDark">@color/background_dialog</item>
     </style>
 
-    <style name="BaseTheme.Dialog.Dark" parent="Theme.MaterialComponents.Dialog">
+    <style name="BaseThemeM2.Dialog.Dark" parent="Theme.MaterialComponents.Dialog">
         <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/text_primary_inverse</item>
@@ -176,7 +176,7 @@
         <item name="android:topDark">@color/background_dialog_dark</item>
     </style>
 
-    <style name="BaseTheme.Dialog.Black" parent="BaseTheme.Dialog.Dark">
+    <style name="BaseThemeM2.Dialog.Black" parent="BaseThemeM2.Dialog.Dark">
         <item name="android:windowBackground">@drawable/background_dialog_rounded_black</item>
 
         <item name="android:bottomBright">@color/background_dialog_black</item>
@@ -191,7 +191,7 @@
         <item name="android:topDark">@color/background_dialog_black</item>
     </style>
 
-    <style name="BaseTheme.Translucent" parent="BaseTheme">
+    <style name="BaseThemeM2.Translucent" parent="BaseThemeM2">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -202,7 +202,7 @@
         <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
-    <style name="BaseTheme.Translucent.Dark" parent="BaseTheme.Dark">
+    <style name="BaseThemeM2.Translucent.Dark" parent="BaseThemeM2.Dark">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -214,7 +214,7 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Translucent.Black" parent="BaseTheme.Black">
+    <style name="BaseThemeM2.Translucent.Black" parent="BaseThemeM2.Black">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -226,14 +226,14 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Settings" parent="BaseTheme">
+    <style name="BaseThemeM2.Settings" parent="BaseThemeM2">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@color/primary_dark</item>
         <item name="android:statusBarColor">?attr/statusBarColor</item>
     </style>
 
-    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark">
+    <style name="BaseThemeM2.Settings.Dark" parent="BaseThemeM2.Dark">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@color/background_dark</item>
@@ -241,7 +241,7 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black">
+    <style name="BaseThemeM2.Settings.Black" parent="BaseThemeM2.Black">
         <item name="android:layout">@layout/fragment_custom_preference</item>
 
         <item name="statusBarColor">@android:color/black</item>
@@ -249,7 +249,7 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
-    <style name="BaseTheme.Launcher" parent="BaseTheme">
+    <style name="BaseThemeM2.Launcher" parent="BaseThemeM2">
         <item name="android:windowBackground">@drawable/splash_screen</item>
 
         <item name="statusBarColor">@color/primary_dark</item>
@@ -257,40 +257,40 @@
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="BaseTheme.TabLayout.Dark" parent="Widget.MaterialComponents.TabLayout">
+    <style name="BaseThemeM2.TabLayout.Dark" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:background">?attr/toolbarColor</item>
         <item name="tabIndicatorFullWidth">true</item>
         <item name="tabMaxWidth">0dp</item>
         <item name="tabGravity">fill</item>
     </style>
 
-    <style name="BaseTheme.TabLayout" parent="BaseTheme.TabLayout.Dark">
+    <style name="BaseThemeM2.TabLayout" parent="BaseThemeM2.TabLayout.Dark">
         <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
         <item name="tabTextColor">@color/tablayout_text_selector</item>
     </style>
 
-    <style name="PopupMenu" parent="ThemeOverlay.MaterialComponents.Light">
+    <style name="PopupMenuM2" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:popupBackground">@drawable/popup_menu_light</item>
     </style>
 
-    <style name="PopupMenu_Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="PopupMenuM2_Dark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="android:popupBackground">@drawable/popup_menu_dark</item>
     </style>
 
-    <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="AppTextFieldM2" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundMode">outline</item>
     </style>
 
-    <style name="TextCaption" parent="@style/TextAppearance.MaterialComponents.Caption">
+    <style name="TextCaptionM2" parent="@style/TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TitleText" parent="@style/TextAppearance.MaterialComponents.Button">
+    <style name="TitleTextM2" parent="@style/TextAppearance.MaterialComponents.Button">
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="EmptyView" parent="@style/TextAppearance.MaterialComponents.Headline4">
+    <style name="EmptyViewM2" parent="@style/TextAppearance.MaterialComponents.Headline4">
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
     </style>
@@ -303,7 +303,7 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="SwitchBar">
+    <style name="SwitchBarM2">
         <item name="android:paddingLeft">@dimen/preference_icon_space</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingBottom">16dp</item>
@@ -314,7 +314,7 @@
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
     </style>
 
-    <style name="BaseTheme.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+    <style name="BaseThemeM2.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
         <item name="android:background">@null</item>
         <item name="android:divider">@null</item>
     </style>

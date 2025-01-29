@@ -90,7 +90,6 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         ViewModelProvider provider = new ViewModelProvider(this);

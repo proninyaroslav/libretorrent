@@ -20,13 +20,14 @@
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.R;
 

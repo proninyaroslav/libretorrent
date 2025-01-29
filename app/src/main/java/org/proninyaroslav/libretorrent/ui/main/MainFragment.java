@@ -25,24 +25,33 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.InsetDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.IntegerRes;
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -55,8 +64,6 @@ import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.leinardi.android.speeddial.SpeedDialActionItem;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -83,8 +90,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MainFragment extends Fragment
-        implements TorrentListAdapter.ClickListener
-{
+        implements TorrentListAdapter.ClickListener {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
@@ -114,8 +120,7 @@ public class MainFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
-    {
+                             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
         return binding.getRoot();
@@ -126,7 +131,7 @@ public class MainFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(MainViewModel.class);
@@ -165,8 +170,7 @@ public class MainFragment extends Fragment
 
         selectionTracker.addObserver(new SelectionTracker.SelectionObserver<TorrentListItem>() {
             @Override
-            public void onSelectionChanged()
-            {
+            public void onSelectionChanged() {
                 super.onSelectionChanged();
 
                 if (selectionTracker.hasSelection() && actionMode == null) {
@@ -184,8 +188,7 @@ public class MainFragment extends Fragment
             }
 
             @Override
-            public void onSelectionRestored()
-            {
+            public void onSelectionRestored() {
                 super.onSelectionRestored();
 
                 actionMode = activity.startSupportActionMode(actionModeCallback);
@@ -197,7 +200,7 @@ public class MainFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         adapter.setSelectionTracker(selectionTracker);
 
-        initFabSpeedDial();
+        binding.addTorrentFab.setOnClickListener(this::showFabMenu);
 
         Intent i = activity.getIntent();
         if (i != null && MainActivity.ACTION_ADD_TORRENT_SHORTCUT.equals(i.getAction())) {
@@ -207,8 +210,7 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void showAddTorrentMenu()
-    {
+    private void showAddTorrentMenu() {
         /* Show add torrent menu after window is displayed */
         View v = activity.getWindow().findViewById(android.R.id.content);
         if (v == null)
@@ -221,17 +223,15 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+            activity = (AppCompatActivity) context;
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAdapter();
@@ -242,16 +242,14 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         disposables.clear();
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
         if (torrentListState != null)
@@ -259,8 +257,7 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState)
-    {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null)
@@ -268,8 +265,7 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         torrentListState = layoutManager.onSaveInstanceState();
         outState.putParcelable(TAG_TORRENT_LIST_STATE, torrentListState);
         selectionTracker.onSaveInstanceState(outState);
@@ -277,13 +273,11 @@ public class MainFragment extends Fragment
         super.onSaveInstanceState(outState);
     }
 
-    private void subscribeAdapter()
-    {
+    private void subscribeAdapter() {
         disposables.add(observeTorrents());
     }
 
-    private Disposable observeTorrents()
-    {
+    private Disposable observeTorrents() {
         return viewModel.observeAllTorrentsInfo()
                 .subscribeOn(Schedulers.io())
                 .flatMapSingle((infoList) ->
@@ -299,8 +293,7 @@ public class MainFragment extends Fragment
                                 Log.getStackTraceString(t)));
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (event.dialogTag == null)
@@ -322,16 +315,14 @@ public class MainFragment extends Fragment
         disposables.add(d);
     }
 
-    private void subscribeForceSortAndFilter()
-    {
+    private void subscribeForceSortAndFilter() {
         disposables.add(viewModel.observeForceSortAndFilter()
                 .filter((force) -> force)
                 .observeOn(Schedulers.io())
                 .subscribe((force) -> disposables.add(getAllTorrentsSingle())));
     }
 
-    private Disposable getAllTorrentsSingle()
-    {
+    private Disposable getAllTorrentsSingle() {
         return viewModel.getAllTorrentsInfoSingle()
                 .subscribeOn(Schedulers.io())
                 .flatMap((infoList) ->
@@ -347,8 +338,7 @@ public class MainFragment extends Fragment
                                 Log.getStackTraceString(t)));
     }
 
-    private void subscribeTorrentsDeleted()
-    {
+    private void subscribeTorrentsDeleted() {
         disposables.add(viewModel.observeTorrentsDeleted()
                 .subscribeOn(Schedulers.io())
                 .filter((id) -> {
@@ -365,8 +355,7 @@ public class MainFragment extends Fragment
                 }));
     }
 
-    private void subscribeMsgViewModel()
-    {
+    private void subscribeMsgViewModel() {
         disposables.add(msgViewModel.observeTorrentDetailsClosed()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((__) -> {
@@ -376,31 +365,27 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void onItemClicked(@NonNull TorrentListItem item)
-    {
+    public void onItemClicked(@NonNull TorrentListItem item) {
         if (Utils.isTwoPane(activity))
             adapter.markAsOpen(item);
         msgViewModel.torrentDetailsOpened(item.torrentId);
     }
 
     @Override
-    public void onItemPauseClicked(@NonNull TorrentListItem item)
-    {
+    public void onItemPauseClicked(@NonNull TorrentListItem item) {
         viewModel.pauseResumeTorrent(item.torrentId);
     }
 
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
-                                    ContextMenu.ContextMenuInfo menuInfo)
-    {
+                                    ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         activity.getMenuInflater().inflate(R.menu.main_context, menu);
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item)
-    {
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.add_link_menu) {
             addLinkDialog();
@@ -411,60 +396,62 @@ public class MainFragment extends Fragment
         return true;
     }
 
-    private void initFabSpeedDial()
-    {
-        binding.fabButton.setOnActionSelectedListener((item) -> {
-            int id = item.getId();
-            if (id == R.id.main_fab_add_link) {
-                addLinkDialog();
-            } else if (id == R.id.main_fab_open_file) {
-                openTorrentFileDialog();
-            } else if (id == R.id.main_fab_create_torrent) {
-                createTorrentDialog();
-            } else {
-                return false;
-            }
 
-            binding.fabButton.close();
+    @SuppressLint("RestrictedApi")
+    private void showFabMenu(View v) {
+        var popupWrapper = new ContextThemeWrapper(activity, R.style.AppTheme_FloatingActionButton_Menu);
+        var popup = new PopupMenu(popupWrapper, v, Gravity.TOP);
+        popup.getMenuInflater().inflate(R.menu.main_fab, popup.getMenu());
+
+        if (popup.getMenu() instanceof MenuBuilder menuBuilder) {
+            menuBuilder.setOptionalIconsVisible(true);
+            var items = menuBuilder.getVisibleItems();
+            for (int i = 0; i < items.size(); i++) {
+                int iconMarginPx = (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        12.0f,
+                        getResources().getDisplayMetrics()
+                );
+                var item = items.get(i);
+                if (item.getIcon() != null) {
+                    item.setIcon(new InsetDrawable(item.getIcon(), iconMarginPx, 0, iconMarginPx, 0) {
+                        @Override
+                        public int getIntrinsicWidth() {
+                            return getIntrinsicHeight() + iconMarginPx + iconMarginPx;
+                        }
+                    });
+                }
+            }
+        }
+
+        popup.setOnMenuItemClickListener((item) -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.create_torrent) {
+                createTorrentDialog();
+            } else if (itemId == R.id.add_link) {
+                addLinkDialog();
+            } else if (itemId == R.id.open_file) {
+                openTorrentFileDialog();
+            }
 
             return true;
         });
 
-        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
-                R.id.main_fab_create_torrent,
-                R.drawable.ic_mode_edit_18dp)
-                .setLabel(R.string.create_torrent)
-                .create());
-
-        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
-                R.id.main_fab_open_file,
-                R.drawable.ic_file_18dp)
-                .setLabel(R.string.open_file)
-                .create());
-
-        binding.fabButton.addActionItem(new SpeedDialActionItem.Builder(
-                R.id.main_fab_add_link,
-                R.drawable.ic_link_18dp)
-                .setLabel(R.string.add_link)
-                .create());
+        popup.show();
     }
 
-    private void setActionModeTitle(int itemCount)
-    {
+    private void setActionModeTitle(int itemCount) {
         actionMode.setTitle(String.valueOf(itemCount));
     }
 
-    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback()
-    {
+    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu)
-        {
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
 
         @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu)
-        {
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.main_action_mode, menu);
             Utils.showActionModeStatusBar(activity, true);
 
@@ -472,8 +459,7 @@ public class MainFragment extends Fragment
         }
 
         @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item)
-        {
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             int itemId = item.getItemId();
             if (itemId == R.id.delete_torrent_menu) {
                 deleteTorrentsDialog();
@@ -491,15 +477,13 @@ public class MainFragment extends Fragment
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode)
-        {
+        public void onDestroyActionMode(ActionMode mode) {
             selectionTracker.clearSelection();
             Utils.showActionModeStatusBar(activity, false);
         }
     };
 
-    private void deleteTorrentsDialog()
-    {
+    private void deleteTorrentsDialog() {
         if (!isAdded())
             return;
 
@@ -520,13 +504,11 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void addLinkDialog()
-    {
+    private void addLinkDialog() {
         startActivity(new Intent(activity, AddLinkActivity.class));
     }
 
-    private void openTorrentFileDialog()
-    {
+    private void openTorrentFileDialog() {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
         FileManagerConfig config = new FileManagerConfig(null,
@@ -538,8 +520,7 @@ public class MainFragment extends Fragment
         torrentFileChoose.launch(i);
     }
 
-    private void openFileErrorDialog()
-    {
+    private void openFileErrorDialog() {
         if (!isAdded())
             return;
 
@@ -558,13 +539,11 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void createTorrentDialog()
-    {
+    private void createTorrentDialog() {
         startActivity(new Intent(activity, CreateTorrentActivity.class));
     }
 
-    private void deleteTorrents()
-    {
+    private void deleteTorrents() {
         Dialog dialog = deleteTorrentsDialog.getDialog();
         if (dialog == null)
             return;
@@ -585,8 +564,7 @@ public class MainFragment extends Fragment
     }
 
     @SuppressLint("RestrictedApi")
-    private void selectAllTorrents()
-    {
+    private void selectAllTorrents() {
         int n = adapter.getItemCount();
         if (n > 0) {
             selectionTracker.startRange(0);
@@ -594,8 +572,7 @@ public class MainFragment extends Fragment
         }
     }
 
-    private void forceRecheckTorrents()
-    {
+    private void forceRecheckTorrents() {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
@@ -605,8 +582,7 @@ public class MainFragment extends Fragment
                 .subscribe((ids) -> viewModel.forceRecheckTorrents(ids)));
     }
 
-    private void forceAnnounceTorrents()
-    {
+    private void forceAnnounceTorrents() {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 

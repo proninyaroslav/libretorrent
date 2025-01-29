@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/create_torrent"
+        android:title="@string/create_torrent"
+        android:icon="@drawable/ic_edit_24px" />
+
+    <item android:id="@+id/add_link"
+        android:title="@string/add_link"
+        android:icon="@drawable/ic_link_24px" />
+
+    <item android:id="@+id/open_file"
+        android:title="@string/open_file"
+        android:icon="@drawable/ic_file_open_24px" />
+</menu>

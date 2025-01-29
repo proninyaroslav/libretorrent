@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorOk" format="color" />
+    <attr name="colorOnOk" format="color" />
+    <attr name="colorOkContainer" format="color" />
+    <attr name="colorOnOkContainer" format="color" />
+
     <declare-styleable name="dynamic_style_attrs">
         <attr name="background" format="reference" />
         <attr name="foreground" format="reference" />
@@ -15,7 +20,6 @@
         <attr name="selectableDrawer" format="reference" />
         <attr name="transparentRoundRipple" format="reference" />
         <attr name="dialogRectRipple" format="reference" />
-        <attr name="colorOk" format="reference" />
         <attr name="pieceCellColor" format="reference" />
         <attr name="tabLayoutTheme" format="reference" />
         <attr name="speedDialOverlayColor" format="reference" />

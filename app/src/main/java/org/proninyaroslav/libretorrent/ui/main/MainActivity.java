@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCallback 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         if (getIntent().getAction() != null &&

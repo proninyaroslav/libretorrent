@@ -47,6 +47,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
@@ -279,7 +280,7 @@ public class CreateTorrentDialog extends DialogFragment
 
     private void initAlertDialog(View view)
     {
-        alert = new AlertDialog.Builder(activity)
+        alert = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.create_torrent)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.add, null)

@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/torrent_speed"
-                    style="@style/TitleText" />
+                    style="@style/TitleTextM2" />
 
                 <TextView
                     android:id="@+id/speed"
@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_seeds"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/seeds"
@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_leechers"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/leechers"
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_downloaded"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/downloading"
@@ -137,7 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_ETA"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/ETA"
@@ -167,7 +167,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_uploaded"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/uploaded"
@@ -188,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_share_ratio"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/share_ratio"
@@ -218,7 +218,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_active_time"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/active_time"
@@ -239,7 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_seeding_time"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/seeding_time"
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_pieces"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/pieces"
@@ -290,7 +290,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/torrent_availability"
-                        style="@style/TitleText" />
+                        style="@style/TitleTextM2" />
 
                     <TextView
                         android:id="@+id/availability"

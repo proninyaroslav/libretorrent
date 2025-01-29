@@ -1,15 +1,34 @@
+/*
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ *
+ * This file is part of LibreTorrent.
+ *
+ * LibreTorrent is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * LibreTorrent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.proninyaroslav.libretorrent.ui.addlink;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class AddLinkActivity extends AppCompatActivity
@@ -22,7 +41,6 @@ public class AddLinkActivity extends AppCompatActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -31,17 +49,18 @@ public class AddLinkActivity extends AppCompatActivity
             addLinkDialog = AddLinkDialog.newInstance();
             addLinkDialog.show(fm, TAG_ADD_LINK_DIALOG);
         }
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                addLinkDialog.onBackPressed();
+            }
+        });
     }
 
     @Override
     public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code)
     {
         finish();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        addLinkDialog.onBackPressed();
     }
 }
