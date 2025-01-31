@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -37,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -67,8 +68,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CreateTorrentDialog extends DialogFragment
-{
+public class CreateTorrentDialog extends DialogFragment {
     private static final String TAG = CreateTorrentDialog.class.getSimpleName();
 
     private static final String TAG_OPEN_PATH_ERROR_DIALOG = "open_path_error_dialog";
@@ -85,8 +85,7 @@ public class CreateTorrentDialog extends DialogFragment
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private ErrorReportDialog errReportDialog;
 
-    public static CreateTorrentDialog newInstance()
-    {
+    public static CreateTorrentDialog newInstance() {
         CreateTorrentDialog frag = new CreateTorrentDialog();
         frag.setArguments(new Bundle());
 
@@ -94,17 +93,22 @@ public class CreateTorrentDialog extends DialogFragment
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
+        }
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
         /* Back button handle */
@@ -113,7 +117,7 @@ public class CreateTorrentDialog extends DialogFragment
                 if (event.getAction() != KeyEvent.ACTION_DOWN) {
                     return true;
                 } else {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                     return true;
                 }
             } else {
@@ -123,23 +127,20 @@ public class CreateTorrentDialog extends DialogFragment
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         disposables.clear();
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAlertDialog();
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (event.dialogTag == null)
@@ -170,19 +171,18 @@ public class CreateTorrentDialog extends DialogFragment
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(CreateTorrentViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getChildFragmentManager();
-        errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
+        errReportDialog = (ErrorReportDialog) fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_create_torrent, null, false);
         binding.setLifecycleOwner(this);
         binding.setViewModel(viewModel);
@@ -192,19 +192,19 @@ public class CreateTorrentDialog extends DialogFragment
         return alert;
     }
 
-    private void initLayoutView()
-    {
+    private void initLayoutView() {
         /* Dismiss error label if user has changed the text */
         binding.trackerUrls.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 binding.layoutTrackerUrls.setErrorEnabled(false);
                 binding.layoutTrackerUrls.setError(null);
             }
@@ -212,45 +212,41 @@ public class CreateTorrentDialog extends DialogFragment
 
         binding.webSeedUrls.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 binding.layoutWebSeedUrls.setErrorEnabled(false);
                 binding.layoutWebSeedUrls.setError(null);
             }
         });
 
         binding.piecesSize.setSelection(viewModel.mutableParams.getPieceSizeIndex());
-        binding.piecesSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        binding.piecesSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-            {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 viewModel.setPiecesSizeIndex(binding.piecesSize.getSelectedItemPosition());
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
+            public void onNothingSelected(AdapterView<?> adapterView) {
                 /* Nothing */
             }
         });
 
-        binding.torrentVersion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        binding.torrentVersion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-            {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 viewModel.setTorrentVersionIndex(binding.torrentVersion.getSelectedItemPosition());
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
+            public void onNothingSelected(AdapterView<?> adapterView) {
                 /*  Nothing  */
             }
         });
@@ -278,8 +274,7 @@ public class CreateTorrentDialog extends DialogFragment
         initAlertDialog(binding.getRoot());
     }
 
-    private void initAlertDialog(View view)
-    {
+    private void initAlertDialog(View view) {
         alert = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.create_torrent)
                 .setNegativeButton(R.string.cancel, null)
@@ -312,19 +307,17 @@ public class CreateTorrentDialog extends DialogFragment
             cancelButton.setOnClickListener((v) ->
                     finish(new Intent(), FragmentCallback.ResultCode.CANCEL));
             addButton.setOnClickListener((v) -> {
-                if(TextUtils.isEmpty(viewModel.mutableParams.getSeedPathName()) || "null".equals(viewModel.mutableParams.getSeedPathName())) {
+                if (TextUtils.isEmpty(viewModel.mutableParams.getSeedPathName()) || "null".equals(viewModel.mutableParams.getSeedPathName())) {
                     binding.layoutFileOrDirPath.setErrorEnabled(true);
                     binding.layoutFileOrDirPath.setError(getText(R.string.error_please_select_file_or_folder_for_seeding_first));
-                }
-                else{
+                } else {
                     choosePathToSaveDialog();
                 }
             });
         });
     }
 
-    private void choosePathToSaveDialog()
-    {
+    private void choosePathToSaveDialog() {
         Intent i = new Intent(activity, FileManagerDialog.class);
         FileManagerConfig config = new FileManagerConfig(
                 null,
@@ -336,8 +329,7 @@ public class CreateTorrentDialog extends DialogFragment
         choosePathToSave.launch(i);
     }
 
-    private void buildTorrent()
-    {
+    private void buildTorrent() {
         binding.layoutTrackerUrls.setErrorEnabled(false);
         binding.layoutTrackerUrls.setError(null);
         binding.layoutWebSeedUrls.setErrorEnabled(false);
@@ -346,8 +338,7 @@ public class CreateTorrentDialog extends DialogFragment
         viewModel.buildTorrent();
     }
 
-    private void handleBuildError(Throwable err)
-    {
+    private void handleBuildError(Throwable err) {
         if (err == null)
             return;
 
@@ -356,20 +347,20 @@ public class CreateTorrentDialog extends DialogFragment
         if (err instanceof CreateTorrentViewModel.InvalidTrackerException) {
             binding.layoutTrackerUrls.setErrorEnabled(true);
             binding.layoutTrackerUrls.setError(getString(R.string.invalid_url,
-                    ((CreateTorrentViewModel.InvalidTrackerException)err).url));
+                    ((CreateTorrentViewModel.InvalidTrackerException) err).url));
             binding.layoutTrackerUrls.requestFocus();
 
         } else if (err instanceof CreateTorrentViewModel.InvalidWebSeedException) {
             binding.layoutWebSeedUrls.setErrorEnabled(true);
             binding.layoutWebSeedUrls.setError(getString(R.string.invalid_url,
-                    ((CreateTorrentViewModel.InvalidWebSeedException)err).url));
+                    ((CreateTorrentViewModel.InvalidWebSeedException) err).url));
             binding.layoutWebSeedUrls.requestFocus();
 
         } else if (err instanceof FileNotFoundException) {
-            fileOrFolderNotFoundDialog((FileNotFoundException)err);
+            fileOrFolderNotFoundDialog((FileNotFoundException) err);
 
         } else if (err instanceof IOException) {
-            if (err.getMessage().contains("content total size can't be 0"))
+            if (err.getMessage() != null && err.getMessage().contains("content total size can't be 0"))
                 emptyFolderErrorDialog();
             else
                 errorReportDialog(err);
@@ -378,13 +369,12 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void handleFinish()
-    {
+    private void handleFinish() {
         Uri savePath = viewModel.mutableParams.getSavePath();
         if (savePath != null) {
             Toast.makeText(activity.getApplicationContext(),
-                    getString(R.string.torrent_saved_to, savePath.getPath()),
-                    Toast.LENGTH_SHORT)
+                            getString(R.string.torrent_saved_to, savePath.getPath()),
+                            Toast.LENGTH_SHORT)
                     .show();
         }
         if (viewModel.mutableParams.isStartSeeding()) {
@@ -403,8 +393,7 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void openPathErrorDialog(boolean isFile)
-    {
+    private void openPathErrorDialog(boolean isFile) {
         if (!isAdded())
             return;
 
@@ -423,13 +412,12 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void fileOrFolderNotFoundDialog(FileNotFoundException e)
-    {
+    private void fileOrFolderNotFoundDialog(FileNotFoundException e) {
         if (!isAdded())
             return;
 
         FragmentManager fm = getChildFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_FILE_OR_FOLDER_NOT_FOUND_ERROR_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_FILE_OR_FOLDER_NOT_FOUND_ERROR_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     e.getMessage(),
@@ -443,13 +431,12 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void emptyFolderErrorDialog()
-    {
+    private void emptyFolderErrorDialog() {
         if (!isAdded())
             return;
 
         FragmentManager fm = getChildFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_OPEN_PATH_ERROR_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_OPEN_PATH_ERROR_DIALOG) == null) {
             BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.folder_is_empty),
@@ -463,12 +450,11 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void errorReportDialog(Throwable e)
-    {
+    private void errorReportDialog(Throwable e) {
         viewModel.errorReport = e;
 
         FragmentManager fm = getChildFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
             errReportDialog = ErrorReportDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.error_create_torrent) + ": " + e.getMessage(),
@@ -478,13 +464,12 @@ public class CreateTorrentDialog extends DialogFragment
         }
     }
 
-    private void createFileErrorDialog()
-    {
+    private void createFileErrorDialog() {
         if (!isAdded())
             return;
 
         FragmentManager fm = getChildFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
+        if (fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
             BaseAlertDialog createFileErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.unable_to_create_file),
@@ -548,15 +533,9 @@ public class CreateTorrentDialog extends DialogFragment
             }
     );
 
-    public void onBackPressed()
-    {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code)
-    {
+    private void finish(Intent intent, FragmentCallback.ResultCode code) {
         viewModel.finish();
         alert.dismiss();
-        ((FragmentCallback)activity).onFragmentFinished(this, intent, code);
+        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
     }
 }

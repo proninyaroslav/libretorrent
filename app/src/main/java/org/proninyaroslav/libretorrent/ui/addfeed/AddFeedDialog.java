@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -38,6 +38,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,8 +59,7 @@ import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class AddFeedDialog extends DialogFragment
-{
+public class AddFeedDialog extends DialogFragment {
     private static final String TAG = AddFeedDialog.class.getSimpleName();
 
     private static final String TAG_URI = "uri";
@@ -77,8 +77,7 @@ public class AddFeedDialog extends DialogFragment
     private ClipboardDialog clipboardDialog;
     private ClipboardDialog.SharedViewModel clipboardViewModel;
 
-    public static AddFeedDialog newInstance(Uri uri)
-    {
+    public static AddFeedDialog newInstance(Uri uri) {
         AddFeedDialog frag = new AddFeedDialog();
 
         Bundle args = new Bundle();
@@ -88,8 +87,7 @@ public class AddFeedDialog extends DialogFragment
         return frag;
     }
 
-    public static AddFeedDialog newInstance(long feedId)
-    {
+    public static AddFeedDialog newInstance(long feedId) {
         AddFeedDialog frag = new AddFeedDialog();
 
         Bundle args = new Bundle();
@@ -100,12 +98,12 @@ public class AddFeedDialog extends DialogFragment
     }
 
     private void subscribeClipboardManager() {
-        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Activity.CLIPBOARD_SERVICE);
         clipboard.addPrimaryClipChangedListener(clipListener);
     }
 
     private void unsubscribeClipboardManager() {
-        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Activity.CLIPBOARD_SERVICE);
         clipboard.removePrimaryClipChangedListener(clipListener);
     }
 
@@ -114,23 +112,27 @@ public class AddFeedDialog extends DialogFragment
     private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
             (__) -> switchClipboardButton();
 
-    private void switchClipboardButton()
-    {
+    private void switchClipboardButton() {
         ClipData clip = Utils.getClipData(activity.getApplicationContext());
         viewModel.showClipboardButton.set(clip != null);
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
+        }
     }
 
-    private void initParams(Uri uri, long feedId)
-    {
+    private void initParams(Uri uri, long feedId) {
         if (uri != null)
             viewModel.initAddMode(uri);
         else if (feedId != -1)
@@ -140,8 +142,7 @@ public class AddFeedDialog extends DialogFragment
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
         /* Back button handle */
@@ -150,7 +151,7 @@ public class AddFeedDialog extends DialogFragment
                 if (event.getAction() != KeyEvent.ACTION_DOWN) {
                     return true;
                 } else {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                     return true;
                 }
             } else {
@@ -160,8 +161,7 @@ public class AddFeedDialog extends DialogFragment
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         unsubscribeClipboardManager();
@@ -169,8 +169,7 @@ public class AddFeedDialog extends DialogFragment
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAlertDialog();
@@ -179,10 +178,9 @@ public class AddFeedDialog extends DialogFragment
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(AddFeedViewModel.class);
@@ -190,8 +188,8 @@ public class AddFeedDialog extends DialogFragment
         clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
         FragmentManager fm = getChildFragmentManager();
-        deleteFeedDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
-        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+        deleteFeedDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
+        clipboardDialog = (ClipboardDialog) fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
 
         long feedId = getArguments().getLong(TAG_FEED_ID, -1);
         Uri uri = getArguments().getParcelable(TAG_URI);
@@ -200,7 +198,7 @@ public class AddFeedDialog extends DialogFragment
         getArguments().putParcelable(TAG_URI, null);
         initParams(uri, feedId);
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_feed_channel, null, false);
         binding.setViewModel(viewModel);
 
@@ -212,39 +210,39 @@ public class AddFeedDialog extends DialogFragment
     }
 
     @Override
-    public void onDestroyView()
-    {
+    public void onDestroyView() {
         binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
 
         super.onDestroyView();
     }
 
-    private void initLayoutView()
-    {
+    private void initLayoutView() {
         binding.url.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 binding.layoutUrl.setErrorEnabled(false);
                 binding.layoutUrl.setError(null);
             }
         });
         binding.filter.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 binding.layoutFilter.setErrorEnabled(false);
                 binding.layoutFilter.setError(null);
             }
@@ -257,8 +255,7 @@ public class AddFeedDialog extends DialogFragment
         initAlertDialog(binding.getRoot());
     }
 
-    private void initAlertDialog(View view)
-    {
+    private void initAlertDialog(View view) {
         var builder = new MaterialAlertDialogBuilder(activity)
                 .setNegativeButton(R.string.cancel, null)
                 .setView(view);
@@ -290,8 +287,7 @@ public class AddFeedDialog extends DialogFragment
         });
     }
 
-    private void showClipboardDialog()
-    {
+    private void showClipboardDialog() {
         if (!isAdded())
             return;
 
@@ -302,8 +298,7 @@ public class AddFeedDialog extends DialogFragment
         }
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (event.dialogTag == null)
@@ -331,16 +326,14 @@ public class AddFeedDialog extends DialogFragment
         disposables.add(d);
     }
 
-    private void handleUrlClipItem(String item)
-    {
+    private void handleUrlClipItem(String item) {
         if (TextUtils.isEmpty(item))
             return;
 
         viewModel.mutableParams.setUrl(item);
     }
 
-    private void deleteFeedDialog()
-    {
+    private void deleteFeedDialog() {
         if (!isAdded())
             return;
 
@@ -359,8 +352,7 @@ public class AddFeedDialog extends DialogFragment
         }
     }
 
-    private boolean checkUrlField(Editable s)
-    {
+    private boolean checkUrlField(Editable s) {
         if (s == null)
             return false;
 
@@ -378,15 +370,14 @@ public class AddFeedDialog extends DialogFragment
         return true;
     }
 
-    private void addChannel()
-    {
+    private void addChannel() {
         if (!checkUrlField(binding.url.getText()))
             return;
 
         if (!viewModel.addChannel()) {
             Toast.makeText(activity,
-                    R.string.error_cannot_add_channel,
-                    Toast.LENGTH_SHORT)
+                            R.string.error_cannot_add_channel,
+                            Toast.LENGTH_SHORT)
                     .show();
             return;
         }
@@ -394,15 +385,14 @@ public class AddFeedDialog extends DialogFragment
         finish(new Intent(), FragmentCallback.ResultCode.OK);
     }
 
-    private void updateChannel()
-    {
+    private void updateChannel() {
         if (!checkUrlField(binding.url.getText()))
             return;
 
         if (!viewModel.updateChannel()) {
             Toast.makeText(activity,
-                    R.string.error_cannot_edit_channel,
-                    Toast.LENGTH_SHORT)
+                            R.string.error_cannot_edit_channel,
+                            Toast.LENGTH_SHORT)
                     .show();
             return;
         }
@@ -410,12 +400,11 @@ public class AddFeedDialog extends DialogFragment
         finish(new Intent(), FragmentCallback.ResultCode.OK);
     }
 
-    private void deleteChannel()
-    {
+    private void deleteChannel() {
         if (!viewModel.deleteChannel()) {
             Toast.makeText(activity,
-                    R.string.error_cannot_delete_channel,
-                    Toast.LENGTH_SHORT)
+                            R.string.error_cannot_delete_channel,
+                            Toast.LENGTH_SHORT)
                     .show();
             return;
         }
@@ -423,14 +412,8 @@ public class AddFeedDialog extends DialogFragment
         finish(new Intent(), FragmentCallback.ResultCode.OK);
     }
 
-    public void onBackPressed()
-    {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code)
-    {
+    private void finish(Intent intent, FragmentCallback.ResultCode code) {
         alert.dismiss();
-        ((FragmentCallback)activity).onFragmentFinished(this, intent, code);
+        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
     }
 }

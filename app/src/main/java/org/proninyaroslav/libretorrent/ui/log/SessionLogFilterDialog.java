@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,11 +22,13 @@ package org.proninyaroslav.libretorrent.ui.log;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,18 +40,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogLogFilterBinding;
+import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
-public class SessionLogFilterDialog extends DialogFragment
-{
-    private static final String TAG = SessionLogFilterDialog.class.getSimpleName();
-
+public class SessionLogFilterDialog extends DialogFragment {
     private AlertDialog alert;
     private AppCompatActivity activity;
     private DialogLogFilterBinding binding;
     private LogViewModel viewModel;
 
-    public static SessionLogFilterDialog newInstance()
-    {
+    public static SessionLogFilterDialog newInstance() {
         SessionLogFilterDialog frag = new SessionLogFilterDialog();
 
         Bundle args = new Bundle();
@@ -59,44 +58,23 @@ public class SessionLogFilterDialog extends DialogFragment
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        /* Back button handle */
-        getDialog().setOnKeyListener((DialogInterface dialog, int keyCode, KeyEvent event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.getAction() != KeyEvent.ACTION_DOWN) {
-                    return true;
-                } else {
-                    onBackPressed();
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        });
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+        }
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (activity == null)
             activity = (AppCompatActivity) getActivity();
 
         viewModel = new ViewModelProvider(activity).get(LogViewModel.class);
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_log_filter, null, false);
         binding.setViewModel(viewModel);
 
@@ -105,18 +83,12 @@ public class SessionLogFilterDialog extends DialogFragment
         return alert;
     }
 
-    private void initLayoutView(View view)
-    {
+    private void initLayoutView(View view) {
         var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.filter)
-                .setNegativeButton(R.string.cancel, (dialog, which) -> onBackPressed())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> alert.dismiss())
                 .setView(view);
 
         alert = builder.create();
-    }
-
-    private void onBackPressed()
-    {
-        alert.dismiss();
     }
 }

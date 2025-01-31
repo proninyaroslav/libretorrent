@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2024-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,8 +68,15 @@ public class GoToFolderDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
+        if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
+        }
     }
 
     @Override
@@ -79,7 +87,7 @@ public class GoToFolderDialog extends DialogFragment {
         getDialog().setOnKeyListener((DialogInterface dialog, int keyCode, KeyEvent event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                 }
                 return true;
             } else {
@@ -97,7 +105,7 @@ public class GoToFolderDialog extends DialogFragment {
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(GoToFolderViewModel.class);
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_go_to_folder, null, false);
         binding.setViewModel(viewModel);
 
@@ -155,10 +163,6 @@ public class GoToFolderDialog extends DialogFragment {
         i.putExtra(FileManagerDialog.TAG_URI, Uri.parse(viewModel.path.get()));
 
         finish(i, FragmentCallback.ResultCode.OK);
-    }
-
-    public void onBackPressed() {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
     }
 
     private void finish(Intent intent, FragmentCallback.ResultCode code) {

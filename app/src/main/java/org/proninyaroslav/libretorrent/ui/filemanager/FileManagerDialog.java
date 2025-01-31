@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -490,15 +490,10 @@ public class FileManagerDialog extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
-            onBackPressed();
+            finish();
         } else if (itemId == R.id.filemanager_home_menu) {
             openHomeDirectory();
         } else if (itemId == R.id.filemanager_ok_menu) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -43,6 +43,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -50,9 +51,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
+import androidx.core.view.MenuProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -87,13 +90,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailTorrentFragment extends Fragment
-{
+public class DetailTorrentFragment extends Fragment {
     private static final String TAG = DetailTorrentFragment.class.getSimpleName();
 
     private static final String TAG_TORRENT_ID = "torrent_id";
     private static final String TAG_CURRENT_FRAG_POS = "current_frag_pos";
-    private static final String TAG_ADD_TRACKERS_DIALOG= "add_trackers_dialog";
+    private static final String TAG_ADD_TRACKERS_DIALOG = "add_trackers_dialog";
     private static final String TAG_DELETE_TORRENT_DIALOG = "delete_torrent_dialog";
     private static final String TAG_ERR_REPORT_DIALOG = "err_report_dialog";
     private static final String TAG_SPEED_LIMIT_DIALOG = "speed_limit_dialog";
@@ -112,8 +114,7 @@ public class DetailTorrentFragment extends Fragment
     private ErrorReportDialog errReportDialog;
     private BaseAlertDialog deleteTorrentDialog, addTrackersDialog, speedLimitDialog;
 
-    public static DetailTorrentFragment newInstance(@NonNull String id)
-    {
+    public static DetailTorrentFragment newInstance(@NonNull String id) {
         DetailTorrentFragment fragment = new DetailTorrentFragment();
         fragment.setTorrentId(id);
         fragment.setArguments(new Bundle());
@@ -121,13 +122,11 @@ public class DetailTorrentFragment extends Fragment
         return fragment;
     }
 
-    public String getTorrentId()
-    {
+    public String getTorrentId() {
         return torrentId;
     }
 
-    public void setTorrentId(String id)
-    {
+    public void setTorrentId(String id) {
         torrentId = id;
     }
 
@@ -136,17 +135,22 @@ public class DetailTorrentFragment extends Fragment
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
+        }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_torrent, container, false);
 
         return binding.getRoot();
@@ -157,7 +161,7 @@ public class DetailTorrentFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+            activity = (AppCompatActivity) getActivity();
 
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(DetailTorrentViewModel.class);
@@ -176,11 +180,11 @@ public class DetailTorrentFragment extends Fragment
         } else {
             binding.appbar.toolbar.setTitle(R.string.details);
             activity.setSupportActionBar(binding.appbar.toolbar);
-            setHasOptionsMenu(true);
             if (activity.getSupportActionBar() != null)
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        binding.appbar.toolbar.setNavigationOnClickListener((v) -> onBackPressed());
+        binding.appbar.toolbar.setNavigationOnClickListener((v) ->
+                finish(new Intent(), FragmentCallback.ResultCode.BACK));
 
         adapter = new DetailPagerAdapter(this);
         binding.fragmentViewpager.setAdapter(adapter);
@@ -212,17 +216,49 @@ public class DetailTorrentFragment extends Fragment
         binding.fragmentViewpager.setCurrentItem(currentFragPos);
 
         FragmentManager fm = getChildFragmentManager();
-        deleteTorrentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
-        errReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG);
-        addTrackersDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG);
-        speedLimitDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG);
+        deleteTorrentDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_DELETE_TORRENT_DIALOG);
+        errReportDialog = (ErrorReportDialog) fm.findFragmentByTag(TAG_ERR_REPORT_DIALOG);
+        addTrackersDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG);
+        speedLimitDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_SPEED_LIMIT_DIALOG);
 
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+
+        activity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.detail_torrent, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                int itemId = menuItem.getItemId();
+                if (itemId == android.R.id.home) {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                } else if (itemId == R.id.pause_resume_torrent_menu) {
+                    viewModel.pauseResumeTorrent();
+                } else if (itemId == R.id.delete_torrent_menu) {
+                    deleteTorrentDialog();
+                } else if (itemId == R.id.force_recheck_torrent_menu) {
+                    viewModel.forceRecheckTorrent();
+                } else if (itemId == R.id.force_announce_torrent_menu) {
+                    viewModel.forceAnnounceTorrent();
+                } else if (itemId == R.id.share_magnet_menu) {
+                    shareMagnetDialog();
+                } else if (itemId == R.id.save_torrent_file_menu) {
+                    torrentSaveChooseDialog();
+                } else if (itemId == R.id.add_trackers_menu) {
+                    addTrackersDialog();
+                } else if (itemId == R.id.torrent_speed_limit) {
+                    speedLimitDialog();
+                }
+
+                return true;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeTorrentInfo();
@@ -232,24 +268,21 @@ public class DetailTorrentFragment extends Fragment
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         disposables.clear();
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putString(TAG_TORRENT_ID, torrentId);
         outState.putInt(TAG_CURRENT_FRAG_POS, currentFragPos);
 
         super.onSaveInstanceState(outState);
     }
 
-    private void subscribeTorrentInfo()
-    {
+    private void subscribeTorrentInfo() {
         if (torrentId == null)
             return;
 
@@ -275,8 +308,7 @@ public class DetailTorrentFragment extends Fragment
                         (Throwable e) -> Log.e(TAG, "Getting advanced info error: " + Log.getStackTraceString(e))));
     }
 
-    private void subscribeMsgViewModel()
-    {
+    private void subscribeMsgViewModel() {
         disposables.add(msgViewModel.observeFragmentInActionMode()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((inActionMode) -> setTabLayoutColor(
@@ -287,15 +319,13 @@ public class DetailTorrentFragment extends Fragment
                 )));
     }
 
-    private void subscribeFreeSpaceError()
-    {
+    private void subscribeFreeSpaceError() {
         disposables.add(viewModel.observeFreeSpaceError()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> showFreeSpaceErrorToast()));
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (event.dialogTag == null)
@@ -353,8 +383,7 @@ public class DetailTorrentFragment extends Fragment
         disposables.add(d);
     }
 
-    private void handleTorrentInfo(Pair<Torrent, TorrentInfo> info)
-    {
+    private void handleTorrentInfo(Pair<Torrent, TorrentInfo> info) {
         Torrent torrent = info.first;
         TorrentInfo ti = info.second;
         TorrentInfo oldTi = viewModel.info.getTorrentInfo();
@@ -378,55 +407,36 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void setTabLayoutColor(int color)
-    {
+    private void setTabLayoutColor(int color) {
         if (Utils.isTwoPane(activity))
             return;
 
         binding.appbar.tabLayout.setBackgroundColor(color);
     }
 
-    ViewPager2.OnPageChangeCallback viewPagerListener = new ViewPager2.OnPageChangeCallback()
-    {
+    ViewPager2.OnPageChangeCallback viewPagerListener = new ViewPager2.OnPageChangeCallback() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
         @Override
-        public void onPageSelected(int position)
-        {
+        public void onPageSelected(int position) {
             currentFragPos = position;
         }
 
         @Override
-        public void onPageScrollStateChanged(int state) {}
+        public void onPageScrollStateChanged(int state) {
+        }
     };
 
-    private void showFreeSpaceErrorToast()
-    {
+    private void showFreeSpaceErrorToast() {
         Snackbar.make(binding.coordinatorLayout,
-                R.string.error_free_space,
-                Snackbar.LENGTH_LONG)
+                        R.string.error_free_space,
+                        Snackbar.LENGTH_LONG)
                 .show();
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
-    {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.detail_torrent, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu)
-    {
-        super.onPrepareOptionsMenu(menu);
-
-        prepareOptionsMenu(menu);
-    }
-
-    private void prepareOptionsMenu(Menu menu)
-    {
+    private void prepareOptionsMenu(Menu menu) {
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         Torrent torrent = viewModel.info.getTorrent();
         TorrentInfo ti = viewModel.info.getTorrentInfo();
@@ -448,35 +458,7 @@ public class DetailTorrentFragment extends Fragment
             saveTorrentFile.setVisible(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item)
-    {
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            onBackPressed();
-        } else if (itemId == R.id.pause_resume_torrent_menu) {
-            viewModel.pauseResumeTorrent();
-        } else if (itemId == R.id.delete_torrent_menu) {
-            deleteTorrentDialog();
-        } else if (itemId == R.id.force_recheck_torrent_menu) {
-            viewModel.forceRecheckTorrent();
-        } else if (itemId == R.id.force_announce_torrent_menu) {
-            viewModel.forceAnnounceTorrent();
-        } else if (itemId == R.id.share_magnet_menu) {
-            shareMagnetDialog();
-        } else if (itemId == R.id.save_torrent_file_menu) {
-            torrentSaveChooseDialog();
-        } else if (itemId == R.id.add_trackers_menu) {
-            addTrackersDialog();
-        } else if (itemId == R.id.torrent_speed_limit) {
-            speedLimitDialog();
-        }
-
-        return true;
-    }
-
-    private void deleteTorrentDialog()
-    {
+    private void deleteTorrentDialog() {
         if (!isAdded())
             return;
 
@@ -495,8 +477,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void shareMagnetDialog()
-    {
+    private void shareMagnetDialog() {
         if (!isAdded())
             return;
 
@@ -515,8 +496,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void addTrackersDialog()
-    {
+    private void addTrackersDialog() {
         FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_ADD_TRACKERS_DIALOG) == null) {
             addTrackersDialog = BaseAlertDialog.newInstance(
@@ -532,8 +512,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void torrentSaveChooseDialog()
-    {
+    private void torrentSaveChooseDialog() {
         Intent i = new Intent(activity, FileManagerDialog.class);
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
@@ -545,8 +524,7 @@ public class DetailTorrentFragment extends Fragment
         saveTorrentFileChoose.launch(i);
     }
 
-    private void saveErrorTorrentFileDialog(Exception e)
-    {
+    private void saveErrorTorrentFileDialog(Exception e) {
         if (!isAdded())
             return;
 
@@ -563,8 +541,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void speedLimitDialog()
-    {
+    private void speedLimitDialog() {
         if (!isAdded())
             return;
 
@@ -583,8 +560,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void deleteTorrent()
-    {
+    private void deleteTorrent() {
         Dialog dialog = deleteTorrentDialog.getDialog();
         if (dialog == null)
             return;
@@ -593,8 +569,7 @@ public class DetailTorrentFragment extends Fragment
         viewModel.deleteTorrent(withFiles.isChecked());
     }
 
-    private void shareMagnet(boolean includePriorities)
-    {
+    private void shareMagnet(boolean includePriorities) {
         String magnet = viewModel.makeMagnet(includePriorities);
         if (magnet != null) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -605,8 +580,7 @@ public class DetailTorrentFragment extends Fragment
         }
     }
 
-    private void initAddTrackersDialog()
-    {
+    private void initAddTrackersDialog() {
         Dialog dialog = addTrackersDialog.getDialog();
         if (dialog == null)
             return;
@@ -615,17 +589,17 @@ public class DetailTorrentFragment extends Fragment
         final TextInputLayout fieldLayout = dialog.findViewById(R.id.layout_multiline_text_input_dialog);
 
         /* Dismiss error label if user has changed the text */
-        field.addTextChangedListener(new TextWatcher()
-        {
+        field.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 fieldLayout.setErrorEnabled(false);
                 fieldLayout.setError(null);
 
@@ -643,8 +617,7 @@ public class DetailTorrentFragment extends Fragment
 
     private boolean checkAddTrackersField(List<String> strings,
                                           TextInputLayout layout,
-                                          TextInputEditText field)
-    {
+                                          TextInputEditText field) {
         if (strings == null || layout == null)
             return false;
 
@@ -660,7 +633,7 @@ public class DetailTorrentFragment extends Fragment
         int curLineStartIndex = 0;
         for (String s : strings) {
             if (!Utils.isValidTrackerUrl(s) && field.getText() != null) {
-                TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{ R.attr.colorError});
+                TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{R.attr.colorError});
                 /* Select invalid url */
                 field.getText().setSpan(new ForegroundColorSpan(a.getColor(0, 0)),
                         curLineStartIndex,
@@ -686,8 +659,7 @@ public class DetailTorrentFragment extends Fragment
         return valid;
     }
 
-    private void addTrackers(boolean replace)
-    {
+    private void addTrackers(boolean replace) {
         Dialog dialog = addTrackersDialog.getDialog();
         if (dialog == null)
             return;
@@ -736,8 +708,7 @@ public class DetailTorrentFragment extends Fragment
             viewModel.addTrackers(normalizedUrls);
     }
 
-    private void initSpeedLimitDialog()
-    {
+    private void initSpeedLimitDialog() {
         Dialog dialog = speedLimitDialog.getDialog();
         if (dialog == null)
             return;
@@ -746,7 +717,7 @@ public class DetailTorrentFragment extends Fragment
         TextInputEditText download = dialog.findViewById(R.id.download_limit);
 
         int minSpeedLimit = 0;
-        InputFilter[] filter = new InputFilter[]{ InputFilterRange.UNSIGNED_INT };
+        InputFilter[] filter = new InputFilter[]{InputFilterRange.UNSIGNED_INT};
 
         upload.setFilters(filter);
 
@@ -763,8 +734,7 @@ public class DetailTorrentFragment extends Fragment
                     Integer.toString(downloadSpeedLimit / 1024) : Integer.toString(minSpeedLimit)));
     }
 
-    private void setSpeedLimit()
-    {
+    private void setSpeedLimit() {
         Dialog dialog = speedLimitDialog.getDialog();
         if (dialog == null)
             return;
@@ -809,8 +779,8 @@ public class DetailTorrentFragment extends Fragment
                     viewModel.copyTorrentFile(path);
 
                     Snackbar.make(binding.coordinatorLayout,
-                            getString(R.string.save_torrent_file_successfully),
-                            Snackbar.LENGTH_SHORT)
+                                    getString(R.string.save_torrent_file_successfully),
+                                    Snackbar.LENGTH_SHORT)
                             .show();
 
                 } catch (IOException | UnknownUriException e) {
@@ -819,14 +789,8 @@ public class DetailTorrentFragment extends Fragment
             }
     );
 
-    private void onBackPressed()
-    {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code)
-    {
+    private void finish(Intent intent, FragmentCallback.ResultCode code) {
         if (activity instanceof FragmentCallback)
-            ((FragmentCallback)activity).onFragmentFinished(this, intent, code);
+            ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
     }
 }

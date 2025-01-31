@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -61,10 +61,5 @@ public class SelectTagActivity extends AppCompatActivity implements FragmentCall
             setResult(RESULT_OK, intent);
         }
         finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        dialog.onBackPressed();
     }
 }

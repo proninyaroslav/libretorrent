@@ -68,8 +68,7 @@ import io.reactivex.disposables.Disposable;
  * The dialog for adding torrent. The parent window.
  */
 
-public class AddTorrentActivity extends AppCompatActivity
-{
+public class AddTorrentActivity extends AppCompatActivity {
     private static final String TAG = AddTorrentActivity.class.getSimpleName();
 
     public static final String TAG_URI = "uri";
@@ -94,8 +93,7 @@ public class AddTorrentActivity extends AppCompatActivity
     private PermissionManager permissionManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
@@ -125,7 +123,7 @@ public class AddTorrentActivity extends AppCompatActivity
         });
 
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        errReportDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
+        errReportDialog = (ErrorReportDialog) getSupportFragmentManager().findFragmentByTag(TAG_ERR_REPORT_DIALOG);
         localPref = PreferenceManager.getDefaultSharedPreferences(this);
         fillMutableParams();
 
@@ -166,8 +164,7 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
 
         unsubscribeParamsChanged();
@@ -175,16 +172,14 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAlertDialog();
         subscribeParamsChanged();
     }
 
-    private void subscribeAlertDialog()
-    {
+    private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposable.add(d);
     }
@@ -199,39 +194,39 @@ public class AddTorrentActivity extends AppCompatActivity
 
     private final Observable.OnPropertyChangedCallback onMutableParamsChanged =
             new Observable.OnPropertyChangedCallback() {
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId) {
-            if (propertyId == BR.sequentialDownload) {
-                localPref.edit()
-                        .putBoolean(
-                                getString(R.string.add_torrent_sequential_download),
-                                viewModel.mutableParams.isSequentialDownload()
-                        )
-                        .apply();
-            } else if (propertyId == BR.startAfterAdd) {
-                localPref.edit()
-                        .putBoolean(
-                                getString(R.string.add_torrent_start_after_add),
-                                viewModel.mutableParams.isStartAfterAdd()
-                        )
-                        .apply();
-            } else if (propertyId == BR.ignoreFreeSpace) {
-                localPref.edit()
-                        .putBoolean(
-                                getString(R.string.add_torrent_ignore_free_space),
-                                viewModel.mutableParams.isIgnoreFreeSpace()
-                        )
-                        .apply();
-            } else if (propertyId == BR.firstLastPiecePriority) {
-                localPref.edit()
-                        .putBoolean(
-                                getString(R.string.add_torrent_download_first_last_pieces),
-                                viewModel.mutableParams.isFirstLastPiecePriority()
-                        )
-                        .apply();
-            }
-        }
-    };
+                @Override
+                public void onPropertyChanged(Observable sender, int propertyId) {
+                    if (propertyId == BR.sequentialDownload) {
+                        localPref.edit()
+                                .putBoolean(
+                                        getString(R.string.add_torrent_sequential_download),
+                                        viewModel.mutableParams.isSequentialDownload()
+                                )
+                                .apply();
+                    } else if (propertyId == BR.startAfterAdd) {
+                        localPref.edit()
+                                .putBoolean(
+                                        getString(R.string.add_torrent_start_after_add),
+                                        viewModel.mutableParams.isStartAfterAdd()
+                                )
+                                .apply();
+                    } else if (propertyId == BR.ignoreFreeSpace) {
+                        localPref.edit()
+                                .putBoolean(
+                                        getString(R.string.add_torrent_ignore_free_space),
+                                        viewModel.mutableParams.isIgnoreFreeSpace()
+                                )
+                                .apply();
+                    } else if (propertyId == BR.firstLastPiecePriority) {
+                        localPref.edit()
+                                .putBoolean(
+                                        getString(R.string.add_torrent_download_first_last_pieces),
+                                        viewModel.mutableParams.isFirstLastPiecePriority()
+                                )
+                                .apply();
+                    }
+                }
+            };
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event) {
         if (event.dialogTag == null) {
@@ -285,8 +280,7 @@ public class AddTorrentActivity extends AppCompatActivity
         }
     }
 
-    private void initLayout()
-    {
+    private void initLayout() {
         binding.toolbar.setTitle(R.string.add_torrent_title);
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null)
@@ -313,8 +307,7 @@ public class AddTorrentActivity extends AppCompatActivity
         ).attach();
     }
 
-    private void observeDecodeState()
-    {
+    private void observeDecodeState() {
         viewModel.getDecodeState().observe(this, (state) -> {
             switch (state.status) {
                 case UNKNOWN:
@@ -337,15 +330,13 @@ public class AddTorrentActivity extends AppCompatActivity
         });
     }
 
-    private void onStartDecode(boolean isTorrentFile)
-    {
+    private void onStartDecode(boolean isTorrentFile) {
         binding.progress.setVisibility(View.VISIBLE);
         showAddButton = !isTorrentFile;
         invalidateOptionsMenu();
     }
 
-    private void onStopDecode(Throwable e)
-    {
+    private void onStopDecode(Throwable e) {
         binding.progress.setVisibility(View.GONE);
 
         if (e != null) {
@@ -358,8 +349,7 @@ public class AddTorrentActivity extends AppCompatActivity
         invalidateOptionsMenu();
     }
 
-    private Uri getUri()
-    {
+    private Uri getUri() {
         Intent i = getIntent();
         /* Implicit intent with path to torrent file, http or magnet link */
         if (i.getData() != null)
@@ -370,13 +360,12 @@ public class AddTorrentActivity extends AppCompatActivity
             return i.getParcelableExtra(TAG_URI);
     }
 
-    private void addTorrent()
-    {
+    private void addTorrent() {
         String name = viewModel.mutableParams.getName();
         if (TextUtils.isEmpty(name)) {
             Snackbar.make(binding.coordinatorLayout,
-                    R.string.error_empty_name,
-                    Snackbar.LENGTH_LONG)
+                            R.string.error_empty_name,
+                            Snackbar.LENGTH_LONG)
                     .show();
             return;
         }
@@ -388,8 +377,8 @@ public class AddTorrentActivity extends AppCompatActivity
         } catch (Exception e) {
             if (e instanceof TorrentAlreadyExistsException) {
                 Toast.makeText(getApplication(),
-                        R.string.torrent_exist,
-                        Toast.LENGTH_SHORT)
+                                R.string.torrent_exist,
+                                Toast.LENGTH_SHORT)
                         .show();
                 finish();
 
@@ -399,20 +388,19 @@ public class AddTorrentActivity extends AppCompatActivity
         }
     }
 
-    private void handleAddException(Throwable e)
-    {
+    private void handleAddException(Throwable e) {
         if (e instanceof NoFilesSelectedException) {
             Snackbar.make(binding.coordinatorLayout,
-                    R.string.error_no_files_selected,
-                    Snackbar.LENGTH_LONG)
+                            R.string.error_no_files_selected,
+                            Snackbar.LENGTH_LONG)
                     .show();
             return;
         }
 
         if (e instanceof FreeSpaceException) {
             Snackbar.make(binding.coordinatorLayout,
-                    R.string.error_free_space,
-                    Snackbar.LENGTH_LONG)
+                            R.string.error_free_space,
+                            Snackbar.LENGTH_LONG)
                     .show();
             return;
         }
@@ -427,8 +415,7 @@ public class AddTorrentActivity extends AppCompatActivity
         }
     }
 
-    private void showAddErrorDialog(String message, Throwable e)
-    {
+    private void showAddErrorDialog(String message, Throwable e) {
         FragmentManager fm = getSupportFragmentManager();
         if (e != null) {
             viewModel.errorReport = e;
@@ -452,7 +439,7 @@ public class AddTorrentActivity extends AppCompatActivity
                     null,
                     null,
                     false
-                );
+            );
 
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(errDialog, TAG_ADD_ERROR_DIALOG);
@@ -460,8 +447,7 @@ public class AddTorrentActivity extends AppCompatActivity
         }
     }
 
-    public void handleDecodeException(Throwable e)
-    {
+    public void handleDecodeException(Throwable e) {
         if (e == null)
             return;
 
@@ -548,8 +534,7 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_torrent, menu);
 
         MenuItem add = menu.findItem(R.id.add_torrent_dialog_add_menu);
@@ -560,8 +545,7 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
             finish();
@@ -573,16 +557,9 @@ public class AddTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public void finish()
-    {
+    public void finish() {
         viewModel.finish();
 
         super.finish();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        finish();
     }
 }

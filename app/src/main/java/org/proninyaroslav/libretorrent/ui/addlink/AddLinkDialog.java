@@ -37,8 +37,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,21 +52,15 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddLinkBinding;
-import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
-
-import java.util.Collections;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class AddLinkDialog extends DialogFragment {
     private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
-    private static final String TAG_OPEN_FILE_ERROR_DIALOG = "open_file_error_dialog";
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -90,8 +83,15 @@ public class AddLinkDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
+        if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
+        }
     }
 
     @Override
@@ -104,7 +104,7 @@ public class AddLinkDialog extends DialogFragment {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) {
                     return true;
                 } else {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                     return true;
                 }
             } else {
@@ -293,10 +293,6 @@ public class AddLinkDialog extends DialogFragment {
         binding.layoutLink.setError(null);
 
         return true;
-    }
-
-    public void onBackPressed() {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
     }
 
     private void finish(Intent intent, FragmentCallback.ResultCode code) {

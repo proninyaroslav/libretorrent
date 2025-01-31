@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -78,6 +79,12 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
 
         if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
         }
     }
 
@@ -89,7 +96,7 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
         getDialog().setOnKeyListener((dialog, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                 }
                 return true;
             } else {
@@ -126,7 +133,7 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
                     .getLongArray(TAG_EXCLUDE_TAGS_ID));
         }
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_select_tag, null, false);
 
         adapter = new TagsAdapter(this);
@@ -169,12 +176,12 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapSingle((list) -> Flowable.fromIterable(list)
-                                .filter(viewModel::filterExcludeTags)
-                                .map(TagItem::new)
-                                .toList()
-                        )
-                        .subscribe(adapter::submitList)
-                );
+                        .filter(viewModel::filterExcludeTags)
+                        .map(TagItem::new)
+                        .toList()
+                )
+                .subscribe(adapter::submitList)
+        );
     }
 
     @Override
@@ -183,11 +190,6 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
         i.putExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG, item.info);
 
         finish(i, FragmentCallback.ResultCode.OK);
-    }
-
-    public void onBackPressed() {
-
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
     }
 
     private void finish(Intent intent, FragmentCallback.ResultCode code) {

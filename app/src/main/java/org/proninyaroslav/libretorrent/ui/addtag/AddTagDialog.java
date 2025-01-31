@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -81,6 +82,12 @@ public class AddTagDialog extends DialogFragment {
 
         if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
+            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                }
+            });
         }
     }
 
@@ -92,7 +99,7 @@ public class AddTagDialog extends DialogFragment {
         getDialog().setOnKeyListener((dialog, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    onBackPressed();
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                 }
                 return true;
             } else {
@@ -125,7 +132,7 @@ public class AddTagDialog extends DialogFragment {
             viewModel.setRandomColor();
         }
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_tag, null, false);
         binding.setViewModel(viewModel);
 
@@ -221,10 +228,6 @@ public class AddTagDialog extends DialogFragment {
                         }
                 )
         );
-    }
-
-    public void onBackPressed() {
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
     }
 
     private void finish(Intent intent, FragmentCallback.ResultCode code) {

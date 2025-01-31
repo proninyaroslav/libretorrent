@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -68,16 +68,10 @@ public class AddTagActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        dialog.onBackPressed();
-    }
-
-    @Override
     public void onColorSelected(int dialogId, int color) {
         viewModel.state.setColor(color);
     }
 
     @Override
-    public void onDialogDismissed(int dialogId) {
-    }
+    public void onDialogDismissed(int dialogId) {}
 }

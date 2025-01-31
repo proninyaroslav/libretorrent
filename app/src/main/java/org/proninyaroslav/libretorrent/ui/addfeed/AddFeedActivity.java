@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -33,8 +33,7 @@ import androidx.fragment.app.FragmentManager;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class AddFeedActivity extends AppCompatActivity
-    implements FragmentCallback
-{
+        implements FragmentCallback {
     public static final String ACTION_EDIT_FEED = "org.proninyaroslav.libretorrent.ui.addfeed.AddFeedActivity.ACTION_EDIT_FEED";
     public static final String TAG_FEED_ID = "feed_id";
 
@@ -43,12 +42,11 @@ public class AddFeedActivity extends AppCompatActivity
     private AddFeedDialog addFeedDialog;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();
-        addFeedDialog = (AddFeedDialog)fm.findFragmentByTag(TAG_ADD_FEED_DIALOG);
+        addFeedDialog = (AddFeedDialog) fm.findFragmentByTag(TAG_ADD_FEED_DIALOG);
         if (addFeedDialog == null) {
             Intent i = getIntent();
             if (i == null)
@@ -65,8 +63,7 @@ public class AddFeedActivity extends AppCompatActivity
         }
     }
 
-    private Uri getUriFromIntent()
-    {
+    private Uri getUriFromIntent() {
         Intent i = getIntent();
         if (i != null) {
             if (i.getData() != null)
@@ -79,14 +76,7 @@ public class AddFeedActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code)
-    {
+    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code) {
         finish();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        addFeedDialog.onBackPressed();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -40,8 +40,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class CreateTorrentActivity extends AppCompatActivity
-    implements FragmentCallback
-{
+        implements FragmentCallback {
     private static final String TAG_CREATE_TORRENT_DIALOG = "create_torrent_dialog";
     private static final String TAG_PERM_DENIED_DIALOG = "perm_denied_dialog";
 
@@ -52,8 +51,7 @@ public class CreateTorrentActivity extends AppCompatActivity
     private PermissionManager permissionManager;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ViewModelProvider provider = new ViewModelProvider(this);
@@ -79,7 +77,7 @@ public class CreateTorrentActivity extends AppCompatActivity
             }
         });
 
-        createTorrentDialog = (CreateTorrentDialog)fm.findFragmentByTag(TAG_CREATE_TORRENT_DIALOG);
+        createTorrentDialog = (CreateTorrentDialog) fm.findFragmentByTag(TAG_CREATE_TORRENT_DIALOG);
         if (createTorrentDialog == null) {
             createTorrentDialog = CreateTorrentDialog.newInstance();
             createTorrentDialog.show(fm, TAG_CREATE_TORRENT_DIALOG);
@@ -126,14 +124,7 @@ public class CreateTorrentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code)
-    {
+    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code) {
         finish();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        createTorrentDialog.onBackPressed();
     }
 }

@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.ui.addlink;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,36 +30,25 @@ import androidx.fragment.app.FragmentManager;
 
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
-public class AddLinkActivity extends AppCompatActivity
-        implements FragmentCallback
-{
+public class AddLinkActivity extends AppCompatActivity implements FragmentCallback {
     private static final String TAG_ADD_LINK_DIALOG = "add_link_dialog";
 
     private AddLinkDialog addLinkDialog;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();
-        addLinkDialog = (AddLinkDialog)fm.findFragmentByTag(TAG_ADD_LINK_DIALOG);
+        addLinkDialog = (AddLinkDialog) fm.findFragmentByTag(TAG_ADD_LINK_DIALOG);
         if (addLinkDialog == null) {
             addLinkDialog = AddLinkDialog.newInstance();
             addLinkDialog.show(fm, TAG_ADD_LINK_DIALOG);
         }
-
-        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                addLinkDialog.onBackPressed();
-            }
-        });
     }
 
     @Override
-    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code)
-    {
+    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code) {
         finish();
     }
 }
