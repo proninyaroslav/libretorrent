@@ -3,27 +3,27 @@
     android:id="@+id/dialog_priorities_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dialog_padding"
-    android:minWidth="@dimen/min_width_dialog">
-
-    <RadioButton
-        android:id="@+id/dialog_priority_low"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/change_priority_low" />
-
-    <RadioButton
-        android:id="@+id/dialog_priority_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/change_priority_normal" />
+    android:minWidth="@dimen/min_width_dialog"
+    android:padding="@dimen/dialog_padding">
 
     <RadioButton
         android:id="@+id/dialog_priority_high"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/change_priority_high" />
+        android:text="@string/change_priority_high"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+    <RadioButton
+        android:id="@+id/dialog_priority_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/change_priority_normal"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+    <RadioButton
+        android:id="@+id/dialog_priority_low"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/change_priority_low"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 </RadioGroup>
