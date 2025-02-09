@@ -22,27 +22,31 @@ package org.proninyaroslav.libretorrent.ui.log;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class LogSettingsActivity extends AppCompatActivity
 {
     private static final String TAG = LogSettingsActivity.class.getSimpleName();
 
-    private Toolbar toolbar;
+    private MaterialToolbar appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         setContentView(R.layout.activity_log_settings);
 
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.settings);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener((v) -> finish());
+        appBar = findViewById(R.id.app_bar);
+        appBar.setTitle(R.string.settings);
+        setSupportActionBar(appBar);
+        appBar.setNavigationOnClickListener((v) -> finish());
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

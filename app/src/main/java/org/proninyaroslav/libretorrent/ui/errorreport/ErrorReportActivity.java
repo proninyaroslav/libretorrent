@@ -34,6 +34,7 @@ import org.acra.ReportField;
 import org.acra.data.CrashReportData;
 import org.acra.dialog.CrashReportDialogHelper;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 
 import java.io.IOException;
@@ -55,6 +56,8 @@ public class ErrorReportActivity extends AppCompatActivity
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         helper = new CrashReportDialogHelper(this, getIntent());
         dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);

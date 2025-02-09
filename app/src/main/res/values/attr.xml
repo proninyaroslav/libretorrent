@@ -43,6 +43,11 @@
         <attr name="morphButtonStyle" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="EmptyListPlaceholder">
+        <attr name="text" format="reference|string" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
     <attr name="vc_tintMode" format="enum">
         <!-- The tint is drawn on top of the drawable.
              [Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc] -->

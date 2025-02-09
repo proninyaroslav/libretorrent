@@ -41,6 +41,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonSyntaxException;
 
@@ -79,7 +80,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     private static final String TAG_RESTORE_FEEDS_ERROR_REPORT_DIALOG = "restore_feeds_error_report_dialog";
 
     /* Android data binding doesn't work with layout aliases */
-    private Toolbar toolbar;
+    private MaterialToolbar appBar;
 
     private FeedViewModel viewModel;
     private MsgFeedViewModel msgViewModel;
@@ -91,6 +92,8 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(FeedViewModel.class);
@@ -108,11 +111,11 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     private void initLayout()
     {
         showBlankFragment();
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.feed);
-        toolbar.inflateMenu(R.menu.feed);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener((v) -> finish());
+        appBar = findViewById(R.id.app_bar);
+        appBar.setTitle(R.string.feed);
+        appBar.inflateMenu(R.menu.feed);
+        setSupportActionBar(appBar);
+        appBar.setNavigationOnClickListener((v) -> finish());
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -191,7 +194,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     {
         if (Utils.isTwoPane(this)) {
             FragmentManager fm = getSupportFragmentManager();
-            BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_feed_channel));
+            BlankFragment blank = new BlankFragment();
             fm.beginTransaction()
                     .replace(R.id.feed_items_fragmentContainer, blank)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
@@ -237,8 +240,8 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        toolbar.inflateMenu(R.menu.feed);
-        toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
+        appBar.inflateMenu(R.menu.feed);
+        appBar.setOnMenuItemClickListener(this::onOptionsItemSelected);
 
         return true;
     }

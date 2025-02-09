@@ -54,6 +54,8 @@ public class CreateTorrentActivity extends AppCompatActivity
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         ViewModelProvider provider = new ViewModelProvider(this);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 

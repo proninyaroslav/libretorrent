@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,9 +19,7 @@
 
 package org.proninyaroslav.libretorrent.ui.main.drawer;
 
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +27,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,37 +56,22 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
     @Override
     public AbstractViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        switch (viewType) {
-            case TYPE_EMPTY_ITEM: {
-                DrawerEmptyTagsListItemBinding binding = DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.drawer_empty_tags_list_item,
-                        parent,
-                        false
-                );
-                return new EmptyItemViewHolder(binding);
+        return switch (viewType) {
+            case TYPE_EMPTY_ITEM -> {
+                var binding = DrawerEmptyTagsListItemBinding.inflate(inflater, parent, false);
+                yield new EmptyItemViewHolder(binding);
             }
-            case TYPE_TAG_ITEM: {
-                DrawerTagsListItemBinding binding = DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.drawer_tags_list_item,
-                        parent,
-                        false
-                );
-                return new ItemViewHolder(binding);
+            case TYPE_TAG_ITEM -> {
+                var binding = DrawerTagsListItemBinding.inflate(inflater, parent, false);
+                yield new ItemViewHolder(binding);
             }
-            case TYPE_NO_TAGS_ITEM: {
-                DrawerNoTagsListItemBinding binding = DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.drawer_no_tags_list_item,
-                        parent,
-                        false
-                );
-                return new NoTagsItemViewHolder(binding);
+            case TYPE_NO_TAGS_ITEM -> {
+                var binding = DrawerNoTagsListItemBinding.inflate(inflater, parent, false);
+                yield new NoTagsItemViewHolder(binding);
             }
-        }
+            default -> throw new IllegalStateException("Unknown item type: " + viewType);
+        };
 
-        throw new IllegalStateException("Unknown item type: " + viewType);
     }
 
     @Override
@@ -114,13 +96,13 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
         throw new IllegalStateException("Unknown item: " + item);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSelectedItem(@NonNull AbstractTagItem item) {
         selectedItem = item;
         int position = getCurrentList().indexOf(item);
-        if (position == -1) {
-            return;
+        if (position != -1) {
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public AbstractTagItem getSelectedItem() {
@@ -152,7 +134,7 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
         void onTagMenuClicked(@NonNull AbstractTagItem item, int menuId);
     }
 
-    static abstract class AbstractViewHolder extends RecyclerView.ViewHolder {
+    public static abstract class AbstractViewHolder extends RecyclerView.ViewHolder {
         public AbstractViewHolder(@NonNull View itemView) {
             super(itemView);
         }
@@ -187,7 +169,7 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
                 @NonNull TagItem item,
                 OnClickListener listener
         ) {
-            binding.name.setText(item.info.name);
+            binding.label.setText(item.info.name);
             binding.color.setColor(item.info.color);
             binding.getRoot().setOnClickListener((v) -> {
                 setSelectedItem(item);
@@ -207,18 +189,7 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
                 popup.show();
             });
 
-            TypedArray a = itemView.getContext().obtainStyledAttributes(
-                    new TypedValue().data,
-                    new int[]{
-                            R.attr.selectableDrawer,
-                            R.attr.dialogRectRipple
-                    });
-            int colorIdx = item.isSame(selectedItem) ? 0 : 1;
-            Drawable d = a.getDrawable(colorIdx);
-            if (d != null) {
-                itemView.setBackground(d);
-            }
-            a.recycle();
+            binding.card.setChecked(item.isSame(selectedItem));
         }
     }
 
@@ -253,18 +224,7 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
                 }
             });
 
-            TypedArray a = itemView.getContext().obtainStyledAttributes(
-                    new TypedValue().data,
-                    new int[]{
-                            R.attr.selectableDrawer,
-                            R.attr.dialogRectRipple
-                    });
-            int colorIdx = item.isSame(selectedItem) ? 0 : 1;
-            Drawable d = a.getDrawable(colorIdx);
-            if (d != null) {
-                itemView.setBackground(d);
-            }
-            a.recycle();
+            binding.card.setChecked(item.isSame(selectedItem));
         }
     }
 
@@ -299,18 +259,7 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
                 }
             });
 
-            TypedArray a = itemView.getContext().obtainStyledAttributes(
-                    new TypedValue().data,
-                    new int[]{
-                            R.attr.selectableDrawer,
-                            R.attr.dialogRectRipple
-                    });
-            int colorIdx = item.isSame(selectedItem) ? 0 : 1;
-            Drawable d = a.getDrawable(colorIdx);
-            if (d != null) {
-                itemView.setBackground(d);
-            }
-            a.recycle();
+            binding.card.setChecked(item.isSame(selectedItem));
         }
     }
 }

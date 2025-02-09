@@ -96,6 +96,8 @@ public class AddTorrentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_torrent);
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(AddTorrentViewModel.class);

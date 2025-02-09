@@ -24,8 +24,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -46,12 +47,14 @@ public class PreferenceActivity extends AppCompatActivity
 
     public static final String TAG_CONFIG = "config";
 
-    private Toolbar toolbar;
+    private MaterialToolbar appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         /* Prevent create activity in two pane mode (after resizing window) */
         if (Utils.isLargeScreenDevice(this)) {
@@ -70,10 +73,10 @@ public class PreferenceActivity extends AppCompatActivity
             title = config.getTitle();
         }
 
-        toolbar = findViewById(R.id.toolbar);
+        appBar = findViewById(R.id.app_bar);
         if (title != null)
-            toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
+            appBar.setTitle(title);
+        setSupportActionBar(appBar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -120,6 +120,8 @@ public class FileManagerDialog extends AppCompatActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         Intent intent = getIntent();
         if (!intent.hasExtra(TAG_CONFIG)) {
             Log.e(TAG, "To work need to set intent with FileManagerConfig in startActivity()");

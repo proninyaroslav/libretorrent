@@ -50,6 +50,8 @@
         <item name="colorOnOk">@color/colorOnOk</item>
         <item name="colorOkContainer">@color/colorOkContainer</item>
         <item name="colorOnOkContainer">@color/colorOnOkContainer</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 
 
         <item name="background">?attr/colorSurface</item>

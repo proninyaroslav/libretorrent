@@ -34,7 +34,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.FragmentManager;
@@ -42,6 +41,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.R;
@@ -63,7 +63,7 @@ public class LogActivity extends AppCompatActivity
 
     private ActivityLogBinding binding;
     private LogViewModel viewModel;
-    private Toolbar toolbar;
+    private MaterialToolbar appBar;
     private LinearLayoutManager layoutManager;
     private LogAdapter adapter;
     private Handler handler;
@@ -77,6 +77,8 @@ public class LogActivity extends AppCompatActivity
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         FragmentManager fm = getSupportFragmentManager();
         filterDialog = (SessionLogFilterDialog) fm.findFragmentByTag(TAG_FILTER_DIALOG);
@@ -92,10 +94,10 @@ public class LogActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_log);
         binding.setViewModel(viewModel);
 
-        toolbar = binding.rootLayout.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.log_journal);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener((v) -> finish());
+        appBar = binding.rootLayout.findViewById(R.id.app_bar);
+        appBar.setTitle(R.string.log_journal);
+        setSupportActionBar(appBar);
+        appBar.setNavigationOnClickListener((v) -> finish());
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         updateToolbarSubtitle();
@@ -443,9 +445,9 @@ public class LogActivity extends AppCompatActivity
     {
         int numEntries = viewModel.getLogEntriesCount();
         if (numEntries > 1)
-            toolbar.setSubtitle(Integer.toString(numEntries));
+            appBar.setSubtitle(Integer.toString(numEntries));
         else
-            toolbar.setSubtitle(null);
+            appBar.setSubtitle(null);
     }
 
     private void scrollLogList()

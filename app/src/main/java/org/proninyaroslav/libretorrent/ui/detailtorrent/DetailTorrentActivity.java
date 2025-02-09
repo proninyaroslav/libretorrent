@@ -54,6 +54,8 @@ public class DetailTorrentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         if (Utils.isTwoPane(this)) {
             finish();
             return;

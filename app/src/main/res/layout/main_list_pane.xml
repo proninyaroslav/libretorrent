@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator_layout"
+        android:layout_width="@dimen/list_pane_width"
+        android:layout_height="match_parent">
+
+        <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
+            android:id="@+id/torrent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_torrent_list" />
+
+        <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+            android:id="@+id/empty_view_torrent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:text="@string/torrent_list_empty"
+            tools:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_torrent_fab"
+            style="?attr/floatingActionButtonPrimaryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/add_torrent_title"
+            app:srcCompat="@drawable/add_to_close_anim" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:statusBarForeground="?attr/colorSurface">
+
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search"
+                app:menu="@menu/main"
+                app:navigationIcon="@drawable/ic_menu_24px" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Elevation needs to be greater than AppBarLayout's elevation;
+        otherwise for some reason when the AppBarLayout's background
+        is not transparent, the elevation on this Toolbar doesn't show. -->
+        <FrameLayout
+            android:id="@+id/contextual_app_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:fitsSystemWindows="true"
+            android:visibility="gone">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/contextual_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:menu="@menu/main_contextual_mode"
+                app:navigationIcon="@drawable/ic_close_24px" />
+        </FrameLayout>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/search"
+            app:layout_anchor="@id/search_bar">
+
+            <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
+                android:id="@+id/search_torrent_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" /> <!-- Need for padding -->
+
+            <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+                android:id="@+id/empty_view_search_torrent_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:icon="@drawable/ic_search_24px"
+                app:text="@string/torrent_list_empty" />
+
+        </com.google.android.material.search.SearchView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

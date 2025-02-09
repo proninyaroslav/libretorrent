@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="56dp"
+        android:minHeight="@dimen/list_item_height"
         android:padding="16dp"
         android:clickable="true"
         android:focusable="true"

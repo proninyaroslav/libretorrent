@@ -92,6 +92,7 @@ android {
     }
 
     buildFeatures {
+        viewBinding true
         dataBinding true
         buildConfig true
     }
@@ -117,6 +118,7 @@ tasks.withType(Test).configureEach {
 
 def ROOM_VERSION = '2.6.1'
 def LIFECYCLE_VERSION = '2.8.7'
+def NAV_VERSION = "2.8.6"
 
 dependencies {
     /* Testing */
@@ -129,6 +131,7 @@ dependencies {
     /* AndroidX libraries */
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.fragment:fragment:1.8.5'
+    implementation 'androidx.activity:activity:1.10.0'
     implementation "androidx.lifecycle:lifecycle-livedata-core:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -140,13 +143,15 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.work:work-runtime:2.10.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.13.0-alpha10'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation 'androidx.preference:preference:1.2.1'
     // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
     implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation "androidx.navigation:navigation-fragment:$NAV_VERSION"
+    implementation "androidx.navigation:navigation-ui:$NAV_VERSION"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'

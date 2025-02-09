@@ -16,14 +16,23 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.log.LogActivity">
 
-        <include
-            layout="@layout/toolbar" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/app_bar_layout">
 
             <org.proninyaroslav.libretorrent.ui.customviews.SwitchBar
                 android:id="@+id/enableLog"

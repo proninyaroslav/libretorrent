@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class SelectTagActivity extends AppCompatActivity implements FragmentCallback {
@@ -41,6 +42,7 @@ public class SelectTagActivity extends AppCompatActivity implements FragmentCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
 
         FragmentManager fm = getSupportFragmentManager();
         dialog = (SelectTagDialog) fm.findFragmentByTag(TAG_DIALOG);

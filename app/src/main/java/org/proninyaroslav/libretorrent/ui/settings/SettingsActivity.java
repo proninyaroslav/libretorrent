@@ -24,16 +24,18 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 public class SettingsActivity extends AppCompatActivity
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    private Toolbar toolbar;
+    private MaterialToolbar appBar;
     private TextView detailTitle;
     private SettingsViewModel viewModel;
 
@@ -42,13 +44,15 @@ public class SettingsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         setContentView(R.layout.activity_settings);
 
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.settings));
-        setSupportActionBar(toolbar);
+        appBar = findViewById(R.id.app_bar);
+        appBar.setTitle(getString(R.string.settings));
+        setSupportActionBar(appBar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

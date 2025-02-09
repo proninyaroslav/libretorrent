@@ -1,34 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    style="@style/AppTheme.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:clickable="true"
+    android:focusable="true"
+    android:checkable="true">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/label"
+        style="?attr/textAppearanceBodyLarge"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/dialogRectRipple">
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@null"
-            android:layout_centerInParent="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_all_inclusive_grey600_24dp" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_marginStart="32dp"
-            android:layout_toEndOf="@id/icon"
-            android:text="@string/all" />
-    </RelativeLayout>
-</layout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_filter_list_off_24px"
+        android:text="@string/all" />
+</com.google.android.material.card.MaterialCardView>

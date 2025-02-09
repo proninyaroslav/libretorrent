@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class AddTagActivity extends AppCompatActivity
@@ -45,6 +46,8 @@ public class AddTagActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(AddTagViewModel.class);

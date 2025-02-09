@@ -11,6 +11,5 @@
         android:paddingTop="16dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?android:attr/textColorSecondary"
-        android:paddingStart="@dimen/preference_icon_space"
         android:paddingEnd="16dp" />
 </FrameLayout>

@@ -43,6 +43,8 @@ public class FeedItemsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        Utils.enableEdgeToEdge(this);
+
         if (Utils.isTwoPane(this)) {
             finish();
             return;

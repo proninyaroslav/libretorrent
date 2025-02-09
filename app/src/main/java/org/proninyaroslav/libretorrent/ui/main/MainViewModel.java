@@ -54,6 +54,7 @@ public class MainViewModel extends AndroidViewModel {
     private TorrentFilter dateAddedFilter = TorrentFilterCollection.all();
     private TorrentFilter tagFilter = TorrentFilterCollection.all();
     private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
+    private PublishSubject<Boolean> forceSearch = PublishSubject.create();
     private TagRepository tagRepo;
 
     private String searchQuery;
@@ -118,13 +119,17 @@ public class MainViewModel extends AndroidViewModel {
     public TorrentFilter getFilter() {
         return (state) -> statusFilter.test(state) &&
                 dateAddedFilter.test(state) &&
-                searchFilter.test(state) &&
                 tagFilter.test(state);
     }
 
+    public TorrentFilter getSearchFilter() {
+        return (state) -> searchFilter.test(state);
+    }
+
+
     public void setSearchQuery(@Nullable String searchQuery) {
         this.searchQuery = searchQuery;
-        forceSortAndFilter.onNext(true);
+        forceSearch.onNext(true);
     }
 
     public void resetSearch() {
@@ -133,6 +138,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public Observable<Boolean> observeForceSortAndFilter() {
         return forceSortAndFilter;
+    }
+
+    public Observable<Boolean> observeForceSearch() {
+        return forceSearch;
     }
 
     public void pauseResumeTorrent(@NonNull String id) {

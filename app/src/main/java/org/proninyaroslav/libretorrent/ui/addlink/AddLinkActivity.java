@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class AddLinkActivity extends AppCompatActivity implements FragmentCallback {
@@ -38,6 +39,8 @@ public class AddLinkActivity extends AppCompatActivity implements FragmentCallba
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Utils.enableEdgeToEdge(this);
 
         FragmentManager fm = getSupportFragmentManager();
         addLinkDialog = (AddLinkDialog) fm.findFragmentByTag(TAG_ADD_LINK_DIALOG);

@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -50,6 +51,10 @@
         <item name="colorOnOk">@color/colorOnOk</item>
         <item name="colorOkContainer">@color/colorOkContainer</item>
         <item name="colorOnOkContainer">@color/colorOnOkContainer</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="selectableColor">?attr/colorSecondaryContainer</item>
 
 
         <item name="background">?attr/colorSurface</item>
@@ -62,7 +67,6 @@
         <item name="divider">@drawable/table_mode_divider</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
-        <item name="selectableColor">@color/selectable</item>
         <item name="selectableDrawer">@color/selectable_drawer</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
@@ -79,14 +83,24 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="AppTheme.FloatingActionButton.Menu" parent="Widget.Material3.PopupMenu">
+    <style name="AppTheme.Components.FloatingActionButton.Menu" parent="Widget.Material3.PopupMenu">
         <item name="popupMenuBackground">@drawable/fab_menu_background</item>
-        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.App.FloatingActionButton.Menu</item>
-        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.App.FloatingActionButton.Menu</item>
+        <item name="textAppearanceSmallPopupMenu">
+            @style/TextAppearance.App.Components.FloatingActionButton.Menu
+        </item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/TextAppearance.App.Components.FloatingActionButton.Menu
+        </item>
         <item name="iconTint">?attr/colorOnSecondaryContainer</item>
     </style>
 
-    <style name="TextAppearance.App.FloatingActionButton.Menu" parent="TextAppearance.Material3.BodyLarge">
+    <style name="AppTheme.Components.ListItem" parent="Widget.Material3.CardView.Outlined">
+        <item name="strokeWidth">0dp</item>
+        <item name="cardBackgroundColor">@android:color/transparent</item>
+        <item name="checkedIcon">@null</item>
+    </style>
+
+    <style name="TextAppearance.App.Components.FloatingActionButton.Menu" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
     </style>
 </resources>

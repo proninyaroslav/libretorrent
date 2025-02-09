@@ -304,7 +304,6 @@
     </style>
 
     <style name="SwitchBarM2">
-        <item name="android:paddingLeft">@dimen/preference_icon_space</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingBottom">16dp</item>
         <item name="android:paddingTop">16dp</item>

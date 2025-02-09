@@ -34,7 +34,7 @@ public class DrawerGroup
     public String name;
     public List<DrawerGroupItem> items = new ArrayList<>();
     private long selectedItemId = DEFAULT_SELECTED_ID;
-    private boolean defaultExpandState;
+    private final boolean defaultExpandState;
 
     public DrawerGroup(long id, String name, boolean defaultExpandState)
     {

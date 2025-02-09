@@ -19,6 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
+import static androidx.core.view.ViewKt.updateLayoutParams;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
@@ -46,12 +48,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import org.acra.ACRA;
@@ -486,7 +492,7 @@ public class Utils {
             @Override
             public void onResponseHandle(HttpURLConnection conn, int code, String message) {
                 if (code == HttpURLConnection.HTTP_OK) {
-                    try(InputStream is = conn.getInputStream()) {
+                    try (InputStream is = conn.getInputStream()) {
                         response[0] = IOUtils.toByteArray(is);
 
                     } catch (IOException e) {
@@ -721,7 +727,7 @@ public class Utils {
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
-                                                       @NonNull SharedPreferences localPref) {
+                                                             @NonNull SharedPreferences localPref) {
         Resources res = context.getResources();
 
         ArrayList<DrawerGroup> groups = new ArrayList<>();
@@ -746,56 +752,56 @@ public class Utils {
                 DrawerGroup.DEFAULT_SELECTED_ID));
 
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
-                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+                R.drawable.ic_filter_list_off_24px, res.getString(R.string.all), null));
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_id),
-                R.drawable.ic_download_grey600_24dp, res.getString(R.string.drawer_status_downloading)));
+                R.drawable.ic_download_24px, res.getString(R.string.drawer_status_downloading), null));
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloaded_id),
-                R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_status_downloaded)));
+                R.drawable.ic_download_done_24px, res.getString(R.string.drawer_status_downloaded), null));
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
-                R.drawable.ic_magnet_grey600_24dp, res.getString(R.string.drawer_status_downloading_metadata)));
+                R.drawable.ic_magnet_24px, res.getString(R.string.drawer_status_downloading_metadata), null));
         status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_error),
-                R.drawable.ic_error_grey600_24dp, res.getString(R.string.drawer_status_error)));
+                R.drawable.ic_error_24px, res.getString(R.string.drawer_status_error), null));
 
 
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_date_added), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_date_added), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_name), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_name), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_size), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_size), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_progress), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_progress), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_ETA), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_ETA), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_peers), res.getString(R.string.ascending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
+                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_peers), res.getString(R.string.descending_sort)));
         sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
-                R.drawable.ic_sort_off_grey600_24dp, res.getString(R.string.drawer_sorting_no_sorting)));
+                R.drawable.ic_filter_list_off_24px, res.getString(R.string.drawer_sorting_no_sorting), null));
 
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
-                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+                R.drawable.ic_filter_list_off_24px, res.getString(R.string.all), null));
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
-                R.drawable.ic_calendar_today_grey600_24dp, res.getString(R.string.drawer_date_added_today)));
+                R.drawable.ic_today_24px, res.getString(R.string.drawer_date_added_today), null));
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
-                R.drawable.ic_calendar_yesterday_grey600_24dp, res.getString(R.string.drawer_date_added_yesterday)));
+                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_yesterday), null));
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
-                R.drawable.ic_calendar_week_grey600_24dp, res.getString(R.string.drawer_date_added_week)));
+                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_week), null));
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
-                R.drawable.ic_calendar_month_grey600_24dp, res.getString(R.string.drawer_date_added_month)));
+                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_month), null));
         dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
-                R.drawable.ic_calendar_year_grey600_24dp, res.getString(R.string.drawer_date_added_year)));
+                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_year), null));
 
         groups.add(status);
         groups.add(sorting);
@@ -925,5 +931,48 @@ public class Utils {
             return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
         }
         throw new IllegalStateException("Unknown sorting type: " + val);
+    }
+
+    public static void enableEdgeToEdge(Activity activity) {
+        WindowCompat.setDecorFitsSystemWindows(activity.getWindow(), false);
+    }
+
+    public static void applyWindowInsets(View view) {
+        applyWindowInsets(null, view, WindowInsetsType.ALL);
+    }
+
+    public static void applyWindowInsets(@Nullable View parent, View child) {
+        applyWindowInsets(parent, child, WindowInsetsType.ALL);
+    }
+
+    public static void applyWindowInsets(View view, @WindowInsetsType.Flag int typeMask) {
+        applyWindowInsets(null, view, typeMask);
+    }
+
+    public static void applyWindowInsets(@Nullable View parent, View child, @WindowInsetsType.Flag int typeMask) {
+        var params = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+        var initialTop = params == null ? 0 : params.topMargin;
+        var initialBottom = params == null ? 0 : params.bottomMargin;
+        var initialLeft = params == null ? 0 : params.leftMargin;
+        var initialRight = params == null ? 0 : params.rightMargin;
+
+        ViewCompat.setOnApplyWindowInsetsListener(parent == null ? child : parent, (v, windowInsets) -> {
+            var insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+            var p = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+            if ((typeMask & WindowInsetsType.TOP) != 0) {
+                p.topMargin = initialTop + insets.top;
+            }
+            if ((typeMask & WindowInsetsType.BOTTOM) != 0) {
+                p.bottomMargin = initialBottom + insets.bottom;
+            }
+            if ((typeMask & WindowInsetsType.LEFT) != 0) {
+                p.leftMargin = initialLeft + insets.left;
+            }
+            if ((typeMask & WindowInsetsType.RIGHT) != 0) {
+                p.rightMargin = initialRight + insets.right;
+            }
+
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 }

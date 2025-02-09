@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,6 +27,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import org.proninyaroslav.libretorrent.R;
 
 /*
@@ -43,30 +45,22 @@ public class ColorView extends View {
     public ColorView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray a = context.getTheme().obtainStyledAttributes(
+        try (TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.ColorView,
                 0, 0
-        );
-
-        circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        try {
+        )) {
+            circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             circlePaint.setColor(a.getColor(R.styleable.ColorView_color, Color.WHITE));
-        } finally {
-            a.recycle();
+            circlePaint.setStyle(Paint.Style.FILL);
         }
-        circlePaint.setStyle(Paint.Style.FILL);
-
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        a = context.getTheme().obtainStyledAttributes(
+        try (TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 new int[]{R.attr.colorControlNormal},
                 0, 0
-        );
-        try {
+        )) {
             borderPaint.setColor(a.getColor(0, Color.BLACK));
-        } finally {
-            a.recycle();
         }
         borderPaint.setStrokeWidth(BORDER_WIDTH);
         borderPaint.setStyle(Paint.Style.STROKE);
@@ -81,7 +75,7 @@ public class ColorView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
         float centerX = (float) w / 2;

@@ -1,182 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <TextView
+            style="?attr/textAppearanceTitleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_margin="16dp"
             android:text="@string/filters" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/drawer_items_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true" />
+            android:focusable="true"
+            tools:itemCount="3"
+            tools:listitem="@layout/drawer_group_header" />
 
         <org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader
             android:id="@+id/tags_group_header"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:expansion_text="@string/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:expansion_expanded="false"
-            app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:background="?attr/dialogRectRipple" />
+            app:expansion_text="@string/tags" />
 
         <net.cachapa.expandablelayout.ExpandableLayout
             android:id="@+id/tags_expandable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:el_duration="150"
+            app:el_expanded="false"
             app:el_parallax="0"
-            app:el_expanded="false">
+            tools:el_expanded="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/add_tag_button"
+                    style="?attr/materialButtonTonalStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:icon="@drawable/ic_add_36dp"
-                    app:iconSize="24dp"
-                    android:text="@string/add_tag" />
+                    android:layout_margin="8dp"
+                    android:text="@string/add_tag"
+                    app:icon="@drawable/ic_add_24px" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tags_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/drawer_tags_list_item" />
             </LinearLayout>
         </net.cachapa.expandablelayout.ExpandableLayout>
 
-        <View
-            android:id="@+id/divider1"
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="?attr/divider" />
+            android:layout_marginBottom="8dp" />
 
         <TextView
+            style="?attr/textAppearanceTitleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_margin="16dp"
             android:text="@string/stats" />
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/session_listen_port_stat"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_lan_24px"
+            tools:text="Listening port: 6881" />
 
-            <ImageView
-                android:id="@+id/listen_port_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_centerInParent="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_ethernet_grey600_24dp"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:id="@+id/session_listen_port_stat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_toEndOf="@id/listen_port_icon" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/session_dht_nodes_stat"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_hub_24px"
+            tools:text="DHT nodes: 100" />
 
-            <ImageView
-                android:id="@+id/dht_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_centerInParent="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_wan_grey600_24dp"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:id="@+id/session_dht_nodes_stat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_toEndOf="@id/dht_icon" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/session_download_stat"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_download_24px"
+            tools:text="1 Mb/s • 1 Mb/s" />
 
-            <ImageView
-                android:id="@+id/download_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_centerInParent="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_download_grey600_24dp"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:id="@+id/session_download_stat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_toEndOf="@id/download_icon" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/session_upload_stat"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/upload_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_centerInParent="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_upload_grey600_24dp"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:id="@+id/session_upload_stat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_toEndOf="@id/upload_icon" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_upload_24px"
+            tools:text="1 Mb/s • 1 Mb/s" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

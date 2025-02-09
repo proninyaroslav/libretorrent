@@ -28,11 +28,13 @@ public class DrawerGroupItem
     public long id;
     public int iconResId;
     public String name;
+    public String contentDescription;
 
-    public DrawerGroupItem(long id, int iconResId, String name)
+    public DrawerGroupItem(long id, int iconResId, String name, String contentDescription)
     {
         this.id = id;
         this.iconResId = iconResId;
         this.name = name;
+        this.contentDescription = contentDescription;
     }
 }
