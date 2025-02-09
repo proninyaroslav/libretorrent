@@ -55,6 +55,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="selectableColor">?attr/colorSecondaryContainer</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
 
 
         <item name="background">?attr/colorSurface</item>

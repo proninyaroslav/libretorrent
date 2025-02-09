@@ -1,6 +1,9 @@
 import com.android.build.OutputFile
 
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'androidx.navigation.safeargs'
+}
 
 android {
     namespace 'org.proninyaroslav.libretorrent'

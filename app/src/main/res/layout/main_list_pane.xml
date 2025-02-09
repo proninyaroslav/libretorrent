@@ -25,6 +25,7 @@
             android:id="@+id/empty_view_torrent_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:text="@string/torrent_list_empty"
             tools:visibility="gone" />
 

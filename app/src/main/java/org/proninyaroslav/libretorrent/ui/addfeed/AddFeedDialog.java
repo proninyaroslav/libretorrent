@@ -75,7 +75,6 @@ public class AddFeedDialog extends DialogFragment {
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog deleteFeedDialog;
     private ClipboardDialog clipboardDialog;
-    private ClipboardDialog.SharedViewModel clipboardViewModel;
 
     public static AddFeedDialog newInstance(Uri uri) {
         AddFeedDialog frag = new AddFeedDialog();
@@ -185,7 +184,6 @@ public class AddFeedDialog extends DialogFragment {
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(AddFeedViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
         FragmentManager fm = getChildFragmentManager();
         deleteFeedDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_DELETE_FEED_DIALOG);
@@ -293,7 +291,7 @@ public class AddFeedDialog extends DialogFragment {
 
         FragmentManager fm = getChildFragmentManager();
         if (fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
-            clipboardDialog = ClipboardDialog.newInstance();
+            clipboardDialog = new ClipboardDialog();
             clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
         }
     }
@@ -317,12 +315,6 @@ public class AddFeedDialog extends DialogFragment {
                             break;
                     }
                 });
-        disposables.add(d);
-
-        d = clipboardViewModel.observeSelectedItem().subscribe((item) -> {
-            if (TAG_CLIPBOARD_DIALOG.equals(item.dialogTag))
-                handleUrlClipItem(item.str);
-        });
         disposables.add(d);
     }
 

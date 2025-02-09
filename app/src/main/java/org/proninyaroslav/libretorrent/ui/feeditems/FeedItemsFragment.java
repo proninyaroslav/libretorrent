@@ -302,9 +302,10 @@ public class FeedItemsFragment extends Fragment
 
         viewModel.markAsRead(item.id);
 
-        Intent i = new Intent(activity, AddTorrentActivity.class);
-        i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(item.downloadUrl));
-        startActivity(i);
+        // TODO
+//        Intent i = new Intent(activity, AddTorrentActivity.class);
+//        i.putExtra(AddTorrentActivity.ARG_URI, Uri.parse(item.downloadUrl));
+//        startActivity(i);
     }
 
     private void finish(Intent intent, FragmentCallback.ResultCode code) {

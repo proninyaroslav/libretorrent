@@ -25,7 +25,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,8 +42,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -53,31 +52,12 @@ import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddLinkBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 public class AddLinkDialog extends DialogFragment {
-    private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
-
     private AlertDialog alert;
     private AppCompatActivity activity;
     private DialogAddLinkBinding binding;
     private AddLinkViewModel viewModel;
-    private ClipboardDialog clipboardDialog;
-    private ClipboardDialog.SharedViewModel clipboardViewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
-
-    public static AddLinkDialog newInstance() {
-        AddLinkDialog frag = new AddLinkDialog();
-
-        Bundle args = new Bundle();
-        frag.setArguments(args);
-
-        return frag;
-    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,7 +68,7 @@ public class AddLinkDialog extends DialogFragment {
             activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
+                    alert.dismiss();
                 }
             });
         }
@@ -118,7 +98,6 @@ public class AddLinkDialog extends DialogFragment {
         super.onStop();
 
         unsubscribeClipboardManager();
-        disposables.clear();
     }
 
     @Override
@@ -126,15 +105,6 @@ public class AddLinkDialog extends DialogFragment {
         super.onStart();
 
         subscribeClipboardManager();
-        subscribeAlertDialog();
-    }
-
-    private void subscribeAlertDialog() {
-        Disposable d = clipboardViewModel.observeSelectedItem().subscribe((item) -> {
-            if (TAG_CLIPBOARD_DIALOG.equals(item.dialogTag))
-                handleUrlClipItem(item.str);
-        });
-        disposables.add(d);
     }
 
     private void handleUrlClipItem(String item) {
@@ -155,7 +125,7 @@ public class AddLinkDialog extends DialogFragment {
         clipboard.removePrimaryClipChangedListener(clipListener);
     }
 
-    private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+    private final ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
 
     private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
             (__) -> switchClipboardButton();
@@ -168,17 +138,20 @@ public class AddLinkDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (activity == null)
-            activity = (AppCompatActivity) getActivity();
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
 
-        ViewModelProvider provider = new ViewModelProvider(activity);
+        ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(AddLinkViewModel.class);
-        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
-        FragmentManager fm = getChildFragmentManager();
-        clipboardDialog = (ClipboardDialog) fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+        getParentFragmentManager().setFragmentResultListener(
+                ClipboardDialog.KEY_RESULT,
+                this,
+                (key, bundle) -> handleUrlClipItem(bundle.getString(ClipboardDialog.KEY_CLIPBOARD_ITEM))
+        );
 
-        LayoutInflater i = LayoutInflater.from(activity);
+        LayoutInflater i = getLayoutInflater();
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_link, null, false);
         binding.setViewModel(viewModel);
 
@@ -222,8 +195,9 @@ public class AddLinkDialog extends DialogFragment {
     }
 
     private void initAlertDialog(View view) {
-        var builder = new MaterialAlertDialogBuilder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity, R.style.ThemeOverlay_Material3_MaterialAlertDialog)
                 .setTitle(R.string.dialog_add_link_title)
+                .setIcon(R.drawable.ic_link_24px)
                 .setPositiveButton(R.string.add, null)
                 .setNegativeButton(R.string.cancel, null)
                 .setView(view);
@@ -235,19 +209,13 @@ public class AddLinkDialog extends DialogFragment {
             addButton.setOnClickListener((v) -> addLink());
 
             Button cancelButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
-            cancelButton.setOnClickListener((v) ->
-                    finish(new Intent(), FragmentCallback.ResultCode.CANCEL));
+            cancelButton.setOnClickListener((v) -> alert.dismiss());
         });
     }
 
     private void showClipboardDialog() {
-        if (!isAdded())
-            return;
-
-        FragmentManager fm = getChildFragmentManager();
-        if (fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
-            clipboardDialog = ClipboardDialog.newInstance();
-            clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
+        if (isAdded()) {
+            NavHostFragment.findNavController(this).navigate(R.id.action_clipboard);
         }
     }
 
@@ -257,10 +225,12 @@ public class AddLinkDialog extends DialogFragment {
         }
 
         String s = viewModel.link.get();
-        if (TextUtils.isEmpty(s))
+        if (TextUtils.isEmpty(s)) {
             return;
-        if (!checkUrlField())
+        }
+        if (!checkUrlField()) {
             return;
+        }
 
         try {
             s = viewModel.normalizeUrl(s);
@@ -273,11 +243,9 @@ public class AddLinkDialog extends DialogFragment {
             return;
         }
 
-        Intent i = new Intent(activity, AddTorrentActivity.class);
-        i.putExtra(AddTorrentActivity.TAG_URI, Uri.parse(s));
-        startActivity(i);
-
-        finish(new Intent(), FragmentCallback.ResultCode.OK);
+        var action = AddLinkDialogDirections.actionAddTorrent(Uri.parse(s));
+        NavHostFragment.findNavController(this).navigate(action);
+        alert.dismiss();
     }
 
     private boolean checkUrlField() {
@@ -293,10 +261,5 @@ public class AddLinkDialog extends DialogFragment {
         binding.layoutLink.setError(null);
 
         return true;
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code) {
-        alert.dismiss();
-        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
     }
 }

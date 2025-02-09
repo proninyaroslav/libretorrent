@@ -232,10 +232,6 @@
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:name=".ui.addlink.AddLinkActivity"
-            android:theme="@style/AppTheme.Translucent" />
-
-        <activity
             android:name=".ui.log.LogActivity" />
 
         <activity

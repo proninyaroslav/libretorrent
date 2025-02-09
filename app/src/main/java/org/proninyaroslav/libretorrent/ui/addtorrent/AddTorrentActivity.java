@@ -71,8 +71,6 @@ import io.reactivex.disposables.Disposable;
 public class AddTorrentActivity extends AppCompatActivity {
     private static final String TAG = AddTorrentActivity.class.getSimpleName();
 
-    public static final String TAG_URI = "uri";
-
     private static final String TAG_ERR_REPORT_DIALOG = "io_err_report_dialog";
     private static final String TAG_DECODE_EXCEPT_DIALOG = "decode_except_dialog";
     private static final String TAG_FETCH_EXCEPT_DIALOG = "fetch_except_dialog";
@@ -359,7 +357,7 @@ public class AddTorrentActivity extends AppCompatActivity {
         else if (!TextUtils.isEmpty(i.getStringExtra(Intent.EXTRA_TEXT)))
             return Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
         else
-            return i.getParcelableExtra(TAG_URI);
+            return AddTorrentActivityArgs.fromBundle(i.getExtras()).getUri();
     }
 
     private void addTorrent() {

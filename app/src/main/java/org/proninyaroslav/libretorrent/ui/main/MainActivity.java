@@ -53,13 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
     private NavigationRailView navRail = null;
-    private BottomNavigationView bottomNav = null;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
     private MainViewModel viewModel;
-    private MsgMainViewModel msgViewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
 
     private PermissionDeniedDialog permDeniedDialog;
@@ -95,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(MainViewModel.class);
-        msgViewModel = provider.get(MsgMainViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -137,17 +134,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         navRail = findViewById(R.id.navigation_rail);
-        bottomNav = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (navRail != null) {
             NavigationUI.setupWithNavController(navRail, navController);
         }
         if (bottomNav != null) {
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
-
-//
-//        cleanGarbageFragments();
-//        showBlankFragment();
     }
 
     @Override
@@ -155,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         subscribeAlertDialog();
-//        subscribeMsgViewModel();
     }
 
     @Override
@@ -191,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         disposables.add(d);
     }
 
+    // TODO
 //    private void subscribeMsgViewModel() {
 //        disposables.add(msgViewModel.observeTorrentDetailsOpened()
 //                .observeOn(AndroidSchedulers.mainThread())

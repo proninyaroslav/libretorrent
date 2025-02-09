@@ -3,11 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/main_fragment">
+    app:startDestination="@id/main_graph">
 
-    <fragment
-        android:id="@+id/main_fragment"
-        android:name="org.proninyaroslav.libretorrent.ui.main.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/main_list_pane" />
+    <navigation
+        android:id="@+id/main_graph"
+        app:startDestination="@id/main_fragment">
+
+        <fragment
+            android:id="@+id/main_fragment"
+            android:name="org.proninyaroslav.libretorrent.ui.main.MainFragment"
+            android:label="MainFragment"
+            tools:layout="@layout/main_list_pane">
+            <action
+                android:id="@+id/action_add_link"
+                app:destination="@id/addLinkDialog" />
+        </fragment>
+        <dialog
+            android:id="@+id/addLinkDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.addlink.AddLinkDialog"
+            android:label="AddLinkDialog"
+            tools:layout="@layout/dialog_add_link">
+            <action
+                android:id="@+id/action_clipboard"
+                app:destination="@id/clipboardDialog" />
+            <action
+                android:id="@+id/action_add_torrent"
+                app:destination="@id/addTorrentActivity" />
+        </dialog>
+        <dialog
+            android:id="@+id/clipboardDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
+            android:label="ClipboardDialog"
+            tools:layout="@layout/item_clipboard_list" />
+        <activity
+            android:id="@+id/addTorrentActivity"
+            android:name="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity"
+            android:label="AddTorrentActivity"
+            tools:layout="@layout/activity_add_torrent">
+            <argument
+                android:name="uri"
+                app:argType="android.net.Uri" />
+        </activity>
+    </navigation>
 </navigation>

@@ -52,6 +52,7 @@
         <item name="colorOnOkContainer">@color/colorOnOkContainer</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
 
 
         <item name="background">?attr/colorSurface</item>

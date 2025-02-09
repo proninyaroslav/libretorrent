@@ -53,7 +53,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
@@ -88,9 +87,7 @@ import org.proninyaroslav.libretorrent.databinding.MainDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainListPaneBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.ui.addlink.AddLinkActivity;
 import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
-import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
@@ -144,12 +141,11 @@ public class MainFragment extends AbstractListDetailFragment
     private MsgMainViewModel msgViewModel;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog deleteTorrentsDialog;
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private CompositeDisposable searchDisposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable searchDisposables = new CompositeDisposable();
     private BaseAlertDialog aboutDialog;
 
     private DrawerExpandableAdapter drawerAdapter;
-    private RecyclerView.Adapter wrappedDrawerAdapter;
     private RecyclerViewExpandableItemManager drawerItemManager;
     private TagsAdapter tagsAdapter;
 
@@ -358,7 +354,7 @@ public class MainFragment extends AbstractListDetailFragment
                 PreferenceManager.getDefaultSharedPreferences(activity)
         );
         drawerAdapter = new DrawerExpandableAdapter(groups, drawerItemManager, this::onDrawerItemSelected);
-        wrappedDrawerAdapter = drawerItemManager.createWrappedAdapter(drawerAdapter);
+        var wrappedDrawerAdapter = drawerItemManager.createWrappedAdapter(drawerAdapter);
         onDrawerGroupsCreated();
 
         drawerBinding.drawerItemsList.setLayoutManager(new LinearLayoutManager(activity) {
@@ -1105,7 +1101,7 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void addLinkDialog() {
-        startActivity(new Intent(activity, AddLinkActivity.class));
+        NavHostFragment.findNavController(this).navigate(R.id.action_add_link);
     }
 
     private void openTorrentFileDialog() {
@@ -1204,9 +1200,10 @@ public class MainFragment extends AbstractListDetailFragment
                     return;
                 }
 
-                Intent i = new Intent(activity, AddTorrentActivity.class);
-                i.putExtra(AddTorrentActivity.TAG_URI, data.getData());
-                startActivity(i);
+                // TODO
+//                Intent i = new Intent(activity, AddTorrentActivity.class);
+//                i.putExtra(AddTorrentActivity.ARG_URI, data.getData());
+//                startActivity(i);
             }
     );
 
