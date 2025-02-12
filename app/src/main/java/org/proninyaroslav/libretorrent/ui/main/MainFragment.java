@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui.main;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -46,8 +45,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -82,7 +79,7 @@ import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.core.utils.WindowInsetsType;
+import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.MainDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainListPaneBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
@@ -90,7 +87,7 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 import org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.log.LogActivity;
 import org.proninyaroslav.libretorrent.ui.main.drawer.AbstractTagItem;
 import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerExpandableAdapter;
@@ -158,14 +155,35 @@ public class MainFragment extends AbstractListDetailFragment
     ) {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.main_list_pane, viewGroup, false);
         drawerBinding = MainDrawerContentBinding.inflate(getLayoutInflater());
+        var navBarFragment = activity.getNavBarFragment(this);
         if (Utils.isLargeScreenDevice(activity)) {
             navRailHeaderBinding = MainNavRailHeaderBinding.inflate(getLayoutInflater());
-            activity.setNavRailHeaderView(navRailHeaderBinding.getRoot());
+            if (navBarFragment != null) {
+                navBarFragment.setNavRailHeaderView(navRailHeaderBinding.getRoot());
+            }
             binding.addTorrentFab.hide();
             binding.searchBar.setNavigationIcon(R.drawable.ic_search_24px);
         }
-        Utils.applyWindowInsets(activity.getNavigationView(), drawerBinding.getRoot());
-        Utils.applyWindowInsets(binding.torrentList, WindowInsetsType.BOTTOM | WindowInsetsType.LEFT | WindowInsetsType.RIGHT);
+        if (navBarFragment != null) {
+            Utils.applyWindowInsets(navBarFragment.getNavigationView(), drawerBinding.getRoot());
+        }
+        Utils.applyWindowInsets(binding.torrentList, WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
+
+        if (navBarFragment != null) {
+            navBarFragment.getParentFragmentManager().setFragmentResultListener(
+                    FileManagerFragment.KEY_RESULT,
+                    this,
+                    (requestKey, result) -> {
+                        Uri uri = result.getParcelable(FileManagerFragment.KEY_URI);
+                        if (uri == null) {
+                            openFileErrorDialog();
+                        } else {
+                            var action = NavBarFragmentDirections.actionAddTorrent(uri);
+                            activity.getRootNavController().navigate(action);
+                        }
+                    }
+            );
+        }
 
         return binding.getRoot();
     }
@@ -191,7 +209,7 @@ public class MainFragment extends AbstractListDetailFragment
         super.onListPaneViewCreated(view, savedInstanceState);
 
         if (activity == null) {
-            activity = (MainActivity) getActivity();
+            activity = (MainActivity) requireActivity();
         }
 
         aboutDialog = (BaseAlertDialog) getChildFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
@@ -281,7 +299,12 @@ public class MainFragment extends AbstractListDetailFragment
         initDrawer();
         initSearch();
 
-        setNavigationIconListener((v) -> activity.getDrawerLayout().open());
+        setNavigationIconListener((v) -> {
+            var navBarFragment = activity.getNavBarFragment(this);
+            if (navBarFragment != null) {
+                navBarFragment.getDrawerLayout().open();
+            }
+        });
         binding.searchBar.setOnMenuItemClickListener(this::onMenuItemClickListener);
 
         binding.contextualAppBar.setOnMenuItemClickListener(this::onContextualMenuItemClickListener);
@@ -328,7 +351,10 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void initDrawer() {
-        activity.getNavigationView().addView(drawerBinding.getRoot());
+        var navBarFragment = activity.getNavBarFragment(this);
+        if (navBarFragment != null) {
+            navBarFragment.getNavigationView().addView(drawerBinding.getRoot());
+        }
 
         drawerItemManager = new RecyclerViewExpandableItemManager(null);
         drawerItemManager.setDefaultGroupsExpandedState(false);
@@ -476,7 +502,10 @@ public class MainFragment extends AbstractListDetailFragment
             saveSelectionState(prefKey, item);
         }
 
-        activity.getDrawerLayout().closeDrawer(GravityCompat.START);
+        var navBarFragment = activity.getNavBarFragment(this);
+        if (navBarFragment != null) {
+            navBarFragment.getDrawerLayout().closeDrawer(GravityCompat.START);
+        }
     }
 
     private void saveSelectionState(String prefKey, DrawerGroupItem item) {
@@ -502,7 +531,10 @@ public class MainFragment extends AbstractListDetailFragment
 
             saveSelectedTag(item);
 
-            activity.getDrawerLayout().closeDrawer(GravityCompat.START);
+            var navBarFragment = activity.getNavBarFragment(MainFragment.this);
+            if (navBarFragment != null) {
+                navBarFragment.getDrawerLayout().closeDrawer(GravityCompat.START);
+            }
         }
 
         @Override
@@ -595,17 +627,17 @@ public class MainFragment extends AbstractListDetailFragment
             }
         });
 
-        binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
-            if (previousState == SearchView.TransitionState.HIDDEN && newState == SearchView.TransitionState.SHOWN
-                    || newState == SearchView.TransitionState.SHOWING) {
-                subscribeSearchList();
-            } else if (newState == SearchView.TransitionState.HIDDEN) {
-                unsubscribeSearchList();
-            }
-        });
-
         viewModel.resetSearch();
     }
+
+    SearchView.TransitionListener searchViewListener = (searchView, previousState, newState) -> {
+        if (previousState == SearchView.TransitionState.HIDDEN && newState == SearchView.TransitionState.SHOWN
+                || newState == SearchView.TransitionState.SHOWING) {
+            subscribeSearchList();
+        } else if (newState == SearchView.TransitionState.HIDDEN) {
+            unsubscribeSearchList();
+        }
+    };
 
     private void showAddTorrentMenu() {
         /* Show add torrent menu after window is displayed */
@@ -640,12 +672,15 @@ public class MainFragment extends AbstractListDetailFragment
         subscribeSessionStats();
         subscribeNeedStartEngine();
         subscribeTags();
+
+        binding.searchView.addTransitionListener(searchViewListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
+        binding.searchView.removeTransitionListener(searchViewListener);
         disposables.clear();
         unsubscribeSearchList();
     }
@@ -654,23 +689,29 @@ public class MainFragment extends AbstractListDetailFragment
     public void onResume() {
         super.onResume();
 
-        if (torrentListState != null)
+        if (torrentListState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(torrentListState);
+        }
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             torrentListState = savedInstanceState.getParcelable(TAG_TORRENT_LIST_STATE);
+        }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        torrentListState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_TORRENT_LIST_STATE, torrentListState);
-        selectionTracker.onSaveInstanceState(outState);
+        if (layoutManager != null) {
+            torrentListState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(TAG_TORRENT_LIST_STATE, torrentListState);
+        }
+        if (selectionTracker != null) {
+            selectionTracker.onSaveInstanceState(outState);
+        }
 
         super.onSaveInstanceState(outState);
     }
@@ -1101,19 +1142,18 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void addLinkDialog() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_add_link);
+        NavHostFragment.findNavController(this)
+                .navigate(MainFragmentDirections.actionAddLink());
     }
 
     private void openTorrentFileDialog() {
-        Intent i = new Intent(activity, FileManagerDialog.class);
-
-        FileManagerConfig config = new FileManagerConfig(null,
+        var config = new FileManagerConfig(null,
                 getString(R.string.torrent_file_chooser_title),
                 FileManagerConfig.FILE_CHOOSER_MODE);
         config.highlightFileTypes = Collections.singletonList("torrent");
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        torrentFileChoose.launch(i);
+        var action = NavBarFragmentDirections.actionOpenTorrentFile(config);
+        activity.getRootNavController().navigate(action);
     }
 
     private void openFileErrorDialog() {
@@ -1186,26 +1226,6 @@ public class MainFragment extends AbstractListDetailFragment
                 .toList()
                 .subscribe((ids) -> viewModel.forceAnnounceTorrents(ids)));
     }
-
-    final ActivityResultLauncher<Intent> torrentFileChoose = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Intent data = result.getData();
-                if (result.getResultCode() != Activity.RESULT_OK) {
-                    return;
-                }
-
-                if (data == null || data.getData() == null) {
-                    openFileErrorDialog();
-                    return;
-                }
-
-                // TODO
-//                Intent i = new Intent(activity, AddTorrentActivity.class);
-//                i.putExtra(AddTorrentActivity.ARG_URI, data.getData());
-//                startActivity(i);
-            }
-    );
 
     private RecyclerView.ItemDecoration buildListDivider() {
         var divider = new MaterialDividerItemDecoration(activity, LinearLayoutManager.VERTICAL);

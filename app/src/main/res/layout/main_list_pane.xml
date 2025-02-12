@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:focusable="true"
+            android:paddingTop="8dp"
             android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
@@ -86,7 +86,6 @@
                 android:id="@+id/search_torrent_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="true"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical" /> <!-- Need for padding -->
 
@@ -94,6 +93,8 @@
                 android:id="@+id/empty_view_search_torrent_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:icon="@drawable/ic_search_24px"
                 app:text="@string/torrent_list_empty" />
 

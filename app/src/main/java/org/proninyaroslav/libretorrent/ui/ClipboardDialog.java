@@ -56,25 +56,30 @@ public class ClipboardDialog extends DialogFragment {
             activity = (AppCompatActivity) requireActivity();
         }
 
-        var dialogBuilder = new MaterialAlertDialogBuilder(activity)
+        var builder = new MaterialAlertDialogBuilder(activity)
                 .setIcon(R.drawable.ic_content_copy_24px)
                 .setTitle(R.string.clipboard)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
-        List<CharSequence> clipboardText = Utils.getClipboardText(activity.getApplicationContext());
         adapter = new ArrayAdapter<>(activity, R.layout.item_clipboard_list);
-        adapter.addAll(clipboardText);
-
-        dialogBuilder.setAdapter(adapter, (dialog, which) -> {
+        builder.setAdapter(adapter, (dialog, which) -> {
             CharSequence item = adapter.getItem(which);
             if (item != null) {
                 var bundle = new Bundle();
                 bundle.putString(KEY_CLIPBOARD_ITEM, item.toString());
                 getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
-                dialog.dismiss();
+                dismiss();
             }
         });
 
-        return dialogBuilder.create();
+        return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        List<CharSequence> clipboardText = Utils.getClipboardText(activity.getApplicationContext());
+        adapter.addAll(clipboardText);
     }
 }

@@ -19,8 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.utils;
 
-import static androidx.core.view.ViewKt.updateLayoutParams;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
@@ -938,18 +936,32 @@ public class Utils {
     }
 
     public static void applyWindowInsets(View view) {
-        applyWindowInsets(null, view, WindowInsetsType.ALL);
+        applyWindowInsets(null, view, WindowInsetsSide.ALL, -1);
     }
 
     public static void applyWindowInsets(@Nullable View parent, View child) {
-        applyWindowInsets(parent, child, WindowInsetsType.ALL);
+        applyWindowInsets(parent, child, WindowInsetsSide.ALL, -1);
     }
 
-    public static void applyWindowInsets(View view, @WindowInsetsType.Flag int typeMask) {
-        applyWindowInsets(null, view, typeMask);
+    public static void applyWindowInsets(View view, @WindowInsetsSide.Flag int sideMask) {
+        applyWindowInsets(null, view, sideMask, -1);
     }
 
-    public static void applyWindowInsets(@Nullable View parent, View child, @WindowInsetsType.Flag int typeMask) {
+    public static void applyWindowInsets(
+            View view,
+            @WindowInsetsSide.Flag int sideMask,
+            @WindowInsetsCompat.Type.InsetsType int typeMask
+    ) {
+        applyWindowInsets(null, view, sideMask, typeMask);
+    }
+
+    public static void applyWindowInsets(@Nullable View parent,
+                                         View child,
+                                         @WindowInsetsSide.Flag int sideMask,
+                                         @WindowInsetsCompat.Type.InsetsType int typeMask
+    ) {
+        var baseTypeMask = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
+
         var params = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
         var initialTop = params == null ? 0 : params.topMargin;
         var initialBottom = params == null ? 0 : params.bottomMargin;
@@ -957,18 +969,20 @@ public class Utils {
         var initialRight = params == null ? 0 : params.rightMargin;
 
         ViewCompat.setOnApplyWindowInsetsListener(parent == null ? child : parent, (v, windowInsets) -> {
-            var insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+            var insets = windowInsets.getInsets(
+                    typeMask == -1 ? baseTypeMask : typeMask | baseTypeMask
+            );
             var p = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-            if ((typeMask & WindowInsetsType.TOP) != 0) {
+            if ((sideMask & WindowInsetsSide.TOP) != 0) {
                 p.topMargin = initialTop + insets.top;
             }
-            if ((typeMask & WindowInsetsType.BOTTOM) != 0) {
+            if ((sideMask & WindowInsetsSide.BOTTOM) != 0) {
                 p.bottomMargin = initialBottom + insets.bottom;
             }
-            if ((typeMask & WindowInsetsType.LEFT) != 0) {
+            if ((sideMask & WindowInsetsSide.LEFT) != 0) {
                 p.leftMargin = initialLeft + insets.left;
             }
-            if ((typeMask & WindowInsetsType.RIGHT) != 0) {
+            if ((sideMask & WindowInsetsSide.RIGHT) != 0) {
                 p.rightMargin = initialRight + insets.right;
             }
 

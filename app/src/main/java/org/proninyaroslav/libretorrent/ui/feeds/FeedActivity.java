@@ -35,7 +35,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -57,7 +56,7 @@ import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.ui.feeditems.FeedItemsActivity;
 import org.proninyaroslav.libretorrent.ui.feeditems.FeedItemsFragment;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -263,7 +262,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
 
     private void backupFeedsChooseDialog()
     {
-        Intent i = new Intent(this, FileManagerDialog.class);
+        Intent i = new Intent(this, FileManagerFragment.class);
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
         FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 null,
@@ -273,13 +272,13 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
                 "." + FeedRepositoryImpl.SERIALIZE_FILE_FORMAT;
         config.mimeType = FeedRepositoryImpl.SERIALIZE_MIME_TYPE;
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         backupFeedsChoose.launch(i);
     }
 
     private void restoreFeedsChooseDialog()
     {
-        Intent i = new Intent(this, FileManagerDialog.class);
+        Intent i = new Intent(this, FileManagerFragment.class);
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
         FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 getString(R.string.feeds_backup_selection_dialog_title),
@@ -287,7 +286,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         config.highlightFileTypes = new ArrayList<>();
         config.highlightFileTypes.add(FeedRepositoryImpl.SERIALIZE_FILE_FORMAT);
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         restoreFeedsBackupChoose.launch(i);
     }
 

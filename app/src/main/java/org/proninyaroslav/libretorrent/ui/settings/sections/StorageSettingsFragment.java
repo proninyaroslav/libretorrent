@@ -46,7 +46,7 @@ import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 
 public class StorageSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceChangeListener
@@ -230,11 +230,11 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         if (path != null && Utils.isFileSystemPath(path))
             dirPath = path.getPath();
 
-        Intent i = new Intent(getActivity(), FileManagerDialog.class);
+        Intent i = new Intent(getActivity(), FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(dirPath,
                 null,
                 FileManagerConfig.DIR_CHOOSER_MODE);
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
 
         downloadDirChoose.launch(i);
     }

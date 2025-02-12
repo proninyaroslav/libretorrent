@@ -593,4 +593,9 @@
     <string name="torrents">Torrents</string>
     <string name="ascending_sort">Ascending sort</string>
     <string name="descending_sort">Descending sort</string>
+    <string name="current_storage">Current storage</string>
+    <string name="select">Select</string>
+    <string name="create">Create</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

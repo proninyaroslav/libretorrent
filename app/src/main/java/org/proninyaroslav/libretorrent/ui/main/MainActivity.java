@@ -20,21 +20,17 @@
 package org.proninyaroslav.libretorrent.ui.main;
 
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.navigationrail.NavigationRailView;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -52,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
 
     private NavController navController;
-    private NavigationRailView navRail = null;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
 
     private MainViewModel viewModel;
     private final CompositeDisposable disposables = new CompositeDisposable();
@@ -63,20 +56,19 @@ public class MainActivity extends AppCompatActivity {
     private PermissionDeniedDialog permDeniedDialog;
     private PermissionManager permissionManager;
 
-    public void setNavRailHeaderView(@NonNull View view) {
-        if (navRail != null) {
-            navRail.addHeaderView(view);
+    @NonNull
+    public NavController getRootNavController() {
+        return navController;
+    }
+
+    @Nullable
+    public NavBarFragment getNavBarFragment(@NonNull Fragment fragment) {
+        if (fragment.getParentFragment() instanceof NavHostFragment navHost) {
+            if (navHost.getParentFragment() instanceof NavBarFragment) {
+                return (NavBarFragment) navHost.getParentFragment();
+            }
         }
-    }
-
-    @NonNull
-    public DrawerLayout getDrawerLayout() {
-        return drawerLayout;
-    }
-
-    @NonNull
-    public NavigationView getNavigationView() {
-        return navigationView;
+        return null;
     }
 
     @Override
@@ -126,21 +118,18 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        var navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        var navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
         }
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation_view);
-        navRail = findViewById(R.id.navigation_rail);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        if (navRail != null) {
-            NavigationUI.setupWithNavController(navRail, navController);
-        }
-        if (bottomNav != null) {
-            NavigationUI.setupWithNavController(bottomNav, navController);
-        }
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                navController.navigateUp();
+            }
+        });
     }
 
     @Override

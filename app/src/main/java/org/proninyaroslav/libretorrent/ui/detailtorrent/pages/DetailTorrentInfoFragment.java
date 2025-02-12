@@ -50,7 +50,7 @@ import org.proninyaroslav.libretorrent.databinding.FragmentDetailTorrentInfoBind
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
 
@@ -183,13 +183,13 @@ public class DetailTorrentInfoFragment extends Fragment {
     }
 
     private void showChooseDirDialog() {
-        Intent i = new Intent(activity, FileManagerDialog.class);
+        Intent i = new Intent(activity, FileManagerFragment.class);
 
         FileManagerConfig config = new FileManagerConfig(null,
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.DIR_CHOOSER_MODE);
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         chooseDir.launch(i);
     }
 
@@ -220,8 +220,8 @@ public class DetailTorrentInfoFragment extends Fragment {
                         case POSITIVE_BUTTON_CLICKED:
                             Dialog dialog = editNameDialog.getDialog();
                             if (dialog != null) {
-                                TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
-                                TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input_dialog);
+                                TextInputEditText editText = dialog.findViewById(R.id.text_input);
+                                TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input);
                                 Editable e = editText.getText();
                                 if (checkNameField(e, layoutEditText)) {
                                     viewModel.mutableParams.setName(e.toString());
@@ -296,8 +296,8 @@ public class DetailTorrentInfoFragment extends Fragment {
         if (dialog == null)
             return;
 
-        TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
-        TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input_dialog);
+        TextInputEditText editText = dialog.findViewById(R.id.text_input);
+        TextInputLayout layoutEditText = dialog.findViewById(R.id.layout_text_input);
 
         if (!TextUtils.isEmpty(editText.getText()))
             return;

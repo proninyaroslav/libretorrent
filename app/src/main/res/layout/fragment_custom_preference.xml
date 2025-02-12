@@ -15,7 +15,6 @@
         android:elevation="6dp"
         android:padding="14dp"
         android:scaleType="fitCenter"
-        android:stateListAnimator="@animator/fab_anim"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="16dp"
         android:visibility="gone"

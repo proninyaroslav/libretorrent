@@ -78,7 +78,7 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -513,14 +513,14 @@ public class DetailTorrentFragment extends Fragment {
     }
 
     private void torrentSaveChooseDialog() {
-        Intent i = new Intent(activity, FileManagerDialog.class);
+        Intent i = new Intent(activity, FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
                 FileManagerConfig.SAVE_FILE_MODE);
         config.fileName = viewModel.mutableParams.getName();
         config.mimeType = Utils.MIME_TORRENT;
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         saveTorrentFileChoose.launch(i);
     }
 

@@ -59,7 +59,7 @@ import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -252,22 +252,22 @@ public class CreateTorrentDialog extends DialogFragment {
         });
 
         binding.fileChooserButton.setOnClickListener((v) -> {
-            Intent i = new Intent(activity, FileManagerDialog.class);
+            Intent i = new Intent(activity, FileManagerFragment.class);
             FileManagerConfig config = new FileManagerConfig(
                     null,
                     null,
                     FileManagerConfig.FILE_CHOOSER_MODE);
-            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+            i.putExtra(FileManagerFragment.TAG_CONFIG, config);
             chooseFile.launch(i);
         });
 
         binding.folderChooserButton.setOnClickListener((v) -> {
-            Intent i = new Intent(activity, FileManagerDialog.class);
+            Intent i = new Intent(activity, FileManagerFragment.class);
             FileManagerConfig config = new FileManagerConfig(
                     null,
                     null,
                     FileManagerConfig.DIR_CHOOSER_MODE);
-            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+            i.putExtra(FileManagerFragment.TAG_CONFIG, config);
             chooseDir.launch(i);
         });
 
@@ -318,14 +318,14 @@ public class CreateTorrentDialog extends DialogFragment {
     }
 
     private void choosePathToSaveDialog() {
-        Intent i = new Intent(activity, FileManagerDialog.class);
+        Intent i = new Intent(activity, FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(
                 null,
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.SAVE_FILE_MODE);
         config.mimeType = Utils.MIME_TORRENT;
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         choosePathToSave.launch(i);
     }
 

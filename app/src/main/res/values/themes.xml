@@ -55,8 +55,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="selectableColor">?attr/colorSecondaryContainer</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="navEnterAnim">@anim/nav_slide_enter_anim</item>
+        <item name="navExitAnim">@anim/nav_fade_exit_anim</item>
+        <item name="navPopEnterAnim">@anim/nav_fade_enter_anim</item>
+        <item name="navPopExitAnim">@anim/nav_slide_exit_anim</item>
 
+        <!--        -->
 
         <item name="background">?attr/colorSurface</item>
         <item name="foreground">?attr/colorOnSurface</item>
@@ -74,34 +79,5 @@
         <item name="pieceCellColor">@color/piece_cell</item>
         <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
-    </style>
-
-    <style name="AppTheme.Translucent" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
-
-    <style name="AppTheme.Components.FloatingActionButton.Menu" parent="Widget.Material3.PopupMenu">
-        <item name="popupMenuBackground">@drawable/fab_menu_background</item>
-        <item name="textAppearanceSmallPopupMenu">
-            @style/TextAppearance.App.Components.FloatingActionButton.Menu
-        </item>
-        <item name="textAppearanceLargePopupMenu">
-            @style/TextAppearance.App.Components.FloatingActionButton.Menu
-        </item>
-        <item name="iconTint">?attr/colorOnSecondaryContainer</item>
-    </style>
-
-    <style name="AppTheme.Components.ListItem" parent="Widget.Material3.CardView.Outlined">
-        <item name="strokeWidth">0dp</item>
-        <item name="cardBackgroundColor">@android:color/transparent</item>
-        <item name="checkedIcon">@null</item>
-    </style>
-
-    <style name="TextAppearance.App.Components.FloatingActionButton.Menu" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
     </style>
 </resources>

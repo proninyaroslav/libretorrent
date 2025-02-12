@@ -134,8 +134,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.filemanager.FileManagerDialog" />
-
         <activity android:name=".ui.detailtorrent.DetailTorrentActivity" />
 
         <activity android:name=".ui.SendTextToClipboard"

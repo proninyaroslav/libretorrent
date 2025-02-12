@@ -49,7 +49,7 @@ import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
 
@@ -190,7 +190,7 @@ public class AddTorrentInfoFragment extends Fragment {
     }
 
     private void showChooseDirDialog() {
-        Intent i = new Intent(activity, FileManagerDialog.class);
+        Intent i = new Intent(activity, FileManagerFragment.class);
 
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(
                 activity.getApplicationContext()
@@ -208,7 +208,7 @@ public class AddTorrentInfoFragment extends Fragment {
                 FileManagerConfig.DIR_CHOOSER_MODE
         );
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         chooseDir.launch(i);
     }
 

@@ -35,6 +35,8 @@
             android:layout_marginVertical="8dp"
             android:layout_toStartOf="@id/menu"
             android:layout_toEndOf="@id/color"
+            android:ellipsize="end"
+            android:lines="1"
             android:gravity="center_vertical"
             tools:text="Tag" />
 

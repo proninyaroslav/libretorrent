@@ -6,7 +6,7 @@
     android:minWidth="@dimen/min_width_dialog">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_text_input_dialog"
+        android:id="@+id/layout_text_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dialog_padding"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_dialog"
+            android:id="@+id/text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text|textNoSuggestions" />

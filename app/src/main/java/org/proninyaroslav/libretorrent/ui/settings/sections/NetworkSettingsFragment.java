@@ -52,7 +52,7 @@ import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.settings.PreferenceActivity;
 import org.proninyaroslav.libretorrent.ui.settings.PreferenceActivityConfig;
 import org.proninyaroslav.libretorrent.ui.settings.SettingsViewModel;
@@ -282,7 +282,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
     }
 
     private void fileChooseDialog() {
-        Intent i = new Intent(getActivity(), FileManagerDialog.class);
+        Intent i = new Intent(getActivity(), FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(
                 null,
                 null,
@@ -292,7 +292,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         fileTypes.add("p2p");
         config.highlightFileTypes = fileTypes;
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         fileChoose.launch(i);
     }
 

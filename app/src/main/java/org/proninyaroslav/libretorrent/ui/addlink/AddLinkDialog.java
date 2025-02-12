@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -52,10 +51,12 @@ import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddLinkBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
+import org.proninyaroslav.libretorrent.ui.main.MainActivity;
+import org.proninyaroslav.libretorrent.ui.main.NavBarFragmentDirections;
 
 public class AddLinkDialog extends DialogFragment {
     private AlertDialog alert;
-    private AppCompatActivity activity;
+    private MainActivity activity;
     private DialogAddLinkBinding binding;
     private AddLinkViewModel viewModel;
 
@@ -64,33 +65,8 @@ public class AddLinkDialog extends DialogFragment {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
-            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    alert.dismiss();
-                }
-            });
+            activity = (MainActivity) context;
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        /* Back button handle */
-        getDialog().setOnKeyListener((DialogInterface dialog, int keyCode, KeyEvent event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.getAction() != KeyEvent.ACTION_DOWN) {
-                    return true;
-                } else {
-                    activity.getOnBackPressedDispatcher().onBackPressed();
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        });
     }
 
     @Override
@@ -139,7 +115,7 @@ public class AddLinkDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (activity == null) {
-            activity = (AppCompatActivity) requireActivity();
+            activity = (MainActivity) requireActivity();
         }
 
         ViewModelProvider provider = new ViewModelProvider(this);
@@ -215,7 +191,8 @@ public class AddLinkDialog extends DialogFragment {
 
     private void showClipboardDialog() {
         if (isAdded()) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_clipboard);
+            NavHostFragment.findNavController(this)
+                    .navigate(AddLinkDialogDirections.actionClipboard());
         }
     }
 
@@ -243,9 +220,9 @@ public class AddLinkDialog extends DialogFragment {
             return;
         }
 
-        var action = AddLinkDialogDirections.actionAddTorrent(Uri.parse(s));
-        NavHostFragment.findNavController(this).navigate(action);
-        alert.dismiss();
+        var action = NavBarFragmentDirections.actionAddTorrent(Uri.parse(s));
+        activity.getRootNavController().navigate(action);
+        dismiss();
     }
 
     private boolean checkUrlField() {

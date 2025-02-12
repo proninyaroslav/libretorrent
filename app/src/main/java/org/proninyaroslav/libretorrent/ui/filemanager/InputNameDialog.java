@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,39 +23,40 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogTextInputBinding;
+import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 
-public class GoToFolderDialog extends DialogFragment {
-    @SuppressWarnings("unused")
-    private static final String TAG = GoToFolderDialog.class.getSimpleName();
-
+public class InputNameDialog extends DialogFragment {
+    private static final String TAG = ClipboardDialog.class.getSimpleName();
     public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_PATH = "path";
+    public static final String KEY_NAME = "name";
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        var binding = DialogTextInputBinding.inflate(getLayoutInflater());
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        var binding = DialogTextInputBinding.inflate(getLayoutInflater(), null, false);
         var builder = new MaterialAlertDialogBuilder(requireActivity())
-                .setIcon(R.drawable.ic_folder_open_24px)
-                .setTitle(R.string.go_to_folder)
-                .setPositiveButton(R.string.ok, (dialog, when) -> {
+                .setIcon(R.drawable.ic_folder_24px)
+                .setTitle(R.string.dialog_new_folder_title)
+                .setView(binding.getRoot())
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
                     var e = binding.textInput.getText();
                     if (e == null) {
                         return;
                     }
+                    var name = e.toString();
                     var bundle = new Bundle();
-                    bundle.putString(KEY_PATH, e.toString());
+                    bundle.putString(KEY_NAME, name);
                     getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
-                    dismiss();
+                    dialog.dismiss();
                 })
-                .setNegativeButton(R.string.cancel, (dialog, when) -> dismiss())
-                .setView(binding.getRoot());
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
         return builder.create();
     }

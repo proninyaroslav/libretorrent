@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core.utils;
 
 import androidx.annotation.IntDef;
 
-public class WindowInsetsType {
+public class WindowInsetsSide {
     public static final int TOP = 1;
     public static final int BOTTOM = 1 << 1;
     public static final int LEFT = 1 << 2;

@@ -23,11 +23,11 @@
             app:menuGravity="center" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/nav_bar_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_bar_graph" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

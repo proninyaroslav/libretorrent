@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -52,8 +53,13 @@
         <item name="colorOnOkContainer">@color/colorOnOkContainer</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="navEnterAnim">@anim/nav_slide_enter_anim</item>
+        <item name="navExitAnim">@anim/nav_fade_exit_anim</item>
+        <item name="navPopEnterAnim">@anim/nav_fade_enter_anim</item>
+        <item name="navPopExitAnim">@anim/nav_slide_exit_anim</item>
 
+        <!--        -->
 
         <item name="background">?attr/colorSurface</item>
         <item name="foreground">?attr/colorOnSurface</item>

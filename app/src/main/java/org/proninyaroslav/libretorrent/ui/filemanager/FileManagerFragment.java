@@ -25,41 +25,46 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.format.Formatter;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.databinding.ActivityFilemanagerDialogBinding;
+import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
+import org.proninyaroslav.libretorrent.databinding.FragmentFileManagerBinding;
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
+import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -79,72 +84,120 @@ import io.reactivex.disposables.Disposable;
  *  - SAVE_FILE_MODE: Uri of the created file
  */
 
-public class FileManagerDialog extends AppCompatActivity
-        implements FileManagerAdapter.ViewHolder.ClickListener, FragmentCallback {
-    private static final String TAG = FileManagerDialog.class.getSimpleName();
+public class FileManagerFragment extends Fragment
+        implements FileManagerAdapter.ViewHolder.ClickListener {
+    private static final String TAG = FileManagerFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
-    private static final String TAG_INPUT_NAME_DIALOG = "input_name_dialog";
-    private static final String TAG_ERR_CREATE_DIR = "err_create_dir";
-    private static final String TAG_ERROR_OPEN_DIR_DIALOG = "error_open_dir_dialog";
-    private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
     private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
     private static final String TAG_SPINNER_POS = "spinner_pos";
-    private static final String TAG_GO_TO_DIR_DIALOG = "go_to_dir_dialog";
 
+    // TODO
     public static final String TAG_CONFIG = "config";
-    public static final String TAG_URI = "uri";
 
-    private ActivityFilemanagerDialogBinding binding;
+    public static final String KEY_RESULT = TAG + "_result";
+    public static final String KEY_URI = "uri";
+
+    private AppCompatActivity activity;
+    private FragmentFileManagerBinding binding;
     private LinearLayoutManager layoutManager;
     /* Save state scrolling */
     private Parcelable filesListState;
     private FileManagerAdapter adapter;
 
     private FileManagerViewModel viewModel;
-    private BaseAlertDialog inputNameDialog;
     private ErrorReportDialog errorReportDialog;
-    private GoToFolderDialog goToFolderDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private SharedPreferences pref;
-    private MediaReceiver mediaReceiver = new MediaReceiver(this);
+    private final MediaReceiver mediaReceiver = new MediaReceiver(this);
     /*
      * Prevent call onItemSelected after set OnItemSelectedListener,
      * see http://stackoverflow.com/questions/21747917/undesired-onitemselected-calls/21751327#21751327
      */
-    private int spinnerPos = -1;
-    private FileManagerSpinnerAdapter storageAdapter;
+    private int storageMenuPos = -1;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            activity = (MainActivity) context;
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.enableEdgeToEdge(this);
+        var fm = getParentFragmentManager();
+        fm.setFragmentResultListener(
+                InputNameDialog.KEY_RESULT,
+                this,
+                (key, result) -> {
+                    var name = result.getString(InputNameDialog.KEY_NAME);
+                    if (!viewModel.createDirectory(name)) {
+                        Snackbar.make(
+                                binding.coordinatorLayout,
+                                R.string.error_dialog_new_folder,
+                                Snackbar.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        try {
+                            viewModel.openDirectory(name);
+                        } catch (SecurityException e) {
+                            permissionDeniedToast();
+                        } catch (IOException e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                            showSendErrorDialog(e);
+                        }
+                    }
+                }
+        );
+        fm.setFragmentResultListener(
+                GoToFolderDialog.KEY_RESULT,
+                this,
+                (key, result) -> {
+                    var path = result.getString(GoToFolderDialog.KEY_PATH);
+                    goToDirectory(path);
+                }
+        );
+    }
 
-        Intent intent = getIntent();
-        if (!intent.hasExtra(TAG_CONFIG)) {
-            Log.e(TAG, "To work need to set intent with FileManagerConfig in startActivity()");
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_file_manager, container, false);
+        Utils.applyWindowInsets(binding.bottomBar, WindowInsetsSide.ALL, WindowInsetsCompat.Type.ime());
+        Utils.applyWindowInsets(
+                binding.swipeContainer,
+                WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT | WindowInsetsSide.BOTTOM,
+                WindowInsetsCompat.Type.ime()
+        );
+        return binding.getRoot();
+    }
 
-            finish();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
         }
 
-        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
+        pref = PreferenceManager.getDefaultSharedPreferences(activity);
 
         String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
         FileManagerViewModelFactory factory = new FileManagerViewModelFactory(
-                this.getApplication(),
-                intent.getParcelableExtra(TAG_CONFIG),
+                activity.getApplication(),
+                FileManagerFragmentArgs.fromBundle(getArguments()).getConfig(),
                 startDir
         );
         viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
         binding.setViewModel(viewModel);
 
-        FragmentManager fm = getSupportFragmentManager();
-        inputNameDialog = (BaseAlertDialog) fm.findFragmentByTag(TAG_INPUT_NAME_DIALOG);
+        FragmentManager fm = getChildFragmentManager();
         errorReportDialog = (ErrorReportDialog) fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
         dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);
 
@@ -152,25 +205,30 @@ public class FileManagerDialog extends AppCompatActivity
         if (TextUtils.isEmpty(title)) {
             switch (viewModel.config.showMode) {
                 case FileManagerConfig.DIR_CHOOSER_MODE:
-                    binding.toolbar.setTitle(R.string.dir_chooser_title);
+                    binding.appBar.setTitle(R.string.dir_chooser_title);
                     break;
                 case FileManagerConfig.FILE_CHOOSER_MODE:
-                    binding.toolbar.setTitle(R.string.file_chooser_title);
+                    binding.appBar.setTitle(R.string.file_chooser_title);
                     break;
                 case FileManagerConfig.SAVE_FILE_MODE:
-                    binding.toolbar.setTitle(R.string.save_file);
+                    binding.appBar.setTitle(R.string.save_file);
                     break;
             }
-
         } else {
-            binding.toolbar.setTitle(title);
+            binding.appBar.setTitle(title);
         }
+        binding.appBar.setOnMenuItemClickListener(this::onMenuItemClickListener);
+        binding.appBar.setNavigationOnClickListener((v) ->
+                NavHostFragment.findNavController(this).navigateUp());
 
-        setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        binding.addFab.setOnClickListener((v) -> showInputNameDialog());
+        binding.okButton.setOnClickListener((v) -> {
+            saveCurDirectoryPath();
+            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE) {
+                createFile(false);
+            } else {
+                returnDirectoryUri();
+            }
+        });
 
         if (savedInstanceState == null)
             binding.fileName.setText(viewModel.config.fileName);
@@ -190,7 +248,7 @@ public class FileManagerDialog extends AppCompatActivity
             }
         });
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(activity);
         binding.fileList.setLayoutManager(layoutManager);
         binding.fileList.setItemAnimator(new DefaultItemAnimator());
 
@@ -199,31 +257,31 @@ public class FileManagerDialog extends AppCompatActivity
 
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
 
-        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
+        var storageItems = viewModel.getStorageList();
         if (savedInstanceState != null) {
-            spinnerPos = savedInstanceState.getInt(TAG_SPINNER_POS);
+            storageMenuPos = savedInstanceState.getInt(TAG_SPINNER_POS);
         } else {
-            spinnerPos = getSpinnerPos(spinnerItems);
+            storageMenuPos = getStorageMenuPos(storageItems);
         }
 
-        storageAdapter = new FileManagerSpinnerAdapter(this);
-        storageAdapter.setTitle(viewModel.curDir.get());
-        storageAdapter.addItems(spinnerItems);
-        binding.storageSpinner.setAdapter(storageAdapter);
-        binding.storageSpinner.setTag(spinnerPos);
-        binding.storageSpinner.setSelection(spinnerPos);
-        binding.storageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (((Integer) binding.storageSpinner.getTag()) == i) {
-                    return;
-                }
-                spinnerPos = i;
-                binding.storageSpinner.setTag(spinnerPos);
+        ((MaterialAutoCompleteTextView) binding.storageMenuTextView)
+                .setSimpleItems(buildSpinnerMenuItems(storageItems));
+        binding.storageMenuTextView.setText(viewModel.curDir.get(), false);
+        binding.storageMenuTextView.setTag(storageMenuPos);
+        binding.storageMenuTextView.setListSelection(storageMenuPos);
+        binding.storageMenuTextView.setOnItemClickListener((parent, v, position, id) -> {
+            var item = viewModel.getStorageById(position);
+            if (item == null) {
+                return;
+            }
+            binding.storageMenuTextView.setText(item.path(), false);
+            if (((Integer) binding.storageMenuTextView.getTag()) != position) {
+                storageMenuPos = position;
+                binding.storageMenuTextView.setTag(storageMenuPos);
                 try {
-                    var path = storageAdapter.getItem(i);
-                    if (viewModel.isDirectoryExists(path)) {
-                        viewModel.jumpToDirectory(path);
+                    binding.storageMenuTextView.setText(item.path(), false);
+                    if (viewModel.isDirectoryExists(item.path())) {
+                        viewModel.jumpToDirectory(item.path());
                     } else {
                         viewModel.jumpToDirectory(viewModel.startDir);
                     }
@@ -232,46 +290,32 @@ public class FileManagerDialog extends AppCompatActivity
                     permissionDeniedToast();
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
         });
 
         registerMediaReceiver();
     }
 
     private void showInputNameDialog() {
-        if (getSupportFragmentManager().findFragmentByTag(TAG_INPUT_NAME_DIALOG) == null) {
-            inputNameDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.dialog_new_folder_title),
-                    null,
-                    R.layout.dialog_text_input,
-                    getString(R.string.ok),
-                    getString(R.string.cancel),
-                    null,
-                    false);
-
-            inputNameDialog.show(getSupportFragmentManager(), TAG_INPUT_NAME_DIALOG);
-        }
+        var action = FileManagerFragmentDirections.actionOpenInputNameDialog();
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
 
         unregisterMediaReceiver();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
 
         disposable.clear();
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
         subscribeAlertDialog();
@@ -284,12 +328,12 @@ public class FileManagerDialog extends AppCompatActivity
         filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
         filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
         filter.addDataScheme("file");
-        registerReceiver(mediaReceiver, filter);
+        activity.registerReceiver(mediaReceiver, filter);
     }
 
     private void unregisterMediaReceiver() {
         try {
-            unregisterReceiver(mediaReceiver);
+            activity.unregisterReceiver(mediaReceiver);
         } catch (IllegalArgumentException e) {
             /* Ignore non-registered receiver */
         }
@@ -313,7 +357,7 @@ public class FileManagerDialog extends AppCompatActivity
             new Observable.OnPropertyChangedCallback() {
                 @Override
                 public void onPropertyChanged(Observable sender, int propertyId) {
-                    storageAdapter.setTitle(viewModel.curDir.get());
+                    binding.storageMenuTextView.setText(viewModel.curDir.get(), false);
                 }
             };
 
@@ -323,31 +367,7 @@ public class FileManagerDialog extends AppCompatActivity
 
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_INPUT_NAME_DIALOG) && inputNameDialog != null) {
-                    Dialog dialog = inputNameDialog.getDialog();
-                    if (dialog != null) {
-                        EditText nameField = dialog.findViewById(R.id.text_input_dialog);
-                        String name = nameField.getText().toString();
-
-                        if (!viewModel.createDirectory(name)) {
-                            showCreateFolderErrDialog();
-                        } else {
-                            try {
-                                viewModel.openDirectory(name);
-
-                            } catch (SecurityException e) {
-                                permissionDeniedToast();
-                            } catch (IOException e) {
-                                Log.e(TAG, Log.getStackTraceString(e));
-                                showSendErrorDialog(e);
-                            }
-                        }
-                    }
-                    inputNameDialog.dismiss();
-
-                } else if (event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG)) {
-                    createFile(true);
-                } else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null) {
+                if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null) {
                     Dialog dialog = errorReportDialog.getDialog();
                     if (dialog != null) {
                         TextInputEditText editText = dialog.findViewById(R.id.comment);
@@ -360,9 +380,7 @@ public class FileManagerDialog extends AppCompatActivity
                 }
                 break;
             case NEGATIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_INPUT_NAME_DIALOG) && inputNameDialog != null)
-                    inputNameDialog.dismiss();
-                else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null)
+                if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null)
                     errorReportDialog.dismiss();
                 break;
         }
@@ -370,13 +388,13 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void showSendErrorDialog(Exception e) {
         viewModel.errorReport = e;
-        if (getSupportFragmentManager().findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
+        if (getChildFragmentManager().findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
             errorReportDialog = ErrorReportDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.error_open_dir),
                     Log.getStackTraceString(e));
 
-            errorReportDialog.show(getSupportFragmentManager(), TAG_ERROR_REPORT_DIALOG);
+            errorReportDialog.show(getChildFragmentManager(), TAG_ERROR_REPORT_DIALOG);
         }
     }
 
@@ -387,44 +405,33 @@ public class FileManagerDialog extends AppCompatActivity
                 .show();
     }
 
-    private void showCreateFolderErrDialog() {
-        if (getSupportFragmentManager().findFragmentByTag(TAG_ERR_CREATE_DIR) == null) {
-            BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.error),
-                    getString(R.string.error_dialog_new_folder),
-                    0,
-                    getString(R.string.ok),
-                    null,
-                    null,
-                    true);
-
-            errDialog.show(getSupportFragmentManager(), TAG_ERR_CREATE_DIR);
-        }
-    }
-
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        filesListState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_LIST_FILES_STATE, filesListState);
-        outState.putInt(TAG_SPINNER_POS, spinnerPos);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (layoutManager != null) {
+            filesListState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(TAG_LIST_FILES_STATE, filesListState);
+        }
+        outState.putInt(TAG_SPINNER_POS, storageMenuPos);
 
         super.onSaveInstanceState(outState);
     }
 
-
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
-        filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
+        if (savedInstanceState != null) {
+            filesListState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
+        }
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
-        if (filesListState != null)
+        if (filesListState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(filesListState);
+        }
     }
 
     @Override
@@ -472,39 +479,13 @@ public class FileManagerDialog extends AppCompatActivity
             pref.edit().putString(keyFileManagerLastDir, path).apply();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.filemanager, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        if (viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE)
-            menu.findItem(R.id.filemanager_ok_menu).setVisible(false);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    private boolean onMenuItemClickListener(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            finish();
-        } else if (itemId == R.id.filemanager_home_menu) {
+        if (itemId == R.id.home_menu) {
             openHomeDirectory();
-        } else if (itemId == R.id.filemanager_ok_menu) {
-            saveCurDirectoryPath();
-            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
-                createFile(false);
-            else
-                returnDirectoryUri();
-        } else if (itemId == R.id.filemanager_go_to_folder_menu) {
+        } else if (itemId == R.id.create_menu) {
+            showInputNameDialog();
+        } else if (itemId == R.id.go_to_folder_menu) {
             goToDirectoryDialog();
         }
 
@@ -512,7 +493,7 @@ public class FileManagerDialog extends AppCompatActivity
     }
 
     private void openHomeDirectory() {
-        String path = SystemFacadeHelper.getFileSystemFacade(getApplicationContext())
+        String path = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext())
                 .getUserDirPath();
         goToDirectory(path);
     }
@@ -526,92 +507,73 @@ public class FileManagerDialog extends AppCompatActivity
                 permissionDeniedToast();
             }
         } else {
-            if (getSupportFragmentManager().findFragmentByTag(TAG_GO_TO_DIR_DIALOG) == null) {
-                BaseAlertDialog errDialog = BaseAlertDialog.newInstance(
-                        getString(R.string.go_to_folder),
-                        getString(R.string.error_open_dir),
-                        0,
-                        getString(R.string.ok),
-                        null,
-                        null,
-                        true);
-
-                errDialog.show(getSupportFragmentManager(), TAG_GO_TO_DIR_DIALOG);
-            }
+            Snackbar.make(
+                    binding.coordinatorLayout,
+                    R.string.error_open_dir,
+                    Snackbar.LENGTH_SHORT
+            ).show();
         }
     }
 
     private void goToDirectoryDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        goToFolderDialog = (GoToFolderDialog) fm.findFragmentByTag(TAG_ERROR_OPEN_DIR_DIALOG);
-        if (goToFolderDialog == null) {
-            goToFolderDialog = GoToFolderDialog.newInstance();
-            goToFolderDialog.show(fm, TAG_ERROR_OPEN_DIR_DIALOG);
-        }
+        var action = FileManagerFragmentDirections.actionGoToFolderDialog();
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
     private void returnDirectoryUri() {
-        Intent i = new Intent();
+        var bundle = new Bundle();
         try {
-            i.setData(viewModel.getCurDirectoryUri());
-
+            bundle.putParcelable(KEY_URI, viewModel.getCurDirectoryUri());
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        setResult(RESULT_OK, i);
-        finish();
+        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        NavHostFragment.findNavController(this).navigateUp();
     }
 
     private void createFile(boolean replace) {
-        if (!checkFileNameField())
+        if (!checkFileNameField()) {
             return;
+        }
 
         Editable editable = binding.fileName.getText();
         String fileName = (editable == null ? null : editable.toString());
         if (!replace && viewModel.fileExists(fileName)) {
-            showReplaceFileDialog();
+            new MaterialAlertDialogBuilder(activity)
+                    .setIcon(R.drawable.ic_file_24px)
+                    .setTitle(R.string.replace_file)
+                    .setMessage(R.string.error_file_exists)
+                    .setPositiveButton(R.string.replace, (dialog, when) -> {
+                        createFile(true);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.cancel, (dialog, when) -> dialog.dismiss())
+                    .show();
             return;
         }
 
-        Intent i = new Intent();
+        var bundle = new Bundle();
         try {
-            i.setData(viewModel.createFile(fileName));
-
+            bundle.putParcelable(KEY_URI, viewModel.createFile(fileName));
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        setResult(RESULT_OK, i);
-        finish();
+        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        NavHostFragment.findNavController(this).navigateUp();
     }
 
     private void returnFileUri(String fileName) {
-        Intent i = new Intent();
+        var bundle = new Bundle();
         try {
-            i.setData(viewModel.getFileUri(fileName));
-
+            bundle.putParcelable(KEY_URI, viewModel.getFileUri(fileName));
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        setResult(RESULT_OK, i);
-        finish();
-    }
-
-    private void showReplaceFileDialog() {
-        if (getSupportFragmentManager().findFragmentByTag(TAG_REPLACE_FILE_DIALOG) == null) {
-            BaseAlertDialog replaceFileDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.replace_file),
-                    getString(R.string.error_file_exists),
-                    0,
-                    getString(R.string.yes),
-                    getString(R.string.no),
-                    null,
-                    true);
-
-            replaceFileDialog.show(getSupportFragmentManager(), TAG_REPLACE_FILE_DIALOG);
-        }
+        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        NavHostFragment.findNavController(this).navigateUp();
     }
 
     private boolean checkFileNameField() {
@@ -630,25 +592,20 @@ public class FileManagerDialog extends AppCompatActivity
     }
 
     final synchronized void reloadSpinner() {
-        if (storageAdapter == null || adapter == null)
-            return;
+        var storageList = viewModel.regenerateStorageList();
+        storageMenuPos = getStorageMenuPos(storageList);
+        binding.storageMenuTextView.setSelection(storageMenuPos);
 
-        List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems = viewModel.getStorageList();
-        spinnerPos = getSpinnerPos(spinnerItems);
-        binding.storageSpinner.setSelection(spinnerPos);
-
-        storageAdapter.clear();
-        storageAdapter.addItems(spinnerItems);
-        storageAdapter.setTitle(viewModel.curDir.get());
-        storageAdapter.notifyDataSetChanged();
+        ((MaterialAutoCompleteTextView) binding.storageMenuTextView)
+                .setSimpleItems(buildSpinnerMenuItems(storageList));
 
         viewModel.refreshCurDirectory();
     }
 
-    private int getSpinnerPos(List<FileManagerSpinnerAdapter.StorageSpinnerItem> spinnerItems) {
-        for (int i = 0; i < spinnerItems.size(); i++) {
+    private int getStorageMenuPos(List<FileManagerViewModel.StorageItem> items) {
+        for (int i = 0; i < items.size(); i++) {
             String curDir = viewModel.curDir.get();
-            if (curDir != null && curDir.startsWith(spinnerItems.get(i).getStoragePath())) {
+            if (curDir != null && curDir.startsWith(items.get(i).path())) {
                 return i;
             }
         }
@@ -656,16 +613,13 @@ public class FileManagerDialog extends AppCompatActivity
         return -1;
     }
 
-    @Override
-    public void onFragmentFinished(@NonNull Fragment f, Intent intent, @NonNull ResultCode code) {
-        if (!intent.hasExtra(TAG_URI) || code != ResultCode.OK) {
-            return;
-        }
-
-        Uri uri = intent.getParcelableExtra(TAG_URI);
-        if (uri.getPath() != null) {
-            goToDirectory(uri.getPath());
-        }
+    private String[] buildSpinnerMenuItems(List<FileManagerViewModel.StorageItem> items) {
+        return items.stream().map((item) -> {
+            var nameAndSizeTemplate = activity.getString(R.string.storage_name_and_size);
+            var nameAndSize = String.format(nameAndSizeTemplate, item.name(),
+                    Formatter.formatFileSize(activity, item.size()));
+            return nameAndSize + "\n" + item.path();
+        }).toArray(String[]::new);
     }
 
     /**
@@ -673,9 +627,9 @@ public class FileManagerDialog extends AppCompatActivity
      */
 
     private static class MediaReceiver extends BroadcastReceiver {
-        WeakReference<FileManagerDialog> dialog;
+        WeakReference<FileManagerFragment> dialog;
 
-        MediaReceiver(FileManagerDialog dialog) {
+        MediaReceiver(FileManagerFragment dialog) {
             this.dialog = new WeakReference<>(dialog);
         }
 

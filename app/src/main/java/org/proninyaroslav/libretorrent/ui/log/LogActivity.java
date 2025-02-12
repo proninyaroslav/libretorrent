@@ -50,7 +50,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ActivityLogBinding;
 import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
-import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerDialog;
+import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -304,7 +304,7 @@ public class LogActivity extends AppCompatActivity
 
     private void saveLogPathChooseDialog()
     {
-        Intent i = new Intent(this, FileManagerDialog.class);
+        Intent i = new Intent(this, FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(
                 null,
                 getString(R.string.pref_journal_save_log_to),
@@ -312,7 +312,7 @@ public class LogActivity extends AppCompatActivity
         config.fileName = viewModel.getSaveLogFileName();
         config.mimeType = Utils.MIME_TEXT_PLAIN;
 
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         saveLogPathChoose.launch(i);
     }
 

@@ -25,6 +25,8 @@
             android:layout_marginVertical="8dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:lines="1"
             android:gravity="center_vertical"
             tools:text="Label" />
 
