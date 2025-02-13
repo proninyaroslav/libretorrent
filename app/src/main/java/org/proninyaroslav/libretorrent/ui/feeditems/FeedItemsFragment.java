@@ -53,7 +53,6 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentFeedItemsBinding;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
 
 import io.reactivex.Flowable;

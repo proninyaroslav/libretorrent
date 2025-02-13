@@ -21,10 +21,7 @@ package org.proninyaroslav.libretorrent.ui.main;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.TypedValue;
@@ -35,7 +32,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -277,16 +273,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         @Override
         public ItemDetails getItemDetails() {
             return new ItemDetails(selectionKey, getBindingAdapterPosition());
-        }
-
-        void setPauseButtonState(MaterialButton button, boolean isPause) {
-            var prevAnim = currAnim;
-            var icon = (AnimatedStateListDrawable) button.getIcon();
-            button.setChecked(!isPause);
-//            currAnim = (AnimatedVectorDrawable) button.getIcon();
-//            if (currAnim != prevAnim) {
-//                currAnim.start();
-//            }
         }
     }
 

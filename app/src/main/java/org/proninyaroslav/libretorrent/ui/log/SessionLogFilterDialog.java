@@ -21,14 +21,10 @@ package org.proninyaroslav.libretorrent.ui.log;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +36,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogLogFilterBinding;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
 
 public class SessionLogFilterDialog extends DialogFragment {
     private AlertDialog alert;

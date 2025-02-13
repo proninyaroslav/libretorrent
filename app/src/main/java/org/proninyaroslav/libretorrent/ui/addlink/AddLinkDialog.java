@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

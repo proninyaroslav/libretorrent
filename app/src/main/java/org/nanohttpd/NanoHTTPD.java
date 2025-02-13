@@ -32,6 +32,7 @@ package org.nanohttpd;
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * #L%
  */
+
 import androidx.annotation.NonNull;
 
 import java.io.BufferedInputStream;
@@ -84,6 +85,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
+
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;

@@ -25,12 +25,8 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.TextViewCompat;
@@ -41,7 +37,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemFileManagerBinding;
 
 import java.util.Comparator;
