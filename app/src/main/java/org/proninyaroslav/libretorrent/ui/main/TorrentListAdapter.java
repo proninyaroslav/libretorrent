@@ -21,7 +21,10 @@ package org.proninyaroslav.libretorrent.ui.main;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.TypedValue;
@@ -142,8 +145,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements ViewHolderWithDetails {
         private final ItemTorrentListBinding binding;
-        private final AnimatedVectorDrawable playToPauseAnim;
-        private final AnimatedVectorDrawable pauseToPlayAnim;
         private AnimatedVectorDrawable currAnim;
         ColorStateList pauseButtonBackground;
         ColorStateList cardBackground;
@@ -157,8 +158,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
             this.binding = binding;
             var context = itemView.getContext();
-            playToPauseAnim = (AnimatedVectorDrawable) AppCompatResources.getDrawable(context, R.drawable.play_to_pause_anim);
-            pauseToPlayAnim = (AnimatedVectorDrawable) AppCompatResources.getDrawable(context, R.drawable.pause_to_play_anim);
             pauseButtonBackground = binding.pauseButton.getBackgroundTintList();
             cardBackground = binding.card.getCardBackgroundColor();
             progressTrackColor = binding.progress.getTrackColor();
@@ -181,7 +180,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             });
 
             var pauseButton = (MaterialButton) binding.pauseButton;
-            setPauseButtonState(pauseButton, item.stateCode == TorrentStateCode.PAUSED);
+            pauseButton.setChecked(item.stateCode != TorrentStateCode.PAUSED);
             pauseButton.setOnClickListener((v) -> {
                 if (listener != null) {
                     listener.onItemPauseClicked(item);
@@ -282,12 +281,12 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
         void setPauseButtonState(MaterialButton button, boolean isPause) {
             var prevAnim = currAnim;
-            button.setIcon(isPause ? pauseToPlayAnim : playToPauseAnim);
+            var icon = (AnimatedStateListDrawable) button.getIcon();
             button.setChecked(!isPause);
-            currAnim = (AnimatedVectorDrawable) button.getIcon();
-            if (currAnim != prevAnim) {
-                currAnim.start();
-            }
+//            currAnim = (AnimatedVectorDrawable) button.getIcon();
+//            if (currAnim != prevAnim) {
+//                currAnim.start();
+//            }
         }
     }
 

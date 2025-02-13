@@ -27,7 +27,7 @@
             android:checkable="true"
             android:contentDescription="@string/pause_torrent"
             android:padding="12dp"
-            app:icon="@drawable/pause_to_play_anim" />
+            app:icon="@drawable/pause_button_selector" />
 
         <LinearLayout
             android:id="@+id/info"
