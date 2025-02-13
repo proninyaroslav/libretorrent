@@ -1040,7 +1040,7 @@ public class MainFragment extends AbstractListDetailFragment
         getAddTorrentFab().setImageResource(R.drawable.add_to_close_anim);
         startFabIconAnim();
 
-        var popupWrapper = new ContextThemeWrapper(activity, R.style.AppTheme_Components_FloatingActionButton_Menu);
+        var popupWrapper = new ContextThemeWrapper(activity, R.style.App_Components_FloatingActionButton_Menu);
         var popup = new PopupMenu(popupWrapper, v, Gravity.TOP);
         popup.getMenuInflater().inflate(R.menu.main_fab, popup.getMenu());
 

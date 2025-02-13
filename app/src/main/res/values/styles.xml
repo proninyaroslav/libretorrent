@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme.Translucent" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
 
-    <style name="AppTheme.Components.FloatingActionButton.Menu" parent="Widget.Material3.PopupMenu">
+    <style name="App.Components.FloatingActionButton.Menu" parent="Widget.Material3.PopupMenu">
         <item name="popupMenuBackground">@drawable/fab_menu_background</item>
         <item name="textAppearanceSmallPopupMenu">
-            @style/TextAppearance.App.Components.FloatingActionButton.Menu
+            @style/App.Components.FloatingActionButton.Menu.Text
         </item>
         <item name="textAppearanceLargePopupMenu">
-            @style/TextAppearance.App.Components.FloatingActionButton.Menu
+            @style/App.Components.FloatingActionButton.Menu.Text
         </item>
         <item name="iconTint">?attr/colorOnSecondaryContainer</item>
     </style>
 
-    <style name="AppTheme.Components.ListItem" parent="Widget.Material3.CardView.Outlined">
+    <style name="App.Components.ListItem" parent="Widget.Material3.CardView.Outlined">
         <item name="strokeWidth">0dp</item>
         <item name="cardBackgroundColor">@android:color/transparent</item>
         <item name="checkedIcon">@null</item>
     </style>
 
-    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
-        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+    <style name="App.Components.FloatingActionButton.Menu.Text" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
     </style>
 
-    <style name="TextAppearance.App.Components.FloatingActionButton.Menu" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+    <style name="App.Components.ErrorReportDialog.StackTrace" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
         <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
     </style>
 
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text
+        </item>
+    </style>
+
 
     <!--    -->
 
     <style name="AppThemeM2" parent="BaseThemeM2" />
+
     <style name="AppThemeM2.Dark" parent="BaseThemeM2.Dark" />
+
     <style name="AppThemeM2.Black" parent="BaseThemeM2.Black" />
+
     <style name="AppThemeM2.Dialog" parent="BaseThemeM2.Dialog" />
+
     <style name="AppThemeM2.Dialog.Dark" parent="BaseThemeM2.Dialog.Dark" />
+
     <style name="AppThemeM2.Dialog.Black" parent="BaseThemeM2.Dialog.Black" />
+
     <style name="AppThemeM2.Translucent" parent="BaseThemeM2.Translucent" />
+
     <style name="AppThemeM2.Translucent.Dark" parent="BaseThemeM2.Translucent.Dark" />
+
     <style name="AppThemeM2.Translucent.Black" parent="BaseThemeM2.Translucent.Black" />
+
     <style name="AppThemeM2.Settings" parent="BaseThemeM2.Settings" />
+
     <style name="AppThemeM2.Settings.Dark" parent="BaseThemeM2.Settings.Dark" />
+
     <style name="AppThemeM2.Settings.Black" parent="BaseThemeM2.Settings.Black" />
+
     <style name="AppThemeM2.Launcher" parent="BaseThemeM2.Launcher" />
+
     <style name="AppThemeM2.Toolbar.Spinner" parent="BaseThemeM2.Toolbar.Spinner" />
 
     <style name="BaseThemeM2" parent="Theme.MaterialComponents.Light">
@@ -158,7 +169,8 @@
         <item name="android:actionModeBackground">@android:color/black</item>
         <item name="actionModeBackground">@android:color/black</item> <!-- For pre-Lollipop -->
         <item name="android:alertDialogTheme">@style/AppThemeM2.Dialog.Black</item>
-        <item name="alertDialogTheme">@style/AppThemeM2.Dialog.Black</item> <!-- For pre-Lollipop -->
+        <item name="alertDialogTheme">@style/AppThemeM2.Dialog.Black
+        </item> <!-- For pre-Lollipop -->
 
         <item name="background">@android:color/black</item>
         <item name="backgroundDialog">@color/background_dialog_black</item>
@@ -350,7 +362,8 @@
         <item name="colorSwitchThumbNormal">@color/text_primary</item>
         <item name="colorControlActivated">@color/text_primary</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
     </style>
 
     <style name="BaseThemeM2.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">

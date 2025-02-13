@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,68 +17,132 @@
 package org.proninyaroslav.libretorrent.ui.errorreport;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.acra.ReportField;
+import org.acra.dialog.CrashReportDialogHelper;
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogErrorBinding;
-import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 
-public class ErrorReportDialog extends BaseAlertDialog
-{
-    private static final String TAG = ErrorReportDialog.class.getSimpleName();
+import java.io.IOException;
 
-    protected static final String TAG_DETAIL_ERROR = "detail_error";
+public class ErrorReportDialog extends DialogFragment {
+    @Nullable
+    private CrashReportDialogHelper helper;
+    @Nullable
+    private ErrorReportActivity errorReportActivity;
 
-    /* In the absence of any parameter need set 0 or null */
+    // TODO
+    public static ErrorReportDialog newInstance(String title, String message, String detailError) {
+        return new ErrorReportDialog();
+    }
 
-    public static ErrorReportDialog newInstance(String title, String message,
-                                                String detailError)
-    {
-        ErrorReportDialog frag = new ErrorReportDialog();
+    public static ErrorReportDialog newInstance(
+            @NonNull String message,
+            @Nullable Throwable exception
+    ) {
+        var dialog = new ErrorReportDialog();
+        dialog.setArguments(
+                new ErrorReportDialogArgs.Builder(message)
+                        .setException(exception)
+                        .build()
+                        .toBundle()
+        );
 
-        Bundle args = new Bundle();
-        args.putString(TAG_TITLE, title);
-        args.putString(TAG_MESSAGE, message);
-        args.putString(TAG_DETAIL_ERROR, detailError);
+        return dialog;
+    }
 
-        frag.setArguments(args);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        return frag;
+        if (context instanceof ErrorReportActivity) {
+            errorReportActivity = (ErrorReportActivity) context;
+        }
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        Bundle args = getArguments();
-        String title = args.getString(TAG_TITLE);
-        String message = args.getString(TAG_MESSAGE);
-        String positiveText = getString(R.string.report);
-        String negativeText = getString(R.string.cancel);
-        String detailError = args.getString(TAG_DETAIL_ERROR);
+        if (requireActivity() instanceof ErrorReportActivity) {
+            errorReportActivity = (ErrorReportActivity) requireActivity();
+        }
 
-        LayoutInflater i = LayoutInflater.from(getActivity());
-        DialogErrorBinding binding = DataBindingUtil.inflate(i, R.layout.dialog_error, null, false);
-        binding.setDetailError(detailError);
+        try {
+            if (errorReportActivity != null) {
+                helper = new CrashReportDialogHelper(errorReportActivity, errorReportActivity.getIntent());
+            }
+        } catch (IllegalArgumentException e) {
+            helper = null;
+        }
+
+        var args = ErrorReportDialogArgs.fromBundle(getArguments());
+        var exception = args.getException();
+        var stackTrace = exception == null ? getStackTrace(helper) : null;
+
+        var inflater = getLayoutInflater();
+        DialogErrorBinding binding = DataBindingUtil.inflate(inflater, R.layout.dialog_error, null, false);
+        binding.setStackTrace(exception == null ? stackTrace : Log.getStackTraceString(exception));
 
         initLayoutView(binding);
 
-        return buildDialog(title, message, binding.getRoot(),
-                positiveText, negativeText, null, false);
+        return new MaterialAlertDialogBuilder(requireActivity())
+                .setIcon(R.drawable.ic_error_24px)
+                .setTitle(R.string.error)
+                .setMessage(args.getMessage())
+                .setView(binding.getRoot())
+                .setPositiveButton(R.string.report, (dialog, when) -> {
+                    var e = binding.comment.getText();
+                    String comment = e == null ? null : e.toString();
+                    if (helper != null) {
+                        helper.sendCrash(comment, null);
+                    } else {
+                        Utils.reportError(exception, comment);
+                    }
+                    dismiss();
+                })
+                .setNegativeButton(R.string.cancel, (dialog, when) -> dismiss())
+                .create();
     }
 
-    private void initLayoutView(DialogErrorBinding binding)
-    {
-        binding.expansionHeader.setOnClickListener((View view) -> {
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if (helper != null) {
+            helper.cancelReports();
+            if (errorReportActivity != null) {
+                errorReportActivity.finish();
+            }
+        }
+    }
+
+    private void initLayoutView(DialogErrorBinding binding) {
+        binding.expansionHeader.setOnClickListener((v) -> {
             binding.expandableLayout.toggle();
             binding.expansionHeader.toggleExpand();
         });
+    }
+
+    @Nullable
+    private String getStackTrace(@Nullable CrashReportDialogHelper helper) {
+        try {
+            return helper == null ? null : helper.getReportData().getString(ReportField.STACK_TRACE);
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

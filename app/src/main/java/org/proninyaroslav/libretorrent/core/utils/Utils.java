@@ -320,10 +320,12 @@ public class Utils {
         return clipboardText;
     }
 
-    public static void reportError(@NonNull Throwable error,
-                                   String comment) {
-        if (comment != null)
+    public static void reportError(@Nullable Throwable error,
+                                   @Nullable String comment
+    ) {
+        if (comment != null) {
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
+        }
 
         ACRA.getErrorReporter().handleSilentException(error);
     }

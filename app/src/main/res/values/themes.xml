@@ -80,4 +80,12 @@
         <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
     </style>
+
+    <style name="AppTheme.Translucent" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
 </resources>

@@ -162,7 +162,8 @@
         <activity
             android:name=".ui.settings.PreferenceActivity" />
 
-        <activity android:name=".ui.errorreport.ErrorReportActivity"
+        <activity
+            android:name=".ui.errorreport.ErrorReportActivity"
             android:theme="@style/AppTheme.Translucent"
             android:process=":acra"
             android:excludeFromRecents="true"

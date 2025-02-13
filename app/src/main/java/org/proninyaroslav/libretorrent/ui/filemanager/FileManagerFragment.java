@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.filemanager;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,12 +38,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
@@ -54,7 +51,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -62,8 +58,6 @@ import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentFileManagerBinding;
-import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog;
 import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 import java.io.IOException;
@@ -71,7 +65,6 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 /*
  * The simple dialog for navigation and select directory.
@@ -89,7 +82,6 @@ public class FileManagerFragment extends Fragment
     private static final String TAG = FileManagerFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
-    private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
     private static final String TAG_SPINNER_POS = "spinner_pos";
 
     // TODO
@@ -98,7 +90,7 @@ public class FileManagerFragment extends Fragment
     public static final String KEY_RESULT = TAG + "_result";
     public static final String KEY_URI = "uri";
 
-    private AppCompatActivity activity;
+    private MainActivity activity;
     private FragmentFileManagerBinding binding;
     private LinearLayoutManager layoutManager;
     /* Save state scrolling */
@@ -106,8 +98,6 @@ public class FileManagerFragment extends Fragment
     private FileManagerAdapter adapter;
 
     private FileManagerViewModel viewModel;
-    private ErrorReportDialog errorReportDialog;
-    private BaseAlertDialog.SharedViewModel dialogViewModel;
     private final CompositeDisposable disposable = new CompositeDisposable();
     private SharedPreferences pref;
     private final MediaReceiver mediaReceiver = new MediaReceiver(this);
@@ -182,7 +172,7 @@ public class FileManagerFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         if (activity == null) {
-            activity = (AppCompatActivity) requireActivity();
+            activity = (MainActivity) requireActivity();
         }
 
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
@@ -196,10 +186,6 @@ public class FileManagerFragment extends Fragment
         );
         viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
         binding.setViewModel(viewModel);
-
-        FragmentManager fm = getChildFragmentManager();
-        errorReportDialog = (ErrorReportDialog) fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
-        dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);
 
         String title = viewModel.config.title;
         if (TextUtils.isEmpty(title)) {
@@ -318,7 +304,6 @@ public class FileManagerFragment extends Fragment
     public void onStart() {
         super.onStart();
 
-        subscribeAlertDialog();
         subscribeAdapter();
         viewModel.curDir.addOnPropertyChangedCallback(currentDirCallback);
     }
@@ -339,11 +324,6 @@ public class FileManagerFragment extends Fragment
         }
     }
 
-    private void subscribeAlertDialog() {
-        Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
-        disposable.add(d);
-    }
-
     private void subscribeAdapter() {
         disposable.add(viewModel.childNodes
                 .doOnNext((childList) -> {
@@ -361,41 +341,11 @@ public class FileManagerFragment extends Fragment
                 }
             };
 
-    private void handleAlertDialogEvent(BaseAlertDialog.Event event) {
-        if (event.dialogTag == null)
-            return;
-
-        switch (event.type) {
-            case POSITIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null) {
-                    Dialog dialog = errorReportDialog.getDialog();
-                    if (dialog != null) {
-                        TextInputEditText editText = dialog.findViewById(R.id.comment);
-                        Editable e = editText.getText();
-                        String comment = (e == null ? null : e.toString());
-
-                        Utils.reportError(viewModel.errorReport, comment);
-                        errorReportDialog.dismiss();
-                    }
-                }
-                break;
-            case NEGATIVE_BUTTON_CLICKED:
-                if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null)
-                    errorReportDialog.dismiss();
-                break;
-        }
-    }
-
     private void showSendErrorDialog(Exception e) {
-        viewModel.errorReport = e;
-        if (getChildFragmentManager().findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
-            errorReportDialog = ErrorReportDialog.newInstance(
-                    getString(R.string.error),
-                    getString(R.string.error_open_dir),
-                    Log.getStackTraceString(e));
-
-            errorReportDialog.show(getChildFragmentManager(), TAG_ERROR_REPORT_DIALOG);
-        }
+        var action = FileManagerFragmentDirections
+                .actionErrorReportDialog(getString(R.string.error_open_dir))
+                .setException(e);
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
     private void permissionDeniedToast() {

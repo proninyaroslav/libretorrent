@@ -1,7 +1,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
-    style="@style/AppTheme.Components.ListItem"
+    style="@style/App.Components.ListItem"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:clickable="true"

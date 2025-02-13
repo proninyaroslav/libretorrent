@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_add_torrent"
             app:destination="@id/addTorrentActivity" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/errorReportDialog" />
     </fragment>
     <fragment
         android:id="@+id/fileManagerFragment"
@@ -34,6 +37,9 @@
         <action
             android:id="@+id/action_go_to_folder_dialog"
             app:destination="@id/goToFolderDialog" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/errorReportDialog" />
     </fragment>
     <activity
         android:id="@+id/addTorrentActivity"
@@ -52,5 +58,19 @@
         android:id="@+id/goToFolderDialog"
         android:name="org.proninyaroslav.libretorrent.ui.filemanager.GoToFolderDialog"
         android:label="GoToFolderDialog"
-        tools:layout="@layout/dialog_go_to_folder" />
+        tools:layout="@layout/dialog_text_input" />
+    <dialog
+        android:id="@+id/errorReportDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog"
+        android:label="ErrorReportDialog"
+        tools:layout="@layout/dialog_error" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+        <argument
+            android:name="exception"
+            app:argType="java.lang.Throwable"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
 </navigation>

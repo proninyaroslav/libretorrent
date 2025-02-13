@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/_expansion_header_card"
-    style="@style/AppTheme.Components.ListItem"
+    style="@style/App.Components.ListItem"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:clickable="true"
