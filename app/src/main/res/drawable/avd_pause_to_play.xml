@@ -37,14 +37,14 @@
                     android:valueFrom="0.5"
                     android:valueTo="1"
                     android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:interpolator="?attr/motionEasingLinearInterpolator"/>
                 <objectAnimator
                     android:propertyName="fillAlpha"
                     android:duration="?attr/motionDurationShort3"
                     android:valueFrom="0"
                     android:valueTo="0.5"
                     android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:interpolator="?attr/motionEasingLinearInterpolator"/>
             </set>
         </aapt:attr>
     </target>
@@ -64,7 +64,7 @@
                     android:valueFrom="1"
                     android:valueTo="0.5"
                     android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:interpolator="?attr/motionEasingLinearInterpolator"/>
                 <objectAnimator
                     android:propertyName="fillAlpha"
                     android:startOffset="?attr/motionDurationShort3"
@@ -72,7 +72,7 @@
                     android:valueFrom="0.5"
                     android:valueTo="0"
                     android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:interpolator="?attr/motionEasingLinearInterpolator"/>
             </set>
         </aapt:attr>
     </target>
