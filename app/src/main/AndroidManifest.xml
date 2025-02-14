@@ -136,20 +136,6 @@
 
         <activity android:name=".ui.detailtorrent.DetailTorrentActivity" />
 
-        <activity android:name=".ui.SendTextToClipboard"
-            android:label="@string/send_text_to_clipboard"
-            android:icon="@drawable/ic_content_copy_grey600_48dp"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
-                <data android:mimeType="text/*" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"
             android:exported="true">
