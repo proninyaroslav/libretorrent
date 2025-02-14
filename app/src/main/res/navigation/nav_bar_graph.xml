@@ -17,6 +17,9 @@
             <action
                 android:id="@+id/action_add_link"
                 app:destination="@id/addLinkDialog" />
+            <action
+                android:id="@+id/action_about_dialog"
+                app:destination="@id/aboutDialog" />
         </fragment>
         <dialog
             android:id="@+id/addLinkDialog"
@@ -32,5 +35,10 @@
             android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
             android:label="ClipboardDialog"
             tools:layout="@layout/item_clipboard_list" />
+        <dialog
+            android:id="@+id/aboutDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.main.AboutDialog"
+            android:label="AboutDialog"
+            tools:layout="@layout/dialog_about" />
     </navigation>
 </navigation>

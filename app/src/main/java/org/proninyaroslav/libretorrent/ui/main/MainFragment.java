@@ -30,10 +30,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -43,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +74,6 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
-import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.MainDrawerContentBinding;
@@ -120,7 +116,6 @@ public class MainFragment extends AbstractListDetailFragment
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
     private static final String TAG_DELETE_TORRENTS_DIALOG = "delete_torrents_dialog";
     private static final String TAG_OPEN_FILE_ERROR_DIALOG = "open_file_error_dialog";
-    private static final String TAG_ABOUT_DIALOG = "about_dialog";
 
     private MainActivity activity;
     private TorrentListAdapter adapter;
@@ -140,7 +135,6 @@ public class MainFragment extends AbstractListDetailFragment
     private BaseAlertDialog deleteTorrentsDialog;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final CompositeDisposable searchDisposables = new CompositeDisposable();
-    private BaseAlertDialog aboutDialog;
 
     private DrawerExpandableAdapter drawerAdapter;
     private RecyclerViewExpandableItemManager drawerItemManager;
@@ -211,8 +205,6 @@ public class MainFragment extends AbstractListDetailFragment
         if (activity == null) {
             activity = (MainActivity) requireActivity();
         }
-
-        aboutDialog = (BaseAlertDialog) getChildFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         infoProvider = TorrentInfoProvider.getInstance(activity.getApplicationContext());
         ViewModelProvider provider = new ViewModelProvider(activity);
@@ -336,18 +328,8 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void showAboutDialog() {
-        FragmentManager fm = getChildFragmentManager();
-        if (fm.findFragmentByTag(TAG_ABOUT_DIALOG) == null) {
-            aboutDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.about_title),
-                    null,
-                    R.layout.dialog_about,
-                    getString(R.string.ok),
-                    getString(R.string.about_changelog),
-                    null,
-                    true);
-            aboutDialog.show(fm, TAG_ABOUT_DIALOG);
-        }
+        var action = MainFragmentDirections.actionAboutDialog();
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
     private void initDrawer() {
@@ -803,43 +785,11 @@ public class MainFragment extends AbstractListDetailFragment
                         case NEGATIVE_BUTTON_CLICKED:
                             if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
                                 deleteTorrentsDialog.dismiss();
-                            } else if (event.dialogTag.equals(TAG_ABOUT_DIALOG)) {
-                                openChangelogLink();
                             }
                             break;
-                        case DIALOG_SHOWN:
-                            if (event.dialogTag.equals(TAG_ABOUT_DIALOG)) {
-                                initAboutDialog();
-                            }
                     }
                 });
         disposables.add(d);
-    }
-
-    private void initAboutDialog() {
-        if (aboutDialog == null)
-            return;
-
-        Dialog dialog = aboutDialog.getDialog();
-        if (dialog != null) {
-            TextView versionTextView = dialog.findViewById(R.id.about_version);
-            TextView descriptionTextView = dialog.findViewById(R.id.about_description);
-            String versionName = SystemFacadeHelper.getSystemFacade(activity.getApplicationContext())
-                    .getAppVersionName();
-            if (versionName != null)
-                versionTextView.setText(versionName);
-            descriptionTextView.setText(
-                    Html.fromHtml(getString(R.string.about_description), Html.FROM_HTML_MODE_LEGACY)
-            );
-            descriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
-    }
-
-
-    private void openChangelogLink() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(getString(R.string.about_changelog_link)));
-        startActivity(i);
     }
 
     private void subscribeForceSortAndFilter() {
