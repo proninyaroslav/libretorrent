@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_coordinator_layout"
@@ -50,6 +50,7 @@
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/search_bar_top_margin"
                 android:hint="@string/search"
                 app:menu="@menu/main"
                 app:navigationIcon="@drawable/ic_menu_24px" />
@@ -70,6 +71,7 @@
                 android:id="@+id/contextual_app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/search_bar_top_margin"
                 android:minHeight="?attr/actionBarSize"
                 app:menu="@menu/main_contextual_mode"
                 app:navigationIcon="@drawable/ic_close_24px" />
