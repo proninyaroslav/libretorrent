@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/min_width_dialog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.skydoves.colorpickerview.ColorPickerView
+            android:id="@+id/color_picker"
+            android:layout_width="@dimen/min_width_dialog"
+            android:layout_height="@dimen/min_width_dialog"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/dialog_padding"
+            android:layout_marginVertical="@dimen/dialog_padding"
+            app:selector="@drawable/colorpickerview_wheel" />
+
+        <org.proninyaroslav.libretorrent.ui.colorpicker.CustomBrightnessSlideBar
+            android:id="@+id/brightness_slide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dialog_padding"
+            android:layout_marginBottom="16dp"
+            app:borderSize_BrightnessSlider="5"
+            app:selector_BrightnessSlider="@drawable/colorpickerview_wheel" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

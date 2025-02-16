@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,22 +19,43 @@
 
 package org.proninyaroslav.libretorrent.ui;
 
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
+import static android.content.DialogInterface.BUTTON_POSITIVE;
+
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 
-public class PermissionDeniedDialog extends BaseAlertDialog {
-    public static PermissionDeniedDialog newInstance() {
-        PermissionDeniedDialog frag = new PermissionDeniedDialog();
+public class PermissionDeniedDialog extends DialogFragment {
+    public enum Result {
+        RETRY,
+        DENIED
+    }
 
-        Bundle args = new Bundle();
-        frag.setArguments(args);
+    private static final String TAG = PermissionDeniedDialog.class.getSimpleName();
 
-        return frag;
+    public static final String KEY_RESULT = TAG + "_result";
+    public static final String KEY_RESULT_VALUE = "result_value";
+
+    private AppCompatActivity activity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+        }
     }
 
     @NonNull
@@ -42,21 +63,31 @@ public class PermissionDeniedDialog extends BaseAlertDialog {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        String title = getString(R.string.perm_denied_title);
-        String message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
-                getString(R.string.perm_denied_warning_android_r) :
-                getString(R.string.perm_denied_warning);
-        String positiveText = getString(R.string.yes);
-        String negativeText = getString(R.string.no);
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
 
-        return buildDialog(
-                title,
-                message,
-                null,
-                positiveText,
-                negativeText,
-                null,
-                false
-        );
+        var message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
+                R.string.perm_denied_warning_android_r :
+                R.string.perm_denied_warning;
+
+        var builder = new MaterialAlertDialogBuilder(activity)
+                .setIcon(R.drawable.ic_folder_24px)
+                .setTitle(R.string.perm_denied_title)
+                .setMessage(message)
+                .setPositiveButton(R.string.yes, this::onClick)
+                .setNegativeButton(R.string.no, this::onClick);
+
+        return builder.create();
+    }
+
+    private void onClick(DialogInterface dialog, int which) {
+        var bundle = new Bundle();
+        switch (which) {
+            case BUTTON_POSITIVE -> bundle.putSerializable(KEY_RESULT_VALUE, Result.DENIED);
+            case BUTTON_NEGATIVE -> bundle.putSerializable(KEY_RESULT_VALUE, Result.RETRY);
+        }
+        activity.getSupportFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        dismiss();
     }
 }

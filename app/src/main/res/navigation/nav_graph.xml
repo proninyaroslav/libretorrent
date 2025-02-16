@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_error_report_dialog"
             app:destination="@id/errorReportDialog" />
+        <action
+            android:id="@+id/action_permission_denied_dialog"
+            app:destination="@id/permissionDeniedDialog" />
     </fragment>
     <fragment
         android:id="@+id/fileManagerFragment"
@@ -73,4 +76,8 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </dialog>
+    <dialog
+        android:id="@+id/permissionDeniedDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog"
+        android:label="PermissionDeniedDialog" />
 </navigation>

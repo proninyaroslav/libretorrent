@@ -180,7 +180,7 @@ dependencies {
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
-    implementation 'com.jaredrummler:colorpicker:1.1.0'
+    implementation "com.github.skydoves:colorpickerview:2.3.0"
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
     //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'

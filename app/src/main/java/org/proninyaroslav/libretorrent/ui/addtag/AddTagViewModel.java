@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -48,6 +48,10 @@ public class AddTagViewModel extends AndroidViewModel {
         state.setColor(info.color);
     }
 
+    public boolean hasInitValues() {
+        return state.getExistsTagId() != null;
+    }
+
     public void setRandomColor() {
         state.setColor(Utils.getRandomColor());
     }
@@ -74,5 +78,6 @@ public class AddTagViewModel extends AndroidViewModel {
         });
     }
 
-    public static class TagAlreadyExistsException extends Exception { }
+    public static class TagAlreadyExistsException extends Exception {
+    }
 }

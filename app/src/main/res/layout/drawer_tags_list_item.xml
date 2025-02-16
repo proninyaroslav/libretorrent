@@ -22,7 +22,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
             android:layout_marginVertical="8dp"
-            app:color="#4CAF50" />
+            tools:color="#4CAF50" />
 
         <TextView
             android:id="@+id/label"

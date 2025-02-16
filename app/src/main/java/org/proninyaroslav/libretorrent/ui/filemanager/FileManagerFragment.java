@@ -494,11 +494,11 @@ public class FileManagerFragment extends Fragment
                     .setIcon(R.drawable.ic_file_24px)
                     .setTitle(R.string.replace_file)
                     .setMessage(R.string.error_file_exists)
-                    .setPositiveButton(R.string.replace, (dialog, when) -> {
+                    .setPositiveButton(R.string.replace, (dialog, which) -> {
                         createFile(true);
                         dialog.dismiss();
                     })
-                    .setNegativeButton(R.string.cancel, (dialog, when) -> dialog.dismiss())
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                     .show();
             return;
         }

@@ -191,7 +191,7 @@ public class AddLinkDialog extends DialogFragment {
     private void showClipboardDialog() {
         if (isAdded()) {
             NavHostFragment.findNavController(this)
-                    .navigate(AddLinkDialogDirections.actionClipboard());
+                    .navigate(AddLinkDialogDirections.actionClipboardDialog());
         }
     }
 

@@ -44,7 +44,7 @@ public class GoToFolderDialog extends DialogFragment {
         var builder = new MaterialAlertDialogBuilder(requireActivity())
                 .setIcon(R.drawable.ic_folder_open_24px)
                 .setTitle(R.string.go_to_folder)
-                .setPositiveButton(R.string.ok, (dialog, when) -> {
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
                     var e = binding.textInput.getText();
                     if (e == null) {
                         return;
@@ -54,7 +54,7 @@ public class GoToFolderDialog extends DialogFragment {
                     getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
                     dismiss();
                 })
-                .setNegativeButton(R.string.cancel, (dialog, when) -> dismiss())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dismiss())
                 .setView(binding.getRoot());
 
         return builder.create();

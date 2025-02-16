@@ -44,7 +44,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogSelectTagBinding;
 import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -162,8 +161,10 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
         alert.setOnShowListener((DialogInterface dialog) -> {
             Button newTagButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
             Button cancelButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
-            newTagButton.setOnClickListener(
-                    (v) -> startActivity(new Intent(activity, AddTagActivity.class))
+            newTagButton.setOnClickListener((v) -> {
+                    }
+                    // TODO
+                    /* startActivity(new Intent(activity, AddTagActivity.class)) */
             );
             cancelButton.setOnClickListener(
                     (v) -> finish(new Intent(), FragmentCallback.ResultCode.CANCEL)

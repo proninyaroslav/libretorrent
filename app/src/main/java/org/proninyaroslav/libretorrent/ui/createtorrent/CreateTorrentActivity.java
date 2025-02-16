@@ -63,14 +63,6 @@ public class CreateTorrentActivity extends AppCompatActivity
         permissionManager = new PermissionManager(this, new PermissionManager.Callback() {
             @Override
             public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
-                if (!isGranted && shouldRequestStoragePermission) {
-                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                        permDeniedDialog = PermissionDeniedDialog.newInstance();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
             }
 
             @Override

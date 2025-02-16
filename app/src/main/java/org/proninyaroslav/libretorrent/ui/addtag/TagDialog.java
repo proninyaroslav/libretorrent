@@ -22,43 +22,35 @@ package org.proninyaroslav.libretorrent.ui.addtag;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.databinding.DialogAddTagBinding;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
+import org.proninyaroslav.libretorrent.ui.colorpicker.ColorPickerDialog;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class AddTagDialog extends DialogFragment {
-    private static final String TAG = AddTagDialog.class.getSimpleName();
-
-    private static final String TAG_INIT_INFO = "init_info";
+public class TagDialog extends DialogFragment {
+    private static final String TAG = TagDialog.class.getSimpleName();
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -66,46 +58,13 @@ public class AddTagDialog extends DialogFragment {
     private DialogAddTagBinding binding;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public static AddTagDialog newInstance(@Nullable TagInfo initInfo) {
-        AddTagDialog frag = new AddTagDialog();
-
-        Bundle args = new Bundle();
-        args.putParcelable(TAG_INIT_INFO, initInfo);
-        frag.setArguments(args);
-
-        return frag;
-    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
-            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
-                }
-            });
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Back button handle
-        getDialog().setOnKeyListener((dialog, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    activity.getOnBackPressedDispatcher().onBackPressed();
-                }
-                return true;
-            } else {
-                return false;
-            }
-        });
     }
 
     @Override
@@ -122,18 +81,25 @@ public class AddTagDialog extends DialogFragment {
             activity = (AppCompatActivity) getActivity();
         }
 
-        ViewModelProvider provider = new ViewModelProvider(activity);
+        var args = TagDialogArgs.fromBundle(getArguments());
+        ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(AddTagViewModel.class);
-        TagInfo initInfo = getArguments().getParcelable(TAG_INIT_INFO);
-        if (initInfo != null) {
+
+        getParentFragmentManager().setFragmentResultListener(
+                ColorPickerDialog.KEY_RESULT,
+                this,
+                (key, bundle) -> viewModel.state.setColor(bundle.getInt(ColorPickerDialog.KEY_COLOR))
+        );
+
+        var initInfo = args.getTag();
+        if (initInfo != null && !viewModel.hasInitValues()) {
             viewModel.setInitValues(initInfo);
-            getArguments().putParcelable(TAG_INIT_INFO, null);
         } else if (viewModel.state.getColor() == -1) {
             viewModel.setRandomColor();
         }
 
-        LayoutInflater i = getLayoutInflater();
-        binding = DataBindingUtil.inflate(i, R.layout.dialog_add_tag, null, false);
+        var inflater = getLayoutInflater();
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_add_tag, null, false);
         binding.setViewModel(viewModel);
 
         initLayoutView();
@@ -158,10 +124,11 @@ public class AddTagDialog extends DialogFragment {
                 binding.nameLayout.setError(null);
             }
         });
-        binding.color.setOnClickListener((v) -> ColorPickerDialog.newBuilder()
-                .setColor(viewModel.state.getColor())
-                .show(activity)
-        );
+        binding.color.setOnClickListener((v) -> {
+            var action = TagDialogDirections.actionColorPickerDialog()
+                    .setColor(viewModel.state.getColor());
+            NavHostFragment.findNavController(this).navigate(action);
+        });
     }
 
     private boolean checkName() {
@@ -179,6 +146,7 @@ public class AddTagDialog extends DialogFragment {
 
     private void initAlertDialog(View view) {
         var builder = new MaterialAlertDialogBuilder(activity)
+                .setIcon(R.drawable.ic_label_24px)
                 .setTitle(viewModel.state.getExistsTagId() == null ?
                         R.string.add_tag :
                         R.string.edit_tag)
@@ -195,9 +163,7 @@ public class AddTagDialog extends DialogFragment {
             addButton.setOnClickListener((v) -> addTag());
 
             Button cancelButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
-            cancelButton.setOnClickListener(
-                    (v) -> finish(new Intent(), FragmentCallback.ResultCode.CANCEL)
-            );
+            cancelButton.setOnClickListener((v) -> dismiss());
         });
     }
 
@@ -209,7 +175,7 @@ public class AddTagDialog extends DialogFragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> finish(new Intent(), FragmentCallback.ResultCode.OK),
+                        this::dismiss,
                         (e) -> {
                             if (e instanceof AddTagViewModel.TagAlreadyExistsException) {
                                 Toast.makeText(
@@ -228,10 +194,5 @@ public class AddTagDialog extends DialogFragment {
                         }
                 )
         );
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code) {
-        alert.dismiss();
-        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
     }
 }

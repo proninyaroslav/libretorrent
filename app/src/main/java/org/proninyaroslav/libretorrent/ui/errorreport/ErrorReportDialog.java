@@ -104,7 +104,7 @@ public class ErrorReportDialog extends DialogFragment {
                 .setTitle(R.string.error)
                 .setMessage(args.getMessage())
                 .setView(binding.getRoot())
-                .setPositiveButton(R.string.report, (dialog, when) -> {
+                .setPositiveButton(R.string.report, (dialog, which) -> {
                     var e = binding.comment.getText();
                     String comment = e == null ? null : e.toString();
                     if (helper != null) {
@@ -114,7 +114,7 @@ public class ErrorReportDialog extends DialogFragment {
                     }
                     dismiss();
                 })
-                .setNegativeButton(R.string.cancel, (dialog, when) -> dismiss())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dismiss())
                 .create();
     }
 

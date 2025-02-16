@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui.main;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,7 +39,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +47,6 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.AbstractListDetailFragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -79,8 +76,6 @@ import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.MainDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainListPaneBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
-import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
-import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 import org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
@@ -114,8 +109,6 @@ public class MainFragment extends AbstractListDetailFragment
 
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
-    private static final String TAG_DELETE_TORRENTS_DIALOG = "delete_torrents_dialog";
-    private static final String TAG_OPEN_FILE_ERROR_DIALOG = "open_file_error_dialog";
 
     private MainActivity activity;
     private TorrentListAdapter adapter;
@@ -131,8 +124,6 @@ public class MainFragment extends AbstractListDetailFragment
     private TorrentInfoProvider infoProvider;
     private MainViewModel viewModel;
     private MsgMainViewModel msgViewModel;
-    private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private BaseAlertDialog deleteTorrentsDialog;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final CompositeDisposable searchDisposables = new CompositeDisposable();
 
@@ -164,22 +155,52 @@ public class MainFragment extends AbstractListDetailFragment
         Utils.applyWindowInsets(binding.torrentList, WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
 
         if (navBarFragment != null) {
-            navBarFragment.getParentFragmentManager().setFragmentResultListener(
-                    FileManagerFragment.KEY_RESULT,
-                    this,
-                    (requestKey, result) -> {
-                        Uri uri = result.getParcelable(FileManagerFragment.KEY_URI);
-                        if (uri == null) {
-                            openFileErrorDialog();
-                        } else {
-                            var action = NavBarFragmentDirections.actionAddTorrent(uri);
-                            activity.getRootNavController().navigate(action);
-                        }
-                    }
-            );
+            setOpenTorrentFileDialogListener(navBarFragment);
         }
+        setDeleteDialogListener();
 
         return binding.getRoot();
+    }
+
+    private void setOpenTorrentFileDialogListener(NavBarFragment navBarFragment) {
+        navBarFragment.getParentFragmentManager().setFragmentResultListener(
+                FileManagerFragment.KEY_RESULT,
+                this,
+                (requestKey, result) -> {
+                    Uri uri = result.getParcelable(FileManagerFragment.KEY_URI);
+                    if (uri == null) {
+                        Snackbar.make(
+                                activity,
+                                binding.mainCoordinatorLayout,
+                                getString(R.string.error_open_torrent_file),
+                                Snackbar.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        var action = NavBarFragmentDirections.actionAddTorrent(uri);
+                        activity.getRootNavController().navigate(action);
+                    }
+                }
+        );
+    }
+
+    private void setDeleteDialogListener() {
+        getParentFragmentManager().setFragmentResultListener(
+                DeleteTorrentDialog.KEY_RESULT,
+                this,
+                (requestKey, result) -> {
+                    var resultValue = (DeleteTorrentDialog.Result) result.getSerializable(
+                            DeleteTorrentDialog.KEY_RESULT_VALUE
+                    );
+                    if (resultValue == null) {
+                        return;
+                    }
+                    switch (resultValue) {
+                        case DELETE -> deleteTorrents(false);
+                        case DELETE_WITH_FILES -> deleteTorrents(true);
+                        case CANCEL -> finishContextualMode();
+                    }
+                }
+        );
     }
 
     private FloatingActionButton getAddTorrentFab() {
@@ -210,7 +231,6 @@ public class MainFragment extends AbstractListDetailFragment
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(MainViewModel.class);
         msgViewModel = provider.get(MsgMainViewModel.class);
-        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         adapter = new TorrentListAdapter(this);
         /*
@@ -390,9 +410,10 @@ public class MainFragment extends AbstractListDetailFragment
         drawerBinding.tagsList.setLayoutManager(new LinearLayoutManager(activity));
         tagsAdapter = new TagsAdapter(tagsClickListener);
         drawerBinding.tagsList.setAdapter(tagsAdapter);
-        drawerBinding.addTagButton.setOnClickListener(
-                (v) -> startActivity(new Intent(activity, AddTagActivity.class))
-        );
+        drawerBinding.addTagButton.setOnClickListener((v) -> {
+            var action = MainFragmentDirections.actionAddTagDialog();
+            NavHostFragment.findNavController(this).navigate(action);
+        });
 
         boolean tagsExpanded = PreferenceManager
                 .getDefaultSharedPreferences(activity)
@@ -525,9 +546,10 @@ public class MainFragment extends AbstractListDetailFragment
                 return;
             }
             if (menuId == R.id.edit_tag_menu) {
-                Intent i = new Intent(activity, AddTagActivity.class);
-                i.putExtra(AddTagActivity.TAG_INIT_INFO, item.info);
-                startActivity(i);
+                var action = MainFragmentDirections
+                        .actionEditTagDialog()
+                        .setTag(item.info);
+                NavHostFragment.findNavController(MainFragment.this).navigate(action);
             } else if (menuId == R.id.delete_tag_menu) {
                 disposables.add(viewModel.deleteTag(item.info)
                         .subscribeOn(Schedulers.io())
@@ -647,7 +669,6 @@ public class MainFragment extends AbstractListDetailFragment
         super.onStart();
 
         subscribeAdapter();
-        subscribeAlertDialog();
         subscribeForceSortAndFilter();
         subscribeTorrentsDeleted();
         subscribeMsgViewModel();
@@ -766,30 +787,6 @@ public class MainFragment extends AbstractListDetailFragment
                 .subscribe(searchAdapter::submitList,
                         (Throwable t) -> Log.e(TAG, "Getting torrent info list error: " +
                                 Log.getStackTraceString(t)));
-    }
-
-    private void subscribeAlertDialog() {
-        Disposable d = dialogViewModel.observeEvents()
-                .subscribe((event) -> {
-                    if (event.dialogTag == null) {
-                        return;
-                    }
-
-                    switch (event.type) {
-                        case POSITIVE_BUTTON_CLICKED:
-                            if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
-                                deleteTorrents();
-                                deleteTorrentsDialog.dismiss();
-                            }
-                            break;
-                        case NEGATIVE_BUTTON_CLICKED:
-                            if (event.dialogTag.equals(TAG_DELETE_TORRENTS_DIALOG) && deleteTorrentsDialog != null) {
-                                deleteTorrentsDialog.dismiss();
-                            }
-                            break;
-                    }
-                });
-        disposables.add(d);
     }
 
     private void subscribeForceSortAndFilter() {
@@ -1071,29 +1068,19 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void deleteTorrentsDialog() {
-        if (!isAdded())
+        if (!isAdded()) {
             return;
-
-        FragmentManager fm = getChildFragmentManager();
-        if (fm.findFragmentByTag(TAG_DELETE_TORRENTS_DIALOG) == null) {
-            deleteTorrentsDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.deleting),
-                    (selectionTracker.getSelection().size() > 1 ?
-                            getString(R.string.delete_selected_torrents) :
-                            getString(R.string.delete_selected_torrent)),
-                    R.layout.dialog_delete_torrent,
-                    getString(R.string.ok),
-                    getString(R.string.cancel),
-                    null,
-                    false);
-
-            deleteTorrentsDialog.show(fm, TAG_DELETE_TORRENTS_DIALOG);
         }
+
+        var action = MainFragmentDirections.actionDeleteTorrentDialog(
+                selectionTracker.getSelection().size()
+        );
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
     private void addLinkDialog() {
         NavHostFragment.findNavController(this)
-                .navigate(MainFragmentDirections.actionAddLink());
+                .navigate(MainFragmentDirections.actionAddLinkDialog());
     }
 
     private void openTorrentFileDialog() {
@@ -1106,37 +1093,11 @@ public class MainFragment extends AbstractListDetailFragment
         activity.getRootNavController().navigate(action);
     }
 
-    private void openFileErrorDialog() {
-        if (!isAdded())
-            return;
-
-        FragmentManager fm = getChildFragmentManager();
-        if (fm.findFragmentByTag(TAG_OPEN_FILE_ERROR_DIALOG) == null) {
-            BaseAlertDialog openFileErrorDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.error),
-                    getString(R.string.error_open_torrent_file),
-                    0,
-                    getString(R.string.ok),
-                    null,
-                    null,
-                    true);
-
-            openFileErrorDialog.show(fm, TAG_OPEN_FILE_ERROR_DIALOG);
-        }
-    }
-
     private void createTorrentDialog() {
         startActivity(new Intent(activity, CreateTorrentActivity.class));
     }
 
-    private void deleteTorrents() {
-        Dialog dialog = deleteTorrentsDialog.getDialog();
-        if (dialog == null)
-            return;
-
-        CheckBox withFilesCheckBox = dialog.findViewById(R.id.delete_with_downloaded_files);
-        boolean withFiles = withFilesCheckBox.isChecked();
-
+    private void deleteTorrents(boolean withFiles) {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 

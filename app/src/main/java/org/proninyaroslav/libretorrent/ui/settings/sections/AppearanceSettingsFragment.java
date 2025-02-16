@@ -40,7 +40,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -175,11 +174,11 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         }
 
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
-        ColorPreferenceCompat ledIndicatorColor = findPreference(keyLedIndicatorColor);
-        if (ledIndicatorColor != null) {
-            ledIndicatorColor.saveValue(pref.ledIndicatorColorNotify());
-            bindOnPreferenceChangeListener(ledIndicatorColor);
-        }
+//        ColorPreferenceCompat ledIndicatorColor = findPreference(keyLedIndicatorColor);
+//        if (ledIndicatorColor != null) {
+//            ledIndicatorColor.saveValue(pref.ledIndicatorColorNotify());
+//            bindOnPreferenceChangeListener(ledIndicatorColor);
+//        }
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
         SwitchPreferenceCompat vibration = findPreference(keyVibration);

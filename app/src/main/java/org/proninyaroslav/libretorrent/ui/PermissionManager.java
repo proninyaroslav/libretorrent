@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -42,10 +42,10 @@ import java.util.ArrayList;
 
 public class PermissionManager {
     private ActivityResultLauncher<Intent> manageExternalStoragePermission;
-    private ActivityResultLauncher<String[]> permissions;
+    private final ActivityResultLauncher<String[]> permissions;
     private final Context appContext;
-    private SettingsRepository pref;
-    private boolean hasManageExternalStoragePermission;
+    private final SettingsRepository pref;
+    private final boolean hasManageExternalStoragePermission;
 
     public PermissionManager(
             @NonNull ComponentActivity activity,
@@ -107,7 +107,9 @@ public class PermissionManager {
                 permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && pref.askNotificationPermission() && !checkNotificationsPermissions()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && pref.askNotificationPermission()
+                && !checkNotificationsPermissions()) {
             permissionsList.add(Manifest.permission.POST_NOTIFICATIONS);
         }
         permissions.launch(permissionsList.toArray(new String[0]));

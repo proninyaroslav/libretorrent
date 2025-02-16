@@ -46,8 +46,8 @@ public class AboutDialog extends DialogFragment {
         var builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.about_title)
                 .setView(binding.getRoot())
-                .setPositiveButton(R.string.ok, (dialog, when) -> dismiss())
-                .setNeutralButton(R.string.about_changelog, (dialog, when) -> openChangelogLink());
+                .setPositiveButton(R.string.ok, (dialog, which) -> dismiss())
+                .setNeutralButton(R.string.about_changelog, (dialog, which) -> openChangelogLink());
 
         String versionName = SystemFacadeHelper
                 .getSystemFacade(activity.getApplicationContext())
