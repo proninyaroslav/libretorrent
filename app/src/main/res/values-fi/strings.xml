@@ -66,11 +66,11 @@
     <string name="pref_feed_start_torrents_title">Käynnistä automaattisesti torrentit</string>
     <string name="pref_feed_keep_items_time_title">Pidä artikkelit</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Verkkovierailu</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Päivitä vain yhteydet, joissa ei ole kiintiötä (esim. Wi-Fi ja Ethernet).</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Virkistä vain yhteydet, joissa ei ole kiintiötä (esim. Wi-Fi ja Ethernet).</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Vain rajoittamattoman kulutuksen verkossa</string>
-    <string name="pref_feed_refresh_interval_title">Päivitysväli</string>
-    <string name="pref_feed_auto_refresh_summary">Päivitä kanavat ajoittain taustalla.</string>
-    <string name="pref_feed_auto_refresh_title">Päivitä kanavat automaattisesti</string>
+    <string name="pref_feed_refresh_interval_title">Virkistysväli</string>
+    <string name="pref_feed_auto_refresh_summary">Virkistä kanavat ajoittain taustalla.</string>
+    <string name="pref_feed_auto_refresh_title">Virkistä kanavat automaattisesti</string>
     <string name="pref_scheduling_switch_wifi_summary">Kytke Wi-Fi käyttöön kun käynnistetään ajoitetusti ja pois kun pysäytetään ajoitetusti.</string>
     <string name="pref_scheduling_switch_wifi_title">Vaihda Wi-Fiin</string>
     <string name="pref_scheduling_run_only_once_title">Suorita vain kerran</string>
@@ -333,7 +333,7 @@
     <string name="file">Tiedosto</string>
     <string name="menu">Valikko</string>
     <string name="edit">Muokkaa</string>
-    <string name="refresh">Päivitä</string>
+    <string name="refresh">Virkistä</string>
     <string name="filter">Suodata</string>
     <string name="link">Linkki</string>
     <string name="def">Oletus</string>
