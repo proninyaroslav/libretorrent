@@ -286,7 +286,7 @@ public class NetworkSettingsFragment extends PreferenceFragmentCompat
         FileManagerConfig config = new FileManagerConfig(
                 null,
                 null,
-                FileManagerConfig.FILE_CHOOSER_MODE);
+                FileManagerConfig.Mode.FILE_CHOOSER);
         List<String> fileTypes = new ArrayList<>();
         fileTypes.add("dat");
         fileTypes.add("p2p");

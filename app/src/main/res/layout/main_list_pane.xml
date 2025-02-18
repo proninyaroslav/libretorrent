@@ -5,6 +5,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_coordinator_layout"
+        style="@style/ThemeOverlay.App.Surface"
         android:layout_width="@dimen/list_pane_width"
         android:layout_height="match_parent">
 

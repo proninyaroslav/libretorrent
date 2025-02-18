@@ -516,7 +516,7 @@ public class DetailTorrentFragment extends Fragment {
         Intent i = new Intent(activity, FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(null,
                 null,
-                FileManagerConfig.SAVE_FILE_MODE);
+                FileManagerConfig.Mode.SAVE_FILE);
         config.fileName = viewModel.mutableParams.getName();
         config.mimeType = Utils.MIME_TORRENT;
 

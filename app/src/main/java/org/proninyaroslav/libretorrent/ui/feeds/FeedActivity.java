@@ -266,7 +266,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
         FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 null,
-                FileManagerConfig.SAVE_FILE_MODE);
+                FileManagerConfig.Mode.SAVE_FILE);
         config.fileName = "Feeds-" + new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
                 .format(new Date(System.currentTimeMillis())) +
                 "." + FeedRepositoryImpl.SERIALIZE_FILE_FORMAT;
@@ -282,7 +282,7 @@ public class FeedActivity extends AppCompatActivity implements FragmentCallback
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
         FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 getString(R.string.feeds_backup_selection_dialog_title),
-                FileManagerConfig.FILE_CHOOSER_MODE);
+                FileManagerConfig.Mode.FILE_CHOOSER);
         config.highlightFileTypes = new ArrayList<>();
         config.highlightFileTypes.add(FeedRepositoryImpl.SERIALIZE_FILE_FORMAT);
 

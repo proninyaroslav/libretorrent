@@ -35,6 +35,22 @@
         </item>
     </style>
 
+    <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+    
+    <style name="ThemeOverlay.App.Surface" parent="">
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.SurfaceVariant" parent="">
+        <item name="android:background">?attr/colorSurfaceContainer</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialToolbar.SurfaceVariant" parent="">
+        <item name="android:background">?attr/colorSurfaceContainer</item>
+        <item name="liftOnScrollColor">?attr/colorSurfaceContainerHighest</item>
+    </style>
 
     <!--    -->
 

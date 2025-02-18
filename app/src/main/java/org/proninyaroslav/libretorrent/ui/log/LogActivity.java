@@ -308,7 +308,7 @@ public class LogActivity extends AppCompatActivity
         FileManagerConfig config = new FileManagerConfig(
                 null,
                 getString(R.string.pref_journal_save_log_to),
-                FileManagerConfig.SAVE_FILE_MODE);
+                FileManagerConfig.Mode.SAVE_FILE);
         config.fileName = viewModel.getSaveLogFileName();
         config.mimeType = Utils.MIME_TEXT_PLAIN;
 

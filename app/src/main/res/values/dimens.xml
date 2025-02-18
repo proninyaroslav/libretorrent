@@ -14,4 +14,6 @@
     <dimen name="list_pane_width">@dimen/match_parent</dimen>
     <dimen name="list_item_height">56dp</dimen>
     <dimen name="search_bar_top_margin">48dp</dimen>
+    <dimen name="text_filed_max_width">488dp</dimen>
+    <dimen name="button_max_width">320dp</dimen>
 </resources>

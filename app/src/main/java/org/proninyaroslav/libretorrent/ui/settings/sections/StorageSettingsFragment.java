@@ -233,7 +233,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         Intent i = new Intent(getActivity(), FileManagerFragment.class);
         FileManagerConfig config = new FileManagerConfig(dirPath,
                 null,
-                FileManagerConfig.DIR_CHOOSER_MODE);
+                FileManagerConfig.Mode.DIR_CHOOSER);
         i.putExtra(FileManagerFragment.TAG_CONFIG, config);
 
         downloadDirChoose.launch(i);

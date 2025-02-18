@@ -76,7 +76,6 @@ import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.MainDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainListPaneBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
-import org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentActivity;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.log.LogActivity;
@@ -167,7 +166,11 @@ public class MainFragment extends AbstractListDetailFragment
                 FileManagerFragment.KEY_RESULT,
                 this,
                 (requestKey, result) -> {
-                    Uri uri = result.getParcelable(FileManagerFragment.KEY_URI);
+                    FileManagerFragment.Result resultValue = result.getParcelable(FileManagerFragment.KEY_RESULT_VALUE);
+                    if (resultValue == null) {
+                        return;
+                    }
+                    Uri uri = resultValue.uri();
                     if (uri == null) {
                         Snackbar.make(
                                 activity,
@@ -1086,7 +1089,7 @@ public class MainFragment extends AbstractListDetailFragment
     private void openTorrentFileDialog() {
         var config = new FileManagerConfig(null,
                 getString(R.string.torrent_file_chooser_title),
-                FileManagerConfig.FILE_CHOOSER_MODE);
+                FileManagerConfig.Mode.FILE_CHOOSER);
         config.highlightFileTypes = Collections.singletonList("torrent");
 
         var action = NavBarFragmentDirections.actionOpenTorrentFile(config);
@@ -1094,7 +1097,8 @@ public class MainFragment extends AbstractListDetailFragment
     }
 
     private void createTorrentDialog() {
-        startActivity(new Intent(activity, CreateTorrentActivity.class));
+        var action = NavBarFragmentDirections.actionCreateTorrent();
+        activity.getRootNavController().navigate(action);
     }
 
     private void deleteTorrents(boolean withFiles) {

@@ -213,18 +213,10 @@
         </activity>
 
         <activity
-            android:name=".ui.createtorrent.CreateTorrentActivity"
-            android:theme="@style/AppTheme.Translucent" />
-
-        <activity
             android:name=".ui.log.LogActivity" />
 
         <activity
             android:name=".ui.log.LogSettingsActivity" />
-
-        <activity
-            android:name=".ui.addtag.AddTagActivity"
-            android:theme="@style/AppTheme.Translucent" />
 
         <activity
             android:name=".ui.tag.SelectTagActivity"

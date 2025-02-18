@@ -18,6 +18,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
+        style="@style/ThemeOverlay.App.Surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="?attr/colorSurface"
-            android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER || viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? View.VISIBLE : View.GONE}">
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -102,7 +103,7 @@
                 android:layout_toStartOf="@+id/ok_button"
                 android:gravity="center_vertical"
                 android:hint="@string/file_name"
-                android:visibility="@{viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}">
+                android:visibility="@{viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? View.VISIBLE : View.GONE}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/file_name"
@@ -112,13 +113,15 @@
 
             <Button
                 android:id="@+id/ok_button"
+                style="?attr/materialButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_margin="16dp"
-                android:text="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE ? @string/select : @string/create}"
-                tools:text="Select" />
+                android:text="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER ? @string/select : @string/create}"
+                tools:icon="@drawable/ic_add_24px"
+                tools:text="Create" />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

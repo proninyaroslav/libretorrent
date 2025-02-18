@@ -187,7 +187,7 @@ public class DetailTorrentInfoFragment extends Fragment {
 
         FileManagerConfig config = new FileManagerConfig(null,
                 getString(R.string.select_folder_to_save),
-                FileManagerConfig.DIR_CHOOSER_MODE);
+                FileManagerConfig.Mode.DIR_CHOOSER);
 
         i.putExtra(FileManagerFragment.TAG_CONFIG, config);
         chooseDir.launch(i);

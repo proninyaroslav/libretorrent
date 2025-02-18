@@ -139,7 +139,7 @@ public class FileManagerViewModel extends AndroidViewModel {
                     items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR, true));
                 } else {
                     items.add(new FileManagerNode(file.getName(), FileManagerNode.Type.FILE,
-                            config.showMode == FileManagerConfig.FILE_CHOOSER_MODE));
+                            config.showMode == FileManagerConfig.Mode.FILE_CHOOSER));
                 }
             }
 
@@ -152,7 +152,7 @@ public class FileManagerViewModel extends AndroidViewModel {
 
     List<File> filterDirectories(File[] files) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+                || config.showMode == FileManagerConfig.Mode.FILE_CHOOSER) {
             return Arrays.asList(files);
         }
 
@@ -355,9 +355,9 @@ public class FileManagerViewModel extends AndroidViewModel {
 
     private boolean checkPermissions(File file, FileManagerConfig config) {
         return switch (config.showMode) {
-            case FileManagerConfig.FILE_CHOOSER_MODE -> file.canRead();
-            case FileManagerConfig.DIR_CHOOSER_MODE -> file.canRead() && file.canWrite();
-            case FileManagerConfig.SAVE_FILE_MODE -> file.canWrite();
+            case FILE_CHOOSER -> file.canRead();
+            case DIR_CHOOSER -> file.canRead() && file.canWrite();
+            case SAVE_FILE -> file.canWrite();
             default -> throw new IllegalArgumentException("Unknown mode: " + config.showMode);
         };
     }

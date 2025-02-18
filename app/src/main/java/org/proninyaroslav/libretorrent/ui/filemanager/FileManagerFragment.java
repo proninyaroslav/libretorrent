@@ -24,7 +24,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -48,6 +50,7 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -77,8 +80,7 @@ import io.reactivex.disposables.CompositeDisposable;
  *  - SAVE_FILE_MODE: Uri of the created file
  */
 
-public class FileManagerFragment extends Fragment
-        implements FileManagerAdapter.ViewHolder.ClickListener {
+public class FileManagerFragment extends Fragment implements FileManagerAdapter.ViewHolder.ClickListener {
     private static final String TAG = FileManagerFragment.class.getSimpleName();
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
@@ -88,7 +90,7 @@ public class FileManagerFragment extends Fragment
     public static final String TAG_CONFIG = "config";
 
     public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_URI = "uri";
+    public static final String KEY_RESULT_VALUE = "result_value";
 
     private MainActivity activity;
     private FragmentFileManagerBinding binding;
@@ -190,26 +192,33 @@ public class FileManagerFragment extends Fragment
         String title = viewModel.config.title;
         if (TextUtils.isEmpty(title)) {
             switch (viewModel.config.showMode) {
-                case FileManagerConfig.DIR_CHOOSER_MODE:
+                case DIR_CHOOSER:
                     binding.appBar.setTitle(R.string.dir_chooser_title);
                     break;
-                case FileManagerConfig.FILE_CHOOSER_MODE:
+                case FILE_CHOOSER:
                     binding.appBar.setTitle(R.string.file_chooser_title);
                     break;
-                case FileManagerConfig.SAVE_FILE_MODE:
+                case SAVE_FILE:
                     binding.appBar.setTitle(R.string.save_file);
                     break;
             }
         } else {
             binding.appBar.setTitle(title);
         }
+
         binding.appBar.setOnMenuItemClickListener(this::onMenuItemClickListener);
         binding.appBar.setNavigationOnClickListener((v) ->
                 NavHostFragment.findNavController(this).navigateUp());
 
-        binding.okButton.setOnClickListener((v) -> {
+        var okButton = (MaterialButton) binding.okButton;
+        if (viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER) {
+            okButton.setIconResource(R.drawable.ic_check_24px);
+        } else {
+            okButton.setIconResource(R.drawable.ic_add_24px);
+        }
+        okButton.setOnClickListener((v) -> {
             saveCurDirectoryPath();
-            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE) {
+            if (viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE) {
                 createFile(false);
             } else {
                 returnDirectoryUri();
@@ -408,7 +417,7 @@ public class FileManagerFragment extends Fragment
             }
 
         } else if (item.getType() == FileManagerNode.Type.FILE &&
-                viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+                viewModel.config.showMode == FileManagerConfig.Mode.FILE_CHOOSER) {
             saveCurDirectoryPath();
             returnFileUri(item.getName());
         }
@@ -473,7 +482,10 @@ public class FileManagerFragment extends Fragment
     private void returnDirectoryUri() {
         var bundle = new Bundle();
         try {
-            bundle.putParcelable(KEY_URI, viewModel.getCurDirectoryUri());
+            bundle.putParcelable(
+                    KEY_RESULT_VALUE,
+                    new Result(viewModel.getCurDirectoryUri(), viewModel.config)
+            );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
@@ -505,7 +517,10 @@ public class FileManagerFragment extends Fragment
 
         var bundle = new Bundle();
         try {
-            bundle.putParcelable(KEY_URI, viewModel.createFile(fileName));
+            bundle.putParcelable(
+                    KEY_RESULT_VALUE,
+                    new Result(viewModel.createFile(fileName), viewModel.config)
+            );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
@@ -517,7 +532,10 @@ public class FileManagerFragment extends Fragment
     private void returnFileUri(String fileName) {
         var bundle = new Bundle();
         try {
-            bundle.putParcelable(KEY_URI, viewModel.getFileUri(fileName));
+            bundle.putParcelable(
+                    KEY_RESULT_VALUE,
+                    new Result(viewModel.getFileUri(fileName), viewModel.config)
+            );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
@@ -587,6 +605,37 @@ public class FileManagerFragment extends Fragment
         public void onReceive(Context context, Intent intent) {
             if (dialog.get() != null)
                 dialog.get().reloadSpinner();
+        }
+    }
+
+    public record Result(@Nullable Uri uri, FileManagerConfig config) implements Parcelable {
+        public Result(Parcel source) {
+            this(source.readParcelable(Uri.class.getClassLoader()),
+                    source.readParcelable(FileManagerConfig.class.getClassLoader()));
+        }
+
+        public static final Creator<Result> CREATOR =
+                new Creator<>() {
+                    @Override
+                    public Result createFromParcel(Parcel source) {
+                        return new Result(source);
+                    }
+
+                    @Override
+                    public Result[] newArray(int size) {
+                        return new Result[size];
+                    }
+                };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
+            dest.writeParcelable(uri, flags);
+            dest.writeParcelable(config, flags);
         }
     }
 }

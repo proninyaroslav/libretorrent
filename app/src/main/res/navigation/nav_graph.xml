@@ -25,6 +25,13 @@
         <action
             android:id="@+id/action_permission_denied_dialog"
             app:destination="@id/permissionDeniedDialog" />
+        <action
+            android:id="@+id/action_create_torrent"
+            app:destination="@id/createTorrentFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
     </fragment>
     <fragment
         android:id="@+id/fileManagerFragment"
@@ -66,18 +73,34 @@
         android:id="@+id/errorReportDialog"
         android:name="org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog"
         android:label="ErrorReportDialog"
-        tools:layout="@layout/dialog_error" >
+        tools:layout="@layout/dialog_error">
         <argument
             android:name="message"
             app:argType="string" />
         <argument
             android:name="exception"
+            android:defaultValue="@null"
             app:argType="java.lang.Throwable"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </dialog>
     <dialog
         android:id="@+id/permissionDeniedDialog"
         android:name="org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog"
         android:label="PermissionDeniedDialog" />
+    <fragment
+        android:id="@+id/createTorrentFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentFragment"
+        android:label="CreateTorrentFragment"
+        tools:layout="@layout/fragment_create_torrent">
+        <action
+            android:id="@+id/action_file_manager_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/errorReportDialog" />
+    </fragment>
 </navigation>
