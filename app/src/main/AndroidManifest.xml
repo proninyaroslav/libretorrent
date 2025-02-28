@@ -134,8 +134,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.detailtorrent.DetailTorrentActivity" />
-
         <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"
             android:exported="true">
@@ -217,10 +215,6 @@
 
         <activity
             android:name=".ui.log.LogSettingsActivity" />
-
-        <activity
-            android:name=".ui.tag.SelectTagActivity"
-            android:theme="@style/AppTheme.Translucent" />
 
         <service
             android:name=".service.TorrentService"

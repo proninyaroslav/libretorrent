@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,8 +24,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class SessionStats extends AbstractInfoParcel
-{
+public class SessionStats extends AbstractInfoParcel<SessionStats> {
     public long dhtNodes;
     public long totalDownload;
     public long totalUpload;
@@ -35,8 +34,7 @@ public class SessionStats extends AbstractInfoParcel
 
     public SessionStats(long dhtNodes, long totalDownload,
                         long totalUpload, long downloadSpeed,
-                        long uploadSpeed, int listenPort)
-    {
+                        long uploadSpeed, int listenPort) {
         this.dhtNodes = dhtNodes;
         this.totalDownload = totalDownload;
         this.totalUpload = totalUpload;
@@ -45,8 +43,7 @@ public class SessionStats extends AbstractInfoParcel
         this.listenPort = listenPort;
     }
 
-    public SessionStats(Parcel source)
-    {
+    public SessionStats(Parcel source) {
         super(source);
 
         dhtNodes = source.readLong();
@@ -58,14 +55,12 @@ public class SessionStats extends AbstractInfoParcel
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeLong(dhtNodes);
@@ -77,52 +72,46 @@ public class SessionStats extends AbstractInfoParcel
     }
 
     public static final Parcelable.Creator<SessionStats> CREATOR =
-            new Parcelable.Creator<SessionStats>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public SessionStats createFromParcel(Parcel source)
-                {
+                public SessionStats createFromParcel(Parcel source) {
                     return new SessionStats(source);
                 }
 
                 @Override
-                public SessionStats[] newArray(int size)
-                {
+                public SessionStats[] newArray(int size) {
                     return new SessionStats[size];
                 }
             };
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int prime = 31, result = 1;
 
-        result = prime * result + (int) (dhtNodes ^ (dhtNodes >>> 32));
-        result = prime * result + (int) (totalDownload ^ (totalDownload >>> 32));
-        result = prime * result + (int) (totalUpload ^ (totalUpload >>> 32));
-        result = prime * result + (int) (downloadSpeed ^ (downloadSpeed >>> 32));
-        result = prime * result + (int) (uploadSpeed ^ (uploadSpeed >>> 32));
+        result = prime * result + Long.hashCode(dhtNodes);
+        result = prime * result + Long.hashCode(totalDownload);
+        result = prime * result + Long.hashCode(totalUpload);
+        result = prime * result + Long.hashCode(downloadSpeed);
+        result = prime * result + Long.hashCode(uploadSpeed);
         result = prime * result + listenPort;
 
         return result;
     }
 
     @Override
-    public int compareTo(@NonNull Object o)
-    {
-        return parcelId.compareTo(((SessionStats)o).parcelId);
+    public int compareTo(@NonNull SessionStats another) {
+        return parcelId.compareTo(another.parcelId);
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (!(o instanceof SessionStats))
+    public boolean equals(Object o) {
+        if (!(o instanceof SessionStats stats)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
-
-        SessionStats stats = (SessionStats)o;
+        }
 
         return dhtNodes == stats.dhtNodes &&
                 totalDownload == stats.totalDownload &&
@@ -134,8 +123,7 @@ public class SessionStats extends AbstractInfoParcel
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SessionStats{" +
                 "dhtNodes=" + dhtNodes +
                 ", totalDownload=" + totalDownload +

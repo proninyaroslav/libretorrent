@@ -16,13 +16,12 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
-        style="@style/ThemeOverlay.App.SurfaceVariant"
+        style="@style/ThemeOverlay.App.Surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
-            style="@style/ThemeOverlay.App.MaterialToolbar.SurfaceVariant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
@@ -58,17 +57,16 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:minWidth="@dimen/text_filed_max_width"
                 android:layout_gravity="center_horizontal"
-                android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <com.google.android.material.card.MaterialCardView
-                    style="?attr/materialCardViewFilledStyle"
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="?attr/colorSurface">
+                    android:layout_marginBottom="8dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -77,6 +75,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_file_or_dir_path"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/file_or_folder_for_seeding"
@@ -130,11 +129,10 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    style="?attr/materialCardViewFilledStyle"
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="?attr/colorSurface">
+                    android:layout_marginBottom="8dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -156,9 +154,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:orientation="horizontal"
                             app:constraint_referenced_ids="start_seeding,private_torrent"
                             app:flow_horizontalAlign="start"
+                            app:flow_horizontalBias="-1"
                             app:flow_horizontalGap="16dp"
                             app:flow_horizontalStyle="spread"
                             app:flow_wrapMode="chain"
@@ -186,10 +184,9 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    style="?attr/materialCardViewFilledStyle"
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/colorSurface">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -199,6 +196,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_skip_files"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="24dp"
@@ -217,6 +215,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_tracker_urls"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="24dp"
@@ -234,6 +233,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_web_seed_urls"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="24dp"
@@ -251,10 +251,11 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/piece_size_menu"
-                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            style="@style/ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp">
+                            android:layout_marginBottom="24dp"
+                            android:theme="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer">
 
                             <AutoCompleteTextView
                                 android:id="@+id/piece_size"
@@ -268,7 +269,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/torrent_version_menu"
-                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            style="@style/ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="24dp">
@@ -285,6 +286,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_comments"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/comments"
@@ -305,7 +307,7 @@
 
         <RelativeLayout
             android:id="@+id/bottom_bar"
-            style="@style/ThemeOverlay.App.SurfaceVariant"
+            style="@style/ThemeOverlay.App.Surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom">

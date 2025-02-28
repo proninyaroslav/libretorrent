@@ -47,7 +47,8 @@ import java.util.List;
  */
 
 public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManagerAdapter.ViewHolder> {
-    private static final String TAG = FileManagerAdapter.class.getSimpleName();
+    public static final int VIEW_TYPE_PARENT_DIR = 0;
+    public static final int VIEW_TYPE_FILE_OR_DIR = 1;
 
     private final ViewHolder.ClickListener clickListener;
     private final List<String> highlightFileTypes;
@@ -89,7 +90,14 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
         super.submitList(list);
     }
 
-    public static final DiffUtil.ItemCallback<FileManagerNode> diffCallback = new DiffUtil.ItemCallback<FileManagerNode>() {
+    @Override
+    public int getItemViewType(int position) {
+        return getItem(position).getName().equals(FileManagerNode.PARENT_DIR)
+                ? VIEW_TYPE_PARENT_DIR
+                : VIEW_TYPE_FILE_OR_DIR;
+    }
+
+    public static final DiffUtil.ItemCallback<FileManagerNode> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull FileManagerNode oldItem,
                                           @NonNull FileManagerNode newItem) {

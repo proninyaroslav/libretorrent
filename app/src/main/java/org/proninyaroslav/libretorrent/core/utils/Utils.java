@@ -20,6 +20,8 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -53,10 +55,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.divider.MaterialDividerItemDecoration;
+import com.google.android.material.motion.MotionUtils;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -94,6 +102,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -619,9 +628,23 @@ public class Utils {
         return sslContext;
     }
 
-    public static void showActionModeStatusBar(@NonNull Activity activity, boolean mode) {
-        int attr = (mode ? R.attr.actionModeBackground : R.attr.statusBarColor);
-        activity.getWindow().setStatusBarColor(getAttributeColor(activity, attr));
+    public static void showActionModeStatusBar(@NonNull Activity activity, boolean show) {
+        var actionModeColor = getAttributeColor(activity, R.attr.actionModeBackground);
+        var statusBarColor = getAttributeColor(activity, R.attr.statusBarColor);
+        var transparent = ColorUtils.setAlphaComponent(actionModeColor, 0);
+
+        var colorFrom = show ? statusBarColor : actionModeColor;
+        var colorTo = show ? actionModeColor : transparent;
+        var colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+
+        colorAnimation.setDuration(MotionUtils.resolveThemeDuration(
+                activity,
+                R.attr.motionDurationLong1,
+                450
+        ));
+        colorAnimation.addUpdateListener(animation ->
+                activity.getWindow().setStatusBarColor((int) animation.getAnimatedValue()));
+        colorAnimation.start();
     }
 
     public static int getAttributeColor(@NonNull Context context, int attributeId) {
@@ -990,5 +1013,14 @@ public class Utils {
 
             return WindowInsetsCompat.CONSUMED;
         });
+    }
+
+    public static RecyclerView.ItemDecoration buildListDivider(@NonNull Context context) {
+        var divider = new MaterialDividerItemDecoration(context, LinearLayoutManager.VERTICAL);
+        divider.setDividerInsetEnd(32);
+        divider.setDividerInsetStart(32);
+        divider.setLastItemDecorated(false);
+
+        return divider;
     }
 }

@@ -164,6 +164,7 @@
     <string name="error_decode_torrent">Could not decode .torrent file. Maybe it is damaged or in the wrong format?</string>
     <string name="error_io_torrent">Could not read the .torrent file</string>
     <string name="error_fetch_link">Could not fetch data from the link</string>
+    <string name="error_fetch_torrent_metadata">Could not fetch metadata</string>
     <string name="error_invalid_link_or_path">Invalid link or torrent path</string>
     <string name="error_add_torrent">Could not add the torrent</string>
     <string name="error_file_not_found_add_torrent">Could not add the torrent. Maybe the .torrent file moved, or got deleted?</string>
@@ -237,6 +238,7 @@
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Uploaded</string>
+    <!--- Like a rating -->
     <string name="torrent_share_ratio">Share ratio</string>
     <string name="torrent_active_time">Active time</string>
     <string name="torrent_seeding_time">Seeding time</string>
@@ -364,8 +366,8 @@
     <string name="folder_is_empty">The selected folder is empty or all its files are excluded by the filter.</string>
     <string name="error_create_torrent">Could not create torrent</string>
     <string name="skip_files">Skip files</string>
-    <string name="skip_files_hint">Enter filenames separated by \"|\".</string>
-    <string name="select_folder_to_save">Select a folder to save.</string>
+    <string name="skip_files_hint">Enter filenames separated by \"|\"</string>
+    <string name="select_folder_to_save">Select a folder to save</string>
     <string name="torrent_saved_to">Torrent saved to %1$s</string>
     <string name="unable_to_open_file">Could not open selected file</string>
     <string name="unable_to_create_file">Could not create file</string>
@@ -596,7 +598,15 @@
     <string name="current_storage">Current storage</string>
     <string name="select">Select</string>
     <string name="create">Create</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="color_picker">Color picker</string>
+    <string name="load_message">Load, please wait…</string>
+    <!-- Size • files count -->
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="zero">%1$s \u2022 %2$d files</item>
+        <item quantity="one">%1$s \u2022 %2$d file</item>
+        <item quantity="two">%1$s \u2022 %2$d files</item>
+        <item quantity="few">%1$s \u2022 %2$d files</item>
+        <item quantity="many">%1$s \u2022 %2$d files</item>
+        <item quantity="other">%1$s \u2022 %2$d files</item>
+    </plurals>
 </resources>

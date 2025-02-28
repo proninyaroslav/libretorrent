@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,25 +24,44 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.DetailTorrentInfoFragment;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.DetailTorrentStateFragment;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.files.DetailTorrentFilesFragment;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.peers.DetailTorrentPeersFragment;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.DetailTorrentPiecesFragment;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers.DetailTorrentTrackersFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.TorrentDetailsInfoFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.TorrentDetailsStateFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.files.TorrentsDetailsFilesFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.peers.TorrentDetailsPeersFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces.TorrentDetailsPiecesFragment;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers.TorrentDetailsTrackersFragment;
 
-public class DetailPagerAdapter extends FragmentStateAdapter
-{
+public class DetailPagerAdapter extends FragmentStateAdapter {
     @ViewPager2.OffscreenPageLimit
-    public static final int NUM_FRAGMENTS = 6;
+    public static final int NUM_FRAGMENTS = Page.values().length;
 
-    public static final int INFO_FRAG_POS = 0;
-    public static final int STATE_FRAG_POS = 1;
-    public static final int FILES_FRAG_POS = 2;
-    public static final int TRACKERS_FRAG_POS = 3;
-    public static final int PEERS_FRAG_POS = 4;
-    public static final int PIECES_FRAG_POS = 5;
+    public enum Page {
+        INFO(0),
+        STATE(1),
+        FILES(2),
+        TRACKERS(3),
+        PEERS(4),
+        PIECES(5);
 
+        public final int position;
+
+        Page(int position) {
+            this.position = position;
+        }
+
+        public static Page fromPosition(int position) {
+            var enumValues = Page.class.getEnumConstants();
+            if (enumValues == null) {
+                throw new IllegalArgumentException("Unknown position: " + position);
+            }
+            for (var ev : enumValues) {
+                if (ev.position == position) {
+                    return ev;
+                }
+            }
+            throw new IllegalArgumentException("Unknown position: " + position);
+        }
+    }
 
     public DetailPagerAdapter(Fragment fragment) {
         super(fragment);
@@ -51,22 +70,15 @@ public class DetailPagerAdapter extends FragmentStateAdapter
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case INFO_FRAG_POS:
-                return DetailTorrentInfoFragment.newInstance();
-            case STATE_FRAG_POS:
-                return DetailTorrentStateFragment.newInstance();
-            case FILES_FRAG_POS:
-                return DetailTorrentFilesFragment.newInstance();
-            case TRACKERS_FRAG_POS:
-                return DetailTorrentTrackersFragment.newInstance();
-            case PEERS_FRAG_POS:
-                return DetailTorrentPeersFragment.newInstance();
-            case PIECES_FRAG_POS:
-                return DetailTorrentPiecesFragment.newInstance();
-            default:
-                return new Fragment();
-        }
+        var page = Page.fromPosition(position);
+        return switch (page) {
+            case INFO -> TorrentDetailsInfoFragment.newInstance();
+            case STATE -> TorrentDetailsStateFragment.newInstance();
+            case FILES -> TorrentsDetailsFilesFragment.newInstance();
+            case TRACKERS -> TorrentDetailsTrackersFragment.newInstance();
+            case PEERS -> TorrentDetailsPeersFragment.newInstance();
+            case PIECES -> TorrentDetailsPiecesFragment.newInstance();
+        };
     }
 
     @Override

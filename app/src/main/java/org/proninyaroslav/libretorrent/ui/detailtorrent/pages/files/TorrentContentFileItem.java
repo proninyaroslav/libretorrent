@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,14 +29,12 @@ import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.ui.FileItem;
 
-public class TorrentContentFileItem extends FileItem
-{
+public class TorrentContentFileItem extends FileItem {
     public FilePriority priority;
     public long receivedBytes;
     public double availability;
 
-    public TorrentContentFileItem(@NonNull TorrentContentFileTree tree)
-    {
+    public TorrentContentFileItem(@NonNull TorrentContentFileTree tree) {
         super(tree.getIndex(), tree.getName(), tree.isFile(), tree.size());
 
         priority = tree.getFilePriority();
@@ -44,24 +42,16 @@ public class TorrentContentFileItem extends FileItem
         availability = tree.getAvailability();
     }
 
-    public TorrentContentFileItem(Parcel source)
-    {
+    public TorrentContentFileItem(Parcel source) {
         super(source);
 
-        priority = (FilePriority)source.readSerializable();
+        priority = (FilePriority) source.readSerializable();
         receivedBytes = source.readLong();
         availability = source.readDouble();
     }
 
     @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeSerializable(priority);
@@ -70,27 +60,23 @@ public class TorrentContentFileItem extends FileItem
     }
 
     public static final Parcelable.Creator<TorrentContentFileItem> CREATOR =
-            new Parcelable.Creator<TorrentContentFileItem>()
-            {
+            new Parcelable.Creator<TorrentContentFileItem>() {
                 @Override
-                public TorrentContentFileItem createFromParcel(Parcel source)
-                {
+                public TorrentContentFileItem createFromParcel(Parcel source) {
                     return new TorrentContentFileItem(source);
                 }
 
                 @Override
-                public TorrentContentFileItem[] newArray(int size)
-                {
+                public TorrentContentFileItem[] newArray(int size) {
                     return new TorrentContentFileItem[size];
                 }
             };
 
-    public boolean equalsContent(@Nullable Object o)
-    {
+    public boolean equalsContent(@Nullable Object o) {
         if (!equals(o))
             return false;
 
-        TorrentContentFileItem item = (TorrentContentFileItem)o;
+        TorrentContentFileItem item = (TorrentContentFileItem) o;
 
         return priority.equals(item.priority) &&
                 receivedBytes == item.receivedBytes &&
@@ -99,8 +85,7 @@ public class TorrentContentFileItem extends FileItem
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "TorrentContentFileItem{" +
                 super.toString() +
                 ", receivedBytes=" + receivedBytes +

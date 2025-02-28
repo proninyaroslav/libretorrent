@@ -3,7 +3,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
-    style="?attr/textAppearanceBodyLarge"
+    style="@style/App.Components.ListItem.Label"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="16dp"

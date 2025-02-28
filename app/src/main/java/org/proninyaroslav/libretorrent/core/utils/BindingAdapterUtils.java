@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,18 +28,17 @@ import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class BindingAdapterUtils
-{
+public class BindingAdapterUtils {
     @BindingAdapter(value = {"fileSize", "formatFileSize"}, requireAll = false)
     public static void formatFileSize(@NonNull TextView view,
                                       long fileSize,
-                                      @Nullable String formatFileSize)
-    {
+                                      @Nullable String formatFileSize) {
         Context context = view.getContext();
         String sizeStr = (fileSize >= 0 ?
                 Formatter.formatFileSize(context, fileSize) :
@@ -48,8 +47,7 @@ public class BindingAdapterUtils
     }
 
     @BindingAdapter({"formatDate"})
-    public static void formatDate(@NonNull TextView view, long date)
-    {
+    public static void formatDate(@NonNull TextView view, long date) {
         view.setText(SimpleDateFormat.getDateTimeInstance()
                 .format(new Date(date)));
     }
@@ -57,8 +55,7 @@ public class BindingAdapterUtils
     public static String formatProgress(@NonNull Context context,
                                         long downloaded,
                                         long total,
-                                        int progress)
-    {
+                                        int progress) {
         return context.getString(R.string.download_counter_template,
                 Formatter.formatFileSize(context, (progress == 100 ? total : downloaded)),
                 Formatter.formatFileSize(context, total),
@@ -66,14 +63,14 @@ public class BindingAdapterUtils
     }
 
     public static String formatETA(@NonNull Context context,
-                                   long ETA)
-    {
-        return (ETA <= 0 ? Utils.INFINITY_SYMBOL : DateUtils.formatElapsedTime(context, ETA));
+                                   long ETA) {
+        return ETA <= 0 || ETA >= TorrentInfo.MAX_ETA
+                ? Utils.INFINITY_SYMBOL
+                : DateUtils.formatElapsedTime(context, ETA);
     }
 
     @BindingAdapter(value = {"floatNum", "floatPrecision"}, requireAll = false)
-    public static void formatFloat(@NonNull TextView view, double floatNum, int floatPrecision)
-    {
+    public static void formatFloat(@NonNull TextView view, double floatNum, int floatPrecision) {
         view.setText(String.format(Locale.getDefault(),
                 "%,." + (floatPrecision <= 0 ? 3 : floatPrecision) + "f",
                 floatNum));
@@ -82,8 +79,7 @@ public class BindingAdapterUtils
     public static String formatPieces(@NonNull Context context,
                                       int downloadedPieces,
                                       int numPieces,
-                                      int pieceLength)
-    {
+                                      int pieceLength) {
         return context.getString(R.string.torrent_pieces_template,
                 downloadedPieces,
                 numPieces,
@@ -92,8 +88,7 @@ public class BindingAdapterUtils
 
     public static String formatSpeed(@NonNull Context context,
                                      long uploadSpeed,
-                                     long downloadSpeed)
-    {
+                                     long downloadSpeed) {
         return context.getString(R.string.download_upload_speed_template,
                 Formatter.formatFileSize(context, downloadSpeed),
                 Formatter.formatFileSize(context, uploadSpeed));
@@ -102,11 +97,20 @@ public class BindingAdapterUtils
     public static String formatPiecesInfo(@NonNull Context context,
                                           int downloadedPieces,
                                           int allPiecesCount,
-                                          int pieceLength)
-    {
+                                          int pieceLength) {
         String pieceLengthStr = Formatter.formatFileSize(context, pieceLength);
 
         return context.getString(R.string.torrent_pieces_template,
                 downloadedPieces, allPiecesCount, pieceLengthStr);
+    }
+
+    @BindingAdapter(value = {"torrentFilesSize", "torrentFilesCount"})
+    public static void formatTorrentSize(@NonNull TextView view, long filesSize, int filesCount) {
+        var context = view.getContext();
+        var sizeStr = (filesSize >= 0 ?
+                Formatter.formatFileSize(context, filesSize) :
+                context.getString(R.string.not_available));
+        var template = context.getResources().getQuantityString(R.plurals.torrent_info_size_template_plural, filesCount);
+        view.setText(String.format(template, sizeStr, filesCount));
     }
 }

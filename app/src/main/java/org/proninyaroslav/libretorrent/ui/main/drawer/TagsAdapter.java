@@ -32,9 +32,9 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.databinding.DrawerEmptyTagsListItemBinding;
-import org.proninyaroslav.libretorrent.databinding.DrawerNoTagsListItemBinding;
-import org.proninyaroslav.libretorrent.databinding.DrawerTagsListItemBinding;
+import org.proninyaroslav.libretorrent.databinding.ItemDrawerEmptyTagsListBinding;
+import org.proninyaroslav.libretorrent.databinding.ItemDrawerNoTagsListBinding;
+import org.proninyaroslav.libretorrent.databinding.ItemDrawerTagsListBinding;
 
 public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.AbstractViewHolder> {
     private static final int TYPE_EMPTY_ITEM = 0;
@@ -58,15 +58,15 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return switch (viewType) {
             case TYPE_EMPTY_ITEM -> {
-                var binding = DrawerEmptyTagsListItemBinding.inflate(inflater, parent, false);
+                var binding = ItemDrawerEmptyTagsListBinding.inflate(inflater, parent, false);
                 yield new EmptyItemViewHolder(binding);
             }
             case TYPE_TAG_ITEM -> {
-                var binding = DrawerTagsListItemBinding.inflate(inflater, parent, false);
+                var binding = ItemDrawerTagsListBinding.inflate(inflater, parent, false);
                 yield new ItemViewHolder(binding);
             }
             case TYPE_NO_TAGS_ITEM -> {
-                var binding = DrawerNoTagsListItemBinding.inflate(inflater, parent, false);
+                var binding = ItemDrawerNoTagsListBinding.inflate(inflater, parent, false);
                 yield new NoTagsItemViewHolder(binding);
             }
             default -> throw new IllegalStateException("Unknown item type: " + viewType);
@@ -147,9 +147,9 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
 
     class ItemViewHolder extends AbstractViewHolder {
         @NonNull
-        private final DrawerTagsListItemBinding binding;
+        private final ItemDrawerTagsListBinding binding;
 
-        public ItemViewHolder(@NonNull DrawerTagsListItemBinding binding) {
+        public ItemViewHolder(@NonNull ItemDrawerTagsListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
@@ -195,9 +195,9 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
 
     class EmptyItemViewHolder extends AbstractViewHolder {
         @NonNull
-        private final DrawerEmptyTagsListItemBinding binding;
+        private final ItemDrawerEmptyTagsListBinding binding;
 
-        public EmptyItemViewHolder(@NonNull DrawerEmptyTagsListItemBinding binding) {
+        public EmptyItemViewHolder(@NonNull ItemDrawerEmptyTagsListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
@@ -230,9 +230,9 @@ public class TagsAdapter extends ListAdapter<AbstractTagItem, TagsAdapter.Abstra
 
     class NoTagsItemViewHolder extends AbstractViewHolder {
         @NonNull
-        private final DrawerNoTagsListItemBinding binding;
+        private final ItemDrawerNoTagsListBinding binding;
 
-        public NoTagsItemViewHolder(@NonNull DrawerNoTagsListItemBinding binding) {
+        public NoTagsItemViewHolder(@NonNull ItemDrawerNoTagsListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;

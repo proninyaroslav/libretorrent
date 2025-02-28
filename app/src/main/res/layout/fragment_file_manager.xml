@@ -42,10 +42,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/storage_menu"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp">
+                android:layout_marginVertical="8dp"
+                android:minWidth="@dimen/text_filed_max_width">
 
                 <AutoCompleteTextView
                     android:id="@+id/storage_menu_text_view"
@@ -62,6 +64,7 @@
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="80dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -70,19 +73,22 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:focusable="true"
+                android:paddingVertical="8dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="24dp"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:spanCount="@integer/file_manager_list_grid_span"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_file_manager" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <RelativeLayout
             android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_gravity="bottom"
             android:background="?attr/colorSurface"
             android:visibility="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER || viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? View.VISIBLE : View.GONE}">
@@ -94,22 +100,29 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_file_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginVertical="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_toStartOf="@+id/ok_button"
-                android:gravity="center_vertical"
-                android:hint="@string/file_name"
-                android:visibility="@{viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? View.VISIBLE : View.GONE}">
+                android:layout_toStartOf="@+id/ok_button">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/file_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_file_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:hint="@string/file_name"
+                    android:minWidth="@dimen/text_filed_max_width"
+                    android:visibility="@{viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? View.VISIBLE : View.GONE}">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/file_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/ok_button"
@@ -119,9 +132,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_margin="16dp"
-                android:text="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER ? @string/select : @string/create}"
-                tools:icon="@drawable/ic_add_24px"
-                tools:text="Create" />
+                android:text="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER ? @string/select : @string/save}"
+                tools:icon="@drawable/ic_save_24px"
+                tools:text="Save" />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

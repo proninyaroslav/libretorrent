@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.proninyaroslav.libretorrent.core.utils.BindingAdapterUtils" />
+
+        <import type="org.proninyaroslav.libretorrent.core.utils.DateUtils" />
+
+        <import type="java.util.Formatter" />
+
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        style="@style/ThemeOverlay.App.Surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/TextAppearance.App.SectionTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/torrent_speed"
+                        app:drawableStartCompat="@drawable/ic_speed_24px" />
+
+                    <TextView
+                        android:id="@+id/speed"
+                        style="?attr/textAppearanceBodyLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@{BindingAdapterUtils.formatSpeed(context, viewModel.info.torrentInfo.uploadSpeed, viewModel.info.torrentInfo.downloadSpeed)}"
+                        tools:text="↓ 1 Mb/s | ↑ 1 Mb/s " />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_seeds"
+                            app:drawableStartCompat="@drawable/ic_hub_24px" />
+
+                        <TextView
+                            android:id="@+id/seeds"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/torrent_peers_template(viewModel.info.advancedInfo.seeds, viewModel.info.advancedInfo.totalSeeds)}"
+                            tools:text="1 (1)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_leechers"
+                            app:drawableStartCompat="@drawable/ic_hub_24px" />
+
+                        <TextView
+                            android:id="@+id/leechers"
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/torrent_peers_template(viewModel.info.advancedInfo.leechers, viewModel.info.advancedInfo.totalLeechers)}"
+                            tools:text="1 (1)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/torrent_share_ratio" />
+
+                        <TextView
+                            android:id="@+id/share_ratio"
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:floatNum="@{viewModel.info.advancedInfo.shareRatio}"
+                            tools:text="1.000" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/torrent_availability" />
+
+                        <TextView
+                            android:id="@+id/availability"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:floatNum="@{viewModel.info.advancedInfo.availability}"
+                            tools:text="1.000" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_downloaded"
+                            app:drawableStartCompat="@drawable/ic_download_24px" />
+
+                        <TextView
+                            android:id="@+id/downloading"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.torrentInfo.receivedBytes, viewModel.info.torrentInfo.totalBytes, viewModel.info.torrentInfo.progress)}"
+                            tools:text="1 Mb/2 Mb (50%)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TitleTextM2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_ETA"
+                            app:drawableStartCompat="@drawable/ic_schedule_24px" />
+
+                        <TextView
+                            android:id="@+id/ETA"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{BindingAdapterUtils.formatETA(context, viewModel.info.torrentInfo.ETA)}"
+                            tools:text="1 m" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_uploaded"
+                            app:drawableStartCompat="@drawable/ic_upload_24px" />
+
+                        <TextView
+                            android:id="@+id/uploaded"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:fileSize="@{viewModel.info.torrentInfo.uploadedBytes}"
+                            tools:text="1 Mb" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_pieces"
+                            app:drawableStartCompat="@drawable/ic_grid_view_24px" />
+
+                        <TextView
+                            android:id="@+id/pieces"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{BindingAdapterUtils.formatPieces(context, viewModel.info.advancedInfo.downloadedPieces, viewModel.info.metaInfo.numPieces, viewModel.info.metaInfo.pieceLength)}"
+                            tools:text="100 (1 Kb)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_active_time"
+                            app:drawableStartCompat="@drawable/ic_schedule_24px" />
+
+                        <TextView
+                            android:id="@+id/active_time"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.activeTime)}"
+                            tools:text="1 m" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/torrent_seeding_time"
+                            app:drawableStartCompat="@drawable/ic_schedule_24px" />
+
+                        <TextView
+                            android:id="@+id/seeding_time"
+                            style="?attr/textAppearanceBodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{DateUtils.formatElapsedTime(context, viewModel.info.advancedInfo.seedingTime)}"
+                            tools:text="1 m" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

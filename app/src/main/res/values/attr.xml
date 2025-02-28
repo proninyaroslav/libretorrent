@@ -19,6 +19,14 @@
     <declare-styleable name="EmptyListPlaceholder">
         <attr name="text" format="reference|string" />
         <attr name="icon" format="reference" />
+        <attr name="placeholderIconSize" format="enum">
+            <enum name="big" value="0" />
+            <enum name="small" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ColorView">
+        <attr name="color" format="color" />
     </declare-styleable>
 
     <!--    -->
@@ -41,14 +49,6 @@
         <attr name="pieceCellColor" format="reference" />
         <attr name="tabLayoutTheme" format="reference" />
         <attr name="speedDialOverlayColor" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="PiecesView">
-        <attr name="pieces_cellColor" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="ColorView">
-        <attr name="color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="Theme">

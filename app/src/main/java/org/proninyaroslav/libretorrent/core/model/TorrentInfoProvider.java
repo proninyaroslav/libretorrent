@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -34,7 +34,9 @@ import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -57,8 +59,8 @@ public class TorrentInfoProvider {
     private static final int GET_INFO_SYNC_TIME = 1000; /* ms */
 
     private static volatile TorrentInfoProvider INSTANCE;
-    private TorrentEngine engine;
-    private TagRepository tagRepo;
+    private final TorrentEngine engine;
+    private final TagRepository tagRepo;
 
     public static TorrentInfoProvider getInstance(
             @NonNull TorrentEngine engine,
@@ -237,16 +239,17 @@ public class TorrentInfoProvider {
 
     private Flowable<List<TorrentInfo>> makeInfoListFlowable() {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<TorrentInfo>> infoList = new AtomicReference<>();
+            final ConcurrentHashMap.KeySetView<TorrentInfo, Boolean> infoList
+                    = ConcurrentHashMap.newKeySet();
 
             Runnable handleInfo = () -> {
-                List<TorrentInfo> newInfoList = engine.makeInfoListSync();
-                List<TorrentInfo> oldInfoList = infoList.get();
-                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                        !oldInfoList.containsAll(newInfoList)) {
-                    infoList.set(newInfoList);
-                    if (!emitter.isCancelled())
+                var newInfoList = engine.makeInfoListSync();
+                if (infoList.size() != newInfoList.size() || !infoList.containsAll(newInfoList)) {
+                    infoList.clear();
+                    infoList.addAll(newInfoList);
+                    if (!emitter.isCancelled()) {
                         emitter.onNext(newInfoList);
+                    }
                 }
             };
 
@@ -286,10 +289,11 @@ public class TorrentInfoProvider {
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    infoList.set(engine.makeInfoListSync());
+                    infoList.clear();
+                    infoList.addAll(engine.makeInfoListSync());
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(infoList.get());
+                        emitter.onNext(infoList.stream().toList());
                         engine.addListener(listener);
                         CompositeDisposable disposables = new CompositeDisposable();
                         disposables.add(Disposables.fromAction(() ->
@@ -356,17 +360,17 @@ public class TorrentInfoProvider {
 
     private Flowable<List<TrackerInfo>> makeTrackersInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<TrackerInfo>> infoList = new AtomicReference<>();
+            var infoList = new HashSet<TrackerInfo>();
 
             Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                List<TrackerInfo> newInfoList = engine.makeTrackerInfoList(id);
-                                List<TrackerInfo> oldInfoList = infoList.get();
-                                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                                        !oldInfoList.containsAll(newInfoList)) {
-                                    infoList.set(newInfoList);
-                                    if (!emitter.isCancelled())
+                                var newInfoList = engine.makeTrackerInfoList(id);
+                                if (infoList.size() != newInfoList.size() || !infoList.containsAll(newInfoList)) {
+                                    infoList.clear();
+                                    infoList.addAll(newInfoList);
+                                    if (!emitter.isCancelled()) {
                                         emitter.onNext(newInfoList);
+                                    }
                                 }
                             },
                             (Throwable t) -> Log.e(TAG, "Getting trackers info for torrent " + id + " error: " +
@@ -374,10 +378,11 @@ public class TorrentInfoProvider {
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
-                    infoList.set(engine.makeTrackerInfoList(id));
+                    infoList.clear();
+                    infoList.addAll(engine.makeTrackerInfoList(id));
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(infoList.get());
+                        emitter.onNext(infoList.stream().toList());
                         emitter.setDisposable(d);
                     }
                 });
@@ -389,28 +394,29 @@ public class TorrentInfoProvider {
 
     private Flowable<List<PeerInfo>> makePeersInfoFlowable(String id) {
         return Flowable.create((emitter) -> {
-            final AtomicReference<List<PeerInfo>> infoList = new AtomicReference<>();
+            var infoList = new HashSet<PeerInfo>();
 
-            Disposable d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
+            var d = Observable.interval(GET_INFO_SYNC_TIME, TimeUnit.MILLISECONDS)
                     .subscribe((__) -> {
-                                List<PeerInfo> newInfoList = engine.makePeerInfoList(id);
-                                List<PeerInfo> oldInfoList = infoList.get();
-                                if (oldInfoList == null || oldInfoList.size() != newInfoList.size() ||
-                                        !oldInfoList.containsAll(newInfoList)) {
-                                    infoList.set(newInfoList);
-                                    if (!emitter.isCancelled())
+                                var newInfoList = engine.makePeerInfoList(id);
+                                if (infoList.size() != newInfoList.size() || !infoList.containsAll(newInfoList)) {
+                                    infoList.clear();
+                                    infoList.addAll(newInfoList);
+                                    if (!emitter.isCancelled()) {
                                         emitter.onNext(newInfoList);
+                                    }
                                 }
                             },
                             (Throwable t) -> Log.e(TAG, "Getting peers info for torrent " + id + " error: " +
                                     Log.getStackTraceString(t)));
 
             if (!emitter.isCancelled()) {
-                Thread t = new Thread(() -> {
-                    infoList.set(engine.makePeerInfoList(id));
+                var t = new Thread(() -> {
+                    infoList.clear();
+                    infoList.addAll(engine.makePeerInfoList(id));
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(infoList.get());
+                        emitter.onNext(infoList.stream().toList());
                         emitter.setDisposable(d);
                     }
                 });

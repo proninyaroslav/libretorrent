@@ -48,7 +48,7 @@ public class FileManagerViewModelTest extends AbstractTest
         super.init();
 
         config = new FileManagerConfig(fs.getUserDirPath(),
-                null, FileManagerConfig.DIR_CHOOSER_MODE);
+                null, FileManagerConfig.Mode.DIR_CHOOSER);
         viewModel = new FileManagerViewModel(
                 ApplicationProvider.getApplicationContext(),
                 config,

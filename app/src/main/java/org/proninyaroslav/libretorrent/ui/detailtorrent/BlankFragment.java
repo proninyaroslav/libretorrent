@@ -25,32 +25,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder;
+import org.proninyaroslav.libretorrent.databinding.FragmentBlankBinding;
 
 public class BlankFragment extends Fragment {
-    private static final String ARG_TEXT = "text";
-
-    @StringRes
-    private int textRes = -1;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        var v = inflater.inflate(R.layout.fragment_blank, container, false);
+        var binding = FragmentBlankBinding.inflate(inflater, container, false);
 
-        var args = getArguments();
-        if (args != null) {
-            textRes = getArguments().getInt(ARG_TEXT);
-        }
+        var args = BlankFragmentArgs.fromBundle(getArguments());
+        binding.placeholder.setText(args.getText());
+        binding.placeholder.setText(args.getText());
+        binding.placeholder.setIconResource(args.getIcon());
 
-        EmptyListPlaceholder placeholder = v.findViewById(R.id.placeholder);
-        if (textRes != -1) {
-            placeholder.setText(textRes);
-        }
-
-        return v;
+        return binding.getRoot();
     }
 }

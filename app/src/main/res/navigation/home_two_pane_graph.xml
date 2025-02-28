@@ -1,0 +1,166 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_two_pane_nav"
+    app:startDestination="@id/blankFragment">
+
+    <action
+        android:id="@+id/action_open_blank"
+        app:destination="@id/blankFragment"
+        app:popUpTo="@id/blankFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_open_torrent_details"
+        app:destination="@id/torrentDetailsFragment"
+        app:popUpTo="@id/blankFragment"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment"
+        android:label="BlankFragment"
+        tools:layout="@layout/fragment_blank">
+        <argument
+            android:name="text"
+            android:defaultValue="@string/select_or_add_torrent"
+            app:argType="reference" />
+        <argument
+            android:name="icon"
+            android:defaultValue="@drawable/ic_list_alt_add_24px"
+            app:argType="reference" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/torrentDetailsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragment"
+        android:label="TorrentDetailsFragment"
+        tools:layout="@layout/fragment_torrent_details">
+        <argument
+            android:name="torrent_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_select_tag_dialog"
+            app:destination="@id/selectTagDialog" />
+        <action
+            android:id="@+id/action_open_edit_torrent_name_dialog"
+            app:destination="@id/editTorrentNameDialog" />
+        <action
+            android:id="@+id/action_open_change_priority_dialog"
+            app:destination="@id/changePriorityDialog" />
+        <action
+            android:id="@+id/action_delete_trackers_dialog"
+            app:destination="@id/deleteTrackersDialog" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/error_report_nav">
+            <argument
+                android:name="message"
+                app:argType="string" />
+            <argument
+                android:name="exception"
+                android:defaultValue="@null"
+                app:argType="java.lang.Throwable"
+                app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/action_delete_torrent_details_dialog"
+            app:destination="@id/deleteDetailsTorrentDialog" />
+        <action
+            android:id="@+id/action_add_trackers_dialog"
+            app:destination="@id/addTrackersDialog" />
+        <action
+            android:id="@+id/action_speed_limit_dialog"
+            app:destination="@id/speedLimitDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/selectTagDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog"
+        android:label="SelectTagDialog"
+        tools:layout="@layout/dialog_select_tag">
+        <argument
+            android:name="exclude_tags_id"
+            app:argType="long[]" />
+        <action
+            android:id="@+id/action_add_tag_dialog"
+            app:destination="@id/tag_nav">
+            <argument
+                android:name="tag"
+                android:defaultValue="@null"
+                app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                app:nullable="true" />
+        </action>
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <include app:graph="@navigation/tag_graph" />
+    <dialog
+        android:id="@+id/editTorrentNameDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.EditTorrentNameDialog"
+        android:label="EditTorrentNameDialog"
+        tools:layout="@layout/dialog_text_input">
+        <argument
+            android:name="initial_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/changePriorityDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.pages.files.ChangePriorityDialog"
+        android:label="ChangePriorityDialog"
+        tools:layout="@layout/dialog_change_priority">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+        <argument
+            android:name="initial_priority"
+            app:argType="org.proninyaroslav.libretorrent.core.model.filetree.FilePriority" />
+    </dialog>
+    <dialog
+        android:id="@+id/deleteTrackersDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers.DeleteTrackersDialog"
+        android:label="DeleteTrackersDialog">
+        <argument
+            android:name="trackers_count"
+            app:argType="integer" />
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <include app:graph="@navigation/error_report_graph" />
+    <dialog
+        android:id="@+id/deleteDetailsTorrentDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog"
+        android:label="DeleteTorrentDialog"
+        tools:layout="@layout/dialog_delete_torrent">
+        <argument
+            android:name="torrent_count"
+            app:argType="integer" />
+        <argument android:name="fragment_request_key" />
+    </dialog>
+    <dialog
+        android:id="@+id/addTrackersDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.AddTrackersDialog"
+        android:label="AddTrackersDialog"
+        tools:layout="@layout/dialog_multiline_text_input">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/speedLimitDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.SpeedLimitDialog"
+        android:label="SpeedLimitDialog"
+        tools:layout="@layout/dialog_speed_limit" >
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+        <argument
+            android:name="init_speed_limit"
+            app:argType="org.proninyaroslav.libretorrent.ui.detailtorrent.SpeedLimitDialog$Speed" />
+    </dialog>
+</navigation>

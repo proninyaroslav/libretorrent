@@ -42,7 +42,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.databinding.DialogAddTagBinding;
+import org.proninyaroslav.libretorrent.databinding.DialogTagBinding;
 import org.proninyaroslav.libretorrent.ui.colorpicker.ColorPickerDialog;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,10 +52,12 @@ import io.reactivex.schedulers.Schedulers;
 public class TagDialog extends DialogFragment {
     private static final String TAG = TagDialog.class.getSimpleName();
 
+    private static final String KEY_COLOR_PICKER_DIALOG_REQUEST = TAG + "_color_picker_dialog";
+
     private AlertDialog alert;
     private AppCompatActivity activity;
     private AddTagViewModel viewModel;
-    private DialogAddTagBinding binding;
+    private DialogTagBinding binding;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
@@ -86,9 +88,9 @@ public class TagDialog extends DialogFragment {
         viewModel = provider.get(AddTagViewModel.class);
 
         getParentFragmentManager().setFragmentResultListener(
-                ColorPickerDialog.KEY_RESULT,
+                KEY_COLOR_PICKER_DIALOG_REQUEST,
                 this,
-                (key, bundle) -> viewModel.state.setColor(bundle.getInt(ColorPickerDialog.KEY_COLOR))
+                (key, bundle) -> viewModel.state.setColor(bundle.getInt(ColorPickerDialog.KEY_RESULT_COLOR))
         );
 
         var initInfo = args.getTag();
@@ -99,7 +101,7 @@ public class TagDialog extends DialogFragment {
         }
 
         var inflater = getLayoutInflater();
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_add_tag, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_tag, null, false);
         binding.setViewModel(viewModel);
 
         initLayoutView();
@@ -125,7 +127,8 @@ public class TagDialog extends DialogFragment {
             }
         });
         binding.color.setOnClickListener((v) -> {
-            var action = TagDialogDirections.actionColorPickerDialog()
+            var action = TagDialogDirections
+                    .actionColorPickerDialog(KEY_COLOR_PICKER_DIALOG_REQUEST)
                     .setColor(viewModel.state.getColor());
             NavHostFragment.findNavController(this).navigate(action);
         });

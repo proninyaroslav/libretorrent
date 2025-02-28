@@ -38,10 +38,16 @@ import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionManager;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private static final String KEY_PERMISSION_DENIED_DIALOG_REQUEST = TAG + "_permission_denied";
+
     public static final String ACTION_ADD_TORRENT_SHORTCUT = "org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT";
+    public static final String ACTION_OPEN_TORRENT_DETAILS = "org.proninyaroslav.libretorrent.ACTION_OPEN_TORRENT_DETAILS";
+    public static final String KEY_TORRENT_ID = "torrent_id";
 
     private NavController navController;
-    private MainViewModel viewModel;
+    private HomeViewModel viewModel;
     private PermissionManager permissionManager;
 
     @NonNull
@@ -50,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Nullable
-    public NavBarFragment getNavBarFragment(@NonNull Fragment fragment) {
-        if (fragment.getParentFragment() instanceof NavHostFragment navHost) {
-            if (navHost.getParentFragment() instanceof NavBarFragment) {
-                return (NavBarFragment) navHost.getParentFragment();
+    public NavBarFragment findNavBarFragment(@NonNull Fragment fragment) {
+        var currentFragment = fragment;
+        while (currentFragment != null) {
+            if (currentFragment instanceof NavBarFragment navBar) {
+                return navBar;
+            } else {
+                currentFragment = currentFragment.getParentFragment();
             }
         }
         return null;
@@ -72,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getSupportFragmentManager().setFragmentResultListener(
-                PermissionDeniedDialog.KEY_RESULT,
+                KEY_PERMISSION_DENIED_DIALOG_REQUEST,
                 this,
                 (requestKey, result) -> {
                     var resultValue = (PermissionDeniedDialog.Result)
@@ -87,12 +96,13 @@ public class MainActivity extends AppCompatActivity {
         );
 
         ViewModelProvider provider = new ViewModelProvider(this);
-        viewModel = provider.get(MainViewModel.class);
+        viewModel = provider.get(HomeViewModel.class);
         permissionManager = new PermissionManager(this, new PermissionManager.Callback() {
             @Override
             public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
                 if (!isGranted && shouldRequestStoragePermission) {
-                    var action = NavBarFragmentDirections.actionPermissionDeniedDialog();
+                    var action = NavBarFragmentDirections
+                            .actionPermissionDeniedDialog(KEY_PERMISSION_DENIED_DIALOG_REQUEST);
                     navController.navigate(action);
                 }
             }
@@ -125,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                navController.navigateUp();
+                if (!navController.navigateUp()) {
+                    finish();
+                }
             }
         });
     }
@@ -138,89 +150,4 @@ public class MainActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
-
-    // TODO
-//    private void subscribeMsgViewModel() {
-//        disposables.add(msgViewModel.observeTorrentDetailsOpened()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::showDetailTorrent));
-//
-//        disposables.add(msgViewModel.observeTorrentDetailsClosed()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe((__) -> showBlankFragment()));
-//
-//        disposables.add(viewModel.observeTorrentsDeleted()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe((id) -> {
-//                    DetailTorrentFragment f = getCurrentDetailFragment();
-//                    if (f != null && id.equals(f.getTorrentId()))
-//                        showBlankFragment();
-//                }));
-//    }
-
-
-//    private void cleanGarbageFragments() {
-//        /* Clean detail and blank fragments after rotate for tablets */
-//        if (Utils.isLargeScreenDevice(this)) {
-//            FragmentManager fm = getSupportFragmentManager();
-//            List<Fragment> fragments = fm.getFragments();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            for (Fragment f : fragments)
-//                if (f instanceof DetailTorrentFragment || f instanceof BlankFragment)
-//                    ft.remove(f);
-//            ft.commitAllowingStateLoss();
-//        }
-//    }
-//
-//    private void showDetailTorrent(String id) {
-//        if (Utils.isTwoPane(this)) {
-//            FragmentManager fm = getSupportFragmentManager();
-//            DetailTorrentFragment detail = DetailTorrentFragment.newInstance(id);
-//            Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
-//
-//            if (fragment instanceof DetailTorrentFragment) {
-//                String oldId = ((DetailTorrentFragment) fragment).getTorrentId();
-//                if (id.equals(oldId))
-//                    return;
-//            }
-//            fm.beginTransaction()
-//                    .replace(R.id.detail_torrent_fragmentContainer, detail)
-//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                    .commit();
-//
-//        } else {
-//            Intent i = new Intent(this, DetailTorrentActivity.class);
-//            i.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, id);
-//            startActivity(i);
-//        }
-//    }
-//
-//    private void showBlankFragment() {
-//        if (Utils.isTwoPane(this)) {
-//            FragmentManager fm = getSupportFragmentManager();
-//            BlankFragment blank = BlankFragment.newInstance(getString(R.string.select_or_add_torrent));
-//            fm.beginTransaction()
-//                    .replace(R.id.detail_torrent_fragmentContainer, blank)
-//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-//                    .commitAllowingStateLoss();
-//        }
-//    }
-//
-//    public DetailTorrentFragment getCurrentDetailFragment() {
-//        if (!Utils.isTwoPane(this))
-//            return null;
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = fm.findFragmentById(R.id.detail_torrent_fragmentContainer);
-//
-//        return (fragment instanceof DetailTorrentFragment ? (DetailTorrentFragment) fragment : null);
-//    }
-//
-//    @Override
-//    public void onFragmentFinished(@NonNull Fragment f, Intent intent,
-//                                   @NonNull ResultCode code) {
-//        if (f instanceof DetailTorrentFragment && Utils.isTwoPane(this))
-//            msgViewModel.torrentDetailsClosed();
-//    }
 }

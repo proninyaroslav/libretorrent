@@ -52,6 +52,7 @@
             android:id="@+id/file_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingVertical="8dp"
             android:scrollbars="vertical"
             android:layout_below="@id/status_string"
             android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}" />

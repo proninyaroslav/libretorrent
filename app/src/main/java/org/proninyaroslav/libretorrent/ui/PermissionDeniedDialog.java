@@ -42,12 +42,10 @@ public class PermissionDeniedDialog extends DialogFragment {
         DENIED
     }
 
-    private static final String TAG = PermissionDeniedDialog.class.getSimpleName();
-
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_RESULT_VALUE = "result_value";
+    public static final String KEY_RESULT_VALUE = "value";
 
     private AppCompatActivity activity;
+    private String requestKey;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -66,6 +64,9 @@ public class PermissionDeniedDialog extends DialogFragment {
         if (activity == null) {
             activity = (AppCompatActivity) requireActivity();
         }
+
+        var args = PermissionDeniedDialogArgs.fromBundle(getArguments());
+        requestKey = args.getFragmentRequestKey();
 
         var message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
                 R.string.perm_denied_warning_android_r :
@@ -87,7 +88,7 @@ public class PermissionDeniedDialog extends DialogFragment {
             case BUTTON_POSITIVE -> bundle.putSerializable(KEY_RESULT_VALUE, Result.DENIED);
             case BUTTON_NEGATIVE -> bundle.putSerializable(KEY_RESULT_VALUE, Result.RETRY);
         }
-        activity.getSupportFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        activity.getSupportFragmentManager().setFragmentResult(requestKey, bundle);
         dismiss();
     }
 }

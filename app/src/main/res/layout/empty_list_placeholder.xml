@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="UseCompoundDrawables"
-    tools:viewBindingIgnore="true">
+    android:layout_height="wrap_content"
+    tools:ignore="UseCompoundDrawables">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -20,8 +20,8 @@
             android:layout_height="88dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@null"
-            app:srcCompat="@drawable/ic_lists_24px"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorPrimary"
+            tools:srcCompat="@drawable/ic_lists_24px" />
 
         <TextView
             android:id="@+id/text"

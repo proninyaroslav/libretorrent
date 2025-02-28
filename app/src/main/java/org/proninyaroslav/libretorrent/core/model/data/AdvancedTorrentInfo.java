@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,32 +31,25 @@ import java.util.Arrays;
  * changing information about state of the torrent.
  */
 
-public class AdvancedTorrentInfo extends AbstractInfoParcel
-{
-    public String torrentId = "";
-    public int totalSeeds = 0;
-    public int seeds = 0;
-    public int downloadedPieces = 0;
-    public long[] filesReceivedBytes = new long[0];
-    public double shareRatio = 0.0;
-    public long activeTime = 0L;
-    public long seedingTime = 0L;
-    public double availability = 0.0;
-    public double[] filesAvailability = new double[0];
+public class AdvancedTorrentInfo extends AbstractInfoParcel<AdvancedTorrentInfo> {
+    public String torrentId;
+    public int totalSeeds;
+    public int seeds;
+    public int downloadedPieces;
+    public long[] filesReceivedBytes;
+    public double shareRatio;
+    public long activeTime;
+    public long seedingTime;
+    public double availability;
+    public double[] filesAvailability;
     public int leechers;
     public int totalLeechers;
-
-    public AdvancedTorrentInfo()
-    {
-        super();
-    }
 
     public AdvancedTorrentInfo(String torrentId, long[] filesReceivedBytes,
                                int totalSeeds, int seeds, int downloadedPieces,
                                double shareRatio, long activeTime, long seedingTime,
                                double availability, double[] filesAvailability,
-                               int leechers, int totalLeechers)
-    {
+                               int leechers, int totalLeechers) {
         super(torrentId);
 
         this.torrentId = torrentId;
@@ -73,8 +66,7 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         this.totalLeechers = totalLeechers;
     }
 
-    public AdvancedTorrentInfo(Parcel source)
-    {
+    public AdvancedTorrentInfo(Parcel source) {
         super(source);
 
         torrentId = source.readString();
@@ -92,14 +84,12 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeString(torrentId);
@@ -117,30 +107,25 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
     }
 
     public static final Parcelable.Creator<AdvancedTorrentInfo> CREATOR =
-            new Parcelable.Creator<AdvancedTorrentInfo>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public AdvancedTorrentInfo createFromParcel(Parcel source)
-                {
+                public AdvancedTorrentInfo createFromParcel(Parcel source) {
                     return new AdvancedTorrentInfo(source);
                 }
 
                 @Override
-                public AdvancedTorrentInfo[] newArray(int size)
-                {
+                public AdvancedTorrentInfo[] newArray(int size) {
                     return new AdvancedTorrentInfo[size];
                 }
             };
 
     @Override
-    public int compareTo(@NonNull Object another)
-    {
-        return torrentId.compareTo(((AdvancedTorrentInfo)another).torrentId);
+    public int compareTo(@NonNull AdvancedTorrentInfo another) {
+        return torrentId.compareTo(another.torrentId);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int prime = 31, result = 1;
 
         result = prime * result + ((torrentId == null) ? 0 : torrentId.hashCode());
@@ -148,12 +133,10 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
         result = prime * result + totalSeeds;
         result = prime * result + seeds;
         result = prime * result + downloadedPieces;
-        long shareRationBits = Double.doubleToLongBits(shareRatio);
-        result = prime * result + (int) (shareRationBits ^ (shareRationBits >>> 32));
-        result = prime * result + (int) (activeTime ^ (activeTime >>> 32));
-        result = prime * result + (int) (seedingTime ^ (seedingTime >>> 32));
-        long availabilityBits = Double.doubleToLongBits(availability);
-        result = prime * result + (int) (availabilityBits ^ (availabilityBits >>> 32));
+        result = prime * result + Double.hashCode(shareRatio);
+        result = prime * result + Long.hashCode(activeTime);
+        result = prime * result + Long.hashCode(seedingTime);
+        result = prime * result + Double.hashCode(availability);
         result += Arrays.hashCode(filesAvailability);
         result = prime * result + leechers;
         result = prime * result + totalLeechers;
@@ -162,15 +145,14 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (!(o instanceof AdvancedTorrentInfo))
+    public boolean equals(Object o) {
+        if (!(o instanceof AdvancedTorrentInfo state)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
-
-        AdvancedTorrentInfo state = (AdvancedTorrentInfo)o;
+        }
 
         return (torrentId == null || torrentId.equals(state.torrentId)) &&
                 totalSeeds == state.totalSeeds &&
@@ -188,8 +170,7 @@ public class AdvancedTorrentInfo extends AbstractInfoParcel
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "AdvancedTorrentInfo{" +
                 "torrentId='" + torrentId + '\'' +
                 ", totalSeeds=" + totalSeeds +

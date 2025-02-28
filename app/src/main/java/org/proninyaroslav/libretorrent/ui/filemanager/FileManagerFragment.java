@@ -48,6 +48,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
@@ -85,16 +86,17 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
 
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
     private static final String TAG_SPINNER_POS = "spinner_pos";
+    private static final String KEY_GO_TO_FOLDER_DIALOG_REQUEST = TAG + "_go_to_folder_dialog";
+    private static final String KEY_INPUT_NAME_DIALOG_REQUEST = TAG + "_input_name_folder";
 
     // TODO
     public static final String TAG_CONFIG = "config";
 
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_RESULT_VALUE = "result_value";
+    public static final String KEY_RESULT = "result";
 
     private MainActivity activity;
     private FragmentFileManagerBinding binding;
-    private LinearLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
     /* Save state scrolling */
     private Parcelable filesListState;
     private FileManagerAdapter adapter;
@@ -108,6 +110,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
      * see http://stackoverflow.com/questions/21747917/undesired-onitemselected-calls/21751327#21751327
      */
     private int storageMenuPos = -1;
+    private String requestKey;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -124,10 +127,10 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
 
         var fm = getParentFragmentManager();
         fm.setFragmentResultListener(
-                InputNameDialog.KEY_RESULT,
+                KEY_INPUT_NAME_DIALOG_REQUEST,
                 this,
                 (key, result) -> {
-                    var name = result.getString(InputNameDialog.KEY_NAME);
+                    var name = result.getString(InputNameDialog.KEY_RESULT_NAME);
                     if (!viewModel.createDirectory(name)) {
                         Snackbar.make(
                                 binding.coordinatorLayout,
@@ -147,10 +150,10 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
                 }
         );
         fm.setFragmentResultListener(
-                GoToFolderDialog.KEY_RESULT,
+                KEY_GO_TO_FOLDER_DIALOG_REQUEST,
                 this,
                 (key, result) -> {
-                    var path = result.getString(GoToFolderDialog.KEY_PATH);
+                    var path = result.getString(GoToFolderDialog.KEY_RESULT_PATH);
                     goToDirectory(path);
                 }
         );
@@ -177,13 +180,15 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             activity = (MainActivity) requireActivity();
         }
 
+        var args = FileManagerFragmentArgs.fromBundle(getArguments());
+        requestKey = args.getFragmentRequestKey();
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
         pref = PreferenceManager.getDefaultSharedPreferences(activity);
 
         String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
         FileManagerViewModelFactory factory = new FileManagerViewModelFactory(
                 activity.getApplication(),
-                FileManagerFragmentArgs.fromBundle(getArguments()).getConfig(),
+                args.getConfig(),
                 startDir
         );
         viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
@@ -214,7 +219,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         if (viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER) {
             okButton.setIconResource(R.drawable.ic_check_24px);
         } else {
-            okButton.setIconResource(R.drawable.ic_add_24px);
+            okButton.setIconResource(R.drawable.ic_save_24px);
         }
         okButton.setOnClickListener((v) -> {
             saveCurDirectoryPath();
@@ -243,7 +248,17 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             }
         });
 
-        layoutManager = new LinearLayoutManager(activity);
+        layoutManager = (GridLayoutManager) binding.fileList.getLayoutManager();
+        if (layoutManager != null) {
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return adapter.getItemViewType(position) == FileManagerAdapter.VIEW_TYPE_PARENT_DIR
+                            ? layoutManager.getSpanCount()
+                            : 1;
+                }
+            });
+        }
         binding.fileList.setLayoutManager(layoutManager);
         binding.fileList.setItemAnimator(new DefaultItemAnimator());
 
@@ -291,7 +306,8 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     }
 
     private void showInputNameDialog() {
-        var action = FileManagerFragmentDirections.actionOpenInputNameDialog();
+        var action = FileManagerFragmentDirections
+                .actionOpenInputNameDialog(KEY_INPUT_NAME_DIALOG_REQUEST);
         NavHostFragment.findNavController(this).navigate(action);
     }
 
@@ -475,7 +491,8 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     }
 
     private void goToDirectoryDialog() {
-        var action = FileManagerFragmentDirections.actionGoToFolderDialog();
+        var action = FileManagerFragmentDirections
+                .actionGoToFolderDialog(KEY_GO_TO_FOLDER_DIALOG_REQUEST);
         NavHostFragment.findNavController(this).navigate(action);
     }
 
@@ -483,14 +500,14 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         var bundle = new Bundle();
         try {
             bundle.putParcelable(
-                    KEY_RESULT_VALUE,
+                    KEY_RESULT,
                     new Result(viewModel.getCurDirectoryUri(), viewModel.config)
             );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
         NavHostFragment.findNavController(this).navigateUp();
     }
 
@@ -518,14 +535,14 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         var bundle = new Bundle();
         try {
             bundle.putParcelable(
-                    KEY_RESULT_VALUE,
+                    KEY_RESULT,
                     new Result(viewModel.createFile(fileName), viewModel.config)
             );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
         NavHostFragment.findNavController(this).navigateUp();
     }
 
@@ -533,14 +550,14 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         var bundle = new Bundle();
         try {
             bundle.putParcelable(
-                    KEY_RESULT_VALUE,
+                    KEY_RESULT,
                     new Result(viewModel.getFileUri(fileName), viewModel.config)
             );
         } catch (SecurityException e) {
             permissionDeniedToast();
             return;
         }
-        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
         NavHostFragment.findNavController(this).navigateUp();
     }
 

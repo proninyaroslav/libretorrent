@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        style="@style/ThemeOverlay.App.Surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/files_size"
+                style="?attr/textAppearanceTitleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="16dp"
+                tools:text="1 Mb of 1Mb selected" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/file_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/files_size"
+                android:clipToPadding="false"
+                android:paddingVertical="8dp"
+                android:scrollbars="vertical"
+                android:visibility="@{viewModel.info.metaInfo.fileCount == 0 ? View.GONE : View.VISIBLE}"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_torrent_content_file" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:visibility="@{viewModel.info.metaInfo.fileCount == 0 ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
+
+                <include layout="@layout/list_load_indicator" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -54,6 +54,10 @@ import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 import org.proninyaroslav.libretorrent.ui.main.NavBarFragmentDirections;
 
 public class AddLinkDialog extends DialogFragment {
+    private static final String TAG = AddLinkDialog.class.getSimpleName();
+
+    private static final String KEY_CLIPBOARD_DIALOG_REQUEST = TAG + "_clipboard_dialog";
+
     private AlertDialog alert;
     private MainActivity activity;
     private DialogAddLinkBinding binding;
@@ -121,9 +125,9 @@ public class AddLinkDialog extends DialogFragment {
         viewModel = provider.get(AddLinkViewModel.class);
 
         getParentFragmentManager().setFragmentResultListener(
-                ClipboardDialog.KEY_RESULT,
+                KEY_CLIPBOARD_DIALOG_REQUEST,
                 this,
-                (key, bundle) -> handleUrlClipItem(bundle.getString(ClipboardDialog.KEY_CLIPBOARD_ITEM))
+                (key, bundle) -> handleUrlClipItem(bundle.getString(ClipboardDialog.KEY_RESULT_CLIPBOARD_ITEM))
         );
 
         LayoutInflater i = getLayoutInflater();
@@ -190,8 +194,8 @@ public class AddLinkDialog extends DialogFragment {
 
     private void showClipboardDialog() {
         if (isAdded()) {
-            NavHostFragment.findNavController(this)
-                    .navigate(AddLinkDialogDirections.actionClipboardDialog());
+            NavHostFragment.findNavController(this).navigate(
+                    AddLinkDialogDirections.actionClipboardDialog(KEY_CLIPBOARD_DIALOG_REQUEST));
         }
     }
 

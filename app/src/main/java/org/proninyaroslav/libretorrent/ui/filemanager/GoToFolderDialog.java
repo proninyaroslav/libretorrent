@@ -31,15 +31,12 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogTextInputBinding;
 
 public class GoToFolderDialog extends DialogFragment {
-    @SuppressWarnings("unused")
-    private static final String TAG = GoToFolderDialog.class.getSimpleName();
-
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_PATH = "path";
+    public static final String KEY_RESULT_PATH = "path";
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        var args = GoToFolderDialogArgs.fromBundle(getArguments());
         var binding = DialogTextInputBinding.inflate(getLayoutInflater());
         var builder = new MaterialAlertDialogBuilder(requireActivity())
                 .setIcon(R.drawable.ic_folder_open_24px)
@@ -50,8 +47,8 @@ public class GoToFolderDialog extends DialogFragment {
                         return;
                     }
                     var bundle = new Bundle();
-                    bundle.putString(KEY_PATH, e.toString());
-                    getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+                    bundle.putString(KEY_RESULT_PATH, e.toString());
+                    getParentFragmentManager().setFragmentResult(args.getFragmentRequestKey(), bundle);
                     dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dismiss())

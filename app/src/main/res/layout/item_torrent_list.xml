@@ -13,7 +13,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:minHeight="@dimen/list_item_three_lines_height">
 
         <Button
             android:id="@+id/pause_button"
@@ -21,9 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="16dp"
             android:checkable="true"
             android:contentDescription="@string/pause_torrent"
             android:padding="12dp"
@@ -33,13 +34,11 @@
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="12dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name"
-                style="?attr/textAppearanceBodyLarge"
+                style="@style/App.Components.ListItem.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
@@ -63,7 +62,7 @@
 
                 <TextView
                     android:id="@+id/status"
-                    style="?attr/textAppearanceBodyMedium"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -74,7 +73,7 @@
 
                 <TextView
                     android:id="@+id/download_upload_speed"
-                    style="?attr/textAppearanceBodyMedium"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -91,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/download_counter"
-                    style="?attr/textAppearanceBodyMedium"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -99,11 +98,11 @@
                     android:layout_weight="0.8"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    tools:text="1 Mb/2 Mb (50%)" />
+                    tools:text="1 Mb/2 Mb (50%) • 01:00" />
 
                 <TextView
                     android:id="@+id/peers"
-                    style="?attr/textAppearanceBodyMedium"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -121,11 +120,12 @@
                 android:layout_marginTop="8dp"
                 app:cardBackgroundColor="?attr/colorErrorContainer"
                 app:contentPadding="8dp"
-                app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+                app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/error"
-                    style="?attr/textAppearanceBodyMedium"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="file_manager_list_grid_span">4</integer>
+</resources>

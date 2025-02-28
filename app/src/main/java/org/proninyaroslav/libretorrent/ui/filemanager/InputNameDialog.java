@@ -30,16 +30,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogTextInputBinding;
-import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 
 public class InputNameDialog extends DialogFragment {
-    private static final String TAG = ClipboardDialog.class.getSimpleName();
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_NAME = "name";
+    public static final String KEY_RESULT_NAME = "name";
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        var args = InputNameDialogArgs.fromBundle(getArguments());
         var binding = DialogTextInputBinding.inflate(getLayoutInflater(), null, false);
         var builder = new MaterialAlertDialogBuilder(requireActivity())
                 .setIcon(R.drawable.ic_folder_24px)
@@ -52,8 +50,8 @@ public class InputNameDialog extends DialogFragment {
                     }
                     var name = e.toString();
                     var bundle = new Bundle();
-                    bundle.putString(KEY_NAME, name);
-                    getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+                    bundle.putString(KEY_RESULT_NAME, name);
+                    getParentFragmentManager().setFragmentResult(args.getFragmentRequestKey(), bundle);
                     dialog.dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());

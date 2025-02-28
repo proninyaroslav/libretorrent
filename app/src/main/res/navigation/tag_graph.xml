@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tag_nav"
+    app:startDestination="@id/tagDialog">
+
+    <dialog
+        android:id="@+id/tagDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.addtag.TagDialog"
+        android:label="TagDialog"
+        tools:layout="@layout/dialog_tag">
+        <argument
+            android:name="tag"
+            android:defaultValue="@null"
+            app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_color_picker_dialog"
+            app:destination="@id/colorPickerDialog" />
+    </dialog>
+    <dialog
+        android:id="@+id/colorPickerDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.colorpicker.ColorPickerDialog"
+        android:label="ColorPickerDialog"
+        tools:layout="@layout/dialog_color_picker">
+        <argument
+            android:name="color"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+</navigation>

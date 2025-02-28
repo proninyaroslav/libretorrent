@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    style="@style/App.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="72dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="?attr/defaultRectRipple">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:minHeight="@dimen/list_item_one_line_height"
+        android:orientation="vertical">
+
+        <!-- Workaround for the bug with item width stretching -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
 
         <TextView
             android:id="@+id/url"
+            style="@style/App.Components.ListItem.Label"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            tools:text="https://example.com:443" />
 
         <TextView
             android:id="@+id/status"
+            style="@style/App.Components.ListItem.SupportingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextCaptionM2" />
+            android:layout_marginTop="8dp"
+            tools:text="Working"
+            tools:textColor="?attr/colorOk" />
 
         <TextView
             android:id="@+id/message"
+            style="@style/App.Components.ListItem.SupportingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextCaptionM2" />
+            android:layout_marginTop="8dp"
+            tools:text="Message" />
     </LinearLayout>
-</layout>
+</com.google.android.material.card.MaterialCardView>

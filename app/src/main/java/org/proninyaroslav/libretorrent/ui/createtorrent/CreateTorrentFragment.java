@@ -61,6 +61,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CreateTorrentFragment extends Fragment {
     private static final String TAG = CreateTorrentFragment.class.getSimpleName();
 
+    private static final String KEY_FILE_MANAGER_DIALOG_REQUEST = TAG + "_file_manager_dialog";
+
     private AppCompatActivity activity;
     private CreateTorrentViewModel viewModel;
     private FragmentCreateTorrentBinding binding;
@@ -75,10 +77,10 @@ public class CreateTorrentFragment extends Fragment {
 
     private void setOpenFileManagerDialogListener() {
         getParentFragmentManager().setFragmentResultListener(
-                FileManagerFragment.KEY_RESULT,
+                KEY_FILE_MANAGER_DIALOG_REQUEST,
                 this,
                 (requestKey, result) -> {
-                    FileManagerFragment.Result resultValue = result.getParcelable(FileManagerFragment.KEY_RESULT_VALUE);
+                    FileManagerFragment.Result resultValue = result.getParcelable(FileManagerFragment.KEY_RESULT);
                     if (resultValue == null) {
                         return;
                     }
@@ -202,7 +204,8 @@ public class CreateTorrentFragment extends Fragment {
                     null,
                     null,
                     FileManagerConfig.Mode.FILE_CHOOSER);
-            var action = CreateTorrentFragmentDirections.actionFileManagerDialog(config);
+            var action = CreateTorrentFragmentDirections
+                    .actionFileManagerDialog(config, KEY_FILE_MANAGER_DIALOG_REQUEST);
             NavHostFragment.findNavController(this).navigate(action);
         });
 
@@ -211,7 +214,8 @@ public class CreateTorrentFragment extends Fragment {
                     null,
                     null,
                     FileManagerConfig.Mode.DIR_CHOOSER);
-            var action = CreateTorrentFragmentDirections.actionFileManagerDialog(config);
+            var action = CreateTorrentFragmentDirections
+                    .actionFileManagerDialog(config, KEY_FILE_MANAGER_DIALOG_REQUEST);
             NavHostFragment.findNavController(this).navigate(action);
         });
 
@@ -254,7 +258,8 @@ public class CreateTorrentFragment extends Fragment {
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.Mode.SAVE_FILE);
         config.mimeType = Utils.MIME_TORRENT;
-        var action = CreateTorrentFragmentDirections.actionFileManagerDialog(config);
+        var action = CreateTorrentFragmentDirections
+                .actionFileManagerDialog(config, KEY_FILE_MANAGER_DIALOG_REQUEST);
         NavHostFragment.findNavController(this).navigate(action);
     }
 

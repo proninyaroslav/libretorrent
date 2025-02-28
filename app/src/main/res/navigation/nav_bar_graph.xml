@@ -2,18 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navGraph"
-    app:startDestination="@id/mainGraph">
+    android:id="@+id/nav_bar"
+    app:startDestination="@id/home_nav">
 
     <navigation
-        android:id="@+id/mainGraph"
-        app:startDestination="@id/mainFragment">
+        android:id="@+id/home_nav"
+        app:startDestination="@id/homeFragment">
 
         <fragment
-            android:id="@+id/mainFragment"
-            android:name="org.proninyaroslav.libretorrent.ui.main.MainFragment"
-            android:label="MainFragment"
-            tools:layout="@layout/main_list_pane">
+            android:id="@+id/homeFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.main.HomeFragment"
+            android:label="HomeFragment"
+            tools:layout="@layout/fragment_home">
             <action
                 android:id="@+id/action_add_link_dialog"
                 app:destination="@id/addLinkDialog" />
@@ -25,10 +25,22 @@
                 app:destination="@id/deleteTorrentDialog" />
             <action
                 android:id="@+id/action_edit_tag_dialog"
-                app:destination="@id/tagDialog" />
+                app:destination="@id/tag_nav">
+                <argument
+                    android:name="tag"
+                    android:defaultValue="@null"
+                    app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                    app:nullable="true" />
+            </action>
             <action
                 android:id="@+id/action_add_tag_dialog"
-                app:destination="@id/tagDialog" />
+                app:destination="@id/tag_nav">
+                <argument
+                    android:name="tag"
+                    android:defaultValue="@null"
+                    app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                    app:nullable="true" />
+            </action>
         </fragment>
         <dialog
             android:id="@+id/addLinkDialog"
@@ -43,7 +55,11 @@
             android:id="@+id/clipboardDialog"
             android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
             android:label="ClipboardDialog"
-            tools:layout="@layout/item_clipboard_list" />
+            tools:layout="@layout/item_clipboard_list" >
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+        </dialog>
         <dialog
             android:id="@+id/aboutDialog"
             android:name="org.proninyaroslav.libretorrent.ui.main.AboutDialog"
@@ -51,36 +67,16 @@
             tools:layout="@layout/dialog_about" />
         <dialog
             android:id="@+id/deleteTorrentDialog"
-            android:name="org.proninyaroslav.libretorrent.ui.main.DeleteTorrentDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog"
             android:label="DeleteTorrentDialog"
             tools:layout="@layout/dialog_delete_torrent">
             <argument
                 android:name="torrent_count"
                 app:argType="integer" />
-        </dialog>
-        <dialog
-            android:id="@+id/tagDialog"
-            android:name="org.proninyaroslav.libretorrent.ui.addtag.TagDialog"
-            android:label="TagDialog"
-            tools:layout="@layout/dialog_add_tag" >
             <argument
-                android:name="tag"
-                app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
-                app:nullable="true"
-                android:defaultValue="@null" />
-            <action
-                android:id="@+id/action_color_picker_dialog"
-                app:destination="@id/colorPickerDialog" />
+                android:name="fragment_request_key"
+                app:argType="string" />
         </dialog>
-        <dialog
-            android:id="@+id/colorPickerDialog"
-            android:name="org.proninyaroslav.libretorrent.ui.colorpicker.ColorPickerDialog"
-            android:label="ColorPickerDialog"
-            tools:layout="@layout/dialog_color_picker">
-            <argument
-                android:name="color"
-                app:argType="integer"
-                android:defaultValue="-1" />
-        </dialog>
+        <include app:graph="@navigation/tag_graph" />
     </navigation>
 </navigation>

@@ -5,20 +5,21 @@
     android:id="@+id/_expansion_header_card"
     style="@style/App.Components.ListItem"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     tools:viewBindingIgnore="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:minHeight="@dimen/list_item_one_line_height"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/_expansion_header_text"
-            style="?attr/textAppearanceBodyLarge"
+            style="@style/App.Components.ListItem.Label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -26,8 +27,8 @@
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:lines="1"
             android:gravity="center_vertical"
+            android:maxLines="1"
             tools:text="Label" />
 
         <Button

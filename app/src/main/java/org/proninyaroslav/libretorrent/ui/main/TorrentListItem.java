@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,6 +29,10 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
  */
 
 public class TorrentListItem extends TorrentInfo {
+    public TorrentListItem(@NonNull String torrentId) {
+        super(torrentId);
+    }
+
     public TorrentListItem(@NonNull TorrentInfo state) {
         super(
                 state.torrentId,
@@ -74,8 +78,9 @@ public class TorrentListItem extends TorrentInfo {
         if (!(o instanceof TorrentListItem))
             return false;
 
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
         return torrentId.equals(((TorrentListItem) o).torrentId);
     }

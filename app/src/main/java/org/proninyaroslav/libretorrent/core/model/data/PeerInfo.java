@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -33,8 +33,7 @@ import org.proninyaroslav.libretorrent.core.model.session.AdvancedPeerInfo;
  * about the state of the peer, sent from the service.
  */
 
-public class PeerInfo extends AbstractInfoParcel
-{
+public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
     public String ip;
     public String client;
     public long totalDownload;
@@ -46,15 +45,13 @@ public class PeerInfo extends AbstractInfoParcel
     public int downSpeed;
     public int upSpeed;
 
-    public static class ConnectionType
-    {
+    public static class ConnectionType {
         public static final int BITTORRENT = 0;
         public static final int WEB = 1;
         public static final int UTP = 2;
     }
 
-    public PeerInfo(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
-    {
+    public PeerInfo(AdvancedPeerInfo peer, TorrentStatus torrentStatus) {
         super(peer.ip());
 
         ip = peer.ip();
@@ -64,7 +61,7 @@ public class PeerInfo extends AbstractInfoParcel
         relevance = calcRelevance(peer, torrentStatus);
         connectionType = getConnectionType(peer);
         port = peer.port();
-        progress = (int) (peer.progress() * 100);
+        progress = peer.progressPpm() / 10000;
         downSpeed = peer.downSpeed();
         upSpeed = peer.upSpeed();
     }
@@ -73,8 +70,7 @@ public class PeerInfo extends AbstractInfoParcel
                     long totalDownload, long totalUpload,
                     double relevance, int connectionType,
                     int port, int progress,
-                    int downSpeed, int upSpeed)
-    {
+                    int downSpeed, int upSpeed) {
         super(ip);
 
         this.ip = ip;
@@ -89,8 +85,7 @@ public class PeerInfo extends AbstractInfoParcel
         this.upSpeed = upSpeed;
     }
 
-    public PeerInfo(Parcel source)
-    {
+    public PeerInfo(Parcel source) {
         super(source);
 
         ip = source.readString();
@@ -105,22 +100,17 @@ public class PeerInfo extends AbstractInfoParcel
         upSpeed = source.readInt();
     }
 
-    private int getConnectionType(AdvancedPeerInfo peer)
-    {
+    private int getConnectionType(AdvancedPeerInfo peer) {
         if (peer.isUtp())
             return ConnectionType.UTP;
 
-        switch (peer.connectionType()) {
-            case WEB_SEED:
-            case HTTP_SEED:
-                return ConnectionType.WEB;
-            default:
-                return ConnectionType.BITTORRENT;
-        }
+        return switch (peer.connectionType()) {
+            case WEB_SEED, HTTP_SEED -> ConnectionType.WEB;
+            default -> ConnectionType.BITTORRENT;
+        };
     }
 
-    private double calcRelevance(AdvancedPeerInfo peer, TorrentStatus torrentStatus)
-    {
+    private double calcRelevance(AdvancedPeerInfo peer, TorrentStatus torrentStatus) {
         double relevance = 0.0;
         PieceIndexBitfield allPieces = torrentStatus.pieces();
         PieceIndexBitfield peerPieces = peer.pieces();
@@ -141,14 +131,12 @@ public class PeerInfo extends AbstractInfoParcel
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeString(ip);
@@ -164,38 +152,32 @@ public class PeerInfo extends AbstractInfoParcel
     }
 
     public static final Parcelable.Creator<PeerInfo> CREATOR =
-            new Parcelable.Creator<PeerInfo>()
-            {
+            new Parcelable.Creator<PeerInfo>() {
                 @Override
-                public PeerInfo createFromParcel(Parcel source)
-                {
+                public PeerInfo createFromParcel(Parcel source) {
                     return new PeerInfo(source);
                 }
 
                 @Override
-                public PeerInfo[] newArray(int size)
-                {
+                public PeerInfo[] newArray(int size) {
                     return new PeerInfo[size];
                 }
             };
 
     @Override
-    public int compareTo(@NonNull Object another)
-    {
-        return ip.compareTo(((PeerInfo)another).ip);
+    public int compareTo(@NonNull PeerInfo another) {
+        return ip.compareTo(another.ip);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int prime = 31, result = 1;
 
         result = prime * result + ((ip == null) ? 0 : ip.hashCode());
         result = prime * result + ((client == null) ? 0 : client.hashCode());
-        result = prime * result + (int) (totalDownload ^ (totalDownload >>> 32));
-        result = prime * result + (int) (totalUpload ^ (totalUpload >>> 32));
-        long relevanceBits = Double.doubleToLongBits(relevance);
-        result = prime * result + (int) (relevanceBits ^ (relevanceBits >>> 32));
+        result = prime * result + Long.hashCode(totalDownload);
+        result = prime * result + Long.hashCode(totalUpload);
+        result = prime * result + Double.hashCode(relevance);
         result = prime * result + connectionType;
         result = prime * result + port;
         result = prime * result + progress;
@@ -206,15 +188,14 @@ public class PeerInfo extends AbstractInfoParcel
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (!(o instanceof PeerInfo))
+    public boolean equals(Object o) {
+        if (!(o instanceof PeerInfo state)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
-
-        PeerInfo state = (PeerInfo) o;
+        }
 
         return (ip == null || ip.equals(state.ip)) &&
                 (client == null || client.equals(state.client)) &&
@@ -230,8 +211,7 @@ public class PeerInfo extends AbstractInfoParcel
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "PeerInfo{" +
                 "ip='" + ip + '\'' +
                 ", client='" + client + '\'' +

@@ -33,9 +33,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import java.util.List;
 
 public class ClipboardDialog extends DialogFragment {
-    private static final String TAG = ClipboardDialog.class.getSimpleName();
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_CLIPBOARD_ITEM = "clipboard_item";
+    public static final String KEY_RESULT_CLIPBOARD_ITEM = "clipboard_item";
 
     private AppCompatActivity activity;
     private ArrayAdapter<CharSequence> adapter;
@@ -56,6 +54,7 @@ public class ClipboardDialog extends DialogFragment {
             activity = (AppCompatActivity) requireActivity();
         }
 
+        var args = ClipboardDialogArgs.fromBundle(getArguments());
         var builder = new MaterialAlertDialogBuilder(activity)
                 .setIcon(R.drawable.ic_content_copy_24px)
                 .setTitle(R.string.clipboard)
@@ -66,8 +65,8 @@ public class ClipboardDialog extends DialogFragment {
             CharSequence item = adapter.getItem(which);
             if (item != null) {
                 var bundle = new Bundle();
-                bundle.putString(KEY_CLIPBOARD_ITEM, item.toString());
-                getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+                bundle.putString(KEY_RESULT_CLIPBOARD_ITEM, item.toString());
+                getParentFragmentManager().setFragmentResult(args.getFragmentRequestKey(), bundle);
                 dismiss();
             }
         });

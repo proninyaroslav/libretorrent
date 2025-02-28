@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="list_pane_width">412dp</dimen>
+    <dimen name="details_pane_start_margin">32dp</dimen>
 </resources>

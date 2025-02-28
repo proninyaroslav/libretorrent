@@ -230,7 +230,7 @@
     <!-- connected (total) -->
     <string name="torrent_peers_template">%1$d (%2$d)</string>
     <string name="torrent_uploaded">Отдано</string>
-    <string name="torrent_share_ratio">Коэффициент</string>
+    <string name="torrent_share_ratio">Рейтинг</string>
     <string name="torrent_active_time">Активен</string>
     <string name="torrent_seeding_time">Раздаётся</string>
     <string name="torrent_pieces">Части</string>

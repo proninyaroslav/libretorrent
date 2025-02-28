@@ -18,12 +18,22 @@
         <item name="checkedIcon">@null</item>
     </style>
 
+    <style name="App.Components.ListItem.Label" parent="TextAppearance.Material3.BodyLarge" />
+
+    <style name="App.Components.ListItem.SupportingText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
     <style name="App.Components.FloatingActionButton.Menu.Text" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
     </style>
 
     <style name="App.Components.ErrorReportDialog.StackTrace" parent="TextAppearance.Material3.BodySmall">
         <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="App.Components.MaterialCard.Filled.SurfaceVariant" parent="Widget.Material3.CardView.Filled">
+        <item name="android:backgroundTint">?attr/colorSurfaceContainer</item>
     </style>
 
     <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
@@ -35,22 +45,19 @@
         </item>
     </style>
 
-    <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">?attr/colorPrimary</item>
-    </style>
-    
     <style name="ThemeOverlay.App.Surface" parent="">
         <item name="android:background">?attr/colorSurface</item>
     </style>
 
-    <style name="ThemeOverlay.App.SurfaceVariant" parent="">
-        <item name="android:background">?attr/colorSurfaceContainer</item>
+    <style name="ThemeOverlay.App.TextInputLayout.OnSurfaceContainer" parent="">
+        <item name="boxBackgroundColor">?attr/colorSurfaceContainerLow</item>
     </style>
 
-    <style name="ThemeOverlay.App.MaterialToolbar.SurfaceVariant" parent="">
-        <item name="android:background">?attr/colorSurfaceContainer</item>
-        <item name="liftOnScrollColor">?attr/colorSurfaceContainerHighest</item>
+    <style name="ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">?attr/colorSurfaceContainerLow</item>
     </style>
+
+    <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.Material3.TitleSmall" />
 
     <!--    -->
 

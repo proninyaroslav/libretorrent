@@ -40,7 +40,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
@@ -50,10 +49,7 @@ import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding
 import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
-import org.proninyaroslav.libretorrent.ui.tag.SelectTagActivity;
-import org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 /*
@@ -117,14 +113,14 @@ public class AddTorrentInfoFragment extends Fragment {
                 checkNameField(s);
             }
         });
-        binding.info.tagsList.setListener(tagsListener);
+//        binding.info.tagsList.setListener(tagsListener);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        subscribeTags();
+//        subscribeTags();
     }
 
     @Override
@@ -134,18 +130,18 @@ public class AddTorrentInfoFragment extends Fragment {
         disposables.clear();
     }
 
-    final ActivityResultLauncher<Intent> selectTag = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            (result) -> {
-                Intent data = result.getData();
-                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
-                    TagInfo tag = data.getParcelableExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG);
-                    if (tag != null) {
-                        viewModel.addTag(tag);
-                    }
-                }
-            }
-    );
+//    final ActivityResultLauncher<Intent> selectTag = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            (result) -> {
+//                Intent data = result.getData();
+//                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
+//                    TagInfo tag = data.getParcelableExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG);
+//                    if (tag != null) {
+//                        viewModel.addTag(tag);
+//                    }
+//                }
+//            }
+//    );
 
     final ActivityResultLauncher<Intent> chooseDir = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), (result) -> {
@@ -160,34 +156,18 @@ public class AddTorrentInfoFragment extends Fragment {
                 viewModel.mutableParams.getDirPath().set(data.getData());
             });
 
-    private final TorrentTagsList.Listener tagsListener = new TorrentTagsList.Listener() {
-        @Override
-        public void onAddTagClick() {
-            disposables.add(Observable.fromIterable(viewModel.getCurrentTags())
-                    .map((tag) -> tag.id)
-                    .toList()
-                    .subscribe((ids) -> {
-                        Intent i = new Intent(activity, SelectTagActivity.class);
-                        i.putExtra(
-                                SelectTagActivity.TAG_EXCLUDE_TAGS_ID,
-                                ArrayUtils.toPrimitive(ids.toArray(new Long[0]))
-                        );
-                        selectTag.launch(i);
-                    })
-            );
-        }
-
-        @Override
-        public void onTagRemoved(@NonNull TagInfo info) {
-            viewModel.removeTag(info);
-        }
-    };
-
-    private void subscribeTags() {
-        disposables.add(viewModel.observeTags()
-                .subscribe(binding.info.tagsList::submit)
-        );
-    }
+//    private final TorrentTagChip.Listener tagsListener = new TorrentTagChip.Listener() {
+//        @Override
+//        public void onRemoveTag(@NonNull TagInfo info) {
+//            viewModel.removeTag(info);
+//        }
+//    };
+//
+//    private void subscribeTags() {
+//        disposables.add(viewModel.observeTags()
+//                .subscribe(binding.info.tagsList::submit)
+//        );
+//    }
 
     private void showChooseDirDialog() {
         Intent i = new Intent(activity, FileManagerFragment.class);

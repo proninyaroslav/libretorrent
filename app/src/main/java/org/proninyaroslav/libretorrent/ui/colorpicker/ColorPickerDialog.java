@@ -35,18 +35,17 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogColorPickerBinding;
 
 public class ColorPickerDialog extends DialogFragment {
-    private static final String TAG = ColorPickerDialog.class.getSimpleName();
-
-    public static final String KEY_RESULT = TAG + "_result";
-    public static final String KEY_COLOR = "color";
+    public static final String KEY_RESULT_COLOR = "color";
 
     private DialogColorPickerBinding binding;
     private ColorPickerViewModel viewModel;
+    private String requestKey;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         var args = ColorPickerDialogArgs.fromBundle(getArguments());
+        requestKey = args.getFragmentRequestKey();
         binding = DialogColorPickerBinding.inflate(
                 getLayoutInflater(),
                 null,
@@ -88,8 +87,8 @@ public class ColorPickerDialog extends DialogFragment {
             return;
         }
         var bundle = new Bundle();
-        bundle.putInt(KEY_COLOR, state.color());
-        getParentFragmentManager().setFragmentResult(KEY_RESULT, bundle);
+        bundle.putInt(KEY_RESULT_COLOR, state.color());
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
         dismiss();
     }
 }

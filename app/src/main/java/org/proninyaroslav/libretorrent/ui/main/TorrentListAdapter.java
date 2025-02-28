@@ -54,7 +54,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         implements Selectable<TorrentListItem> {
     private final ClickListener listener;
     private SelectionTracker<TorrentListItem> selectionTracker;
-    private final AtomicReference<TorrentListItem> currOpenTorrent = new AtomicReference<>();
+    private final AtomicReference<TorrentListItem> curOpenItem = new AtomicReference<>();
     private boolean onBind = false;
 
     public TorrentListAdapter(ClickListener listener) {
@@ -87,7 +87,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         }
 
         boolean isOpened = false;
-        TorrentListItem currTorrent = currOpenTorrent.get();
+        TorrentListItem currTorrent = curOpenItem.get();
         if (currTorrent != null) {
             isOpened = item.torrentId.equals(currTorrent.torrentId);
         }
@@ -111,27 +111,25 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         return getCurrentList().indexOf(key);
     }
 
-    public void markAsOpen(TorrentListItem item) {
-        TorrentListItem prevItem = currOpenTorrent.getAndSet(item);
-
+    public void markAsOpen(@Nullable String torrentId) {
+        var prevItem = curOpenItem.getAndSet(
+                torrentId == null ? null : new TorrentListItem(torrentId)
+        );
         if (onBind) {
             return;
         }
-
         int position = getItemPosition(prevItem);
         if (position >= 0) {
             notifyItemChanged(position);
         }
 
+        var item = curOpenItem.get();
         if (item != null) {
             position = getItemPosition(item);
-            if (position >= 0)
+            if (position >= 0) {
                 notifyItemChanged(position);
+            }
         }
-    }
-
-    public TorrentListItem getOpenedItem() {
-        return currOpenTorrent.get();
     }
 
     interface ViewHolderWithDetails {
@@ -355,8 +353,8 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             View view = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (view != null) {
                 RecyclerView.ViewHolder viewHolder = recyclerView.getChildViewHolder(view);
-                if (viewHolder instanceof TorrentListAdapter.ViewHolder) {
-                    return ((ViewHolder) viewHolder).getItemDetails();
+                if (viewHolder instanceof ViewHolderWithDetails v) {
+                    return v.getItemDetails();
                 }
             }
 

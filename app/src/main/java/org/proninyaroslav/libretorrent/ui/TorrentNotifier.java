@@ -43,7 +43,7 @@ import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity;
+import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 import java.util.ArrayList;
 
@@ -227,10 +227,11 @@ public class TorrentNotifier {
 
         applyLegacyNotifySettings(builder);
 
-        Intent openIntent = new Intent(appContext, DetailTorrentActivity.class);
+        // TODO
+        Intent openIntent = new Intent(appContext, MainActivity.class);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        openIntent.setAction(DetailTorrentActivity.ACTION_OPEN_FILES);
-        openIntent.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, torrent.id);
+        openIntent.setAction(MainActivity.ACTION_OPEN_TORRENT_DETAILS);
+        openIntent.putExtra(MainActivity.KEY_TORRENT_ID, torrent.id);
 
         PendingIntent openPendingIntent = PendingIntent.getActivity(
                 appContext, torrent.id.hashCode(), openIntent,

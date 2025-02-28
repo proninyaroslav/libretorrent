@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,86 +26,63 @@ import org.proninyaroslav.libretorrent.core.model.data.Priority;
 
 import java.io.Serializable;
 
-public class FilePriority implements Serializable
-{
-    private int priority;
-    private Type type;
+public class FilePriority implements Serializable {
+    private final int priority;
+    private final Type type;
 
     public enum Type {MIXED, IGNORE, NORMAL, HIGH}
 
-    public FilePriority(Priority priority)
-    {
+    public FilePriority(Priority priority) {
         this.priority = priority.value();
         this.type = typeFrom(priority);
     }
 
-    public FilePriority(Type type)
-    {
+    public FilePriority(Type type) {
         this.priority = priorityFrom(type);
         this.type = type;
     }
 
-    public Priority getPriority()
-    {
+    public Priority getPriority() {
         return Priority.fromValue(priority);
     }
 
-    public Type getType()
-    {
+    public Type getType() {
         return type;
     }
 
-    public static Type typeFrom(Priority priority)
-    {
-        switch (priority) {
-            case IGNORE:
-                return Type.IGNORE;
-            case LOW:
-            case TWO:
-            case THREE:
-            case DEFAULT:
-            case FIVE:
-            case SIX:
-                return Type.NORMAL;
-            case TOP_PRIORITY:
-                return Type.HIGH;
-            default:
-                return null;
-        }
+    public static Type typeFrom(Priority priority) {
+        return switch (priority) {
+            case IGNORE -> Type.IGNORE;
+            case LOW, TWO, THREE, DEFAULT, FIVE, SIX -> Type.NORMAL;
+            case TOP_PRIORITY -> Type.HIGH;
+        };
     }
 
-    private static int priorityFrom(Type type)
-    {
-        switch (type) {
-            case IGNORE:
-                return Priority.IGNORE.value();
-            case NORMAL:
-                return Priority.DEFAULT.value();
-            case HIGH:
-                return Priority.TOP_PRIORITY.value();
-            default:
-                return -1;
-        }
+    private static int priorityFrom(Type type) {
+        return switch (type) {
+            case IGNORE -> Priority.IGNORE.value();
+            case NORMAL -> Priority.DEFAULT.value();
+            case HIGH -> Priority.TOP_PRIORITY.value();
+            default -> -1;
+        };
     }
 
     @Override
-    public boolean equals(@Nullable Object o)
-    {
-        if (!(o instanceof FilePriority))
+    public boolean equals(@Nullable Object o) {
+        if (!(o instanceof FilePriority filePriority)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-         FilePriority filePriority = (FilePriority)o;
-
-         return priority == filePriority.priority && type.equals(filePriority.getType());
+        return priority == filePriority.priority && type.equals(filePriority.getType());
     }
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "FilePriority{" +
                 "priority=" + priority +
                 ", type=" + type +

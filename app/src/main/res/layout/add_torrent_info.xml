@@ -135,10 +135,10 @@
                 android:text="@string/tags"
                 style="@style/TitleTextM2" />
 
-            <org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList
-                android:id="@+id/tags_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+<!--            <org.proninyaroslav.libretorrent.ui.tag.TorrentTagsList-->
+<!--                android:id="@+id/tags_list"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
         </LinearLayout>
 
         <LinearLayout

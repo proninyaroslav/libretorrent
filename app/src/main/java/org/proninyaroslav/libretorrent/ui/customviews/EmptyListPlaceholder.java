@@ -18,18 +18,47 @@ package org.proninyaroslav.libretorrent.ui.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.databinding.EmptyListPlaceholderBinding;
+import org.proninyaroslav.libretorrent.databinding.EmptyListPlaceholderSmallBinding;
 
 public class EmptyListPlaceholder extends FrameLayout {
+    private enum IconSize {
+        BIG(0),
+        SMALL(1);
+
+        public final int value;
+
+        IconSize(int value) {
+            this.value = value;
+        }
+
+        public static IconSize fromValue(int id) {
+            var enumValues = IconSize.class.getEnumConstants();
+            if (enumValues == null) {
+                throw new IllegalArgumentException("Unknown value: " + id);
+            }
+            for (var ev : enumValues) {
+                if (ev.value == id) {
+                    return ev;
+                }
+            }
+            throw new IllegalArgumentException("Unknown value: " + id);
+        }
+    }
+
     private TextView textView;
+    private ImageView icon;
 
     public EmptyListPlaceholder(Context context) {
         super(context);
@@ -50,11 +79,24 @@ public class EmptyListPlaceholder extends FrameLayout {
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        View.inflate(context, R.layout.empty_list_placeholder, this);
-
         try (var a = context.obtainStyledAttributes(attrs, R.styleable.EmptyListPlaceholder, defStyleAttr, 0)) {
-            textView = findViewById(R.id.text);
-            ImageView icon = findViewById(R.id.icon);
+            var iconSize = IconSize.fromValue(
+                    a.getInt(R.styleable.EmptyListPlaceholder_placeholderIconSize, IconSize.BIG.value)
+            );
+            switch (iconSize) {
+                case BIG -> {
+                    var binding = EmptyListPlaceholderBinding.inflate(LayoutInflater.from(context));
+                    textView = binding.text;
+                    icon = binding.icon;
+                    addView(binding.getRoot());
+                }
+                case SMALL -> {
+                    var binding = EmptyListPlaceholderSmallBinding.inflate(LayoutInflater.from(context));
+                    textView = binding.text;
+                    icon = binding.icon;
+                    addView(binding.getRoot());
+                }
+            }
 
             var textRes = a.getResourceId(R.styleable.EmptyListPlaceholder_text, -1);
             if (textRes == -1) {
@@ -67,11 +109,19 @@ public class EmptyListPlaceholder extends FrameLayout {
             var iconRes = a.getResourceId(R.styleable.EmptyListPlaceholder_icon, -1);
             if (iconRes != -1) {
                 icon.setImageResource(iconRes);
+                icon.setVisibility(View.VISIBLE);
+            } else {
+                icon.setImageDrawable(null);
+                icon.setVisibility(View.GONE);
             }
         }
     }
 
     public void setText(@StringRes int text) {
         textView.setText(text);
+    }
+
+    public void setIconResource(@DrawableRes int iconRes) {
+        icon.setImageResource(iconRes);
     }
 }
