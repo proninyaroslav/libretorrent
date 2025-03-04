@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -59,7 +59,6 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="selectableColor">?attr/colorSecondaryContainer</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeCloseDrawable">@drawable/ic_close_24px</item>
@@ -79,12 +78,15 @@
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
         <item name="selectableDrawer">@color/selectable_drawer</item>
+        <item name="selectableColor">?attr/colorSecondaryContainer</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
         <item name="pieceCellColor">@color/piece_cell</item>
         <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
     </style>
+
+    <style name="AppTheme" parent="BaseTheme" />
 
     <style name="AppTheme.Translucent" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>

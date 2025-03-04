@@ -48,12 +48,16 @@ android {
     buildTypes {
         /* Enable or disable logging in build types */
         def SESSION_LOGGING = 'SESSION_LOGGING'
+        /* Enable or disable Material 3 Dynamic Theme for Android 12+ */
+        def DYNAMIC_THEME = 'DYNAMIC_THEME'
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField('boolean', SESSION_LOGGING, 'false')
+            buildConfigField('boolean', DYNAMIC_THEME, 'true')
+            signingConfig signingConfigs.debug
         }
 
         debug {
@@ -62,6 +66,7 @@ android {
             debuggable true
 
             buildConfigField('boolean', SESSION_LOGGING, 'true')
+            buildConfigField('boolean', DYNAMIC_THEME, 'false')
             enableUnitTestCoverage true
             enableAndroidTestCoverage true
         }
