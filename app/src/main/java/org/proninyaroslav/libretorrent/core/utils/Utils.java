@@ -30,7 +30,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
@@ -51,6 +50,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -78,6 +78,7 @@ import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -86,8 +87,10 @@ import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerStatusFilter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,7 +105,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -749,157 +751,134 @@ public class Utils {
         }
     }
 
-    public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
-                                                             @NonNull SharedPreferences localPref) {
-        Resources res = context.getResources();
+    public static TorrentFilter getStatusFilterById(@NonNull DrawerStatusFilter filter) {
+        switch (filter) {
+            case Downloading -> {
+                return TorrentFilterCollection.statusDownloading();
+            }
+            case Downloaded -> {
+                return TorrentFilterCollection.statusDownloaded();
+            }
+            case DownloadingMetadata -> {
+                return TorrentFilterCollection.statusDownloadingMetadata();
+            }
+            case Error -> {
+                return TorrentFilterCollection.statusError();
+            }
+        }
 
-        ArrayList<DrawerGroup> groups = new ArrayList<>();
-
-        DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
-                res.getString(R.string.drawer_status),
-                localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), true));
-        status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
-                DrawerGroup.DEFAULT_SELECTED_ID));
-
-        DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
-                res.getString(R.string.drawer_sorting),
-                localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
-        final long DEFAULT_SORTING_ITEM = 1;
-        sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                DEFAULT_SORTING_ITEM));
-
-        DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
-                res.getString(R.string.drawer_date_added),
-                localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
-        dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
-                DrawerGroup.DEFAULT_SELECTED_ID));
-
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
-                R.drawable.ic_filter_list_off_24px, res.getString(R.string.all), null));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_id),
-                R.drawable.ic_download_24px, res.getString(R.string.drawer_status_downloading), null));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloaded_id),
-                R.drawable.ic_download_done_24px, res.getString(R.string.drawer_status_downloaded), null));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
-                R.drawable.ic_magnet_24px, res.getString(R.string.drawer_status_downloading_metadata), null));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_error),
-                R.drawable.ic_error_24px, res.getString(R.string.drawer_status_error), null));
-
-
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_date_added), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_date_added), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_name), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_name), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_size), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_size), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_progress), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_progress), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_ETA), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_ETA), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_asc_id),
-                R.drawable.ic_sort_24px, res.getString(R.string.drawer_sorting_peers), res.getString(R.string.ascending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_desc_id),
-                R.drawable.ic_sort_desc_24px, res.getString(R.string.drawer_sorting_peers), res.getString(R.string.descending_sort)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
-                R.drawable.ic_filter_list_off_24px, res.getString(R.string.drawer_sorting_no_sorting), null));
-
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
-                R.drawable.ic_filter_list_off_24px, res.getString(R.string.all), null));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
-                R.drawable.ic_today_24px, res.getString(R.string.drawer_date_added_today), null));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
-                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_yesterday), null));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
-                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_week), null));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
-                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_month), null));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
-                R.drawable.ic_calendar_month_24px, res.getString(R.string.drawer_date_added_year), null));
-
-        groups.add(status);
-        groups.add(sorting);
-        groups.add(dateAdded);
-
-        return groups;
+        return TorrentFilterCollection.all();
     }
 
-    public static TorrentSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
-                                                                     long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.DESC));
-        else
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+    @Nullable
+    public static DrawerStatusFilter getDrawerStatusFilterByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_status_downloading) {
+            return DrawerStatusFilter.Downloading;
+        } else if (chipId == R.id.drawer_status_downloaded) {
+            return DrawerStatusFilter.Downloaded;
+        } else if (chipId == R.id.drawer_status_downloading_metadata) {
+            return DrawerStatusFilter.DownloadingMetadata;
+        } else if (chipId == R.id.drawer_status_error) {
+            return DrawerStatusFilter.Error;
+        }
+
+        return null;
     }
 
-    public static TorrentFilter getDrawerGroupStatusFilter(@NonNull Context context,
-                                                           long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_status_all_id))
-            return TorrentFilterCollection.all();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_id))
-            return TorrentFilterCollection.statusDownloading();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloaded_id))
-            return TorrentFilterCollection.statusDownloaded();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_metadata_id))
-            return TorrentFilterCollection.statusDownloadingMetadata();
-        else if (itemId == res.getInteger(R.integer.drawer_status_error))
-            return TorrentFilterCollection.statusError();
-        else
-            return TorrentFilterCollection.all();
+    public static TorrentFilter getDateAddedFilterById(DrawerDateAddedFilter filter) {
+        switch (filter) {
+            case Today -> {
+                return TorrentFilterCollection.dateAddedToday();
+            }
+            case Yesterday -> {
+                return TorrentFilterCollection.dateAddedYesterday();
+            }
+            case Week -> {
+                return TorrentFilterCollection.dateAddedWeek();
+            }
+            case Month -> {
+                return TorrentFilterCollection.dateAddedMonth();
+            }
+            case Year -> {
+                return TorrentFilterCollection.dateAddedYear();
+            }
+        }
+
+        return TorrentFilterCollection.all();
     }
 
-    public static TorrentFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
-                                                              long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
-            return TorrentFilterCollection.all();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_today_id))
-            return TorrentFilterCollection.dateAddedToday();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_yesterday_id))
-            return TorrentFilterCollection.dateAddedYesterday();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_week_id))
-            return TorrentFilterCollection.dateAddedWeek();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_month_id))
-            return TorrentFilterCollection.dateAddedMonth();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_year_id))
-            return TorrentFilterCollection.dateAddedYear();
-        else
-            return TorrentFilterCollection.all();
+    @Nullable
+    public static DrawerDateAddedFilter getDrawerDateAddedFilterByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_date_added_today) {
+            return DrawerDateAddedFilter.Today;
+        } else if (chipId == R.id.drawer_date_added_yesterday) {
+            return DrawerDateAddedFilter.Yesterday;
+        } else if (chipId == R.id.drawer_date_added_week) {
+            return DrawerDateAddedFilter.Week;
+        } else if (chipId == R.id.drawer_date_added_month) {
+            return DrawerDateAddedFilter.Month;
+        } else if (chipId == R.id.drawer_date_added_year) {
+            return DrawerDateAddedFilter.Year;
+        }
+
+        return null;
+    }
+
+    public static TorrentSortingComparator getSortingById(@NonNull DrawerSort sort, BaseSorting.Direction direction) {
+        switch (sort) {
+            case None -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, direction));
+            }
+            case DateAdded -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, direction));
+            }
+            case Size -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, direction));
+            }
+            case Name -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, direction));
+            }
+            case Progress -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, direction));
+            }
+            case Eta -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, direction));
+            }
+            case Peers -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, direction));
+            }
+        }
+        return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, direction));
+    }
+
+    public static DrawerSort getDrawerSortingByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_sorting_date_added) {
+            return DrawerSort.DateAdded;
+        } else if (chipId == R.id.drawer_sorting_size) {
+            return DrawerSort.Size;
+        } else if (chipId == R.id.drawer_sorting_name) {
+            return DrawerSort.Name;
+        } else if (chipId == R.id.drawer_sorting_progress) {
+            return DrawerSort.Progress;
+        } else if (chipId == R.id.drawer_sorting_ETA) {
+            return DrawerSort.Eta;
+        } else if (chipId == R.id.drawer_sorting_peers) {
+            return DrawerSort.Peers;
+        }
+
+        return DrawerSort.None;
+    }
+
+    public static BaseSorting.Direction getSortingDirection(@NonNull DrawerSortDirection direction) {
+        switch (direction) {
+            case Ascending -> {
+                return BaseSorting.Direction.ASC;
+            }
+            case Descending -> {
+                return BaseSorting.Direction.DESC;
+            }
+        }
+        return BaseSorting.Direction.DESC;
     }
 
     public static TorrentFilter getForegroundNotifyFilter(

@@ -97,25 +97,36 @@ public class TorrentRepositoryImpl implements TorrentRepository {
         return db.fastResumeDao().getByTorrentId(torrentId);
     }
 
+    // TODO
     @Override
     public void saveSession(@NonNull byte[] data) throws IOException {
-        String dataDir = appContext.getExternalFilesDir(null).getAbsolutePath();
-        File sessionFile = new File(dataDir, TorrentRepositoryImpl.FileDataModel.TORRENT_SESSION_FILE);
+        var filesDir = appContext.getExternalFilesDir(null);
+        if (filesDir == null) {
+            return;
+        }
+        var dataDir = filesDir.getAbsolutePath();
+        var sessionFile = new File(dataDir, TorrentRepositoryImpl.FileDataModel.TORRENT_SESSION_FILE);
 
         org.apache.commons.io.FileUtils.writeByteArrayToFile(sessionFile, data);
     }
 
     @Override
     public String getSessionFile() {
-        if (SystemFacadeHelper.getFileSystemFacade(appContext).isStorageReadable()) {
-            String dataDir = appContext.getExternalFilesDir(null).getAbsolutePath();
-            File session = new File(dataDir, TorrentRepositoryImpl.FileDataModel.TORRENT_SESSION_FILE);
-
-            if (session.exists())
-                return session.getAbsolutePath();
+        if (!SystemFacadeHelper.getFileSystemFacade(appContext).isStorageReadable()) {
+            return null;
         }
+        var filesDir = appContext.getExternalFilesDir(null);
+        if (filesDir == null) {
+            return null;
+        }
+        var dataDir = filesDir.getAbsolutePath();
+        var session = new File(dataDir, TorrentRepositoryImpl.FileDataModel.TORRENT_SESSION_FILE);
 
-        return null;
+        if (session.exists()) {
+            return session.getAbsolutePath();
+        } else {
+            return null;
+        }
     }
 
     @Override

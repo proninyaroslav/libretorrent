@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,16 +17,10 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer;
+package org.proninyaroslav.libretorrent.ui.main.drawer.model;
 
-public class NoTagsItem extends AbstractTagItem {
-    @Override
-    public boolean isSame(AbstractTagItem o) {
-        return o instanceof NoTagsItem;
-    }
+public sealed interface DrawerTagFilter permits DrawerTagFilter.NoTags, DrawerTagFilter.Item {
+    record NoTags() implements DrawerTagFilter {}
 
-    @Override
-    public boolean equals(Object o) {
-        return this == o;
-    }
+    record Item(long tagId) implements DrawerTagFilter {}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,19 +17,11 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer;
+package org.proninyaroslav.libretorrent.ui.main.drawer.model;
 
-/**
- * Represents empty tag without name
- */
-public class EmptyTagItem extends AbstractTagItem {
-    @Override
-    public boolean isSame(AbstractTagItem o) {
-        return o instanceof EmptyTagItem;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return this == o;
-    }
+public enum DrawerStatusFilter {
+    Downloading,
+    Downloaded,
+    DownloadingMetadata,
+    Error,
 }

@@ -600,6 +600,7 @@
     <string name="create">Create</string>
     <string name="color_picker">Color picker</string>
     <string name="load_message">Load, please wait…</string>
+    <string name="reset_filter">Reset filter</string>
     <!-- Size • files count -->
     <plurals name="torrent_info_size_template_plural">
         <item quantity="zero">%1$s \u2022 %2$d files</item>

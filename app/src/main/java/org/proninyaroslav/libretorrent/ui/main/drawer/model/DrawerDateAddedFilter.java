@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,10 +17,12 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer;
+package org.proninyaroslav.libretorrent.ui.main.drawer.model;
 
-public abstract class AbstractTagItem {
-    public abstract boolean isSame(AbstractTagItem o);
-
-    public abstract boolean equals(Object o);
+public enum DrawerDateAddedFilter {
+    Today,
+    Yesterday,
+    Week,
+    Month,
+    Year,
 }

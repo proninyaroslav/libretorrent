@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.ui.main;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
@@ -44,7 +43,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.view.GravityCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -64,14 +63,15 @@ import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
+import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
+import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentHomeBinding;
@@ -83,17 +83,18 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDi
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.log.LogActivity;
-import org.proninyaroslav.libretorrent.ui.main.drawer.AbstractTagItem;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerExpandableAdapter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
-import org.proninyaroslav.libretorrent.ui.main.drawer.EmptyTagItem;
-import org.proninyaroslav.libretorrent.ui.main.drawer.NoTagsItem;
-import org.proninyaroslav.libretorrent.ui.main.drawer.TagItem;
-import org.proninyaroslav.libretorrent.ui.main.drawer.TagsAdapter;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerStatusFilter;
+import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerTagFilter;
+import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -130,10 +131,6 @@ public class HomeFragment extends AbstractListDetailFragment
     private HomeViewModel viewModel;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final CompositeDisposable searchDisposables = new CompositeDisposable();
-
-    private DrawerExpandableAdapter drawerAdapter;
-    private RecyclerViewExpandableItemManager drawerItemManager;
-    private TagsAdapter tagsAdapter;
 
     @NonNull
     @Override
@@ -362,251 +359,6 @@ public class HomeFragment extends AbstractListDetailFragment
     private void showAboutDialog() {
         var action = HomeFragmentDirections.actionAboutDialog();
         NavHostFragment.findNavController(this).navigate(action);
-    }
-
-    private void initDrawer() {
-        var navBarFragment = activity.findNavBarFragment(this);
-        if (navBarFragment != null) {
-            navBarFragment.getNavigationView().addView(drawerBinding.getRoot());
-        }
-
-        drawerItemManager = new RecyclerViewExpandableItemManager(null);
-        drawerItemManager.setDefaultGroupsExpandedState(false);
-        drawerItemManager.setOnGroupCollapseListener((groupPosition, fromUser, payload) -> {
-            if (fromUser) {
-                saveGroupExpandState(groupPosition, false);
-            }
-        });
-        drawerItemManager.setOnGroupExpandListener((groupPosition, fromUser, payload) -> {
-            if (fromUser) {
-                saveGroupExpandState(groupPosition, true);
-            }
-        });
-        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-        /*
-         * Change animations are enabled by default since support-v7-recyclerview v22.
-         * Need to disable them when using animation indicator.
-         */
-        animator.setSupportsChangeAnimations(false);
-
-        List<DrawerGroup> groups = Utils.getNavigationDrawerItems(
-                activity,
-                PreferenceManager.getDefaultSharedPreferences(activity)
-        );
-        drawerAdapter = new DrawerExpandableAdapter(groups, drawerItemManager, this::onDrawerItemSelected);
-        var wrappedDrawerAdapter = drawerItemManager.createWrappedAdapter(drawerAdapter);
-        onDrawerGroupsCreated();
-
-        drawerBinding.drawerItemsList.setLayoutManager(new LinearLayoutManager(activity) {
-            @Override
-            public boolean canScrollVertically() {
-                /* Disable scroll, because RecyclerView is wrapped in ScrollView */
-                return false;
-            }
-        });
-        drawerBinding.drawerItemsList.setAdapter(wrappedDrawerAdapter);
-        drawerBinding.drawerItemsList.setItemAnimator(animator);
-        drawerBinding.drawerItemsList.setHasFixedSize(false);
-
-        drawerItemManager.attachRecyclerView(drawerBinding.drawerItemsList);
-
-        drawerBinding.sessionDhtNodesStat.setText(getString(R.string.session_stats_dht_nodes, 0));
-        String downloadUploadFmt = getString(R.string.session_stats_download_upload,
-                Formatter.formatFileSize(activity, 0),
-                Formatter.formatFileSize(activity, 0));
-        drawerBinding.sessionDownloadStat.setText(downloadUploadFmt);
-        drawerBinding.sessionUploadStat.setText(downloadUploadFmt);
-        drawerBinding.sessionListenPortStat.setText(getString(R.string.session_stats_listen_port,
-                getString(R.string.not_available)));
-
-        drawerBinding.tagsList.setLayoutManager(new LinearLayoutManager(activity));
-        tagsAdapter = new TagsAdapter(tagsClickListener);
-        drawerBinding.tagsList.setAdapter(tagsAdapter);
-        drawerBinding.addTagButton.setOnClickListener((v) -> {
-            var action = HomeFragmentDirections.actionAddTagDialog();
-            NavHostFragment.findNavController(this).navigate(action);
-        });
-
-        boolean tagsExpanded = PreferenceManager
-                .getDefaultSharedPreferences(activity)
-                .getBoolean(getString(R.string.drawer_tags_is_expanded), false);
-        drawerBinding.tagsGroupHeader.setExpanded(tagsExpanded);
-        drawerBinding.tagsExpandable.setExpanded(tagsExpanded);
-        drawerBinding.tagsGroupHeader.setOnClickListener((v) -> {
-            drawerBinding.tagsExpandable.toggle();
-            drawerBinding.tagsGroupHeader.toggleExpand();
-            PreferenceManager.getDefaultSharedPreferences(activity)
-                    .edit()
-                    .putBoolean(
-                            getString(R.string.drawer_tags_is_expanded),
-                            drawerBinding.tagsExpandable.isExpanded()
-                    )
-                    .apply();
-        });
-    }
-
-    private void saveGroupExpandState(int groupPosition, boolean expanded) {
-        DrawerGroup group = drawerAdapter.getGroup(groupPosition);
-        if (group == null)
-            return;
-
-        Resources res = getResources();
-        String prefKey = null;
-        if (group.id == res.getInteger(R.integer.drawer_status_id))
-            prefKey = getString(R.string.drawer_status_is_expanded);
-
-        else if (group.id == res.getInteger(R.integer.drawer_sorting_id))
-            prefKey = getString(R.string.drawer_sorting_is_expanded);
-
-        else if (group.id == res.getInteger(R.integer.drawer_date_added_id))
-            prefKey = getString(R.string.drawer_time_is_expanded);
-
-        if (prefKey != null)
-            PreferenceManager.getDefaultSharedPreferences(activity)
-                    .edit()
-                    .putBoolean(prefKey, expanded)
-                    .apply();
-    }
-
-    private void onDrawerGroupsCreated() {
-        for (int pos = 0; pos < drawerAdapter.getGroupCount(); pos++) {
-            DrawerGroup group = drawerAdapter.getGroup(pos);
-            if (group == null)
-                return;
-
-            Resources res = getResources();
-            if (group.id == res.getInteger(R.integer.drawer_status_id)) {
-                viewModel.setStatusFilter(
-                        Utils.getDrawerGroupStatusFilter(activity, group.getSelectedItemId()), false);
-
-            } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
-                viewModel.setSort(Utils.getDrawerGroupItemSorting(activity, group.getSelectedItemId()), false);
-            } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
-                viewModel.setDateAddedFilter(Utils.getDrawerGroupDateAddedFilter(activity, group.getSelectedItemId()), false);
-            }
-
-            applyExpandState(group, pos);
-        }
-    }
-
-    private void applyExpandState(DrawerGroup group, int pos) {
-        if (group.getDefaultExpandState()) {
-            drawerItemManager.expandGroup(pos);
-        } else {
-            drawerItemManager.collapseGroup(pos);
-        }
-    }
-
-    private void onDrawerItemSelected(DrawerGroup group, DrawerGroupItem item) {
-        Resources res = getResources();
-        String prefKey = null;
-        if (group.id == res.getInteger(R.integer.drawer_status_id)) {
-            prefKey = getString(R.string.drawer_status_selected_item);
-            viewModel.setStatusFilter(Utils.getDrawerGroupStatusFilter(activity, item.id), true);
-
-        } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
-            prefKey = getString(R.string.drawer_sorting_selected_item);
-            viewModel.setSort(Utils.getDrawerGroupItemSorting(activity, item.id), true);
-
-        } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
-            prefKey = getString(R.string.drawer_time_selected_item);
-            viewModel.setDateAddedFilter(Utils.getDrawerGroupDateAddedFilter(activity, item.id), true);
-        }
-
-        if (prefKey != null) {
-            saveSelectionState(prefKey, item);
-        }
-
-        var navBarFragment = activity.findNavBarFragment(this);
-        if (navBarFragment != null) {
-            navBarFragment.getDrawerLayout().closeDrawer(GravityCompat.START);
-        }
-    }
-
-    private void saveSelectionState(String prefKey, DrawerGroupItem item) {
-        PreferenceManager.getDefaultSharedPreferences(activity)
-                .edit()
-                .putLong(prefKey, item.id)
-                .apply();
-    }
-
-    private final TagsAdapter.OnClickListener tagsClickListener = new TagsAdapter.OnClickListener() {
-        @Override
-        public void onTagSelected(@NonNull AbstractTagItem item) {
-            if (item instanceof TagItem) {
-                viewModel.setTagFilter(
-                        TorrentFilterCollection.tag(((TagItem) item).info),
-                        true
-                );
-            } else if (item instanceof EmptyTagItem) {
-                viewModel.setTagFilter(TorrentFilterCollection.all(), true);
-            } else if (item instanceof NoTagsItem) {
-                viewModel.setTagFilter(TorrentFilterCollection.noTags(), true);
-            }
-
-            saveSelectedTag(item);
-
-            var navBarFragment = activity.findNavBarFragment(HomeFragment.this);
-            if (navBarFragment != null) {
-                navBarFragment.getDrawerLayout().closeDrawer(GravityCompat.START);
-            }
-        }
-
-        @Override
-        public void onTagMenuClicked(@NonNull AbstractTagItem abstractItem, int menuId) {
-            if (!(abstractItem instanceof TagItem item)) {
-                return;
-            }
-            if (menuId == R.id.edit_tag_menu) {
-                var action = HomeFragmentDirections
-                        .actionEditTagDialog()
-                        .setTag(item.info);
-                NavHostFragment.findNavController(HomeFragment.this).navigate(action);
-            } else if (menuId == R.id.delete_tag_menu) {
-                disposables.add(viewModel.deleteTag(item.info)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                () -> {
-                                    if (item.isSame(tagsAdapter.getSelectedItem())) {
-                                        EmptyTagItem emptyItem = new EmptyTagItem();
-                                        saveSelectedTag(emptyItem);
-                                        tagsAdapter.setSelectedItem(emptyItem);
-                                        viewModel.setTagFilter(TorrentFilterCollection.all(), true);
-                                    }
-                                },
-                                (e) -> {
-                                    Log.e(TAG, Log.getStackTraceString(e));
-                                    Snackbar.make(
-                                            binding.coordinatorLayout,
-                                            R.string.tag_deleting_failed,
-                                            Snackbar.LENGTH_LONG
-                                    ).show();
-                                }
-                        )
-                );
-            }
-        }
-    };
-
-    private void saveSelectedTag(@NonNull AbstractTagItem item) {
-        String tagId = null;
-        if (item instanceof TagItem) {
-            tagId = Long.toString(((TagItem) item).info.id);
-        } else if (item instanceof EmptyTagItem) {
-            tagId = getString(R.string.tag_empty_item);
-        } else if (item instanceof NoTagsItem) {
-            tagId = getString(R.string.tag_no_tags_item);
-        }
-
-        PreferenceManager
-                .getDefaultSharedPreferences(activity)
-                .edit()
-                .putString(
-                        getString(R.string.drawer_tags_selected_item),
-                        tagId
-                )
-                .apply();
     }
 
     private void initSearch() {
@@ -919,60 +671,396 @@ public class HomeFragment extends AbstractListDetailFragment
     private void subscribeTags() {
         disposables.add(viewModel.observeTags()
                 .subscribeOn(Schedulers.io())
-                .flatMapSingle((list) ->
-                        Flowable.concat(
-                                Flowable.just(new EmptyTagItem()),
-                                Flowable.just(new NoTagsItem()),
-                                Flowable.fromIterable(list).map(TagItem::new)
-                        ).toList()
-                )
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((items) -> {
-                    if (tagsAdapter.getItemCount() == 0) {
-                        setInitSelection(items);
-                    }
-                    tagsAdapter.submitList(items);
-                })
+                .subscribe(this::initTagChips)
         );
     }
 
-    private void setInitSelection(List<AbstractTagItem> items) {
-        String selectedTagIdStr = PreferenceManager
+    private void initDrawer() {
+        var navBarFragment = activity.findNavBarFragment(this);
+        if (navBarFragment != null) {
+            navBarFragment.getNavigationView().addView(drawerBinding.getRoot());
+        }
+
+        drawerBinding.statusClearButton.setOnClickListener((v) -> {
+            drawerBinding.drawerStatusChipGroup.clearCheck();
+            viewModel.setStatusFilter(List.of(TorrentFilterCollection.all()), true);
+        });
+        drawerBinding.dateAddedClearButton.setOnClickListener((v) -> {
+            drawerBinding.drawerDateAddedChipGroup.clearCheck();
+            viewModel.setDateAddedFilter(List.of(TorrentFilterCollection.all()), true);
+        });
+        drawerBinding.tagsClearButton.setOnClickListener((v) -> {
+            drawerBinding.drawerTagsChipGroup.clearCheck();
+            viewModel.setTagFilter(TorrentFilterCollection.all(), true);
+        });
+        drawerBinding.addTagButton.setOnClickListener((v) -> {
+            var action = HomeFragmentDirections.actionAddTagDialog();
+            NavHostFragment.findNavController(this).navigate(action);
+        });
+
+        var status = getSavedStatusFilters();
+        initStatusFilter(status);
+        var sort = getSavedSorting();
+        var direction = getSavedSortingDirection();
+        initSorting(sort, direction);
+        var dateAdded = getSavedDateAddedFilters();
+        initDateAddedFilter(dateAdded);
+        onAfterFiltersInit(status, sort, direction, dateAdded);
+
+        drawerBinding.sessionDhtNodesStat.setText(getString(R.string.session_stats_dht_nodes, 0));
+        String downloadUploadFmt = getString(R.string.session_stats_download_upload,
+                Formatter.formatFileSize(activity, 0),
+                Formatter.formatFileSize(activity, 0));
+        drawerBinding.sessionDownloadStat.setText(downloadUploadFmt);
+        drawerBinding.sessionUploadStat.setText(downloadUploadFmt);
+        drawerBinding.sessionListenPortStat.setText(getString(R.string.session_stats_listen_port,
+                getString(R.string.not_available)));
+    }
+
+    private void onAfterFiltersInit(
+            Set<DrawerStatusFilter> status,
+            DrawerSort sort,
+            DrawerSortDirection direction,
+            Set<DrawerDateAddedFilter> dateAdded
+    ) {
+        viewModel.setStatusFilter(status.stream()
+                        .map(Utils::getStatusFilterById)
+                        .collect(Collectors.toList()),
+                false);
+        var d = Utils.getSortingDirection(direction);
+        viewModel.setSort(Utils.getSortingById(sort, d), false);
+        viewModel.setDateAddedFilter(dateAdded.stream()
+                        .map(Utils::getDateAddedFilterById)
+                        .collect(Collectors.toList()),
+                true);
+    }
+
+    private void initStatusFilter(Set<DrawerStatusFilter> status) {
+        if (status.contains(DrawerStatusFilter.Downloaded)) {
+            drawerBinding.drawerStatusDownloaded.setChecked(true);
+        }
+        if (status.contains(DrawerStatusFilter.Downloading)) {
+            drawerBinding.drawerStatusDownloading.setChecked(true);
+        }
+        if (status.contains(DrawerStatusFilter.DownloadingMetadata)) {
+            drawerBinding.drawerStatusDownloadingMetadata.setChecked(true);
+        }
+        if (status.contains(DrawerStatusFilter.Error)) {
+            drawerBinding.drawerStatusError.setChecked(true);
+        }
+
+        drawerBinding.drawerStatusChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            viewModel.setStatusFilter(checkedIds.stream()
+                            .map((id) -> {
+                                var s = Utils.getDrawerStatusFilterByChip(id);
+                                return s == null ? null : Utils.getStatusFilterById(s);
+                            })
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toList()),
+                    true);
+            saveStatusFilters(checkedIds);
+        });
+    }
+
+    private void initSorting(DrawerSort sort, DrawerSortDirection direction) {
+        switch (sort) {
+            case None -> {
+            }
+            case DateAdded -> drawerBinding.drawerSortingDateAdded.setChecked(true);
+            case Size -> drawerBinding.drawerSortingSize.setChecked(true);
+            case Name -> drawerBinding.drawerSortingName.setChecked(true);
+            case Progress -> drawerBinding.drawerSortingProgress.setChecked(true);
+            case Eta -> drawerBinding.drawerSortingETA.setChecked(true);
+            case Peers -> drawerBinding.drawerSortingPeers.setChecked(true);
+        }
+
+        switch (direction) {
+            case Ascending -> drawerBinding.sortDirectionToggleButton.check(R.id.sort_asc_button);
+            case Descending -> drawerBinding.sortDirectionToggleButton.check(R.id.sort_desc_button);
+        }
+
+        drawerBinding.sortAscButton.setOnClickListener((v) -> {
+            setSortDirection(BaseSorting.Direction.ASC);
+            saveSortingDirection(DrawerSortDirection.Ascending);
+        });
+        drawerBinding.sortDescButton.setOnClickListener((v) -> {
+            setSortDirection(BaseSorting.Direction.DESC);
+            saveSortingDirection(DrawerSortDirection.Descending);
+        });
+
+        drawerBinding.drawerSortingChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            var checkedId = checkedIds.isEmpty() ? View.NO_ID : checkedIds.get(0);
+            var d = getSavedSortingDirection();
+            var sortComparator = Utils.getSortingById(
+                    Utils.getDrawerSortingByChip(checkedId),
+                    Utils.getSortingDirection(d)
+            );
+            viewModel.setSort(sortComparator, true);
+            saveSorting(checkedId);
+        });
+    }
+
+    private void initDateAddedFilter(Set<DrawerDateAddedFilter> dateAdded) {
+        if (dateAdded.contains(DrawerDateAddedFilter.Today)) {
+            drawerBinding.drawerDateAddedToday.setChecked(true);
+        }
+        if (dateAdded.contains(DrawerDateAddedFilter.Yesterday)) {
+            drawerBinding.drawerDateAddedYesterday.setChecked(true);
+        }
+        if (dateAdded.contains(DrawerDateAddedFilter.Week)) {
+            drawerBinding.drawerDateAddedWeek.setChecked(true);
+        }
+        if (dateAdded.contains(DrawerDateAddedFilter.Month)) {
+            drawerBinding.drawerDateAddedMonth.setChecked(true);
+        }
+        if (dateAdded.contains(DrawerDateAddedFilter.Year)) {
+            drawerBinding.drawerDateAddedYear.setChecked(true);
+        }
+
+        drawerBinding.drawerDateAddedChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            viewModel.setDateAddedFilter(checkedIds.stream()
+                            .map((id) -> {
+                                var d = Utils.getDrawerDateAddedFilterByChip(id);
+                                return d == null ? null : Utils.getDateAddedFilterById(d);
+                            })
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toList()),
+                    true);
+            saveDateAddedFilters(checkedIds);
+        });
+    }
+
+    private void initTagChips(List<TagInfo> tags) {
+        var savedTags = getSavedTags();
+        drawerBinding.drawerTagsChipGroup.removeAllViews();
+
+        var noTagsChip = buildNoTagsChip(savedTags);
+        drawerBinding.drawerTagsChipGroup.addView(noTagsChip);
+
+        for (var tag : tags) {
+            var chip = new TorrentTagChip(activity, tag);
+            chip.setClickable(true);
+            if (savedTags.contains(new DrawerTagFilter.Item(tag.id))) {
+                chip.setChecked(true);
+            }
+            chip.setCloseIcon(ResourcesCompat.getDrawable(
+                    getResources(), R.drawable.ic_more_vert_24px, null));
+            chip.setOnCloseIconClickListener((v) -> {
+                var popup = new PopupMenu(v.getContext(), v);
+                popup.inflate(R.menu.tag_item_popup);
+                popup.setOnMenuItemClickListener((menuItem) -> {
+                    var menuId = menuItem.getItemId();
+                    if (menuId == R.id.edit_tag_menu) {
+                        var action = HomeFragmentDirections
+                                .actionEditTagDialog()
+                                .setTag(tag);
+                        NavHostFragment.findNavController(this).navigate(action);
+                    } else if (menuId == R.id.delete_tag_menu) {
+                        disposables.add(viewModel.deleteTag(tag)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                            drawerBinding.drawerTagsChipGroup.removeView(chip);
+                                            updateTagsGroup(noTagsChip);
+                                        },
+                                        (e) -> {
+                                            Log.e(TAG, Log.getStackTraceString(e));
+                                            Snackbar.make(
+                                                    binding.coordinatorLayout,
+                                                    R.string.tag_deleting_failed,
+                                                    Snackbar.LENGTH_LONG
+                                            ).show();
+                                        }));
+                    }
+                    return true;
+                });
+                popup.show();
+            });
+            chip.setOnClickListener((v) -> updateTagsGroup(noTagsChip));
+            drawerBinding.drawerTagsChipGroup.addView(chip);
+        }
+
+        drawerBinding.drawerTagsChipGroup.setOnCheckedStateChangeListener(
+                (group, checkedIds) -> saveTags(checkedIds)
+        );
+
+        applyTagFilter();
+    }
+
+    @NonNull
+    private TorrentTagChip buildNoTagsChip(Set<DrawerTagFilter> savedTags) {
+        var noTagsChip = new TorrentTagChip(
+                activity,
+                R.drawable.ic_label_off_24px,
+                R.string.without_tags
+        );
+        noTagsChip.setId(R.id.tag_no_tags_item);
+        noTagsChip.setClickable(true);
+        if (savedTags.contains(new DrawerTagFilter.NoTags())) {
+            noTagsChip.setChecked(true);
+        }
+        noTagsChip.setCloseIconVisible(false);
+        noTagsChip.setOnClickListener((v) -> {
+            drawerBinding.drawerTagsChipGroup.clearCheck();
+            noTagsChip.setChecked(true);
+            viewModel.setTagFilter(TorrentFilterCollection.noTags(), true);
+        });
+        return noTagsChip;
+    }
+
+    private List<TagInfo> getTagsByChipId(List<Integer> ids) {
+        return ids
+                .stream()
+                .map((id) -> {
+                    TorrentTagChip chip = drawerBinding.drawerTagsChipGroup.findViewById(id);
+                    return chip.getTag();
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    private void updateTagsGroup(TorrentTagChip noTagsChip) {
+        applyTagFilter();
+        noTagsChip.setChecked(false);
+    }
+
+    private void applyTagFilter() {
+        var checkedIds = drawerBinding.drawerTagsChipGroup.getCheckedChipIds();
+        var checkedTags = getTagsByChipId(checkedIds);
+        if (checkedTags.isEmpty()) {
+            viewModel.setTagFilter(TorrentFilterCollection.all(), true);
+        } else {
+            viewModel.setTagFilter(TorrentFilterCollection.tags(checkedTags), true);
+        }
+    }
+
+    private Set<DrawerStatusFilter> getSavedStatusFilters() {
+        var json = PreferenceManager
                 .getDefaultSharedPreferences(activity)
                 .getString(
-                        getString(R.string.drawer_tags_selected_item),
-                        getString(R.string.tag_empty_item)
+                        getString(R.string.pref_key_drawer_status_selected_items),
+                        null
                 );
-        if (selectedTagIdStr.equals(getString(R.string.tag_empty_item))) {
-            tagsAdapter.setSelectedItem(new EmptyTagItem());
-            viewModel.setTagFilter(TorrentFilterCollection.all(), true);
-        } else if (selectedTagIdStr.equals(getString(R.string.tag_no_tags_item))) {
-            tagsAdapter.setSelectedItem(new NoTagsItem());
-            viewModel.setTagFilter(TorrentFilterCollection.noTags(), true);
-        } else {
-            long selectedTagId;
-            try {
-                selectedTagId = Long.parseLong(selectedTagIdStr);
-            } catch (NumberFormatException e) {
-                Log.e(TAG, "Unable to parse tag id: " + Log.getStackTraceString(e));
-                tagsAdapter.setSelectedItem(new EmptyTagItem());
-                viewModel.setTagFilter(TorrentFilterCollection.all(), true);
-                return;
-            }
-            disposables.add(Observable.fromIterable(items)
-                    .subscribeOn(Schedulers.computation())
-                    .filter((item) -> item instanceof TagItem &&
-                            ((TagItem) item).info.id == selectedTagId)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe((item) -> {
-                        tagsAdapter.setSelectedItem(item);
-                        viewModel.setTagFilter(
-                                TorrentFilterCollection.tag(((TagItem) item).info),
-                                true
-                        );
-                    })
-            );
-        }
+        return viewModel.decodeDrawerStatusFilter(json);
+    }
+
+    private void saveStatusFilters(@NonNull List<Integer> chipIds) {
+        var list = chipIds.stream()
+                .map(Utils::getDrawerStatusFilterByChip)
+                .collect(Collectors.toList());
+        PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .edit()
+                .putString(
+                        getString(R.string.pref_key_drawer_status_selected_items),
+                        viewModel.encodeDrawerStatusFilter(list)
+                )
+                .apply();
+    }
+
+    private DrawerSort getSavedSorting() {
+        var json = PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .getString(
+                        getString(R.string.pref_key_drawer_sorting_selected_item),
+                        null
+                );
+        return viewModel.decodeDrawerSorting(json);
+    }
+
+    private void saveSorting(int chipId) {
+        var json = viewModel.encodeDrawerSorting(Utils.getDrawerSortingByChip(chipId));
+        PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .edit()
+                .putString(getString(R.string.pref_key_drawer_sorting_selected_item), json)
+                .apply();
+    }
+
+    private DrawerSortDirection getSavedSortingDirection() {
+        var json = PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .getString(
+                        getString(R.string.pref_key_drawer_sorting_direction),
+                        null
+                );
+
+        return viewModel.decodeDrawerSortingDirection(json);
+    }
+
+    private void saveSortingDirection(DrawerSortDirection direction) {
+        var json = viewModel.encodeDrawerSortingDirection(direction);
+        PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .edit()
+                .putString(getString(R.string.pref_key_drawer_sorting_direction), json)
+                .apply();
+    }
+
+    private void setSortDirection(BaseSorting.Direction direction) {
+        var comparator = viewModel.getSorting();
+        var sort = comparator.sorting();
+        viewModel.setSort(new TorrentSortingComparator(new TorrentSorting(
+                        TorrentSorting.SortingColumns.fromValue(sort.getColumnName()), direction
+                )),
+                true
+        );
+    }
+
+    private Set<DrawerTagFilter> getSavedTags() {
+        var json = PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .getString(
+                        getString(R.string.pref_key_drawer_tags_selected_items),
+                        null
+                );
+
+        return viewModel.decodeDrawerTagFilter(json);
+    }
+
+    private void saveTags(List<Integer> chipIds) {
+        List<DrawerTagFilter> tags = chipIds
+                .stream()
+                .map((id) -> {
+                    TorrentTagChip chip = drawerBinding.drawerTagsChipGroup.findViewById(id);
+                    if (chip.getId() == R.id.tag_no_tags_item) {
+                        return new DrawerTagFilter.NoTags();
+                    } else {
+                        var tag = chip.getTag();
+                        return tag == null ? null : new DrawerTagFilter.Item(tag.id);
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        var json = viewModel.encodeDrawerTagFilter(tags);
+        PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .edit()
+                .putString(getString(R.string.pref_key_drawer_tags_selected_items), json)
+                .apply();
+    }
+
+    private Set<DrawerDateAddedFilter> getSavedDateAddedFilters() {
+        var json = PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .getString(
+                        getString(R.string.pref_key_drawer_date_added_selected_items),
+                        null
+                );
+        return viewModel.decodeDrawerDateAddedFilter(json);
+    }
+
+    private void saveDateAddedFilters(@NonNull List<Integer> chipIds) {
+        var list = chipIds.stream()
+                .map(Utils::getDrawerDateAddedFilterByChip)
+                .collect(Collectors.toList());
+        var json = viewModel.encodeDrawerDateAddedFilter(list);
+        PreferenceManager
+                .getDefaultSharedPreferences(activity)
+                .edit()
+                .putString(getString(R.string.pref_key_drawer_date_added_selected_items), json)
+                .apply();
     }
 
     private void updateSessionStats(SessionStats stats) {

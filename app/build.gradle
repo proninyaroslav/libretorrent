@@ -122,6 +122,7 @@ tasks.withType(Test).configureEach {
 def ROOM_VERSION = '2.6.1'
 def LIFECYCLE_VERSION = '2.8.7'
 def NAV_VERSION = "2.8.6"
+def MOSHI_VERSION = "1.15.2"
 
 dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -187,6 +188,8 @@ dependencies {
     implementation 'org.apache.commons:commons-text:1.13.0'
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'net.java.dev.jna:jna:5.16.0@aar'
+    implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
+    implementation "com.squareup.moshi:moshi-adapters:$MOSHI_VERSION"
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="main_fab_add_link" type="id" />
-    <item name="main_fab_open_file" type="id" />
-    <item name="main_fab_create_torrent" type="id" />
+    <item name="tag_no_tags_item" type="id" />
 </resources>

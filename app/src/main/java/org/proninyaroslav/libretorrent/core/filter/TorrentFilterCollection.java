@@ -19,9 +19,14 @@
 
 package org.proninyaroslav.libretorrent.core.filter;
 
+import androidx.annotation.NonNull;
+
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.utils.DateUtils;
+
+import java.util.HashSet;
+import java.util.List;
 
 public class TorrentFilterCollection {
     public static TorrentFilter all() {
@@ -94,8 +99,8 @@ public class TorrentFilterCollection {
         };
     }
 
-    public static TorrentFilter tag(TagInfo tag) {
-        return (state) -> tag == null || state.tags.contains(tag);
+    public static TorrentFilter tags(@NonNull List<TagInfo> tags) {
+        return (state) -> new HashSet<>(state.tags).containsAll(tags);
     }
 
     public static TorrentFilter noTags() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,24 +17,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer;
+package org.proninyaroslav.libretorrent.ui.main.drawer.model;
 
-/*
- * Clickable item in group.
- */
-
-public class DrawerGroupItem
-{
-    public long id;
-    public int iconResId;
-    public String name;
-    public String contentDescription;
-
-    public DrawerGroupItem(long id, int iconResId, String name, String contentDescription)
-    {
-        this.id = id;
-        this.iconResId = iconResId;
-        this.name = name;
-        this.contentDescription = contentDescription;
-    }
+public enum DrawerSortDirection {
+    Ascending,
+    Descending,
 }

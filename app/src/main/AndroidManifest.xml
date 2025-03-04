@@ -38,7 +38,8 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:enableOnBackInvokedCallback="true">
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme"

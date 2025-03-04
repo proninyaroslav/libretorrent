@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,17 +17,14 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.sorting;
+package org.proninyaroslav.libretorrent.ui.main.drawer.model;
 
-import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
-
-import java.util.Comparator;
-
-public record TorrentSortingComparator(TorrentSorting sorting) implements Comparator<TorrentInfo> {
-    @Override
-    public int compare(TorrentInfo s1, TorrentInfo s2) {
-        return TorrentSorting.SortingColumns
-                .fromValue(sorting.getColumnName())
-                .compare(s1, s2, sorting.getDirection());
-    }
+public enum DrawerSort {
+    None,
+    DateAdded,
+    Size,
+    Name,
+    Progress,
+    Eta,
+    Peers,
 }
