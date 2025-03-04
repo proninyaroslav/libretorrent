@@ -91,6 +91,7 @@ android {
 
     compileOptions {
         encoding 'UTF-8'
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -130,8 +131,7 @@ def NAV_VERSION = "2.8.6"
 def MOSHI_VERSION = "1.15.2"
 
 dependencies {
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
     /* Testing */
     testImplementation 'junit:junit:4.13.2'
@@ -164,6 +164,8 @@ dependencies {
     implementation 'com.google.guava:guava:33.4.0-jre'
     implementation "androidx.navigation:navigation-fragment:$NAV_VERSION"
     implementation "androidx.navigation:navigation-ui:$NAV_VERSION"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
