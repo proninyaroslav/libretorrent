@@ -50,8 +50,8 @@ import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddLinkBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
-import org.proninyaroslav.libretorrent.ui.main.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
 
 public class AddLinkDialog extends DialogFragment {
     private static final String TAG = AddLinkDialog.class.getSimpleName();

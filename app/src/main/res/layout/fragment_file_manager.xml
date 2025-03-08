@@ -64,7 +64,7 @@
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="80dp"
+            android:paddingBottom="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER || viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? 80 : 0}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView

@@ -40,21 +40,12 @@
         <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
     </style>
 
-    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
-        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text
-        </item>
+    <style name="Widget.App.SearchBar" parent="Widget.Material3.SearchBar">
+        <item name="elevation">0dp</item>
     </style>
 
-    <style name="ThemeOverlay.App.Surface" parent="">
-        <item name="android:background">?attr/colorSurface</item>
-    </style>
-
-    <style name="ThemeOverlay.App.TextInputLayout.OnSurfaceContainer" parent="">
-        <item name="boxBackgroundColor">?attr/colorSurfaceContainerLow</item>
-    </style>
-
-    <style name="ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="boxBackgroundColor">?attr/colorSurfaceContainerLow</item>
+    <style name="Widget.App.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.Material3.TitleSmall" />
@@ -118,7 +109,6 @@
         <item name="statusBarColor">@color/primary_dark</item>
         <item name="colorOk">@color/ok</item>
         <item name="pieceCellColor">@color/piece_cell</item>
-        <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
 
         <item name="colorPrimary">@color/primary</item>
@@ -166,7 +156,6 @@
         <item name="statusBarColor">@color/background_dark</item>
         <item name="colorOk">@color/ok_light</item>
         <item name="pieceCellColor">@color/piece_cell_dark</item>
-        <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout.Dark</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay_dark</item>
 
         <item name="colorPrimary">@color/primary_light</item>
@@ -330,18 +319,6 @@
         <item name="statusBarColor">@color/primary_dark</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
-    </style>
-
-    <style name="BaseThemeM2.TabLayout.Dark" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">?attr/toolbarColor</item>
-        <item name="tabIndicatorFullWidth">true</item>
-        <item name="tabMaxWidth">0dp</item>
-        <item name="tabGravity">fill</item>
-    </style>
-
-    <style name="BaseThemeM2.TabLayout" parent="BaseThemeM2.TabLayout.Dark">
-        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
-        <item name="tabTextColor">@color/tablayout_text_selector</item>
     </style>
 
     <style name="PopupMenuM2" parent="ThemeOverlay.MaterialComponents.Light">

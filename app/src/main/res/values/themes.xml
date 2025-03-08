@@ -64,6 +64,8 @@
         <item name="actionModeCloseDrawable">@drawable/ic_close_24px</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Material3.ActionBar</item>
         <item name="actionModeBackground">?attr/colorSurfaceContainer</item>
+        <item name="materialSearchBarStyle">@style/Widget.App.SearchBar</item>
+        <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>
 
         <!--        -->
 
@@ -73,7 +75,6 @@
         <item name="backgroundBlank">?attr/colorSurface</item>
         <item name="backgroundDialog">?attr/colorSurface</item>
         <item name="statusBarColor">?attr/colorSurface</item>
-        <item name="popupTheme">@style/Theme.Material3.Light</item>
         <item name="divider">@drawable/table_mode_divider</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
@@ -82,7 +83,6 @@
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
         <item name="pieceCellColor">@color/piece_cell</item>
-        <item name="tabLayoutTheme">@style/BaseThemeM2.TabLayout</item>
         <item name="speedDialOverlayColor">@color/speed_dial_overlay</item>
     </style>
 

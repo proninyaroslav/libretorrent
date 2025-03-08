@@ -87,10 +87,10 @@ import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
 import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerDateAddedFilter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSort;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSortDirection;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerStatusFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
 
 import java.io.IOException;
 import java.io.InputStream;

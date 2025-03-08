@@ -45,9 +45,9 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDi
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
-import org.proninyaroslav.libretorrent.ui.main.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.main.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
@@ -181,7 +181,7 @@ public class TorrentDetailsInfoFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void addTag() {
+    private void addTag() {
         disposables.add(viewModel.getTags()
                 .subscribeOn(Schedulers.io())
                 .flatMap((tags) -> Observable.fromIterable(tags)

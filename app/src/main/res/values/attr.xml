@@ -29,6 +29,10 @@
         <attr name="color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="MaxWidthLinearLayout">
+        <attr name="maxWidth" format="dimension" />
+    </declare-styleable>
+
     <!--    -->
 
     <declare-styleable name="dynamic_style_attrs">

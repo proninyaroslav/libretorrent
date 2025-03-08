@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main;
+package org.proninyaroslav.libretorrent.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -31,7 +31,6 @@ import android.text.TextWatcher;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -64,6 +63,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -83,11 +83,11 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDi
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.log.LogActivity;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerDateAddedFilter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSort;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSortDirection;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerStatusFilter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerTagFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerTagFilter;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
 import java.util.Collections;
@@ -408,16 +408,7 @@ public class HomeFragment extends AbstractListDetailFragment
     };
 
     private void showAddTorrentMenu() {
-        /* Show add torrent menu after window is displayed */
-        var v = activity.getWindow().findViewById(android.R.id.content);
-        if (v == null) {
-            return;
-        }
-        v.post(() -> {
-            registerForContextMenu(v);
-            activity.openContextMenu(v);
-            unregisterForContextMenu(v);
-        });
+        binding.addTorrentFab.post(() -> showFabMenu(binding.addTorrentFab));
     }
 
     @Override
@@ -1111,27 +1102,6 @@ public class HomeFragment extends AbstractListDetailFragment
     public void onItemPauseClicked(@NonNull TorrentListItem item) {
         viewModel.pauseResumeTorrent(item.torrentId);
     }
-
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-        activity.getMenuInflater().inflate(R.menu.home_context, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.add_link_menu) {
-            addLinkDialog();
-        } else if (itemId == R.id.open_file_menu) {
-            openTorrentFileDialog();
-        }
-
-        return true;
-    }
-
 
     @SuppressLint("RestrictedApi")
     private void showFabMenu(View v) {

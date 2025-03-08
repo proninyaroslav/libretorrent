@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,59 +19,65 @@
 
 package org.proninyaroslav.libretorrent.ui.addtorrent;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
-import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentInfoBinding;
-import org.proninyaroslav.libretorrent.ui.BaseAlertDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
+import org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog;
+import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 /*
- * The fragment for displaying torrent metainformation,
+ * The fragment for displaying torrent meta-information,
  * taken from bencode. Part of AddTorrentFragment.
  */
 
 public class AddTorrentInfoFragment extends Fragment {
     private static final String TAG = AddTorrentInfoFragment.class.getSimpleName();
 
-    private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
+    private static final String KEY_SELECT_TAG_DIALOG_REQUEST = TAG + "_select_tag_dialog";
+    private static final String KEY_CHOOSE_DIRECTORY_DIALOG_REQUEST = TAG + "_choose_directory_dialog";
 
     private AppCompatActivity activity;
     private AddTorrentViewModel viewModel;
     private FragmentAddTorrentInfoBinding binding;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public static AddTorrentInfoFragment newInstance() {
-        AddTorrentInfoFragment fragment = new AddTorrentInfoFragment();
-
-        Bundle b = new Bundle();
-        fragment.setArguments(b);
+        var fragment = new AddTorrentInfoFragment();
+        fragment.setArguments(new Bundle());
 
         return fragment;
     }
@@ -80,13 +86,63 @@ public class AddTorrentInfoFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
+        if (context instanceof AppCompatActivity) {
             activity = (AppCompatActivity) context;
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setSelectTagDialogListener();
+        setChooseFolderDialogListener();
+    }
+
+    private void setSelectTagDialogListener() {
+        requireParentFragment().getParentFragmentManager().setFragmentResultListener(
+                KEY_SELECT_TAG_DIALOG_REQUEST,
+                this,
+                (requestKey, result) -> {
+                    TagInfo tag = result.getParcelable(SelectTagDialog.KEY_RESULT_TAG);
+                    if (tag == null) {
+                        return;
+                    }
+                    viewModel.addTorrentTag(tag);
+                }
+        );
+    }
+
+    private void setChooseFolderDialogListener() {
+        requireParentFragment().getParentFragmentManager().setFragmentResultListener(
+                KEY_CHOOSE_DIRECTORY_DIALOG_REQUEST,
+                this,
+                (requestKey, result) -> {
+                    FileManagerFragment.Result resultValue = result.getParcelable(FileManagerFragment.KEY_RESULT);
+                    if (resultValue == null || resultValue.config().showMode != FileManagerConfig.Mode.DIR_CHOOSER) {
+                        return;
+                    }
+                    var uri = resultValue.uri();
+                    if ((uri) == null) {
+                        Snackbar.make(
+                                activity,
+                                binding.coordinatorLayout,
+                                getString(R.string.unable_to_open_folder),
+                                Snackbar.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        viewModel.mutableParams.getDirPath().set(uri);
+                    }
+                }
+        );
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_torrent_info, container, false);
+        Utils.applyWindowInsets(binding.nestedScrollView,
+                WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT | WindowInsetsSide.BOTTOM,
+                WindowInsetsCompat.Type.ime());
 
         return binding.getRoot();
     }
@@ -95,11 +151,11 @@ public class AddTorrentInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(activity).get(AddTorrentViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AddTorrentViewModel.class);
         binding.setViewModel(viewModel);
 
-        binding.info.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
-        binding.info.name.addTextChangedListener(new TextWatcher() {
+        binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
+        binding.name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -113,14 +169,14 @@ public class AddTorrentInfoFragment extends Fragment {
                 checkNameField(s);
             }
         });
-//        binding.info.tagsList.setListener(tagsListener);
+        binding.addTagButton.setOnClickListener((v) -> addTag());
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-//        subscribeTags();
+        subscribeTags();
     }
 
     @Override
@@ -130,95 +186,70 @@ public class AddTorrentInfoFragment extends Fragment {
         disposables.clear();
     }
 
-//    final ActivityResultLauncher<Intent> selectTag = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            (result) -> {
-//                Intent data = result.getData();
-//                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
-//                    TagInfo tag = data.getParcelableExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG);
-//                    if (tag != null) {
-//                        viewModel.addTag(tag);
-//                    }
-//                }
-//            }
-//    );
+    private void subscribeTags() {
+        disposables.add(viewModel.observeTags()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((tags) -> {
+                    binding.emptyTagsPlaceholder.setVisibility(
+                            tags.isEmpty() ? View.VISIBLE : View.GONE
+                    );
+                    addTagChips(tags);
+                })
+        );
+    }
 
-    final ActivityResultLauncher<Intent> chooseDir = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                if (result.getResultCode() != Activity.RESULT_OK) {
-                    return;
-                }
-                Intent data = result.getData();
-                if (data == null || data.getData() == null) {
-                    showOpenDirErrorDialog();
-                    return;
-                }
-                viewModel.mutableParams.getDirPath().set(data.getData());
-            });
-
-//    private final TorrentTagChip.Listener tagsListener = new TorrentTagChip.Listener() {
-//        @Override
-//        public void onRemoveTag(@NonNull TagInfo info) {
-//            viewModel.removeTag(info);
-//        }
-//    };
-//
-//    private void subscribeTags() {
-//        disposables.add(viewModel.observeTags()
-//                .subscribe(binding.info.tagsList::submit)
-//        );
-//    }
+    private void addTagChips(List<TagInfo> tags) {
+        binding.tagsChipGroup.removeAllViews();
+        for (var tag : tags) {
+            var chip = new TorrentTagChip(activity, tag);
+            chip.setOnCloseIconClickListener((v) -> viewModel.removeTorrentTag(tag));
+            binding.tagsChipGroup.addView(chip);
+        }
+    }
 
     private void showChooseDirDialog() {
-        Intent i = new Intent(activity, FileManagerFragment.class);
-
-        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(
-                activity.getApplicationContext()
-        );
-        String path;
-        try {
-            path = fs.getDirPath(viewModel.mutableParams.getDirPath().get());
-        } catch (UnknownUriException e) {
-            path = null;
+        var fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
+        String path = null;
+        var uri = viewModel.mutableParams.getDirPath().get();
+        if (uri != null) {
+            try {
+                path = fs.getDirPath(uri);
+            } catch (UnknownUriException e) {
+                Log.e(TAG, "Unknown file Uri", e);
+            }
         }
-
-        FileManagerConfig config = new FileManagerConfig(
+        var config = new FileManagerConfig(
                 path,
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.Mode.DIR_CHOOSER
         );
-
-        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
-        chooseDir.launch(i);
-    }
-
-    private void showOpenDirErrorDialog() {
-        if (!isAdded())
-            return;
-
-        FragmentManager fm = getChildFragmentManager();
-        if (fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
-            BaseAlertDialog openDirErrorDialog = BaseAlertDialog.newInstance(
-                    getString(R.string.error),
-                    getString(R.string.unable_to_open_folder),
-                    0,
-                    getString(R.string.ok),
-                    null,
-                    null,
-                    true);
-
-            openDirErrorDialog.show(fm, TAG_OPEN_DIR_ERROR_DIALOG);
-        }
+        var action = AddTorrentFragmentDirections.actionChooseDirectoryDialog(
+                config,
+                KEY_CHOOSE_DIRECTORY_DIALOG_REQUEST
+        );
+        NavHostFragment.findNavController(requireParentFragment()).navigate(action);
     }
 
     private void checkNameField(Editable s) {
         if (TextUtils.isEmpty(s)) {
-            binding.info.layoutName.setErrorEnabled(true);
-            binding.info.layoutName.setError(getString(R.string.error_field_required));
-            binding.info.layoutName.requestFocus();
+            binding.layoutName.setErrorEnabled(true);
+            binding.layoutName.setError(getString(R.string.error_field_required));
+            binding.layoutName.requestFocus();
         } else {
-            binding.info.layoutName.setErrorEnabled(false);
-            binding.info.layoutName.setError(null);
+            binding.layoutName.setErrorEnabled(false);
+            binding.layoutName.setError(null);
         }
+    }
+
+    private void addTag() {
+        var ids = viewModel.getCurrentTorrentTags()
+                .stream()
+                .map((tag) -> tag.id)
+                .collect(Collectors.toList());
+        var action = AddTorrentFragmentDirections.actionSelectTagDialog(
+                ArrayUtils.toPrimitive(ids.toArray(new Long[0])),
+                KEY_SELECT_TAG_DIALOG_REQUEST
+        );
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }

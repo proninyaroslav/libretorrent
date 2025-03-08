@@ -34,7 +34,7 @@ public class AddTorrentMutableParams extends BaseObservable
     private String source;
     private boolean fromMagnet;
     private String name;
-    private ObservableField<Uri> dirPath = new ObservableField<>();
+    private final ObservableField<Uri> dirPath = new ObservableField<>();
     private String dirName;
     private long storageFreeSpace = -1;
     private boolean sequentialDownload;

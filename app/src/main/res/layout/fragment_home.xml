@@ -52,8 +52,10 @@
 
             <com.google.android.material.search.SearchBar
                 android:id="@+id/search_bar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:minWidth="@dimen/search_bar_max_width"
                 android:layout_marginTop="@dimen/search_bar_top_margin"
                 android:hint="@string/search"
                 app:menu="@menu/home"

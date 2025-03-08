@@ -17,10 +17,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer.model;
+package org.proninyaroslav.libretorrent.ui.home.drawer.model;
 
-public sealed interface DrawerTagFilter permits DrawerTagFilter.NoTags, DrawerTagFilter.Item {
-    record NoTags() implements DrawerTagFilter {}
-
-    record Item(long tagId) implements DrawerTagFilter {}
+public enum DrawerSortDirection {
+    Ascending,
+    Descending,
 }

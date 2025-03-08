@@ -11,7 +11,7 @@
 
         <fragment
             android:id="@+id/homeFragment"
-            android:name="org.proninyaroslav.libretorrent.ui.main.HomeFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.home.HomeFragment"
             android:label="HomeFragment"
             tools:layout="@layout/fragment_home">
             <action
@@ -62,7 +62,7 @@
         </dialog>
         <dialog
             android:id="@+id/aboutDialog"
-            android:name="org.proninyaroslav.libretorrent.ui.main.AboutDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.home.AboutDialog"
             android:label="AboutDialog"
             tools:layout="@layout/dialog_about" />
         <dialog

@@ -13,7 +13,7 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".MainActivity">
 
         <com.google.android.material.navigationrail.NavigationRailView
             android:id="@+id/navigation_rail"

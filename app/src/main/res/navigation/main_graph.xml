@@ -5,9 +5,13 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/navBarFragment">
 
+    <action
+        android:id="@+id/action_permission_denied_dialog"
+        app:destination="@id/permissionDeniedDialog" />
+
     <fragment
         android:id="@+id/navBarFragment"
-        android:name="org.proninyaroslav.libretorrent.ui.main.NavBarFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.home.NavBarFragment"
         android:label="NavBarFragment">
         <action
             android:id="@+id/action_open_file_dialog"
@@ -18,13 +22,14 @@
             app:popExitAnim="?attr/navPopExitAnim" />
         <action
             android:id="@+id/action_add_torrent"
-            app:destination="@id/addTorrentActivity" />
+            app:destination="@id/addTorrentFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
         <action
             android:id="@+id/action_error_report_dialog"
             app:destination="@id/errorReportDialog" />
-        <action
-            android:id="@+id/action_permission_denied_dialog"
-            app:destination="@id/permissionDeniedDialog" />
         <action
             android:id="@+id/action_create_torrent"
             app:destination="@id/createTorrentFragment"
@@ -77,14 +82,37 @@
             android:name="fragment_request_key"
             app:argType="string" />
     </fragment>
-    <activity
-        android:id="@+id/addTorrentActivity"
-        android:name="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentActivity"
-        android:label="AddTorrentActivity">
+    <fragment
+        android:id="@+id/addTorrentFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentFragment"
+        android:label="AddTorrentFragment"
+        tools:layout="@layout/fragment_add_torrent">
         <argument
             android:name="uri"
             app:argType="android.net.Uri" />
-    </activity>
+        <action
+            android:id="@+id/action_select_tag_dialog"
+            app:destination="@id/selectTagDialog" />
+        <action
+            android:id="@+id/action_choose_directory_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/error_report_nav">
+            <argument
+                android:name="message"
+                app:argType="string" />
+            <argument
+                android:name="exception"
+                android:defaultValue="@null"
+                app:argType="java.lang.Throwable"
+                app:nullable="true" />
+        </action>
+    </fragment>
     <dialog
         android:id="@+id/inputNameDialog"
         android:name="org.proninyaroslav.libretorrent.ui.filemanager.InputNameDialog"
@@ -137,4 +165,26 @@
                 app:nullable="true" />
         </action>
     </fragment>
+    <dialog
+        android:id="@+id/selectTagDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog"
+        android:label="SelectTagDialog"
+        tools:layout="@layout/dialog_select_tag">
+        <argument
+            android:name="exclude_tags_id"
+            app:argType="long[]" />
+        <action
+            android:id="@+id/action_add_tag_dialog"
+            app:destination="@id/tag_nav">
+            <argument
+                android:name="tag"
+                android:defaultValue="@null"
+                app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                app:nullable="true" />
+        </action>
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <include app:graph="@navigation/tag_graph" />
 </navigation>

@@ -165,7 +165,7 @@
                             app:flow_horizontalAlign="start"
                             app:flow_horizontalBias="-1"
                             app:flow_horizontalGap="16dp"
-                            app:flow_horizontalStyle="spread"
+                            app:flow_horizontalStyle="packed"
                             app:flow_wrapMode="chain"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -283,7 +283,7 @@
 
                         <TextView
                             android:id="@+id/free_space"
-                            style="?attr/textAppearanceCaption"
+                            style="?attr/textAppearanceBodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"

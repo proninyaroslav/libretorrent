@@ -18,6 +18,7 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/toolbar_top_margin"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/torrent_details"
             app:navigationIcon="@drawable/abc_ic_ab_back_material"

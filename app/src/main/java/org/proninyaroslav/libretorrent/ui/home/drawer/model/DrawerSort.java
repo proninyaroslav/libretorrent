@@ -17,12 +17,14 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer.model;
+package org.proninyaroslav.libretorrent.ui.home.drawer.model;
 
-public enum DrawerDateAddedFilter {
-    Today,
-    Yesterday,
-    Week,
-    Month,
-    Year,
+public enum DrawerSort {
+    None,
+    DateAdded,
+    Size,
+    Name,
+    Progress,
+    Eta,
+    Peers,
 }

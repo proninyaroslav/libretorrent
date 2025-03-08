@@ -46,7 +46,7 @@ import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
+import org.proninyaroslav.libretorrent.MainActivity;
 
 import java.util.Collections;
 import java.util.List;

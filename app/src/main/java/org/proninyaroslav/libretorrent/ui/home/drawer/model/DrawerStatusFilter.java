@@ -17,14 +17,11 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main.drawer.model;
+package org.proninyaroslav.libretorrent.ui.home.drawer.model;
 
-public enum DrawerSort {
-    None,
-    DateAdded,
-    Size,
-    Name,
-    Progress,
-    Eta,
-    Peers,
+public enum DrawerStatusFilter {
+    Downloading,
+    Downloaded,
+    DownloadingMetadata,
+    Error,
 }

@@ -1,60 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
             type="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        style="@style/ThemeOverlay.App.Surface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/background">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/status_string"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}" >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/free_space"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/status_string"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textAppearance="@style/TextCaptionM2"
-                app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
-                app:formatFileSize="@{@string/free_space}" />
+                android:layout_alignParentTop="true"
+                android:layout_marginHorizontal="20dp"
+                android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}">
 
-            <TextView
-                android:id="@+id/files_size"
+                <ImageView
+                    android:id="@+id/status_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_checklist_24px" />
+
+                <TextView
+                    android:id="@+id/files_size"
+                    style="?attr/textAppearanceTitleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/free_space"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/status_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1 Mb of 1Mb selected" />
+
+                <TextView
+                    android:id="@+id/free_space"
+                    style="?attr/textAppearanceBodySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:fileSize="@{viewModel.mutableParams.storageFreeSpace}"
+                    app:formatFileSize="@{@string/free_space}"
+                    app:layout_constraintBottom_toTopOf="@id/status_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/status_icon"
+                    tools:text="100 GB free" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/status_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/file_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextCaptionM2" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_below="@id/status_string"
+                android:clipToPadding="false"
+                android:paddingVertical="8dp"
+                android:scrollbars="vertical"
+                android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_torrent_downloadable_file" />
 
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/init_progress"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="@{viewModel.info.fileCount == 0 ? View.VISIBLE : View.GONE}" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:visibility="@{viewModel.info.fileCount == 0 ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/file_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingVertical="8dp"
-            android:scrollbars="vertical"
-            android:layout_below="@id/status_string"
-            android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}" />
-    </RelativeLayout>
+                <include layout="@layout/list_load_indicator" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

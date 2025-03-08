@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main;
+package org.proninyaroslav.libretorrent.ui.home;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -42,11 +42,11 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerDateAddedFilter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSort;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerSortDirection;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerStatusFilter;
-import org.proninyaroslav.libretorrent.ui.main.drawer.model.DrawerTagFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerTagFilter;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main;
+package org.proninyaroslav.libretorrent.ui.home;
 
 import android.app.Dialog;
 import android.content.Intent;

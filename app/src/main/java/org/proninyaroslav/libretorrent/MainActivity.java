@@ -17,9 +17,12 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.main;
+package org.proninyaroslav.libretorrent;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -31,11 +34,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionManager;
+import org.proninyaroslav.libretorrent.ui.home.HomeViewModel;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -140,6 +145,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        handleImplicitIntent();
+    }
+
+    private void handleImplicitIntent() {
+        var i = getIntent();
+        Uri uri = null;
+        /* Implicit intent with path to torrent file, http or magnet link */
+        if (i.getData() != null) {
+            uri = i.getData();
+        } else if (!TextUtils.isEmpty(i.getStringExtra(Intent.EXTRA_TEXT))) {
+            uri = Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
+        }
+        if (uri != null) {
+            var action = NavBarFragmentDirections.actionAddTorrent(uri);
+            navController.navigate(action);
+        }
     }
 
     @Override

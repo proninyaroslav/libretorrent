@@ -49,18 +49,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="80dp"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
+            android:paddingBottom="@dimen/bottom_bar_padding"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <org.proninyaroslav.libretorrent.ui.customviews.MaxWidthLinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minWidth="@dimen/text_filed_max_width"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                app:maxWidth="@dimen/text_filed_max_width">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
@@ -88,7 +86,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="@{viewModel.isUIEnabled}"
-                                android:focusable="false"
                                 android:inputType="textMultiLine"
                                 android:text="@{viewModel.mutableParams.seedPathName}" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -302,7 +299,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+            </org.proninyaroslav.libretorrent.ui.customviews.MaxWidthLinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout

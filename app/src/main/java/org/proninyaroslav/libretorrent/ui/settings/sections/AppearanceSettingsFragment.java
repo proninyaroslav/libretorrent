@@ -44,7 +44,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
+import org.proninyaroslav.libretorrent.MainActivity;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements

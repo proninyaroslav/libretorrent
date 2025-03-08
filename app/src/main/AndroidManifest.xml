@@ -41,7 +41,7 @@
         android:requestLegacyExternalStorage="true"
         android:enableOnBackInvokedCallback="true">
 
-        <activity android:name=".ui.main.MainActivity"
+        <activity android:name=".MainActivity"
             android:theme="@style/AppTheme"
             android:exported="true">
             <meta-data
@@ -58,11 +58,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:exported="true"
-            android:name=".ui.addtorrent.AddTorrentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -167,47 +162,29 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
-                <data android:scheme="http"  android:host="*" android:mimeType="*/*" />
-                <data android:pathPattern=".*\\.xml" />
-                <data android:pathPattern=".*\\.rss" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
-                <data android:scheme="http" android:host="*" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="*" />
                 <data android:mimeType="text/xml" />
                 <data android:mimeType="application/rss+xml" />
                 <data android:mimeType="application/atom+xml" />
                 <data android:mimeType="application/xml" />
+                <data android:mimeType="application/json" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
-                <data android:scheme="https" android:host="*" android:mimeType="*/*" />
+                <data android:scheme="https"/>
+                <data android:host="*"/>
+                <data android:mimeType="*/*"/>
                 <data android:pathPattern=".*\\.xml" />
                 <data android:pathPattern=".*\\.rss" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
-                <data android:scheme="https" android:host="*" />
-                <data android:mimeType="text/xml" />
-                <data android:mimeType="application/rss+xml" />
-                <data android:mimeType="application/atom+xml" />
-                <data android:mimeType="application/xml" />
             </intent-filter>
         </activity>
 

@@ -13,10 +13,13 @@
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="list_pane_width">@dimen/match_parent</dimen>
     <dimen name="details_pane_start_margin">0dp</dimen>
-    <dimen name="list_item_one_line_height">40dp</dimen>
+    <dimen name="list_item_one_line_height">56dp</dimen>
     <dimen name="list_item_two_lines_height">56dp</dimen>
     <dimen name="list_item_three_lines_height">72dp</dimen>
     <dimen name="search_bar_top_margin">48dp</dimen>
+    <dimen name="toolbar_top_margin">24dp</dimen>
+    <dimen name="search_bar_max_width">@dimen/text_filed_max_width</dimen>
     <dimen name="text_filed_max_width">488dp</dimen>
     <dimen name="button_max_width">320dp</dimen>
+    <dimen name="bottom_bar_padding">80dp</dimen>
 </resources>

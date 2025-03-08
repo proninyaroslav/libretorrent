@@ -52,9 +52,9 @@ import org.proninyaroslav.libretorrent.databinding.FragmentTorrentDetailsBinding
 import org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
-import org.proninyaroslav.libretorrent.ui.main.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.main.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
 
 import java.io.IOException;
 
@@ -335,7 +335,7 @@ public class TorrentDetailsFragment extends Fragment {
         if (ti.stateCode == TorrentStateCode.PAUSED || alreadyPaused) {
             /* Redraw pause/resume menu */
             if (Utils.isTwoPane(activity)) {
-                prepareOptionsMenu(binding.appBar.getMenu());
+                prepareMenu(binding.appBar.getMenu());
             } else {
                 binding.appBar.invalidateMenu();
             }
@@ -360,7 +360,7 @@ public class TorrentDetailsFragment extends Fragment {
                 .show();
     }
 
-    private void prepareOptionsMenu(Menu menu) {
+    private void prepareMenu(Menu menu) {
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         Torrent torrent = viewModel.info.getTorrent();
         TorrentInfo ti = viewModel.info.getTorrentInfo();
