@@ -21,8 +21,10 @@ package org.proninyaroslav.libretorrent;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -34,7 +36,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.databinding.DialogLinkifyTextBinding;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionManager;
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private HomeViewModel viewModel;
     private PermissionManager permissionManager;
+    private SettingsRepository pref;
 
     @NonNull
     public NavController getRootNavController() {
@@ -120,12 +128,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        FragmentManager fm = getSupportFragmentManager();
-        Utils.showManageAllFilesWarningDialog(getApplicationContext(), fm);
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
 
         setContentView(R.layout.activity_main);
 
+        showManageAllFilesWarningDialog();
+
+        FragmentManager fm = getSupportFragmentManager();
         var navHostFragment = (NavHostFragment) fm.findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
@@ -171,5 +180,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onDestroy();
+    }
+
+    public void showManageAllFilesWarningDialog() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                || Utils.hasManageExternalStoragePermission(getApplicationContext())
+                || !pref.showManageAllFilesWarningDialog()) {
+            return;
+        }
+
+        pref.showManageAllFilesWarningDialog(false);
+
+        var binding = DialogLinkifyTextBinding.inflate(
+                LayoutInflater.from(this),
+                null,
+                false
+        );
+        binding.message.append(getString(R.string.manage_all_files_warning_dialog_description));
+        binding.message.append(Utils.getLineSeparator());
+        binding.message.append(getString(R.string.project_page));
+        new MaterialAlertDialogBuilder(this)
+                .setIcon(R.drawable.ic_info_24px)
+                .setTitle(R.string.manage_all_files_warning_dialog_title)
+                .setView(binding.getRoot())
+                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

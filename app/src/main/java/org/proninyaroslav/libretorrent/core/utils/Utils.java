@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -59,7 +59,6 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,7 +85,6 @@ import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
-import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
@@ -728,27 +726,6 @@ public class Utils {
         }
 
         return false;
-    }
-
-    public static void showManageAllFilesWarningDialog(
-            @NonNull Context appContext,
-            @NonNull FragmentManager fm
-    ) {
-        var pref = RepositoryHelper.getSettingsRepository(appContext);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || Utils.hasManageExternalStoragePermission(appContext)
-                || !pref.showManageAllFilesWarningDialog()) {
-            return;
-        }
-
-        if (fm.findFragmentByTag(TAG_MANAGE_ALL_FILES_WARNING_DIALOG) == null) {
-            pref.showManageAllFilesWarningDialog(false);
-
-            var dialog = ManageAllFilesWarningDialog.newInstance();
-            var ft = fm.beginTransaction();
-            ft.add(dialog, TAG_MANAGE_ALL_FILES_WARNING_DIALOG);
-            ft.commitAllowingStateLoss();
-        }
     }
 
     public static TorrentFilter getStatusFilterById(@NonNull DrawerStatusFilter filter) {
